@@ -256,6 +256,9 @@
         ::-webkit-scrollbar{
             display: none;
         }
+        #reg_table tbody tr td:last-child{
+            display: none;
+        }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -491,8 +494,7 @@
                         <td>
                             <div style="display: flex">
                                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                                    <input class="gdsInput_0" type="number" onChange="fn_onChangesortGds(this)"/>
-<%--                                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>--%>
+                                    <input class="gdsInput_0" type="tel" onChange="fn_onChangesortGds(this)"/>
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                                     <input type="number" onchange="fn_onChangePrdcr(this)" />
@@ -743,7 +745,7 @@
         <td>
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                    <input class="gdsInput_`+_idx+`" type="number" onChange="fn_onChangesortGds(this)" />
+                    <input class="gdsInput_`+_idx+`" type="tel" onChange="fn_onChangesortGds(this)" />
                 </div>
                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                     <input type="number" onChange="fn_onChangePrdcr(this)"/>
@@ -1743,8 +1745,8 @@
                 `<table id="spmtTableHead" class="table table-bordered tbl_fixed">
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg" style="width: 5vw"><span class="data_required"></span>출하일자</th>
-                            <td class="td_input" style="border-right: hidden;width: 11vw">
+                            <th scope="row" class="th_bg" style="width: 10vw"><span class="data_required"></span>출하일자</th>
+                            <td class="td_input" style="border-right: hidden;width: 15vw">
                                 <sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup"
                                 date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
                             </td>
@@ -1783,6 +1785,7 @@
             });
             spmtEl += `</tbody></table>`;
             SBUxMethod.setModalBody("searchSpmt", spmtEl);
+            SBUxMethod.setModalBody("searchSpmt", spmtEl);
             SBUxMethod.openModal("searchSpmt");
             SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
             SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
@@ -1802,6 +1805,7 @@
                 spmtno : spmtno,
             });
             const data = await postJsonPromise;
+
             data.resultList.forEach(function(item){
                 for(let key in item){
                     if(item[key] == null){
@@ -1821,15 +1825,16 @@
             $("#btnSave").find('span').text("수정");
 
             $("#reg_table > tbody").children().remove();
+            $("#reg_table > tbody").append(regTableEl(0));
 
             data.resultList.forEach(function(item,idx){
                 let grdNm = parseInt(item.spmtIndct);
                 let inputId = ".gdsInput_" + idx;
-                $("#reg_table > tbody").append(regTableEl(idx));
                 let tr = $("#reg_table tbody").children().eq(idx);
 
                 tr.children().eq(0).find('input').eq(0).on('input', fn_remove.bind(event));
                 tr.children().eq(0).find('input').eq(0).val(grdNm);
+                tr.children().eq(9).find('input').val(item.rmrk);
 
                 /** 생산자 정보 입력 **/
                 if(item.spmtIndct.indexOf("-") != -1){
@@ -1875,6 +1880,7 @@
         let dlngShapCd = $("#dlngShapCd").val();
         let dlngMthdCd = $("#dlngMthdCd").val();
 
+
         if(!gfn_comConfirm("Q0001",msg)){
             return;
         }
@@ -1901,6 +1907,8 @@
 
         rows.each(function() {
             let rowData = $(this).children(":last").find('input').attr("sortInvnt");
+            let rmrk = $(this).children().eq(9).find('input').val();
+
             if(!gfn_isEmpty(rowData)){
                 rowData = JSON.parse(rowData);
                 let qnttIdx = parseInt(rowData.gdsGrd);
@@ -1917,6 +1925,7 @@
                     spmtQntt: spmtQntt,
                     spmtPckgUnitCd : rowData.spmtPckgUnitCd,
                     spmtGdsList : rowData.spmtInvId,
+                    rmrk : rmrk,
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
 

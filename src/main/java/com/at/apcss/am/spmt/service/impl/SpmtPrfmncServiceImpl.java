@@ -450,6 +450,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 			String pckgno = spmt.getPckgno();
 			int pckgSn = spmt.getPckgSn();
+			String rmrk = spmt.getRmrk();
 
 			if (StringUtils.hasText(pckgno) && pckgSn > 0) {
 				GdsInvntrVO gdsVO = new GdsInvntrVO();
@@ -582,6 +583,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 					gdsInv.setSpmtQntt(qntt);
 					gdsInv.setSpmtWght(wght);
+					gdsInv.setRmrk(rmrk);
 
 					invntrList.add(gdsInv);
 				}
