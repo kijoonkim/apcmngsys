@@ -2001,15 +2001,20 @@
         }
     }
 
-    const fn_remove = function(_event){
+    const fn_remove = async function(_event){
         let inputWord = _event.keyCode;
+        let parentTr = $(_event.target).closest('tr');
+        parentTr.children().eq(0).find('input').eq(1).attr({'type':"number","readonly":false});
+        parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
+        parentTr.children().eq(0).find('input').eq(1).val('');
 
         if(inputWord == 190){
             $(_event.target).val("");
             _event.preventDefault();
             fn_onChangesortGds(_event.target);
         }else if(inputWord == 13 || inputWord == 9){
-            fn_onChangesortGds(_event.target);
+            await fn_onChangesortGds(_event.target);
+
             if($(_event.target).parent().next().find('input').attr("readonly") == 'readonly'){
                 $(_event.target).parent().nextAll().last().find('button').trigger('click')
             };
