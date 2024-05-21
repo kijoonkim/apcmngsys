@@ -812,6 +812,7 @@
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
         $('.gdsInput_0').on("keydown",fn_remove.bind(event));
+        $('.gdsInput_0').parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
     });
@@ -1253,6 +1254,7 @@
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
         $('.gdsInput_0').on("keydown",fn_remove.bind(event));
+        $('.gdsInput_0').parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
     }
     /**
      * @name fn_onchangeCnpt
@@ -1380,6 +1382,7 @@
                     $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
 
                     $(gdsInput_).on('keydown', fn_remove.bind(event));
+                    $(gdsInput_).parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
                 }
             }
         }
@@ -1833,6 +1836,7 @@
                 let tr = $("#reg_table tbody").children().eq(idx);
 
                 tr.children().eq(0).find('input').eq(0).on('keydown', fn_remove.bind(event));
+                tr.children().eq(0).find('input').eq(1).on('keydown', fn_searchEnter.bind(event));
                 tr.children().eq(0).find('input').eq(0).val(grdNm);
                 tr.children().eq(9).find('input').val(item.rmrk);
 
@@ -2004,9 +2008,12 @@
             $(_event.target).val("");
             _event.preventDefault();
             fn_onChangesortGds(_event.target);
-        }else if(inputWord == 13){
+        }else if(inputWord == 13 || inputWord == 9){
             fn_onChangesortGds(_event.target);
-            $(_event.target).parent().nextAll().last().find('button').trigger('click')
+            if($(_event.target).parent().next().find('input').attr("readonly") == 'readonly'){
+                $(_event.target).parent().nextAll().last().find('button').trigger('click')
+            };
+
         }
     }
 
@@ -2105,6 +2112,13 @@
             el.val(dlngMthdCd[selectIdx].cdVl);
         }
         el.data('idx',el.data('idx')+1);
+    }
+
+    const fn_searchEnter = function(e){
+        let keyCode = e.keyCode;
+        if(keyCode == 9 || keyCode == 13){
+            $(e.target).parent().nextAll().last().find('button').trigger('click');
+        }
     }
 
 </script>
