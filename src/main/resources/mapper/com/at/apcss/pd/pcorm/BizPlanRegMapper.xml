@@ -118,6 +118,8 @@
 			 INSERT
 					(
 						YR
+					  , APO_SE
+					  , APO_CD
 					  , BRNO
 					  , DCMNT_KND
 					  , STTS
@@ -136,6 +138,8 @@
 				VALUES
 					(
 					  TO_CHAR(SYSDATE,'YYYY')
+					  , '1'
+					  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno} AND APO_SE ='1')
 					  , #{brno}
 					  , #{dcmntKnd}
 					  , '1'
@@ -150,7 +154,6 @@
 					  , SYSDATE
 					  , #{sysLastChgUserId}
 					  , #{sysLastChgPrgrmId}
-
 					)
 	</insert>
 

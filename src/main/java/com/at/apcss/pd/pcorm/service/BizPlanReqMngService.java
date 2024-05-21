@@ -29,4 +29,27 @@ public interface BizPlanReqMngService {
 	 */
 	public List<BizPlanReqMngVO> selectBizPlanReqMngList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
 
+	/**
+	 * 파일경로 리스트 조회한다.
+	 * @param BizPlanReqMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<BizPlanReqMngVO> bppvSelectFilePathList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
+
+	/**
+	 * 서류 상태 업데이트 조회한다.
+	 * @param BizPlanReqMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int bppvUpdateSbmsnDcnmt(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
+
+	/**
+	 * 파일 정보를 조회한다.
+	 * @param BizPlanReqMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public BizPlanReqMngVO selectFileInfo(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
 }

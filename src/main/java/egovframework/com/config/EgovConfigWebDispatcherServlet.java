@@ -192,7 +192,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 		registry.addResourceHandler("/static/**")
 				.addResourceLocations("classpath:/static/")
 				.setCachePeriod(20);
-		registry.addResourceHandler("/upload/pdf/**")
-				.addResourceLocations("classpath:/static/pdfSample/");//pdf 경로
+		registry.addResourceHandler("/pdfPath/**/*.pdf")
+				.addResourceLocations("file:/DATA/apcss/pd/");//업로드 된 pdf 경로
 	}
 }
