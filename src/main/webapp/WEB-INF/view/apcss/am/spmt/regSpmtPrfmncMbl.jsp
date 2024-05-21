@@ -751,8 +751,8 @@
                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                     <input type="number" onChange="fn_onChangePrdcr(this)"/>
                 </div>
-                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
-                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="padding: 2px 0px !important;">조회</button>
+                 <div style="flex: 1; font-family: 'Font Awesome 5 Free'; display: flex;justify-content: center; margin-left: 5px">
+                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style">조회</button>
                 </div>
             </div>
         </td>
@@ -811,11 +811,9 @@
         ]);
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
-        $('.gdsInput_0').on("input",fn_remove.bind(event));
+        $('.gdsInput_0').on("keydown",fn_remove.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
-        // SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
-        // SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
     });
     
     /** 거래처 json 조회 **/
@@ -1254,7 +1252,7 @@
         mapInvntQntt.clear();
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
-        $('.gdsInput_0').on("input",fn_remove.bind(event));
+        $('.gdsInput_0').on("keydown",fn_remove.bind(event));
     }
     /**
      * @name fn_onchangeCnpt
@@ -1381,7 +1379,7 @@
                     $(qnttInp2_).on('blur', () => $("#invntQnttEl").remove());
                     $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
 
-                    $(gdsInput_).on('input', fn_remove.bind(event));
+                    $(gdsInput_).on('keydown', fn_remove.bind(event));
                 }
             }
         }
@@ -1786,10 +1784,11 @@
             });
             spmtEl += `</tbody></table>`;
             SBUxMethod.setModalBody("searchSpmt", spmtEl);
-            SBUxMethod.setModalBody("searchSpmt", spmtEl);
             SBUxMethod.openModal("searchSpmt");
             SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
             SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
+
+            fn_searchSpmtList();
 
 
         } catch (e) {
@@ -1833,7 +1832,7 @@
                 let inputId = ".gdsInput_" + idx;
                 let tr = $("#reg_table tbody").children().eq(idx);
 
-                tr.children().eq(0).find('input').eq(0).on('input', fn_remove.bind(event));
+                tr.children().eq(0).find('input').eq(0).on('keydown', fn_remove.bind(event));
                 tr.children().eq(0).find('input').eq(0).val(grdNm);
                 tr.children().eq(9).find('input').val(item.rmrk);
 
@@ -1959,7 +1958,6 @@
             return acc;
         }, []);
         saveJson.spmtPrfmncList = result;
-
         let returnSpmtNo = "";
 
         try{
@@ -2000,11 +1998,15 @@
     }
 
     const fn_remove = function(_event){
-        let inputWord = _event.originalEvent.data;
+        let inputWord = _event.keyCode;
 
-        if(inputWord == "."){
-            $(_event.currentTarget).val("");
-            fn_onChangesortGds(_event.currentTarget);
+        if(inputWord == 190){
+            $(_event.target).val("");
+            _event.preventDefault();
+            fn_onChangesortGds(_event.target);
+        }else if(inputWord == 13){
+            fn_onChangesortGds(_event.target);
+            $(_event.target).parent().nextAll().last().find('button').trigger('click')
         }
     }
 
@@ -2104,7 +2106,6 @@
         }
         el.data('idx',el.data('idx')+1);
     }
-
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
