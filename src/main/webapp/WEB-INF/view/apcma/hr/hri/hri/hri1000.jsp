@@ -65,15 +65,15 @@
                 <tr>
                     <th scope="row" class="th_bg">법인</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_COMP_CODE" uitype="single" jsondata-ref="jsonCompCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="SRCH_COMP_CODE" uitype="single" jsondata-ref="jsonCompCode" unselected-text="" class="form-control input-sm"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">사업장</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">재직구분</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="SRCH_EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm"></sbux-select>
                     </td>
                     <th colspan="4" scope="row" class="th_bg">직군</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -1575,11 +1575,11 @@
                                             <tr>
                                                 <th scope="row" class="th_bg">보험액</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="INSURE_AMOUNT" uitype="number" placeholder="" class="form-control input-sm"></sbux-input>
+                                                    <sbux-input id="INSURE_AMOUNT" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">보험가액</th>
                                                 <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="INSURE_VALUE" uitype="number" placeholder="" class="form-control input-sm"></sbux-input>
+                                                    <sbux-input id="INSURE_VALUE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                                 </td>
                                                 <th scope="row" class="th_bg">보험시작일</th>
                                                 <td class="td_input" style="border-right:hidden;">
@@ -2063,6 +2063,8 @@
     ];
 
     const fn_initSBSelect = async function() {
+        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
+
         let rst = await Promise.all([
             // 법인
             gfnma_setComSelect(['SRCH_COMP_CODE'], jsonCompCode, 'L_ORG000', '', '', 'COMP_CODE', 'COMP_NAME', 'Y', ''),
@@ -2290,6 +2292,13 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.paging = {
+            'type' 			: 'page',
+            'count' 		: 5,
+            'size' 			: 20,
+            'sorttype' 		: 'page',
+            'showgoalpageui': true
+        };
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},
             {caption: ["사번"], 	        ref: 'EMP_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
@@ -2324,7 +2333,8 @@
         ];
 
         gvwList = _SBGrid.create(SBGridProperties);
-        //gvwList.bind('beforepagechanged', 'fn_pagingEmpList');
+        gvwList.bind('click', 'fn_view');
+        gvwList.bind('beforepagechanged', 'fn_pagingTotalEmpList');
     }
 
     function fn_createGvwFamilyGrid() {
@@ -4193,7 +4203,6 @@
      * 목록 조회
      */
     const fn_search = async function() {
-
         // set pagination
         let pageSize = gvwList.getPageSize();
         let pageNo = 1;
@@ -4204,19 +4213,19 @@
     /**
      * 사원 목록 조회
      */
-    const fn_pagingEmpList = async function() {
+    const fn_pagingTotalEmpList = async function() {
         let recordCountPerPage 	= gvwList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
         let currentPageNo 		= gvwList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
         var getColRef 			= gvwList.getColRef("checked");
         gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setEmpList(recordCountPerPage, currentPageNo);
+        fn_setTotalEmpList(recordCountPerPage, currentPageNo);
     }
 
     /**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-    const fn_setEmpList = async function(pageSize, pageNo) {
+    const fn_setTotalEmpList = async function(pageSize, pageNo) {
         let COMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
@@ -4233,7 +4242,7 @@
             V_P_DEBUG_MODE_YN	: 'N'
             ,V_P_LANG_ID		: 'KOR'
             ,V_P_COMP_CODE		: COMP_CODE
-            ,V_P_CLIENT_CODE	: ''
+            ,V_P_CLIENT_CODE	: '100' // TODO : 호출 파라미터 공통화 필요
             ,V_P_SITE_CODE      : SITE_CODE
             ,V_P_DEPT_CODE      : DEPT_CODE
             ,V_P_EMP_CODE       : EMP_CODE
@@ -4255,7 +4264,7 @@
         const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
             getType				: 'json',
             workType			: 'Q',
-            cv_count			: '1',
+            cv_count			: '39',
             params				: gfnma_objectToString(paramObj)
         });
 
@@ -4295,6 +4304,441 @@
         }
     }
 
+    //상세정보 보기
+    const fn_view = async function() {
+
+        editType = "E";
+
+        var nCol = gvwList.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = gvwList.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwList.getRowData(nRow);
+
+        let COMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_COMP_CODE"));
+        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let GENDER	        = gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
+        let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let ENTER_DATE_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_FR"));
+        let ENTER_DATE_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_TO"));
+        let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
+
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: 'N'
+            ,V_P_LANG_ID		: 'KOR'
+            ,V_P_COMP_CODE		: COMP_CODE
+            ,V_P_CLIENT_CODE	: '100' // TODO : 호출 파라미터 공통화 필요
+            ,V_P_SITE_CODE      : SITE_CODE
+            ,V_P_DEPT_CODE      : DEPT_CODE
+            ,V_P_EMP_CODE       : rowData.EMP_CODE
+            ,V_P_EMP_STATE      : EMP_STATE
+            ,V_P_JOB_GROUP      : JOB_GROUP
+            ,V_P_GENDER         : GENDER
+            ,IV_P_ENTER_DATE_FR : ENTER_DATE_FR
+            ,IV_P_ENTER_DATE_TO : ENTER_DATE_TO
+            ,V_P_EMP_CODE1      : ''
+            ,V_P_INITIAL_DATE   : INITIAL_DATE
+            ,V_P_EMP_STATE2     : ''
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
+            ,V_P_PROC_ID		: ''
+            ,V_P_USERID			: ''
+            ,V_P_PC				: ''
+        };
+
+        const postJsonPromiseForMaster = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
+            getType				: 'json',
+            workType			: 'MASTER',
+            cv_count			: '39',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const postJsonPromiseForDetail = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
+            getType				: 'json',
+            workType			: 'DETAIL',
+            cv_count			: '39',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const masterData = await postJsonPromiseForMaster;
+        const detailData = await postJsonPromiseForDetail;
+        console.log('masterData:', masterData);
+        console.log('detailData:', detailData);
+        try {
+            if (_.isEqual("S", masterData.resultStatus)) {
+
+                // master 정보
+                var data = masterData.cv_2[0];
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+            if (_.isEqual("S", detailData.resultStatus)) {
+
+                // detail 정보
+                // 기본인적사항
+                detailData.cv_3[0];
+
+                // 주거/생활/신체
+                detailData.cv_4[0];
+
+                // 가족사항
+                detailData.cv_5.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 학력사항
+                detailData.cv_6.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 경력사항
+                detailData.cv_7.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 자격사항
+                detailData.cv_8.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 어학사항
+                detailData.cv_9.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 컴퓨터활용능력
+                detailData.cv_10.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 인사파일
+                detailData.cv_11.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 병역사항
+                detailData.cv_13[0];
+
+                // 보훈사항
+                detailData.cv_14[0];
+
+                // 보증보험
+                detailData.cv_15[0];
+
+                // 상벌사항
+                detailData.cv_16.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 건강검진내역
+                detailData.cv_17.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 발령사항
+                detailData.cv_18.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 겸직부서
+                detailData.cv_37.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 휴직이력
+                detailData.cv_19.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 단체보험
+                detailData.cv_20.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 상해/질병정보
+                detailData.cv_21.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 평가항목
+                detailData.cv_22.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 공상발생
+                detailData.cv_23.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 계약차수
+                detailData.cv_35.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 근무계획
+                detailData.cv_38.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 근무조
+                detailData.cv_39.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+                // 경조사비
+                detailData.cv_24.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE           : item.EMP_CODE
+                        ,EMP_NAME           : item.EMP_NAME
+                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
+                        ,DEPT_NAME          : item.DEPT_NAME
+                        ,POSITION_CODE      : item.POSITION_CODE
+                        ,DUTY_CODE          : item.DUTY_CODE
+                        ,EMP_STATE          : item.EMP_STATE
+                        ,ENTER_DATE         : item.ENTER_DATE
+                        ,RETIRE_DATE        : item.RETIRE_DATE
+                    }
+                    jsonEmpTotalList.push(msg);
+                });
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+
+        SBUxMethod.set("NATION_CODE", 			rowData.NATION_CODE);
+
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
