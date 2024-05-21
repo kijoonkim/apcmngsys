@@ -582,14 +582,14 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				RawMtrWrhsMngVO rePrcsVO = new RawMtrWrhsMngVO();
 				BeanUtils.copyProperties(rawMtrWrhsMngVO, rePrcsVO);
 				rePrcsVO.setPrcsNo(prcsno);
-				
+
 				rtnObj = deleteRawMtrRePrcs(rePrcsVO);
 				if (rtnObj != null) {
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -607,144 +607,149 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 
 
 		List<RawMtrWrhsSmmryVO> rawMtrWrhsSmmryList = rawMtrWrhsMngVO.getRawMtrWrhsSmmryList();
-		
+
 		if (rawMtrWrhsSmmryList == null || rawMtrWrhsSmmryList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "처리대상");
 		}
-		
+
 		String vrtyCd1 = rawMtrWrhsMngVO.getVrtyCd1();
 		String vrtyCd2 = rawMtrWrhsMngVO.getVrtyCd2();
 		String vrtyCd3 = rawMtrWrhsMngVO.getVrtyCd3();
 		String vrtyCd4 = rawMtrWrhsMngVO.getVrtyCd4();
 		String vrtyCd5 = rawMtrWrhsMngVO.getVrtyCd5();
-		
+
 		List<RawMtrWrhsSmmryVO> wrhsSmmryList = new ArrayList<>();
-		
+
 		for ( RawMtrWrhsSmmryVO wrhs : rawMtrWrhsSmmryList ) {
 			String prdcrCd = wrhs.getPrdcrCd();
-			
+			String sortYmd = wrhs.getSortYmd();
 			if (StringUtils.hasText(vrtyCd1)) {
 				RawMtrWrhsSmmryVO wrhsVO = new RawMtrWrhsSmmryVO();
 				BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
-				
+
 				wrhsVO.setVrtyCd(vrtyCd1);
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV1WrhsCmptnYn());
-				
+				wrhsVO.setSortYmd(sortYmd);
+
 				wrhsVO.setQnttCycl1(wrhs.getV1QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV1QnttCycl2());
 				wrhsVO.setQnttCycl3(wrhs.getV1QnttCycl3());
 				wrhsVO.setQnttCycl4(wrhs.getV1QnttCycl4());
 				wrhsVO.setQnttCycl5(wrhs.getV1QnttCycl5());
-				
+
 				wrhsVO.setWghtCycl1(wrhs.getV1WghtCycl1());
 				wrhsVO.setWghtCycl2(wrhs.getV1WghtCycl2());
 				wrhsVO.setWghtCycl3(wrhs.getV1WghtCycl3());
 				wrhsVO.setWghtCycl4(wrhs.getV1WghtCycl4());
 				wrhsVO.setWghtCycl5(wrhs.getV1WghtCycl5());
-				
+
 				wrhsSmmryList.add(wrhsVO);
 			}
-			
+
 			if (StringUtils.hasText(vrtyCd2)) {
 				RawMtrWrhsSmmryVO wrhsVO = new RawMtrWrhsSmmryVO();
 				BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
-				
+
 				wrhsVO.setVrtyCd(vrtyCd2);
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV2WrhsCmptnYn());
-				
+				wrhsVO.setSortYmd(sortYmd);
+
 				wrhsVO.setQnttCycl1(wrhs.getV2QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV2QnttCycl2());
 				wrhsVO.setQnttCycl3(wrhs.getV2QnttCycl3());
 				wrhsVO.setQnttCycl4(wrhs.getV2QnttCycl4());
 				wrhsVO.setQnttCycl5(wrhs.getV2QnttCycl5());
-				
+
 				wrhsVO.setWghtCycl1(wrhs.getV2WghtCycl1());
 				wrhsVO.setWghtCycl2(wrhs.getV2WghtCycl2());
 				wrhsVO.setWghtCycl3(wrhs.getV2WghtCycl3());
 				wrhsVO.setWghtCycl4(wrhs.getV2WghtCycl4());
 				wrhsVO.setWghtCycl5(wrhs.getV2WghtCycl5());
-				
+
 				wrhsSmmryList.add(wrhsVO);
 			}
-			
+
 			if (StringUtils.hasText(vrtyCd3)) {
 				RawMtrWrhsSmmryVO wrhsVO = new RawMtrWrhsSmmryVO();
 				BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
-				
+
 				wrhsVO.setVrtyCd(vrtyCd3);
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV3WrhsCmptnYn());
-				
+				wrhsVO.setSortYmd(sortYmd);
+
 				wrhsVO.setQnttCycl1(wrhs.getV3QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV3QnttCycl2());
 				wrhsVO.setQnttCycl3(wrhs.getV3QnttCycl3());
 				wrhsVO.setQnttCycl4(wrhs.getV3QnttCycl4());
 				wrhsVO.setQnttCycl5(wrhs.getV3QnttCycl5());
-				
+
 				wrhsVO.setWghtCycl1(wrhs.getV3WghtCycl1());
 				wrhsVO.setWghtCycl2(wrhs.getV3WghtCycl2());
 				wrhsVO.setWghtCycl3(wrhs.getV3WghtCycl3());
 				wrhsVO.setWghtCycl4(wrhs.getV3WghtCycl4());
 				wrhsVO.setWghtCycl5(wrhs.getV3WghtCycl5());
-				
+
 				wrhsSmmryList.add(wrhsVO);
 			}
-			
+
 			if (StringUtils.hasText(vrtyCd4)) {
 				RawMtrWrhsSmmryVO wrhsVO = new RawMtrWrhsSmmryVO();
 				BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
-				
+
 				wrhsVO.setVrtyCd(vrtyCd4);
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV4WrhsCmptnYn());
-				
+				wrhsVO.setSortYmd(sortYmd);
+
 				wrhsVO.setQnttCycl1(wrhs.getV4QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV4QnttCycl2());
 				wrhsVO.setQnttCycl3(wrhs.getV4QnttCycl3());
 				wrhsVO.setQnttCycl4(wrhs.getV4QnttCycl4());
 				wrhsVO.setQnttCycl5(wrhs.getV4QnttCycl5());
-				
+
 				wrhsVO.setWghtCycl1(wrhs.getV4WghtCycl1());
 				wrhsVO.setWghtCycl2(wrhs.getV4WghtCycl2());
 				wrhsVO.setWghtCycl3(wrhs.getV4WghtCycl3());
 				wrhsVO.setWghtCycl4(wrhs.getV4WghtCycl4());
 				wrhsVO.setWghtCycl5(wrhs.getV4WghtCycl5());
-				
+
 				wrhsSmmryList.add(wrhsVO);
 			}
-			
+
 			if (StringUtils.hasText(vrtyCd5)) {
 				RawMtrWrhsSmmryVO wrhsVO = new RawMtrWrhsSmmryVO();
 				BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
-				
+
 				wrhsVO.setVrtyCd(vrtyCd5);
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV5WrhsCmptnYn());
-				
+				wrhsVO.setSortYmd(sortYmd);
+
 				wrhsVO.setQnttCycl1(wrhs.getV5QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV5QnttCycl2());
 				wrhsVO.setQnttCycl3(wrhs.getV5QnttCycl3());
 				wrhsVO.setQnttCycl4(wrhs.getV5QnttCycl4());
 				wrhsVO.setQnttCycl5(wrhs.getV5QnttCycl5());
-				
+
 				wrhsVO.setWghtCycl1(wrhs.getV5WghtCycl1());
 				wrhsVO.setWghtCycl2(wrhs.getV5WghtCycl2());
 				wrhsVO.setWghtCycl3(wrhs.getV5WghtCycl3());
 				wrhsVO.setWghtCycl4(wrhs.getV5WghtCycl4());
 				wrhsVO.setWghtCycl5(wrhs.getV5WghtCycl5());
-				
+
 				wrhsSmmryList.add(wrhsVO);
 			}
 		}
-		
+
 		rtnObj = rawMtrWrhsService.insertRawMtrWrhsSmmryList(wrhsSmmryList);
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		return null;
 	}
 
