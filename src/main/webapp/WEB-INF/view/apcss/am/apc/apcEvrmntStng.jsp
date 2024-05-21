@@ -136,7 +136,7 @@
 
 							<td scope="row" align="right">예금주명</td>
 							<td scope="row">
-								<sbux-input id="inp-dpstrNm" name="inp-dpstrNm" uitype="text" class="form-control input-sm" maxlength="6"></sbux-input>
+								<sbux-input id="inp-dpstrNm" name="inp-dpstrNm" uitype="text" class="form-control input-sm" maxlength="20"></sbux-input>
 							</td>
 						</tr>
 						<tr>

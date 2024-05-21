@@ -24,12 +24,34 @@ import com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO;
 public interface BizPlanReqMngMapper {
 
 	/**
-	 * 세류제츨 리스트 조회
+	 * 서류제츨 리스트 조회
 	 * @param BizPlanRegVO
 	 * @return List<BizPlanRegVO>
 	 * @throws Exception
 	 */
 	public List<BizPlanReqMngVO> selectBizPlanReqMngList(BizPlanReqMngVO bizPlanReqMngVO);
 
+	/**
+	 * 파일경로 리스트 조회
+	 * @param BizPlanRegVO
+	 * @return List<BizPlanRegVO>
+	 * @throws Exception
+	 */
+	public List<BizPlanReqMngVO> bppvSelectFilePathList(BizPlanReqMngVO bizPlanReqMngVO);
 
+	/**
+	 * 제출 서류 상태 업데이트
+	 * @param BizPlanRegVO
+	 * @return List<BizPlanRegVO>
+	 * @throws Exception
+	 */
+	public int bppvUpdateSbmsnDcnmt(BizPlanReqMngVO bizPlanReqMngVO);
+
+	/**
+	 * 파일 정보 조회
+	 * @param BizPlanRegVO
+	 * @return BizPlanRegVO
+	 * @throws Exception
+	 */
+	public BizPlanReqMngVO selectFileInfo(BizPlanReqMngVO bizPlanReqMngVO);
 }

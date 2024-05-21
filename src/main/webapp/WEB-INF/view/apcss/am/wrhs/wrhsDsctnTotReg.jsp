@@ -267,6 +267,21 @@
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.total={
+	    			type : 'grand',
+	    			position : 'bottom',
+	    			columns : {
+	    				standard : [1,2],
+		    			sum : [3,4,5,6,7,8,10,11,12,13,14,15,17,18,19,20,21,22,24]
+	    			},
+				    grandtotalrow : {
+				        titlecol 	: 2,
+				        titlevalue	: '합계',
+				        stylestartcol	: 2,
+				        style: 'text-align:center; padding-right:5px;background-color:#ceebff;'
+				    }
+
+	    		}
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.columns = [
             {
@@ -586,13 +601,15 @@
 				style: 'text-align:right; padding-right:5px;',
 				format : {type:'number', rule:'#,###'}
 			},
-	    	{
-				caption : ["비고","비고"],
-				ref: 'rmrk',
-				type: 'input',
+			{
+				caption : ["선별일자","선별일자"],
+				ref: 'sortYmd',
+				type: 'datepicker',
+				format:{type:'date',rule:'yyyy-mm-dd',origin:'yyyymmdd'},typeinfo :{display:false},
 				width:'50px',
-				style: 'text-align:right; padding-right:5px;'
+				style: 'text-align:center; padding-right:5px;'
 			},
+	    	{caption: ["비고"], ref: 'rmrk', type: 'input', hidden: true},
 	    	{caption: ["입고시작일자"],	ref: 'wrhsBgngYmd',     	type:'input',  	hidden: true},
 	    	{caption: ["입고종료일자"],	ref: 'wrhsEndYmd',     		type:'input',  	hidden: true},
 	    	{caption: ["생산자코드"],		ref: 'prdcrCd',     		type:'input',  	hidden: true}
@@ -601,7 +618,7 @@
 
 	    grdWrhsSmmry = _SBGrid.create(SBGridProperties);
 	    grdWrhsSmmry.bind('valuechanged', fn_grdWrhsSmmryValueChanged);
-        grdWrhsSmmry.setCellStyles(0,3,0,7,'background:#FF000030;color:white;font-size:12px;');
+        grdWrhsSmmry.setCellStyles(0,3,0,7,'background:#FF000030;font-size:12px;');
         grdWrhsSmmry.setCellStyles(0,8,0,13,'background:#FFFC3330;font-size:12px;');
         grdWrhsSmmry.setCellStyles(0,14,0,19,'background:#FFB53330;font-size:12px;');
 	}

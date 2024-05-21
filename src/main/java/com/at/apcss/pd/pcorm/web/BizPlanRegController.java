@@ -18,11 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -100,32 +99,26 @@ public class BizPlanRegController extends BaseController{
 	//ResponseEntity<HashMap<String, Object>>
 	@PostMapping("/pd/pcorm/fileUpload.do")
 	public ResponseEntity<HashMap<String, Object>> fileUpload(
-			@RequestParam("bizPlanFiles") List<MultipartFile> bizPlanFiles ,
-			@RequestParam("sgntrFiles") List<MultipartFile> sgntrFiles,
-			@RequestParam("brno") String brno,
-			@RequestParam("srvyCn") String srvyCn,
-			@RequestParam("rspnsCn") String rspnsCn,
-			RedirectAttributes redirectAttributes
+			@ModelAttribute BizPlanRegVO bizPlanRegVO
 		) throws Exception{
 
 		logger.debug("======================/pd/pcorm/fileUpload.do==========================");
 
-		logger.debug("brno = " + brno);
-		logger.debug("srvyCn = " + srvyCn);
-		logger.debug("rspnsCn = " + rspnsCn);
-		logger.debug(" bizPlanFiles.getSize() = " + bizPlanFiles.size());
-		logger.debug(" sgntrFiles.getSize() = " + sgntrFiles.size());
+		logger.debug("brno = " + bizPlanRegVO.getBrno());
+		logger.debug("srvyCn = " + bizPlanRegVO.getSrvyCn());
+		logger.debug("rspnsCn = " + bizPlanRegVO.getRspnsCn());
 
 		//업로드 경로
 		String uploadPath = getFilepathPd();
 
-		//String projectDir = System.getProperty("user.dir");
-		//String uploadDir = projectDir + "/upload";
-
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
+
 		int bizPlanFileChk = 0;
+		List<MultipartFile> bizPlanFiles = bizPlanRegVO.getBizPlanFiles();
+		//사업계획서
 		if(bizPlanFiles != null) {
+			logger.debug(" bizPlanFiles.getSize() = " + bizPlanFiles.size());
 			//사업계획서
 			for (MultipartFile bizPlanFile : bizPlanFiles) {
 				BizPlanRegFileVO bizPlanRegFileVO = new BizPlanRegFileVO();
@@ -145,7 +138,7 @@ public class BizPlanRegController extends BaseController{
 
 				Path savePath = Paths.get(saveName);
 
-				bizPlanRegFileVO.setBrno(brno);
+				bizPlanRegFileVO.setBrno(bizPlanRegVO.getBrno());
 				bizPlanRegFileVO.setDcmntKnd("BP");
 				bizPlanRegFileVO.setFilePathNm(folderPath);
 				bizPlanRegFileVO.setOrgFileNm(fileRealName);
@@ -170,8 +163,10 @@ public class BizPlanRegController extends BaseController{
 
 		//서명서
 		int sgntrFileChk = 0;
+		List<MultipartFile> sgntrFiles = bizPlanRegVO.getSgntrFiles();
 		//사업계획서
 		if(sgntrFiles != null) {
+			logger.debug(" sgntrFiles.getSize() = " + sgntrFiles.size());
 			for (MultipartFile sgntrFile : sgntrFiles) {
 				BizPlanRegFileVO bizPlanRegFileVO = new BizPlanRegFileVO();
 				//파일 사이즈
@@ -190,7 +185,7 @@ public class BizPlanRegController extends BaseController{
 
 				Path savePath = Paths.get(saveName);
 
-				bizPlanRegFileVO.setBrno(brno);
+				bizPlanRegFileVO.setBrno(bizPlanRegVO.getBrno());
 				bizPlanRegFileVO.setDcmntKnd("S");
 				bizPlanRegFileVO.setFilePathNm(folderPath);
 				bizPlanRegFileVO.setOrgFileNm(fileRealName);
@@ -215,8 +210,8 @@ public class BizPlanRegController extends BaseController{
 
 		//설문조사
 		BizPlanRegVO srvyVO = new BizPlanRegVO();
-		srvyVO.setSrvyCn(srvyCn);
-		srvyVO.setRspnsCn(rspnsCn);
+		srvyVO.setSrvyCn(bizPlanRegVO.getSrvyCn());
+		srvyVO.setRspnsCn(bizPlanRegVO.getRspnsCn());
 		srvyVO.setSrvyKnd("A");
 		srvyVO.setSysFrstInptPrgrmId("pdFileUpload");
 		srvyVO.setSysFrstInptUserId(getUserId());
@@ -225,9 +220,6 @@ public class BizPlanRegController extends BaseController{
 
 		int srvyChk = bizPlanRegService.insertSrvy(srvyVO);
 
-		redirectAttributes.addFlashAttribute("message", "File successfully uploaded!");
-
-		//resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
 		resultMap.put("bizPlanFileChk", bizPlanFileChk);
 		resultMap.put("sgntrFileChk", sgntrFileChk);
 		resultMap.put("srvyChk", srvyChk);

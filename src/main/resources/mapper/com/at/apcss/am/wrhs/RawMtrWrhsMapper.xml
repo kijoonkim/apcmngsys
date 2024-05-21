@@ -937,9 +937,9 @@
 				, A.WRHS_BGNG_YMD	AS WRHS_BGNG_YMD
 				, A.WRHS_END_YMD	AS WRHS_END_YMD
 				, A.PRDCR_CD		AS PRDCR_CD
-				, A.ITEM_CD			AS ITEM_CD			
-				
-				, SUM(A.QNTT_CYCL_1) + SUM(A.QNTT_CYCL_2)+ SUM(A.QNTT_CYCL_3) + SUM(A.QNTT_CYCL_4) + SUM(A.QNTT_CYCL_5) AS QNTT_CYCL_SUM 
+				, A.ITEM_CD			AS ITEM_CD
+				, MAX(A.SORT_YMD)			AS SORT_YMD
+				, SUM(A.QNTT_CYCL_1) + SUM(A.QNTT_CYCL_2)+ SUM(A.QNTT_CYCL_3) + SUM(A.QNTT_CYCL_4) + SUM(A.QNTT_CYCL_5) AS QNTT_CYCL_SUM
 				, MAX(ITM.VRTY_CD_1)		AS VRTY_CD_1
 				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_1_WRHS_CMPTN_YN
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_1_QNTT_CYCL_1
@@ -1052,6 +1052,7 @@
 							+ NVL(WS.WGHT_CYCL_4, 0)
 							+ NVL(WS.WGHT_CYCL_5, 0)	AS WGHT
 						, WS.RMRK				AS RMRK
+						, WS.SORT_YMD
 						, WS.DEL_YN				AS DEL_YN
 					  FROM TB_RAW_MTR_WRHS_SMMRY WS
 					 WHERE WS.APC_CD = #{apcCd}
@@ -1144,6 +1145,7 @@
 		    		, SYS_LAST_CHG_DT
 		    		, SYS_LAST_CHG_USER_ID
 		    		, SYS_LAST_CHG_PRGRM_ID
+		    		, SORT_YMD
 	    		) VALUES (
 					  #{apcCd}
 					, #{wrhsBgngYmd}
@@ -1176,6 +1178,7 @@
 		    		, SYSDATE
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}
+		    		, #{sortYmd}
 	   			)
     	]]>
     </insert>
@@ -1209,6 +1212,7 @@
 				, WGHT_CYCL_4 = #{wghtCycl4}
 				, WGHT_CYCL_5 = #{wghtCycl5}
 				, RMRK = #{rmrk}
+				, SORT_YMD = #{sortYmd}
 
 			 WHERE APC_CD 	= #{apcCd}
 			   AND WRHS_BGNG_YMD	= #{wrhsBgngYmd}

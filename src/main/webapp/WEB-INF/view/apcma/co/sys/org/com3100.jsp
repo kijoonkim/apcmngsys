@@ -47,6 +47,9 @@
             <div class="box-body">
 
                 <!--[pp] 검색 -->
+				<!--[APC] START -->
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+				<!--[APC] END -->
                 <table class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
@@ -192,7 +195,7 @@
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	//-----------------------------------------------------------
-	
+
 	var editType			= "N";
 	
 	var jsonRegionCode		= [];	// 지역
@@ -314,8 +317,8 @@
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN	: 'N'
 			,V_P_LANG_ID		: 'KOR'
-			,V_P_COMP_CODE		: '1000'
-			,V_P_CLIENT_CODE	: ''
+			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 			,V_P_NATION_CODE	: NATION_CODE
 			,V_P_NATION_NAME	: NATION_NAME
 			,V_P_FORM_ID		: p_formId
@@ -333,7 +336,7 @@
 		});
 
         const data = await postJsonPromise;
-		console.log('data:', data);
+		//console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
 
@@ -379,6 +382,8 @@
     function fn_create() {
     	
     	editType = "N";    	
+
+        SBUxMethod.attr('NATION_CODE',	'readonly', false);
     	
     	SBUxMethod.set("NATION_CODE", 			"");
     	SBUxMethod.set("NATION_CODE_ABBR", 		"");
@@ -502,8 +507,8 @@
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: 'KOR'
-			,V_P_COMP_CODE				: ''
-			,V_P_CLIENT_CODE			: ''
+			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 			,V_P_NATION_CODE			: obj.NATION_CODE
 			,V_P_NATION_NAME			: obj.NATION_NAME
 			,V_P_NATION_FULL_NAME     	: obj.NATION_FULL_NAME
@@ -555,8 +560,8 @@
   	    var paramObj = { 
   				V_P_DEBUG_MODE_YN			: ''
   				,V_P_LANG_ID				: 'KOR'
-  				,V_P_COMP_CODE				: ''
-  				,V_P_CLIENT_CODE			: ''
+				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
   				,V_P_NATION_CODE			: obj.NATION_CODE
   				,V_P_NATION_NAME			: obj.NATION_NAME
   				,V_P_NATION_FULL_NAME     	: obj.NATION_FULL_NAME
@@ -631,6 +636,8 @@
 
         let rowData = NationInGrid.getRowData(nRow);
 
+        SBUxMethod.attr('NATION_CODE',	'readonly', true);
+        
         SBUxMethod.set("NATION_CODE", 			rowData.NATION_CODE);
         SBUxMethod.set("NATION_CODE_ABBR", 		rowData.NATION_CODE_ABBR);
         SBUxMethod.set("NATION_NAME", 			rowData.NATION_NAME);
