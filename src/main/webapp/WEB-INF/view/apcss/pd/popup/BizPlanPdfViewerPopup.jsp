@@ -492,11 +492,8 @@
 				data.resultList.forEach((item, index) => {
 
 					if(!gfn_isEmpty(item.filePathNm)){
-						let newfilePathNm = item.filePathNm.replace(/\\/g, "/");
-						let filepath = "/pdfPath/" + newfilePathNm + '/' + item.srvrFileNm + "_" + item.fileExtnNm;
-
 						let $fileArea = null;
-						console.log(item.fileSn);
+
 						if(item.dcmntKnd == 'BP'){
 							$fileArea = $('#iframeBizPlanPdfArea');
 							SBUxMethod.set('bppvPop-inp-bpFileNm',item.orgFileNm)//
@@ -518,15 +515,20 @@
 							SBUxMethod.set('bppvPop-inp-sRjctRsn',item.rjctRsn)//
 							SBUxMethod.set('bppvPop-inp-sFileSn',item.fileSn)//
 						}
-						const $iframe = $('<iframe>', {
+						if(item.fileExtnNm == '.pdf'){
+							let newfilePathNm = item.filePathNm.replace(/\\/g, "/");
+							let filepath = "/pdfPath/" + newfilePathNm + '/' + item.srvrFileNm + "_" + item.fileExtnNm;
+
+							const $iframe = $('<iframe>', {
 								src: filepath,
 								css: {
 								width: '100%',
 								height: '600px',
 								border: '0'
 							}
-						});
-						$fileArea.append($iframe);
+							});
+							$fileArea.append($iframe);
+						}
 					}
 				});
 			} catch (e) {
@@ -555,10 +557,13 @@
 
 			//반려 사유
 			let rjctRsn;
+			let rmrk;
 			if(dcmntKnd == "BP"){
 				rjctRsn = SBUxMethod.get('bppvPop-inp-bpRjctRsn');
+				rmrk = SBUxMethod.get('bppvPop-inp-bpRmrk');
 			} else if (dcmntKnd == "S"){
-				rjctRsn = SBUxMethod.get('bppvPop-inp-bpRjctRsn');
+				rjctRsn = SBUxMethod.get('bppvPop-inp-sRjctRsn');
+				rmrk = SBUxMethod.get('bppvPop-inp-sRmrk');
 			}
 
 			const postJsonPromise = gfn_postJSON("/pd/pcorm/bppvUpdateSbmsnDcnmt.do", {
@@ -567,6 +572,7 @@
 				, yr : this.bppvUserData.yr
 				, updtSeCd : updtSeCd
 				, rjctRsn : rjctRsn
+				, rmrk : rmrk
 			})
 			const data = await postJsonPromise;
 
@@ -582,21 +588,15 @@
 			}
 		},
 		fn_download: async function(dcmntKnd) {
-			console.log('fn_download');
-			console.log(SBUxMethod.get('bppvPop-inp-bpFileSn'));
-			console.log(SBUxMethod.get('bppvPop-inp-sFileSn'));
 			let fileSnVal;
 			if(dcmntKnd == 'BP'){
 				fileSnVal = SBUxMethod.get('bppvPop-inp-bpFileSn');
 			} else if(dcmntKnd == 'S'){
 				fileSnVal = SBUxMethod.get('bppvPop-inp-sFileSn');
 			}
-			console.log(fileSnVal);
-
 			if(gfn_isEmpty(fileSnVal)){
 				return;
 			}
-
 			var url = "/pd/pcorm/download/"+fileSnVal;
 	 		window.open(url);
 		}
