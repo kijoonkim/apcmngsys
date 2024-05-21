@@ -47,7 +47,7 @@ public class ApcMaHri1700Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_HRI1100_Q");
+            param.put("procedure", 		"P_HRI1700_Q");
             resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
 
         } catch (Exception e) {

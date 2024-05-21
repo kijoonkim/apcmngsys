@@ -1,10 +1,19 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: LKH
-  Date: 2024-05-14
-  Time: 오후 3:33
-  To change this template use File | Settings | File Templates.
---%>
+<%
+    /**
+     * @Class Name 		: hri1300.jsp
+     * @Description 	: 인사발령 등록 화면
+     * @author 			: 인텔릭아이앤에스
+     * @since 			: 2024.05.14
+     * @version 		: 1.0
+     * @Modification Information
+     * @
+     * @ 수정일       	수정자      수정내용
+     * @ ----------		----------	---------------------------
+     * @ 2024.05.14   	이경한		최초 생성
+     * @see
+     *
+     */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -13,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 인사정보 등록</title>
+    <title>title : 인사발령 등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -359,7 +368,6 @@
     const fn_initSBSelect = async function() {
         SBUxMethod.set("SRCH_APPOINT_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
         SBUxMethod.set("SRCH_APPOINT_DATE", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("APPOINT_DATE", gfn_dateToYmd(new Date()));
 
         let rst = await Promise.all([
             // 법인
@@ -961,9 +969,6 @@
             if (_.isEqual("S", data.resultStatus)) {
 
                 /** @type {number} **/
-                let totalRecordCount = 0;
-
-                jsonBandgvwDetailList.length = 0;
                 data.cv_3.forEach((item, index) => {
                     const msg = {
                         EMP_CODE            : item.EMP_CODE,

@@ -37,6 +37,13 @@
             </div>
             <div style="margin-left: auto;">
                 <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create" ></sbux-button>
+                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
+                <sbux-button id="btnRegistCommonCode" name="btnRegistCommonCode" uitype="normal" class="btn btn-sm btn-outline-danger" text="공통코드등록" onclick="fn_registCommonCode"></sbux-button>
+                <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
+                <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
+                <sbux-button id="btnRegistResignation" name="btnRegistResignation" uitype="normal" class="btn btn-sm btn-outline-danger" text="퇴사발령등록" onclick="fn_registResignation"></sbux-button>
             </div>
         </div>
         <div class="box-body">
