@@ -871,7 +871,7 @@
                     SBUxMethod.set("srch-inp-wrhsWght", "");
                     fn_createTabelHeader();
                 }
-                else{flag=true;bffaWrhsno="";}
+                else{flag=true;searchFlag=true;bffaWrhsno="";}
                 let totalRecordCount = 0;
 
                 jsonSearchData.length = 0;
