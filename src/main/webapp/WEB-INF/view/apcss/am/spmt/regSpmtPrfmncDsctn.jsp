@@ -226,45 +226,46 @@
         		  usedecimal : false,
         		};
         SBGridPropertiesGdsInvntr.columns = [
-			{caption : ["재고내역", "재고내역", "재고내역"], 		ref: 'checkBox', 	type: 'checkbox',  	width:'30px', 	style: 'text-align:center;',
+			{caption : ["재고내역", "재고내역", "전체재고", "선별기준재고"], 		ref: 'checkBox', 	type: 'checkbox',  	width:'30px', 	style: 'text-align:center;',
 				typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-			{caption : ["재고내역", "재고내역", "재고내역"], 	ref: 'spmtYmd', 	width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},
+			{caption : ["재고내역", "재고내역", "전체재고", "선별기준재고"], 	ref: 'spmtYmd', 	width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},
 				typeinfo : {gotoCurrentClick: true, clearbutton: true},  style:'text-align:center'},
-			{caption : ["재고내역", "재고내역", "재고내역"], 	ref: 'cnptCd', 		type: 'combo',  	width:'160px', 	style: 'text-align:center;',
+			{caption : ["재고내역", "재고내역", "전체재고", "선별기준재고"], 	ref: 'cnptCd', 		type: 'combo',  	width:'160px', 	style: 'text-align:center;',
 				typeinfo : {ref:'jsonGrdCnptCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
-			{caption : ["빨강","2XL"," "], 	ref: 'red2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","XL",""], 	ref: 'redXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","L"," "], 	ref: 'redL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","M",""], 	ref: 'redM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","S"," "], 	ref: 'redS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","2S",""], 	ref: 'redSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","소계"," "], ref: 'redTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
+			{caption : ["빨강","2XL"," ", ""], 	ref: 'red2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","XL",""," "], 	ref: 'redXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","L"," ", ""], 	ref: 'redL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","M",""," "], 	ref: 'redM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","S"," ", ""], 	ref: 'redS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","2S",""," "], 	ref: 'redSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","소계"," ", ""], ref: 'redTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
 			            , format : {type:'number', rule:'#,###',emptyvalue:'0'}, fixedstyle : 'background-color:#ceebff;', disabled:true},
-			{caption : ["노랑","2XL",""], 	ref: 'ylw2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","XL"," "], 	ref: 'ylwXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","L",""], 	ref: 'ylwL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","M"," "], 	ref: 'ylwM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","S",""], 	ref: 'ylwS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","2S"," "], 	ref: 'ylwSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","소계",""], ref: 'ylwTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff'
+			{caption : ["노랑","2XL",""," "], 	ref: 'ylw2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","XL"," ", ""], 	ref: 'ylwXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","L",""," "], 	ref: 'ylwL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","M"," ", ""], 	ref: 'ylwM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","S",""," "], 	ref: 'ylwS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","2S"," ", ""], 	ref: 'ylwSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","소계",""," "], ref: 'ylwTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff'
 			            , format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;', disabled:true},
-			{caption : ["주황","2XL"," "], 	ref: 'org2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","XL",""], 	ref: 'orgXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","L"," "], 	ref: 'orgL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","M",""], 	ref: 'orgM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","S"," "], 	ref: 'orgS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","2S",""], 	ref: 'orgSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","소계"," "], ref: 'orgTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
+			{caption : ["주황","2XL"," ", ""], 	ref: 'org2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","XL",""," "], 	ref: 'orgXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","L"," ", ""], 	ref: 'orgL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","M",""," "], 	ref: 'orgM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","S"," ", ""], 	ref: 'orgS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","2S",""," "], 	ref: 'orgSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","소계"," ", ""], ref: 'orgTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
 			            , format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;', disabled:true},
-			{caption : ["총합계","총합계", ""], ref: 'tot', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
-			{caption : ["송품장<br>발행", "송품장<br>발행", "송품장<br>발행"], 			ref: 'spmtno',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+			{caption : ["총합계","총합계", "총합계", "총합계"], ref: 'tot', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+			{caption : ["송품장<br>발행", "송품장<br>발행", "송품장<br>발행", "송품장<br>발행"], 			ref: 'spmtno',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_docSpmt(" + nRow + ")'>발행</button>";
 	        	}
 	        }},
-	        {caption : ["비고","비고", "비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:left;'},
+	        {caption : ["물류<br>기기","물류<br>기기", "물류<br>기기", "물류<br>기기"], ref: 'lgstcsMat', type: 'input',  width:'80px', style: 'text-align:center;'},
+	        {caption : ["비고","비고", "비고", "비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:left;'},
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
@@ -276,10 +277,10 @@
     	grdGdsInvntr.setCellStyles(0,1,0,7,'background:#FF000030');
     	grdGdsInvntr.setCellStyles(0,8,0,15,'background:#FFFC3330');
     	grdGdsInvntr.setCellStyles(0,15,0,21,'background:#FFB53330');
-    	grdGdsInvntr.setCellStyles(2,1,2,25,'text-align:right; padding-right:5px; font-weight:1200;');
-    	grdGdsInvntr.setCellStyles(2,1,2,8,'background:#FFF8DC30;');
-    	grdGdsInvntr.setCellStyles(2,10,2,15,'background:#FFF8DC30;');
-    	grdGdsInvntr.setCellStyles(2,17,2,22,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,1,3,25,'text-align:right; padding-right:5px; font-weight:1200;');
+    	grdGdsInvntr.setCellStyles(2,1,3,8,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,10,3,15,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,17,3,22,'background:#FFF8DC30;');
 
 	}
 
@@ -510,6 +511,7 @@
 
         	        	    , tot   	: item.tot
         	        	    , rmrk		: item.rmrk
+        	        	    , lgstcsMat	: item.lgstcsMat
                 	}
                 	jsonGdsInvntr.push(gdsInvntr);
 	            });
@@ -578,42 +580,43 @@
 	    	}
 	    }
 
-
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsDsctn.do", {
-		      	grdGubun 		: grdGubun
-		      , itemCd 			: itemCd
-		      , apcCd			: apcCd
-		      , pckgYmdFrom		: pckgYmdFrom
-		      , pckgYmdTo		: pckgYmdTo
+		      	grdGubun 			: grdGubun
+		      , itemCd 				: itemCd
+		      , apcCd				: apcCd
+		      , pckgYmdFrom			: pckgYmdFrom
+		      , pckgYmdTo			: pckgYmdTo
+		      , blwInvntrAprvGds 	: blwInvntrAprvGds
 		});
 
         const data = await postJsonPromise;
         try {
+
 	        if (_.isEqual("S", data.resultStatus)) {
                 data.resultList.forEach((item, index) => {
 
-					grdGdsInvntr.setCellData(2, red2XlCol, fn_zero(item.red2Xl));
-					grdGdsInvntr.setCellData(2, redXlCol, fn_zero(item.redXl));
-					grdGdsInvntr.setCellData(2, redLCol, fn_zero(item.redL));
-					grdGdsInvntr.setCellData(2, redMCol, fn_zero(item.redM));
-					grdGdsInvntr.setCellData(2, redSCol, fn_zero(item.redS));
-					grdGdsInvntr.setCellData(2, redSsCol, fn_zero(item.redSs));
-					grdGdsInvntr.setCellData(2, redTotCol, fn_zero(item.redTot));
-					grdGdsInvntr.setCellData(2, ylw2XlCol, fn_zero(item.ylw2Xl));
-					grdGdsInvntr.setCellData(2, ylwXlCol, fn_zero(item.ylwXl));
-					grdGdsInvntr.setCellData(2, ylwLCol, fn_zero(item.ylwL));
-					grdGdsInvntr.setCellData(2, ylwMCol, fn_zero(item.ylwM));
-					grdGdsInvntr.setCellData(2, ylwSCol, fn_zero(item.ylwS));
-					grdGdsInvntr.setCellData(2, ylwSsCol, fn_zero(item.ylwSs));
-					grdGdsInvntr.setCellData(2, ylwTotCol, fn_zero(item.ylwTot));
-					grdGdsInvntr.setCellData(2, org2XlCol, fn_zero(item.org2Xl));
-					grdGdsInvntr.setCellData(2, orgXlCol, fn_zero(item.orgXl));
-					grdGdsInvntr.setCellData(2, orgLCol, fn_zero(item.orgL));
-					grdGdsInvntr.setCellData(2, orgMCol, fn_zero(item.orgM));
-					grdGdsInvntr.setCellData(2, orgSCol, fn_zero(item.orgS));
-					grdGdsInvntr.setCellData(2, orgSsCol, fn_zero(item.orgSs));
-					grdGdsInvntr.setCellData(2, orgTotCol, fn_zero(item.orgTot));
-					grdGdsInvntr.setCellData(2, totCol, fn_zero(item.tot));
+					grdGdsInvntr.setCellData(index+2, red2XlCol, fn_zero(item.red2Xl));
+					grdGdsInvntr.setCellData(index+2, redXlCol, fn_zero(item.redXl));
+					grdGdsInvntr.setCellData(index+2, redLCol, fn_zero(item.redL));
+					grdGdsInvntr.setCellData(index+2, redMCol, fn_zero(item.redM));
+					grdGdsInvntr.setCellData(index+2, redSCol, fn_zero(item.redS));
+					grdGdsInvntr.setCellData(index+2, redSsCol, fn_zero(item.redSs));
+					grdGdsInvntr.setCellData(index+2, redTotCol, fn_zero(item.redTot));
+					grdGdsInvntr.setCellData(index+2, ylw2XlCol, fn_zero(item.ylw2Xl));
+					grdGdsInvntr.setCellData(index+2, ylwXlCol, fn_zero(item.ylwXl));
+					grdGdsInvntr.setCellData(index+2, ylwLCol, fn_zero(item.ylwL));
+					grdGdsInvntr.setCellData(index+2, ylwMCol, fn_zero(item.ylwM));
+					grdGdsInvntr.setCellData(index+2, ylwSCol, fn_zero(item.ylwS));
+					grdGdsInvntr.setCellData(index+2, ylwSsCol, fn_zero(item.ylwSs));
+					grdGdsInvntr.setCellData(index+2, ylwTotCol, fn_zero(item.ylwTot));
+					grdGdsInvntr.setCellData(index+2, org2XlCol, fn_zero(item.org2Xl));
+					grdGdsInvntr.setCellData(index+2, orgXlCol, fn_zero(item.orgXl));
+					grdGdsInvntr.setCellData(index+2, orgLCol, fn_zero(item.orgL));
+					grdGdsInvntr.setCellData(index+2, orgMCol, fn_zero(item.orgM));
+					grdGdsInvntr.setCellData(index+2, orgSCol, fn_zero(item.orgS));
+					grdGdsInvntr.setCellData(index+2, orgSsCol, fn_zero(item.orgSs));
+					grdGdsInvntr.setCellData(index+2, orgTotCol, fn_zero(item.orgTot));
+					grdGdsInvntr.setCellData(index+2, totCol, fn_zero(item.tot));
 	            });
 
 
@@ -634,9 +637,9 @@
 
 		let nRow = grdGdsInvntr.getRow();
 		let nCol = grdGdsInvntr.getCol();
-		let rmrkCol = grdGdsInvntr.getColRef("rmrk");
+		let lgstcsMatCol = grdGdsInvntr.getColRef("lgstcsMat");
 
-		if (nCol > 2 && nCol != rmrkCol) {
+		if (1 < nCol && nCol < lgstcsMatCol) {
 			let ref = grdGdsInvntr.getRefOfCol(nCol);
 			let gTotQntt = grdGdsInvntr.getCellData(2, nCol);
 
@@ -673,7 +676,7 @@
 				grdGdsInvntr.setCellData(nRow, nCol, 0);
 
 			} else {
-				for (var i=3; i<gridData.length+2; i++ ){
+				for (var i=4; i<gridData.length+3; i++ ){
 			    	let rowData = grdGdsInvntr.getRowData(i);
 
 			    	if (gfn_isEmpty(rowData.spmtno)) {
@@ -748,13 +751,13 @@
 		let totQntt = 0;
 		let gridData = grdGdsInvntr.getGridDataAll();
 
-		for (var i=3; i<gridData.length+2; i++ ){
+		for (var i=4; i<gridData.length+3; i++ ){
 	    	let rowData = grdGdsInvntr.getRowData(i);
 		    if (!(gfn_isEmpty(rowData[ref]))){
 		        totQntt += parseInt(rowData[ref]);
 		    }
 	    }
-		grdGdsInvntr.setCellData(3, totCol, totQntt);
+		grdGdsInvntr.setCellData(4, totCol, totQntt);
 	}
 
   	// 가로별 합산
@@ -783,7 +786,7 @@
 		let checkCol = grdGdsInvntr.getColRef("checkBox");
 		let gridData = grdGdsInvntr.getGridDataAll();
 		let totQntt = 0;
-		for (var i=3; i<gridData.length+2; i++ ){
+		for (var i=4; i<gridData.length+3; i++ ){
 	    	let rowData = grdGdsInvntr.getRowData(i);
 	    	let spmtno	= rowData.spmtno;
 
@@ -797,11 +800,14 @@
 		     	}
 		    }
 		}
-		grdGdsInvntr.setCellData(3, totCol, totQntt);
+		grdGdsInvntr.setCellData(4, totCol, totQntt);
 	}
 
 	// 행 추가
 	const fn_addRow = function() {
+
+		grdGdsInvntr.refresh();
+
 		jsonGdsInvntr.push({
 			spmtYmd : gfn_dateToYmd(new Date())
 		})
@@ -825,10 +831,10 @@
 			let rowData = grdGdsInvntr.getRowData(reverseCheckeds[i]);
 
 			if (gfn_isEmpty(rowData.spmtno)) {
-				jsonGdsInvntr.splice(reverseCheckeds[i] - 3, 1);
+				jsonGdsInvntr.splice(reverseCheckeds[i] - 4, 1);
 				grdGdsInvntr.refresh();
 			} else {
-				gfn_comAlert("E0000", reverseCheckeds[i] - 2 + "행은 등록 된 실적 입니다. 삭제를 이용해 주세요.");			// E0000	{0}
+				gfn_comAlert("E0000", reverseCheckeds[i] - 3 + "행은 등록 된 실적 입니다. 삭제를 이용해 주세요.");			// E0000	{0}
 				return;
 			}
 		}
@@ -851,7 +857,7 @@
 				let refCol = grdGdsInvntr.getColRef(ref);
 				let totQntt = 0;
 
-				for (var k=3; k<gridData.length+2; k++ ){
+				for (var k=4; k<gridData.length+3; k++ ){
 			    	let rowData = grdGdsInvntr.getRowData(k);
 			        totQntt += parseInt(gfn_nvl(rowData[ref], 0));
 			    }
@@ -895,7 +901,7 @@
 
 		let insertList = [];
 
-		for (var i=3; i<gridData.length+2; i++ ) {
+		for (var i=4; i<gridData.length+3; i++ ) {
 	    	let rowData = grdGdsInvntr.getRowData(i);
 	    	let spmtYmd = rowData.spmtYmd;
 	    	let cnptCd	= rowData.cnptCd;
@@ -942,6 +948,7 @@
 			    			  , gdsGrd		: grds[k]
 			    			  , spmtQntt	: spmtQntt
 			    			  , rmrk		: rowData.rmrk
+			    			  , lgstcsMat	: rowData.lgstcsMat
 			    			  , pckgYmdFrom : pckgYmdFrom
 			    			  , pckgYmdTo	: pckgYmdTo
 			    			  , sortDsctnYn	: sortDsctnYn

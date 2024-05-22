@@ -234,18 +234,28 @@
     <select id="selectStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl */
-			       SG.APC_CD			AS APC_CD
-			     , SG.ITEM_CD           AS ITEM_CD
-			     , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
-			     , SG.GRD_SE_CD        	AS GRD_SE_CD
-			     , SG.GRD_KND           AS GRD_KND
-			     , SG.GRD_KND_NM		AS GRD_KND_NM
-			     , SG.ADTN_RT           AS ADTN_RT
-			     , SG.STD_GRD_TYPE		AS STD_GRD_TYPE
-			     , SGD.GRD_CD           AS GRD_CD
-			     , SGD.GRD_NM           AS GRD_NM
-			     , SGD.GRD_VL           AS GRD_VL
-			     , SGD.SN               AS SN
+				  SG.APC_CD				AS APC_CD
+				, SG.ITEM_CD           	AS ITEM_CD
+				, (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
+				, SG.GRD_SE_CD        	AS GRD_SE_CD
+				, SG.GRD_KND           	AS GRD_KND
+				, SG.GRD_KND_NM			AS GRD_KND_NM
+				, SG.ADTN_RT           	AS ADTN_RT
+				, SG.STD_GRD_TYPE		AS STD_GRD_TYPE
+				, SGD.GRD_CD           	AS GRD_CD
+				, SGD.GRD_NM           	AS GRD_NM
+				, SGD.GRD_VL           	AS GRD_VL
+			    , SGD.AFTR_GRD_KND		AS AFTR_GRD_KND
+				, SGD.AFTR_GRD_CD		AS AFTR_GRD_CD
+				, SGD.LINK_GRD_CD		AS LINK_GRD_CD
+				, SGD.MNG_TYPE			AS MNG_TYPE
+				, SGD.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
+				, SGD.VRTY_CD			AS VRTY_CD
+				, SGD.INVNTR_INQ_AU_CD	AS INVNTR_INQ_AU_CD
+				, SGD.GRD_EXPLN			AS GRD_EXPLN
+				, SGD.GRD_ABRVTN		AS GRD_ABRVTN
+
+			    , SGD.SN               AS SN
 
   			  FROM TB_APC_STD_GRD SG
 
@@ -296,7 +306,10 @@
 			    , SGD.DEL_YN        AS DEL_YN
 			    , SGD.VRTY_CD		AS VRTY_CD
 	    		, SGD.EXTRNL_LNKG_CD AS EXTRNL_LNKG_CD
-
+				, SGD.INVNTR_INQ_AU_CD	AS INVNTR_INQ_AU_CD
+				, SGD.GRD_EXPLN			AS GRD_EXPLN
+				, SGD.GRD_ABRVTN		AS GRD_ABRVTN
+				
 			  FROM TB_APC_STD_GRD SG
 
   			  JOIN TB_APC_STD_GRD_DTL SGD
@@ -362,6 +375,9 @@
 				  	, MNG_TYPE
 				  	, EXTRNL_LNKG_CD
 				  	, VRTY_CD
+					, INVNTR_INQ_AU_CD
+					, GRD_EXPLN
+					, GRD_ABRVTN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -385,6 +401,9 @@
 				    , #{mngType}
 				    , #{extrnlLnkgCd}
 				    , #{vrtyCd}
+				    , #{invntrInqAuCd}
+					, #{grdExpln}
+					, #{grdAbrvtn}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -420,6 +439,10 @@
 				, MNG_TYPE					= #{mngType}
 				, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 				, VRTY_CD					= #{vrtyCd}
+				, INVNTR_INQ_AU_CD			= #{invntrInqAuCd}
+				, GRD_EXPLN					= #{grdExpln}
+				, GRD_ABRVTN				= #{grdAbrvtn}
+
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
@@ -966,29 +989,42 @@
 
 	<select id="selectGrdNmList" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
 		<![CDATA[
-		SELECT
-			SGD.APC_CD
-			 ,SGD.ITEM_CD
-			 ,(SELECT FN_GET_ITEM_NM(SGD.ITEM_CD,SGD.APC_CD) FROM DUAL) AS ITEM_NM
-			 ,VC.VRTY_CD
-			 , (SELECT FN_GET_VRTY_NM(SGD.ITEM_CD, VC.VRTY_CD, SGD.APC_CD) FROM DUAL) AS VRTY_NM
-			 ,SGD.GRD_CD
-			 ,CASE
-				  WHEN INSTR(SGD.GRD_NM,'(') >0 THEN
-					  SUBSTR(SGD.GRD_NM,1,INSTR(SGD.GRD_NM,'(')-1)
-				  ELSE SGD.GRD_NM END AS GRD_NM
-			 ,iC.INVNTR_INQ_AU_CD
-		FROM TB_APC_STD_GRD_DTL AS SGD
-	    JOIN TB_APC_ITEM_CRTR AS IC
-		  	ON SGD.APC_CD = IC.APC_CD
-		  	AND SGD.ITEM_CD = IC.ITEM_CD
-	 	LEFT JOIN TB_APC_VRTY_CRTR AS VC
-	    	ON  IC.APC_CD = VC.APC_CD
-		    AND IC.ITEM_CD = VC.ITEM_CD
-		WHERE 1=1
-		  AND REGEXP_LIKE(SGD.GRD_NM,'^[0-9]')
-		  AND SGD.APC_CD = #{apcCd}
-		  AND SGD.GRD_SE_CD = #{grdSeCd};
+			SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectGrdNmList */
+				  SGD.APC_CD		AS APC_CD
+				, SGD.ITEM_CD		AS ITEM_CD
+				, IC.ITEM_NM		AS ITEM_NM
+				, SGD.VRTY_CD		AS VRTY_CD
+				, VC.VRTY_NM		AS VRTY_NM
+				, SGD.GRD_CD		AS GRD_CD
+				, CASE
+					WHEN INSTR(SGD.GRD_NM,'(') > 0 THEN
+						SUBSTR(SGD.GRD_NM,1,INSTR(SGD.GRD_NM,'(')-1)
+					ELSE SGD.GRD_NM
+				  END 				AS GRD_NM
+				, NVL(IC.INVNTR_INQ_AU_CD, SGD.INVNTR_INQ_AU_CD)	AS INVNTR_INQ_AU_CD
+				, SGD.LINK_GRD_CD		AS LINK_GRD_CD
+	   			, SGD.GRD_EXPLN			AS GRD_EXPLN
+				, SGD.GRD_ABRVTN		AS GRD_ABRVTN
+				, SGD.SN				AS SN
+	
+			  FROM TB_APC_STD_GRD_DTL AS SGD
+	
+		      JOIN TB_APC_ITEM_CRTR AS IC
+			  	ON IC.APC_CD = SGD.APC_CD
+			   AND IC.ITEM_CD = SGD.ITEM_CD
+			   AND IC.DEL_YN = 'N'
+	
+		 	  LEFT JOIN TB_APC_VRTY_CRTR AS VC
+		    	ON VC.APC_CD = VC.APC_CD
+			   AND VC.ITEM_CD = VC.ITEM_CD
+			   AND VC.VRTY_CD = SGD.VRTY_CD
+			   AND VC.DEL_YN = 'N'
+	
+			 WHERE SGD.DEL_YN = 'N'
+			   AND SGD.APC_CD = #{apcCd}
+			   AND SGD.GRD_SE_CD = #{grdSeCd}
+			   
+			 ORDER BY ITEM_CD, SN
 		]]>
 	</select>
 

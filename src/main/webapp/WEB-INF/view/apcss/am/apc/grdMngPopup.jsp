@@ -121,11 +121,13 @@
 	var jsonStdGrdDtl = [];
 	var jsonAftrGrd = [];
 	var jsonGrdMngType = [];
+	var jsonGrdInvntrInqAuCd = [];
 
 	const fn_initSBSelectStdGrd = async function() {
 		let rst = await Promise.all([
 			gfn_getComCdDtls('STD_GRD_TYPE'),
 			gfn_getComCdDtls('GRD_MNG_TYPE'),
+			gfn_getComCdDtls('INVNTR_INQ_AU_CD'),
 			gfn_setApcItemSBSelect("grd-slt-itemCd", 	jsonGItemCd, gv_apcCd),			// APC 품목
 			gfn_setComCdSBSelect("grd-rdo-grdSeCd", 	jsonGGrdSeCd, "GRD_SE_CD"),		// 등급구분코드(출하)
 			gfn_setComCdSBSelect("grdStdGrdJgmt", 		jsonGJgmtType, "JGMT_TYPE")		// 등급구분코드(출하)
@@ -133,6 +135,7 @@
 
 		jsonGStdGrdType = rst[0];
 		jsonGrdMngType = rst[1];
+		jsonGrdInvntrInqAuCd = rst[2];
 		SBUxMethod.set("grd-rdo-grdSeCd", "01");
 
 		jsonStdGrd.length = 0;
@@ -290,6 +293,29 @@
 				style:'text-align:center;',
 				typeinfo : {
 					ref:'jsonGrdMngType',
+					displayui : false,
+					itemcount: 10,
+					label:'cdVlNm',
+					value:'cdVl',
+					unselect: {label : '', value: ''}
+				}
+			},
+			{
+		    	caption: ["약어"],     	
+		    	ref: 'grdAbrvtn',  
+		    	type:'input',  
+		    	width:'80px',    
+		    	style:'text-align:center',
+        		typeinfo : {maxlength : 10}
+		    },
+			{
+				caption: ["재고합산"],
+				ref: 'invntrInqAuCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonGrdInvntrInqAuCd',
 					displayui : false,
 					itemcount: 10,
 					label:'cdVlNm',
@@ -485,12 +511,12 @@
   		    		default:
   		    			aftrGrdSeCd = null;
   		    	}
-  		    	console.log("aftrGrdSeCd", aftrGrdSeCd);
+
   		    	if (!gfn_isEmpty(aftrGrdSeCd)) {
   		    		await gStdGrdObj.init(apcCd, aftrGrdSeCd, itemCd);
   		    		
   		    		const objGrd = gStdGrdObj.getGrdJson(gStdGrdObj.idList[0]);
-  		    		console.log(objGrd);
+
   		    		if (objGrd.length > 0) {
   		    			objGrd.forEach((grdDtl) => {
   		    				jsonAftrGrd.push({
@@ -606,7 +632,10 @@
   					  	linkGrdCd	: item.linkGrdCd,
   					  	mngType		: item.mngType,
 						extrnlLnkgCd: item.extrnlLnkgCd,
-						vrtyCd		: item.vrtyCd
+						vrtyCd		: item.vrtyCd,
+						invntrInqAuCd: item.invntrInqAuCd,
+						grdExpln	: item.grdExpln,
+						grdAbrvtn	: item.grdAbrvtn,
   					}
   					jsonStdGrdDtl.push(stdGrdVO);
   				});
