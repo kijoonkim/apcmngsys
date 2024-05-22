@@ -1921,6 +1921,7 @@
                 rowData = JSON.parse(rowData);
                 let qnttIdx = parseInt(rowData.gdsGrd);
                 let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
+                let gdsInput = gfn_isEmpty(rowData.spmtIndct) ? rowData.sortGrdNm: String(parseInt(rowData.spmtIndct));
 
                 rowData.spmtInvId.forEach(function(item,idx,arr){
                     arr[idx] = {
@@ -1934,6 +1935,7 @@
                     spmtPckgUnitCd : rowData.spmtPckgUnitCd,
                     spmtGdsList : rowData.spmtInvId,
                     rmrk : rmrk,
+                    gdsInput : gdsInput
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
 
@@ -1951,13 +1953,31 @@
                 /** 존재 여부 **/
                 let flag = false;
                 acc.forEach(function(item){
-                   if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
-                       if(item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno){
-                           item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) +'';
-                           flag = true;
-                           return;
+                    if(item.gdsInput == cur.gdsInput){
+                       if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
+                           if(gfn_isEmpty(spmtNo)) {
+                               if (item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno) {
+                                   item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
+                                   flag = true;
+                                   return;
+                               }
+                           }else{
+                              item.spmtGdsList.forEach(function(item){
+                                 let pckgno = item.pckgno;
+                                 /** 이미 등록된 데이터가 상위는 보장받음. **/
+                                 cur.spmtGdsList.forEach(function(it){
+                                     if(it.pckgno == pckgno){
+                                         flag = true;
+                                         return;
+                                     }
+                                 });
+                              });
+                              if(flag){
+                                  item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
+                              }
+                           }
                        }
-                   }
+                    }
                 });
                 if(!flag){
                     acc.push(cur);
@@ -2012,7 +2032,7 @@
         parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
         parentTr.children().eq(0).find('input').eq(1).val('');
 
-        if(inputWord == 190){
+        if(inputWord == 0){
             $(_event.target).val("");
             _event.preventDefault();
             fn_onChangesortGds(_event.target);

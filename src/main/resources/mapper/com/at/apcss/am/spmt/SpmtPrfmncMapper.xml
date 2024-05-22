@@ -1171,6 +1171,7 @@
 
 					 WHERE GI.APC_CD = #{apcCd}
 				 	 AND (GI.INVNTR_QNTT > 0 OR GI.INVNTR_WGHT > 0)
+				 	 AND GI.DEL_YN = 'N'
 				   ]]>
 					 	<if test='itemCd != null and itemCd != ""'>
 						 	AND GI.ITEM_CD = #{itemCd}
