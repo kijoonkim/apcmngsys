@@ -67,4 +67,15 @@ public class StdGrdDtlVO extends StdGrdVO {
 	 * 표시항목
 	 */
 	private String invntrInqAuCd;
+	
+	/**
+	 * 등급설명
+	 */
+	private String grdExpln;
+	
+	/**
+	 * 등급약어
+	 */
+	private String grdAbrvtn;
+	
 }
