@@ -1597,6 +1597,8 @@
         gvwWorkPlan.rebuild();
         gvwEmp.rebuild();
         gvwExpenditurewelfare.rebuild();
+
+        SBUxMethod.selectTab('idxTab_norm','tpgMasterSub');
     }
 
     function fn_createGvwFamilyGrid() {
@@ -3081,5 +3083,902 @@
         } else {
             gvwExpenditurewelfare.deleteRow(rowVal);
         }
+    }
+
+    const getParamForHri1000S1 = async function() {
+        let WORK_TYPE = gfnma_nvl(SBUxMethod.get("WORK_TYPE"));
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        let BLOOD_TYPE_RH = gfnma_nvl(SBUxMethod.get("BLOOD_TYPE_RH"));
+        let BLOOD_TYPE_ABO = gfnma_nvl(SBUxMethod.get("BLOOD_TYPE_ABO"));
+        let HEIGHT = gfnma_nvl(SBUxMethod.get("HEIGHT"));
+        let WEIGHT = gfnma_nvl(SBUxMethod.get("WEIGHT"));
+        let LEFT_EYE = gfnma_nvl(SBUxMethod.get("LEFT_EYE"));
+        let RIGHT_EYE = gfnma_nvl(SBUxMethod.get("RIGHT_EYE"));
+        let COLOR_BLIND_YN = gfnma_nvl(SBUxMethod.get("COLOR_BLIND_YN"));
+        let JACKET_SIZE = gfnma_nvl(SBUxMethod.get("JACKET_SIZE"));
+        let PANTS_SIZE = gfnma_nvl(SBUxMethod.get("PANTS_SIZE"));
+        let SHOE_SIZE = gfnma_nvl(SBUxMethod.get("SHOE_SIZE"));
+        let MARRIAGE_YN = gfnma_nvl(SBUxMethod.get("MARRIAGE_YN"));
+        let MARRIAGE_DATE = gfnma_nvl(SBUxMethod.get("MARRIAGE_DATE"));
+        let HOBBY = gfnma_nvl(SBUxMethod.get("HOBBY"));
+        let SPECIAL_ABILITY = gfnma_nvl(SBUxMethod.get("SPECIAL_ABILITY"));
+        let RELIGION_CODE = gfnma_nvl(SBUxMethod.get("RELIGION_CODE"));
+        let HOUSE_OWN_YN = gfnma_nvl(SBUxMethod.get("HOUSE_OWN_YN"));
+        let HOUSE_TYPE = gfnma_nvl(SBUxMethod.get("HOUSE_TYPE"));
+        let HOUSE_KIND = gfnma_nvl(SBUxMethod.get("HOUSE_KIND"));
+        let CAR_OWN_YN = gfnma_nvl(SBUxMethod.get("CAR_OWN_YN"));
+        let CAR_KIND = gfnma_nvl(SBUxMethod.get("CAR_KIND"));
+        let CAR_NUM = gfnma_nvl(SBUxMethod.get("CAR_NUM"));
+        let ARMY_TYPE = gfnma_nvl(SBUxMethod.get("ARMY_TYPE"));
+        let ARMY_INDUSTRY_YN = gfnma_nvl(SBUxMethod.get("ARMY_INDUSTRY_YN"));
+        let ARMY_KIND = gfnma_nvl(SBUxMethod.get("ARMY_KIND"));
+        let ARMY_PART = gfnma_nvl(SBUxMethod.get("ARMY_PART"));
+        let ARMY_GRADE = gfnma_nvl(SBUxMethod.get("ARMY_GRADE"));
+        let ARMY_DISCHARGE_TYPE = gfnma_nvl(SBUxMethod.get("ARMY_DISCHARGE_TYPE"));
+        let ARMY_START_DATE = gfnma_nvl(SBUxMethod.get("ARMY_START_DATE"));
+        let ARMY_END_DATE = gfnma_nvl(SBUxMethod.get("ARMY_END_DATE"));
+        let ARMY_DESCR = gfnma_nvl(SBUxMethod.get("ARMY_DESCR"));
+        let ARMY_EXEMPTION_DESCR = gfnma_nvl(SBUxMethod.get("ARMY_EXEMPTION_DESCR"));
+        let GUARANTEE_TYPE = gfnma_nvl(SBUxMethod.get("GUARANTEE_TYPE"));
+        let INSURE_COMP_NAME = gfnma_nvl(SBUxMethod.get("INSURE_COMP_NAME"));
+        let INSURE_NAME = gfnma_nvl(SBUxMethod.get("INSURE_NAME"));
+        let INSURE_AMOUNT = gfnma_nvl(SBUxMethod.get("INSURE_AMOUNT"));
+        let INSURE_NUM = gfnma_nvl(SBUxMethod.get("INSURE_NUM"));
+        let INSURE_VALUE = gfnma_nvl(SBUxMethod.get("INSURE_VALUE"));
+        let INSURE_START_DATE = gfnma_nvl(SBUxMethod.get("INSURE_START_DATE"));
+        let INSURE_END_DATE = gfnma_nvl(SBUxMethod.get("INSURE_END_DATE"));
+        let GUARANTOR1_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR1_NAME"));
+        let GUARANTOR1_SOCIAL_NO = gfnma_nvl(SBUxMethod.get("GUARANTOR1_SOCIAL_NO"));
+        let GUARANTOR1_RELATION = gfnma_nvl(SBUxMethod.get("GUARANTOR1_RELATION"));
+        let GUARANTOR1_COMP_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR1_COMP_NAME"));
+        let GUARANTOR1_POSITION = gfnma_nvl(SBUxMethod.get("GUARANTOR1_POSITION"));
+        let GUARANTOR1_ZIP_CODE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_ZIP_CODE"));
+        let GUARANTOR1_ADDRESS = gfnma_nvl(SBUxMethod.get("GUARANTOR1_ADDRESS"));
+        let GUARANTOR1_START_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_START_DATE"));
+        let GUARANTOR1_END_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_END_DATE"));
+        let GUARANTOR2_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR2_NAME"));
+        let GUARANTOR2_SOCIAL_NO = gfnma_nvl(SBUxMethod.get("GUARANTOR2_SOCIAL_NO"));
+        let GUARANTOR2_RELATION = gfnma_nvl(SBUxMethod.get("GUARANTOR2_RELATION"));
+        let GUARANTOR2_COMP_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR2_COMP_NAME"));
+        let GUARANTOR2_POSITION = gfnma_nvl(SBUxMethod.get("GUARANTOR2_POSITION"));
+        let GUARANTOR2_ZIP_CODE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_ZIP_CODE"));
+        let GUARANTOR2_ADDRESS = gfnma_nvl(SBUxMethod.get("GUARANTOR2_ADDRESS"));
+        let GUARANTOR2_START_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_START_DATE"));
+        let GUARANTOR2_END_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_END_DATE"));
+        let VETERANS_YN = gfnma_nvl(SBUxMethod.get("VETERANS_YN"));
+        let VETERANS_GRADE = gfnma_nvl(SBUxMethod.get("VETERANS_GRADE"));
+        let VETERANS_MEMO = gfnma_nvl(SBUxMethod.get("VETERANS_MEMO"));
+        let VETERANS_RELATION = gfnma_nvl(SBUxMethod.get("VETERANS_RELATION"));
+        let VETERANS_NUM = gfnma_nvl(SBUxMethod.get("VETERANS_NUM"));
+        let VETERANS_ORDER_YN = gfnma_nvl(SBUxMethod.get("VETERANS_ORDER_YN"));
+        let VETERANS_ORDER_DATE = gfnma_nvl(SBUxMethod.get("VETERANS_ORDER_DATE"));
+        let PASSPORT_NUM = gfnma_nvl(SBUxMethod.get("PASSPORT_NUM"));
+        let PASSPORT_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("PASSPORT_ISSUE_DATE"));
+        let PASSPORT_EXPIRE_DATE = gfnma_nvl(SBUxMethod.get("PASSPORT_EXPIRE_DATE"));
+        let VISA_NUM = gfnma_nvl(SBUxMethod.get("VISA_NUM"));
+        let VISA_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("VISA_ISSUE_DATE"));
+        let VISA_EXPIRE_DATE = gfnma_nvl(SBUxMethod.get("VISA_EXPIRE_DATE"));
+        let HANDICAP_TYPE = gfnma_nvl(SBUxMethod.get("HANDICAP_TYPE"));
+        let HANDICAP_GRADE = gfnma_nvl(SBUxMethod.get("HANDICAP_GRADE"));
+        let HANDICAP_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("HANDICAP_ISSUE_DATE"));
+        let HANDICAP_REASON = gfnma_nvl(SBUxMethod.get("HANDICAP_REASON"));
+
+        return {
+            V_P_WORK_TYPE : WORK_TYPE,
+            V_P_DEBUG_MODE_YN : 'N',
+            V_P_LANG_ID	: 'KOR',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_BLOOD_TYPE_RH : BLOOD_TYPE_RH,
+            V_P_BLOOD_TYPE_ABO : BLOOD_TYPE_ABO,
+            V_P_HEIGHT : HEIGHT,
+            V_P_WEIGHT : WEIGHT,
+            V_P_LEFT_EYE : LEFT_EYE,
+            V_P_RIGHT_EYE : RIGHT_EYE,
+            V_P_COLOR_BLIND_YN : COLOR_BLIND_YN,
+            V_P_JACKET_SIZE : JACKET_SIZE,
+            V_P_PANTS_SIZE : PANTS_SIZE,
+            V_P_SHOE_SIZE : SHOE_SIZE,
+            V_P_MARRIAGE_YN : MARRIAGE_YN,
+            V_P_MARRIAGE_DATE : MARRIAGE_DATE,
+            V_P_HOBBY : HOBBY,
+            V_P_SPECIAL_ABILITY : SPECIAL_ABILITY,
+            V_P_RELIGION_CODE : RELIGION_CODE,
+            V_P_HOUSE_OWN_YN : HOUSE_OWN_YN,
+            V_P_HOUSE_TYPE : HOUSE_TYPE,
+            V_P_HOUSE_KIND : HOUSE_KIND,
+            V_P_CAR_OWN_YN : CAR_OWN_YN,
+            V_P_CAR_KIND : CAR_KIND,
+            V_P_CAR_NUM : CAR_NUM,
+            V_P_ARMY_TYPE : ARMY_TYPE,
+            V_P_ARMY_INDUSTRY_YN : ARMY_INDUSTRY_YN,
+            V_P_ARMY_KIND : ARMY_KIND,
+            V_P_ARMY_PART : ARMY_PART,
+            V_P_ARMY_GRADE : ARMY_GRADE,
+            V_P_ARMY_DISCHARGE_TYPE : ARMY_DISCHARGE_TYPE,
+            V_P_ARMY_START_DATE : ARMY_START_DATE,
+            V_P_ARMY_END_DATE : ARMY_END_DATE,
+            V_P_ARMY_DESCR : ARMY_DESCR,
+            V_P_ARMY_EXEMPTION_DESCR : ARMY_EXEMPTION_DESCR,
+            V_P_GUARANTEE_TYPE : GUARANTEE_TYPE,
+            V_P_INSURE_COMP_NAME : INSURE_COMP_NAME,
+            V_P_INSURE_NAME : INSURE_NAME,
+            V_P_INSURE_AMOUNT : INSURE_AMOUNT,
+            V_P_INSURE_NUM : INSURE_NUM,
+            V_P_INSURE_VALUE : INSURE_VALUE,
+            V_P_INSURE_START_DATE : INSURE_START_DATE,
+            V_P_INSURE_END_DATE : INSURE_END_DATE,
+            V_P_GUARANTOR1_NAME : GUARANTOR1_NAME,
+            V_P_GUARANTOR1_SOCIAL_NO : GUARANTOR1_SOCIAL_NO,
+            V_P_GUARANTOR1_RELATION : GUARANTOR1_RELATION,
+            V_P_GUARANTOR1_COMP_NAME : GUARANTOR1_COMP_NAME,
+            V_P_GUARANTOR1_POSITION : GUARANTOR1_POSITION,
+            V_P_GUARANTOR1_ZIP_CODE : GUARANTOR1_ZIP_CODE,
+            V_P_GUARANTOR1_ADDRESS : GUARANTOR1_ADDRESS,
+            V_P_GUARANTOR1_START_DATE : GUARANTOR1_START_DATE,
+            V_P_GUARANTOR1_END_DATE : GUARANTOR1_END_DATE,
+            V_P_GUARANTOR2_NAME : GUARANTOR2_NAME,
+            V_P_GUARANTOR2_SOCIAL_NO : GUARANTOR2_SOCIAL_NO,
+            V_P_GUARANTOR2_RELATION : GUARANTOR2_RELATION,
+            V_P_GUARANTOR2_COMP_NAME : GUARANTOR2_COMP_NAME,
+            V_P_GUARANTOR2_POSITION : GUARANTOR2_POSITION,
+            V_P_GUARANTOR2_ZIP_CODE : GUARANTOR2_ZIP_CODE,
+            V_P_GUARANTOR2_ADDRESS : GUARANTOR2_ADDRESS,
+            V_P_GUARANTOR2_START_DATE : GUARANTOR2_START_DATE,
+            V_P_GUARANTOR2_END_DATE : GUARANTOR2_END_DATE,
+            V_P_VETERANS_YN : VETERANS_YN,
+            V_P_VETERANS_GRADE : VETERANS_GRADE,
+            V_P_VETERANS_MEMO : VETERANS_MEMO,
+            V_P_VETERANS_RELATION : VETERANS_RELATION,
+            V_P_VETERANS_NUM : VETERANS_NUM,
+            V_P_VETERANS_ORDER_YN : VETERANS_ORDER_YN,
+            V_P_VETERANS_ORDER_DATE : VETERANS_ORDER_DATE,
+            V_P_PASSPORT_NUM : PASSPORT_NUM,
+            V_P_PASSPORT_ISSUE_DATE : PASSPORT_ISSUE_DATE,
+            V_P_PASSPORT_EXPIRE_DATE : PASSPORT_EXPIRE_DATE,
+            V_P_VISA_NUM : VISA_NUM,
+            V_P_VISA_ISSUE_DATE : VISA_ISSUE_DATE,
+            V_P_VISA_EXPIRE_DATE : VISA_EXPIRE_DATE,
+            V_P_HANDICAP_TYPE : HANDICAP_TYPE,
+            V_P_HANDICAP_GRADE : HANDICAP_GRADE,
+            V_P_HANDICAP_ISSUE_DATE : HANDICAP_ISSUE_DATE,
+            V_P_HANDICAP_REASON : HANDICAP_REASON,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        }
+    }
+
+    const getParamForHri1000S2 = async function() {
+        let updatedData = gvwFile.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_FILE_NAME : item.FILE_NAME,
+                V_P_FILE_SERVER_PATH : item.FILE_SERVER_PATH,
+                V_P_FILE_TYPE : item.FILE_TYPE,
+                V_P_CREATE_USER : item.CREATE_USER,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S3 = async function() {
+        // TODO: 사원사진, 서명사진 프로세스 확인
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        let EMP_PHOTO = gfnma_nvl(SBUxMethod.get("EMP_PHOTO"));
+        let SIGN_IMG = gfnma_nvl(SBUxMethod.get("SIGN_IMG"));
+        return {
+            V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+            V_P_DEBUG_MODE_YN : 'N',
+            V_P_LANG_ID	: 'KOR',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_EMP_PHOTO : EMP_PHOTO, // blob
+            V_P_SIGN_IMG : SIGN_IMG, // blob
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        };
+    }
+
+    const getParamForHri1000S4 = async function() {
+        let updatedData = gvwFamily.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_NAME : item.NAME,
+                V_P_RELATION : item.RELATION,
+                V_P_SOCIAL_NO : item.SOCIAL_NO,
+                V_P_BIRTHDAY : item.BIRTHDAY,
+                V_P_BIRTHDAY_TYPE : item.BIRTHDAY_TYPE,
+                V_P_LEAP_MONTH_YN : item.LEAP_MONTH_YN,
+                V_P_SCHOOL_TYPE : item.SCHOOL_TYPE,
+                V_P_SUPPORT_YN : item.SUPPORT_YN,
+                V_P_WH_TAX_YN : item.WH_TAX_YN,
+                V_P_YEARTAX_YN : item.YEARTAX_YN,
+                V_P_YEARTAX_RELATION : item.YEARTAX_RELATION,
+                V_P_FOREIGNER_YN : item.FOREIGNER_YN,
+                V_P_HANDICAP_YN : item.HANDICAP_YN,
+                V_P_LIVE_TOGETHER_YN : item.LIVE_TOGETHER_YN,
+                V_P_HEALTH_INSURE_YN : item.HEALTH_INSURE_YN,
+                V_P_LIFE_YN : item.LIFE_YN,
+                V_P_ZIP_CODE : item.ZIP_CODE,
+                V_P_ADDRESS : item.ADDRESS,
+                V_P_JOB : item.JOB,
+                V_P_TEL : item.TEL,
+                V_P_MEMO : item.MEMO,
+                V_P_SOCIAL_NUM_DATE : item.SOCIAL_NUM_DATE,
+                V_P_START_DATE : item.START_DATE,
+                V_P_END_DATE : item.END_DATE,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S5 = async function() {
+        let updatedData = gvwSchool.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_SCHOOL_TYPE : item.SCHOOL_TYPE,
+                V_P_MANAGE_CODE : item.MANAGE_CODE,
+                V_P_SCHOOL_NAME : item.SCHOOL_NAME,
+                V_P_CAMPUS_BRANCH_TYPE : item.CAMPUS_BRANCH_TYPE,
+                V_P_DAY_NIGHT_TYPE : item.DAY_NIGHT_TYPE,
+                V_P_MAJOR : item.MAJOR,
+                V_P_GRADUATE_TYPE : item.GRADUATE_TYPE,
+                V_P_LAST_SCHOOL_YN : item.LAST_SCHOOL_YN,
+                V_P_COMPLE_POINT : item.COMPLE_POINT,
+                V_P_GPA_POINT : item.GPA_POINT,
+                V_P_INTO_DATE : item.INTO_DATE,
+                V_P_GRADUATE_DATE : item.GRADUATE_DATE,
+                V_P_AFTER_ENTER_YN : item.AFTER_ENTER_YN,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S6 = async function() {
+        let updatedData = gvwLicense.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_LICENSE_CODE : item.LICENSE_CODE,
+                V_P_LICENSE_GRADE : item.LICENSE_GRADE,
+                V_P_LICENSE_NUM : item.LICENSE_NUM,
+                V_P_LICENSE_NAME : item.LICENSE_NAME,
+                V_P_ISSUE_INSTITUTE : item.ISSUE_INSTITUTE,
+                V_P_ISSUE_DATE : item.ISSUE_DATE,
+                V_P_RENEW_DATE : item.RENEW_DATE,
+                V_P_LICENSE_WAGES_AMT : item.LICENSE_WAGES_AMT,
+                V_P_APPOINT_YN : item.APPOINT_YN,
+                V_P_APPOINT_DEPT_CODE : item.APPOINT_DEPT_CODE,
+                V_P_APPOINT_START_DATE : item.APPOINT_START_DATE,
+                V_P_APPOINT_END_DATE : item.APPOINT_END_DATE,
+                V_P_MEMO : item.MEMO,
+                V_P_LICENSE_CATEGORY : item.LICENSE_CATEGORY,
+                V_P_PAY_YN : item.PAY_YN,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S7 = async function() {
+        let updatedData = gvwCareer.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_CAREER_TYPE : item.CAREER_TYPE,
+                V_P_START_DATE : item.START_DATE,
+                V_P_END_DATE : item.END_DATE,
+                V_P_CAREER_YEAR : item.CAREER_YEAR,
+                V_P_CAREER_MONTH : item.CAREER_MONTH,
+                V_P_COMP_NAME : item.COMP_NAME,
+                V_P_DEPT_NAME : item.DEPT_NAME,
+                V_P_POSITION : item.POSITION,
+                V_P_JOB : item.JOB,
+                V_P_WORK : item.WORK,
+                V_P_REGION_CODE : item.REGION_CODE,
+                V_P_RETIRE_MEMO : item.RETIRE_MEMO,
+                V_P_SALARY_LEVEL : item.SALARY_LEVEL,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S8 = async function() {
+        let updatedData = gvwLanguage.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_TEST_TYPE : item.TEST_TYPE,
+                V_P_TEST_DATE : item.TEST_DATE,
+                V_P_AVAILABLE_DATE : item.AVAILABLE_DATE,
+                V_P_ISSUE_INSTITUTION : item.ISSUE_INSTITUTION,
+                V_P_TOTAL_SCORE : item.TOTAL_SCORE,
+                V_P_SCORE1 : item.SCORE1,
+                V_P_SCORE2 : item.SCORE2,
+                V_P_SCORE3 : item.SCORE3,
+                V_P_SCORE4 : item.SCORE4,
+                V_P_TEST_LEVEL : item.TEST_LEVEL,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S9 = async function() {
+        let updatedData = gvwEducation.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_EDU_NAME : item.EDU_NAME,
+                V_P_FOREIGN_YN : item.FOREIGN_YN,
+                V_P_EDU_METHOD : item.EDU_METHOD,
+                V_P_EDU_INSTITUTE : item.EDU_INSTITUTE,
+                V_P_EDU_TYPE : item.EDU_TYPE,
+                V_P_EDU_START_DATE : item.EDU_START_DATE,
+                V_P_EDU_END_DATE : item.EDU_END_DATE,
+                V_P_EDU_SCORE : item.EDU_SCORE,
+                V_P_EDU_TOTAL_EXPENSE : item.EDU_TOTAL_EXPENSE,
+                V_P_RETURN_EXPENSE : item.RETURN_EXPENSE,
+                V_P_PAYMENT_EXPENSE : item.PAYMENT_EXPENSE,
+                V_P_EDU_PASS_YN : item.EDU_PASS_YN,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S10 = async function() {
+        let updatedData = gvwPrize.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_PRIZE_TYPE : item.PRIZE_TYPE,
+                V_P_PRIZE_CATEGORY : item.PRIZE_CATEGORY,
+                V_P_PRIZE_DATE : item.PRIZE_DATE,
+                V_P_PRIZE_INOUT_TYPE : item.PRIZE_INOUT_TYPE,
+                V_P_PRIZE_TARGET : item.PRIZE_TARGET,
+                V_P_PRIZE_NAME : item.PRIZE_NAME,
+                V_P_PRIZE_REASON : item.PRIZE_REASON,
+                V_P_PRIZE_DETAIL : item.PRIZE_DETAIL,
+                V_P_PRIZE_MAKER : item.PRIZE_MAKER,
+                V_P_PUNISH_START_DATE : item.PUNISH_START_DATE,
+                V_P_PUNISH_END_DATE : item.PUNISH_END_DATE,
+                V_P_APPLY_PAY_YN : item.APPLY_PAY_YN,
+                V_P_BASE_PAY_DOWN_RATE : item.BASE_PAY_DOWN_RATE,
+                V_P_BONUS_PAY_DOWN_RATE : item.BONUS_PAY_DOWN_RATE,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S11 = async function() {
+        let updatedData = gvwHealth.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_CHECK_TYPE : item.CHECK_TYPE,
+                V_P_CHECK_DATE : item.CHECK_DATE,
+                V_P_CHECK_INSTITUTE : item.CHECK_INSTITUTE,
+                V_P_RESULT : item.RESULT,
+                V_P_COMPANY_RESULT : item.COMPANY_RESULT,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S12 = async function() {
+        let updatedData = gvwAppointment.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_APPOINT_NUM : item.APPOINT_NUM,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_DEPT_NAME2 : item.DEPT_NAME2,
+                V_P_POSITION_NAME2 : item.POSITION_NAME2,
+                V_P_DUTY_NAME2 : item.DUTY_NAME2,
+                V_P_JOB_RANK_NAME2 : item.JOB_RANK_NAME2,
+                V_P_JOB_FAMILY_NAME2 : item.JOB_FAMILY_NAME2,
+                V_P_JOB_NAME2 : item.JOB_NAME2,
+                V_P_REGION_NAME2 : item.REGION_NAME2,
+                V_P_APPOINT_REASON : item.APPOINT_REASON,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S13 = async function() {
+        let updatedData = gvwTimeOffHistory.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_TIME_OFF_TYPE : item.TIME_OFF_TYPE,
+                V_P_START_DATE : item.START_DATE,
+                V_P_END_DATE : item.END_DATE,
+                V_P_TIME_OFF_CNT : item.TIME_OFF_CNT,
+                V_P_SITE_CODE : item.SITE_CODE,
+                V_P_DEPT_CODE : item.DEPT_CODE,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S14 = async function() {
+        let updatedData = gvwComputerSkill.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_OA_NAME : item.OA_NAME,
+                V_P_OA_SKILL_LEVEL : item.OA_SKILL_LEVEL,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S15 = async function() {
+        let updatedData = gvwGroupInsurance.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_GROUP_INSURE_CODE : item.GROUP_INSURE_CODE,
+                V_P_INSURE_NUM : item.INSURE_NUM,
+                V_P_INSURE_START_DATE : item.INSURE_START_DATE,
+                V_P_INSURE_DUE_DATE : item.INSURE_DUE_DATE,
+                V_P_INSURE_END_DATE : item.INSURE_END_DATE,
+                V_P_GROUP_INSURE_AMT : item.GROUP_INSURE_AMT,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S16 = async function() {
+        let updatedData = gvwDisease.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_DISEASE_TYPE : item.DISEASE_TYPE,
+                V_P_DISEASE_REASON : item.DISEASE_REASON,
+                V_P_DISEASE_START_DATE : item.DISEASE_START_DATE,
+                V_P_SICK_LEAVE_REQUEST_YN : item.SICK_LEAVE_REQUEST_YN,
+                V_P_SICK_LEAVE_CHARGE_DATE_FR : item.SICK_LEAVE_CHARGE_DATE_FR,
+                V_P_SICK_LEAVE_CHARGE_DATE_TO : item.SICK_LEAVE_CHARGE_DATE_TO,
+                V_P_SICK_LEAVE_FREE_DATE_FR : item.SICK_LEAVE_FREE_DATE_FR,
+                V_P_SICK_LEAVE_FREE_DATE_TO : item.SICK_LEAVE_FREE_DATE_TO,
+                V_P_GROUP_INSURE_REQUEST_YN : item.GROUP_INSURE_REQUEST_YN,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S17 = async function() {
+        let updatedData = gvwPersonnelEvaluation.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_EVAL_YEAR : item.EVAL_YEAR,
+                V_P_POSITION_CODE : item.POSITION_CODE,
+                V_P_EVAL_KPI_GRADE : item.EVAL_KPI_GRADE,
+                V_P_EVAL_KBI_GRADE : item.EVAL_KBI_GRADE,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S18 = async function() {
+        let updatedData = gvwOfficialInjury.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_OFFICIAL_INJURY_START_DATE : item.OFFICIAL_INJURY_START_DATE,
+                V_P_OFFICIAL_INJURY_DESCR : item.OFFICIAL_INJURY_DESCR,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S19 = async function() {
+        let updatedData = gvwContractDeg.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_CONTRACT_DEGREE : item.CONTRACT_DEGREE,
+                V_P_CONTRACT_START_DATE : item.CONTRACT_START_DATE,
+                V_P_CONTRACT_END_DATE : item.CONTRACT_END_DATE,
+                V_P_CONTRACT_CHANGE_MEMO : item.CONTRACT_CHANGE_MEMO,
+                V_P_MEMO : item.MEMO,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    // TODO : P_Hri1000_S20 확인필요
+
+    const getParamForHri1000S21 = async function() {
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        let RESIDENCE_ZIP_CODE = gfnma_nvl(SBUxMethod.get("RESIDENCE_ZIP_CODE"));
+        let RESIDENCE_ADDRESS = gfnma_nvl(SBUxMethod.get("RESIDENCE_ADDRESS"));
+        let FAMILY_REGISTER_ZIP_CODE = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ZIP_CODE"));
+        let FAMILY_REGISTER_ADDRESS = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ADDRESS"));
+        let EMERGENCY_ZIP_CODE = gfnma_nvl(SBUxMethod.get("EMERGENCY_ZIP_CODE"));
+        let EMERGENCY_ADDRESS = gfnma_nvl(SBUxMethod.get("EMERGENCY_ADDRESS"));
+        let HOME_TEL_NUM = gfnma_nvl(SBUxMethod.get("HOME_TEL_NUM"));
+        let OFFICE_TEL_NUM = gfnma_nvl(SBUxMethod.get("OFFICE_TEL_NUM"));
+        let CELLPHONE_NUM = gfnma_nvl(SBUxMethod.get("CELLPHONE_NUM"));
+
+        return {
+            V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+            V_P_DEBUG_MODE_YN : 'N',
+            V_P_LANG_ID	: 'KOR',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_RESIDENCE_ZIP_CODE : RESIDENCE_ZIP_CODE,
+            V_P_RESIDENCE_ADDRESS : RESIDENCE_ADDRESS,
+            V_P_FAMILY_REGISTER_ZIP_CODE : FAMILY_REGISTER_ZIP_CODE,
+            V_P_FAMILY_REGISTER_ADDRESS : FAMILY_REGISTER_ADDRESS,
+            V_P_EMERGENCY_ZIP_CODE : EMERGENCY_ZIP_CODE,
+            V_P_EMERGENCY_ADDRESS : EMERGENCY_ADDRESS,
+            V_P_HOME_TEL_NUM : HOME_TEL_NUM,
+            V_P_OFFICE_TEL_NUM : OFFICE_TEL_NUM,
+            V_P_CELLPHONE_NUM : CELLPHONE_NUM,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        };
+    }
+
+    const getParamForHri1000S22 = async function() {
+        let updatedData = gvwWorkPlan.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_WORKPLAN_TYPE : item.WORKPLAN_TYPE,
+                V_P_START_DATE : item.START_DATE,
+                V_P_END_DATE : item.END_DATE,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
+    }
+
+    const getParamForHri1000S23 = async function() {
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN"));
+        let AGREE_DATE = gfnma_nvl(SBUxMethod.get("AGREE_DATE"));
+        return {
+            V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+            V_P_DEBUG_MODE_YN : 'N',
+            V_P_LANG_ID	: 'KOR',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_AGREE_YN : AGREE_YN,
+            V_P_AGREE_DATE : AGREE_DATE,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        };
+    }
+
+    const getParamForHri1000S24 = async function() {
+        let updatedData = gvwExpenditurewelfare.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                V_P_WORK_TYPE : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                V_P_DEBUG_MODE_YN : 'N',
+                V_P_LANG_ID	: 'KOR',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_EMP_CODE : item.EMP_CODE,
+                V_P_SEQ : item.SEQ,
+                V_P_NAME : item.NAME,
+                V_P_RELATION : item.RELATION,
+                V_P_WELFARE_CODE : item.WELFARE_CODE,
+                V_P_WELFARE_TYPE : item.WELFARE_TYPE,
+                V_P_WELFARE_DATE : item.WELFARE_DATE,
+                V_P_WELFARE_AMOUNT : item.WELFARE_AMOUNT,
+                V_P_DESCRIPTION : item.DESCRIPTION,
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            }
+            returnData.push(param);
+        });
+
+        return returnData;
     }
 </script>

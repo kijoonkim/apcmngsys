@@ -1009,6 +1009,31 @@
      */
     const fn_save = async function() {
 
+
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1000.do", {
+            getType				: 'json',
+            workType			: 'N',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
+                fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
     //선택 삭제
@@ -1085,7 +1110,6 @@
         let ENTER_DATE_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_FR"));
         let ENTER_DATE_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_ENTER_DATE_TO"));
         let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
-
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: 'N'
@@ -1582,10 +1606,205 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
 
+    const getParamForHri1000S = async function() {
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        let EMP_NAME = gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        let EMP_NAME_CHN = gfnma_nvl(SBUxMethod.get("EMP_NAME_CHN"));
+        let EMP_NAME_ENG = gfnma_nvl(SBUxMethod.get("EMP_NAME_ENG"));
+        let SOCIAL_NUM = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM"));
+        let BIRTHDAY = gfnma_nvl(SBUxMethod.get("BIRTHDAY"));
+        let BIRTHDAY_TYPE = gfnma_nvl(SBUxMethod.get("BIRTHDAY_TYPE"));
+        let LEAP_MONTH_YN = gfnma_nvl(SBUxMethod.get("LEAP_MONTH_YN"));
+        let GENDER = gfnma_nvl(SBUxMethod.get("GENDER"));
+        let FAMILY_CLAN = gfnma_nvl(SBUxMethod.get("FAMILY_CLAN"));
+        let FOREIGNER_YN = gfnma_nvl(SBUxMethod.get("FOREIGNER_YN"));
+        let FAMILY_OWNER_YN = gfnma_nvl(SBUxMethod.get("FAMILY_OWNER_YN"));
+        let GROUP_ENTER_DATE = gfnma_nvl(SBUxMethod.get("GROUP_ENTER_DATE"));
+        let ENTER_DATE = gfnma_nvl(SBUxMethod.get("ENTER_DATE"));
+        let ENTER_TYPE = gfnma_nvl(SBUxMethod.get("ENTER_TYPE"));
+        let POSITION_CODE = gfnma_nvl(SBUxMethod.get("POSITION_CODE"));
+        let DUTY_CODE = gfnma_nvl(SBUxMethod.get("DUTY_CODE"));
+        let JOB_FAMILY = gfnma_nvl(SBUxMethod.get("JOB_FAMILY"));
+        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("JOB_GROUP"));
+        let JOB_RANK = gfnma_nvl(SBUxMethod.get("JOB_RANK"));
+        let JOB_CODE = gfnma_nvl(SBUxMethod.get("JOB_CODE"));
+        let LABOR_COST_GROUP = gfnma_nvl(SBUxMethod.get("LABOR_COST_GROUP"));
+        let COST_DEPT_CODE = gfnma_nvl(SBUxMethod.get("COST_DEPT_CODE"));
+        let TIME_CHECK_YN = gfnma_nvl(SBUxMethod.get("TIME_CHECK_YN"));
+        let EMP_TYPE = gfnma_nvl(SBUxMethod.get("EMP_TYPE"));
+        let EMP_STATE = gfnma_nvl(SBUxMethod.get("EMP_STATE"));
+        let SALARY_CLASS = gfnma_nvl(SBUxMethod.get("SALARY_CLASS"));
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
+        let SALES_EMP_YN = gfnma_nvl(SBUxMethod.get("SALES_EMP_YN"));
+        let TAX_SITE_CODE = gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"));
+        let NATION_CODE = gfnma_nvl(SBUxMethod.get("NATION_CODE"));
+        let REGISTER_ZIP_CODE = gfnma_nvl(SBUxMethod.get("REGISTER_ZIP_CODE"));
+        let REGISTER_ADDRESS = gfnma_nvl(SBUxMethod.get("REGISTER_ADDRESS"));
+        let RESIDENCE_ZIP_CODE = gfnma_nvl(SBUxMethod.get("RESIDENCE_ZIP_CODE"));
+        let RESIDENCE_ADDRESS = gfnma_nvl(SBUxMethod.get("RESIDENCE_ADDRESS"));
+        let OFFICE_TEL_NUM = gfnma_nvl(SBUxMethod.get("OFFICE_TEL_NUM"));
+        let FAX_NUM = gfnma_nvl(SBUxMethod.get("FAX_NUM"));
+        let INTER_PHONE = gfnma_nvl(SBUxMethod.get("INTER_PHONE"));
+        let CELLPHONE_NUM = gfnma_nvl(SBUxMethod.get("CELLPHONE_NUM"));
+        let HOME_TEL_NUM = gfnma_nvl(SBUxMethod.get("HOME_TEL_NUM"));
+        let IN_EMAIL = gfnma_nvl(SBUxMethod.get("IN_EMAIL"));
+        let OUT_EMAIL = gfnma_nvl(SBUxMethod.get("OUT_EMAIL"));
+        let TEMP_END_DATE = gfnma_nvl(SBUxMethod.get("TEMP_END_DATE"));
+        let BONUS_APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("BONUS_APPLY_START_DATE"));
+        let UNION_JOIN_YN = gfnma_nvl(SBUxMethod.get("UNION_JOIN_YN"));
+        let UNION_JOIN_START_DATE = gfnma_nvl(SBUxMethod.get("UNION_JOIN_START_DATE"));
+        let UNION_JOIN_END_DATE = gfnma_nvl(SBUxMethod.get("UNION_JOIN_END_DATE"));
+        let RETIRE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_DATE"));
+        let RETIRE_REASON = gfnma_nvl(SBUxMethod.get("RETIRE_REASON"));
+        let RETIRE_IN_REASON = gfnma_nvl(SBUxMethod.get("RETIRE_IN_REASON"));
+        let RETIRE_INITIAL_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_INITIAL_DATE"));
+        let RETIRE_PENSION_JOIN_YN = gfnma_nvl(SBUxMethod.get("RETIRE_PENSION_JOIN_YN"));
+        let CAREER_DATE = gfnma_nvl(SBUxMethod.get("CAREER_DATE"));
+        let PREMATURE_DATE = gfnma_nvl(SBUxMethod.get("PREMATURE_DATE"));
+        let WORK_REGION = gfnma_nvl(SBUxMethod.get("WORK_REGION"));
+        let EMP_MEMO = gfnma_nvl(SBUxMethod.get("EMP_MEMO"));
+        let TELEWORKING_YN = gfnma_nvl(SBUxMethod.get("TELEWORKING_YN"));
+        let TELEWORKING_ADDRESS = gfnma_nvl(SBUxMethod.get("TELEWORKING_ADDRESS"));
+        let ORDER_SEQ = gfnma_nvl(SBUxMethod.get("ORDER_SEQ"));
+        let EMP_PHOTO_PATH = gfnma_nvl(SBUxMethod.get("EMP_PHOTO_PATH"));
+        let EMP_PHOTO_NAME = gfnma_nvl(SBUxMethod.get("EMP_PHOTO_NAME"));
+        let SIGN_IMG_PATH = gfnma_nvl(SBUxMethod.get("SIGN_IMG_PATH"));
+        let SIGN_IMG_NAME = gfnma_nvl(SBUxMethod.get("SIGN_IMG_NAME"));
+        let START_POSITION_CODE = gfnma_nvl(SBUxMethod.get("START_POSITION_CODE"));
+        let CAREER_TRACK = gfnma_nvl(SBUxMethod.get("CAREER_TRACK"));
+        let BOARD_DIRECTOR_YN = gfnma_nvl(SBUxMethod.get("BOARD_DIRECTOR_YN"));
+        let INTRODUCER_CODE = gfnma_nvl(SBUxMethod.get("INTRODUCER_CODE"));
+        let RE_ENTER_YN = gfnma_nvl(SBUxMethod.get("RE_ENTER_YN"));
+        let ANNUAL_INITIAL_DATE = gfnma_nvl(SBUxMethod.get("ANNUAL_INITIAL_DATE"));
+        let PARTNER_FIRM_EMP_YN = gfnma_nvl(SBUxMethod.get("PARTNER_FIRM_EMP_YN"));
+        let PARTNER_FIRM_CODE = gfnma_nvl(SBUxMethod.get("PARTNER_FIRM_CODE"));
+        let SOCIAL_NUM_DATE = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_DATE"));
+        let SALARY_LEVEL = gfnma_nvl(SBUxMethod.get("SALARY_LEVEL"));
+        let FAMILY_REGISTER_ZIP_CODE = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ZIP_CODE"));
+        let FAMILY_REGISTER_ADDRESS = gfnma_nvl(SBUxMethod.get("FAMILY_REGISTER_ADDRESS"));
+        let EMERGENCY_ZIP_CODE = gfnma_nvl(SBUxMethod.get("EMERGENCY_ZIP_CODE"));
+        let EMERGENCY_ADDRESS = gfnma_nvl(SBUxMethod.get("EMERGENCY_ADDRESS"));
+        let EMERGENCY_TEL_NUM = gfnma_nvl(SBUxMethod.get("EMERGENCY_TEL_NUM"));
+        let OLD_EMP_CODE = gfnma_nvl(SBUxMethod.get("OLD_EMP_CODE"));
+        let COMP_ENTER_DATE = gfnma_nvl(SBUxMethod.get("COMP_ENTER_DATE"));
+        let PROMOTION_BASE_DATE = gfnma_nvl(SBUxMethod.get("PROMOTION_BASE_DATE"));
+        let RETIRE_BASE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_BASE_DATE"));
+        let RET_RENS_ST_DAT = gfnma_nvl(SBUxMethod.get("RET_RENS_ST_DAT"));
+        let ANNUAL_BASE_DATE = gfnma_nvl(SBUxMethod.get("ANNUAL_BASE_DATE"));
+        let AGREE_DATE = gfnma_nvl(SBUxMethod.get("AGREE_DATE"));
+        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN"));
+        let START_PAY_GRADE = gfnma_nvl(SBUxMethod.get("START_PAY_GRADE"));
+        let JOB_SUB_CODE = gfnma_nvl(SBUxMethod.get("JOB_SUB_CODE"));
+        let JOB_DETAIL_CODE = gfnma_nvl(SBUxMethod.get("JOB_DETAIL_CODE"));
+        let TO_YN = gfnma_nvl(SBUxMethod.get("TO_YN"));
 
-        SBUxMethod.set("NATION_CODE", 			rowData.NATION_CODE);
+        return {
+            V_P_WORK_TYPE : WORK_TYPE,
+            V_P_DEBUG_MODE_YN : 'N',
+            V_P_LANG_ID	: 'KOR',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_EMP_NAME : EMP_NAME,
+            V_P_EMP_NAME_CHN : EMP_NAME_CHN,
+            V_P_EMP_NAME_ENG : EMP_NAME_ENG,
+            V_P_SOCIAL_NUM : SOCIAL_NUM,
+            V_P_BIRTHDAY : BIRTHDAY,
+            V_P_BIRTHDAY_TYPE : BIRTHDAY_TYPE,
+            V_P_LEAP_MONTH_YN : LEAP_MONTH_YN,
+            V_P_GENDER : GENDER,
+            V_P_FAMILY_CLAN : FAMILY_CLAN,
+            V_P_FOREIGNER_YN : FOREIGNER_YN,
+            V_P_FAMILY_OWNER_YN : FAMILY_OWNER_YN,
+            V_P_GROUP_ENTER_DATE : GROUP_ENTER_DATE,
+            V_P_ENTER_DATE : ENTER_DATE,
+            V_P_ENTER_TYPE : ENTER_TYPE,
+            V_P_POSITION_CODE : POSITION_CODE,
+            V_P_DUTY_CODE : DUTY_CODE,
+            V_P_JOB_FAMILY : JOB_FAMILY,
+            V_P_JOB_GROUP : JOB_GROUP,
+            V_P_JOB_RANK : JOB_RANK,
+            V_P_JOB_CODE : JOB_CODE,
+            V_P_LABOR_COST_GROUP : LABOR_COST_GROUP,
+            V_P_COST_DEPT_CODE : COST_DEPT_CODE,
+            V_P_TIME_CHECK_YN : TIME_CHECK_YN,
+            V_P_EMP_TYPE : EMP_TYPE,
+            V_P_EMP_STATE : EMP_STATE,
+            V_P_SALARY_CLASS : SALARY_CLASS,
+            V_P_SITE_CODE : SITE_CODE,
+            V_P_DEPT_CODE : DEPT_CODE,
+            V_P_SALES_EMP_YN : SALES_EMP_YN,
+            V_P_TAX_SITE_CODE : TAX_SITE_CODE,
+            V_P_NATION_CODE : NATION_CODE,
+            V_P_REGISTER_ZIP_CODE : REGISTER_ZIP_CODE,
+            V_P_REGISTER_ADDRESS : REGISTER_ADDRESS,
+            V_P_RESIDENCE_ZIP_CODE : RESIDENCE_ZIP_CODE,
+            V_P_RESIDENCE_ADDRESS : RESIDENCE_ADDRESS,
+            V_P_OFFICE_TEL_NUM : OFFICE_TEL_NUM,
+            V_P_FAX_NUM : FAX_NUM,
+            V_P_INTER_PHONE : INTER_PHONE,
+            V_P_CELLPHONE_NUM : CELLPHONE_NUM,
+            V_P_HOME_TEL_NUM : HOME_TEL_NUM,
+            V_P_IN_EMAIL : IN_EMAIL,
+            V_P_OUT_EMAIL : OUT_EMAIL,
+            V_P_TEMP_END_DATE : TEMP_END_DATE,
+            V_P_BONUS_APPLY_START_DATE : BONUS_APPLY_START_DATE,
+            V_P_UNION_JOIN_YN : UNION_JOIN_YN,
+            V_P_UNION_JOIN_START_DATE : UNION_JOIN_START_DATE,
+            V_P_UNION_JOIN_END_DATE : UNION_JOIN_END_DATE,
+            V_P_RETIRE_DATE : RETIRE_DATE,
+            V_P_RETIRE_REASON : RETIRE_REASON,
+            V_P_RETIRE_IN_REASON : RETIRE_IN_REASON,
+            V_P_RETIRE_INITIAL_DATE : RETIRE_INITIAL_DATE,
+            V_P_RETIRE_PENSION_JOIN_YN : RETIRE_PENSION_JOIN_YN,
+            V_P_CAREER_DATE : CAREER_DATE,
+            V_P_PREMATURE_DATE : PREMATURE_DATE,
+            V_P_WORK_REGION : WORK_REGION,
+            V_P_EMP_MEMO : EMP_MEMO,
+            V_P_TELEWORKING_YN : TELEWORKING_YN,
+            V_P_TELEWORKING_ADDRESS : TELEWORKING_ADDRESS,
+            V_P_ORDER_SEQ : ORDER_SEQ,
+            V_P_EMP_PHOTO_PATH : EMP_PHOTO_PATH,
+            V_P_EMP_PHOTO_NAME : EMP_PHOTO_NAME,
+            V_P_SIGN_IMG_PATH : SIGN_IMG_PATH,
+            V_P_SIGN_IMG_NAME : SIGN_IMG_NAME,
+            V_P_START_POSITION_CODE : START_POSITION_CODE,
+            V_P_CAREER_TRACK : CAREER_TRACK,
+            V_P_BOARD_DIRECTOR_YN : BOARD_DIRECTOR_YN,
+            V_P_INTRODUCER_CODE : INTRODUCER_CODE,
+            V_P_RE_ENTER_YN : RE_ENTER_YN,
+            V_P_ANNUAL_INITIAL_DATE : ANNUAL_INITIAL_DATE,
+            V_P_PARTNER_FIRM_EMP_YN : PARTNER_FIRM_EMP_YN,
+            V_P_PARTNER_FIRM_CODE : PARTNER_FIRM_CODE,
+            V_P_SOCIAL_NUM_DATE : SOCIAL_NUM_DATE,
+            V_P_SALARY_LEVEL : SALARY_LEVEL,
+            V_P_FAMILY_REGISTER_ZIP_CODE : FAMILY_REGISTER_ZIP_CODE,
+            V_P_FAMILY_REGISTER_ADDRESS : FAMILY_REGISTER_ADDRESS,
+            V_P_EMERGENCY_ZIP_CODE : EMERGENCY_ZIP_CODE,
+            V_P_EMERGENCY_ADDRESS : EMERGENCY_ADDRESS,
+            V_P_EMERGENCY_TEL_NUM : EMERGENCY_TEL_NUM,
+            V_P_OLD_EMP_CODE : OLD_EMP_CODE,
+            V_P_COMP_ENTER_DATE : COMP_ENTER_DATE,
+            V_P_PROMOTION_BASE_DATE : PROMOTION_BASE_DATE,
+            V_P_RETIRE_BASE_DATE : RETIRE_BASE_DATE,
+            V_P_RET_RENS_ST_DAT : RET_RENS_ST_DAT,
+            V_P_ANNUAL_BASE_DATE : ANNUAL_BASE_DATE,
+            V_P_AGREE_DATE : AGREE_DATE,
+            V_P_AGREE_YN : AGREE_YN,
+            V_P_START_PAY_GRADE : START_PAY_GRADE,
+            V_P_JOB_SUB_CODE : JOB_SUB_CODE,
+            V_P_JOB_DETAIL_CODE : JOB_DETAIL_CODE,
+            V_P_TO_YN : TO_YN,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
 
+        }
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
