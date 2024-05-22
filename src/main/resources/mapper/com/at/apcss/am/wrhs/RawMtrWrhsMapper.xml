@@ -939,6 +939,7 @@
 				, A.PRDCR_CD		AS PRDCR_CD
 				, A.ITEM_CD			AS ITEM_CD
 				, MAX(A.SORT_YMD)			AS SORT_YMD
+				, MAX(A.LAST_WRHS_CMPTN_YN) AS LAST_WRHS_CMPTN_YN
 				, SUM(A.QNTT_CYCL_1) + SUM(A.QNTT_CYCL_2)+ SUM(A.QNTT_CYCL_3) + SUM(A.QNTT_CYCL_4) + SUM(A.QNTT_CYCL_5) AS QNTT_CYCL_SUM
 				, MAX(ITM.VRTY_CD_1)		AS VRTY_CD_1
 				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_1_WRHS_CMPTN_YN
@@ -1054,6 +1055,7 @@
 						, WS.RMRK				AS RMRK
 						, WS.SORT_YMD
 						, WS.DEL_YN				AS DEL_YN
+						, WS.LAST_WRHS_CMPTN_YN AS LAST_WRHS_CMPTN_YN
 					  FROM TB_RAW_MTR_WRHS_SMMRY WS
 					 WHERE WS.APC_CD = #{apcCd}
 					   AND WS.ITEM_CD = #{itemCd}
@@ -1179,6 +1181,7 @@
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}
 		    		, #{sortYmd}
+		    		, #{lastWrhsCmptnYn}
 	   			)
     	]]>
     </insert>
@@ -1213,6 +1216,7 @@
 				, WGHT_CYCL_5 = #{wghtCycl5}
 				, RMRK = #{rmrk}
 				, SORT_YMD = #{sortYmd}
+				, LAST_WRHS_CMPTN_YN = #{lastWrhsCmptnYn}
 
 			 WHERE APC_CD 	= #{apcCd}
 			   AND WRHS_BGNG_YMD	= #{wrhsBgngYmd}

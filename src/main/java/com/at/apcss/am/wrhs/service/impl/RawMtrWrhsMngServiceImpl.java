@@ -623,6 +623,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 		for ( RawMtrWrhsSmmryVO wrhs : rawMtrWrhsSmmryList ) {
 			String prdcrCd = wrhs.getPrdcrCd();
 			String sortYmd = wrhs.getSortYmd();
+			String lastWrhsCmptnYn = wrhs.getLastWrhsCmptnYn();
 			if (StringUtils.hasText(vrtyCd1)) {
 				RawMtrWrhsSmmryVO wrhsVO = new RawMtrWrhsSmmryVO();
 				BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
@@ -631,6 +632,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV1WrhsCmptnYn());
 				wrhsVO.setSortYmd(sortYmd);
+				wrhsVO.setLastWrhsCmptnYn(lastWrhsCmptnYn);
 
 				wrhsVO.setQnttCycl1(wrhs.getV1QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV1QnttCycl2());
@@ -655,6 +657,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV2WrhsCmptnYn());
 				wrhsVO.setSortYmd(sortYmd);
+				wrhsVO.setLastWrhsCmptnYn(lastWrhsCmptnYn);
 
 				wrhsVO.setQnttCycl1(wrhs.getV2QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV2QnttCycl2());
@@ -679,6 +682,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV3WrhsCmptnYn());
 				wrhsVO.setSortYmd(sortYmd);
+				wrhsVO.setLastWrhsCmptnYn(lastWrhsCmptnYn);
 
 				wrhsVO.setQnttCycl1(wrhs.getV3QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV3QnttCycl2());
@@ -703,6 +707,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV4WrhsCmptnYn());
 				wrhsVO.setSortYmd(sortYmd);
+				wrhsVO.setLastWrhsCmptnYn(lastWrhsCmptnYn);
 
 				wrhsVO.setQnttCycl1(wrhs.getV4QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV4QnttCycl2());
@@ -727,6 +732,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				wrhsVO.setPrdcrCd(prdcrCd);
 				wrhsVO.setWrhsCmptnYn(wrhs.getV5WrhsCmptnYn());
 				wrhsVO.setSortYmd(sortYmd);
+				wrhsVO.setLastWrhsCmptnYn(lastWrhsCmptnYn);
 
 				wrhsVO.setQnttCycl1(wrhs.getV5QnttCycl1());
 				wrhsVO.setQnttCycl2(wrhs.getV5QnttCycl2());
