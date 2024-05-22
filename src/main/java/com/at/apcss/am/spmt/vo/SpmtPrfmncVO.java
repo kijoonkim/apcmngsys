@@ -246,7 +246,7 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 매매방법코드
 	 */
 	private String dlngMthdCd;
-	
+
 	/**
 	 * 상품등급
 	 */
@@ -326,6 +326,10 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 선별일자기준여부
 	 * */
 	private String sortDsctnYn;
+	/*
+	 * 물류기기
+	 * */
+	private String lgstcsMat;
 	/*
 	 * 출하번호 + 생산자번호
 	 * */

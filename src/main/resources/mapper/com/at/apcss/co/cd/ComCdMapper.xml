@@ -400,6 +400,7 @@
     	     , SYS_LAST_CHG_DT 			= SYSDATE
     	     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	     , DEL_YN						= #{delYn}
     	 WHERE CD_ID 	= #{cdId}
     	   AND CD_VL 	= #{cdVl}
     	   AND APC_CD 	= #{apcCd}

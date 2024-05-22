@@ -227,13 +227,14 @@
             text-align: center;
         }
         #reg_table tbody button{
-            padding: 2px 0px !important;
+            padding : 0.5vh 0px 0vh 0px !important;
             width: 90%;
             border: 0;
             border-radius: 5px;
             background-color: #3eb7c2c4;
             color: white;
             font-weight: 400;
+            font-size: 2rem;
         }
         #invntrTable, #spmtTable{
             border: 14px solid black;
@@ -254,6 +255,9 @@
             color: white;
         }
         ::-webkit-scrollbar{
+            display: none;
+        }
+        #reg_table tbody tr td:last-child{
             display: none;
         }
     </style>
@@ -491,14 +495,13 @@
                         <td>
                             <div style="display: flex">
                                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                                    <input class="gdsInput_0" type="number" onChange="fn_onChangesortGds(this)"/>
-<%--                                    <span onclick="fn_searchInvntrQntt(this)" style="position: absolute;top: 1vh;left: 84%" class='glyphicon sbux-inp-icon glyphicon-search'></span>--%>
+                                    <input class="gdsInput_0" type="tel" onChange="fn_onChangesortGds(this)"/>
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                                     <input type="number" onchange="fn_onChangePrdcr(this)" />
                                 </div>
-                                <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
-                                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="padding: 2px 0px !important;">조회</button>
+                                <div style="flex: 1; font-family: 'Font Awesome 5 Free'; display: flex;justify-content: center; margin-left: 5px">
+                                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" >조회</button>
                                 </div>
                             </div>
                         </td>
@@ -743,13 +746,13 @@
         <td>
             <div style="display: flex">
                 <div style="flex: 2; font-family: 'Font Awesome 5 Free';margin-right: 10px;position: relative">
-                    <input class="gdsInput_`+_idx+`" type="number" onChange="fn_onChangesortGds(this)" />
+                    <input class="gdsInput_`+_idx+`" type="tel" onChange="fn_onChangesortGds(this)" />
                 </div>
                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
                     <input type="number" onChange="fn_onChangePrdcr(this)"/>
                 </div>
-                 <div style="flex: 1; font-family: 'Font Awesome 5 Free';">
-                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="padding: 2px 0px !important;">조회</button>
+                 <div style="flex: 1; font-family: 'Font Awesome 5 Free'; display: flex;justify-content: center; margin-left: 5px">
+                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style">조회</button>
                 </div>
             </div>
         </td>
@@ -808,11 +811,11 @@
         ]);
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
-        $('.gdsInput_0').on("input",fn_remove.bind(event));
+        $('.gdsInput_0').on("keydown",fn_remove.bind(event));
+        $('.gdsInput_0').on("focusout",fn_focusout.bind(event));
+        $('.gdsInput_0').parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
-        // SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
-        // SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
     });
     
     /** 거래처 json 조회 **/
@@ -907,8 +910,6 @@
                }
             });
             jsonNewGdsGrd = data.resultList;
-
-
 
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -1253,7 +1254,9 @@
         mapInvntQntt.clear();
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
-        $('.gdsInput_0').on("input",fn_remove.bind(event));
+        $('.gdsInput_0').on("keydown",fn_remove.bind(event));
+        $('.gdsInput_0').on("focusout",fn_focusout.bind(event));
+        $('.gdsInput_0').parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
     }
     /**
      * @name fn_onchangeCnpt
@@ -1291,7 +1294,7 @@
         }
     }
     /** 출하번호 입력시 품목, 품종,단량 셋팅 및 생산자번호 선입력시 재고 셋팅 **/
-    const fn_onChangesortGds = function (_el) {
+    const fn_onChangesortGds = async function (_el) {
         let _val = _el.value;
         let parentTr = $(_el).closest('tr');
         let lastInput = parentTr.children(':last').find("input");
@@ -1305,7 +1308,7 @@
         });
 
         tempJson = jsonNewGdsGrd.filter(function (item) {
-            return parseInt(item.grdNm) == _val;
+            return item.grdNm == _val;
         });
 
         if(gfn_isEmpty(_val)){
@@ -1380,7 +1383,9 @@
                     $(qnttInp2_).on('blur', () => $("#invntQnttEl").remove());
                     $(qnttInp3_).on('blur', () => $("#invntQnttEl").remove());
 
-                    $(gdsInput_).on('input', fn_remove.bind(event));
+                    $(gdsInput_).on('keydown', fn_remove.bind(event));
+                    $(gdsInput_).on('focusout', fn_focusout.bind(event));
+                    $(gdsInput_).parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
                 }
             }
         }
@@ -1629,7 +1634,7 @@
         if(!gfn_isEmpty(data.resultList)){
              el = fn_invntrModalEl(data.resultList);
         }else{
-             el =`<h2>`+parseInt(rowData.grdNm) + " " + rowData.vrtyNm +`</h2>
+             el =`<h2>`+rowData.grdNm + " " + rowData.vrtyNm +`</h2>
                  <table id="invntrTable" style="width:100%">
                     <colgroup>
                         <col style="width: 20%">
@@ -1743,14 +1748,16 @@
                 `<table id="spmtTableHead" class="table table-bordered tbl_fixed">
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg" style="width: 5vw"><span class="data_required"></span>출하일자</th>
-                            <td class="td_input" style="border-right: hidden;width: 11vw">
+                            <th scope="row" class="th_bg" style="width: 15rem"><span class="data_required"></span>출하일자</th>
+                            <td class="td_input" style="border-right: hidden;width: 15rem">
                                 <sbux-datepicker id="srch-dtp-spmtYmdFrom" name="srch-dtp-spmtYmdFrom" uitype="popup"
                                 date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
                             </td>
-                            <td class="td_input" style="display:flex;border-left:hidden;">
+                            <td class="td_input" style="border-right: hidden;width: 15rem">
                                 <sbux-datepicker id="srch-dtp-spmtYmdTo" name="srch-dtp-spmtYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"></sbux-datepicker>
-                                <sbux-button wrap-style="margin-left:1vw;padding:0;"id="btnTotalSearch" name="btnTotalSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchSpmtList"></sbux-button>
+                            </td>
+                            <td>
+                                <sbux-button wrap-style="padding:0.5vh 0px;" id="btnTotalSearch" name="btnTotalSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchSpmtList"></sbux-button>
                             </td>
                         </tr>
                     </tbody>
@@ -1787,6 +1794,8 @@
             SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
             SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
 
+            fn_searchSpmtList();
+
 
         } catch (e) {
             console.log(e)
@@ -1802,6 +1811,7 @@
                 spmtno : spmtno,
             });
             const data = await postJsonPromise;
+
             data.resultList.forEach(function(item){
                 for(let key in item){
                     if(item[key] == null){
@@ -1821,15 +1831,18 @@
             $("#btnSave").find('span').text("수정");
 
             $("#reg_table > tbody").children().remove();
+            $("#reg_table > tbody").append(regTableEl(0));
 
             data.resultList.forEach(function(item,idx){
                 let grdNm = parseInt(item.spmtIndct);
                 let inputId = ".gdsInput_" + idx;
-                $("#reg_table > tbody").append(regTableEl(idx));
                 let tr = $("#reg_table tbody").children().eq(idx);
 
-                tr.children().eq(0).find('input').eq(0).on('input', fn_remove.bind(event));
+                tr.children().eq(0).find('input').eq(0).on('keydown', fn_remove.bind(event));
+                tr.children().eq(0).find('input').eq(0).on('focusout', fn_focusout.bind(event));
+                tr.children().eq(0).find('input').eq(1).on('keydown', fn_searchEnter.bind(event));
                 tr.children().eq(0).find('input').eq(0).val(grdNm);
+                tr.children().eq(9).find('input').val(item.rmrk);
 
                 /** 생산자 정보 입력 **/
                 if(item.spmtIndct.indexOf("-") != -1){
@@ -1875,6 +1888,7 @@
         let dlngShapCd = $("#dlngShapCd").val();
         let dlngMthdCd = $("#dlngMthdCd").val();
 
+
         if(!gfn_comConfirm("Q0001",msg)){
             return;
         }
@@ -1901,6 +1915,8 @@
 
         rows.each(function() {
             let rowData = $(this).children(":last").find('input').attr("sortInvnt");
+            let rmrk = $(this).children().eq(9).find('input').val();
+
             if(!gfn_isEmpty(rowData)){
                 rowData = JSON.parse(rowData);
                 let qnttIdx = parseInt(rowData.gdsGrd);
@@ -1917,6 +1933,7 @@
                     spmtQntt: spmtQntt,
                     spmtPckgUnitCd : rowData.spmtPckgUnitCd,
                     spmtGdsList : rowData.spmtInvId,
+                    rmrk : rmrk,
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
 
@@ -1949,7 +1966,6 @@
             return acc;
         }, []);
         saveJson.spmtPrfmncList = result;
-
         let returnSpmtNo = "";
 
         try{
@@ -1989,14 +2005,28 @@
         }
     }
 
-    const fn_remove = function(_event){
-        let inputWord = _event.originalEvent.data;
+    const fn_remove = async function(_event){
+        let inputWord = _event.keyCode;
+        let parentTr = $(_event.target).closest('tr');
+        parentTr.children().eq(0).find('input').eq(1).attr({'type':"number","readonly":false});
+        parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
+        parentTr.children().eq(0).find('input').eq(1).val('');
 
-        if(inputWord == "."){
-            $(_event.currentTarget).val("");
-            fn_onChangesortGds(_event.currentTarget);
+        if(inputWord == 190){
+            $(_event.target).val("");
+            _event.preventDefault();
+            fn_onChangesortGds(_event.target);
         }
     }
+    /**
+     * else if((inputWord == 13 || inputWord == 9) || _event.key == "Tab"){
+     await fn_onChangesortGds(_event.target);
+
+     if($(_event.target).parent().next().find('input').attr("readonly") == 'readonly'){
+     $(_event.target).parent().nextAll().last().find('button').trigger('click')
+     };
+     }
+     **/
 
     const fn_searchSpmtList = async function() {
         try {
@@ -2095,6 +2125,18 @@
         el.data('idx',el.data('idx')+1);
     }
 
+    const fn_searchEnter = function(e){
+        let keyCode = e.keyCode;
+        if(keyCode == 9 || keyCode == 13){
+            $(e.target).parent().nextAll().last().find('button').trigger('click');
+        }
+    }
+
+    const fn_focusout =function(e){
+        if($(e.relatedTarget).attr('readonly') == 'readonly'){
+            $(e.currentTarget).parent().nextAll().last().find('button').trigger('click');
+        }
+    }
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

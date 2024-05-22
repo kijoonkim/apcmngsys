@@ -337,13 +337,19 @@
 			alert('파일을 올려주세요.');
 			return;
 		}
-		if(bizPlanFile.length == 0){
-			alert('사업계획서/전환서 파일을 올려주세요.');
-			return;
+		if (gfn_isEmpty(bizPlanAprvYn)){
+			//승인값이 없는데 파일이 없으면
+			if(bizPlanFile.length == 0){
+				alert('사업계획서/전환서 파일을 올려주세요.');
+				return;
+			}
 		}
-		if(sgntrFile.length == 0){
-			alert('서명포함 스캔본 파일을 올려주세요.');
-			return;
+		if (gfn_isEmpty(sgntrAprvYn)){
+			//승인값이 없는데 파일이 없으면
+			if(sgntrFile.length == 0){
+				alert('서명포함 스캔본 파일을 올려주세요.');
+				return;
+			}
 		}
 
 		// 허용하려는 확장자들
@@ -354,9 +360,7 @@
 
 		if(bizPlanFile.length > 0){
 			for (var i = 0; i < bizPlanFile.length; i++) {
-				console.log(bizPlanFile[i]);
 				const extension = bizPlanFile[i].name.split('.').pop().toLowerCase();
-				console.log(extension);
 				if (allowedExtensions1.includes(extension)) {
 					formData.append('bizPlanFiles', bizPlanFile[i]);
 				} else {

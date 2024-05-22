@@ -56,8 +56,8 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
 	public List<GdsInvntrVO> selectSpmtGdsInvntrListByPckgno(GdsInvntrVO gdsInvntrVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 상품재고 목록 조회
 	 * @param gdsInvntrVO
@@ -104,7 +104,7 @@ public interface GdsInvntrMapper {
 	 * @return List<SpmtDsctnTotVO>
 	 * @throws Exception
 	 */
-	public List<SpmtDsctnTotVO> selectGdsDsctn(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
+	public SpmtDsctnTotVO selectGdsDsctn(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception;
 
 	/**
 	 * 상품재고 등록

@@ -36,4 +36,21 @@ public class BizPlanReqMngServiceImpl extends BaseServiceImpl implements BizPlan
 		return resultList;
 	}
 
+	@Override
+	public List<BizPlanReqMngVO> bppvSelectFilePathList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		List<BizPlanReqMngVO> resultList = bizPlanReqMngMapper.bppvSelectFilePathList(bizPlanReqMngVO);
+		return resultList;
+	}
+	@Override
+	public int bppvUpdateSbmsnDcnmt(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		int updatedCnt = bizPlanReqMngMapper.bppvUpdateSbmsnDcnmt(bizPlanReqMngVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public BizPlanReqMngVO selectFileInfo(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		BizPlanReqMngVO result = bizPlanReqMngMapper.selectFileInfo(bizPlanReqMngVO);
+		return result;
+	}
+
 }

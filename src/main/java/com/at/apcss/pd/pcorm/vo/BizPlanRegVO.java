@@ -1,5 +1,9 @@
 package com.at.apcss.pd.pcorm.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -40,5 +44,6 @@ public class BizPlanRegVO extends ComVO{
 	private String srvyCn;	//설문내용
 	private String rspnsCn;	//응답내용
 
-
+	private List<MultipartFile> bizPlanFiles;	//사업계획서/전환서 파일
+	private List<MultipartFile> sgntrFiles;	//서명포함 스캔본 파일
 }

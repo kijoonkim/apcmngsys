@@ -156,5 +156,7 @@ public class RawMtrWrhsSmmryVO extends ComVO {
 
 	private int qnttCyclSum;
 	private String sortYmd;
+	private String lastWrhsCmptnYn;
+
 
 }
