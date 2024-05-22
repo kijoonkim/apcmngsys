@@ -1148,6 +1148,7 @@
 		    		, SYS_LAST_CHG_USER_ID
 		    		, SYS_LAST_CHG_PRGRM_ID
 		    		, SORT_YMD
+		    		, LAST_WRHS_CMPTN_YN
 	    		) VALUES (
 					  #{apcCd}
 					, #{wrhsBgngYmd}
