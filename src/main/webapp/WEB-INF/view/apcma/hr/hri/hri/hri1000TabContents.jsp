@@ -1607,7 +1607,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -1686,7 +1686,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -1760,7 +1760,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -1813,7 +1813,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -1887,7 +1887,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -1937,7 +1937,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -1966,7 +1966,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2053,7 +2053,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2122,7 +2122,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2252,7 +2252,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2299,7 +2299,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2341,7 +2341,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2392,7 +2392,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2426,7 +2426,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2486,7 +2486,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2601,7 +2601,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
+        SBGridProperties.rowheader 			= ['seq','update'];
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
@@ -2874,569 +2874,212 @@
 
     //선택된 행 삭제
     const fn_deleteRowForGvwFamily = function() {
-
-        let grdRows = gvwFamily.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwFamily.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwFamily.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwFamily.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwFamily.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwFamily.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwSchool = function() {
-
-        let grdRows = gvwSchool.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwSchool.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwSchool.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwSchool.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwSchool.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwSchool.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwCareer = function() {
-
-        let grdRows = gvwCareer.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwCareer.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwCareer.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwCareer.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwCareer.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwCareer.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwLicense = function() {
-
-        let grdRows = gvwLicense.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwLicense.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwLicense.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwLicense.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwLicense.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwLicense.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwLanguage = function() {
-
-        let grdRows = gvwLanguage.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwLanguage.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwLanguage.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwLanguage.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwLanguage.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwLanguage.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwComputerSkill = function() {
-
-        let grdRows = gvwComputerSkill.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwComputerSkill.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwComputerSkill.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwComputerSkill.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwComputerSkill.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwComputerSkill.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwFile = function() {
-
-        let grdRows = gvwFile.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwFile.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwFile.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwFile.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwFile.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwFile.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwEducation = function() {
-
-        let grdRows = gvwEducation.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwEducation.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwEducation.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwEducation.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwEducation.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwEducation.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwPrize = function() {
-
-        let grdRows = gvwPrize.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwPrize.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwPrize.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwPrize.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwPrize.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwPrize.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwHealth = function() {
-
-        let grdRows = gvwHealth.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwHealth.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwHealth.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwHealth.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwHealth.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwHealth.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwAppointment = function() {
-
-        let grdRows = gvwAppointment.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwAppointment.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwAppointment.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwAppointment.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwAppointment.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwAppointment.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwAddJob = function() {
-
-        let grdRows = gvwAddJob.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwAddJob.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwAddJob.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwAddJob.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwAddJob.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwAddJob.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwTimeOffHistory = function() {
-
-        let grdRows = gvwTimeOffHistory.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwTimeOffHistory.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwTimeOffHistory.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwTimeOffHistory.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwTimeOffHistory.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwTimeOffHistory.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwGroupInsurance = function() {
-
-        let grdRows = gvwGroupInsurance.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwGroupInsurance.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwGroupInsurance.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwGroupInsurance.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwGroupInsurance.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwGroupInsurance.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwDisease = function() {
-
-        let grdRows = gvwDisease.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwDisease.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwDisease.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwDisease.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwDisease.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwDisease.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwPersonnelEvaluation = function() {
-
-        let grdRows = gvwPersonnelEvaluation.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwPersonnelEvaluation.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwPersonnelEvaluation.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwPersonnelEvaluation.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwPersonnelEvaluation.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwPersonnelEvaluation.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwOfficialInjury = function() {
-
-        let grdRows = gvwOfficialInjury.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwOfficialInjury.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwOfficialInjury.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwOfficialInjury.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwOfficialInjury.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwOfficialInjury.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwContractDeg = function() {
-
-        let grdRows = gvwContractDeg.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwContractDeg.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwContractDeg.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwContractDeg.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwContractDeg.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwContractDeg.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwWorkPlan = function() {
-
-        let grdRows = gvwWorkPlan.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwWorkPlan.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwWorkPlan.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwWorkPlan.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwWorkPlan.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwWorkPlan.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwEmp = function() {
-
-        let grdRows = gvwEmp.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwEmp.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwEmp.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwEmp.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwEmp.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwEmp.deleteRow(rowVal);
         }
     }
 
     const fn_deleteRowForGvwExpenditurewelfare = function() {
-
-        let grdRows = gvwExpenditurewelfare.getCheckedRows(0);
-        let delList = [];
-
-        for(let i=grdRows.length; i>0; i--){
-            let nRow = grdRows[i-1];
-            let rowData = gvwExpenditurewelfare.getRowData(nRow)
-            if(rowData.addYn == "Y"){
-                gvwExpenditurewelfare.deleteRow(nRow);
-            }else {
-                delList.push(rowData);
-                gvwExpenditurewelfare.deleteRow(nRow);
-            }
-        }
-
-        if (grdRows.length < 1) {
-            gfn_comAlert("W0003", "행삭제")				//W0003	{0}할 대상이 없습니다.
+        let rowVal = gvwExpenditurewelfare.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
-        }
-        if(delList.length > 0){
-            if(gfn_comConfirm("Q0001", "등록된 행입니다. ", "삭제")){
-                //fn_delete(delList);
-            }
+        } else {
+            gvwExpenditurewelfare.deleteRow(rowVal);
         }
     }
 </script>
