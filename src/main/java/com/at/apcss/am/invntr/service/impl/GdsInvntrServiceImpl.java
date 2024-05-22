@@ -88,7 +88,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	public List<GdsInvntrVO> selectSpmtGdsInvntrListByPckgno(GdsInvntrVO gdsInvntrVO) throws Exception {
 
 		List<GdsInvntrVO> resultList = new ArrayList<>();
-		
+
 		if (gdsInvntrVO.getSpmtGdsList() != null && !gdsInvntrVO.getSpmtGdsList().isEmpty()) {
 			resultList = gdsInvntrMapper.selectSpmtGdsInvntrListByPckgno(gdsInvntrVO);
 		}
@@ -96,7 +96,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		return resultList;
 	}
 
-	
+
 	@Override
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
 
@@ -305,7 +305,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 				|| !ComConstants.CON_NONE.equals(invntrInfo.getDelYn())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고");
 		}
-		
+
 		String invntrSttsCd = gdsInvntrVO.getInvntrSttsCd();
 		boolean needsIgnoreInvntrQntt = AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrSttsCd);
 
@@ -388,10 +388,10 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		if (AmConstants.CON_INVNTR_STTS_CD_FRCS_SPMT.equals(invntrInfo.getInvntrSttsCd())) {
 			deleteGdsInvntr(gdsInvntrVO);
 		} else {
-			
+
 			if (AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrInfo.getInvntrSttsCd())) {
 				gdsInvntrVO.setInvntrSttsCd(null);
-			}			
+			}
 			gdsInvntrMapper.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);
 		}
 
@@ -628,7 +628,15 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 	@Override
 	public List<SpmtDsctnTotVO> selectGdsDsctn(SpmtDsctnTotVO spmtDsctnTotVO) throws Exception {
-		List<SpmtDsctnTotVO> resultList = gdsInvntrMapper.selectGdsDsctn(spmtDsctnTotVO);
+
+		List<SpmtDsctnTotVO> resultList = new ArrayList<>();
+
+		resultList.add(gdsInvntrMapper.selectGdsDsctn(spmtDsctnTotVO));
+
+		spmtDsctnTotVO.setPckgYmdFrom("");
+		spmtDsctnTotVO.setPckgYmdTo("");
+
+		resultList.add(0, gdsInvntrMapper.selectGdsDsctn(spmtDsctnTotVO));
 		return resultList;
 	}
 

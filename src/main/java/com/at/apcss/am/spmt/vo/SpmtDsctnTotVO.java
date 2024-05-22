@@ -43,6 +43,8 @@ public class SpmtDsctnTotVO extends ComVO{
 	private String prdcrNm;
 	private String grdGubun;
 	private String rmrk;
+	private String lgstcsMat;
+	private String blwInvntrAprvGds;
 
 	private int red2Xl;
 	private int redXl;
