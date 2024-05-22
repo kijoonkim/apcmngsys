@@ -615,20 +615,31 @@
 		if(jsonApcPrdcrBackUp.length == 0){
 			jsonApcPrdcrBackUp = jsonApcPrdcr;
 		}
+		var paramList = [];
 		if(prdcrMngType === "NAME"){
 			prdcrList.forEach((item,index)=>{
-				var updateNm = item.prdcrNm;
-				var findNm = jsonApcPrdcrBackUp.find(function(data){return data.prdcrNm === updateNm});
+				var updateNm = item.prdcrNm.toString();
+				var updateCd = item.prdcrCd.toString();
+				var findNm = jsonApcPrdcrBackUp.find(item => item["prdcrNm"] === updateNm);
+				var findPrdcrCd = jsonApcPrdcrBackUp.find(item => item["prdcrCd"] === updateCd);
 				if(item.itemVrtyCd != null){
 					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
 				}
-				if(typeof findNm == "undefined" || item.rowSts == "I"){
-					return;
+
+
+				if(excelYn == "Y" && typeof findNm != "undefined" ){
+					if(findNm.prdcrNm == updateNm){
+						item.prdcrMngType = "U";
+						item.rowSts = "U";
+					}else if(findNm.prdcrCd == updateCd && findNm.prdcrNm != updateNm){
+						item.rowSts = "U";
+					}
+				}else if(excelYn == "Y" && typeof findPrdcrCd != "undefined"){
+					if(findPrdcrCd.prdcrCd === updateCd){
+						item.rowSts = "U";
+					}
 				}
-				if(findNm.prdcrNm === updateNm){
-					item.prdcrMngType = "U";
-					item.rowSts = "U";
-				}
+				paramList.push(item);
 
 			})
 		}else{
@@ -636,9 +647,10 @@
 				if(item.itemVrtyCd != null){
 					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
 				}
+				paramList.push(item);
 			})
 		}
-    	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList);
+    	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", paramList);
 
 		const data = await postJsonPromise;
         try {
@@ -655,6 +667,7 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+        excelYn = "N";
 	}
 
 	const fn_addPrdcr = async function(nRow){
