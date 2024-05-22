@@ -182,7 +182,7 @@
 			   AND 1=2
 		</if>
     	<![CDATA[
-    		 ORDER BY INVNTR_QNTT DESC
+    		 ORDER BY PCKG_YMD, INVNTR_QNTT
 		]]>
     </select>
 
