@@ -132,10 +132,12 @@
 
 
 	var jsonComCdType = [];
+	var jsonComDelynType = [];
     // only document
     window.addEventListener('DOMContentLoaded', async function(e) {
     	// 그리드 생성
     	await gfn_setComCdSBSelect('comCdgrid', 	jsonComCdType, 	'CD_TYPE'), 		// 코드유형
+    	await gfn_setComCdSBSelect('comCdDtlgrid', 	jsonComDelynType, 	'DEL_YN'), 		// 코드유형
     	fn_comCdCreateGrid();
     	fn_comCdDtlCreateGrid();
     });
@@ -227,9 +229,11 @@
             	typeinfo : {mask : {alias : 'numeric'}, maxlength: 10}, format : {type:'number'}},
             {caption: ["코드문자값"],	ref: 'cdChrVl',		type: 'input',		width: '100px',	style: 'text-align:center',
             	validate : gfn_chkByte.bind({byteLimit: 20})},
-            
+           	{caption: ["사용여부"],	ref: 'delYn',		type: 'combo',		width: '50px',	style: 'text-align:center',
+           	 typeinfo: {ref:'jsonComDelynType', itemcount: 10, label:'label', value:'value'}},
             {caption: ["코드ID"],		ref: 'cdId',		type: 'output',		hidden : true},
             {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',		hidden : true}
+
         ];
         comCdDtlgrid = _SBGrid.create(SBGridProperties);
         comCdDtlgrid.bind( "afterpagechanged" , "fn_pagingComCdDtl" );
@@ -362,15 +366,16 @@
 						upCdVl : item.upCdVl,
 						cdNumVl : item.cdNumVl,
 						cdChrVl : item.cdChrVl,
-						addYn : 'N'
+						addYn : 'N',
+						delYn : item.delYn
 					}
 					comCdDtlGridData.push(comCdDtlList);
-	
+
 	  				if (index === 0) {
 	  					totalRecordCount = item.totalRecordCount;
 	  				}
 				});
-	
+
 	          	if (comCdDtlGridData.length > 0) {
 	          		if (comCdDtlgrid.getPageTotalCount() != totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	          			comCdDtlgrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
