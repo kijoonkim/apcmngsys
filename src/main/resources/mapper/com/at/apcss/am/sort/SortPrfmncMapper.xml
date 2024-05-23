@@ -2076,6 +2076,7 @@
                 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 			AS VRTY_NM
                 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 		AS SPCFCT_NM
     			, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
     		  FROM (
 				SELECT
 					  SP.APC_CD				AS APC_CD
@@ -2088,6 +2089,7 @@
 					, MAX(SP.WRHS_QNTT)     AS WRHS_QNTT
 					, MAX(SP.WRHS_WGHT)     AS WRHS_WGHT
 					, SP.INPT_SN           	AS INPT_SN
+					, SP.FCLT_CD			AS FCLT_CD
 					, MAX(SP.SORTNO)		AS SORTNO
 					, MAX(SP.SPCFCT_CD)		AS SPCFCT_CD
 					, MAX(SP.WAREHOUSE_SE_CD)	AS WAREHOUSE_SE_CD
@@ -2177,6 +2179,7 @@
 							, SI.GRD_CD         	AS GRD_CD
 							, SI.SORT_QNTT      	AS SORT_QNTT
 							, SI.SORT_WGHT      	AS SORT_WGHT
+							, SI.FCLT_CD			AS FCLT_CD
 							, SI.WAREHOUSE_SE_CD    AS WAREHOUSE_SE_CD
 							, SI.RMRK				AS RMRK
 						  FROM TB_RAW_MTR_INVNTR RI
@@ -2213,6 +2216,9 @@
 			    	<if test='spcfctCd != null and spcfctCd != ""'>
 						   AND SI.SPCFCT_CD = #{spcfctCd}
 			    	</if>
+			    	<if test='fcltCd != null and fcltCd != ""'>
+						   AND SI.FCLT_CD = #{fcltCd}
+			    	</if>
 		<![CDATA[
 					) SP
 					, (
@@ -2242,6 +2248,7 @@
 		 			  SP.APC_CD
 					, SP.WRHSNO
 					, SP.INPT_SN
+					, SP.FCLT_CD
 				 ORDER BY
 		 			  APC_CD
 					, WRHS_YMD
@@ -2286,6 +2293,7 @@
                 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 			AS VRTY_NM
                 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 		AS SPCFCT_NM
     			, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+    			, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
     		  FROM (
 				SELECT
 					  SP.APC_CD				AS APC_CD
@@ -2298,6 +2306,7 @@
 					, MAX(SP.WRHS_QNTT)     AS WRHS_QNTT
 					, MAX(SP.WRHS_WGHT)     AS WRHS_WGHT
 					, SP.INPT_SN           	AS INPT_SN
+					, SP.FCLT_CD			AS FCLT_CD
 					, MAX(SP.SORTNO)		AS SORTNO
 					, MAX(SP.SPCFCT_CD)		AS SPCFCT_CD
 					, MAX(SP.WAREHOUSE_SE_CD)	AS WAREHOUSE_SE_CD
@@ -2388,6 +2397,7 @@
 							, SI.SORT_QNTT      	AS SORT_QNTT
 							, SI.SORT_WGHT      	AS SORT_WGHT
 							, SI.WAREHOUSE_SE_CD    AS WAREHOUSE_SE_CD
+							, SI.FCLT_CD    		AS FCLT_CD
 							, SI.RMRK				AS RMRK
 						  FROM TB_RAW_MTR_INVNTR RI
 
@@ -2423,6 +2433,10 @@
 			    	<if test='spcfctCd != null and spcfctCd != ""'>
 						   AND SI.SPCFCT_CD = #{spcfctCd}
 			    	</if>
+			    	<if test='fcltCd != null and fcltCd != ""'>
+						   AND SI.FCLT_CD = #{fcltCd}
+			    	</if>
+			    	
 		<![CDATA[
 					) SP
 					, (
@@ -2476,6 +2490,7 @@
 		 			  SP.APC_CD
 					, SP.WRHSNO
 					, SP.INPT_SN
+					, SP.FCLT_CD
 				 ORDER BY
 		 			  APC_CD
 					, WRHS_YMD

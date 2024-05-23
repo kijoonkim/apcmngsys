@@ -124,16 +124,25 @@
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 <!-- 							<td class="td_input" style="border-right: hidden;"></td> -->
-							<th scope="row" class="th_bg">규격</th>
+							<th scope="row" class="th_bg">선별기</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-sortFcltCd"
+									name="srch-slt-sortFcltCd"
+									uitype="single" class="form-control input-sm"
+									unselected-text="전체"
+									jsondata-ref="jsonSortFclt"
+								></sbux-select>
 								<sbux-select
 									id="srch-slt-spcfctCd"
 									name="srch-slt-spcfctCd"
 									uitype="single"
 									class="form-control input-sm"
+									style="display: none"
 									unselected-text="전체"
 									jsondata-ref="jsonApcSpcfct"
 								></sbux-select>
+
 							</td>
 							<td class="td_input"></td>
 						</tr>
@@ -227,7 +236,7 @@
 	var jsonApcSpcfct		= [];	// 규격 	spcfctCd		검색
 	var jsonApcGrdDtl		= [];	// 등급 	grdCd			그리드헤더
 	var jsonComWarehouse	= [];	// 창고 	warehouseSeCd	검색
-	var jsonComFcltCd		= [];	// 선별기 	fcltCd			검색
+	var jsonSortFclt		= [];	// 선별기 	sortFcltCd		검색
 
 	var jsonGrdSeCd	= [
 		{text: "선별", value: _GRD_SE_CD_SORT},
@@ -253,7 +262,8 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 선별기
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 창고
+			gfn_setComCdSBSelect('srch-slt-sortFcltCd',	jsonSortFclt, 	'SORT_FCLT_CD', 	gv_selectedApcCd),	// 선별기
 		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
 		 	gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, 		gv_selectedApcCd),						// 품종
 		]);
@@ -366,6 +376,13 @@
         	width:'80px',   
         	style:'text-align:right',
         	format : {type:'number', rule:'#,###'}
+        },
+        {
+        	caption: ["선별기","선별기"],  			
+        	ref: 'fcltNm',   			
+        	type:'output',  	
+        	width:'80px',   
+        	style:'text-align:center'
         },
         {
         	caption: ["규격","규격"],  			
@@ -631,6 +648,7 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");				// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");					// 품목
   		let itemVrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
+  		let fcltCd = SBUxMethod.get("srch-slt-sortFcltCd");				// 선별기
   		let vrtyCd = "";
   		if(!gfn_isEmpty(itemVrtyCd)){
   			vrtyCd = itemVrtyCd.substr(4,7);
@@ -651,6 +669,7 @@
 			vrtyCd: vrtyCd,
 			spcfctCd: spcfctCd,
 			warehouseSeCd: warehouseSeCd,
+			fcltCd: fcltCd,
 
           	// pagination
   	  		pagingYn : 'N',
@@ -750,6 +769,8 @@
 	  	          		vrtyNm: item.vrtyNm,
 	  	          		spcfctNm: item.spcfctNm,
 	  	          		warehouseSeNm: item.warehouseSeNm,
+	  	          		fcltCd: item.fcltCd,
+	  	          		fcltNm: item.fcltNm,
 	  	 				rmrk: item.rmrk
   	  				}
   	          		jsonSortPrfmnc.push(sortPrfmnc);

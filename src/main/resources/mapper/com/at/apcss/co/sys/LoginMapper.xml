@@ -86,9 +86,11 @@
 			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.actionLogin */
 				  CU.USER_ID		AS ID
 				, CU.USER_NM		AS NAME
-				, CU.PSWD			AS PASSWORD
+				--, CU.PSWD			AS PASSWORD
+				, NULL				AS PASSWORD
 				, CU.USER_ID		AS USER_ID
-				, CU.PSWD			AS PSWD
+				--, CU.PSWD			AS PSWD
+				, NULL				AS PSWD
 				, CU.USER_TYPE		AS USER_TYPE
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
@@ -137,9 +139,11 @@
 			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.actionSSOLogin */
 				  CU.USER_ID		AS ID
 				, CU.USER_NM		AS NAME
-				, CU.PSWD			AS PASSWORD
+				--, CU.PSWD			AS PASSWORD
+				, NULL				AS PASSWORD
 				, CU.USER_ID		AS USER_ID
-				, CU.PSWD			AS PSWD
+				--, CU.PSWD			AS PSWD
+				, NULL				AS PSWD
 				, CU.USER_TYPE		AS USER_TYPE
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
