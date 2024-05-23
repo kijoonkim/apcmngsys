@@ -609,38 +609,10 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-		const apcEvrmntStng = gfn_postJSON("/am/apc/selectApcEvrmntStng.do",{apcCd: gv_selectedApcCd});
-		const apcEvrmntStngData = await apcEvrmntStng;
-		const prdcrMngType = apcEvrmntStngData.resultMap.prdcrMngType;
-		if(jsonApcPrdcrBackUp.length == 0){
-			jsonApcPrdcrBackUp = jsonApcPrdcr;
-		}
-		if(prdcrMngType === "NAME"){
-			prdcrList.forEach((item,index)=>{
-				var updateNm = item.prdcrNm;
-				var findNm = jsonApcPrdcrBackUp.find(function(data){return data.prdcrNm === updateNm});
-				if(item.itemVrtyCd != null){
-					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
-				}
-				if(typeof findNm == "undefined" || item.rowSts == "I"){
-					return;
-				}
-				if(findNm.prdcrNm === updateNm){
-					item.prdcrMngType = "U";
-					item.rowSts = "U";
-				}
 
-			})
-		}else{
-			prdcrList.forEach((item,index)=>{
-				if(item.itemVrtyCd != null){
-					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
-				}
-			})
-		}
     	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList);
-
 		const data = await postJsonPromise;
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -655,6 +627,7 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+        excelYn = "N";
 	}
 
 	const fn_addPrdcr = async function(nRow){
