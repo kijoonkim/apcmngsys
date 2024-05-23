@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class ApcMaHri1000Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> selectHri1000List(
             @RequestBody Map<String, Object> param
             , Model model
+            , HttpSession session
             , HttpServletRequest request) throws Exception{
 
         logger.info("=============selectHri1000List=====start========");
@@ -49,7 +51,7 @@ public class ApcMaHri1000Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_HRI1000_Q");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -64,6 +66,7 @@ public class ApcMaHri1000Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> insertHri1000Master(
             @RequestBody Map<String, Object> param
             ,Model model
+            ,HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============insertHri1000Master=====start========");
@@ -71,7 +74,7 @@ public class ApcMaHri1000Controller extends BaseController {
 
         try {
             param.put("procedure", 		"P_HRI1000_S");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
@@ -85,6 +88,7 @@ public class ApcMaHri1000Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> insertHri1000Sub(
             @RequestBody Map<String, Object> param
             ,Model model
+            ,HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============insertHri1000Master=====start========");
@@ -92,7 +96,7 @@ public class ApcMaHri1000Controller extends BaseController {
 
         try {
             param.put("procedure", 		"P_HRI1000_S1");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
@@ -106,6 +110,7 @@ public class ApcMaHri1000Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> insertHri1000Detail(
             @RequestBody Map<String, Object> param
             ,Model model
+            ,HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============insertHri1000Detail=====start========");
@@ -119,7 +124,7 @@ public class ApcMaHri1000Controller extends BaseController {
                         listData.stream().forEach(d -> {
                             try {
                                 d.put("procedure", 		key);
-                                apcMaCommDirectService.callProc(d, request.getMethod(), "");
+                                apcMaCommDirectService.callProc(d, session, request, "");
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -128,7 +133,7 @@ public class ApcMaHri1000Controller extends BaseController {
                     } else if (param.get(key) instanceof Map) {
                         Map<String, Object> mapData = (Map<String, Object>) param.get(key);
                         mapData.put("procedure", 		key);
-                        resultMap.put(key, apcMaCommDirectService.callProc(mapData, request.getMethod(), ""));
+                        resultMap.put(key, apcMaCommDirectService.callProc(mapData, session, request, ""));
                     }
                 }
             }
@@ -145,6 +150,7 @@ public class ApcMaHri1000Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> deleteHri1000List(
             @RequestBody Map<String, Object> param
             , Model model
+            ,HttpSession session
             , HttpServletRequest request) throws Exception{
 
         logger.info("=============deleteHri1000List=====start========");
@@ -153,7 +159,7 @@ public class ApcMaHri1000Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_HRI1000_S");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -168,6 +174,7 @@ public class ApcMaHri1000Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> insertHri1000EnterEmp(
             @RequestBody Map<String, Object> param
             , Model model
+            ,HttpSession session
             , HttpServletRequest request) throws Exception{
 
         logger.info("=============insertHri1000EnterEmp=====start========");
@@ -176,7 +183,7 @@ public class ApcMaHri1000Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_HRI1000_ENTER_EMP_S");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());

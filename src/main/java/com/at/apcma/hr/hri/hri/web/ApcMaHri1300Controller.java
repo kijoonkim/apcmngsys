@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,7 @@ public class ApcMaHri1300Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> selectHri1300List(
             @RequestBody Map<String, Object> param
             , Model model
+            , HttpSession session
             , HttpServletRequest request) throws Exception{
 
         logger.info("=============selectHri1300List=====start========");
@@ -48,7 +50,7 @@ public class ApcMaHri1300Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_HRI1300_Q");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());

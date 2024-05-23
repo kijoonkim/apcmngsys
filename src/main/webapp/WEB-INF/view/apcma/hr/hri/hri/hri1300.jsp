@@ -707,8 +707,8 @@
         let APPOINT_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: 'N'
-            ,V_P_LANG_ID		: 'KOR'
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
             ,V_P_COMP_CODE		: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_APPOINT_NUM    : APPOINT_NUM
@@ -819,8 +819,8 @@
         let APPOINT_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: 'N'
-            ,V_P_LANG_ID		: 'KOR'
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
             ,V_P_COMP_CODE		: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_APPOINT_NUM    : APPOINT_NUM
@@ -925,8 +925,8 @@
 
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: 'N'
-            ,V_P_LANG_ID		: 'KOR'
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
             ,V_P_COMP_CODE		: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_APPOINT_NUM    : ''

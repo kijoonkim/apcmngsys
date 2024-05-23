@@ -345,8 +345,8 @@
         let EMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	    : 'N'
-            ,V_P_LANG_ID		    : 'KOR'
+            V_P_DEBUG_MODE_YN	    : ''
+            ,V_P_LANG_ID		    : ''
             ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
             ,V_P_REQUEST_DATE_FR    : REQUEST_DATE_FR
@@ -452,8 +452,8 @@
         let rowData = gvwList.getRowData(nRow);
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: 'N'
-            ,V_P_LANG_ID		: 'KOR'
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
             ,V_P_COMP_CODE		: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
             ,V_P_REQUEST_DATE_FR: APPOINT_NUM
