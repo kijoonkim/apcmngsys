@@ -893,7 +893,7 @@
             'showgoalpageui': true
         };
         SBGridProperties.columns = [
-            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},
+            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["사번"], 	        ref: 'EMP_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["이름"],  		ref: 'EMP_NAME',    			type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["상위부서"],       ref: 'PARENT_DEPT_NAME', 		type:'output',  	width:'75px',  	style:'text-align:left'},
@@ -1144,7 +1144,59 @@
      * 입사처리
      */
     const fn_joinCompnay = async function() {
+        let EMP_CODE_LIST = "";
+        const allData = gvwList.getGridDataAll();
 
+        allData.forEach((item, index) => {
+            let rowData = gvwList.getRowData(index);
+            if (item.CHK_YN === "Y") {
+                EMP_CODE_LIST += rowData.EMP_CODE + '|'
+            }
+        });
+
+        if (EMP_CODE_LIST.length == 0) {
+            gfn_comAlert("W0001", "사원");		//	W0001	{0}을/를 선택하세요.
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: 'N',
+            V_P_LANG_ID		: 'KOR',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_EMP_CODE_LIST : EMP_CODE_LIST,
+            V_P_ENTER_DATE : '',
+            V_P_FORM_ID	: p_formId,
+            V_P_MENU_ID	: p_menuId,
+            V_P_PROC_ID	: '',
+            V_P_USERID : '',
+            V_P_PC : '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1000EnterEmp.do", {
+            getType				: 'json',
+            workType			: 'N',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
     /**

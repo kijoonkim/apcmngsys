@@ -163,4 +163,27 @@ public class ApcMaHri1000Controller extends BaseController {
         logger.info("=============deleteHri1000List=====end========");
         return getSuccessResponseEntity(resultMap);
     }
+
+    @PostMapping(value = "/hr/hri/hri/insertHri1000EnterEmp.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHri1000EnterEmp(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHri1000EnterEmp=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_HRI1000_ENTER_EMP_S");
+            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHri1000EnterEmp=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
 }
