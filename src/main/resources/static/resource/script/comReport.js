@@ -112,9 +112,12 @@ const gfn_DirectPrintClipReport = async function(fileName, param) {
 				reportKey,
 				document.getElementById(param.element)
 			);
+	report.setIsPrintUse("html","pdf","exe");
 	report.setEndReportEvent(function(){
-			report.printHTMLDirect();
+			// report.printHTMLDirect();
+		report.exeDirectPrint(false, "", "", 1, -1, 2, "");
 		});
+
 	report.view();
 
 }

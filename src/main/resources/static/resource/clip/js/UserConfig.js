@@ -244,7 +244,7 @@ function ClipMirroringAlertUI(title, text, type){
 				window.m_clipEFormSocket.sendCloseClipAlert();
 			}
 		}catch(e){
-			
+			ReportWebLog(e.stack);
 		}
 	}, alertType);
 	
@@ -253,7 +253,7 @@ function ClipMirroringAlertUI(title, text, type){
 			window.m_clipEFormSocket.sendOpenClipAlert(title, text, type);
 		}
 	}catch(e){
-		
+		ReportWebLog(e.stack);
 	}
 }
 
@@ -1334,4 +1334,11 @@ window.objClipMainStampButtonName = "인감";
 window.objClipMainChangeButtonName = "전환";
 /* exe 전용 메인화면 초기화 버튼 라벨*/
 window.objClipMainResetButtonName = "초기화";
+/* exe 전용 따라쓰기 서명 타이틀 뒤에 읽어주는 텍스트 */
+window.objClipSignSuffixSpeechText = "입력해주세요.";
+
+/* 모바일 선택박스 팝업 일 때 PlaceHolder */
+window.objClipPopupSelectPlaceHolder = "여기를 터치하여 선택해주세요";
+
+
 

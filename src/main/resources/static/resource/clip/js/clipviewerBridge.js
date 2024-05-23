@@ -154,6 +154,19 @@ if (typeof ClipHybrid != 'undefined') {
 	                'type': 'selectbox'
 	            };
 			window.webkit.messageHandlers.ClipHybrid.postMessage(message);
+		},
+		setSignStampDataNativeControl:function(jsonData) {
+			var message = {
+	                'fn': 'setSignStampDataNativeControl',
+	                'jsonData': jsonData
+	            };
+			window.webkit.messageHandlers.ClipHybrid.postMessage(message);
+		},
+		useStampByScreenLock:function() {
+			var message = {
+	                'fn': 'useStampByScreenLock'
+	            };
+			window.webkit.messageHandlers.ClipHybrid.postMessage(message);
 		}
 	});
 } else if(typeof TestHybrid != 'undefined'){

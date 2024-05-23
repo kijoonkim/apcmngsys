@@ -1871,8 +1871,7 @@
                 $("#spmtNo").text(data.resultList[0].spmtno);
 
                 SBUxMethod.closeModal("searchSpmt");
-                SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
-                fn_onchangeCnpt();
+
             });
             /** max 삭제 추후 리팩토링 필요함 **/
             data.resultList.forEach(function(item,idx){
@@ -1881,6 +1880,25 @@
                 tr.children().eq(5).find('input').removeAttr('max');
                 tr.children().eq(6).find('input').removeAttr('max');
             });
+            /** 거래처 세팅 **/
+            let dlngShapCd = parseInt(data.resultList[0].dlngShapCd);
+            let dlngMthdCd = parseInt(data.resultList[0].dlngMthdCd);
+
+            if(gfn_isEmpty(dlngShapCd) && gfn_isEmpty(dlngMthdCd)){
+                SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
+                fn_onchangeCnpt();
+            }else{
+                SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
+                $("#dlngShapCd").val(dlngShapCd);
+                $("#dlngMthdCd").val(dlngMthdCd);
+
+                fn_onChangeDlng($("#dlngShapCd"),true);
+                fn_onChangeDlng($("#dlngMthdCd"),true);
+            }
+
+
+
+
         }catch (e){
             gfn_comAlert("E0001");
             fn_reset();
@@ -2134,23 +2152,41 @@
         SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
     }
 
-    const fn_onChangeDlng = async function(_el){
+    const fn_onChangeDlng = async function(_el,_flag = false){
         let el = $(_el);
-        let idx = $(_el).data('idx');
+        let idx = $(_el).attr('data-idx');
         let id = $(_el).attr('id');
 
         if(id == "dlngShapCd"){
             let dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
-            let selectIdx = idx % dlngShapCd.length;
-            el.text(dlngShapCd[selectIdx].cdVlNm);
-            el.val(dlngShapCd[selectIdx].cdVl);
+            if(_flag){
+                dlngShapCd.forEach(function(item){
+                   if(item.cdVl == el.val()){
+                    el.text(item.cdVlNm);
+                   }
+                });
+            }else{
+                let selectIdx = idx % dlngShapCd.length;
+                el.text(dlngShapCd[selectIdx].cdVlNm);
+                el.val(dlngShapCd[selectIdx].cdVl);
+                el.attr('data-idx',parseInt(el.attr('data-idx'))+1);
+            }
         }else{
             let dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
-            let selectIdx = idx % dlngMthdCd.length;
-            el.text(dlngMthdCd[selectIdx].cdVlNm);
-            el.val(dlngMthdCd[selectIdx].cdVl);
+            if(_flag){
+                dlngMthdCd.forEach(function(item){
+                    if(item.cdVl == el.val()){
+                        el.text(item.cdVlNm);
+                    }
+                });
+            }else{
+                let selectIdx = idx % dlngMthdCd.length;
+                el.text(dlngMthdCd[selectIdx].cdVlNm);
+                el.val(dlngMthdCd[selectIdx].cdVl);
+                el.attr('data-idx',parseInt(el.attr('data-idx'))+1);
+            }
         }
-        el.data('idx',el.data('idx')+1);
+
     }
 
     const fn_searchEnter = function(e){
