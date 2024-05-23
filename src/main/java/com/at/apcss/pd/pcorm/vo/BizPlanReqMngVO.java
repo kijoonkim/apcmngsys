@@ -26,10 +26,17 @@ public class BizPlanReqMngVO extends ComVO{
 
 	private String rmrk;	//비고
 
+	private String bizPlanRmrk;	//사업계획서 비고
+	private String sgntrRmrk;	//서명서 비고
+
+	private String bizPlanFileSn;	//사업계획서 파일 일련번호
+	private String sgntrFileSn;		//서명서 파일 일련번호
+
 	private String bpChk;	//사업계획서/전환서 파일 체크
 	private String sChk;	//서명포함 스캔본 파일 체크
 
 	private String dcmntKnd;	//문서 종류
+	private String dcmntKndNm;	//문서 종류
 	private String fileSn;	//파일 일련번호
 	private String filePathNm;	//파일 경로
 	private String orgFileNm;	//원본 파일 명
