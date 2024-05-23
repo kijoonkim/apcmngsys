@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -155,6 +156,59 @@ public class ApcMaSys3200Controller extends BaseController {
         }
 
         logger.info("=============deleteSys3200=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 관리번호 채번 정보 신규
+    @PostMapping(value = "/co/sys/sys/insertSys3200His.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertSys3200His(
+            @RequestBody Map<String, Object> param
+            ,Model model
+            ,HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertSys3200His=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+           /* for (Map<String, Object> param : params) {*/
+                param.put("procedure", "P_SYS3200_S1");
+                resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+           /* }*/
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertSys3200His=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+
+    // 관리번호 채번 정보 수정
+    @PostMapping(value = "/co/sys/sys/updateSys3200His.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> updateSys3200His(
+            @RequestBody List<Map<String, Object>> params
+            ,Model model
+            ,HttpServletRequest request) throws Exception{
+
+        logger.info("=============updateSys3200His=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            for (Map<String, Object> param : params) {
+                param.put("procedure", "P_SYS3200_S1");
+                resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            }
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============updateSys3200His=====end========");
         return getSuccessResponseEntity(resultMap);
     }
 
