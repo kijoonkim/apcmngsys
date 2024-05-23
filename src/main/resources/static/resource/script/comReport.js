@@ -247,12 +247,17 @@ const gfn_exeDirectTest = async function(fileName, param, _flag){
 		reportKey,
 		document.getElementById(param.element)
 	);
+	report.setViewType(1);
 	report.setIsPrintUse("html","pdf","exe");
+	report.setStyle("close_button", "display:none;");
+	report.setReportDirectPrintButton(true,1);
+
 	report.setEndReportEvent(function(){
 		if(_flag){
 			report.exeDirectPrint(false, "", "", 1, -1, 2, "");
 		}else{
-			report.exePrint(true, "", "", 1, -1, 2, "");
+			report.printHTMLDirect();
+			// report.exePrint(true, "", "", 1, -1, 2, "");
 		}
 	});
 	report.view();
