@@ -271,7 +271,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		String sysLastChgPrgrmId =  sortBffaVO.getSysLastChgPrgrmId();
 		String sysLastChgDt =  sortBffaVO.getSysLastChgDt();
 
-		if(StringUtils.isEmpty(wrhsno)) {
+		if(!StringUtils.hasText(wrhsno)) {
 			String wrhsNo = cmnsTaskNoService.selectBffaWrhsno(apcCd,wrhsYmd);
 			sortBffaVO.setBffaWrhsno(wrhsNo);
 			sortBffaVO.setPltno(wrhsNo);

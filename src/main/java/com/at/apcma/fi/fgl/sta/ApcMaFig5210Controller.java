@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,7 @@ public class ApcMaFig5210Controller extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectCom3100List(
     		@RequestBody Map<String, Object> param
 			,Model model
+			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
 		logger.info("=============selectFig5210ist=====start========");
@@ -51,7 +53,7 @@ public class ApcMaFig5210Controller extends BaseController {
 		try {
 			
 			param.put("procedure", 		"SP_COM3100_Q");
-			resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

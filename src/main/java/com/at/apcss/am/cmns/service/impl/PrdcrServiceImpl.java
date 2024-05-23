@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper;
+import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.am.cmns.mapper.PrdcrMapper;
 import com.at.apcss.am.cmns.service.PrdcrDtlService;
 import com.at.apcss.am.cmns.service.PrdcrService;
@@ -41,6 +43,9 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 
 	@Autowired
 	private PrdcrMapper prdcrMapper;
+
+	@Autowired
+	private ApcEvrmntStngMapper apcMapper;
 
 	@Resource(name="prdcrDtlService")
 	private PrdcrDtlService prdcrDtlService;
@@ -130,15 +135,43 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 
 		List<PrdcrVO> insertList = new ArrayList<>();
 		List<PrdcrVO> updateList = new ArrayList<>();
+		ApcEvrmntStngVO apc = new ApcEvrmntStngVO();
+		String prdcrMngTypeChk = "";
 
 		for ( PrdcrVO prdcrVO : prdcrList ) {
 			PrdcrVO vo = new PrdcrVO();
 			BeanUtils.copyProperties(prdcrVO, vo);
 
-			if (ComConstants.ROW_STS_INSERT.equals(prdcrVO.getRowSts())) {
+			if(prdcrMngTypeChk == "") {
+				apc.setApcCd(prdcrVO.getApcCd());
+				ApcEvrmntStngVO apcVO = apcMapper.selectApcEvrmntStng(apc);
+				prdcrMngTypeChk = apcVO.getPrdcrMngType();
+			}
+
+
+			if(prdcrMngTypeChk.equals("NAME")) {
+				// prdcrCd가 없으면 apc코드, 생산자명으로 조회한다. 조회결과가 없으면 insert 있으면 update
+				PrdcrVO prdcrListChk = prdcrMapper.selectPrdcrNm(vo);
+				PrdcrVO prdcrListChk2 = prdcrMapper.selectPrdcr(vo);
+
+				if(prdcrListChk == null) {
+					vo.setRowSts(ComConstants.ROW_STS_INSERT);
+					if(prdcrListChk2 != null) {
+						vo.setRowSts(ComConstants.ROW_STS_UPDATE);
+						vo.setPrdcrCd(prdcrListChk2.getPrdcrCd());
+						vo.setPrdcrMngType("CODE");
+					}
+				}else {
+					vo.setRowSts(ComConstants.ROW_STS_UPDATE);
+					vo.setPrdcrCd(prdcrListChk.getPrdcrCd());
+				}
+			}
+
+
+			if (ComConstants.ROW_STS_INSERT.equals(vo.getRowSts())) {
 				insertList.add(vo);
 			}
-			if (ComConstants.ROW_STS_UPDATE.equals(prdcrVO.getRowSts())) {
+			if (ComConstants.ROW_STS_UPDATE.equals(vo.getRowSts())) {
 				updateList.add(vo);
 			}
 		}
@@ -157,8 +190,11 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 
 		for ( PrdcrVO prdcrVO : updateList ) {
 			int check;
-			String prdcrMngTypeChk = prdcrVO.getPrdcrMngType();
-			if(prdcrMngTypeChk != null && prdcrMngTypeChk.equals("U")) {
+
+			if(prdcrMngTypeChk != null && prdcrMngTypeChk.equals("NAME")) {
+				if(prdcrVO.getPrdcrMngType()=="CODE") {
+					check = prdcrMapper.updatePrdcr(prdcrVO);
+				}
 				check = prdcrMapper.updatePrdcrNm(prdcrVO);
 			}else {
 				check = prdcrMapper.updatePrdcr(prdcrVO);

@@ -3,6 +3,8 @@ package com.at.apcss.co.sys.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.apc.service.ApcInfoService;
 import com.at.apcss.co.apc.vo.ApcInfoVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -65,10 +69,11 @@ public class LoginController extends BaseController {
 	@Resource(name = "apcInfoService")
 	private ApcInfoService apcInfoService;
 
+	@Resource(name= "apcMaCommDirectService")
+	private ApcMaCommDirectService apcMaCommDirectService;
+	
 	@Autowired
 	ComLogService comLogService;
-
-
 
 	@GetMapping("/accessDenied")
 	public ResponseEntity<HashMap<String, Object>> accessDenied(
@@ -107,6 +112,7 @@ public class LoginController extends BaseController {
 		logger.debug("loginVO {}", loginVO.toString());
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		request.getSession().setAttribute("loginInfo", null);
 		//LoginVO loginVO = new LoginVO();
 		try {
 
@@ -180,6 +186,33 @@ public class LoginController extends BaseController {
 						} else {
 							// 정상 로그인 진행
 
+							//----------------------------------------------------------------------------
+							//경영관리 쎄션정보 가져오기
+							Map<String, Object> gmap1 = new HashMap<String, Object>();
+							gmap1.put("procedure", 			"JPSESSIONINFO");
+							gmap1.put("getType", 			"json");
+							gmap1.put("cv_count", 			"1");
+							
+				    		String gmap2[][] = {
+								{"V_P_LANG_ID",			"KOR"},
+								{"V_P_USERID",			resultVO.getUserId()},
+								{"V_P_PARAM1",			""},
+								{"V_P_PARAM2",			""}
+				        	};
+							Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+							
+							//쎄션에 저장
+							Map<String, Object> gmap4 = new HashMap<String, Object>();
+							List<Map<String, Object>> list2 = (ArrayList<Map<String,Object>>)gmap3.get("cv_1");
+							for (int i = 0; i < list2.size(); i++) {
+								if(list2.get(i).get("CLASSNAME").equals("SESSIONINFO")) {
+									gmap4.put(list2.get(i).get("KEYCODE").toString(), list2.get(i).get("KEYVALUE"));
+								}
+							}
+							request.getSession().setAttribute("maSessionInfo", gmap4);
+							//----------------------------------------------------------------------------
+							
+							
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.LOGIN_SUCCESS);
 							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
 
@@ -219,7 +252,12 @@ public class LoginController extends BaseController {
 								logger.debug(objMapper.writeValueAsString(comApcJsonVO));
 
 							}
-
+							
+							String loginInfo = objMapper.writeValueAsString(resultVO);
+							if (StringUtils.hasText(loginInfo)) {
+								request.getSession().setAttribute("loginInfo", loginInfo);
+							}
+							
 							if (comApcList != null && !comApcList.isEmpty()) {
 								request.getSession().setAttribute("comApcList", comApcList);
 							} else {
@@ -540,6 +578,11 @@ public class LoginController extends BaseController {
 				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 			}
 
+			String loginInfo = objMapper.writeValueAsString(resultVO);
+			if (StringUtils.hasText(loginInfo)) {
+				request.getSession().setAttribute("loginInfo", loginInfo);
+			}
+			
 			if (comApcList != null && !comApcList.isEmpty()) {
 				request.getSession().setAttribute("comApcList", comApcList);
 			} else {
@@ -626,6 +669,7 @@ public class LoginController extends BaseController {
 		request.getSession().setAttribute("accessUser", null);
 		request.getSession().setAttribute("sysPrgrmId", null);
 		request.getSession().setAttribute("comApcList", null);
+		request.getSession().setAttribute("loginInfo", null);
 
 		return "redirect:/main.do";
 	}
