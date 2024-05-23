@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcma.com.mapper.ProcMapper;
 import com.at.apcma.com.service.ApcMaCommDirectService;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name 		: ComMsgServiceImpl.java
@@ -48,11 +50,11 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
     	return procMapper.callProcTibero(param);
     }    
     
-	public HashMap<String, Object> callProc(Map<String, Object> param, String rtype, String ptype) throws Exception{
+	public HashMap<String, Object> callProc(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception{
 		
 		HashMap<String, Object> rmap = new HashMap<String, Object>();
 		try {
-			HashMap<String, Object> map1 = this.InnerCallProc(param, rtype, ptype);
+			HashMap<String, Object> map1 = this.InnerCallProc(param, session, request, ptype);
 			rmap = this.checkError(map1);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -60,16 +62,17 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		return rmap;
 	}
 	
-	private HashMap<String, Object> InnerCallProc(Map<String, Object> param, String rtype, String ptype) throws Exception{
+	private HashMap<String, Object> InnerCallProc(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception{
 		
-		HashMap<String, Object> rmap = new HashMap<String, Object>();
-		
+		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
+		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
+
 		try {
 			
 			String[] params = null;
 			int cnt 		= 0;
 			
-			if(rtype.equals("POST")) {
+			if(request.getMethod().equals("POST")) {
 				//post type
 				if(ptype.equals("")) {
 					params = param.get("params").toString().split(",", -1);
@@ -94,6 +97,19 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 					}
 				}
 			}
+			
+			// get ipAddress
+			String ipAddress = request.getHeader("X-Forwarded-For");
+			if (ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+			
+			//강제주입 - 파라미터
+			params[0] = ssmap.get("DEBUGMODEYN").toString();
+			params[1] = ssmap.get("LANGID").toString();
+			params[params.length-3] = param.get("procedure").toString();
+			params[params.length-2] = ssmap.get("USERID").toString();
+			params[params.length-1] = ipAddress;
 			
 			rmap.put("procedure", 		param.get("procedure"));
 			rmap.put("workType", 		param.get("workType"));
@@ -129,6 +145,43 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		return rmap;
 	}    
     
+	public Map<String, Object> InnerCallProc2(Map<String, Object> param, String[][] plist) throws Exception{
+		
+		Map<String, Object> rmap = new HashMap<String, Object>();
+		
+		try {
+			String[] params = this.getStringListForStringList(plist);
+			
+			rmap.put("procedure", 		param.get("procedure"));
+			if(param.containsKey("workType")) {
+				rmap.put("workType", 	param.get("workType"));
+			}
+			rmap.put("cv_count", 		param.get("cv_count"));
+			
+			rmap.put("getType", 		param.get("getType"));
+			if(params!=null) {
+				rmap.put("params",		params);
+			}
+			rmap.put("v_errorCode", 	"");
+			rmap.put("v_rowCount", 		0);
+			rmap.put("v_errorNote", 	"");
+			rmap.put("v_returnStr", 	"");
+			rmap.put("v_errorStr", 		"");
+			rmap.put("v_errorState",	"");
+			rmap.put("v_errorProcedure","");
+			int cv_count = Integer.parseInt(param.get("cv_count").toString());
+			
+			for (int i = 0; i < cv_count; i++) {
+				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());	
+			}
+			this.callProcTibero(rmap);
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+		}
+		return rmap;
+	}	
+	
 	private HashMap<String, Object> checkError(Map<String, Object> param) throws Exception{
 		
 		HashMap<String, Object> rmap = new HashMap<String, Object>();
@@ -157,17 +210,20 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			emap2.put("ERR0001", 	"차대가 맞지 않습니다.(Error : ERR0001)");
 			emap2.put("ERR0011", 	"거래처의 계정과목이 누락되었습니다.(Error : ERR0011)");
 			
-			String[] temp1 = new String[]{
-					"KOR", "", "", ""
-			};
-			HashMap<String, Object> temp2 = new HashMap<String, Object>();
-			temp2.put("procedure", 	"USRMAT.SP_SERVICEMESSAGE");
-			temp2.put("workType", 	"QESS");
-			temp2.put("getType", 	"json");
-			temp2.put("cv_count", 	"1");
-			temp2.put("params", 	temp1);
-			HashMap<String, Object> temp3 = this.InnerCallProc(temp2, "POST", "A");
-			List<Map<String, Object>> cv_1 = (ArrayList<Map<String, Object>>)temp3.get("cv_1");
+			Map<String, Object> gmap1 = new HashMap<String, Object>();
+			gmap1.put("procedure", 			"USRMAT.SP_SERVICEMESSAGE");
+			gmap1.put("workType", 			"QESS");
+			gmap1.put("getType", 			"json");
+			gmap1.put("cv_count", 			"1");
+			
+    		String gmap2[][] = {
+				{"V_S_LANGCODE",			"KOR"},
+				{"V_S_ERROR_CODE",			""},
+				{"V_S_ERROR_STR",			""},
+				{"V_S_ERROR_TYPE",			""}
+        	};			
+			Map<String, Object> gmap3 = this.InnerCallProc2(gmap1, gmap2);    
+			List<Map<String, Object>> cv_1 = (ArrayList<Map<String, Object>>)gmap3.get("cv_1");
 			
 			//check
 			String p_errorCode 	= param.get("v_errorCode").toString();
@@ -289,4 +345,19 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		return camelCaseString.toString();
 	}
+	
+	private static String[] getStringListForStringList(String[][] palist) throws Exception {
+		
+		String[] rlist 	= new String[palist.length];
+		String key 	  	= null;
+		String val    	= null;
+		
+		for (int i = 0; i < palist.length; i++) {
+			key 	= palist[i][0];
+			val 	= palist[i][1];
+			rlist[i] = val;
+		}
+		return rlist;
+	}	
+	
 }
