@@ -77,7 +77,8 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
     	// 3. 결과를 리턴한다.
     	if (loginVO != null
     			&& StringUtils.hasText(loginVO.getId())
-    			&& StringUtils.hasText(loginVO.getPassword())) {
+    			//&& StringUtils.hasText(loginVO.getPassword())
+    			) {
     		return loginVO;
     	} else {
     		loginVO = new LoginVO();
@@ -102,13 +103,12 @@ public class LoginServiceImpl extends EgovAbstractServiceImpl implements LoginSe
 
 		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인한다.
     	LoginVO loginVO = loginMapper.actionSSOLogin(vo);
-    	System.out.println("sso login");
-    	System.out.println(loginVO == null);
 
     	// 3. 결과를 리턴한다.
     	if (loginVO != null
     			&& StringUtils.hasText(loginVO.getId())
-    			&& StringUtils.hasText(loginVO.getPassword())) {
+    			//&& StringUtils.hasText(loginVO.getPassword())
+    			) {
     		return loginVO;
     	} else {
     		loginVO = new LoginVO();

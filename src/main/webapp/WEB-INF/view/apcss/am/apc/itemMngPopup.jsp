@@ -167,16 +167,18 @@
 	var jsonApcVrtyWghtRkngSeCd	= [];
 	var jsonSortInptVlType = [];
 	var jsonIndctArtclType = [];
-
+	var jsonItemInvntrInqAuCd = [];
 	const fn_initSBSelectItemVrty = async function() {
 
 		let rst = await Promise.all([
+			gfn_getComCdDtls('INVNTR_INQ_AU_CD'),
 			gfn_setComCdSBSelect("grdVrty", 		jsonVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"),		// 상품등급(출하)
 			gfn_setComCdSBSelect("grdApcVrty", 		jsonApcVrtyWghtRkngSeCd, "WGHT_RKNG_SE_CD"), 	// 상품등급(출하)
 			gfn_setComCdSBSelect("grdApcVrty", 		jsonSortInptVlType, "VL_TYPE"),					// 선별입력유형
 			gfn_setComCdSBSelect("grdApcVrty", 		jsonIndctArtclType, "INDCT_ARTCL_TYPE")			// 상품표시유형
 		]);
-
+		
+		jsonItemInvntrInqAuCd = rst[0];
 		jsonApcVrty.length = 0;
 		jsonVrty.length = 0;
 		grdVrty.refresh({"combo":true});
@@ -249,6 +251,21 @@
 				typeinfo :{mask : {alias : 'numeric'}}, maxlength: 7},
 			{caption: ["이력추적번호"], ref: 'hstryTrcMngNo',  	type:'input',  width:'100px',    style:'text-align:center',
 					typeinfo :{mask : {alias : 'numeric'}}, maxlength: 5},
+			{
+				caption: ["재고합산"],
+				ref: 'invntrInqAuCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonItemInvntrInqAuCd',
+					displayui : false,
+					itemcount: 10,
+					label:'cdVlNm',
+					value:'cdVl',
+					unselect: {label : '', value: ''}
+				}
+			},
 
 	    ];
 	    grdApcItem = _SBGrid.create(SBGridPropertiesApcItem);
@@ -478,6 +495,7 @@
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
 					  , gapCertNo		: item.gapCertNo
 					  , hstryTrcMngNo 	: item.hstryTrcMngNo
+					  , invntrInqAuCd	: item.invntrInqAuCd
   					}
   					jsonApcItem.push(itemVO);
   				});

@@ -212,4 +212,11 @@ public interface StdGrdService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateGrdList(List<StdGrdDtlVO> stdGrdDtlList) throws Exception;
+	/**
+	 * APC 등급명 목록 조회
+	 * @param stdGrdDtlVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+    List<StdGrdDtlVO> selectGrdNmList(StdGrdDtlVO stdGrdDtlVO) throws Exception;
 }

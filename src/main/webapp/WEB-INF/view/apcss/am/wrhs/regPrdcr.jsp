@@ -238,6 +238,25 @@
 </body>
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		await fn_reset();
+	}
+	async function cfn_add() {
+	
+	}
+	async function cfn_del() {
+
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
+
 	var jsonApcItemCd		= [];	// 대표품목 rprsItemCd	Grid
 	var jsonApcVrtyCd		= [];	// 대표품종 rprsVrtyCd	Grid
 	var jsonComGdsSeCd		= [];	// 상품구분 gdsSeCd	Grid
@@ -407,7 +426,7 @@
         }
     };
 
-	const fn_reset = function(){
+	const fn_reset = async function(){
 
 		jsonApcPrdcr.length = 0;
 		jsonAgrixPrdcr.length= 0;
@@ -590,38 +609,10 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-		const apcEvrmntStng = gfn_postJSON("/am/apc/selectApcEvrmntStng.do",{apcCd: gv_selectedApcCd});
-		const apcEvrmntStngData = await apcEvrmntStng;
-		const prdcrMngType = apcEvrmntStngData.resultMap.prdcrMngType;
-		if(jsonApcPrdcrBackUp.length == 0){
-			jsonApcPrdcrBackUp = jsonApcPrdcr;
-		}
-		if(prdcrMngType === "NAME"){
-			prdcrList.forEach((item,index)=>{
-				var updateNm = item.prdcrNm;
-				var findNm = jsonApcPrdcrBackUp.find(function(data){return data.prdcrNm === updateNm});
-				if(item.itemVrtyCd != null){
-					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
-				}
-				if(typeof findNm == "undefined" || item.rowSts == "I"){
-					return;
-				}
-				if(findNm.prdcrNm === updateNm){
-					item.prdcrMngType = "U";
-					item.rowSts = "U";
-				}
 
-			})
-		}else{
-			prdcrList.forEach((item,index)=>{
-				if(item.itemVrtyCd != null){
-					item.rprsVrtyCd = item.itemVrtyCd.slice(4,8);
-				}
-			})
-		}
     	const postJsonPromise = gfn_postJSON("/am/cmns/multiPrdcrList.do", prdcrList);
-
 		const data = await postJsonPromise;
+
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
@@ -636,6 +627,7 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+        excelYn = "N";
 	}
 
 	const fn_addPrdcr = async function(nRow){
@@ -733,28 +725,35 @@
     		}
 		});
 
-		if (prdcrList.length > 0) {
-
-			try {
-				const postUrl = "/am/cmns/deletePrdcrList.do";
-	    		const postJsonPromise = gfn_postJSON(postUrl, prdcrList);
-				const data = await postJsonPromise;
-
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		fn_search();
-	        	} else {
-	        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-	        	}
-
-	        } catch(e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        }
+		if (prdcrList.length == 0) {
+			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
+			return;
 		}
+		
+		// comConfirm
+		if (!gfn_comConfirm("Q0001", "선택내역 삭제")) {	//	Q0001	{0} 하시겠습니까?
+	    	return;
+	    }
+		
+		try {
+			const postUrl = "/am/cmns/deletePrdcrList.do";
+    		const postJsonPromise = gfn_postJSON(postUrl, prdcrList);
+			const data = await postJsonPromise;
+
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_search();
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 	}
 
 

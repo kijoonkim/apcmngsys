@@ -42,5 +42,6 @@ public class FarmerInfoVO extends ComVO{
 	private String updde;
 	private String saveCd;
 	private String crno;
+	private String mngmstRegno;
 
 }

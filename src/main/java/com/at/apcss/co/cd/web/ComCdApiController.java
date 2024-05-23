@@ -102,4 +102,27 @@ public class ComCdApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//모바일 공통 호출 API
+	@PostMapping(value = "/api/mobile/co/cd/comCdDtls", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComCdDtlLists(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComCdVO> resultList;
+
+		try {
+			resultList = comCdService.selectComCdDtlList(comCdVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

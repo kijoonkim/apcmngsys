@@ -238,6 +238,24 @@
 
 <script type="text/javascript">
 
+	/**
+	 * 공통버튼 연계처리
+	 */
+	async function cfn_init() {
+		
+	}
+	async function cfn_add() {
+		await fn_create();
+	}
+	async function cfn_del() {
+		await fn_delete();
+	}
+	async function cfn_save() {
+		await fn_save();
+	}
+	async function cfn_search() {
+		await fn_search();
+	}
 	let lv_prvAuthrtId = "";
 	let lv_prvMenuId = "";
 
@@ -457,7 +475,7 @@
     }
 
 
-    const fn_create = function(){
+    const fn_create = async function(){
 
     	if (!SBUxMethod.get("srch-slt-sysId")) {
         	gfn_comAlert("W0001", "시스템구분");		//	W0001	{0}을/를 선택하세요.
@@ -1031,9 +1049,9 @@
     	const menuList = grdComAuthMenu.getGridDataAll();
 
     	const comAuthrtMenuList = [];
-    	for ( let i=1; i<=menuList.length; i++ ){
+    	for ( let i=0; i<menuList.length; i++ ){
 
-    		const menu = grdComAuthMenu.getRowData(i);
+    		const menu = menuList[i]; //grdComAuthMenu.getRowData(i);
 
     		// 상위메뉴id 확인
     		comAuthrtMenuList.push({

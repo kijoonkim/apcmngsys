@@ -88,7 +88,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/am/spmt/getSpmtDoc.do",
 				"/fm/popup/jusoPopup.do",
 				"/report/**",
-				"/api/mobile/*.do"
+				"/api/mobile/**/*"
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())
 			.addPathPatterns(
@@ -101,7 +101,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/api/mobile/*.do");
 		registry.addInterceptor(mobileAuthenticInterceptor())
 			.addPathPatterns(
-				"/api/mobile/*.do")
+				"/api/mobile/**/*")
 			.excludePathPatterns(
 				"/api/mobile/authenticate.do",
 				"/api/mobile/refreshToken.do");
@@ -192,7 +192,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 		registry.addResourceHandler("/static/**")
 				.addResourceLocations("classpath:/static/")
 				.setCachePeriod(20);
-		registry.addResourceHandler("/upload/pdf/**")
-				.addResourceLocations("classpath:/static/pdfSample/");//pdf 경로
+		registry.addResourceHandler("/pdfPath/**/*.pdf")
+				.addResourceLocations("file:/DATA/apcss/pd/");//업로드 된 pdf 경로
 	}
 }

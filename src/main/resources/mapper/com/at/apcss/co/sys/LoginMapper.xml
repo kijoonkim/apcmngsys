@@ -26,6 +26,16 @@
 		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM"/>
 		<result property="endLgnIp" column="END_LGN_IP"/>
 		<result property="lckYn" column="LCK_YN"/>
+		
+		<result property="clntCd" column="CLNT_CD" />
+		<result property="corpCd" column="CORP_CD" />
+		<result property="userCtrgy" column="USER_CTRGY" />
+		<result property="empCd" column="EMP_CD" />
+		<result property="deptCd" column="DEPT_CD" />
+		<result property="hrmMngrYn" column="HRM_MNGR_YN" />
+		<result property="hrmEvlRole" column="HRM_EVL_ROLE" />
+		<result property="hrmPayMngrYn" column="HRM_PAY_MNGR_YN" />
+		<result property="acntgMngrYn" column="ACNTG_MNGR_YN" />
 	</resultMap>
 
 
@@ -76,9 +86,11 @@
 			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.actionLogin */
 				  CU.USER_ID		AS ID
 				, CU.USER_NM		AS NAME
-				, CU.PSWD			AS PASSWORD
+				--, CU.PSWD			AS PASSWORD
+				, NULL				AS PASSWORD
 				, CU.USER_ID		AS USER_ID
-				, CU.PSWD			AS PSWD
+				--, CU.PSWD			AS PSWD
+				, NULL				AS PSWD
 				, CU.USER_TYPE		AS USER_TYPE
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
@@ -94,6 +106,17 @@
 				, CU.END_LGN_DT		AS END_LGN_DT
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN
+				
+				, CU.CLNT_CD        	AS CLNT_CD
+				, CU.CORP_CD        	AS CORP_CD
+				, CU.USER_CTRGY     	AS USER_CTRGY
+				, CU.EMP_CD     		AS EMP_CD
+				, CU.DEPT_CD        	AS DEPT_CD
+				, CU.HRM_MNGR_YN        AS HRM_MNGR_YN
+				, CU.HRM_EVL_ROLE       AS HRM_EVL_ROLE
+				, CU.HRM_PAY_MNGR_YN	AS HRM_PAY_MNGR_YN
+				, CU.ACNTG_MNGR_YN      AS ACNTG_MNGR_YN
+				
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
 			   AND CU.PSWD = #{password}
@@ -116,9 +139,11 @@
 			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.actionSSOLogin */
 				  CU.USER_ID		AS ID
 				, CU.USER_NM		AS NAME
-				, CU.PSWD			AS PASSWORD
+				--, CU.PSWD			AS PASSWORD
+				, NULL				AS PASSWORD
 				, CU.USER_ID		AS USER_ID
-				, CU.PSWD			AS PSWD
+				--, CU.PSWD			AS PSWD
+				, NULL				AS PSWD
 				, CU.USER_TYPE		AS USER_TYPE
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
@@ -134,6 +159,17 @@
 				, CU.END_LGN_DT		AS END_LGN_DT
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN
+				
+				, CU.CLNT_CD        	AS CLNT_CD
+				, CU.CORP_CD        	AS CORP_CD
+				, CU.USER_CTRGY     	AS USER_CTRGY
+				, CU.EMP_CD     		AS EMP_CD
+				, CU.DEPT_CD        	AS DEPT_CD
+				, CU.HRM_MNGR_YN        AS HRM_MNGR_YN
+				, CU.HRM_EVL_ROLE       AS HRM_EVL_ROLE
+				, CU.HRM_PAY_MNGR_YN	AS HRM_PAY_MNGR_YN
+				, CU.ACNTG_MNGR_YN      AS ACNTG_MNGR_YN
+				
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
 			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용

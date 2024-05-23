@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : BizPlanReqMngMapper.xml													-->
+<!-- DESC : 게시판 정보 mapper											 			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin			Initial Creation							-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper">
+	<!-- 제출 서류 리스트 -->
+	<select id="selectBizPlanReqMngList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+
+		<![CDATA[
+			SELECT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectBizPlanReqMngList */
+				TEA.APO_CD
+				, TEA.APO_SE
+				, TEA.BRNO
+				, TEA.CRNO
+				, TEA.CORP_NM
+				, (CASE WHEN
+					( TO_DATE(BPSD.SYS_LAST_CHG_DT, 'YYYY-MM-DD') - TO_DATE(SSD.SYS_LAST_CHG_DT, 'YYYY-MM-DD') ) > 0
+					THEN BPSD.SYS_LAST_CHG_DT
+					ELSE SSD.SYS_LAST_CHG_DT
+					END
+				) AS LAST_ULD_DT
+
+				, (CASE WHEN
+					BPSD.FILE_SN IS NOT NULL
+					THEN '제출'
+					ELSE '미제출'
+					END
+				) AS BIZ_PLAN_SBMSN_YN
+				, DECODE(BPSD.STTS, '1' , '미승인' , '2' , '승인' , '3' , '반려'
+				) AS BIZ_PLAN_APRV_YN
+
+				, (CASE WHEN
+					SSD.FILE_SN IS NOT NULL
+					THEN '제출'
+					ELSE '미제출'
+					END
+				) AS SGNTR_SBMSN_YN
+				, DECODE(SSD.STTS, '1' , '미승인' , '2' , '승인' , '3' , '반려'
+				) AS SGNTR_APRV_YN
+
+				, NVL(BPSD.YR , SSD.YR) AS YR
+
+			FROM TB_EV_APO TEA
+				,(SELECT *
+					FROM TB_EV_SBMSN_DCMNT
+					WHERE 1=1
+					  AND DEL_YN = 'N'
+					  AND DCMNT_KND = 'BP'
+				) AS BPSD
+				,(SELECT *
+					FROM TB_EV_SBMSN_DCMNT
+					WHERE 1=1
+					  AND DEL_YN = 'N'
+					  AND DCMNT_KND = 'S'
+				) AS SSD
+			WHERE 1=1
+			  AND TEA.BRNO = BPSD.BRNO(+)
+			  AND TEA.BRNO = SSD.BRNO(+)
+			  AND TEA.APO_SE = '1'
+			  AND TEA.APRV IS NOT NULL
+		]]>
+			<if test='yr != null and yr != ""'>
+			  AND #{yr} = (SELECT YR FROM TB_EV_APLY_MNG WHERE BRNO = TEA.BRNO AND YR = #{yr} AND APO_SE = '1')
+			</if>
+			<if test='brno != null and brno != ""'>
+			  AND TEA.BRNO = #{brno}
+			</if>
+			<if test='corpNm != null and corpNm != ""'>
+			  AND TEA.CORP_NM LIKE '%' || #{corpNm} || '%'
+			</if>
+			<if test='bpChk != null and bpChk != ""'>
+			  AND #{bpChk} = (CASE WHEN BPSD.FILE_SN IS NOT NULL THEN 'Y' ELSE 'N' END)
+			</if>
+			<if test='sChk != null and sChk != ""'>
+			  AND #{sChk} = (CASE WHEN SSD.FILE_SN IS NOT NULL THEN 'Y' ELSE 'N' END)
+			</if>
+		ORDER BY TEA.BRNO ASC
+
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+	</select>
+	<!-- 팝업 제출서류 파일경로 리스트 -->
+	<select id="bppvSelectFilePathList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		SELECT	/* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFilePathList */
+			SD.YR
+			, SD.DCMNT_KND
+			, SD.STTS
+			, DECODE(SD.STTS, '1' , '미승인' , '2' , '승인' , '3' , '반려') AS STTS_NM
+			, SD.FILE_SN
+			, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = SD.APRV_USER_ID)AS APRV_NM
+			, SD.APRV_USER_ID
+			, SD.APRV_DT
+			, SD.RJCT_RSN
+			, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = SD.RJCT_USER_ID)AS RJCT_NM
+			, SD.RJCT_USER_ID
+			, SD.RJCT_DT
+			, SD.RMRK
+
+			, SDF.FILE_PATH_NM
+			, SDF.ORG_FILE_NM
+			, SDF.SRVR_FILE_NM
+			, SDF.FILE_EXTN_NM
+			, SDF.SYS_LAST_CHG_DT AS LAST_ULD_DT
+		FROM
+			TB_EV_SBMSN_DCMNT SD
+			, TB_EV_SBMSN_DCMNT_FILE SDF
+		WHERE 1=1
+		  AND SD.FILE_SN = SDF.FILE_SN(+)
+
+		<if test='yr != null and yr != ""'>
+		  AND SD.YR = #{yr}
+		</if>
+		<if test='brno != null and brno != ""'>
+		  AND SD.BRNO = #{brno}
+		</if>
+		<if test='dcmntKnd == "BP"'>
+		  AND SD.DCMNT_KND IN ('BP','S')
+		</if>
+	</select>
+
+	<!-- 제출 서류 상태 업데이트 -->
+	<update id="bppvUpdateSbmsnDcnmt" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+			UPDATE /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.bppvUpdateSbmsnDcnmt */
+				TB_EV_SBMSN_DCMNT
+			SET
+				SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+				<if test='updtSeCd == "aprv"'>
+				, STTS			= '2'
+				, APRV_USER_ID	= #{sysLastChgUserId}
+				, APRV_DT		= SYSDATE
+				</if>
+				<if test='updtSeCd == "rjct"'>
+				, STTS			= '3'
+				, RJCT_USER_ID	= #{sysLastChgUserId}
+				, RJCT_DT		= SYSDATE
+					<if test='rjctRsn != null and rjctRsn != ""'>
+					, RJCT_RSN		= #{rjctRsn}
+					</if>
+				</if>
+				<if test='updtSeCd == "cancel"'>
+				, STTS			= '1'
+				</if>
+				<if test='updtSeCd == "rmrk"'>
+				, RMRK			= #{rmrk}
+				</if>
+
+			WHERE 1=1
+
+			  AND BRNO 		= #{brno}
+			  AND YR		= #{yr}
+			  AND DCMNT_KND	= #{dcmntKnd}
+	</update>
+
+	<!-- 파일 정보 조회 -->
+	<select id="selectFileInfo" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		SELECT	/* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFileInfo */
+			SDF.FILE_PATH_NM
+			, SDF.ORG_FILE_NM
+			, SDF.SRVR_FILE_NM
+			, SDF.FILE_EXTN_NM
+		FROM
+			TB_EV_SBMSN_DCMNT_FILE SDF
+		WHERE 1=1
+		  AND SDF.FILE_SN = #{fileSn}
+
+	</select>
+</mapper>

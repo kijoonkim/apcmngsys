@@ -86,6 +86,15 @@ public interface ComMenuMapper {
 	 * @return List<ComUiVO>
 	 */
 	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO);
+	
+	/**
+	 * 화면 공통버튼 리스트 조회
+	 * @param comUiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComUiVO> selectComUiCmnsBtnList(ComUiVO comUiVO);
+	
 	/**
 	 * 화면관리 목록 조회
 	 * @param ComUiVO
@@ -93,6 +102,14 @@ public interface ComMenuMapper {
 	 */
 	public List<ComUiVO> selectComUiList(ComUiVO comUiVO);
 
+	/**
+	 * 화면관리 조회
+	 * @param ComUiVO
+	 * @return List<ComUiVO>
+	 */
+	public ComUiVO selectComUi(ComUiVO comUiVO);
+	
+	
 	/**
 	 * 화면관리 UI 등록
 	 * @param ComUiVO
@@ -112,6 +129,5 @@ public interface ComMenuMapper {
 	 * @return Integer
 	 */
 	public int deleteComUi(ComUiVO comUiVO);
-
 
 }

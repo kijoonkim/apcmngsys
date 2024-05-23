@@ -68,7 +68,7 @@
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_save"
 						text="저장"
-					></sbux-button>                    
+					></sbux-button>
 					<sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -188,7 +188,7 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						
+
 				    </div>
 				</div>
 				<div id="sb-area-grdWrhsSmmry" style="height:544px;">
@@ -267,6 +267,21 @@
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.total={
+	    			type : 'grand',
+	    			position : 'bottom',
+	    			columns : {
+	    				standard : [1,2],
+		    			sum : [3,4,5,6,7,8,10,11,12,13,14,15,17,18,19,20,21,22,24]
+	    			},
+				    grandtotalrow : {
+				        titlecol 	: 2,
+				        titlevalue	: '합계',
+				        stylestartcol	: 2,
+				        style: 'text-align:center; padding-right:5px;background-color:#ceebff;'
+				    }
+
+	    		}
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.columns = [
             {
@@ -290,7 +305,7 @@
 	    		ref: 'prdcrNm',
 	    		type: 'output',
 	    		width:'100px',
-	    		style: 'text-align:center; padding-right:5px;'	    		
+	    		style: 'text-align:center; padding-right:5px;'
 	    	},
 
 	    	// 빨강
@@ -582,17 +597,29 @@
 				caption : ["합계","합계"],
 				ref: 'qnttCyclSum',
 				type: 'output',
-				width:'150px',
+				width:'100px',
 				style: 'text-align:right; padding-right:5px;',
 				format : {type:'number', rule:'#,###'}
 			},
-	    	{
-				caption : ["비고","비고"],
-				ref: 'rmrk',
-				type: 'input',
-				width:'50px',
-				style: 'text-align:right; padding-right:5px;'
+			{
+	    		caption : ["최종\n완료","최종\n완료"],
+	    		ref: 'lastWrhsCmptnYn',
+	    		type: 'checkbox',
+	    		width:'50px',
+				style: 'text-align:center;background-color:#ceebff;',
+				userattr: {colNm: "checkedYn"},
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
+                fixedstyle : 'background-color:#ceebff;'
 			},
+			{
+				caption : ["선별일자","선별일자"],
+				ref: 'sortYmd',
+				type: 'datepicker',
+				format:{type:'date',rule:'yyyy-mm-dd',origin:'yyyymmdd'},typeinfo :{display:false,oneclickedit:true,clearbutton:true},
+				width:'100px',
+				style: 'text-align:center; padding-right:5px;'
+			},
+	    	{caption: ["비고"], ref: 'rmrk', type: 'input', hidden: true},
 	    	{caption: ["입고시작일자"],	ref: 'wrhsBgngYmd',     	type:'input',  	hidden: true},
 	    	{caption: ["입고종료일자"],	ref: 'wrhsEndYmd',     		type:'input',  	hidden: true},
 	    	{caption: ["생산자코드"],		ref: 'prdcrCd',     		type:'input',  	hidden: true}
@@ -601,19 +628,42 @@
 
 	    grdWrhsSmmry = _SBGrid.create(SBGridProperties);
 	    grdWrhsSmmry.bind('valuechanged', fn_grdWrhsSmmryValueChanged);
-        grdWrhsSmmry.setCellStyles(0,3,0,7,'background:#FF000030;color:white;font-size:12px;');
+	    grdWrhsSmmry.bind('click', fn_lastWrhsCmptnYnChk);
+        grdWrhsSmmry.setCellStyles(0,3,0,7,'background:#FF000030;font-size:12px;');
         grdWrhsSmmry.setCellStyles(0,8,0,13,'background:#FFFC3330;font-size:12px;');
         grdWrhsSmmry.setCellStyles(0,14,0,19,'background:#FFB53330;font-size:12px;');
 	}
-
+	const fn_lastWrhsCmptnYnChk = function(){
+		var nRow = grdWrhsSmmry.getRow();
+		var nRowData = grdWrhsSmmry.getRowData(nRow);
+		if(nRowData["lastWrhsCmptnYn"] === "Y"){
+			grdWrhsSmmry.setCellDisabled(nRow,9,nRow,9,true,true);
+			grdWrhsSmmry.setCellDisabled(nRow,16,nRow,16,true,true);
+			grdWrhsSmmry.setCellDisabled(nRow,23,nRow,23,true,true);
+		}else{
+			grdWrhsSmmry.setCellDisabled(nRow,9,nRow,9,false,true);
+			grdWrhsSmmry.setCellDisabled(nRow,16,nRow,16,false,true);
+			grdWrhsSmmry.setCellDisabled(nRow,23,nRow,23,false,true);
+		}
+	}
+	const fn_lastWrhsCmptnYnDisable = function(){
+		var allData = grdWrhsSmmry.getGridDataAll();
+		allData.forEach((item,index)=>{
+        	if(item["lastWrhsCmptnYn"] === "Y"){
+				grdWrhsSmmry.setCellDisabled(index+2,9,index+2,9,true,true);
+				grdWrhsSmmry.setCellDisabled(index+2,16,index+2,16,true,true);
+				grdWrhsSmmry.setCellDisabled(index+2,23,index+2,23,true,true);
+			}
+        })
+	}
 
 	// 입고구분
 	const fn_setGrdWrhsSmmry = async function() {
-		
+
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		
+
 		const param = {
 			apcCd: gv_selectedApcCd,
 			wrhsBgngYmd: wrhsYmdFrom,
@@ -631,7 +681,7 @@
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         		return;
         	}
-	        
+
 	        jsonWrhsSmmry.length = 0;
 	        let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
 	        if(prdcrCd ===undefined || prdcrCd === "" ){
@@ -640,19 +690,25 @@
 	        	var arr = jsonPrdcr.find(item=> item.prdcrCd === prdcrCd );
 	        	jsonWrhsSmmry.push(arr);
 	        }
-	        
+
 	        var newJsonWrhsSmmry = [];
 	        jsonWrhsSmmry.forEach((item,index)=> {
-	        	var findArr = data.resultList.find(resultItem => resultItem["prdcrCd"] === item.prdcrCd) || null; 
+	        	var findArr = data.resultList.find(resultItem => resultItem["prdcrCd"] === item.prdcrCd) || null;
 	        	if(findArr !== null){
 	        		newJsonWrhsSmmry.push({...item,...findArr});
 	        	}else{
 	        		newJsonWrhsSmmry.push(item);
 	        	}
 	        })
-	        
-	        jsonWrhsSmmry = newJsonWrhsSmmry; 
+
+	        jsonWrhsSmmry = newJsonWrhsSmmry;
 	        grdWrhsSmmry.refresh();
+
+	        fn_lastWrhsCmptnYnDisable();
+
+
+
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -675,11 +731,11 @@
 				continue;
 			}
 
-			var rowStatus = grdWrhsSmmry.getRowStatus(i+2); 
+			var rowStatus = grdWrhsSmmry.getRowStatus(i+2);
 			if(rowStatus == 3 || rowStatus == 2){
-				rawMtrWrhsSmmryList.push(rowData);	
+				rawMtrWrhsSmmryList.push(rowData);
 			}
-			
+
 		}
 
 		if (rawMtrWrhsSmmryList.length == 0) {
@@ -886,10 +942,10 @@
  		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
  		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdTo");
 		//jsonPrdcr.forEach(function(item,index){
-			//grdWrhsSmmry.addRow(true,{'wrhsYmd':wrhsYmdFrom,'prdcrNm':item.prdcrNm,'prdcrCd':item.prdcrCd});			
+			//grdWrhsSmmry.addRow(true,{'wrhsYmd':wrhsYmdFrom,'prdcrNm':item.prdcrNm,'prdcrCd':item.prdcrCd});
 		//});
  		//grdWrhsSmmry.addRow(true,{'wrhsYmd':wrhsYmdFrom,'prdcrNm':prdcrNm,'prdcrCd':prdcrCd});
- 		
+
  	}
 
  	const fn_delRow = function(nRow) {

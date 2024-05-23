@@ -43,8 +43,43 @@
 			     , PR.DEL_YN        AS DEL_YN
 			  FROM TB_PRDCR_INFO PR
 			 WHERE PR.APC_CD = #{apcCd}
-			   AND PR.PRDCR_CD = #{prdcrCd}
-		]]>
+				AND PR.PRDCR_CD = #{prdcrCd}
+		   ]]>
+
+    </select>
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcr					-->
+	<!-- DESC : 생산자 단건 조회.	                                       					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.05.23  박 승 진        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdcrNm" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcr */
+				   PR.APC_CD        AS APC_CD
+			     , PR.PRDCR_CD      AS PRDCR_CD
+			     , PR.PRDCR_NM      AS PRDCR_NM
+			     , PR.PRDCR_FRST_NM AS PRDCR_FRST_NM
+			     , PR.RPRS_ITEM_CD  AS RPRS_ITEM_CD
+			     , PR.RPRS_VRTY_CD  AS RPRS_VRTY_CD
+			     , PR.GDS_SE_CD     AS GDS_SE_CD
+			     , PR.WRHS_SE_CD    AS WRHS_SE_CD
+			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
+			     , PR.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
+			     , PR.VHCLNO        AS VHCLNO
+			     , PR.TELNO        	AS TELNO
+			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
+			     , PR.PRDCR_IDENTNO	AS PRDCR_IDENTNO
+			     , PR.PLOR_CD			AS PLOR_CD
+			     , PR.RMRK          AS RMRK
+			     , PR.DEL_YN        AS DEL_YN
+			  FROM TB_PRDCR_INFO PR
+			 WHERE PR.APC_CD = #{apcCd}
+				AND PR.PRDCR_NM = #{prdcrNm}
+		   ]]>
+
     </select>
 
 
@@ -542,7 +577,7 @@
 	    	   AND PRDCR_CD = #{prdcrCd}
     	]]>
     </delete>
-    
+
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updateApcPrdcr				-->
 	<!-- DESC : APC 생산자 정보 업데이트  		                            				-->

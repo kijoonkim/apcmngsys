@@ -5153,8 +5153,6 @@ input::-webkit-inner-spin-button {
             return;
         }
 
-        // search rawinvntr
-
         try {
             const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntr.do", {
                 apcCd: gv_selectedApcCd,
@@ -5163,7 +5161,6 @@ input::-webkit-inner-spin-button {
             });
 
             const data = await postJsonPromise;
-
 
 			pltnoInfo = data.resultMap;
 
@@ -5177,23 +5174,25 @@ input::-webkit-inner-spin-button {
 				if(_rawMtrInvntr.invntrQntt == 0) {
 					
 					let sortYmd = _rawMtrInvntr.inptYmd;
-					//let sortno = _rawMtrInvntr.sortno;
+					let sortno = _rawMtrInvntr.sortno;
+					
 					try {
 						const postJsonPromise = gfn_postJSON("/am/sort/selectSortRsltList.do", {
 							apcCd: gv_selectedApcCd,
 							sortYmd: sortYmd,
+							sortno: sortno
 						});
 
 						const data = await postJsonPromise;
 						if (_.isEqual("S", data.resultStatus)) {
 							
 							let prevList = data.resultList;
-							//pltno
 							prevList = prevList.filter(function(item){
 								return item.pltno == pltno;
 							});
-							console.log('prevList', prevList);
-							await fn_view(-1,prevList);
+							if(!gfn_isEmpty(prevList)){
+								await fn_view(-1,prevList);
+							}
 						}
 					} catch (e) {
 						if (!(e instanceof Error)) {
@@ -5250,7 +5249,6 @@ input::-webkit-inner-spin-button {
 
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);
-
                 fn_reset();
             }
         } catch (e) {

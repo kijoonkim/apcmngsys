@@ -2,11 +2,10 @@ package com.at.apcss.co.menu.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.menu.mapper.ComMenuMapper;
@@ -101,8 +100,7 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 
 	@Override
 	public ComUiVO selectComUi(ComUiVO comUiVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return comMenuMapper.selectComUi(comUiVO);
 	}
 
 	@Override
@@ -124,10 +122,16 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO) throws Exception {
 		return comMenuMapper.selectMenuUiList(comMenuVO);
 	}
-
+	
+	@Override
+	public List<ComUiVO> selectComUiCmnsBtnList(ComUiVO comUiVO) throws Exception {
+		return comMenuMapper.selectComUiCmnsBtnList(comUiVO);
+	}
+	
 	@Override
 	public HashMap<String, Object> multiSaveComUiList(List<ComUiVO> comUiList) throws Exception {
 
+		/*
 		List<ComMenuVO> menuInfoList = comUiList.get(0).getMenuInfoList();
 		
 		if (menuInfoList.size() > 0) {
@@ -138,20 +142,44 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
 		}
-		
+
 		if (!Objects.isNull(comUiList.get(0).getEntyId())) {
-			for (ComUiVO comUiVO : comUiList) {
-				if ("I".equals(comUiVO.getRowSts())){
+			
+			
+		}
+		*/
+		
+		for (ComUiVO comUiVO : comUiList) {
+			
+			if (ComConstants.CON_ENTY_TYPE_CMNS_BUTTON.equals(comUiVO.getEntyType())) {
+				
+				ComUiVO chkVO = selectComUi(comUiVO);
+				
+				if (chkVO != null && StringUtils.hasText(chkVO.getEntyId())) {
+					updateComUi(comUiVO);
+				} else {
+					if (ComConstants.CON_NONE.equals(comUiVO.getDelYn())) {
+						insertComUi(comUiVO);
+					} else {
+						deleteComUi(comUiVO);
+					}
+				}
+				
+			} else {
+				if (ComConstants.ROW_STS_INSERT.equals(comUiVO.getRowSts())){
 					if (0 == insertComUi(comUiVO)) {
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 					}
-				} else if ("U".equals(comUiVO.getRowSts())) {
+				} else if (ComConstants.ROW_STS_UPDATE.equals(comUiVO.getRowSts())) {
 					if (0 == updateComUi(comUiVO)) {
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 					}
+				} else {
+					
 				}
 			}
 		}
+		
 		return null;
 	}
 
@@ -160,6 +188,8 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 		List<ComMenuVO> resultList = comMenuMapper.selectMenuListByType(comMenuVO);
 		return resultList;
 	}
+
+
 
 
 }

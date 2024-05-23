@@ -215,4 +215,11 @@ public interface StdGrdMapper {
 	 * @throws Exception
 	 */
 	public int updateGrd(StdGrdDtlVO stdGrdDtlVO) throws Exception;
+	/**
+	 * APC 등급명 목록 조회
+	 * @param stdGrdDtlVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+    List<StdGrdDtlVO> selectGrdNmList(StdGrdDtlVO stdGrdDtlVO)throws Exception;
 }

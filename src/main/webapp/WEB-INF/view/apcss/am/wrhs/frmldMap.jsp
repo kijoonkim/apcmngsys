@@ -133,7 +133,7 @@
 	    <script src="https://agis.epis.or.kr/ASD/pub2/js/jquery-3.4.1.js"></script>
 		<script src="https://agis.epis.or.kr/ASD/js/lib/openlayers/OpenLayers.js"></script>
 		<script src="https://agis.epis.or.kr/ASD/js/lib/proj4js/proj4.js"></script>
-		<script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=M4Z0Y2P5BcNV52OxjHYl&domain=http://localhost:8080/"></script>
+		<script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=8AuulPFHOftqyHEmTdQK&domain=http://localhost:8085/"></script>
 
 	    <script>
 			var map1;
@@ -142,8 +142,8 @@
 	        var mapMaxZoom = 20;
 	        var xyString;
 			var reqUrl;
-			var domain = "http://localhost:8080/";
-			var apiKey = "M4Z0Y2P5BcNV52OxjHYl";
+			var domain = "http://localhost:8085/";
+			var apiKey = "8AuulPFHOftqyHEmTdQK";
 
 	        function init() {
 	            map1 = farmmapObj.init("mapDiv1");
@@ -156,7 +156,7 @@
 	            getButton('menuMapMgr,btnMapMgr');
 				// addVectorLayer();
 
-	            var emapApiKey = 'M4Z0Y2P5BcNV52OxjHYl';
+	            var emapApiKey = '8AuulPFHOftqyHEmTdQK';
 	            var korean_map_tile = 'https://map.ngii.go.kr/openapi/Gettile.do?';
 	            var emapLayer = new OpenLayers.Layer.XYZ("2D", "", {
 	                url: korean_map_tile,

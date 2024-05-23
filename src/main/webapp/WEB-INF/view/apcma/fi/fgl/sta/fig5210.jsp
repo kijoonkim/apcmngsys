@@ -67,117 +67,108 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">국가코드</th>
+                            <th scope="row" class="th_bg">법인</th>
+                            <td class="td_input" style="border-right:hidden;" >
+                                <sbux-input id="SRCH_CBOCOMP_CODE1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            
+                            <th scope="row" class="th_bg">사업단위</th>
+                            <td class="td_input" style="border-right:hidden;" colspan="3">
+                                <sbux-select id="SRCH_CBOFI_ORG_CODE" uitype="single" jsondata-ref="jsonRegionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            </td>
+                            
+                            <th scope="row" class="th_bg">사업장</th>
+                            <td class="td_input" style="border-right: hidden;" colspan="3">
+                                <sbux-select id="SRCH_CBOSITE_CODE" uitype="single" jsondata-ref="" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">기간</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="SRCH_NATION_CODE" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+								<sbux-datepicker
+									uitype="popup"
+									id="SRCH_YMDPERIOD_FR"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+									onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
+								></sbux-datepicker>
                             </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">국가명</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="SRCH_NATION_NAME" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
+                            <td style="border-right: hidden;">
+								<sbux-datepicker
+									uitype="popup"
+									id="SRCH_YMDPERIOD_TO"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+									onchange="fn_dtpChange(srch-dtp-inptYmdTo)"
+								></sbux-datepicker>
                             </td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg"></th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td style="border-right: hidden;">
+								<sbux-checkbox id="SRCH_CHKTHIS_PERIOD_YN" uitype="normal" text="당월" true-value="Y" false-value="N" ></sbux-checkbox>
                             </td>
+                            
+                            <th scope="row" class="th_bg">회계기준</th>
+                            <td class="td_input" style="border-right:hidden;" colspan="3">
+                                <sbux-select id="SRCH_CBOACCT_RULE_CODE" uitype="single" jsondata-ref="" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            </td>
+                            
+                            <th scope="row" class="th_bg">통화</th>
+                            <td class="td_input" style="border-right: hidden;" >
+                                <sbux-select id="SRCH_CBOCURRENCY_CODE_P" uitype="single" jsondata-ref="" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            </td>
+                            <td style="border-right: hidden;" colspan="2">
+                            	준재무제표계정표시&nbsp;
+                            	<sbux-checkbox id="SRCH_CHKREPORT_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">계정수준</th>
+                            <td colspan="" class="td_input" style="border-right:hidden;" colspan="2" >
+                                <sbux-select id="SRCH_CBOACCOUNT_LEVEL_P" uitype="single" jsondata-ref="jsonRegionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            </td>
+                            <td style="border-right: hidden;" colspan="2">&nbsp;</td>
+                            
+                            <th scope="row" class="th_bg">기초포함</th>
+                            <td class="td_input" style="border-right:hidden;" >
+                            	<sbux-checkbox id="SRCH_CHKBEGIN_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+                            </td>
+                            <td style="border-right: hidden;" colspan="2">
+                            	Zero포함&nbsp;
+                            	<sbux-checkbox id="SRCH_CHKZERO_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+                            </td>
+                            
+                            <th scope="row" class="th_bg">상위계정포함</th>
+                            <td class="td_input" style="border-right: hidden;" >
+                            	<sbux-checkbox id="SRCH_CHKPARENT_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+                            </td>
+                            <td style="border-right: hidden;" colspan="2">
+                            	본사계정표시&nbsp;
+                            	<sbux-checkbox id="SRCH_CHKHQ_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
+                            </td>
+                            
                         </tr>
                     </tbody>
                 </table>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>코드목록</span>
-                                    <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div id="sb-area-grdComMsg" style="height:616px; width:100%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li><span>상세정보</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <table class="table table-bordered tbl_fixed">
-                                <colgroup>
-                                    <col style="width:20%">
-                                    <col style="width:30%">
-                                    <col style="width:20%">
-                                    <col style="width:30%">
-                                </colgroup>
-                                <tr>
-                                    <th scope="row" class="th_bg">국가코드</th>
-                                    <td colspan="3" class="td_input">
-                                        <sbux-input id="NATION_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">국가약어</th>
-                                    <td colspan="3" class="td_input">
-                                        <sbux-input id="NATION_CODE_ABBR" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">국가약식명</th>
-                                    <td colspan="3" class="td_input">
-                                        <sbux-input id="NATION_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">국가정식명</th>
-                                    <td colspan="3" class="td_input">
-                                        <sbux-input id="NATION_FULL_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">국가정식명(한글)</th>
-                                    <td colspan="3" class="td_input">
-                                        <sbux-input id="NATION_FULL_NAME_CHN" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">지역</th>
-                                    <td scope="row" class="th_bg">
-                                        <sbux-select id="REGION_CODE" uitype="single" jsondata-ref="jsonRegionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg">통화</th>
-                                    <td scope="row" class="th_bg">
-                                        <sbux-select id="CURRENCY_CODE" uitype="single" jsondata-ref="jsonCurrenvyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">비고</th>
-                                    <td scope="row" class="th_bg">
-                                        <sbux-input id="MEMO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">정렬순서</th>
-                                    <td scope="row" class="th_bg">
-                                        <sbux-input id="SORT_SEQ" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">사용여부</th>
-                                    <td scope="row" class="th_bg">
-                                        <sbux-select id="USE_YN" uitype="single" jsondata-ref="jsonUserYnCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                                    </td>
-                                    <th scope="row" class="th_bg"></th>
-                                    <td scope="row" class="th_bg">
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
+                
+				<div class="table-responsive tbl_scroll_sm" style="padding-top:10px">
+				   <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
+				                   title-target-id-array = "sb-area-tab1^sb-area-tab2"
+				                   title-text-array = "시산표(밴드)^시산표(트리)"
+				                   title-target-value-array="SBUx 탭^SBUx IDE 탭^SBGrid 2.5버전"
+				                   onclick="evt_onclick(tab_norm)"></sbux-tabs>					
+					
+					<div class="tab-content">
+						<div id="exhstDsctnTab" >
+							<div id="sb-area-tab1" style="height:250px;"></div>
+						</div>
+						<div id="grdDsctnTab" >
+							<div id="sb-area-tab2" style="height:250px;"></div>
+						</div>
+					</div>
+				</div>
+                
             </div>
         </div>
     </section>

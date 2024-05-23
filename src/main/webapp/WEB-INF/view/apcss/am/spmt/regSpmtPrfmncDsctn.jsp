@@ -74,7 +74,7 @@
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 4%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -96,6 +96,38 @@
 							<td class="td_input" style="border-right: hidden;">
 							</td>
 							<td class="td_input"></td>
+							<th scope="row" class="th_bg"><span class="data_required"></span>선별일자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+									id="srch-dtp-pckgYmdFrom"
+									name="srch-dtp-pckgYmdFrom"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-sortYmdFrom)"
+								></sbux-datepicker>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+									id="srch-dtp-pckgYmdTo"
+									name="srch-dtp-pckgYmdTo"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-sortYmdTo)"
+								></sbux-datepicker>
+							</td>
+							<td>
+								<sbux-checkbox
+									id="srch-chk-sortDsctnYn"
+									name="srch-chk-sortDsctnYn"
+									uitype="normal"
+									text="선별기준"
+									true-value="Y"
+									false-value="N"
+									onchange="fn_onChangeSortDsctnYn()"
+								></sbux-checkbox>
+							</td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>구분</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -108,7 +140,8 @@
 					                onchange="fn_onChangeSrchGrd(this)"
 				                ></sbux-select>
 							</td>
-							<td colspan="6" class="td_input"></td>
+							<td colspan="2" class="td_input" >
+							</td>
             			</tr>
 					</tbody>
 				</table>
@@ -193,45 +226,46 @@
         		  usedecimal : false,
         		};
         SBGridPropertiesGdsInvntr.columns = [
-			{caption : ["재고내역", "재고내역", "재고내역"], 		ref: 'checkBox', 	type: 'checkbox',  	width:'30px', 	style: 'text-align:center;',
+			{caption : ["재고내역", "재고내역", "전체재고", "선별기준재고"], 		ref: 'checkBox', 	type: 'checkbox',  	width:'30px', 	style: 'text-align:center;',
 				typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-			{caption : ["재고내역", "재고내역", "재고내역"], 	ref: 'spmtYmd', 	width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},
+			{caption : ["재고내역", "재고내역", "전체재고", "선별기준재고"], 	ref: 'spmtYmd', 	width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},
 				typeinfo : {gotoCurrentClick: true, clearbutton: true},  style:'text-align:center'},
-			{caption : ["재고내역", "재고내역", "재고내역"], 	ref: 'cnptCd', 		type: 'combo',  	width:'100px', 	style: 'text-align:center;',
+			{caption : ["재고내역", "재고내역", "전체재고", "선별기준재고"], 	ref: 'cnptCd', 		type: 'combo',  	width:'160px', 	style: 'text-align:center;',
 				typeinfo : {ref:'jsonGrdCnptCd', 	displayui : false,	itemcount: 10, label:'label', value:'value', unselect: {label : '선택', value: ''}}},
-			{caption : ["빨강","2XL"," "], 	ref: 'red2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","XL",""], 	ref: 'redXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","L"," "], 	ref: 'redL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","M",""], 	ref: 'redM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","S"," "], 	ref: 'redS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","2S",""], 	ref: 'redSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["빨강","소계"," "], ref: 'redTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
+			{caption : ["빨강","2XL"," ", ""], 	ref: 'red2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","XL",""," "], 	ref: 'redXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","L"," ", ""], 	ref: 'redL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","M",""," "], 	ref: 'redM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","S"," ", ""], 	ref: 'redS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","2S",""," "], 	ref: 'redSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["빨강","소계"," ", ""], ref: 'redTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
 			            , format : {type:'number', rule:'#,###',emptyvalue:'0'}, fixedstyle : 'background-color:#ceebff;', disabled:true},
-			{caption : ["노랑","2XL",""], 	ref: 'ylw2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","XL"," "], 	ref: 'ylwXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","L",""], 	ref: 'ylwL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","M"," "], 	ref: 'ylwM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","S",""], 	ref: 'ylwS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","2S"," "], 	ref: 'ylwSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["노랑","소계",""], ref: 'ylwTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff'
+			{caption : ["노랑","2XL",""," "], 	ref: 'ylw2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","XL"," ", ""], 	ref: 'ylwXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","L",""," "], 	ref: 'ylwL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","M"," ", ""], 	ref: 'ylwM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","S",""," "], 	ref: 'ylwS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","2S"," ", ""], 	ref: 'ylwSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["노랑","소계",""," "], ref: 'ylwTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff'
 			            , format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;', disabled:true},
-			{caption : ["주황","2XL"," "], 	ref: 'org2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","XL",""], 	ref: 'orgXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","L"," "], 	ref: 'orgL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","M",""], 	ref: 'orgM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","S"," "], 	ref: 'orgS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","2S",""], 	ref: 'orgSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption : ["주황","소계"," "], ref: 'orgTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
+			{caption : ["주황","2XL"," ", ""], 	ref: 'org2Xl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","XL",""," "], 	ref: 'orgXl', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","L"," ", ""], 	ref: 'orgL', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","M",""," "], 	ref: 'orgM', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","S"," ", ""], 	ref: 'orgS', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","2S",""," "], 	ref: 'orgSs', type: 'input',  width:'45px', style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption : ["주황","소계"," ", ""], ref: 'orgTot', type: 'output',  width:'45px', style: 'text-align:right; padding-right:5px;background-color:#ceebff '
 			            , format : {type:'number', rule:'#,###',emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;', disabled:true},
-			{caption : ["총합계","총합계", ""], ref: 'tot', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
-			{caption : ["송품장<br>발행", "송품장<br>발행", "송품장<br>발행"], 			ref: 'spmtno',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+			{caption : ["총합계","총합계", "총합계", "총합계"], ref: 'tot', type: 'output',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+			{caption : ["송품장<br>발행", "송품장<br>발행", "송품장<br>발행", "송품장<br>발행"], 			ref: 'spmtno',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_docSpmt(" + nRow + ")'>발행</button>";
 	        	}
 	        }},
-	        {caption : ["비고","비고", "비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:left;'},
+	        {caption : ["물류<br>기기","물류<br>기기", "물류<br>기기", "물류<br>기기"], ref: 'lgstcsMat', type: 'input',  width:'80px', style: 'text-align:center;'},
+	        {caption : ["비고","비고", "비고", "비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:left;'},
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
@@ -243,10 +277,10 @@
     	grdGdsInvntr.setCellStyles(0,1,0,7,'background:#FF000030');
     	grdGdsInvntr.setCellStyles(0,8,0,15,'background:#FFFC3330');
     	grdGdsInvntr.setCellStyles(0,15,0,21,'background:#FFB53330');
-    	grdGdsInvntr.setCellStyles(2,1,2,25,'text-align:right; padding-right:5px; font-weight:1200;');
-    	grdGdsInvntr.setCellStyles(2,1,2,8,'background:#FFF8DC30;');
-    	grdGdsInvntr.setCellStyles(2,10,2,15,'background:#FFF8DC30;');
-    	grdGdsInvntr.setCellStyles(2,17,2,22,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,1,3,25,'text-align:right; padding-right:5px; font-weight:1200;');
+    	grdGdsInvntr.setCellStyles(2,1,3,8,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,10,3,15,'background:#FFF8DC30;');
+    	grdGdsInvntr.setCellStyles(2,17,3,22,'background:#FFF8DC30;');
 
 	}
 
@@ -278,6 +312,19 @@
 		SBUxMethod.attr('btnAdd', 'disabled', 'true');
 		SBUxMethod.attr('btnDel', 'disabled', 'true');
 		fn_gridColor();
+
+	}
+
+	const fn_onChangeSortDsctnYn = function () {
+		let sortDsctnYn = SBUxMethod.get("srch-chk-sortDsctnYn")['srch-chk-sortDsctnYn'];
+
+		if (sortDsctnYn == "Y") {
+			SBUxMethod.set('srch-dtp-pckgYmdFrom', gfn_dateToYmd(new Date()));
+		    SBUxMethod.set('srch-dtp-pckgYmdTo', gfn_dateToYmd(new Date()));
+		} else {
+			SBUxMethod.set('srch-dtp-pckgYmdFrom', "");
+		    SBUxMethod.set('srch-dtp-pckgYmdTo', "");
+		}
 
 	}
 
@@ -420,6 +467,7 @@
 	      , itemCd 			: itemCd
 	      , apcCd			: apcCd
 	      , spmtYmd			: spmtYmd
+
 		});
 
 	    const data = await postJsonPromise;
@@ -463,6 +511,7 @@
 
         	        	    , tot   	: item.tot
         	        	    , rmrk		: item.rmrk
+        	        	    , lgstcsMat	: item.lgstcsMat
                 	}
                 	jsonGdsInvntr.push(gdsInvntr);
 	            });
@@ -512,40 +561,62 @@
 	    let orgTotCol = grdGdsInvntr.getColRef("orgTot");
 	    let totCol = grdGdsInvntr.getColRef("tot");
 
+	    let sortDsctnYn 	= SBUxMethod.get('srch-chk-sortDsctnYn')['srch-chk-sortDsctnYn'];
+
+	    let pckgYmdFrom		= "";
+	    let pckgYmdTo 		= "";
+
+	    if (sortDsctnYn == "Y") {
+	    	pckgYmdFrom		= SBUxMethod.get("srch-dtp-pckgYmdFrom");
+		    pckgYmdTo 		= SBUxMethod.get("srch-dtp-pckgYmdTo");
+
+		    if(gfn_isEmpty(pckgYmdFrom)){
+	    		gfn_comAlert("W0001", "선별시작일자");			//	W0001	{0}을/를 선택하세요.
+	            return;
+	    	}
+		    if(gfn_isEmpty(pckgYmdTo)){
+	    		gfn_comAlert("W0001", "선별종료일자");			//	W0001	{0}을/를 선택하세요.
+	            return;
+	    	}
+	    }
 
 		const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsDsctn.do", {
-		      	grdGubun 		: grdGubun
-		      , itemCd 			: itemCd
-		      , apcCd			: apcCd
+		      	grdGubun 			: grdGubun
+		      , itemCd 				: itemCd
+		      , apcCd				: apcCd
+		      , pckgYmdFrom			: pckgYmdFrom
+		      , pckgYmdTo			: pckgYmdTo
+		      , blwInvntrAprvGds 	: blwInvntrAprvGds
 		});
 
         const data = await postJsonPromise;
         try {
+
 	        if (_.isEqual("S", data.resultStatus)) {
                 data.resultList.forEach((item, index) => {
 
-					grdGdsInvntr.setCellData(2, red2XlCol, fn_zero(item.red2Xl));
-					grdGdsInvntr.setCellData(2, redXlCol, fn_zero(item.redXl));
-					grdGdsInvntr.setCellData(2, redLCol, fn_zero(item.redL));
-					grdGdsInvntr.setCellData(2, redMCol, fn_zero(item.redM));
-					grdGdsInvntr.setCellData(2, redSCol, fn_zero(item.redS));
-					grdGdsInvntr.setCellData(2, redSsCol, fn_zero(item.redSs));
-					grdGdsInvntr.setCellData(2, redTotCol, fn_zero(item.redTot));
-					grdGdsInvntr.setCellData(2, ylw2XlCol, fn_zero(item.ylw2Xl));
-					grdGdsInvntr.setCellData(2, ylwXlCol, fn_zero(item.ylwXl));
-					grdGdsInvntr.setCellData(2, ylwLCol, fn_zero(item.ylwL));
-					grdGdsInvntr.setCellData(2, ylwMCol, fn_zero(item.ylwM));
-					grdGdsInvntr.setCellData(2, ylwSCol, fn_zero(item.ylwS));
-					grdGdsInvntr.setCellData(2, ylwSsCol, fn_zero(item.ylwSs));
-					grdGdsInvntr.setCellData(2, ylwTotCol, fn_zero(item.ylwTot));
-					grdGdsInvntr.setCellData(2, org2XlCol, fn_zero(item.org2Xl));
-					grdGdsInvntr.setCellData(2, orgXlCol, fn_zero(item.orgXl));
-					grdGdsInvntr.setCellData(2, orgLCol, fn_zero(item.orgL));
-					grdGdsInvntr.setCellData(2, orgMCol, fn_zero(item.orgM));
-					grdGdsInvntr.setCellData(2, orgSCol, fn_zero(item.orgS));
-					grdGdsInvntr.setCellData(2, orgSsCol, fn_zero(item.orgSs));
-					grdGdsInvntr.setCellData(2, orgTotCol, fn_zero(item.orgTot));
-					grdGdsInvntr.setCellData(2, totCol, fn_zero(item.tot));
+					grdGdsInvntr.setCellData(index+2, red2XlCol, fn_zero(item.red2Xl));
+					grdGdsInvntr.setCellData(index+2, redXlCol, fn_zero(item.redXl));
+					grdGdsInvntr.setCellData(index+2, redLCol, fn_zero(item.redL));
+					grdGdsInvntr.setCellData(index+2, redMCol, fn_zero(item.redM));
+					grdGdsInvntr.setCellData(index+2, redSCol, fn_zero(item.redS));
+					grdGdsInvntr.setCellData(index+2, redSsCol, fn_zero(item.redSs));
+					grdGdsInvntr.setCellData(index+2, redTotCol, fn_zero(item.redTot));
+					grdGdsInvntr.setCellData(index+2, ylw2XlCol, fn_zero(item.ylw2Xl));
+					grdGdsInvntr.setCellData(index+2, ylwXlCol, fn_zero(item.ylwXl));
+					grdGdsInvntr.setCellData(index+2, ylwLCol, fn_zero(item.ylwL));
+					grdGdsInvntr.setCellData(index+2, ylwMCol, fn_zero(item.ylwM));
+					grdGdsInvntr.setCellData(index+2, ylwSCol, fn_zero(item.ylwS));
+					grdGdsInvntr.setCellData(index+2, ylwSsCol, fn_zero(item.ylwSs));
+					grdGdsInvntr.setCellData(index+2, ylwTotCol, fn_zero(item.ylwTot));
+					grdGdsInvntr.setCellData(index+2, org2XlCol, fn_zero(item.org2Xl));
+					grdGdsInvntr.setCellData(index+2, orgXlCol, fn_zero(item.orgXl));
+					grdGdsInvntr.setCellData(index+2, orgLCol, fn_zero(item.orgL));
+					grdGdsInvntr.setCellData(index+2, orgMCol, fn_zero(item.orgM));
+					grdGdsInvntr.setCellData(index+2, orgSCol, fn_zero(item.orgS));
+					grdGdsInvntr.setCellData(index+2, orgSsCol, fn_zero(item.orgSs));
+					grdGdsInvntr.setCellData(index+2, orgTotCol, fn_zero(item.orgTot));
+					grdGdsInvntr.setCellData(index+2, totCol, fn_zero(item.tot));
 	            });
 
 
@@ -566,9 +637,9 @@
 
 		let nRow = grdGdsInvntr.getRow();
 		let nCol = grdGdsInvntr.getCol();
-		let rmrkCol = grdGdsInvntr.getColRef("rmrk");
+		let lgstcsMatCol = grdGdsInvntr.getColRef("lgstcsMat");
 
-		if (nCol > 2 && nCol != rmrkCol) {
+		if (1 < nCol && nCol < lgstcsMatCol) {
 			let ref = grdGdsInvntr.getRefOfCol(nCol);
 			let gTotQntt = grdGdsInvntr.getCellData(2, nCol);
 
@@ -600,9 +671,12 @@
 			let spmtTotQntt = 0;
 			let gridData = grdGdsInvntr.getGridDataAll();
 
-			if (!gfn_isEmpty(gTotQntt)){
+			if (gfn_isEmpty(gTotQntt) && blwInvntrAprvGds != "Y"){
 
-			    for (var i=3; i<gridData.length+2; i++ ){
+				grdGdsInvntr.setCellData(nRow, nCol, 0);
+
+			} else {
+				for (var i=4; i<gridData.length+3; i++ ){
 			    	let rowData = grdGdsInvntr.getRowData(i);
 
 			    	if (gfn_isEmpty(rowData.spmtno)) {
@@ -625,11 +699,6 @@
 
 			    // 가로 컬러 총 합산
 			    fn_rowTotSum(nRow);
-
-			} else {
-				if (blwInvntrAprvGds != "Y") {
-					grdGdsInvntr.setCellData(nRow, nCol, 0);
-				}
 			}
 
 			grdGdsInvntr.refresh();
@@ -682,13 +751,13 @@
 		let totQntt = 0;
 		let gridData = grdGdsInvntr.getGridDataAll();
 
-		for (var i=3; i<gridData.length+2; i++ ){
+		for (var i=4; i<gridData.length+3; i++ ){
 	    	let rowData = grdGdsInvntr.getRowData(i);
 		    if (!(gfn_isEmpty(rowData[ref]))){
 		        totQntt += parseInt(rowData[ref]);
 		    }
 	    }
-		grdGdsInvntr.setCellData(3, totCol, totQntt);
+		grdGdsInvntr.setCellData(4, totCol, totQntt);
 	}
 
   	// 가로별 합산
@@ -717,7 +786,7 @@
 		let checkCol = grdGdsInvntr.getColRef("checkBox");
 		let gridData = grdGdsInvntr.getGridDataAll();
 		let totQntt = 0;
-		for (var i=3; i<gridData.length+2; i++ ){
+		for (var i=4; i<gridData.length+3; i++ ){
 	    	let rowData = grdGdsInvntr.getRowData(i);
 	    	let spmtno	= rowData.spmtno;
 
@@ -731,11 +800,14 @@
 		     	}
 		    }
 		}
-		grdGdsInvntr.setCellData(3, totCol, totQntt);
+		grdGdsInvntr.setCellData(4, totCol, totQntt);
 	}
 
 	// 행 추가
 	const fn_addRow = function() {
+
+		grdGdsInvntr.refresh();
+
 		jsonGdsInvntr.push({
 			spmtYmd : gfn_dateToYmd(new Date())
 		})
@@ -759,10 +831,10 @@
 			let rowData = grdGdsInvntr.getRowData(reverseCheckeds[i]);
 
 			if (gfn_isEmpty(rowData.spmtno)) {
-				jsonGdsInvntr.splice(reverseCheckeds[i] - 3, 1);
+				jsonGdsInvntr.splice(reverseCheckeds[i] - 4, 1);
 				grdGdsInvntr.refresh();
 			} else {
-				gfn_comAlert("E0000", reverseCheckeds[i] - 2 + "행은 등록 된 실적 입니다. 삭제를 이용해 주세요.");			// E0000	{0}
+				gfn_comAlert("E0000", reverseCheckeds[i] - 3 + "행은 등록 된 실적 입니다. 삭제를 이용해 주세요.");			// E0000	{0}
 				return;
 			}
 		}
@@ -785,7 +857,7 @@
 				let refCol = grdGdsInvntr.getColRef(ref);
 				let totQntt = 0;
 
-				for (var k=3; k<gridData.length+2; k++ ){
+				for (var k=4; k<gridData.length+3; k++ ){
 			    	let rowData = grdGdsInvntr.getRowData(k);
 			        totQntt += parseInt(gfn_nvl(rowData[ref], 0));
 			    }
@@ -796,10 +868,13 @@
 
 	const fn_save = async function () {
 
-		let checkCol = grdGdsInvntr.getColRef("checkBox");
-		let checkeds = grdGdsInvntr.getCheckedRows(checkCol, true);
+		let checkCol 	= grdGdsInvntr.getColRef("checkBox");
+		let checkeds 	= grdGdsInvntr.getCheckedRows(checkCol, true);
 
-		let grdGubun = SBUxMethod.get('srch-slt-grd');
+		let grdGubun 	= SBUxMethod.get('srch-slt-grd');
+		let pckgYmdFrom = SBUxMethod.get('srch-dtp-pckgYmdFrom');
+		let pckgYmdTo 	= SBUxMethod.get('srch-dtp-pckgYmdTo');
+		let sortDsctnYn 	= SBUxMethod.get('srch-chk-sortDsctnYn')['srch-chk-sortDsctnYn'];
 
 		if (checkeds.length == 0) {
 			gfn_comAlert("W0003", "저장");			// W0003	{0}할 대상이 없습니다.
@@ -810,7 +885,7 @@
 		let columns = ['2Xl', 'Xl','L','M','S','Ss'];
 		let aGrds = ['01', '02', '03', '04', '05', '06'];
 		let bGrds = ['07', '08', '09', '10', '11', '12'];
-		let cGrds = ['13', '14', '15'];
+		let cGrds = ['13', '14', '15', '16', '17', '18'];
 
 		let grds = [];
 
@@ -826,7 +901,7 @@
 
 		let insertList = [];
 
-		for (var i=3; i<gridData.length+2; i++ ) {
+		for (var i=4; i<gridData.length+3; i++ ) {
 	    	let rowData = grdGdsInvntr.getRowData(i);
 	    	let spmtYmd = rowData.spmtYmd;
 	    	let cnptCd	= rowData.cnptCd;
@@ -873,6 +948,10 @@
 			    			  , gdsGrd		: grds[k]
 			    			  , spmtQntt	: spmtQntt
 			    			  , rmrk		: rowData.rmrk
+			    			  , lgstcsMat	: rowData.lgstcsMat
+			    			  , pckgYmdFrom : pckgYmdFrom
+			    			  , pckgYmdTo	: pckgYmdTo
+			    			  , sortDsctnYn	: sortDsctnYn
 		    				}
 
 			    			if (blwInvntrAprvGds == "Y") {

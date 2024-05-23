@@ -482,34 +482,7 @@
 			</div>
 			-->
 		</div>
-
-		<div>
-			<sbux-button id="srch-btn-pdfViewer" name="srch-btn-pdfViewer" uitype="modal" target-id="modal-pdfViewer" onclick="fn_choicePdfViewer" text="pdf샘플" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-			<!--
-			<sbux-button id="test2" name="test2" uitype="normal" text="test" onclick="fn_test" class="btn btn-xs btn-outline-dark"></sbux-button>
-			 -->
-		</div>
-		<br>
-		<br>
-		<br>
-		<br>
 	</section>
-
-	<!-- pdf샘플 팝업 -->
-	<div>
-		<sbux-modal
-			id="modal-pdfViewer"
-			name="modal-pdfViewer"
-			uitype="middle"
-			header-title="사업자번호 선택"
-			body-html-id="body-modal-pdfViewer"
-			footer-is-close-button="false"
-			style="width:1000px"
-		></sbux-modal>
-	</div>
-	<div id="body-modal-pdfViewer">
-		<jsp:include page="/WEB-INF/view/apcss/pd/popup/pdfviewerPopup.jsp"></jsp:include>
-	</div>
 </body>
 <script type="text/javascript">
 
@@ -1128,20 +1101,6 @@
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
-		}
-	}
-
-
-	//pdf 팝업
-	const fn_choicePdfViewer = function() {
-		//사업자번호
-		let brno = SBUxMethod.get('dtl-input-brno');
-		poppdfViewer.init(brno , fn_setPdfViewer);
-	}
-	//pdf 팝업 콜백함수
-	const fn_setPdfViewer = function(rowData) {
-		if (!gfn_isEmpty(rowData)) {
-			//SBUxMethod.set("dtl-input-brno", rowData.brno);				//사업자등록번호
 		}
 	}
 

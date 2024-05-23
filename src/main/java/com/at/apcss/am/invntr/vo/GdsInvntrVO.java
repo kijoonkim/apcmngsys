@@ -2,6 +2,8 @@ package com.at.apcss.am.invntr.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.at.apcss.am.spmt.vo.SpmtGdsVO;
 import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
@@ -76,6 +78,7 @@ public class GdsInvntrVO extends ComVO {
 	 */
 	private String rprsPrdcrCd;
 	private String prdcr;
+	private String prdcrIdentno;
 	/**
 	 * 대표생산자명
 	 */
@@ -163,6 +166,10 @@ public class GdsInvntrVO extends ComVO {
 	 * 포장수량
 	 */
 	private int trnsfQntt;
+	/**
+	 * 포장번호 + 순번
+	 */
+	private String spmtInvId;
 
 	/**
 	 * 포장중량
@@ -338,7 +345,15 @@ public class GdsInvntrVO extends ComVO {
 	private String wrhsYmd;
 	
 	
+	private List<SpmtGdsVO> spmtGdsList;
 
+	public List<SpmtGdsVO> getSpmtGdsList() {
+		return spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+	}
+
+	public void setSpmtGdsList(List<SpmtGdsVO> spmtGdsList) {
+		this.spmtGdsList = spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+	}
 
 	/**
 	 * 표준등급

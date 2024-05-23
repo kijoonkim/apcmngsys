@@ -81,6 +81,15 @@ public interface ComMenuService {
 	public List<ComUiVO> selectComUiList(ComUiVO comUiVO) throws Exception;
 
 	/**
+	 * 화면의 공통버튼 목록을 조회한다.
+	 * @param comMenuVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComUiVO> selectComUiCmnsBtnList(ComUiVO comUiVO) throws Exception;
+	
+	
+	/**
 	 * 화면 정보를 조회한다.
 	 * @param comUiVO
 	 * @return ComUiVO
@@ -114,6 +123,8 @@ public interface ComMenuService {
 	 * @return List<ComMenuVO>
 	 */
 	public List<ComMenuVO> selectMenuUiList(ComMenuVO comMenuVO) throws Exception;
+
+	
 
 	/**
 	 * 화면관리 UI 저장한다.

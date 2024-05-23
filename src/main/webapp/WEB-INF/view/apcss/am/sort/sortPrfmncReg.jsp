@@ -1343,7 +1343,6 @@
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
     	}
-		console.log(sortMng,"뭐가저장되는건데 ㅋㅋ");
 
         try {
     		const postJsonPromise = gfn_postJSON("/am/sort/insertSortPrfmnc.do", sortMng);
@@ -3122,8 +3121,6 @@
 				let colNm = gStdGrdObj.colExtPrfx + item.grdKnd;
 				const id = gStdGrdObj.idList[index];
 				let jsonObj = gStdGrdObj.getExtJson(id);
-				console.log("colNm", colNm);
-				console.log("rowData[colNm]", rowData[colNm]);
 				if (typeof rowData[colNm] === "string") {
 					rowData[colNm] = rowData[colNm].trim();
 				} else if (typeof rowData[colNm] === "number") {
@@ -3132,13 +3129,11 @@
 				} else {
 
 				}
-				console.log("rowData[colNm]", rowData[colNm]);
 
 				if (!gfn_isEmpty(rowData[colNm])) {
 					let grdInfo = _.find(jsonObj, {grdCd: rowData[colNm]});
 					if (gfn_isEmpty(grdInfo)) {
 						grdInfo = _.find(jsonObj, {grdNm: rowData[colNm]});
-						console.log("grdInfo", grdInfo);
 						if (!gfn_isEmpty(grdInfo)) {
 							rowData[colNm] = grdInfo.grdCd;
 						} else {

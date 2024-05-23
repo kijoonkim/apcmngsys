@@ -1,5 +1,8 @@
 package com.at.apcss.am.spmt.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -48,6 +51,21 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 출하일자
 	 */
 	private String spmtYmd;
+
+	/**
+	 * 포장시작일자
+	 */
+	private String pckgYmdFrom;
+
+	/**
+	 * 포장종료일자
+	 */
+	private String pckgYmdTo;
+
+	/**
+	 * 포장일자
+	 */
+	private String pckgYmd;
 
 	/**
 	 * 거래처코드
@@ -140,6 +158,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 */
 	private String warehouseSeCd;
 
+    /**
+     * 규격중량
+     */
+    private double spcfctWght;
+
 	/**
 	 * 출하수량
 	 */
@@ -216,9 +239,22 @@ public class SpmtPrfmncVO extends ComVO {
 	private String outordrno;
 
 	/**
+	 * 거래형태코드
+	 */
+	private String dlngShapCd;
+	/**
+	 * 매매방법코드
+	 */
+	private String dlngMthdCd;
+
+	/**
 	 * 상품등급
 	 */
 	private String gdsGrd;
+	/**
+	 * 등급코드
+	 */
+	private String grdCd;
 	/**
 	 * 상품등급먕
 	 */
@@ -286,5 +322,28 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 팔레트불출여부
 	 * */
 	private String blwInvntrAprv;
+	/*
+	 * 선별일자기준여부
+	 * */
+	private String sortDsctnYn;
+	/*
+	 * 물류기기
+	 * */
+	private String lgstcsMat;
+	/*
+	 * 출하번호 + 생산자번호
+	 * */
+	private String spmtIndct;
+	private String spmtInvId;
+
+	private List<SpmtGdsVO> spmtGdsList;
+
+	public List<SpmtGdsVO> getSpmtGdsList() {
+		return spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+	}
+
+	public void setSpmtGdsList(List<SpmtGdsVO> spmtGdsList) {
+		this.spmtGdsList = spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+	}
 
 }

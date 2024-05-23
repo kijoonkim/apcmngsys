@@ -132,6 +132,15 @@ public class SpmtPrfmncComVO extends ComVO {
 	private String outordrno;
 
 	/**
+	 * 거래형태코드
+	 */
+	private String dlngShapCd;
+	/**
+	 * 매매방법코드
+	 */
+	private String dlngMthdCd;
+	
+	/**
 	 * 반품여부
 	 */
 	private String rtnGdsYn;
@@ -171,6 +180,12 @@ public class SpmtPrfmncComVO extends ComVO {
 	 * 팔레트입출고순번
 	 * */
 	private int sn;
+	
+	/**
+	 * 재고상태코드
+	 */
+	private String invntrSttsCd;
+	
 	
 	private List<SpmtPrfmncVO> spmtPrfmncList;
 

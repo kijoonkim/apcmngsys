@@ -175,6 +175,7 @@
 			    , EXTRNL_LNKG_CD		= #{extrnlLnkgCd}
 			    , HSTRY_TRC_MNG_NO		= #{hstryTrcMngNo}
 			    , GAP_CERT_NO			= #{gapCertNo}
+			    , INVNTR_INQ_AU_CD		= #{invntrInqAuCd}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD		= #{itemCd}
 		]]>

@@ -1,0 +1,56 @@
+package com.at.apcss.pd.pcorm.service.impl;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper;
+import com.at.apcss.pd.pcorm.service.BizPlanReqMngService;
+import com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO;
+
+/**
+ * @Class Name : BizPlanRegServiceImpl.java
+ * @Description : 게시판 서비스를 정의하기 위한 서비스 구현 클래스
+ * @author 정연두
+ * @since 2023.06.21
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ * 수정일        수정자        수정내용
+ * ----------  ----------  ---------------------------
+ * 2023.06.21  정연두        최초 생성
+ * </pre>
+ */
+@Service("BizPlanReqMngService")
+public class BizPlanReqMngServiceImpl extends BaseServiceImpl implements BizPlanReqMngService{
+
+	@Autowired
+	private BizPlanReqMngMapper bizPlanReqMngMapper;
+
+	@Override
+	public List<BizPlanReqMngVO> selectBizPlanReqMngList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		List<BizPlanReqMngVO> resultList = bizPlanReqMngMapper.selectBizPlanReqMngList(bizPlanReqMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<BizPlanReqMngVO> bppvSelectFilePathList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		List<BizPlanReqMngVO> resultList = bizPlanReqMngMapper.bppvSelectFilePathList(bizPlanReqMngVO);
+		return resultList;
+	}
+	@Override
+	public int bppvUpdateSbmsnDcnmt(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		int updatedCnt = bizPlanReqMngMapper.bppvUpdateSbmsnDcnmt(bizPlanReqMngVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public BizPlanReqMngVO selectFileInfo(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		BizPlanReqMngVO result = bizPlanReqMngMapper.selectFileInfo(bizPlanReqMngVO);
+		return result;
+	}
+
+}

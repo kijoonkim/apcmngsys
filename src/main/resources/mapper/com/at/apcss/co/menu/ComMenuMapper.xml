@@ -507,6 +507,7 @@
 		  AND CM.MENU_NM = #{menuNm}
 		</if>
 	</select>
+	
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiList			-->
@@ -529,7 +530,63 @@
 		]]>
 
 	</select>
-
+	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUi			-->
+	<!-- DESC : 화면 관리 UI 조회                                   			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultType="com.at.apcss.co.menu.vo.ComUiVO">
+		<![CDATA[
+		    SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUi */
+		           CU.MENU_ID			AS MENU_ID
+			     , CU.ENTY_ID			AS ENTY_ID
+			     , CU.ENTY_TYPE			AS ENTY_TYPE
+			     , CU.ENTY_NM			AS ENTY_NM
+			     , CU.DEL_YN			AS DEL_YN
+			  FROM TB_COM_UI CU
+			 WHERE CU.MENU_ID = #{menuId}
+			   AND CU.ENTY_ID = #{entyId}
+		]]>
+	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiCmnsBtnList	-->
+	<!-- DESC : 화면 관리 UI 공통버튼 목록 조회                                 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectComUiCmnsBtnList" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultType="com.at.apcss.co.menu.vo.ComUiVO">
+		<![CDATA[
+		    SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiCmnsBtnList */
+		    	  'CB'				AS ENTY_TYPE
+		        , #{menuId}			AS MENU_ID
+			    , CCD.CD_VL			AS ENTY_ID
+			    , CCD.CD_VL_NM		AS ENTY_NM
+			    , NVL(CU.DEL_YN, 'Y')	AS DEL_YN
+			  FROM TB_COM_CD CC
+			  
+			  JOIN TB_COM_CD_DTL CCD
+			    ON CCD.APC_CD = '0000'
+			   AND CCD.CD_ID = CC.CD_ID
+			   AND CCD.USE_YN = 'Y'
+			   AND CCD.DEL_YN = 'N'
+			   
+			  LEFT JOIN TB_COM_UI CU
+			    ON CU.ENTY_ID = CCD.CD_VL
+			   AND CU.ENTY_TYPE = 'CB'
+			   AND CU.MENU_ID = #{menuId}
+			   AND CU.DEL_YN = 'N'
+			   
+			 WHERE CC.CD_ID = 'CMNS_BUTTON'
+			 ORDER BY INDCT_SEQ
+		]]>
+	</select>
+	
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.insertComUi				-->
 	<!-- DESC : 화면 관리 UI 등록		                                   			-->
@@ -540,34 +597,34 @@
 	<!-- ==========================================================================	-->
 	<insert id="insertComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-		INSERT INTO TB_COM_UI  /* com.at.apcss.co.menu.mapper.ComMenuMapper.insertComUi */
-			(
-				MENU_ID
-			  , ENTY_ID
-			  , ENTY_NM
-			  , ENTY_TYPE
-			  , DEL_YN
-			  , SYS_FRST_INPT_DT
-			  , SYS_FRST_INPT_USER_ID
-			  , SYS_FRST_INPT_PRGRM_ID
-			  , SYS_LAST_CHG_DT
-			  , SYS_LAST_CHG_USER_ID
-			  , SYS_LAST_CHG_PRGRM_ID
-			)
-		VALUES
-			(
-				#{menuId}
-			  , #{entyId}
-			  , #{entyNm}
-			  , #{entyType}
-			  , #{delYn}
-			  , SYSDATE
-			  , #{sysFrstInptUserId}
-			  , #{sysFrstInptPrgrmId}
-			  , SYSDATE
-			  , #{sysLastChgUserId}
-			  , #{sysLastChgPrgrmId}
-			)
+			INSERT INTO TB_COM_UI  /* com.at.apcss.co.menu.mapper.ComMenuMapper.insertComUi */
+				(
+					MENU_ID
+				  , ENTY_ID
+				  , ENTY_NM
+				  , ENTY_TYPE
+				  , DEL_YN
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+				(
+					#{menuId}
+				  , #{entyId}
+				  , #{entyNm}
+				  , #{entyType}
+				  , #{delYn}
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
 		]]>
 	</insert>
 	<!-- ==========================================================================	-->
@@ -602,9 +659,11 @@
 	<!-- ==========================================================================	-->
 	<delete id="deleteComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-		DELETE FROM TB_COM_UI  /* com.at.apcss.co.menu.mapper.ComMenuMapper.deleteComUi */
+		DELETE /* com.at.apcss.co.menu.mapper.ComMenuMapper.deleteComUi */
+			TB_COM_UI  
 		 WHERE MENU_ID = #{menuId}
 		   AND ENTY_ID = #{entyId}
 		]]>
 	</delete>
+	
 </mapper>

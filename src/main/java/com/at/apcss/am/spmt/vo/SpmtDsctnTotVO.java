@@ -34,12 +34,17 @@ public class SpmtDsctnTotVO extends ComVO{
 	private String spmtYmd;
 	private String spmtYmdFrom;
 	private String spmtYmdTo;
+	private String pckgYmd;
+	private String pckgYmdFrom;
+	private String pckgYmdTo;
 	private String cnptCd;
 	private String cnptNm;
 	private String grd;
 	private String prdcrNm;
 	private String grdGubun;
 	private String rmrk;
+	private String lgstcsMat;
+	private String blwInvntrAprvGds;
 
 	private int red2Xl;
 	private int redXl;
