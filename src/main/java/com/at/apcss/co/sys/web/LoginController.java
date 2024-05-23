@@ -107,6 +107,7 @@ public class LoginController extends BaseController {
 		logger.debug("loginVO {}", loginVO.toString());
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		request.getSession().setAttribute("loginInfo", null);
 		//LoginVO loginVO = new LoginVO();
 		try {
 
@@ -219,7 +220,12 @@ public class LoginController extends BaseController {
 								logger.debug(objMapper.writeValueAsString(comApcJsonVO));
 
 							}
-
+							
+							String loginInfo = objMapper.writeValueAsString(resultVO);
+							if (StringUtils.hasText(loginInfo)) {
+								request.getSession().setAttribute("loginInfo", loginInfo);
+							}
+							
 							if (comApcList != null && !comApcList.isEmpty()) {
 								request.getSession().setAttribute("comApcList", comApcList);
 							} else {
@@ -540,6 +546,11 @@ public class LoginController extends BaseController {
 				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 			}
 
+			String loginInfo = objMapper.writeValueAsString(resultVO);
+			if (StringUtils.hasText(loginInfo)) {
+				request.getSession().setAttribute("loginInfo", loginInfo);
+			}
+			
 			if (comApcList != null && !comApcList.isEmpty()) {
 				request.getSession().setAttribute("comApcList", comApcList);
 			} else {
@@ -626,6 +637,7 @@ public class LoginController extends BaseController {
 		request.getSession().setAttribute("accessUser", null);
 		request.getSession().setAttribute("sysPrgrmId", null);
 		request.getSession().setAttribute("comApcList", null);
+		request.getSession().setAttribute("loginInfo", null);
 
 		return "redirect:/main.do";
 	}
