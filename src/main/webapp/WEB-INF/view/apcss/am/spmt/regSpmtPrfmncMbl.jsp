@@ -470,7 +470,7 @@
                         <th>특</th>
                         <th>상</th>
                         <th>보통</th>
-                        <th></th>
+                        <th>대</th>
                         <th>계</th>
                     </tr>
                     </thead>
@@ -530,7 +530,7 @@
                             <input type="number" id="qnttInp3_0" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
-                            <input readonly />
+                            <input type="number" id="qnttInp4_0" onchange="fn_onchangeQntt(this)"/>
                         </td>
                         <td>
                             <input readonly/>
@@ -781,7 +781,7 @@
             <input type="number" id="qnttInp3_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
         </td>
         <td>
-            <input readOnly/>
+            <input type="number" id="qnttInp4_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
         </td>
         <td>
             <input readOnly/>
@@ -1585,10 +1585,14 @@
             invntrModalEl += `
                     </colgroup>
                     <thead>
-                        <tr>
-                            <th>선별일자</th>
-                            <th>품목</th>
-                            <th>품종</th>`;
+                        <tr>`;
+                        if(!prdcrFlag){
+                            invntrModalEl += `<th>선별일자</th>`;
+                        }else{
+                            invntrModalEl += `<th>저장창고</th>`;
+                        }
+
+            invntrModalEl += `<th>품목</th><th>품종</th>`;
                         if(!prdcrFlag) {
                             invntrModalEl +=
                             `<th>생산자명</th>
@@ -1605,10 +1609,13 @@
             _list.forEach(function(item,idx){
                 if(item.invntrQntt <= 0)return;
 
-               invntrModalEl += `<tr onclick="fn_selectInvnt(this,`+originTridx+`)">
-                            <td>`+item.pckgYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3")+`</td>
-                            <td>`+item.itemNm+`</td>
-                            <td>`+item.vrtyNm+`</td>`;
+               invntrModalEl += `<tr onclick="fn_selectInvnt(this,`+originTridx+`)">`;
+                            if(!prdcrFlag) {
+                                invntrModalEl += `<td>`+item.pckgYmd.replace(/(\d{4})(\d{2})(\d{2})/,"$1-$2-$3")+`</td>`;
+                            }else {
+                                invntrModalEl += `<td>`+item.warehouseSeNm+`</td>`;
+                            }
+                            invntrModalEl += `<td>`+item.itemNm+`</td><td>`+item.vrtyNm+`</td>`;
                             if(!prdcrFlag){
                                 invntrModalEl +=
                                 `<td>`+item.prdcrNm+`</td>`+
@@ -1634,7 +1641,7 @@
         if(!gfn_isEmpty(data.resultList)){
              el = fn_invntrModalEl(data.resultList);
         }else{
-             el =`<h2>`+rowData.grdNm + " " + rowData.vrtyNm +`</h2>
+             el =`<h2>`+rowData.grdNm + " " + rowData.itemNm +`</h2>
                  <table id="invntrTable" style="width:100%">
                     <colgroup>
                         <col style="width: 20%">
@@ -2027,6 +2034,7 @@
 
     const fn_remove = async function(_event){
         let inputWord = _event.keyCode;
+        
         let parentTr = $(_event.target).closest('tr');
         parentTr.children().eq(0).find('input').eq(1).attr({'type':"number","readonly":false});
         parentTr.children().eq(0).find('input').eq(1).css({'color':"initial","background-color":"initial"});
