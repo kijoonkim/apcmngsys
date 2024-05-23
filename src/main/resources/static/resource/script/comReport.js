@@ -112,12 +112,9 @@ const gfn_DirectPrintClipReport = async function(fileName, param) {
 				reportKey,
 				document.getElementById(param.element)
 			);
-	report.setIsPrintUse("html","pdf","exe");
 	report.setEndReportEvent(function(){
-			// report.printHTMLDirect();
-		report.exeDirectPrint(false, "", "", 1, -1, 2, "");
+			report.printHTMLDirect();
 		});
-
 	report.view();
 
 }
@@ -237,6 +234,28 @@ const gfn_popClipReport = async function(title, fileName, param) {
 
 	frm.remove();
 */
+}
+
+/**
+ * @name gfn_popClipReport
+ * @description 클립 리포트 exe printTest Fn
+ */
+const gfn_exeDirectTest = async function(fileName, param, _flag){
+	const reportKey = await gfn_getReportKey(fileName, param);
+	const report = createOOFReport(
+		gv_reportUrl,
+		reportKey,
+		document.getElementById(param.element)
+	);
+	report.setIsPrintUse("html","pdf","exe");
+	report.setEndReportEvent(function(){
+		if(_flag){
+			report.exeDirectPrint(false, "", "", 1, -1, 2, "");
+		}else{
+			report.exePrint(true, "", "", 1, -1, 2, "");
+		}
+	});
+	report.view();
 }
 
 
