@@ -2040,9 +2040,9 @@
             }
             const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
             if(document.querySelector('#srch-chk-autoPrint').checked){
-                gfn_exeDirectTest(rptUrl, {apcCd: gv_selectedApcCd, spmtno: returnSpmtNo,element : 'div-rpt-clipReportPrint'},true);
+                gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, spmtno: returnSpmtNo,element : 'div-rpt-clipReportPrint'});
             }else{
-                gfn_exeDirectTest(rptUrl, {apcCd: gv_selectedApcCd, spmtno: returnSpmtNo,element : 'div-rpt-clipReportPrint'},false);
+                // gfn_popClipReport("송품장",rptUrl,{apcCd: gv_selectedApcCd, spmtno: returnSpmtNo});
             }
 
         }catch (e){
