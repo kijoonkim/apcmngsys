@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 공통으로 처리하는 Service 인터페이스
@@ -27,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface ApcMaCommDirectService {
 
-	
 	/**
 	 * 공통으로 처리하는 Service
 	 * @param request
@@ -35,6 +35,15 @@ public interface ApcMaCommDirectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> callProc(Map<String, Object> param, String rtype, String ptype) throws Exception;
+	public HashMap<String, Object> callProc(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception;
+	
+	/**
+	 * 내부에서 공통으로 처리하는 Service
+	 * @param request
+	 * @param rtype
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> InnerCallProc2(Map<String, Object> param, String[][] plist) throws Exception;
 
 }
