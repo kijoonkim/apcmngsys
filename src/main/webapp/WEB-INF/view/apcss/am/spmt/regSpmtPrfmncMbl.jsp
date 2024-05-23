@@ -1267,6 +1267,7 @@
         let jsonSelectCnpt = jsonApcCnpt.filter(function (item) {
             return item.cmnsCd == val;
         });
+
         let dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
         let dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
 
@@ -1287,7 +1288,7 @@
                 $("#dlngMthdCd").text(dlngMthdCd[0].cdVlNm);
                 $("#dlngMthdCd").val(dlngMthdCd[0].cdVl);
             }else{
-                $("#dlngShapCd").text("경매");
+                $("#dlngMthdCd").text("경매");
             }
 
 
@@ -1913,16 +1914,15 @@
         let dlngShapCd = $("#dlngShapCd").val();
         let dlngMthdCd = $("#dlngMthdCd").val();
 
-
-        if(!gfn_comConfirm("Q0001",msg)){
-            return;
-        }
         if(gfn_isEmpty(cnptCd)){
             gfn_comAlert("W0001","거래처");
             return;
         }
         if(gfn_isEmpty(spmtYmd)){
             gfn_comAlert("W0001","출하일자");
+            return;
+        }
+        if(!gfn_comConfirm("Q0001",msg)){
             return;
         }
 
