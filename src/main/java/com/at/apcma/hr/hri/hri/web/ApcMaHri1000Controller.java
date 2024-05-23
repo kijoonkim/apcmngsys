@@ -141,5 +141,26 @@ public class ApcMaHri1000Controller extends BaseController {
         return getSuccessResponseEntity(resultMap);
     }
 
+    @PostMapping(value = "/hr/hri/hri/deleteHri1000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> deleteHri1000List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpServletRequest request) throws Exception{
 
+        logger.info("=============deleteHri1000List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_HRI1000_S");
+            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============deleteHri1000List=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
 }

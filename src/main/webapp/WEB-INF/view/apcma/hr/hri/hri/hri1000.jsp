@@ -40,7 +40,7 @@
                 <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create" ></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
-                <sbux-button id="btnRegistCommonCode" name="btnRegistCommonCode" uitype="normal" class="btn btn-sm btn-outline-danger" text="공통코드등록" onclick="fn_registCommonCode"></sbux-button>
+                <%--<sbux-button id="btnRegistCommonCode" name="btnRegistCommonCode" uitype="normal" class="btn btn-sm btn-outline-danger" text="공통코드등록" onclick="fn_registCommonCode"></sbux-button>--%>
                 <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
                 <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
                 <sbux-button id="btnRegistResignation" name="btnRegistResignation" uitype="normal" class="btn btn-sm btn-outline-danger" text="퇴사발령등록" onclick="fn_registResignation"></sbux-button>
@@ -1016,7 +1016,6 @@
      * 저장
      */
     const fn_save = async function() {
-        console.log(await getParamForHri1000S())
         const postJsonPromiseMaster = gfn_postJSON("/hr/hri/hri/insertHri1000Master.do", {
             getType				: 'json',
             workType			: editType,
@@ -1108,31 +1107,30 @@
     }
 
     //선택 삭제
-    const fn_delete = async function(comUiList) {
+    const fn_delete = async function() {
+        if(gfn_comConfirm("Q0001", "사원의 정보를 삭제")) {
+            const postJsonPromise = gfn_postJSON("/hr/hri/hri/deleteHri1000List.do", {
+                getType				: 'json',
+                workType			: 'D',
+                cv_count			: '0',
+                params				: gfnma_objectToString(await getParamForHri1000S())
+            });
+            const data = await postJsonPromise;
 
-        const postJsonPromise = gfn_postJSON("/co/menu/deleteComUiList.do", comUiList);
-        const data = await postJsonPromise;
-
-        try{
-            if(_.isEqual("S", data.resultStatus)){
-                gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-            }else{
-                gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+                } else {
+                    gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    }
-
-    /**
-     * 공통코드등록
-     */
-    const fn_registCommonCode = async function() {
-
     }
 
     /**
