@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,4 +59,87 @@ public class ApcMaHri1000Controller extends BaseController {
         logger.info("=============selectHri1000List=====end========");
         return getSuccessResponseEntity(resultMap);
     }
+
+    @PostMapping(value = "/hr/hri/hri/insertHri1000Master.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHri1000Master(
+            @RequestBody Map<String, Object> param
+            ,Model model
+            ,HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHri1000Master=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_HRI1000_S");
+            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHri1000Master=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/hr/hri/hri/insertHri1000Sub.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHri1000Sub(
+            @RequestBody Map<String, Object> param
+            ,Model model
+            ,HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHri1000Master=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_HRI1000_S1");
+            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHri1000Master=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/hr/hri/hri/insertHri1000Detail.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHri1000Detail(
+            @RequestBody Map<String, Object> param
+            ,Model model
+            ,HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHri1000Detail=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for(String key : param.keySet()){
+                if(key.contains("P_HRI1000_S")) {
+                    if(param.get(key) instanceof List) {
+                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+                        listData.stream().forEach(d -> {
+                            try {
+                                d.put("procedure", 		key);
+                                apcMaCommDirectService.callProc(d, request.getMethod(), "");
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        resultMap.put(key, listData);
+                    } else if (param.get(key) instanceof Map) {
+                        Map<String, Object> mapData = (Map<String, Object>) param.get(key);
+                        mapData.put("procedure", 		key);
+                        resultMap.put(key, apcMaCommDirectService.callProc(mapData, request.getMethod(), ""));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHri1000Detail=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+
 }

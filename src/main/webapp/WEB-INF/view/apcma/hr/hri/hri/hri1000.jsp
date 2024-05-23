@@ -228,6 +228,7 @@
                                                 uitype="normal"
                                                 class="form-control input-sm check"
                                                 text="윤달"
+                                                true-value="Y" false-value="N"
                                         />
                                     </td>
                                     <th scope="row" class="th_bg">직군</th>
@@ -307,6 +308,7 @@
                                                     uitype="normal"
                                                     class="form-control input-sm check"
                                                     text="등기이사"
+                                                    true-value="Y" false-value="N"
                                             />
                                         </p>
                                         <p class="ad_input_row">
@@ -317,6 +319,7 @@
                                                     uitype="normal"
                                                     class="form-control input-sm check"
                                                     text="영업사원"
+                                                    true-value="Y" false-value="N"
                                             />
                                         </p>
                                         <p class="ad_input_row">
@@ -327,6 +330,7 @@
                                                     uitype="normal"
                                                     class="form-control input-sm check"
                                                     text="재입사"
+                                                    true-value="Y" false-value="N"
                                             />
                                         </p>
                                         <p class="ad_input_row">
@@ -337,6 +341,7 @@
                                                     uitype="normal"
                                                     class="form-control input-sm check"
                                                     text="TO여부"
+                                                    true-value="Y" false-value="N"
                                             />
                                         </p>
                                     </td>
@@ -399,6 +404,7 @@
                                                     uitype="normal"
                                                     class="form-control input-sm check"
                                                     text="협력사사원"
+                                                    true-value="Y" false-value="N"
                                             />
                                         </p>
                                     </td>
@@ -928,6 +934,7 @@
      * 목록 조회
      */
     const fn_search = async function() {
+        editType = "";
         // set pagination
         let pageSize = gvwList.getPageSize();
         let pageNo = 1;
@@ -939,6 +946,7 @@
      * 신규등록
      */
     const fn_create = async function() {
+        editType = "N";
         SBUxMethod.set("EMP_CODE", "");
         SBUxMethod.set("DISPLAY_SOCIAL_NUM", "");
         SBUxMethod.set("SOCIAL_NUM", "");
@@ -1008,24 +1016,87 @@
      * 저장
      */
     const fn_save = async function() {
-
-
-        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1000.do", {
+        console.log(await getParamForHri1000S())
+        const postJsonPromiseMaster = gfn_postJSON("/hr/hri/hri/insertHri1000Master.do", {
             getType				: 'json',
-            workType			: 'N',
+            workType			: editType,
             cv_count			: '0',
-            params				: gfnma_objectToString(paramObj)
+            params				: gfnma_objectToString(await getParamForHri1000S())
         });
-        const data = await postJsonPromise;
+        const masterData = await postJsonPromiseMaster;
 
         try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if(data.resultMessage){
-                    alert(data.resultMessage);
+            if (_.isEqual("S", masterData.resultStatus)) {
+                var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr;
+
+                const postJsonPromiseSub = gfn_postJSON("/hr/hri/hri/insertHri1000Sub.do", {
+                    getType				: 'json',
+                    workType			: editType,
+                    cv_count			: '0',
+                    params				: gfnma_objectToString(await getParamForHri1000S1(empCode))
+                });
+                const subData = await postJsonPromiseSub;
+
+                try {
+                    if (_.isEqual("S", subData.resultStatus)) {
+                        var paramObj = {
+                            P_HRI1000_S2 : await getParamForHri1000S2(empCode),
+                            P_HRI1000_S3 : await getParamForHri1000S3(editType, empCode),
+                            P_HRI1000_S4 : await getParamForHri1000S4(empCode),
+                            P_HRI1000_S5 : await getParamForHri1000S5(empCode),
+                            P_HRI1000_S6 : await getParamForHri1000S6(empCode),
+                            P_HRI1000_S7 : await getParamForHri1000S7(empCode),
+                            P_HRI1000_S8 : await getParamForHri1000S8(empCode),
+                            P_HRI1000_S9 : await getParamForHri1000S9(empCode),
+                            P_HRI1000_S10 : await getParamForHri1000S10(empCode),
+                            P_HRI1000_S11 : await getParamForHri1000S11(empCode),
+                            P_HRI1000_S12 : await getParamForHri1000S12(empCode),
+                            P_HRI1000_S13 : await getParamForHri1000S13(empCode),
+                            P_HRI1000_S14 : await getParamForHri1000S14(empCode),
+                            P_HRI1000_S15 : await getParamForHri1000S15(empCode),
+                            P_HRI1000_S16 : await getParamForHri1000S16(empCode),
+                            P_HRI1000_S17 : await getParamForHri1000S17(empCode),
+                            P_HRI1000_S18 : await getParamForHri1000S18(empCode),
+                            P_HRI1000_S19 : await getParamForHri1000S19(empCode),
+                            P_HRI1000_S21 : await getParamForHri1000S21(editType, empCode),
+                            P_HRI1000_S22 : await getParamForHri1000S22(empCode),
+                            P_HRI1000_S23 : await getParamForHri1000S23(editType, empCode),
+                            P_HRI1000_S24 : await getParamForHri1000S24(empCode),
+                        }
+
+                        const postJsonPromiseDetail = gfn_postJSON("/hr/hri/hri/insertHri1000Detail.do", paramObj);
+                        const detailData = await postJsonPromiseDetail;
+
+                        try {
+                            if (_.isEqual("S", detailData.resultStatus)) {
+                                if(detailData.resultMessage){
+                                    alert(detailData.resultMessage);
+                                }
+                                fn_search();
+                            } else {
+                                alert(detailData.resultMessage);
+                            }
+
+                        } catch (e) {
+                            if (!(e instanceof Error)) {
+                                e = new Error(e);
+                            }
+                            console.error("failed", e.message);
+                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                        }
+                    } else {
+                        alert(subData.resultMessage);
+                    }
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    console.error("failed", e.message);
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
-                fn_search();
+
             } else {
-                alert(data.resultMessage);
+                alert(masterData.resultMessage);
             }
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -1180,7 +1251,7 @@
     //상세정보 보기
     const fn_view = async function() {
 
-        editType = "E";
+        editType = "U";
 
         var nCol = gvwList.getCol();
         //특정 열 부터 이벤트 적용
@@ -1702,7 +1773,6 @@
         let TO_YN = gfnma_nvl(SBUxMethod.get("TO_YN"));
 
         return {
-            V_P_WORK_TYPE : WORK_TYPE,
             V_P_DEBUG_MODE_YN : 'N',
             V_P_LANG_ID	: 'KOR',
             V_P_COMP_CODE : gv_ma_selectedApcCd,
@@ -1714,11 +1784,11 @@
             V_P_SOCIAL_NUM : SOCIAL_NUM,
             V_P_BIRTHDAY : BIRTHDAY,
             V_P_BIRTHDAY_TYPE : BIRTHDAY_TYPE,
-            V_P_LEAP_MONTH_YN : LEAP_MONTH_YN,
+            V_P_LEAP_MONTH_YN : LEAP_MONTH_YN.LEAP_MONTH_YN,
             V_P_GENDER : GENDER,
             V_P_FAMILY_CLAN : FAMILY_CLAN,
-            V_P_FOREIGNER_YN : FOREIGNER_YN,
-            V_P_FAMILY_OWNER_YN : FAMILY_OWNER_YN,
+            V_P_FOREIGNER_YN : FOREIGNER_YN.FOREIGNER_YN,
+            V_P_FAMILY_OWNER_YN : FAMILY_OWNER_YN.FAMILY_OWNER_YN,
             V_P_GROUP_ENTER_DATE : GROUP_ENTER_DATE,
             V_P_ENTER_DATE : ENTER_DATE,
             V_P_ENTER_TYPE : ENTER_TYPE,
@@ -1736,7 +1806,7 @@
             V_P_SALARY_CLASS : SALARY_CLASS,
             V_P_SITE_CODE : SITE_CODE,
             V_P_DEPT_CODE : DEPT_CODE,
-            V_P_SALES_EMP_YN : SALES_EMP_YN,
+            V_P_SALES_EMP_YN : SALES_EMP_YN.SALES_EMP_YN,
             V_P_TAX_SITE_CODE : TAX_SITE_CODE,
             V_P_NATION_CODE : NATION_CODE,
             V_P_REGISTER_ZIP_CODE : REGISTER_ZIP_CODE,
@@ -1752,19 +1822,19 @@
             V_P_OUT_EMAIL : OUT_EMAIL,
             V_P_TEMP_END_DATE : TEMP_END_DATE,
             V_P_BONUS_APPLY_START_DATE : BONUS_APPLY_START_DATE,
-            V_P_UNION_JOIN_YN : UNION_JOIN_YN,
+            V_P_UNION_JOIN_YN : UNION_JOIN_YN.UNION_JOIN_YN,
             V_P_UNION_JOIN_START_DATE : UNION_JOIN_START_DATE,
             V_P_UNION_JOIN_END_DATE : UNION_JOIN_END_DATE,
             V_P_RETIRE_DATE : RETIRE_DATE,
             V_P_RETIRE_REASON : RETIRE_REASON,
             V_P_RETIRE_IN_REASON : RETIRE_IN_REASON,
             V_P_RETIRE_INITIAL_DATE : RETIRE_INITIAL_DATE,
-            V_P_RETIRE_PENSION_JOIN_YN : RETIRE_PENSION_JOIN_YN,
+            V_P_RETIRE_PENSION_JOIN_YN : RETIRE_PENSION_JOIN_YN.RETIRE_PENSION_JOIN_YN,
             V_P_CAREER_DATE : CAREER_DATE,
             V_P_PREMATURE_DATE : PREMATURE_DATE,
             V_P_WORK_REGION : WORK_REGION,
             V_P_EMP_MEMO : EMP_MEMO,
-            V_P_TELEWORKING_YN : TELEWORKING_YN,
+            V_P_TELEWORKING_YN : TELEWORKING_YN.TELEWORKING_YN,
             V_P_TELEWORKING_ADDRESS : TELEWORKING_ADDRESS,
             V_P_ORDER_SEQ : ORDER_SEQ,
             V_P_EMP_PHOTO_PATH : EMP_PHOTO_PATH,
@@ -1773,11 +1843,11 @@
             V_P_SIGN_IMG_NAME : SIGN_IMG_NAME,
             V_P_START_POSITION_CODE : START_POSITION_CODE,
             V_P_CAREER_TRACK : CAREER_TRACK,
-            V_P_BOARD_DIRECTOR_YN : BOARD_DIRECTOR_YN,
+            V_P_BOARD_DIRECTOR_YN : BOARD_DIRECTOR_YN.BOARD_DIRECTOR_YN,
             V_P_INTRODUCER_CODE : INTRODUCER_CODE,
-            V_P_RE_ENTER_YN : RE_ENTER_YN,
+            V_P_RE_ENTER_YN : RE_ENTER_YN.RE_ENTER_YN,
             V_P_ANNUAL_INITIAL_DATE : ANNUAL_INITIAL_DATE,
-            V_P_PARTNER_FIRM_EMP_YN : PARTNER_FIRM_EMP_YN,
+            V_P_PARTNER_FIRM_EMP_YN : PARTNER_FIRM_EMP_YN.PARTNER_FIRM_EMP_YN,
             V_P_PARTNER_FIRM_CODE : PARTNER_FIRM_CODE,
             V_P_SOCIAL_NUM_DATE : SOCIAL_NUM_DATE,
             V_P_SALARY_LEVEL : SALARY_LEVEL,
@@ -1793,17 +1863,16 @@
             V_P_RET_RENS_ST_DAT : RET_RENS_ST_DAT,
             V_P_ANNUAL_BASE_DATE : ANNUAL_BASE_DATE,
             V_P_AGREE_DATE : AGREE_DATE,
-            V_P_AGREE_YN : AGREE_YN,
+            V_P_AGREE_YN : AGREE_YN.AGREE_YN,
             V_P_START_PAY_GRADE : START_PAY_GRADE,
             V_P_JOB_SUB_CODE : JOB_SUB_CODE,
             V_P_JOB_DETAIL_CODE : JOB_DETAIL_CODE,
-            V_P_TO_YN : TO_YN,
+            V_P_TO_YN : TO_YN.TO_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',
             V_P_USERID : '',
             V_P_PC : ''
-
         }
     }
 </script>
