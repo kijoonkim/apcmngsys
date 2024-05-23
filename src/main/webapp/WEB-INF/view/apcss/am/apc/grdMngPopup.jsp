@@ -235,6 +235,14 @@
 		    	style:'text-align:center',
         		typeinfo : {maxlength : 30}
 		    },
+		    {
+		    	caption: ["표시명"],     	
+		    	ref: 'indctNm',  
+		    	type:'input',  
+		    	width:'80px',    
+		    	style:'text-align:left',
+        		typeinfo : {maxlength : 10}
+		    },
        		{
 		    	caption: ["점수"],
 		    	ref: 'grdVl',  
@@ -268,7 +276,6 @@
 					value:'grdCd',
 					unselect: {label : '', value: ''}
 				}
-				
 			},
        		{
 				caption: ["순서"],     
@@ -303,6 +310,14 @@
 			{
 		    	caption: ["약어"],     	
 		    	ref: 'grdAbrvtn',  
+		    	type:'input',  
+		    	width:'80px',    
+		    	style:'text-align:center',
+        		typeinfo : {maxlength : 10}
+		    },
+			{
+		    	caption: ["설명"],     	
+		    	ref: 'grdExpln',  
 		    	type:'input',  
 		    	width:'80px',    
 		    	style:'text-align:center',
@@ -636,6 +651,7 @@
 						invntrInqAuCd: item.invntrInqAuCd,
 						grdExpln	: item.grdExpln,
 						grdAbrvtn	: item.grdAbrvtn,
+						indctNm		: item.indctNm
   					}
   					jsonStdGrdDtl.push(stdGrdVO);
   				});

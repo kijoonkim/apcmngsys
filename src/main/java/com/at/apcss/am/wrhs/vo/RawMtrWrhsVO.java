@@ -264,6 +264,11 @@ public class RawMtrWrhsVO extends ComVO {
 	private String prdctnYr;
 
 	/**
+	 * 재고유무
+	 */
+	private String invntrYn;
+	
+	/**
 	 * 재고상태코드
 	 */
 	private String invntrSttsCd;
