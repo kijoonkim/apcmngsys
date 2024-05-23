@@ -280,4 +280,12 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteSortBffaSpt(WrhsSortGrdVO wrhsSortGrdVO);
+
+	/**
+     * 육안판정등급조회
+     * @param sortPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectWrhsSpmtDsctnList(HashMap<String, Object> exhstDsctn) throws Exception;
 }

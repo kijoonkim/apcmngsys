@@ -474,6 +474,35 @@ public class SortPrfmncController extends BaseController {
     }
 
     /**
+   	 * 육안 선별 조회(현장용)
+   	 * @param sortBffaVO
+   	 * @param request
+   	 * @return
+   	 * @throws Exception
+   	 */
+       @PostMapping(value = "/am/sort/selectWrhsSpmtDsctnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+       public ResponseEntity<HashMap<String, Object>> selectWrhsSpmtDsctnList(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
+
+   		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+   		List<HashMap<String,Object>> resultList;
+
+   		try {
+   			resultList = sortPrfmncService.selectWrhsSpmtDsctnList(paramMap);
+   		} catch(Exception e) {
+   			return getErrorResponseEntity(e);
+   		} finally {
+   			HashMap<String, Object> rtnObj = setMenuComLog(request);
+   			if (rtnObj != null) {
+   				return getErrorResponseEntity(rtnObj);
+   			}
+   		}
+
+   		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+   		return getSuccessResponseEntity(resultMap);
+   	}
+
+    /**
 	 * 육안 선별 조회(현장용)
 	 * @param sortBffaVO
 	 * @param request
