@@ -2436,7 +2436,7 @@
 			    	<if test='fcltCd != null and fcltCd != ""'>
 						   AND SI.FCLT_CD = #{fcltCd}
 			    	</if>
-			    	
+
 		<![CDATA[
 					) SP
 					, (
@@ -2970,6 +2970,304 @@
 		        , BP.VRTY_CD
 		        , BP.FCLT_CD
     ]]>
+    </select>
+
+       <!-- ==========================================================================    -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortCnclList        -->
+    <!-- DESC : 농가입출고내역 집계 조회                                                   -->
+    <!-- ==========================================================================    -->
+    <!-- DATE           AUTHOR            DESCRIPTION                                  -->
+    <!-- ===========      ============      ===========================================    -->
+    <!-- 2024.05.23      박승진                Initial Creation                        -->
+    <!-- ==========================================================================    -->
+    <select id="selectWrhsSpmtDsctnList" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[
+           SELECT
+               APC_CD
+            , NVL(MAX(Z.A_SORT_QNTT_TOT) * 5,0) AS  A_SORT_QNTT_TOT
+            , NVL(MAX(Z.B_SORT_QNTT_TOT) * 5,0) AS  B_SORT_QNTT_TOT
+            , NVL(MAX(Z.C_SORT_QNTT_TOT) * 5,0) AS  C_SORT_QNTT_TOT
+            , NVL(MAX(Z.Y_QNTT_TOT) * 5,0) AS Y_QNTT_TOT
+            , NVL(MAX(Z.R_QNTT_TOT) * 5,0) AS R_QNTT_TOT
+            , NVL(MAX(Z.O_QNTT_TOT) * 5,0) AS O_QNTT_TOT
+            , MAX(Z.Y_QNTT_CYCL_1_P) AS Y_QNTT_CYCL_1_P
+            , MAX(Z.Y_QNTT_CYCL_2_P) AS Y_QNTT_CYCL_2_P
+            , MAX(Z.Y_QNTT_CYCL_3_P) AS Y_QNTT_CYCL_3_P
+            , MAX(Z.Y_QNTT_CYCL_4_P) AS Y_QNTT_CYCL_4_P
+            , MAX(Z.Y_QNTT_CYCL_5_P) AS Y_QNTT_CYCL_5_P
+            , MAX(Z.R_QNTT_CYCL_1_P) AS R_QNTT_CYCL_1_P
+            , MAX(Z.R_QNTT_CYCL_2_P) AS R_QNTT_CYCL_2_P
+            , MAX(Z.R_QNTT_CYCL_3_P) AS R_QNTT_CYCL_3_P
+            , MAX(Z.R_QNTT_CYCL_4_P) AS R_QNTT_CYCL_4_P
+            , MAX(Z.R_QNTT_CYCL_5_P) AS R_QNTT_CYCL_5_P
+            , MAX(Z.O_QNTT_CYCL_1_P) AS O_QNTT_CYCL_1_P
+            , MAX(Z.O_QNTT_CYCL_2_P) AS O_QNTT_CYCL_2_P
+            , MAX(Z.O_QNTT_CYCL_3_P) AS O_QNTT_CYCL_3_P
+            , MAX(Z.O_QNTT_CYCL_4_P) AS O_QNTT_CYCL_4_P
+            , MAX(Z.O_QNTT_CYCL_5_P) AS O_QNTT_CYCL_5_P
+            , MAX(Z.Y_P_TOT) AS Y_P_TOT
+            , MAX(Z.R_P_TOT) AS R_P_TOT
+            , MAX(Z.O_P_TOT) AS O_P_TOT
+            , ROUND(MAX(Z.A_SORT_QNTT_TOT) / (MAX(Z.A_SORT_QNTT_TOT) + MAX(Z.B_SORT_QNTT_TOT) + MAX(Z.C_SORT_QNTT_TOT)) *100) AS A_P_QNTT_TOT
+            , ROUND(MAX(Z.B_SORT_QNTT_TOT) / (MAX(Z.A_SORT_QNTT_TOT) + MAX(Z.B_SORT_QNTT_TOT) + MAX(Z.C_SORT_QNTT_TOT)) *100) AS B_P_QNTT_TOT
+            , ROUND(MAX(Z.C_SORT_QNTT_TOT) / (MAX(Z.A_SORT_QNTT_TOT) + MAX(Z.B_SORT_QNTT_TOT) + MAX(Z.C_SORT_QNTT_TOT)) *100) AS C_P_QNTT_TOT
+            ,(SELECT FN_GET_PRDCR_NM(Z.PRDCR_CD,Z.APC_CD) FROM DUAL ) AS PRDCR_NM
+            , Z.PRDCR_CD AS PRDCR_CD
+        FROM     (SELECT
+                    A.APC_CD AS APC_CD
+                    , A.PRDCR_CD AS PRDCR_CD
+                    , A_SORT_QNTT_TOT
+                    , B_SORT_QNTT_TOT
+                    , C_SORT_QNTT_TOT
+                    , Y_QNTT_TOT
+                    , R_QNTT_TOT
+                    , O_QNTT_TOT
+                    , Y_QNTT_CYCL_1_P
+                    , Y_QNTT_CYCL_2_P
+                    , Y_QNTT_CYCL_3_P
+                    , Y_QNTT_CYCL_4_P
+                    , Y_QNTT_CYCL_5_P
+                    , R_QNTT_CYCL_1_P
+                    , R_QNTT_CYCL_2_P
+                    , R_QNTT_CYCL_3_P
+                    , R_QNTT_CYCL_4_P
+                    , R_QNTT_CYCL_5_P
+                    , O_QNTT_CYCL_1_P
+                    , O_QNTT_CYCL_2_P
+                    , O_QNTT_CYCL_3_P
+                    , O_QNTT_CYCL_4_P
+                    , O_QNTT_CYCL_5_P
+                    , Y_QNTT_CYCL_1_P + Y_QNTT_CYCL_2_P + Y_QNTT_CYCL_3_P + Y_QNTT_CYCL_4_P + Y_QNTT_CYCL_5_P AS Y_P_TOT
+                    , R_QNTT_CYCL_1_P + R_QNTT_CYCL_2_P + R_QNTT_CYCL_3_P + R_QNTT_CYCL_4_P + R_QNTT_CYCL_5_P AS R_P_TOT
+                    , O_QNTT_CYCL_1_P + O_QNTT_CYCL_2_P + O_QNTT_CYCL_3_P + O_QNTT_CYCL_4_P + O_QNTT_CYCL_5_P AS O_P_TOT
+            FROM
+
+                (SELECT
+                        MAX(SI.APC_CD) AS APC_CD
+                        ,'A' AS ITEM_GRD
+                        , SP.INPT_YMD
+                        , SI.RPRS_PRDCR_CD AS PRDCR_CD
+                        , SI.ITEM_CD AS ITEM_CD
+                        , SI.VRTY_CD AS VRTY_CD
+
+                        , SUM(SI.SORT_QNTT) AS A_SORT_QNTT_TOT
+                        , SUM(SI.SORT_WGHT) AS A_SORT_WGHT_TOT
+                        , 0 AS B_SORT_QNTT_TOT
+                        , 0 AS B_SORT_WGHT_TOT
+                        , 0 AS C_SORT_QNTT_TOT
+                        , 0 AS C_SORT_WGHT_TOT
+
+                FROM TB_SORT_PRFMNC SP
+                        , TB_SORT_INVNTR    SI
+                WHERE 1=1
+                    AND SP.APC_CD = SI.APC_CD
+                    AND SP.SORTNO = SI.SORTNO
+                    AND SP.SORT_SN = SI.SORT_SN
+                    AND SI.GRD_CD IN ('01','02','03','04','05','06')
+                    AND SP.DEL_YN = 'N'
+                    AND SI.DEL_YN = 'N'
+            ]]>
+            <if test='apcCd != null and apcCd !=""'>
+                    AND SP.APC_CD = #{apcCd}
+            </if>
+            <if test='itemCd != null and itemCd !=""'>
+                   AND SI.ITEM_CD = #{itemCd}
+            </if>
+            <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
+                      AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+             </if>
+             <if test='prdcrCd != null and prdcrCd !=""'>
+                     AND SI.PRDCR_CD = #{prdcrCd}
+                </if>
+            <![CDATA[
+
+
+                GROUP BY SP.INPT_YMD,SI.RPRS_PRDCR_CD,SI.ITEM_CD,SI.VRTY_CD
+
+                UNION ALL
+
+                select
+                        MAX(SI.APC_CD) AS APC_CD
+                        , 'B' AS ITEM_GRD
+                        , SP.INPT_YMD
+                        , SI.RPRS_PRDCR_CD AS PRDCR_CD
+                        , SI.ITEM_CD AS ITEM_CD
+                        , SI.VRTY_CD AS VRTY_CD
+
+                        , 0 AS A_SORT_QNTT_TOT
+                        , 0 AS A_SORT_WGHT_TOT
+                        , SUM(SI.SORT_QNTT) AS B_SORT_QNTT_TOT
+                        , SUM(SI.SORT_WGHT) AS B_SORT_WGHT_TOT
+                        , 0 AS C_SORT_QNTT_TOT
+                        , 0 AS C_SORT_WGHT_TOT
+
+                from TB_SORT_PRFMNC SP
+                        , TB_SORT_INVNTR    SI
+                WHERE 1=1
+                    AND SP.APC_CD = SI.APC_CD
+                    AND SP.SORTNO = SI.SORTNO
+                    AND SP.SORT_SN = SI.SORT_SN
+                    AND SI.GRD_CD IN  ('07','08','09','10','11','12')
+                    AND SP.DEL_YN = 'N'
+                    AND SI.DEL_YN = 'N'
+                ]]>
+                <if test='apcCd != null and apcCd !=""'>
+                    AND SP.APC_CD = #{apcCd}
+                </if>
+                <if test='itemCd != null and itemCd !=""'>
+                       AND SI.ITEM_CD = #{itemCd}
+                </if>
+                <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
+                          AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+                 </if>
+                 <if test='prdcrCd != null and prdcrCd !=""'>
+                     AND SI.PRDCR_CD = #{prdcrCd}
+                </if>
+                <![CDATA[
+
+
+                GROUP BY SP.INPT_YMD,SI.RPRS_PRDCR_CD,SI.ITEM_CD,SI.VRTY_CD
+
+                UNION ALL
+
+                select
+                         MAX(SI.APC_CD) AS APC_CD
+                        , 'C' AS ITEM_GRD
+                        , SP.INPT_YMD
+                        , SI.RPRS_PRDCR_CD AS PRDCR_CD
+                        , SI.ITEM_CD AS ITEM_CD
+                        , SI.VRTY_CD AS VRTY_CD
+
+                        , 0 AS A_SORT_QNTT_TOT
+                        , 0 AS A_SORT_WGHT_TOT
+                        , 0 AS B_SORT_QNTT_TOT
+                        , 0 AS B_SORT_WGHT_TOT
+                        , SUM(SI.SORT_QNTT) AS C_SORT_QNTT_TOT
+                        , SUM(SI.SORT_WGHT) AS C_SORT_WGHT_TOT
+
+                from TB_SORT_PRFMNC SP
+                        , TB_SORT_INVNTR    SI
+                WHERE 1=1
+                    AND SP.APC_CD = SI.APC_CD
+                    AND SP.SORTNO = SI.SORTNO
+                    AND SP.SORT_SN = SI.SORT_SN
+                    AND SI.GRD_CD IN ('13','14','15')
+                    AND SP.DEL_YN = 'N'
+                    AND SI.DEL_YN = 'N'
+                ]]>
+                <if test='apcCd != null and apcCd !=""'>
+                    AND SP.APC_CD = #{apcCd}
+                </if>
+                <if test='itemCd != null and itemCd !=""'>
+                       AND SI.ITEM_CD = #{itemCd}
+                </if>
+                <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
+                          AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+                 </if>
+                 <if test='prdcrCd != null and prdcrCd !=""'>
+                     AND SI.PRDCR_CD = #{prdcrCd}
+                </if>
+                <![CDATA[
+
+
+                GROUP BY SP.INPT_YMD,SI.RPRS_PRDCR_CD,SI.ITEM_CD,SI.VRTY_CD
+            ) A
+            ,( SELECT
+                        MAX(X.APC_CD) AS APC_CD
+                        ,X.SORT_YMD AS INPT_YMD
+                        , X.PRDCR_CD
+                        , X.ITEM_CD
+                        , SUM(Y_QNTT_CYCL_1) AS Y_QNTT_CYCL_1
+                        , SUM(Y_QNTT_CYCL_2) AS Y_QNTT_CYCL_2
+                        , SUM(Y_QNTT_CYCL_3) AS Y_QNTT_CYCL_3
+                        , SUM(Y_QNTT_CYCL_4) AS Y_QNTT_CYCL_4
+                        , SUM(Y_QNTT_CYCL_5) AS Y_QNTT_CYCL_5
+                        , SUM(R_QNTT_CYCL_1) AS R_QNTT_CYCL_1
+                        , SUM(R_QNTT_CYCL_2) AS R_QNTT_CYCL_2
+                        , SUM(R_QNTT_CYCL_3) AS R_QNTT_CYCL_3
+                        , SUM(R_QNTT_CYCL_4) AS R_QNTT_CYCL_4
+                        , SUM(R_QNTT_CYCL_5) AS R_QNTT_CYCL_5
+                        , SUM(O_QNTT_CYCL_1) AS O_QNTT_CYCL_1
+                        , SUM(O_QNTT_CYCL_2) AS O_QNTT_CYCL_2
+                        , SUM(O_QNTT_CYCL_3) AS O_QNTT_CYCL_3
+                        , SUM(O_QNTT_CYCL_4) AS O_QNTT_CYCL_4
+                        , SUM(O_QNTT_CYCL_5) AS O_QNTT_CYCL_5
+                        , ROUND(SUM(Y_QNTT_CYCL_1) / DECODE(SUM(Y_QNTT_TOT),0,1,SUM(Y_QNTT_TOT)) * 100) AS Y_QNTT_CYCL_1_P
+                        , ROUND(SUM(Y_QNTT_CYCL_2) / DECODE(SUM(Y_QNTT_TOT),0,1,SUM(Y_QNTT_TOT)) * 100) AS Y_QNTT_CYCL_2_P
+                        , ROUND(SUM(Y_QNTT_CYCL_3) / DECODE(SUM(Y_QNTT_TOT),0,1,SUM(Y_QNTT_TOT)) * 100) AS Y_QNTT_CYCL_3_P
+                        , ROUND(SUM(Y_QNTT_CYCL_4) / DECODE(SUM(Y_QNTT_TOT),0,1,SUM(Y_QNTT_TOT)) * 100) AS Y_QNTT_CYCL_4_P
+                        , ROUND(SUM(Y_QNTT_CYCL_5) / DECODE(SUM(Y_QNTT_TOT),0,1,SUM(Y_QNTT_TOT)) * 100) AS Y_QNTT_CYCL_5_P
+                        , ROUND(SUM(R_QNTT_CYCL_1) / DECODE(SUM(R_QNTT_TOT),0,1,SUM(R_QNTT_TOT)) * 100) AS R_QNTT_CYCL_1_P
+                        , ROUND(SUM(R_QNTT_CYCL_2) / DECODE(SUM(R_QNTT_TOT),0,1,SUM(R_QNTT_TOT)) * 100) AS R_QNTT_CYCL_2_P
+                        , ROUND(SUM(R_QNTT_CYCL_3) / DECODE(SUM(R_QNTT_TOT),0,1,SUM(R_QNTT_TOT)) * 100) AS R_QNTT_CYCL_3_P
+                        , ROUND(SUM(R_QNTT_CYCL_4) / DECODE(SUM(R_QNTT_TOT),0,1,SUM(R_QNTT_TOT)) * 100) AS R_QNTT_CYCL_4_P
+                        , ROUND(SUM(R_QNTT_CYCL_5) / DECODE(SUM(R_QNTT_TOT),0,1,SUM(R_QNTT_TOT)) * 100) AS R_QNTT_CYCL_5_P
+                        , ROUND(SUM(O_QNTT_CYCL_1) / DECODE(SUM(O_QNTT_TOT),0,1,SUM(O_QNTT_TOT)) * 100) AS O_QNTT_CYCL_1_P
+                        , ROUND(SUM(O_QNTT_CYCL_2) / DECODE(SUM(O_QNTT_TOT),0,1,SUM(O_QNTT_TOT)) * 100) AS O_QNTT_CYCL_2_P
+                        , ROUND(SUM(O_QNTT_CYCL_3) / DECODE(SUM(O_QNTT_TOT),0,1,SUM(O_QNTT_TOT)) * 100) AS O_QNTT_CYCL_3_P
+                        , ROUND(SUM(O_QNTT_CYCL_4) / DECODE(SUM(O_QNTT_TOT),0,1,SUM(O_QNTT_TOT)) * 100) AS O_QNTT_CYCL_4_P
+                        , ROUND(SUM(O_QNTT_CYCL_5) / DECODE(SUM(O_QNTT_TOT),0,1,SUM(O_QNTT_TOT)) * 100) AS O_QNTT_CYCL_5_P
+                        , SUM(Y_QNTT_TOT) AS Y_QNTT_TOT
+                        , SUM(R_QNTT_TOT) AS R_QNTT_TOT
+                        , SUM(O_QNTT_TOT) AS O_QNTT_TOT
+                 FROM (SELECT
+                    WS.SORT_YMD
+                    ,WS.PRDCR_CD
+                    ,WS.ITEM_CD
+                    ,WS.VRTY_CD
+                    ,WS.APC_CD
+                    ,CASE WHEN WS.VRTY_CD = '0200' THEN QNTT_CYCL_1 END AS Y_QNTT_CYCL_1
+                    ,CASE WHEN WS.VRTY_CD = '0200' THEN QNTT_CYCL_2 END AS Y_QNTT_CYCL_2
+                    ,CASE WHEN WS.VRTY_CD = '0200' THEN QNTT_CYCL_3 END AS Y_QNTT_CYCL_3
+                    ,CASE WHEN WS.VRTY_CD = '0200' THEN QNTT_CYCL_4 END AS Y_QNTT_CYCL_4
+                    ,CASE WHEN WS.VRTY_CD = '0200' THEN QNTT_CYCL_5 END AS Y_QNTT_CYCL_5
+
+                    ,CASE WHEN WS.VRTY_CD = '0300' THEN QNTT_CYCL_1 END AS R_QNTT_CYCL_1
+                    ,CASE WHEN WS.VRTY_CD = '0300' THEN QNTT_CYCL_2 END AS R_QNTT_CYCL_2
+                    ,CASE WHEN WS.VRTY_CD = '0300' THEN QNTT_CYCL_3 END AS R_QNTT_CYCL_3
+                    ,CASE WHEN WS.VRTY_CD = '0300' THEN QNTT_CYCL_4 END AS R_QNTT_CYCL_4
+                    ,CASE WHEN WS.VRTY_CD = '0300' THEN QNTT_CYCL_5 END AS R_QNTT_CYCL_5
+
+                    ,CASE WHEN WS.VRTY_CD = '0400' THEN QNTT_CYCL_1 END AS O_QNTT_CYCL_1
+                    ,CASE WHEN WS.VRTY_CD = '0400' THEN QNTT_CYCL_2 END AS O_QNTT_CYCL_2
+                    ,CASE WHEN WS.VRTY_CD = '0400' THEN QNTT_CYCL_3 END AS O_QNTT_CYCL_3
+                    ,CASE WHEN WS.VRTY_CD = '0400' THEN QNTT_CYCL_4 END AS O_QNTT_CYCL_4
+                    ,CASE WHEN WS.VRTY_CD = '0400' THEN QNTT_CYCL_5 END AS O_QNTT_CYCL_5
+                    ,CASE WHEN WS.VRTY_CD = '0200' THEN QNTT_CYCL_1 + QNTT_CYCL_2 + QNTT_CYCL_3 + QNTT_CYCL_4 + QNTT_CYCL_5 END AS Y_QNTT_TOT
+                    ,CASE WHEN WS.VRTY_CD = '0300' THEN QNTT_CYCL_1 + QNTT_CYCL_2 + QNTT_CYCL_3 + QNTT_CYCL_4 + QNTT_CYCL_5 END AS R_QNTT_TOT
+                    ,CASE WHEN WS.VRTY_CD = '0400' THEN QNTT_CYCL_1 + QNTT_CYCL_2 + QNTT_CYCL_3 + QNTT_CYCL_4 + QNTT_CYCL_5 END AS O_QNTT_TOT
+
+                FROM TB_RAW_MTR_WRHS_SMMRY WS
+                WHERE 1=1
+                ]]>
+                <if test='apcCd != null and apcCd !=""'>
+                    AND WS.APC_CD = #{apcCd}
+                </if>
+                <if test='itemCd != null and itemCd !=""'>
+                     AND WS.ITEM_CD = #{itemCd}
+                </if>
+                <if test='prdcrCd != null and prdcrCd !=""'>
+                     AND WS.PRDCR_CD = #{prdcrCd}
+                </if>
+                <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
+                        AND WS.SORT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+                 </if>
+                <![CDATA[
+
+                    ) X
+                GROUP BY    X.SORT_YMD, X.PRDCR_CD, X.ITEM_CD
+                ) B
+
+
+    WHERE 1=1
+        AND A.APC_CD = B.APC_CD(+)
+        AND A.INPT_YMD = B.INPT_YMD(+)
+        AND A.PRDCR_CD = B.PRDCR_CD(+)
+        AND A.ITEM_CD = B.ITEM_CD(+)
+    ) Z
+
+    GROUP BY Z.APC_CD, Z.PRDCR_CD
+        ]]>
     </select>
 
     <!-- ========================================================================== -->

@@ -239,4 +239,12 @@ public interface SortPrfmncService {
      * @throws Exception
      */
 	public HashMap<String, Object> deleteSortBffaSpt(WrhsSortGrdVO wrhsSortGrdVO) throws Exception;
+
+	/**
+	 * 농가입출고내역 집계
+	 * @param HashMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectWrhsSpmtDsctnList(HashMap<String, Object> wrhsSpmtDsctnList) throws Exception;
 }
