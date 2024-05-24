@@ -250,7 +250,7 @@ const gfn_exeDirectPrint = async function(fileName, param){
 	report.setIsPrintUse("html","pdf","exe");
 
 	report.setEndReportEvent(function(){
-		report.exeDirectPrint(false, "", "", 1, -1, 2, "");
+		report.exeDirectPrint(false, "", "", 1, -1, 2, "center:true,fit:true,collateCopies:true");
 	});
 	report.view();
 }
