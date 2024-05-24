@@ -214,6 +214,25 @@
 			) AS CORP_NM
 			, DECODE(SD.DCMNT_KND , 'BP' , '사업계획서·전환서' , 'S' , '서명포함 스캔본'
 			) AS DCMNT_KND_NM
+
+			,(SELECT MNO
+				FROM TB_EV_APO
+				WHERE 1=1
+				  AND BRNO = SD.BRNO
+				  AND APO_SE = '1'
+			) AS MNO
+			,(SELECT SNO
+				FROM TB_EV_APO
+				WHERE 1=1
+				  AND BRNO = SD.BRNO
+				  AND APO_SE = '1'
+			) AS SNO
+			,(SELECT SLCTN_YR
+				FROM TB_EV_APO
+				WHERE 1=1
+				  AND BRNO = SD.BRNO
+				  AND APO_SE = '1'
+			) AS SLCTN_YR
 		FROM
 			TB_EV_SBMSN_DCMNT_FILE SDF
 			, (SELECT *
@@ -226,7 +245,7 @@
 									  					, 'at21','at22','at23','at24','at25','at26','at27','at61'))
 			) SD
 		WHERE 1=1
-		  AND SDF.FILE_SN = SD.FILE_SN(+)
+		  AND SD.FILE_SN = SDF.FILE_SN(+)
 		  AND SD.DCMNT_KND IN ('BP','S')
 		<if test='yr != null and yr != ""'>
 		  AND SD.YR = #{yr}

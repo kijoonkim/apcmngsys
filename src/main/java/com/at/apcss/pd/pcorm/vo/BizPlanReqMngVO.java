@@ -43,6 +43,10 @@ public class BizPlanReqMngVO extends ComVO{
 	private String srvrFileNm;	//서버에 저장된 파일명
 	private String fileExtnNm;	//확장자명
 
+	private String mno;	//본번
+	private String sno;	//부번
+	private String slctnYr;	//선정년도
+
 	private String aprv;	//승인형 육성형 구분
 	private String stts;	//상태
 	private String sttsNm;	//상태

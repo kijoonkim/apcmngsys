@@ -248,10 +248,10 @@
 			{caption: ["미리보기","미리보기"], 		ref: 'prvwBtn',			type:'button',  width:'80px',	style:'text-align:center'
 				,typeinfo : {buttonvalue: '팝업 열기', callback: fn_openMaodalPdfViewer}
 			},
-			{caption: ["비고","사업계획서/전환서"], 	ref: 'bizPlanRmrk',			type:'output',  width:'150px',	style:'text-align:center'},
-			{caption: ["비고","서명 포함 스캔본"], 		ref: 'sgntrRmrk',			type:'output',  width:'150px',	style:'text-align:center'},
-			{caption: ["상세내역"], 	ref: 'bizPlanFileSn',   	hidden : true},
-			{caption: ["상세내역"], 	ref: 'sgntrFileSnS',   	hidden : true},
+			{caption: ["비고","사업계획서/전환서"], 	ref: 'bizPlanRmrk',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["비고","서명 포함 스캔본"], 		ref: 'sgntrRmrk',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["상세내역"], 	ref: 'bizPlanFileSn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'sgntrFileSnS',		hidden : true},
 		];
 
 		grdBizPlanReqMng = _SBGrid.create(SBGridProperties);

@@ -210,17 +210,6 @@ public class BizPlanReqMngController extends BaseController{
 		}
 	}
 
-	@GetMapping("/pd/pcorm/deleteFile/{fileSn}")
-	public void deleteFile(@PathVariable String fileSn, HttpServletRequest requset, HttpServletResponse response) throws Exception {
-		logger.debug("============/pd/pcorm/download/{fileSn}=============");
-
-
-
-		BizPlanReqMngVO bizPlanReqMngVO = new BizPlanReqMngVO();
-		bizPlanReqMngVO.setFileSn(fileSn);
-
-	}
-
 	//파일 삭제
 	@PostMapping(value = "/pd/pcorm/deleteFile.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFile(@RequestBody BizPlanReqMngVO bizPlanReqMngVO, HttpServletRequest request) throws Exception {
