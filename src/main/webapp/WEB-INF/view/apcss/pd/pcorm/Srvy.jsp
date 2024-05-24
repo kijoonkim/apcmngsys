@@ -146,9 +146,9 @@
 		SBGridProperties.columns = [
 			{caption: ["등록년도"], 	ref: 'yr',			type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["유저 아이디"], 	ref: 'userId',		type:'output',  width:'100px',	style:'text-align:center'},
-			{caption: ["설문 종류"], 	ref: 'srvyKnd',		type:'output',  width:'150px',	style:'text-align:center'},
-			{caption: ["설문내용"], 	ref: 'srvyCn',		type:'output',  width:'200px',	style:'text-align:center'},
-			{caption: ["응답내용"], 	ref: 'rspnsCn',		type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["설문내용"], 	ref: 'srvyCn',		type:'output',  width:'500px',	style:'text-align:center'},
+			{caption: ["응답내용"], 	ref: 'rspnsCn',		type:'output',  width:'500px',	style:'text-align:center'},
+			{caption: ["설문 종류"], 	ref: 'srvyKnd',   	hidden : true},
 			{caption: ["설문 일련번호"], 	ref: 'srvySn',   	hidden : true},
 		];
 
