@@ -22,7 +22,8 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchBizPlan"></sbux-button>
+					<sbux-button id="btnDownloadAll" name="btnDownloadAll" uitype="normal" text="제출서류 일괄 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_downloadAll"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -128,13 +129,13 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdBizPlanReqMng" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdBizPlanReqMng" style="height:550px; width: 100%;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
 	</section>
-	<!-- pdf샘플 팝업 -->
+	<!-- pdf샘플 팝업
 	<div>
 		<sbux-modal
 			id="modal-bizPlanPdfViewer"
@@ -147,8 +148,9 @@
 		></sbux-modal>
 	</div>
 	<div id="body-modal-pdfViewer">
-		<jsp:include page="/WEB-INF/view/apcss/pd/popup/BizPlanPdfViewerPopup.jsp"></jsp:include>
+		< page="/WEB-INF/view/apcss/pd/popup/BizPlanPdfViewerPopup.jsp"></>
 	</div>
+	-->
 </body>
 <script type="text/javascript">
 
@@ -168,7 +170,7 @@
 		  	const el = elements.item(i);
 		  	el.addEventListener("keyup", (event) => {
 		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
-		  			fn_search();
+		  			fn_searchBizPlan();
 		  		}
 		  		//key	Enter
 		  		//keyCode
@@ -203,9 +205,11 @@
 	const fn_init = async function() {
 		await fn_bizPlanCreateGrid();
 		await fn_initSBSelect();
-		await fn_search();
+		await fn_searchBizPlan();
 	}
 
+
+	/* 제출서류 그리드 */
 	//그리드 변수
 	var jsonBizPlanReqMng = []; // 그리드의 참조 데이터 주소 선언
 	var grdBizPlanReqMng;
@@ -222,6 +226,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -243,39 +248,44 @@
 			{caption: ["미리보기","미리보기"], 		ref: 'prvwBtn',			type:'button',  width:'80px',	style:'text-align:center'
 				,typeinfo : {buttonvalue: '팝업 열기', callback: fn_openMaodalPdfViewer}
 			},
-			{caption: ["비고","비고"], 				ref: 'rmrk',			type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["비고","사업계획서/전환서"], 	ref: 'bizPlanRmrk',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["비고","서명 포함 스캔본"], 		ref: 'sgntrRmrk',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["상세내역"], 	ref: 'bizPlanFileSn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'sgntrFileSnS',		hidden : true},
 		];
 
 		grdBizPlanReqMng = _SBGrid.create(SBGridProperties);
-	  	//클릭 이벤트 바인드
+		//클릭 이벤트 바인드
 		//grdBizPlanReqMng.bind('click','fn_view');
-		grdBizPlanReqMng.bind('beforepagechanged', 'fn_pagingBbsList');
+		grdBizPlanReqMng.bind('beforepagechanged', 'fn_pagingBizPlanList');
 	}
+
+	/* 제출서류 리스트 조회 */
+
 	/**
 	 * 목록 조회
 	 */
-	const fn_search = async function() {
+	const fn_searchBizPlan = async function() {
 
 		// set pagination
 		let pageSize = grdBizPlanReqMng.getPageSize();
 		let pageNo = 1;
 
-		fn_setGrdFcltList(pageSize, pageNo);
+		fn_setGrdBizPlanList(pageSize, pageNo);
 	}
 
-	const fn_pagingBbsList = async function() {
+	const fn_pagingBizPlanList = async function() {
 		let recordCountPerPage = grdBizPlanReqMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 		let currentPageNo = grdBizPlanReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+		fn_setGrdBizPlanList(recordCountPerPage, currentPageNo);
 	}
 
 	/* Grid Row 조회 기능*/
-	const fn_setGrdFcltList = async function(pageSize, pageNo){
+	const fn_setGrdBizPlanList = async function(pageSize, pageNo){
 
 		fn_clearForm();
 
 		let yr = SBUxMethod.get("srch-input-yr");//
-		console.log(yr);
 
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
@@ -319,6 +329,12 @@
 						,sgntrSbmsnYn	: item.sgntrSbmsnYn
 						,sgntrAprvYn	: item.sgntrAprvYn
 
+						,bizPlanRmrk	: item.bizPlanRmrk
+						,sgntrRmrk		: item.sgntrRmrk
+
+						,bizPlanFileSn	: item.bizPlanFileSn
+						,sgntrFileSn	: item.sgntrFileSn
+
 				}
 				jsonBizPlanReqMng.push(BizPlanReqMngVO);
 				if (index === 0) {
@@ -351,6 +367,7 @@
 			console.error("failed", e.message);
 		}
 	}
+
 
 	//그리드 클릭시 상세보기 이벤트
 	function fn_view() {
@@ -413,14 +430,69 @@
 		if(gfn_isEmpty(brno)){return;}
 		if(gfn_isEmpty(yr)){return;}
 
-		popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
-		SBUxMethod.openModal('modal-bizPlanPdfViewer');
+		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
+		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
+
+		var url = "/pd/popup/BizPlanPdfViewerPopup.do"
+		var title = "제출서류 보기";
+		//SBUxMethod.popupWindow(url, title, '600px','500px');
+
+		window.open(url, title, "width=1000px,height=900px");
+	}
+
+	//새창에서 변수 확인
+	function fn_getRowData() {
+		let nRow = grdBizPlanReqMng.getRow();
+		let rowData = grdBizPlanReqMng.getRowData(nRow);
+
+		return rowData ;
 	}
 
 	//pdf 팝업 콜백함수
 	const fn_setPdfViewer = function(rowData) {
 		if (!gfn_isEmpty(rowData)) {
 			//SBUxMethod.set("dtl-input-brno", rowData.brno);				//사업자등록번호
+		}
+	}
+
+	//일괄다운로드
+	const fn_downloadAll = async function() {
+		let yr = SBUxMethod.get("srch-input-yr");//
+
+		var url = "/pd/pcorm/downloadAll/"+yr;
+ 		window.open(url);
+	}
+
+	//파일 삭제
+	const fn_deleteFile = async function() {
+		if (!confirm("파일을 삭제 하시겠습니까?")) return;
+
+		//삭제 보류
+		return;
+
+		let nRow = grdBizPlanReqMng.getRow();
+		let rowData = grdBizPlanReqMng.getRowData(nRow);
+
+		//let fileSn = rowData.fileSn;
+		//let fileSn = '5'
+		if (gfn_isEmpty(fileSn)) {
+			return;
+		}
+
+		const postJsonPromise = gfn_postJSON("/pd/pcorm/deleteFile.do", {
+			fileSn : fileSn
+		})
+		const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("삭제 처리 되었습니다.");
+				this.fn_search();
+			} else {
+				console.log(data.resultMessage);
+			}
+		} catch(e) {
+			console.log(data.resultMessage);
 		}
 	}
 

@@ -52,4 +52,21 @@ public interface BizPlanReqMngService {
 	 * @throws Exception
 	 */
 	public BizPlanReqMngVO selectFileInfo(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
+
+	/**
+	 * 파일 정보 리스트를 조회한다.
+	 * @param BizPlanReqMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<BizPlanReqMngVO> selectFileInfoList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
+
+	/**
+	 * 서류 상태 업데이트 조회한다.
+	 * @param BizPlanReqMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteFileInfo(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
+
 }

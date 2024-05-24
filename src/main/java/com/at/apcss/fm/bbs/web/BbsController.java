@@ -231,7 +231,7 @@ public class BbsController extends BaseController {
 		// root 요소 가져오기
 		Element root = document.getDocumentElement();
 		// root 요소 확인 : 첫 태그 sample , items
-		System.out.println(root.getNodeName());
+		//System.out.println(root.getNodeName());
 		// root 요소의 첫번째 노드는 #Text
 		Node firstNode = root.getFirstChild();
 		// 다음 노드는 customer , item
