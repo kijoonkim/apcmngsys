@@ -129,7 +129,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdBizPlanReqMng" style="height:378px; width: 100%;"></div>
+					<div id="sb-area-grdBizPlanReqMng" style="height:550px; width: 100%;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
