@@ -495,6 +495,7 @@
 
     	for(let i=1; i<=comCdDtlGridList.length; i++){
 			let rowData = comCdDtlgrid.getRowData(i);
+			let cdRowData = comCdgrid.getRowData(comCdgrid.getRow());
 			let rowSts = comCdDtlgrid.getRowStatus(i);
     		if(rowData.checked === 'true'){
     			if (gfn_isEmpty(rowData.cdVl)) {
@@ -605,7 +606,7 @@
 			gfn_comAlert("W0001", "공통코드");
 			return;
 		}
-    	comCdDtlgrid.addRow(true, ['true', '', '', '', '', '', '', '', '0000', cdId, 'Y']);
+    	comCdDtlgrid.addRow(true, ['true', '', '', '', '', '', '', '', '', '', 'N',cdId,'Y']);
     }
     //공통코드 상세 선택된 행 삭제
     function fn_deleteRow() {
