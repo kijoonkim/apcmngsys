@@ -181,9 +181,17 @@
 		    	caption: ["규격명"],
 		    	ref: 'spcfctNm',
 		    	type:'input',
-		    	width:'280px',
+		    	width:'230px',
 		    	style:'text-align:center',
 		    	typeinfo : {maxlength : 30}
+		    },
+	        {
+		    	caption: ["표시명"],
+		    	ref: 'indctNm',
+		    	type:'input',
+		    	width:'100px',
+		    	style:'text-align:center',
+		    	typeinfo : {maxlength : 10}
 		    },
 // 	        {caption: ["중량단위"], ref: 'unitCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 // 				typeinfo : {ref:'jsonSpcfctUnitCd', 	itemcount: 3, label:'label', value:'value', displayui : false}},
@@ -191,7 +199,7 @@
 				caption: ["포장구분"],
 				ref: 'pckgSttsCd',
 				type:'combo',
-				width:'150px',
+				width:'100px',
 				style:'text-align:center',
 				typeinfo : {
 					ref:'jsonSpcfctPckgSttsCd',
@@ -332,6 +340,7 @@
   					  , wght		: item.wght
   					  , useYn		: item.delYn
   					  , delYn		: item.delYn
+  					  , indctNm		: item.indctNm
   					  , extrnlLnkgCd : item.extrnlLnkgCd
   					}
   					jsonApcSpcfct.push(spcfctVO);

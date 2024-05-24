@@ -671,6 +671,14 @@
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND INV.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
+		<if test='invntrYn != null and invntrYn != ""'>
+    		<if test='invntrYn == "Y"'>
+    		   AND (INV.INVNTR_QNTT > 0 OR INV.INVNTR_WGHT > 0)
+    		</if>
+    		<if test='invntrYn == "N"'>
+    		   AND (INV.INVNTR_QNTT = 0 AND INV.INVNTR_WGHT = 0)
+    		</if>
+		</if>
 		<if test='vhclno != null and vhclno != ""'>
 			   AND WP.VHCLNO LIKE '%' || #{vhclno} || '%'
 		</if>
