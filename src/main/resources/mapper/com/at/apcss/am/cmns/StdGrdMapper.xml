@@ -254,8 +254,8 @@
 				, SGD.INVNTR_INQ_AU_CD	AS INVNTR_INQ_AU_CD
 				, SGD.GRD_EXPLN			AS GRD_EXPLN
 				, SGD.GRD_ABRVTN		AS GRD_ABRVTN
-
-			    , SGD.SN               AS SN
+				, SGD.INDCT_NM			AS INDCT_NM
+			    , SGD.SN               	AS SN
 
   			  FROM TB_APC_STD_GRD SG
 
@@ -307,9 +307,9 @@
 			    , SGD.VRTY_CD		AS VRTY_CD
 	    		, SGD.EXTRNL_LNKG_CD AS EXTRNL_LNKG_CD
 				, SGD.INVNTR_INQ_AU_CD	AS INVNTR_INQ_AU_CD
-				, SGD.GRD_EXPLN			AS GRD_EXPLN
-				, SGD.GRD_ABRVTN		AS GRD_ABRVTN
-				
+				, SGD.GRD_EXPLN		AS GRD_EXPLN
+				, SGD.GRD_ABRVTN	AS GRD_ABRVTN
+				, SGD.INDCT_NM		AS INDCT_NM
 			  FROM TB_APC_STD_GRD SG
 
   			  JOIN TB_APC_STD_GRD_DTL SGD
@@ -378,6 +378,7 @@
 					, INVNTR_INQ_AU_CD
 					, GRD_EXPLN
 					, GRD_ABRVTN
+					, INDCT_NM
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
 					, SYS_FRST_INPT_PRGRM_ID
@@ -404,6 +405,7 @@
 				    , #{invntrInqAuCd}
 					, #{grdExpln}
 					, #{grdAbrvtn}
+					, #{indctNm}
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
@@ -442,6 +444,7 @@
 				, INVNTR_INQ_AU_CD			= #{invntrInqAuCd}
 				, GRD_EXPLN					= #{grdExpln}
 				, GRD_ABRVTN				= #{grdAbrvtn}
+				, INDCT_NM				= #{indctNm}
 
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
@@ -1005,6 +1008,7 @@
 				, SGD.LINK_GRD_CD		AS LINK_GRD_CD
 	   			, SGD.GRD_EXPLN			AS GRD_EXPLN
 				, SGD.GRD_ABRVTN		AS GRD_ABRVTN
+				, SGD.INDCT_NM			AS INDCT_NM
 				, SGD.SN				AS SN
 	
 			  FROM TB_APC_STD_GRD_DTL AS SGD

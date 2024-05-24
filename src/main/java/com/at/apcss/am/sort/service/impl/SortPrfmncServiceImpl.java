@@ -441,4 +441,14 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 
 		return null;
 	}
+
+
+    @Override
+    public List<HashMap<String, Object>> selectWrhsSpmtDsctnList(HashMap<String, Object> exhstDsctn) throws Exception {
+        List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectWrhsSpmtDsctnList(exhstDsctn);
+
+        return resultVO;
+    }
+
+
 }

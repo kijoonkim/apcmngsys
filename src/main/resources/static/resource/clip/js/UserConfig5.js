@@ -95,4 +95,4 @@ function getExePrintUseCookie(){
 
 
 /* 클라이언트 페인트 사용 시 통신 설정*/
-window.objClipClientPaintConnection = "get";
+window.objClipClientPaintConnection = "post";

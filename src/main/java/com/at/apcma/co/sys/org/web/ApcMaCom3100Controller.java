@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,7 @@ public class ApcMaCom3100Controller extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectCom3100List(
     		@RequestBody Map<String, Object> param
 			,Model model
+			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
 		logger.info("=============selectCom3100List=====start========");
@@ -51,8 +53,9 @@ public class ApcMaCom3100Controller extends BaseController {
 
 		try {
 			
+			Map<String, Object> gmap3 = (HashMap<String, Object>)session.getAttribute("maSessionInfo");
 			param.put("procedure", 		"SP_COM3100_Q");
-			resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -68,6 +71,7 @@ public class ApcMaCom3100Controller extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> insertCom3100(
 			@RequestBody Map<String, Object> param
 			,Model model
+			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
 		logger.info("=============insertCom3100=====start========");
@@ -76,7 +80,7 @@ public class ApcMaCom3100Controller extends BaseController {
 		try {
 			
 			param.put("procedure", 		"SP_COM3100_S");
-			resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -92,6 +96,7 @@ public class ApcMaCom3100Controller extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> updateCom3100(
 			@RequestBody Map<String, Object> param
 			,Model model
+			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
 		logger.info("=============updateCom3100=====start========");
@@ -100,7 +105,7 @@ public class ApcMaCom3100Controller extends BaseController {
 		try {
 			
 			param.put("procedure", 		"SP_COM3100_S");
-			resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

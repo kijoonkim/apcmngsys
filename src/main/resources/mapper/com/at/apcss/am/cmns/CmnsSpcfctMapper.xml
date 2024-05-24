@@ -209,6 +209,7 @@
 				, AGC.APC_CD		AS APC_CD
 				, AGC.SPCFCT_CD		AS SPCFCT_CD
 				, AGC.SPCFCT_NM		AS SPCFCT_NM
+				, AGC.INDCT_NM		AS INDCT_NM
 				, AGC.UNIT_CD		AS UNIT_CD
 				, AGC.PCKG_STTS_CD	AS PCKG_STTS_CD
 				, AGC.BX_GDS_QNTT	AS BX_GDS_QNTT
@@ -257,6 +258,7 @@
 	    			, ITEM_CD
 	    			, SPCFCT_CD
 					, SPCFCT_NM
+					, INDCT_NM
 					, UNIT_CD
 					, PCKG_STTS_CD
 					, BX_GDS_QNTT
@@ -275,6 +277,7 @@
 	   				, #{itemCd}
 	   				, FN_GET_ID_APC_SPCFCT(#{apcCd}, #{itemCd})
 					, #{spcfctNm}
+					, #{indctNm}
 					, #{unitCd}
 					, #{pckgSttsCd}
 					, #{bxGdsQntt}
@@ -307,6 +310,7 @@
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
 				, SPCFCT_NM					= #{spcfctNm}
+				, INDCT_NM					= #{indctNm}
 				, UNIT_CD					= #{unitCd}
 				, PCKG_STTS_CD				= #{pckgSttsCd}
 				, BX_GDS_QNTT				= #{bxGdsQntt}

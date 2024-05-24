@@ -62,4 +62,9 @@ public class CmnsSpcfctVO extends CmnsItemVO {
 	 * 규격연계코드
 	 */
 	private String extrnlLnkgCd;
+	
+	/**
+	 * 표시명
+	 */
+	private String indctNm;
 }

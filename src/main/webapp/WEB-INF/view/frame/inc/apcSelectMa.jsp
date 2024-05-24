@@ -7,15 +7,16 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
+						<col style="width: 6%">
 						<col style="width: 3%">
-						<col style="width: 3%">
-						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -126,6 +127,7 @@
 		</c:otherwise>
 	</c:choose>
 							</td>
+							
 							<td colspan="4"></td>
 						</tr>
 				</table>

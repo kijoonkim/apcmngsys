@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,7 @@ public class ApcMaComController extends BaseController {
     		@RequestBody Map<String, Object> param
 			,Model model
 			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
 		logger.info("=============comSelectList=====start========");
@@ -52,7 +54,7 @@ public class ApcMaComController extends BaseController {
 		try {
 			
 			param.put("procedure", 		"SP_ESS_BIZCOMP_Q");
-			resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
