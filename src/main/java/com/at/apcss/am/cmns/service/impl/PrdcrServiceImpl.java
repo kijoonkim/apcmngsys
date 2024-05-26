@@ -149,7 +149,8 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 			}
 
 
-			if(prdcrMngTypeChk.equals("NAME")) {
+			//if(prdcrMngTypeChk.equals("NAME")) {
+			if("NAME".equals(prdcrMngTypeChk)) {
 				// prdcrCd가 없으면 apc코드, 생산자명으로 조회한다. 조회결과가 없으면 insert 있으면 update
 				PrdcrVO prdcrListChk = prdcrMapper.selectPrdcrNm(vo);
 				PrdcrVO prdcrListChk2 = prdcrMapper.selectPrdcr(vo);
