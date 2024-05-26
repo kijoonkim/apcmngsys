@@ -739,6 +739,10 @@
     let mapInvntQntt = new Map();
     /** 최종 저장용 JSON **/
     let saveRegSpmtJson = [];
+    /** 거래방법 **/
+    let dlngShapCd = [];
+    let dlngMthdCd = [];
+
     /** 등록 테이블 EL **/
     let regTableEl = function(_idx){
         let el =`
@@ -798,7 +802,7 @@
 
 
 
-    window.document.addEventListener("DOMContentLoaded", function () {
+    window.document.addEventListener("DOMContentLoaded", async function () {
         $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(), '-'));
         let promise = Promise.all([
             gfn_setCpntRgnSBSelect('dtl-dtp-cnpt', jsonApcCnpt, gv_selectedApcCd),       // 거래처
@@ -807,13 +811,17 @@
             gfn_setApcItemSBSelect('srch-mod-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
             gfn_setApcVrtySBSelect('srch-mod-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
             gfn_setComCdSBSelect("srch-mod-gdsSeCd", jsonGdsSeCd, 'SORT_GRD', gv_selectedApcCd),
+
             fn_search()
         ]);
+        dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
+        dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
+
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('focus', fn_showInvntQntt.bind(this));
         $("#qnttInp1_0,#qnttInp2_0,#qnttInp3_0").on('blur', () => $("#invntQnttEl").remove());
-        $('.gdsInput_0').on("keydown",fn_remove.bind(event));
-        $('.gdsInput_0').on("focusout",fn_focusout.bind(event));
-        $('.gdsInput_0').parent().next().find('input').on("keydown",fn_searchEnter.bind(event));
+        $('.gdsInput_0').on("keydown", fn_remove.bind(event));
+        $('.gdsInput_0').on("focusout", fn_focusout.bind(event));
+        $('.gdsInput_0').parent().next().find('input').on("keydown", fn_searchEnter.bind(event));
         /** main.jsp msg push**/
         window.parent.postMessage("sideMenuOff", "*");
     });
@@ -1264,30 +1272,43 @@
      */
     const fn_onchangeCnpt = async function () {
         let val = SBUxMethod.get("dtl-dtp-cnpt");
+        let shapIdx;
+        let mthdIdx;
         let jsonSelectCnpt = jsonApcCnpt.filter(function (item) {
             return item.cmnsCd == val;
         });
-        let dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
-        let dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
 
         if (jsonSelectCnpt.length != 0) {
-            dlngShapCd = dlngShapCd.filter(function (item) {
-                return item.cdVl == jsonSelectCnpt[0].dlngShapCd;
+            let dlngShapCdTemp = dlngShapCd.filter(function (item,index) {
+                if(item.cdVl == jsonSelectCnpt[0].dlngShapCd){
+                    shapIdx = index + 1;
+                    return true;
+                }
             });
-            dlngMthdCd = dlngMthdCd.filter(function (item) {
-                return item.cdVl == jsonSelectCnpt[0].dlngMthdCd;
+            let dlngMthdCdTemp = dlngMthdCd.filter(function (item,index) {
+                if(item.cdVl == jsonSelectCnpt[0].dlngMthdCd){
+                    mthdIdx = index + 1;
+                    return true;
+                }
             });
-            if(dlngShapCd.length != 0){
-                $("#dlngShapCd").text(dlngShapCd[0].cdVlNm);
-                $("#dlngShapCd").val(dlngShapCd[0].cdVl);
+
+            if(dlngShapCdTemp.length != 0){
+                $("#dlngShapCd").text(dlngShapCdTemp[0].cdVlNm);
+                $("#dlngShapCd").val(dlngShapCdTemp[0].cdVl);
+                $("#dlngShapCd").attr('data-idx',shapIdx);
             }else{
-                $("#dlngShapCd").text("위탁");
+                $("#dlngShapCd").text("\u00a0\u00a0");
+                $("#dlngShapCd").val("");
+                $("#dlngShapCd").attr('data-idx',0);
             }
-            if(dlngMthdCd.length != 0){
-                $("#dlngMthdCd").text(dlngMthdCd[0].cdVlNm);
-                $("#dlngMthdCd").val(dlngMthdCd[0].cdVl);
+            if(dlngMthdCdTemp.length != 0){
+                $("#dlngMthdCd").text(dlngMthdCdTemp[0].cdVlNm);
+                $("#dlngMthdCd").val(dlngMthdCdTemp[0].cdVl);
+                $("#dlngMthdCd").attr('data-idx',mthdIdx);
             }else{
-                $("#dlngShapCd").text("경매");
+                $("#dlngMthdCd").text("\u00a0\u00a0");
+                $("#dlngMthdCd").val("");
+                $("#dlngMthdCd").attr('data-idx',0);
             }
 
 
@@ -1871,8 +1892,7 @@
                 $("#spmtNo").text(data.resultList[0].spmtno);
 
                 SBUxMethod.closeModal("searchSpmt");
-                SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
-                fn_onchangeCnpt();
+
             });
             /** max 삭제 추후 리팩토링 필요함 **/
             data.resultList.forEach(function(item,idx){
@@ -1881,6 +1901,25 @@
                 tr.children().eq(5).find('input').removeAttr('max');
                 tr.children().eq(6).find('input').removeAttr('max');
             });
+            /** 거래처 세팅 **/
+            let dlngShapCd = parseInt(data.resultList[0].dlngShapCd);
+            let dlngMthdCd = parseInt(data.resultList[0].dlngMthdCd);
+
+            if(gfn_isEmpty(dlngShapCd) && gfn_isEmpty(dlngMthdCd)){
+                SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
+                fn_onchangeCnpt();
+            }else{
+                SBUxMethod.set("dtl-dtp-cnpt",data.resultList[0].cnptCd);
+                $("#dlngShapCd").val(dlngShapCd);
+                $("#dlngMthdCd").val(dlngMthdCd);
+
+                fn_onChangeDlng($("#dlngShapCd"),true);
+                fn_onChangeDlng($("#dlngMthdCd"),true);
+            }
+
+
+
+
         }catch (e){
             gfn_comAlert("E0001");
             fn_reset();
@@ -1895,16 +1934,24 @@
         let dlngShapCd = $("#dlngShapCd").val();
         let dlngMthdCd = $("#dlngMthdCd").val();
 
-
-        if(!gfn_comConfirm("Q0001",msg)){
+        if(gfn_isEmpty(dlngShapCd)){
+            gfn_comAlert("W0001","거래형태");
             return;
         }
+        if(gfn_isEmpty(dlngMthdCd)){
+            gfn_comAlert("W0001","매매방법");
+            return;
+        }
+
         if(gfn_isEmpty(cnptCd)){
             gfn_comAlert("W0001","거래처");
             return;
         }
         if(gfn_isEmpty(spmtYmd)){
             gfn_comAlert("W0001","출하일자");
+            return;
+        }
+        if(!gfn_comConfirm("Q0001",msg)){
             return;
         }
 
@@ -2128,29 +2175,45 @@
 
         gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
     }
-
+    /** modal 날짜 셋팅 **/
     const fn_modalDateSet = async function(){
         SBUxMethod.set("srch-dtp-spmtYmdFrom",gfn_dateToYmd(new Date()));
         SBUxMethod.set("srch-dtp-spmtYmdTo",gfn_dateToYmd(new Date()));
     }
-
-    const fn_onChangeDlng = async function(_el){
+    /** 거래방법 변경 **/
+    const fn_onChangeDlng = async function(_el,_flag = false){
         let el = $(_el);
-        let idx = $(_el).data('idx');
+        let idx = $(_el).attr('data-idx');
         let id = $(_el).attr('id');
 
         if(id == "dlngShapCd"){
-            let dlngShapCd = await gfn_getComCdDtls("DLNG_SHAP_CD");
-            let selectIdx = idx % dlngShapCd.length;
-            el.text(dlngShapCd[selectIdx].cdVlNm);
-            el.val(dlngShapCd[selectIdx].cdVl);
+            if(_flag){
+                dlngShapCd.forEach(function(item){
+                   if(item.cdVl == el.val()){
+                    el.text(item.cdVlNm);
+                   }
+                });
+            }else{
+                let selectIdx = idx % dlngShapCd.length;
+                el.text(dlngShapCd[selectIdx].cdVlNm);
+                el.val(dlngShapCd[selectIdx].cdVl);
+                el.attr('data-idx',parseInt(el.attr('data-idx'))+1);
+            }
         }else{
-            let dlngMthdCd = await gfn_getComCdDtls("DLNG_MTHD_CD");
-            let selectIdx = idx % dlngMthdCd.length;
-            el.text(dlngMthdCd[selectIdx].cdVlNm);
-            el.val(dlngMthdCd[selectIdx].cdVl);
+            if(_flag){
+                dlngMthdCd.forEach(function(item){
+                    if(item.cdVl == el.val()){
+                        el.text(item.cdVlNm);
+                    }
+                });
+            }else{
+                let selectIdx = idx % dlngMthdCd.length;
+                el.text(dlngMthdCd[selectIdx].cdVlNm);
+                el.val(dlngMthdCd[selectIdx].cdVl);
+                el.attr('data-idx',parseInt(el.attr('data-idx'))+1);
+            }
         }
-        el.data('idx',el.data('idx')+1);
+
     }
 
     const fn_searchEnter = function(e){

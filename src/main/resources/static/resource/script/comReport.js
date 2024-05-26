@@ -236,6 +236,25 @@ const gfn_popClipReport = async function(title, fileName, param) {
 */
 }
 
+/**
+ * @name gfn_popClipReport
+ * @description 클립 리포트 exe printTest Fn
+ */
+const gfn_exeDirectPrint = async function(fileName, param){
+	const reportKey = await gfn_getReportKey(fileName, param);
+	const report = createOOFReport(
+		gv_reportUrl,
+		reportKey,
+		document.getElementById(param.element)
+	);
+	report.setIsPrintUse("html","pdf","exe");
+
+	report.setEndReportEvent(function(){
+		report.exeDirectPrint(false, "", "", 1, -1, 2, "center:true,fit:true,collateCopies:true");
+	});
+	report.view();
+}
+
 
 
 

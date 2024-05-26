@@ -232,7 +232,22 @@
 									onclick="fn_choiceVhcl"
 								/>
 							</td>
-							<td colspan="6" style="border-left: hidden;">&nbsp;</td>
+							<td colspan="2">
+							</td>
+							<th scope="row" class="th_bg">재고유무</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									unselected-text="전체"
+									uitype="single"
+									id="srch-slt-invntrYn"
+									name="srch-slt-invntrYn"
+									class="form-control input-sm input-sm-ast"
+									jsondata-ref="jsonInvntrYn"
+									jsondata-text="cdVlNm"
+									jsondata-value="cdVl"
+								/>
+							</td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -306,7 +321,7 @@ async function cfn_search() {
     var jsonWrhsSeCd			= [];	// 입고구분 checkbox 검색
    	var jsonGdsSeCd				= [];	// 상품구분 checkbox 검색
     var jsonTrsprtSeCd			= [];	// 운송구분 checkbox 검색
-
+    var jsonInvntrYn			= [{cdVl: "Y", cdVlNm: "재고있음"},{cdVl: "N", cdVlNm: "재고없음"}];	// 
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
@@ -474,6 +489,15 @@ async function cfn_search() {
 	        		type:'number',
 	        		rule:'#,###  '
 	        	}
+	        },
+	        {
+	        	caption: ["현재고수량"],
+	        	ref: 'invntrQntt',
+	        	type:'output',
+	        	width:'100px',
+	        	style:'text-align:right',
+	        	typeinfo : {mask : {alias : 'numeric'}},
+	        	format : {type:'number', rule:'#,##0  '}
 	        },
 	        {
 	        	caption: ["현재고중량 (Kg)"],
@@ -692,6 +716,8 @@ async function cfn_search() {
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 
+		let invntrYn = SBUxMethod.get("srch-slt-invntrYn");
+		
  	    try{
  	    	let postUrl = "/am/wrhs/selectRawMtrWrhsPrfmncList.do";
  			const postJsonPromise = gfn_postJSON(postUrl, {
@@ -706,6 +732,7 @@ async function cfn_search() {
 	 				vrtyCd: vrtyCd,
 	 				itemCd: itemCd,
 	 				vhclno: vhclno,
+	 				invntrYn: invntrYn,
 	 	          	// pagination
 	 	  	  		pagingYn : 'Y',
 	 	  			currentPageNo : pageNo,

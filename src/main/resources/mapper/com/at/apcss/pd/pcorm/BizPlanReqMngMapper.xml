@@ -56,6 +56,12 @@
 
 				, NVL(BPSD.YR , SSD.YR) AS YR
 
+				, BPSD.RMRK AS BIZ_PLAN_RMRK
+				, SSD.RMRK AS SGNTR_RMRK
+
+				, BPSD.FILE_SN AS BIZ_PLAN_FILE_SN
+				, SSD.FILE_SN AS SGNTR_FILE_SN
+
 			FROM TB_EV_APO TEA
 				,(SELECT *
 					FROM TB_EV_SBMSN_DCMNT
@@ -74,6 +80,11 @@
 			  AND TEA.BRNO = SSD.BRNO(+)
 			  AND TEA.APO_SE = '1'
 			  AND TEA.APRV IS NOT NULL
+			  AND TEA.BRNO NOT IN (SELECT BRNO
+									FROM TB_COM_USER
+									WHERE 1=1
+									  AND USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'
+									  					, 'at21','at22','at23','at24','at25','at26','at27','at61'))
 		]]>
 			<if test='yr != null and yr != ""'>
 			  AND #{yr} = (SELECT YR FROM TB_EV_APLY_MNG WHERE BRNO = TEA.BRNO AND YR = #{yr} AND APO_SE = '1')
@@ -185,6 +196,66 @@
 			TB_EV_SBMSN_DCMNT_FILE SDF
 		WHERE 1=1
 		  AND SDF.FILE_SN = #{fileSn}
-
 	</select>
+
+	<!-- 파일 정보 조회 -->
+	<select id="selectFileInfoList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		SELECT	/* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFileInfo */
+			SDF.FILE_PATH_NM
+			, SDF.ORG_FILE_NM
+			, SDF.SRVR_FILE_NM
+			, SDF.FILE_EXTN_NM
+
+			, (SELECT CORP_NM
+				FROM TB_EV_APO
+				WHERE 1=1
+				  AND BRNO = SD.BRNO
+				  AND APO_SE = '1'
+			) AS CORP_NM
+			, DECODE(SD.DCMNT_KND , 'BP' , '사업계획서·전환서' , 'S' , '서명포함 스캔본'
+			) AS DCMNT_KND_NM
+
+			,(SELECT MNO
+				FROM TB_EV_APO
+				WHERE 1=1
+				  AND BRNO = SD.BRNO
+				  AND APO_SE = '1'
+			) AS MNO
+			,(SELECT SNO
+				FROM TB_EV_APO
+				WHERE 1=1
+				  AND BRNO = SD.BRNO
+				  AND APO_SE = '1'
+			) AS SNO
+			,(SELECT SLCTN_YR
+				FROM TB_EV_APO
+				WHERE 1=1
+				  AND BRNO = SD.BRNO
+				  AND APO_SE = '1'
+			) AS SLCTN_YR
+		FROM
+			TB_EV_SBMSN_DCMNT_FILE SDF
+			, (SELECT *
+				FROM TB_EV_SBMSN_DCMNT  TESD
+				WHERE 1=1
+				  AND BRNO NOT IN (SELECT BRNO
+									FROM TB_COM_USER
+									WHERE 1=1
+									  AND USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'
+									  					, 'at21','at22','at23','at24','at25','at26','at27','at61'))
+			) SD
+		WHERE 1=1
+		  AND SD.FILE_SN = SDF.FILE_SN(+)
+		  AND SD.DCMNT_KND IN ('BP','S')
+		<if test='yr != null and yr != ""'>
+		  AND SD.YR = #{yr}
+		</if>
+	</select>
+
+	<!-- 파일 정보 삭제 -->
+	<delete id="deleteFileInfo" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		DELETE /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.deleteFileInfo */
+		FROM TB_EV_SBMSN_DCMNT_FILE
+		 WHERE FILE_SN 	= #{fileSn}
+	</delete>
 </mapper>

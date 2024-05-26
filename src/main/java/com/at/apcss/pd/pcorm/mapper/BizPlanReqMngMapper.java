@@ -54,4 +54,20 @@ public interface BizPlanReqMngMapper {
 	 * @throws Exception
 	 */
 	public BizPlanReqMngVO selectFileInfo(BizPlanReqMngVO bizPlanReqMngVO);
+
+	/**
+	 * 파일 정보 리스트 조회
+	 * @param BizPlanRegVO
+	 * @return List<BizPlanRegVO>
+	 * @throws Exception
+	 */
+	public List<BizPlanReqMngVO> selectFileInfoList(BizPlanReqMngVO bizPlanReqMngVO);
+
+	/**
+	 * 제출 서류 상태 업데이트
+	 * @param BizPlanRegVO
+	 * @return List<BizPlanRegVO>
+	 * @throws Exception
+	 */
+	public int deleteFileInfo(BizPlanReqMngVO bizPlanReqMngVO);
 }

@@ -60,7 +60,7 @@ public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 	public List<apcBbsVO> selectBbsList(apcBbsVO bbsVO) throws Exception {
 
 		List<apcBbsVO> resultList = bbsMapper.selectBbsList(bbsVO);
-		
+
 		return resultList;
 	}
 
@@ -146,10 +146,10 @@ public class apcBbsServiceImpl extends BaseServiceImpl implements apcBbsService{
 	public List<apcBbsCmntVO> selectBbsCmntList(apcBbsVO bbsVO) throws Exception {
 		// TODO Auto-generated method stub
 		List<apcBbsCmntVO> resultList = bbsMapper.selectBbsCmntList(bbsVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
+		//System.out.println("$$$$$$$$$$$$$$$$$$$$$");
 		for (apcBbsCmntVO bbs : resultList ) {
-			System.out.printf("bbsNo : %s", bbs.getBbsNo());
-			System.out.println();
+			//System.out.printf("bbsNo : %s", bbs.getBbsNo());
+			//System.out.println();
 		}
 		return resultList;
 	}

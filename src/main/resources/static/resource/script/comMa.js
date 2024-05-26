@@ -204,16 +204,16 @@ async function gfnma_multiSelectInit(obj) {
 	const data = await postJsonPromise;
 	console.log('select data:', data);
 
-	try {
+	const innerCreat = function (tarId, data) {
 		
 		//style set
 		if(_dropType=='down'){
-			$(_target).closest('div').addClass('dropdown');
+			$(tarId).closest('div').addClass('dropdown');
 		} else {
-			$(_target).closest('div').addClass('dropup');
+			$(tarId).closest('div').addClass('dropup');
 		}
 		if(_dropAlign=='right'){
-			$(_target).closest('div').find('.dropdown-menu').addClass('dropdown-menu-right');
+			$(tarId).closest('div').find('.dropdown-menu').addClass('dropdown-menu-right');
 		}
 		
 		var htm 	= '';		
@@ -229,7 +229,7 @@ async function gfnma_multiSelectInit(obj) {
 		htm += '</thead>';
 		htm += '<tbody></tbody>';
 		htm += '</table>';
-		$(_target).closest('div').find('.dropdown-menu').html(htm);
+		$(tarId).closest('div').find('.dropdown-menu').html(htm);
 		
 		//table tbody
 		htm = '';
@@ -241,24 +241,35 @@ async function gfnma_multiSelectInit(obj) {
 			}	
 			htm += '</tr>';
 		}
-		$(_target).closest('div').find('tbody').html(htm);
+		$(tarId).closest('div').find('tbody').html(htm);
 		
 		//tr click event
-		$(_target).closest('div').find('.clickable-row').click(function(){
+		$(tarId).closest('div').find('.clickable-row').click(function(){
 			if($(this).hasClass('active')){
 				$(this).removeClass('active')
-				$(_target).attr('cu-value', '');
-				$(_target).attr('cu-label', '');
-				$(_target).find('font').text('선택');
+				$(tarId).attr('cu-value', '');
+				$(tarId).attr('cu-label', '');
+				$(tarId).find('font').text('선택');
 			} else {
 				$(this).addClass('active').siblings().removeClass('active');
 				var cu_value = $(this).find('[cu-code=' + _colValue + ']').text();
 				var cu_label = $(this).find('[cu-code=' + _colLabel + ']').text();
-				$(_target).attr('cu-value', cu_value);
-				$(_target).attr('cu-label', cu_label);
-				$(_target).find('font').text(cu_label);
+				$(tarId).attr('cu-value', cu_value);
+				$(tarId).attr('cu-label', cu_label);
+				$(tarId).find('font').text(cu_label);
 			}
-		});
+		});		
+	}	
+
+	try {
+		
+		if (Array.isArray(_target)) {
+			_target.forEach((tarId) => {
+				innerCreat(tarId, data);
+			});
+		} else {
+			innerCreat(_target, data);
+		}
 		
 	} catch (e) {
 		if (!(e instanceof Error)) {
@@ -277,6 +288,7 @@ async function gfnma_multiSelectInit(obj) {
  * @param 		{string} colValue
  * @param 		{string} colLabel
  * @param 		{string} findValue
+ * @returns 	{void}
  */
 const gfnma_multiSelectSet = function (id, colValue, colLabel, findValue) {
 	
@@ -310,9 +322,7 @@ const gfnma_multiSelectSet = function (id, colValue, colLabel, findValue) {
  * @description 멀티 컬럼 select 에 선택된 값 가져오기 
  * @function
  * @param 		{string} id
- * @param 		{string} colValue
- * @param 		{string} colLabel
- * @param 		{string} findValue
+ * @returns 	{object}
  */
 const gfnma_multiSelectGet = function (id) {
 	
@@ -322,4 +332,23 @@ const gfnma_multiSelectGet = function (id) {
 	};
 	return gfnma_nvl($(id).attr('cu-value'));
 }
+
+/**
+ * @name 		gfnma_uxDataSet
+ * @description 데이터를 ux컴포넌트에 바인딩
+ * @function
+ * @param 		{string} target
+ * @param 		{object} obj
+ * @returns 	{void}
+ */
+const gfnma_uxDataSet = function (target, obj) {
+	
+	for(var key in obj){
+		if($(target).find('#'+key)){
+			SBUxMethod.set(key,	obj[key]);
+		}
+	}
+}
+
+
 

@@ -53,4 +53,15 @@ public class BizPlanReqMngServiceImpl extends BaseServiceImpl implements BizPlan
 		return result;
 	}
 
+	@Override
+	public List<BizPlanReqMngVO> selectFileInfoList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		List<BizPlanReqMngVO> resultList = bizPlanReqMngMapper.selectFileInfoList(bizPlanReqMngVO);
+		return resultList;
+	}
+
+	@Override
+	public int deleteFileInfo(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		int deleteCnt = bizPlanReqMngMapper.deleteFileInfo(bizPlanReqMngVO);
+		return deleteCnt;
+	}
 }
