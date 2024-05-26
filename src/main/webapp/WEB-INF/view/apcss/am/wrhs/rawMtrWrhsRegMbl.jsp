@@ -946,7 +946,7 @@ input:focus{
 	const fn_autoPrint = async function(resultMap){
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
 		if(document.querySelector('#srch-chk-autoPrint').checked){
-			gfn_exeDirectPrint(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+ 			gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
  		}else{
  			gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
  		}
