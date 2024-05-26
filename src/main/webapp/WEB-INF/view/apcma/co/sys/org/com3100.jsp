@@ -110,7 +110,7 @@
                             </ul>
                         </div>
                         <div>
-                            <table class="table table-bordered tbl_fixed">
+                            <table id="dataArea1" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:20%">
                                     <col style="width:30%">
@@ -227,7 +227,7 @@
 			
 			//통화
 			gfnma_multiSelectInit({
-				target			: '#CURRENCY_CODE'
+				target			: ['#CURRENCY_CODE']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_COM001'
@@ -676,23 +676,25 @@
 		}
 
         let rowData = NationInGrid.getRowData(nRow);
-
+		
         SBUxMethod.attr('NATION_CODE',	'readonly', true);
         
+        /*
         SBUxMethod.set("NATION_CODE", 			rowData.NATION_CODE);
         SBUxMethod.set("NATION_CODE_ABBR", 		rowData.NATION_CODE_ABBR);
         SBUxMethod.set("NATION_NAME", 			rowData.NATION_NAME);
         SBUxMethod.set("NATION_FULL_NAME", 		rowData.NATION_FULL_NAME);
         SBUxMethod.set("NATION_FULL_NAME_CHN", 	rowData.NATION_FULL_NAME_CHN);
-        
         SBUxMethod.set("REGION_CODE", 			rowData.REGION_CODE);
-        
-        //SBUxMethod.set("CURRENCY_CODE", 		rowData.CURRENCY_CODE);
         gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', rowData.CURRENCY_CODE);
-        
         SBUxMethod.set("MEMO", 					rowData.MEMO);
         SBUxMethod.set("SORT_SEQ", 				rowData.SORT_SEQ);
         SBUxMethod.set("USE_YN", 				rowData.USE_YN);
+        */
+        
+        gfnma_uxDataSet('#dataArea1', rowData);
+        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', rowData.CURRENCY_CODE);
+        
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

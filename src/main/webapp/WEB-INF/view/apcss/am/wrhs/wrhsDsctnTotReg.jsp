@@ -1252,13 +1252,22 @@
 			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
+		
+		const prdcrCd = rawSmmryList.join("','");
+		
+		const params = {
+					apcCd: gv_selectedApcCd, 
+					wrhsBgngYmd : wrhsBgngYmd,
+					wrhsEndYmd : wrhsEndYmd,
+					prdcrCd : prdcrCd
+		}
+		
+		
  		if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
- 			gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsBgngYmd : wrhsBgngYmd,wrhsEndYmd : wrhsEndYmd,element : 'div-rpt-clipReportPrint'});
+ 			gfn_DirectPrintClipReport(rptUrl, params);
  		}else{
- 			gfn_popClipReport("입고확인서", rptUrl, {apcCd: gv_selectedApcCd, wrhsBgngYmd : wrhsBgngYmd,wrhsEndYmd : wrhsEndYmd   });
+ 			gfn_popClipReport("입고확인서", rptUrl, params);
  		}
-
-
 
 	}
 
