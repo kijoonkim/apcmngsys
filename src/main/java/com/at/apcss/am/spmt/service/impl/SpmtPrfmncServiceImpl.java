@@ -516,6 +516,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			} else {
 
 				List<SpmtGdsVO> spmtGdsList = spmt.getSpmtGdsList();
+				int spmtSn = spmt.getSpmtSn();
 
 				if (spmtGdsList == null || spmtGdsList.isEmpty()) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품내역");
@@ -584,6 +585,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					gdsInv.setSpmtQntt(qntt);
 					gdsInv.setSpmtWght(wght);
 					gdsInv.setRmrk(rmrk);
+					gdsInv.setSpmtSn(spmtSn);
 
 					invntrList.add(gdsInv);
 				}

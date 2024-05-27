@@ -1579,7 +1579,7 @@
 
         let fn_invntrModalEl = function(_list){
             let prdcrFlag = !_list[0].hasOwnProperty('prdcrNm');
-            let invntrModalEl = !prdcrFlag ? `<h2>`+(_list[0].sortGrdNm) + " " + (_list[0].spmtPckgUnitNm) +`</h2>`:`<h2>`+(_list[0].sortGrdNm) + " " + (_list[0].spcfctNm) +`</h2>`;
+            let invntrModalEl = !prdcrFlag ? `<h2>`+(_list[0].sortGrdNm) + " " + (_list[0].spcfctNm) +`</h2>`:`<h2>`+(_list[0].sortGrdNm) + " " + (_list[0].spcfctNm) +`</h2>`;
                 invntrModalEl += `
                 <table id="invntrTable" style="width:100%">
                     <colgroup>`;
@@ -1934,17 +1934,16 @@
         let dlngShapCd = $("#dlngShapCd").val();
         let dlngMthdCd = $("#dlngMthdCd").val();
 
+        if(gfn_isEmpty(cnptCd)){
+            gfn_comAlert("W0001","거래처");
+            return;
+        }
         if(gfn_isEmpty(dlngShapCd)){
             gfn_comAlert("W0001","거래형태");
             return;
         }
         if(gfn_isEmpty(dlngMthdCd)){
             gfn_comAlert("W0001","매매방법");
-            return;
-        }
-
-        if(gfn_isEmpty(cnptCd)){
-            gfn_comAlert("W0001","거래처");
             return;
         }
         if(gfn_isEmpty(spmtYmd)){
@@ -1970,6 +1969,7 @@
         rows.each(function() {
             let rowData = $(this).children(":last").find('input').attr("sortInvnt");
             let rmrk = $(this).children().eq(9).find('input').val();
+            let spmtSn = $(this).index() + 1;
 
             if(!gfn_isEmpty(rowData)){
                 rowData = JSON.parse(rowData);
@@ -1989,7 +1989,8 @@
                     spmtPckgUnitCd : rowData.spmtPckgUnitCd,
                     spmtGdsList : rowData.spmtInvId,
                     rmrk : rmrk,
-                    gdsInput : gdsInput
+                    gdsInput : gdsInput,
+                    spmtSn : spmtSn
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
 

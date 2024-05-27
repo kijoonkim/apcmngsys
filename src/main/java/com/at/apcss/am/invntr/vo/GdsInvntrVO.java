@@ -320,11 +320,14 @@ public class GdsInvntrVO extends ComVO {
 	 * 처리순번
 	 */
 	private int prcsSn;
-
 	/**
 	 * 처리유형
 	 */
 	private String prcsType;
+	/**
+	 * 출하순번
+	 * */
+	private int spmtSn;
 	/**
 	 * 재고상태코드
 	 */
