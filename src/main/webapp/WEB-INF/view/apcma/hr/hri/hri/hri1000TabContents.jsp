@@ -48,7 +48,7 @@
                 </td>
                 <th scope="row" class="th_bg">본관</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="FAMILY_CLAN" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" required style="width:100%"></sbux-input>
+                    <sbux-input id="FAMILY_CLAN" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%"></sbux-input>
                 </td>
                 <th rowspan="2" scope="row" class="th_bg">서명</th>
                 <td rowspan="2" class="td_input" style="border-right:hidden;">
@@ -61,7 +61,7 @@
                             id="BONUS_APPLY_START_DATE"
                             name="BONUS_APPLY_START_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -84,7 +84,7 @@
                             id="UNION_JOIN_START_DATE"
                             name="UNION_JOIN_START_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -111,7 +111,7 @@
                             id="UNION_JOIN_END_DATE"
                             name="UNION_JOIN_END_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -141,7 +141,7 @@
                     <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
-                    <sbux-input id="RESIDENCE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    <sbux-input id="RESIDENCE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
                 </td>
                 <th scope="row" class="th_bg">자택전화번호</th>
                 <td class="td_input" style="border-right:hidden;">
@@ -191,7 +191,7 @@
                             id="TEMP_END_DATE"
                             name="TEMP_END_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -202,7 +202,7 @@
                             id="GROUP_ENTER_DATE"
                             name="GROUP_ENTER_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -213,7 +213,7 @@
                             id="COMP_ENTER_DATE"
                             name="COMP_ENTER_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -224,7 +224,7 @@
                             id="PROMOTION_BASE_DATE"
                             name="PROMOTION_BASE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -237,7 +237,7 @@
                             id="RETIRE_DATE"
                             name="RETIRE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -256,7 +256,7 @@
                             id="RETIRE_BASE_DATE"
                             name="RETIRE_BASE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -269,7 +269,7 @@
                             id="PREMATURE_DATE"
                             name="PREMATURE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -291,7 +291,7 @@
                             id="RETIRE_INITIAL_DATE"
                             name="RETIRE_INITIAL_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -302,7 +302,7 @@
                             id="RET_RENS_ST_DAT"
                             name="RET_RENS_ST_DAT"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -333,7 +333,7 @@
                             id="PROMOTION_DATA"
                             name="PROMOTION_DATA"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -350,7 +350,7 @@
                             id="AGREE_DATE"
                             name="AGREE_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -553,7 +553,7 @@
                                         id="MARRIAGE_DATE"
                                         name="MARRIAGE_DATE"
                                         date-format="yyyy-mm-dd"
-                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                         style="width:100%;"
                                 />
                             </td>
@@ -786,7 +786,7 @@
                                 id="ARMY_START_DATE"
                                 name="ARMY_START_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -797,7 +797,7 @@
                                 id="ARMY_END_DATE"
                                 name="ARMY_END_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -872,7 +872,7 @@
                                 id="VETERANS_ORDER_DATE"
                                 name="VETERANS_ORDER_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -917,7 +917,7 @@
                                 id="HANDICAP_ISSUE_DATE"
                                 name="HANDICAP_ISSUE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -954,7 +954,7 @@
                                 id="PASSPORT_ISSUE_DATE"
                                 name="PASSPORT_ISSUE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -965,7 +965,7 @@
                                 id="PASSPORT_EXPIRE_DATE"
                                 name="PASSPORT_EXPIRE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -982,7 +982,7 @@
                                 id="VISA_ISSUE_DATE"
                                 name="VISA_ISSUE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -993,7 +993,7 @@
                                 id="VISA_EXPIRE_DATE"
                                 name="VISA_EXPIRE_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -1071,7 +1071,7 @@
                                 id="INSURE_START_DATE"
                                 name="INSURE_START_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -1082,7 +1082,7 @@
                                 id="INSURE_END_DATE"
                                 name="INSURE_END_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -1139,7 +1139,7 @@
                                 id="GUARANTOR1_START_DATE"
                                 name="GUARANTOR1_START_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -1150,7 +1150,7 @@
                                 id="GUARANTOR1_END_DATE"
                                 name="GUARANTOR1_END_DATE"
                                 date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                 style="width:100%;"
                         />
                     </td>
@@ -1216,7 +1216,7 @@
                             id="GUARANTOR2_START_DATE"
                             name="GUARANTOR2_START_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -1227,7 +1227,7 @@
                             id="GUARANTOR2_END_DATE"
                             name="GUARANTOR2_END_DATE"
                             date-format="yyyy-mm-dd"
-                            class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                             style="width:100%;"
                     />
                 </td>
@@ -1605,8 +1605,8 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["가족성명"], 	        ref: 'NAME',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["가족관계"],  		ref: 'RELATION',    			type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["가족성명"], 	        ref: 'NAME',    	        type:'input',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["가족관계"],  		ref: 'RELATION',    			type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonRelation',
                     label		: 'label',
@@ -1614,13 +1614,13 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'output',  	width:'135px',  	style:'text-align:left'},
-            {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'output',  	width:'140px',  style:'text-align:left'},
+            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left'},
+            {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'input',  	width:'140px',  style:'text-align:left'},
             {caption: ["생년월일"],          ref: 'BIRTHDAY', 		    type:'datepicker',  	width:'100px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["음양구분"],      	ref: 'BIRTHDAY_TYPE', 		        type:'output',  	width:'70px',  	style:'text-align:left',
+            {caption: ["음양구분"],      	ref: 'BIRTHDAY_TYPE', 		        type:'combo',  	width:'70px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonBirthdayType',
                     label		: 'label',
@@ -1628,6 +1628,7 @@
                     itemcount	: 10
                 }
             },
+            {caption: ["윤달"],      	ref: 'LEAP_MONTH_YN', 		        type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ["시작일자"],     	ref: 'START_DATE', 		         type:'datepicker',  	width:'75px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -1636,9 +1637,9 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["부양가족"],        ref: 'SUPPORT_YN', 		         type:'output',  	width:'70px',  	style:'text-align:left'},
-            {caption: ["연말정산"],        ref: 'YEARTAX_YN', 		     type:'output',  	width:'70px',  	style:'text-align:left'},
-            {caption: ["연말정산부양관계"],  		ref: 'YEARTAX_RELATION',    			type:'output',  	width:'120px',  	style:'text-align:left',
+            {caption: ["부양가족"],        ref: 'SUPPORT_YN', 		         type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["연말정산"],        ref: 'YEARTAX_YN', 		     type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["연말정산부양관계"],  		ref: 'YEARTAX_RELATION',    			type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonYeartaxRelation',
                     label		: 'label',
@@ -1646,18 +1647,17 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["외국인"],        ref: 'FOREIGNER_YN', 		     type:'output',  	width:'70px',  	style:'text-align:left'},
-            {caption: ["장애"],        ref: 'HANDICAP_YN', 		     type:'output',  	width:'70px',  	style:'text-align:left'},
-            {caption: ["동거"],        ref: 'LIVE_TOGETHER_YN', 		     type:'output',  	width:'70px',  	style:'text-align:left'},
-            {caption: ["생존여부"],        ref: 'LIFE_YN', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["건강보험피부양자"],        ref: 'HEALTH_INSURE_YN', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["직업"],        ref: 'JOB', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["원천징수공제"],        ref: 'WH_TAX_YN', 		     type:'output',  	width:'79px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["외국인"],        ref: 'FOREIGNER_YN', 		     type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["장애"],        ref: 'HANDICAP_YN', 		     type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["동거"],        ref: 'LIVE_TOGETHER_YN', 		     type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["생존여부"],        ref: 'LIFE_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["건강보험피부양자"],        ref: 'HEALTH_INSURE_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["직업"],        ref: 'JOB', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["원천징수공제"],        ref: 'WH_TAX_YN', 		     type:'checkbox',  	width:'79px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'200px',  	style:'text-align:left'},
             {caption: ["우편번호"],        ref: 'ZIP_CODE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["주소"],        ref: 'ADDRESS', 		     type:'output',  	width:'250px',  	style:'text-align:left'},
-            {caption: ["연락처"],        ref: 'TEL', 		     type:'output',  	width:'130px',  	style:'text-align:left'},
-            {caption: ["최종학력"],        ref: 'SCHOOL_TYPE', 		     type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["주소"],        ref: 'ADDRESS', 		     type:'input',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["최종학력"],        ref: 'SCHOOL_TYPE', 		     type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonSchoolType',
                     label		: 'label',
@@ -1665,6 +1665,7 @@
                     itemcount	: 10
                 }
             },
+            {caption: ["연락처"],        ref: 'TEL', 		     type:'input',  	width:'130px',  	style:'text-align:left'},
         ];
 
         gvwFamily = _SBGrid.create(SBGridProperties);
@@ -1684,7 +1685,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["학위구분"], 	        ref: 'SCHOOL_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["학위구분"], 	        ref: 'SCHOOL_TYPE',    	        type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDegreeType',
                     label		: 'label',
@@ -1692,7 +1693,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["소재지"],  		ref: 'MANAGE_CODE',    			type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["소재지"],  		ref: 'MANAGE_CODE',    			type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonManageCode',
                     label		: 'label',
@@ -1700,7 +1701,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["본교구분"],       ref: 'CAMPUS_BRANCH_TYPE', 		type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["본교구분"],       ref: 'CAMPUS_BRANCH_TYPE', 		type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonCampusBranchType',
                     label		: 'label',
@@ -1708,8 +1709,8 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["학교명"],          ref: 'SCHOOL_NAME', 		        type:'output',  	width:'120px',  style:'text-align:left'},
-            {caption: ["주야간구분"],          ref: 'DAY_NIGHT_TYPE', 		    type:'output',  	width:'80px',  style:'text-align:left',
+            {caption: ["학교명"],          ref: 'SCHOOL_NAME', 		        type:'input',  	width:'120px',  style:'text-align:left'},
+            {caption: ["주야간구분"],          ref: 'DAY_NIGHT_TYPE', 		    type:'combo',  	width:'80px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDayNightType',
                     label		: 'label',
@@ -1717,8 +1718,8 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["전공명"],      	ref: 'MAJOR', 		        type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["졸업구분"],     	ref: 'GRADUATE_TYPE', 		         type:'output',  	width:'80px',  style:'text-align:left',
+            {caption: ["전공명"],      	ref: 'MAJOR', 		        type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["졸업구분"],     	ref: 'GRADUATE_TYPE', 		         type:'combo',  	width:'80px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonGraduateType',
                     label		: 'label',
@@ -1726,19 +1727,19 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["최종학력"],     	ref: 'LAST_SCHOOL_YN', 		         type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["이수학점"],        ref: 'COMPLE_POINT', 		         type:'output',  	width:'70px',  	style:'text-align:left'},
-            {caption: ["평점"],        ref: 'GPA_POINT', 		     type:'output',  	width:'70px',  	style:'text-align:left'},
+            {caption: ["최종학력"],     	ref: 'LAST_SCHOOL_YN', 		         type:'checkbox',  	width:'70px',  style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["이수학점"],        ref: 'COMPLE_POINT', 		         type:'input',  	width:'70px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
+            {caption: ["평점"],        ref: 'GPA_POINT', 		     type:'input',  	width:'70px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}, format : {type:'number', rule:'#,###.00'}},
             {caption: ["입학일"],  		ref: 'INTO_DATE',    			type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["졸업일"],        ref: 'GRADUATE_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["졸업일"],        ref: 'GRADUATE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["입사후"],        ref: 'AFTER_ENTER_YN', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption: ["입사후"],        ref: 'AFTER_ENTER_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'200px',  	style:'text-align:left'}
         ];
 
         gvwSchool = _SBGrid.create(SBGridProperties);
@@ -1758,7 +1759,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["경력구분"], 	        ref: 'CAREER_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["경력구분"], 	        ref: 'CAREER_TYPE',    	        type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonCareerType',
                     label		: 'label',
@@ -1766,22 +1767,22 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근무시작일"],  		ref: 'START_DATE',    			type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["근무시작일"],  		ref: 'START_DATE',    			type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["근무종료일"],       ref: 'END_DATE', 		type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["근무종료일"],       ref: 'END_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["회사명"],          ref: 'COMP_NAME', 		        type:'output',  	width:'120px',  style:'text-align:left'},
-            {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'output',  	width:'120px',  style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
-            {caption: ["직위"],      	ref: 'POSITION', 		        type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["직종"],     	ref: 'JOB', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["담당업무"],     	ref: 'WORK', 		         type:'output',  	width:'180px',  style:'text-align:left'},
-            {caption: ["소재지"],        ref: 'REGION_CODE', 		         type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'input',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'input',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["회사명"],          ref: 'COMP_NAME', 		        type:'input',  	width:'120px',  style:'text-align:left'},
+            {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'input',  	width:'120px',  style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
+            {caption: ["직위"],      	ref: 'POSITION', 		        type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["직종"],     	ref: 'JOB', 		         type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["담당업무"],     	ref: 'WORK', 		         type:'input',  	width:'180px',  style:'text-align:left'},
+            {caption: ["소재지"],        ref: 'REGION_CODE', 		         type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonManageCode',
                     label		: 'label',
@@ -1789,9 +1790,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["연봉수준"],        ref: 'SALARY_LEVEL', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["연봉수준"],        ref: 'SALARY_LEVEL', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["퇴직사유"],  		ref: 'RETIRE_MEMO',    			type:'datepicker',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwCareer = _SBGrid.create(SBGridProperties);
@@ -1811,7 +1812,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["종별"], 	        ref: 'LICENSE_CATEGORY',    	        type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["종별"], 	        ref: 'LICENSE_CATEGORY',    	        type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonLicenseCategory',
                     label		: 'label',
@@ -1819,7 +1820,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["자격증코드"],  		ref: 'LICENSE_CODE',    			type:'output',  	width:'104px',  	style:'text-align:left',
+            {caption: ["자격증코드"],  		ref: 'LICENSE_CODE',    			type:'combo',  	width:'104px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonLicenseCode',
                     label		: 'label',
@@ -1827,20 +1828,20 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["자격등급"],     	ref: 'LICENSE_GRADE', 		         type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["자격번호"],     	ref: 'LICENSE_NUM', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["면허명(자격명)"],     	ref: 'LICENSE_NAME', 		         type:'output',  	width:'150px',  style:'text-align:left'},
-            {caption: ["발행기관"],     	ref: 'ISSUE_INSTITUTE', 		         type:'output',  	width:'120px',  style:'text-align:left'},
-            {caption: ["취득일"],       ref: 'ISSUE_DATE', 		type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["자격등급"],     	ref: 'LICENSE_GRADE', 		         type:'input',  	width:'80px',  style:'text-align:left'},
+            {caption: ["자격번호"],     	ref: 'LICENSE_NUM', 		         type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["면허명(자격명)"],     	ref: 'LICENSE_NAME', 		         type:'input',  	width:'150px',  style:'text-align:left'},
+            {caption: ["발행기관"],     	ref: 'ISSUE_INSTITUTE', 		         type:'input',  	width:'120px',  style:'text-align:left'},
+            {caption: ["취득일"],       ref: 'ISSUE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["갱신일"],       ref: 'RENEW_DATE', 		type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["갱신일"],       ref: 'RENEW_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["자격수당금액"],     	ref: 'LICENSE_WAGES_AMT', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["급여지급"],          ref: 'PAY_YN', 		        type:'output',  	width:'75px',  style:'text-align:left',
+            {caption: ["자격수당금액"],     	ref: 'LICENSE_WAGES_AMT', 		         type:'input',  	width:'100px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["급여지급"],          ref: 'PAY_YN', 		        type:'combo',  	width:'75px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonUseYn',
                     label		: 'label',
@@ -1848,7 +1849,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["법정선임여부"],          ref: 'APPOINT_YN', 		        type:'output',  	width:'100px',  style:'text-align:left',
+            {caption: ["법정선임여부"],          ref: 'APPOINT_YN', 		        type:'combo',  	width:'100px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonUseYn',
                     label		: 'label',
@@ -1856,16 +1857,16 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["법정선임부서"],          ref: 'APPOINT_DEPT_CODE', 		        type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["법정선임시작일"],       ref: 'APPOINT_START_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["법정선임부서"],          ref: 'APPOINT_DEPT_CODE', 		        type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["법정선임시작일"],       ref: 'APPOINT_START_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["법정선임종료일"],       ref: 'APPOINT_END_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["법정선임종료일"],       ref: 'APPOINT_END_DATE', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwLicense = _SBGrid.create(SBGridProperties);
@@ -1885,7 +1886,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["시험구분"], 	        ref: 'TEST_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["시험구분"], 	        ref: 'TEST_TYPE',    	        type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonTestType',
                     label		: 'label',
@@ -1893,21 +1894,21 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["시험일"],       ref: 'TEST_DATE', 		type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["시험일"],       ref: 'TEST_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["유효일"],       ref: 'AVAILABLE_DATE', 		type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["유효일"],       ref: 'AVAILABLE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["발행기관"],     	ref: 'ISSUE_INSTITUTION', 		         type:'output',  	width:'150px',  style:'text-align:left'},
-            {caption: ["총점수"],     	ref: 'TOTAL_SCORE', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["점수1"],     	ref: 'SCORE1', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["점수2"],     	ref: 'SCORE2', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["점수3"],     	ref: 'SCORE3', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["점수4"],     	ref: 'SCORE4', 		         type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["수준"],  		ref: 'TEST_LEVEL',    			type:'output',  	width:'104px',  	style:'text-align:left',
+            {caption: ["발행기관"],     	ref: 'ISSUE_INSTITUTION', 		         type:'input',  	width:'150px',  style:'text-align:left'},
+            {caption: ["총점수"],     	ref: 'TOTAL_SCORE', 		         type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["점수1"],     	ref: 'SCORE1', 		         type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["점수2"],     	ref: 'SCORE2', 		         type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["점수3"],     	ref: 'SCORE3', 		         type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["점수4"],     	ref: 'SCORE4', 		         type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["수준"],  		ref: 'TEST_LEVEL',    			type:'combo',  	width:'104px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonLevelCode',
                     label		: 'label',
@@ -1915,7 +1916,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwLanguage = _SBGrid.create(SBGridProperties);
@@ -1935,8 +1936,8 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["사용가능OA명"], 	        ref: 'OA_NAME',    	        type:'output',  	width:'190px',  	style:'text-align:left'},
-            {caption: ["활용수준"],  		ref: 'OA_SKILL_LEVEL',    			type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["사용가능OA명"], 	        ref: 'OA_NAME',    	        type:'input',  	width:'190px',  	style:'text-align:left'},
+            {caption: ["활용수준"],  		ref: 'OA_SKILL_LEVEL',    			type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonLevelCode',
                     label		: 'label',
@@ -1944,7 +1945,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwComputerSkill = _SBGrid.create(SBGridProperties);
@@ -1964,9 +1965,9 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["파일명"], 	        ref: 'FILE_NAME',    	        type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["파일서버경로"],        ref: 'FILE_SERVER_PATH', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["구분"],  		ref: 'FILE_TYPE',    			type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["파일명"], 	        ref: 'FILE_NAME',    	        type:'input',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["파일서버경로"],        ref: 'FILE_SERVER_PATH', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["구분"],  		ref: 'FILE_TYPE',    			type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonFileType',
                     label		: 'label',
@@ -1974,9 +1975,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["생성일시"],        ref: 'CREATE_TIME', 		     type:'output',  	width:'140px',  	style:'text-align:left'},
-            {caption: ["생성자"],        ref: 'CREATE_USER', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["생성일시"],        ref: 'CREATE_TIME', 		     type:'input',  	width:'140px',  	style:'text-align:left'},
+            {caption: ["생성자"],        ref: 'CREATE_USER', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwFile = _SBGrid.create(SBGridProperties);
@@ -1993,8 +1994,8 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["교육과정명"], 	        ref: 'EDU_NAME',    	        type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["교육구분"],        ref: 'EDU_METHOD', 		     type:'output',  	width:'92px',  	style:'text-align:left',
+            {caption: ["교육과정명"], 	        ref: 'EDU_NAME',    	        type:'input',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["교육구분"],        ref: 'EDU_METHOD', 		     type:'combo',  	width:'92px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonEduMethod',
                     label		: 'label',
@@ -2002,7 +2003,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["교육방법"],  		ref: 'EDU_TYPE',    			type:'output',  	width:'100px',  	style:'text-align:left',
+            {caption: ["교육방법"],  		ref: 'EDU_TYPE',    			type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonEduType',
                     label		: 'label',
@@ -2010,20 +2011,20 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["교육기관"],        ref: 'EDU_INSTITUTE', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["교육시작일"],        ref: 'EDU_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["교육기관"],        ref: 'EDU_INSTITUTE', 		     type:'input',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["교육시작일"],        ref: 'EDU_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["교육종료일"],        ref: 'EDU_END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["교육종료일"],        ref: 'EDU_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["교육점수"],        ref: 'EDU_SCORE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["교육비용"],        ref: 'EDU_TOTAL_EXPENSE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["고용보험환급액"],        ref: 'RETURN_EXPENSE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["실지급액"],        ref: 'PAYMENT_EXPENSE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["이수여부"],  		ref: 'EDU_PASS_YN',    			type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["교육점수"],        ref: 'EDU_SCORE', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["교육비용"],        ref: 'EDU_TOTAL_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["고용보험환급액"],        ref: 'RETURN_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["실지급액"],        ref: 'PAYMENT_EXPENSE', 		     type:'input',  	width:'100px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption: ["이수여부"],  		ref: 'EDU_PASS_YN',    			type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonUseYn',
                     label		: 'label',
@@ -2031,7 +2032,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwEducation = _SBGrid.create(SBGridProperties);
@@ -2051,18 +2052,18 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["상벌구분"], 	        ref: 'PRIZE_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["상벌구분"], 	        ref: 'PRIZE_TYPE',    	        type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPrizeType',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }},
-            {caption: ["상벌일자"],        ref: 'PRIZE_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["상벌일자"],        ref: 'PRIZE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["상벌유형"],  		ref: 'PRIZE_CATEGORY',    			type:'output',  	width:'120px',  	style:'text-align:left',
+            {caption: ["상벌유형"],  		ref: 'PRIZE_CATEGORY',    			type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPrizeCategory',
                     label		: 'label',
@@ -2070,7 +2071,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["사내외구분"],        ref: 'PRIZE_INOUT_TYPE', 		     type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["사내외구분"],        ref: 'PRIZE_INOUT_TYPE', 		     type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPrizeInoutType',
                     label		: 'label',
@@ -2078,7 +2079,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["대상구분"],        ref: 'PRIZE_TARGET', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["대상구분"],        ref: 'PRIZE_TARGET', 		     type:'combo',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPrizeTarget',
                     label		: 'label',
@@ -2086,21 +2087,21 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["상벌명"],        ref: 'PRIZE_NAME', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["상벌사유"],        ref: 'PRIZE_REASON', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["상벌내용"],        ref: 'PRIZE_DETAIL', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["시행기관"],        ref: 'PRIZE_MAKER', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["징계시작일"],        ref: 'PUNISH_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["상벌명"],        ref: 'PRIZE_NAME', 		     type:'input',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["상벌사유"],        ref: 'PRIZE_REASON', 		     type:'input',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["상벌내용"],        ref: 'PRIZE_DETAIL', 		     type:'input',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["시행기관"],        ref: 'PRIZE_MAKER', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["징계시작일"],        ref: 'PUNISH_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["징계종료일"],        ref: 'PUNISH_END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["징계종료일"],        ref: 'PUNISH_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["급여반영여부"],  		ref: 'APPLY_PAY_YN',    			type:'output',  	width:'90px',  	style:'text-align:left'},
-            {caption: ["급여감봉율"],  		ref: 'BASE_PAY_DOWN_RATE',    			type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["상여감봉율"],        ref: 'BONUS_PAY_DOWN_RATE', 		     type:'output',  	width:'80px',  	style:'text-align:left'}
+            {caption: ["급여반영여부"],  		ref: 'APPLY_PAY_YN',    			type:'checkbox',  	width:'90px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["급여감봉율"],  		ref: 'BASE_PAY_DOWN_RATE',    			type:'input',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["상여감봉율"],        ref: 'BONUS_PAY_DOWN_RATE', 		     type:'input',  	width:'80px',  	style:'text-align:left'}
         ];
 
         gvwPrize = _SBGrid.create(SBGridProperties);
@@ -2120,7 +2121,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["검진구분"], 	        ref: 'CHECK_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["검진구분"], 	        ref: 'CHECK_TYPE',    	        type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonCheckType',
                     label		: 'label',
@@ -2128,14 +2129,14 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["검진일자"],        ref: 'CHECK_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["검진일자"],        ref: 'CHECK_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["검진기관"],  		ref: 'CHECK_INSTITUTE',    			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["검진결과"],        ref: 'RESULT', 		     type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["회사조치사항"],        ref: 'COMPANY_RESULT', 		     type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption: ["검진기관"],  		ref: 'CHECK_INSTITUTE',    			type:'input',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["검진결과"],        ref: 'RESULT', 		     type:'input',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["회사조치사항"],        ref: 'COMPANY_RESULT', 		     type:'input',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'200px',  	style:'text-align:left'}
         ];
 
         gvwHealth = _SBGrid.create(SBGridProperties);
@@ -2152,17 +2153,17 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["발령일자"], 	        ref: 'APPOINT_DATE',    	 type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["발령일자"], 	        ref: 'APPOINT_DATE',    	 type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
-            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
-            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
             {caption: ["발령구분"],  		ref: 'APPOINT_TYPE',    			type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["발령명칭"],        ref: 'APPOINT_TITLE', 		     type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -2174,7 +2175,7 @@
             {caption: ["발령직무"],        ref: 'JOB_CODE2', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["발령근무지"],  		ref: 'REGION_CODE2',    			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["발령사유"],  		ref: 'APPOINT_REASON',    			type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwAppointment = _SBGrid.create(SBGridProperties);
@@ -2191,45 +2192,49 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["겸직발령일자"], 	        ref: 'START_DATE',    	        type:'output',  	width:'104px',  	style:'text-align:left',
+            {caption: ["겸직발령일자"], 	        ref: 'START_DATE',    	        type:'datepicker',  	width:'104px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
-            {caption: ["겸직해제일자"],        ref: 'END_DATE', 		     type:'output',  	width:'119px',  	style:'text-align:left',
+            {caption: ["겸직해제일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'119px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}, disabled: true
             },
-            {caption: ["겸직부서"],  		ref: 'DEPT_CODE',    			type:'output',  	width:'126px',  	style:'text-align:left',
+            {caption: ["겸직부서"],  		ref: 'DEPT_CODE',    			type:'combo',  	width:'126px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonAddJobDeptCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["겸직직위"],        ref: 'POSITION_CODE', 		     type:'output',  	width:'113px',  	style:'text-align:left',
+            {caption: ["겸직직위"],        ref: 'POSITION_CODE', 		     type:'combo',  	width:'113px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPositionCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["겸직직책"],        ref: 'DUTY_CODE', 		     type:'output',  	width:'115px',  	style:'text-align:left',
+            {caption: ["겸직직책"],        ref: 'DUTY_CODE', 		     type:'combo',  	width:'115px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDutyCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["겸직직급"],        ref: 'JOB_RANK', 		     type:'output',  	width:'163px',  	style:'text-align:left',
+            {caption: ["겸직직급"],        ref: 'JOB_RANK', 		     type:'combo',  	width:'163px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonJobRank',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             }
         ];
 
@@ -2250,7 +2255,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["휴직유형"], 	        ref: 'TIME_OFF_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["휴직유형"], 	        ref: 'TIME_OFF_TYPE',    	        type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonTimeOffType',
                     label		: 'label',
@@ -2258,16 +2263,16 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'input',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["휴직일수"],        ref: 'TIME_OFF_CNT', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["소속사업장"],        ref: 'SITE_CODE', 		     type:'output',  	width:'120px',  	style:'text-align:left',
+            {caption: ["휴직일수"],        ref: 'TIME_OFF_CNT', 		     type:'input',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["소속사업장"],        ref: 'SITE_CODE', 		     type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonSiteCode',
                     label		: 'label',
@@ -2275,9 +2280,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["소속부서코드"],  		ref: 'DEPT_CODE',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소속부서"],        ref: 'DEPT_NAME', 		     type:'output',  	width:'150px',  	style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
+            {caption: ["소속부서코드"],  		ref: 'DEPT_CODE',    			type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소속부서"],        ref: 'DEPT_NAME', 		     type:'input',  	width:'150px',  	style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwTimeOffHistory = _SBGrid.create(SBGridProperties);
@@ -2297,7 +2302,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["보험상품"], 	        ref: 'GROUP_INSURE_CODE',    	        type:'output',  	width:'150px',  	style:'text-align:left',
+            {caption: ["보험상품"], 	        ref: 'GROUP_INSURE_CODE',    	        type:'combo',  	width:'150px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonGroupInsureCode',
                     label		: 'label',
@@ -2305,21 +2310,21 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["증권번호"],        ref: 'INSURE_NUM', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["보험가입일"],        ref: 'INSURE_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["증권번호"],        ref: 'INSURE_NUM', 		     type:'input',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["보험가입일"],        ref: 'INSURE_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["보험만기일"],        ref: 'INSURE_DUE_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["보험만기일"],        ref: 'INSURE_DUE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["보험해지일"],        ref: 'INSURE_END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["보험해지일"],        ref: 'INSURE_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["불입금액"],        ref: 'GROUP_INSURE_AMT', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption: ["불입금액"],        ref: 'GROUP_INSURE_AMT', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'200px',  	style:'text-align:left'}
         ];
 
         gvwGroupInsurance = _SBGrid.create(SBGridProperties);
@@ -2339,7 +2344,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["구분"], 	        ref: 'DISEASE_TYPE',    	        type:'output',  	width:'120px',  	style:'text-align:left',
+            {caption: ["구분"], 	        ref: 'DISEASE_TYPE',    	        type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDiseaseType',
                     label		: 'label',
@@ -2347,30 +2352,30 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["발생사유"],        ref: 'DISEASE_REASON', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["사고발생일"],        ref: 'DISEASE_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["발생사유"],        ref: 'DISEASE_REASON', 		     type:'input',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["사고발생일"],        ref: 'DISEASE_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["병가신청여부"],        ref: 'SICK_LEAVE_REQUEST_YN', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["병가일자(유료) 시작일"],        ref: 'SICK_LEAVE_CHARGE_DATE_FR', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가신청여부"],        ref: 'SICK_LEAVE_REQUEST_YN', 		     type:'checkbox',  	width:'80px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["병가일자(유료) 시작일"],        ref: 'SICK_LEAVE_CHARGE_DATE_FR', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["병가일자(유료) 종료일"],        ref: 'SICK_LEAVE_CHARGE_DATE_TO', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가일자(유료) 종료일"],        ref: 'SICK_LEAVE_CHARGE_DATE_TO', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["병가일자(무료) 시작일"],        ref: 'SICK_LEAVE_FREE_DATE_FR', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가일자(무료) 시작일"],        ref: 'SICK_LEAVE_FREE_DATE_FR', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["병가일자(무료) 종료일"],        ref: 'SICK_LEAVE_FREE_DATE_TO', 		     type:'output',  	width:'130px',  	style:'text-align:left',
+            {caption: ["병가일자(무료) 종료일"],        ref: 'SICK_LEAVE_FREE_DATE_TO', 		     type:'datepicker',  	width:'130px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["단체근로자보험신청여부"],        ref: 'GROUP_INSURE_REQUEST_YN', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption: ["단체근로자보험신청여부"],        ref: 'GROUP_INSURE_REQUEST_YN', 		     type:'checkbox',  	width:'150px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'200px',  	style:'text-align:left'}
         ];
 
         gvwDisease = _SBGrid.create(SBGridProperties);
@@ -2390,11 +2395,11 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["평가년도"], 	        ref: 'EVAL_YEAR',    	        type:'output',  	width:'70px',  	style:'text-align:left',
+            {caption: ["평가년도"], 	        ref: 'EVAL_YEAR',    	        type:'datepicker',  	width:'70px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy'},
                 format : {type:'year', rule:'yyyy', origin:'YYYY'}
             },
-            {caption: ["평가차수"],        ref: 'POSITION_CODE', 		     type:'output',  	width:'120px',  	style:'text-align:left',
+            {caption: ["평가차수"],        ref: 'POSITION_CODE', 		     type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonEvalPositionCode',
                     label		: 'label',
@@ -2402,9 +2407,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["성과평가"],        ref: 'EVAL_KPI_GRADE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["역량평가"],        ref: 'EVAL_KBI_GRADE', 		     type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption: ["성과평가"],        ref: 'EVAL_KPI_GRADE', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["역량평가"],        ref: 'EVAL_KBI_GRADE', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'200px',  	style:'text-align:left'}
         ];
 
         gvwPersonnelEvaluation = _SBGrid.create(SBGridProperties);
@@ -2424,12 +2429,12 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["사고발생일"],        ref: 'OFFICIAL_INJURY_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["사고발생일"],        ref: 'OFFICIAL_INJURY_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["사고내용"], 	        ref: 'OFFICIAL_INJURY_DESCR',    	        type:'output',  	width:'300px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'200px',  	style:'text-align:left'}
+            {caption: ["사고내용"], 	        ref: 'OFFICIAL_INJURY_DESCR',    	        type:'input',  	width:'300px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'200px',  	style:'text-align:left'}
         ];
 
         gvwOfficialInjury = _SBGrid.create(SBGridProperties);
@@ -2446,7 +2451,7 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["계약차수"], 	        ref: 'CONTRACT_DEGREE',    	        type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["계약차수"], 	        ref: 'CONTRACT_DEGREE',    	        type:'combo',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonContractDegree',
                     label		: 'label',
@@ -2454,17 +2459,17 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["계약시작일"],        ref: 'CONTRACT_START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["계약시작일"],        ref: 'CONTRACT_START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["계약종료일"],        ref: 'CONTRACT_END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["계약종료일"],        ref: 'CONTRACT_END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["계약기간"],        ref: 'CONTRACT_DAY', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["계약변경사항"],        ref: 'CONTRACT_CHANGE_MEMO', 		     type:'output',  	width:'250px',  	style:'text-align:left'},
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'250px',  	style:'text-align:left'}
+            {caption: ["계약기간"],        ref: 'CONTRACT_DAY', 		     type:'input',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["계약변경사항"],        ref: 'CONTRACT_CHANGE_MEMO', 		     type:'input',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'250px',  	style:'text-align:left'}
         ];
 
         gvwContractDeg = _SBGrid.create(SBGridProperties);
@@ -2484,7 +2489,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["근무계획"], 	        ref: 'WORKPLAN_TYPE',    	        type:'output',  	width:'167px',  	style:'text-align:left',
+            {caption: ["근무계획"], 	        ref: 'WORKPLAN_TYPE',    	        type:'combo',  	width:'167px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonWorkplanType',
                     label		: 'label',
@@ -2492,11 +2497,11 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용종료일"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2516,69 +2521,78 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: [""], 	        ref: 'CHK_YN',    	        type:'checkbox',  	width:'45px',  	style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},
+            /*{caption: [""], 	        ref: 'CHK_YN',    	        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},*/
             {caption: ["부서코드"],        ref: 'DEPT_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["부서"],  		ref: 'DEPT_NAME',    			type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: ["사번"],        ref: 'EMP_CODE', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["이름"],        ref: 'EMP_NAME', 		     type:'output',  	width:'94px',  	style:'text-align:left'},
-            {caption: ["입사일"],        ref: 'ENTER_DATE', 		     type:'output',  	width:'95px',  	style:'text-align:left',
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		     type:'datepicker',  	width:'95px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
             },
             {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'218px',  	style:'text-align:left'},
-            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'output',  	width:'122px',  	style:'text-align:left',
+            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'122px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
             },
-            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'output',  	width:'108px',  	style:'text-align:left',
+            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'108px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
             },
             {caption: ["순번"],        ref: 'TXN_ID', 		     type:'output',  	width:'54px',  	style:'text-align:left'},
-            {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		     type:'checkbox',  	width:'82px',  	style:'text-align:left'},
-            {caption: ["근무패턴코드"],  		ref: 'WORK_PATTERN_CODE',    			type:'output',  	width:'116px',  	style:'text-align:left',
+            {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		     type:'checkbox',  	width:'82px',  	style:'text-align:left', disabled: true},
+            {caption: ["근무패턴코드"],  		ref: 'WORK_PATTERN_CODE',    			type:'combo',  	width:'116px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonWorkPatternCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'output',  	width:'106px',  	style:'text-align:left',
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'datepicker',  	width:'106px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
             },
-            {caption: ["재직구분"],  		ref: 'EMP_STATE',    			type:'output',  	width:'85px',  	style:'text-align:left',
+            {caption: ["재직구분"],  		ref: 'EMP_STATE',    			type:'combo',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonEmpState',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["직위"],  		ref: 'POSITION_CODE',    			type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["직위"],  		ref: 'POSITION_CODE',    			type:'combo',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPositionCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["직책"],  		ref: 'DUTY_CODE',    			type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["직책"],  		ref: 'DUTY_CODE',    			type:'combo',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDutyCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["직급"],  		ref: 'JOB_RANK',    			type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["직급"],  		ref: 'JOB_RANK',    			type:'combo',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonJobRank',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             }
         ];
 
@@ -2599,33 +2613,37 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["경조일자"], 	        ref: 'WELFARE_DATE',    	        type:'output',  	width:'90px',  	style:'text-align:left',
+            {caption: ["경조일자"], 	        ref: 'WELFARE_DATE',    	        type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
             },
-            {caption: ["신청년월"],        ref: 'REQUEST_YM', 		     type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["신청년월"],        ref: 'REQUEST_YM', 		     type:'datepicker',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'month', rule:'yyyy-mm', origin:'YYYYMM'}
+                , disabled: true
             },
             {caption: ["경조구분"],        ref: 'WELFARE_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["경조사유"],        ref: 'WELFARE_TYPE', 		     type:'output',  	width:'150px',  	style:'text-align:left',
+            {caption: ["경조사유"],        ref: 'WELFARE_TYPE', 		     type:'combo',  	width:'150px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonWelfareType',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["가족관계"],  		ref: 'RELATION',    			type:'output',  	width:'80px',  	style:'text-align:left',
+            {caption: ["가족관계"],  		ref: 'RELATION',    			type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonRelation',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
             {caption: ["경조대상자 이름"],        ref: 'NAME', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["경조금액"],        ref: 'WELFARE_AMOUNT', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["경조금액"],        ref: 'WELFARE_AMOUNT', 		     type:'output',  	width:'120px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
             {caption: ["비고"],        ref: 'DESCRIPTION', 		     type:'output',  	width:'300px',  	style:'text-align:left'}
         ];
 
@@ -3172,12 +3190,12 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_FILE_NAME : item.FILE_NAME,
-                    V_P_FILE_SERVER_PATH : item.FILE_SERVER_PATH,
-                    V_P_FILE_TYPE : item.FILE_TYPE,
-                    V_P_CREATE_USER : item.CREATE_USER,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_FILE_NAME : item.data.FILE_NAME,
+                    V_P_FILE_SERVER_PATH : item.data.FILE_SERVER_PATH,
+                    V_P_FILE_TYPE : item.data.FILE_TYPE,
+                    V_P_CREATE_USER : item.data.CREATE_USER,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3233,31 +3251,31 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_NAME : item.NAME,
-                    V_P_RELATION : item.RELATION,
-                    V_P_SOCIAL_NO : item.SOCIAL_NO,
-                    V_P_BIRTHDAY : item.BIRTHDAY,
-                    V_P_BIRTHDAY_TYPE : item.BIRTHDAY_TYPE,
-                    V_P_LEAP_MONTH_YN : item.LEAP_MONTH_YN,
-                    V_P_SCHOOL_TYPE : item.SCHOOL_TYPE,
-                    V_P_SUPPORT_YN : item.SUPPORT_YN,
-                    V_P_WH_TAX_YN : item.WH_TAX_YN,
-                    V_P_YEARTAX_YN : item.YEARTAX_YN,
-                    V_P_YEARTAX_RELATION : item.YEARTAX_RELATION,
-                    V_P_FOREIGNER_YN : item.FOREIGNER_YN,
-                    V_P_HANDICAP_YN : item.HANDICAP_YN,
-                    V_P_LIVE_TOGETHER_YN : item.LIVE_TOGETHER_YN,
-                    V_P_HEALTH_INSURE_YN : item.HEALTH_INSURE_YN,
-                    V_P_LIFE_YN : item.LIFE_YN,
-                    V_P_ZIP_CODE : item.ZIP_CODE,
-                    V_P_ADDRESS : item.ADDRESS,
-                    V_P_JOB : item.JOB,
-                    V_P_TEL : item.TEL,
-                    V_P_MEMO : item.MEMO,
-                    V_P_SOCIAL_NUM_DATE : item.SOCIAL_NUM_DATE,
-                    V_P_START_DATE : item.START_DATE,
-                    V_P_END_DATE : item.END_DATE,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_NAME : item.data.NAME,
+                    V_P_RELATION : item.data.RELATION,
+                    V_P_SOCIAL_NO : item.data.SOCIAL_NO,
+                    V_P_BIRTHDAY : item.data.BIRTHDAY,
+                    V_P_BIRTHDAY_TYPE : item.data.BIRTHDAY_TYPE,
+                    V_P_LEAP_MONTH_YN : item.data.LEAP_MONTH_YN,
+                    V_P_SCHOOL_TYPE : item.data.SCHOOL_TYPE,
+                    V_P_SUPPORT_YN : item.data.SUPPORT_YN,
+                    V_P_WH_TAX_YN : item.data.WH_TAX_YN,
+                    V_P_YEARTAX_YN : item.data.YEARTAX_YN,
+                    V_P_YEARTAX_RELATION : item.data.YEARTAX_RELATION,
+                    V_P_FOREIGNER_YN : item.data.FOREIGNER_YN,
+                    V_P_HANDICAP_YN : item.data.HANDICAP_YN,
+                    V_P_LIVE_TOGETHER_YN : item.data.LIVE_TOGETHER_YN,
+                    V_P_HEALTH_INSURE_YN : item.data.HEALTH_INSURE_YN,
+                    V_P_LIFE_YN : item.data.LIFE_YN,
+                    V_P_ZIP_CODE : item.data.ZIP_CODE,
+                    V_P_ADDRESS : item.data.ADDRESS,
+                    V_P_JOB : item.data.JOB,
+                    V_P_TEL : item.data.TEL,
+                    V_P_MEMO : item.data.MEMO,
+                    V_P_SOCIAL_NUM_DATE : item.data.SOCIAL_NUM_DATE,
+                    V_P_START_DATE : item.data.START_DATE,
+                    V_P_END_DATE : item.data.END_DATE,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3286,21 +3304,21 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_SCHOOL_TYPE : item.SCHOOL_TYPE,
-                    V_P_MANAGE_CODE : item.MANAGE_CODE,
-                    V_P_SCHOOL_NAME : item.SCHOOL_NAME,
-                    V_P_CAMPUS_BRANCH_TYPE : item.CAMPUS_BRANCH_TYPE,
-                    V_P_DAY_NIGHT_TYPE : item.DAY_NIGHT_TYPE,
-                    V_P_MAJOR : item.MAJOR,
-                    V_P_GRADUATE_TYPE : item.GRADUATE_TYPE,
-                    V_P_LAST_SCHOOL_YN : item.LAST_SCHOOL_YN,
-                    V_P_COMPLE_POINT : item.COMPLE_POINT,
-                    V_P_GPA_POINT : item.GPA_POINT,
-                    V_P_INTO_DATE : item.INTO_DATE,
-                    V_P_GRADUATE_DATE : item.GRADUATE_DATE,
-                    V_P_AFTER_ENTER_YN : item.AFTER_ENTER_YN,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_SCHOOL_TYPE : item.data.SCHOOL_TYPE,
+                    V_P_MANAGE_CODE : item.data.MANAGE_CODE,
+                    V_P_SCHOOL_NAME : item.data.SCHOOL_NAME,
+                    V_P_CAMPUS_BRANCH_TYPE : item.data.CAMPUS_BRANCH_TYPE,
+                    V_P_DAY_NIGHT_TYPE : item.data.DAY_NIGHT_TYPE,
+                    V_P_MAJOR : item.data.MAJOR,
+                    V_P_GRADUATE_TYPE : item.data.GRADUATE_TYPE,
+                    V_P_LAST_SCHOOL_YN : item.data.LAST_SCHOOL_YN,
+                    V_P_COMPLE_POINT : item.data.COMPLE_POINT,
+                    V_P_GPA_POINT : item.data.GPA_POINT,
+                    V_P_INTO_DATE : item.data.INTO_DATE,
+                    V_P_GRADUATE_DATE : item.data.GRADUATE_DATE,
+                    V_P_AFTER_ENTER_YN : item.data.AFTER_ENTER_YN,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3329,22 +3347,22 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_LICENSE_CODE : item.LICENSE_CODE,
-                    V_P_LICENSE_GRADE : item.LICENSE_GRADE,
-                    V_P_LICENSE_NUM : item.LICENSE_NUM,
-                    V_P_LICENSE_NAME : item.LICENSE_NAME,
-                    V_P_ISSUE_INSTITUTE : item.ISSUE_INSTITUTE,
-                    V_P_ISSUE_DATE : item.ISSUE_DATE,
-                    V_P_RENEW_DATE : item.RENEW_DATE,
-                    V_P_LICENSE_WAGES_AMT : item.LICENSE_WAGES_AMT,
-                    V_P_APPOINT_YN : item.APPOINT_YN,
-                    V_P_APPOINT_DEPT_CODE : item.APPOINT_DEPT_CODE,
-                    V_P_APPOINT_START_DATE : item.APPOINT_START_DATE,
-                    V_P_APPOINT_END_DATE : item.APPOINT_END_DATE,
-                    V_P_MEMO : item.MEMO,
-                    V_P_LICENSE_CATEGORY : item.LICENSE_CATEGORY,
-                    V_P_PAY_YN : item.PAY_YN,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_LICENSE_CODE : item.data.LICENSE_CODE,
+                    V_P_LICENSE_GRADE : item.data.LICENSE_GRADE,
+                    V_P_LICENSE_NUM : item.data.LICENSE_NUM,
+                    V_P_LICENSE_NAME : item.data.LICENSE_NAME,
+                    V_P_ISSUE_INSTITUTE : item.data.ISSUE_INSTITUTE,
+                    V_P_ISSUE_DATE : item.data.ISSUE_DATE,
+                    V_P_RENEW_DATE : item.data.RENEW_DATE,
+                    V_P_LICENSE_WAGES_AMT : item.data.LICENSE_WAGES_AMT,
+                    V_P_APPOINT_YN : item.data.APPOINT_YN,
+                    V_P_APPOINT_DEPT_CODE : item.data.APPOINT_DEPT_CODE,
+                    V_P_APPOINT_START_DATE : item.data.APPOINT_START_DATE,
+                    V_P_APPOINT_END_DATE : item.data.APPOINT_END_DATE,
+                    V_P_MEMO : item.data.MEMO,
+                    V_P_LICENSE_CATEGORY : item.data.LICENSE_CATEGORY,
+                    V_P_PAY_YN : item.data.PAY_YN,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3373,21 +3391,21 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_CAREER_TYPE : item.CAREER_TYPE,
-                    V_P_START_DATE : item.START_DATE,
-                    V_P_END_DATE : item.END_DATE,
-                    V_P_CAREER_YEAR : item.CAREER_YEAR,
-                    V_P_CAREER_MONTH : item.CAREER_MONTH,
-                    V_P_COMP_NAME : item.COMP_NAME,
-                    V_P_DEPT_NAME : item.DEPT_NAME,
-                    V_P_POSITION : item.POSITION,
-                    V_P_JOB : item.JOB,
-                    V_P_WORK : item.WORK,
-                    V_P_REGION_CODE : item.REGION_CODE,
-                    V_P_RETIRE_MEMO : item.RETIRE_MEMO,
-                    V_P_SALARY_LEVEL : item.SALARY_LEVEL,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_CAREER_TYPE : item.data.CAREER_TYPE,
+                    V_P_START_DATE : item.data.START_DATE,
+                    V_P_END_DATE : item.data.END_DATE,
+                    V_P_CAREER_YEAR : item.data.CAREER_YEAR,
+                    V_P_CAREER_MONTH : item.data.CAREER_MONTH,
+                    V_P_COMP_NAME : item.data.COMP_NAME,
+                    V_P_DEPT_NAME : item.data.DEPT_NAME,
+                    V_P_POSITION : item.data.POSITION,
+                    V_P_JOB : item.data.JOB,
+                    V_P_WORK : item.data.WORK,
+                    V_P_REGION_CODE : item.data.REGION_CODE,
+                    V_P_RETIRE_MEMO : item.data.RETIRE_MEMO,
+                    V_P_SALARY_LEVEL : item.data.SALARY_LEVEL,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3416,18 +3434,18 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_TEST_TYPE : item.TEST_TYPE,
-                    V_P_TEST_DATE : item.TEST_DATE,
-                    V_P_AVAILABLE_DATE : item.AVAILABLE_DATE,
-                    V_P_ISSUE_INSTITUTION : item.ISSUE_INSTITUTION,
-                    V_P_TOTAL_SCORE : item.TOTAL_SCORE,
-                    V_P_SCORE1 : item.SCORE1,
-                    V_P_SCORE2 : item.SCORE2,
-                    V_P_SCORE3 : item.SCORE3,
-                    V_P_SCORE4 : item.SCORE4,
-                    V_P_TEST_LEVEL : item.TEST_LEVEL,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_TEST_TYPE : item.data.TEST_TYPE,
+                    V_P_TEST_DATE : item.data.TEST_DATE,
+                    V_P_AVAILABLE_DATE : item.data.AVAILABLE_DATE,
+                    V_P_ISSUE_INSTITUTION : item.data.ISSUE_INSTITUTION,
+                    V_P_TOTAL_SCORE : item.data.TOTAL_SCORE,
+                    V_P_SCORE1 : item.data.SCORE1,
+                    V_P_SCORE2 : item.data.SCORE2,
+                    V_P_SCORE3 : item.data.SCORE3,
+                    V_P_SCORE4 : item.data.SCORE4,
+                    V_P_TEST_LEVEL : item.data.TEST_LEVEL,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3456,20 +3474,20 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_EDU_NAME : item.EDU_NAME,
-                    V_P_FOREIGN_YN : item.FOREIGN_YN,
-                    V_P_EDU_METHOD : item.EDU_METHOD,
-                    V_P_EDU_INSTITUTE : item.EDU_INSTITUTE,
-                    V_P_EDU_TYPE : item.EDU_TYPE,
-                    V_P_EDU_START_DATE : item.EDU_START_DATE,
-                    V_P_EDU_END_DATE : item.EDU_END_DATE,
-                    V_P_EDU_SCORE : item.EDU_SCORE,
-                    V_P_EDU_TOTAL_EXPENSE : item.EDU_TOTAL_EXPENSE,
-                    V_P_RETURN_EXPENSE : item.RETURN_EXPENSE,
-                    V_P_PAYMENT_EXPENSE : item.PAYMENT_EXPENSE,
-                    V_P_EDU_PASS_YN : item.EDU_PASS_YN,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_EDU_NAME : item.data.EDU_NAME,
+                    V_P_FOREIGN_YN : item.data.FOREIGN_YN,
+                    V_P_EDU_METHOD : item.data.EDU_METHOD,
+                    V_P_EDU_INSTITUTE : item.data.EDU_INSTITUTE,
+                    V_P_EDU_TYPE : item.data.EDU_TYPE,
+                    V_P_EDU_START_DATE : item.data.EDU_START_DATE,
+                    V_P_EDU_END_DATE : item.data.EDU_END_DATE,
+                    V_P_EDU_SCORE : item.data.EDU_SCORE,
+                    V_P_EDU_TOTAL_EXPENSE : item.data.EDU_TOTAL_EXPENSE,
+                    V_P_RETURN_EXPENSE : item.data.RETURN_EXPENSE,
+                    V_P_PAYMENT_EXPENSE : item.data.PAYMENT_EXPENSE,
+                    V_P_EDU_PASS_YN : item.data.EDU_PASS_YN,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3498,21 +3516,21 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_PRIZE_TYPE : item.PRIZE_TYPE,
-                    V_P_PRIZE_CATEGORY : item.PRIZE_CATEGORY,
-                    V_P_PRIZE_DATE : item.PRIZE_DATE,
-                    V_P_PRIZE_INOUT_TYPE : item.PRIZE_INOUT_TYPE,
-                    V_P_PRIZE_TARGET : item.PRIZE_TARGET,
-                    V_P_PRIZE_NAME : item.PRIZE_NAME,
-                    V_P_PRIZE_REASON : item.PRIZE_REASON,
-                    V_P_PRIZE_DETAIL : item.PRIZE_DETAIL,
-                    V_P_PRIZE_MAKER : item.PRIZE_MAKER,
-                    V_P_PUNISH_START_DATE : item.PUNISH_START_DATE,
-                    V_P_PUNISH_END_DATE : item.PUNISH_END_DATE,
-                    V_P_APPLY_PAY_YN : item.APPLY_PAY_YN,
-                    V_P_BASE_PAY_DOWN_RATE : item.BASE_PAY_DOWN_RATE,
-                    V_P_BONUS_PAY_DOWN_RATE : item.BONUS_PAY_DOWN_RATE,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_PRIZE_TYPE : item.data.PRIZE_TYPE,
+                    V_P_PRIZE_CATEGORY : item.data.PRIZE_CATEGORY,
+                    V_P_PRIZE_DATE : item.data.PRIZE_DATE,
+                    V_P_PRIZE_INOUT_TYPE : item.data.PRIZE_INOUT_TYPE,
+                    V_P_PRIZE_TARGET : item.data.PRIZE_TARGET,
+                    V_P_PRIZE_NAME : item.data.PRIZE_NAME,
+                    V_P_PRIZE_REASON : item.data.PRIZE_REASON,
+                    V_P_PRIZE_DETAIL : item.data.PRIZE_DETAIL,
+                    V_P_PRIZE_MAKER : item.data.PRIZE_MAKER,
+                    V_P_PUNISH_START_DATE : item.data.PUNISH_START_DATE,
+                    V_P_PUNISH_END_DATE : item.data.PUNISH_END_DATE,
+                    V_P_APPLY_PAY_YN : item.data.APPLY_PAY_YN,
+                    V_P_BASE_PAY_DOWN_RATE : item.data.BASE_PAY_DOWN_RATE,
+                    V_P_BONUS_PAY_DOWN_RATE : item.data.BONUS_PAY_DOWN_RATE,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3541,13 +3559,13 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_CHECK_TYPE : item.CHECK_TYPE,
-                    V_P_CHECK_DATE : item.CHECK_DATE,
-                    V_P_CHECK_INSTITUTE : item.CHECK_INSTITUTE,
-                    V_P_RESULT : item.RESULT,
-                    V_P_COMPANY_RESULT : item.COMPANY_RESULT,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_CHECK_TYPE : item.data.CHECK_TYPE,
+                    V_P_CHECK_DATE : item.data.CHECK_DATE,
+                    V_P_CHECK_INSTITUTE : item.data.CHECK_INSTITUTE,
+                    V_P_RESULT : item.data.RESULT,
+                    V_P_COMPANY_RESULT : item.data.COMPANY_RESULT,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3575,17 +3593,17 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_APPOINT_NUM : item.APPOINT_NUM,
+                    V_P_APPOINT_NUM : item.data.APPOINT_NUM,
                     V_P_EMP_CODE : empCode,
-                    V_P_DEPT_NAME2 : item.DEPT_NAME2,
-                    V_P_POSITION_NAME2 : item.POSITION_NAME2,
-                    V_P_DUTY_NAME2 : item.DUTY_NAME2,
-                    V_P_JOB_RANK_NAME2 : item.JOB_RANK_NAME2,
-                    V_P_JOB_FAMILY_NAME2 : item.JOB_FAMILY_NAME2,
-                    V_P_JOB_NAME2 : item.JOB_NAME2,
-                    V_P_REGION_NAME2 : item.REGION_NAME2,
-                    V_P_APPOINT_REASON : item.APPOINT_REASON,
-                    V_P_MEMO : item.MEMO,
+                    V_P_DEPT_NAME2 : item.data.DEPT_NAME2,
+                    V_P_POSITION_NAME2 : item.data.POSITION_NAME2,
+                    V_P_DUTY_NAME2 : item.data.DUTY_NAME2,
+                    V_P_JOB_RANK_NAME2 : item.data.JOB_RANK_NAME2,
+                    V_P_JOB_FAMILY_NAME2 : item.data.JOB_FAMILY_NAME2,
+                    V_P_JOB_NAME2 : item.data.JOB_NAME2,
+                    V_P_REGION_NAME2 : item.data.REGION_NAME2,
+                    V_P_APPOINT_REASON : item.data.APPOINT_REASON,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3614,14 +3632,14 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_TIME_OFF_TYPE : item.TIME_OFF_TYPE,
-                    V_P_START_DATE : item.START_DATE,
-                    V_P_END_DATE : item.END_DATE,
-                    V_P_TIME_OFF_CNT : item.TIME_OFF_CNT,
-                    V_P_SITE_CODE : item.SITE_CODE,
-                    V_P_DEPT_CODE : item.DEPT_CODE,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_TIME_OFF_TYPE : item.data.TIME_OFF_TYPE,
+                    V_P_START_DATE : item.data.START_DATE,
+                    V_P_END_DATE : item.data.END_DATE,
+                    V_P_TIME_OFF_CNT : item.data.TIME_OFF_CNT,
+                    V_P_SITE_CODE : item.data.SITE_CODE,
+                    V_P_DEPT_CODE : item.data.DEPT_CODE,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3650,10 +3668,10 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_OA_NAME : item.OA_NAME,
-                    V_P_OA_SKILL_LEVEL : item.OA_SKILL_LEVEL,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_OA_NAME : item.data.OA_NAME,
+                    V_P_OA_SKILL_LEVEL : item.data.OA_SKILL_LEVEL,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3682,14 +3700,14 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_GROUP_INSURE_CODE : item.GROUP_INSURE_CODE,
-                    V_P_INSURE_NUM : item.INSURE_NUM,
-                    V_P_INSURE_START_DATE : item.INSURE_START_DATE,
-                    V_P_INSURE_DUE_DATE : item.INSURE_DUE_DATE,
-                    V_P_INSURE_END_DATE : item.INSURE_END_DATE,
-                    V_P_GROUP_INSURE_AMT : item.GROUP_INSURE_AMT,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_GROUP_INSURE_CODE : item.data.GROUP_INSURE_CODE,
+                    V_P_INSURE_NUM : item.data.INSURE_NUM,
+                    V_P_INSURE_START_DATE : item.data.INSURE_START_DATE,
+                    V_P_INSURE_DUE_DATE : item.data.INSURE_DUE_DATE,
+                    V_P_INSURE_END_DATE : item.data.INSURE_END_DATE,
+                    V_P_GROUP_INSURE_AMT : item.data.GROUP_INSURE_AMT,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3718,17 +3736,17 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_DISEASE_TYPE : item.DISEASE_TYPE,
-                    V_P_DISEASE_REASON : item.DISEASE_REASON,
-                    V_P_DISEASE_START_DATE : item.DISEASE_START_DATE,
-                    V_P_SICK_LEAVE_REQUEST_YN : item.SICK_LEAVE_REQUEST_YN,
-                    V_P_SICK_LEAVE_CHARGE_DATE_FR : item.SICK_LEAVE_CHARGE_DATE_FR,
-                    V_P_SICK_LEAVE_CHARGE_DATE_TO : item.SICK_LEAVE_CHARGE_DATE_TO,
-                    V_P_SICK_LEAVE_FREE_DATE_FR : item.SICK_LEAVE_FREE_DATE_FR,
-                    V_P_SICK_LEAVE_FREE_DATE_TO : item.SICK_LEAVE_FREE_DATE_TO,
-                    V_P_GROUP_INSURE_REQUEST_YN : item.GROUP_INSURE_REQUEST_YN,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_DISEASE_TYPE : item.data.DISEASE_TYPE,
+                    V_P_DISEASE_REASON : item.data.DISEASE_REASON,
+                    V_P_DISEASE_START_DATE : item.data.DISEASE_START_DATE,
+                    V_P_SICK_LEAVE_REQUEST_YN : item.data.SICK_LEAVE_REQUEST_YN,
+                    V_P_SICK_LEAVE_CHARGE_DATE_FR : item.data.SICK_LEAVE_CHARGE_DATE_FR,
+                    V_P_SICK_LEAVE_CHARGE_DATE_TO : item.data.SICK_LEAVE_CHARGE_DATE_TO,
+                    V_P_SICK_LEAVE_FREE_DATE_FR : item.data.SICK_LEAVE_FREE_DATE_FR,
+                    V_P_SICK_LEAVE_FREE_DATE_TO : item.data.SICK_LEAVE_FREE_DATE_TO,
+                    V_P_GROUP_INSURE_REQUEST_YN : item.data.GROUP_INSURE_REQUEST_YN,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3757,12 +3775,12 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_EVAL_YEAR : item.EVAL_YEAR,
-                    V_P_POSITION_CODE : item.POSITION_CODE,
-                    V_P_EVAL_KPI_GRADE : item.EVAL_KPI_GRADE,
-                    V_P_EVAL_KBI_GRADE : item.EVAL_KBI_GRADE,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_EVAL_YEAR : item.data.EVAL_YEAR,
+                    V_P_POSITION_CODE : item.data.POSITION_CODE,
+                    V_P_EVAL_KPI_GRADE : item.data.EVAL_KPI_GRADE,
+                    V_P_EVAL_KBI_GRADE : item.data.EVAL_KBI_GRADE,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3791,10 +3809,10 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_OFFICIAL_INJURY_START_DATE : item.OFFICIAL_INJURY_START_DATE,
-                    V_P_OFFICIAL_INJURY_DESCR : item.OFFICIAL_INJURY_DESCR,
-                    V_P_MEMO : item.MEMO,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_OFFICIAL_INJURY_START_DATE : item.data.OFFICIAL_INJURY_START_DATE,
+                    V_P_OFFICIAL_INJURY_DESCR : item.data.OFFICIAL_INJURY_DESCR,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3823,11 +3841,11 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_CONTRACT_DEGREE : item.CONTRACT_DEGREE,
-                    V_P_CONTRACT_START_DATE : item.CONTRACT_START_DATE,
-                    V_P_CONTRACT_END_DATE : item.CONTRACT_END_DATE,
-                    V_P_CONTRACT_CHANGE_MEMO : item.CONTRACT_CHANGE_MEMO,
-                    V_P_MEMO : item.MEMO,
+                    V_P_CONTRACT_DEGREE : item.data.CONTRACT_DEGREE,
+                    V_P_CONTRACT_START_DATE : item.data.CONTRACT_START_DATE,
+                    V_P_CONTRACT_END_DATE : item.data.CONTRACT_END_DATE,
+                    V_P_CONTRACT_CHANGE_MEMO : item.data.CONTRACT_CHANGE_MEMO,
+                    V_P_MEMO : item.data.MEMO,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3896,10 +3914,10 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_WORKPLAN_TYPE : item.WORKPLAN_TYPE,
-                    V_P_START_DATE : item.START_DATE,
-                    V_P_END_DATE : item.END_DATE,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_WORKPLAN_TYPE : item.data.WORKPLAN_TYPE,
+                    V_P_START_DATE : item.data.START_DATE,
+                    V_P_END_DATE : item.data.END_DATE,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -3954,14 +3972,14 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.SEQ,
-                    V_P_NAME : item.NAME,
-                    V_P_RELATION : item.RELATION,
-                    V_P_WELFARE_CODE : item.WELFARE_CODE,
-                    V_P_WELFARE_TYPE : item.WELFARE_TYPE,
-                    V_P_WELFARE_DATE : item.WELFARE_DATE,
-                    V_P_WELFARE_AMOUNT : item.WELFARE_AMOUNT,
-                    V_P_DESCRIPTION : item.DESCRIPTION,
+                    V_P_SEQ : item.data.SEQ,
+                    V_P_NAME : item.data.NAME,
+                    V_P_RELATION : item.data.RELATION,
+                    V_P_WELFARE_CODE : item.data.WELFARE_CODE,
+                    V_P_WELFARE_TYPE : item.data.WELFARE_TYPE,
+                    V_P_WELFARE_DATE : item.data.WELFARE_DATE,
+                    V_P_WELFARE_AMOUNT : item.data.WELFARE_AMOUNT,
+                    V_P_DESCRIPTION : item.data.DESCRIPTION,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
