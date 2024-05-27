@@ -85,8 +85,8 @@
 							<th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-spmtYmd"
-									name="srch-dtp-spmtYmd"
+									id="srch-dtp-spmtYmdFrom"
+									name="srch-dtp-spmtYmdFrom"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
 									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
@@ -94,6 +94,14 @@
 								></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+									id="srch-dtp-spmtYmdTo"
+									name="srch-dtp-spmtYmdTo"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+									onchange="fn_dtpChange(srch-dtp-spmtYmdFrom)"
+								></sbux-datepicker>
 							</td>
 							<td class="td_input"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>선별일자</th>
@@ -178,7 +186,8 @@
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 
-	    SBUxMethod.set('srch-dtp-spmtYmd', gfn_dateToYmd(new Date()));
+	    SBUxMethod.set('srch-dtp-spmtYmdFrom', gfn_dateToYmd(new Date()));
+	    SBUxMethod.set('srch-dtp-spmtYmdTo', gfn_dateToYmd(new Date()));
 	    fn_initSBSelect();
 
 	})
@@ -460,13 +469,15 @@
 		let grdGubun 		= SBUxMethod.get("srch-slt-grd");
 	    let itemCd 			= "1326";
 	    let apcCd			= gv_selectedApcCd;
-	    let spmtYmd 		= SBUxMethod.get("srch-dtp-spmtYmd");
+	    let spmtYmdFrom		= SBUxMethod.get("srch-dtp-spmtYmdFrom");
+	    let spmtYmdTo 		= SBUxMethod.get("srch-dtp-spmtYmdTo");
 
 	    const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncDsctnList.do", {
 	      	grdGubun 		: grdGubun
 	      , itemCd 			: itemCd
 	      , apcCd			: apcCd
-	      , spmtYmd			: spmtYmd
+	      , spmtYmdFrom		: spmtYmdFrom
+	      , spmtYmdTo		: spmtYmdTo
 
 		});
 
