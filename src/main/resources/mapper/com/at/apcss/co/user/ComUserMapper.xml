@@ -436,19 +436,19 @@
 			AND UPA.PRDCR_CD = PI.PRDCR_CD
 	]]>
 	<if test='apcCd != null and apcCd != ""'>
-		AND CU.APC_CD = #{apcCd};
+		AND CU.APC_CD = #{apcCd}
 	</if>
 	<if test='prdcrCd != null and prdcrCd != ""'>
-		AND PI.PRDCR_CD = #{prdcrCd};
+		AND PI.PRDCR_CD = #{prdcrCd}
 	</if>
 	<if test='prdcrNm != null and prdcrNm != ""'>
-		AND PI.PRDCR_NM = #{prdcrNm};
+		AND PI.PRDCR_NM = #{prdcrNm}
 	</if>
 	<if test='userId != null and userId != ""'>
-		AND CU.USER_ID = #{userId};
+		AND CU.USER_ID = #{userId}
 	</if>
 		<if test='userNm != null and userNm != ""'>
-		AND CU.USER_NM = #{userNm};
+		AND CU.USER_NM = #{userNm}
 	</if>
 
 	</select>
