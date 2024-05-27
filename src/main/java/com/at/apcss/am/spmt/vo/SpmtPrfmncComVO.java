@@ -180,6 +180,10 @@ public class SpmtPrfmncComVO extends ComVO {
 	 * 팔레트입출고순번
 	 * */
 	private int sn;
+	/**
+	 * 출하순번
+	 * */
+	private int spmtSn;
 	
 	/**
 	 * 재고상태코드
