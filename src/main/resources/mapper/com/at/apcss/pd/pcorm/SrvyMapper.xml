@@ -30,6 +30,8 @@
 				, TES.RSPNS_CN
 			FROM TB_EV_SRVY TES
 			WHERE 1=1
+			  AND TES.USER_ID NOT IN ('at11','at12','at13','at14','at15','at16','at17','at51'
+										, 'at21','at22','at23','at24','at25','at26','at27','at61')
 			<if test='yr != null and yr != ""'>
 			  AND TES.YR = #{yr}
 			</if>
