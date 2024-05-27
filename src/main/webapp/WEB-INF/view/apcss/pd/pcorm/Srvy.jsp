@@ -61,7 +61,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdSrvy" style="height:350px; width: 100%;"></div>
+					<div id="sb-area-grdSrvy" style="height:550px; width: 100%;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
 			</div>
@@ -135,6 +135,7 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.rowheader="seq";
+		SBGridProperties.rowheight = '50';
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -147,7 +148,7 @@
 			{caption: ["등록년도"], 	ref: 'yr',			type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["유저 아이디"], 	ref: 'userId',		type:'output',  width:'100px',	style:'text-align:center'},
 			{caption: ["설문내용"], 	ref: 'srvyCn',		type:'output',  width:'500px',	style:'text-align:center'},
-			{caption: ["응답내용"], 	ref: 'rspnsCn',		type:'output',  width:'500px',	style:'text-align:center'},
+			{caption: ["응답내용"], 	ref: 'rspnsCn',	 typeinfo : {textareascroll : true},	type:'textarea',  width:'500px' ,disabled:true },
 			{caption: ["설문 종류"], 	ref: 'srvyKnd',   	hidden : true},
 			{caption: ["설문 일련번호"], 	ref: 'srvySn',   	hidden : true},
 		];
