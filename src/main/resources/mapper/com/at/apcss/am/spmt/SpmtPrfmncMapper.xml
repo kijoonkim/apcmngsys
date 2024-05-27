@@ -888,6 +888,7 @@
     		  , ORGN_SPMTNO
     		  , ORGN_PCKGNO
     		  , ORGN_PCKG_SN
+			  , SPMT_SN
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -917,6 +918,7 @@
     		  , #{orgnSpmtno}
     		  , #{orgnPckgno}
     		  , #{orgnPckgSn}
+			  , #{spmtSn}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -1109,7 +1111,7 @@
 				 		, CASE
 					 WHEN SC.INDCT_NM IS NULL THEN SC.SPCFCT_NM
 					 ELSE SC.INDCT_NM
-					 END
+					 END						AS SPCFCT_NM
 
 					 FROM TB_GDS_INVNTR GI
 
@@ -1297,6 +1299,7 @@
 				, SD.GDS_CD			AS GDS_CD
 				, SD.BRND_NM		AS BRND_NM
 				, SD.GDS_GRD		AS GDS_GRD
+				, SD.SPMT_SN 		AS SPMT_SN
 				, ITM.ITEM_NM		AS ITEM_NM
 				, ITM.INVNTR_INQ_AU_CD	AS INVNTR_INQ_AU_CD
 				, CASE
@@ -1339,6 +1342,7 @@
 			WHERE SC.APC_CD = #{apcCd}
 			AND SC.DEL_YN = 'N'
 			AND SD.SPMTNO = #{spmtno}
+			ORDER BY SD.SPMT_SN
 			)SP
 			LEFT JOIN (
 			SELECT
@@ -1365,6 +1369,7 @@
 			JOIN TB_APC_SPCFCT_CRTR AS CRTR
 			ON CRTR.ITEM_CD = SP.ITEM_CD
 			AND CRTR.APC_CD = SP.APC_CD
+			AND CRTR.SPCFCT_CD = SP.SPCFCT_CD
 			AND CRTR.DEL_YN = 'N'
 		WHERE 1=1
 		GROUP BY
@@ -1377,7 +1382,6 @@
 				, SP.SORT_GRD_CD
 				, SP.PRDCR_IDENTNO
 				, SP.GDS_GRD
-		ORDER BY ITEM_NM
 		]]>
 	</select>
 

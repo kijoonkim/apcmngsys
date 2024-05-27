@@ -121,6 +121,10 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 포장순번
 	 */
 	private int pckgSn;
+	/**
+	 * 출하순번
+	 * */
+	private int spmtSn;
 
 	/**
 	 * 품목코드
