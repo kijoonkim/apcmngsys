@@ -900,31 +900,43 @@
             {caption: ["이름"],  		ref: 'EMP_NAME',    			type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["상위부서"],       ref: 'PARENT_DEPT_NAME', 		type:'output',  	width:'75px',  	style:'text-align:left'},
             {caption: ["부서"],          ref: 'DEPT_NAME', 		        type:'output',  	width:'140px',  style:'text-align:left'},
-            {caption: ["직위"],          ref: 'POSITION_CODE', 		    type:'output',  	width:'100px',  style:'text-align:left',
+            {caption: ["직위"],          ref: 'POSITION_CODE', 		    type:'combo',  	width:'100px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPositionCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
-                }},
-            {caption: ["직책"],      	ref: 'DUTY_CODE', 		        type:'output',  	width:'80px',  	style:'text-align:left',
+                }
+                , disabled: true
+            },
+            {caption: ["직책"],      	ref: 'DUTY_CODE', 		        type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDutyCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["재직구분"],     	ref: 'EMP_STATE', 		        type:'output',  	width:'80px',  style:'text-align:left',
+            {caption: ["재직구분"],     	ref: 'EMP_STATE', 		        type:'combo',  	width:'80px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonEmpState',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'output',  	width:'90px',  	style:'text-align:left'},
-            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'output',  	width:'90px',  	style:'text-align:left'}
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            }
         ];
 
         gvwList = _SBGrid.create(SBGridProperties);
