@@ -135,7 +135,7 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.rowheader="seq";
-		SBGridProperties.rowheight = '50';
+		SBGridProperties.rowheight = '55';
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
