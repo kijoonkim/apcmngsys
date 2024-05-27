@@ -1615,7 +1615,7 @@
                 }
             },
             {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left'},
-            {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'input',  	width:'140px',  style:'text-align:left'},
+            {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'input',  	width:'140px',  style:'text-align:left', hidden: true},
             {caption: ["생년월일"],          ref: 'BIRTHDAY', 		    type:'datepicker',  	width:'100px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -1646,6 +1646,7 @@
                     value		: 'value',
                     itemcount	: 10
                 }
+                , hidden: true
             },
             {caption: ["외국인"],        ref: 'FOREIGNER_YN', 		     type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ["장애"],        ref: 'HANDICAP_YN', 		     type:'checkbox',  	width:'70px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
@@ -1828,9 +1829,9 @@
                     itemcount	: 10
                 }
             },
+            {caption: ["면허명(자격명)"],     	ref: 'LICENSE_NAME', 		         type:'input',  	width:'150px',  style:'text-align:left'},
             {caption: ["자격등급"],     	ref: 'LICENSE_GRADE', 		         type:'input',  	width:'80px',  style:'text-align:left'},
             {caption: ["자격번호"],     	ref: 'LICENSE_NUM', 		         type:'input',  	width:'100px',  style:'text-align:left'},
-            {caption: ["면허명(자격명)"],     	ref: 'LICENSE_NAME', 		         type:'input',  	width:'150px',  style:'text-align:left'},
             {caption: ["발행기관"],     	ref: 'ISSUE_INSTITUTE', 		         type:'input',  	width:'120px',  style:'text-align:left'},
             {caption: ["취득일"],       ref: 'ISSUE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -1841,7 +1842,7 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["자격수당금액"],     	ref: 'LICENSE_WAGES_AMT', 		         type:'input',  	width:'100px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: ["급여지급"],          ref: 'PAY_YN', 		        type:'combo',  	width:'75px',  style:'text-align:left',
+            {caption: ["법정선임여부"],          ref: 'APPOINT_YN', 		        type:'combo',  	width:'100px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonUseYn',
                     label		: 'label',
@@ -1849,7 +1850,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["법정선임여부"],          ref: 'APPOINT_YN', 		        type:'combo',  	width:'100px',  style:'text-align:left',
+            {caption: ["급여지급"],          ref: 'PAY_YN', 		        type:'combo',  	width:'75px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonUseYn',
                     label		: 'label',
@@ -1965,8 +1966,6 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["파일명"], 	        ref: 'FILE_NAME',    	        type:'input',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["파일서버경로"],        ref: 'FILE_SERVER_PATH', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["구분"],  		ref: 'FILE_TYPE',    			type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonFileType',
@@ -1975,6 +1974,8 @@
                     itemcount	: 10
                 }
             },
+            {caption: ["파일명"], 	        ref: 'FILE_NAME',    	        type:'input',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["파일서버경로"],        ref: 'FILE_SERVER_PATH', 		     type:'input',  	width:'100px',  	style:'text-align:left', hidden: true},
             {caption: ["생성일시"],        ref: 'CREATE_TIME', 		     type:'input',  	width:'140px',  	style:'text-align:left'},
             {caption: ["생성자"],        ref: 'CREATE_USER', 		     type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
@@ -1995,17 +1996,17 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["교육과정명"], 	        ref: 'EDU_NAME',    	        type:'input',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["교육구분"],        ref: 'EDU_METHOD', 		     type:'combo',  	width:'92px',  	style:'text-align:left',
+            {caption: ["교육방법"],  		ref: 'EDU_TYPE',    			type:'combo',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {
-                    ref			: 'jsonEduMethod',
+                    ref			: 'jsonEduType',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
             },
-            {caption: ["교육방법"],  		ref: 'EDU_TYPE',    			type:'combo',  	width:'100px',  	style:'text-align:left',
+            {caption: ["교육구분"],        ref: 'EDU_METHOD', 		     type:'combo',  	width:'92px',  	style:'text-align:left',
                 typeinfo: {
-                    ref			: 'jsonEduType',
+                    ref			: 'jsonEduMethod',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
@@ -2100,8 +2101,8 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["급여반영여부"],  		ref: 'APPLY_PAY_YN',    			type:'checkbox',  	width:'90px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["급여감봉율"],  		ref: 'BASE_PAY_DOWN_RATE',    			type:'input',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["상여감봉율"],        ref: 'BONUS_PAY_DOWN_RATE', 		     type:'input',  	width:'80px',  	style:'text-align:left'}
+            {caption: ["급여감봉율"],  		ref: 'BASE_PAY_DOWN_RATE',    			type:'input',  	width:'80px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 6}, format : {type:'number', rule:'#,###.00'}},
+            {caption: ["상여감봉율"],        ref: 'BONUS_PAY_DOWN_RATE', 		     type:'input',  	width:'80px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 6}, format : {type:'number', rule:'#,###.00'}}
         ];
 
         gvwPrize = _SBGrid.create(SBGridProperties);
@@ -2521,52 +2522,10 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            /*{caption: [""], 	        ref: 'CHK_YN',    	        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},*/
-            {caption: ["부서코드"],        ref: 'DEPT_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: [""], 	        ref: 'CHK_YN',    	        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},
+            {caption: ["부서코드"],        ref: 'DEPT_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["순번"],        ref: 'TXN_ID', 		     type:'output',  	width:'54px',  	style:'text-align:left', hidden: true},
             {caption: ["부서"],  		ref: 'DEPT_NAME',    			type:'output',  	width:'120px',  	style:'text-align:left'},
-            {caption: ["사번"],        ref: 'EMP_CODE', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["이름"],        ref: 'EMP_NAME', 		     type:'output',  	width:'94px',  	style:'text-align:left'},
-            {caption: ["입사일"],        ref: 'ENTER_DATE', 		     type:'datepicker',  	width:'95px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
-            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'218px',  	style:'text-align:left'},
-            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'122px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
-            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'108px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
-            {caption: ["순번"],        ref: 'TXN_ID', 		     type:'output',  	width:'54px',  	style:'text-align:left'},
-            {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		     type:'checkbox',  	width:'82px',  	style:'text-align:left', disabled: true},
-            {caption: ["근무패턴코드"],  		ref: 'WORK_PATTERN_CODE',    			type:'combo',  	width:'116px',  	style:'text-align:left',
-                typeinfo: {
-                    ref			: 'jsonWorkPatternCode',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'datepicker',  	width:'106px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
-            {caption: ["재직구분"],  		ref: 'EMP_STATE',    			type:'combo',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {
-                    ref			: 'jsonEmpState',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
             {caption: ["직위"],  		ref: 'POSITION_CODE',    			type:'combo',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPositionCode',
@@ -2593,7 +2552,49 @@
                     itemcount	: 10
                 }
                 , disabled: true
-            }
+            },
+            {caption: ["사번"],        ref: 'EMP_CODE', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["이름"],        ref: 'EMP_NAME', 		     type:'output',  	width:'94px',  	style:'text-align:left'},
+            {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		     type:'checkbox',  	width:'82px',  	style:'text-align:left', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
+            {caption: ["근무패턴코드"],  		ref: 'WORK_PATTERN_CODE',    			type:'combo',  	width:'116px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonWorkPatternCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["비고"],        ref: 'MEMO', 		     type:'output',  	width:'218px',  	style:'text-align:left'},
+            {caption: ["시작일자"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'122px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["종료일자"],        ref: 'END_DATE', 		     type:'datepicker',  	width:'108px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		     type:'datepicker',  	width:'95px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		     type:'datepicker',  	width:'106px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["재직구분"],  		ref: 'EMP_STATE',    			type:'combo',  	width:'85px',  	style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonEmpState',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
         ];
 
         gvwEmp = _SBGrid.create(SBGridProperties);
@@ -2623,7 +2624,7 @@
                 format : {type:'month', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
             },
-            {caption: ["경조구분"],        ref: 'WELFARE_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["경조구분"],        ref: 'WELFARE_CODE', 		     type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["경조사유"],        ref: 'WELFARE_TYPE', 		     type:'combo',  	width:'150px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonWelfareType',
@@ -2641,6 +2642,7 @@
                     itemcount	: 10
                 }
                 , disabled: true
+                , hidden: true
             },
             {caption: ["경조대상자 이름"],        ref: 'NAME', 		     type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: ["경조금액"],        ref: 'WELFARE_AMOUNT', 		     type:'output',  	width:'120px',  	style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
