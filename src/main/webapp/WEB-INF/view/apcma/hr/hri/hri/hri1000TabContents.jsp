@@ -3974,4 +3974,154 @@
 
         return returnData;
     }
+
+    const fn_setTpgMasterSub = async function(data) {
+        // 기본인적
+        if(data) {
+            SBUxMethod.set("NATION_CODE", data.NATION_CODE);
+            SBUxMethod.set("FOREIGNER_YN", data.FOREIGNER_YN);
+            SBUxMethod.set("FAMILY_OWNER_YN", data.FAMILY_OWNER_YN);
+            SBUxMethod.set("FAMILY_CLAN", data.FAMILY_CLAN);
+            SBUxMethod.set("BONUS_APPLY_START_DATE", data.BONUS_APPLY_START_DATE);
+            SBUxMethod.set("FAMILY_REGISTER_ZIP_CODE", data.FAMILY_REGISTER_ZIP_CODE);
+            SBUxMethod.set("btnZip1", data.btnZip1);
+            SBUxMethod.set("FAMILY_REGISTER_ADDRESS", data.FAMILY_REGISTER_ADDRESS);
+            SBUxMethod.set("UNION_JOIN_START_DATE", data.UNION_JOIN_START_DATE);
+            SBUxMethod.set("REGISTER_ZIP_CODE", data.REGISTER_ZIP_CODE);
+            SBUxMethod.set("btnZip2", data.btnZip2);
+            SBUxMethod.set("REGISTER_ADDRESS", data.REGISTER_ADDRESS);
+            SBUxMethod.set("CELLPHONE_NUM", data.CELLPHONE_NUM);
+            SBUxMethod.set("UNION_JOIN_END_DATE", data.UNION_JOIN_END_DATE);
+            SBUxMethod.set("EMERGENCY_ZIP_CODE", data.EMERGENCY_ZIP_CODE);
+            SBUxMethod.set("btnZip3", data.btnZip3);
+            SBUxMethod.set("EMERGENCY_ADDRESS", data.EMERGENCY_ADDRESS);
+            SBUxMethod.set("EMERGENCY_TEL_NUM", data.EMERGENCY_TEL_NUM);
+            SBUxMethod.set("RESIDENCE_ZIP_CODE", data.RESIDENCE_ZIP_CODE);
+            SBUxMethod.set("btnZip4", data.btnZip4);
+            SBUxMethod.set("RESIDENCE_ADDRESS", data.RESIDENCE_ADDRESS);
+            SBUxMethod.set("HOME_TEL_NUM", data.HOME_TEL_NUM);
+            SBUxMethod.set("OFFICE_TEL_NUM", data.OFFICE_TEL_NUM);
+            SBUxMethod.set("FAX_NUM", data.FAX_NUM);
+            SBUxMethod.set("INTER_PHONE", data.INTER_PHONE);
+            SBUxMethod.set("UNION_JOIN_YN", data.UNION_JOIN_YN);
+            SBUxMethod.set("IN_EMAIL", data.IN_EMAIL);
+            SBUxMethod.set("OUT_EMAIL", data.OUT_EMAIL);
+            SBUxMethod.set("TEMP_END_DATE", data.TEMP_END_DATE);
+            SBUxMethod.set("GROUP_ENTER_DATE", data.GROUP_ENTER_DATE);
+            SBUxMethod.set("COMP_ENTER_DATE", data.COMP_ENTER_DATE);
+            SBUxMethod.set("PROMOTION_BASE_DATE", data.PROMOTION_BASE_DATE);
+            SBUxMethod.set("RETIRE_DATE", data.RETIRE_DATE);
+            SBUxMethod.set("RETIRE_REASON", data.RETIRE_REASON);
+            SBUxMethod.set("RETIRE_IN_REASON", data.RETIRE_IN_REASON);
+            SBUxMethod.set("RETIRE_BASE_DATE", data.RETIRE_BASE_DATE);
+            SBUxMethod.set("PREMATURE_DATE", data.PREMATURE_DATE);
+            SBUxMethod.set("RETIRE_PENSION_JOIN_YN", data.RETIRE_PENSION_JOIN_YN);
+            SBUxMethod.set("RETIRE_INITIAL_DATE", data.RETIRE_INITIAL_DATE);
+            SBUxMethod.set("RET_RENS_ST_DAT", data.RET_RENS_ST_DAT);
+            SBUxMethod.set("TELEWORKING_YN", data.TELEWORKING_YN);
+            SBUxMethod.set("TELEWORKING_ADDRESS", data.TELEWORKING_ADDRESS);
+            SBUxMethod.set("PROMOTION_DATA", data.PROMOTION_DATA);
+            SBUxMethod.set("EMP_MEMO", data.EMP_MEMO);
+            SBUxMethod.set("AGREE_DATE", data.AGREE_DATE);
+            SBUxMethod.set("AGREE_YN", data.AGREE_YN);
+        }
+    }
+
+    const fn_setTpgMasterSubDetail = async function(data) {
+        // 주거/생활/신체
+        if(data) {
+            SBUxMethod.set("BLOOD_TYPE_RH", data.BLOOD_TYPE_RH);
+            SBUxMethod.set("BLOOD_TYPE_ABO", data.BLOOD_TYPE_ABO);
+            SBUxMethod.set("WEIGHT", data.WEIGHT);
+            SBUxMethod.set("HEIGHT", data.HEIGHT);
+            SBUxMethod.set("LEFT_EYE", data.LEFT_EYE);
+            SBUxMethod.set("RIGHT_EYE", data.RIGHT_EYE);
+            SBUxMethod.set("COLOR_BLIND_YN", data.COLOR_BLIND_YN);
+            SBUxMethod.set("JACKET_SIZE", data.JACKET_SIZE);
+            SBUxMethod.set("PANTS_SIZE", data.PANTS_SIZE);
+            SBUxMethod.set("SHOE_SIZE", data.SHOE_SIZE);
+            SBUxMethod.set("HOBBY", data.HOBBY);
+            SBUxMethod.set("SPECIAL_ABILITY", data.SPECIAL_ABILITY);
+            SBUxMethod.set("RELIGION_CODE", data.RELIGION_CODE);
+            SBUxMethod.set("HOUSE_OWN_YN", data.HOUSE_OWN_YN);
+            SBUxMethod.set("HOUSE_TYPE", data.HOUSE_TYPE);
+            SBUxMethod.set("HOUSE_KIND", data.HOUSE_KIND);
+            SBUxMethod.set("MARRIAGE_YN", data.MARRIAGE_YN);
+            SBUxMethod.set("MARRIAGE_DATE", data.MARRIAGE_DATE);
+            SBUxMethod.set("CAR_OWN_YN", data.CAR_OWN_YN);
+            SBUxMethod.set("CAR_NUM", data.CAR_NUM);
+            SBUxMethod.set("CAR_KIND", data.CAR_KIND);
+        }
+    }
+
+    const fn_setTpgMasterSubDetail2 = async function(data) {
+        // 병역사항
+        if(data) {
+            SBUxMethod.set("ARMY_TYPE", data.ARMY_TYPE);
+            SBUxMethod.set("ARMY_INDUSTRY_YN", data.ARMY_INDUSTRY_YN);
+            SBUxMethod.set("ARMY_PART", data.ARMY_PART);
+            SBUxMethod.set("ARMY_KIND", data.ARMY_KIND);
+            SBUxMethod.set("ARMY_DISCHARGE_TYPE", data.ARMY_DISCHARGE_TYPE);
+            SBUxMethod.set("ARMY_GRADE", data.ARMY_GRADE);
+            SBUxMethod.set("ARMY_START_DATE", data.ARMY_START_DATE);
+            SBUxMethod.set("ARMY_END_DATE", data.ARMY_END_DATE);
+            SBUxMethod.set("ARMY_EXEMPTION_DESCR", data.ARMY_EXEMPTION_DESCR);
+            SBUxMethod.set("ARMY_DESCR", data.ARMY_DESCR);
+        }
+    }
+
+    const fn_setTpgMasterSubDetail3 = async function(data) {
+        // 보훈/장애/여권/비자
+        if(data) {
+            SBUxMethod.set("VETERANS_YN", data.VETERANS_YN);
+            SBUxMethod.set("VETERANS_GRADE", data.VETERANS_GRADE);
+            SBUxMethod.set("VETERANS_MEMO", data.VETERANS_MEMO);
+            SBUxMethod.set("VETERANS_RELATION", data.VETERANS_RELATION);
+            SBUxMethod.set("VETERANS_NUM", data.VETERANS_NUM);
+            SBUxMethod.set("VETERANS_ORDER_YN", data.VETERANS_ORDER_YN);
+            SBUxMethod.set("VETERANS_ORDER_DATE", data.VETERANS_ORDER_DATE);
+            SBUxMethod.set("HANDICAP_GRADE", data.HANDICAP_GRADE);
+            SBUxMethod.set("HANDICAP_TYPE", data.HANDICAP_TYPE);
+            SBUxMethod.set("HANDICAP_REASON", data.HANDICAP_REASON);
+            SBUxMethod.set("HANDICAP_ISSUE_DATE", data.HANDICAP_ISSUE_DATE);
+            SBUxMethod.set("PASSPORT_NUM", data.PASSPORT_NUM);
+            SBUxMethod.set("PASSPORT_ISSUE_DATE", data.PASSPORT_ISSUE_DATE);
+            SBUxMethod.set("PASSPORT_EXPIRE_DATE", data.PASSPORT_EXPIRE_DATE);
+            SBUxMethod.set("VISA_NUM", data.VISA_NUM);
+            SBUxMethod.set("VISA_ISSUE_DATE", data.VISA_ISSUE_DATE);
+            SBUxMethod.set("VISA_EXPIRE_DATE", data.VISA_EXPIRE_DATE);
+        }
+    }
+
+    const fn_setTpgMasterSubDetail4 = async function(data) {
+        // 보증보험
+        if(data) {
+            SBUxMethod.set("GUARANTEE_TYPE", data.GUARANTEE_TYPE);
+            SBUxMethod.set("INSURE_COMP_NAME", data.INSURE_COMP_NAME);
+            SBUxMethod.set("INSURE_NAME", data.INSURE_NAME);
+            SBUxMethod.set("INSURE_NUM", data.INSURE_NUM);
+            SBUxMethod.set("INSURE_AMOUNT", data.INSURE_AMOUNT);
+            SBUxMethod.set("INSURE_VALUE", data.INSURE_VALUE);
+            SBUxMethod.set("INSURE_START_DATE", data.INSURE_START_DATE);
+            SBUxMethod.set("INSURE_END_DATE", data.INSURE_END_DATE);
+            SBUxMethod.set("GUARANTOR1_NAME", data.GUARANTOR1_NAME);
+            SBUxMethod.set("GUARANTOR1_SOCIAL_NO", data.GUARANTOR1_SOCIAL_NO);
+            SBUxMethod.set("GUARANTOR1_RELATION", data.GUARANTOR1_RELATION);
+            SBUxMethod.set("GUARANTOR1_COMP_NAME", data.GUARANTOR1_COMP_NAME);
+            SBUxMethod.set("GUARANTOR1_POSITION", data.GUARANTOR1_POSITION);
+            SBUxMethod.set("GUARANTOR1_START_DATE", data.GUARANTOR1_START_DATE);
+            SBUxMethod.set("GUARANTOR1_END_DATE", data.GUARANTOR1_END_DATE);
+            SBUxMethod.set("GUARANTOR1_ZIP_CODE", data.GUARANTOR1_ZIP_CODE);
+            SBUxMethod.set("GUARANTOR1_ADDRESS", data.GUARANTOR1_ADDRESS);
+            SBUxMethod.set("GUARANTOR2_NAME", data.GUARANTOR2_NAME);
+            SBUxMethod.set("GUARANTOR2_SOCIAL_NO", data.GUARANTOR2_SOCIAL_NO);
+            SBUxMethod.set("GUARANTOR2_RELATION", data.GUARANTOR2_RELATION);
+            SBUxMethod.set("GUARANTOR2_COMP_NAME", data.GUARANTOR2_COMP_NAME);
+            SBUxMethod.set("GUARANTOR2_POSITION", data.GUARANTOR2_POSITION);
+            SBUxMethod.set("GUARANTOR2_START_DATE", data.GUARANTOR2_START_DATE);
+            SBUxMethod.set("GUARANTOR2_END_DATE", data.GUARANTOR2_END_DATE);
+            SBUxMethod.set("GUARANTOR2_ZIP_CODE", data.GUARANTOR2_ZIP_CODE);
+            SBUxMethod.set("GUARANTOR2_ADDRESS", data.GUARANTOR2_ADDRESS);
+        }
+    }
 </script>

@@ -191,31 +191,31 @@
                                     </td>
                                     <th scope="row" class="th_bg">사번</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">주민등록번호</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="SOCIAL_NUM" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100% " required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">직위</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-select id="POSITION_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="POSITION_CODE_PERIOD" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="POSITION_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">이름</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">생년월일</th>
                                     <td class="td_input">
-                                        <sbux-input id="BIRTHDAY" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="BIRTHDAY" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td class="td_input">
                                         <sbux-select id="BIRTHDAY_TYPE" uitype="single" jsondata-ref="jsonBirthdayType" unselected-text="" class="form-control input-sm"></sbux-select>
@@ -243,7 +243,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">이름(영문)</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="EMP_NAME_ENG" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="EMP_NAME_ENG" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">성별</th>
                                     <td class="td_input">
@@ -251,27 +251,27 @@
                                     </td>
                                     <th scope="row" class="th_bg">나이</th>
                                     <td class="td_input">
-                                        <sbux-input id="AGE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="AGE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">직원하위그룹</th>
                                     <td class="td_input">
                                         <sbux-select id="JOB_FAMILY" uitype="single" jsondata-ref="jsonJobFamily" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="SALARY_LEVEL" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="SALARY_LEVEL" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">이름(한문)</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="EMP_NAME_CHN" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="EMP_NAME_CHN" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">직책</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-select id="DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="DUTY_CODE_PERIOD" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DUTY_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">직무</th>
                                     <td colspan="2" class="td_input">
@@ -284,7 +284,7 @@
                                         <sbux-select id="JOB_DETAIL_CODE" uitype="single" jsondata-ref="jsonDetailJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="JOB_CODE_PERIOD" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="JOB_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -297,7 +297,7 @@
                                         <sbux-select id="JOB_RANK" uitype="single" jsondata-ref="jsonJobRank" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="JOB_RANK_PERIOD" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="JOB_RANK_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td colspan="5" class="td_input">
                                         <p class="ad_input_row">
@@ -353,17 +353,17 @@
                                     </td>
                                     <th scope="row" class="th_bg">소속부서</th>
                                     <td class="td_input">
-                                        <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">상위부서</th>
                                     <td class="td_input">
-                                        <sbux-input id="PARENT_DEPT" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="PARENT_DEPT" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="PARENT_DEPT_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="PARENT_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -373,17 +373,17 @@
                                     </td>
                                     <th scope="row" class="th_bg">귀속부서</th>
                                     <td class="td_input">
-                                        <sbux-input id="COST_DEPT_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="COST_DEPT_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="COST_DEPT_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="COST_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">겸직부서</th>
                                     <td class="td_input">
-                                        <sbux-input id="DEPT_CODE2" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DEPT_CODE2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="DEPT_NAME2" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DEPT_NAME2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -424,10 +424,10 @@
                                     </td>
                                     <th scope="row" class="th_bg">종전사원</th>
                                     <td class="td_input">
-                                        <sbux-input id="OLD_EMP_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="OLD_EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="OLD_EMP_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="OLD_EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">입사직위</th>
                                     <td colspan="2" class="td_input">
@@ -435,7 +435,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">인정경력</th>
                                     <td class="td_input">
-                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input><span>개월</span>
+                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input><span>개월</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -445,10 +445,10 @@
                                     </td>
                                     <th scope="row" class="th_bg">추천자</th>
                                     <td class="td_input">
-                                        <sbux-input id="INTRODUCER_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="INTRODUCER_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="INTRODUCER_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="INTRODUCER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">근속기준일</th>
                                     <td colspan="2" class="td_input">
@@ -463,7 +463,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">PayGrade(입사)</th>
                                     <td class="td_input">
-                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" required style="width:100%"></sbux-input><span>개월</span>
+                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%"></sbux-input><span>개월</span>
                                     </td>
                                     <th scope="row" class="th_bg">기준일(PG)</th>
                                     <td class="td_input">
@@ -513,7 +513,7 @@
                                     </td>
                                     <th scope="row" class="th_bg">PayGrade(현재)</th>
                                     <td class="td_input">
-                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" required style="width:100%"></sbux-input><span>개월</span>
+                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%"></sbux-input><span>개월</span>
                                     </td>
                                     <th scope="row" class="th_bg">기준일(PG)</th>
                                     <td class="td_input">
@@ -1016,11 +1016,23 @@
      * 저장
      */
     const fn_save = async function() {
+        if(!SBUxMethod.validateRequired()) {
+            return false;
+        }
+
+        const master = await getParamForHri1000S();
+
+        if (new Date(master.V_P_UNION_JOIN_START_DATE) > new Date(master.V_P_UNION_JOIN_END_DATE))
+        {
+            alert("노조탈퇴일이 노조가입일보다 빠를 수 없습니다.")
+            return false;
+        }
+
         const postJsonPromiseMaster = gfn_postJSON("/hr/hri/hri/insertHri1000Master.do", {
             getType				: 'json',
             workType			: editType,
             cv_count			: '0',
-            params				: gfnma_objectToString(await getParamForHri1000S())
+            params				: gfnma_objectToString(master)
         });
         const masterData = await postJsonPromiseMaster;
 
@@ -1215,6 +1227,10 @@
         var getColRef 			= gvwList.getColRef("checked");
         gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
         fn_setTotalEmpList(recordCountPerPage, currentPageNo);
+
+        if(jsonEmpTotalList.length > 0) {
+            gvwList.clickRow(1);
+        }
     }
 
     /**
@@ -1284,7 +1300,6 @@
                 });
 
                 gvwList.rebuild();
-
             } else {
                 alert(data.resultMessage);
             }
@@ -1296,6 +1311,70 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+    const fn_setMasterData = async function(data) {
+        SBUxMethod.set("EMP_CODE", data.EMP_CODE);
+        SBUxMethod.set("DISPLAY_SOCIAL_NUM", data.DISPLAY_SOCIAL_NUM);
+        SBUxMethod.set("SOCIAL_NUM", data.SOCIAL_NUM);
+        SBUxMethod.set("POSITION_CODE", data.POSITION_CODE);
+        SBUxMethod.set("POSITION_CODE_PERIOD", data.POSITION_CODE_PERIOD);
+        SBUxMethod.set("EMP_NAME", data.EMP_NAME);
+        SBUxMethod.set("BIRTHDAY", data.BIRTHDAY);
+        SBUxMethod.set("BIRTHDAY_TYPE", data.BIRTHDAY_TYPE);
+        SBUxMethod.set("LEAP_MONTH_YN", data.LEAP_MONTH_YN);
+        SBUxMethod.set("JOB_GROUP", data.JOB_GROUP);
+        SBUxMethod.set("SALARY_CLASS", data.SALARY_CLASS);
+        SBUxMethod.set("EMP_NAME_ENG", data.EMP_NAME_ENG);
+        SBUxMethod.set("GENDER", data.GENDER);
+        SBUxMethod.set("AGE", data.AGE);
+        SBUxMethod.set("JOB_FAMILY", data.JOB_FAMILY);
+        SBUxMethod.set("SALARY_LEVEL", data.SALARY_LEVEL);
+        SBUxMethod.set("EMP_NAME_CHN", data.EMP_NAME_CHN);
+        SBUxMethod.set("DUTY_CODE", data.DUTY_CODE);
+        SBUxMethod.set("DUTY_CODE_PERIOD", data.DUTY_CODE_PERIOD);
+        SBUxMethod.set("JOB_CODE", data.JOB_CODE);
+        SBUxMethod.set("JOB_SUB_CODE", data.JOB_SUB_CODE);
+        SBUxMethod.set("JOB_DETAIL_CODE", data.JOB_DETAIL_CODE);
+        SBUxMethod.set("JOB_CODE_PERIOD", data.JOB_CODE_PERIOD);
+        SBUxMethod.set("LABOR_COST_GROUP", data.LABOR_COST_GROUP);
+        SBUxMethod.set("JOB_RANK", data.JOB_RANK);
+        SBUxMethod.set("JOB_RANK_PERIOD", data.JOB_RANK_PERIOD);
+        SBUxMethod.set("BOARD_DIRECTOR_YN", data.BOARD_DIRECTOR_YN);
+        SBUxMethod.set("SALES_EMP_YN", data.SALES_EMP_YN);
+        SBUxMethod.set("RE_ENTER_YN", data.RE_ENTER_YN);
+        SBUxMethod.set("TO_YN", data.TO_YN);
+        SBUxMethod.set("SITE_CODE", data.SITE_CODE);
+        SBUxMethod.set("DEPT_CODE", data.DEPT_CODE);
+        SBUxMethod.set("DEPT_NAME", data.DEPT_NAME);
+        SBUxMethod.set("PARENT_DEPT", data.PARENT_DEPT);
+        SBUxMethod.set("PARENT_DEPT_NAME", data.PARENT_DEPT_NAME);
+        SBUxMethod.set("TAX_SITE_CODE", data.TAX_SITE_CODE);
+        SBUxMethod.set("COST_DEPT_CODE", data.COST_DEPT_CODE);
+        SBUxMethod.set("COST_DEPT_NAME", data.COST_DEPT_NAME);
+        SBUxMethod.set("DEPT_CODE2", data.DEPT_CODE2);
+        SBUxMethod.set("DEPT_NAME2", data.DEPT_NAME2);
+        SBUxMethod.set("WORK_REGION", data.WORK_REGION);
+        SBUxMethod.set("EMP_TYPE", data.EMP_TYPE);
+        SBUxMethod.set("PARTNER_FIRM_EMP_YN", data.PARTNER_FIRM_EMP_YN);
+        SBUxMethod.set("PARTNER_FIRM_CODE", data.PARTNER_FIRM_CODE);
+        SBUxMethod.set("DUTY_CODE2", data.DUTY_CODE2);
+        SBUxMethod.set("EMP_STATE", data.EMP_STATE);
+        SBUxMethod.set("OLD_EMP_CODE", data.OLD_EMP_CODE);
+        SBUxMethod.set("OLD_EMP_NAME", data.OLD_EMP_NAME);
+        SBUxMethod.set("START_POSITION_CODE", data.START_POSITION_CODE);
+        SBUxMethod.set("CAREER_TRACK", data.CAREER_TRACK);
+        SBUxMethod.set("ENTER_TYPE", data.ENTER_TYPE);
+        SBUxMethod.set("INTRODUCER_CODE", data.INTRODUCER_CODE);
+        SBUxMethod.set("INTRODUCER_NAME", data.INTRODUCER_NAME);
+        SBUxMethod.set("CAREER_DATE", data.CAREER_DATE);
+        SBUxMethod.set("START_PAY_GRADE", data.START_PAY_GRADE);
+        SBUxMethod.set("CAREER_TRACK_ENTER_DATE", data.CAREER_TRACK_ENTER_DATE);
+        SBUxMethod.set("ENTER_DATE", data.ENTER_DATE);
+        SBUxMethod.set("ANNUAL_INITIAL_DATE", data.ANNUAL_INITIAL_DATE);
+        SBUxMethod.set("ANNUAL_BASE_DATE", data.ANNUAL_BASE_DATE);
+        SBUxMethod.set("CURRENT_PAY_GRADE", data.CURRENT_PAY_GRADE);
+        SBUxMethod.set("CURRENT_PAY_GRADE_DATE", data.CURRENT_PAY_GRADE_DATE);
     }
 
     //상세정보 보기
@@ -1365,15 +1444,12 @@
 
         const masterData = await postJsonPromiseForMaster;
         const detailData = await postJsonPromiseForDetail;
-        console.log('masterData:', masterData);
-        console.log('detailData:', detailData);
+
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
 
                 // master 정보
-                var data = masterData.cv_2[0];
-
-
+                fn_setMasterData(masterData.cv_2[0]);
             } else {
                 alert(data.resultMessage);
             }
@@ -1382,90 +1458,138 @@
 
                 // detail 정보
                 // 기본인적사항
-                detailData.cv_3[0];
+                fn_setTpgMasterSub(detailData.cv_3[0]);
 
                 // 주거/생활/신체
-                detailData.cv_4[0];
+                fn_setTpgMasterSubDetail(detailData.cv_4[0]);
 
                 // 가족사항
                 detailData.cv_5.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        NAME : item.NAME,
+                        RELATION : item.RELATION,
+                        SOCIAL_NO_REAL : item.SOCIAL_NO_REAL,
+                        SOCIAL_NO : item.SOCIAL_NO,
+                        BIRTHDAY : item.BIRTHDAY,
+                        BIRTHDAY_TYPE : item.BIRTHDAY_TYPE,
+                        LEAP_MONTH_YN : item.LEAP_MONTH_YN,
+                        SCHOOL_TYPE : item.SCHOOL_TYPE,
+                        ZIP_CODE : item.ZIP_CODE,
+                        ADDRESS : item.ADDRESS,
+                        SUPPORT_YN : item.SUPPORT_YN,
+                        WH_TAX_YN : item.WH_TAX_YN,
+                        YEARTAX_YN : item.YEARTAX_YN,
+                        YEARTAX_RELATION : item.YEARTAX_RELATION,
+                        FOREIGNER_YN : item.FOREIGNER_YN,
+                        HANDICAP_YN : item.HANDICAP_YN,
+                        LIVE_TOGETHER_YN : item.LIVE_TOGETHER_YN,
+                        JOB : item.JOB,
+                        TEL : item.TEL,
+                        LIFE_YN : item.LIFE_YN,
+                        HEALTH_INSURE_YN : item.HEALTH_INSURE_YN,
+                        MEMO : item.MEMO,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonFamilyList.push(msg);
                 });
+
+                gvwFamily.rebuild();
 
                 // 학력사항
                 detailData.cv_6.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        SCHOOL_TYPE : item.SCHOOL_TYPE,
+                        MANAGE_CODE : item.MANAGE_CODE,
+                        SCHOOL_NAME : item.SCHOOL_NAME,
+                        CAMPUS_BRANCH_TYPE : item.CAMPUS_BRANCH_TYPE,
+                        DAY_NIGHT_TYPE : item.DAY_NIGHT_TYPE,
+                        MAJOR : item.MAJOR,
+                        GRADUATE_TYPE : item.GRADUATE_TYPE,
+                        LAST_SCHOOL_YN : item.LAST_SCHOOL_YN,
+                        COMPLE_POINT : item.COMPLE_POINT,
+                        GPA_POINT : item.GPA_POINT,
+                        INTO_DATE : item.INTO_DATE,
+                        GRADUATE_DATE : item.GRADUATE_DATE,
+                        AFTER_ENTER_YN : item.AFTER_ENTER_YN,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonSchoolList.push(msg);
                 });
+
+                gvwSchool.rebuild();
 
                 // 경력사항
                 detailData.cv_7.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        CAREER_TYPE : item.CAREER_TYPE,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE,
+                        CAREER_YEAR : item.CAREER_YEAR,
+                        CAREER_MONTH : item.CAREER_MONTH,
+                        COMP_NAME : item.COMP_NAME,
+                        DEPT_NAME : item.DEPT_NAME,
+                        POSITION : item.POSITION,
+                        JOB : item.JOB,
+                        WORK : item.WORK,
+                        REGION_CODE : item.REGION_CODE,
+                        RETIRE_MEMO : item.RETIRE_MEMO,
+                        MEMO : item.MEMO,
+                        SALARY_LEVEL : item.SALARY_LEVEL
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonCareerList.push(msg);
                 });
+
+                gvwCareer.rebuild();
 
                 // 자격사항
                 detailData.cv_8.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        LICENSE_CATEGORY : item.LICENSE_CATEGORY,
+                        LICENSE_CODE : item.LICENSE_CODE,
+                        LICENSE_GRADE : item.LICENSE_GRADE,
+                        LICENSE_NUM : item.LICENSE_NUM,
+                        LICENSE_NAME : item.LICENSE_NAME,
+                        ISSUE_INSTITUTE : item.ISSUE_INSTITUTE,
+                        ISSUE_DATE : item.ISSUE_DATE,
+                        RENEW_DATE : item.RENEW_DATE,
+                        LICENSE_WAGES_AMT : item.LICENSE_WAGES_AMT,
+                        APPOINT_YN : item.APPOINT_YN,
+                        APPOINT_DEPT_CODE : item.APPOINT_DEPT_CODE,
+                        APPOINT_START_DATE : item.APPOINT_START_DATE,
+                        APPOINT_END_DATE : item.APPOINT_END_DATE,
+                        MEMO : item.MEMO,
+                        PAY_YN : item.PAY_YN
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonLicenseList.push(msg);
                 });
+
+                gvwLicense.rebuild();
 
                 // 어학사항
                 detailData.cv_9.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        TEST_TYPE : item.TEST_TYPE,
+                        TEST_DATE : item.TEST_DATE,
+                        AVAILABLE_DATE : item.AVAILABLE_DATE,
+                        ISSUE_INSTITUTION : item.ISSUE_INSTITUTION,
+                        TOTAL_SCORE : item.TOTAL_SCORE,
+                        SCORE1 : item.SCORE1,
+                        SCORE2 : item.SCORE2,
+                        SCORE3 : item.SCORE3,
+                        SCORE4 : item.SCORE4,
+                        TEST_LEVEL : item.TEST_LEVEL,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonLanguageList.push(msg);
                 });
+
+                gvwLanguage.rebuild();
 
                 // 컴퓨터활용능력
                 detailData.cv_10.forEach((item, index) => {
@@ -1480,241 +1604,268 @@
                         ,ENTER_DATE         : item.ENTER_DATE
                         ,RETIRE_DATE        : item.RETIRE_DATE
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonComputerSkillList.push(msg);
                 });
+
+                gvwComputerSkill.rebuild();
 
                 // 인사파일
                 detailData.cv_11.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        EMP_CODE : item.EMP_CODE,
+                        SEQ : item.SEQ,
+                        OA_NAME : item.OA_NAME,
+                        OA_SKILL_LEVEL : item.OA_SKILL_LEVEL,
+                        MEMO : item.MEMO
                     }
                     jsonEmpTotalList.push(msg);
                 });
 
                 // 병역사항
-                detailData.cv_13[0];
+                fn_setTpgMasterSubDetail2(detailData.cv_13[0]);
 
                 // 보훈사항
-                detailData.cv_14[0];
+                fn_setTpgMasterSubDetail3(detailData.cv_14[0]);
 
                 // 보증보험
-                detailData.cv_15[0];
+                fn_setTpgMasterSubDetail4(detailData.cv_15[0]);
 
                 // 상벌사항
                 detailData.cv_16.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        PRIZE_TYPE : item.PRIZE_TYPE,
+                        PRIZE_DATE : item.PRIZE_DATE,
+                        PRIZE_CATEGORY : item.PRIZE_CATEGORY,
+                        PRIZE_INOUT_TYPE : item.PRIZE_INOUT_TYPE,
+                        PRIZE_TARGET : item.PRIZE_TARGET,
+                        PRIZE_NAME : item.PRIZE_NAME,
+                        PRIZE_REASON : item.PRIZE_REASON,
+                        PRIZE_DETAIL : item.PRIZE_DETAIL,
+                        PRIZE_MAKER : item.PRIZE_MAKER,
+                        PUNISH_START_DATE : item.PUNISH_START_DATE,
+                        PUNISH_END_DATE : item.PUNISH_END_DATE,
+                        APPLY_PAY_YN : item.APPLY_PAY_YN,
+                        BASE_PAY_DOWN_RATE : item.BASE_PAY_DOWN_RATE,
+                        BONUS_PAY_DOWN_RATE : item.BONUS_PAY_DOWN_RATE
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonPrizeList.push(msg);
                 });
+
+                gvwPrize.rebuild();
 
                 // 건강검진내역
                 detailData.cv_17.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        CHECK_TYPE : item.CHECK_TYPE,
+                        CHECK_DATE : item.CHECK_DATE,
+                        CHECK_INSTITUTE : item.CHECK_INSTITUTE,
+                        RESULT : item.RESULT,
+                        COMPANY_RESULT : item.COMPANY_RESULT,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonHealthList.push(msg);
                 });
+
+                gvwHealth.rebuild();
 
                 // 발령사항
                 detailData.cv_18.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        APPOINT_NUM : item.APPOINT_NUM,
+                        APPOINT_DATE : item.APPOINT_DATE,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE,
+                        APPOINT_NAME : item.APPOINT_NAME,
+                        APPOINT_TITLE : item.APPOINT_TITLE,
+                        DEPT_NAME2 : item.DEPT_NAME2,
+                        POSITION_NAME2 : item.POSITION_NAME2,
+                        DUTY_NAME2 : item.DUTY_NAME2,
+                        JOB_RANK_NAME2 : item.JOB_RANK_NAME2,
+                        JOB_FAMILY_NAME2 : item.JOB_FAMILY_NAME2,
+                        JOB_NAME2 : item.JOB_NAME2,
+                        REGION_NAME2 : item.REGION_NAME2,
+                        APPOINT_REASON : item.APPOINT_REASON,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonAppointmentList.push(msg);
                 });
+
+                gvwAppointment.rebuild();
 
                 // 겸직부서
                 detailData.cv_37.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        APPOINT_NUM : item.APPOINT_NUM,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE,
+                        DEPT_CODE : item.DEPT_CODE,
+                        POSITION_CODE : item.POSITION_CODE,
+                        DUTY_CODE : item.DUTY_CODE,
+                        JOB_RANK : item.JOB_RANK
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonAddJobList.push(msg);
                 });
+
+                gvwAddJob.rebuild();
 
                 // 휴직이력
                 detailData.cv_19.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        TIME_OFF_TYPE : item.TIME_OFF_TYPE,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE,
+                        TIME_OFF_CNT : item.TIME_OFF_CNT,
+                        SITE_CODE : item.SITE_CODE,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonTimeOffHistoryList.push(msg);
                 });
+
+                gvwTimeOffHistory.rebuild();
 
                 // 단체보험
                 detailData.cv_20.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        GROUP_INSURE_CODE : item.GROUP_INSURE_CODE,
+                        INSURE_NUM : item.INSURE_NUM,
+                        INSURE_START_DATE : item.INSURE_START_DATE,
+                        INSURE_DUE_DATE : item.INSURE_DUE_DATE,
+                        INSURE_END_DATE : item.INSURE_END_DATE,
+                        GROUP_INSURE_AMT : item.GROUP_INSURE_AMT,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonGroupInsuranceList.push(msg);
                 });
+
+                gvwGroupInsurance.rebuild();
 
                 // 상해/질병정보
                 detailData.cv_21.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        DISEASE_TYPE : item.DISEASE_TYPE,
+                        DISEASE_REASON : item.DISEASE_REASON,
+                        DISEASE_START_DATE : item.DISEASE_START_DATE,
+                        SICK_LEAVE_REQUEST_YN : item.SICK_LEAVE_REQUEST_YN,
+                        SICK_LEAVE_CHARGE_DATE_FR : item.SICK_LEAVE_CHARGE_DATE_FR,
+                        SICK_LEAVE_CHARGE_DATE_TO : item.SICK_LEAVE_CHARGE_DATE_TO,
+                        SICK_LEAVE_FREE_DATE_FR : item.SICK_LEAVE_FREE_DATE_FR,
+                        SICK_LEAVE_FREE_DATE_TO : item.SICK_LEAVE_FREE_DATE_TO,
+                        GROUP_INSURE_REQUEST_YN : item.GROUP_INSURE_REQUEST_YN,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonDiseaseList.push(msg);
                 });
+
+                gvwDisease.rebuild();
 
                 // 평가항목
                 detailData.cv_22.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        EVAL_YEAR : item.EVAL_YEAR,
+                        POSITION_CODE : item.POSITION_CODE,
+                        EVAL_KPI_GRADE : item.EVAL_KPI_GRADE,
+                        EVAL_KBI_GRADE : item.EVAL_KBI_GRADE,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonPersonnelEvaluationList.push(msg);
                 });
+
+                gvwPersonnelEvaluation.rebuild();
 
                 // 공상발생
                 detailData.cv_23.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        OFFICIAL_INJURY_START_DATE : item.OFFICIAL_INJURY_START_DATE,
+                        OFFICIAL_INJURY_DESCR : item.OFFICIAL_INJURY_DESCR,
+                        MEMO : item.MEMO,
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonOfficialInjuryList.push(msg);
                 });
+
+                gvwOfficialInjury.rebuild();
 
                 // 계약차수
                 detailData.cv_35.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        CONTRACT_DEGREE : item.CONTRACT_DEGREE,
+                        CONTRACT_START_DATE : item.CONTRACT_START_DATE,
+                        CONTRACT_END_DATE : item.CONTRACT_END_DATE,
+                        CONTRACT_CHANGE_MEMO : item.CONTRACT_CHANGE_MEMO,
+                        MEMO : item.MEMO,
+                        CONTRACT_DAY : item.CONTRACT_DAY
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonContractDegList.push(msg);
                 });
+
+                gvwContractDeg.rebuild();
 
                 // 근무계획
                 detailData.cv_38.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        WORKPLAN_TYPE : item.WORKPLAN_TYPE,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonWorkPlanList.push(msg);
                 });
+
+                gvwWorkPlan.rebuild();
 
                 // 근무조
                 detailData.cv_39.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        CHK_YN : item.CHK_YN,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_NAME : item.EMP_NAME,
+                        POSITION_CODE : item.POSITION_CODE,
+                        DUTY_CODE : item.DUTY_CODE,
+                        JOB_RANK : item.JOB_RANK,
+                        ENTER_DATE : item.ENTER_DATE,
+                        RETIRE_DATE : item.RETIRE_DATE,
+                        EMP_STATE : item.EMP_STATE,
+                        MEMO : item.MEMO,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE,
+                        TXN_ID : item.TXN_ID,
+                        EMP_BASE_FLAG : item.EMP_BASE_FLAG,
+                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        SORT_SEQ : item.SORT_SEQ
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonEmpList.push(msg);
                 });
+
+                gvwEmp.rebuild();
 
                 // 경조사비
                 detailData.cv_24.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CODE
-                        ,EMP_NAME           : item.EMP_NAME
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NAME
-                        ,POSITION_CODE      : item.POSITION_CODE
-                        ,DUTY_CODE          : item.DUTY_CODE
-                        ,EMP_STATE          : item.EMP_STATE
-                        ,ENTER_DATE         : item.ENTER_DATE
-                        ,RETIRE_DATE        : item.RETIRE_DATE
+                        SEQ : item.SEQ,
+                        NAME : item.NAME,
+                        RELATION : item.RELATION,
+                        WELFARE_CODE : item.WELFARE_CODE,
+                        WELFARE_TYPE : item.WELFARE_TYPE,
+                        WELFARE_DATE : item.WELFARE_DATE,
+                        REQUEST_YM : item.REQUEST_YM,
+                        REQUEST_EVIDENCE : item.REQUEST_EVIDENCE,
+                        WELFARE_AMOUNT : item.WELFARE_AMOUNT,
+                        DESCRIPTION : item.DESCRIPTION
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonExpenditurewelfareList.push(msg);
                 });
+
+                gvwExpenditurewelfare.rebuild();
 
             } else {
                 alert(data.resultMessage);
