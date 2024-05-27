@@ -611,15 +611,15 @@
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.columns = [
 	    	{caption : ["생산농가","생산농가"], ref: 'prdcrNm', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
-	    	{caption : ["입고(kg)","빨강"], ref: 'r_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["입고(kg)","노랑"], ref: 'y_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["입고(kg)","오렌지"], ref: 'o_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["입고(kg)","합계"], ref: 'wrhs_tot', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["선별(kg)","A품"], ref: 'a_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["선별(kg)","B품"], ref: 'b_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["선별(kg)","국내"], ref: 'c_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["선별(kg)","합계"], ref: 'sort_tot', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-	    	{caption : ["차이중량","차이중량"], ref: 'diff', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff;', format : {type:'number', rule:'#,###', emptyvalue:'0'},fixedstyle : 'background-color:#ceebff;'},
+	    	{caption : ["입고(kg)","빨강"], ref: 'r_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["입고(kg)","노랑"], ref: 'y_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["입고(kg)","오렌지"], ref: 'o_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["입고(kg)","합계"], ref: 'wrhs_tot', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["선별(kg)","A품"], ref: 'a_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["선별(kg)","B품"], ref: 'b_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["선별(kg)","국내"], ref: 'c_qntt', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["선별(kg)","합계"], ref: 'sort_tot', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustomZero}},
+	    	{caption : ["차이중량","차이중량"], ref: 'diff', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff;', format : {type:'number', rule:'#,###'},fixedstyle : 'background-color:#ceebff;'},
 	    	{caption : ["분포율","A품"], ref: 'a_p', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustom}},
 	    	{caption : ["분포율","B품"], ref: 'b_p', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustom}},
 	    	{caption : ["분포율","국내"], ref: 'c_p', type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'custom', callback : fnCustom}},
@@ -632,6 +632,9 @@
 	}
 	function fnCustom(value){
 		return value + "%";
+	}
+	function fnCustomZero(value){
+		return value !== "0" ? Number(value).toLocaleString() : "";
 	}
 	function fnClick(){
 		this.inputmode = 'none';
