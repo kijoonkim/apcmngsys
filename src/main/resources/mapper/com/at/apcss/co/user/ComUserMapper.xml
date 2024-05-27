@@ -408,5 +408,63 @@
 		USER_ID	= #{userId}
 	</if>
 	</select>
+	<!-- 생산농가 계정 조회 -->
+	<select id="selectComUserPrdcrAprvList" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+		SELECT
+			CU.USER_ID AS USER_ID
+			, CU.USER_NM AS USER_NM
+			, CU.APC_CD AS APC_CD
+			, PI.PRDCR_CD AS PRDCR_CD
+			, PI.PRDCR_NM AS PRDCR_NM
+			, PI.TELNO AS TELNO
+			, CU.MNGMST_RGNO AS MNGMST_RGNO
+			, CU.EML AS EML
+			, UPA.RMRK AS RMRK
+			, UPA.APRV_YN AS APRV_YN
+			, UPA.REQ_DT AS REQ_DT
+			, UPA.APRV_DT AS APRV_DT
+			, UPA.DEL_YN AS DEL_YN
+
+		FROM TB_COM_USER CU
+				, TB_COM_USER_PRDCR_APRV UPA
+				, TB_PRDCR_INFO PI
+		WHERE 1=1
+			AND CU.APC_CD = UPA.APC_CD
+			AND CU.USER_ID = UPA.USER_ID
+			AND UPA.APC_CD = PI.APC_CD
+			AND UPA.PRDCR_CD = PI.PRDCR_CD
+	]]>
+	<if test='apcCd != null and apcCd != ""'>
+		AND CU.APC_CD = #{apcCd};
+	</if>
+	<if test='prdcrCd != null and prdcrCd != ""'>
+		AND PI.PRDCR_CD = #{prdcrCd};
+	</if>
+	<if test='prdcrNm != null and prdcrNm != ""'>
+		AND PI.PRDCR_NM = #{prdcrNm};
+	</if>
+	<if test='userId != null and userId != ""'>
+		AND CU.USER_ID = #{userId};
+	</if>
+		<if test='userNm != null and userNm != ""'>
+		AND CU.USER_NM = #{userNm};
+	</if>
+
+	</select>
+
+	<!-- 생산농가 계정 승인 업데이트-->
+	<update id="updateUserAprv" parameterType="hashmap">
+    	<![CDATA[
+    	UPDATE TB_COM_USER_PRDCR_APRV
+    	   SET
+    	     APRV_YN 				= #{aprvYn}
+    	   , SYS_LAST_CHG_DT 		= SYSDATE
+    	   , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+    	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    	 WHERE USER_ID 					= #{userId}
+    	 	  AND APC_CD                     = #{apcCd}
+    	]]>
+    </update>
 
 </mapper>

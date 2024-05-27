@@ -239,4 +239,49 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/co/user/selectComUserPrdcrAprvList.do")
+	public ResponseEntity<HashMap<String, Object>> selectComUserPrdcrAprvList(@RequestBody HashMap<String,Object> comUserVO, HttpServletRequest request) throws Exception{
+
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String, Object>> resultVO;
+
+		try {
+			resultVO = comUserService.selectComUserPrdcrAprvList(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultVO);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/saveComUserAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateUserTypeList(@RequestBody HashMap<String,Object> comUser, HttpServletRequest request) throws Exception {
+		//update 하는 리스트, 기능 구현하기
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {
+				comUser.put("sysLastChgUserId",getUserId());
+				comUser.put("sysLastChgPrgrmId",getPrgrmId());
+
+				result += comUserService.updateUserAprv(comUser);
+
+
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
