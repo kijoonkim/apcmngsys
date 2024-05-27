@@ -6,13 +6,14 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+	<title>사업계획서 미리보기</title>
 	<!--
 		새창으로 열기 기준
 		SBUx openModal은 메인 페이지 에서 css js include 해오지만
 		새창으로 열면 해당 부분이 없어서 추가 함
 	-->
 	<%@ include file="../../../frame/inc/headerScriptPopup.jsp" %>
+
 </head>
 <body oncontextmenu="return false">
 	<section>
