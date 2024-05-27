@@ -1,0 +1,1632 @@
+<%
+    /**
+     * @Class Name        : sys3200.jsp
+     * @Description       : 관리번호 채번 정보 화면
+     * @author            : 인텔릭아이앤에스
+     * @since             : 2024.05.14
+     * @version           : 1.0
+     * @Modification Information
+     * @
+     * @ 수정일       	수정자      수정내용
+     * @ ----------		----------	---------------------------
+     * @ 2024.05.14   	표주완		최초 생성
+     * @see
+     *
+     */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>title : 관리번호 채번 정보</title>
+    <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+</head>
+<body oncontextmenu="return false">
+<section>
+    <div class="box box-solid">
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
+            <div>
+                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+                </h3><!-- 국가정보 -->
+            </div>
+            <div style="margin-left: auto;">
+                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"
+                             onclick="fn_create"></sbux-button>
+                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
+                             onclick="fn_save"></sbux-button>
+                <sbux-button id="btnDelete" name="btnDelete" 	uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger"
+                             onclick="fn_delete"></sbux-button>
+                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"
+                             onclick="fn_search"></sbux-button>
+            </div>
+        </div>
+
+        <!--[pp] 검색 -->
+        <table class="table table-bordered tbl_fixed">
+            <caption>검색 조건 설정</caption>
+            <colgroup>
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
+
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
+
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th scope="row" class="th_bg">채번그룹</th>
+                <td colspan="" class="td_input" style="border-right:hidden;">
+                    <sbux-select
+                            unselected-text="전체"
+                            uitype="single"
+                            id="srch-numbering_group"
+                            name="srch-numbering_group"
+                            class="form-control input-sm"
+                            jsondata-ref="jsonNumberingGroup"
+                    />
+                </td>
+                <td style="border-right: hidden;">&nbsp;</td>
+                <td style="border-right: hidden;">&nbsp;</td>
+                <th scope="row" class="th_bg">채번 ID</th>
+                <td class="td_input" style="border-right:hidden;">
+                    <sbux-input id="search_numbering_id" uitype="text" style="width:200px" placeholder=""
+                                class="form-control input-sm"></sbux-input>
+                </td>
+                <td style="border-right: hidden;">&nbsp;</td>
+                <td style="border-right: hidden;">&nbsp;</td>
+                <th scope="row" class="th_bg">채번명</th>
+                <td class="td_input" style="border-right:hidden;">
+                    <sbux-input id="search_numbering_name" uitype="text" style="width:200px" placeholder=""
+                                class="form-control input-sm"></sbux-input>
+                </td>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>채번리스트</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div id="sb-area-grwInfo" style="height:800px; width:100%;"></div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li><span>기본정보</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <table class="table table-bordered tbl_fixed">
+                        <colgroup>
+                            <col style="width:4%">
+                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:6%">
+                        </colgroup>
+                        <tr>
+                            <th scope="row" class="th_bg">채번 ID</th>
+                            <td class="td_input">
+                                <sbux-input id="NUMBERING_ID" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">채번그룹</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="NUMBERING_GROUP"
+                                        name="NUMBERING_GROUP"
+                                        uitype="single"
+                                        jsondata-ref="jsonNumberingGroup"
+                                        unselected-text="전체"
+                                        class="form-control input-sm"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">사용여부</th>
+                            <td class="td_input">
+                                <sbux-checkbox id="USE_YN" name="USE_YN" uitype="normal" true-value="Y"
+                                               false-value="N"></sbux-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">채 번 명</th>
+                            <td colspan="3" class="td_input">
+                                <sbux-input id="NUMBERING_NAME" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">채번길이</th>
+                            <td class="td_input">
+                                <sbux-input
+                                        id="NUMBER_LENGTH"
+                                        name="NUMBER_LENGTH"
+                                        uitype="text"
+                                        class="form-control input-sm"
+                                        mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
+                                        maxlength="10"
+                                        style="width:100%"
+                                ></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">비고</th>
+                            <td colspan="3" class="td_input">
+                                <sbux-input id="DESCR" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">자동채번여부</th>
+                            <td class="td_input">
+                                <sbux-checkbox id="AUTO_NUM_YN" name="AUTO_NUM_YN" uitype="normal" true-value="Y"
+                                               false-value="N"></sbux-checkbox>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li><span>채번 구성 정보</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <table class="table table-bordered tbl_fixed">
+                        <colgroup>
+                            <col style="width:4%">
+                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:6%">
+                        </colgroup>
+                        <tr>
+                            <th scope="row" class="th_bg">채번요소1</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="NUMBER_ELEMENT1"
+                                        name="NUMBER_ELEMENT1"
+                                        uitype="single"
+                                        jsondata-ref="jsonNumberElement1"
+                                        unselected-text="전체"
+                                        class="form-control input-sm"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">채번요소값1</th>
+                            <td class="td_input">
+                                <sbux-input id="NUMBER_VALUE1" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소1</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_ELEMENT1" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소값1</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_VALUE1" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">채번요소2</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="NUMBER_ELEMENT2"
+                                        name="NUMBER_ELEMENT2"
+                                        uitype="single"
+                                        jsondata-ref="jsonNumberElement2"
+                                        unselected-text="전체"
+                                        class="form-control input-sm"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">채번요소값2</th>
+                            <td class="td_input">
+                                <sbux-input id="NUMBER_VALUE2" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소2</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_ELEMENT2" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소값2</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_VALUE2" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">채번요소3</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="NUMBER_ELEMENT3"
+                                        name="NUMBER_ELEMENT3"
+                                        uitype="single"
+                                        jsondata-ref="jsonNumberElement3"
+                                        unselected-text="전체"
+                                        class="form-control input-sm"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">채번요소값3</th>
+                            <td class="td_input">
+                                <sbux-input id="NUMBER_VALUE3" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소3</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_ELEMENT3" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소값3</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_VALUE3" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">채번요소4</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="NUMBER_ELEMENT4"
+                                        name="NUMBER_ELEMENT4"
+                                        uitype="single"
+                                        jsondata-ref="jsonNumberElement4"
+                                        unselected-text="전체"
+                                        class="form-control input-sm"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">채번요소값4</th>
+                            <td class="td_input">
+                                <sbux-input id="NUMBER_VALUE4" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소4</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_ELEMENT4" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소값4</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_VALUE4" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">채번요소5</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="NUMBER_ELEMENT5"
+                                        name="NUMBER_ELEMENT5"
+                                        uitype="single"
+                                        jsondata-ref="jsonNumberElement5"
+                                        unselected-text="전체"
+                                        class="form-control input-sm"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">채번요소값5</th>
+                            <td class="td_input">
+                                <sbux-input id="NUMBER_VALUE5" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소5</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_ELEMENT5" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">접미요소값5</th>
+                            <td class="td_input">
+                                <sbux-input id="SURFIX_VALUE5" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">시작채번연번</th>
+                            <td class="td_input">
+                                <sbux-input id="START_SERNO" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">고유일련번호</th>
+                            <td class="td_input">
+                                <sbux-checkbox id="UNIQUE_YN" name="UNIQUE_YN" uitype="normal" true-value="Y"
+                                               false-value="N"></sbux-checkbox>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li><span>채번 샘플 보기</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <table class="table table-bordered tbl_fixed">
+                        <colgroup>
+                            <col style="width:15%">
+                            <col style="width:30%">
+                        </colgroup>
+                        <tr>
+                            <th scope="row" class="th_bg">
+                                <sbux-button id="btnSearchNumSP" name="btnSearchNumSP" uitype="normal" text="채번 샘플 보기"
+                                             class="btn btn-sm btn-outline-danger"
+                                             onclick="fn_searchFcltList"></sbux-button>
+                            </th>
+                            <td class="td_input">
+                                <sbux-input id="NUMBER_SAMPLE" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li><span>채번 이력</span></li>
+                    </ul>
+                    <div class="ad_tbl_toplist">
+                        <sbux-button
+                                id="btnDel"
+                                name="btnDel"
+                                uitype="normal"
+                                text="행삭제"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_delRow"
+                                style="float: right;"
+                        >
+                        </sbux-button>
+                        <sbux-button
+                                id="btnAdd"
+                                name="btnAdd"
+                                uitype="normal"
+                                text="행추가"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_addRow"
+                                style="float: right;"
+                        ></sbux-button>
+                    </div>
+                    <div>
+                        <div id="sb-area-gvwHistory" style="height:283px; width:100%;"></div>
+                    </div>
+                </div>
+                <%--<div>
+                    <div class="table-responsive tbl_scroll_sm">
+                        <div id="sb-area-gvwHistory" style="height:283px; width:100%;"></div>
+                    </div>
+                </div>--%>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+
+    // common ---------------------------------------------------
+    var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
+    var p_menuId = '${comMenuVO.menuId}';
+    //-----------------------------------------------------------
+
+    var editType = "N"; //신규, 수정 구분 ( N : 신규 , E : 수정 )
+
+    var jsonNumberingGroup = []; //채번그룹 ( L_SYS001 )
+
+    //grid 초기화
+    var gvwInfoGrid; 			    // 그리드를 담기위한 객체 선언      ( 채번리스트 )
+    var jsonGvwInfoList = []; 	    // 그리드의 참조 데이터 주소 선언   ( 채번리스트 )
+    var gvwHistoryGrid;	            // 그리드를 담기위한 객체 선언      ( 채번이력 )
+    var jsonGvwHistoryList = []; 	// 그리드의 참조 데이터 주소 선언   ( 채번이력 )
+
+
+    // only document
+    window.addEventListener('DOMContentLoaded', function (e) {
+
+        //지역
+        gfnma_setComSelect(['srch-numbering_group'], jsonNumberingGroup, 'L_SYS001', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+
+            fn_init();
+
+    });
+
+    const fn_init = async function () {
+
+        fn_createGrid();
+        fn_createHistoryGrid();
+        fn_search();
+    }
+
+    function fn_createGrid() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grwInfo';
+        SBGridProperties.id = 'gvwInfoGrid';
+        SBGridProperties.jsonref = 'jsonGvwInfoList';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.allowcopy = true; //복사
+        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+        SBGridProperties.explorerbar = 'sortmove';*/
+        /* SBGridProperties.rowheader = 'seq';*/
+        /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
+        /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["채번 ID"], ref: 'NUMBERING_ID', type: 'output', width: '150px', style: 'text-align:left'},
+            {caption: ["채 번 명"], ref: 'NUMBERING_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {
+                caption: ["사용여부"],
+                ref: 'USE_YN',
+                type: 'checkbox',
+                width: '100px',
+                style: 'text-align:center',
+                disabled: true,
+                typeinfo: {
+                    ignoreupdate: true,
+                    fixedcellcheckbox: {
+                        usemode: true,
+                        rowindex: 1,
+                        deletecaption: false
+                    },
+                    checkedvalue: 'Y',
+                    uncheckedvalue: 'N'
+                }
+            },
+            {caption: ["고유일련번호"], ref: 'UNIQUE_YN', type: 'output', width: '150px', style: 'text-align:left'},
+            {
+                caption: ["자동채번여부"],
+                ref: 'AUTO_NUM_YN',
+                type: 'checkbox',
+                width: '100px',
+                style: 'text-align:center',
+                disabled: true,
+                typeinfo: {
+                    ignoreupdate: true,
+                    fixedcellcheckbox: {
+                        usemode: true,
+                        rowindex: 1,
+                        deletecaption: false
+                    },
+                    checkedvalue: 'Y',
+                    uncheckedvalue: 'N'
+                }
+            },
+            {
+                caption: ["채번요소1"],
+                ref: 'NUMBER_ELEMENT1',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소값1"],
+                ref: 'NUMBER_VALUE1',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소1"],
+                ref: 'SURFIX_ELEMENT1',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소값1"],
+                ref: 'SURFIX_VALUE1',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소2"],
+                ref: 'NUMBER_ELEMENT2',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소값2"],
+                ref: 'NUMBER_VALUE2',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소2"],
+                ref: 'SURFIX_ELEMENT2',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소값2"],
+                ref: 'SURFIX_VALUE2',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소3"],
+                ref: 'NUMBER_ELEMENT3',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소값3"],
+                ref: 'NUMBER_VALUE3',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소3"],
+                ref: 'SURFIX_ELEMENT3',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소값3"],
+                ref: 'SURFIX_VALUE3',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소4"],
+                ref: 'NUMBER_ELEMENT4',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소값4"],
+                ref: 'NUMBER_VALUE4',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소4"],
+                ref: 'SURFIX_ELEMENT4',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소값4"],
+                ref: 'SURFIX_VALUE4',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소5"],
+                ref: 'NUMBER_ELEMENT5',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["채번요소값5"],
+                ref: 'NUMBER_VALUE5',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소5"],
+                ref: 'SURFIX_ELEMENT5',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["접미요소값5"],
+                ref: 'SURFIX_VALUE5',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+
+            {
+                caption: ["시작채번연번"],
+                ref: 'START_SERNO',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+            {
+                caption: ["고유일련번호"],
+                ref: 'UNIQUE_YN',
+                type: 'checkbox',
+                width: '100px',
+                style: 'text-align:center',
+                hidden: true,
+                typeinfo: {
+                    ignoreupdate: true,
+                    fixedcellcheckbox: {
+                        usemode: true,
+                        rowindex: 1,
+                        deletecaption: false
+                    },
+                    checkedvalue: 'Y',
+                    uncheckedvalue: 'N'
+                }
+            },
+
+            {
+                caption: ["채번 샘플"],
+                ref: 'NUMBER_SAMPLE',
+                type: 'output',
+                width: '150px',
+                style: 'text-align:left',
+                hidden: true
+            },
+
+
+        ];
+
+        gvwInfoGrid = _SBGrid.create(SBGridProperties);
+        gvwInfoGrid.bind('click', 'fn_view');
+        /* gvwInfoGrid.bind('beforepagechanged', 'fn_pagingComMsgList');*/
+    }
+
+    /**
+     * 목록 조회
+     */
+    const fn_search = async function () {
+
+        // form clear
+        fn_clearForm();
+        gvwInfoGrid.clearStatus();
+
+        let V_P_NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("srch-numbering_group"));
+        let V_P_NUMBERING_ID = gfnma_nvl(SBUxMethod.get("search_numbering_id"));
+        let V_P_NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("search_numbering_name"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: 'N'
+            , V_P_LANG_ID: 'KOR'
+            , V_P_COMP_CODE: '1000'
+            , V_P_CLIENT_CODE: '100'
+            , V_P_NUMBERING_GROUP: V_P_NUMBERING_GROUP
+            , V_P_NUMBERING_ID: V_P_NUMBERING_ID
+            , V_P_NUMBERING_NAME: V_P_NUMBERING_NAME
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+        };
+
+        console.log("---paramObj--- : ", paramObj);
+
+        const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3200List.do", {
+            getType: 'json',
+            workType: 'Q',
+            cv_count: '2',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        console.log("---data--- : ", data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                /** @type {number} **/
+                let totalRecordCount = 0;
+
+                jsonGvwInfoList.length = 0;
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        NUMBERING_ID: item.NUMBERING_ID,
+                        NUMBERING_GROUP: item.NUMBERING_GROUP,
+                        USE_YN: item.USE_YN,
+                        NUMBERING_NAME: item.NUMBERING_NAME,
+                        NUMBER_LENGTH: item.NUMBER_LENGTH,
+                        DESCR: item.DESCR,
+                        AUTO_NUM_YN: item.AUTO_NUM_YN,
+                        NUMBER_ELEMENT1: item.NUMBER_ELEMENT1,
+                        NUMBER_VALUE1: item.NUMBER_VALUE1,
+                        SURFIX_ELEMENT1: item.SURFIX_ELEMENT1,
+                        SURFIX_VALUE1: item.SURFIX_VALUE1,
+                        NUMBER_ELEMENT2: item.NUMBER_ELEMENT2,
+                        NUMBER_VALUE2: item.NUMBER_VALUE2,
+                        SURFIX_ELEMENT2: item.SURFIX_ELEMENT2,
+                        SURFIX_VALUE2: item.SURFIX_VALUE2,
+                        NUMBER_ELEMENT3: item.NUMBER_ELEMENT3,
+                        NUMBER_VALUE3: item.NUMBER_VALUE3,
+                        SURFIX_ELEMENT3: item.SURFIX_ELEMENT3,
+                        SURFIX_VALUE3: item.SURFIX_VALUE3,
+                        NUMBER_ELEMENT4: item.NUMBER_ELEMENT4,
+                        NUMBER_VALUE4: item.NUMBER_VALUE4,
+                        SURFIX_ELEMENT4: item.SURFIX_ELEMENT4,
+                        SURFIX_VALUE4: item.SURFIX_VALUE4,
+                        NUMBER_ELEMENT5: item.NUMBER_ELEMENT5,
+                        NUMBER_VALUE5: item.NUMBER_VALUE5,
+                        SURFIX_ELEMENT5: item.SURFIX_ELEMENT5,
+                        START_SERNO: item.START_SERNO,
+                        UNIQUE_YN: item.UNIQUE_YN,
+                        /* NUMBER_SAMPLE: item.NUMBER_SAMPLE*/
+                    }
+                    jsonGvwInfoList.push(msg);
+                    totalRecordCount++;
+                });
+
+                gvwInfoGrid.rebuild();
+                document.querySelector('#listCount').innerText = totalRecordCount;
+
+                fn_setData();
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+
+    }
+
+    const fn_setData = function () {
+
+        editType = "E";
+
+        let nRows = gvwInfoGrid.getRows();
+        if (nRows < 1) {
+            return;
+        }
+
+        let rowData = gvwInfoGrid.getRowData(1);
+
+        SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
+        SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
+        SBUxMethod.set("USE_YN", rowData.USE_YN);
+        SBUxMethod.set("NUMBERING_NAME", rowData.NUMBERING_NAME);
+        SBUxMethod.set("NUMBER_LENGTH", rowData.NUMBER_LENGTH);
+        SBUxMethod.set("DESCR", rowData.DESCR);
+        SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
+
+
+        SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);
+        SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
+        SBUxMethod.set("SURFIX_ELEMENT1", rowData.SURFIX_ELEMENT1);
+        SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
+
+        SBUxMethod.set("NUMBER_ELEMENT2", rowData.NUMBER_ELEMENT2);
+        SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
+        SBUxMethod.set("SURFIX_ELEMENT2", rowData.SURFIX_ELEMENT2);
+        SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
+
+        SBUxMethod.set("NUMBER_ELEMENT3", rowData.NUMBER_ELEMENT3);
+        SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
+        SBUxMethod.set("SURFIX_ELEMENT3", rowData.SURFIX_ELEMENT3);
+        SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
+
+        SBUxMethod.set("NUMBER_ELEMENT4", rowData.NUMBER_ELEMENT4);
+        SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
+        SBUxMethod.set("SURFIX_ELEMENT4", rowData.SURFIX_ELEMENT4);
+        SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
+
+        SBUxMethod.set("NUMBER_ELEMENT5", rowData.NUMBER_ELEMENT5);
+        SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
+        SBUxMethod.set("SURFIX_ELEMENT5", rowData.SURFIX_ELEMENT5);
+        SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
+
+        SBUxMethod.set("START_SERNO", rowData.START_SERNO);
+        SBUxMethod.set("UNIQUE_YN", rowData.UNIQUE_YN);
+
+        SBUxMethod.set("NUMBER_SAMPLE", rowData.NUMBER_SAMPLE);
+
+        fn_searchHistory(rowData.NUMBERING_ID);
+    }
+
+
+    const fn_clearForm = function () {
+        SBUxMethod.set("NUMBERING_ID", "");
+        SBUxMethod.set("NUMBERING_GROUP", "");
+        SBUxMethod.set("USE_YN", "");
+        SBUxMethod.set("NUMBERING_NAME", "");
+        SBUxMethod.set("NUMBER_LENGTH", 20);
+        SBUxMethod.set("DESCR", "");
+        SBUxMethod.set("AUTO_NUM_YN", "");
+
+
+        SBUxMethod.set("NUMBER_ELEMENT1", "");
+        SBUxMethod.set("NUMBER_VALUE1", "");
+        SBUxMethod.set("SURFIX_ELEMENT1", "");
+        SBUxMethod.set("SURFIX_VALUE1", "");
+
+        SBUxMethod.set("NUMBER_ELEMENT2", "");
+        SBUxMethod.set("NUMBER_VALUE2", "");
+        SBUxMethod.set("SURFIX_ELEMENT2", "");
+        SBUxMethod.set("SURFIX_VALUE2", "");
+
+        SBUxMethod.set("NUMBER_ELEMENT3", "");
+        SBUxMethod.set("NUMBER_VALUE3", "");
+        SBUxMethod.set("SURFIX_ELEMENT3", "");
+        SBUxMethod.set("SURFIX_VALUE3", "");
+
+        SBUxMethod.set("NUMBER_ELEMENT4", "");
+        SBUxMethod.set("NUMBER_VALUE4", "");
+        SBUxMethod.set("SURFIX_ELEMENT4", "");
+        SBUxMethod.set("SURFIX_VALUE4", "");
+
+        SBUxMethod.set("NUMBER_ELEMENT5", "");
+        SBUxMethod.set("NUMBER_VALUE5", "");
+        SBUxMethod.set("SURFIX_ELEMENT5", "");
+        SBUxMethod.set("SURFIX_VALUE5", "");
+
+        SBUxMethod.set("START_SERNO", 1);
+        SBUxMethod.set("UNIQUE_YN", "");
+
+        SBUxMethod.set("NUMBER_SAMPLE", "");
+
+        /* gvwHistoryGrid.clearStatus();*/
+
+    }
+
+    /**
+     * 목록 조회 (히스토리)
+     */
+    const fn_searchHistory = async function (numberingId) {
+
+
+        console.log("-----------------------numberingId :", numberingId);
+
+        if (numberingId != null && numberingId != '') {
+
+            gvwHistoryGrid.clearStatus();
+
+            let V_P_NUMBERING_ID = numberingId;
+
+            var paramHisObj = {
+                V_P_DEBUG_MODE_YN: 'N'
+                , V_P_LANG_ID: 'KOR'
+                , V_P_COMP_CODE: '1000'
+                , V_P_CLIENT_CODE: '100'
+                , V_P_NUMBERING_GROUP: ''
+                , V_P_NUMBERING_ID: V_P_NUMBERING_ID
+                , V_P_NUMBERING_NAME: ''
+                , V_P_FORM_ID: p_formId
+                , V_P_MENU_ID: p_menuId
+                , V_P_PROC_ID: ''
+                , V_P_USERID: ''
+                , V_P_PC: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3200HisList.do", {
+                getType: 'json',
+                workType: 'HISTORY',
+                cv_count: '2',
+                params: gfnma_objectToString(paramHisObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data History:', data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    /** @type {number} **/
+                    let totalRecordCount = 0;
+
+                    jsonGvwHistoryList.length = 0;
+                    data.cv_1.forEach((item, index) => {
+                        const hisMsg = {
+                            NUMBER_PREFIX: item.NUMBER_PREFIX,
+                            LAST_SERNO: item.LAST_SERNO
+                        }
+                        jsonGvwHistoryList.push(hisMsg);
+                        totalRecordCount++;
+                    });
+
+                    gvwHistoryGrid.rebuild();
+                    //document.querySelector('#listCount').innerText = totalRecordCount;
+
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+
+    }
+
+
+    function fn_createHistoryGrid() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-gvwHistory';
+        SBGridProperties.id = 'gvwHistoryGrid';
+        SBGridProperties.jsonref = 'jsonGvwHistoryList';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+        /*SBHistoryGridProperties.explorerbar = 'sortmove';*/
+        /* SBGridProperties.rowheader = 'seq';*/
+        /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
+        /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["채번 정보"], ref: 'NUMBER_PREFIX', type: 'input', width: '150px', style: 'text-align:left'},
+            {caption: ["마지막 채번 번호"], ref: 'LAST_SERNO', type: 'input', width: '200px', style: 'text-align:left'},
+
+        ];
+
+        gvwHistoryGrid = _SBGrid.create(SBGridProperties);
+        //gvwHistoryGrid.bind('click', 'fn_view');
+        /* gvwInfoGrid.bind('beforepagechanged', 'fn_pagingComMsgList');*/
+    }
+
+    //상세정보 보기
+    function fn_view() {
+        editType = "E";
+
+        let nCol = gvwInfoGrid.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        let nRow = gvwInfoGrid.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
+        SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
+        SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
+        SBUxMethod.set("USE_YN", rowData.USE_YN);
+        SBUxMethod.set("NUMBERING_NAME", rowData.NUMBERING_NAME);
+        SBUxMethod.set("NUMBER_LENGTH", rowData.NUMBER_LENGTH);
+        SBUxMethod.set("DESCR", rowData.DESCR);
+        SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
+
+
+        SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);
+        SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
+        SBUxMethod.set("SURFIX_ELEMENT1", rowData.SURFIX_ELEMENT1);
+        SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
+
+        SBUxMethod.set("NUMBER_ELEMENT2", rowData.NUMBER_ELEMENT2);
+        SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
+        SBUxMethod.set("SURFIX_ELEMENT2", rowData.SURFIX_ELEMENT2);
+        SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
+
+        SBUxMethod.set("NUMBER_ELEMENT3", rowData.NUMBER_ELEMENT3);
+        SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
+        SBUxMethod.set("SURFIX_ELEMENT3", rowData.SURFIX_ELEMENT3);
+        SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
+
+        SBUxMethod.set("NUMBER_ELEMENT4", rowData.NUMBER_ELEMENT4);
+        SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
+        SBUxMethod.set("SURFIX_ELEMENT4", rowData.SURFIX_ELEMENT4);
+        SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
+
+        SBUxMethod.set("NUMBER_ELEMENT5", rowData.NUMBER_ELEMENT5);
+        SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
+        SBUxMethod.set("SURFIX_ELEMENT5", rowData.SURFIX_ELEMENT5);
+        SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
+
+        SBUxMethod.set("START_SERNO", rowData.START_SERNO);
+        SBUxMethod.set("UNIQUE_YN", rowData.UNIQUE_YN);
+
+        /* SBUxMethod.set("NUMBER_SAMPLE", rowData.NUMBER_SAMPLE );*/
+
+        if (rowData != null) {
+            fn_searchHistory(rowData.NUMBERING_ID);
+        }
+
+    }
+
+    // 행 추가
+    const fn_addRow = function () {
+        let rowVal = gvwHistoryGrid.getRow();
+
+        if (rowVal == -1) { //데이터가 없고 행선택이 없을경우.
+
+            gvwHistoryGrid.addRow(true);
+        } else {
+            gvwHistoryGrid.insertRow(rowVal);
+        }
+        //grdFimList.refresh();
+    }
+
+
+    // 행삭제
+    const fn_delRow = async function () {
+
+        let rowVal = gvwHistoryGrid.getRow();
+
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwHistoryGrid.deleteRow(rowVal);
+        }
+
+    }
+
+    //신규 작성
+    function fn_create() {
+
+        editType = "N";
+
+        fn_clearForm();
+
+    }
+
+    //저장
+    const fn_save = async function () {
+
+        let NUMBERING_ID = gfnma_nvl(SBUxMethod.get("NUMBERING_ID"));
+        let NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("NUMBERING_GROUP"));
+        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
+        let NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("NUMBERING_NAME"));
+        let NUMBER_LENGTH = gfnma_nvl(SBUxMethod.get("NUMBER_LENGTH"));
+        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
+        let AUTO_NUM_YN = gfnma_nvl(SBUxMethod.get("AUTO_NUM_YN"));
+
+        let NUMBER_ELEMENT1 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT1"));
+        let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
+        let SURFIX_ELEMENT1 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT1"));
+        let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
+        let NUMBER_ELEMENT2 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT2"));
+        let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
+        let SURFIX_ELEMENT2 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT2"));
+        let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
+        let NUMBER_ELEMENT3 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT3"));
+        let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
+        let SURFIX_ELEMENT3 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT3"));
+        let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
+        let NUMBER_ELEMENT4 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT4"));
+        let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
+        let SURFIX_ELEMENT4 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT4"));
+        let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
+        let NUMBER_ELEMENT5 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT5"));
+        let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
+        let SURFIX_ELEMENT5 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT5"));
+        let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+        let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
+        let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
+
+        let NUMBER_SAMPLE = gfnma_nvl(SBUxMethod.get("NUMBER_SAMPLE"));
+
+
+        if (!NUMBERING_ID) {
+            gfn_comAlert("W0002", "채번 ID");
+            return;
+        }
+        if (!NUMBERING_NAME) {
+            gfn_comAlert("W0002", "채번명");
+            return;
+        }
+
+        if (editType == "N") {
+            // 신규 등록
+            if (gfn_comConfirm("Q0001", "신규 등록")) {
+                var obj = {
+                    NUMBERING_ID: NUMBERING_ID
+                    , NUMBERING_GROUP: NUMBERING_GROUP
+                    , USE_YN: USE_YN.USE_YN
+                    , NUMBERING_NAME: NUMBERING_NAME
+                    , NUMBER_LENGTH: NUMBER_LENGTH
+                    , DESCR: DESCR
+                    , AUTO_NUM_YN: AUTO_NUM_YN.AUTO_NUM_YN
+
+                    , NUMBER_ELEMENT1: NUMBER_ELEMENT1
+                    , NUMBER_VALUE1: NUMBER_VALUE1
+                    , SURFIX_ELEMENT1: SURFIX_ELEMENT1
+                    , SURFIX_VALUE1: SURFIX_VALUE1
+                    , NUMBER_ELEMENT2: NUMBER_ELEMENT2
+                    , NUMBER_VALUE2: NUMBER_VALUE2
+                    , SURFIX_ELEMENT2: SURFIX_ELEMENT2
+                    , SURFIX_VALUE2: SURFIX_VALUE2
+                    , NUMBER_ELEMENT3: NUMBER_ELEMENT3
+                    , NUMBER_VALUE3: NUMBER_VALUE3
+                    , SURFIX_ELEMENT3: SURFIX_ELEMENT3
+                    , SURFIX_VALUE3: SURFIX_VALUE3
+                    , NUMBER_ELEMENT4: NUMBER_ELEMENT4
+                    , NUMBER_VALUE4: NUMBER_VALUE4
+                    , SURFIX_ELEMENT4: SURFIX_ELEMENT4
+                    , SURFIX_VALUE4: SURFIX_VALUE4
+                    , NUMBER_ELEMENT5: NUMBER_ELEMENT5
+                    , NUMBER_VALUE5: NUMBER_VALUE5
+                    , SURFIX_ELEMENT5: SURFIX_ELEMENT5
+                    , SURFIX_VALUE5: SURFIX_VALUE5
+                    , START_SERNO: START_SERNO
+                    , UNIQUE_YN: UNIQUE_YN.UNIQUE_YN
+
+                    //, NUMBER_SAMPLE: NUMBER_SAMPLE
+                }
+                fn_subInsert(obj);
+            }
+        } else if (editType == "E") {
+            // 수정 저장
+            if (gfn_comConfirm("Q0001", "수정 저장")) {
+                var obj = {
+                    NUMBERING_ID: NUMBERING_ID
+                    , NUMBERING_GROUP: NUMBERING_GROUP
+                    , USE_YN: USE_YN.USE_YN
+                    , NUMBERING_NAME: NUMBERING_NAME
+                    , NUMBER_LENGTH: NUMBER_LENGTH
+                    , DESCR: DESCR
+                    , AUTO_NUM_YN: AUTO_NUM_YN.AUTO_NUM_YN
+
+                    , NUMBER_ELEMENT1: NUMBER_ELEMENT1
+                    , NUMBER_VALUE1: NUMBER_VALUE1
+                    , SURFIX_ELEMENT1: SURFIX_ELEMENT1
+                    , SURFIX_VALUE1: SURFIX_VALUE1
+                    , NUMBER_ELEMENT2: NUMBER_ELEMENT2
+                    , NUMBER_VALUE2: NUMBER_VALUE2
+                    , SURFIX_ELEMENT2: SURFIX_ELEMENT2
+                    , SURFIX_VALUE2: SURFIX_VALUE2
+                    , NUMBER_ELEMENT3: NUMBER_ELEMENT3
+                    , NUMBER_VALUE3: NUMBER_VALUE3
+                    , SURFIX_ELEMENT3: SURFIX_ELEMENT3
+                    , SURFIX_VALUE3: SURFIX_VALUE3
+                    , NUMBER_ELEMENT4: NUMBER_ELEMENT4
+                    , NUMBER_VALUE4: NUMBER_VALUE4
+                    , SURFIX_ELEMENT4: SURFIX_ELEMENT4
+                    , SURFIX_VALUE4: SURFIX_VALUE4
+                    , NUMBER_ELEMENT5: NUMBER_ELEMENT5
+                    , NUMBER_VALUE5: NUMBER_VALUE5
+                    , SURFIX_ELEMENT5: SURFIX_ELEMENT5
+                    , SURFIX_VALUE5: SURFIX_VALUE5
+                    , START_SERNO: START_SERNO
+                    , UNIQUE_YN: UNIQUE_YN.UNIQUE_YN
+
+                    //, NUMBER_SAMPLE: NUMBER_SAMPLE
+                }
+
+                fn_subUpdate(obj);
+            }
+        }
+
+    }
+
+    /**
+     * @param {boolean} isConfirmed
+     */
+    const fn_subInsert = async function (obj) {
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: 'KOR'
+            , V_P_COMP_CODE: ''
+            , V_P_CLIENT_CODE: '100'
+            , V_P_NUMBERING_ID: obj.NUMBERING_ID
+            , V_P_NUMBERING_NAME: obj.NUMBERING_NAME
+            , V_P_NUMBERING_GROUP: obj.NUMBERING_GROUP
+            , V_P_NUMBER_LENGTH: obj.NUMBER_LENGTH
+            , V_P_DESCR: obj.DESCR
+            , V_P_NUMBER_ELEMENT1: obj.NUMBER_ELEMENT1
+            , V_P_NUMBER_VALUE1: obj.NUMBER_VALUE1
+            , V_P_NUMBER_ELEMENT2: obj.NUMBER_ELEMENT2
+            , V_P_NUMBER_VALUE2: obj.NUMBER_VALUE2
+            , V_P_NUMBER_ELEMENT3: obj.NUMBER_ELEMENT3
+            , V_P_NUMBER_VALUE3: obj.NUMBER_VALUE3
+            , V_P_NUMBER_ELEMENT4: obj.NUMBER_ELEMENT4
+            , V_P_NUMBER_VALUE4: obj.NUMBER_VALUE4
+            , V_P_NUMBER_ELEMENT5: obj.NUMBER_ELEMENT5
+            , V_P_NUMBER_VALUE5: obj.NUMBER_VALUE5
+            , V_P_SURFIX_ELEMENT1: obj.SURFIX_ELEMENT1
+            , V_P_SURFIX_VALUE1: obj.SURFIX_VALUE1
+            , V_P_SURFIX_ELEMENT2: obj.SURFIX_ELEMENT2
+            , V_P_SURFIX_VALUE2: obj.SURFIX_VALUE2
+            , V_P_SURFIX_ELEMENT3: obj.SURFIX_ELEMENT3
+            , V_P_SURFIX_VALUE3: obj.SURFIX_VALUE3
+            , V_P_SURFIX_ELEMENT4: obj.SURFIX_ELEMENT4
+            , V_P_SURFIX_VALUE4: obj.SURFIX_VALUE4
+            , V_P_SURFIX_ELEMENT5: obj.SURFIX_ELEMENT5
+            , V_P_SURFIX_VALUE5: obj.SURFIX_VALUE5
+            , V_P_START_SERNO: obj.START_SERNO
+            , V_P_USE_YN: obj.USE_YN
+            , V_P_UNIQUE_YN: obj.UNIQUE_YN
+            , V_P_AUTO_NUM_YN: obj.AUTO_NUM_YN
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3200.do", {
+            getType: 'json',
+            workType: 'N',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+                fn_saveHis(obj.NUMBERING_ID); //채번이력 저장
+                //fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+
+    //저장 ( 채번이력 )
+    const fn_saveHis = async function (numberId) {
+
+        var insertData = gvwHistoryGrid.getUpdateData(true, 'i');
+        var updateData = gvwHistoryGrid.getUpdateData(true, 'u');
+
+        /*************** 그리드 신규 저장 ( 채번이력 ) **************/
+        if (insertData != null && insertData.length >= 1) {
+
+            var paramObj = [];
+
+            for (var i = 0; i < insertData.length; i++) {
+
+                var datas = insertData[i].data;
+
+                let NUMBERING_ID = numberId;
+                let NUMBER_PREFIX = datas.NUMBER_PREFIX;
+                let LAST_SERNO = datas.LAST_SERNO;
+
+                if (!NUMBERING_ID) {
+                    gfn_comAlert("W0002", "채번 ID");
+                    return;
+                }
+                if (!NUMBER_PREFIX) {
+                    gfn_comAlert("W0002", "채번 정보");
+                    return;
+                }
+                if (!LAST_SERNO) {
+                    gfn_comAlert("W0002", "마지막 채번 번호");
+                    return;
+                }
+
+                var param = {
+                    V_P_NUMBERING_ID: NUMBERING_ID
+                    , V_P_NUMBER_PREFIX: NUMBER_PREFIX
+                    , V_P_LAST_SERNO: LAST_SERNO
+                    , V_P_USERID: ''
+                    , V_P_PC: ''
+                };
+                paramObj.push(param);
+            }
+
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3200His.do", {
+                getType: 'json',
+                workType: 'N',
+                cv_count: '0',
+                params: gfnma_objectToString(paramObj)
+            });
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+
+        /*************** 그리드 신규 저장 ( 채번이력 ) **************/
+        if (updateData != null && updateData.length >= 1) {
+
+            var paramObj = [];
+
+            for (var i = 0; i < insertData.length; i++) {
+
+                var datas = insertData[i].data;
+
+                let NUMBERING_ID = numberId;
+                let NUMBER_PREFIX = datas.NUMBER_PREFIX;
+                let LAST_SERNO = datas.LAST_SERNO;
+
+                if (!NUMBERING_ID) {
+                    gfn_comAlert("W0002", "채번 ID");
+                    return;
+                }
+                if (!NUMBER_PREFIX) {
+                    gfn_comAlert("W0002", "채번 정보");
+                    return;
+                }
+                if (!LAST_SERNO) {
+                    gfn_comAlert("W0002", "마지막 채번 번호");
+                    return;
+                }
+
+                var param = {
+                    V_P_NUMBERING_ID: NUMBERING_ID
+                    , V_P_NUMBER_PREFIX: NUMBER_PREFIX
+                    , V_P_LAST_SERNO: LAST_SERNO
+                    , V_P_USERID: ''
+                    , V_P_PC: ''
+                }
+                paramObj.push(param);
+            }
+
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/updateSys3200His.do", {
+                getType: 'json',
+                workType: 'U',
+                cv_count: '0',
+                params: gfnma_objectToString(paramObj)
+            });
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+
+        fn_search();
+    }
+
+    /**
+     * @param {boolean} isConfirmed
+     */
+    const fn_subUpdate = async function (obj) {
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: 'KOR'
+            , V_P_COMP_CODE: ''
+            , V_P_CLIENT_CODE: '100'
+            , V_P_NUMBERING_ID: obj.NUMBERING_ID
+            , V_P_NUMBERING_NAME: obj.NUMBERING_NAME
+            , V_P_NUMBERING_GROUP: obj.NUMBERING_GROUP
+            , V_P_NUMBER_LENGTH: obj.NUMBER_LENGTH
+            , V_P_DESCR: obj.DESCR
+            , V_P_NUMBER_ELEMENT1: obj.NUMBER_ELEMENT1
+            , V_P_NUMBER_VALUE1: obj.NUMBER_VALUE1
+            , V_P_NUMBER_ELEMENT2: obj.NUMBER_ELEMENT2
+            , V_P_NUMBER_VALUE2: obj.NUMBER_VALUE2
+            , V_P_NUMBER_ELEMENT3: obj.NUMBER_ELEMENT3
+            , V_P_NUMBER_VALUE3: obj.NUMBER_VALUE3
+            , V_P_NUMBER_ELEMENT4: obj.NUMBER_ELEMENT4
+            , V_P_NUMBER_VALUE4: obj.NUMBER_VALUE4
+            , V_P_NUMBER_ELEMENT5: obj.NUMBER_ELEMENT5
+            , V_P_NUMBER_VALUE5: obj.NUMBER_VALUE5
+            , V_P_SURFIX_ELEMENT1: obj.SURFIX_ELEMENT1
+            , V_P_SURFIX_VALUE1: obj.SURFIX_VALUE1
+            , V_P_SURFIX_ELEMENT2: obj.SURFIX_ELEMENT2
+            , V_P_SURFIX_VALUE2: obj.SURFIX_VALUE2
+            , V_P_SURFIX_ELEMENT3: obj.SURFIX_ELEMENT3
+            , V_P_SURFIX_VALUE3: obj.SURFIX_VALUE3
+            , V_P_SURFIX_ELEMENT4: obj.SURFIX_ELEMENT4
+            , V_P_SURFIX_VALUE4: obj.SURFIX_VALUE4
+            , V_P_SURFIX_ELEMENT5: obj.SURFIX_ELEMENT5
+            , V_P_SURFIX_VALUE5: obj.SURFIX_VALUE5
+            , V_P_START_SERNO: obj.START_SERNO
+            , V_P_USE_YN: obj.USE_YN
+            , V_P_UNIQUE_YN: obj.UNIQUE_YN
+            , V_P_AUTO_NUM_YN: obj.AUTO_NUM_YN
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+        };
+
+
+        console.log("----------------------------------1231231231231232 : ",paramObj)
+
+        const postJsonPromise = gfn_postJSON("/co/sys/sys/updateSys3200.do", {
+            getType: 'json',
+            workType: 'U',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+                fn_saveHis(obj.NUMBERING_ID); //채번이력 저장
+                //fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    //삭제
+    const fn_delete = async function () {
+
+        let NUMBERING_ID = gfnma_nvl(SBUxMethod.get("NUMBERING_ID"));
+        let NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("NUMBERING_GROUP"));
+        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
+        let NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("NUMBERING_NAME"));
+        let NUMBER_LENGTH = gfnma_nvl(SBUxMethod.get("NUMBER_LENGTH"));
+        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
+
+        let NUMBER_ELEMENT1 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT1"));
+        let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
+        let SURFIX_ELEMENT1 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT1"));
+        let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
+        let NUMBER_ELEMENT2 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT2"));
+        let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
+        let SURFIX_ELEMENT2 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT2"));
+        let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
+        let NUMBER_ELEMENT3 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT3"));
+        let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
+        let SURFIX_ELEMENT3 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT3"));
+        let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
+        let NUMBER_ELEMENT4 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT4"));
+        let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
+        let SURFIX_ELEMENT4 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT4"));
+        let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
+        let NUMBER_ELEMENT5 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT5"));
+        let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
+        let SURFIX_ELEMENT5 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT5"));
+        let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+        let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
+        let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
+
+        let NUMBER_SAMPLE = gfnma_nvl(SBUxMethod.get("NUMBER_SAMPLE"));
+
+        if (gfn_comConfirm("Q0001", "삭제")) {
+            var paramObj = {
+                V_P_DEBUG_MODE_YN: ''
+                , V_P_LANG_ID: 'KOR'
+                , V_P_COMP_CODE: ''
+                , V_P_CLIENT_CODE: '100'
+                , V_P_NUMBERING_ID: NUMBERING_ID
+                , V_P_NUMBERING_NAME: NUMBERING_NAME
+                , V_P_NUMBERING_GROUP: NUMBERING_GROUP
+                , V_P_NUMBER_LENGTH: NUMBER_LENGTH
+                , V_P_DESCR: DESCR
+                , V_P_NUMBER_ELEMENT1: NUMBER_ELEMENT1
+                , V_P_NUMBER_VALUE1: NUMBER_VALUE1
+                , V_P_NUMBER_ELEMENT2: NUMBER_ELEMENT2
+                , V_P_NUMBER_VALUE2: NUMBER_VALUE2
+                , V_P_NUMBER_ELEMENT3: NUMBER_ELEMENT3
+                , V_P_NUMBER_VALUE3: NUMBER_VALUE3
+                , V_P_NUMBER_ELEMENT4: NUMBER_ELEMENT4
+                , V_P_NUMBER_VALUE4: NUMBER_VALUE4
+                , V_P_NUMBER_ELEMENT5: NUMBER_ELEMENT5
+                , V_P_NUMBER_VALUE5: NUMBER_VALUE5
+                , V_P_SURFIX_ELEMENT1: SURFIX_ELEMENT1
+                , V_P_SURFIX_VALUE1: SURFIX_VALUE1
+                , V_P_SURFIX_ELEMENT2: SURFIX_ELEMENT2
+                , V_P_SURFIX_VALUE2: SURFIX_VALUE2
+                , V_P_SURFIX_ELEMENT3: SURFIX_ELEMENT3
+                , V_P_SURFIX_VALUE3: SURFIX_VALUE3
+                , V_P_SURFIX_ELEMENT4: SURFIX_ELEMENT4
+                , V_P_SURFIX_VALUE4: SURFIX_VALUE4
+                , V_P_SURFIX_ELEMENT5: SURFIX_ELEMENT5
+                , V_P_SURFIX_VALUE5: SURFIX_VALUE5
+                , V_P_START_SERNO: START_SERNO
+                , V_P_USE_YN: USE_YN
+                , V_P_UNIQUE_YN: UNIQUE_YN
+                , V_P_AUTO_NUM_YN: AUTO_NUM_YN
+                , V_P_FORM_ID: p_formId
+                , V_P_MENU_ID: p_menuId
+                , V_P_PROC_ID: ''
+                , V_P_USERID: ''
+                , V_P_PC: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/deleteSys3100.do", {
+                getType: 'json',
+                workType: 'D',
+                cv_count: '0',
+                params: gfnma_objectToString(paramObj)
+            });
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+
+    }
+
+</script>
+<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
+</html>
