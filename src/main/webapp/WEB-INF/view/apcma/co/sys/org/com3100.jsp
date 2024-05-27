@@ -195,6 +195,15 @@
             </div>
         </div>
     </section>
+    
+	<!-- 사용자 선택 Modal -->
+    <div>
+        <sbux-modal id="com-popup1" name="com-popup1" uitype="middle" header-title="" body-html-id="body-com-popup1" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    </div>
+    <div id="body-com-popup1">
+    	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+    </div>
+    
 </body>
 
 <!-- inline scripts related to this page -->
@@ -219,11 +228,11 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//지역
-			gfnma_setComSelect(['NationInGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['NationInGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			
 			//통화
-			//gfnma_setComSelect(['NationInGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', '', 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
-			gfnma_setComSelect(['NationInGrid'], jsonCurrenvyCode, 'L_COM001', '', '', 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			//gfnma_setComSelect(['NationInGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['NationInGrid'], jsonCurrenvyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 			
 			//통화
 			gfnma_multiSelectInit({
@@ -451,6 +460,8 @@
         SBUxMethod.set("USE_YN", 				"");
     }
 
+    
+    
     //저장
     const fn_save = async function() {
 
