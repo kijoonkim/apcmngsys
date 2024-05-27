@@ -349,7 +349,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>사업장</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                        <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>소속부서</th>
                                     <td class="td_input">
@@ -948,7 +948,7 @@
      * 목록 조회
      */
     const fn_search = async function() {
-        editType = "";
+        editType = "N";
         // set pagination
         let pageSize = gvwList.getPageSize();
         let pageNo = 1;
@@ -1054,72 +1054,74 @@
             if (_.isEqual("S", masterData.resultStatus)) {
                 var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr;
 
-                const postJsonPromiseSub = gfn_postJSON("/hr/hri/hri/insertHri1000Sub.do", {
-                    getType				: 'json',
-                    workType			: editType,
-                    cv_count			: '0',
-                    params				: gfnma_objectToString(await getParamForHri1000S1(empCode))
-                });
-                const subData = await postJsonPromiseSub;
+                if(empCode) {
+                    const postJsonPromiseSub = gfn_postJSON("/hr/hri/hri/insertHri1000Sub.do", {
+                        getType: 'json',
+                        workType: editType,
+                        cv_count: '0',
+                        params: gfnma_objectToString(await getParamForHri1000S1(empCode))
+                    });
+                    const subData = await postJsonPromiseSub;
 
-                try {
-                    if (_.isEqual("S", subData.resultStatus)) {
-                        var paramObj = {
-                            P_HRI1000_S2 : await getParamForHri1000S2(empCode),
-                            P_HRI1000_S3 : await getParamForHri1000S3(editType, empCode),
-                            P_HRI1000_S4 : await getParamForHri1000S4(empCode),
-                            P_HRI1000_S5 : await getParamForHri1000S5(empCode),
-                            P_HRI1000_S6 : await getParamForHri1000S6(empCode),
-                            P_HRI1000_S7 : await getParamForHri1000S7(empCode),
-                            P_HRI1000_S8 : await getParamForHri1000S8(empCode),
-                            P_HRI1000_S9 : await getParamForHri1000S9(empCode),
-                            P_HRI1000_S10 : await getParamForHri1000S10(empCode),
-                            P_HRI1000_S11 : await getParamForHri1000S11(empCode),
-                            P_HRI1000_S12 : await getParamForHri1000S12(empCode),
-                            P_HRI1000_S13 : await getParamForHri1000S13(empCode),
-                            P_HRI1000_S14 : await getParamForHri1000S14(empCode),
-                            P_HRI1000_S15 : await getParamForHri1000S15(empCode),
-                            P_HRI1000_S16 : await getParamForHri1000S16(empCode),
-                            P_HRI1000_S17 : await getParamForHri1000S17(empCode),
-                            P_HRI1000_S18 : await getParamForHri1000S18(empCode),
-                            P_HRI1000_S19 : await getParamForHri1000S19(empCode),
-                            P_HRI1000_S21 : await getParamForHri1000S21(editType, empCode),
-                            P_HRI1000_S22 : await getParamForHri1000S22(empCode),
-                            P_HRI1000_S23 : await getParamForHri1000S23(editType, empCode),
-                            P_HRI1000_S24 : await getParamForHri1000S24(empCode),
-                        }
+                    try {
+                        if (_.isEqual("S", subData.resultStatus)) {
+                            var paramObj = {
+                                P_HRI1000_S2: await getParamForHri1000S2(empCode),
+                                P_HRI1000_S3: await getParamForHri1000S3(editType, empCode),
+                                P_HRI1000_S4: await getParamForHri1000S4(empCode),
+                                P_HRI1000_S5: await getParamForHri1000S5(empCode),
+                                P_HRI1000_S6: await getParamForHri1000S6(empCode),
+                                P_HRI1000_S7: await getParamForHri1000S7(empCode),
+                                P_HRI1000_S8: await getParamForHri1000S8(empCode),
+                                P_HRI1000_S9: await getParamForHri1000S9(empCode),
+                                P_HRI1000_S10: await getParamForHri1000S10(empCode),
+                                P_HRI1000_S11: await getParamForHri1000S11(empCode),
+                                P_HRI1000_S12: await getParamForHri1000S12(empCode),
+                                P_HRI1000_S13: await getParamForHri1000S13(empCode),
+                                P_HRI1000_S14: await getParamForHri1000S14(empCode),
+                                P_HRI1000_S15: await getParamForHri1000S15(empCode),
+                                P_HRI1000_S16: await getParamForHri1000S16(empCode),
+                                P_HRI1000_S17: await getParamForHri1000S17(empCode),
+                                P_HRI1000_S18: await getParamForHri1000S18(empCode),
+                                P_HRI1000_S19: await getParamForHri1000S19(empCode),
+                                P_HRI1000_S21: await getParamForHri1000S21(editType, empCode),
+                                P_HRI1000_S22: await getParamForHri1000S22(empCode),
+                                P_HRI1000_S23: await getParamForHri1000S23(editType, empCode),
+                                P_HRI1000_S24: await getParamForHri1000S24(empCode),
+                            }
 
-                        const postJsonPromiseDetail = gfn_postJSON("/hr/hri/hri/insertHri1000Detail.do", paramObj);
-                        const detailData = await postJsonPromiseDetail;
+                            const postJsonPromiseDetail = gfn_postJSON("/hr/hri/hri/insertHri1000Detail.do", paramObj);
+                            const detailData = await postJsonPromiseDetail;
 
-                        try {
-                            if (_.isEqual("S", detailData.resultStatus)) {
-                                if(detailData.resultMessage){
+                            try {
+                                if (_.isEqual("S", detailData.resultStatus)) {
+                                    if (detailData.resultMessage) {
+                                        alert(detailData.resultMessage);
+                                    }
+                                    fn_search();
+                                } else {
                                     alert(detailData.resultMessage);
                                 }
-                                fn_search();
-                            } else {
-                                alert(detailData.resultMessage);
-                            }
 
-                        } catch (e) {
-                            if (!(e instanceof Error)) {
-                                e = new Error(e);
+                            } catch (e) {
+                                if (!(e instanceof Error)) {
+                                    e = new Error(e);
+                                }
+                                console.error("failed", e.message);
+                                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                             }
-                            console.error("failed", e.message);
-                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                        } else {
+                            alert(subData.resultMessage);
                         }
-                    } else {
-                        alert(subData.resultMessage);
-                    }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-                }
 
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
             } else {
                 alert(masterData.resultMessage);
             }
