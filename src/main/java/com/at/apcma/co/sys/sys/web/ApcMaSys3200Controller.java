@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class ApcMaSys3200Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> selectSys3200List(
             @RequestBody Map<String, Object> param
             , Model model
+            , HttpSession session
             , HttpServletRequest request) throws Exception{
 
         logger.info("=============selectSys3200List=====start========");
@@ -51,7 +53,7 @@ public class ApcMaSys3200Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_SYS3200_Q");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -67,6 +69,7 @@ public class ApcMaSys3200Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> selectSys3200HisList(
             @RequestBody Map<String, Object> param
             , Model model
+            , HttpSession session
             , HttpServletRequest request) throws Exception{
 
         logger.info("=============selectSys3200HisList=====start========");
@@ -75,7 +78,7 @@ public class ApcMaSys3200Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_SYS3200_Q");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -91,6 +94,7 @@ public class ApcMaSys3200Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> insertSys3200(
             @RequestBody Map<String, Object> param
             ,Model model
+            , HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============insertSys3200=====start========");
@@ -99,7 +103,7 @@ public class ApcMaSys3200Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_SYS3200_S");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -116,6 +120,7 @@ public class ApcMaSys3200Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> updateSys3200(
             @RequestBody Map<String, Object> param
             ,Model model
+            , HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============updateSys3200=====start========");
@@ -124,7 +129,7 @@ public class ApcMaSys3200Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_SYS3200_S");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -140,6 +145,7 @@ public class ApcMaSys3200Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> deleteSys3200(
             @RequestBody Map<String, Object> param
             ,Model model
+            , HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============deleteSys3200=====start========");
@@ -148,7 +154,7 @@ public class ApcMaSys3200Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_SYS3200_S");
-            resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -164,6 +170,7 @@ public class ApcMaSys3200Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> insertSys3200His(
             @RequestBody Map<String, Object> param
             ,Model model
+            , HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============insertSys3200His=====start========");
@@ -173,7 +180,7 @@ public class ApcMaSys3200Controller extends BaseController {
 
            /* for (Map<String, Object> param : params) {*/
                 param.put("procedure", "P_SYS3200_S1");
-                resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+                resultMap = apcMaCommDirectService.callProc(param, session, request, "");
            /* }*/
 
         } catch (Exception e) {
@@ -191,6 +198,7 @@ public class ApcMaSys3200Controller extends BaseController {
     public ResponseEntity<HashMap<String, Object>> updateSys3200His(
             @RequestBody List<Map<String, Object>> params
             ,Model model
+            , HttpSession session
             ,HttpServletRequest request) throws Exception{
 
         logger.info("=============updateSys3200His=====start========");
@@ -200,7 +208,7 @@ public class ApcMaSys3200Controller extends BaseController {
 
             for (Map<String, Object> param : params) {
                 param.put("procedure", "P_SYS3200_S1");
-                resultMap = apcMaCommDirectService.callProc(param, request.getMethod(), "");
+                resultMap = apcMaCommDirectService.callProc(param, session, request, "");
             }
 
         } catch (Exception e) {
