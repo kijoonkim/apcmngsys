@@ -82,21 +82,21 @@ import io.jsonwebtoken.ExpiredJwtException;
 @Controller
 @RequestMapping("/api/mobile")
 public class MobileApiController extends BaseController{
-	
+
 	@Resource(name= "mobileApiService")
 	private MobileApiService mobileApiService;
-	
+
 	@Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
-	
+
 	@Resource(name="spmtCmndService")
 	protected SpmtCmndService spmtCmndService;
-	
+
 	@Autowired
 	private RawMtrWrhsMapper rawMtrWrhsMapper;
 	@Autowired
 	private RawMtrInvntrMapper rawMtrInvntrMapper;
-	
+
 	/** LoginService */
 	@Resource(name = "loginService")
 	private LoginService loginService;
@@ -104,7 +104,7 @@ public class MobileApiController extends BaseController{
 	/** ApcInfoService */
 	@Resource(name = "apcInfoService")
 	private ApcInfoService apcInfoService;
-	
+
 	@Resource(name = "comUserService")
 	private ComUserService comUserService;
 
@@ -114,7 +114,7 @@ public class MobileApiController extends BaseController{
 	/** JWT */
 	@Autowired
     private EgovJwtTokenUtil jwtTokenUtil;
-	
+
 	@PostMapping(value = "/authenticate.do")
 	@ResponseBody
 	public JSONObject authenticate(
@@ -122,7 +122,7 @@ public class MobileApiController extends BaseController{
 			HttpServletRequest request,
 			HttpServletResponse response,
 			ModelMap model) throws Exception {
-		
+
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
 		//로그인 이력 저장
@@ -152,7 +152,7 @@ public class MobileApiController extends BaseController{
 				//실패 이력저장
 				comLogVo.setPrslType("L3");
 				comLogService.insertMenuHstry(comLogVo);
-				
+
 				JSONObject resultJson = new JSONObject();
 				resultJson.put("success", false);
 				resultJson.put("code", ComConstants.ERR_USER_LOCKED);
@@ -199,7 +199,7 @@ public class MobileApiController extends BaseController{
 			} else {
 				apcInfoVO.setApcCd(resultVO.getApcCd());
 			}
-			
+
 			JSONObject resultData = new JSONObject();
 
 			List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
@@ -224,37 +224,50 @@ public class MobileApiController extends BaseController{
 				resultData.put("comApcList", null);
 			}
 
+			List<HashMap<String, Object>> prdcrResultList;
+			HashMap<String, Object> comUserVO = new HashMap<String, Object>();
+			comUserVO.put("userId", resultVO.getId());
+			comUserVO.put("apcCd", resultVO.getApcCd());
+			prdcrResultList = comUserService.selectComUserPrdcrAprvList(comUserVO);
+
+			if (prdcrResultList != null && !prdcrResultList.isEmpty()) {
+				resultData.put("prdcrResultList", prdcrResultList);
+			} else {
+				resultData.put("prdcrResultList", null);
+			}
+
 			// 로그인 정보를 세션에 저장
 			//resultMap.put("loginVO", resultVO);
-			
+
 			//토큰을 생성한다.
 			egovframework.com.cmm.LoginVO cmmLoginVO = new egovframework.com.cmm.LoginVO();
 			cmmLoginVO.setId(resultVO.getUserId());
 			final String accessToken = jwtTokenUtil.generateToken(cmmLoginVO);
 			resultData.put("accessToken", accessToken);
-			
+
 			String refreshToken = UUID.randomUUID().toString();
 			Date expDate = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 90);	//90일
-			
+
 			resultData.put("refreshToken", refreshToken);
-			
+
 			Map<String, Object> storedRefreshToken =  mobileApiService.findRefreshToken(resultVO.getUserId());
 			if(storedRefreshToken != null)
 				mobileApiService.delRefreshToken(resultVO.getUserId());
-			
+
 			//리프레시 토큰 저장
 			Map<String, Object> refreshTokenMap = new HashMap<String, Object>();
 			refreshTokenMap.put("USER_ID", resultVO.getUserId());
 			refreshTokenMap.put("TOKEN", refreshToken);
 			refreshTokenMap.put("EXPIRY_DATE", expDate);
-			
+
 			mobileApiService.addRefreshToken(refreshTokenMap);
-			
+
 			// 로그인 인증세션
 			resultData.put("userId", resultVO.getId());
 			resultData.put("userName", resultVO.getName());
 			resultData.put("apcCd", resultVO.getApcCd());
 			resultData.put("apcNm", resultVO.getApcNm());
+			resultData.put("userType", userType);
 
 			//로그인 이력
 			comLogVo.setUserType(userType);
@@ -265,7 +278,7 @@ public class MobileApiController extends BaseController{
 			resultJson.put("success", true);
 			resultJson.put("message", "성공");
 			resultJson.put("data", resultData);
-			
+
 			return resultJson;
 		} else {
 
@@ -279,16 +292,16 @@ public class MobileApiController extends BaseController{
 			//실패 이력저장
 			comLogVo.setPrslType("L3");
 			comLogService.insertMenuHstry(comLogVo);
-			
+
 			JSONObject resultJson = new JSONObject();
 			resultJson.put("success", false);
 			resultJson.put("code", ComConstants.ERR_LOGIN_FAILED);
 			resultJson.put("message", messageSource.getMessage("fail.common.login", request.getLocale()));
-			
+
 			return resultJson;
 		}
 	}
-	
+
 	@PostMapping(value = "/refreshToken.do")
 	@ResponseBody
 	public JSONObject refreshToken(
@@ -296,9 +309,9 @@ public class MobileApiController extends BaseController{
 			HttpServletRequest request,
 			HttpServletResponse response,
 			ModelMap model) throws Exception {
-		
+
 		ComUserVO userDetails = comUserService.selectComUser(loginVO.getUserId());
-		
+
 		if(userDetails != null) {
 			Map<String, Object> storedRefreshToken =  mobileApiService.findRefreshToken(userDetails.getUserId());
 			if(storedRefreshToken != null) {
@@ -307,31 +320,31 @@ public class MobileApiController extends BaseController{
 					resultJson.put("success", false);
 					resultJson.put("code", ComConstants.ERR_LOGIN_FAILED);
 					resultJson.put("message", messageSource.getMessage("fail.common.login", request.getLocale()));
-					
+
 					return resultJson;
 				} else if(isRefreshTokenExpired(storedRefreshToken)) {
 					mobileApiService.delRefreshToken(userDetails.getUserId());
-					
+
 					JSONObject resultJson = new JSONObject();
 					resultJson.put("success", false);
 					resultJson.put("code", ComConstants.ERR_LOGIN_FAILED);
 					resultJson.put("message", messageSource.getMessage("fail.common.login", request.getLocale()));
-					
+
 					return resultJson;
 				} else {
 					//새로운 accessToken을 생성한다.
 					egovframework.com.cmm.LoginVO cmmLoginVO = new egovframework.com.cmm.LoginVO();
 					cmmLoginVO.setId(userDetails.getUserId());
 					final String accessToken = jwtTokenUtil.generateToken(cmmLoginVO);
-					
+
 					JSONObject resultData = new JSONObject();
 					resultData.put("accessToken", accessToken);
-					
+
 					JSONObject resultJson = new JSONObject();
 					resultJson.put("success", true);
 					resultJson.put("message", "성공");
 					resultJson.put("data", resultData);
-					
+
 					return resultJson;
 				}
 			} else {
@@ -339,7 +352,7 @@ public class MobileApiController extends BaseController{
 				resultJson.put("success", false);
 				resultJson.put("code", ComConstants.ERR_LOGIN_FAILED);
 				resultJson.put("message", messageSource.getMessage("fail.common.login", request.getLocale()));
-				
+
 				return resultJson;
 			}
 		} else {
@@ -347,15 +360,15 @@ public class MobileApiController extends BaseController{
 			resultJson.put("success", false);
 			resultJson.put("code", ComConstants.ERR_LOGIN_FAILED);
 			resultJson.put("message", messageSource.getMessage("fail.common.login", request.getLocale()));
-			
+
 			return resultJson;
 		}
 	}
-	
+
 	private boolean isRefreshTokenExpired(Map<String, Object> token) {
 		return isDateExpired((Date)token.get("EXPIRY_DATE"));
 	}
-	
+
 	private boolean isDateExpired(Date target) {
 		return target.before(new Date(System.currentTimeMillis()));
 	}
