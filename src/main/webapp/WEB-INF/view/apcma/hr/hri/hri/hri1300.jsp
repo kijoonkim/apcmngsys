@@ -150,7 +150,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">발령번호</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="APPOINT_NUM" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_NUM" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">발령일자</th>
                                     <td colspan="2" class="td_input">
@@ -165,16 +165,16 @@
                                     </td>
                                     <th scope="row" class="th_bg">발령구분</th>
                                     <td class="td_input">
-                                        <sbux-input id="APPOINT_TYPE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_TYPE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="APPOINT_TYPE_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_TYPE_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">발령명칭</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="APPOINT_TITLE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_TITLE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">적용여부</th>
                                     <td colspan="2" class="td_input">
@@ -188,7 +188,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">비고</th>
                                     <td colspan="5" class="td_input">
-                                        <sbux-input id="MEMO" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="MEMO" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">승인일자</th>
                                     <td colspan="2" class="td_input">
@@ -270,18 +270,18 @@
                                 <tr>
                                     <th scope="row" class="th_bg">부서</th>
                                     <td class="td_input">
-                                        <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td></td>
                                     <th scope="row" class="th_bg">사원</th>
                                     <td class="td_input">
-                                        <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" required style="width:100%"></sbux-input>
+                                        <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -341,6 +341,8 @@
 
         fn_search();
     });
+
+    var editType			= "N";
 
     var jsonSiteCode = [];	// 사업장
     var jsonAppointType = []; // 발령구분
@@ -645,7 +647,7 @@
             {caption: ["시작일자"], ref: 'START_DATE', type: 'output', width: '128px', style: 'text-align:left'},
             {caption: ["종료일자"], ref: 'END_DATE', type: 'output', width: '128px', style: 'text-align:left'},
             {
-                caption: ["휴직유형"], ref: 'TIME_OFF_TYPE', type: 'output', width: '89px', style: 'text-align:left',
+                caption: ["휴직유형"], ref: 'TIME_OFF_TYPE', type: 'combo', width: '89px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonTimeOffType',
                     label: 'label',
@@ -656,7 +658,7 @@
             {caption: ["현부서"], ref: 'DEPT_CODE1', type: 'output', width: '80px', style: 'text-align:left'},
             {caption: ["현부서명"], ref: 'DEPT_NAME1', type: 'output', width: '120px', style: 'text-align:left'},
             {
-                caption: ["현직위"], ref: 'POSITION_CODE1', type: 'output', width: '80px', style: 'text-align:left',
+                caption: ["현직위"], ref: 'POSITION_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonPositionCode',
                     label: 'label',
@@ -665,7 +667,7 @@
                 }
             },
             {
-                caption: ["현직책"], ref: 'DUTY_CODE1', type: 'output', width: '80px', style: 'text-align:left',
+                caption: ["현직책"], ref: 'DUTY_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonDutyCode',
                     label: 'label',
@@ -674,7 +676,7 @@
                 }
             },
             {
-                caption: ["현직급"], ref: 'JOB_RANK1', type: 'output', width: '110px', style: 'text-align:left',
+                caption: ["현직급"], ref: 'JOB_RANK1', type: 'combo', width: '110px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobRank',
                     label: 'label',
@@ -683,7 +685,7 @@
                 }
             },
             {
-                caption: ["현직군"], ref: 'JOB_GROUP1', type: 'output', width: '80px', style: 'text-align:left',
+                caption: ["현직군"], ref: 'JOB_GROUP1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobGroup',
                     label: 'label',
@@ -692,7 +694,7 @@
                 }
             },
             {
-                caption: ["현직무"], ref: 'JOB_CODE1', type: 'output', width: '80px', style: 'text-align:left',
+                caption: ["현직무"], ref: 'JOB_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobCode',
                     label: 'label',
@@ -701,7 +703,7 @@
                 }
             },
             {
-                caption: ["현직원하위그룹"], ref: 'JOB_FAMILY1', type: 'output', width: '103px', style: 'text-align:left',
+                caption: ["현직원하위그룹"], ref: 'JOB_FAMILY1', type: 'combo', width: '103px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobFamily',
                     label: 'label',
@@ -710,7 +712,7 @@
                 }
             },
             {
-                caption: ["현근무지"], ref: 'REGION_CODE1', type: 'output', width: '100px', style: 'text-align:left',
+                caption: ["현근무지"], ref: 'REGION_CODE1', type: 'combo', width: '100px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonWorkRegion',
                     label: 'label',
@@ -723,7 +725,7 @@
             {caption: ["발령부서"], ref: 'DEPT_CODE2', type: 'output', width: '82px', style: 'text-align:left'},
             {caption: ["발령부서명"], ref: 'DEPT_NAME2', type: 'output', width: '120px', style: 'text-align:left'},
             {
-                caption: ["발령직위"], ref: 'POSITION_CODE2', type: 'output', width: '103px', style: 'text-align:left',
+                caption: ["발령직위"], ref: 'POSITION_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonPositionCode',
                     label: 'label',
@@ -732,7 +734,7 @@
                 }
             },
             {
-                caption: ["발령직책"], ref: 'DUTY_CODE2', type: 'output', width: '103px', style: 'text-align:left',
+                caption: ["발령직책"], ref: 'DUTY_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonDutyCode',
                     label: 'label',
@@ -741,7 +743,7 @@
                 }
             },
             {
-                caption: ["발령직급"], ref: 'JOB_RANK2', type: 'output', width: '110px', style: 'text-align:left',
+                caption: ["발령직급"], ref: 'JOB_RANK2', type: 'combo', width: '110px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobRank',
                     label: 'label',
@@ -750,7 +752,7 @@
                 }
             },
             {
-                caption: ["발령직군"], ref: 'JOB_GROUP2', type: 'output', width: '101px', style: 'text-align:left',
+                caption: ["발령직군"], ref: 'JOB_GROUP2', type: 'combo', width: '101px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobGroup',
                     label: 'label',
@@ -759,7 +761,7 @@
                 }
             },
             {
-                caption: ["발령직무"], ref: 'JOB_CODE2', type: 'output', width: '89px', style: 'text-align:left',
+                caption: ["발령직무"], ref: 'JOB_CODE2', type: 'combo', width: '89px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobCode',
                     label: 'label',
@@ -768,7 +770,7 @@
                 }
             },
             {
-                caption: ["발령직원하위그룹"], ref: 'JOB_FAMILY2', type: 'output', width: '89px', style: 'text-align:left',
+                caption: ["발령직원하위그룹"], ref: 'JOB_FAMILY2', type: 'combo', width: '89px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonJobFamily',
                     label: 'label',
@@ -777,7 +779,7 @@
                 }
             },
             {
-                caption: ["발령근무지"], ref: 'REGION_CODE2', type: 'output', width: '100px', style: 'text-align:left',
+                caption: ["발령근무지"], ref: 'REGION_CODE2', type: 'combo', width: '100px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonWorkRegion',
                     label: 'label',
@@ -792,7 +794,7 @@
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '300px', style: 'text-align:left'},
             {caption: ["유형"], ref: 'APPOINT_TYPE', type: 'output', width: '75px', style: 'text-align:left'},
             {
-                caption: ["현사업장"], ref: 'SITE_CODE1', type: 'output', width: '111px', style: 'text-align:left',
+                caption: ["현사업장"], ref: 'SITE_CODE1', type: 'combo', width: '111px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonSiteCode',
                     label: 'label',
@@ -801,7 +803,7 @@
                 }
             },
             {
-                caption: ["발령사업장"], ref: 'SITE_CODE2', type: 'output', width: '120px', style: 'text-align:left',
+                caption: ["발령사업장"], ref: 'SITE_CODE2', type: 'combo', width: '120px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonSiteCode',
                     label: 'label',
@@ -812,7 +814,7 @@
             {
                 caption: ["육아기근로시간단축"],
                 ref: 'PARENTING_WORK_TYPE',
-                type: 'output',
+                type: 'combo',
                 width: '120px',
                 style: 'text-align:left',
                 typeinfo: {
@@ -823,7 +825,7 @@
                 }
             },
             {
-                caption: ["시작구분"], ref: 'TIME_START_DAY_TYPE', type: 'output', width: '65px', style: 'text-align:left',
+                caption: ["시작구분"], ref: 'TIME_START_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonTimeStartDayType',
                     label: 'label',
@@ -833,7 +835,7 @@
             },
             {caption: ["시작시각"], ref: 'TIME_START_HHMM', type: 'output', width: '66px', style: 'text-align:left'},
             {
-                caption: ["종료구분"], ref: 'TIME_END_DAY_TYPE', type: 'output', width: '65px', style: 'text-align:left',
+                caption: ["종료구분"], ref: 'TIME_END_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
                     ref: 'jsonTimeStartDayType',
                     label: 'label',
@@ -1024,17 +1026,17 @@
             V_P_APPOINT_TYPE : APPOINT_TYPE,
             V_P_APPOINT_DATE : APPOINT_DATE,
             V_P_APPOINT_TITLE : APPOINT_TITLE,
-            V_P_DEPT_APPOINT_YN : DEPT_APPOINT_YN,
-            V_P_POSITION_APPOINT_YN : POSITION_APPOINT_YN,
-            V_P_DUTY_APPOINT_YN : DUTY_APPOINT_YN,
-            V_P_JOB_RANK_APPOINT_YN : JOB_RANK_APPOINT_YN,
-            V_P_JOB_GROUP_APPOINT_YN : JOB_GROUP_APPOINT_YN,
-            V_P_JOB_APPOINT_YN : JOB_APPOINT_YN,
-            V_P_REGION_APPOINT_YN : REGION_APPOINT_YN,
-            V_P_JOB_FAMILY_APPOINT_YN : JOB_FAMILY_APPOINT_YN,
+            V_P_DEPT_APPOINT_YN : DEPT_APPOINT_YN.DEPT_APPOINT_YN,
+            V_P_POSITION_APPOINT_YN : POSITION_APPOINT_YN.POSITION_APPOINT_YN,
+            V_P_DUTY_APPOINT_YN : DUTY_APPOINT_YN.DUTY_APPOINT_YN,
+            V_P_JOB_RANK_APPOINT_YN : JOB_RANK_APPOINT_YN.JOB_RANK_APPOINT_YN,
+            V_P_JOB_GROUP_APPOINT_YN : JOB_GROUP_APPOINT_YN.JOB_GROUP_APPOINT_YN,
+            V_P_JOB_APPOINT_YN : JOB_APPOINT_YN.JOB_APPOINT_YN,
+            V_P_REGION_APPOINT_YN : REGION_APPOINT_YN.REGION_APPOINT_YN,
+            V_P_JOB_FAMILY_APPOINT_YN : JOB_FAMILY_APPOINT_YN.JOB_FAMILY_APPOINT_YN,
             V_P_MEMO : MEMO,
-            V_P_APPLY_YN : APPLY_YN,
-            V_P_PARENTING_WORK_TYPE_YN : PARENTING_WORK_TYPE_YN,
+            V_P_APPLY_YN : APPLY_YN.APPLY_YN,
+            V_P_PARENTING_WORK_TYPE_YN : PARENTING_WORK_TYPE_YN.PARENTING_WORK_TYPE_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',
@@ -1052,166 +1054,169 @@
 
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
-                let updatedData = bandgvwDetail.getUpdateData(true, 'all');
-                let returnData = [];
+                if(masterData.v_returnStr) {
 
-                updatedData.forEach((item, index) => {
-                    const param = {
-                        cv_count : '0',
-                        getType : 'json',
-                        workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                        params: gfnma_objectToString({
-                            V_P_DEBUG_MODE_YN : '',
-                            V_P_LANG_ID	: '',
-                            V_P_COMP_CODE : gv_ma_selectedApcCd,
-                            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                            V_P_APPOINT_NUM : item.data.APPOINT_NUM,
-                            V_P_APPOINT_DATE : item.data.APPOINT_DATE,
-                            V_P_EMP_CODE : item.data.EMP_CODE,
-                            V_P_DEPT_CODE1 : item.data.DEPT_CODE1,
-                            V_P_POSITION_CODE1 : item.data.POSITION_CODE1,
-                            V_P_DUTY_CODE1 : item.data.DUTY_CODE1,
-                            V_P_JOB_RANK1 : item.data.JOB_RANK1,
-                            V_P_JOB_GROUP1 : item.data.JOB_GROUP1,
-                            V_P_JOB_CODE1 : item.data.JOB_CODE1,
-                            V_P_REGION_CODE1 : item.data.REGION_CODE1,
-                            V_P_COST_DEPT1 : item.data.COST_DEPT1,
-                            V_P_DEPT_CODE2 : item.data.DEPT_CODE2,
-                            V_P_POSITION_CODE2 : item.data.POSITION_CODE2,
-                            V_P_DUTY_CODE2 : item.data.DUTY_CODE2,
-                            V_P_JOB_RANK2 : item.data.JOB_RANK2,
-                            V_P_JOB_GROUP2 : item.data.JOB_GROUP2,
-                            V_P_JOB_CODE2 : item.data.JOB_CODE2,
-                            V_P_REGION_CODE2 : item.data.REGION_CODE2,
-                            V_P_COST_DEPT2 : item.data.COST_DEPT2,
-                            V_P_FIRST_APPOINT_NUM : item.data.FIRST_APPOINT_NUM,
-                            V_P_APPOINT_REASON : item.data.APPOINT_REASON,
-                            V_P_MEMO : item.data.MEMO,
-                            V_P_START_DATE : item.data.START_DATE,
-                            V_P_END_DATE : item.data.END_DATE,
-                            V_P_TIME_OFF_TYPE : item.data.TIME_OFF_TYPE,
-                            V_P_APPOINT_TYPE : item.data.APPOINT_TYPE,
-                            V_P_JOB_FAMILY1 : item.data.JOB_FAMILY1,
-                            V_P_JOB_FAMILY2 : item.data.JOB_FAMILY2,
-                            V_P_SITE_CODE1 : item.data.SITE_CODE1,
-                            V_P_SITE_CODE2 : item.data.SITE_CODE2,
-                            V_P_PARENTING_WORK_TYPE : item.data.PARENTING_WORK_TYPE,
-                            V_P_TIME_START_DAY_TYPE : item.data.TIME_START_DAY_TYPE,
-                            V_P_TIME_START_HHMM : item.data.TIME_START_HHMM,
-                            V_P_TIME_END_DAY_TYPE : item.data.TIME_END_DAY_TYPE,
-                            V_P_TIME_END_HHMM : item.data.TIME_END_HHMM,
-                            V_P_FORM_ID : p_formId,
-                            V_P_MENU_ID : p_menuId,
-                            V_P_PROC_ID : '',
-                            V_P_USERID : '',
-                            V_P_PC : ''
-                        })
-                    }
-                    returnData.push(param);
-                });
+                    let updatedData = bandgvwDetail.getUpdateData(true, 'all');
+                    let returnData = [];
 
-                const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: returnData});
-                const subData = await postJsonPromise;
+                    updatedData.forEach((item, index) => {
+                        const param = {
+                            cv_count: '0',
+                            getType: 'json',
+                            workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                            params: gfnma_objectToString({
+                                V_P_DEBUG_MODE_YN: '',
+                                V_P_LANG_ID: '',
+                                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                                V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                                V_P_APPOINT_NUM: masterData.v_returnStr,
+                                V_P_APPOINT_DATE: item.data.APPOINT_DATE,
+                                V_P_EMP_CODE: item.data.EMP_CODE,
+                                V_P_DEPT_CODE1: item.data.DEPT_CODE1,
+                                V_P_POSITION_CODE1: item.data.POSITION_CODE1,
+                                V_P_DUTY_CODE1: item.data.DUTY_CODE1,
+                                V_P_JOB_RANK1: item.data.JOB_RANK1,
+                                V_P_JOB_GROUP1: item.data.JOB_GROUP1,
+                                V_P_JOB_CODE1: item.data.JOB_CODE1,
+                                V_P_REGION_CODE1: item.data.REGION_CODE1,
+                                V_P_COST_DEPT1: item.data.COST_DEPT1,
+                                V_P_DEPT_CODE2: item.data.DEPT_CODE2,
+                                V_P_POSITION_CODE2: item.data.POSITION_CODE2,
+                                V_P_DUTY_CODE2: item.data.DUTY_CODE2,
+                                V_P_JOB_RANK2: item.data.JOB_RANK2,
+                                V_P_JOB_GROUP2: item.data.JOB_GROUP2,
+                                V_P_JOB_CODE2: item.data.JOB_CODE2,
+                                V_P_REGION_CODE2: item.data.REGION_CODE2,
+                                V_P_COST_DEPT2: item.data.COST_DEPT2,
+                                V_P_FIRST_APPOINT_NUM: item.data.FIRST_APPOINT_NUM,
+                                V_P_APPOINT_REASON: item.data.APPOINT_REASON,
+                                V_P_MEMO: item.data.MEMO,
+                                V_P_START_DATE: item.data.START_DATE,
+                                V_P_END_DATE: item.data.END_DATE,
+                                V_P_TIME_OFF_TYPE: item.data.TIME_OFF_TYPE,
+                                V_P_APPOINT_TYPE: item.data.APPOINT_TYPE,
+                                V_P_JOB_FAMILY1: item.data.JOB_FAMILY1,
+                                V_P_JOB_FAMILY2: item.data.JOB_FAMILY2,
+                                V_P_SITE_CODE1: item.data.SITE_CODE1,
+                                V_P_SITE_CODE2: item.data.SITE_CODE2,
+                                V_P_PARENTING_WORK_TYPE: item.data.PARENTING_WORK_TYPE,
+                                V_P_TIME_START_DAY_TYPE: item.data.TIME_START_DAY_TYPE,
+                                V_P_TIME_START_HHMM: item.data.TIME_START_HHMM,
+                                V_P_TIME_END_DAY_TYPE: item.data.TIME_END_DAY_TYPE,
+                                V_P_TIME_END_HHMM: item.data.TIME_END_HHMM,
+                                V_P_FORM_ID: p_formId,
+                                V_P_MENU_ID: p_menuId,
+                                V_P_PROC_ID: '',
+                                V_P_USERID: '',
+                                V_P_PC: ''
+                            })
+                        }
+                        returnData.push(param);
+                    });
 
-                try {
-                    if (_.isEqual("S", subData.resultStatus)) {
-                        if(APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5' || APPOINT_TYPE == 'P6' || APPOINT_TYPE == 'O6') {
-                            let leadType = '';
+                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: returnData});
+                    const subData = await postJsonPromise;
 
-                            if(APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5') leadType = 'N_LD'
-                            else leadType = 'D_LD';
+                    try {
+                        if (_.isEqual("S", subData.resultStatus)) {
+                            if (APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5' || APPOINT_TYPE == 'P6' || APPOINT_TYPE == 'O6') {
+                                let leadType = '';
 
-                            let leadSendData = [];
+                                if (APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5') leadType = 'N_LD'
+                                else leadType = 'D_LD';
 
-                            updatedData.forEach((item, index) => {
-                                const param = {
-                                    cv_count : '0',
-                                    getType : 'json',
-                                    workType : leadType,
-                                    params: gfnma_objectToString({
-                                        V_P_DEBUG_MODE_YN : '',
-                                        V_P_LANG_ID	: '',
-                                        V_P_COMP_CODE : gv_ma_selectedApcCd,
-                                        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                                        V_P_APPOINT_NUM : item.data.APPOINT_NUM,
-                                        V_P_APPOINT_DATE : item.data.APPOINT_DATE,
-                                        V_P_EMP_CODE : item.data.EMP_CODE,
-                                        V_P_DEPT_CODE1 : item.data.DEPT_CODE1,
-                                        V_P_POSITION_CODE1 : item.data.POSITION_CODE1,
-                                        V_P_DUTY_CODE1 : item.data.DUTY_CODE1,
-                                        V_P_JOB_RANK1 : item.data.JOB_RANK1,
-                                        V_P_JOB_GROUP1 : item.data.JOB_GROUP1,
-                                        V_P_JOB_CODE1 : item.data.JOB_CODE1,
-                                        V_P_REGION_CODE1 : item.data.REGION_CODE1,
-                                        V_P_COST_DEPT1 : item.data.COST_DEPT1,
-                                        V_P_DEPT_CODE2 : item.data.DEPT_CODE2,
-                                        V_P_POSITION_CODE2 : item.data.POSITION_CODE2,
-                                        V_P_DUTY_CODE2 : item.data.DUTY_CODE2,
-                                        V_P_JOB_RANK2 : item.data.JOB_RANK2,
-                                        V_P_JOB_GROUP2 : item.data.JOB_GROUP2,
-                                        V_P_JOB_CODE2 : item.data.JOB_CODE2,
-                                        V_P_REGION_CODE2 : item.data.REGION_CODE2,
-                                        V_P_COST_DEPT2 : item.data.COST_DEPT2,
-                                        V_P_FIRST_APPOINT_NUM : item.data.FIRST_APPOINT_NUM,
-                                        V_P_APPOINT_REASON : item.data.APPOINT_REASON,
-                                        V_P_MEMO : item.data.MEMO,
-                                        V_P_START_DATE : item.data.START_DATE,
-                                        V_P_END_DATE : item.data.END_DATE,
-                                        V_P_TIME_OFF_TYPE : item.data.TIME_OFF_TYPE,
-                                        V_P_APPOINT_TYPE : item.data.APPOINT_TYPE,
-                                        V_P_JOB_FAMILY1 : item.data.JOB_FAMILY1,
-                                        V_P_JOB_FAMILY2 : item.data.JOB_FAMILY2,
-                                        V_P_SITE_CODE1 : item.data.SITE_CODE1,
-                                        V_P_SITE_CODE2 : item.data.SITE_CODE2,
-                                        V_P_PARENTING_WORK_TYPE : item.data.PARENTING_WORK_TYPE,
-                                        V_P_TIME_START_DAY_TYPE : item.data.TIME_START_DAY_TYPE,
-                                        V_P_TIME_START_HHMM : item.data.TIME_START_HHMM,
-                                        V_P_TIME_END_DAY_TYPE : item.data.TIME_END_DAY_TYPE,
-                                        V_P_TIME_END_HHMM : item.data.TIME_END_HHMM,
-                                        V_P_FORM_ID : p_formId,
-                                        V_P_MENU_ID : p_menuId,
-                                        V_P_PROC_ID : '',
-                                        V_P_USERID : '',
-                                        V_P_PC : ''
-                                    })
-                                }
-                                leadSendData.push(param);
-                            });
+                                let leadSendData = [];
 
-                            const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: leadSendData});
-                            const leadData = await postJsonPromise;
+                                updatedData.forEach((item, index) => {
+                                    const param = {
+                                        cv_count: '0',
+                                        getType: 'json',
+                                        workType: leadType,
+                                        params: gfnma_objectToString({
+                                            V_P_DEBUG_MODE_YN: '',
+                                            V_P_LANG_ID: '',
+                                            V_P_COMP_CODE: gv_ma_selectedApcCd,
+                                            V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                                            V_P_APPOINT_NUM: item.data.APPOINT_NUM,
+                                            V_P_APPOINT_DATE: item.data.APPOINT_DATE,
+                                            V_P_EMP_CODE: item.data.EMP_CODE,
+                                            V_P_DEPT_CODE1: item.data.DEPT_CODE1,
+                                            V_P_POSITION_CODE1: item.data.POSITION_CODE1,
+                                            V_P_DUTY_CODE1: item.data.DUTY_CODE1,
+                                            V_P_JOB_RANK1: item.data.JOB_RANK1,
+                                            V_P_JOB_GROUP1: item.data.JOB_GROUP1,
+                                            V_P_JOB_CODE1: item.data.JOB_CODE1,
+                                            V_P_REGION_CODE1: item.data.REGION_CODE1,
+                                            V_P_COST_DEPT1: item.data.COST_DEPT1,
+                                            V_P_DEPT_CODE2: item.data.DEPT_CODE2,
+                                            V_P_POSITION_CODE2: item.data.POSITION_CODE2,
+                                            V_P_DUTY_CODE2: item.data.DUTY_CODE2,
+                                            V_P_JOB_RANK2: item.data.JOB_RANK2,
+                                            V_P_JOB_GROUP2: item.data.JOB_GROUP2,
+                                            V_P_JOB_CODE2: item.data.JOB_CODE2,
+                                            V_P_REGION_CODE2: item.data.REGION_CODE2,
+                                            V_P_COST_DEPT2: item.data.COST_DEPT2,
+                                            V_P_FIRST_APPOINT_NUM: item.data.FIRST_APPOINT_NUM,
+                                            V_P_APPOINT_REASON: item.data.APPOINT_REASON,
+                                            V_P_MEMO: item.data.MEMO,
+                                            V_P_START_DATE: item.data.START_DATE,
+                                            V_P_END_DATE: item.data.END_DATE,
+                                            V_P_TIME_OFF_TYPE: item.data.TIME_OFF_TYPE,
+                                            V_P_APPOINT_TYPE: item.data.APPOINT_TYPE,
+                                            V_P_JOB_FAMILY1: item.data.JOB_FAMILY1,
+                                            V_P_JOB_FAMILY2: item.data.JOB_FAMILY2,
+                                            V_P_SITE_CODE1: item.data.SITE_CODE1,
+                                            V_P_SITE_CODE2: item.data.SITE_CODE2,
+                                            V_P_PARENTING_WORK_TYPE: item.data.PARENTING_WORK_TYPE,
+                                            V_P_TIME_START_DAY_TYPE: item.data.TIME_START_DAY_TYPE,
+                                            V_P_TIME_START_HHMM: item.data.TIME_START_HHMM,
+                                            V_P_TIME_END_DAY_TYPE: item.data.TIME_END_DAY_TYPE,
+                                            V_P_TIME_END_HHMM: item.data.TIME_END_HHMM,
+                                            V_P_FORM_ID: p_formId,
+                                            V_P_MENU_ID: p_menuId,
+                                            V_P_PROC_ID: '',
+                                            V_P_USERID: '',
+                                            V_P_PC: ''
+                                        })
+                                    }
+                                    leadSendData.push(param);
+                                });
 
-                            try {
-                                if (_.isEqual("S", leadData.resultStatus)) {
-                                    if(leadData.resultMessage){
+                                const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: leadSendData});
+                                const leadData = await postJsonPromise;
+
+                                try {
+                                    if (_.isEqual("S", leadData.resultStatus)) {
+                                        if (leadData.resultMessage) {
+                                            alert(leadData.resultMessage);
+                                        }
+                                        fn_search();
+                                    } else {
                                         alert(leadData.resultMessage);
                                     }
-                                    fn_search();
-                                } else {
-                                    alert(leadData.resultMessage);
+                                } catch (e) {
+                                    if (!(e instanceof Error)) {
+                                        e = new Error(e);
+                                    }
+                                    console.error("failed", e.message);
+                                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                                 }
-                            } catch (e) {
-                                if (!(e instanceof Error)) {
-                                    e = new Error(e);
+                            } else {
+                                if (subData.resultMessage) {
+                                    alert(subData.resultMessage);
                                 }
-                                console.error("failed", e.message);
-                                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                                fn_search();
                             }
                         } else {
-                            if(subData.resultMessage){
-                                alert(subData.resultMessage);
-                            }
-                            fn_search();
+                            alert(subData.resultMessage);
                         }
-                    } else {
-                        alert(subData.resultMessage);
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                     }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
             } else {
                 alert(masterData.resultMessage);
@@ -1262,17 +1267,17 @@
                 V_P_APPOINT_TYPE: APPOINT_TYPE,
                 V_P_APPOINT_DATE: APPOINT_DATE,
                 V_P_APPOINT_TITLE: APPOINT_TITLE,
-                V_P_DEPT_APPOINT_YN: DEPT_APPOINT_YN,
-                V_P_POSITION_APPOINT_YN: POSITION_APPOINT_YN,
-                V_P_DUTY_APPOINT_YN: DUTY_APPOINT_YN,
-                V_P_JOB_RANK_APPOINT_YN: JOB_RANK_APPOINT_YN,
-                V_P_JOB_GROUP_APPOINT_YN: JOB_GROUP_APPOINT_YN,
-                V_P_JOB_APPOINT_YN: JOB_APPOINT_YN,
-                V_P_REGION_APPOINT_YN: REGION_APPOINT_YN,
-                V_P_JOB_FAMILY_APPOINT_YN: JOB_FAMILY_APPOINT_YN,
+                V_P_DEPT_APPOINT_YN: DEPT_APPOINT_YN.DEPT_APPOINT_YN,
+                V_P_POSITION_APPOINT_YN: POSITION_APPOINT_YN.POSITION_APPOINT_YN,
+                V_P_DUTY_APPOINT_YN: DUTY_APPOINT_YN.DUTY_APPOINT_YN,
+                V_P_JOB_RANK_APPOINT_YN: JOB_RANK_APPOINT_YN.JOB_RANK_APPOINT_YN,
+                V_P_JOB_GROUP_APPOINT_YN: JOB_GROUP_APPOINT_YN.JOB_GROUP_APPOINT_YN,
+                V_P_JOB_APPOINT_YN: JOB_APPOINT_YN.JOB_APPOINT_YN,
+                V_P_REGION_APPOINT_YN: REGION_APPOINT_YN.REGION_APPOINT_YN,
+                V_P_JOB_FAMILY_APPOINT_YN: JOB_FAMILY_APPOINT_YN.JOB_FAMILY_APPOINT_YN,
                 V_P_MEMO: MEMO,
-                V_P_APPLY_YN: APPLY_YN,
-                V_P_PARENTING_WORK_TYPE_YN: PARENTING_WORK_TYPE_YN,
+                V_P_APPLY_YN: APPLY_YN.APPLY_YN,
+                V_P_PARENTING_WORK_TYPE_YN: PARENTING_WORK_TYPE_YN.PARENTING_WORK_TYPE_YN,
                 V_P_FORM_ID: p_formId,
                 V_P_MENU_ID: p_menuId,
                 V_P_PROC_ID: '',
@@ -1405,17 +1410,17 @@
             V_P_APPOINT_TYPE : APPOINT_TYPE,
             V_P_APPOINT_DATE : APPOINT_DATE,
             V_P_APPOINT_TITLE : APPOINT_TITLE,
-            V_P_DEPT_APPOINT_YN : DEPT_APPOINT_YN,
-            V_P_POSITION_APPOINT_YN : POSITION_APPOINT_YN,
-            V_P_DUTY_APPOINT_YN : DUTY_APPOINT_YN,
-            V_P_JOB_RANK_APPOINT_YN : JOB_RANK_APPOINT_YN,
-            V_P_JOB_GROUP_APPOINT_YN : JOB_GROUP_APPOINT_YN,
-            V_P_JOB_APPOINT_YN : JOB_APPOINT_YN,
-            V_P_REGION_APPOINT_YN : REGION_APPOINT_YN,
-            V_P_JOB_FAMILY_APPOINT_YN : JOB_FAMILY_APPOINT_YN,
+            V_P_DEPT_APPOINT_YN : DEPT_APPOINT_YN.DEPT_APPOINT_YN,
+            V_P_POSITION_APPOINT_YN : POSITION_APPOINT_YN.POSITION_APPOINT_YN,
+            V_P_DUTY_APPOINT_YN : DUTY_APPOINT_YN.DUTY_APPOINT_YN,
+            V_P_JOB_RANK_APPOINT_YN : JOB_RANK_APPOINT_YN.JOB_RANK_APPOINT_YN,
+            V_P_JOB_GROUP_APPOINT_YN : JOB_GROUP_APPOINT_YN.JOB_GROUP_APPOINT_YN,
+            V_P_JOB_APPOINT_YN : JOB_APPOINT_YN.JOB_APPOINT_YN,
+            V_P_REGION_APPOINT_YN : REGION_APPOINT_YN.REGION_APPOINT_YN,
+            V_P_JOB_FAMILY_APPOINT_YN : JOB_FAMILY_APPOINT_YN.JOB_FAMILY_APPOINT_YN,
             V_P_MEMO : MEMO,
-            V_P_APPLY_YN : APPLY_YN,
-            V_P_PARENTING_WORK_TYPE_YN : PARENTING_WORK_TYPE_YN,
+            V_P_APPLY_YN : APPLY_YN.APPLY_YN,
+            V_P_PARENTING_WORK_TYPE_YN : PARENTING_WORK_TYPE_YN.PARENTING_WORK_TYPE_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',
@@ -1591,6 +1596,17 @@
         SBUxMethod.set("JOB_FAMILY_APPOINT_YN", data.JOB_FAMILY_APPOINT_YN);
         SBUxMethod.set("REGION_APPOINT_YN", data.REGION_APPOINT_YN);
         SBUxMethod.set("PARENTING_WORK_TYPE_YN", data.PARENTING_WORK_TYPE_YN);
+
+        if(data.APPLY_YN == 'Y') {
+            SBUxMethod.attr('btnAddAll', 'disabled', 'true');
+            SBUxMethod.attr('btnReflectionInfo', 'disabled', 'true');
+            SBUxMethod.attr('btnDeleteAll', 'disabled', 'false');
+        } else {
+            SBUxMethod.attr('btnAddAll', 'disabled', 'false');
+            SBUxMethod.attr('btnReflectionInfo', 'disabled', 'false');
+            SBUxMethod.attr('btnDeleteAll', 'disabled', 'true');
+        }
+
     }
 
     // 복사모드토글
