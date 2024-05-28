@@ -105,11 +105,11 @@
 				<br>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:443px;"></div>
+					<div id="sb-area-grdDvlpPrgrs" style="width:100%;height:415px;"></div>
 				</div>
 				<br>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdDfct" style="width:100%;height:132px;"></div>
+					<div id="sb-area-grdDfct" style="width:100%;height:160px;"></div>
 				</div>
 			</div>
 				<!--[pp] //검색결과 -->
