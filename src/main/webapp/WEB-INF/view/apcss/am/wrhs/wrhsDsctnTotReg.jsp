@@ -54,6 +54,14 @@
 						text="입고확인서"
 					></sbux-button>
 					<sbux-button
+						id="btnWrhsDsctn"
+						name="btnWrhsDsctn"
+						uitype="normal"
+						class="btn btn-sm btn-primary"
+						onclick="fn_docWrhsDsctn"
+						text="입고집계표"
+					></sbux-button>
+					<sbux-button
 						id="btnDelete"
 						name="btnDelete"
 						uitype="normal"
@@ -1283,6 +1291,30 @@
  		}
 
 	}
+
+	/**
+     * @name fn_docRawMtrWrhs
+     * @description 입고집계표 발행 버튼
+     */
+	const fn_docWrhsDsctn = async function() {
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RTD_DOC');
+		const allData = grdWrhsSmmry.getGridDataAll();
+		let wrhsBgngYmd = SBUxMethod.get("srch-dtp-wrhsYmdFrom");		// 입고시작일자
+   		let wrhsEndYmd = SBUxMethod.get("srch-dtp-wrhsYmdTo");		// 입고종료일자
+   		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		const params = {
+					apcCd: gv_selectedApcCd,
+					wrhsBgngYmd : wrhsBgngYmd,
+					wrhsEndYmd : wrhsEndYmd,
+					itemCd : itemCd
+		}
+
+		gfn_popClipReport("입고집계표", rptUrl, params);
+
+
+	}
+
 
 </script>
 </html>
