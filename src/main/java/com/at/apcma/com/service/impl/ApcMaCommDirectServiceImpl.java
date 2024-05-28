@@ -226,8 +226,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			List<Map<String, Object>> cv_1 = (ArrayList<Map<String, Object>>)gmap3.get("cv_1");
 			
 			//check
-			String p_errorCode 	= param.get("v_errorCode").toString();
-			String p_errorStr 	= param.get("v_errorStr").toString();
+			String p_errorCode 	= Optional.ofNullable(param.get("v_errorCode")).orElse("").toString();
+			String p_errorStr 	= Optional.ofNullable(param.get("v_errorStr")).orElse("").toString();
 			
 			//1 - 정상
 			for (String key : emap1.keySet()) {
@@ -257,13 +257,12 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			
 			//3 - other error message
 			for (int i = 0; i < cv_1.size() ; i++) {
-		        if (p_errorCode.equals(cv_1.get(i).get("error_code").toString())){
+		        if (p_errorCode.equals(Optional.ofNullable(cv_1.get(i).get("ERROR_CODE")).orElse("").toString())){
 			    	rmap.put("resultStatus", 	"E");
-		    		rmap.put("resultMessage", 	cv_1.get(i).get("error_str").toString() + "\n" + p_errorStr);
+		    		rmap.put("resultMessage", 	Optional.ofNullable(cv_1.get(i).get("ERROR_STR")).orElse("").toString() + "\n" + p_errorStr);
 			    	return rmap;
 		        }
 			}
-			
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
