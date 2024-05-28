@@ -278,9 +278,24 @@
         ];
 
         grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
+        grdGdsInvntr.bind('keypress','fn_grdKeyDown');
         grdGdsInvntr.bind('valuechanged', 'fn_grdValueChanged');
         fn_gridColor();
     }
+
+	const fn_grdKeyDown = function(e) {
+
+		let keyCode = e.keyCode;
+		var nRow = grdGdsInvntr.getRow();
+		var nCol = grdGdsInvntr.getCol();
+		let lgstcsMatCol = grdGdsInvntr.getColRef("lgstcsMat");
+
+		if (keyCode == 32 && (1 < nCol && nCol < lgstcsMatCol)) {
+
+			grdGdsInvntr.setCol(nCol+1);
+			grdGdsInvntr.clickCell(nRow, nCol+1);
+		}
+	}
 
 	const fn_gridColor = async function() {
     	grdGdsInvntr.setCellStyles(0,1,0,7,'background:#FF000030');
