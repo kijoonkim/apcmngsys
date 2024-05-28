@@ -15,15 +15,14 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 관리번호 채번 정보 컨트롤러 클래스
- * @author 		인텔릭아이앤에스
- * @since 		2024.05.16
- * @version 	1.0
- * @see
  *
- * <pre>
+ * @author 인텔릭아이앤에스
+ * @version 1.0
+ * @see <pre>
  * << 관리번호 채번 정보(Modification Information) >>
  *
  *  수정일      수정자		수정내용
@@ -31,28 +30,29 @@ import java.util.Map;
  *  2023.05.16  표주완     	최초 생성
  *
  *  </pre>
+ * @since 2024.05.16
  */
 @Controller
 public class ApcMaSys3200Controller extends BaseController {
 
-    @Resource(name= "apcMaCommDirectService")
+    @Resource(name = "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
 
     // 관리번호 채번 정보 조회
-    @PostMapping(value = "/co/sys/sys/selectSys3200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/co/sys/sys/selectSys3200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectSys3200List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
-            , HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============selectSys3200List=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            param.put("procedure", 		"P_SYS3200_Q");
+            param.put("procedure", "P_SYS3200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -61,23 +61,30 @@ public class ApcMaSys3200Controller extends BaseController {
         }
 
         logger.info("=============selectSys3200List=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     // 관리번호 채번 정보 (History) 조회
-    @PostMapping(value = "/co/sys/sys/selectSys3200HisList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/co/sys/sys/selectSys3200HisList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectSys3200HisList(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
-            , HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============selectSys3200HisList=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            param.put("procedure", 		"P_SYS3200_Q");
+            param.put("procedure", "P_SYS3200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -86,23 +93,30 @@ public class ApcMaSys3200Controller extends BaseController {
         }
 
         logger.info("=============selectSys3200HisList=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     // 관리번호 채번 정보 신규
-    @PostMapping(value = "/co/sys/sys/insertSys3200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/co/sys/sys/insertSys3200.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertSys3200(
             @RequestBody Map<String, Object> param
-            ,Model model
+            , Model model
             , HttpSession session
-            ,HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============insertSys3200=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            param.put("procedure", 		"P_SYS3200_S");
+            param.put("procedure", "P_SYS3200_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -111,24 +125,31 @@ public class ApcMaSys3200Controller extends BaseController {
         }
 
         logger.info("=============insertSys3200=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
 
     // 관리번호 채번 정보 수정
-    @PostMapping(value = "/co/sys/sys/updateSys3200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/co/sys/sys/updateSys3200.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> updateSys3200(
             @RequestBody Map<String, Object> param
-            ,Model model
+            , Model model
             , HttpSession session
-            ,HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============updateSys3200=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            param.put("procedure", 		"P_SYS3200_S");
+            param.put("procedure", "P_SYS3200_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -137,23 +158,30 @@ public class ApcMaSys3200Controller extends BaseController {
         }
 
         logger.info("=============updateSys3200=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     // 관리번호 채번 정보 삭제
-    @PostMapping(value = "/co/sys/sys/deleteSys3200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/co/sys/sys/deleteSys3200.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> deleteSys3200(
             @RequestBody Map<String, Object> param
-            ,Model model
+            , Model model
             , HttpSession session
-            ,HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============deleteSys3200=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            param.put("procedure", 		"P_SYS3200_S");
+            param.put("procedure", "P_SYS3200_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -162,62 +190,135 @@ public class ApcMaSys3200Controller extends BaseController {
         }
 
         logger.info("=============deleteSys3200=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     // 관리번호 채번 정보 신규
-    @PostMapping(value = "/co/sys/sys/insertSys3200His.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/co/sys/sys/insertSys3200His.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertSys3200His(
             @RequestBody Map<String, Object> param
-            ,Model model
+            , Model model
             , HttpSession session
-            ,HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============insertSys3200His=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
 
         try {
-
-           /* for (Map<String, Object> param : params) {*/
-                param.put("procedure", "P_SYS3200_S1");
-                resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-           /* }*/
-
+            for(String key : param.keySet()){
+                if(key.contains("P_SYS3200_S1")) {
+                    if(param.get(key) instanceof List) {
+                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+                        listData.stream().forEach(d -> {
+                            try {
+                                d.put("procedure", 		key);
+                                d = apcMaCommDirectService.callProc(d, session, request, "");
+                                resultMap.put("result", d);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        resultMap.put(key, listData);
+                    } else if (param.get(key) instanceof Map) {
+                        Map<String, Object> mapData = (Map<String, Object>) param.get(key);
+                        mapData.put("procedure", 		key);
+                        resultMap.put(key, apcMaCommDirectService.callProc(mapData, session, request, ""));
+                    }
+                }
+            }
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
 
         logger.info("=============insertSys3200His=====end========");
-        return getSuccessResponseEntity(resultMap);
+        HashMap<String, Object> result = (HashMap<String, Object>) resultMap.get("result");
+        if (result.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
 
-    // 관리번호 채번 정보 수정
-    @PostMapping(value = "/co/sys/sys/updateSys3200His.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> updateSys3200His(
-            @RequestBody List<Map<String, Object>> params
-            ,Model model
-            , HttpSession session
-            ,HttpServletRequest request) throws Exception{
 
-        logger.info("=============updateSys3200His=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    // 관리번호 채번 정보 신규 등록
+    @PostMapping(value = "/co/sys/sys/insert3200Sample.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insert3200Sample(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception {
+
+        logger.info("=============insert3200Sample=====start========");
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            for (Map<String, Object> param : params) {
-                param.put("procedure", "P_SYS3200_S1");
-                resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-            }
+            param.put("procedure", "P_SYS3200_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============updateSys3200His=====end========");
-        return getSuccessResponseEntity(resultMap);
+        logger.info("=============insert3200Sample=====end========");
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+
     }
+
+    /*// 관리번호 채번 정보 조회
+    @PostMapping(value = "/co/sys/sys/select3200Sample.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> select3200Sample(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception {
+
+        logger.info("=============select3200Sample=====start========");
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+
+            param.put("procedure", "P_SYS3200_Q2");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============select3200Sample=====end========");
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+
+    }*/
 
 }
