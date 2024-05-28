@@ -290,10 +290,11 @@
 			      , CASE WHEN SUM(CNT5) > 0 THEN ROUND(SUM(CNT5) * 100 / NULLIF(SUM(CNT4),0),1)||'%' ELSE null END PER2
 			      , SUM(ERRCNT1) AS CNT7
 			      , SUM(ERRCNT2) AS CNT8
-			FROM   (SELECT  CASE WHEN A.CLSF <= '07' THEN '업무지원'
+			FROM   (SELECT  CASE WHEN A.CLSF <= '10' THEN '업무지원'
 			                     WHEN A.CLSF  = '11' THEN '생산농가'
 			                     WHEN A.CLSF  = '12' THEN '포탈'
 			                     WHEN A.CLSF  = '13' THEN  '평가'
+                                 WHEN A.CLSF  IN ('21','22','23') THEN '경영관리'
                                  END AS GB
 			              , 1    AS TOT
 			              , CASE WHEN A.DVLP_PLAN_YMD  <= #{dvlpPlanYmd} THEN 1 ELSE 0 END AS CNT1
