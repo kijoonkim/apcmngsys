@@ -170,7 +170,7 @@
     const fn_createUntyOrnz = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-untyOrnz';
-        SBGridProperties.id = 'untyOrnz';
+        SBGridProperties.id = 'grdUntyOrnz';
         SBGridProperties.jsonref = 'jsonUntyOrnz';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
@@ -187,7 +187,7 @@
     const fn_createUntyOrnzDtl = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-untyOrnzDtl';
-        SBGridProperties.id = 'untyOrnzDtl';
+        SBGridProperties.id = 'grdUntyOrnzDtl';
         SBGridProperties.jsonref = 'jsonUntyOrnzDtl';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
@@ -222,7 +222,6 @@
     const fn_addRow = function(nRow){
         const row = grdUntyOrnzDtl.getRowData(nRow, false);
         row.delYn = "N";
-        row.apcCd = gv_selectedApcCd;
         grdUntyOrnzDtl.addRow(true);
         grdUntyOrnzDtl.setCellDisabled(
             0,
