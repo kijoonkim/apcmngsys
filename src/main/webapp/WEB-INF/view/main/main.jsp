@@ -36,7 +36,7 @@
         html, body {
             height:100%;
         }
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333; height:auto;}
+        .sbt-A-wrap {min-width:1024px; margin:0 auto; height:100vh; overflow: hidden}
         .sbt-A-wrap .main {display:table;  width:100%; height:100%;}
         .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; height:90vh;}
         .sbt-A-wrap .left .sbt-all-left {height: 100%;}

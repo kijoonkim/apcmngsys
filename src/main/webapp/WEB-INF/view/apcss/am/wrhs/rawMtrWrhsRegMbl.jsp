@@ -171,6 +171,8 @@ input:focus{
 						<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
 						    <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
 						    <label for="srch-chk-autoPrint">자동출력</label>
+							<input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" />
+							<label for="srch-chk-exePrint">설정생략</label>
 					    </p>
 					</div>
 				</div>
@@ -946,7 +948,11 @@ input:focus{
 	const fn_autoPrint = async function(resultMap){
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
 		if(document.querySelector('#srch-chk-autoPrint').checked){
- 			gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+			if(document.querySelector('#srch-chk-exePrint').checked){
+				gfn_exeDirectPrint(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+			}else{
+ 				gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
+			}
  		}else{
  			gfn_popClipReport("원물인식표", rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno});
  		}
