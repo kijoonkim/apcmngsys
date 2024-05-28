@@ -62,13 +62,14 @@ const gfnma_formIdStr = function (val) {
  * @param 		{string} _bizcompid
  * @param 		{string} _whereclause
  * @param 		{string} _compcode
+ * @param 		{string} _clientcode
  * @param 		{string} _subcode
  * @param 		{string} _codename
  * @param 		{string} _allyn
  * @param 		{string} _defaultvalue
  * @returns 	{void}
  */
-async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _whereclause, _compcode, _subcode, _codename, _allyn, _defaultvalue) {
+async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _whereclause, _compcode, _clientcode, _subcode, _codename, _allyn, _defaultvalue) {
 
 	if (gfn_isEmpty(_bizcompid)) {
 		return;
@@ -76,9 +77,9 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 
     var paramObj = { 
 		v_p_debug_mode_yn	: ''
-		,v_p_lang_id		: 'KOR'
+		,v_p_lang_id		: ''
 		,v_p_comp_code		: _compcode
-		,v_p_client_code	: ''
+		,v_p_client_code	: _clientcode
 		,v_p_bizcomp_id		: _bizcompid
 		,v_p_where_clause	: _whereclause
 		,v_p_form_id		: ''
@@ -96,7 +97,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 	});
 
 	const data = await postJsonPromise;
-	//console.log('select data:', data);
+	console.log('select data:', data);
 
 	try {
 		_jsondataRef.length = 0;

@@ -1,6 +1,7 @@
 package com.at.apcss.co.user.mapper;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -86,4 +87,16 @@ public interface ComUserMapper {
 	 */
 	public ComUserVO selectAccountDupChk(ComUserVO comUserVO);
 
+
+    /**
+     * 생산농가 계정관리 조회
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectComUserPrdcrAprvList(HashMap<String, Object> comUserVO) throws Exception;
+
+    public int updateUserAprv(HashMap<String, Object> comUserVO);
 }
+
+

@@ -316,5 +316,15 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return comUserMapper.selectAccountDupChk(comUserVO);
 	}
 
+    @Override
+    public List<HashMap<String, Object>> selectComUserPrdcrAprvList(HashMap<String, Object> comUserVO) throws Exception {
+        List<HashMap<String, Object>> resultVO = comUserMapper.selectComUserPrdcrAprvList(comUserVO);
+        return resultVO;
+    }
+    @Override
+	public int updateUserAprv(HashMap<String,Object> comUserVO) throws Exception {
+		return comUserMapper.updateUserAprv(comUserVO);
+	}
+
 
 }

@@ -654,6 +654,19 @@
 				grdWrhsSmmry.setCellDisabled(index+2,16,index+2,16,true,true);
 				grdWrhsSmmry.setCellDisabled(index+2,23,index+2,23,true,true);
 			}
+        	item["v1WrhsCmptnYn"] === "Y" ? grdWrhsSmmry.setCellStyle('background-color',index+2,3,index+2,7,'#e3dde3')
+        			: grdWrhsSmmry.setCellStyle('background-color',index+2,3,index+2,7,'#FFFFFF');
+        	item["v2WrhsCmptnYn"] === "Y" ? grdWrhsSmmry.setCellStyle('background-color',index+2,10,index+2,14,'#e3dde3')
+        			: grdWrhsSmmry.setCellStyle('background-color',index+2,10,index+2,14,'#FFFFFF');
+        	item["v3WrhsCmptnYn"] === "Y" ? grdWrhsSmmry.setCellStyle('background-color',index+2,17,index+2,21,'#e3dde3')
+        			: grdWrhsSmmry.setCellStyle('background-color',index+2,17,index+2,21,'#FFFFFF');
+
+        	if(item["lastWrhsCmptnYn"] === "Y"){
+        		grdWrhsSmmry.setCellStyle('background-color',index+2,3,index+2,7,'#e3dde3');
+        		grdWrhsSmmry.setCellStyle('background-color',index+2,10,index+2,14,'#e3dde3');
+        		grdWrhsSmmry.setCellStyle('background-color',index+2,17,index+2,21,'#e3dde3');
+        	}
+
         })
 	}
 
