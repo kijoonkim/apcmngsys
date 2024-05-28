@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 인사정보 등록을 처리하는 컨트롤러 클래스
@@ -59,7 +60,14 @@ public class ApcMaHri1000Controller extends BaseController {
         }
 
         logger.info("=============selectHri1000List=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     @PostMapping(value = "/hr/hri/hri/insertHri1000Master.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -81,7 +89,14 @@ public class ApcMaHri1000Controller extends BaseController {
         }
 
         logger.info("=============insertHri1000Master=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     @PostMapping(value = "/hr/hri/hri/insertHri1000Sub.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -103,7 +118,14 @@ public class ApcMaHri1000Controller extends BaseController {
         }
 
         logger.info("=============insertHri1000Master=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     @PostMapping(value = "/hr/hri/hri/insertHri1000Detail.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -143,7 +165,14 @@ public class ApcMaHri1000Controller extends BaseController {
         }
 
         logger.info("=============insertHri1000Detail=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     @PostMapping(value = "/hr/hri/hri/deleteHri1000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -167,7 +196,14 @@ public class ApcMaHri1000Controller extends BaseController {
         }
 
         logger.info("=============deleteHri1000List=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     @PostMapping(value = "/hr/hri/hri/insertHri1000EnterEmp.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -191,6 +227,13 @@ public class ApcMaHri1000Controller extends BaseController {
         }
 
         logger.info("=============insertHri1000EnterEmp=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 }

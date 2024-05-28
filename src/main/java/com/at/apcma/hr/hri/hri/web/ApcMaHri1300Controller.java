@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,6 +51,93 @@ public class ApcMaHri1300Controller extends BaseController {
         try {
 
             param.put("procedure", 		"P_HRI1300_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHri1300List=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 마스터 저장
+    @PostMapping(value = "/hr/hri/hri/insertHri1300Master.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHri1300Master(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHri1300List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_HRI1300_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHri1300List=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 서브 저장
+    @PostMapping(value = "/hr/hri/hri/insertHri1300Sub.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHri1300Sub(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHri1300List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for(String key : param.keySet()){
+                if(key.contains("subData")) {
+                    if(param.get(key) instanceof List) {
+                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+                        listData.stream().forEach(d -> {
+                            try {
+                                d.put("procedure", 		"P_HRI1300_S1");
+                                apcMaCommDirectService.callProc(d, session, request, "");
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        resultMap.put(key, listData);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHri1300List=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 인사기록반영
+    @PostMapping(value = "/hr/hri/hri/deleteHri1300.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> deleteHri1300(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHri1300List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_HRI1300_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

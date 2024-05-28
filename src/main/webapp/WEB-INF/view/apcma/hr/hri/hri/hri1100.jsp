@@ -82,7 +82,15 @@
                     </td>
                     <th scope="row" class="th_bg">직책</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_DUTY_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">직종</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -116,7 +124,15 @@
                     </td>
                     <th scope="row" class="th_bg">직무</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_JOB_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_JOB_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_JOB_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">기산일</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -178,13 +194,53 @@
         SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
         SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
 
+        // 직책
+        gfnma_multiSelectInit({
+            target			: ['#SRCH_DUTY_CODE']
+            ,compCode		: gv_ma_selectedApcCd
+            ,clientCode		: gv_ma_selectedClntCd
+            ,bizcompId		: 'L_HRI003'
+            ,whereClause	: ''
+            ,formId			: p_formId
+            ,menuId			: p_menuId
+            ,selectValue	: ''
+            ,dropType		: 'down' 	// up, down
+            ,dropAlign		: 'right' 	// left, right
+            ,colValue		: 'SUB_CODE'
+            ,colLabel		: 'CODE_NAME'
+            ,columns		:[
+                {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+            ]
+        });
+
+        // 직무
+        gfnma_multiSelectInit({
+            target			: ['#SRCH_JOB_CODE']
+            ,compCode		: gv_ma_selectedApcCd
+            ,clientCode		: gv_ma_selectedClntCd
+            ,bizcompId		: 'L_HRI006'
+            ,whereClause	: ''
+            ,formId			: p_formId
+            ,menuId			: p_menuId
+            ,selectValue	: ''
+            ,dropType		: 'down' 	// up, down
+            ,dropAlign		: 'right' 	// left, right
+            ,colValue		: 'SUB_CODE'
+            ,colLabel		: 'CODE_NAME'
+            ,columns		:[
+                {caption: "직무",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                {caption: "담당자명", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+            ]
+        });
+
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 재직구분
             gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwList'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['SRCH_DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            /*gfnma_setComSelect(['SRCH_DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
             // 직종
             gfnma_setComSelect(['SRCH_JOB_FAMILY'], jsonJobFamily, 'L_HRI004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 성별
@@ -376,7 +432,7 @@
         let recordCountPerPage 	= gvwList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
         let currentPageNo 		= gvwList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
         var getColRef 			= gvwList.getColRef("checked");
-        gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
+        //gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
         fn_setGvwList(recordCountPerPage, currentPageNo);
     }
 
@@ -388,7 +444,9 @@
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
-        let DUTY_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DUTY_CODE"));
+        let dutyCodeObj = gfnma_multiSelectGet('#SRCH_DUTY_CODE');
+        let DUTY_CODE	    = dutyCodeObj.value;
+        //let DUTY_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DUTY_CODE"));
         let JOB_FAMILY	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_FAMILY"));
         let GENDER	        = gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
         let PAY_AREA_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
@@ -396,7 +454,9 @@
         let EMP_NAME	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         let POSITION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
         let JOB_RANK	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_RANK"));
-        let JOB_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_CODE"));
+        let jobCodeObj = gfnma_multiSelectGet('#SRCH_JOB_CODE');
+        let JOB_CODE	    = jobCodeObj.value;
+        //let JOB_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_CODE"));
         let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
 
         var paramObj = {
