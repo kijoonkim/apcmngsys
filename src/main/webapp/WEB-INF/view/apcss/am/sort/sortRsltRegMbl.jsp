@@ -152,6 +152,14 @@ input::-webkit-inner-spin-button {
 			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div style="margin-right: auto;">
 					<sbux-button
+							id="btnPrint"
+							name="btnPrint"
+							uitype="normal"
+							text="원물인식표"
+							class="btn btn-sm btn-mbl btn-primary"
+							onclick="fn_print"
+					></sbux-button>
+					<sbux-button
 						id="btnReset"
 						name="btnReset"
 						uitype="normal"
@@ -187,6 +195,8 @@ input::-webkit-inner-spin-button {
 						<p class="ad_input_row chk-mbl" style="vertical-align:middle;">
 						    <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
 						    <label for="srch-chk-autoPrint">자동출력</label>
+							<input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" />
+							<label for="srch-chk-exePrint">미리보기</label>
 					    </p>
 					</div>
 
@@ -5473,6 +5483,32 @@ input::-webkit-inner-spin-button {
 		SBUxMethod.set("dtl-lbl-invntr", invntrInfo);
 		$("table:nth-child(1) > tbody > tr:nth-child(5) > td.td_input").append(apdEl);
 		}
+
+	const fn_print = async function(){
+		let sortno = SBUxMethod.get('dtl-inp-sortno');
+		let wrhsno = SBUxMethod.get('dtl-inp-pltno');
+		let itemCd = SBUxMethod.get('dtl-inp-itemNm');
+
+		if(gfn_isEmpty(sortNo)){
+			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		if(gfn_isEmpty(wrhsno)){
+			gfn_comAlert("W0001", "팔레트번호");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC1');
+		let param =	{apcCd: gv_selectedApcCd, wrhsno: wrhsno,sortno: sortno,itemCd: itemCd,	grdSeCd: '02'};
+		if(document.querySelector('#srch-chk-exePrint').checked){
+			await gfn_popClipReport(
+					"선별확인서(입고별)",
+					rptUrl,
+					param
+			);
+		}else{
+			await gfn_exeDirectPrint(rptUrl, param);
+		}
+	}
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

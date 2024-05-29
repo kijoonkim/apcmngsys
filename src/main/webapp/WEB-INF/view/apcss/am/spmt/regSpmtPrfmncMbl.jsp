@@ -280,7 +280,7 @@
                         <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked>
                         <label for="srch-chk-autoPrint"style="font-size: 3vh">자동출력</label>
                         <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" >
-                        <label for="srch-chk-exePrint"style="font-size: 3vh">설정생략</label>
+                        <label for="srch-chk-exePrint"style="font-size: 3vh">미리보기</label>
                     </p>
                 </div>
             </div>
@@ -2072,7 +2072,7 @@
             }
             const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
             if(document.querySelector('#srch-chk-autoPrint').checked){
-                if(document.querySelector('#srch-chk-exePrint').checked){
+                if(!document.querySelector('#srch-chk-exePrint').checked){
                     await gfn_exeDirectPrint(rptUrl, {
                         apcCd: gv_selectedApcCd,
                         spmtno: returnSpmtNo,
@@ -2187,8 +2187,11 @@
             gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
             return;
         }
-
-        gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
+        if(!document.querySelector('#srch-chk-exePrint').checked){
+            gfn_exeDirectPrint(rptUrl,{apcCd: gv_selectedApcCd, spmtno: spmtno});
+        }else {
+            gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
+        }
     }
     /** modal 날짜 셋팅 **/
     const fn_modalDateSet = async function(){
