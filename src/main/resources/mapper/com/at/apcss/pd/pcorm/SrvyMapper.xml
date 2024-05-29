@@ -24,6 +24,15 @@
 			SELECT /* com.at.apcss.pd.pcorm.mapper.SrvyMapper.selectSrvyList */
 				TES.YR
 				, TES.USER_ID
+				, (SELECT DECODE(APRV , '1' , '승인형' , '2' , '육성형' , '')
+					FROM TB_EV_APO
+					WHERE 1=1
+					  AND BRNO = (SELECT BRNO
+									FROM TB_COM_USER
+									WHERE 1=1
+									  AND USER_ID = TES.USER_ID)
+					  AND APO_SE = '1'
+				) AS APRV
 				, TES.SRVY_KND
 				, TES.SRVY_SN
 				, TES.SRVY_CN

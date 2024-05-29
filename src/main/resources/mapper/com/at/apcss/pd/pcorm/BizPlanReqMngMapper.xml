@@ -27,6 +27,8 @@
 				TEA.APO_CD
 				, TEA.APO_SE
 				, TEA.BRNO
+				, DECODE(TEA.APRV , '1' , '승인형' , '2' , '육성형' , ''
+				) AS APRV
 				, TEA.CRNO
 				, TEA.CORP_NM
 				, (CASE WHEN

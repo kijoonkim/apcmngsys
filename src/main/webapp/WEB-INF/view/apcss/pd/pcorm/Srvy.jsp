@@ -148,6 +148,7 @@
 
 		SBGridProperties.columns = [
 			{caption: ["등록년도"], 	ref: 'yr',			type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직구분"], 	ref: 'aprv',		type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["유저 아이디"], 	ref: 'userId',		type:'output',  width:'100px',	style:'text-align:center'},
 			{caption: ["설문내용"], 	ref: 'srvyCn',		type:'output',  width:'500px',	style:'text-align:center'},
 			{caption: ["응답내용"], 	ref: 'rspnsCn',	 typeinfo : {textareascroll : true},	type:'textarea',  width:'500px' ,disabled:true },
@@ -207,6 +208,7 @@
 						,srvySn		: item.srvySn
 						,srvyCn		: item.srvyCn
 						,rspnsCn	: item.rspnsCn
+						,aprv		: item.aprv
 				}
 				jsonSrvy.push(SrvyReqMngVO);
 				if (index === 0) {
@@ -259,6 +261,7 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["등록년도"], 	ref: 'yr',			type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직구분"], 	ref: 'aprv',		type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["유저 아이디"], 	ref: 'userId',		type:'output',  width:'100px',	style:'text-align:center'},
 			{caption: ["설문내용"], 	ref: 'srvyCn',		type:'output',  width:'500px',	style:'text-align:center'},
 			{caption: ["응답내용"], 	ref: 'rspnsCn',	 	type:'output',  width:'500px',	style:'text-align:center'},
@@ -292,6 +295,7 @@
 						,srvySn		: item.srvySn
 						,srvyCn		: item.srvyCn
 						,rspnsCn	: item.rspnsCn
+						,aprv		: item.aprv
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

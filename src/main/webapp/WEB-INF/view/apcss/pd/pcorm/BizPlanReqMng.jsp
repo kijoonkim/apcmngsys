@@ -239,6 +239,7 @@
 
 		SBGridProperties.columns = [
 			{caption: ["등록년도","등록년도"], 		ref: 'yr',				type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직구분","조직구분"], 		ref: 'aprv',			type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["법인명","법인명"], 			ref: 'corpNm',			type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["사업자번호","사업자번호"], 		ref: 'brno',			type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["법인번호","법인번호"], 		ref: 'crno',			type:'output',  width:'96px',	style:'text-align:center'},
@@ -337,6 +338,7 @@
 						,bizPlanFileSn	: item.bizPlanFileSn
 						,sgntrFileSn	: item.sgntrFileSn
 
+						,aprv			: item.aprv
 				}
 				jsonBizPlanReqMng.push(BizPlanReqMngVO);
 				if (index === 0) {
@@ -518,6 +520,7 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["등록년도"], 				ref: 'yr',				type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직구분"], 				ref: 'aprv',			type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["법인명"], 					ref: 'corpNm',			type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["사업자번호"], 				ref: 'brno',			type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["법인번호"], 				ref: 'crno',			type:'output',  width:'96px',	style:'text-align:center'},
@@ -570,6 +573,8 @@
 
 						,bizPlanFileSn	: item.bizPlanFileSn
 						,sgntrFileSn	: item.sgntrFileSn
+
+						,aprv			: item.aprv
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});
