@@ -14,4 +14,5 @@ public class SrvyVO extends ComVO{
 	private String srvySn;
 	private String srvyCn;
 	private String rspnsCn;
+	private String aprv;
 }
