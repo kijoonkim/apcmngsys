@@ -573,7 +573,14 @@
             {caption: ['규격'], 			ref: 'spcfctNm', 		width: '100px', type: 'output', style: 'text-align:center'},
             {caption: ['생산일자'], 		ref: 'pckgYmd', 		width: '150px', type: 'output', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['포장번호'], 		ref: 'pckgno', 			width: '150px', type: 'output', style: 'text-align:center'},
+           	{
+           		caption: ['대표생산자'],		
+           		ref: 'prdcrNm', 		
+           		width: '80px', 	
+           		type: 'output', 
+           		style: 'text-align:center'
+           	},
+           	{caption: ['포장번호'], 		ref: 'pckgno', 			width: '150px', type: 'output', style: 'text-align:center'},
             /* {caption: ['선별등급'], 		ref: 'sortGrdNm', 		width: '120px', type: 'output', style: 'text-align:center'}, */
             {caption: ['재고수량'], 		ref: 'invntrQntt', 		width: '80px', 	type: 'output', style: 'text-align:right'},
             {caption: ['재고중량 (Kg)'], 	ref: 'invntrWght', 		width: '100px', type: 'output', style: 'text-align:right',
@@ -700,20 +707,20 @@
 
     // 개인화 저장
     function fn_personalSave(){
-    	grdSpmtPrfmnc.savePersonalInfo("apcCd");
+    	grdGdsInvntr.savePersonalInfo("apcCd");
    	}
     // 개인화 호출
     function fn_personalLoad(){
-    	grdSpmtPrfmnc.loadPersonalInfo("apcCd");
+    	grdGdsInvntr.loadPersonalInfo("apcCd");
    	}
 	// 열 숨기기
     function fn_colHidden(){
-    	grdSpmtPrfmnc.setColHidden(grdSpmtPrfmnc.getCol(), true);
+    	grdGdsInvntr.setColHidden(grdSpmtPrfmnc.getCol(), true);
    	}
 	// 열 보이기
     function fn_colShow(){
     	for(let i = grdSpmtPrfmnc.getFixedCols(); i < grdSpmtPrfmnc.getCols()-1; i++) {
-   			grdSpmtPrfmnc.setColHidden(i, false);
+    		grdGdsInvntr.setColHidden(i, false);
     	}
    	}
 
@@ -811,7 +818,7 @@
   		          			  ,	pckgSeCd	: item.pckgSeCd
   		          			  ,	pckgSeNm	: item.pckgSeNm
   		          			  ,	prdcrCd		: item.rprsPrdcrCd
-  		          			  ,	prdcrNm		: item.rprsPrdcrNm
+  		          			  ,	prdcrNm		: item.prdcrNm
   		          			  ,	fcltCd		: item.fcltCd
   		          			  ,	fcltNm		: item.fcltNm
   		          			  ,	cmndQntt	: item.cmndQntt
