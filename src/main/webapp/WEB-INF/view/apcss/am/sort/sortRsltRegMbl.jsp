@@ -155,7 +155,7 @@ input::-webkit-inner-spin-button {
 							id="btnPrint"
 							name="btnPrint"
 							uitype="normal"
-							text="원물인식표"
+							text="선별확인서"
 							class="btn btn-sm btn-mbl btn-primary"
 							onclick="fn_print"
 					></sbux-button>
@@ -5036,8 +5036,8 @@ input::-webkit-inner-spin-button {
 
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-                fn_reset();
                 fn_autoPrint(data.resultMap);
+                fn_reset();
 
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -5052,24 +5052,28 @@ input::-webkit-inner-spin-button {
     }
 
     const fn_autoPrint = async function (resultMap) {
-        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC');
+        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC1');
         let sortSnList = resultMap.sortSnList;
         let sortno = resultMap.sortno;
+		let rawMtrInvntrList = resultMap.rawMtrInvntrList;
         let sortNoSnList = [];
+		let itemCd = SBUxMethod.get("dtl-inp-itemNm");
 
         sortSnList.forEach(function (item) {
             sortNoSnList.push(sortno + item);
         })
         const sortnoSn = sortNoSnList.join("','");
+		const wrhsno = rawMtrInvntrList.join("','");
+
+		let param =	{apcCd: gv_selectedApcCd, wrhsno: wrhsno,sortno: sortno,itemCd: itemCd,	grdSeCd: '02',element: 'div-rpt-clipReportPrint'};
         if (document.querySelector('#srch-chk-autoPrint').checked) {
-            await gfn_DirectPrintClipReport(rptUrl, {
-                apcCd: gv_selectedApcCd,
-                sortno: resultMap.sortno,
-                sortnosn: sortnoSn,
-                element: 'div-rpt-clipReportPrint'
-            });
+			if(!document.querySelector('#srch-chk-exePrint').checked){
+				await gfn_exeDirectPrint(rptUrl, param);
+			}else{
+				await gfn_DirectPrintClipReport(rptUrl, param);
+			}
         } else {
-            await gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortno: resultMap.sortno, sortnosn: sortnoSn});
+            await gfn_popClipReport("선별확인서", rptUrl, param);
         }
 
 
@@ -5486,10 +5490,10 @@ input::-webkit-inner-spin-button {
 
 	const fn_print = async function(){
 		let sortno = SBUxMethod.get('dtl-inp-sortno');
-		let wrhsno = SBUxMethod.get('dtl-inp-pltno');
+		let wrhsno = SBUxMethod.get("dtl-inp-wrhsno");
 		let itemCd = SBUxMethod.get('dtl-inp-itemNm');
 
-		if(gfn_isEmpty(sortNo)){
+		if(gfn_isEmpty(sortno)){
 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
@@ -5498,7 +5502,7 @@ input::-webkit-inner-spin-button {
 			return;
 		}
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'ST_DOC1');
-		let param =	{apcCd: gv_selectedApcCd, wrhsno: wrhsno,sortno: sortno,itemCd: itemCd,	grdSeCd: '02'};
+		let param =	{apcCd: gv_selectedApcCd, wrhsno: wrhsno,sortno: sortno,itemCd: itemCd,	grdSeCd: '02',element: 'div-rpt-clipReportPrint'};
 		if(document.querySelector('#srch-chk-exePrint').checked){
 			await gfn_popClipReport(
 					"선별확인서(입고별)",
