@@ -2188,7 +2188,7 @@
             return;
         }
         if(!document.querySelector('#srch-chk-exePrint').checked){
-            gfn_exeDirectPrint(rptUrl,{apcCd: gv_selectedApcCd, spmtno: spmtno});
+            gfn_exeDirectPrint(rptUrl,{apcCd: gv_selectedApcCd, spmtno: spmtno,element:"div-rpt-clipReportPrint"});
         }else {
             gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
         }
