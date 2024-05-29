@@ -172,7 +172,7 @@ input:focus{
 						    <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
 						    <label for="srch-chk-autoPrint">자동출력</label>
 							<input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" />
-							<label for="srch-chk-exePrint">설정생략</label>
+							<label for="srch-chk-exePrint">미리보기</label>
 					    </p>
 					</div>
 				</div>
@@ -948,7 +948,7 @@ input:focus{
 	const fn_autoPrint = async function(resultMap){
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
 		if(document.querySelector('#srch-chk-autoPrint').checked){
-			if(document.querySelector('#srch-chk-exePrint').checked){
+			if(!document.querySelector('#srch-chk-exePrint').checked){
 				gfn_exeDirectPrint(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
 			}else{
  				gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, wrhsno: resultMap.wrhsno,element : 'div-rpt-clipReportPrint'});
