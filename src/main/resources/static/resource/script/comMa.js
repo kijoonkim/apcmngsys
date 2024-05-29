@@ -97,7 +97,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 	});
 
 	const data = await postJsonPromise;
-	console.log('select data:', data);
+	//console.log('select data:', data);
 
 	try {
 		_jsondataRef.length = 0;
@@ -349,6 +349,38 @@ const gfnma_uxDataSet = function (target, obj) {
 			SBUxMethod.set(key,	obj[key]);
 		}
 	}
+}
+
+/**
+ * @name 		gfnma_getObjectRowTable
+ * @description 테이블 tr에서 DATA 추출하기
+ * @function
+ * @param 		{string} target
+ * @returns 	{object}
+ */
+const gfnma_getObjectRowTable = function (target) {
+	
+    var obj = {};
+    target.find('td').each(function (index, item) {
+        if ($(this).attr('cu-name')) {
+            obj[$(this).attr('cu-name')] = $(this).text();
+        }
+    });
+    return obj;
+}
+
+/**
+ * @name 		gfnma_getNumber
+ * @description 숫자(0-9)만 추출한다.
+ * @function
+ * @param 		{string} str
+ * @returns 	{Number}
+ */
+const gfnma_getNumber = function (str) {
+	
+	var regex 	= /[^0-9]/g;
+	var result 	= str.replace(regex, "");
+    return Number(result);
 }
 
 
