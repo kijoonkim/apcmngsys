@@ -193,11 +193,11 @@
                     <table class="table table-bordered tbl_fixed">
                         <colgroup>
                             <col style="width:4%">
-                            <col style="width:6%">
+                            <col style="width:8%">
                             <col style="width:4%">
-                            <col style="width:6%">
+                            <col style="width:5%">
                             <col style="width:4%">
-                            <col style="width:6%">
+                            <col style="width:8%">
                             <col style="width:4%">
                             <col style="width:6%">
                         </colgroup>
@@ -209,7 +209,7 @@
                                         <font>선택</font>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="NUMBER_ELEMENT1" style="width:150px;height:150px;padding-top:0px;overflow:auto">
+                                    <div class="dropdown-menu" aria-labelledby="NUMBER_ELEMENT1" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                                     </div>
                                 </div>
                             </td>
@@ -225,7 +225,7 @@
                                         <font>선택</font>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="SURFIX_ELEMENT1" style="width:150px;height:150px;padding-top:0px;overflow:auto">
+                                    <div class="dropdown-menu" aria-labelledby="SURFIX_ELEMENT1" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                                     </div>
                                 </div>
                             </td>
@@ -251,7 +251,7 @@
                                         <font>선택</font>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="NUMBER_ELEMENT2" style="width:150px;height:150px;padding-top:0px;overflow:auto">
+                                    <div class="dropdown-menu" aria-labelledby="NUMBER_ELEMENT2" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                                     </div>
                                 </div>
                             </td>
@@ -262,8 +262,16 @@
                             </td>
                             <th scope="row" class="th_bg">접미요소2</th>
                             <td class="td_input">
-                                <sbux-input id="SURFIX_ELEMENT2" class="form-control input-sm" uitype="text" required
-                                            style="width:100%"></sbux-input>
+                                <%--<sbux-input id="SURFIX_ELEMENT2" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>--%>
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SURFIX_ELEMENT2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SURFIX_ELEMENT2" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">접미요소값2</th>
                             <td class="td_input">
@@ -274,14 +282,14 @@
                         <tr>
                             <th scope="row" class="th_bg">채번요소3</th>
                             <td class="td_input">
-                                <sbux-select
-                                        id="NUMBER_ELEMENT3"
-                                        name="NUMBER_ELEMENT3"
-                                        uitype="single"
-                                        jsondata-ref="jsonNumberElement1"
-                                        unselected-text="전체"
-                                        class="form-control input-sm"
-                                ></sbux-select>
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="NUMBER_ELEMENT3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="NUMBER_ELEMENT3" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">채번요소값3</th>
                             <td class="td_input">
@@ -290,8 +298,16 @@
                             </td>
                             <th scope="row" class="th_bg">접미요소3</th>
                             <td class="td_input">
-                                <sbux-input id="SURFIX_ELEMENT3" class="form-control input-sm" uitype="text" required
-                                            style="width:100%"></sbux-input>
+                                <%--<sbux-input id="SURFIX_ELEMENT3" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>--%>
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SURFIX_ELEMENT3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SURFIX_ELEMENT3" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">접미요소값3</th>
                             <td class="td_input">
@@ -302,14 +318,22 @@
                         <tr>
                             <th scope="row" class="th_bg">채번요소4</th>
                             <td class="td_input">
-                                <sbux-select
+                                <%--<sbux-select
                                         id="NUMBER_ELEMENT4"
                                         name="NUMBER_ELEMENT4"
                                         uitype="single"
                                         jsondata-ref="jsonNumberElement4"
                                         unselected-text="전체"
                                         class="form-control input-sm"
-                                ></sbux-select>
+                                ></sbux-select>--%>
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="NUMBER_ELEMENT4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="NUMBER_ELEMENT4" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">채번요소값4</th>
                             <td class="td_input">
@@ -318,8 +342,16 @@
                             </td>
                             <th scope="row" class="th_bg">접미요소4</th>
                             <td class="td_input">
-                                <sbux-input id="SURFIX_ELEMENT4" class="form-control input-sm" uitype="text" required
-                                            style="width:100%"></sbux-input>
+                               <%-- <sbux-input id="SURFIX_ELEMENT4" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>--%>
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SURFIX_ELEMENT4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SURFIX_ELEMENT4" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">접미요소값4</th>
                             <td class="td_input">
@@ -330,14 +362,22 @@
                         <tr>
                             <th scope="row" class="th_bg">채번요소5</th>
                             <td class="td_input">
-                                <sbux-select
+                               <%-- <sbux-select
                                         id="NUMBER_ELEMENT5"
                                         name="NUMBER_ELEMENT5"
                                         uitype="single"
                                         jsondata-ref="jsonNumberElement5"
                                         unselected-text="전체"
                                         class="form-control input-sm"
-                                ></sbux-select>
+                                ></sbux-select>--%>
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="NUMBER_ELEMENT5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="NUMBER_ELEMENT5" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">채번요소값5</th>
                             <td class="td_input">
@@ -346,8 +386,16 @@
                             </td>
                             <th scope="row" class="th_bg">접미요소5</th>
                             <td class="td_input">
-                                <sbux-input id="SURFIX_ELEMENT5" class="form-control input-sm" uitype="text" required
-                                            style="width:100%"></sbux-input>
+                               <%-- <sbux-input id="SURFIX_ELEMENT5" class="form-control input-sm" uitype="text" required
+                                            style="width:100%"></sbux-input>--%>
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SURFIX_ELEMENT5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SURFIX_ELEMENT5" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">접미요소값5</th>
                             <td class="td_input">
@@ -456,12 +504,13 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            //지역
-            gfnma_setComSelect(['srch-numbering_group'], jsonNumberingGroup, 'L_SYS001', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
            /* gfnma_setComSelect(['NUMBER_ELEMENT3'], jsonNumberElement1, 'L_SYS002', '', '', 'sub_code', 'code_name', 'Y', ''),*/
+            gfnma_setComSelect(['srch-numbering_group'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
             gfnma_multiSelectInit({
-                target			: ['#NUMBER_ELEMENT1','#NUMBER_ELEMENT2','#NUMBER_ELEMENT3']
+                target			: ['#NUMBER_ELEMENT1','#NUMBER_ELEMENT2','#NUMBER_ELEMENT3','#NUMBER_ELEMENT4','#NUMBER_ELEMENT5'
+                    ,'#SURFIX_ELEMENT1' ,'#SURFIX_ELEMENT2','#SURFIX_ELEMENT3','#SURFIX_ELEMENT4','#SURFIX_ELEMENT5']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_SYS002'
@@ -470,12 +519,12 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'75px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'75px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'}
                 ]
             })
         ]);
@@ -524,25 +573,45 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["채번길이"], ref: 'NUMBER_LENGTH', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["채번요소1"], ref: 'NUMBER_ELEMENT1', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["채번요소1"], ref : 'NUMBER_ELEMENT1', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["채번요소값1"], ref: 'NUMBER_VALUE1', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["접미요소1"], ref: 'SURFIX_ELEMENT1', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["접미요소1"], ref : 'SURFIX_ELEMENT1', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["접미요소값1"], ref: 'SURFIX_VALUE1', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["채번요소2"], ref: 'NUMBER_ELEMENT2', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["채번요소2"], ref : 'NUMBER_ELEMENT2', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["채번요소값2"], ref: 'NUMBER_VALUE2', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["접미요소2"], ref: 'SURFIX_ELEMENT2', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["접미요소2"], ref : 'SURFIX_ELEMENT2', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["접미요소값2"], ref: 'SURFIX_VALUE2', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["채번요소3"], ref: 'NUMBER_ELEMENT3', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["채번요소3"], ref : 'NUMBER_ELEMENT3', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["채번요소값3"], ref: 'NUMBER_VALUE3', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["접미요소3"], ref: 'SURFIX_ELEMENT3', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["접미요소3"], ref : 'SURFIX_ELEMENT3', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["접미요소값3"], ref: 'SURFIX_VALUE3', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["채번요소4"], ref: 'NUMBER_ELEMENT4', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["채번요소4"], ref : 'NUMBER_ELEMENT4', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["채번요소값4"], ref: 'NUMBER_VALUE4', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["접미요소4"], ref: 'SURFIX_ELEMENT4', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["접미요소4"], ref : 'SURFIX_ELEMENT4', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["접미요소값4"], ref: 'SURFIX_VALUE4', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["채번요소5"], ref: 'NUMBER_ELEMENT5', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["채번요소5"], ref : 'NUMBER_ELEMENT5', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["채번요소값5"], ref: 'NUMBER_VALUE5', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
-            {caption: ["접미요소5"], ref: 'SURFIX_ELEMENT5', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
+            {caption : ["접미요소5"], ref : 'SURFIX_ELEMENT5', width : '100px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonNumberElement1', displayui : true, label : 'label', value : 'value'}
+            },
             {caption: ["접미요소값5"], ref: 'SURFIX_VALUE5', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
             {caption: ["시작채번연번"], ref: 'START_SERNO', type: 'output', width: '150px', style: 'text-align:left', hidden: true},
             {caption: ["고유일련번호"], ref: 'UNIQUE_YN', type: 'checkbox', width: '100px', style: 'text-align:center', hidden: true,
@@ -578,11 +647,13 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: '8888'
-            , V_P_CLIENT_CODE: '100'
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
             , V_P_NUMBERING_GROUP: V_P_NUMBERING_GROUP
             , V_P_NUMBERING_ID: V_P_NUMBERING_ID
             , V_P_NUMBERING_NAME: V_P_NUMBERING_NAME
+
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
             , V_P_PROC_ID: ''
@@ -598,6 +669,7 @@
         });
 
         const data = await postJsonPromise;
+        console.log("----------------data------------- : ", data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -683,29 +755,30 @@
         SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
 
 
-        SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);
+        /*SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);*/
+        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT1);
         SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
-        SBUxMethod.set("SURFIX_ELEMENT1", rowData.SURFIX_ELEMENT1);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT1);
         SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
 
-        SBUxMethod.set("NUMBER_ELEMENT2", rowData.NUMBER_ELEMENT2);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT2);
         SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
-        SBUxMethod.set("SURFIX_ELEMENT2", rowData.SURFIX_ELEMENT2);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT2);
         SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
 
-        SBUxMethod.set("NUMBER_ELEMENT3", rowData.NUMBER_ELEMENT3);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT3);
         SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
-        SBUxMethod.set("SURFIX_ELEMENT3", rowData.SURFIX_ELEMENT3);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT3);
         SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
 
-        SBUxMethod.set("NUMBER_ELEMENT4", rowData.NUMBER_ELEMENT4);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT4);
         SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
-        SBUxMethod.set("SURFIX_ELEMENT4", rowData.SURFIX_ELEMENT4);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT4);
         SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
 
-        SBUxMethod.set("NUMBER_ELEMENT5", rowData.NUMBER_ELEMENT5);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT5);
         SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
-        SBUxMethod.set("SURFIX_ELEMENT5", rowData.SURFIX_ELEMENT5);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT5);
         SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
 
         SBUxMethod.set("START_SERNO", rowData.START_SERNO);
@@ -727,29 +800,29 @@
         SBUxMethod.set("AUTO_NUM_YN", "");
 
 
-        SBUxMethod.set("NUMBER_ELEMENT1", "");
+        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("NUMBER_VALUE1", "");
-        SBUxMethod.set("SURFIX_ELEMENT1", "");
+        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("SURFIX_VALUE1", "");
 
-        SBUxMethod.set("NUMBER_ELEMENT2", "");
+        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("NUMBER_VALUE2", "");
-        SBUxMethod.set("SURFIX_ELEMENT2", "");
+        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("SURFIX_VALUE2", "");
 
-        SBUxMethod.set("NUMBER_ELEMENT3", "");
+        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("NUMBER_VALUE3", "");
-        SBUxMethod.set("SURFIX_ELEMENT3", "");
+        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("SURFIX_VALUE3", "");
 
-        SBUxMethod.set("NUMBER_ELEMENT4", "");
+        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("NUMBER_VALUE4", "");
-        SBUxMethod.set("SURFIX_ELEMENT4", "");
+        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("SURFIX_VALUE4", "");
 
-        SBUxMethod.set("NUMBER_ELEMENT5", "");
+        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("NUMBER_VALUE5", "");
-        SBUxMethod.set("SURFIX_ELEMENT5", "");
+        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', '');
         SBUxMethod.set("SURFIX_VALUE5", "");
 
         SBUxMethod.set("START_SERNO", 1);
@@ -775,8 +848,8 @@
             var paramHisObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: '8888'
-                , V_P_CLIENT_CODE: '100'
+                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
                 , V_P_NUMBERING_GROUP: rowData.NUMBERING_GROUP
                 , V_P_NUMBERING_ID: rowData.NUMBERING_ID
                 , V_P_NUMBERING_NAME: rowData.NUMBERING_NAME
@@ -873,6 +946,8 @@
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
+        console.log("-------------rowData---------------", rowData);
+
         SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
         SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
         SBUxMethod.set("USE_YN", rowData.USE_YN);
@@ -882,29 +957,29 @@
         SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
 
 
-        SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT1);
         SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
-        SBUxMethod.set("SURFIX_ELEMENT1", rowData.SURFIX_ELEMENT1);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT1);
         SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
 
-        SBUxMethod.set("NUMBER_ELEMENT2", rowData.NUMBER_ELEMENT2);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT2);
         SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
-        SBUxMethod.set("SURFIX_ELEMENT2", rowData.SURFIX_ELEMENT2);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT2);
         SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
 
-        SBUxMethod.set("NUMBER_ELEMENT3", rowData.NUMBER_ELEMENT3);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT3);
         SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
-        SBUxMethod.set("SURFIX_ELEMENT3", rowData.SURFIX_ELEMENT3);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT3);
         SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
 
-        SBUxMethod.set("NUMBER_ELEMENT4", rowData.NUMBER_ELEMENT4);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT4);
         SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
-        SBUxMethod.set("SURFIX_ELEMENT4", rowData.SURFIX_ELEMENT4);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT4);
         SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
 
-        SBUxMethod.set("NUMBER_ELEMENT5", rowData.NUMBER_ELEMENT5);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT5);
         SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
-        SBUxMethod.set("SURFIX_ELEMENT5", rowData.SURFIX_ELEMENT5);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT5);
         SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
 
         SBUxMethod.set("START_SERNO", rowData.START_SERNO);
@@ -967,26 +1042,31 @@
         let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
         let AUTO_NUM_YN = gfnma_nvl(SBUxMethod.get("AUTO_NUM_YN"));
 
-        let NUMBER_ELEMENT1 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT1"));
+        let NUMBER_ELEMENT1 = gfnma_multiSelectGet('#NUMBER_ELEMENT1');
         let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
-        let SURFIX_ELEMENT1 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT1"));
+        let SURFIX_ELEMENT1 = gfnma_multiSelectGet('#SURFIX_ELEMENT1');
         let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
-        let NUMBER_ELEMENT2 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT2"));
+
+        let NUMBER_ELEMENT2 = gfnma_multiSelectGet('#NUMBER_ELEMENT2');
         let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
-        let SURFIX_ELEMENT2 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT2"));
+        let SURFIX_ELEMENT2 = gfnma_multiSelectGet('#SURFIX_ELEMENT2');
         let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
-        let NUMBER_ELEMENT3 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT3"));
+
+        let NUMBER_ELEMENT3 = gfnma_multiSelectGet('#NUMBER_ELEMENT3');
         let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
-        let SURFIX_ELEMENT3 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT3"));
+        let SURFIX_ELEMENT3 = gfnma_multiSelectGet('#SURFIX_ELEMENT3');
         let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
-        let NUMBER_ELEMENT4 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT4"));
+
+        let NUMBER_ELEMENT4 = gfnma_multiSelectGet('#NUMBER_ELEMENT4');
         let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
-        let SURFIX_ELEMENT4 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT4"));
+        let SURFIX_ELEMENT4 = gfnma_multiSelectGet('#SURFIX_ELEMENT4');
         let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
-        let NUMBER_ELEMENT5 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT5"));
+
+        let NUMBER_ELEMENT5 = gfnma_multiSelectGet('#NUMBER_ELEMENT5');
         let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
-        let SURFIX_ELEMENT5 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT5"));
+        let SURFIX_ELEMENT5 = gfnma_multiSelectGet('#SURFIX_ELEMENT5');
         let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+
         let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
         let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
 
@@ -1089,8 +1169,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: '8888'
-            , V_P_CLIENT_CODE: '100'
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_NUMBERING_ID: obj.NUMBERING_ID
             , V_P_NUMBERING_NAME: obj.NUMBERING_NAME
@@ -1171,8 +1251,8 @@
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: ''
                     ,V_P_LANG_ID: ''
-                    ,V_P_COMP_CODE: '8888'
-                    ,V_P_CLIENT_CODE: '100'
+                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                     ,V_P_NUMBERING_ID: numberId
                     ,V_P_NUMBER_PREFIX: item.data.NUMBER_PREFIX
@@ -1235,8 +1315,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: '8888'
-            , V_P_CLIENT_CODE: '100'
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_NUMBERING_ID: obj.NUMBERING_ID
             , V_P_NUMBERING_NAME: obj.NUMBERING_NAME
@@ -1315,26 +1395,27 @@
         let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
         let AUTO_NUM_YN = gfnma_nvl(SBUxMethod.get("AUTO_NUM_YN"));
 
-        let NUMBER_ELEMENT1 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT1"));
+        let NUMBER_ELEMENT1 = gfnma_multiSelectGet('#NUMBER_ELEMENT1');
         let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
-        let SURFIX_ELEMENT1 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT1"));
+        let SURFIX_ELEMENT1 = gfnma_multiSelectGet('#SURFIX_ELEMENT1');
         let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
-        let NUMBER_ELEMENT2 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT2"));
+        let NUMBER_ELEMENT2 = gfnma_multiSelectGet('#NUMBER_ELEMENT2');
         let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
-        let SURFIX_ELEMENT2 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT2"));
+        let SURFIX_ELEMENT2 = gfnma_multiSelectGet('#SURFIX_ELEMENT2');
         let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
-        let NUMBER_ELEMENT3 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT3"));
+        let NUMBER_ELEMENT3 = gfnma_multiSelectGet('#NUMBER_ELEMENT3');
         let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
-        let SURFIX_ELEMENT3 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT3"));
+        let SURFIX_ELEMENT3 = gfnma_multiSelectGet('#SURFIX_ELEMENT3');
         let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
-        let NUMBER_ELEMENT4 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT4"));
+        let NUMBER_ELEMENT4 = gfnma_multiSelectGet('#NUMBER_ELEMENT4');
         let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
-        let SURFIX_ELEMENT4 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT4"));
+        let SURFIX_ELEMENT4 = gfnma_multiSelectGet('#SURFIX_ELEMENT4');
         let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
-        let NUMBER_ELEMENT5 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT5"));
+        let NUMBER_ELEMENT5 = gfnma_multiSelectGet('#NUMBER_ELEMENT5');
         let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
-        let SURFIX_ELEMENT5 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT5"));
+        let SURFIX_ELEMENT5 = gfnma_multiSelectGet('#SURFIX_ELEMENT5');
         let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+
         let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
         let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
 
@@ -1344,8 +1425,8 @@
             var paramObj = {
                 V_P_DEBUG_MODE_YN: ''
                 , V_P_LANG_ID: 'KOR'
-                , V_P_COMP_CODE: '8888'
-                , V_P_CLIENT_CODE: '100'
+                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_NUMBERING_ID: NUMBERING_ID
                 , V_P_NUMBERING_NAME: NUMBERING_NAME
@@ -1470,26 +1551,27 @@
         let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
         let AUTO_NUM_YN = gfnma_nvl(SBUxMethod.get("AUTO_NUM_YN"));
 
-        let NUMBER_ELEMENT1 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT1"));
+        let NUMBER_ELEMENT1 = gfnma_multiSelectGet('#NUMBER_ELEMENT1');
         let NUMBER_VALUE1 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE1"));
-        let SURFIX_ELEMENT1 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT1"));
+        let SURFIX_ELEMENT1 = gfnma_multiSelectGet('#SURFIX_ELEMENT1');
         let SURFIX_VALUE1 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE1"));
-        let NUMBER_ELEMENT2 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT2"));
+        let NUMBER_ELEMENT2 = gfnma_multiSelectGet('#NUMBER_ELEMENT2');
         let NUMBER_VALUE2 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE2"));
-        let SURFIX_ELEMENT2 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT2"));
+        let SURFIX_ELEMENT2 = gfnma_multiSelectGet('#SURFIX_ELEMENT2');
         let SURFIX_VALUE2 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE2"));
-        let NUMBER_ELEMENT3 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT3"));
+        let NUMBER_ELEMENT3 = gfnma_multiSelectGet('#NUMBER_ELEMENT3');
         let NUMBER_VALUE3 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE3"));
-        let SURFIX_ELEMENT3 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT3"));
+        let SURFIX_ELEMENT3 = gfnma_multiSelectGet('#SURFIX_ELEMENT3');
         let SURFIX_VALUE3 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE3"));
-        let NUMBER_ELEMENT4 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT4"));
+        let NUMBER_ELEMENT4 = gfnma_multiSelectGet('#NUMBER_ELEMENT4');
         let NUMBER_VALUE4 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE4"));
-        let SURFIX_ELEMENT4 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT4"));
+        let SURFIX_ELEMENT4 = gfnma_multiSelectGet('#SURFIX_ELEMENT4');
         let SURFIX_VALUE4 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE4"));
-        let NUMBER_ELEMENT5 = gfnma_nvl(SBUxMethod.get("NUMBER_ELEMENT5"));
+        let NUMBER_ELEMENT5 = gfnma_multiSelectGet('#NUMBER_ELEMENT5');
         let NUMBER_VALUE5 = gfnma_nvl(SBUxMethod.get("NUMBER_VALUE5"));
-        let SURFIX_ELEMENT5 = gfnma_nvl(SBUxMethod.get("SURFIX_ELEMENT5"));
+        let SURFIX_ELEMENT5 = gfnma_multiSelectGet('#SURFIX_ELEMENT5');
         let SURFIX_VALUE5 = gfnma_nvl(SBUxMethod.get("SURFIX_VALUE5"));
+
         let START_SERNO = gfnma_nvl(SBUxMethod.get("START_SERNO"));
         let UNIQUE_YN = gfnma_nvl(SBUxMethod.get("UNIQUE_YN"));
 
@@ -1497,8 +1579,8 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: '8888'
-            , V_P_CLIENT_CODE: '100'
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
             , V_P_NUMBERING_ID: NUMBERING_ID
             , V_P_NUMBERING_NAME: NUMBERING_NAME
