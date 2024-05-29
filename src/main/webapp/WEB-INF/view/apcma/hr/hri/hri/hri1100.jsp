@@ -75,10 +75,18 @@
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findDeptCode"
+                        ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">직책</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -166,6 +174,14 @@
         </div>
     </div>
 </section>
+
+<!-- 팝업 Modal -->
+<div>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup1">
+    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+</div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -258,6 +274,33 @@
             // 병역구분
             gfnma_setComSelect(['gvwList'], jsonArmyType, 'L_HRI019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
+    }
+
+    const fn_findDeptCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var replaceText0 	= "_CODE_";
+        var replaceText1 	= "_NAME_";
+        var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
+        compopup1.init({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'L_ORG900_ESS'
+            ,whereClause			: strWhereClause
+               ,searchCaptions			: ["부서", 		"부서명"]
+               ,searchInputFields		: ["CODE", 		"NAME"]
+               ,searchInputValues		: ["", 			searchText]
+            ,height					: '400px'
+               ,tableHeader			: ["부서", "부서명"]
+               ,tableColumnNames		: ["CODE", "NAME"]
+               ,tableColumnWidths		: ["80px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.CODE);
+            },
+        });
     }
 
     // only document

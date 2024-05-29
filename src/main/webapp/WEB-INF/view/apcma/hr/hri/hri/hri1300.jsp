@@ -888,11 +888,12 @@
         ];
 
         bandgvwDetail = _SBGrid.create(SBGridProperties);
+        bandgvwDetail.bind('afterrebuild','fnAfterBuild');
         bandgvwDetail.bind('beforepagechanged', 'fn_pagingTotalEmpList');
     }
 
     function fnDeptAppointYnChange(args){
-        let DEPT_APPOINT_YN = args.DEPT_APPOINT_YN;
+        let DEPT_APPOINT_YN = args ? args.DEPT_APPOINT_YN : gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN"));
         let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
         let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN"));
         let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN"));
@@ -992,7 +993,7 @@
 
     function fnPositionAppointYnChange(args){
         let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN"));
-        let POSITION_APPOINT_YN = args.POSITION_APPOINT_YN;
+        let POSITION_APPOINT_YN = args ? args.POSITION_APPOINT_YN : gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
         let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN"));
         let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN"));
         let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN"));
@@ -1071,7 +1072,7 @@
     function fnDutyAppointYnChange(args){
         let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN"));
         let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
-        let DUTY_APPOINT_YN = args.DUTY_APPOINT_YN;
+        let DUTY_APPOINT_YN = args ? args.DUTY_APPOINT_YN : gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN"));
         let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN"));
         let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN"));
         let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN"));
@@ -1150,7 +1151,7 @@
         let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN"));
         let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
         let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
-        let JOB_RANK_APPOINT_YN = args.JOB_RANK_APPOINT_YN;
+        let JOB_RANK_APPOINT_YN = args ? args.JOB_RANK_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN"));
         let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN"));
         let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN"));
         let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN"));
@@ -1229,7 +1230,7 @@
         let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
         let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
         let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN"));
-        let JOB_GROUP_APPOINT_YN = args.JOB_GROUP_APPOINT_YN;
+        let JOB_GROUP_APPOINT_YN = args ? args.JOB_GROUP_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN"));
         let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN"));
         let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN"));
         let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN"));
@@ -1308,7 +1309,7 @@
         let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN"));
         let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN"));
         let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN"));
-        let JOB_APPOINT_YN = args.JOB_APPOINT_YN;
+        let JOB_APPOINT_YN = args ? args.JOB_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN"));
         let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN"));
         let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN"));
 
@@ -1387,7 +1388,7 @@
         let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN"));
         let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN"));
         let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN"));
-        let JOB_FAMILY_APPOINT_YN = args.JOB_FAMILY_APPOINT_YN;
+        let JOB_FAMILY_APPOINT_YN = args ? args.JOB_FAMILY_APPOINT_YN : gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN"));
         let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN"));
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
@@ -1466,7 +1467,7 @@
         let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN"));
         let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN"));
         let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN"));
-        let REGION_APPOINT_YN = args.REGION_APPOINT_YN;
+        let REGION_APPOINT_YN = args ? args.REGION_APPOINT_YN : gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN"));
 
         if (DEPT_APPOINT_YN == "Y" || POSITION_APPOINT_YN == "Y" ||
             DUTY_APPOINT_YN == "Y" || JOB_RANK_APPOINT_YN == "Y" ||
@@ -1537,13 +1538,25 @@
     }
 
     function fnParentingWorkTypeYnChange(args){
-        if (args.PARENTING_WORK_TYPE_YN == "Y") {
+        let PARENTING_WORK_TYPE_YN = args ? args.PARENTING_WORK_TYPE_YN : gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN"))
+        if (PARENTING_WORK_TYPE_YN == "Y") {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('PARENTING_WORK_TYPE'), false, true);
         } else {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('PARENTING_WORK_TYPE'), true, true);
         }
     }
 
+    function fnAfterBuild() {
+        fnDeptAppointYnChange();
+        fnPositionAppointYnChange();
+        fnDutyAppointYnChange();
+        fnJobRankAppointYnChange();
+        fnJobGroupAppointYnChange();
+        fnJobAppointYnChange();
+        fnJobFamilyAppointYnChange();
+        fnRegionAppointYnChange();
+        fnParentingWorkTypeYnChange();
+    }
     /**
      * 목록 조회
      */
@@ -1563,7 +1576,7 @@
         let recordCountPerPage = gvwList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
         let currentPageNo = gvwList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
         var getColRef = gvwList.getColRef("checked");
-        gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
+
         fn_setGvwList(recordCountPerPage, currentPageNo);
     }
 
@@ -2256,7 +2269,8 @@
                     jsonBandgvwDetailList.push(msg);
                 });
 
-                bandgvwDetail.rebuild();
+                bandgvwDetail.refresh();
+                fnAfterBuild();
             } else {
                 alert(data.resultMessage);
             }
@@ -2300,7 +2314,6 @@
             SBUxMethod.attr('btnReflectionInfo', 'disabled', 'false');
             SBUxMethod.attr('btnDeleteAll', 'disabled', 'true');
         }
-
     }
 
     // 복사모드토글

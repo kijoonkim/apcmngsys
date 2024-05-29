@@ -1736,7 +1736,7 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["졸업일"],        ref: 'GRADUATE_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},ㅁ
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["입사후"],        ref: 'AFTER_ENTER_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
