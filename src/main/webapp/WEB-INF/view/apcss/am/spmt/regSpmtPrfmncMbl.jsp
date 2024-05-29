@@ -277,8 +277,10 @@
                 <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장발행" class="btn btn-sm btn-primary btn-mbl" onclick="fn_docSpmt()"></sbux-button>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked="">
-                        <label for="srch-chk-autoPrint">자동출력</label>
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked>
+                        <label for="srch-chk-autoPrint"style="font-size: 3vh">자동출력</label>
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" >
+                        <label for="srch-chk-exePrint"style="font-size: 3vh">설정생략</label>
                     </p>
                 </div>
             </div>
@@ -2070,7 +2072,19 @@
             }
             const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
             if(document.querySelector('#srch-chk-autoPrint').checked){
-                gfn_DirectPrintClipReport(rptUrl, {apcCd: gv_selectedApcCd, spmtno: returnSpmtNo,element : 'div-rpt-clipReportPrint'});
+                if(document.querySelector('#srch-chk-exePrint').checked){
+                    await gfn_exeDirectPrint(rptUrl, {
+                        apcCd: gv_selectedApcCd,
+                        spmtno: returnSpmtNo,
+                        element: 'div-rpt-clipReportPrint'
+                    });
+                }else{
+                    await gfn_DirectPrintClipReport(rptUrl, {
+                        apcCd: gv_selectedApcCd,
+                        spmtno: returnSpmtNo,
+                        element: 'div-rpt-clipReportPrint'
+                    });
+                }
             }else{
                 // gfn_popClipReport("송품장",rptUrl,{apcCd: gv_selectedApcCd, spmtno: returnSpmtNo});
             }

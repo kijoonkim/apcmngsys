@@ -48,6 +48,7 @@
         </div>
 
         <!--[pp] 검색 -->
+        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
         <table class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
@@ -460,9 +461,9 @@
            /* gfnma_setComSelect(['NUMBER_ELEMENT3'], jsonNumberElement1, 'L_SYS002', '', '', 'sub_code', 'code_name', 'Y', ''),*/
 
             gfnma_multiSelectInit({
-                target			: '#NUMBER_ELEMENT1'
-                ,compCode		: '8888'
-                ,clientCode		: '100'
+                target			: ['#NUMBER_ELEMENT1','#NUMBER_ELEMENT2','#NUMBER_ELEMENT3']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_SYS002'
                 ,whereClause	: ''
                 ,formId			: p_formId
