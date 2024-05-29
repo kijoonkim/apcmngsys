@@ -33,7 +33,10 @@
 					<colgroup>
 						<col style="width: 15%">
 						<col style="width: 15%">
-						<col style="width: 70%">
+						<col style="width: 5%">
+						<col style="width: 15%">
+						<col style="width: 15%">
+						<col style="width: 35%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -45,6 +48,19 @@
 									uitype="normal"
 									step-value="1"
 								></sbux-spinner>
+							</td>
+							<td style="border-right: hidden;"></td>
+
+							<th scope="row" class="th_bg" >조직구분</th>
+							<td class="td_input" style="border-right:hidden;" >
+								<sbux-select
+									id="srch-input-aprv"
+									name="srch-input-aprv"
+									uitype="single"
+									jsondata-ref="jsonComAprv"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
 							</td>
 							<td style="border-right: hidden;"></td>
 						</tr>
@@ -85,18 +101,19 @@
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
 		for (let i = 0; i < elements.length; i++) {
-		  	const el = elements.item(i);
-		  	el.addEventListener("keyup", (event) => {
-		  		if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
-		  			fn_searchBizPlan();
-		  		}
-		  		//key	Enter
-		  		//keyCode
-		  	});
+			const el = elements.item(i);
+			el.addEventListener("keyup", (event) => {
+				if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+					fn_searchBizPlan();
+				}
+				//key	Enter
+				//keyCode
+			});
 		}
 	})
 
 	//var jsonComCmptnInst = [];//관할기관
+	var jsonComAprv = [];//조직구분
 		/**
 	 * combo 설정
 	 */
@@ -105,6 +122,7 @@
 		let rst = await Promise.all([
 			//검색조건
 			//gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
+			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //통합조직여부
 		]);
 	}
 
@@ -187,8 +205,12 @@
 
 		let yr = SBUxMethod.get("srch-input-yr");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectSrvyList.do", {
 			yr : yr
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'

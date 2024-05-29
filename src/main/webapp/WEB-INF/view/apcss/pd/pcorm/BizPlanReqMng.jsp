@@ -113,8 +113,18 @@
 								></sbux-select>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<td colspan="6" class="td_input">
+							<th colspan="2" scope="row" class="th_bg">통합조직여부</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-input-aprv"
+									name="srch-input-aprv"
+									uitype="single"
+									jsondata-ref="jsonComAprv"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
 							</td>
+							<td style="border-right: hidden;"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -181,6 +191,7 @@
 	})
 
 	//var jsonComCmptnInst = [];//관할기관
+	var jsonComAprv = [];//조직구분
 
 	//사업계획서/전환서 파일 유무
 	var jsonComBpChk = [
@@ -200,6 +211,7 @@
 		let rst = await Promise.all([
 			//검색조건
 			//gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
+			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //통합조직여부
 		]);
 	}
 
@@ -299,6 +311,8 @@
 		//sChk 서명서 포함 스캔본 파일 확인
 		let sChk = SBUxMethod.get("srch-input-sChk");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectBizPlanReqMngList.do", {
 			brno : brno
 			,corpNm : corpNm
@@ -306,6 +320,8 @@
 
 			,bpChk : bpChk
 			,sChk : sChk
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'
