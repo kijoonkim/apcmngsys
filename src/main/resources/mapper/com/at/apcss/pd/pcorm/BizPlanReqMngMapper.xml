@@ -27,6 +27,8 @@
 				TEA.APO_CD
 				, TEA.APO_SE
 				, TEA.BRNO
+				, DECODE(TEA.APRV , '1' , '승인형' , '2' , '육성형' , ''
+				) AS APRV
 				, TEA.CRNO
 				, TEA.CORP_NM
 				, (CASE WHEN
@@ -100,6 +102,9 @@
 			</if>
 			<if test='sChk != null and sChk != ""'>
 			  AND #{sChk} = (CASE WHEN SSD.FILE_SN IS NOT NULL THEN 'Y' ELSE 'N' END)
+			</if>
+			<if test='aprv != null and aprv != ""'>
+			  AND TEA.APRV = #{aprv}
 			</if>
 		ORDER BY TEA.BRNO ASC
 
