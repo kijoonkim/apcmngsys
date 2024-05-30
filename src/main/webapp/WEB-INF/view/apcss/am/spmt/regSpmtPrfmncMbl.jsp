@@ -275,6 +275,7 @@
                 <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
                 <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장발행" class="btn btn-sm btn-primary btn-mbl" onclick="fn_docSpmt()"></sbux-button>
+                <sbux-button id="fullScreen" name="fullScreen" uitype="normal" text="전체화면" class="btn btn-sm btn-primary btn-mbl" onclick="fn_fullScreen"></sbux-button>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
                         <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked>
@@ -2244,6 +2245,25 @@
     const fn_focusout =function(e){
         if($(e.relatedTarget).attr('readonly') == 'readonly'){
             $(e.currentTarget).parent().nextAll().last().find('button').trigger('click');
+        }
+    }
+    const fn_fullScreen =function(){
+        if(!window.parent.document.fullscreenElement){
+            if(window.parent.document.documentElement.requestFullscreen){
+                window.parent.document.documentElement.requestFullscreen();
+            }else if(window.parent.document.documentElement.webkitRequestFullscreen){
+                window.parent.document.documentElement.webkitRequestFullscreen()
+            }else if(window.parent.document.documentElement.msRequestFullscreen){
+                window.parent.document.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(window.parent.document.exitFullscreen){
+                window.parent.document.exitFullscreen();
+            }else if(window.parent.document.webkitExitFullscreen){
+                window.parent.document.webkitExitFullscreen();
+            }else if(window.parent.document.msExitFullscreen){
+                window.parent.document.msExitFullscreen();
+            }
         }
     }
 
