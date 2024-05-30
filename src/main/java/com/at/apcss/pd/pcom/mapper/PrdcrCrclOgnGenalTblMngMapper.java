@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
+import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
 /**
  * 게시판 Mapper 인터페이스
@@ -39,13 +41,7 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	public int updateStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 
 	public int updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
-	/**
-	 * 전문품목 매입매출을 작성한 통합조직 리스트 조회.
-	 * @param PrdcrCrclOgnGenalTblMngVO
-	 * @return
-	 * @throws Exception
-	 */
-	public List<ItemUoStbltYnVO> selectUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo);
+
 
 	/**
 	 * 총괄표 로우데이터
@@ -56,4 +52,43 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+
+	/**
+	 * 생산자조직 세부정보 업데이트
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	/**
+	 * 전문품목 매입매출 세부정보 업데이트
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateUoIsoItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+
+	/**
+	 * 생산자조직 리스트 조회.
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TbEvFrmhsApoVO> selectFrmhsStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+
+	/**
+	 * 출자출하조직 리스트 조회.
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItemStbltYnVO> selectIsoStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+
+	/**
+	 * 통합조직 리스트 조회.
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectUoStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 }

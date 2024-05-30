@@ -335,7 +335,7 @@
 							<sbux-button id="updateStbltYn1" name="updateStbltYn1" uitype="normal" text="적합여부 Y으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(1)"></sbux-button>
 							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
 							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
-							<sbux-button id="updateStbltYn4" name="updateStbltYn4" uitype="normal" text="통합조직 적합여부 전체 갱신" class="btn btn-sm btn-outline-danger" onclick="fn_updateAllUoStbltYn"></sbux-button>
+							<sbux-button id="updateStbltYn4" name="updateStbltYn4" uitype="normal" text="적합여부 전체 갱신" class="btn btn-sm btn-outline-danger" onclick="fn_updateAllUoStbltYn"></sbux-button>
 							<sbux-button id="btnSave01" name="btnSave01" uitype="normal" text="조치사항 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						</div>
 					</div>
@@ -1228,12 +1228,16 @@
 	}
 	//통합조직 적합여부 전체 갱신
 	async function fn_updateAllUoStbltYn(){
-		console.log("fn_updateAllUoStbltYn");
+
+		if(!confirm("적합여부 전체 갱신 하시겠습니까? \n약 5~10분 정도 소요 됩니다.")){
+			return;
+		}
+
 		let postJsonPromise = gfn_postJSON("/pd/pcom/updateAllUoStbltYn.do", {
 		});
 		let data = await postJsonPromise;
 		try{
-			console.log(data.insertedCnt);
+			console.log(data);
 			if(_.isEqual("S", data.resultStatus)){
 				alert("통합조직 적합여부 갱신 되었습니다.");
 				fn_search();
