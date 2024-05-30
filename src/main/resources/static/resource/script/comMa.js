@@ -149,6 +149,74 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 }
 
 /**
+ * @name 		gfnma_setComSelect
+ * @description sbux-select 데이터 가져오기
+ * @function
+ * @param 		{(string|string[])} _targetIds
+ * @param 		{string} _bizcompid
+ * @param 		{string} _whereclause
+ * @param 		{string} _compcode
+ * @param 		{string} _clientcode
+ * @param 		{string} _subcode
+ * @param 		{string} _codename
+ * @returns 	{Array}
+ */
+async function gfnma_getComSelectList(_bizcompid, _whereclause, _compcode, _clientcode, _subcode, _codename, _callbackFn) {
+
+	if (gfn_isEmpty(_bizcompid)) {
+		return;
+	}
+
+    var paramObj = { 
+		v_p_debug_mode_yn	: ''
+		,v_p_lang_id		: ''
+		,v_p_comp_code		: _compcode
+		,v_p_client_code	: _clientcode
+		,v_p_bizcomp_id		: _bizcompid
+		,v_p_where_clause	: _whereclause
+		,v_p_form_id		: ''
+		,v_p_menu_id		: ''
+		,v_p_proc_id		: ''
+		,v_p_userid			: ''
+		,v_p_pc				: ''
+    };		
+
+    const postJsonPromise = gfn_postJSON("/com/comSelectList.do", {
+    	getType				: 'json',
+    	workType			: 'Q',
+    	cv_count			: '1',
+    	params				: gfnma_objectToString(paramObj)
+	});
+
+	const data = await postJsonPromise;
+	console.log('gfnma_getComSelectList get data:', data);
+
+	const rlist = [];
+	try {
+		data.cv_1.forEach((item) => {
+			const cdVl = {
+				text	: item[_codename],
+				label	: item[_codename],
+				value	: item[_subcode]
+			}
+			rlist.push(cdVl);
+		});
+		//console.log('rlist:', rlist);
+
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
+	}	
+	if(_callbackFn){
+		_callbackFn(rlist);
+	}
+	return rlist;
+}
+
+/**
  * @name 		gfnma_multiSelectInit
  * @description 멀티 컬럼 select
  * @function
