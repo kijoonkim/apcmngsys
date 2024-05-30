@@ -3950,7 +3950,7 @@
                 V_P_COMP_CODE : gv_ma_selectedApcCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_EMP_CODE : EMP_CODE,
-                V_P_AGREE_YN : AGREE_YN,
+                V_P_AGREE_YN : AGREE_YN.AGREE_YN,
                 V_P_AGREE_DATE : AGREE_DATE,
                 V_P_FORM_ID : p_formId,
                 V_P_MENU_ID : p_menuId,

@@ -35,9 +35,9 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-            </div>
+<%--            <div style="margin-left: auto;">
+                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+            </div>--%>
         </div>
         <div class="box-body">
 
@@ -138,7 +138,7 @@
 
         fn_createGrid();
         fn_clearForm();
-        fn_search();
+        cfn_search();
     });
 
     function fnSrchChkgubunChange(args){
@@ -198,7 +198,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function() {
+    function cfn_search() {
 
         gvwInfo.clearStatus();
 

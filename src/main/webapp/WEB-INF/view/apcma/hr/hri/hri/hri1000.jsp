@@ -36,10 +36,10 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create" ></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
+<%--                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add" ></sbux-button>
+                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
+                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
                 <%--<sbux-button id="btnRegistCommonCode" name="btnRegistCommonCode" uitype="normal" class="btn btn-sm btn-outline-danger" text="공통코드등록" onclick="fn_registCommonCode"></sbux-button>--%>
                 <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
                 <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
@@ -1219,7 +1219,7 @@
         fn_createGvwWorkPlanGrid();
         fn_createGvwEmpGrid();
         fn_createGvwExpenditurewelfareGrid();
-        fn_search();
+        cfn_search();
     });
 
     //grid 초기화
@@ -1338,7 +1338,7 @@
     /**
      * 신규등록
      */
-    const fn_create = async function() {
+    function cfn_add() {
         editType = "N";
         SBUxMethod.set("EMP_CODE", "");
         SBUxMethod.set("DISPLAY_SOCIAL_NUM", "");
@@ -1409,14 +1409,13 @@
     /**
      * 저장
      */
-    const fn_save = async function() {
+    function cfn_save() {
         if(!SBUxMethod.validateRequired()) {
             return false;
         }
 
         const master = await getParamForHri1000S();
-        console.log(master);
-
+        console.log(master)
         if (new Date(master.V_P_UNION_JOIN_START_DATE) > new Date(master.V_P_UNION_JOIN_END_DATE))
         {
             alert("노조탈퇴일이 노조가입일보다 빠를 수 없습니다.")
@@ -1433,7 +1432,7 @@
 
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
-                var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr;
+                var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr.replace(/[^0-9]/g, '');
 
                 if(empCode) {
                     const postJsonPromiseSub = gfn_postJSON("/hr/hri/hri/insertHri1000Sub.do", {
@@ -1448,7 +1447,7 @@
                         if (_.isEqual("S", subData.resultStatus)) {
                             var paramObj = {
                                 P_HRI1000_S2: await getParamForHri1000S2(empCode),
-                                P_HRI1000_S3: await getParamForHri1000S3(editType, empCode),
+                                //P_HRI1000_S3: await getParamForHri1000S3(editType, empCode),
                                 P_HRI1000_S4: await getParamForHri1000S4(empCode),
                                 P_HRI1000_S5: await getParamForHri1000S5(empCode),
                                 P_HRI1000_S6: await getParamForHri1000S6(empCode),
@@ -1479,7 +1478,7 @@
                                     if (detailData.resultMessage) {
                                         alert(detailData.resultMessage);
                                     }
-                                    fn_search();
+                                    cfn_search();
                                 } else {
                                     alert(detailData.resultMessage);
                                 }
@@ -1516,7 +1515,7 @@
     }
 
     //선택 삭제
-    const fn_delete = async function() {
+    function cfn_del() {
         if(gfn_comConfirm("Q0001", "사원의 정보를 삭제")) {
             const postJsonPromise = gfn_postJSON("/hr/hri/hri/deleteHri1000List.do", {
                 getType				: 'json',
@@ -1594,7 +1593,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");
-                fn_search();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -1618,7 +1617,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function() {
+    function cfn_search() {
         editType = "N";
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
@@ -1761,7 +1760,7 @@
 
     //상세정보 보기
     const fn_view = async function() {
-        fn_create();
+        cfn_add();
         SBUxMethod.show('DISPLAY_SOCIAL_NUM');
         SBUxMethod.hide('SOCIAL_NUM');
 
