@@ -302,13 +302,6 @@
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
-	    SBGridProperties.paging = {
-			'type' 			: 'page',
-		  	'count' 		: 5,
-		  	'size' 			: 20,
-		  	'sorttype' 		: 'page',
-		  	'showgoalpageui': true
-	    };
         SBGridProperties.columns = [
             {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -338,37 +331,19 @@
 
         NationInGrid = _SBGrid.create(SBGridProperties);
         NationInGrid.bind('click', 'fn_view');
-        NationInGrid.bind('beforepagechanged', 'fn_pagingComMsgList');
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-    	// set pagination
-    	let pageSize = NationInGrid.getPageSize();
-    	let pageNo = 1;
-    	
-    	NationInGrid.movePaging(pageNo);
+    	fn_setNationInGrid();
     }
-
+	
     /**
-     *
+     * 목록 가져오기
      */
-    const fn_pagingComMsgList = async function() {
-    	let recordCountPerPage 	= NationInGrid.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo 		= NationInGrid.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-		var getColRef 			= NationInGrid.getColRef("checked");
-		NationInGrid.setFixedcellcheckboxChecked(0, getColRef, false);
-    	fn_setNationInGrid(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setNationInGrid = async function(pageSize, pageNo) {
+    const fn_setNationInGrid = async function() {
 
     	// form clear
     	fn_clearForm();
@@ -440,7 +415,10 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+	
+    /**
+     * 공통팝업
+     */
     const fn_compopup1 = function() {
     	
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
@@ -536,8 +514,6 @@
         SBUxMethod.set("USE_YN", 				"");
     }
 
-    
-    
     //저장
     const fn_save = async function() {
 
@@ -549,8 +525,7 @@
     	let REGION_CODE 			= gfnma_nvl(SBUxMethod.get("REGION_CODE"));
     	
     	//let CURRENCY_CODE			= gfnma_nvl(SBUxMethod.get("CURRENCY_CODE"));
-    	let tempObj					= gfnma_multiSelectGet('#CURRENCY_CODE');
-    	let CURRENCY_CODE			= tempObj.value;
+    	let CURRENCY_CODE			= gfnma_multiSelectGet('#CURRENCY_CODE');
     	
     	let MEMO 					= gfnma_nvl(SBUxMethod.get("MEMO"));
     	let SORT_SEQ 				= gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
@@ -680,9 +655,6 @@
         }
     }
 
-	/**
-     * @param {boolean} isConfirmed
-     */
 	const fn_subUpdate = async function (obj){
 
   	    var paramObj = { 
@@ -735,16 +707,7 @@
 
     //선택 삭제
     function fn_delete() {
-
         //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
-    	 
     }
 
     //상세정보 보기

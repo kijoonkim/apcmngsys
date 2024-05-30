@@ -45,6 +45,8 @@ public class SortMngVO extends ComVO {
 	private String isImpYn;
 
 	private String sortUpdtYn;
+
+	private String itemCd;
 	
 	/**
 	 * 투입등록 필요 여부

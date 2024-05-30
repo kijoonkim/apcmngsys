@@ -24,6 +24,23 @@
 			SELECT /* com.at.apcss.pd.pcorm.mapper.SrvyMapper.selectSrvyList */
 				TES.YR
 				, TES.USER_ID
+				, (SELECT DECODE(APRV , '1' , '승인형' , '2' , '육성형' , '')
+					FROM TB_EV_APO
+					WHERE 1=1
+					  AND BRNO = (SELECT BRNO
+									FROM TB_COM_USER
+									WHERE 1=1
+									  AND USER_ID = TES.USER_ID)
+					  AND APO_SE = '1'
+				) AS APRV
+				, (SELECT CORP_NM
+					FROM TB_EV_APO
+					WHERE 1=1
+					  AND BRNO = (SELECT BRNO
+					  				FROM TB_COM_USER
+					  				WHERE 1=1
+					  				  AND USER_ID = TES.USER_ID)
+				) AS CORP_NM
 				, TES.SRVY_KND
 				, TES.SRVY_SN
 				, TES.SRVY_CN
@@ -34,6 +51,9 @@
 										, 'at21','at22','at23','at24','at25','at26','at27','at61')
 			<if test='yr != null and yr != ""'>
 			  AND TES.YR = #{yr}
+			</if>
+			<if test='aprv != null and aprv != ""'>
+			  AND #{aprv} = (SELECT APRV FROM TB_EV_APO WHERE BRNO = (SELECT BRNO FROM TB_COM_USER WHERE USER_ID = TES.USER_ID) AND APO_SE = '1')
 			</if>
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>

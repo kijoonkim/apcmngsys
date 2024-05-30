@@ -82,6 +82,9 @@ const compopup1 = {
 		var _searchInputFields		= obj.searchInputFields;
 		var _searchInputValues		= obj.searchInputValues;
 		
+		var _searchInputTypes		= obj.searchInputTypes;
+		var _searchInputTypeValues	= obj.searchInputTypeValues;
+		
 		var _height					= obj.height;
 		var _tableHeader			= obj.tableHeader;
 		var _tableColumnNames		= obj.tableColumnNames;
@@ -95,7 +98,7 @@ const compopup1 = {
     	$(compopup1.prgrmId).find('.cu-btn-sch-compopup1').click(function(){
     		
     		var wstr 	= _whereClause;
-    		$(compopup1.prgrmId).find('.cu-search-area').find('input').each(function(){
+    		$(compopup1.prgrmId).find('.cu-search-area').find('[name]').each(function(){
     			var name  	= $(this).prop('name');
     			var icode 	= "_" + name + "_";
     			var val   	= $(this).val();
@@ -110,7 +113,7 @@ const compopup1 = {
     	});
     	
     	//create table
-    	compopup1.createTable(_searchCaptions, _searchInputFields, _searchInputValues, _tableHeader, _tableColumnWidths);
+    	compopup1.createTable(_searchCaptions, _searchInputFields, _searchInputValues, _searchInputTypes, _searchInputTypeValues, _tableHeader, _tableColumnWidths);
     	
     	//get data
    		var wstr 	= _whereClause;
@@ -122,7 +125,7 @@ const compopup1 = {
 	    }
     	compopup1.getData(_compCode, _clientCode, _bizcompId, wstr, _tableColumnNames);
 	}
-	,createTable : function(p_searchCaptions, p_searchInputFields, p_searchInputValues, p_tableHeader, p_tableColumnWidths){
+	,createTable : function(p_searchCaptions, p_searchInputFields, p_searchInputValues, p_searchInputTypes, p_searchInputTypeValues, p_tableHeader, p_tableColumnWidths){
 		
 		//조회부분 
 		var acnt = 0;
@@ -134,7 +137,20 @@ const compopup1 = {
 			var tmp3 = (p_searchInputFields[i]) ? htmc.replace('_name_',	p_searchInputFields[i]) : "";
 			htma += '<th scope="th_bg">' + p_searchCaptions[i] + '</th>';
 			htma += '<td class="td_input" style="border-right: hidden;">';
-			htma += '<sbux-input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + p_searchInputValues[i] + '" ></sbux-input>';
+			if(Array.isArray(p_searchInputTypes)) {
+				if(p_searchInputTypes[i]=="input"){
+					htma += '<sbux-input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + p_searchInputValues[i] + '" ></sbux-input>';
+				} else if(p_searchInputTypes[i]=="select") {
+					htma += '<select ' + tmp3 + ' class="form-control form-select" >';
+	        		htma += '<option value="">선택</option>';
+				    for (var j = 0; j < p_searchInputTypeValues[i].length; j++) {
+				    	htma += '<option value="' + p_searchInputTypeValues[i][j]['value'] + '">' + p_searchInputTypeValues[i][j]['text'] + '</option>';
+				    }
+					htma += '</select>';	
+				}
+			} else {
+				htma += '<sbux-input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + p_searchInputValues[i] + '" ></sbux-input>';
+			}
 			htma += '</td>';
 			acnt ++;		
 			if(acnt==2){
