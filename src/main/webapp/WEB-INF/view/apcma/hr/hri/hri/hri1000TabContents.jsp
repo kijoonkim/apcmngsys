@@ -51,8 +51,10 @@
                     <sbux-input id="FAMILY_CLAN" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%"></sbux-input>
                 </td>
                 <th rowspan="2" scope="row" class="th_bg">서명</th>
-                <td rowspan="2" class="td_input" style="border-right:hidden;">
-                    이미지 자리
+                <td rowspan="2" id="signImgArea" class="td_input" style="border-right:hidden; position: relative; vertical-align: top;">
+                    <img id="SIGN_IMG" style="width: 100%; height: 100%; position: absolute;">
+                    사진 업로드
+                    <input type="file" name="SIGN_IMG_FILE" id="SIGN_IMG_FILE" accept="image/*" style="display: none;">
                 </td>
                 <th scope="row" class="th_bg">상여수습종료일</th>
                 <td class="td_input" style="border-right:hidden;">

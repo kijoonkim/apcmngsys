@@ -204,26 +204,26 @@
                                     <col style="width:8%">
                                 </colgroup>
                                 <tr>
-                                    <td rowspan="13" class="td_input">
-                                        이미지 자리
+                                    <td rowspan="5" id="empPhotoArea" class="td_input" style="position: relative; vertical-align: top;">
+                                        <img id="EMP_PHOTO" style="width: 100%; height: 100%; position: absolute;">
+                                        사진 업로드
+                                        <input type="file" name="EMP_PHOTO_FILE" id="EMP_PHOTO_FILE" accept="image/*" style="display: none;">
                                     </td>
                                     <th scope="row" class="th_bg">사번</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>주민등록번호</th>
-                                    <td colspan="2" class="td_input">
-                                        <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
-                                    </td>
-                                    <td class="td_input">
-                                        <sbux-input id="SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                    <td colspan="3" class="td_input">
+                                        <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100%;"></sbux-input>
+                                        <sbux-input id="SOCIAL_NUM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "999999-9999999" onchange="fnSocialNumChange(SOCIAL_NUM)" required></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>직위</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-select id="POSITION_CODE" uitype="single" jsondata-ref="jsonPositionCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <td class="td_input">
-                                        <sbux-input id="POSITION_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="POSITION_CODE_PERIOD" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
@@ -233,7 +233,7 @@
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>생년월일</th>
                                     <td class="td_input">
-                                        <sbux-input id="BIRTHDAY" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
+                                        <sbux-input id="BIRTHDAY" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "{ 'alias': 'yyyy-mm-dd', 'autoUnmask': true}" required></sbux-input>
                                     </td>
                                     <td class="td_input">
                                         <sbux-select id="BIRTHDAY_TYPE" uitype="single" jsondata-ref="jsonBirthdayType" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
@@ -365,6 +365,7 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td rowspan="8"></td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>사업장</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
@@ -636,6 +637,9 @@
 
     var editType			= "N";
 
+    var empPhotoInfo = {};
+    var signImgInfo = {};
+
     var jsonSiteCode	= [];	// 사업장
     var jsonEmpState = []; // 재직구분
     var jsonDutyCode = []; // 직책
@@ -738,6 +742,8 @@
         SBUxMethod.set("CAREER_TRACK", 0);
         SBUxMethod.set("START_PAY_GRADE", 0);
         SBUxMethod.set("CURRENT_PAY_GRADE", 0);
+        SBUxMethod.hide('DISPLAY_SOCIAL_NUM');
+        SBUxMethod.show('SOCIAL_NUM');
 
         let rst = await Promise.all([
             // 사업장
@@ -876,6 +882,65 @@
             gfnma_setComSelect(['gvwExpenditurewelfare'], jsonWelfareType, 'L_HRW103_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
         ]);
+    }
+
+    const fnSocialNumChange = function(socialNum) {
+        if (socialNum.length != 14) return;
+
+        let SRCH_INITIAL_DATE = SBUxMethod.get("SRCH_INITIAL_DATE");
+        let dtDate = new Date(SRCH_INITIAL_DATE.substring(0, 4)+ "-" + SRCH_INITIAL_DATE.substring(4, 6) + "-" + SRCH_INITIAL_DATE.substring(6, 8)); // 계산전 기산일을 가져옴
+
+        // 남자
+        if (socialNum.substring(7, 8) == "1" || socialNum.substring(7, 8) == "3") {
+            SBUxMethod.set('GENDER', "M");
+        }
+        // 여자
+        else if (socialNum.substring(7, 8) == "2" || socialNum.substring(7, 8) == "4") {
+            SBUxMethod.set('GENDER', "F");
+        }
+
+        let strsocial_num = socialNum.replace("-", "");
+
+        // 만 나이를 구함
+        if (strsocial_num.length == 13) {
+            // 주민등록번호를 이용하여 생년월일, 성별을 추가함
+            if (strsocial_num.substring(6, 7) == "1" || strsocial_num.substring(6, 7) == "2") {
+                SBUxMethod.set('BIRTHDAY', ("19" + strsocial_num.substring(0, 6)));
+            } else if (strsocial_num.substring(6, 7) == "3" || strsocial_num.substring(6, 7) == "4") {
+                SBUxMethod.set('BIRTHDAY', ("20" + strsocial_num.substring(0, 6)));
+            }
+
+            if (strsocial_num.substring(6, 7) == "1" || strsocial_num.substring(6, 7) == "2"
+                || strsocial_num.substring(6, 7) == "5" || strsocial_num.substring(6, 7) == "6") {
+                let dt = new Date("19" + strsocial_num.substring(0, 2) + "-" + strsocial_num.substring(2, 4) + "-" + strsocial_num.substring(4, 6));
+                let iyyyy = dtDate.getFullYear() - dt.getFullYear();
+
+                if (dtDate.getMonth() <= dt.getMonth()) {
+                    if (dtDate.getDay() <= dt.getDay()) {
+                        SBUxMethod.set('AGE', iyyyy - 1);
+                    } else {
+                        SBUxMethod.set('AGE', iyyyy);
+                    }
+                } else {
+                    SBUxMethod.set('AGE', iyyyy);
+                }
+            } else if (strsocial_num.substring(6, 7) == "3" || strsocial_num.substring(6, 7) == "4"
+                || strsocial_num.substring(6, 7) == "7" || strsocial_num.substring(6, 7) == "8") {
+                let dt = new Date("20" + strsocial_num.substring(0, 2) + "-" + strsocial_num.substring(2, 4) + "-" + strsocial_num.substring(4, 6));
+                let iyyyy = dtDate.getFullYear() - dt.getFullYear();
+
+                if (dtDate.getMonth() <= dt.getMonth()) {
+                    if (dtDate.getDay() <= dt.getDay()) {
+                        SBUxMethod.set('AGE', iyyyy - 1);
+                    } else {
+                        SBUxMethod.set('AGE', iyyyy);
+                    }
+                } else {
+                    SBUxMethod.set('AGE', iyyyy);
+                }
+
+            }
+        }
     }
 
     const fn_findEmpCode = function() {
@@ -1094,8 +1159,42 @@
         });
     }
 
+    function convertBase64(id, obj, file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            let blob = new Blob([e.target.result], { type: file.type });
+            document.getElementById(id).src = window.URL.createObjectURL(blob);
+
+            obj.base64 = btoa(new Uint8Array(e.target.result).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            obj.fileType = file.type;
+            obj.fileName = file.name;
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
+        document.getElementById('empPhotoArea').addEventListener('click', function() {
+            document.getElementById('EMP_PHOTO_FILE').click();
+        });
+
+        document.getElementById('signImgArea').addEventListener('click', function() {
+            document.getElementById('SIGN_IMG_FILE').click();
+        });
+
+        document.getElementById('EMP_PHOTO_FILE').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                convertBase64("EMP_PHOTO", empPhotoInfo, file);
+            }
+        });
+
+        document.getElementById('SIGN_IMG_FILE').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                convertBase64("SIGN_IMG", signImgInfo, file);
+            }
+        });
 
         fn_initSBSelect();
         fn_createGvwListGrid();
@@ -1302,7 +1401,8 @@
         SBUxMethod.set("ANNUAL_BASE_DATE", "");
         SBUxMethod.set("CURRENT_PAY_GRADE", "");
         SBUxMethod.set("CURRENT_PAY_GRADE_DATE", "");
-
+        SBUxMethod.hide('DISPLAY_SOCIAL_NUM');
+        SBUxMethod.show('SOCIAL_NUM');
         clearTabContents();
     }
 
@@ -1662,6 +1762,9 @@
     //상세정보 보기
     const fn_view = async function() {
         fn_create();
+        SBUxMethod.show('DISPLAY_SOCIAL_NUM');
+        SBUxMethod.hide('SOCIAL_NUM');
+
         editType = "U";
 
         var nCol = gvwList.getCol();
