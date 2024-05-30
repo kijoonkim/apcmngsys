@@ -1443,7 +1443,7 @@
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
                 var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr.replace(/[^0-9]/g, '');
-
+                SBUxMethod.set("EMP_CODE", empCode);
                 if(empCode) {
                     const postJsonPromiseSub = gfn_postJSON("/hr/hri/hri/insertHri1000Sub.do", {
                         getType: 'json',
