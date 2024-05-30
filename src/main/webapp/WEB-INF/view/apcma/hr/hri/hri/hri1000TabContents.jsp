@@ -612,7 +612,7 @@
                 <sbux-button id="btn_delRowForGvwFamily" name="btn_delRowForGvwFamily" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwFamily"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwFamily" style="height:560px;"></div>
         </div>
     </div>
@@ -626,7 +626,7 @@
                 <sbux-button id="btn_delRowForGvwSchool" name="btn_delRowForGvwSchool" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwSchool"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwSchool" style="height:560px;"></div>
         </div>
     </div>
@@ -640,7 +640,7 @@
                 <sbux-button id="btn_delRowForGvwCareer" name="btn_delRowForGvwCareer" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwCareer"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwCareer" style="height:560px;"></div>
         </div>
     </div>
@@ -654,7 +654,7 @@
                 <sbux-button id="btn_delRowForGvwLicense" name="btn_delRowForGvwLicense" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwLicense"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwLicense" style="height:560px;"></div>
         </div>
     </div>
@@ -668,7 +668,7 @@
                 <sbux-button id="btn_delRowForGvwLanguage" name="btn_delRowForGvwLanguage" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwLanguage"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwLanguage" style="height:200px;"></div>
         </div>
         <div class="ad_tbl_top2">
@@ -680,7 +680,7 @@
                 <sbux-button id="btn_delRowForGvwComputerSkill" name="btn_delRowForGvwComputerSkill" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwComputerSkill"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwComputerSkill" style="height:320px;"></div>
         </div>
     </div>
@@ -694,7 +694,7 @@
                 <sbux-button id="btn_delRowForGvwFile" name="btn_delRowForGvwFile" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwFile"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwFile" style="height:560px;"></div>
         </div>
     </div>
@@ -708,12 +708,12 @@
                 <sbux-button id="btn_delRowForGvwEducation" name="btn_delRowForGvwEducation" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwEducation"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwEducation" style="height:560px;"></div>
         </div>
     </div>
     <div id="tpgMasterSubDetail2" style="height: 596px;">
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>병역사항</caption>
                 <colgroup>
@@ -748,7 +748,7 @@
                 <li><span>병역사항</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>신체</caption>
                 <colgroup>
@@ -824,7 +824,7 @@
                 <li><span>보훈</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>보훈</caption>
                 <colgroup>
@@ -885,7 +885,7 @@
                 <li><span>장애</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>장애</caption>
                 <colgroup>
@@ -930,7 +930,7 @@
                 <li><span>여권/비자</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>여권/비자</caption>
                 <colgroup>
@@ -1003,7 +1003,7 @@
         </div>
     </div>
     <div id="tpgMasterSubDetail4" style="height: 596px;">
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>보증구분</caption>
                 <colgroup>
@@ -1027,7 +1027,7 @@
                 <li><span>보증보험</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>보증보험</caption>
                 <colgroup>
@@ -1095,7 +1095,7 @@
                 <li><span>인보증1</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>인보증1</caption>
                 <colgroup>
@@ -1255,7 +1255,7 @@
                 <sbux-button id="btn_delRowForGvwPrize" name="btn_delRowForGvwPrize" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPrize"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwPrize" style="height:560px;"></div>
         </div>
     </div>
@@ -1269,7 +1269,7 @@
                 <sbux-button id="btn_delRowForGvwHealth" name="btn_delRowForGvwHealth" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwHealth"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwHealth" style="height:560px;"></div>
         </div>
     </div>
@@ -1279,7 +1279,7 @@
                 <li><span>발령사항</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwAppointment" style="height:560px;"></div>
         </div>
     </div>
@@ -1289,7 +1289,7 @@
                 <li><span>겸직부서</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwAddJob" style="height:560px;"></div>
         </div>
     </div>
@@ -1303,7 +1303,7 @@
                 <sbux-button id="btn_delRowForGvwTimeOffHistory" name="btn_delRowForGvwTimeOffHistory" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwTimeOffHistory"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwTimeOffHistory" style="height:560px;"></div>
         </div>
     </div>
@@ -1317,7 +1317,7 @@
                 <sbux-button id="btn_delRowForGvwGroupInsurance" name="btn_delRowForGvwGroupInsurance" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwGroupInsurance"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwGroupInsurance" style="height:560px;"></div>
         </div>
     </div>
@@ -1331,7 +1331,7 @@
                 <sbux-button id="btn_delRowForGvwDisease" name="btn_delRowForGvwDisease" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwDisease"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwDisease" style="height:560px;"></div>
         </div>
     </div>
@@ -1345,7 +1345,7 @@
                 <sbux-button id="btn_delRowForGvwPersonnelEvaluation" name="btn_delRowForGvwPersonnelEvaluation" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPersonnelEvaluation"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwPersonnelEvaluation" style="height:560px;"></div>
         </div>
     </div>
@@ -1359,7 +1359,7 @@
                 <sbux-button id="btn_delRowForGvwOfficialInjury" name="btn_delRowForGvwOfficialInjury" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwOfficialInjury"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwOfficialInjury" style="height:560px;"></div>
         </div>
     </div>
@@ -1373,7 +1373,7 @@
                 <sbux-button id="btn_delRowForGvwContractDeg" name="btn_delRowForGvwContractDeg" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwContractDeg"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwContractDeg" style="height:560px;"></div>
         </div>
     </div>
@@ -1387,7 +1387,7 @@
                 <sbux-button id="btn_delRowForGvwWorkPlan" name="btn_delRowForGvwWorkPlan" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwWorkPlan"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwWorkPlan" style="height:560px;"></div>
         </div>
     </div>
@@ -1397,7 +1397,7 @@
                 <li><span>근무조</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwEmp" style="height:560px;"></div>
         </div>
     </div>
@@ -1407,7 +1407,7 @@
                 <li><span>경조사비내역</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwExpenditurewelfare" style="height:560px;"></div>
         </div>
     </div>

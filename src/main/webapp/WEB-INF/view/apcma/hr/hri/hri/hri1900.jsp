@@ -220,37 +220,12 @@
         ];
 
         gridViewEx1 = _SBGrid.create(SBGridProperties);
-        gridViewEx1.bind('beforepagechanged', 'fn_pagingHriList');
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-        // set pagination
-        let pageSize = gridViewEx1.getPageSize();
-        let pageNo = 1;
-
-        gridViewEx1.movePaging(pageNo);
-    }
-
-    /**
-     *
-     */
-    const fn_pagingHriList = async function() {
-        let recordCountPerPage 	= gridViewEx1.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo 		= gridViewEx1.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef 			= gridViewEx1.getColRef("checked");
-        gridViewEx1.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setGridViewEx1(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setGridViewEx1 = async function(pageSize, pageNo) {
 
         gridViewEx1.clearStatus();
 

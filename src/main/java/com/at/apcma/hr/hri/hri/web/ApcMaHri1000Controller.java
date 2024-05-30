@@ -143,15 +143,17 @@ public class ApcMaHri1000Controller extends BaseController {
                 if(key.contains("P_HRI1000_S")) {
                     if(param.get(key) instanceof List) {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-                        listData.stream().forEach(d -> {
-                            try {
-                                d.put("procedure", 		key);
-                                apcMaCommDirectService.callProc(d, session, request, "");
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                        resultMap.put(key, listData);
+                        if(listData.size() > 0) {
+                            listData.stream().forEach(d -> {
+                                try {
+                                    d.put("procedure", key);
+                                    apcMaCommDirectService.callProc(d, session, request, "");
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            });
+                            resultMap.put(key, listData);
+                        }
                     } else if (param.get(key) instanceof Map) {
                         Map<String, Object> mapData = (Map<String, Object>) param.get(key);
                         mapData.put("procedure", 		key);

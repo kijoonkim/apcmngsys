@@ -348,7 +348,6 @@
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('click', 'fn_view');
-        bandgvwInfo.bind('beforepagechanged', 'fn_pagingEmpList');
     }
 
     function fn_createGvwCareerGrid() {
@@ -381,37 +380,12 @@
         ];
 
         gvwCareer = _SBGrid.create(SBGridProperties);
-        gvwCareer.bind('beforepagechanged', 'fn_pagingTotalEmpList');
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-        // set pagination
-        let pageSize = bandgvwInfo.getPageSize();
-        let pageNo = 1;
-
-        bandgvwInfo.movePaging(pageNo);
-    }
-
-    /**
-     *
-     */
-    const fn_pagingEmpList = async function() {
-        let recordCountPerPage 	= bandgvwInfo.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo 		= bandgvwInfo.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef 			= bandgvwInfo.getColRef("checked");
-        bandgvwInfo.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setBandgvwInfo(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setBandgvwInfo = async function(pageSize, pageNo) {
 
         bandgvwInfo.clearStatus();
 

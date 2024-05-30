@@ -453,37 +453,12 @@
         ];
 
         gvwList = _SBGrid.create(SBGridProperties);
-        gvwList.bind('beforepagechanged', 'fn_pagingHriList');
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-        // set pagination
-        let pageSize = gvwList.getPageSize();
-        let pageNo = 1;
-
-        gvwList.movePaging(pageNo);
-    }
-
-    /**
-     *
-     */
-    const fn_pagingHriList = async function() {
-        let recordCountPerPage 	= gvwList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo 		= gvwList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef 			= gvwList.getColRef("checked");
-        //gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setGvwList(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setGvwList = async function(pageSize, pageNo) {
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
