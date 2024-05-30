@@ -2248,21 +2248,22 @@
         }
     }
     const fn_fullScreen =function(){
-        if(!window.parent.document.fullscreenElement){
-            if(window.parent.document.documentElement.requestFullscreen){
-                window.parent.document.documentElement.requestFullscreen();
-            }else if(window.parent.document.documentElement.webkitRequestFullscreen){
-                window.parent.document.documentElement.webkitRequestFullscreen()
-            }else if(window.parent.document.documentElement.msRequestFullscreen){
-                window.parent.document.documentElement.msRequestFullscreen();
+
+        if(!document.fullscreenElement){
+            if(document.documentElement.requestFullscreen){
+                document.documentElement.requestFullscreen();
+            }else if(document.documentElement.webkitRequestFullscreen){
+                document.documentElement.webkitRequestFullscreen()
+            }else if(document.documentElement.msRequestFullscreen){
+                document.documentElement.msRequestFullscreen();
             }
         }else{
-            if(window.parent.document.exitFullscreen){
-                window.parent.document.exitFullscreen();
-            }else if(window.parent.document.webkitExitFullscreen){
-                window.parent.document.webkitExitFullscreen();
-            }else if(window.parent.document.msExitFullscreen){
-                window.parent.document.msExitFullscreen();
+            if(document.exitFullscreen){
+                document.exitFullscreen();
+            }else if(document.webkitExitFullscreen){
+                document.webkitExitFullscreen();
+            }else if(document.msExitFullscreen){
+                document.msExitFullscreen();
             }
         }
     }
