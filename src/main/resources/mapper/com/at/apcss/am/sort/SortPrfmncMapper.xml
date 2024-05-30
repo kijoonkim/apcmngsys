@@ -131,7 +131,7 @@
     	</if>
 
 		<![CDATA[
-			 ORDER BY APC_CD, INPT_YMD, SORTNO, SORT_SN
+			 ORDER BY APC_CD, INPT_YMD, WRHSNO, SORTNO, SORT_SN
     		  ) pt0
 		]]>
 
