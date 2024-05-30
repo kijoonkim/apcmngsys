@@ -37,7 +37,7 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectPrdcrCrclOgnGenalTblMngList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn */
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectItemStbltYn */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -431,7 +431,7 @@
 
 	<!-- 실적 법인체마감 -->
 	<update id="updatePrfmncCorpDdlnYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-	    	UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnGenalTblMngMapper.updatePrfmncCorpDdlnYn */
+	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updatePrfmncCorpDdlnYn */
 	    		TB_EV_APLY_MNG
 			   SET
 			 	  PRFMNC_CORP_DDLN_YN	= #{prfmncCorpDdlnYn}
@@ -442,22 +442,8 @@
 				AND YR		= #{yr}
 	</update>
 
-	<select id="selectUoStbltYnList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
-			YR
-			,BRNO
-		FROM
-			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-		WHERE 1=1
-		  AND APO_SE = '1'
-		  AND TYPE_SE_NO ='8'
-		  AND YR = TO_CHAR(SYSDATE, 'YYYY')
-		GROUP BY
-			YR, BRNO
-	</select>
-
 	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectRawDataList */
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList */
 			TOTAL.YR
 			,TOTAL.BRNO
 			,'통합조직' AS APO_SE
@@ -773,15 +759,126 @@
 
 	<!-- 조치사항 초기화 -->
 	<update id="updateItemUoActnMttr" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-			UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper.updateItemUoStbltYnInit */
-				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-			SET
-				ACTN_MTTR	= #{actnMttr}
-			WHERE 1=1
-			  AND APO_SE	= '1'
-			  AND TYPE_SE_NO = '8'
-			  AND ITEM_CD	= #{itemCd}
-			  AND BRNO		= #{brno}
-			  AND YR		= #{yr}
+		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateItemUoStbltYnInit */
+			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		SET
+			ACTN_MTTR	= #{actnMttr}
+		WHERE 1=1
+		  AND APO_SE	= '1'
+		  AND TYPE_SE_NO = '8'
+		  AND ITEM_CD	= #{itemCd}
+		  AND BRNO		= #{brno}
+		  AND YR		= #{yr}
 	</update>
+
+	<!-- 생산자조직 세부정보 갱신 -->
+	<update id="updateFrmhsItem" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateFrmhsItem */
+			TB_EV_FRMHS_APO EFA
+		SET
+			STTG_UPBR_ITEM_SE = (SELECT STTG_UPBR_ITEM_SE
+									FROM TB_EV_APO_YR_GPC_CD
+									WHERE 1=1
+									  AND BRNO = DECODE(EFA.APO_SE, '1' ,EFA.BRNO, '2' ,EFA.UO_BRNO)
+									  AND ITEM_CD = EFA.ITEM_CD
+									  AND YR = EFA.YR)
+			, CTGRY_CD = (SELECT CTGRY_CD
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE 1=1
+							  AND BRNO = DECODE(EFA.APO_SE, '1' ,EFA.BRNO, '2' ,EFA.UO_BRNO)
+							  AND ITEM_CD = EFA.ITEM_CD
+							  AND YR = EFA.YR)
+		WHERE 1=1
+		  AND  YR = #{yr}
+		  AND (
+				EXISTS (SELECT 1
+						FROM TB_EV_APO_YR_GPC_CD  YGC
+						WHERE 1=1
+						  AND BRNO = DECODE(EFA.APO_SE, '1' ,EFA.BRNO, '2' ,EFA.UO_BRNO)
+						  AND YGC.ITEM_CD = EFA.ITEM_CD
+						  AND YGC.STTG_UPBR_ITEM_SE != EFA.STTG_UPBR_ITEM_SE
+						)
+				OR
+				EXISTS (SELECT 1
+						FROM TB_EV_APO_YR_GPC_CD  YGC
+						WHERE 1=1
+						  AND BRNO = DECODE(EFA.APO_SE, '1' ,EFA.BRNO, '2' ,EFA.UO_BRNO)
+						  AND YGC.ITEM_CD = EFA.ITEM_CD
+						  AND YGC.CTGRY_CD != EFA.CTGRY_CD
+						)
+			)
+	</update>
+
+	<!-- 전문품목 매입매출 세부정보 갱신 -->
+	<update id="updateUoIsoItem" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateUoIsoItem */
+			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+		SET
+			CTGRY_CD = (SELECT CTGRY_CD
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE 1=1
+							  AND BRNO = DECODE(PST.APO_SE, '1' ,PST.BRNO, '2' ,PST.UO_BRNO)
+							  AND ITEM_CD = PST.ITEM_CD
+							  AND YR = PST.YR)
+		WHERE 1=1
+		  AND  YR = #{yr}
+		  AND EXISTS (SELECT 1
+						FROM TB_EV_APO_YR_GPC_CD
+						WHERE 1=1
+						  AND BRNO = DECODE(PST.APO_SE, '1' ,PST.BRNO, '2' ,PST.UO_BRNO)
+						  AND ITEM_CD = PST.ITEM_CD
+						  AND CTGRY_CD != PST.CTGRY_CD)
+	</update>
+
+	<!-- 생산자조직 리스트 조회 -->
+	<select id="selectFrmhsStbltYnList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectFrmhsStbltYnList */
+			YR
+			,BRNO
+			,UO_BRNO
+			,PRDCR_OGNZ_SN
+		FROM
+			TB_EV_FRMHS_APO EFA
+		WHERE 1=1
+		  AND YR = TO_CHAR(SYSDATE, 'YYYY')
+		  AND PRDCR_OGNZ_SN IS NOT NULL
+		  AND ITEM_CD = (SELECT ITEM_CD
+		  					FROM TB_EV_APO_YR_GPC_CD
+		  					WHERE BRNO = DECODE(EFA.APO_SE, '1' ,EFA.BRNO, '2' ,EFA.UO_BRNO)
+		  					  AND YR = EFA.YR
+		  					  AND ITEM_CD = EFA.ITEM_CD)
+	</select>
+
+	<!-- 출자출하조직 리스트 조회 -->
+	<select id="selectIsoStbltYnList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
+			YR
+			,BRNO
+			,UO_BRNO
+		FROM
+			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE 1=1
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO ='8'
+		  AND YR = TO_CHAR(SYSDATE, 'YYYY')
+		GROUP BY
+			YR, BRNO , UO_BRNO
+	</select>
+
+	<!-- 통합조직 리스트 조회 -->
+	<select id="selectUoStbltYnList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
+			YR
+			,BRNO
+		FROM
+			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE 1=1
+		  AND APO_SE = '1'
+		  AND TYPE_SE_NO ='8'
+		  AND YR = TO_CHAR(SYSDATE, 'YYYY')
+		GROUP BY
+			YR, BRNO
+	</select>
+
+
 </mapper>

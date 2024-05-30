@@ -4,13 +4,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper;
+import com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper;
+import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
+import com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper;
+import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
 
 /**
@@ -33,6 +35,12 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 
 	@Autowired
 	private PrdcrCrclOgnGenalTblMngMapper PrdcrCrclOgnGenalTblMngMapper;
+
+	@Autowired
+	private InvShipOgnSpeczItmPurSalMngMapper InvShipOgnSpeczItmPurSalMngMapper;
+
+	@Autowired
+	private PrdcrOgnCurntMngMapper PrdcrOgnCurntMngMapper;
 
 	@Override
 	public PrdcrCrclOgnGenalTblMngVO selectPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
@@ -71,30 +79,6 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 	}
 
 	@Override
-	public int updateAllUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-		String userId = ItemUoStbltYnVo.getSysLastChgUserId();
-		String prgrmId = ItemUoStbltYnVo.getSysLastChgPrgrmId();
-		List<ItemUoStbltYnVO> uoList = PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList(ItemUoStbltYnVo);
-		int updatedCnt = 0;
-		for (ItemUoStbltYnVO uoValue : uoList) {
-			List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList(uoValue);
-			for (ItemUoStbltYnVO itemUoStbltYnValue : resultList) {
-				PrdcrCrclOgnGenalTblMngVO uoitemValue = new PrdcrCrclOgnGenalTblMngVO();
-				uoitemValue.setSysLastChgUserId(userId);
-				uoitemValue.setSysLastChgPrgrmId(prgrmId);
-				uoitemValue.setItemCd(itemUoStbltYnValue.getItemCd());
-				uoitemValue.setBrno(itemUoStbltYnValue.getBrno());
-				uoitemValue.setYr(itemUoStbltYnValue.getYr());
-				uoitemValue.setStbltYn(itemUoStbltYnValue.getStbltYn());
-				if(itemUoStbltYnValue.getItemCd() != null && !itemUoStbltYnValue.getItemCd().equals("")) {
-					updatedCnt += updateStbltYn(uoitemValue);
-				}
-			}
-		}
-		return updatedCnt;
-	}
-
-	@Override
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
 
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectRawDataList(ItemUoStbltYnVo);
@@ -115,5 +99,88 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 			savedCnt += updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO);
 		}
 		return savedCnt;
+	}
+
+	@Override
+	public int updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public int updateUoIsoItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updateUoIsoItem(PrdcrCrclOgnGenalTblMngVO);
+		return updatedCnt;
+	}
+
+
+	@Override
+	public int updateAllFrmhsStbltYn (PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		//String userId = PrdcrCrclOgnGenalTblMngVO.getSysLastChgUserId();
+		//String prgrmId = PrdcrCrclOgnGenalTblMngVO.getSysLastChgPrgrmId();
+
+		List<TbEvFrmhsApoVO> frmhsList = PrdcrCrclOgnGenalTblMngMapper.selectFrmhsStbltYnList(PrdcrCrclOgnGenalTblMngVO);
+		int updatedCnt = 0;
+		for (TbEvFrmhsApoVO frmhsValue : frmhsList) {
+
+			TbEvFrmhsApoVO resultVO = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn(frmhsValue);
+
+			if(resultVO != null) {
+				//resultVO.setSysLastChgUserId(userId);
+				//resultVO.setSysLastChgPrgrmId(prgrmId);
+				updatedCnt += PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn(resultVO);
+			}
+		}
+		return updatedCnt;
+	}
+
+	@Override
+	public int updateAllIsoStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		//String userId = PrdcrCrclOgnGenalTblMngVO.getSysLastChgUserId();
+		//String prgrmId = PrdcrCrclOgnGenalTblMngVO.getSysLastChgPrgrmId();
+
+		List<ItemStbltYnVO> frmhsList = PrdcrCrclOgnGenalTblMngMapper.selectIsoStbltYnList(PrdcrCrclOgnGenalTblMngVO);
+
+		int updatedCnt = 0;
+		for (ItemStbltYnVO uoValue : frmhsList) {
+			List<ItemStbltYnVO> resultList = InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYnList(uoValue);
+			for (ItemStbltYnVO itemStbltYnVO : resultList) {
+				if(itemStbltYnVO != null) {
+
+					//itemStbltYnVO.setSysLastChgUserId(userId);
+					//itemStbltYnVO.setSysLastChgPrgrmId(prgrmId);
+
+					InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit(itemStbltYnVO);
+					if(itemStbltYnVO.getItemCd() != null && !itemStbltYnVO.getItemCd().equals("")) {
+						updatedCnt += InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn(itemStbltYnVO);
+					}
+				}
+			}
+		}
+		return updatedCnt;
+	}
+
+	@Override
+	public int updateAllUoStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		String userId = PrdcrCrclOgnGenalTblMngVO.getSysLastChgUserId();
+		String prgrmId = PrdcrCrclOgnGenalTblMngVO.getSysLastChgPrgrmId();
+		List<ItemUoStbltYnVO> uoList = PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList(PrdcrCrclOgnGenalTblMngVO);
+		int updatedCnt = 0;
+		for (ItemUoStbltYnVO uoValue : uoList) {
+			List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList(uoValue);
+			for (ItemUoStbltYnVO itemUoStbltYnValue : resultList) {
+				PrdcrCrclOgnGenalTblMngVO uoItemValue = new PrdcrCrclOgnGenalTblMngVO();
+				uoItemValue.setSysLastChgUserId(userId);
+				uoItemValue.setSysLastChgPrgrmId(prgrmId);
+				uoItemValue.setItemCd(itemUoStbltYnValue.getItemCd());
+				uoItemValue.setBrno(itemUoStbltYnValue.getBrno());
+				uoItemValue.setYr(itemUoStbltYnValue.getYr());
+				uoItemValue.setStbltYn(itemUoStbltYnValue.getStbltYn());
+				if(itemUoStbltYnValue.getItemCd() != null && !itemUoStbltYnValue.getItemCd().equals("")) {
+					updatedCnt += updateStbltYn(uoItemValue);
+				}
+			}
+		}
+		return updatedCnt;
 	}
 }

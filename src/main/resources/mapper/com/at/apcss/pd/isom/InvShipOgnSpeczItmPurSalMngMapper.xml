@@ -574,7 +574,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
     </insert>
 
 	<select id="selectItemStbltYnList" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO" resultType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn */
+		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYnList */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
