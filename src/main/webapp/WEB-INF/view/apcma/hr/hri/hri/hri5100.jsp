@@ -193,37 +193,12 @@
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
-        gvwInfo.bind('beforepagechanged', 'fn_pagingHriList');
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-        // set pagination
-        let pageSize = gvwInfo.getPageSize();
-        let pageNo = 1;
-
-        gvwInfo.movePaging(pageNo);
-    }
-
-    /**
-     *
-     */
-    const fn_pagingHriList = async function() {
-        let recordCountPerPage 	= gvwInfo.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo 		= gvwInfo.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef 			= gvwInfo.getColRef("checked");
-        gvwInfo.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setGvwInfo(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setGvwInfo = async function(pageSize, pageNo) {
 
         gvwInfo.clearStatus();
 

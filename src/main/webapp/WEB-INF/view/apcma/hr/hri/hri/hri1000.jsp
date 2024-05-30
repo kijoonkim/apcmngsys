@@ -184,7 +184,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="table-responsive tbl_scroll_xs">
+                        <div>
                             <table class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:15%">
@@ -493,7 +493,7 @@
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>인정경력</th>
                                     <td class="td_input">
-                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input><span>개월</span>
+                                        <sbux-input id="CAREER_TRACK" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -529,7 +529,7 @@
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>PayGrade(입사)</th>
                                     <td class="td_input">
-                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input><span>개월</span>
+                                        <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
                                     </td>
                                     <th scope="row" class="th_bg">기준일(PG)</th>
                                     <td class="td_input">
@@ -581,7 +581,7 @@
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>PayGrade(현재)</th>
                                     <td class="td_input">
-                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input><span>개월</span>
+                                        <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
                                     </td>
                                     <th scope="row" class="th_bg">기준일(PG)</th>
                                     <td class="td_input">
@@ -605,7 +605,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="table-responsive tbl_scroll_xs">
+                        <div>
                             <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
                             </sbux-tabs>
                             <jsp:include page="./hri1000TabContents.jsp"></jsp:include>
@@ -735,6 +735,9 @@
 
     const fn_initSBSelect = async function() {
         SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("CAREER_TRACK", 0);
+        SBUxMethod.set("START_PAY_GRADE", 0);
+        SBUxMethod.set("CURRENT_PAY_GRADE", 0);
 
         let rst = await Promise.all([
             // 사업장
@@ -1231,19 +1234,6 @@
 
         gvwList = _SBGrid.create(SBGridProperties);
         gvwList.bind('click', 'fn_view');
-        gvwList.bind('beforepagechanged', 'fn_pagingTotalEmpList');
-    }
-
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-        editType = "N";
-        // set pagination
-        let pageSize = gvwList.getPageSize();
-        let pageNo = 1;
-
-        gvwList.movePaging(pageNo);
     }
 
     /**
@@ -1526,21 +1516,10 @@
     }
 
     /**
-     * 사원 목록 조회
+     * 목록 조회
      */
-    const fn_pagingTotalEmpList = async function() {
-        let recordCountPerPage 	= gvwList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo 		= gvwList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef 			= gvwList.getColRef("checked");
-        gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setTotalEmpList(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setTotalEmpList = async function(pageSize, pageNo) {
+    const fn_search = async function() {
+        editType = "N";
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
