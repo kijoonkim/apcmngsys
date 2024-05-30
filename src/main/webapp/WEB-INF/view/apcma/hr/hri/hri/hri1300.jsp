@@ -35,12 +35,12 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create" ></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
-            </div>
+            <%--<div style="margin-left: auto;">
+                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add" ></sbux-button>
+                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
+                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>
+            </div>--%>
         </div>
         <div class="box-body">
 
@@ -377,7 +377,7 @@
         fn_createGvwListGrid();
         fn_createBandgvwDetailGrid();
 
-        fn_search();
+        cfn_search();
     });
 
     var editType			= "N";
@@ -1034,7 +1034,6 @@
 
         bandgvwDetail = _SBGrid.create(SBGridProperties);
         bandgvwDetail.bind('afterrebuild','fnAfterBuild');
-        bandgvwDetail.bind('beforepagechanged', 'fn_pagingTotalEmpList');
     }
 
     function fnDeptAppointYnChange(args){
@@ -1706,10 +1705,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function () {
-
-        gvwList.clearStatus();
-
+    function cfn_search() {
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_NUM"));
@@ -1804,7 +1800,7 @@
         }
     }
 
-    const fn_create = async function () {
+    function cfn_add() {
         editType = "N";
         SBUxMethod.set("APPOINT_NUM", "");
         SBUxMethod.set("APPOINT_DATE", "");
@@ -1829,7 +1825,7 @@
     }
 
     // 저장
-    const fn_save = async function () {
+    function cfn_save() {
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
@@ -2019,7 +2015,7 @@
                                             if (leadData.resultMessage) {
                                                 alert(leadData.resultMessage);
                                             }
-                                            fn_search();
+                                            cfn_search();
                                         } else {
                                             alert(leadData.resultMessage);
                                         }
@@ -2034,7 +2030,7 @@
                                     if (subData.resultMessage) {
                                         alert(subData.resultMessage);
                                     }
-                                    fn_search();
+                                    cfn_search();
                                 }
                             } else {
                                 alert(subData.resultMessage);
@@ -2061,7 +2057,7 @@
     }
 
     // 삭제
-    const fn_delete = async function () {
+    function cfn_del() {
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
@@ -2128,7 +2124,7 @@
                     if (data.resultMessage) {
                         alert(data.resultMessage);
                     }
-                    fn_search();
+                    cfn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -2200,7 +2196,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -2271,7 +2267,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -2287,7 +2283,7 @@
     //상세정보 보기
     const fn_view = async function () {
         editType = "U";
-        fn_create();
+        cfn_add();
 
         var nCol = gvwList.getCol();
         //특정 열 부터 이벤트 적용
@@ -2651,7 +2647,7 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                fn_search();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }

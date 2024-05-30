@@ -51,8 +51,10 @@
                     <sbux-input id="FAMILY_CLAN" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%"></sbux-input>
                 </td>
                 <th rowspan="2" scope="row" class="th_bg">서명</th>
-                <td rowspan="2" class="td_input" style="border-right:hidden;">
-                    이미지 자리
+                <td rowspan="2" id="signImgArea" class="td_input" style="border-right:hidden; position: relative; vertical-align: top;">
+                    <img id="SIGN_IMG" style="width: 100%; height: 100%; position: absolute;">
+                    사진 업로드
+                    <input type="file" name="SIGN_IMG_FILE" id="SIGN_IMG_FILE" accept="image/*" style="display: none;">
                 </td>
                 <th scope="row" class="th_bg">상여수습종료일</th>
                 <td class="td_input" style="border-right:hidden;">
@@ -3948,7 +3950,7 @@
                 V_P_COMP_CODE : gv_ma_selectedApcCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_EMP_CODE : EMP_CODE,
-                V_P_AGREE_YN : AGREE_YN,
+                V_P_AGREE_YN : AGREE_YN.AGREE_YN,
                 V_P_AGREE_DATE : AGREE_DATE,
                 V_P_FORM_ID : p_formId,
                 V_P_MENU_ID : p_menuId,
