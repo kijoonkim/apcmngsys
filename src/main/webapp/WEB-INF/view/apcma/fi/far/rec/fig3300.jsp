@@ -92,7 +92,7 @@
                             </td>
                             
                             <th scope="row" class="th_bg">작성일자</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
+                            <td colspan="3" class="td_input" >
 								<sbux-datepicker id="srch_ymddate" name="picker_range" uitype="range" style="width:120px"></sbux-datepicker>                            
                             </td>
                             
@@ -104,8 +104,25 @@
                             </td>
                             
                             <th scope="row" class="th_bg">담당자</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-								<sbux-input id="srch_txtemp_code" name="input_sch" uitype="search" button-back-text="조회" button-back-style="color:black;"></sbux-input>                            
+                            <td class="td_input" style="border-right:hidden;">
+   								<sbux-input
+									uitype="text"
+									id="SRCH_TXTEMP_NAME"
+									class="form-control input-sm"									
+   								></sbux-input>
+   								<sbux-input
+									uitype="hidden"
+									id="SRCH_TXTEMP_CODE"
+									class="form-control input-sm"									
+   								></sbux-input>
+                            </td>
+                            <td colspan="2" class="td_input" >
+								<sbux-button
+									id="SRCH_EMP_BTN"
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-compopup1"
+								></sbux-button>
                             </td>
                             
                         </tr>
@@ -162,6 +179,15 @@
             </div>
         </div>
     </section>
+    
+	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:800px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopup1">
+    	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+    </div>
+    
 </body>
 
 <!-- inline scripts related to this page -->
@@ -183,34 +209,10 @@
 		{value: 'N', label: '불가',	text: '불가'}
 	];	// 지역
 	
+	var jsonEmpStateCode	= [];	//재직상태
+	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			//지역
-			gfnma_setComSelect(['NationInGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', '', 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			
-			//통화
-			//gfnma_setComSelect(['NationInGrid','CURRENCY_CODE'], jsonCurrenvyCode, 'L_COM001', '', '', 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
-			gfnma_setComSelect(['NationInGrid'], jsonCurrenvyCode, 'L_COM001', '', '', 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
-			
-			//통화
-			gfnma_multiSelectInit({
-				target			: '#CURRENCY_CODE'
-				,compCode		: gv_ma_selectedApcCd
-				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_COM001'
-				,whereClause	: ''
-				,formId			: p_formId
-				,menuId			: p_menuId
-				,selectValue	: ''
-				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'CURRENCY_CODE'
-				,colLabel		: 'CURRENCY_NAME'
-				,columns		:[
-		            {caption: "코드",		ref: 'CURRENCY_CODE', 			width:'150px',  	style:'text-align:left'},
-		            {caption: "이름", 		ref: 'CURRENCY_NAME',    		width:'150px',  	style:'text-align:left'}
-				]
-			})
 		]);
 	}	
 
@@ -219,7 +221,16 @@
 
     	fn_initSBSelect();
     	fn_createGrid();
-    	fn_search();
+    	//fn_search();
+    	
+		//재직상태
+		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+			function(list){
+				$('#SRCH_EMP_BTN').click(function(){
+					fn_compopup1(list);
+				});
+			}
+		)
     });
 
     //grid 초기화
@@ -238,13 +249,6 @@
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
-	    SBGridProperties.paging = {
-			'type' 			: 'page',
-		  	'count' 		: 5,
-		  	'size' 			: 20,
-		  	'sorttype' 		: 'page',
-		  	'showgoalpageui': true
-	    };
         SBGridProperties.columns = [
             {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'output',  	width:'300px',  	style:'text-align:left'},
             {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'output',  	width:'300px',  	style:'text-align:left'},
@@ -273,8 +277,6 @@
         ];
 
         NationInGrid = _SBGrid.create(SBGridProperties);
-        NationInGrid.bind('click', 'fn_view');
-        NationInGrid.bind('beforepagechanged', 'fn_pagingComMsgList');
     }
 
     /**
@@ -289,330 +291,39 @@
     	NationInGrid.movePaging(pageNo);
     }
 
-    /**
-     *
-     */
-    const fn_pagingComMsgList = async function() {
-    	let recordCountPerPage 	= NationInGrid.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo 		= NationInGrid.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-		var getColRef 			= NationInGrid.getColRef("checked");
-		NationInGrid.setFixedcellcheckboxChecked(0, getColRef, false);
-    	fn_setNationInGrid(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setNationInGrid = async function(pageSize, pageNo) {
-
-    	// form clear
-    	fn_clearForm();
-
-		NationInGrid.clearStatus();
-
-		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
-		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
+	const fn_compopup1 = function(list) {
 		
-	    var paramObj = { 
-			V_P_DEBUG_MODE_YN	: ''
-			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_NATION_CODE	: NATION_CODE
-			,V_P_NATION_NAME	: NATION_NAME
-			,V_P_FORM_ID		: p_formId
-			,V_P_MENU_ID		: p_menuId
-			,V_P_PROC_ID		: ''
-			,V_P_USERID			: ''
-			,V_P_PC				: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '1',
-        	params				: gfnma_objectToString(paramObj)
-		});
-
-        const data = await postJsonPromise;
-		//console.log('data:', data);
-        try {
-  			if (_.isEqual("S", data.resultStatus)) {
-
-  	        	/** @type {number} **/
-  	    		let totalRecordCount = 0;
-
-  	        	jsonNationList.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonNationList.push(msg);
-  					totalRecordCount ++;
-  				});
-
-        		NationInGrid.rebuild();
-  	        	document.querySelector('#listCount').innerText = totalRecordCount;
-
-        	} else {
-          		alert(data.resultMessage);
-        	}
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-
-    //신규 작성
-    function fn_create() {
-    	
-    	editType = "N";    	
-
-        SBUxMethod.attr('NATION_CODE',	'readonly', false);
-    	
-    	SBUxMethod.set("NATION_CODE", 			"");
-    	SBUxMethod.set("NATION_CODE_ABBR", 		"");
-        SBUxMethod.set("NATION_NAME", 			"");
-        SBUxMethod.set("NATION_FULL_NAME", 		"");
-        SBUxMethod.set("NATION_FULL_NAME_CHN", 	"");
-        
-        SBUxMethod.set("REGION_CODE", 			"");
-        
-        //SBUxMethod.set("CURRENCY_CODE", 		"");
-        gfnma_multiSelectSet('#CURRENCY_CODE', '', '', '');
-        
-        SBUxMethod.set("MEMO", 					"");
-        SBUxMethod.set("SORT_SEQ", 				"");
-        SBUxMethod.set("USE_YN", 				"");
-    }
-
-    const fn_clearForm = function() {
-    	SBUxMethod.set("NATION_CODE", 			"");
-    	SBUxMethod.set("NATION_CODE_ABBR", 		"");
-        SBUxMethod.set("NATION_NAME", 			"");
-        SBUxMethod.set("NATION_FULL_NAME", 		"");
-        SBUxMethod.set("NATION_FULL_NAME_CHN", 	"");
-        
-        SBUxMethod.set("REGION_CODE", 			"");
-        
-        //SBUxMethod.set("CURRENCY_CODE", 		"");
-        gfnma_multiSelectSet('#CURRENCY_CODE', '', '', '');
-        
-        SBUxMethod.set("MEMO", 					"");
-        SBUxMethod.set("SORT_SEQ", 				"");
-        SBUxMethod.set("USE_YN", 				"");
-    }
-
-    //저장
-    const fn_save = async function() {
-
-    	let NATION_CODE 			= gfnma_nvl(SBUxMethod.get("NATION_CODE"));
-    	let NATION_CODE_ABBR		= gfnma_nvl(SBUxMethod.get("NATION_CODE_ABBR"));
-    	let NATION_NAME 			= gfnma_nvl(SBUxMethod.get("NATION_NAME"));
-    	let NATION_FULL_NAME		= gfnma_nvl(SBUxMethod.get("NATION_FULL_NAME"));
-    	let NATION_FULL_NAME_CHN	= gfnma_nvl(SBUxMethod.get("NATION_FULL_NAME_CHN"));
-    	let REGION_CODE 			= gfnma_nvl(SBUxMethod.get("REGION_CODE"));
-    	
-    	//let CURRENCY_CODE			= gfnma_nvl(SBUxMethod.get("CURRENCY_CODE"));
-    	let tempObj					= gfnma_multiSelectGet('#CURRENCY_CODE');
-    	let CURRENCY_CODE			= tempObj.value;
-    	
-    	let MEMO 					= gfnma_nvl(SBUxMethod.get("MEMO"));
-    	let SORT_SEQ 				= gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
-    	let USE_YN 					= gfnma_nvl(SBUxMethod.get("USE_YN"));
-
-    	if (!NATION_CODE) {
-            gfn_comAlert("W0002", "국가코드");
-            return;
-        }
-    	if (!NATION_NAME) {
-            gfn_comAlert("W0002", "국가약식명");
-            return;
-        }
-    	if (!NATION_FULL_NAME) {
-            gfn_comAlert("W0002", "국가정식명");
-            return;
-        }
-    	if (!NATION_FULL_NAME_CHN) {
-            gfn_comAlert("W0002", "국가정식명(한글)");
-            return;
-        }
-    	if (!REGION_CODE) {
-            gfn_comAlert("W0002", "지역");
-            return;
-        }
-    	if (!CURRENCY_CODE) {
-            gfn_comAlert("W0002", "통화");
-            return;
-        }
-    	if (!SORT_SEQ) {
-            gfn_comAlert("W0002", "정렬순서");
-            return;
-        }
-    	if (!USE_YN) {
-            gfn_comAlert("W0002", "사용여부");
-            return;
-        }
-
-    	if (editType=="N") {
-    		// 신규 등록
-    		if(gfn_comConfirm("Q0001", "신규 등록")){
-    			var obj = {
-   			    	NATION_CODE				: NATION_CODE
-   			    	,NATION_NAME			: NATION_NAME
-   			    	,NATION_FULL_NAME		: NATION_FULL_NAME
-   			    	,NATION_FULL_NAME_CHN	: NATION_FULL_NAME_CHN
-   			    	,NATION_CODE_ABBR 		: NATION_CODE_ABBR
-   			    	,REGION_CODE 			: REGION_CODE
-   			    	,CURRENCY_CODE			: CURRENCY_CODE
-   			    	,MEMO 					: MEMO
-   			    	,SORT_SEQ 				: SORT_SEQ
-   			    	,USE_YN 				: USE_YN
-    			}
-				fn_subInsert(obj);
-    		} 
-    	} else if(editType=="E") {
-    		// 수정 저장
-    		if(gfn_comConfirm("Q0001", "수정 저장")){
-    			var obj = {
-   			    	NATION_CODE				: NATION_CODE
-   			    	,NATION_NAME			: NATION_NAME
-   			    	,NATION_FULL_NAME		: NATION_FULL_NAME
-   			    	,NATION_FULL_NAME_CHN	: NATION_FULL_NAME_CHN
-   			    	,NATION_CODE_ABBR 		: NATION_CODE_ABBR
-   			    	,REGION_CODE 			: REGION_CODE
-   			    	,CURRENCY_CODE			: CURRENCY_CODE
-   			    	,MEMO 					: MEMO
-   			    	,SORT_SEQ 				: SORT_SEQ
-   			    	,USE_YN 				: USE_YN
-    			}
-    			fn_subUpdate(obj);
-    		} 
-    	}
-
-    }
-
-    /**
-     * @param {boolean} isConfirmed
-     */
-    const fn_subInsert = async function (obj){
-
- 	    var paramObj = { 
-			V_P_DEBUG_MODE_YN			: ''
-			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
-			,V_P_NATION_CODE			: obj.NATION_CODE
-			,V_P_NATION_NAME			: obj.NATION_NAME
-			,V_P_NATION_FULL_NAME     	: obj.NATION_FULL_NAME
-			,V_P_NATION_FULL_NAME_CHN	: obj.NATION_FULL_NAME_CHN
-			,V_P_NATION_CODE_ABBR		: obj.NATION_CODE_ABBR
-			,V_P_REGION_CODE			: obj.REGION_CODE
-			,V_P_CURRENCY_CODE			: obj.CURRENCY_CODE
-			,V_P_MEMO					: obj.MEMO
-			,V_P_SORT_SEQ				: obj.SORT_SEQ
-			,V_P_USE_YN					: obj.USE_YN
-			,V_P_FORM_ID				: p_formId
-			,V_P_MENU_ID				: p_menuId
-			,V_P_PROC_ID				: ''
-			,V_P_USERID					: ''
-			,V_P_PC						: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/insertCom3100.do", {
-        	getType				: 'json',
-        	workType			: 'N',
-        	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
-		});    	 
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		if(data.resultMessage){
-	          		alert(data.resultMessage);
-        		}
-        		fn_search();
-        	} else {
-          		alert(data.resultMessage);
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     */
-	const fn_subUpdate = async function (obj){
-
-  	    var paramObj = { 
-  				V_P_DEBUG_MODE_YN			: ''
-  				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
-				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
-  				,V_P_NATION_CODE			: obj.NATION_CODE
-  				,V_P_NATION_NAME			: obj.NATION_NAME
-  				,V_P_NATION_FULL_NAME     	: obj.NATION_FULL_NAME
-  				,V_P_NATION_FULL_NAME_CHN	: obj.NATION_FULL_NAME_CHN
-  				,V_P_NATION_CODE_ABBR		: obj.NATION_CODE_ABBR
-  				,V_P_REGION_CODE			: obj.REGION_CODE
-  				,V_P_CURRENCY_CODE			: obj.CURRENCY_CODE
-  				,V_P_MEMO					: obj.MEMO
-  				,V_P_SORT_SEQ				: obj.SORT_SEQ
-  				,V_P_USE_YN					: obj.USE_YN
-  				,V_P_FORM_ID				: p_formId
-  				,V_P_MENU_ID				: p_menuId
-  				,V_P_PROC_ID				: ''
-  				,V_P_USERID					: ''
-  				,V_P_PC						: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/updateCom3100.do", {
-        	getType				: 'json',
-        	workType			: 'U',
-        	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
-		});    	 
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		if(data.resultMessage){
-	          		alert(data.resultMessage);
-        		}
-        		fn_search();
-        	} else {
-          		alert(data.resultMessage);
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
+		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
+        var replaceText0 	= "_DEPT_NAME_";
+        var replaceText1 	= "_EMP_NAME_";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+     	
+     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+     	compopup1.init({
+     		compCode				: gv_ma_selectedApcCd
+     		,clientCode				: gv_ma_selectedClntCd
+     		,bizcompId				: 'P_HRI001'
+     		,whereClause			: strWhereClause
+   			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+   			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+   			,searchInputValues		: ["", 			searchText,		""]
+     	
+   			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+   			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
+     	
+     		,height					: '400px'
+   			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+   			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+ 			,itemSelectEvent		: function (data){
+ 				console.log('callback data:', data);
+ 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NAME);
+ 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CODE);
+ 			},
+     	});    
+   	}
+     
     //선택 삭제
     function fn_delete() {
 
@@ -627,40 +338,7 @@
     	 
     }
 
-    //상세정보 보기
-    function fn_view() {
 
-    	editType = "E";    	
-    	
-    	var nCol = NationInGrid.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-        var nRow = NationInGrid.getRow();
-		if (nRow < 1) {
-            return;
-		}
-
-        let rowData = NationInGrid.getRowData(nRow);
-
-        SBUxMethod.attr('NATION_CODE',	'readonly', true);
-        
-        SBUxMethod.set("NATION_CODE", 			rowData.NATION_CODE);
-        SBUxMethod.set("NATION_CODE_ABBR", 		rowData.NATION_CODE_ABBR);
-        SBUxMethod.set("NATION_NAME", 			rowData.NATION_NAME);
-        SBUxMethod.set("NATION_FULL_NAME", 		rowData.NATION_FULL_NAME);
-        SBUxMethod.set("NATION_FULL_NAME_CHN", 	rowData.NATION_FULL_NAME_CHN);
-        
-        SBUxMethod.set("REGION_CODE", 			rowData.REGION_CODE);
-        
-        //SBUxMethod.set("CURRENCY_CODE", 		rowData.CURRENCY_CODE);
-        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', rowData.CURRENCY_CODE);
-        
-        SBUxMethod.set("MEMO", 					rowData.MEMO);
-        SBUxMethod.set("SORT_SEQ", 				rowData.SORT_SEQ);
-        SBUxMethod.set("USE_YN", 				rowData.USE_YN);
-    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
