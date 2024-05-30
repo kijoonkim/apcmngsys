@@ -1335,10 +1335,15 @@
         gvwList.bind('click', 'fn_view');
     }
 
+    // 신규
+    function cfn_add() {
+        fn_create();
+    }
+
     /**
      * 신규등록
      */
-    function cfn_add() {
+    const fn_create = async function() {
         editType = "N";
         SBUxMethod.set("EMP_CODE", "");
         SBUxMethod.set("DISPLAY_SOCIAL_NUM", "");
@@ -1406,10 +1411,15 @@
         clearTabContents();
     }
 
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+
     /**
      * 저장
      */
-    function cfn_save() {
+    const fn_save = async function() {
         if(!SBUxMethod.validateRequired()) {
             return false;
         }
@@ -1514,8 +1524,13 @@
         }
     }
 
-    //선택 삭제
+    // 삭제
     function cfn_del() {
+        fn_delete();
+    }
+
+    //선택 삭제
+    const fn_delete = async function() {
         if(gfn_comConfirm("Q0001", "사원의 정보를 삭제")) {
             const postJsonPromise = gfn_postJSON("/hr/hri/hri/deleteHri1000List.do", {
                 getType				: 'json',
@@ -1614,10 +1629,15 @@
 
     }
 
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
     /**
      * 목록 조회
      */
-    function cfn_search() {
+    const fn_search = async function() {
         editType = "N";
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
