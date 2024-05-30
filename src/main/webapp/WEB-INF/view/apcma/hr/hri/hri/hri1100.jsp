@@ -455,10 +455,15 @@
         gvwList = _SBGrid.create(SBGridProperties);
     }
 
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
     /**
      * 목록 조회
      */
-    function cfn_search() {
+    const fn_search = async function() {
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));

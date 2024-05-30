@@ -1702,10 +1702,15 @@
         fnParentingWorkTypeYnChange();
     }
 
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
     /**
      * 목록 조회
      */
-    function cfn_search() {
+    const fn_search = async function() {
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_NUM"));
@@ -1800,7 +1805,12 @@
         }
     }
 
+    // 신규
     function cfn_add() {
+        fn_create();
+    }
+
+    const fn_create = async function () {
         editType = "N";
         SBUxMethod.set("APPOINT_NUM", "");
         SBUxMethod.set("APPOINT_DATE", "");
@@ -1826,6 +1836,11 @@
 
     // 저장
     function cfn_save() {
+        fn_save();
+    }
+
+    // 저장
+    const fn_save = async function() {
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
@@ -2058,6 +2073,11 @@
 
     // 삭제
     function cfn_del() {
+        fn_delete();
+    }
+
+    // 삭제
+    const fn_delete = async function() {
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));

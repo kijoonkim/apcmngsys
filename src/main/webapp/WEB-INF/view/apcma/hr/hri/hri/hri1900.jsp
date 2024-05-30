@@ -222,10 +222,15 @@
         gridViewEx1 = _SBGrid.create(SBGridProperties);
     }
 
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
     /**
      * 목록 조회
      */
-    function cfn_search() {
+    const fn_search = async function() {
 
         gridViewEx1.clearStatus();
 
