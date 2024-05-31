@@ -122,7 +122,7 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">부서</th>
-                <td colspan="" class="td_input" style="border-right:hidden;">
+                <%--<td colspan="" class="td_input" style="border-right:hidden;">
                     <sbux-input id="srch-dept_code" uitype="text" style="width:200px" placeholder=""
                                 class="form-control input-sm"></sbux-input>
                 </td>
@@ -135,10 +135,33 @@
                             class="form-control input-sm"
                             jsondata-ref="jsonDeptName"
                     />
+                </td>--%>
+                <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
+                    <sbux-input
+                            uitype="text"
+                            id="srch-dept_code"
+                            class="form-control input-sm"
+                    ></sbux-input>
+                    <sbux-input
+                            uitype="hidden"
+                            uitype="text"
+                            id="srch-dept_name"
+                            class="form-control input-sm"
+
+                    ></sbux-input>
                 </td>
+                <td class="td_input" >
+                    <sbux-button
+                            class="btn btn-xs btn-outline-dark"
+                            text="찾기" uitype="modal"
+                            target-id="modal-compopup1"
+                            onclick="fn_compopup1"
+                    ></sbux-button>
+                </td>
+
                 <td style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">사원</th>
-                <td colspan="" class="td_input" style="border-right:hidden;">
+                <%--<td colspan="" class="td_input" style="border-right:hidden;">
                     <sbux-input id="srch-emp_code" uitype="text" style="width:200px" placeholder=""
                                 class="form-control input-sm"></sbux-input>
                 </td>
@@ -151,6 +174,28 @@
                             class="form-control input-sm"
                             jsondata-ref=""
                     />
+                </td>--%>
+                <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
+                    <sbux-input
+                            uitype="text"
+                            id="srch-emp_code"
+                            class="form-control input-sm"
+                    ></sbux-input>
+                    <sbux-input
+                            uitype="hidden"
+                            uitype="text"
+                            id="srch-emp_full_name"
+                            class="form-control input-sm"
+
+                    ></sbux-input>
+                </td>
+                <td class="td_input" >
+                    <sbux-button
+                            class="btn btn-xs btn-outline-dark"
+                            text="찾기" uitype="modal"
+                            target-id="modal-compopup1"
+                            onclick="fn_compopup2"
+                    ></sbux-button>
                 </td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">급여영역</th>
@@ -595,6 +640,14 @@
         </div>
     </div>
 </section>
+<!-- 팝업 Modal -->
+<div>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup1">
+    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+</div>
+
 </body>
 <script type="text/javascript">
 
@@ -706,6 +759,66 @@
                 ]
             })
         ]);
+    }
+
+    const fn_compopup1 = function() {
+        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var replaceText0 = "_DEPT_CODE";
+        var replaceText1 = "_DEPT_NAME";
+        var replaceText2 = "_BASE_DATE";
+        var strWhereClause = "";/*"AND X.V_P_DEPT_CODE LIKE '%" + replaceText0 + "%' AND X.V_P_DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.V_P_BASE_DATE ="+replaceText2*/
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '입력부서');
+        compopup1.init({
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_ORG001'
+            , whereClause: strWhereClause
+            , searchCaptions:    ["부서코드"    , "부서명"     , "기준일"]
+            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "BASE_DATE"]
+            , searchInputValues: [""           , searchText ,""]
+            , height: '400px'
+            , tableHeader:       ["부서코드"    , "부서명"     , "사업장"]
+            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "SITE_CODE"]
+            , tableColumnWidths: ["80px"      , "80px"      , "80px"]
+            , itemSelectEvent: function (data) {
+                console.log('callback data:', data);
+                SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
+                SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+            },
+        });
+    }
+
+    const fn_compopup2 = function() {
+        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var replaceText0 = "_EMP_CODE";
+        var replaceText1 = "_EMP_NAME";
+        var replaceText2 = "_DEPT_CODE";
+        var replaceText3 = "_DEPT_NAME";
+        var replaceText4 = "_EMP_STATE";
+        var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
+            + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '입력부서');
+        compopup1.init({
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_HRI001'
+            , whereClause: strWhereClause
+            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
+            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputValues: [""           , searchText ,""]
+            , height: '400px'
+            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
+            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
+            , itemSelectEvent: function (data) {
+                console.log('callback data:', data);
+                SBUxMethod.set('srch-dept_name', data.EMP_NAME);
+                SBUxMethod.set('srch-dept_code', data.EMP_CODE);
+            },
+        });
+
     }
 
     // only document
@@ -1189,7 +1302,6 @@
     async function fn_view(date) {
 
         fn_clearForm();
-        console.log("----------------fn_view : date -----------------   ", date);
 
 
         let nCol = gvwInfoGrid.getCol();
@@ -1211,15 +1323,13 @@
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        console.log("----------------fn_view : rowData -----------------   ", rowData);
-
         if(rowData != null && rowData != '') {
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN: 'N'
                 , V_P_LANG_ID: 'KOR'
-                , V_P_COMP_CODE: '1000'
-                , V_P_CLIENT_CODE: '100'
+                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
                 , V_P_SITE_CODE: rowData.SITE_CODE
                 , V_P_DEPT_CODE: rowData.DEPT_CODE
                 , V_P_EMP_CODE: rowData.EMP_CODE
@@ -1637,7 +1747,7 @@
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
-            ,V_P_COMP_CODE: /*gv_ma_selectedApcCd*/'1000'
+            ,V_P_COMP_CODE: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
             ,V_P_SITE_CODE: SITE_CODE
             ,V_P_DEPT_CODE: DEPT_CODE
@@ -1738,13 +1848,13 @@
 
         SBUxMethod.set("BANK_ACCOUNT", "");
         SBUxMethod.set("BANK_CODE", "");
-        SBUxMethod.set("BANK_ACCOUNT_REAL", "");
+        SBUxMethod.set("BANK_ACCOUNT_REAL", 0);
 
         SBUxMethod.set("PAY_YN", "");
         SBUxMethod.set("BONUS_PAY_YN", "");
         SBUxMethod.set("RETIRE_PAY_YN", "");
         SBUxMethod.set("BANK_CODE2", "");
-        SBUxMethod.set("BANK_ACCOUNT2_REAL", "");
+        SBUxMethod.set("BANK_ACCOUNT2_REAL", 0);
         SBUxMethod.set("BANK2_PAY_ITEM", "");
         SBUxMethod.set("LUNCH_PAY_YN", "");
         SBUxMethod.set("OVER_TIME_PAY_YN", "");
@@ -1755,8 +1865,8 @@
         SBUxMethod.set("MONTHLY_DONATION_YN", "");
         SBUxMethod.set("INCOME_TAX_YN", "");
         SBUxMethod.set("MAIN_ACC_TYPE", "");
-        SBUxMethod.set("SUPPORTEE_QTY", "");
-        SBUxMethod.set("CHILDREN_QTY", "");
+        SBUxMethod.set("SUPPORTEE_QTY", 0);
+        SBUxMethod.set("CHILDREN_QTY", 0);
 
         gvwPayInfoGrid.clearStatus();
         gvwPayGrid.clearStatus();
@@ -1778,7 +1888,9 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            var paramObj = getParamForm('u');
+            var paramObj =await getParamForm('u');
+
+            console.log("+++++++++++++++++ paramObj +++++++++++++++++++++++", paramObj);
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000.do", {
                 getType: 'json',
@@ -1877,7 +1989,7 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            var paramObj = getParamForm('d');
+            var paramObj = await getParamForm('d');
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000.do", {
                 getType: 'json',
@@ -1953,7 +2065,7 @@
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN			: ''
                 ,V_P_LANG_ID				: ''
-                ,V_P_COMP_CODE				: '1000'
+                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
                 ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
                 ,V_P_EMP_CODE: EMP_CODE
@@ -2050,7 +2162,7 @@
 
                         V_P_DEBUG_MODE_YN			: ''
                         ,V_P_LANG_ID				: ''
-                        ,V_P_COMP_CODE				: '1000'
+                        ,V_P_COMP_CODE				: gv_ma_selectedApcCd
                         ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
                         ,V_P_EMP_CODE: EMP_CODE
                         ,V_P_APPLY_START_DATE: item.data.APPLY_START_DATE
@@ -2080,21 +2192,26 @@
         let varPayData;  //변동수당항목
         let varDedData; //변동공제항목
 
+        /*payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
+        dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
+        varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
+        varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목*/
+
         if (typeData == 'u'){ //업데이트
 
-            payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
-            dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
-            varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
-            varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목
+             payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
+             dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
+             varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
+             varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목
 
-        }else if (typeData == 'd'){ // 삭제
+         }else if (typeData == 'd'){ // 삭제
 
-            payData = gvwPayGrid.getUpdateData('d'); //고정 수당항목
-            dedData = gvwDedGrid.getUpdateData('d'); //고정공제항목
-            varPayData = gvwVarPayGrid.getUpdateData('d');  //변동수당항목
-            varDedData = gvwVarDedGrid.getUpdateData('d'); //변동공제항목
+             payData = gvwPayGrid.getUpdateData('d'); //고정 수당항목
+             dedData = gvwDedGrid.getUpdateData('d'); //고정공제항목
+             varPayData = gvwVarPayGrid.getUpdateData('d');  //변동수당항목
+             varDedData = gvwVarDedGrid.getUpdateData('d'); //변동공제항목
 
-        }
+         }
 
 
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
@@ -2304,14 +2421,10 @@
             }
         });
 
-        var paramObj;
-
-        if (payData.length ==0 && dedData.length == 0 && varPayData.length == 0 && varDedData.length == 0){
-
-            paramObj = {
+        let paramObj = {
                 V_P_DEBUG_MODE_YN	: ''
                 ,V_P_LANG_ID		: ''
-                ,V_P_COMP_CODE		: '1000'
+                ,V_P_COMP_CODE		: gv_ma_selectedApcCd
                 ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
                 ,V_P_TYPEEMP_CODE: EMP_CODE
@@ -2358,24 +2471,24 @@
                 ,V_P_TYPEBANK2_PAY_ITEM: BANK2_PAY_ITEM
 
                 /*-- 고정 수당/공제 항목*/
-                ,V_P_TYPETYPE: ""
-                ,V_P_TYPETXN_ID: ""
-                ,V_P_TYPEPAY_TYPE: ""
-                ,V_P_TYPEPAY_ITEM_CODE: ""
-                ,V_P_TYPEAPPLY_START_DATE: ""
-                ,V_P_TYPEAPPLY_END_DATE: ""
-                ,V_P_TYPEPAY_AMT: ""
-                ,V_P_TYPEPAY_MEMO: ""
+                ,V_P_TYPETYPE: TYPETYPE
+                ,V_P_TYPETXN_ID: TYPETXN_ID
+                ,V_P_TYPEPAY_TYPE: TYPEPAY_TYPE
+                ,V_P_TYPEPAY_ITEM_CODE: TYPEPAY_ITEM_CODE
+                ,V_P_TYPEAPPLY_START_DATE: TYPEAPPLY_START_DATE
+                ,V_P_TYPEAPPLY_END_DATE: TYPEAPPLY_END_DATE
+                ,V_P_TYPEPAY_AMT: TYPEPAY_AMT
+                ,V_P_TYPEPAY_MEMO: TYPEPAY_MEMO
 
                 /*-- 변동 수당/공제 항목*/
-                ,V_P_TYPETYPE1: ""
-                ,V_P_TYPETXN_ID1: ""
-                ,V_P_TYPEPAY_TYPE1: ""
-                ,V_P_TYPEPAY_ITEM_CODE1: ""
-                ,V_P_TYPEAPPLY_START_DATE1: ""
-                ,V_P_TYPEPAY_AMT1: ""
-                ,V_P_TYPEPAY_MEMO1: ""
-                ,V_P_TYPETAX_PAY_DATE1: ""
+                ,V_P_TYPETYPE1: TYPETYPE1
+                ,V_P_TYPETXN_ID1: TYPETXN_ID1
+                ,V_P_TYPEPAY_TYPE1: TYPEPAY_TYPE1
+                ,V_P_TYPEPAY_ITEM_CODE1: TYPEPAY_ITEM_CODE1
+                ,V_P_TYPEAPPLY_START_DATE1: TYPEAPPLY_START_DATE1
+                ,V_P_TYPEPAY_AMT1: TYPEPAY_AMT1
+                ,V_P_TYPEPAY_MEMO1: TYPEPAY_MEMO1
+                ,V_P_TYPETAX_PAY_DATE1: TYPETAX_PAY_DATE1
                 /*-----------------------------------*/
                 ,V_P_FORM_ID		: p_formId
                 ,V_P_MENU_ID		: p_menuId
@@ -2383,84 +2496,7 @@
                 ,V_P_USERID			: ''
                 ,V_P_PC				: ''
             }
-        }else {
 
-            paramObj = {
-                V_P_DEBUG_MODE_YN: ''
-                , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: '1000'
-                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-                , V_P_TYPEEMP_CODE: EMP_CODE
-                , V_P_TYPESALARY_CLASS: SALARY_CLASS
-                , V_P_TYPETEMP_END_DATE: TEMP_END_DATE
-                , V_P_TYPEBONUS_APPLY_START_DATE: BONUS_APPLY_START_DATE
-                , V_P_TYPEPAY_GROUP_CODE: PAY_GROUP_CODE
-                , V_P_TYPEPAY_YN: PAY_YN
-                , V_P_TYPEBONUS_PAY_YN: BONUS_PAY_YN
-                , V_P_TYPERETIRE_PAY_YN: RETIRE_PAY_YN
-                , V_P_TYPESUPPORTEE_QTY: SUPPORTEE_QTY
-                , V_P_TYPECHILDREN_QTY: CHILDREN_QTY
-                , V_P_TYPELUNCH_PAY_YN: LUNCH_PAY_YN
-                , V_P_TYPEMUTUAL_AID_MEMBER_YN: MUTUAL_AID_MEMBER_YN
-                , V_P_TYPEMONTHLY_DONATION_YN: MONTHLY_DONATION_YN
-                , V_P_TYPEOVER_TIME_PAY_YN: OVER_TIME_PAY_YN
-                , V_P_TYPEINCOME_TAX_YN: INCOME_TAX_YN
-                , V_P_TYPEOT_TAX_FREE_YN: OT_TAX_FREE_YN
-                , V_P_TYPEPENSION_YN: ""
-                , V_P_TYPEPENSION_JOIN_DATE: ""
-                , V_P_TYPEPENSION_CLOSE_DATE: ""
-                , V_P_TYPEPENSION_NO: ""
-                , V_P_TYPEPENSION_BASE_AMT: ""
-                , V_P_TYPEHEALTH_INSURE_YN: ""
-                , V_P_TYPEHEALTH_INSURE_JOIN_DATE: ""
-                , V_P_TYPEHEALTH_INSURE_CLOSE_DATE: ""
-                , V_P_TYPEHEALTH_INSURE_NO: ""
-                , V_P_TYPEHEALTH_INSURE_BASE_AMT: ""
-                , V_P_TYPEEMPLOY_INSURE_YN: ""
-                , V_P_TYPEEMPLOY_INSURE_BASE_AMT: ""
-                , V_P_TYPEMAIN_ACC_TYPE: MAIN_ACC_TYPE
-                , V_P_TYPEBANK_CODE: BANK_CODE
-                , V_P_TYPEBANK_ACCOUNT: BANK_ACCOUNT
-                , V_P_TYPEBANK_ACCOUNT_ORIG: ""
-                , V_P_TYPEBANK_CODE2: BANK_CODE2
-                , V_P_TYPEBANK_ACCOUNT2: BANK_ACCOUNT2_REAL
-                , V_P_TYPEBANK_ACCOUNT2_ORIG: ""
-                , V_P_TYPEIRP_BANK_CODE: ""
-                , V_P_TYPEIRP_BANK_ACCOUNT: ""
-                , V_P_TYPEIRP_BANK_ACCOUNT_ORIG: ""
-                , V_P_TYPEAPPLICATION_RATE: ""
-                , V_P_TYPELAST_APPLICATION_DATE: ""
-                , V_P_TYPELONGTERM_CARE_YN: ""
-                , V_P_TYPEBANK2_PAY_ITEM: BANK2_PAY_ITEM
-
-                /*-- 고정 수당/공제 항목*/
-                , V_P_TYPETYPE: TYPETYPE
-                , V_P_TYPETXN_ID: TYPETXN_ID
-                , V_P_TYPEPAY_TYPE: TYPEPAY_TYPE
-                , V_P_TYPEPAY_ITEM_CODE: TYPEPAY_ITEM_CODE
-                , V_P_TYPEAPPLY_START_DATE: TYPEAPPLY_START_DATE
-                , V_P_TYPEAPPLY_END_DATE: TYPEAPPLY_END_DATE
-                , V_P_TYPEPAY_AMT: TYPEPAY_AMT
-                , V_P_TYPEPAY_MEMO: TYPEPAY_MEMO
-
-                /*-- 변동 수당/공제 항목*/
-                , V_P_TYPETYPE1: TYPETYPE1
-                , V_P_TYPETXN_ID1: TYPETXN_ID1
-                , V_P_TYPEPAY_TYPE1: TYPEPAY_TYPE1
-                , V_P_TYPEPAY_ITEM_CODE1: TYPEPAY_ITEM_CODE1
-                , V_P_TYPEAPPLY_START_DATE1: TYPEAPPLY_START_DATE1
-                , V_P_TYPEPAY_AMT1: TYPEPAY_AMT1
-                , V_P_TYPEPAY_MEMO1: TYPEPAY_MEMO1
-                , V_P_TYPETAX_PAY_DATE1: TYPETAX_PAY_DATE1
-                /*-----------------------------------*/
-                , V_P_FORM_ID: p_formId
-                , V_P_MENU_ID: p_menuId
-                , V_P_PROC_ID: ''
-                , V_P_USERID: ''
-                , V_P_PC: ''
-            }
-        }
 
         return paramObj;
     }
