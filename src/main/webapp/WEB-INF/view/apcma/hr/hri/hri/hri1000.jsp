@@ -1416,6 +1416,10 @@
         SBUxMethod.attr('JOB_RANK', 'readonly', 'false');
         SBUxMethod.attr('ENTER_TYPE', 'readonly', 'true');
         SBUxMethod.attr('EMP_TYPE', 'readonly', 'true');
+        SBUxMethod.attr('VETERANS_RELATION', 'readonly', 'false');
+        SBUxMethod.attr('VETERANS_NUM', 'readonly', 'false');
+        SBUxMethod.attr('VETERANS_ORDER_YN', 'readonly', 'false');
+        SBUxMethod.attr('VETERANS_ORDER_DATE', 'readonly', 'false');
 
         $('#START_PAY_GRADE_TH').show();
         $('#START_PAY_GRADE_TD').show();

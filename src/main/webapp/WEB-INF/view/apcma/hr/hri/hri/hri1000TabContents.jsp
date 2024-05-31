@@ -839,7 +839,7 @@
                 <tr>
                     <th scope="row" class="th_bg">보훈대상여부</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="VETERANS_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="VETERANS_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm" onchange="fnVeteransYnChange(VETERANS_YN)"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">보훈등급</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -1616,7 +1616,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left'},
+            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left', typeinfo : {mask : {alias : '######-#######', unmaskvalue : false}}},
             {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'input',  	width:'140px',  style:'text-align:left', hidden: true},
             {caption: ["생년월일"],          ref: 'BIRTHDAY', 		    type:'datepicker',  	width:'100px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -1672,7 +1672,7 @@
         ];
 
         gvwFamily = _SBGrid.create(SBGridProperties);
-        //gvwFamily.bind('beforepagechanged', 'fn_pagingFamilyList');
+        gvwFamily.bind('valuechanged','gvwFamilyValueChanged');
     }
 
     function fn_createGvwSchoolGrid() {
@@ -1778,8 +1778,8 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'input',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
-            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'input',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
             {caption: ["회사명"],          ref: 'COMP_NAME', 		        type:'input',  	width:'120px',  style:'text-align:left'},
             {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'input',  	width:'120px',  style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
             {caption: ["직위"],      	ref: 'POSITION', 		        type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -1799,7 +1799,7 @@
         ];
 
         gvwCareer = _SBGrid.create(SBGridProperties);
-        //gvwCareer.bind('beforepagechanged', 'fn_pagingCareerList');
+        gvwCareer.bind('valuechanged','gvwCareerValueChanged');
     }
 
     function fn_createGvwLicenseGrid() {
@@ -2266,7 +2266,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'input',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2274,7 +2274,7 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["휴직일수"],        ref: 'TIME_OFF_CNT', 		     type:'input',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["휴직일수"],        ref: 'TIME_OFF_CNT', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["소속사업장"],        ref: 'SITE_CODE', 		     type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonSiteCode',
@@ -2289,7 +2289,7 @@
         ];
 
         gvwTimeOffHistory = _SBGrid.create(SBGridProperties);
-        //gvwTimeOffHistory.bind('beforepagechanged', 'fn_pagingTimeOffHistoryList');
+        gvwTimeOffHistory.bind('valuechanged','gvwTimeOffHistoryValueChanged');
     }
 
     function fn_createGvwGroupInsuranceGrid() {
@@ -2655,6 +2655,131 @@
         //gvwExpenditurewelfare.bind('beforepagechanged', 'fn_pagingExpenditurewelfareList');
     }
 
+
+    const gvwFamilyValueChanged = async function() {
+        var nRow = gvwFamily.getRow();
+        var rowData = gvwFamily.getRowData(nRow);
+
+        if (rowData.BIRTHDAY == "") {
+            let strsocial_no = rowData.SOCIAL_NO_REAL.replace("-", "");
+
+            if (strsocial_no.length == 13) {
+                if (strsocial_no.substring(6, 7) == "1" || strsocial_no.substring(6, 7) == "2") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY'), "19" + strsocial_no.substring(0, 6));
+                } else if (strsocial_no.substring(6, 7) == "3" || strsocial_no.substring(6, 7) == "4") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY'), "20" + strsocial_no.substring(0, 6));
+                }
+
+                if (rowData.BIRTHDAY_TYPE == "") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY_TYPE'), "2");
+                }
+            }
+            //중국거민신분번호
+            else if (strsocial_no.length == 18) {
+                gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY'), strsocial_no.Substring(6, 14));
+                if (rowData.BIRTHDAY_TYPE == "") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY_TYPE'), "2");
+                }
+            }
+        }
+
+    }
+
+    const gvwCareerValueChanged = async function() {
+        var nRow = gvwCareer.getRow();
+        var nCol = gvwCareer.getCol();
+        var rowData = gvwCareer.getRowData(nRow);
+
+        // 경력년수와 경력개월을 계산
+        let ymdstart_date = new Date();
+        let ymdend_date = new Date();
+
+        let career_month_double = 0;
+        let ymd_int = 0;
+
+        if (nCol == gvwCareer.getColRef('START_DATE') || nCol == gvwCareer.getColRef('END_DATE')) {
+            if (rowData.START_DATE != "" && rowData.END_DATE != "") {
+                ymdstart_date = new Date(rowData.START_DATE.substring(0, 4) + "-" + rowData.START_DATE.substring(4, 6) + "-" + rowData.START_DATE.substring(6, 8));
+                ymdend_date = new Date(rowData.END_DATE.substring(0, 4) + "-" + rowData.END_DATE.substring(4, 6) + "-" + rowData.END_DATE.substring(6, 8));
+                if (ymdstart_date > ymdend_date) {
+                    return;
+                }
+
+                if (ymdend_date.getFullYear() - ymdstart_date.getFullYear() == 0) {
+                    if (ymdend_date.getFullYear() != "9999") {
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    } else {
+                        ymdend_date = new Date("9998-12-31");
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    }
+                    if (career_month_double == 12) {
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_YEAR'), "1");
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_MONTH'), "0");
+                    } else {
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_YEAR'), "0");
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_MONTH'), career_month_double);
+                    }
+                }
+                else {
+                    if (ymdend_date.getFullYear() != "9999") {
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    } else {
+                        ymdend_date = new Date("9998-12-31");
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    }
+                    ymd_int = Math.trunc(career_month_double / 12);
+
+                    gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_YEAR'), ymd_int);
+                    gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_MONTH'), (career_month_double - (ymd_int*12)));
+
+                }
+            }
+        }
+    }
+
+    const fnVeteransYnChange = async function(val) {
+        if (val == "")
+            return;
+
+        // 보훈/장애/여권의 보훈대상여부에 따라 입력가능 여부를 설정
+        if (val == "Y") {
+            SBUxMethod.attr('VETERANS_RELATION', 'readonly', 'false');
+            SBUxMethod.attr('VETERANS_NUM', 'readonly', 'false');
+            SBUxMethod.attr('VETERANS_ORDER_YN', 'readonly', 'false');
+            SBUxMethod.attr('VETERANS_ORDER_DATE', 'readonly', 'false');
+        } else {
+            SBUxMethod.attr('VETERANS_RELATION', 'readonly', 'true');
+            SBUxMethod.attr('VETERANS_NUM', 'readonly', 'true');
+            SBUxMethod.attr('VETERANS_ORDER_YN', 'readonly', 'true');
+            SBUxMethod.attr('VETERANS_ORDER_DATE', 'readonly', 'true');
+
+            SBUxMethod.set("VETERANS_RELATION", "");
+            SBUxMethod.set("VETERANS_NUM", "");
+            SBUxMethod.set("VETERANS_ORDER_YN", "");
+            SBUxMethod.set("VETERANS_ORDER_DATE", "");
+        }
+    }
+
+    const gvwTimeOffHistoryValueChanged = async function() {
+        var nRow = gvwTimeOffHistory.getRow();
+        var nCol = gvwTimeOffHistory.getCol();
+        var rowData = gvwTimeOffHistory.getRowData(nRow);
+
+        if (nCol == gvwTimeOffHistory.getColRef('START_DATE') || nCol == gvwTimeOffHistory.getColRef('END_DATE')) {
+            if (rowData.START_DATE == "" || rowData.END_DATE == "") return;
+
+            let istart_date = new Date(rowData.START_DATE.substring(0, 4) + "-" + rowData.START_DATE.substring(4, 6) + "-" + rowData.START_DATE.substring(6, 8));
+            let iend_date = new Date(rowData.END_DATE.substring(0, 4) + "-" + rowData.END_DATE.substring(4, 6) + "-" + rowData.END_DATE.substring(6, 8));
+
+            if (istart_date > iend_date) {
+                gfn_comAlert("W0008",  "휴직종료일", "휴직시작일");
+                gvwTimeOffHistory.setCellData(nRow, gvwTimeOffHistory.getColRef('END_DATE'), istart_date.getDate());
+            } else {
+                gvwTimeOffHistory.setCellData(nRow, gvwTimeOffHistory.getColRef('TIME_OFF_CNT'), Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1));
+            }
+        }
+    }
+
     // 행 추가
     const fn_addRowForGvwFamily = function() {
         let rowVal = gvwFamily.getRow();
@@ -2767,13 +2892,16 @@
     }
 
     const fn_addRowForGvwTimeOffHistory = function() {
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
+        let DEPT_NAME = gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+
         let rowVal = gvwTimeOffHistory.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-
-            gvwTimeOffHistory.addRow(true);
+            gvwTimeOffHistory.addRow(true, {SITE_CODE: SITE_CODE, DEPT_CODE: DEPT_CODE, DEPT_NAME: DEPT_NAME});
         }else{
-            gvwTimeOffHistory.insertRow(rowVal);
+            gvwTimeOffHistory.insertRow(rowVal, 'below', {SITE_CODE: SITE_CODE, DEPT_CODE: DEPT_CODE, DEPT_NAME: DEPT_NAME});
         }
     }
 
