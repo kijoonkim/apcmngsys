@@ -84,6 +84,10 @@
 					     , SPU.SPCFCT_CD            AS SPCFCT_CD
 			    	     , SPU.EXTRNL_LNKG_CD 		AS EXTRNL_LNKG_CD
 			    	     , SPU.PLOR_CD 				AS PLOR_CD
+			    	     , SPU.STD_PCKG_CD AS STD_PCKG_CD
+			    	     , SPU.STD_UNIT_CD AS STD_UNIT_CD
+			    	     , SPU.STD_ECFRD_CD AS STD_ECFRD_CD
+			    	     , SPU.STD_GRD_CD AS STD_GRD_CD
 					     , (SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
 					          FROM TB_SPMT_SLS_UNTPRC_REG X
 					         WHERE X.APC_CD = SPU.APC_CD
@@ -164,6 +168,10 @@
 		    		, SYS_LAST_CHG_USER_ID
 		    		, SYS_LAST_CHG_PRGRM_ID
 		    		, PLOR_CD
+		    		, std_pckg_cd
+		    		, std_unit_cd
+		    		, std_ecfrd_cd
+		    		, std_grd_cd
 	    		)
 	   		VALUES
 	   			(
@@ -184,6 +192,10 @@
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}
 		    		, #{plorCd}
+		    		, #{stdPckgCd}
+		    		, #{stdUnitCd}
+		    		, #{stdEcfrdCd}
+		    		, #{stdGrdCd}
 	   			)
     	]]>
     </insert>
@@ -213,6 +225,10 @@
 				, NTSL_UNTPRC  				= #{ntslUntprc}
 				, EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
 				, PLOR_CD					= #{plorCd}
+				, STD_PCKG_CD			= #{stdPckgCd}
+	    		, STD_UNIT_CD			= #{stdUnitCd}
+	    		, STD_ECFRD_CD			= #{stdEcfrdCd}
+	    		, STD_GRD_CD			= #{stdGrdCd}
 			 WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
 			   AND APC_CD					= #{apcCd}
 		]]>
@@ -314,7 +330,7 @@
 			 WHERE CNT > 0
 		]]>
     </select>
-    
+
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnits	-->
 	<!-- DESC : APC기준 상품 정보 업데이트  		                            				-->
