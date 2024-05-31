@@ -137,8 +137,16 @@
 			 WHERE PR.APC_CD = #{apcCd}
 			   AND PR.DEL_YN = 'N'
 		]]>
+
 		<if test=' prdcrCd != null and prdcrCd !=""'>
-			   AND PR.PRDCR_CD = #{prdcrCd}
+			<choose>
+				<when test='prdcrGroupYn != null and prdcrGroupYn != "" and prdcrGroupYn =="Y"'>
+					AND PR.PRDCR_CD IN '%' || #{prdcrCd} || '%'
+				</when>
+				<otherwise>
+					AND PR.PRDCR_CD = #{prdcrCd}
+				</otherwise>
+			</choose>
 		</if>
 		<if test=' prdcrNm != null and prdcrNm !=""'>
 			   AND PR.PRDCR_NM LIKE '%' || #{prdcrNm} || '%'
