@@ -36,12 +36,11 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
-                    <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-                    <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-                    <!-- 
-                    <sbux-button id="btnDelete" name="btnDelete" 	uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-                     -->
-                    <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+                	<!-- 
+                    <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add"></sbux-button>
+                    <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
+                    <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+                	 -->
                 </div>
             </div>
             <div class="box-body">
@@ -283,7 +282,7 @@
 
     	fn_initSBSelect();
     	fn_createGrid();
-    	fn_search();
+    	cfn_search();
     });
 
     //grid 초기화
@@ -305,6 +304,12 @@
         SBGridProperties.columns = [
             {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["팝업"], 			ref: 'POP_BTN',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+            	}	
+            },
+            {caption: ["선택"],  			ref: 'POP_SEL',    				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -334,11 +339,56 @@
     }
 
     /**
+     * 그리드내 팝업 조회
+     */
+	function fn_gridPopup(event, row, col) {
+		
+    	console.log('grid popup row:', row);
+    	console.log('grid popup col:', col);
+    	
+		event.stopPropagation();	//그리드로 이벤트 전파중지
+    	fn_compopup2(row, col);
+	}
+
+    /**
+     * 그리드내 공통팝업 오픈
+     */
+    var fn_compopup2 = function(row, col) {
+    	
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+		SBUxMethod.openModal('modal-compopup1');
+    	
+        var searchText 		= "";
+        var replaceText0 	= "_EMP_CODE_";
+        var replaceText1 	= "_EMP_NAME_"; // "NULL|''1222''|NULL"
+        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+    	
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_HRI001_ESS'
+    		,whereClause			: strWhereClause
+   			,searchCaptions			: ["사번", 		"사원명"]
+   			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
+   			,searchInputValues		: ["", 			searchText]
+    		,height					: '400px'
+   			,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
+   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
+   			,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				//그리드내 원하는 위치에 값 셋팅하기
+				NationInGrid.setCellData(row, (col+1), data['EMP_CODE']);
+			}
+    	});
+    }    	
+    	
+    /**
      * 목록 조회
      */
-    const fn_search = async function() {
-    	fn_setNationInGrid();
-    }
+	function cfn_search() {
+		fn_setNationInGrid();
+	}
 	
     /**
      * 목록 가져오기
@@ -419,7 +469,7 @@
     /**
      * 공통팝업
      */
-    const fn_compopup1 = function() {
+    var fn_compopup1 = function() {
     	
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_EMP_CODE_";
@@ -427,7 +477,7 @@
         var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-    	compopup1.init({
+    	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001_ESS'
@@ -445,37 +495,10 @@
 				SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
 			},
     	});
-    	
-    	/*
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
-    	
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
-    	compopup1.init({
-    		compCode				: gv_ma_selectedApcCd
-    		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'L_ORG900_ESS'
-    		,whereClause			: strWhereClause
-   			,searchCaptions			: ["부서", 		"부서명"]
-   			,searchInputFields		: ["CODE", 		"NAME"]
-   			,searchInputValues		: ["", 			searchText]
-    		,height					: '400px'
-   			,tableHeader			: ["부서", "부서명"]
-   			,tableColumnNames		: ["CODE", "NAME"]
-   			,tableColumnWidths		: ["80px", "80px"]
-			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
-				SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-				SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
-			},
-    	});
-    	*/
   	}
 
     //신규 작성
-    function fn_create() {
+    function cfn_add() {
     	
     	editType = "N";    	
 
@@ -515,7 +538,7 @@
     }
 
     //저장
-    const fn_save = async function() {
+    function cfn_save() {
 
     	let NATION_CODE 			= gfnma_nvl(SBUxMethod.get("NATION_CODE"));
     	let NATION_CODE_ABBR		= gfnma_nvl(SBUxMethod.get("NATION_CODE_ABBR"));
@@ -642,7 +665,7 @@
         		if(data.resultMessage){
 	          		alert(data.resultMessage);
         		}
-        		fn_search();
+        		cfn_search();
         	} else {
           		alert(data.resultMessage);
         	}
@@ -692,7 +715,7 @@
         		if(data.resultMessage){
 	          		alert(data.resultMessage);
         		}
-        		fn_search();
+        		cfn_search();
         	} else {
           		alert(data.resultMessage);
         	}
@@ -703,11 +726,6 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    }
-
-    //선택 삭제
-    function fn_delete() {
-        //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
     }
 
     //상세정보 보기

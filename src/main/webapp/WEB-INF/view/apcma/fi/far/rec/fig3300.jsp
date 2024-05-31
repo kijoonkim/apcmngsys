@@ -277,20 +277,84 @@
         ];
 
         NationInGrid = _SBGrid.create(SBGridProperties);
+        //NationInGrid.bind('click', 'fn_view');
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-    	// set pagination
-    	let pageSize = NationInGrid.getPageSize();
-    	let pageNo = 1;
-    	
-    	NationInGrid.movePaging(pageNo);
+    	fn_setNationInGrid();
     }
 
+    /**
+     * 목록 가져오기
+     */
+    const fn_setNationInGrid = async function() {
+
+		NationInGrid.clearStatus();
+
+		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
+		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN	: ''
+			,V_P_LANG_ID		: ''
+			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+			,V_P_NATION_CODE	: NATION_CODE
+			,V_P_NATION_NAME	: NATION_NAME
+			,V_P_FORM_ID		: p_formId
+			,V_P_MENU_ID		: p_menuId
+			,V_P_PROC_ID		: ''
+			,V_P_USERID			: ''
+			,V_P_PC				: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
+        	getType				: 'json',
+        	workType			: 'LIST',
+        	cv_count			: '1',
+        	params				: gfnma_objectToString(paramObj)
+		});
+
+        const data = await postJsonPromise;
+		//console.log('data:', data);
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  	        	jsonNationList.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+  						NATION_CODE				: item.NATION_CODE,
+  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
+  						NATION_NAME				: item.NATION_NAME,
+  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
+  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
+  						REGION_CODE				: item.REGION_CODE,
+  						CURRENCY_CODE			: item.CURRENCY_CODE,
+  						MEMO					: item.MEMO,
+  						SORT_SEQ				: item.SORT_SEQ,
+  						USE_YN 					: item.USE_YN
+  					}
+  					jsonNationList.push(msg);
+  				});
+
+        		NationInGrid.rebuild();
+
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }    
+    
 	const fn_compopup1 = function(list) {
 		
 		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
@@ -300,7 +364,7 @@
         var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
      	
      	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-     	compopup1.init({
+     	compopup1({
      		compCode				: gv_ma_selectedApcCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_HRI001'
