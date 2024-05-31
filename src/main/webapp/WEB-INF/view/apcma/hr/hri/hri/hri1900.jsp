@@ -153,18 +153,9 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
-        SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.paging = {
-            'type' 			: 'page',
-            'count' 		: 5,
-            'size' 			: 20,
-            'sorttype' 		: 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
+            {caption: ["NO"],		ref: 'CNT', 		type:'output',  	width:'28px',  	    style:'text-align:center'},
             {caption: ["구분"],		ref: 'DEPT_CODE', 		type:'output',  	width:'74px',  	    style:'text-align:left'},
             {caption: ["소속"], 		ref: 'DEPT_NAME',    	type:'output',  	width:'105px',  	style:'text-align:left'},
             {caption: ["직위(년차)"], ref: 'POSITION_NAME',   type:'output',  	width:'69px',   	style:'text-align:left',
@@ -231,9 +222,6 @@
      * 목록 조회
      */
     const fn_search = async function() {
-
-        gridViewEx1.clearStatus();
-
         let SITE_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
@@ -275,6 +263,7 @@
                 jsonEmpList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
+                        CNT             : item.CNT,
                         DEPT_CODE       : item.DEPT_CODE,
                         DEPT_NAME       : item.DEPT_NAME,
                         POSITION_NAME   : item.POSITION_NAME,
