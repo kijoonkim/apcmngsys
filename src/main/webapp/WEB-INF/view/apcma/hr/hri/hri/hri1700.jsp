@@ -40,8 +40,8 @@
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
                 <sbux-button id="btnAdminApproval" name="btnAdminApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="관리자승인" onclick="fn_adminApproval"></sbux-button>
-                <sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>
-                <sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>
+                <%--<sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>--%>
+                <%--<sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>--%>
             </div>
         </div>
         <div class="box-body">
@@ -152,7 +152,7 @@
                     <div class="ad_tbl_toplist">
                         <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button>
                         <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
-                        <sbux-button id="btnAddAll" name="btnAddAll" uitype="normal" text="가져오기" class="btn btn-sm btn-outline-danger" onclick="fn_addAll" style="float: right;"></sbux-button>
+                        <%--<sbux-button id="btnAddAll" name="btnAddAll" uitype="normal" text="가져오기" class="btn btn-sm btn-outline-danger" onclick="fn_addAll" style="float: right;"></sbux-button>--%>
                     </div>
                 </div>
                 <div class="table-responsive tbl_scroll_sm">
@@ -391,9 +391,6 @@
      * 목록 조회
      */
     const fn_search = async function() {
-
-        bandgvwInfo.clearStatus();
-
         let REQUEST_DATE_FR	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_FR"));
         let REQUEST_DATE_TO	= gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_DATE_TO"));
         let REPORT_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_REPORT_TYPE"));
@@ -491,7 +488,9 @@
         }
     }
 
-    function cfn_save() {}
+    function cfn_save() {
+        fn_save();
+    }
 
     function cfn_del() {}
 
@@ -500,40 +499,41 @@
 
         editType = "E";
 
-        var nCol = gvwList.getCol();
+        var nCol = bandgvwInfo.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
             return;
         }
-        var nRow = gvwList.getRow();
+        var nRow = bandgvwInfo.getRow();
         if (nRow < 1) {
             return;
         }
 
-        let rowData = gvwList.getRowData(nRow);
+        let rowData = bandgvwInfo.getRowData(nRow);
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: ''
-            ,V_P_LANG_ID		: ''
-            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
-            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-            ,V_P_REQUEST_DATE_FR: APPOINT_NUM
-            ,V_P_REQUEST_DATE_TO: APPOINT_DATE_FR
-            ,V_P_REPORT_TYPE: APPOINT_DATE
-            ,V_P_CONFIRM_STEP      : SITE_CODE
-            ,V_P_DEPT_CODE      : DEPT_CODE
-            ,V_P_DOC_NUM       : ''
-            ,V_P_FORM_ID		: p_formId
-            ,V_P_MENU_ID		: p_menuId
-            ,V_P_PROC_ID		: ''
-            ,V_P_USERID			: ''
-            ,V_P_PC				: ''
+            V_P_DEBUG_MODE_YN	    : ''
+            ,V_P_LANG_ID		    : ''
+            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
+            ,V_P_REQUEST_DATE_FR    : REQUEST_DATE_FR
+            ,V_P_REQUEST_DATE_TO    : REQUEST_DATE_TO
+            ,V_P_REPORT_TYPE        : REPORT_TYPE
+            ,V_P_CONFIRM_STEP       : CONFIRM_STEP
+            ,V_P_DEPT_CODE          : DEPT_CODE
+            ,V_P_EMP_CODE           : EMP_CODE
+            ,V_P_DOC_NUM            : rowData.DOC_NUM
+            ,V_P_FORM_ID		    : p_formId
+            ,V_P_MENU_ID		    : p_menuId
+            ,V_P_PROC_ID		    : ''
+            ,V_P_USERID			    : ''
+            ,V_P_PC				    : ''
         };
 
         const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1700List.do", {
             getType				: 'json',
             workType			: 'DETAIL',
-            cv_count			: '3',
+            cv_count			: '9',
             params				: gfnma_objectToString(paramObj)
         });
 
@@ -545,41 +545,24 @@
                 /** @type {number} **/
                 let totalRecordCount = 0;
 
-                jsonEmpList.length = 0;
-                data.cv_1.forEach((item, index) => {
+                jsonCareerList.length = 0;
+                data.cv_2.forEach((item, index) => {
                     const msg = {
-                        APPOINT_DATE                : item.APPOINT_DATE,
-                        APPOINT_TYPE                : item.APPOINT_TYPE,
-                        APPOINT_NUM                 : item.APPOINT_NUM,
-                        APPOINT_TITLE               : item.APPOINT_TITLE,
-                        APPLY_YN                    : item.APPLY_YN,
-                        DEPT_APPOINT_YN             : item.DEPT_APPOINT_YN,
-                        POSITION_APPOINT_YN         : item.POSITION_APPOINT_YN,
-                        DUTY_APPOINT_YN             : item.DUTY_APPOINT_YN,
-                        JOB_RANK_APPOINT_YN         : item.JOB_RANK_APPOINT_YN,
-                        JOB_GROUP_APPOINT_YN        : item.JOB_GROUP_APPOINT_YN,
-                        JOB_APPOINT_YN              : item.JOB_APPOINT_YN,
-                        REGION_APPOINT_YN           : item.REGION_APPOINT_YN,
-                        APPOINT_TYPE_NAME           : item.APPOINT_TYPE_NAME,
-                        JOB_FAMILY_APPOINT_YN       : item.JOB_FAMILY_APPOINT_YN,
-                        PARENTING_WORK_TYPE_YN      : item.PARENTING_WORK_TYPE_YN,
-                        APPR_ID                     : item.APPR_ID,
-                        APPR_COUNT                  : item.APPR_COUNT,
-                        CURRENT_APPROVE_EMP_CODE    : item.CURRENT_APPROVE_EMP_CODE,
-                        FINAL_APPROVER              : item.FINAL_APPROVER,
-                        BEFORE_APPR_EMP             : item.BEFORE_APPR_EMP,
-                        NEXT_APPR_EMP               : item.NEXT_APPR_EMP,
-                        BEFORE_PROXY_EMP            : item.BEFORE_PROXY_EMP,
-                        NEXT_PROXY_EMP              : item.NEXT_PROXY_EMP,
-                        CONFIRM_EMP_CODE            : item.CONFIRM_EMP_CODE,
-                        PROXY_EMP_CODE              : item.PROXY_EMP_CODE,
-                        STATUS_CODE                 : item.STATUS_CODE,
-                        APPROVE_DATE                : item.APPROVE_DATE
+                        DOC_NUM : item.DOC_NUM,
+                        SEQ : item.SEQ,
+                        EMP_CODE : item.EMP_CODE,
+                        START_DATE : item.START_DATE,
+                        END_DATE : item.END_DATE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        DUTY_NAME : item.DUTY_NAME,
+                        POSITION : item.POSITION,
+                        WORK : item.WORK,
+                        MEMO : item.MEMO
                     }
-                    jsonEmpList.push(msg);
+                    jsonCareerList.push(msg);
                 });
 
-                gvwList.rebuild();
+                gvwCareer.rebuild();
             } else {
                 alert(data.resultMessage);
             }
@@ -593,6 +576,156 @@
         }
     }
 
+    // 저장
+    const fn_save = async function() {
+        var paramObj = {
+            V_P_DEBUG_MODE_YN : '',
+            V_P_LANG_ID : '',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE : gv_ma_selectedClntCd,
+            V_P_DOC_NUM : DOC_NUM,
+            V_P_APPROVAL_YN : APPROVAL_YN,
+            V_P_APPROVAL_ID : APPROVAL_ID,
+            V_P_REJECT_YN : REJECT_YN,
+            V_P_REJECT_REASON : REJECT_REASON,
+            V_P_CERTI_MEMO : CERTI_MEMO,
+            V_P_PRINTABLE_YN : PRINTABLE_YN,
+            V_P_REPORT_TYPE : REPORT_TYPE,
+            V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN,
+            V_P_IMG_YN : IMG_YN,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1700Master.do", {
+            getType				: 'json',
+            workType			: 'U',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.resultMessage){
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN : '',
+                        V_P_LANG_ID : '',
+                        V_P_COMP_CODE : gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE : gv_ma_selectedClntCd,
+                        V_P_DOC_NUM : DOC_NUM,
+                        V_P_APPROVAL_YN : APPROVAL_YN,
+                        V_P_APPROVAL_ID : APPROVAL_ID,
+                        V_P_REJECT_YN : REJECT_YN,
+                        V_P_REJECT_REASON : REJECT_REASON,
+                        V_P_CERTI_MEMO : CERTI_MEMO,
+                        V_P_PRINTABLE_YN : PRINTABLE_YN,
+                        V_P_REPORT_TYPE : REPORT_TYPE,
+                        V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN,
+                        V_P_IMG_YN : IMG_YN,
+                        V_P_FORM_ID : p_formId,
+                        V_P_MENU_ID : p_menuId,
+                        V_P_PROC_ID : '',
+                        V_P_USERID : '',
+                        V_P_PC : ''
+                    };
+
+                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1700Sub.do", {
+                        getType				: 'json',
+                        workType			: 'U',
+                        cv_count			: '0',
+                        params				: gfnma_objectToString(paramObj)
+                    });
+                    const data = await postJsonPromise;
+
+                }
+                cfn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_adminApproval = async function() {
+        var paramObj = {
+            V_P_DEBUG_MODE_YN : '',
+            V_P_LANG_ID : '',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE : gv_ma_selectedClntCd,
+            V_P_DOC_NUM : DOC_NUM,
+            V_P_APPROVAL_YN : APPROVAL_YN,
+            V_P_APPROVAL_ID : APPROVAL_ID,
+            V_P_REJECT_YN : REJECT_YN,
+            V_P_REJECT_REASON : REJECT_REASON,
+            V_P_CERTI_MEMO : CERTI_MEMO,
+            V_P_PRINTABLE_YN : PRINTABLE_YN,
+            V_P_REPORT_TYPE : REPORT_TYPE,
+            V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN,
+            V_P_IMG_YN : IMG_YN,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1700Master.do", {
+            getType				: 'json',
+            workType			: 'MANAGER',
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
+                cfn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    // 행 추가
+    const fn_addRow = function() {
+        let rowVal = gvwCareer.getRow();;
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            gvwCareer.addRow(true);
+        }else{
+            gvwCareer.insertRow(rowVal);
+        }
+    }
+
+    //선택된 행 삭제
+    const fn_deleteRow = function() {
+        let rowVal = gvwCareer.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwCareer.deleteRow(rowVal);
+        }
+    }
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
