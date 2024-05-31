@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 개인급여 정보 컨트롤러 클래스
@@ -61,7 +62,14 @@ public class ApcMaHrp1000Controller extends BaseController {
         }
 
         logger.info("=============selectHrp1000List=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     // 개인급여 정보 저장
@@ -86,7 +94,14 @@ public class ApcMaHrp1000Controller extends BaseController {
         }
 
         logger.info("=============insertHrp1000=====end========");
-        return getSuccessResponseEntity(resultMap);
+        if (resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     // 급여기본정보 급여정보(연봉) 저장 
@@ -108,7 +123,8 @@ public class ApcMaHrp1000Controller extends BaseController {
                         listData.stream().forEach(d -> {
                             try {
                                 d.put("procedure", 		key);
-                                apcMaCommDirectService.callProc(d, session, request, "");
+                                d = apcMaCommDirectService.callProc(d, session, request, "");
+                                resultMap.put("result", d);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -127,7 +143,15 @@ public class ApcMaHrp1000Controller extends BaseController {
         }
 
         logger.info("=============insertHrp1000S1=====end========");
-        return getSuccessResponseEntity(resultMap);
+        HashMap<String, Object> result = (HashMap<String, Object>) resultMap.get("result");
+        if (result.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
     // 원천세징수비율 정보 저장
@@ -149,7 +173,8 @@ public class ApcMaHrp1000Controller extends BaseController {
                         listData.stream().forEach(d -> {
                             try {
                                 d.put("procedure", 		key);
-                                apcMaCommDirectService.callProc(d, session, request, "");
+                                d = apcMaCommDirectService.callProc(d, session, request, "");
+                                resultMap.put("result", d);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -168,7 +193,15 @@ public class ApcMaHrp1000Controller extends BaseController {
         }
 
         logger.info("=============insertHrp1000S2=====end========");
-        return getSuccessResponseEntity(resultMap);
+        HashMap<String, Object> result = (HashMap<String, Object>) resultMap.get("result");
+        if (result.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
     }
 
 
