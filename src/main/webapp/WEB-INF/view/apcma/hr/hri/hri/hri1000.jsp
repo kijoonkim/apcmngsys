@@ -1414,8 +1414,8 @@
         SBUxMethod.attr('JOB_CODE', 'readonly', 'false');
         SBUxMethod.attr('DUTY_CODE', 'readonly', 'false');
         SBUxMethod.attr('JOB_RANK', 'readonly', 'false');
-        SBUxMethod.attr('ENTER_TYPE', 'readonly', 'true');
-        SBUxMethod.attr('EMP_TYPE', 'readonly', 'true');
+        SBUxMethod.attr('ENTER_TYPE', 'readonly', 'false');
+        SBUxMethod.attr('EMP_TYPE', 'readonly', 'false');
         SBUxMethod.attr('VETERANS_RELATION', 'readonly', 'false');
         SBUxMethod.attr('VETERANS_NUM', 'readonly', 'false');
         SBUxMethod.attr('VETERANS_ORDER_YN', 'readonly', 'false');
@@ -1464,7 +1464,7 @@
 
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
-                var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr.replace(/[^0-9]/g, '');
+                var empCode = editType == 'U' ? gfnma_nvl(SBUxMethod.get("EMP_CODE")) : masterData.v_returnStr;
                 SBUxMethod.set("EMP_CODE", empCode);
                 if(empCode) {
                     const postJsonPromiseSub = gfn_postJSON("/hr/hri/hri/insertHri1000Sub.do", {
@@ -1831,8 +1831,8 @@
 
     //상세정보 보기
     const fn_view = async function() {
-        editType = "U";
         cfn_add();
+        editType = "U";
         SBUxMethod.show('DISPLAY_SOCIAL_NUM');
         SBUxMethod.hide('SOCIAL_NUM');
         SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
