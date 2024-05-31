@@ -66,90 +66,61 @@
 /**
  * @description 공통 팝업
  */
-const compopup1 = {
-		
-	prgrmId		: '#compopup1'
-	,modalId	: 'modal-compopup1'
-	,callbackFn	: null
+function compopup1(options) {
 	
-	,init : async function(obj){
-		var _compCode				= obj.compCode;
-		var _clientCode				= obj.clientCode;
-		var _bizcompId				= obj.bizcompId;
-		var _whereClause			= obj.whereClause;
-		
-		var _searchCaptions			= obj.searchCaptions;
-		var _searchInputFields		= obj.searchInputFields;
-		var _searchInputValues		= obj.searchInputValues;
-		
-		var _searchInputTypes		= obj.searchInputTypes;
-		var _searchInputTypeValues	= obj.searchInputTypeValues;
-		
-		var _height					= obj.height;
-		var _tableHeader			= obj.tableHeader;
-		var _tableColumnNames		= obj.tableColumnNames;
-		var _tableColumnWidths		= obj.tableColumnWidths;
-		compopup1.callbackFn		= obj.itemSelectEvent;
-		
-    	//css
-   	 	$(compopup1.prgrmId).find('.cu-table-div').css('height', _height);
-   	 	
-    	//search
-    	$(compopup1.prgrmId).find('.cu-btn-sch-compopup1').click(function(){
-    		
-    		var wstr 	= _whereClause;
-    		$(compopup1.prgrmId).find('.cu-search-area').find('[name]').each(function(){
-    			var name  	= $(this).prop('name');
-    			var icode 	= "_" + name + "_";
-    			var val   	= $(this).val();
-    			wstr 		= wstr.replace(icode, val);
-    		});
-        	compopup1.getData(_compCode, _clientCode, _bizcompId, wstr, _tableColumnNames);
-    	});
-    	
-    	//close event
-    	$(compopup1.prgrmId).find('.cu-btn-close-compopup1').click(function(){
-   	 		SBUxMethod.closeModal(compopup1.modalId);
-    	});
-    	
-    	//create table
-    	compopup1.createTable(_searchCaptions, _searchInputFields, _searchInputValues, _searchInputTypes, _searchInputTypeValues, _tableHeader, _tableColumnWidths);
-    	
-    	//get data
-   		var wstr 	= _whereClause;
-	    for (var i = 0; i < _searchInputFields.length; i++) {
-   			var name  	= _searchInputFields[i];
-   			var icode 	= "_" + name + "_";
-   			var val   	= _searchInputValues[i];
-   			wstr 		= wstr.replace(icode, val);
-	    }
-    	compopup1.getData(_compCode, _clientCode, _bizcompId, wstr, _tableColumnNames);
-	}
-	,createTable : function(p_searchCaptions, p_searchInputFields, p_searchInputValues, p_searchInputTypes, p_searchInputTypeValues, p_tableHeader, p_tableColumnWidths){
+	// id 선언
+	var modalId  	= '#compopup1';
+	var modalDivId 	= 'modal-compopup1';
+	
+	var settings = {
+		compCode				: null
+		,clientCode				: null
+		,bizcompId				: null
+		,whereClause			: null
+		,procParams				: null 
+		,searchCaptions			: null
+		,searchInputFields		: null
+		,searchInputValues		: null
+		,searchInputTypes		: null
+		,searchInputTypeValues	: null
+		,height					: null
+		,tableHeader			: null
+		,tableColumnNames		: null
+		,tableColumnWidths		: null
+		,itemSelectEvent		: null
+	};
+	$.extend(settings, options);	
+	//console.log('settings:', settings);
+
+	//css
+ 	$(modalId).find('.cu-table-div').css('height', settings.height);
+
+	// get data
+    var createTable = function() {
 		
 		//조회부분 
 		var acnt = 0;
-		var alen = p_searchCaptions.length;
+		var alen = settings.searchCaptions.length;
 		var htma = '<tr>';
 		var htmc = ' name="_name_" ';
 	    for (var i = 0; i < alen; i++) {
 			
-			var tmp3 = (p_searchInputFields[i]) ? htmc.replace('_name_',	p_searchInputFields[i]) : "";
-			htma += '<th scope="th_bg">' + p_searchCaptions[i] + '</th>';
+			var tmp3 = (settings.searchInputFields[i]) ? htmc.replace('_name_',	settings.searchInputFields[i]) : "";
+			htma += '<th scope="th_bg">' + settings.searchCaptions[i] + '</th>';
 			htma += '<td class="td_input" style="border-right: hidden;">';
-			if(Array.isArray(p_searchInputTypes)) {
-				if(p_searchInputTypes[i]=="input"){
-					htma += '<sbux-input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + p_searchInputValues[i] + '" ></sbux-input>';
-				} else if(p_searchInputTypes[i]=="select") {
+			if(Array.isArray(settings.searchInputTypes)) {
+				if(settings.searchInputTypes[i]=="input"){
+					htma += '<input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + settings.searchInputValues[i] + '" ></input>';
+				} else if(settings.searchInputTypes[i]=="select") {
 					htma += '<select ' + tmp3 + ' class="form-control form-select" >';
 	        		htma += '<option value="">선택</option>';
-				    for (var j = 0; j < p_searchInputTypeValues[i].length; j++) {
-				    	htma += '<option value="' + p_searchInputTypeValues[i][j]['value'] + '">' + p_searchInputTypeValues[i][j]['text'] + '</option>';
+				    for (var j = 0; j < settings.searchInputTypeValues[i].length; j++) {
+				    	htma += '<option value="' + settings.searchInputTypeValues[i][j]['value'] + '">' + settings.searchInputTypeValues[i][j]['text'] + '</option>';
 				    }
 					htma += '</select>';	
 				}
 			} else {
-				htma += '<sbux-input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + p_searchInputValues[i] + '" ></sbux-input>';
+				htma += '<input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + settings.searchInputValues[i] + '" ></input>';
 			}
 			htma += '</td>';
 			acnt ++;		
@@ -162,43 +133,58 @@ const compopup1 = {
 				}
 			}
 		}	
-	    $(compopup1.prgrmId).find('.cu-search-area').html(htma);
+	    $(modalId).find('.cu-search-area').html(htma);
 		
 		//table column width
 		var ctot = 0; 
-		var blen = p_tableColumnWidths.length;
+		var blen = settings.tableColumnWidths.length;
 		var htmd = '';
 	    for (var j= 0; j < blen; j++) {
-			htmd += '<col width="' + p_tableColumnWidths[j]  + '" />'
-			ctot += gfnma_getNumber(p_tableColumnWidths[j]);
+			htmd += '<col width="' + settings.tableColumnWidths[j]  + '" />'
+			ctot += gfnma_getNumber(settings.tableColumnWidths[j]);
 		}	
-		$(compopup1.prgrmId).find('.cu-data-table').find('colgroup').html(htmd);			
-   	 	$(compopup1.prgrmId).find('.cu-data-table').css('min-width', ctot + 'px');
+		$(modalId).find('.cu-data-table').find('colgroup').html(htmd);			
+   	 	$(modalId).find('.cu-data-table').css('min-width', ctot + 'px');
 
 		//table header column
-		var clen = p_tableHeader.length;
+		var clen = settings.tableHeader.length;
 		var htme = '<tr>';
 	    for (var j= 0; j < clen; j++) {
-			htme += '<th style="text-align:left" >' + p_tableHeader[j]  + '</th>'
+			htme += '<th style="text-align:left" >' + settings.tableHeader[j]  + '</th>'
 		}	
 		htme += '</tr>';
-		$(compopup1.prgrmId).find('.cu-data-table').find('thead').html(htme);		
-	}
-	,getData : async function(p_compCode, p_clientCode, p_bizcompId, p_whereClause, p_tableColumnNames){
+		$(modalId).find('.cu-data-table').find('thead').html(htme);				
+		
+	};
+    createTable();
+	
+	// get data
+    const getData = async function() {
     	
+		var wstr 	= settings.whereClause;
+		$(modalId).find('.cu-search-area').find('[name]').each(function(){
+			var name  	= $(this).attr('name');
+			if(!name){
+				name  	= $(this).prop('name');
+			}
+			var icode 	= "_" + name + "_";
+			var val   	= $(this).val();
+			wstr 		= wstr.replace(icode, val);
+		});
+		
    		var paramObj = { 
    			V_P_DEBUG_MODE_YN	: ''
    			,V_P_LANG_ID		: ''
-   			,V_P_COMP_CODE		: p_compCode
-   			,V_P_CLIENT_CODE	: p_clientCode
-   			,V_P_BIZCOMP_ID		: p_bizcompId
-   			,V_P_WHERE_CLAUSE	: p_whereClause
+   			,V_P_COMP_CODE		: settings.compCode
+   			,V_P_CLIENT_CODE	: settings.clientCode
+   			,V_P_BIZCOMP_ID		: settings.bizcompId
+   			,V_P_WHERE_CLAUSE	: wstr
    			,V_P_FORM_ID		: ''
    			,V_P_MENU_ID		: ''
    			,V_P_PROC_ID		: ''
    			,V_P_USERID			: ''
    			,V_P_PC				: ''
-	    };
+   		};
     	const postJsonPromise = gfn_postJSON("/com/comSelectList.do", {
 	        getType				: 'json',
 	        workType			: 'Q',
@@ -207,22 +193,22 @@ const compopup1 = {
   		});
   	    const data = await postJsonPromise;
     	console.log('popup get data:', data);
-		
+   			
     	//create td
 		var tmp = "";
 		var list = data.cv_1;
    	 	for (var i= 0; i < list.length; i++) {
 			tmp += '<tr>'
 			//표시되는 컬럼
-	   	 	for (var j= 0; j < p_tableColumnNames.length; j++) {
-				var code = p_tableColumnNames[j];
+	   	 	for (var j= 0; j < settings.tableColumnNames.length; j++) {
+				var code = settings.tableColumnNames[j];
 				tmp += '<td cu-name="' + code + '">' + list[i][code] + '</td>';
 			}
 			//비표시되는 컬럼
 			var obj = list[i];
 			for(var key in obj){
-		   	 	for (var j= 0; j < p_tableColumnNames.length; j++) {
-					var code = p_tableColumnNames[j];
+		   	 	for (var j= 0; j < settings.tableColumnNames.length; j++) {
+					var code = settings.tableColumnNames[j];
 					if(code!=key){
 						tmp += '<td style="display:none" cu-name="' + key + '">' + obj[key] + '</td>';
 					}
@@ -230,14 +216,30 @@ const compopup1 = {
 			}
 			tmp += '</tr>'
 		}
-   	 	$(compopup1.prgrmId).find('.cu-data-table').find('tbody').html(tmp);
-   	 	$(compopup1.prgrmId).find('.cu-data-table').find('tbody').find('tr').click(function(){
+   	 	$(modalId).find('.cu-data-table').find('tbody').html(tmp);
+   	 	$(modalId).find('.cu-data-table').find('tbody').find('tr').click(function(){
    	 		var obj = gfnma_getObjectRowTable($(this));
-   	 		compopup1.callbackFn(obj);
-   	 		SBUxMethod.closeModal(compopup1.modalId);
-   	 	});
-  	    
-	}
+   	 		if(settings.itemSelectEvent){
+   	 			settings.itemSelectEvent(obj);
+   	 		}
+   	 		SBUxMethod.closeModal(modalDivId);
+   	 	});		
+    };
+	
+	//search button event
+	$(modalId).find('.cu-btn-sch-compopup1').click(function(){
+    	getData();
+	});
+	
+	//close event
+	$(modalId).find('.cu-btn-close-compopup1').click(function(){
+	 	SBUxMethod.closeModal(modalDivId);
+	});	
+	
+	//start
+	getData();
+	
 }
+ 
 </script>
 </html>
