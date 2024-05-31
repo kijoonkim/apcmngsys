@@ -1060,11 +1060,11 @@
                 <tr>
                     <th scope="row" class="th_bg">보험액</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="INSURE_AMOUNT" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="INSURE_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"></sbux-input>
                     </td>
                     <th scope="row" class="th_bg">보험가액</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="INSURE_VALUE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="INSURE_VALUE" uitype="text" placeholder="" class="form-control input-sm" mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"></sbux-input>
                     </td>
                     <th scope="row" class="th_bg">보험시작일</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -1524,8 +1524,8 @@
         SBUxMethod.set("INSURE_COMP_NAME", "");
         SBUxMethod.set("INSURE_NAME", "");
         SBUxMethod.set("INSURE_NUM", "");
-        SBUxMethod.set("INSURE_AMOUNT", "");
-        SBUxMethod.set("INSURE_VALUE", "");
+        SBUxMethod.set("INSURE_AMOUNT", "0");
+        SBUxMethod.set("INSURE_VALUE", "0");
         SBUxMethod.set("INSURE_START_DATE", "");
         SBUxMethod.set("INSURE_END_DATE", "");
         SBUxMethod.set("GUARANTOR1_NAME", "");
@@ -1616,7 +1616,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left', typeinfo : {mask : {alias : '######-#######', unmaskvalue : false}}},
+            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left', typeinfo : {mask : {alias : '######-#######', unmaskvalue : true}}},
             {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'input',  	width:'140px',  style:'text-align:left', hidden: true},
             {caption: ["생년월일"],          ref: 'BIRTHDAY', 		    type:'datepicker',  	width:'100px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -2782,7 +2782,7 @@
 
     // 행 추가
     const fn_addRowForGvwFamily = function() {
-        let rowVal = gvwFamily.getRow();
+        let rowVal = gvwFamily.getRow();;
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
@@ -3322,7 +3322,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_FILE_NAME : item.data.FILE_NAME,
                     V_P_FILE_SERVER_PATH : item.data.FILE_SERVER_PATH,
                     V_P_FILE_TYPE : item.data.FILE_TYPE,
@@ -3383,7 +3383,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_NAME : item.data.NAME,
                     V_P_RELATION : item.data.RELATION,
                     V_P_SOCIAL_NO : item.data.SOCIAL_NO,
@@ -3436,7 +3436,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_SCHOOL_TYPE : item.data.SCHOOL_TYPE,
                     V_P_MANAGE_CODE : item.data.MANAGE_CODE,
                     V_P_SCHOOL_NAME : item.data.SCHOOL_NAME,
@@ -3479,7 +3479,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_LICENSE_CODE : item.data.LICENSE_CODE,
                     V_P_LICENSE_GRADE : item.data.LICENSE_GRADE,
                     V_P_LICENSE_NUM : item.data.LICENSE_NUM,
@@ -3523,7 +3523,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_CAREER_TYPE : item.data.CAREER_TYPE,
                     V_P_START_DATE : item.data.START_DATE,
                     V_P_END_DATE : item.data.END_DATE,
@@ -3566,7 +3566,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_TEST_TYPE : item.data.TEST_TYPE,
                     V_P_TEST_DATE : item.data.TEST_DATE,
                     V_P_AVAILABLE_DATE : item.data.AVAILABLE_DATE,
@@ -3606,7 +3606,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_EDU_NAME : item.data.EDU_NAME,
                     V_P_FOREIGN_YN : item.data.FOREIGN_YN,
                     V_P_EDU_METHOD : item.data.EDU_METHOD,
@@ -3648,7 +3648,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_PRIZE_TYPE : item.data.PRIZE_TYPE,
                     V_P_PRIZE_CATEGORY : item.data.PRIZE_CATEGORY,
                     V_P_PRIZE_DATE : item.data.PRIZE_DATE,
@@ -3691,7 +3691,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_CHECK_TYPE : item.data.CHECK_TYPE,
                     V_P_CHECK_DATE : item.data.CHECK_DATE,
                     V_P_CHECK_INSTITUTE : item.data.CHECK_INSTITUTE,
@@ -3764,7 +3764,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_TIME_OFF_TYPE : item.data.TIME_OFF_TYPE,
                     V_P_START_DATE : item.data.START_DATE,
                     V_P_END_DATE : item.data.END_DATE,
@@ -3800,7 +3800,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_OA_NAME : item.data.OA_NAME,
                     V_P_OA_SKILL_LEVEL : item.data.OA_SKILL_LEVEL,
                     V_P_MEMO : item.data.MEMO,
@@ -3832,7 +3832,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_GROUP_INSURE_CODE : item.data.GROUP_INSURE_CODE,
                     V_P_INSURE_NUM : item.data.INSURE_NUM,
                     V_P_INSURE_START_DATE : item.data.INSURE_START_DATE,
@@ -3868,7 +3868,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_DISEASE_TYPE : item.data.DISEASE_TYPE,
                     V_P_DISEASE_REASON : item.data.DISEASE_REASON,
                     V_P_DISEASE_START_DATE : item.data.DISEASE_START_DATE,
@@ -3907,7 +3907,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_EVAL_YEAR : item.data.EVAL_YEAR,
                     V_P_POSITION_CODE : item.data.POSITION_CODE,
                     V_P_EVAL_KPI_GRADE : item.data.EVAL_KPI_GRADE,
@@ -3941,7 +3941,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_OFFICIAL_INJURY_START_DATE : item.data.OFFICIAL_INJURY_START_DATE,
                     V_P_OFFICIAL_INJURY_DESCR : item.data.OFFICIAL_INJURY_DESCR,
                     V_P_MEMO : item.data.MEMO,
@@ -4046,7 +4046,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_WORKPLAN_TYPE : item.data.WORKPLAN_TYPE,
                     V_P_START_DATE : item.data.START_DATE,
                     V_P_END_DATE : item.data.END_DATE,
@@ -4104,7 +4104,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_NAME : item.data.NAME,
                     V_P_RELATION : item.data.RELATION,
                     V_P_WELFARE_CODE : item.data.WELFARE_CODE,

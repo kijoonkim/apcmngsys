@@ -259,7 +259,9 @@
                             <div class="ad_tbl_toplist">
                                 <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button>
                                 <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
-                                <sbux-button id="btnToggleMode" name="btnToggleMode" uitype="normal" text="복사모드해제" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode" style="float: right;"></sbux-button>
+                                <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사모드해제" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button>
+                                <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button>
+                                <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button>
                                 <sbux-button id="btnDeleteAll" name="btnDeleteAll" uitype="normal" text="일괄삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteAll" style="float: right;"></sbux-button>
                                 <sbux-button id="btnAddAll" name="btnAddAll" uitype="normal" text="일괄추가" class="btn btn-sm btn-outline-danger" onclick="fn_addAll" style="float: right;"></sbux-button>
                             </div>
@@ -375,12 +377,13 @@
     window.addEventListener('DOMContentLoaded', function (e) {
         fn_initSBSelect();
         fn_createGvwListGrid();
-        fn_createBandgvwDetailGrid();
+        fn_createBandgvwDetailGrid(false);
 
         cfn_search();
     });
 
     var editType			= "N";
+    var copyMode            = "clear";
 
     var jsonSiteCode = [];	// 사업장
     var jsonAppointType = []; // 발령구분
@@ -400,6 +403,9 @@
     const fn_initSBSelect = async function () {
         SBUxMethod.set("SRCH_APPOINT_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
         SBUxMethod.set("SRCH_APPOINT_DATE", gfn_dateToYmd(new Date()));
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
 
         let rst = await Promise.all([
             // 사업장
@@ -776,14 +782,40 @@
         gvwList.bind('click', 'fn_view');
     }
 
-    function fn_createBandgvwDetailGrid() {
+    function fn_createBandgvwDetailGrid(disableOption) {
+        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN")).DEPT_APPOINT_YN;
+        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN")).POSITION_APPOINT_YN;
+        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN")).DUTY_APPOINT_YN;
+        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN")).JOB_RANK_APPOINT_YN;
+        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN")).JOB_GROUP_APPOINT_YN;
+        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN")).JOB_APPOINT_YN;
+        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN")).JOB_FAMILY_APPOINT_YN;
+        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN")).REGION_APPOINT_YN;
+        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
+
+        let commonHiddenYn = (DEPT_APPOINT_YN == "N" && POSITION_APPOINT_YN == "N" &&
+            DUTY_APPOINT_YN == "N" && JOB_RANK_APPOINT_YN == "N" &&
+            JOB_GROUP_APPOINT_YN == "N" && JOB_APPOINT_YN == "N" &&
+            JOB_FAMILY_APPOINT_YN == "N" && REGION_APPOINT_YN == "N");
+
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-bandgvwDetail';
         SBGridProperties.id = 'bandgvwDetail';
         SBGridProperties.jsonref = 'jsonBandgvwDetailList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-        SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.allowcopy = true; //복사
+
+        if (copyMode == 'clear') { //복사해제모드
+            SBGridProperties.selectmode = 'free';
+        } else if(copyMode == 'line'){ //행복사모드
+            SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
+            SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+            SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
+        } else if(copyMode == 'cell'){ //셀복사모드
+            SBGridProperties.selectmode = 'free';
+            SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+        }
+
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.paging = {
             'type': 'page',
@@ -799,19 +831,20 @@
                 type: 'checkbox',
                 width: '45px',
                 style: 'text-align:center',
-                typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'},
+                disabled: disableOption
             },
-            {caption: ["인원정보","사원번호"], ref: 'EMP_CODE', type: 'output', width: '80px', style: 'text-align:left'},
-            {caption: ["인원정보","사원명"], ref: 'EMP_FULL_NAME', type: 'output', width: '80px', style: 'text-align:left'},
-            {caption: ["기간정보","시작일자"], ref: 'START_DATE', type: 'output', width: '128px', style: 'text-align:left',
+            {caption: ["인원정보","사원번호"], ref: 'EMP_CODE', type: 'input', width: '80px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["인원정보","사원명"], ref: 'EMP_FULL_NAME', type: 'input', width: '80px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["기간정보","시작일자"], ref: 'START_DATE', type: 'datepicker', width: '128px', style: 'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},
+                disabled: disableOption
             },
-            {caption: ["기간정보","종료일자"], ref: 'END_DATE', type: 'output', width: '128px', style: 'text-align:left',
+            {caption: ["기간정보","종료일자"], ref: 'END_DATE', type: 'datepicker', width: '128px', style: 'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},
+                disabled: disableOption
             },
             {
                 caption: ["기간정보","휴직유형"], ref: 'TIME_OFF_TYPE', type: 'combo', width: '89px', style: 'text-align:left',
@@ -820,9 +853,10 @@
                     label: 'label',
                     value: 'value',
                     itemcount: 10
-                }
+                },
+                disabled: disableOption
             },
-            {caption: ["기간정보","발령유형"], ref: 'APPOINT_TYPE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["기간정보","발령유형"], ref: 'APPOINT_TYPE', type: 'input', width: '75px', style: 'text-align:left', hidden: true, disabled: disableOption},
             {
                 caption: ["시작시각","시작구분"], ref: 'TIME_START_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
@@ -832,8 +866,9 @@
                     itemcount: 10
                 }
                 , hidden: true
+                , disabled: disableOption
             },
-            {caption: ["시작시각","시작시각"], ref: 'TIME_START_HHMM', type: 'output', width: '66px', style: 'text-align:left', hidden: true},
+            {caption: ["시작시각","시작시각"], ref: 'TIME_START_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: true, disabled: disableOption},
             {
                 caption: ["종료시각","종료구분"], ref: 'TIME_END_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
@@ -843,12 +878,15 @@
                     itemcount: 10
                 }
                 , hidden: true
+                , disabled: disableOption
             },
-            {caption: ["종료시각","종료시각"], ref: 'TIME_END_HHMM', type: 'output', width: '66px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현부서"], ref: 'DEPT_CODE1', type: 'output', width: '80px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현부서명"], ref: 'DEPT_NAME1', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현원가중심점"], ref: 'COST_DEPT1', type: 'output', width: '80px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현원가중심점명"], ref: 'COST_DEPT1_NAME', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
+            {caption: ["종료시각","종료시각"], ref: 'TIME_END_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: true, disabled: disableOption},
+            {caption: ["현재정보","현부서"], ref: 'DEPT_CODE1', type: 'input', width: '80px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["현재정보","현부서명"], ref: 'DEPT_NAME1', type: 'input', width: '120px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || (DEPT_APPOINT_YN != "Y")), disabled: disableOption},
+            {caption: ["현재정보","현원가중심점"], ref: 'COST_DEPT1', type: 'input', width: '80px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["현재정보","현원가중심점명"], ref: 'COST_DEPT1_NAME', type: 'input', width: '120px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6")), disabled: disableOption},
             {
                 caption: ["현재정보","직위"], ref: 'POSITION_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
@@ -857,7 +895,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (POSITION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직책"], ref: 'DUTY_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
@@ -867,7 +906,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (DUTY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직급"], ref: 'JOB_RANK1', type: 'combo', width: '110px', style: 'text-align:left',
@@ -877,7 +917,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_RANK_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직군"], ref: 'JOB_GROUP1', type: 'combo', width: '80px', style: 'text-align:left',
@@ -887,7 +928,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_GROUP_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직무"], ref: 'JOB_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
@@ -897,7 +939,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직원하위그룹"], ref: 'JOB_FAMILY1', type: 'combo', width: '103px', style: 'text-align:left',
@@ -907,7 +950,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_FAMILY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","현사업장"], ref: 'SITE_CODE1', type: 'combo', width: '111px', style: 'text-align:left',
@@ -917,7 +961,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","현근무지"], ref: 'REGION_CODE1', type: 'combo', width: '100px', style: 'text-align:left',
@@ -927,12 +972,15 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (REGION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
-            {caption: ["발령정보","발령부서"], ref: 'DEPT_CODE2', type: 'output', width: '82px', style: 'text-align:left', hidden: true},
-            {caption: ["발령정보","발령부서명"], ref: 'DEPT_NAME2', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
-            {caption: ["발령정보","발령원가중심점코드"], ref: 'COST_DEPT2', type: 'output', width: '113px', style: 'text-align:left', hidden: true},
-            {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT2_NAME', type: 'output', width: '128px', style: 'text-align:left', hidden: true},
+            {caption: ["발령정보","발령부서"], ref: 'DEPT_CODE2', type: 'input', width: '82px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["발령정보","발령부서명"], ref: 'DEPT_NAME2', type: 'input', width: '120px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || (DEPT_APPOINT_YN != "Y")), disabled: disableOption},
+            {caption: ["발령정보","발령원가중심점코드"], ref: 'COST_DEPT2', type: 'input', width: '113px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT2_NAME', type: 'input', width: '128px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6")), disabled: disableOption},
             {
                 caption: ["발령정보","직위"], ref: 'POSITION_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
                 typeinfo: {
@@ -941,7 +989,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (POSITION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직책"], ref: 'DUTY_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
@@ -951,7 +1000,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (DUTY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직급"], ref: 'JOB_RANK2', type: 'combo', width: '110px', style: 'text-align:left',
@@ -961,7 +1011,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_RANK_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직군"], ref: 'JOB_GROUP2', type: 'combo', width: '101px', style: 'text-align:left',
@@ -971,7 +1022,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_GROUP_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직무"], ref: 'JOB_CODE2', type: 'combo', width: '89px', style: 'text-align:left',
@@ -981,7 +1033,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직원하위그룹"], ref: 'JOB_FAMILY2', type: 'combo', width: '89px', style: 'text-align:left',
@@ -991,7 +1044,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_FAMILY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","발령사업장"], ref: 'SITE_CODE2', type: 'combo', width: '120px', style: 'text-align:left',
@@ -1001,7 +1055,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","발령근무지"], ref: 'REGION_CODE2', type: 'combo', width: '100px', style: 'text-align:left',
@@ -1011,7 +1066,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (REGION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["기타정보","육아기근로시간단축"],
@@ -1025,15 +1081,15 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (PARENTING_WORK_TYPE_YN != "Y")
+                , disabled: disableOption
             },
-            {caption: ["기타정보","당초발령번호"], ref: 'FIRST_APPOINT_NUM', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["기타정보","발령사유"], ref: 'APPOINT_REASON', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["기타정보","비고"], ref: 'MEMO', type: 'output', width: '300px', style: 'text-align:left'},
+            {caption: ["기타정보","당초발령번호"], ref: 'FIRST_APPOINT_NUM', type: 'input', width: '200px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["기타정보","발령사유"], ref: 'APPOINT_REASON', type: 'input', width: '200px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["기타정보","비고"], ref: 'MEMO', type: 'input', width: '300px', style: 'text-align:left', disabled: disableOption},
         ];
 
         bandgvwDetail = _SBGrid.create(SBGridProperties);
-        bandgvwDetail.bind('afterrebuild','fnAfterBuild');
     }
 
     function fnDeptAppointYnChange(args){
@@ -1688,18 +1744,6 @@
         } else {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('PARENTING_WORK_TYPE'), true, true);
         }
-    }
-
-    function fnAfterBuild() {
-        fnDeptAppointYnChange();
-        fnPositionAppointYnChange();
-        fnDutyAppointYnChange();
-        fnJobRankAppointYnChange();
-        fnJobGroupAppointYnChange();
-        fnJobAppointYnChange();
-        fnJobFamilyAppointYnChange();
-        fnRegionAppointYnChange();
-        fnParentingWorkTypeYnChange();
     }
 
     // 조회
@@ -2408,8 +2452,8 @@
                     jsonBandgvwDetailList.push(msg);
                 });
 
-                bandgvwDetail.refresh();
-                fnAfterBuild();
+                _SBGrid.destroy('bandgvwDetail');
+                fn_createBandgvwDetailGrid(true);
             } else {
                 alert(data.resultMessage);
             }
@@ -2456,8 +2500,26 @@
     }
 
     // 복사모드토글
-    const fn_toggleMode = async function () {
+    const fn_toggleMode = async function (mode) {
+        if(mode == "clear") {
+            $("#btnClearMode").hide();
+            $("#btnLineCopyMode").show();
+            $("#btnCellCopyMode").hide();
+            copyMode = "line";
+        } else if(mode == "line") {
+            $("#btnClearMode").hide();
+            $("#btnLineCopyMode").hide();
+            $("#btnCellCopyMode").show();
+            copyMode = "cell";
+        } else if (mode == "cell") {
+            $("#btnClearMode").show();
+            $("#btnLineCopyMode").hide();
+            $("#btnCellCopyMode").hide();
+            copyMode = "clear";
+        }
 
+        _SBGrid.destroy('bandgvwDetail');
+        fn_createBandgvwDetailGrid(false);
     }
 
     // 행추가
