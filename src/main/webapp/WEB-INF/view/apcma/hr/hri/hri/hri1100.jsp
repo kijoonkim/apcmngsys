@@ -519,6 +519,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
+                jsonHriList.length = 0;
                 /** @type {number} **/
                 data.cv_1.forEach((item, index) => {
                     const msg = {

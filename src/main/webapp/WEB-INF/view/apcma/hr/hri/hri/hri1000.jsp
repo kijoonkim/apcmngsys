@@ -528,12 +528,12 @@
                                                 style="width:100%;"
                                         />
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>PayGrade(입사)</th>
-                                    <td class="td_input">
+                                    <th scope="row" id="START_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(입사)</th>
+                                    <td class="td_input" id="START_PAY_GRADE_TD">
                                         <sbux-input id="START_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
                                     </td>
-                                    <th scope="row" class="th_bg">기준일(PG)</th>
-                                    <td class="td_input">
+                                    <th scope="row" id="CAREER_TRACK_ENTER_DATE_TH" class="th_bg">기준일(PG)</th>
+                                    <td class="td_input" id="CAREER_TRACK_ENTER_DATE_TD">
                                         <sbux-datepicker
                                                 uitype="popup"
                                                 id="CAREER_TRACK_ENTER_DATE"
@@ -580,12 +580,12 @@
                                                 style="width:100%;"
                                         />
                                     </td>
-                                    <th scope="row" class="th_bg"><span class="data_required"></span>PayGrade(현재)</th>
-                                    <td class="td_input">
+                                    <th scope="row" id="CURRENT_PAY_GRADE_TH" class="th_bg"><span class="data_required"></span>PayGrade(현재)</th>
+                                    <td class="td_input" id="CURRENT_PAY_GRADE_TD">
                                         <sbux-input id="CURRENT_PAY_GRADE" class="form-control input-sm input-sm-ast inpt_data_reqed" uitype="text" style="width:100%" mask="{'alias': 'numeric'}" maxlength="25" required></sbux-input><span>개월</span>
                                     </td>
-                                    <th scope="row" class="th_bg">기준일(PG)</th>
-                                    <td class="td_input">
+                                    <th scope="row" id="CURRENT_PAY_GRADE_DATE_TH" class="th_bg">기준일(PG)</th>
+                                    <td class="td_input" id="CURRENT_PAY_GRADE_DATE_TD">
                                         <sbux-datepicker
                                                 uitype="popup"
                                                 id="CURRENT_PAY_GRADE_DATE"
@@ -1394,20 +1394,38 @@
         SBUxMethod.set("OLD_EMP_CODE", "");
         SBUxMethod.set("OLD_EMP_NAME", "");
         SBUxMethod.set("START_POSITION_CODE", "");
-        SBUxMethod.set("CAREER_TRACK", "");
+        SBUxMethod.set("CAREER_TRACK", 0);
         SBUxMethod.set("ENTER_TYPE", "");
         SBUxMethod.set("INTRODUCER_CODE", "");
         SBUxMethod.set("INTRODUCER_NAME", "");
         SBUxMethod.set("CAREER_DATE", "");
-        SBUxMethod.set("START_PAY_GRADE", "");
+        SBUxMethod.set("START_PAY_GRADE", 0);
         SBUxMethod.set("CAREER_TRACK_ENTER_DATE", "");
         SBUxMethod.set("ENTER_DATE", "");
         SBUxMethod.set("ANNUAL_INITIAL_DATE", "");
         SBUxMethod.set("ANNUAL_BASE_DATE", "");
-        SBUxMethod.set("CURRENT_PAY_GRADE", "");
+        SBUxMethod.set("CURRENT_PAY_GRADE", 0);
         SBUxMethod.set("CURRENT_PAY_GRADE_DATE", "");
         SBUxMethod.hide('DISPLAY_SOCIAL_NUM');
         SBUxMethod.show('SOCIAL_NUM');
+        SBUxMethod.attr('EMP_CODE', 'readonly', 'false');
+        SBUxMethod.attr('POSITION_CODE', 'readonly', 'false');
+        SBUxMethod.attr('JOB_GROUP', 'readonly', 'false');
+        SBUxMethod.attr('JOB_CODE', 'readonly', 'false');
+        SBUxMethod.attr('DUTY_CODE', 'readonly', 'false');
+        SBUxMethod.attr('JOB_RANK', 'readonly', 'false');
+        SBUxMethod.attr('ENTER_TYPE', 'readonly', 'true');
+        SBUxMethod.attr('EMP_TYPE', 'readonly', 'true');
+
+        $('#START_PAY_GRADE_TH').show();
+        $('#START_PAY_GRADE_TD').show();
+        $('#CAREER_TRACK_ENTER_DATE_TH').show();
+        $('#CAREER_TRACK_ENTER_DATE_TD').show();
+        $('#CURRENT_PAY_GRADE_TH').show();
+        $('#CURRENT_PAY_GRADE_TD').show();
+        $('#CURRENT_PAY_GRADE_DATE_TH').show();
+        $('#CURRENT_PAY_GRADE_DATE_TD').show();
+
         clearTabContents();
     }
 
@@ -1531,7 +1549,12 @@
 
     //선택 삭제
     const fn_delete = async function() {
-        if(gfn_comConfirm("Q0001", "사원의 정보를 삭제")) {
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        let EMP_NAME = gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+
+        if(EMP_NAME == '' || EMP_CODE == '') return;
+
+        if(gfn_comConfirm("Q0001", EMP_NAME + " 사원의 정보를 삭제")) {
             const postJsonPromise = gfn_postJSON("/hr/hri/hri/deleteHri1000List.do", {
                 getType				: 'json',
                 workType			: 'D',
@@ -1543,6 +1566,8 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+                    cfn_add();
+                    cfn_search();
                 } else {
                     gfn_comAlert("E0001");					// E0001 오류가 발생하였습니다.
                 }
@@ -1639,6 +1664,7 @@
      */
     const fn_search = async function() {
         editType = "N";
+        SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
@@ -1684,6 +1710,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
+                jsonEmpTotalList.length = 0;
                 /** @type {number} **/
                 data.cv_1.forEach((item, index) => {
                     const msg = {
@@ -1776,15 +1803,42 @@
         SBUxMethod.set("ANNUAL_BASE_DATE", data.ANNUAL_BASE_DATE);
         SBUxMethod.set("CURRENT_PAY_GRADE", data.CURRENT_PAY_GRADE);
         SBUxMethod.set("CURRENT_PAY_GRADE_DATE", data.CURRENT_PAY_GRADE_DATE);
+
+        if(data.JOB_GROUP == '3') {
+            $('#START_PAY_GRADE_TH').hide();
+            $('#START_PAY_GRADE_TD').hide();
+            $('#CAREER_TRACK_ENTER_DATE_TH').hide();
+            $('#CAREER_TRACK_ENTER_DATE_TD').hide();
+            $('#CURRENT_PAY_GRADE_TH').hide();
+            $('#CURRENT_PAY_GRADE_TD').hide();
+            $('#CURRENT_PAY_GRADE_DATE_TH').hide();
+            $('#CURRENT_PAY_GRADE_DATE_TD').hide();
+        } else {
+            $('#START_PAY_GRADE_TH').show();
+            $('#START_PAY_GRADE_TD').show();
+            $('#CAREER_TRACK_ENTER_DATE_TH').show();
+            $('#CAREER_TRACK_ENTER_DATE_TD').show();
+            $('#CURRENT_PAY_GRADE_TH').show();
+            $('#CURRENT_PAY_GRADE_TD').show();
+            $('#CURRENT_PAY_GRADE_DATE_TH').show();
+            $('#CURRENT_PAY_GRADE_DATE_TD').show();
+        }
     }
 
     //상세정보 보기
     const fn_view = async function() {
+        editType = "U";
         cfn_add();
         SBUxMethod.show('DISPLAY_SOCIAL_NUM');
         SBUxMethod.hide('SOCIAL_NUM');
-
-        editType = "U";
+        SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
+        SBUxMethod.attr('POSITION_CODE', 'readonly', 'true');
+        SBUxMethod.attr('JOB_GROUP', 'readonly', 'true');
+        SBUxMethod.attr('JOB_CODE', 'readonly', 'true');
+        SBUxMethod.attr('DUTY_CODE', 'readonly', 'true');
+        SBUxMethod.attr('JOB_RANK', 'readonly', 'true');
+        SBUxMethod.attr('ENTER_TYPE', 'readonly', 'false');
+        SBUxMethod.attr('EMP_TYPE', 'readonly', 'false');
 
         var nCol = gvwList.getCol();
         //특정 열 부터 이벤트 적용
