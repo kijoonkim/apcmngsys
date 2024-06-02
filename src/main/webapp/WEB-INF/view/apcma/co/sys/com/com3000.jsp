@@ -142,8 +142,8 @@
                                                     uitype="normal"
                                                     class="form-control input-sm check"
                                                     text="사용"
-                                                    truevalue="Y" 
-                                                    falsevalue="N"
+                                                    true-value="Y" 
+                                                    false-value="N"
                                             />
                                         </p>                                    
                                     </td>
@@ -351,7 +351,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.id}';
 	//-----------------------------------------------------------
-	var editType = '';
+	var editType = 'N';
 	var jsonGroupCode		= [];	// 유형분류
 	
 	const fn_initSBSelect = async function() {
@@ -402,14 +402,14 @@
 		editType = 'N';
 	}
 	
-	// 저장
+	// 그룹코드 내역, 세부코드 정보 저장
 	function cfn_save() {
-		fn_saveFieldCaption(editType);
-		fn_saveExtraField(editType);
+		fn_saveFieldCaption();
 	}
 	
-	// 삭제
+	// 마스터 그리드 삭제
 	function cfn_del() {
+		fn_delete();
 	}
  
 	// 조회
@@ -441,7 +441,6 @@
             {caption: ["그룹코드"],		ref: 'GROUP_CODE', 		type:'output',  	width:'70px',  	style:'text-align:left'},
             {caption: ["코드그룹명"],		ref: 'GROUP_NAME',    	type:'output',  	width:'150px',  	style:'text-align:left'}
         ];
-
         CMNSCDGrid	= _SBGrid.create(SBGridProperties);
         CMNSCDGrid.bind('click', 'fn_view');
 
@@ -464,11 +463,11 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'80px',  		style:'text-align:left'},
+            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  		style:'text-align:left'},
             {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     	ref : 'SYSTEM_YN',		type :'checkbox',	width : '180px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['시스템코드'],     	ref : 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],    	 	ref : 'USE_YN',			type :'checkbox' ,	width : '180px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['사용여부'],    	 	ref : 'USE_YN',			type :'checkbox' ,	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ["여유필드1"],			ref: 'EXTRA_FIELD1',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드2"],			ref: 'EXTRA_FIELD2',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드3"],			ref: 'EXTRA_FIELD3',    type:'input',       width:'100px',  	style:'text-align:left'},
@@ -490,7 +489,6 @@
             {caption: ["여유필드19"],			ref: 'EXTRA_FIELD19',   type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드20"],			ref: 'EXTRA_FIELD20',   type:'input',       width:'100px',  	style:'text-align:left'}
         ];
-
         CMNSCDSubGrid	= _SBGrid.create(SBSubGridProperties);
     }
 
@@ -524,7 +522,6 @@
     	   		   ,V_P_PC				: '' 
     	   		   
     		    };		
-
     	        const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3000List.do", {
     	        	getType				: 'json',
     	        	workType			: 'MASTER',
@@ -533,7 +530,6 @@
     			});
 
     	        const data = await postJsonPromise;
-    			console.log('MASTER data:', data);
     	        try {
     	  			if (_.isEqual("S", data.resultStatus)) {
 
@@ -604,7 +600,6 @@
 		});
 
         const data = await postJsonPromise;
-		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
 
@@ -658,26 +653,26 @@
 	
     //세부코드 정보
     const fn_drawCMNSCDSubGrid = async function(cv_3, cv_4) {
-		var FIELD_CAPTION1    	= gfnma_nvl(cv_3.FIELD_CAPTION1)  == "" ? "여유필드1"  : cv_3.FIELD_CAPTION1;
-		var FIELD_CAPTION2	    = gfnma_nvl(cv_3.FIELD_CAPTION2)  == "" ? "여유필드2"  : cv_3.FIELD_CAPTION2;
-		var FIELD_CAPTION3	    = gfnma_nvl(cv_3.FIELD_CAPTION3)  == "" ? "여유필드3"  : cv_3.FIELD_CAPTION3;
-		var FIELD_CAPTION4	    = gfnma_nvl(cv_3.FIELD_CAPTION4)  == "" ? "여유필드4"  : cv_3.FIELD_CAPTION4;
-		var FIELD_CAPTION5	    = gfnma_nvl(cv_3.FIELD_CAPTION5)  == "" ? "여유필드5"  : cv_3.FIELD_CAPTION5;
-		var FIELD_CAPTION6	    = gfnma_nvl(cv_3.FIELD_CAPTION6)  == "" ? "여유필드6"  : cv_3.FIELD_CAPTION6;
-		var FIELD_CAPTION7	    = gfnma_nvl(cv_3.FIELD_CAPTION7)  == "" ? "여유필드7"  : cv_3.FIELD_CAPTION7;
-		var FIELD_CAPTION8	    = gfnma_nvl(cv_3.FIELD_CAPTION8)  == "" ? "여유필드8"  : cv_3.FIELD_CAPTION8;
-		var FIELD_CAPTION9	    = gfnma_nvl(cv_3.FIELD_CAPTION9)  == "" ? "여유필드9"  : cv_3.FIELD_CAPTION9;
-		var FIELD_CAPTION10	    = gfnma_nvl(cv_3.FIELD_CAPTION10) == "" ? "여유필드10" : cv_3.FIELD_CAPTION10;
-		var FIELD_CAPTION11		= gfnma_nvl(cv_3.FIELD_CAPTION11) == "" ? "여유필드11" : cv_3.FIELD_CAPTION11;
-		var FIELD_CAPTION12   	= gfnma_nvl(cv_3.FIELD_CAPTION12) == "" ? "여유필드12" : cv_3.FIELD_CAPTION12;
-		var FIELD_CAPTION13   	= gfnma_nvl(cv_3.FIELD_CAPTION13) == "" ? "여유필드13" : cv_3.FIELD_CAPTION13;
-		var FIELD_CAPTION14   	= gfnma_nvl(cv_3.FIELD_CAPTION14) == "" ? "여유필드14" : cv_3.FIELD_CAPTION14;
-		var FIELD_CAPTION15   	= gfnma_nvl(cv_3.FIELD_CAPTION15) == "" ? "여유필드15" : cv_3.FIELD_CAPTION15;
-		var FIELD_CAPTION16   	= gfnma_nvl(cv_3.FIELD_CAPTION16) == "" ? "여유필드16" : cv_3.FIELD_CAPTION16;
-		var FIELD_CAPTION17   	= gfnma_nvl(cv_3.FIELD_CAPTION17) == "" ? "여유필드17" : cv_3.FIELD_CAPTION17;
-		var FIELD_CAPTION18   	= gfnma_nvl(cv_3.FIELD_CAPTION18) == "" ? "여유필드18" : cv_3.FIELD_CAPTION18;
-		var FIELD_CAPTION19   	= gfnma_nvl(cv_3.FIELD_CAPTION19) == "" ? "여유필드19" : cv_3.FIELD_CAPTION19;
-		var FIELD_CAPTION20   	= gfnma_nvl(cv_3.FIELD_CAPTION20) == "" ? "여유필드20" : cv_3.FIELD_CAPTION20;
+		let FIELD_CAPTION1    	= gfnma_nvl(cv_3.FIELD_CAPTION1)  == "" ? "여유필드1"  : cv_3.FIELD_CAPTION1;
+		let FIELD_CAPTION2	    = gfnma_nvl(cv_3.FIELD_CAPTION2)  == "" ? "여유필드2"  : cv_3.FIELD_CAPTION2;
+		let FIELD_CAPTION3	    = gfnma_nvl(cv_3.FIELD_CAPTION3)  == "" ? "여유필드3"  : cv_3.FIELD_CAPTION3;
+		let FIELD_CAPTION4	    = gfnma_nvl(cv_3.FIELD_CAPTION4)  == "" ? "여유필드4"  : cv_3.FIELD_CAPTION4;
+		let FIELD_CAPTION5	    = gfnma_nvl(cv_3.FIELD_CAPTION5)  == "" ? "여유필드5"  : cv_3.FIELD_CAPTION5;
+		let FIELD_CAPTION6	    = gfnma_nvl(cv_3.FIELD_CAPTION6)  == "" ? "여유필드6"  : cv_3.FIELD_CAPTION6;
+		let FIELD_CAPTION7	    = gfnma_nvl(cv_3.FIELD_CAPTION7)  == "" ? "여유필드7"  : cv_3.FIELD_CAPTION7;
+		let FIELD_CAPTION8	    = gfnma_nvl(cv_3.FIELD_CAPTION8)  == "" ? "여유필드8"  : cv_3.FIELD_CAPTION8;
+		let FIELD_CAPTION9	    = gfnma_nvl(cv_3.FIELD_CAPTION9)  == "" ? "여유필드9"  : cv_3.FIELD_CAPTION9;
+		let FIELD_CAPTION10	    = gfnma_nvl(cv_3.FIELD_CAPTION10) == "" ? "여유필드10" : cv_3.FIELD_CAPTION10;
+		let FIELD_CAPTION11		= gfnma_nvl(cv_3.FIELD_CAPTION11) == "" ? "여유필드11" : cv_3.FIELD_CAPTION11;
+		let FIELD_CAPTION12   	= gfnma_nvl(cv_3.FIELD_CAPTION12) == "" ? "여유필드12" : cv_3.FIELD_CAPTION12;
+		let FIELD_CAPTION13   	= gfnma_nvl(cv_3.FIELD_CAPTION13) == "" ? "여유필드13" : cv_3.FIELD_CAPTION13;
+		let FIELD_CAPTION14   	= gfnma_nvl(cv_3.FIELD_CAPTION14) == "" ? "여유필드14" : cv_3.FIELD_CAPTION14;
+		let FIELD_CAPTION15   	= gfnma_nvl(cv_3.FIELD_CAPTION15) == "" ? "여유필드15" : cv_3.FIELD_CAPTION15;
+		let FIELD_CAPTION16   	= gfnma_nvl(cv_3.FIELD_CAPTION16) == "" ? "여유필드16" : cv_3.FIELD_CAPTION16;
+		let FIELD_CAPTION17   	= gfnma_nvl(cv_3.FIELD_CAPTION17) == "" ? "여유필드17" : cv_3.FIELD_CAPTION17;
+		let FIELD_CAPTION18   	= gfnma_nvl(cv_3.FIELD_CAPTION18) == "" ? "여유필드18" : cv_3.FIELD_CAPTION18;
+		let FIELD_CAPTION19   	= gfnma_nvl(cv_3.FIELD_CAPTION19) == "" ? "여유필드19" : cv_3.FIELD_CAPTION19;
+		let FIELD_CAPTION20   	= gfnma_nvl(cv_3.FIELD_CAPTION20) == "" ? "여유필드20" : cv_3.FIELD_CAPTION20;
 		
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
@@ -692,11 +687,11 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  	width:'80px',  		style:'text-align:left'},
+            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  	width:'100px',  		style:'text-align:left'},
             {caption: ["코드명"],					ref: 'CODE_NAME',    	type:'input',  	width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     		ref : 'SYSTEM_YN',		type :'checkbox',	width : '180px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['시스템코드'],     		ref : 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ["정렬순서"],				ref: 'SORT_SEQ',    	type:'input',  	width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],     			ref : 'USE_YN',			type :'checkbox',	width : '180px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['사용여부'],     			ref : 'USE_YN',			type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: [FIELD_CAPTION1],			ref: 'EXTRA_FIELD1',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION2],			ref: 'EXTRA_FIELD2',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION3],			ref: 'EXTRA_FIELD3',    type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -795,6 +790,100 @@
         SBUxMethod.set("FIELD_CAPTION19", 	"");
         SBUxMethod.set("FIELD_CAPTION20", 	"");
     }
+    
+    // 그리드 삭제
+    const fn_delete = async function(){
+    	let GROUP_CODE 			= gfnma_nvl(SBUxMethod.get("GROUP_CODE"));
+    	let USE_YN				= gfnma_nvl(SBUxMethod.get("USE_YN"));
+    	let DESCR 				= gfnma_nvl(SBUxMethod.get("DESCR"));
+    	let GROUP_NAME			= gfnma_nvl(SBUxMethod.get("GROUP_NAME"));
+    	let CODE_LENGTH			= gfnma_nvl(SBUxMethod.get("CODE_LENGTH"));
+    	let GROUP_CATEGORY 		= gfnma_nvl(SBUxMethod.get("GROUP_CATEGORY"));
+
+    	let FIELD_CAPTION1 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION1"));
+    	let FIELD_CAPTION2 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION2"));
+    	let FIELD_CAPTION3 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION3"));
+    	let FIELD_CAPTION4 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION4"));
+    	let FIELD_CAPTION5 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION5"));
+    	let FIELD_CAPTION6 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION6"));
+    	let FIELD_CAPTION7 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION7"));
+    	let FIELD_CAPTION8 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION8"));
+    	let FIELD_CAPTION9 		= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION9"));
+    	let FIELD_CAPTION10 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION10"));
+    	let FIELD_CAPTION11 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION11"));
+    	let FIELD_CAPTION12 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION12"));
+    	let FIELD_CAPTION13 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION13"));
+    	let FIELD_CAPTION14 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION14"));
+    	let FIELD_CAPTION15 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION15"));
+    	let FIELD_CAPTION16 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION16"));
+    	let FIELD_CAPTION17 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION17"));
+    	let FIELD_CAPTION18 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION18"));
+    	let FIELD_CAPTION19 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION19"));
+    	let FIELD_CAPTION20 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION20"));
+    	
+  	    var paramObj = {
+  				V_P_DEBUG_MODE_YN			: ''
+  				,V_P_LANG_ID				: ''
+				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+  				,V_P_GROUP_CODE				: GROUP_CODE
+  				,V_P_GROUP_NAME				: GROUP_NAME
+  				,V_P_CODE_LENGTH     		: CODE_LENGTH
+  				,V_P_GROUP_CATEGORY			: GROUP_CATEGORY
+  				,V_P_FIELD_CAPTION1         : FIELD_CAPTION1
+  				,V_P_FIELD_CAPTION2         : FIELD_CAPTION2
+  				,V_P_FIELD_CAPTION3         : FIELD_CAPTION3
+  				,V_P_FIELD_CAPTION4         : FIELD_CAPTION4
+  				,V_P_FIELD_CAPTION5			: FIELD_CAPTION5
+  				,V_P_FIELD_CAPTION6			: FIELD_CAPTION6
+  				,V_P_FIELD_CAPTION7			: FIELD_CAPTION7
+  				,V_P_FIELD_CAPTION8			: FIELD_CAPTION8
+  				,V_P_FIELD_CAPTION9			: FIELD_CAPTION9
+  				,V_P_FIELD_CAPTION10		: FIELD_CAPTION10
+  				,V_P_FIELD_CAPTION11		: FIELD_CAPTION11
+  				,V_P_FIELD_CAPTION12		: FIELD_CAPTION12
+  				,V_P_FIELD_CAPTION13		: FIELD_CAPTION13
+  				,V_P_FIELD_CAPTION14		: FIELD_CAPTION14
+  				,V_P_FIELD_CAPTION15		: FIELD_CAPTION15
+  				,V_P_FIELD_CAPTION16		: FIELD_CAPTION16
+  				,V_P_FIELD_CAPTION17		: FIELD_CAPTION17
+  				,V_P_FIELD_CAPTION18		: FIELD_CAPTION18
+  				,V_P_FIELD_CAPTION19		: FIELD_CAPTION19
+  				,V_P_FIELD_CAPTION20		: FIELD_CAPTION19
+  				,V_P_DESCR					: DESCR
+  				,V_P_USE_YN					: USE_YN.USE_YN
+  				,V_P_FORM_ID				: p_formId
+  				,V_P_MENU_ID				: p_menuId
+  				,V_P_PROC_ID				: ''
+  				,V_P_USERID					: p_userId
+  				,V_P_PC						: '' 
+	    };		
+        const postJsonPromise = gfn_postJSON("/co/sys/com/deleteCom3000.do", {
+        	getType				: 'json',
+        	workType			: 'D',
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		}
+        		cfn_search();
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    	
+    }
 
     //그룹코드 내역 저장
     //P_COM3000_S
@@ -828,226 +917,236 @@
     	let FIELD_CAPTION19 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION19"));
     	let FIELD_CAPTION20 	= gfnma_nvl(SBUxMethod.get("FIELD_CAPTION20"));
     	
-   		// 신규 등록
-    	if (editType=="N") {
-    		if(gfn_comConfirm("Q0001", "신규 등록")){
-    			var obj = {
-    					GROUP_CODE 		: GROUP_CODE
-    					USE_YN			: USE_YN
-    					DESCR 			: DESCR
-    					GROUP_NAME		: GROUP_NAME
-    					CODE_LENGTH		: CODE_LENGTH
-    					GROUP_CATEGORY 	: GROUP_CATEGORY
-    					FIELD_CAPTION1 	: FIELD_CAPTION1
-    					FIELD_CAPTION2 	: FIELD_CAPTION2
-    					FIELD_CAPTION3 	: FIELD_CAPTION3
-    					FIELD_CAPTION4 	: FIELD_CAPTION4
-    					FIELD_CAPTION5 	: FIELD_CAPTION5
-    					FIELD_CAPTION6 	: FIELD_CAPTION6
-    					FIELD_CAPTION7 	: FIELD_CAPTION7
-    					FIELD_CAPTION8 	: FIELD_CAPTION8
-    					FIELD_CAPTION9 	: FIELD_CAPTION9
-    					FIELD_CAPTION10 : FIELD_CAPTION10
-    					FIELD_CAPTION11 : FIELD_CAPTION11
-    					FIELD_CAPTION12 : FIELD_CAPTION12
-    					FIELD_CAPTION13 : FIELD_CAPTION13
-    					FIELD_CAPTION14 : FIELD_CAPTION14
-    					FIELD_CAPTION15 : FIELD_CAPTION15
-    					FIELD_CAPTION16 : FIELD_CAPTION16
-    					FIELD_CAPTION17 : FIELD_CAPTION17
-    					FIELD_CAPTION18 : FIELD_CAPTION18
-    					FIELD_CAPTION19 : FIELD_CAPTION19
-    					FIELD_CAPTION20 : FIELD_CAPTION20
-    			}
-				fn_subInsert(obj);
-    		} 
-   		// 수정 등록
-    	}else{
-    		if(gfn_comConfirm("Q0001", "수정 등록")){
-    			var obj = {
-    					GROUP_CODE 		: GROUP_CODE
-    					USE_YN			: USE_YN
-    					DESCR 			: DESCR
-    					GROUP_NAME		: GROUP_NAME
-    					CODE_LENGTH		: CODE_LENGTH
-    					GROUP_CATEGORY 	: GROUP_CATEGORY
-    					FIELD_CAPTION1 	: FIELD_CAPTION1
-    					FIELD_CAPTION2 	: FIELD_CAPTION2
-    					FIELD_CAPTION3 	: FIELD_CAPTION3
-    					FIELD_CAPTION4 	: FIELD_CAPTION4
-    					FIELD_CAPTION5 	: FIELD_CAPTION5
-    					FIELD_CAPTION6 	: FIELD_CAPTION6
-    					FIELD_CAPTION7 	: FIELD_CAPTION7
-    					FIELD_CAPTION8 	: FIELD_CAPTION8
-    					FIELD_CAPTION9 	: FIELD_CAPTION9
-    					FIELD_CAPTION10 : FIELD_CAPTION10
-    					FIELD_CAPTION11 : FIELD_CAPTION11
-    					FIELD_CAPTION12 : FIELD_CAPTION12
-    					FIELD_CAPTION13 : FIELD_CAPTION13
-    					FIELD_CAPTION14 : FIELD_CAPTION14
-    					FIELD_CAPTION15 : FIELD_CAPTION15
-    					FIELD_CAPTION16 : FIELD_CAPTION16
-    					FIELD_CAPTION17 : FIELD_CAPTION17
-    					FIELD_CAPTION18 : FIELD_CAPTION18
-    					FIELD_CAPTION19 : FIELD_CAPTION19
-    					FIELD_CAPTION20 : FIELD_CAPTION20
-    			}
-    			fn_subUpdate(obj);
-    		}
+    	if(GROUP_CODE == "") {
+            gfn_comAlert("W0002", "그룹코드");
+            return;
     	}
+    	if(GROUP_NAME == "") {
+            gfn_comAlert("W0002", "코드그룹명");
+            return;
+    	}
+    	if(CODE_LENGTH == "") {
+            gfn_comAlert("W0002", "코드길이");
+            return;
+    	}
+    	if(GROUP_CATEGORY == "") {
+            gfn_comAlert("W0002", "유형분류");
+            return;
+    	}
+    	
+    	if(editType == "N"){
+    		var valUrl = "/co/sys/com/insertCom3000.do";
+    	}else{
+    		var valUrl = "/co/sys/com/updateCom3000.do";
+    	}
+    	
+  	    var paramObj = {
+  				V_P_DEBUG_MODE_YN			: ''
+  				,V_P_LANG_ID				: ''
+				,V_P_COMP_CODE				: gv_ma_selectedApcCd
+				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+  				,V_P_GROUP_CODE				: GROUP_CODE
+  				,V_P_GROUP_NAME				: GROUP_NAME
+  				,V_P_CODE_LENGTH     		: CODE_LENGTH
+  				,V_P_GROUP_CATEGORY			: GROUP_CATEGORY
+  				,V_P_FIELD_CAPTION1         : FIELD_CAPTION1
+  				,V_P_FIELD_CAPTION2         : FIELD_CAPTION2
+  				,V_P_FIELD_CAPTION3         : FIELD_CAPTION3
+  				,V_P_FIELD_CAPTION4         : FIELD_CAPTION4
+  				,V_P_FIELD_CAPTION5			: FIELD_CAPTION5
+  				,V_P_FIELD_CAPTION6			: FIELD_CAPTION6
+  				,V_P_FIELD_CAPTION7			: FIELD_CAPTION7
+  				,V_P_FIELD_CAPTION8			: FIELD_CAPTION8
+  				,V_P_FIELD_CAPTION9			: FIELD_CAPTION9
+  				,V_P_FIELD_CAPTION10		: FIELD_CAPTION10
+  				,V_P_FIELD_CAPTION11		: FIELD_CAPTION11
+  				,V_P_FIELD_CAPTION12		: FIELD_CAPTION12
+  				,V_P_FIELD_CAPTION13		: FIELD_CAPTION13
+  				,V_P_FIELD_CAPTION14		: FIELD_CAPTION14
+  				,V_P_FIELD_CAPTION15		: FIELD_CAPTION15
+  				,V_P_FIELD_CAPTION16		: FIELD_CAPTION16
+  				,V_P_FIELD_CAPTION17		: FIELD_CAPTION17
+  				,V_P_FIELD_CAPTION18		: FIELD_CAPTION18
+  				,V_P_FIELD_CAPTION19		: FIELD_CAPTION19
+  				,V_P_FIELD_CAPTION20		: FIELD_CAPTION19
+  				,V_P_DESCR					: DESCR
+  				,V_P_USE_YN					: USE_YN.USE_YN
+  				,V_P_FORM_ID				: p_formId
+  				,V_P_MENU_ID				: p_menuId
+  				,V_P_PROC_ID				: ''
+  				,V_P_USERID					: p_userId
+  				,V_P_PC						: '' 
+	    };		
+        const postJsonPromise = gfn_postJSON(valUrl, {
+        	getType				: 'json',
+        	workType			: editType,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		}
+        		
+        		//세부코드 정보  저장
+        		let rowLength = CMNSCDSubGrid.getUpdateData(true, 'all').length;
+        		let rowVal 	  = CMNSCDSubGrid.getUpdateData(true, 'all');
+        		if(rowLength >= 1 ){
+        	    		for(var i = 0; rowLength > i; i ++){
+        	    			var workType = rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
+        		            		
+        	    			var paramObj = {
+        	   	  	    	      V_P_DEBUG_MODE_YN        : ''
+        	   	  	    	      ,V_P_LANG_ID             : ''
+        	   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+        	   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+        	   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
+        	   	  	    	      ,V_P_SUB_CODE            : gfnma_nvl(rowVal[i].data.SUB_CODE)
+        	   	  	    	      ,V_P_CODE_NAME           : gfnma_nvl(rowVal[i].data.CODE_NAME)
+        	   	  	    	      ,V_P_SYSTEM_YN           : gfnma_nvl(rowVal[i].data.SYSTEM_YN)
+        	   	  	    	      ,IV_P_EXTRA_FIELD1       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD1)
+        	   	  	    	      ,IV_P_EXTRA_FIELD2       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD2)
+        	   	  	    	      ,V_P_EXTRA_FIELD3        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD3)
+        	   	  	    	      ,V_P_EXTRA_FIELD4        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD4)
+        	   	  	    	      ,V_P_EXTRA_FIELD5        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD5)
+        	   	  	    	      ,V_P_EXTRA_FIELD6        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD6)
+        	   	  	    	      ,V_P_EXTRA_FIELD7        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD7)
+        	   	  	    	      ,V_P_EXTRA_FIELD8        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD8)
+        	   	  	    	      ,V_P_EXTRA_FIELD9        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD9)
+        	   	  	    	      ,V_P_EXTRA_FIELD10       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD10)
+        	   	  	    	      ,V_P_EXTRA_FIELD11       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD11)
+        	   	  	    	      ,V_P_EXTRA_FIELD12       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD12)
+        	   	  	    	      ,V_P_EXTRA_FIELD13       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD13)
+        	   	  	    	      ,V_P_EXTRA_FIELD14       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD14)
+        	   	  	    	      ,V_P_EXTRA_FIELD15       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD15)
+        	   	  	    	      ,V_P_EXTRA_FIELD16       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD16)
+        	   	  	    	      ,V_P_EXTRA_FIELD17       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD17)
+        	   	  	    	      ,V_P_EXTRA_FIELD18       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD18)
+        	   	  	    	      ,V_P_EXTRA_FIELD19       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD19)
+        	   	  	    	      ,V_P_EXTRA_FIELD20       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD20)
+        	   	  	    	      ,V_P_SORT_SEQ            : gfnma_nvl(rowVal[i].data.SORT_SEQ)
+        	   	  	    	      ,V_P_USE_YN              : gfnma_nvl(rowVal[i].data.USE_YN)
+        	   	  	    	      ,V_P_FORM_ID             : p_formId
+        	   	  	    	      ,V_P_MENU_ID             : p_menuId
+        	   	  	    	      ,V_P_PROC_ID             : ''
+        	   	  	    	      ,V_P_USERID              : p_userId
+        	   	  	    	      ,V_P_PC                  : ''
+        	    		    };		
+        	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {
+        	    	        	getType				: 'json',
+        	    	        	workType			: workType,
+        	    	        	cv_count			: '0',
+        	    	        	params				: gfnma_objectToString(paramObj)
+        	    			});    	 
+        	    	        const subdata = await postJsonPromise;
+
+        	    	        try {
+        	    	        	if (_.isEqual("S", subdata.resultStatus)) {
+        	    	        		if(subdata.resultMessage){
+        	    		          		alert(subdata.resultMessage);
+        	    	        		}
+        	    	        	} else {
+        	    	          		alert(subdata.resultMessage);
+        	    	        	}
+        	    	        } catch (e) {
+        	    	    		if (!(e instanceof Error)) {
+        	    	    			e = new Error(e);
+        	    	    		}
+        	    	    		console.error("failed", e.message);
+        	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	    	        }
+        	    		}
+        		}
+        		
+        		cfn_search();
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
     
     //저장
-    const fn_saveExtraField = async function() {
+    const fn_saveExtraField = async function(rowLength, rowVal) {
 
-    	let rowVal = CMNSCDSubGrid.getRows();
-    	if (rowVal >= 1){
-    		for(var i = 1; rowVal > i; i ++){
-		    	let rowData = CMNSCDSubGrid.getRowData(i);
-    			
+    	if (rowLength > 0){
+
+    		for(var i = 0; rowLength > i; i ++){
+    			var workType = rowVal[i].data.status == 'i' ? 'N' : (rowVal[i].data.status == 'u' ? 'U' : 'D');
+	            		
+    			var paramObj = {
+   	  	    	      V_P_DEBUG_MODE_YN        : ''
+   	  	    	      ,V_P_LANG_ID             : ''
+   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
+   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+   	  	    	      ,V_P_GROUP_CODE          : gfnma_nvl(rowVal[i].data.GROUP_CODE)
+   	  	    	      ,V_P_SUB_CODE            : gfnma_nvl(rowVal[i].data.SUB_CODE)
+   	  	    	      ,V_P_CODE_NAME           : gfnma_nvl(rowVal[i].data.CODE_NAME)
+   	  	    	      ,V_P_SYSTEM_YN           : gfnma_nvl(rowVal[i].data.SYSTEM_YN)
+   	  	    	      ,IV_P_EXTRA_FIELD1       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD1)
+   	  	    	      ,IV_P_EXTRA_FIELD2       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD2)
+   	  	    	      ,V_P_EXTRA_FIELD3        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD3)
+   	  	    	      ,V_P_EXTRA_FIELD4        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD4)
+   	  	    	      ,V_P_EXTRA_FIELD5        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD5)
+   	  	    	      ,V_P_EXTRA_FIELD6        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD6)
+   	  	    	      ,V_P_EXTRA_FIELD7        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD7)
+   	  	    	      ,V_P_EXTRA_FIELD8        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD8)
+   	  	    	      ,V_P_EXTRA_FIELD9        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD9)
+   	  	    	      ,V_P_EXTRA_FIELD10       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD10)
+   	  	    	      ,V_P_EXTRA_FIELD11       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD11)
+   	  	    	      ,V_P_EXTRA_FIELD12       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD12)
+   	  	    	      ,V_P_EXTRA_FIELD13       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD13)
+   	  	    	      ,V_P_EXTRA_FIELD14       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD14)
+   	  	    	      ,V_P_EXTRA_FIELD15       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD15)
+   	  	    	      ,V_P_EXTRA_FIELD16       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD16)
+   	  	    	      ,V_P_EXTRA_FIELD17       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD17)
+   	  	    	      ,V_P_EXTRA_FIELD18       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD18)
+   	  	    	      ,V_P_EXTRA_FIELD19       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD19)
+   	  	    	      ,V_P_EXTRA_FIELD20       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD20)
+   	  	    	      ,V_P_SORT_SEQ            : gfnma_nvl(rowVal[i].data.SORT_SEQ)
+   	  	    	      ,V_P_USE_YN              : gfnma_nvl(rowVal[i].data.USE_YN)
+   	  	    	      ,V_P_FORM_ID             : p_formId
+   	  	    	      ,V_P_MENU_ID             : p_menuId
+   	  	    	      ,V_P_PROC_ID             : ''
+   	  	    	      ,V_P_USERID              : p_userId
+   	  	    	      ,V_P_PC                  : ''
+    		    };		
+    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {
+    	        	getType				: 'json',
+    	        	workType			: workType,
+    	        	cv_count			: '0',
+    	        	params				: gfnma_objectToString(paramObj)
+    			});    	 
+    	        const data = await postJsonPromise;
+
+    	        try {
+    	        	if (_.isEqual("S", data.resultStatus)) {
+    	        		if(data.resultMessage){
+    		          		alert(data.resultMessage);
+    	        		}
+    	        		cfn_search();
+    	        	} else {
+    	          		alert(data.resultMessage);
+    	        	}
+    	        } catch (e) {
+    	    		if (!(e instanceof Error)) {
+    	    			e = new Error(e);
+    	    		}
+    	    		console.error("failed", e.message);
+    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    	        }
     		}
     	}else{
     		return;
     	}
-
-    	
-    	
-    	
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     */
-	const fn_subInsert = async function (obj){
-
-  	    var paramObj = { 
-  				V_P_DEBUG_MODE_YN			: ''
-  				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
-				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
-  				,V_P_GROUP_CODE				: obj.NATION_CODE
-  				,V_P_GROUP_NAME				: obj.NATION_NAME
-  				,V_P_CODE_LENGTH     		: obj.NATION_FULL_NAME
-  				,V_P_GROUP_CATEGORY			: obj.NATION_FULL_NAME_CHN
-  				,V_P_FIELD_CAPTION1         : obj.FIELD_CAPTION1
-  				,V_P_FIELD_CAPTION2         : obj.FIELD_CAPTION2
-  				,V_P_FIELD_CAPTION3         : obj.FIELD_CAPTION3
-  				,V_P_FIELD_CAPTION4         : obj.FIELD_CAPTION4
-  				,V_P_FIELD_CAPTION5			: obj.FIELD_CAPTION5
-  				,V_P_FIELD_CAPTION6			: obj.FIELD_CAPTION6
-  				,V_P_FIELD_CAPTION7			: obj.FIELD_CAPTION7
-  				,V_P_FIELD_CAPTION8			: obj.FIELD_CAPTION8
-  				,V_P_FIELD_CAPTION9			: obj.FIELD_CAPTION9
-  				,V_P_FIELD_CAPTION10		: obj.FIELD_CAPTION10
-  				,V_P_FIELD_CAPTION11		: obj.FIELD_CAPTION11
-  				,V_P_FIELD_CAPTION12		: obj.FIELD_CAPTION12
-  				,V_P_FIELD_CAPTION13		: obj.FIELD_CAPTION13
-  				,V_P_FIELD_CAPTION14		: obj.FIELD_CAPTION14
-  				,V_P_FIELD_CAPTION15		: obj.FIELD_CAPTION15
-  				,V_P_FIELD_CAPTION16		: obj.FIELD_CAPTION16
-  				,V_P_FIELD_CAPTION17		: obj.FIELD_CAPTION17
-  				,V_P_FIELD_CAPTION18		: obj.FIELD_CAPTION18
-  				,V_P_FIELD_CAPTION19		: obj.FIELD_CAPTION19
-  				,V_P_FIELD_CAPTION20		: obj.FIELD_CAPTION19
-  				,V_P_USE_YN					: obj.USE_YN
-  				,V_P_FORM_ID				: p_formId
-  				,V_P_MENU_ID				: p_menuId
-  				,V_P_PROC_ID				: ''
-  				,V_P_USERID					: ''
-  				,V_P_PC						: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/updateCom3000.do", {
-        	getType				: 'json',
-        	workType			: 'N',
-        	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
-		});    	 
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		if(data.resultMessage){
-	          		alert(data.resultMessage);
-        		}
-        		cfn_search();
-        	} else {
-          		alert(data.resultMessage);
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-	/**
-     * @param {boolean} isConfirmed
-     */
-	const fn_subUpdate = async function (obj){
-
-  	    var paramObj = { 
-  				V_P_DEBUG_MODE_YN			: ''
-  				,V_P_LANG_ID				: ''
-				,V_P_COMP_CODE				: gv_ma_selectedApcCd
-				,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
-  				,V_P_GROUP_CODE				: obj.NATION_CODE
-  				,V_P_GROUP_NAME				: obj.NATION_NAME
-  				,V_P_CODE_LENGTH     		: obj.NATION_FULL_NAME
-  				,V_P_GROUP_CATEGORY			: obj.NATION_FULL_NAME_CHN
-  				,V_P_FIELD_CAPTION1         : obj.FIELD_CAPTION1
-  				,V_P_FIELD_CAPTION2         : obj.FIELD_CAPTION2
-  				,V_P_FIELD_CAPTION3         : obj.FIELD_CAPTION3
-  				,V_P_FIELD_CAPTION4         : obj.FIELD_CAPTION4
-  				,V_P_FIELD_CAPTION5			: obj.FIELD_CAPTION5
-  				,V_P_FIELD_CAPTION6			: obj.FIELD_CAPTION6
-  				,V_P_FIELD_CAPTION7			: obj.FIELD_CAPTION7
-  				,V_P_FIELD_CAPTION8			: obj.FIELD_CAPTION8
-  				,V_P_FIELD_CAPTION9			: obj.FIELD_CAPTION9
-  				,V_P_FIELD_CAPTION10		: obj.FIELD_CAPTION10
-  				,V_P_FIELD_CAPTION11		: obj.FIELD_CAPTION11
-  				,V_P_FIELD_CAPTION12		: obj.FIELD_CAPTION12
-  				,V_P_FIELD_CAPTION13		: obj.FIELD_CAPTION13
-  				,V_P_FIELD_CAPTION14		: obj.FIELD_CAPTION14
-  				,V_P_FIELD_CAPTION15		: obj.FIELD_CAPTION15
-  				,V_P_FIELD_CAPTION16		: obj.FIELD_CAPTION16
-  				,V_P_FIELD_CAPTION17		: obj.FIELD_CAPTION17
-  				,V_P_FIELD_CAPTION18		: obj.FIELD_CAPTION18
-  				,V_P_FIELD_CAPTION19		: obj.FIELD_CAPTION19
-  				,V_P_FIELD_CAPTION20		: obj.FIELD_CAPTION19
-  				,V_P_USE_YN					: obj.USE_YN
-  				,V_P_FORM_ID				: p_formId
-  				,V_P_MENU_ID				: p_menuId
-  				,V_P_PROC_ID				: ''
-  				,V_P_USERID					: ''
-  				,V_P_PC						: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/updateCom3000.do", {
-        	getType				: 'json',
-        	workType			: 'U',
-        	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
-		});    	 
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		if(data.resultMessage){
-	          		alert(data.resultMessage);
-        		}
-        		cfn_search();
-        	} else {
-          		alert(data.resultMessage);
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
     }
 
      // 행 추가
@@ -1124,7 +1223,7 @@
      
     //그룹코드 내역 보기
     function fn_view() {
-
+		editType = 'U';
     	
     	var nCol = CMNSCDGrid.getCol();
         //특정 열 부터 이벤트 적용

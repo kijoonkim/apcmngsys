@@ -40,7 +40,7 @@ public class ApcMaCom3000Controller extends BaseController {
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
 	
-	// 국가정보 조회
+	// 공통코드 정보 조회
 	@PostMapping(value = "/co/sys/com/selectCom3000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectCom3000List(
     		@RequestBody Map<String, Object> param
@@ -66,15 +66,15 @@ public class ApcMaCom3000Controller extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 국가정보 수정
-	@PostMapping(value = "/co/sys/com/updateCom3000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateCom3000List(
+	// 공통코드 정보 삭제
+	@PostMapping(value = "/co/sys/com/deleteCom3000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteCom3000(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============updateCom3000List=====start========");
+		logger.info("=============deleteCom3000=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
@@ -88,7 +88,82 @@ public class ApcMaCom3000Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		
-		logger.info("=============updateCom3000List=====end========");
+		logger.info("=============deleteCom3000=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}	
+	
+	// 공통코드 정보 - 그룹코드 내역 신규
+	@PostMapping(value = "/co/sys/com/insertCom3000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertCom3000(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============insertCom3000=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_COM3000_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============insertCom3000=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}	
+	
+	// 공통코드 정보 - 그룹코드 내역 수정
+	@PostMapping(value = "/co/sys/com/updateCom3000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateCom3000(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============updateCom3000=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_COM3000_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============updateCom3000=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}	
+	
+	// 공통코드 정보 - 세부코드 정보 수정
+	@PostMapping(value = "/co/sys/com/updateCom3000_S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateCom3000_S1(
+			@RequestBody Map<String, Object> param
+			,Model model
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============updateCom3000_S1=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_COM3000_S1");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============updateCom3000_S1=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 
