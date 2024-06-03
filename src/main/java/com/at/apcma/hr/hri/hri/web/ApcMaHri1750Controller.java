@@ -63,13 +63,13 @@ public class ApcMaHri1750Controller extends BaseController {
     }
 
     @PostMapping(value = "/hr/hri/hri/insertHri1750.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHri1750Master(
+    public ResponseEntity<HashMap<String, Object>> insertHri1750(
             @RequestBody Map<String, Object> param
             ,Model model
             ,HttpSession session
             ,HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHri1750Master=====start========");
+        logger.info("=============insertHri1750=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
@@ -80,7 +80,7 @@ public class ApcMaHri1750Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============insertHri1750Master=====end========");
+        logger.info("=============insertHri1750=====end========");
         if(resultMap.get("resultStatus").equals("E")) {
             String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
             String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();

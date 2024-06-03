@@ -302,6 +302,7 @@
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
+    var apcAdminType = '${loginVO.apcAdminType}';
     //-----------------------------------------------------------
 
     // only document
@@ -324,6 +325,7 @@
     const fn_initSBSelect = async function() {
         SBUxMethod.set("SRCH_REQUEST_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
         SBUxMethod.set("SRCH_REQUEST_DATE_TO", gfn_dateToYmd(new Date()));
+        if(apcAdminType != null) SBUxMethod.attr('btnAdminApproval',"disabled","true");
         $("#incomeTr").hide();
         $("#certiMemoTh").hide();
         $("#certiMemoTd").hide();
@@ -352,7 +354,7 @@
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001_ESS'
+            ,bizcompId				: 'P_HRI001'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["사번", 		"사원명"]
             ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
@@ -363,8 +365,8 @@
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
         });
     }
@@ -482,103 +484,140 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["문서번호"], 	        ref: 'DOC_NUM',    	        type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["신청일"],  		ref: 'REQUEST_DATE',    			type:'output',  	width:'108px',  	style:'text-align:left',
+            {caption: ["문서번호"], 	        ref: 'DOC_NUM',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
+            {caption: ["신청일","신청일 "],  		ref: 'REQUEST_DATE',    			type:'datepicker',  	width:'108px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["증명서유형"],           ref: 'REPORT_TYPE', 		        type:'output',  	width:'150px', style:'text-align:left',
+                , disabled: true
+            },
+            {caption: ["신청일","이름"],           ref: 'EMP_NAME', 		            type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["신청일","사번"],           ref: 'EMP_CODE', 		        type:'output',  	width:'80px', style:'text-align:left'},
+            {caption: ["신청일","증명서유형"],           ref: 'REPORT_TYPE', 		        type:'combo',  	width:'150px', style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonReportType',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["사번"],           ref: 'EMP_CODE', 		        type:'output',  	width:'80px', style:'text-align:left'},
-            {caption: ["이름"],           ref: 'EMP_NAME', 		            type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["제출처"],           ref: 'SUBMIT_PLACE', 		    type:'output',  	width:'213px',  style:'text-align:left'},
-            {caption: ["사용용도"],      	 ref: 'USE_DESCR', 		type:'output',  	width:'213px',  style:'text-align:left'},
-            {caption: ["귀속년도"],     	     ref: 'INCOME_YEAR', 		    type:'output',  	width:'104px',  style:'text-align:left',
+            {caption: ["세부내용","제출처"],           ref: 'SUBMIT_PLACE', 		    type:'output',  	width:'213px',  style:'text-align:left'},
+            {caption: ["세부내용","사용용도"],      	 ref: 'USE_DESCR', 		type:'output',  	width:'213px',  style:'text-align:left'},
+            {caption: ["세부내용","주민번호출력"],   ref: 'SOCIAL_NUM_YN', 		    type:'checkbox',  	width:'127px',  style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 2 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
+            },
+            {caption: ["세부내용","직인삭제"],     ref: 'IMG_YN', 		    type:'checkbox',  	width:'70px',  style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 2 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
+            },
+            {caption: ["세부내용","담당업무"],         ref: 'CERTI_MEMO', 	type:'output',  	width:'200px',  style:'text-align:left'},
+            {caption: ["원천징수","귀속년도"],     	     ref: 'INCOME_YEAR', 		    type:'datepicker',  	width:'104px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy'},
                 format : {type:'date', rule:'yyyy', origin:'YYYY'}
-                , disabled: true},
-            {caption: ["기간(From)"],            ref: 'INCOME_RECEIVE_START_DATE', 		type:'output',  	width:'90px',  style:'text-align:left',
+                , disabled: true
+            },
+            {caption: ["원천징수","기간(From)"],            ref: 'INCOME_RECEIVE_START_DATE', 		type:'datepicker',  	width:'90px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["기간(To)"],            ref: 'INCOME_RECEIVE_END_DATE', 		type:'output',  	width:'90px',  style:'text-align:left',
+                , disabled: true
+            },
+            {caption: ["원천징수","기간(To)"],            ref: 'INCOME_RECEIVE_END_DATE', 		type:'datepicker',  	width:'90px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["진행상태"],            ref: 'CONFIRM_STEP', 		    type:'output',  	width:'80px',  style:'text-align:left',
+                , disabled: true
+            },
+            {caption: ["상태정보","진행상태"],            ref: 'CONFIRM_STEP', 		    type:'combo',  	width:'80px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonConfirmStep',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
-                }},
-            {caption: ["승인여부"],           ref: 'APPROVAL_YN', 		type:'output',  	width:'90px',  style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ["승인일"],           ref: 'APPROVAL_DATE', 		type:'output',  	width:'90px',  style:'text-align:left',
+                }
+                , disabled: true
+            },
+            {caption: ["상태정보","승인일"],           ref: 'APPROVAL_DATE', 		type:'datepicker',  	width:'90px',  style:'text-align:center',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["퇴직일"],       ref: 'RETIRE_DATE', 		        type:'output',  	width:'90px',  style:'text-align:left',
+                , disabled: true
+            },
+            {caption: ["상태정보","현단계승인권자"],       ref: 'CURRENT_APPROVE_EMP_NAME', 		        type:'output',  	width:'120px',  style:'text-align:left'},
+            {caption: ["상태정보","수임자명"],       ref: 'PROXY_EMP_NAME', 		        type:'output',  	width:'101px',  style:'text-align:left'},
+            {caption: ["상태정보","반려일"],       ref: 'REJECT_DATE', 		        type:'datepicker',  	width:'90px',  style:'text-align:center',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["반려여부"],          ref: 'REJECT_YN', 		    type:'output',  	width:'75px',  style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ["반려일"],       ref: 'REJECT_DATE', 		        type:'output',  	width:'90px',  style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["반려사유"],         ref: 'REJECT_REASON', 	type:'output',  	width:'150px',  style:'text-align:left'},
-            {caption: ["출력기간"],         ref: 'PRINT_DATE', 		        type:'output',  	width:'150px',  style:'text-align:left'},
-            {caption: ["출력횟수"],            ref: 'PRINT_CNT', 		            type:'output',  	width:'90px',  style:'text-align:left'},
-            {caption: ["직인삭제"],     ref: 'IMG_YN', 		    type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ["주민번호출력"],   ref: 'SOCIAL_NUM_YN', 		    type:'output',  	width:'127px',  style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ["출력가능여부"],         ref: 'PRINTABLE_YN', 	type:'output',  	width:'90px',  style:'text-align:left', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ["부서"],           ref: 'DEPT_NAME', 		    type:'output',  	width:'120px',  style:'text-align:left'},
-            {caption: ["직위"],    ref: 'POSITION_CODE', 		    type:'output',  	width:'100px',  style:'text-align:left',
+                , disabled: true
+            },
+            {caption: ["상태정보","반려사유"],         ref: 'REJECT_REASON', 	type:'output',  	width:'150px',  style:'text-align:left'},
+            {caption: ["출력기간", "출력기간 "],         ref: 'PRINT_DATE', 		        type:'output',  	width:'150px',  style:'text-align:left'},
+            {caption: ["출력기간", "출력횟수"],            ref: 'PRINT_CNT', 		            type:'output',  	width:'90px',  style:'text-align:left'},
+            {caption: ["출력기간", "출력가능여부"],         ref: 'PRINTABLE_YN', 	type:'checkbox',  	width:'90px',  style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 2 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
+            },
+            {caption: ["부서", "부서 "],           ref: 'DEPT_NAME', 		    type:'output',  	width:'120px',  style:'text-align:left'},
+            {caption: ["부서", "직위"],    ref: 'POSITION_CODE', 		    type:'combo',  	width:'100px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPositionCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["직책"],      ref: 'DUTY_CODE', 		    type:'output',  	width:'80px',  style:'text-align:left',
+            {caption: ["부서", "직책"],      ref: 'DUTY_CODE', 		    type:'combo',  	width:'80px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonDutyCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
-            {caption: ["출력구분"],           ref: 'PRINT_TYPE', 		    type:'output',  	width:'100px',  style:'text-align:left',
+            {caption: ["승인여부"],           ref: 'APPROVAL_YN', 		type:'checkbox',  	width:'90px',  style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
+                , hidden: true
+            },
+            {caption: ["퇴직일"],       ref: 'RETIRE_DATE', 		        type:'datepicker',  	width:'90px',  style:'text-align:center',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+                , hidden: true
+            },
+            {caption: ["반려여부"],          ref: 'REJECT_YN', 		    type:'output',  	width:'75px',  style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
+                , hidden: true
+            },
+            {caption: ["출력구분"],           ref: 'PRINT_TYPE', 		    type:'combo',  	width:'100px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPrintType',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10
-                }},
-            {caption: ["출력시작일자"],   ref: 'PRINT_START_DATE', 		    type:'output',  	width:'80px',  style:'text-align:left',
+                }
+                , disabled: true
+                , hidden: true
+            },
+            {caption: ["출력시작일자"],   ref: 'PRINT_START_DATE', 		    type:'datepicker',  	width:'80px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["출력마감일자"],     ref: 'PRINT_END_DATE', 		    type:'output',  	width:'80px',  style:'text-align:left',
+                , disabled: true
+                , hidden: true
+            },
+            {caption: ["출력마감일자"],     ref: 'PRINT_END_DATE', 		    type:'datepicker',  	width:'80px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true},
-            {caption: ["담당업무"],         ref: 'CERTI_MEMO', 	type:'output',  	width:'200px',  style:'text-align:left'},
+                , disabled: true
+                , hidden: true
+            },
             {caption: ["APPR_ID"],        ref: 'APPR_ID', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["APPR_COUNT"],       ref: 'APPR_COUNT', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["FINAL_APPROVER"],       ref: 'FINAL_APPROVER', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["CURRENT_APPROVE_EMP_CODE"],       ref: 'CURRENT_APPROVE_EMP_CODE', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["현단계승인권자"],       ref: 'CURRENT_APPROVE_EMP_NAME', 		        type:'output',  	width:'120px',  style:'text-align:left'},
             {caption: ["INSERT_EMP_CODE"],       ref: 'INSERT_EMP_CODE', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["INSERT_USERID"],       ref: 'INSERT_USERID', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["수임자명"],       ref: 'PROXY_EMP_NAME', 		        type:'output',  	width:'101px',  style:'text-align:left'},
             {caption: ["수임자"],       ref: 'PROXY_EMP_CODE', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
         ];
 
@@ -603,22 +642,21 @@
         let EMP_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	    : ''
-            ,V_P_LANG_ID		    : ''
-            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
-            ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
-            ,V_P_REQUEST_DATE_FR    : REQUEST_DATE_FR
-            ,V_P_REQUEST_DATE_TO    : REQUEST_DATE_TO
-            ,V_P_REPORT_TYPE        : REPORT_TYPE
-            ,V_P_CONFIRM_STEP       : CONFIRM_STEP
-            ,V_P_DEPT_CODE          : DEPT_CODE
-            ,V_P_EMP_CODE           : EMP_CODE
-            ,V_P_DOC_NUM            : ''
-            ,V_P_FORM_ID		    : p_formId
-            ,V_P_MENU_ID		    : p_menuId
-            ,V_P_PROC_ID		    : ''
-            ,V_P_USERID			    : ''
-            ,V_P_PC				    : ''
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_REQUEST_DATE_FR : REQUEST_DATE_FR,
+            V_P_REQUEST_DATE_TO : REQUEST_DATE_TO,
+            V_P_REPORT_TYPE : REPORT_TYPE,
+            V_P_CONFIRM_STEP : CONFIRM_STEP,
+            V_P_DEPT_CODE : DEPT_CODE,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_FORM_ID	: p_formId,
+            V_P_MENU_ID	: p_menuId,
+            V_P_PROC_ID	: '',
+            V_P_USERID : '',
+            V_P_PC : ''
         };
 
         const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750List.do", {
@@ -730,17 +768,17 @@
 
     // 저장
     const fn_save = async function() {
-        if(editType == "U") {
-            var nRow = bandgvwInfo.getRow();
-            let rowData = bandgvwInfo.getRowData(nRow);
+        var nRow = bandgvwInfo.getRow();
+        let rowData = bandgvwInfo.getRowData(nRow);
 
+        if(editType == "U") {
             if (rowData.CONFIRM_STEP != "1") {
                 alert("미승인 건만 수정이 가능합니다.");
                 return;
             }
         }
 
-        let DOC_NUM = gfnma_nvl(SBUxMethod.get("DOC_NUM"));
+        let DOC_NUM = gfnma_nvl(rowData.DOC_NUM);
         let REQUEST_DATE = gfnma_nvl(SBUxMethod.get("REQUEST_DATE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         let REPORT_TYPE = gfnma_nvl(SBUxMethod.get("REPORT_TYPE"));
@@ -808,7 +846,11 @@
     }
 
     const fn_adminApproval = async function() {
-        let DOC_NUM = gfnma_nvl(SBUxMethod.get("DOC_NUM"));
+        var nRow = bandgvwInfo.getRow();
+        let rowData = bandgvwInfo.getRowData(nRow);
+        console.log(rowData);
+
+        let DOC_NUM = gfnma_nvl(rowData.DOC_NUM);
         let REQUEST_DATE = gfnma_nvl(SBUxMethod.get("REQUEST_DATE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         let REPORT_TYPE = gfnma_nvl(SBUxMethod.get("REPORT_TYPE"));
@@ -962,7 +1004,7 @@
         let iprint_end_date = new Date(rowData.PRINT_END_DATE.replace("-", "") == "" ? "99999999": rowData.PRINT_END_DATE.replace("-", ""));
 
         // 인사총무관리자가 아닐 경우 출력가능여부가 "N"이면 출력이 안되도록 처리
-        if (!SessionInfo.IsHRManager) {
+        if (apcAdminType != null) { // TODO: 권환 확인하여 오른쪽 조건 확인 필요  if(!SessionInfo.IsHRManager)
             if (strDate < iprint_start_date || strDate > iprint_end_date) {
                 alert("출력기간이 아니므로 출력이 불가능합니다.");
                 return;
@@ -973,7 +1015,7 @@
         }
 
         var param = {}
-        param.VIEW_TYPE = strview_type;
+        param.VIEW_TYPE = 'PRINT';
         param.REPORT_TYPE = rowData.REPORT_TYPE;
         param.DOC_NUM = rowData.DOC_NUM;
         param.SOCIAL_VIEW = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN"));
@@ -993,7 +1035,7 @@
             param.EMP_CODE_LIST = rowData.EMP_CODE;
             param.PAY_AREA_TYPE = '';
 
-            gfn_popClipReport(jsonReportType[rowData.REPORT_TYPE], reportFilePath, param);
+            gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
         } else if (rowData.REPORT_TYPE == "R_INCOME_C") {
             let reportFilePath = await fn_findReportFilePath(rowData.REPORT_TYPE);
             let strye_tx_yyyy = rowData.INCOME_YEAR;
@@ -1022,21 +1064,30 @@
             param.EMP_CODE_LIST = rowData.EMP_CODE;
             param.PAY_AREA_TYPE = '';
 
-            gfn_popClipReport(jsonReportType[rowData.REPORT_TYPE], reportFilePath, param);
+            gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
         } else {
             let reportFilePath = await fn_findReportFilePath("R_CERTI");
-            gfn_popClipReport(jsonReportType[rowData.REPORT_TYPE], reportFilePath, param);
+            gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
         }
     }
 
 
     const fn_findReportFilePath = async function(reportType) {
         var paramObj = {
-            V_P_REPORT_TYPE : reportType
+            V_P_DEBUG_MODE_YN : '',
+            V_P_LANG_ID : '',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE : gv_ma_selectedClntCd,
+            V_P_REPORT_TYPE : reportType,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
         };
         let reportFilePath = '';
 
-        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportType.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportFilePath.do", {
             getType				: 'json',
             cv_count			: '1',
             params				: gfnma_objectToString(paramObj)
