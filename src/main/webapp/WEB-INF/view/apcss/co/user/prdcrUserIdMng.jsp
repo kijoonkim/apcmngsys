@@ -249,7 +249,7 @@
 
 
     	const postJsonPromise = gfn_postJSON("/co/user/selectComUserPrdcrAprvList.do", {
-	  		apcCd : apcCd ,
+	  		apcCd : gv_selectedApcCd ,
 	  		prdcrNm : prdcrNm,
 	  		userNm  : userNm,
 	  		userId    : userId
@@ -262,27 +262,39 @@
   	      		let totalRecordCount = 0;
   	      		jsonComUserPrdcrAprv.length = 0;
   	      		jsonComUserPrdcrNotAprv.length = 0;
+
   	          	data.resultList.forEach((item, index) => {
-  	  				const arr = {
+  	          		if(item.TYPE === "PRDCR_LIST"){
+  	          			//요청목록 그리드 데이터 추가
+	  	          		const arr = {
+								prdcrCd : item.PRDCR_CD,
+								prdcrNm : item.PRDCR_NM,
+								telno : item.TELNO,
+								userId : item.USER_ID,
+								apcCd : item.APC_CD,
+								rmrk : item.RMRK,
+								userNm : item.USER_NM
+		  				}
+	  					jsonComUserPrdcrAprv.push(arr);
+  	          		}else if(item.TYPE === "APRV_LIST"){
+  	          		//생산농가 그리드 데이터 추가
+  	          			const arr = {
   							prdcrCd : item.PRDCR_CD,
   							prdcrNm : item.PRDCR_NM,
-  							cdNm : item.cdNm,
   							telno : item.TELNO,
   							userId : item.USER_ID,
   							apcCd : item.APC_CD,
   							eml : item.EML,
   							rmrk : item.RMRK,
   							userNm : item.USER_NM
-  	  				}
-  	  				if(item.APRV_YN === "Y"){
-  	  					jsonComUserPrdcrAprv.push(arr);
-  	  				}else{
+	  	  				}
   	  					jsonComUserPrdcrNotAprv.push(arr);
-  	  				}
-
-
+  	          		}
 
   	  			});
+
+
+
 
   	          	grdComUserPrdcrAprv.rebuild();
   	          	grdComUserPrdcrNotAprv.rebuild();
@@ -349,7 +361,9 @@
     const fn_aprvNupdate = async function() {
 
     	const comUserAprv = grdComUserPrdcrAprv.getRowData(grdComUserPrdcrAprv.getRow());
-
+		if(comUserAprv.userId === undefined){
+			return;
+		}
     	const param = {
     			apcCd : comUserAprv.apcCd ,
     			userId : comUserAprv.userId,
