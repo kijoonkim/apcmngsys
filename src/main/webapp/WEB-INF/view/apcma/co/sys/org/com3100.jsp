@@ -83,7 +83,7 @@
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             
-                            <th scope="row" class="th_bg">사원명</th>
+                            <th scope="row" class="th_bg">공통팝업샘플1</th>
 							<td colspan="2"  class="td_input" style="border-right: hidden;">
    								<sbux-input
 									uitype="text"
@@ -104,6 +104,40 @@
 									text="찾기" uitype="modal"
 									target-id="modal-compopup1"
 									onclick="fn_compopup1"
+								></sbux-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg"></th>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            
+                            <th scope="row" class="th_bg"></th>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            
+                            <th scope="row" class="th_bg">공통팝업샘플3</th>
+							<td colspan="2"  class="td_input" style="border-right: hidden;">
+   								<sbux-input
+									uitype="text"
+									id="SRCH_DEPT_NAME"
+									class="form-control input-sm"									
+   								></sbux-input>
+								<sbux-input
+									uitype="hidden"
+									uitype="text"
+									id="SRCH_DEPT_CODE"
+									class="form-control input-sm"
+   								></sbux-input>
+							</td>
+                            <td class="td_input" >
+								<sbux-button
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-compopup1"
+									onclick="fn_compopup3"
 								></sbux-button>
                             </td>
                         </tr>
@@ -219,7 +253,7 @@
     
 	<!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
     </div>
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -360,13 +394,14 @@
     	
         var searchText 		= "";
         var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_"; // "NULL|''1222''|NULL"
+        var replaceText1 	= "_EMP_NAME_"; 
         var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
     	
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001_ESS'
+           	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["사번", 		"사원명"]
    			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
@@ -481,6 +516,7 @@
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001_ESS'
+        	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["사번", 		"사원명"]
    			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
@@ -495,6 +531,38 @@
 				SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
 			},
     	});
+  	}
+	
+    /**
+     * 공통팝업3
+     */
+    var fn_compopup3 = function() {
+    	
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_ORG001'
+    		,popupType				: 'B'
+    		,whereClause			: ''
+   			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputValues		: ["", 				searchText,		""]
+    	
+			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+    	
+    		,height					: '400px'
+   			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
   	}
 
     //신규 작성
