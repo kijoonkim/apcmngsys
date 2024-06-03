@@ -48,19 +48,21 @@
             <table class="table table-bordered tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
-                    <col style="width: 12.5%">
-                    <col style="width: 12.5%">
-                    <col style="width: 12.5%">
-                    <col style="width: 12.5%">
-                    <col style="width: 12.5%">
-                    <col style="width: 12.5%">
-                    <col style="width: 12.5%">
-                    <col style="width: 12.5%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
                 </colgroup>
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg">소속사업장</th>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
                         <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
@@ -71,17 +73,33 @@
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findSrchDeptCode"
+                        ></sbux-button>
+                    </td>
                     <th scope="row" class="th_bg">사원</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findEmpCode"
+                        ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">직위</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -108,6 +126,14 @@
         </div>
     </div>
 </section>
+
+<!-- 팝업 Modal -->
+<div>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup1">
+    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+</div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -139,6 +165,63 @@
             // 직위
             gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
+    }
+
+    var fn_findSrchDeptCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findEmpCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var replaceText0 	= "_EMP_CODE_";
+        var replaceText1 	= "_EMP_NAME_";
+        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001_ESS'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["사번", 		"사원명"]
+            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
+            ,searchInputValues		: ["", 			searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+            },
+        });
     }
 
     //grid 초기화

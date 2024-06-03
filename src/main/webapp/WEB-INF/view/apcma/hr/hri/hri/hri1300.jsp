@@ -448,10 +448,10 @@
         var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-        compopup1.init({
+        compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001_ESS'
+            ,bizcompId				: 'P_HRI001'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["사번", 		"사원명"]
             ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
@@ -468,31 +468,33 @@
         });
     }
 
-    const fn_findDeptCode = function() {
+    var fn_findDeptCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
-        var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
-        compopup1.init({
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'L_ORG900_ESS'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["부서", 		"부서명"]
-            ,searchInputFields		: ["CODE", 		"NAME"]
-            ,searchInputValues		: ["", 			searchText]
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
             ,height					: '400px'
-            ,tableHeader			: ["부서", "부서명"]
-            ,tableColumnNames		: ["CODE", "NAME"]
-            ,tableColumnWidths		: ["80px", "80px"]
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('DEPT_NAME', data.NAME);
-                SBUxMethod.set('DEPT_CODE', data.CODE);
+                SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
             },
         });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
     const fn_findAppointType = function() {
@@ -502,7 +504,7 @@
         var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '발령구분 조회');
-        compopup1.init({
+        compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI041'
@@ -529,7 +531,7 @@
         var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '발령구분 조회');
-        compopup1.init({
+        compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI041'
