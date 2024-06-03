@@ -408,11 +408,14 @@
 		USER_ID	= #{userId}
 	</if>
 	</select>
-	<!-- 생산농가 계정 조회 -->
+
+	<!-- 생산농가 계정관리 요청목록 조회 -->
 	<select id="selectComUserPrdcrAprvList" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
+
 		SELECT
-			CU.USER_ID AS USER_ID
+			'APRV_LIST' AS TYPE
+			, CU.USER_ID AS USER_ID
 			, CU.USER_NM AS USER_NM
 			, CU.APC_CD AS APC_CD
 			, PI.PRDCR_CD AS PRDCR_CD
@@ -434,6 +437,10 @@
 			AND CU.USER_ID = UPA.USER_ID
 			AND UPA.APC_CD = PI.APC_CD
 			AND UPA.PRDCR_CD = PI.PRDCR_CD
+			AND PI.DEL_YN = 'N'
+			AND UPA.DEL_YN = 'N'
+			AND CU.DEL_YN = 'N'
+			AND UPA.APRV_YN = 'N'
 	]]>
 	<if test='apcCd != null and apcCd != ""'>
 		AND CU.APC_CD = #{apcCd}
@@ -450,6 +457,53 @@
 		<if test='userNm != null and userNm != ""'>
 		AND CU.USER_NM = #{userNm}
 	</if>
+
+
+	</select>
+
+	<!-- 생산농가 계정관리 생산농가목록 조회 -->
+	<select id="selectComUserPrdcrList" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+		SELECT
+					'PRDCR_LIST' AS TYPE
+					,CASE WHEN UPA.APRV_YN = 'Y' THEN UPA.USER_ID END USER_ID
+					,UPA.APRV_YN
+					,UPA.APRV_DT
+					,UPA.REQ_DT
+					,UPA.RMRK
+					,UPA.DEL_YN
+					,PI.PRDCR_CD
+					,PI.PRDCR_NM
+					,PI.TELNO
+					,PI.APC_CD
+					, CASE
+						WHEN USER_ID IS NOT NULL
+							THEN (SELECT
+											USER_NM
+										FROM TB_COM_USER A
+									  WHERE A.APC_CD = UPA.APC_CD
+									  	  AND A.USER_ID = UPA.USER_ID
+									  	  AND UPA.APRV_YN = 'Y') END AS USER_NM
+					FROM TB_PRDCR_INFO PI
+							, TB_COM_USER_PRDCR_APRV UPA
+					WHERE 1=1
+						AND PI.APC_CD = UPA.APC_CD(+)
+						AND PI.PRDCR_CD = UPA.PRDCR_CD(+)
+						AND PI.DEL_YN = 'N'
+	]]>
+	<if test='apcCd != null and apcCd != ""'>
+		AND PI.APC_CD = #{apcCd}
+	</if>
+	<if test='prdcrCd != null and prdcrCd != ""'>
+		AND PI.PRDCR_CD = #{prdcrCd}
+	</if>
+	<if test='prdcrNm != null and prdcrNm != ""'>
+		AND PI.PRDCR_NM = #{prdcrNm}
+	</if>
+	<if test='userId != null and userId != ""'>
+		AND UPA.USER_ID = #{userId}
+	</if>
+
 
 	</select>
 

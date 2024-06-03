@@ -244,6 +244,7 @@ public class ComUserController extends BaseController {
 
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<HashMap<String, Object>> resultVO;
+		List<HashMap<String, Object>> resultVO2;
 
 		try {
 			resultVO = comUserService.selectComUserPrdcrAprvList(comUserVO);
@@ -251,7 +252,14 @@ public class ComUserController extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
+		try {
+			resultVO2 = comUserService.selectComUserPrdcrList(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultVO.addAll(resultVO2);
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultVO);
+
 
 		return getSuccessResponseEntity(resultMap);
 	}
