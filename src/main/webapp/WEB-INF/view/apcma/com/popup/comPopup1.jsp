@@ -76,8 +76,8 @@ function compopup1(options) {
 		compCode				: null
 		,clientCode				: null
 		,bizcompId				: null
+		,popupType				: 'A'
 		,whereClause			: null
-		,procParams				: null 
 		,searchCaptions			: null
 		,searchInputFields		: null
 		,searchInputValues		: null
@@ -118,6 +118,8 @@ function compopup1(options) {
 				    	htma += '<option value="' + settings.searchInputTypeValues[i][j]['value'] + '">' + settings.searchInputTypeValues[i][j]['text'] + '</option>';
 				    }
 					htma += '</select>';	
+				} else if(settings.searchInputTypes[i]=="datepicker") {
+					htma += '<sbux-datepicker  ' + tmp3 + ' uitype="popup" ></sbux-datepicker>';
 				}
 			} else {
 				htma += '<input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + settings.searchInputValues[i] + '" ></input>';
@@ -161,16 +163,61 @@ function compopup1(options) {
 	// get data
     const getData = async function() {
     	
-		var wstr 	= settings.whereClause;
-		$(modalId).find('.cu-search-area').find('[name]').each(function(){
-			var name  	= $(this).attr('name');
-			if(!name){
-				name  	= $(this).prop('name');
-			}
-			var icode 	= "_" + name + "_";
-			var val   	= $(this).val();
-			wstr 		= wstr.replace(icode, val);
-		});
+		var wstr 	= settings.whereClause; 	// AND X.EMP_CODE LIKE '%
+		var pstr 	= "";						// 10|NULL|NULL|'test'
+		var idx		= 0;
+		
+		if(settings.popupType=='A'){
+			$(modalId).find('.cu-search-area').find('[name]').not('button').each(function(){
+				var name  	= $(this).attr('name');
+				if(!name){
+					name  	= $(this).prop('name');
+				}
+				var icode 	= "_" + name + "_";
+				var val   	= $(this).val();
+				//datepicker 경우 구분자 삭제------------------------------
+				if(Array.isArray(settings.searchInputTypes)) {
+					if(settings.searchInputTypes[idx]=="datepicker"){
+						var regex = /[^0-9]/g;
+						var str = val.replace(regex, "");
+						val = str;
+					}
+				}
+				//----------------------------------------------------------
+				wstr 		= wstr.replace(icode, val);
+				idx ++;
+			});
+		} else {
+			$(modalId).find('.cu-search-area').find('[name]').not('button').each(function(){
+				var val   	= $(this).val();
+				//datepicker 경우 구분자 삭제------------------------------
+				if(Array.isArray(settings.searchInputTypes)) {
+					if(settings.searchInputTypes[idx]=="datepicker"){
+						var regex = /[^0-9]/g;
+						var str = val.replace(regex, "");
+						val = str;
+					}
+				}
+				//----------------------------------------------------------
+				if(!val){
+					pstr += "NULL" + "|";
+				} else {
+					if(isNaN(val)){
+						pstr += "'" + val + "'|";
+					} else {
+						if(gfnma_isDate(val)){
+							pstr += "'" + val + "'|";
+						} else {
+							pstr += val + "|";
+						}
+					}
+				}
+				idx ++;
+			});
+			if(pstr){
+				pstr = pstr.slice(0, -1);
+			}			
+		}
 		
    		var paramObj = { 
    			V_P_DEBUG_MODE_YN	: ''
@@ -179,6 +226,7 @@ function compopup1(options) {
    			,V_P_CLIENT_CODE	: settings.clientCode
    			,V_P_BIZCOMP_ID		: settings.bizcompId
    			,V_P_WHERE_CLAUSE	: wstr
+   			,V_P_PROC_PARAMS	: pstr
    			,V_P_FORM_ID		: ''
    			,V_P_MENU_ID		: ''
    			,V_P_PROC_ID		: ''

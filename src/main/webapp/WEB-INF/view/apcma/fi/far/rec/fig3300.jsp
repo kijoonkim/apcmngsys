@@ -368,14 +368,13 @@
      		compCode				: gv_ma_selectedApcCd
      		,clientCode				: gv_ma_selectedClntCd
      		,bizcompId				: 'P_HRI001'
+           	,popupType				: 'A'
      		,whereClause			: strWhereClause
    			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
    			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
    			,searchInputValues		: ["", 			searchText,		""]
-     	
    			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
    			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
-     	
      		,height					: '400px'
    			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
    			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
