@@ -241,6 +241,11 @@ public class PrdcrVO extends ComVO {
 	 */
 	private String extrnlLnkgCd;
 
+	/**
+	 * 생산자연결번호
+	 */
+	private String prdcrGroupYn;
+
 	private List<PrdcrVO> prdcrList;
 
 	public List<PrdcrVO> getPrdcrList() {

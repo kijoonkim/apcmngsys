@@ -35,12 +35,12 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create" ></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
-            </div>
+            <%--<div style="margin-left: auto;">
+                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+                <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add" ></sbux-button>
+                <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
+                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>
+            </div>--%>
         </div>
         <div class="box-body">
 
@@ -75,8 +75,16 @@
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_APPOINT_NUM" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_APPOINT_TITLE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findSrchAppointNum"
+                        ></sbux-button>
                     </td>
                 </tr>
                 <tr>
@@ -133,7 +141,7 @@
                                 <sbux-button id="btnReflectionInfo" name="btnReflectionInfo" uitype="normal" text="인사기록반영" class="btn btn-sm btn-outline-danger" onclick="fn_reflectionInfo" style="float: right;"></sbux-button>
                             </div>
                         </div>
-                        <div class="table-responsive tbl_scroll_xs">
+                        <div>
                             <table class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:10%">
@@ -150,7 +158,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">발령번호</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-input id="APPOINT_NUM" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_NUM" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">발령일자</th>
                                     <td colspan="2" class="td_input">
@@ -158,17 +166,24 @@
                                                 uitype="popup"
                                                 id="APPOINT_DATE"
                                                 name="APPOINT_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
-                                                style="width:100%;"
-                                        />
+                                                class="input-sm"
+                                                autocomplete="off"
+                                        ></sbux-datepicker>
                                     </td>
                                     <th scope="row" class="th_bg">발령구분</th>
                                     <td class="td_input">
-                                        <sbux-input id="APPOINT_TYPE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                        <sbux-input id="APPOINT_TYPE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                                     </td>
-                                    <td colspan="2" class="td_input">
+                                    <td class="td_input">
                                         <sbux-input id="APPOINT_TYPE_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="찾기" uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAppointType"
+                                        ></sbux-button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -244,7 +259,9 @@
                             <div class="ad_tbl_toplist">
                                 <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button>
                                 <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
-                                <sbux-button id="btnToggleMode" name="btnToggleMode" uitype="normal" text="복사모드해제" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode" style="float: right;"></sbux-button>
+                                <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사모드해제" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button>
+                                <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button>
+                                <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button>
                                 <sbux-button id="btnDeleteAll" name="btnDeleteAll" uitype="normal" text="일괄삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteAll" style="float: right;"></sbux-button>
                                 <sbux-button id="btnAddAll" name="btnAddAll" uitype="normal" text="일괄추가" class="btn btn-sm btn-outline-danger" onclick="fn_addAll" style="float: right;"></sbux-button>
                             </div>
@@ -360,12 +377,13 @@
     window.addEventListener('DOMContentLoaded', function (e) {
         fn_initSBSelect();
         fn_createGvwListGrid();
-        fn_createBandgvwDetailGrid();
+        fn_createBandgvwDetailGrid(false);
 
-        fn_search();
+        cfn_search();
     });
 
     var editType			= "N";
+    var copyMode            = "clear";
 
     var jsonSiteCode = [];	// 사업장
     var jsonAppointType = []; // 발령구분
@@ -385,6 +403,9 @@
     const fn_initSBSelect = async function () {
         SBUxMethod.set("SRCH_APPOINT_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
         SBUxMethod.set("SRCH_APPOINT_DATE", gfn_dateToYmd(new Date()));
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
 
         let rst = await Promise.all([
             // 사업장
@@ -427,10 +448,10 @@
         var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-        compopup1.init({
+        compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001_ESS'
+            ,bizcompId				: 'P_HRI001'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["사번", 		"사원명"]
             ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
@@ -447,29 +468,85 @@
         });
     }
 
-    const fn_findDeptCode = function() {
+    var fn_findDeptCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
-        var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
-        compopup1.init({
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'L_ORG900_ESS'
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findAppointType = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("APPOINT_TYPE_NAME"));
+        var replaceText0 	= "_SUB_CODE_";
+        var replaceText1 	= "_CODE_NAME_";
+        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '발령구분 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI041'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["부서", 		"부서명"]
-            ,searchInputFields		: ["CODE", 		"NAME"]
+            ,searchCaptions			: ["발령코드", 		"발령구분"]
+            ,searchInputFields		: ["SUB_CODE", 		"CODE_NAME"]
             ,searchInputValues		: ["", 			searchText]
             ,height					: '400px'
-            ,tableHeader			: ["부서", "부서명"]
-            ,tableColumnNames		: ["CODE", "NAME"]
+            ,tableHeader			: ["발령코드", "발령구분"]
+            ,tableColumnNames		: ["SUB_CODE", "CODE_NAME"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('DEPT_NAME', data.NAME);
-                SBUxMethod.set('DEPT_CODE', data.CODE);
+                SBUxMethod.set('APPOINT_TYPE_NAME', data.CODE_NAME);
+                SBUxMethod.set('APPOINT_TYPE', data.SUB_CODE);
+            },
+        });
+    }
+
+    const fn_findSrchAppointNum = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("APPOINT_TYPE_NAME"));
+        var replaceText0 	= "_SUB_CODE_";
+        var replaceText1 	= "_CODE_NAME_";
+        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '발령구분 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI041'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["발령코드", 		"발령구분"]
+            ,searchInputFields		: ["SUB_CODE", 		"CODE_NAME"]
+            ,searchInputValues		: ["", 			searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["발령코드", "발령구분"]
+            ,tableColumnNames		: ["SUB_CODE", "CODE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('APPOINT_TYPE_NAME', data.CODE_NAME);
+                SBUxMethod.set('APPOINT_TYPE', data.SUB_CODE);
             },
         });
     }
@@ -705,17 +782,42 @@
 
         gvwList = _SBGrid.create(SBGridProperties);
         gvwList.bind('click', 'fn_view');
-        gvwList.bind('beforepagechanged', 'fn_pagingEmpList');
     }
 
-    function fn_createBandgvwDetailGrid() {
+    function fn_createBandgvwDetailGrid(disableOption) {
+        let DEPT_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DEPT_APPOINT_YN")).DEPT_APPOINT_YN;
+        let POSITION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("POSITION_APPOINT_YN")).POSITION_APPOINT_YN;
+        let DUTY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("DUTY_APPOINT_YN")).DUTY_APPOINT_YN;
+        let JOB_RANK_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_RANK_APPOINT_YN")).JOB_RANK_APPOINT_YN;
+        let JOB_GROUP_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_GROUP_APPOINT_YN")).JOB_GROUP_APPOINT_YN;
+        let JOB_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_APPOINT_YN")).JOB_APPOINT_YN;
+        let JOB_FAMILY_APPOINT_YN = gfnma_nvl(SBUxMethod.get("JOB_FAMILY_APPOINT_YN")).JOB_FAMILY_APPOINT_YN;
+        let REGION_APPOINT_YN = gfnma_nvl(SBUxMethod.get("REGION_APPOINT_YN")).REGION_APPOINT_YN;
+        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
+
+        let commonHiddenYn = (DEPT_APPOINT_YN == "N" && POSITION_APPOINT_YN == "N" &&
+            DUTY_APPOINT_YN == "N" && JOB_RANK_APPOINT_YN == "N" &&
+            JOB_GROUP_APPOINT_YN == "N" && JOB_APPOINT_YN == "N" &&
+            JOB_FAMILY_APPOINT_YN == "N" && REGION_APPOINT_YN == "N");
+
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-bandgvwDetail';
         SBGridProperties.id = 'bandgvwDetail';
         SBGridProperties.jsonref = 'jsonBandgvwDetailList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-        SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.allowcopy = true; //복사
+
+        if (copyMode == 'clear') { //복사해제모드
+            SBGridProperties.selectmode = 'free';
+        } else if(copyMode == 'line'){ //행복사모드
+            SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
+            SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+            SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
+        } else if(copyMode == 'cell'){ //셀복사모드
+            SBGridProperties.selectmode = 'free';
+            SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+        }
+
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.paging = {
             'type': 'page',
@@ -731,19 +833,20 @@
                 type: 'checkbox',
                 width: '45px',
                 style: 'text-align:center',
-                typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'},
+                disabled: disableOption
             },
-            {caption: ["인원정보","사원번호"], ref: 'EMP_CODE', type: 'output', width: '80px', style: 'text-align:left'},
-            {caption: ["인원정보","사원명"], ref: 'EMP_FULL_NAME', type: 'output', width: '80px', style: 'text-align:left'},
-            {caption: ["기간정보","시작일자"], ref: 'START_DATE', type: 'output', width: '128px', style: 'text-align:left',
+            {caption: ["인원정보","사원번호"], ref: 'EMP_CODE', type: 'input', width: '80px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["인원정보","사원명"], ref: 'EMP_FULL_NAME', type: 'input', width: '80px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["기간정보","시작일자"], ref: 'START_DATE', type: 'datepicker', width: '128px', style: 'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},
+                disabled: disableOption
             },
-            {caption: ["기간정보","종료일자"], ref: 'END_DATE', type: 'output', width: '128px', style: 'text-align:left',
+            {caption: ["기간정보","종료일자"], ref: 'END_DATE', type: 'datepicker', width: '128px', style: 'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},
+                disabled: disableOption
             },
             {
                 caption: ["기간정보","휴직유형"], ref: 'TIME_OFF_TYPE', type: 'combo', width: '89px', style: 'text-align:left',
@@ -752,9 +855,10 @@
                     label: 'label',
                     value: 'value',
                     itemcount: 10
-                }
+                },
+                disabled: disableOption
             },
-            {caption: ["기간정보","발령유형"], ref: 'APPOINT_TYPE', type: 'output', width: '75px', style: 'text-align:left', hidden: true},
+            {caption: ["기간정보","발령유형"], ref: 'APPOINT_TYPE', type: 'input', width: '75px', style: 'text-align:left', hidden: true, disabled: disableOption},
             {
                 caption: ["시작시각","시작구분"], ref: 'TIME_START_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
@@ -764,8 +868,9 @@
                     itemcount: 10
                 }
                 , hidden: true
+                , disabled: disableOption
             },
-            {caption: ["시작시각","시작시각"], ref: 'TIME_START_HHMM', type: 'output', width: '66px', style: 'text-align:left', hidden: true},
+            {caption: ["시작시각","시작시각"], ref: 'TIME_START_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: true, disabled: disableOption},
             {
                 caption: ["종료시각","종료구분"], ref: 'TIME_END_DAY_TYPE', type: 'combo', width: '65px', style: 'text-align:left',
                 typeinfo: {
@@ -775,12 +880,15 @@
                     itemcount: 10
                 }
                 , hidden: true
+                , disabled: disableOption
             },
-            {caption: ["종료시각","종료시각"], ref: 'TIME_END_HHMM', type: 'output', width: '66px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현부서"], ref: 'DEPT_CODE1', type: 'output', width: '80px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현부서명"], ref: 'DEPT_NAME1', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현원가중심점"], ref: 'COST_DEPT1', type: 'output', width: '80px', style: 'text-align:left', hidden: true},
-            {caption: ["현재정보","현원가중심점명"], ref: 'COST_DEPT1_NAME', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
+            {caption: ["종료시각","종료시각"], ref: 'TIME_END_HHMM', type: 'input', width: '66px', style: 'text-align:left', hidden: true, disabled: disableOption},
+            {caption: ["현재정보","현부서"], ref: 'DEPT_CODE1', type: 'input', width: '80px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["현재정보","현부서명"], ref: 'DEPT_NAME1', type: 'input', width: '120px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || (DEPT_APPOINT_YN != "Y")), disabled: disableOption},
+            {caption: ["현재정보","현원가중심점"], ref: 'COST_DEPT1', type: 'input', width: '80px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["현재정보","현원가중심점명"], ref: 'COST_DEPT1_NAME', type: 'input', width: '120px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6")), disabled: disableOption},
             {
                 caption: ["현재정보","직위"], ref: 'POSITION_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
                 typeinfo: {
@@ -789,7 +897,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (POSITION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직책"], ref: 'DUTY_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
@@ -799,7 +908,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (DUTY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직급"], ref: 'JOB_RANK1', type: 'combo', width: '110px', style: 'text-align:left',
@@ -809,7 +919,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_RANK_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직군"], ref: 'JOB_GROUP1', type: 'combo', width: '80px', style: 'text-align:left',
@@ -819,7 +930,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_GROUP_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직무"], ref: 'JOB_CODE1', type: 'combo', width: '80px', style: 'text-align:left',
@@ -829,7 +941,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","직원하위그룹"], ref: 'JOB_FAMILY1', type: 'combo', width: '103px', style: 'text-align:left',
@@ -839,7 +952,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_FAMILY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","현사업장"], ref: 'SITE_CODE1', type: 'combo', width: '111px', style: 'text-align:left',
@@ -849,7 +963,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6"))
+                , disabled: disableOption
             },
             {
                 caption: ["현재정보","현근무지"], ref: 'REGION_CODE1', type: 'combo', width: '100px', style: 'text-align:left',
@@ -859,12 +974,15 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (REGION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
-            {caption: ["발령정보","발령부서"], ref: 'DEPT_CODE2', type: 'output', width: '82px', style: 'text-align:left', hidden: true},
-            {caption: ["발령정보","발령부서명"], ref: 'DEPT_NAME2', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
-            {caption: ["발령정보","발령원가중심점코드"], ref: 'COST_DEPT2', type: 'output', width: '113px', style: 'text-align:left', hidden: true},
-            {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT2_NAME', type: 'output', width: '128px', style: 'text-align:left', hidden: true},
+            {caption: ["발령정보","발령부서"], ref: 'DEPT_CODE2', type: 'input', width: '82px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["발령정보","발령부서명"], ref: 'DEPT_NAME2', type: 'input', width: '120px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || (DEPT_APPOINT_YN != "Y")), disabled: disableOption},
+            {caption: ["발령정보","발령원가중심점코드"], ref: 'COST_DEPT2', type: 'input', width: '113px', style: 'text-align:left', hidden: commonHiddenYn, disabled: disableOption},
+            {caption: ["발령정보","발령원가중심점명"], ref: 'COST_DEPT2_NAME', type: 'input', width: '128px', style: 'text-align:left'
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6")), disabled: disableOption},
             {
                 caption: ["발령정보","직위"], ref: 'POSITION_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
                 typeinfo: {
@@ -873,7 +991,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (POSITION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직책"], ref: 'DUTY_CODE2', type: 'combo', width: '103px', style: 'text-align:left',
@@ -883,7 +1002,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (DUTY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직급"], ref: 'JOB_RANK2', type: 'combo', width: '110px', style: 'text-align:left',
@@ -893,7 +1013,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_RANK_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직군"], ref: 'JOB_GROUP2', type: 'combo', width: '101px', style: 'text-align:left',
@@ -903,7 +1024,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_GROUP_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직무"], ref: 'JOB_CODE2', type: 'combo', width: '89px', style: 'text-align:left',
@@ -913,7 +1035,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","직원하위그룹"], ref: 'JOB_FAMILY2', type: 'combo', width: '89px', style: 'text-align:left',
@@ -923,7 +1046,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (JOB_FAMILY_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","발령사업장"], ref: 'SITE_CODE2', type: 'combo', width: '120px', style: 'text-align:left',
@@ -933,7 +1057,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || !(APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6"))
+                , disabled: disableOption
             },
             {
                 caption: ["발령정보","발령근무지"], ref: 'REGION_CODE2', type: 'combo', width: '100px', style: 'text-align:left',
@@ -943,7 +1068,8 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (commonHiddenYn || (REGION_APPOINT_YN != "Y"))
+                , disabled: disableOption
             },
             {
                 caption: ["기타정보","육아기근로시간단축"],
@@ -957,16 +1083,15 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , hidden: true
+                , hidden: (PARENTING_WORK_TYPE_YN != "Y")
+                , disabled: disableOption
             },
-            {caption: ["기타정보","당초발령번호"], ref: 'FIRST_APPOINT_NUM', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["기타정보","발령사유"], ref: 'APPOINT_REASON', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["기타정보","비고"], ref: 'MEMO', type: 'output', width: '300px', style: 'text-align:left'},
+            {caption: ["기타정보","당초발령번호"], ref: 'FIRST_APPOINT_NUM', type: 'input', width: '200px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["기타정보","발령사유"], ref: 'APPOINT_REASON', type: 'input', width: '200px', style: 'text-align:left', disabled: disableOption},
+            {caption: ["기타정보","비고"], ref: 'MEMO', type: 'input', width: '300px', style: 'text-align:left', disabled: disableOption},
         ];
 
         bandgvwDetail = _SBGrid.create(SBGridProperties);
-        bandgvwDetail.bind('afterrebuild','fnAfterBuild');
-        bandgvwDetail.bind('beforepagechanged', 'fn_pagingTotalEmpList');
     }
 
     function fnDeptAppointYnChange(args){
@@ -1623,48 +1748,15 @@
         }
     }
 
-    function fnAfterBuild() {
-        fnDeptAppointYnChange();
-        fnPositionAppointYnChange();
-        fnDutyAppointYnChange();
-        fnJobRankAppointYnChange();
-        fnJobGroupAppointYnChange();
-        fnJobAppointYnChange();
-        fnJobFamilyAppointYnChange();
-        fnRegionAppointYnChange();
-        fnParentingWorkTypeYnChange();
+    // 조회
+    function cfn_search() {
+        fn_search();
     }
+
     /**
      * 목록 조회
      */
-    const fn_search = async function () {
-
-        // set pagination
-        let pageSize = gvwList.getPageSize();
-        let pageNo = 1;
-
-        gvwList.movePaging(pageNo);
-    }
-
-    /**
-     *
-     */
-    const fn_pagingEmpList = async function () {
-        let recordCountPerPage = gvwList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo = gvwList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef = gvwList.getColRef("checked");
-
-        fn_setGvwList(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setGvwList = async function (pageSize, pageNo) {
-
-        gvwList.clearStatus();
-
+    const fn_search = async function() {
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_NUM"));
@@ -1759,6 +1851,11 @@
         }
     }
 
+    // 신규
+    function cfn_add() {
+        fn_create();
+    }
+
     const fn_create = async function () {
         editType = "N";
         SBUxMethod.set("APPOINT_NUM", "");
@@ -1784,7 +1881,12 @@
     }
 
     // 저장
-    const fn_save = async function () {
+    function cfn_save() {
+        fn_save();
+    }
+
+    // 저장
+    const fn_save = async function() {
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
@@ -1819,7 +1921,7 @@
             V_P_REGION_APPOINT_YN : REGION_APPOINT_YN.REGION_APPOINT_YN,
             V_P_JOB_FAMILY_APPOINT_YN : JOB_FAMILY_APPOINT_YN.JOB_FAMILY_APPOINT_YN,
             V_P_MEMO : MEMO,
-            V_P_APPLY_YN : APPLY_YN.APPLY_YN,
+            V_P_APPLY_YN : APPLY_YN,
             V_P_PARENTING_WORK_TYPE_YN : PARENTING_WORK_TYPE_YN.PARENTING_WORK_TYPE_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
@@ -1839,7 +1941,6 @@
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
                 if(masterData.v_returnStr) {
-
                     let updatedData = bandgvwDetail.getUpdateData(true, 'all');
                     let returnData = [];
 
@@ -1898,108 +1999,110 @@
                         returnData.push(param);
                     });
 
-                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: returnData});
-                    const subData = await postJsonPromise;
+                    if(returnData.length > 0) {
+                        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: returnData});
+                        const subData = await postJsonPromise;
 
-                    try {
-                        if (_.isEqual("S", subData.resultStatus)) {
-                            if (APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5' || APPOINT_TYPE == 'P6' || APPOINT_TYPE == 'O6') {
-                                let leadType = '';
+                        try {
+                            if (_.isEqual("S", subData.resultStatus)) {
+                                if (APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5' || APPOINT_TYPE == 'P6' || APPOINT_TYPE == 'O6') {
+                                    let leadType = '';
 
-                                if (APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5') leadType = 'N_LD'
-                                else leadType = 'D_LD';
+                                    if (APPOINT_TYPE == 'P5' || APPOINT_TYPE == 'O5') leadType = 'N_LD'
+                                    else leadType = 'D_LD';
 
-                                let leadSendData = [];
+                                    let leadSendData = [];
 
-                                updatedData.forEach((item, index) => {
-                                    const param = {
-                                        cv_count: '0',
-                                        getType: 'json',
-                                        workType: leadType,
-                                        params: gfnma_objectToString({
-                                            V_P_DEBUG_MODE_YN: '',
-                                            V_P_LANG_ID: '',
-                                            V_P_COMP_CODE: gv_ma_selectedApcCd,
-                                            V_P_CLIENT_CODE: gv_ma_selectedClntCd,
-                                            V_P_APPOINT_NUM: item.data.APPOINT_NUM,
-                                            V_P_APPOINT_DATE: item.data.APPOINT_DATE,
-                                            V_P_EMP_CODE: item.data.EMP_CODE,
-                                            V_P_DEPT_CODE1: item.data.DEPT_CODE1,
-                                            V_P_POSITION_CODE1: item.data.POSITION_CODE1,
-                                            V_P_DUTY_CODE1: item.data.DUTY_CODE1,
-                                            V_P_JOB_RANK1: item.data.JOB_RANK1,
-                                            V_P_JOB_GROUP1: item.data.JOB_GROUP1,
-                                            V_P_JOB_CODE1: item.data.JOB_CODE1,
-                                            V_P_REGION_CODE1: item.data.REGION_CODE1,
-                                            V_P_COST_DEPT1: item.data.COST_DEPT1,
-                                            V_P_DEPT_CODE2: item.data.DEPT_CODE2,
-                                            V_P_POSITION_CODE2: item.data.POSITION_CODE2,
-                                            V_P_DUTY_CODE2: item.data.DUTY_CODE2,
-                                            V_P_JOB_RANK2: item.data.JOB_RANK2,
-                                            V_P_JOB_GROUP2: item.data.JOB_GROUP2,
-                                            V_P_JOB_CODE2: item.data.JOB_CODE2,
-                                            V_P_REGION_CODE2: item.data.REGION_CODE2,
-                                            V_P_COST_DEPT2: item.data.COST_DEPT2,
-                                            V_P_FIRST_APPOINT_NUM: item.data.FIRST_APPOINT_NUM,
-                                            V_P_APPOINT_REASON: item.data.APPOINT_REASON,
-                                            V_P_MEMO: item.data.MEMO,
-                                            V_P_START_DATE: item.data.START_DATE,
-                                            V_P_END_DATE: item.data.END_DATE,
-                                            V_P_TIME_OFF_TYPE: item.data.TIME_OFF_TYPE,
-                                            V_P_APPOINT_TYPE: item.data.APPOINT_TYPE,
-                                            V_P_JOB_FAMILY1: item.data.JOB_FAMILY1,
-                                            V_P_JOB_FAMILY2: item.data.JOB_FAMILY2,
-                                            V_P_SITE_CODE1: item.data.SITE_CODE1,
-                                            V_P_SITE_CODE2: item.data.SITE_CODE2,
-                                            V_P_PARENTING_WORK_TYPE: item.data.PARENTING_WORK_TYPE,
-                                            V_P_TIME_START_DAY_TYPE: item.data.TIME_START_DAY_TYPE,
-                                            V_P_TIME_START_HHMM: item.data.TIME_START_HHMM,
-                                            V_P_TIME_END_DAY_TYPE: item.data.TIME_END_DAY_TYPE,
-                                            V_P_TIME_END_HHMM: item.data.TIME_END_HHMM,
-                                            V_P_FORM_ID: p_formId,
-                                            V_P_MENU_ID: p_menuId,
-                                            V_P_PROC_ID: '',
-                                            V_P_USERID: '',
-                                            V_P_PC: ''
-                                        })
-                                    }
-                                    leadSendData.push(param);
-                                });
+                                    updatedData.forEach((item, index) => {
+                                        const param = {
+                                            cv_count: '0',
+                                            getType: 'json',
+                                            workType: leadType,
+                                            params: gfnma_objectToString({
+                                                V_P_DEBUG_MODE_YN: '',
+                                                V_P_LANG_ID: '',
+                                                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                                                V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                                                V_P_APPOINT_NUM: item.data.APPOINT_NUM,
+                                                V_P_APPOINT_DATE: item.data.APPOINT_DATE,
+                                                V_P_EMP_CODE: item.data.EMP_CODE,
+                                                V_P_DEPT_CODE1: item.data.DEPT_CODE1,
+                                                V_P_POSITION_CODE1: item.data.POSITION_CODE1,
+                                                V_P_DUTY_CODE1: item.data.DUTY_CODE1,
+                                                V_P_JOB_RANK1: item.data.JOB_RANK1,
+                                                V_P_JOB_GROUP1: item.data.JOB_GROUP1,
+                                                V_P_JOB_CODE1: item.data.JOB_CODE1,
+                                                V_P_REGION_CODE1: item.data.REGION_CODE1,
+                                                V_P_COST_DEPT1: item.data.COST_DEPT1,
+                                                V_P_DEPT_CODE2: item.data.DEPT_CODE2,
+                                                V_P_POSITION_CODE2: item.data.POSITION_CODE2,
+                                                V_P_DUTY_CODE2: item.data.DUTY_CODE2,
+                                                V_P_JOB_RANK2: item.data.JOB_RANK2,
+                                                V_P_JOB_GROUP2: item.data.JOB_GROUP2,
+                                                V_P_JOB_CODE2: item.data.JOB_CODE2,
+                                                V_P_REGION_CODE2: item.data.REGION_CODE2,
+                                                V_P_COST_DEPT2: item.data.COST_DEPT2,
+                                                V_P_FIRST_APPOINT_NUM: item.data.FIRST_APPOINT_NUM,
+                                                V_P_APPOINT_REASON: item.data.APPOINT_REASON,
+                                                V_P_MEMO: item.data.MEMO,
+                                                V_P_START_DATE: item.data.START_DATE,
+                                                V_P_END_DATE: item.data.END_DATE,
+                                                V_P_TIME_OFF_TYPE: item.data.TIME_OFF_TYPE,
+                                                V_P_APPOINT_TYPE: item.data.APPOINT_TYPE,
+                                                V_P_JOB_FAMILY1: item.data.JOB_FAMILY1,
+                                                V_P_JOB_FAMILY2: item.data.JOB_FAMILY2,
+                                                V_P_SITE_CODE1: item.data.SITE_CODE1,
+                                                V_P_SITE_CODE2: item.data.SITE_CODE2,
+                                                V_P_PARENTING_WORK_TYPE: item.data.PARENTING_WORK_TYPE,
+                                                V_P_TIME_START_DAY_TYPE: item.data.TIME_START_DAY_TYPE,
+                                                V_P_TIME_START_HHMM: item.data.TIME_START_HHMM,
+                                                V_P_TIME_END_DAY_TYPE: item.data.TIME_END_DAY_TYPE,
+                                                V_P_TIME_END_HHMM: item.data.TIME_END_HHMM,
+                                                V_P_FORM_ID: p_formId,
+                                                V_P_MENU_ID: p_menuId,
+                                                V_P_PROC_ID: '',
+                                                V_P_USERID: '',
+                                                V_P_PC: ''
+                                            })
+                                        }
+                                        leadSendData.push(param);
+                                    });
 
-                                const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: leadSendData});
-                                const leadData = await postJsonPromise;
+                                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: leadSendData});
+                                    const leadData = await postJsonPromise;
 
-                                try {
-                                    if (_.isEqual("S", leadData.resultStatus)) {
-                                        if (leadData.resultMessage) {
+                                    try {
+                                        if (_.isEqual("S", leadData.resultStatus)) {
+                                            if (leadData.resultMessage) {
+                                                alert(leadData.resultMessage);
+                                            }
+                                            cfn_search();
+                                        } else {
                                             alert(leadData.resultMessage);
                                         }
-                                        fn_search();
-                                    } else {
-                                        alert(leadData.resultMessage);
+                                    } catch (e) {
+                                        if (!(e instanceof Error)) {
+                                            e = new Error(e);
+                                        }
+                                        console.error("failed", e.message);
+                                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                                     }
-                                } catch (e) {
-                                    if (!(e instanceof Error)) {
-                                        e = new Error(e);
+                                } else {
+                                    if (subData.resultMessage) {
+                                        alert(subData.resultMessage);
                                     }
-                                    console.error("failed", e.message);
-                                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                                    cfn_search();
                                 }
                             } else {
-                                if (subData.resultMessage) {
-                                    alert(subData.resultMessage);
-                                }
-                                fn_search();
+                                alert(subData.resultMessage);
                             }
-                        } else {
-                            alert(subData.resultMessage);
+                        } catch (e) {
+                            if (!(e instanceof Error)) {
+                                e = new Error(e);
+                            }
+                            console.error("failed", e.message);
+                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                         }
-                    } catch (e) {
-                        if (!(e instanceof Error)) {
-                            e = new Error(e);
-                        }
-                        console.error("failed", e.message);
-                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                     }
                 }
             } else {
@@ -2015,7 +2118,12 @@
     }
 
     // 삭제
-    const fn_delete = async function () {
+    function cfn_del() {
+        fn_delete();
+    }
+
+    // 삭제
+    const fn_delete = async function() {
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
         let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("APPOINT_DATE"));
@@ -2082,7 +2190,7 @@
                     if (data.resultMessage) {
                         alert(data.resultMessage);
                     }
-                    fn_search();
+                    cfn_search();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -2154,7 +2262,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -2225,7 +2333,7 @@
                 if(data.resultMessage){
                     alert(data.resultMessage);
                 }
-                fn_search();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }
@@ -2241,7 +2349,7 @@
     //상세정보 보기
     const fn_view = async function () {
         editType = "U";
-        fn_create();
+        cfn_add();
 
         var nCol = gvwList.getCol();
         //특정 열 부터 이벤트 적용
@@ -2346,8 +2454,8 @@
                     jsonBandgvwDetailList.push(msg);
                 });
 
-                bandgvwDetail.refresh();
-                fnAfterBuild();
+                _SBGrid.destroy('bandgvwDetail');
+                fn_createBandgvwDetailGrid(true);
             } else {
                 alert(data.resultMessage);
             }
@@ -2394,8 +2502,26 @@
     }
 
     // 복사모드토글
-    const fn_toggleMode = async function () {
+    const fn_toggleMode = async function (mode) {
+        if(mode == "clear") {
+            $("#btnClearMode").hide();
+            $("#btnLineCopyMode").show();
+            $("#btnCellCopyMode").hide();
+            copyMode = "line";
+        } else if(mode == "line") {
+            $("#btnClearMode").hide();
+            $("#btnLineCopyMode").hide();
+            $("#btnCellCopyMode").show();
+            copyMode = "cell";
+        } else if (mode == "cell") {
+            $("#btnClearMode").show();
+            $("#btnLineCopyMode").hide();
+            $("#btnCellCopyMode").hide();
+            copyMode = "clear";
+        }
 
+        _SBGrid.destroy('bandgvwDetail');
+        fn_createBandgvwDetailGrid(false);
     }
 
     // 행추가
@@ -2605,7 +2731,7 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                fn_search();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }

@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper;
 import com.at.apcss.pd.pom.service.PrdcrOgnCurntMngService;

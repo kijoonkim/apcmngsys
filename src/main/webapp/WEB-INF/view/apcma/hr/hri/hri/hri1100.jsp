@@ -35,9 +35,9 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-            </div>
+            <%--<div style="margin-left: auto;">
+                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+            </div>--%>
         </div>
         <div class="box-body">
 
@@ -276,31 +276,33 @@
         ]);
     }
 
-    const fn_findDeptCode = function() {
+    var fn_findDeptCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
-        var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
-        compopup1.init({
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'L_ORG900_ESS'
-            ,whereClause			: strWhereClause
-               ,searchCaptions			: ["부서", 		"부서명"]
-               ,searchInputFields		: ["CODE", 		"NAME"]
-               ,searchInputValues		: ["", 			searchText]
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
             ,height					: '400px'
-               ,tableHeader			: ["부서", "부서명"]
-               ,tableColumnNames		: ["CODE", "NAME"]
-               ,tableColumnWidths		: ["80px", "80px"]
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('SRCH_DEPT_NAME', data.NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
         });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
     // only document
@@ -308,7 +310,7 @@
 
         fn_initSBSelect();
         fn_createGrid();
-        fn_search();
+        cfn_search();
     });
 
     //grid 초기화
@@ -453,37 +455,17 @@
         ];
 
         gvwList = _SBGrid.create(SBGridProperties);
-        gvwList.bind('beforepagechanged', 'fn_pagingHriList');
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-        // set pagination
-        let pageSize = gvwList.getPageSize();
-        let pageNo = 1;
-
-        gvwList.movePaging(pageNo);
-    }
-
-    /**
-     *
-     */
-    const fn_pagingHriList = async function() {
-        let recordCountPerPage 	= gvwList.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo 		= gvwList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef 			= gvwList.getColRef("checked");
-        //gvwList.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setGvwList(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setGvwList = async function(pageSize, pageNo) {
         let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
@@ -539,6 +521,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
+                jsonHriList.length = 0;
                 /** @type {number} **/
                 data.cv_1.forEach((item, index) => {
                     const msg = {

@@ -315,10 +315,26 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 		return comUserMapper.selectAccountDupChk(comUserVO);
 	}
-
+	/**
+     * 생산농가 계정관리 요청목록 조회
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<HashMap<String, Object>> selectComUserPrdcrAprvList(HashMap<String, Object> comUserVO) throws Exception {
         List<HashMap<String, Object>> resultVO = comUserMapper.selectComUserPrdcrAprvList(comUserVO);
+        return resultVO;
+    }
+    /**
+     * 생산농가 계정관리 생산농가목록 조회
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<HashMap<String, Object>> selectComUserPrdcrList(HashMap<String, Object> comUserVO) throws Exception {
+        List<HashMap<String, Object>> resultVO = comUserMapper.selectComUserPrdcrList(comUserVO);
         return resultVO;
     }
     @Override
