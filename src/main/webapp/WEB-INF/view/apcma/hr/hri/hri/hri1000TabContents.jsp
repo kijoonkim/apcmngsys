@@ -1925,7 +1925,7 @@
             {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
             {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
             {caption: ["회사명"],          ref: 'COMP_NAME', 		        type:'input',  	width:'120px',  style:'text-align:left'},
-            {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'input',  	width:'120px',  style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
+            {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'output',  	width:'120px',  style:'text-align:left'},
             {caption: ["직위"],      	ref: 'POSITION', 		        type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["직종"],     	ref: 'JOB', 		         type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["담당업무"],     	ref: 'WORK', 		         type:'input',  	width:'180px',  style:'text-align:left'},
@@ -1944,6 +1944,7 @@
 
         gvwCareer = _SBGrid.create(SBGridProperties);
         gvwCareer.bind('valuechanged','gvwCareerValueChanged');
+        gvwCareer.bind('dblclick', 'gvwCareerDblclick');
     }
 
     function fn_createGvwLicenseGrid() {
@@ -2427,13 +2428,14 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["소속부서코드"],  		ref: 'DEPT_CODE',    			type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소속부서"],        ref: 'DEPT_NAME', 		     type:'input',  	width:'150px',  	style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
+            {caption: ["소속부서코드"],  		ref: 'DEPT_CODE',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소속부서"],        ref: 'DEPT_NAME', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwTimeOffHistory = _SBGrid.create(SBGridProperties);
         gvwTimeOffHistory.bind('valuechanged','gvwTimeOffHistoryValueChanged');
+        gvwTimeOffHistory.bind('dblclick', 'gvwTimeOffHistoryDblclick');
     }
 
     function fn_createGvwGroupInsuranceGrid() {
@@ -2881,6 +2883,16 @@
         }
     }
 
+    const gvwCareerDblclick = async function() {
+        var nRow = gvwCareer.getRow();
+        var nCol = gvwCareer.getCol();
+
+        if(nCol == 8) {
+            fn_findDeptCodeForGvwCareer(nRow, nCol);
+        }
+    }
+
+
     const fnVeteransYnChange = async function(val) {
         if (val == "")
             return;
@@ -2923,6 +2935,18 @@
             }
         }
     }
+
+    const gvwTimeOffHistoryDblclick = async function() {
+        var nRow = gvwTimeOffHistory.getRow();
+        var nCol = gvwTimeOffHistory.getCol();
+
+        if(nCol == 7){
+            fn_findDeptCodeForGvwTimeOffHistory(nRow, (nCol+1));
+        } else if(nCol == 8) {
+            fn_findDeptCodeForGvwTimeOffHistory(nRow, nCol);
+        }
+    }
+
 
     // 행 추가
     const fn_addRowForGvwFamily = function() {
