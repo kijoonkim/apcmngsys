@@ -63,13 +63,29 @@
                 <tr>
                     <th scope="row" class="th_bg">사업장</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">발령구분</th>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_APPOINT_TYPE" uitype="single" jsondata-ref="jsonAppointType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_APPOINT_TYPE" uitype="single" jsondata-ref="jsonAppointType" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_APPOINT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_APPOINT_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">발령번호</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -266,7 +282,7 @@
                                 <sbux-button id="btnAddAll" name="btnAddAll" uitype="normal" text="일괄추가" class="btn btn-sm btn-outline-danger" onclick="fn_addAll" style="float: right;"></sbux-button>
                             </div>
                         </div>
-                        <div class="table-responsive tbl_scroll_xs">
+                        <div>
                             <table class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:12.5%">
@@ -281,7 +297,15 @@
                                 <tr>
                                     <th scope="row" class="th_bg">사업장</th>
                                     <td colspan="2" class="td_input">
-                                        <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <%--<sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -323,7 +347,15 @@
                                     </td>
                                     <th scope="row" class="th_bg">직책</th>
                                     <td class="td_input">
-                                        <sbux-select id="DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <%--<sbux-select id="DUTY_CODE" uitype="single" jsondata-ref="jsonDutyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUTY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="DUTY_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
                                     </td>
                                     <th scope="row" class="th_bg">직급</th>
                                     <td class="td_input">
@@ -337,11 +369,27 @@
                                     </td>
                                     <th scope="row" class="th_bg">직무</th>
                                     <td class="td_input">
-                                        <sbux-select id="JOB_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <%--<sbux-select id="JOB_CODE" uitype="single" jsondata-ref="jsonJobCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="JOB_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="JOB_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
                                     </td>
                                     <th scope="row" class="th_bg">근무지</th>
                                     <td class="td_input">
-                                        <sbux-select id="WORK_REGION" uitype="single" jsondata-ref="jsonWorkRegion" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <%--<sbux-select id="WORK_REGION" uitype="single" jsondata-ref="jsonWorkRegion" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="WORK_REGION" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -409,9 +457,45 @@
 
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SRCH_SITE_CODE', 'SITE_CODE', 'bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SITE_CODE', '#SITE_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SITE_CODE'
+                ,colLabel		: 'SITE_NAME'
+                ,columns		:[
+                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 발령구분
-            gfnma_setComSelect(['SRCH_APPOINT_TYPE', 'gvwList'], jsonAppointType, 'L_HRI041', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonAppointType, 'L_HRI041', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_APPOINT_TYPE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRI041'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 적용구분
             gfnma_setComSelect(['APPLY_YN'], jsonApplyYn, 'L_HRM003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 발령상태
@@ -419,15 +503,69 @@
             // 직위
             gfnma_setComSelect(['POSITION_CODE', 'bandgvwDetail'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['DUTY_CODE', 'bandgvwDetail'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#DUTY_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRI003'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 직급
             gfnma_setComSelect(['JOB_RANK', 'bandgvwDetail'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직군
             gfnma_setComSelect(['JOB_GROUP', 'bandgvwDetail'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직무
-            gfnma_setComSelect(['JOB_CODE', 'bandgvwDetail'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#JOB_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRI006'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 근무지
-            gfnma_setComSelect(['WORK_REGION', 'bandgvwDetail'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#WORK_REGION']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRI999'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 휴직유형
             gfnma_setComSelect(['bandgvwDetail'], jsonTimeOffType, 'L_HRT003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직종
@@ -1757,8 +1895,8 @@
      * 목록 조회
      */
     const fn_search = async function() {
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
         let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_NUM"));
         let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
@@ -2363,9 +2501,9 @@
 
         let rowData = gvwList.getRowData(nRow);
 
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = rowData.DEPT_CODE;
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
+        let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
         let APPOINT_NUM = rowData.APPOINT_NUM;
         let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
@@ -2548,16 +2686,16 @@
 
     // 일괄추가
     const fn_addAll = async function () {
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         let POSITION_CODE = gfnma_nvl(SBUxMethod.get("POSITION_CODE"));
-        let DUTY_CODE = gfnma_nvl(SBUxMethod.get("DUTY_CODE"));
+        let DUTY_CODE = gfnma_nvl(gfnma_multiSelectGet('#DUTY_CODE'));
         let JOB_RANK = gfnma_nvl(SBUxMethod.get("JOB_RANK"));
         let JOB_GROUP = gfnma_nvl(SBUxMethod.get("JOB_GROUP"));
-        let JOB_CODE = gfnma_nvl(SBUxMethod.get("JOB_CODE"));
-        let WORK_REGION = gfnma_nvl(SBUxMethod.get("WORK_REGION"));
-        let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_TYPE"));
+        let JOB_CODE = gfnma_nvl(gfnma_multiSelectGet('#JOB_CODE'));
+        let WORK_REGION = gfnma_nvl(gfnma_multiSelectGet('#WORK_REGION'));
+        let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_APPOINT_TYPE'));
 
         let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE_FR"));
         let APPOINT_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPOINT_DATE"));
