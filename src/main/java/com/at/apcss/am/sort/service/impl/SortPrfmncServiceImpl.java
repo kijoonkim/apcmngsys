@@ -451,4 +451,13 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
     }
 
 
+	@Override
+	public List<SortDsctnTotVO> selectSortDsctnDtlTotList(SortDsctnTotVO sortDsctnTotVO) throws Exception {
+
+		List<SortDsctnTotVO> resultList = sortPrfmncMapper.selectSortDsctnDtlTotList(sortDsctnTotVO);
+
+		return resultList;
+	}
+
+
 }

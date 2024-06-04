@@ -600,4 +600,33 @@ public class SortPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	/**
+	 * 선별상세내역 조회
+	 * @param sortDsctnTotVO
+	 * @param request
+	 * @return List<SortDsctnTotVO>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/sort/selectSortDsctnDtlTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortDsctnDtlTotList(@RequestBody SortDsctnTotVO sortDsctnTotVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SortDsctnTotVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = sortPrfmncService.selectSortDsctnDtlTotList(sortDsctnTotVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

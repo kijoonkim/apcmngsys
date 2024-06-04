@@ -288,4 +288,12 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectWrhsSpmtDsctnList(HashMap<String, Object> exhstDsctn) throws Exception;
+
+    /**
+	 * 파프리카선별집계내역(선별상세내역) 조회
+	 * @param SortDsctnTotVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortDsctnTotVO> selectSortDsctnDtlTotList(SortDsctnTotVO sortDsctnTotVO) throws Exception;
 }
