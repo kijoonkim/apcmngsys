@@ -150,6 +150,7 @@
 							<colgroup>
 								<col style="width: 91px">
 								<col style="width: 91px">
+								<col style="width: 103px">
 								<col style="width: 91px">
 								<col style="width: auto">
 								<col style="width: 800px">
@@ -161,6 +162,7 @@
 									<td class="td_input td_input_dtl" style="border-left:hidden"><sbux-button uitype="normal" id="srch-btn-dsctn" name="srch-btn-dsctn" class="btn btn-sm btn-outline-danger" text="선별내역집계" onclick="fn_searchDsctn()"></sbux-button></td>
 									<td class="td_input td_input_dtl" style="border-left:hidden"><sbux-button uitype="normal" id="srch-btn-percent" name="srch-btn-percent" class="btn btn-sm btn-outline-danger" text="선별배율집계" onclick="fn_searchPercent()"></sbux-button></td>
 									<td class="td_input td_input_dtl" style="border-left:hidden"><sbux-button uitype="normal" id="srch-btn-wrhsSpmtDsctn" name="srch-btn-wrhsSpmtDsctn" class="btn btn-sm btn-outline-danger" text="농가입출고내역" onclick="fn_searchWrhsSpmtDsctn()"></sbux-button></td>
+									<td class="td_input td_input_dtl" style="border-left:hidden"><sbux-button uitype="normal" id="srch-btn-sortDsctnDtl" name="srch-btn-sortDsctnDtl" class="btn btn-sm btn-outline-danger" text="선별내역상세" onclick="fn_searchSortDsctnDtl()"></sbux-button></td>
 									<td style="border-left:hidden"></td>
 									<td style="border-left:hidden">
 										<div class="ad_tbl_toplist ad_tbl_toplist_font">
@@ -239,6 +241,7 @@
 	let percentChk = false;
 	let dsctnChk = true;
 	let wrhsSpmtDsctnChk = false;
+	let dsctnDtlChk = false;
 
 	let timerId;
 
@@ -541,6 +544,7 @@
 
 	}
 
+
 	const fn_createSortDsctnTotPercent = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-sortDsctnTot';
@@ -558,7 +562,7 @@
 	    SBGridProperties.columns = [
 	    	{caption : [],	ref : 'checkedYn',		width : '40px',	style : 'text-align:center',	type : 'radio', 			typeinfo : {checkedvalue : 'yes', uncheckedvalue : 'false'},hidden:true},
 	    	{caption : ["선별일자","선별일자"], ref: 'inptYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled:true  },
-	    	{caption: ["등급","등급"],    		ref: 'grd',     	type: 'input', width:'50px', 	style: 'text-align:center', disabled:true},
+	    	{caption:  ["등급","등급"],    		ref: 'grd',     	type: 'input', width:'50px', 	style: 'text-align:center', disabled:true},
 	    	{caption : ["구분","구분"], ref: 'prdcrNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;', disabled:true},
 	    	{caption : ["빨강","2XL"], ref: 'redV1', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'string', emptyvalue:''}, disabled:true},
 	    	{caption : ["빨강","XL"], ref: 'redV2', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'string', emptyvalue:''}, disabled:true},
@@ -592,6 +596,95 @@
 	    	{caption: ["css여부"],	ref: 'cssYn',     		type:'input',  	hidden: true}
 
 	    ];
+	    grdSortDsctnTot = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_createSortDsctnDtl = function() {
+
+		let gubunText 	= ["A품", "B품", "C품"];
+		let gubun 		= ["a", "b", "c"];
+		let colorText 	= ["빨강", "노랑", "주황"];
+		let size 		= ["2xl", "Xl", "L", "M", "S", "Ss"];
+		let colorRef 	= ["red", "ylw", "org"];
+
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-sortDsctnTot';
+	    SBGridProperties.id = 'grdSortDsctnTot';
+	    SBGridProperties.jsonref = 'jsonSortDsctnTot';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.mergecells = 'none';
+	    SBGridProperties.fixedrowheight = 50;
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.clickeventarea = {fixed: false, empty: false};
+		let sumArray = [];
+
+		for (var i=2; i<=72; i++) {
+			sumArray.push(i);
+		}
+		SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns: {
+					standard: [2],
+					sum: sumArray
+				},
+				grandtotalrow : {
+					titlecol: 1,
+					titlevalue: '합계(Kg)',
+					style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+					stylestartcol: 0
+				},
+		};
+
+		const columns = [];
+		columns.push(
+		    	{caption : ["선별일자","선별일자","선별일자"], 	ref: 'inptYmd', 	type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+		    	{caption : ["생산농가","생산농가","생산농가"], 	ref: 'prdcrNm', 	type: 'output',  width:'100px', style: 'text-align:center; padding-right:5px;'},
+		    	{caption : ["입고","입고","빨강"], 				ref: 'redWrhsWght', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+		    	{caption : ["입고","입고","노랑"], 				ref: 'ylwWrhsWght', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+		    	{caption : ["입고","입고","오렌지"], 			ref: 'orgWrhsWght', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+		    	{caption : ["입고","입고","합계(Kg)"], 				ref: 'wrhsWght', 	type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
+					, format : {type:'number', rule:'#,###'}, fixedstyle : 'background-color:#ceebff;', disabled:true},
+		)
+
+		for (var i=0; i<gubun.length; i++) {
+
+			for (var j=0; j<colorText.length; j++) {
+
+				for (var k=0; k<size.length; k++) {
+
+					let ref = gubun[i] + colorRef[j] + size[k];
+					columns.push(
+							{caption : [gubunText[i],colorText[j],size[k]], ref: ref, type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}, disabled:true},
+					)
+				}
+				let totRef = gubun[i] + colorRef[j] + "Tot";
+				columns.push(
+						{caption : [gubunText[i],colorText[j],"소계(Kg)"], ref: totRef, type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
+							, format : {type:'number', rule:'#,###'}, fixedstyle : 'background-color:#ceebff;', disabled:true},
+				)
+			}
+			let gubunTotCaption = gubunText[i] + "<br>총합계<br>(Kg)";
+			let gubunTotRef = gubun[i] + "tot"
+			columns.push(
+					{caption : [gubunText[i],gubunTotCaption,gubunTotCaption], ref: gubunTotRef, type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px;background-color:#ceebff;'
+						, format : {type:'number', rule:'#,###'}, fixedstyle : 'background-color:#ceebff;', disabled:true},
+			)
+		}
+
+	    columns.push(
+
+	    	{caption : ["총합계<br>(kg)","총합계<br>(kg)","총합계<br>(kg)"], ref: 'tot', type: 'input',  width:'150px', style: 'text-align:right; padding-right:5px; background-color:#95DCF8'
+	    							, format : {type:'number', rule:'#,###'}, fixedstyle : 'background-color:#95DCF8;', disabled:true},
+	    	{caption : ["비고","비고","비고"], ref: 'rmrk', type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px;', disabled:true, hidden:true},
+	    	{caption : ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
+	    )
+
+	    SBGridProperties.columns = columns;
 	    grdSortDsctnTot = _SBGrid.create(SBGridProperties);
 	}
 
@@ -630,6 +723,7 @@
 	    ];
 	    grdWrhsSpmtDsctn = _SBGrid.create(SBGridProperties);
 	}
+
 	function fnCustom(value){
 		return value + "%";
 	}
@@ -646,10 +740,12 @@
 		percentChk = true;
 		wrhsSpmtDsctnChk = false;
 		dsctnChk = false;
+		dsctnDtlChk = false;
 
 		$("#srch-btn-percent").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-dsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-wrhsSpmtDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortDsctnDtl").css({"background-color":"white","color":"black"});
 
 		fn_search();
 	}
@@ -660,10 +756,12 @@
 		percentChk = false;
 		wrhsSpmtDsctnChk = false;
 		dsctnChk = true;
+		dsctnDtlChk = false;
 
 		$("#srch-btn-dsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-percent").css({"background-color":"white","color":"black"});
 		$("#srch-btn-wrhsSpmtDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortDsctnDtl").css({"background-color":"white","color":"black"});
 
 		fn_search();
 	}
@@ -674,10 +772,28 @@
 		percentChk = false;
 		wrhsSpmtDsctnChk = true;
 		dsctnChk = false;
+		dsctnDtlChk = false;
 
 		$("#srch-btn-wrhsSpmtDsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-dsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-percent").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortDsctnDtl").css({"background-color":"white","color":"black"});
+
+
+		fn_search();
+	}
+	const fn_searchSortDsctnDtl = function () {
+		fn_createSortDsctnDtl();
+
+		percentChk = false;
+		wrhsSpmtDsctnChk = false;
+		dsctnChk = false;
+		dsctnDtlChk = true;
+
+		$("#srch-btn-wrhsSpmtDsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-dsctn").css({"background-color":"white","color":"black"});
+		$("#srch-btn-percent").css({"background-color":"white","color":"black"});
+		$("#srch-btn-sortDsctnDtl").css({"background-color":"#149FFF","color":"white"});
 
 
 		fn_search();
@@ -968,7 +1084,7 @@
 	        			, b_qntt : item.B_SORT_QNTT_TOT
 	        			, c_qntt : item.C_SORT_QNTT_TOT
 	        			, sort_tot : item.A_SORT_QNTT_TOT + item.B_SORT_QNTT_TOT + item.C_SORT_QNTT_TOT
-	        			, diff : (item. R_QNTT_TOT + item.Y_QNTT_TOT + item.O_QNTT_TOT) - (item.A_SORT_QNTT_TOT + item.B_SORT_QNTT_TOT + item.C_SORT_QNTT_TOT)
+	        			, diff : (item.R_QNTT_TOT + item.Y_QNTT_TOT + item.O_QNTT_TOT) - (item.A_SORT_QNTT_TOT + item.B_SORT_QNTT_TOT + item.C_SORT_QNTT_TOT)
 	        			, a_p : item.A_P_QNTT_TOT
 	        			, b_p : item.B_P_QNTT_TOT
 	        			, c_p : item.C_P_QNTT_TOT
@@ -984,6 +1100,151 @@
 
 	        grdWrhsSpmtDsctn.rebuild();
 
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+ 			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+
+	const fn_setSortDsctnDtl = async function () {
+		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
+		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let dsctnYn = SBUxMethod.get("srch-chk-dsctnYn")['srch-chk-dsctnYn'];
+		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+		const param = {
+			apcCd: gv_selectedApcCd,
+			inptYmdFrom: inptYmdFrom,
+			inptYmdTo: inptYmdTo,
+			itemCd: itemCd,
+			prdcrCd : prdcrCd,
+			dsctnYn: dsctnYn
+		}
+		jsonSortDsctnTot.length = 0;
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+					"/am/sort/selectSortDsctnDtlTotList.do",
+					param,
+					null,
+					false
+				);
+        const data = await postJsonPromise;
+
+        data.resultList.forEach((item, index) => {
+
+        	let wrhsWght = parseInt(gfn_isEmpty(item.redWrhsWght) ? 0 : item.redWrhsWght)
+						 + parseInt(gfn_isEmpty(item.ylwWrhsWght) ? 0 : item.ylwWrhsWght)
+  						 + parseInt(gfn_isEmpty(item.orgWrhsWght) ? 0 : item.orgWrhsWght);
+        	if (wrhsWght == 0) {
+        		wrhsWght = "";
+        	}
+
+        	const sortDsctnDtl = {
+        				apcCd 		: item.apcCd
+        		      , prdcrNm		: item.prdcrNm
+        		      , rprsPrdcrCd	: item.rprsPrdcrCd
+        		      , inptYmd		: item.inptYmd
+        		      , redWrhsWght	: gfn_isEmpty(item.redWrhsWght) ? "" : item.redWrhsWght
+        		      , ylwWrhsWght	: gfn_isEmpty(item.ylwWrhsWght) ? "" : item.ylwWrhsWght
+        		      , orgWrhsWght	: gfn_isEmpty(item.orgWrhsWght) ? "" : item.orgWrhsWght
+        		      , wrhsWght	: wrhsWght
+        		      , ared2xl		: fn_multiplication(item.ared2xl)
+        		      , aredXl		: fn_multiplication(item.aredXl)
+        		      , aredL		: fn_multiplication(item.aredL)
+        		      , aredM		: fn_multiplication(item.aredM)
+        		      , aredS		: fn_multiplication(item.aredS)
+        		      , aredSs		: fn_multiplication(item.aredSs)
+        		      , aylw2xl		: fn_multiplication(item.aylw2xl)
+        		      , aylwXl		: fn_multiplication(item.aylwXl)
+        		      , aylwL		: fn_multiplication(item.aylwL)
+        		      , aylwM		: fn_multiplication(item.aylwM)
+        		      , aylwS		: fn_multiplication(item.aylwS)
+        		      , aylwSs		: fn_multiplication(item.aylwSs)
+        		      , aorg2xl		: fn_multiplication(item.aorg2xl)
+        		      , aorgXl		: fn_multiplication(item.aorgXl)
+        		      , aorgL		: fn_multiplication(item.aorgL)
+        		      , aorgM		: fn_multiplication(item.aorgM)
+        		      , aorgS		: fn_multiplication(item.aorgS)
+        		      , aorgSs		: fn_multiplication(item.aorgSs)
+        		      , aredTot		: fn_multiplication(item.aredTot)
+        		      , aylwTot		: fn_multiplication(item.aylwTot)
+        		      , aorgTot		: fn_multiplication(item.aorgTot)
+        		      , atot		: fn_multiplication(item.atot)
+        		      , bred2xl		: fn_multiplication(item.bred2xl)
+        		      , bredXl		: fn_multiplication(item.bredXl)
+        		      , bredL		: fn_multiplication(item.bredL)
+        		      , bredM		: fn_multiplication(item.bredM)
+        		      , bredS		: fn_multiplication(item.bredS)
+        		      , bredSs		: fn_multiplication(item.bredSs)
+        		      , bylw2xl		: fn_multiplication(item.bylw2xl)
+        		      , bylwXl		: fn_multiplication(item.bylwXl)
+        		      , bylwL		: fn_multiplication(item.bylwL)
+        		      , bylwM		: fn_multiplication(item.bylwM)
+        		      , bylwS		: fn_multiplication(item.bylwS)
+        		      , bylwSs		: fn_multiplication(item.bylwSs)
+        		      , borg2xl		: fn_multiplication(item.borg2xl)
+        		      , borgXl		: fn_multiplication(item.borgXl)
+        		      , borgL		: fn_multiplication(item.borgL)
+        		      , borgM		: fn_multiplication(item.borgM)
+        		      , borgS		: fn_multiplication(item.borgS)
+        		      , borgSs		: fn_multiplication(item.borgSs)
+        		      , bredTot		: fn_multiplication(item.bredTot)
+        		      , bylwTot		: fn_multiplication(item.bylwTot)
+        		      , borgTot		: fn_multiplication(item.borgTot)
+        		      , btot		: fn_multiplication(item.btot)
+        		      , cred2xl		: fn_multiplication(item.cred2xl)
+        		      , credXl		: fn_multiplication(item.credXl)
+        		      , credL		: fn_multiplication(item.credL)
+        		      , credM		: fn_multiplication(item.credM)
+        		      , credS		: fn_multiplication(item.credS)
+        		      , credSs		: fn_multiplication(item.credSs)
+        		      , cylw2xl		: fn_multiplication(item.cylw2xl)
+        		      , cylwXl		: fn_multiplication(item.cylwXl)
+        		      , cylwL		: fn_multiplication(item.cylwL)
+        		      , cylwM		: fn_multiplication(item.cylwM)
+        		      , cylwS		: fn_multiplication(item.cylwS)
+        		      , cylwSs		: fn_multiplication(item.cylwSs)
+        		      , corg2xl		: fn_multiplication(item.corg2xl)
+        		      , corgXl		: fn_multiplication(item.corgXl)
+        		      , corgL		: fn_multiplication(item.corgL)
+        		      , corgM		: fn_multiplication(item.corgM)
+        		      , corgS		: fn_multiplication(item.corgS)
+        		      , corgSs		: fn_multiplication(item.corgSs)
+        		      , credTot		: fn_multiplication(item.credTot)
+        		      , cylwTot		: fn_multiplication(item.cylwTot)
+        		      , corgTot		: fn_multiplication(item.corgTot)
+        		      , ctot		: fn_multiplication(item.ctot)
+        		      , tot			: fn_multiplication(item.tot)
+        	}
+        	jsonSortDsctnTot.push(sortDsctnDtl);
+        });
+
+        grdSortDsctnTot.rebuild();
+        grdSortDsctnTot.setCellStyles(1,6,1,12,'background:#FF000030');
+		grdSortDsctnTot.setCellStyles(1,13,1,19,'background:#FFFC3330');
+		grdSortDsctnTot.setCellStyles(1,20,1,26,'background:#FFB53330');
+		grdSortDsctnTot.setCellStyles(1,27,1,27,'background:#95DCF8');
+
+        grdSortDsctnTot.setCellStyles(1,28,1,34,'background:#FF000030');
+		grdSortDsctnTot.setCellStyles(1,35,1,41,'background:#FFFC3330');
+		grdSortDsctnTot.setCellStyles(1,42,1,48,'background:#FFB53330');
+		grdSortDsctnTot.setCellStyles(1,49,1,49,'background:#95DCF8');
+
+        grdSortDsctnTot.setCellStyles(1,50,1,56,'background:#FF000030');
+		grdSortDsctnTot.setCellStyles(1,57,1,63,'background:#FFFC3330');
+		grdSortDsctnTot.setCellStyles(1,64,1,70,'background:#FFB53330');
+		grdSortDsctnTot.setCellStyles(1,71,1,71,'background:#95DCF8');
+
+		grdSortDsctnTot.setCellStyles(2,2,2,2,'background:#FF000030');
+		grdSortDsctnTot.setCellStyles(2,3,2,3,'background:#FFFC3330');
+		grdSortDsctnTot.setCellStyles(2,4,2,4,'background:#FFB53330');
+		grdSortDsctnTot.setCellStyles(2,5,2,5,'background:#ceebff');
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -1023,6 +1284,14 @@
 		}
 	}
 
+	const fn_multiplication = function(val) {
+		if (gfn_isEmpty(val)) {
+			return "";
+		} else {
+			return parseInt(val) * 5;
+		}
+	}
+
 	const fn_search = async function () {
 
 		if(percentChk) {
@@ -1037,6 +1306,10 @@
 			$("#sb-area-sortDsctnTot").hide();
 			$("#sb-area-wrhsSpmtDsctn").show();
 			fn_setWrhsSpmtDsctn();
+		} else if(dsctnDtlChk){
+			$("#sb-area-sortDsctnTot").show();
+			$("#sb-area-wrhsSpmtDsctn").hide();
+			fn_setSortDsctnDtl();
 		}
 
 	}

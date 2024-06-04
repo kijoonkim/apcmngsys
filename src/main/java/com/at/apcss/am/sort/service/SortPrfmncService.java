@@ -65,6 +65,13 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	public List<SortDsctnTotVO> selectSortDsctn(SortDsctnTotVO sortDsctnTotVO) throws Exception;
+	/**
+	 * 파프리카선별집계내역(선별상세내역) 조회
+	 * @param SortDsctnTotVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SortDsctnTotVO> selectSortDsctnDtlTotList(SortDsctnTotVO sortDsctnTotVO) throws Exception;
 
 	/**
 	 * 선별집계내역(공통) 목록 조회
