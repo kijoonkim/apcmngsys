@@ -282,7 +282,7 @@
                                 <sbux-button id="btnAddAll" name="btnAddAll" uitype="normal" text="일괄추가" class="btn btn-sm btn-outline-danger" onclick="fn_addAll" style="float: right;"></sbux-button>
                             </div>
                         </div>
-                        <div class="table-responsive tbl_scroll_xs">
+                        <div>
                             <table class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:12.5%">
