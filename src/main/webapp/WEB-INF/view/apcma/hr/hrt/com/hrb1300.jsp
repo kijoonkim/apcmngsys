@@ -100,14 +100,12 @@
                                 <span>캘린더</span>
                             </li>
                         </ul>
+                        <div class="ad_tbl_toplist">
+                            <sbux-button id="btnToday" name="btnToday" uitype="normal" text="Today" class="btn btn-sm btn-outline-danger" onclick="fn_today" style="float: right;"></sbux-button>
+                        </div>
                     </div>
-                    <div class="table-responsive tbl_scroll_sm">
-                        <div class="calendar">
-                            <div id="calendar"></div>
-                        </div>
-                        <div style="width: 100%; display: flex; justify-content: center;">
-                            <sbux-button id="btnToday" name="btnToday" uitype="normal" text="Today" class="btn btn-sm btn-outline-danger" onclick="fn_today"></sbux-button>
-                        </div>
+                    <div class="calendar year">
+                        <div id="calendar"></div>
                     </div>
                 </div>
                 <div class="col-sm-5">
@@ -224,7 +222,7 @@
                             </ul>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-gvwDay" style="height:600px;"></div>
+                            <div id="sb-area-gvwDay" style="height:900px;"></div>
                         </div>
                     </div>
                 </div>
@@ -387,8 +385,6 @@
             V_P_LANG_ID	: '',
             V_P_COMP_CODE : gv_ma_selectedApcCd,
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_YYYYMM : '',
-            V_P_YYYYMMDD : '',
             V_P_YYYY : YYYY,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
@@ -397,10 +393,10 @@
             V_P_PC : ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/com/selectHrb1300List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/selectHrb1100List.do", {
             getType				: 'json',
             workType			: 'Q',
-            cv_count			: '4',
+            cv_count			: '2',
             params				: gfnma_objectToString(paramObj)
         });
 
@@ -413,6 +409,8 @@
                         holidayList[item.YYYYMMDD_START] = {"title" : item.HOLIDAY_NAME};
                     }
                 });
+
+                calendarYear(new Date());
             } else {
                 alert(data.resultMessage);
             }
@@ -575,8 +573,6 @@
     });
 
     function calendarYear(date) {
-        $(".calendar").removeClass("month");
-        $(".calendar").addClass("year");
         // 년
         SBUxMethod.set("YYYY", date.getFullYear());
 
@@ -587,7 +583,7 @@
         };
 
         var html = "";
-        html += "<table>";
+        html += "<table style='margin-left: auto; margin-right: auto;'>";
         html += "<tbody>";
         for (var index1 = 0; index1 < 4; index1++) {
             html += "<tr>";
