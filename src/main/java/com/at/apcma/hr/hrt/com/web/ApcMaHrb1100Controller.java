@@ -111,7 +111,6 @@ public class ApcMaHrb1100Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-
             for(String key : param.keySet()){
                 if(key.contains("subData")) {
                     if(param.get(key) instanceof List) {
@@ -128,20 +127,11 @@ public class ApcMaHrb1100Controller extends BaseController {
                     }
                 }
             }
-
+            logger.info("=============insertHrb1100Sub=====end========");
+            return getSuccessResponseEntity(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============insertHrb1100Sub=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
         }
     }
 }

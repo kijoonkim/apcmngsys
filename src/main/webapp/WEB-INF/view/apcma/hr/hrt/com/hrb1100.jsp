@@ -60,8 +60,8 @@
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
-                                id="YYYY"
-                                name="YYYY"
+                                id="SRCH_YYYY"
+                                name="SRCH_YYYY"
                                 date-format="yyyy"
                                 datepicker-mode="year"
                                 class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
@@ -134,7 +134,7 @@
     var jsonHolidayList = [];
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("YYYY", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_YYYY", gfn_dateToYmd(new Date()));
 
         let rst = await Promise.all([
             // 근무유형
@@ -296,7 +296,7 @@
     }
 
     const fn_search = async function() {
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
@@ -378,7 +378,7 @@
     }
 
     const fn_save = async function() {
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
 
         jsonDayList.forEach((item, index) => {
             if(item.WORK_TYPE_CODE == "") {
@@ -499,7 +499,7 @@
     }
 
     const fn_copyPrevYear = async function() {
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
 
         jsonDayList.forEach((item, index) => {
             if(item.WORK_TYPE_CODE == "") {
@@ -569,7 +569,7 @@
     const fn_createCalendar = async function() {
         await fn_save();
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
@@ -612,7 +612,7 @@
     const fn_reflectChangeCalendar = async function() {
         await fn_save();
 
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
