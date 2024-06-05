@@ -35,6 +35,11 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
+            <div style="margin-left: auto;">
+                <sbux-button id="btn_copyPrevYear" name="btn_copyPrevYear" uitype="normal" text="전년도자료복사" class="btn btn-sm btn-outline-danger" onclick="fn_copyPrevYear" ></sbux-button>
+                <sbux-button id="btn_createCalendar" name="btn_createCalendar" uitype="normal" text="캘린더생성" class="btn btn-sm btn-outline-danger" onclick="fn_createCalendar"></sbux-button>
+                <sbux-button id="btn_reflectChangeCalendar" name="btn_reflectChangeCalendar" uitype="normal" text="캘린더 변경반영" class="btn btn-sm btn-outline-danger" onclick="fn_reflectChangeCalendar" ></sbux-button>
+            </div>
         </div>
         <div class="box-body">
 
@@ -165,7 +170,7 @@
             {caption: ["휴일여부"],  		ref: 'HOLIDAY_YN',    			type:'checkbox',  	width:'70px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["휴일구분"],       ref: 'SHIFT_CODE', 		type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["휴일구분"],       ref: 'SHIFT_CODE', 		type:'combo',  	width:'75px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonShiftCode',
                     label		: 'label',
@@ -232,8 +237,14 @@
             },
             {caption: ["비고"],  		ref: 'MEMO',    			type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["순번"],       ref: 'TXN_ID', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시작일(양)"],          ref: 'START_DAY_SOLAR', 		        type:'output',  	width:'94px',  style:'text-align:left'},
-            {caption: ["종료일(양)"],          ref: 'END_DAY_SOLAR', 		        type:'output',  	width:'91px',  style:'text-align:left'},
+            {caption: ["시작일(양)"],          ref: 'START_DAY_SOLAR', 		        type:'datepicker',  	width:'94px',  style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["종료일(양)"],          ref: 'END_DAY_SOLAR', 		        type:'datepicker',  	width:'91px',  style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
             {caption: ["법인"],          ref: 'COMP_CODE', 		        type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["시작(요일)"],          ref: 'START_WEEK_NAME', 		        type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["종료(요일)"],          ref: 'END_WEEK_NAME', 		        type:'output',  	width:'75px',  style:'text-align:left'},
@@ -248,13 +259,13 @@
         fn_initSBSelect();
         fn_createGvwDayGrid();
         fn_createGvwHolidayGrid();
-        //fn_search();
+        fn_search();
     });
 
 
     // 행 추가
     const fn_addRow = function() {
-        let rowVal = gvwHoliday.getRow();;
+        let rowVal = gvwHoliday.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
@@ -366,8 +377,280 @@
         }
     }
 
-    const fn_save = async function() {}
+    const fn_save = async function() {
+        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
 
+        jsonDayList.forEach((item, index) => {
+            if(item.WORK_TYPE_CODE == "") {
+                alert("근무유형 은(는) 필수입력항목입니다.");
+                throw new Error();
+            }
+        });
+
+        const master = {
+            V_P_DEBUG_MODE_YN : '',
+            V_P_LANG_ID	: '',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYY : YYYY,
+            V_P_WORK_TYPE_SUN : gfnma_nvl(jsonDayList[0].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_MON : gfnma_nvl(jsonDayList[1].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_TUE : gfnma_nvl(jsonDayList[2].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_WED : gfnma_nvl(jsonDayList[3].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_THU : gfnma_nvl(jsonDayList[4].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_FRI : gfnma_nvl(jsonDayList[5].WORK_TYPE_CODE),
+            V_P_WORK_TYPE_SAT : gfnma_nvl(jsonDayList[6].WORK_TYPE_CODE),
+            V_P_SUN_HOLIDAY_YN : gfnma_nvl(jsonDayList[0].HOLIDAY_YN),
+            V_P_MON_HOLIDAY_YN : gfnma_nvl(jsonDayList[1].HOLIDAY_YN),
+            V_P_TUE_HOLIDAY_YN : gfnma_nvl(jsonDayList[2].HOLIDAY_YN),
+            V_P_WED_HOLIDAY_YN : gfnma_nvl(jsonDayList[3].HOLIDAY_YN),
+            V_P_THU_HOLIDAY_YN : gfnma_nvl(jsonDayList[4].HOLIDAY_YN),
+            V_P_FRI_HOLIDAY_YN : gfnma_nvl(jsonDayList[5].HOLIDAY_YN),
+            V_P_SAT_HOLIDAY_YN : gfnma_nvl(jsonDayList[6].HOLIDAY_YN),
+            V_P_SHIFT_SUN : gfnma_nvl(jsonDayList[0].SHIFT_CODE),
+            V_P_SHIFT_MON : gfnma_nvl(jsonDayList[1].SHIFT_CODE),
+            V_P_SHIFT_TUE : gfnma_nvl(jsonDayList[2].SHIFT_CODE),
+            V_P_SHIFT_WED : gfnma_nvl(jsonDayList[3].SHIFT_CODE),
+            V_P_SHIFT_THU : gfnma_nvl(jsonDayList[4].SHIFT_CODE),
+            V_P_SHIFT_FRI : gfnma_nvl(jsonDayList[5].SHIFT_CODE),
+            V_P_SHIFT_SAT : gfnma_nvl(jsonDayList[6].SHIFT_CODE),
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        }
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrb1100Master.do", {
+            getType				: 'json',
+            workType			: 'N',
+            cv_count			: '0',
+            params				: gfnma_objectToString(master)
+        });
+        const masterData = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", masterData.resultStatus)) {
+                let updatedData = gvwHoliday.getUpdateData(true, 'all');
+                let returnData = [];
+
+                updatedData.forEach((item, index) => {
+                    const param = {
+                        cv_count: '0',
+                        getType: 'json',
+                        workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                        params: gfnma_objectToString({
+                            V_P_DEBUG_MODE_YN: '',
+                            V_P_LANG_ID: '',
+                            V_P_COMP_CODE: gv_ma_selectedApcCd,
+                            V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                            V_P_YYYY : YYYY,
+                            V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == '' ? 0 : item.data.TXN_ID,
+                            V_P_WORK_TYPE_CODE : item.data.WORK_TYPE_CODE,
+                            V_P_SHIFT_CODE : item.data.SHIFT_CODE,
+                            V_P_START_DAY : item.data.START_DAY,
+                            V_P_END_DAY : item.data.END_DAY,
+                            V_P_SOLAR_YN : item.data.SOLAR_YN,
+                            V_P_LEAP_MONTH_YN : item.data.LEAP_MONTH_YN,
+                            V_P_DAY_TITLE : item.data.DAY_TITLE,
+                            V_P_HOLIDAY_YN : item.data.HOLIDAY_YN,
+                            V_P_HOLIDAY2_YN : item.data.HOLIDAY2_YN,
+                            V_P_MEMO : item.data.MEMO,
+                            V_P_HOLIDAY_TYPE1_YN : item.data.HOLIDAY_TYPE1_YN,
+                            V_P_HOLIDAY_TYPE2_YN : item.data.HOLIDAY_TYPE2_YN,
+                            V_P_FORM_ID: p_formId,
+                            V_P_MENU_ID: p_menuId,
+                            V_P_PROC_ID: '',
+                            V_P_USERID: '',
+                            V_P_PC: ''
+                        })
+                    }
+                    returnData.push(param);
+                });
+
+                if(returnData.length > 0) {
+                    const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrb1100Sub.do", {subData: returnData});
+                    const subData = await postJsonPromise;
+
+                    try {
+                        if (_.isEqual("S", subData.resultStatus)) {
+                            fn_search();
+                        } else {
+                            alert(subData.resultMessage);
+                        }
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+            } else {
+                alert(masterData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_copyPrevYear = async function() {
+        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+
+        jsonDayList.forEach((item, index) => {
+            if(item.WORK_TYPE_CODE == "") {
+                alert("근무유형 은(는) 필수입력항목입니다.");
+                throw new Error();
+            }
+        });
+
+        const master = {
+            V_P_DEBUG_MODE_YN : '',
+            V_P_LANG_ID	: '',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYY : YYYY,
+            V_P_WORK_TYPE_SUN : '',
+            V_P_WORK_TYPE_MON : '',
+            V_P_WORK_TYPE_TUE : '',
+            V_P_WORK_TYPE_WED : '',
+            V_P_WORK_TYPE_THU : '',
+            V_P_WORK_TYPE_FRI : '',
+            V_P_WORK_TYPE_SAT : '',
+            V_P_SUN_HOLIDAY_YN : '',
+            V_P_MON_HOLIDAY_YN : '',
+            V_P_TUE_HOLIDAY_YN : '',
+            V_P_WED_HOLIDAY_YN : '',
+            V_P_THU_HOLIDAY_YN : '',
+            V_P_FRI_HOLIDAY_YN : '',
+            V_P_SAT_HOLIDAY_YN : '',
+            V_P_SHIFT_SUN : '',
+            V_P_SHIFT_MON : '',
+            V_P_SHIFT_TUE : '',
+            V_P_SHIFT_WED : '',
+            V_P_SHIFT_THU : '',
+            V_P_SHIFT_FRI : '',
+            V_P_SHIFT_SAT : '',
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        }
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrb1100Master.do", {
+            getType				: 'json',
+            workType			: 'BEFORE',
+            cv_count			: '0',
+            params				: gfnma_objectToString(master)
+        });
+        const masterData = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", masterData.resultStatus)) {
+                alert(masterData.resultMessage);
+                fn_search();
+            } else {
+                alert(masterData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_createCalendar = async function() {
+        await fn_save();
+
+        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        var paramObj = {
+            V_P_DEBUG_MODE_YN : '',
+            V_P_LANG_ID	: '',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYY : YYYY,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/selectHrb1100List.do", {
+            getType				: 'json',
+            workType			: 'CREATE',
+            cv_count			: '2',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                alert("달력이 생성되었습니다.");
+                fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_reflectChangeCalendar = async function() {
+        await fn_save();
+
+        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        var paramObj = {
+            V_P_DEBUG_MODE_YN : '',
+            V_P_LANG_ID	: '',
+            V_P_COMP_CODE : gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYY : YYYY,
+            V_P_FORM_ID : p_formId,
+            V_P_MENU_ID : p_menuId,
+            V_P_PROC_ID : '',
+            V_P_USERID : '',
+            V_P_PC : ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/selectHrb1100List.do", {
+            getType				: 'json',
+            workType			: 'MODIFY',
+            cv_count			: '2',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                alert("달력이 변경되었습니다.");
+                fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

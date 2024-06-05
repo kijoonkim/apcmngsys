@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class ApcMaHrb1100Controller extends BaseController {
     private ApcMaCommDirectService apcMaCommDirectService;
 
     @PostMapping(value = "/hr/hrt/com/selectHrb1100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHri1000List(
+    public ResponseEntity<HashMap<String, Object>> selectHrb1100List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
@@ -58,6 +59,82 @@ public class ApcMaHrb1100Controller extends BaseController {
         }
 
         logger.info("=============selectHrb1100List=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/hr/hrt/com/insertHrb1100Master.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrb1100Master(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrb1100Master=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_HRB1100_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrb1100Master=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/hr/hrt/com/insertHrb1100Sub.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrb1100Sub(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrb1100Sub=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            for(String key : param.keySet()){
+                if(key.contains("subData")) {
+                    if(param.get(key) instanceof List) {
+                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+                        listData.stream().forEach(d -> {
+                            try {
+                                d.put("procedure", 		"P_HRB1100_S1");
+                                apcMaCommDirectService.callProc(d, session, request, "");
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        resultMap.put(key, listData);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrb1100Sub=====end========");
         if(resultMap.get("resultStatus").equals("E")) {
             String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
             String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
