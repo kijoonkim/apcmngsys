@@ -1519,11 +1519,12 @@
     const fn_onchangeQntt = function(_el){
         let val = parseInt($(_el).val());
         let max = parseInt($(_el).attr("max"));
-
-        if(val > max){
-            gfn_comAlert("W0008","재고","수량");
-            val = max;
-        }
+        /**
+         * 20240605 마이너스재고 임시조치 max validation해제 **/
+        // if(val > max){
+        //     gfn_comAlert("W0008","재고","수량");
+        //     val = max;
+        // }
         $(_el).closest('tr').children().eq(8).find('input').val(val);
         $(_el).val(val);
         let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").attr("sortInvnt"));
