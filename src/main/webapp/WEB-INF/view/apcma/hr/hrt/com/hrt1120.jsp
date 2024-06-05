@@ -175,7 +175,7 @@
 
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["근태집계코드"], 		ref: 'TIME_CATEGORY',   	    type:'input', style:'text-align:left' ,width: '107px',
+            {caption: ["근태분류"], 		ref: 'TIME_CATEGORY',   	    type:'combo', style:'text-align:left' ,width: '107px',
                 typeinfo: {
                     ref			: 'jsonTimeCategory',
                     label		: 'label',
@@ -193,24 +193,6 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-            },
-            {caption: ["근무일수조정"],       ref: 'ADJUST_WORK_DAY', 		type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["실근무일수조정"],       ref: 'ADJUST_REAL_WORK_DAY', 		type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["연차일수조정"],       ref: 'ADJUST_ANNUAL_DAY', 		type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["기준근무일수"],       ref: 'BASE_WORK_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
-                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
-            },
-            {caption: ["실근무일수"],       ref: 'REAL_WORK_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
-                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
-            },
-            {caption: ["휴가일수"],       ref: 'VACATION_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
-                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
-            },
-            {caption: ["유급일수"],       ref: 'PAID_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
-                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
-            },
-            {caption: ["무급일수"],       ref: 'UNPAID_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
-                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
             },
             {caption: ["시간"],       ref: 'SUMMARY_CODE_TIME', 		type:'combo',  	width:'135px',  	style:'text-align:left',
                 typeinfo: {
@@ -236,10 +218,38 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["메모"],       ref: 'MEMO', 		type:'input',  	width:'180px',  	style:'text-align:left'},
             {caption: ["사용"],       ref: 'USE_YN', 		type:'checkbox',  	width:'80px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
+            {caption: ["기준근무일수"],       ref: 'BASE_WORK_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
+                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
+            },
+            {caption: ["실근무일수"],       ref: 'REAL_WORK_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
+                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
+            },
+            {caption: ["휴가일수"],       ref: 'VACATION_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
+                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
+            },
+            {caption: ["유급일수"],       ref: 'PAID_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
+                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
+            },
+            {caption: ["무급일수"],       ref: 'UNPAID_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
+                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
+            },
+            {caption: ["연차일수"],       ref: 'ANNUAL_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
+                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
+            },
+            {caption: ["일반직적용"],       ref: 'GENERAL_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["기술직적용"],       ref: 'WORKER_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["유급여부"],       ref: 'PAID_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["메모"],       ref: 'MEMO', 		type:'input',  	width:'180px',  	style:'text-align:left'},
+            {caption: ["근거규정"],       ref: 'BASE_RULE', 		type:'input',  	width:'175px',  	style:'text-align:left'},
             {caption: ["현업입력여부"],       ref: 'INPUT_YN', 		type:'checkbox',  	width:'92px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
@@ -247,16 +257,6 @@
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["ESS대상"],       ref: 'ESS_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
-                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["연차일수"],       ref: 'ANNUAL_DAY', 		type:'input',  	width:'75px',  	style:'text-align:left'
-                ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}
-            },
-            {caption: ["근거규정"],       ref: 'BASE_RULE', 		type:'input',  	width:'175px',  	style:'text-align:left'},
-            {caption: ["기술직적용"],       ref: 'WORKER_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
-                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
-            {caption: ["일반직적용"],       ref: 'GENERAL_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["시작일자유형"],       ref: 'START_DAY_TYPE', 		type:'combo',  	width:'75px',  	style:'text-align:left',
@@ -277,9 +277,7 @@
                 }
             },
             {caption: ["종료일자시각"],       ref: 'END_HHMM', 		type:'input',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["유급여부"],       ref: 'PAID_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
-                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
-            },
+
             {caption: ["52시간 여부"],       ref: 'TIME52_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
@@ -303,7 +301,10 @@
             },
             {caption: ["교대수당대상"],       ref: 'SHIFT_WORK_YN', 		type:'checkbox',  	width:'75px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
-            }
+            },
+            {caption: ["근무일수조정"],       ref: 'ADJUST_WORK_DAY', 		type:'input',  	width:'100px',  	style:'text-align:left', hidden: true},
+            {caption: ["실근무일수조정"],       ref: 'ADJUST_REAL_WORK_DAY', 		type:'input',  	width:'100px',  	style:'text-align:left', hidden: true},
+            {caption: ["연차일수조정"],       ref: 'ADJUST_ANNUAL_DAY', 		type:'input',  	width:'100px',  	style:'text-align:left', hidden: true},
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
