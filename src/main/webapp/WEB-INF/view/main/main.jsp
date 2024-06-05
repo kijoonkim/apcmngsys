@@ -613,6 +613,7 @@
         <div class="user-info-wrap">
             <c:if test="${loginVO != null && loginVO.id != null}">
             	<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
+<%--                <button style="background-color: initial;border: hidden" onclick="fn_fullScreen()">👀</button>--%>
                 <span class="name-t"><c:out value='${userName}'></c:out></span>님 반갑습니다.
 				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
@@ -1219,6 +1220,29 @@
 		mfn_displayButton(uiInfo);
 		
 	}
+    const fn_fullScreen = function(){
+            let el = $(".tab-content > div.active").children().attr('id');
+            let iframe = document.getElementById(el);
+            let dc =iframe.contentDocument || iframe.contentWindow.document;
+
+        if(!dc.fullscreenElement){
+            if(dc.documentElement.requestFullscreen){
+                dc.documentElement.requestFullscreen();
+            }else if(dc.documentElement.webkitRequestFullscreen){
+                dc.documentElement.webkitRequestFullscreen()
+            }else if(dc.documentElement.msRequestFullscreen){
+                dc.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(dc.exitFullscreen){
+                dc.exitFullscreen();
+            }else if(dc.webkitExitFullscreen){
+                dc.webkitExitFullscreen();
+            }else if(dc.msExitFullscreen){
+                dc.msExitFullscreen();
+            }
+        }
+    }
 	
 	
 </script>

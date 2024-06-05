@@ -275,6 +275,7 @@
                 <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
                 <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장발행" class="btn btn-sm btn-primary btn-mbl" onclick="fn_docSpmt()"></sbux-button>
+<%--                <sbux-button id="fullScreen" name="fullScreen" uitype="normal" text="전체화면" class="btn btn-sm btn-primary btn-mbl" onclick="fn_fullScreen"></sbux-button>--%>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
                         <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked>
@@ -1518,11 +1519,12 @@
     const fn_onchangeQntt = function(_el){
         let val = parseInt($(_el).val());
         let max = parseInt($(_el).attr("max"));
-
-        if(val > max){
-            gfn_comAlert("W0008","재고","수량");
-            val = max;
-        }
+        /**
+         * 20240605 마이너스재고 임시조치 max validation해제 **/
+        // if(val > max){
+        //     gfn_comAlert("W0008","재고","수량");
+        //     val = max;
+        // }
         $(_el).closest('tr').children().eq(8).find('input').val(val);
         $(_el).val(val);
         let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").attr("sortInvnt"));
@@ -2244,6 +2246,26 @@
     const fn_focusout =function(e){
         if($(e.relatedTarget).attr('readonly') == 'readonly'){
             $(e.currentTarget).parent().nextAll().last().find('button').trigger('click');
+        }
+    }
+    const fn_fullScreen =function(){
+
+        if(!document.fullscreenElement){
+            if(document.documentElement.requestFullscreen){
+                document.documentElement.requestFullscreen();
+            }else if(document.documentElement.webkitRequestFullscreen){
+                document.documentElement.webkitRequestFullscreen()
+            }else if(document.documentElement.msRequestFullscreen){
+                document.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(document.exitFullscreen){
+                document.exitFullscreen();
+            }else if(document.webkitExitFullscreen){
+                document.webkitExitFullscreen();
+            }else if(document.msExitFullscreen){
+                document.msExitFullscreen();
+            }
         }
     }
 

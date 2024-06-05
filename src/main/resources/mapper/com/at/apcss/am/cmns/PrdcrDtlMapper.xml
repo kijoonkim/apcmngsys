@@ -209,10 +209,11 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.12.13  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deletePrdcrDtl" parameterType="com.at.apcss.am.cmns.vo.PrdcrDtlVO">
+    <update id="deletePrdcrDtl" parameterType="com.at.apcss.am.cmns.vo.PrdcrDtlVO">
     	<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcrDtl */
-			  FROM TB_PRDCR_DTL
+			UPDATE /* com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcrDtl */
+			    TB_PRDCR_DTL
+			SET DEL_YN = 'Y'
 	    	 WHERE APC_CD 	= #{apcCd}
 	    	   AND PRDCR_CD = #{prdcrCd}
     	]]>
@@ -222,5 +223,5 @@
 		<if test=' sn != null and sn !=""'>
 			   AND SN 		= #{sn}
 		</if>
-    </delete>
+    </update>
 </mapper>
