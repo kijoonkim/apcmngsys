@@ -83,7 +83,7 @@
                         <sbux-button id="btnBeforeYear" name="btnBeforeYear" 	uitype="normal" text="◀" class="btn btn-xs btn-outline-danger" onclick="fn_beforeYear"></sbux-button>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="YYYY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_YYYY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-button id="btnNextYear" name="btnNextYear" 	uitype="normal" text="▶" class="btn btn-xs btn-outline-danger" onclick="fn_nextYear"></sbux-button>
@@ -379,7 +379,7 @@
     }
 
     const fn_search = async function() {
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID	: '',
@@ -445,7 +445,7 @@
         SBUxMethod.set("YYYYMMDD", date);
         let YYYYMMDD = gfnma_nvl(SBUxMethod.get("YYYYMMDD"));
         let YYYYMM = YYYYMMDD.substring(0.6);
-        let YYYY = gfnma_nvl(SBUxMethod.get("YYYY"));
+        let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -574,7 +574,7 @@
 
     function calendarYear(date) {
         // 년
-        SBUxMethod.set("YYYY", date.getFullYear());
+        SBUxMethod.set("SRCH_YYYY", date.getFullYear());
 
         var options = {
             showDay : true,
