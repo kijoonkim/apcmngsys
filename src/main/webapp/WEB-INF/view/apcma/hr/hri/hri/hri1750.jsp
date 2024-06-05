@@ -33,7 +33,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><
+                </h3>
             </div>
             <div style="margin-left: auto;">
 <%--                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>

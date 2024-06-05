@@ -66,25 +66,22 @@
                 </tbody>
             </table>
             <div class="row">
-                <div>
-                    <div class="ad_tbl_top">
-                        <ul class="ad_tbl_count">
-                            <li>
-                                <span>근태집계 정보</span>
-                            </li>
-                        </ul>
-                        <div class="ad_tbl_toplist">
-                            <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')"></sbux-button>
-                            <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')"></sbux-button>
-                            <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')"></sbux-button>
-                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" ></sbux-button>
-                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
-                        </div>
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>근태집계 정보</span>
+                        </li>
+                    </ul>
+                    <div class="ad_tbl_toplist">
+                        <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')"></sbux-button>
+                        <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')"></sbux-button>
+                        <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')"></sbux-button>
+                        <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" ></sbux-button>
+                        <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
                     </div>
-                    <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gvwInfo" style="height:616px;"></div>
-                    </div>
-
+                </div>
+                <div class="table-responsive tbl_scroll_sm">
+                    <div id="sb-area-gvwInfo" style="height:616px;"></div>
                 </div>
             </div>
         </div>

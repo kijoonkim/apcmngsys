@@ -118,7 +118,6 @@
     var p_menuId = '${comMenuVO.menuId}';
     //-----------------------------------------------------------
 
-
     var copyMode            = "clear";
 
     var jsonSummaryScale    = []; // 근태집계단위
@@ -149,7 +148,7 @@
             // 횟수
             gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeCount, 'L_HRT007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
             // 시작/종료일자유형
-            gfnma_setComSelect(['gvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
