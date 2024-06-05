@@ -84,21 +84,19 @@
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    <div>
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>특정일설정</span>
-                                </li>
-                            </ul>
-                            <div class="ad_tbl_toplist">
-                                <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" ></sbux-button>
-                                <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
-                            </div>
+                    <div class="ad_tbl_top">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>특정일설정</span>
+                            </li>
+                        </ul>
+                        <div class="ad_tbl_toplist">
+                            <sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" ></sbux-button>
+                            <sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
                         </div>
-                        <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-gvwHoliday" style="height:580px;"></div>
-                        </div>
+                    </div>
+                    <div class="table-responsive tbl_scroll_sm">
+                        <div id="sb-area-gvwHoliday" style="height:580px;"></div>
                     </div>
                 </div>
             </div>
