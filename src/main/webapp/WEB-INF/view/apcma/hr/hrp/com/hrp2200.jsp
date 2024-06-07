@@ -819,7 +819,7 @@
 
 
         let rowData = gvwDetallGrid.getRowData(nRow);
-        if (rowData.length > 0) {
+        if (!_.isEmpty(rowData)) {
             SBUxMethod.set("EMP_CODE", rowData.EMP_CODE); //사번
             SBUxMethod.set("EMP_FULL_NAME", rowData.EMP_FULL_NAME); //이름
         }
@@ -1013,7 +1013,7 @@
                 P_HRP2200_S1: await getParamFormS1('u')
             }
 
-            if (paramObj.length == 0 ){
+            if (_.isEmpty(paramObj)){
                 gfn_comAlert("W0003", "등록 및 수정");			// W0003	{0}할 대상이 없습니다.
                 return ;
             }

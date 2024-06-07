@@ -1,5 +1,6 @@
 package com.at.apcma.com.service.impl;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 
 import com.at.apcma.com.mapper.ProcMapper;
@@ -180,8 +182,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			logger.debug(e.getMessage());
 		}
 		return rmap;
-	}	
-	
+	}
+
 	private HashMap<String, Object> checkError(Map<String, Object> param) throws Exception{
 		
 		HashMap<String, Object> rmap = new HashMap<String, Object>();
@@ -357,6 +359,42 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			rlist[i] = val;
 		}
 		return rlist;
-	}	
+	}
+
+	@Override
+	public HashMap<String, Object> checkFormula(Map<String, Object> param) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<>();
+
+		String resultVal = ""; //성공값
+		String resultStatus = "S"; //성공으로 값 초기화
+		String v_errorStr = ""; //에러메세지 
+
+		for (Map.Entry<String, Object> value : param.entrySet()) {
+
+			Map<String, Object> map = new HashMap<>();
+			map.put("formula", value.getValue());
+
+			try {
+				resultVal = procMapper.checkFormula(map); // select 'formula' from dual
+
+				resultMap.put(value.getKey(), resultVal);
+
+			} catch (SQLException e) {
+				logger.debug(e.getMessage());
+				resultStatus = "E"; //sql 에러시 resultStatus 값 E
+				v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
+				resultMap.put("v_errorStr", v_errorStr);
+				resultMap.put("resultStatus", resultStatus);
+				return resultMap;
+
+			} finally {
+				resultMap.put("resultStatus", resultStatus);
+			}
+		}
+
+
+		return resultMap;
+	}
 	
 }

@@ -46,4 +46,13 @@ public interface ApcMaCommDirectService {
 	 */
 	public Map<String, Object> InnerCallProc2(Map<String, Object> param, String[][] plist) throws Exception;
 
+	/**
+	 * 내부에서 공통으로 수식을 확인하는 Service
+	 * @param request
+	 * @param rtype
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> checkFormula(Map<String, Object> param) throws Exception;
+
 }
