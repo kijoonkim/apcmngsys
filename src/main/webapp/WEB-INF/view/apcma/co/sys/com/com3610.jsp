@@ -557,8 +557,6 @@
 		});
 		
         const subData = await postJsonPromise;
-        console.log("subData", subData);
-        console.log("paramObj", paramObj);
         
         try {
   			if (_.isEqual("S", subData.resultStatus)) {
@@ -571,7 +569,6 @@
   					jsonMNGARTCLSubList.push(msg);
   				});
   				MNGARTCLSubGrid.rebuild();
-  				console.log("성공");
   	      		
         	} else {
           		alert(subData.resultMessage);
@@ -736,10 +733,6 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-console.log("save paramObj", paramObj);
-console.log("save data", data);
-console.log("save valUrl", valUrl);
-console.log("save workType", editType);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -775,9 +768,6 @@ console.log("save workType", editType);
         	    	        	params				: gfnma_objectToString(paramObj)
         	    			});    	 
         	    	        const subdata = await postJsonPromise;
-console.log("save sub paramObj", paramObj);
-console.log("save sub subdata", subdata);
-console.log("save sub workType", workType);
         	    	        try {
         	    	        	if (_.isEqual("S", subdata.resultStatus)) {
         	    	        		if(subdata.resultMessage){
