@@ -126,14 +126,14 @@
                     <tr>
                         <th scope="row" class="th_bg">교대조코드</th>
                         <td colspan="3" class="td_input">
-                            <sbux-input id="SHIFT_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                            <sbux-input id="SHIFT_CODE" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                         </td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">교대조명</th>
                         <td colspan="5" class="td_input">
-                            <sbux-input id="SHIFT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                            <sbux-input id="SHIFT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                         </td>
                         <td></td>
                         <td></td>
@@ -164,56 +164,56 @@
                         <td></td>
                         <th scope="row" class="th_bg">교대유형</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="SHIFT_CATEGORY" uitype="single" jsondata-ref="jsonShiftCategory" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="SHIFT_CATEGORY" uitype="single" jsondata-ref="jsonShiftCategory" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">근무유형</th>
                         <td colspan="4" class="td_input">
-                            <sbux-select id="WORK_TYPE_CODE" uitype="single" jsondata-ref="jsonWorkTypeCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_TYPE_CODE" uitype="single" jsondata-ref="jsonWorkTypeCode" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">근무일</th>
                         <td colspan="4" class="td_input">
-                            <sbux-select id="WORK_DAY_TYPE" uitype="single" jsondata-ref="jsonWorkDayType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_DAY_TYPE" uitype="single" jsondata-ref="jsonWorkDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">바탕색상</th>
                         <td colspan="4" class="td_input">
-                            <sbux-select id="BACK_COLOR" uitype="single" jsondata-ref="jsonBackColor" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="BACK_COLOR" uitype="single" jsondata-ref="jsonBackColor" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">13유휴대상</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="PAY_ALLOWANCE_FLAG" uitype="single" jsondata-ref="jsonPayAllowanceFlag" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="PAY_ALLOWANCE_FLAG" uitype="single" jsondata-ref="jsonPayAllowanceFlag" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">출퇴근시간</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_ON_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_ON_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_ON_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_ON_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_ON_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_ON_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td>~</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_OFF_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_OFF_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_OFF_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_OFF_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_OFF_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="WORK_OFF_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
                             <sbux-input id="WORK_HOURS" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
@@ -224,25 +224,25 @@
                     <tr>
                         <th scope="row" class="th_bg">정상근무시간</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_START_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="NORMAL_START_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_START_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="NORMAL_START_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_START_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="NORMAL_START_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td>~</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_END_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="NORMAL_END_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_END_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="NORMAL_END_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_END_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <sbux-select id="NORMAL_END_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
                             <sbux-input id="NORMAL_HOURS" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
@@ -781,17 +781,18 @@
             {caption: ["교대조정보", "교대조코드"], 	        ref: 'SHIFT_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["교대조정보", "교대조명"], 	        ref: 'SHIFT_NAME',    	        type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: ["교대조정보", "교대조유형"], 	        ref: 'SHIFT_CATEGORY',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["출퇴근", "출근구분"], 	        ref: 'WORK_ON_DAY_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left', hidden: true},
-            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_HHMM',    	        type:'output',  	width:'70px',  	style:'text-align:left'},
-            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["출퇴근", "퇴근구분"], 	        ref: 'WORK_OFF_DAY_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:left', hidden: true},
-            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_HHMM',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["출퇴근", "총근무시간"], 	        ref: 'WORK_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["근무정보", "사용여부"], 	        ref: 'USE_YN',    	        type:'checkbox',  	width:'60px',  	style:'text-align:left'
+            {caption: ["출퇴근", "출근구분"], 	        ref: 'WORK_ON_DAY_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
+            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_HHMM',    	        type:'output',  	width:'70px',  	style:'text-align:center'},
+            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["출퇴근", "퇴근구분"], 	        ref: 'WORK_OFF_DAY_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
+            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_HHMM',    	        type:'output',  	width:'80px',  	style:'text-align:center'},
+            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["출퇴근", "총근무시간"], 	        ref: 'WORK_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["근무정보", "사용여부"], 	        ref: 'USE_YN',    	        type:'checkbox',  	width:'60px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 2 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
             },
             {caption: ["근무정보", "근무일"], 	        ref: 'WORK_DAY_TYPE',    	        type:'combo',  	width:'80px',  	style:'text-align:left',
                 typeinfo: {
@@ -800,6 +801,7 @@
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
             {caption: ["근무정보", "근무유형"], 	        ref: 'WORK_TYPE_CODE',    	        type:'combo',  	width:'82px',  	style:'text-align:left',
                 typeinfo: {
@@ -808,140 +810,142 @@
                     value		: 'value',
                     itemcount	: 10
                 }
+                , disabled: true
             },
             {caption: ["근무정보", "비고"], 	        ref: 'MEMO',    	        type:'output',  	width:'146px',  	style:'text-align:left'},
             {caption: ["근무정보", "주5일여부"], 	        ref: 'FIVE_WEEK_YN',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["근무정보", "바탕색"], 	        ref: 'BACK_COLOR',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["근무정보", "13유휴대상"], 	        ref: 'PAY_ALLOWANCE_FLAG',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상근태항목"], 	        ref: 'NORMAL_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상시작구분"], 	        ref: 'NORMAL_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상시작시간"], 	        ref: 'NORMAL_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["정상", "정상시작시간"], 	        ref: 'NORMAL_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상시작시간"], 	        ref: 'NORMAL_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상종료구분"], 	        ref: 'NORMAL_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상종료시각"], 	        ref: 'NORMAL_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["정상", "정상종료"], 	        ref: 'NORMAL_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상종료"], 	        ref: 'NORMAL_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["정상", "정상근무시간"], 	        ref: 'NORMAL_HOURS',    	        type:'output',  	width:'85px',  	style:'text-align:left'},
-            {caption: ["연장", "연장근태항목"], 	        ref: 'OVER_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장", "연장시작구분"], 	        ref: 'OVER_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장", "연장시작시각"], 	        ref: 'OVER_START_HHMM',    	        type:'output',  	width:'78px',  	style:'text-align:left'},
-            {caption: ["연장", "연장시작"], 	        ref: 'OVER_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장", "연장시작"], 	        ref: 'OVER_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장", "연장종료구분"], 	        ref: 'OVER_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장", "연장종료시각"], 	        ref: 'OVER_END_HHMM',    	        type:'output',  	width:'78px',  	style:'text-align:left'},
-            {caption: ["연장", "연장종료"], 	        ref: 'OVER_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장", "연장종료"], 	        ref: 'OVER_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장", "연장근무시간"], 	        ref: 'OVER_HOURS',    	        type:'output',  	width:'85px',  	style:'text-align:left'},
-            {caption: ["야간", "야간근태항목"], 	        ref: 'NIGHT_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간", "야간시작구분"], 	        ref: 'NIGHT_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간", "야간시작시각"], 	        ref: 'NIGHT_START_HHMM',    	        type:'output',  	width:'73px',  	style:'text-align:left'},
-            {caption: ["야간", "야간시작"], 	        ref: 'NIGHT_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간", "야간시작"], 	        ref: 'NIGHT_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간", "야간종료구분"], 	        ref: 'NIGHT_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간", "야간종료시각"], 	        ref: 'NIGHT_END_HHMM',    	        type:'output',  	width:'74px',  	style:'text-align:left'},
-            {caption: ["야간", "야간종료"], 	        ref: 'NIGHT_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간", "야간종료"], 	        ref: 'NIGHT_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간", "야간근무시간"], 	        ref: 'NIGHT_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["시간외1", "시간외1 근태항목"], 	        ref: 'AFTER1_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1", "시간외1 시작구분"], 	        ref: 'AFTER1_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1", "시간외1 시작시각"], 	        ref: 'AFTER1_START_HHMM',    	        type:'output',  	width:'104px',  	style:'text-align:left'},
-            {caption: ["시간외1", "시간외1 시작"], 	        ref: 'AFTER1_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1", "시간외1 시작"], 	        ref: 'AFTER1_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1", "시간외1 종료구분"], 	        ref: 'AFTER1_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1", "시간외1 종료시각"], 	        ref: 'AFTER1_END_HHMM',    	        type:'output',  	width:'107px',  	style:'text-align:left'},
-            {caption: ["시간외1", "시간외1 종료"], 	        ref: 'AFTER1_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1", "시간외1 종료"], 	        ref: 'AFTER1_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1", "시간외1 근무시간"], 	        ref: 'AFTER1_HOURS',    	        type:'output',  	width:'86px',  	style:'text-align:left'},
-            {caption: ["시간외2", "시간외2 근태항목"], 	        ref: 'AFTER2_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2", "시간외2 시작구분"], 	        ref: 'AFTER2_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2", "시간외2 시작시각"], 	        ref: 'AFTER2_START_HHMM',    	        type:'output',  	width:'107px',  	style:'text-align:left'},
-            {caption: ["시간외2", "시간외2 시작"], 	        ref: 'AFTER2_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2", "시간외2 시작"], 	        ref: 'AFTER2_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2", "시간외2 종료구분"], 	        ref: 'AFTER2_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2", "시간외2 종료시각"], 	        ref: 'AFTER2_END_HHMM',    	        type:'output',  	width:'104px',  	style:'text-align:left'},
-            {caption: ["시간외2", "시간외2 종료"], 	        ref: 'AFTER2_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2", "시간외2 종료"], 	        ref: 'AFTER2_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2", "시간외2 근무시간"], 	        ref: 'AFTER2_HOURS',    	        type:'output',  	width:'86px',  	style:'text-align:left'},
-            {caption: ["시간외3", "시간외3 근태항목"], 	        ref: 'AFTER3_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외3", "시간외3 시작구분"], 	        ref: 'AFTER3_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외3", "시간외3 시작시각"], 	        ref: 'AFTER3_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["시간외3", "시간외3 시작"], 	        ref: 'AFTER3_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외3", "시간외3 시작"], 	        ref: 'AFTER3_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외3", "시간외3 종료구분"], 	        ref: 'AFTER3_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외3", "시간외3 종료시작"], 	        ref: 'AFTER3_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["시간외3", "시간외3 종료"], 	        ref: 'AFTER3_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외3", "시간외3 종료"], 	        ref: 'AFTER3_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외3", "시작외3 근무시간"], 	        ref: 'AFTER3_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["시간외4", "시간외4 근태항목"], 	        ref: 'AFTER4_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외4", "시간외4 시작구분"], 	        ref: 'AFTER4_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외4", "시작외4 시작시각"], 	        ref: 'AFTER4_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["시간외4", "시작외4 시작"], 	        ref: 'AFTER4_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외4", "시작외4 시작"], 	        ref: 'AFTER4_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외4", "시간외4 종료구분"], 	        ref: 'AFTER4_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외4", "시간외4 종료시각"], 	        ref: 'AFTER4_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["시간외4", "시간외4 종료"], 	        ref: 'AFTER4_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외4", "시간외4 종료"], 	        ref: 'AFTER4_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외4", "시간외4 근무시간"], 	        ref: 'AFTER4_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게1", "휴게1 근태항목"], 	        ref: 'BREAK1_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게1", "휴게1 시작구분"], 	        ref: 'BREAK1_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게1", "휴게1 시작시각"], 	        ref: 'BREAK1_START_HHMM',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
-            {caption: ["휴게1", "휴게1 시작"], 	        ref: 'BREAK1_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게1", "휴게1 시작"], 	        ref: 'BREAK1_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게1", "휴게1 종료구분"], 	        ref: 'BREAK1_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게1", "휴게1 종료시각"], 	        ref: 'BREAK1_END_HHMM',    	        type:'output',  	width:'89px',  	style:'text-align:left'},
-            {caption: ["휴게1", "휴게1 종료"], 	        ref: 'BREAK1_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게1", "휴게1 종료"], 	        ref: 'BREAK1_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게1", "휴게1 근무시간"], 	        ref: 'BREAK1_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게2", "휴게2 근태항목"], 	        ref: 'BREAK2_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게2", "휴게2 시작구분"], 	        ref: 'BREAK2_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게2", "휴게2 시작시각"], 	        ref: 'BREAK2_START_HHMM',    	        type:'output',  	width:'78px',  	style:'text-align:left'},
-            {caption: ["휴게2", "휴게2 시작"], 	        ref: 'BREAK2_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게2", "휴게2 시작"], 	        ref: 'BREAK2_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게2", "휴게2 종료구분"], 	        ref: 'BREAK2_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게2", "휴게2 종료시각"], 	        ref: 'BREAK2_END_HHMM',    	        type:'output',  	width:'82px',  	style:'text-align:left'},
-            {caption: ["휴게2", "휴게2 종료"], 	        ref: 'BREAK2_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게2", "휴게2 종료"], 	        ref: 'BREAK2_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게2", "휴게2 근무시간"], 	        ref: 'BREAK2_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게3", "휴게3 근태항목"], 	        ref: 'BREAK3_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게3", "휴게3 시작구분"], 	        ref: 'BREAK3_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게3", "휴게3 시작시각"], 	        ref: 'BREAK3_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게3", "휴게3 시작"], 	        ref: 'BREAK3_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게3", "휴게3 시작"], 	        ref: 'BREAK3_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게3", "휴게3 종료구분"], 	        ref: 'BREAK3_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게3", "휴게3 종료시각"], 	        ref: 'BREAK3_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게3", "휴게3 종료"], 	        ref: 'BREAK3_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게3", "휴게3 종료"], 	        ref: 'BREAK3_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게3", "휴게3 근무시간"], 	        ref: 'BREAK3_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게4", "휴게4 근태항목"], 	        ref: 'BREAK4_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게4", "휴게4 시작구분"], 	        ref: 'BREAK4_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게4", "휴게4 시작시각"], 	        ref: 'BREAK4_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게4", "휴게4 시작"], 	        ref: 'BREAK4_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게4", "휴게4 시작"], 	        ref: 'BREAK4_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게4", "휴게4 종료구분"], 	        ref: 'BREAK4_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게4", "휴게4 종료시각"], 	        ref: 'BREAK4_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게4", "휴게4 종료"], 	        ref: 'BREAK4_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게4", "휴게4 종료"], 	        ref: 'BREAK4_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게4", "휴게4 근무시간"], 	        ref: 'BREAK4_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게5", "휴게5 근태항목"], 	        ref: 'BREAK5_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게5", "휴게5 시작구분"], 	        ref: 'BREAK5_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게5", "휴게5 시작시각"], 	        ref: 'BREAK5_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게5", "휴게5 시작"], 	        ref: 'BREAK5_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게5", "휴게5 시작"], 	        ref: 'BREAK5_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게5", "휴게5 종료구분"], 	        ref: 'BREAK5_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게5", "휴게5 종료시각"], 	        ref: 'BREAK5_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["휴게5", "휴게5 종료"], 	        ref: 'BREAK5_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게5", "휴게5 종료"], 	        ref: 'BREAK5_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
-            {caption: ["휴게5", "휴게5 근무시간"], 	        ref: 'BREAK5_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["정상휴게적용"], 	        ref: 'NORMAL_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:left', hidden: true},
-            {caption: ["연장휴게적용"], 	        ref: 'OVER_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:left', hidden: true},
-            {caption: ["야간휴게적용"], 	        ref: 'NIGHT_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외1 휴게적용"], 	        ref: 'AFTER1_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:left', hidden: true},
-            {caption: ["시간외2 휴게적용"], 	        ref: 'AFTER2_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:left', hidden: true},
+            {caption: ["정상", "정상근태항목"], 	        ref: 'NORMAL_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["정상", "정상시작구분"], 	        ref: 'NORMAL_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["정상", "정상시작시간"], 	        ref: 'NORMAL_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["정상", "정상시작시간"], 	        ref: 'NORMAL_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["정상", "정상시작시간"], 	        ref: 'NORMAL_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["정상", "정상종료구분"], 	        ref: 'NORMAL_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["정상", "정상종료시각"], 	        ref: 'NORMAL_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["정상", "정상종료"], 	        ref: 'NORMAL_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["정상", "정상종료"], 	        ref: 'NORMAL_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["정상", "정상근무시간"], 	        ref: 'NORMAL_HOURS',    	        type:'output',  	width:'85px',  	style:'text-align:center'},
+            {caption: ["연장", "연장근태항목"], 	        ref: 'OVER_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장", "연장시작구분"], 	        ref: 'OVER_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장", "연장시작시각"], 	        ref: 'OVER_START_HHMM',    	        type:'output',  	width:'78px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["연장", "연장시작"], 	        ref: 'OVER_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장", "연장시작"], 	        ref: 'OVER_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장", "연장종료구분"], 	        ref: 'OVER_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장", "연장종료시각"], 	        ref: 'OVER_END_HHMM',    	        type:'output',  	width:'78px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["연장", "연장종료"], 	        ref: 'OVER_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장", "연장종료"], 	        ref: 'OVER_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장", "연장근무시간"], 	        ref: 'OVER_HOURS',    	        type:'output',  	width:'85px',  	style:'text-align:center'},
+            {caption: ["야간", "야간근태항목"], 	        ref: 'NIGHT_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간", "야간시작구분"], 	        ref: 'NIGHT_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간", "야간시작시각"], 	        ref: 'NIGHT_START_HHMM',    	        type:'output',  	width:'73px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["야간", "야간시작"], 	        ref: 'NIGHT_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간", "야간시작"], 	        ref: 'NIGHT_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간", "야간종료구분"], 	        ref: 'NIGHT_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간", "야간종료시각"], 	        ref: 'NIGHT_END_HHMM',    	        type:'output',  	width:'74px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["야간", "야간종료"], 	        ref: 'NIGHT_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간", "야간종료"], 	        ref: 'NIGHT_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간", "야간근무시간"], 	        ref: 'NIGHT_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["시간외1", "시간외1 근태항목"], 	        ref: 'AFTER1_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1", "시간외1 시작구분"], 	        ref: 'AFTER1_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1", "시간외1 시작시각"], 	        ref: 'AFTER1_START_HHMM',    	        type:'output',  	width:'104px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외1", "시간외1 시작"], 	        ref: 'AFTER1_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1", "시간외1 시작"], 	        ref: 'AFTER1_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1", "시간외1 종료구분"], 	        ref: 'AFTER1_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1", "시간외1 종료시각"], 	        ref: 'AFTER1_END_HHMM',    	        type:'output',  	width:'107px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외1", "시간외1 종료"], 	        ref: 'AFTER1_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1", "시간외1 종료"], 	        ref: 'AFTER1_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1", "시간외1 근무시간"], 	        ref: 'AFTER1_HOURS',    	        type:'output',  	width:'86px',  	style:'text-align:center'},
+            {caption: ["시간외2", "시간외2 근태항목"], 	        ref: 'AFTER2_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2", "시간외2 시작구분"], 	        ref: 'AFTER2_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2", "시간외2 시작시각"], 	        ref: 'AFTER2_START_HHMM',    	        type:'output',  	width:'107px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외2", "시간외2 시작"], 	        ref: 'AFTER2_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2", "시간외2 시작"], 	        ref: 'AFTER2_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2", "시간외2 종료구분"], 	        ref: 'AFTER2_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2", "시간외2 종료시각"], 	        ref: 'AFTER2_END_HHMM',    	        type:'output',  	width:'104px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외2", "시간외2 종료"], 	        ref: 'AFTER2_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2", "시간외2 종료"], 	        ref: 'AFTER2_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2", "시간외2 근무시간"], 	        ref: 'AFTER2_HOURS',    	        type:'output',  	width:'86px',  	style:'text-align:center'},
+            {caption: ["시간외3", "시간외3 근태항목"], 	        ref: 'AFTER3_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외3", "시간외3 시작구분"], 	        ref: 'AFTER3_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외3", "시간외3 시작시각"], 	        ref: 'AFTER3_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외3", "시간외3 시작"], 	        ref: 'AFTER3_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외3", "시간외3 시작"], 	        ref: 'AFTER3_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외3", "시간외3 종료구분"], 	        ref: 'AFTER3_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외3", "시간외3 종료시작"], 	        ref: 'AFTER3_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외3", "시간외3 종료"], 	        ref: 'AFTER3_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외3", "시간외3 종료"], 	        ref: 'AFTER3_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외3", "시작외3 근무시간"], 	        ref: 'AFTER3_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["시간외4", "시간외4 근태항목"], 	        ref: 'AFTER4_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외4", "시간외4 시작구분"], 	        ref: 'AFTER4_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외4", "시작외4 시작시각"], 	        ref: 'AFTER4_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외4", "시작외4 시작"], 	        ref: 'AFTER4_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외4", "시작외4 시작"], 	        ref: 'AFTER4_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외4", "시간외4 종료구분"], 	        ref: 'AFTER4_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외4", "시간외4 종료시각"], 	        ref: 'AFTER4_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["시간외4", "시간외4 종료"], 	        ref: 'AFTER4_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외4", "시간외4 종료"], 	        ref: 'AFTER4_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외4", "시간외4 근무시간"], 	        ref: 'AFTER4_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["휴게1", "휴게1 근태항목"], 	        ref: 'BREAK1_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게1", "휴게1 시작구분"], 	        ref: 'BREAK1_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게1", "휴게1 시작시각"], 	        ref: 'BREAK1_START_HHMM',    	        type:'output',  	width:'80px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게1", "휴게1 시작"], 	        ref: 'BREAK1_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게1", "휴게1 시작"], 	        ref: 'BREAK1_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게1", "휴게1 종료구분"], 	        ref: 'BREAK1_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게1", "휴게1 종료시각"], 	        ref: 'BREAK1_END_HHMM',    	        type:'output',  	width:'89px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게1", "휴게1 종료"], 	        ref: 'BREAK1_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게1", "휴게1 종료"], 	        ref: 'BREAK1_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게1", "휴게1 근무시간"], 	        ref: 'BREAK1_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["휴게2", "휴게2 근태항목"], 	        ref: 'BREAK2_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게2", "휴게2 시작구분"], 	        ref: 'BREAK2_START_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게2", "휴게2 시작시각"], 	        ref: 'BREAK2_START_HHMM',    	        type:'output',  	width:'78px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게2", "휴게2 시작"], 	        ref: 'BREAK2_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게2", "휴게2 시작"], 	        ref: 'BREAK2_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게2", "휴게2 종료구분"], 	        ref: 'BREAK2_END_DAY_TYPE',    	        type:'output',  	width:'100px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게2", "휴게2 종료시각"], 	        ref: 'BREAK2_END_HHMM',    	        type:'output',  	width:'82px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게2", "휴게2 종료"], 	        ref: 'BREAK2_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게2", "휴게2 종료"], 	        ref: 'BREAK2_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게2", "휴게2 근무시간"], 	        ref: 'BREAK2_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["휴게3", "휴게3 근태항목"], 	        ref: 'BREAK3_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게3", "휴게3 시작구분"], 	        ref: 'BREAK3_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게3", "휴게3 시작시각"], 	        ref: 'BREAK3_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게3", "휴게3 시작"], 	        ref: 'BREAK3_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게3", "휴게3 시작"], 	        ref: 'BREAK3_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게3", "휴게3 종료구분"], 	        ref: 'BREAK3_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게3", "휴게3 종료시각"], 	        ref: 'BREAK3_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게3", "휴게3 종료"], 	        ref: 'BREAK3_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게3", "휴게3 종료"], 	        ref: 'BREAK3_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게3", "휴게3 근무시간"], 	        ref: 'BREAK3_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["휴게4", "휴게4 근태항목"], 	        ref: 'BREAK4_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게4", "휴게4 시작구분"], 	        ref: 'BREAK4_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게4", "휴게4 시작시각"], 	        ref: 'BREAK4_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게4", "휴게4 시작"], 	        ref: 'BREAK4_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게4", "휴게4 시작"], 	        ref: 'BREAK4_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게4", "휴게4 종료구분"], 	        ref: 'BREAK4_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게4", "휴게4 종료시각"], 	        ref: 'BREAK4_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게4", "휴게4 종료"], 	        ref: 'BREAK4_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게4", "휴게4 종료"], 	        ref: 'BREAK4_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게4", "휴게4 근무시간"], 	        ref: 'BREAK4_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["휴게5", "휴게5 근태항목"], 	        ref: 'BREAK5_TIME_ITEM_CODE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게5", "휴게5 시작구분"], 	        ref: 'BREAK5_START_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게5", "휴게5 시작시각"], 	        ref: 'BREAK5_START_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게5", "휴게5 시작"], 	        ref: 'BREAK5_START_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게5", "휴게5 시작"], 	        ref: 'BREAK5_START_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게5", "휴게5 종료구분"], 	        ref: 'BREAK5_END_DAY_TYPE',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게5", "휴게5 종료시각"], 	        ref: 'BREAK5_END_HHMM',    	        type:'output',  	width:'75px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
+            {caption: ["휴게5", "휴게5 종료"], 	        ref: 'BREAK5_END_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게5", "휴게5 종료"], 	        ref: 'BREAK5_END_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
+            {caption: ["휴게5", "휴게5 근무시간"], 	        ref: 'BREAK5_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
+            {caption: ["정상휴게적용"], 	        ref: 'NORMAL_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
+            {caption: ["연장휴게적용"], 	        ref: 'OVER_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
+            {caption: ["야간휴게적용"], 	        ref: 'NIGHT_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외1 휴게적용"], 	        ref: 'AFTER1_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
+            {caption: ["시간외2 휴게적용"], 	        ref: 'AFTER2_BREAK_APPLY_YN',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
         ];
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('click', 'fn_view');
+        bandgvwInfo.bind('afterrebuild','fn_afterRebuild');
     }
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -1094,6 +1098,10 @@
     }
 
     const fn_save = async function() {
+        if(!SBUxMethod.validateRequired()) {
+            return false;
+        }
+
         let SHIFT_CODE = gfnma_nvl(SBUxMethod.get("SHIFT_CODE"));
         let SHIFT_NAME = gfnma_nvl(SBUxMethod.get("SHIFT_NAME"));
         let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
@@ -1504,17 +1512,17 @@
         $("#btn_copy").attr("disabled", false);
         SBUxMethod.attr("SHIFT_CODE", "readonly", true);
 
-        var nCol = gvwList.getCol();
+        var nCol = bandgvwInfo.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
             return;
         }
-        var nRow = gvwList.getRow();
+        var nRow = bandgvwInfo.getRow();
         if (nRow < 1) {
             return;
         }
 
-        let rowData = gvwList.getRowData(nRow);
+        let rowData = bandgvwInfo.getRowData(nRow);
 
         SBUxMethod.set("SHIFT_CODE", rowData.SHIFT_CODE);
         SBUxMethod.set("SHIFT_NAME", rowData.SHIFT_NAME);
@@ -1635,6 +1643,16 @@
         SBUxMethod.set("BREAK5_TIME_ITEM_CODE", rowData.BREAK5_TIME_ITEM_CODE);
         SBUxMethod.set("MEMO", rowData.MEMO);
     }
+
+    const fn_afterRebuild = async function() {
+        let bandgvwInfoData = bandgvwInfo.getGridDataAll();
+
+        for(var i = 2; i < bandgvwInfoData.length; i++) {
+            let rowData = bandgvwInfo.getRowData(i);
+            bandgvwInfo.setCellStyle('background-color', i, 0, i, 0, rowData.BACK_COLOR);
+        }
+    }
+
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
