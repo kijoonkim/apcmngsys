@@ -977,9 +977,6 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-console.log("paramObj ===>", paramObj);
-console.log("data ===>", data);
-console.log("valUrl ===>", valUrl);
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
