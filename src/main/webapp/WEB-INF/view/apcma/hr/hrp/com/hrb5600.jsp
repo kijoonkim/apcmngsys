@@ -1,15 +1,15 @@
 <%
     /**
      * @Class Name        : hrp1000.jsp
-     * @Description       : 월별 급상여 예외자 정보 화면
+     * @Description       : 수당기준 등록 정보 화면
      * @author            : 인텔릭아이앤에스
-     * @since             : 2024.06.05
+     * @since             : 2024.06.10
      * @version           : 1.0
      * @Modification Information
      * @
      * @ 수정일       	수정자      수정내용
      * @ ----------		----------	---------------------------
-     * @ 2024.06.05   	표주완		최초 생성
+     * @ 2024.06.10   	표주완		최초 생성
      * @see
      *
      */
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 월별 급상여 예외자</title>
+    <title>title : 수당기준 등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
 
@@ -469,6 +469,76 @@
         let APPLY_DATE = gfnma_nvl(SBUxMethod.get("srch-apply_date")); //기준일
         let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_item_code")); //급여항목
         let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_APPLY_DATE          : APPLY_DATE
+            ,V_P_PAY_ITEM_CODE       : PAY_ITEM_CODE
+            ,V_P_PAY_TYPE            : PAY_TYPE
+            ,V_P_APPLY_START_DATE    : ''
+            ,V_P_PAY_ITEM_RANGE_TYPE1: ''
+            ,V_P_PAY_ITEM_RANGE_TYPE2: ''
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp5600List.do", {
+            getType: 'json',
+            workType: 'MASTER',
+            cv_count: '4',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log("----------------------------------------------",data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                /** @type {number} **/
+                let totalRecordCount = 0;
+
+                jsonGvwList.length = 0;
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        PAY_ITEM_CODE: gfnma_nvl(item.PAY_ITEM_CODE),
+                        PAY_TYPE: gfnma_nvl(item.PAY_TYPE),
+                        APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
+                        PAY_ITEM_RANGE_TYPE1: gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1),
+                        PAY_ITEM_RANGE_TYPE2: gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2),
+                        KEYFIELD: gfnma_nvl(item.KEYFIELD)
+
+                    }
+                    jsonGvwList.push(msg);
+                    totalRecordCount++;
+                });
+
+                gvwListGrid.rebuild();
+                document.querySelector('#listCount').innerText = totalRecordCount;
+
+                fn_view();
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
 
     }
 
