@@ -138,12 +138,12 @@
                 </td>--%>
                 <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
                     <sbux-input
+                            uitype="hidden"
                             uitype="text"
                             id="srch-dept_code"
                             class="form-control input-sm"
                     ></sbux-input>
                     <sbux-input
-                            uitype="hidden"
                             uitype="text"
                             id="srch-dept_name"
                             class="form-control input-sm"
@@ -161,28 +161,14 @@
 
                 <td style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">사원</th>
-                <%--<td colspan="" class="td_input" style="border-right:hidden;">
-                    <sbux-input id="srch-emp_code" uitype="text" style="width:200px" placeholder=""
-                                class="form-control input-sm"></sbux-input>
-                </td>
-                <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="srch-emp_full_name"
-                            name="srch-emp_full_name"
-                            class="form-control input-sm"
-                            jsondata-ref=""
-                    />
-                </td>--%>
                 <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
                     <sbux-input
+                            uitype="hidden"
                             uitype="text"
                             id="srch-emp_code"
                             class="form-control input-sm"
                     ></sbux-input>
                     <sbux-input
-                            uitype="hidden"
                             uitype="text"
                             id="srch-emp_full_name"
                             class="form-control input-sm"
@@ -760,32 +746,37 @@
         ]);
     }
 
-    const fn_compopup1 = function() {
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
-        var replaceText0 = "_DEPT_CODE";
-        var replaceText1 = "_DEPT_NAME";
-        var replaceText2 = "_BASE_DATE";
-        var strWhereClause = "";/*"AND X.V_P_DEPT_CODE LIKE '%" + replaceText0 + "%' AND X.V_P_DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.V_P_BASE_DATE ="+replaceText2*/
+    /**
+     * 공통팝업3
+     */
+    var fn_compopup1 = function() {
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '입력부서');
-        compopup1.init({
-            compCode: gv_ma_selectedApcCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'P_ORG001'
-            , whereClause: strWhereClause
-            , searchCaptions:    ["부서코드"    , "부서명"     , "기준일"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "BASE_DATE"]
-            , searchInputValues: [""           , searchText ,""]
-            , height: '400px'
-            , tableHeader:       ["부서코드"    , "부서명"     , "사업장"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "SITE_CODE"]
-            , tableColumnWidths: ["80px"      , "80px"      , "80px"]
-            , itemSelectEvent: function (data) {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"     ,   "100"]
+            ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
                 SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
             },
         });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
     const fn_compopup2 = function() {
@@ -799,22 +790,23 @@
             + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '입력부서');
-        compopup1.init({
+        compopup1({
             compCode: gv_ma_selectedApcCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'P_HRI001'
+            , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
             , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""]
+            , searchInputValues: [""           , searchText ,""             ,""         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-dept_name', data.EMP_NAME);
-                SBUxMethod.set('srch-dept_code', data.EMP_CODE);
+                SBUxMethod.set('srch-emp_full_name', data.EMP_NAME);
+                SBUxMethod.set('srch-emp_code', data.EMP_CODE);
             },
         });
 

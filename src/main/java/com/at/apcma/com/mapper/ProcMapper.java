@@ -1,5 +1,6 @@
 package com.at.apcma.com.mapper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -28,5 +29,13 @@ public interface ProcMapper {
 	 * @throws Exception
 	 */
 	public Map<String, Object> callProcTibero(Map<String, Object> param) throws Exception;
+
+	/**
+	 * 내부에서 공통으로 수식을 확인하는 Service
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public String checkFormula(Map<String, Object> param) throws Exception;
 
 }
