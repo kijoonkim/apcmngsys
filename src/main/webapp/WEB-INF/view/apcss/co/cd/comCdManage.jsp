@@ -226,7 +226,8 @@
             	validate : gfn_chkByte.bind({byteLimit: 20})},
             {caption: ["APC코드"],	ref: 'apcCd',		type: 'output',		hidden : true},
             {caption: ["코드ID"],		ref: 'cdId',		type: 'output',		hidden : true},
-            {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',		hidden : true}
+            {caption: ["행추가여부"],	ref: 'addYn',		type: 'output',		hidden : true},
+            {caption: ["삭제여부"],	ref: 'delYn',		type: 'output',		hidden : true}
         ];
         comCdDtlgrid = _SBGrid.create(SBGridProperties);
         comCdDtlgrid.bind( "afterpagechanged" , "fn_pagingComCdDtl" );
@@ -355,15 +356,16 @@
 						upCdVl : item.upCdVl,
 						cdNumVl : item.cdNumVl,
 						cdChrVl : item.cdChrVl,
-						addYn : 'N'
+						addYn : 'N',
+						delYn : item.delYn
 					}
 					comCdDtlGridData.push(comCdDtlList);
-	
+
 	  				if (index === 0) {
 	  					totalRecordCount = item.totalRecordCount;
 	  				}
 				});
-	
+
 	          	if (comCdDtlGridData.length > 0) {
 	          		if (comCdDtlgrid.getPageTotalCount() != totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	          			comCdDtlgrid.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
