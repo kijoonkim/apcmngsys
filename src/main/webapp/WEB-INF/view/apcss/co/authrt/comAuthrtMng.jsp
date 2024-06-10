@@ -242,7 +242,7 @@
 	 * 공통버튼 연계처리
 	 */
 	async function cfn_init() {
-		
+
 	}
 	async function cfn_add() {
 		await fn_create();
@@ -295,7 +295,7 @@
 		fn_createGrdAuthrtUi();
 
 		if(gv_userType == '10'){
-			fn_initDisable();
+			//fn_initDisable();
 		}
 	}
 
@@ -323,7 +323,8 @@
     			break;
     		case "10":
     			jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["20", "21"]);
-    			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM"]);
+    			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM","CO"]);
+
     			break;
     		default:
     			jsonComSysId.length = 0;
