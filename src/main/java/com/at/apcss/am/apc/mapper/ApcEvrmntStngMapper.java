@@ -107,12 +107,14 @@ public interface ApcEvrmntStngMapper {
 	 */
 	public int updateApcSortLink(ApcLinkVO apcLinkVO) throws Exception;
 
-	
+
 	/**
 	 * APC 연계 상태 변경
 	 * @param apcLinkVO
 	 * @throws Exception
 	 */
 	public void updateSpApcLinkSttsUpdt(ApcLinkVO apcLinkVO) throws Exception;
-	
+
+	public List<ApcEvrmntStngVO> selectApcEvrmntStngListForFarmUser(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
+
 }

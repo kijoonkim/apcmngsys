@@ -337,10 +337,56 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
         List<HashMap<String, Object>> resultVO = comUserMapper.selectComUserPrdcrList(comUserVO);
         return resultVO;
     }
+    /**
+     *  생산농가 계정등록 승인목록 조회
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<HashMap<String, Object>> selectComUserPrdcrRegList(HashMap<String, Object> comUserVO) throws Exception {
+        List<HashMap<String, Object>> resultVO = comUserMapper.selectComUserPrdcrRegList(comUserVO);
+        return resultVO;
+    }
+    /**
+     * 생산농가 계정관리 승인요청 수정
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
     @Override
 	public int updateUserAprv(HashMap<String,Object> comUserVO) throws Exception {
 		return comUserMapper.updateUserAprv(comUserVO);
 	}
+    /**
+     * 생산농가 계정관리 승인요청 신규등록, 수정
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    @Override
+	public int savePrdcrUserId(HashMap<String,Object> comUserVO) throws Exception {
+    	int result = 0;
+    	String chk = (String) comUserVO.get("chk");
+    	if(chk.equals("I")) {
+    		result = comUserMapper.insertPrdcrUserId(comUserVO);
+    	}else if(chk.equals("U")) {
+    		result = comUserMapper.updatePrdcrUserId(comUserVO);
+    	}
+		return result;
+	}
+
+    /**
+     * 생산농가 계정등록 요청목록 조회
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<HashMap<String, Object>> selectComUserAprvList(HashMap<String, Object> comUserVO) throws Exception {
+        List<HashMap<String, Object>> resultVO = comUserMapper.selectComUserAprvList(comUserVO);
+        return resultVO;
+    }
 
 
 }

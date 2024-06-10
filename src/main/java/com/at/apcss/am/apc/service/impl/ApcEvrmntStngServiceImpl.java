@@ -764,6 +764,11 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		return updateLinkStts(apcLinkVO);
 	}
 
+	@Override
+	public List<ApcEvrmntStngVO> selectApcEvrmntStngListForFarmUser(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
+		return apcEvrmntStngMapper.selectApcEvrmntStngListForFarmUser(apcEvrmntStngVO);
+	}
+
 
 
 
