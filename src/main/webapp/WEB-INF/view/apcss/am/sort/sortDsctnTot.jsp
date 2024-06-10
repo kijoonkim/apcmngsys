@@ -905,6 +905,12 @@
 	        let grdRedSum = 0;
 	        let grdYlwSum = 0;
 	        let grdOrgSum = 0;
+	        let indexItems = [];
+
+	        let size 		= ["2Xl", "Xl", "L", "M", "S", "Ss"];
+			let color 		= ["red", "ylw", "org"];
+			let colors 		= ["Red", "Ylw", "Org"];
+
 	        data.resultList.forEach((item, index) => {
 
 				let idx = index;
@@ -913,26 +919,51 @@
 					grdRedSum = item.grdRedSum;
 					grdYlwSum = item.grdYlwSum;
 					grdOrgSum = item.grdOrgSum;
+					indexItems.push(item);
 				} else if (idx > 0) {
 					if (grdNm != item.grd) {
-
 						let grdSum = parseInt(grdRedSum) + parseInt(grdYlwSum) + parseInt(grdOrgSum);
 	        			const sortDsctnTot = {
 	    	        			grd     : grdNm
 	    	        		,	prdcrNm : grdNm + "비율"
-
 	    	        	    ,   redSbTot : fn_percentage(grdRedSum, item.redTotOver)
 	    	        	    ,   ylwSbTot : fn_percentage(grdYlwSum, item.ylwTotOver)
 	    	        	    ,   orngSbTot : fn_percentage(grdOrgSum, item.orgTotOver)
 	    	        	    , 	totSum	: fn_percentage(grdSum, item.totOver)
 	    	        	    , 	css	: "Y"
 	    	        	}
-	    	        	jsonSortDsctnTot.push(sortDsctnTot);
+
+	        			let outKey = "";
+	        			let inKey = "";
+	        			let sumKey = "";
+
+	        			for (var i=0; i<color.length; i++) {
+
+	        				sumKey = "grd" + colors[i] + "Sum"
+
+	        				for (var k=0; k<size.length; k++) {
+
+	        					outKey = color[i] + size[k];
+	        					inKey = color[i] + "V" + (k+1);
+	        					let keySum = 0;
+
+	        					indexItems.forEach((indexitem, itemIndex) => {
+	        						keySum += gfn_isEmpty(indexitem[outKey]) ? 0 : parseInt(indexitem[outKey]);
+	    	        			})
+
+	    	        			sortDsctnTot[inKey] = fn_percentage(keySum, indexItems[k][sumKey]);
+	        				}
+	        			}
+
+	        			jsonSortDsctnTot.push(sortDsctnTot);
+
+	        			indexItems.length = 0;
 	        		}
 					grdNm = item.grd;
 					grdRedSum = item.grdRedSum;
 					grdYlwSum = item.grdYlwSum;
 					grdOrgSum = item.grdOrgSum;
+					indexItems.push(item);
 				}
 
 	        	const sortDsctn = {
@@ -980,7 +1011,29 @@
     	        	    , 	css	: "Y"
     	        	}
 
-    	        	jsonSortDsctnTot.push(sortDsctnTot);
+					let outKey = "";
+        			let inKey = "";
+        			let sumKey = "";
+
+        			for (var i=0; i<color.length; i++) {
+
+        				sumKey = "grd" + colors[i] + "Sum"
+
+        				for (var k=0; k<size.length; k++) {
+
+        					outKey = color[i] + size[k];
+        					inKey = color[i] + "V" + (k+1);
+        					let keySum = 0;
+
+        					indexItems.forEach((indexitem, itemIndex) => {
+        						keySum += gfn_isEmpty(indexitem[outKey]) ? 0 : parseInt(indexitem[outKey]);
+    	        			})
+
+    	        			sortDsctnTot[inKey] = fn_percentage(keySum, indexItems[k][sumKey]);
+        				}
+        			}
+
+        			jsonSortDsctnTot.push(sortDsctnTot);
 
         			const sortDsctnTotT = {
         							prdcrNm    : "전체비율"
@@ -1263,7 +1316,13 @@
 			if (gfn_isEmpty(rtn)) {
 				return "";
 			} else {
-				return rtn + '%';
+
+				if (rtn > 0) {
+
+					return rtn + '%';
+				} else {
+					return "";
+				}
 			}
 		} else {
 			return "";

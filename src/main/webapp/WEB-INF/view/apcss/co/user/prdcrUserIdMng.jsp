@@ -229,10 +229,11 @@
         	{caption: [""],		ref: 'chk',	type: 'radio',		width: '50px',	style: 'text-align:center', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
         	{caption: ["ID"],		ref: 'userId',	type: 'output',		width: '100px',	style: 'text-align:center'},
             {caption: ["사용자명"],		ref: 'userNm',	type: 'output',		width: '100px',	style: 'text-align:center'},
+            {caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	width: '100px',	style: 'text-align:center'},
             {caption: ["메일주소"],		ref: 'eml',	type: 'output',		width: '100px',	style: 'text-align:center'},
             {caption: ["전화번호"],	ref: 'telno',	type: 'output',		width: '150px',	style: 'text-align:center'},
             {caption: ["비고"],	ref: 'rmrk',	type: 'output',		width: '150px',	style: 'text-align:center'},
-            {caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
+
             {caption: ["apc코드"],	ref: 'apcCd',     		type:'input',  	hidden: true},
         ];
 	    grdComUserPrdcrNotAprv = _SBGrid.create(SBGridProperties);
@@ -240,7 +241,7 @@
 
 
 
- 	// 생산농가에서 승인해제
+ 	// 생산농가 조회
     async function fn_callComUserPrdcrAprvList(){
     	let apcCd = SBUxMethod.get("gsb-slt-apcCd")
     	let prdcrNm = SBUxMethod.get("srch-inp-prdcrNm")
@@ -314,27 +315,28 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
     // 요청목록에서 승인
     const fn_aprvYupdate = async function() {
 
-    	const comUserAprv = grdComUserPrdcrNotAprv.getRowData(grdComUserPrdcrNotAprv.getRow());
-
-    	const param = {
-    			apcCd : comUserAprv.apcCd ,
-    			userId : comUserAprv.userId,
-    			aprvYn : "Y"
+    	const comUserNotAprv = grdComUserPrdcrNotAprv.getRowData(grdComUserPrdcrNotAprv.getRow());
+    	const comUserAprv = grdComUserPrdcrAprv.getRowData(grdComUserPrdcrAprv.getRow());
+    	var prdcrCd = comUserAprv.prdcrCd;
+    	var prdcrNm = comUserAprv.prdcrNm;
+    	var userId = comUserNotAprv.userId;
+    	if(prdcrCd === ""){
+    		console.log("생산자코드 입력하세요");
+    		return;
+    	}
+   		const param = {
+    			apcCd : comUserNotAprv.apcCd
+    			, userId : userId
+    			, aprvYn : "Y"
+    			, prdcrCd : comUserAprv.prdcrCd
     	}
 
+   		if(!confirm("요청목록 계정 : "+userId + "\n 생산자 : "+prdcrCd + "," +  prdcrNm + "\n 승인하시겠습니까?")){
+   			return;
+ 		}
 
 
         if (gfn_comConfirm("Q0001", "저장")) {

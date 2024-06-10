@@ -160,5 +160,35 @@ public interface ComUserService {
      */
     public List<HashMap<String, Object>> selectComUserPrdcrList(HashMap<String, Object> comUserVO) throws Exception;
 
+    /**
+     *  생산농가 계정등록 승인목록 조회
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectComUserPrdcrRegList(HashMap<String, Object> comUserVO) throws Exception;
+
+    /**
+     * 생산농가 계정등록 요청목록 조회
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+	public List<HashMap<String, Object>> selectComUserAprvList(HashMap<String, Object> comUserVO) throws Exception;
+
+	/**
+     * 생산농가 계정관리 승인요청 수정
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
     public int updateUserAprv(HashMap<String,Object> comUserVO) throws Exception;
+
+    /**
+     * 생산농가 계정관리 승인요청 신규등록, 수정
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public int savePrdcrUserId(HashMap<String,Object> comUserVO) throws Exception;
 }
