@@ -23,6 +23,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+						<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 						<!--
 						<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
 						 -->
@@ -960,6 +961,7 @@
 					</c:if>
 				</div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 
@@ -2572,6 +2574,218 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			dlbrrNope = parseFloat(SBUxMethod.get('dtl-input-dlbrrNope'));
 		}
 		SBUxMethod.set('dtl-input-tot',rgllbrNope + dwNope + dlbrrNope);
+	}
+
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		//SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["APO_CD"], 	ref: 'apoCd',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["OGNZ_CD"], 	ref: 'ognzCd',   	type:'output', width:'60px',style:'text-align:center' },
+
+			{caption: ["조직구분"], 	ref: 'apoSe',   	type:'combo',  width:'120px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonComApoSeH', label:'label', value:'value'}},
+			{caption: ["시도"], 		ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonComCtpvH', label:'label', value:'value'}},
+			{caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonComSggH', label:'label', value:'value'}},
+
+			{caption: ["법인명"], 		ref: 'corpNm',   	type:'output',  width:'250px',    style:'text-align:center'},
+			{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'160px',    style:'text-align:center'},
+
+			{caption: ["법인등록번호"], 	ref: 'crno',   			type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["경영체정보ID"], ref: 'mngmstInfoId',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["경영체여부"], 	ref: 'mngmstYn',   		type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["환코드"], 		ref: 'nonghyupCd',   	type:'output', width:'60px',style:'text-align:center' },
+
+			{caption: ["관할기관"], 	ref: 'cmptnInst',   	type:'combo', width:'60px',style:'text-align:center'
+				,typeinfo : {ref:'jsonComCmptnInstH', label:'label', value:'value'}},
+
+			{caption: ["우편번호"], 	ref: 'zip',   			type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["지번주소"], 	ref: 'lotnoAddr',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["지번상세주소"], 	ref: 'lotnoDtlAddr',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["도로명주소"], 	ref: 'roadNmAddr',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["도로명주소상세"], 	ref: 'roadNmDtlAddr',   type:'output', width:'60px',style:'text-align:center' },
+
+			{caption: ["법인구분"], 	ref: 'corpSeCd',   	type:'combo',  width:'120px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonComCorpSeCdH', label:'label', value:'value'}},
+			{caption: ["법인상세구분"], 	ref: 'corpDtlSeCd',   	type:'combo', width:'60px',style:'text-align:center'
+				,typeinfo : {ref:'jsonComCorpDtlSeCdH', label:'label', value:'value'}},
+
+			{caption: ["법인설립일"], 	ref: 'corpFndnDay',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["출자출하조직보유여부"], ref: 'isoHldYn',   		type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["출자자수"], 	ref: 'invstNope',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["출자자중농업인수"], 	ref: 'invstExpndFrmerNope',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["출자금액"], 	ref: 'invstAmt',   		type:'output', width:'60px',style:'text-align:center' },
+
+			{caption: ["농업인출자금액"], 	ref: 'frmerInvstAmt',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["생산자단체출자금액"], 	ref: 'prdcrGrpInvstAmt',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["지자체출자금액"], 	ref: 'locgovInvstAmt',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["기타 출자금"], 	ref: 'etcInvstAmt',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["정규직인원수"], 	ref: 'rgllbrNope',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["파견직인원수"], 	ref: 'dwNope',   		type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["일용직인원수"], 	ref: 'dlbrrNope',   	type:'output', width:'60px',style:'text-align:center' },
+
+			{caption: ["대표자성명"], 	ref: 'rprsvFlnm',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["대표자전화번호"], 	ref: 'rprsvTelno',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["대표자핸드폰번호"], 	ref: 'rprsvMoblno',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["대표자이메일"], 	ref: 'rprsvEml',   		type:'output', width:'60px',style:'text-align:center' },
+
+			{caption: ["담당자직위"], 	ref: 'picPosition',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["담당자성명"], 	ref: 'picFlnm',   		type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["담당자전화번호"], 	ref: 'picTelno',   		type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["담당자핸드폰번호"], 	ref: 'picMoblno',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["담당자이메일"], 	ref: 'picEml',   		type:'output', width:'60px',style:'text-align:center' },
+
+			{caption: ["팩스번호"], 	ref: 'fxno',   			type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["선정년도"], 	ref: 'slctnYr',   		type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["본번"], 		ref: 'mno',   			type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["부번"], 		ref: 'sno',   			type:'output', width:'60px',style:'text-align:center' },
+
+		];
+
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+
+	}
+
+	var jsonComCmptnInstH = [];//관할기관
+	var jsonComCtpvH = [];//시도
+	var jsonComSggH = [];//시군
+	var jsonComCorpSeCdH = [];//법인구분
+	var jsonComCorpDtlSeCdH = [];//법인형태
+	//통합조직,출하조직
+	var jsonComApoSeH = [
+		{'text': '통합조직','label': '통합조직', 'value': '1'},
+		{'text': '출자출하조직','label': '출자출하조직', 'value': '2'}
+	];
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();
+		//콤보박스 설정
+		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCmptnInstH, 	'CMPTNC_INST'); 	//관할기관
+		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCtpvH, 		'CMPTN_INST_CTPV'); 	//시도
+		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComSggH, 		'CMPTN_INST_SIGUN');	 //시군
+		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCorpSeCdH, 	'CORP_SE_CD'); 		//법인구분
+		await gfn_setComCdSBSelect('hiddenGrd', 	jsonComCorpDtlSeCdH, 'CORP_SHAP'); 	//법인형태
+
+		let apoSe = SBUxMethod.get("srch-input-apoSe");
+
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
+			apoSe : apoSe
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+						apoSe: item.apoSe
+						,apoCd: item.apoCd
+						,ognzCd: item.ognzCd
+						,uoBrno: item.uoBrno
+						,corpNm: item.corpNm
+						,crno: item.crno
+						,brno: item.brno
+						,mngmstInfoId: item.mngmstInfoId
+						,mngmstYn: item.mngmstYn
+						,nonghyupCd: item.nonghyupCd
+						,cmptnInst: item.cmptnInst
+						,ctpv: item.ctpv
+						,sgg: item.sgg
+						,zip: item.zip
+						,lotnoAddr: item.lotnoAddr
+						,lotnoDtlAddr: item.lotnoDtlAddr
+						,roadNmAddr: item.roadNmAddr
+						,roadNmDtlAddr: item.roadNmDtlAddr
+						,corpSeCd: item.corpSeCd
+						,corpDtlSeCd: item.corpDtlSeCd
+						,corpFndnDay: item.corpFndnDay
+						,isoHldYn: item.isoHldYn
+						,invstNope: item.invstNope
+						,invstExpndFrmerNope: item.invstExpndFrmerNope
+						,invstAmt: item.invstAmt
+						,frmerInvstAmt: item.frmerInvstAmt
+						,prdcrGrpInvstAmt: item.prdcrGrpInvstAmt
+						,locgovInvstAmt: item.locgovInvstAmt
+						,etcInvstAmt: item.etcInvstAmt
+						,rgllbrNope: item.rgllbrNope
+						,dwNope: item.dwNope
+						,dlbrrNope: item.dlbrrNope
+						,rprsvFlnm: item.rprsvFlnm
+						,rprsvTelno: item.rprsvTelno
+						,rprsvMoblno: item.rprsvMoblno
+						,rprsvEml: item.rprsvEml
+						,picPosition: item.picPosition
+						,picFlnm: item.picFlnm
+						,picTelno: item.picTelno
+						,picMoblno: item.picMoblno
+						,picEml: item.picEml
+						,fxno: item.fxno
+						,itemNhBrofYn: item.itemNhBrofYn
+						,evCertYn: item.evCertYn
+						,slctnYr: item.slctnYr
+						,mno: item.mno
+						,sno: item.sno
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_산지조직관리_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+			예시 : {combolabel : true}
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , {combolabel : true});
 	}
 
 </script>
