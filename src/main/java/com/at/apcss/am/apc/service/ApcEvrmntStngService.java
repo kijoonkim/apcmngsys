@@ -132,6 +132,7 @@ public interface ApcEvrmntStngService {
 	 */
 	public HashMap<String, Object> updateApcMenuAuthrt(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
+	public List<ApcEvrmntStngVO> selectApcEvrmntStngListForFarmUser(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
 
 }

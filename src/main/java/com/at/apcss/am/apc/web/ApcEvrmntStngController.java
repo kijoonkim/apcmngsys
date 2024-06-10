@@ -100,6 +100,29 @@ public class ApcEvrmntStngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// APC 환경설정 - APC 정보 조회
+		@PostMapping(value = "/am/apc/selectApcEvrmntStngListForFarmUser.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectApcEvrmntStngListForFarmUser(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<ApcEvrmntStngVO> resultVO;
+			try {
+				resultVO = apcEvrmntStngService.selectApcEvrmntStngListForFarmUser(apcEvrmntStngVO);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultVO);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+
 	// APC 환경설정 - 사용자 목록 조회
 	@PostMapping(value = "/am/apc/selectApcUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcUserList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
