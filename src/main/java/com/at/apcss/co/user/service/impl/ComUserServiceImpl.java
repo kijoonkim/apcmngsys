@@ -402,6 +402,16 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return result;
 
     }
-
+    /**
+     * 생산농가 계정관리 요청목록 조회
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<HashMap<String, Object>> selectUserPrdcrList(HashMap<String, Object> comUserVO) throws Exception {
+        List<HashMap<String, Object>> resultVO = comUserMapper.selectUserPrdcrList(comUserVO);
+        return resultVO;
+    }
 
 }

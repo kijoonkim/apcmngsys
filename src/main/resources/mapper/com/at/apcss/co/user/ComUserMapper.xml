@@ -645,5 +645,33 @@
 
     	]]>
     </update>
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectPrdcrList             		-->
+	<!-- DESC : 생산농가 계정에 속한 생산자 목록 조회.                              -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  	김   호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUserPrdcrList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			       PA.USER_ID       AS USER_ID
+			     , PA.APC_CD        AS APC_CD
+			     , PA.PRDCR_CD      AS PRDCR_CD
+			     , PA.RMRK          AS RMRK
+			     , PA.APRV_YN       AS APRV_YN
+			     , PA.REQ_DT        AS REQ_DT
+			     , PA.APRV_DT       AS APRV_DT
+			  FROM TB_COM_USER_PRDCR_APRV PA
+			 WHERE PA.DEL_YN 	= 'N'
+			   AND PA.APRV_YN 	= 'Y'
+		]]>
+			<if test='userId != null and userId !=""'>
+			   AND PA.USER_ID = #{userId}
+			</if>
+			<if test='apcCd != null and apcCd !=""'>
+			   AND PA.APC_CD = #{apcCd}
+			</if>
+	</select>
 </mapper>

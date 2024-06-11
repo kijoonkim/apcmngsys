@@ -228,7 +228,7 @@ public class MobileApiController extends BaseController{
 			HashMap<String, Object> comUserVO = new HashMap<String, Object>();
 			comUserVO.put("userId", resultVO.getId());
 			comUserVO.put("apcCd", resultVO.getApcCd());
-			prdcrResultList = comUserService.selectComUserPrdcrAprvList(comUserVO);
+			prdcrResultList = comUserService.selectUserPrdcrList(comUserVO);
 
 			if (prdcrResultList != null && !prdcrResultList.isEmpty()) {
 				resultData.put("prdcrResultList", prdcrResultList);
