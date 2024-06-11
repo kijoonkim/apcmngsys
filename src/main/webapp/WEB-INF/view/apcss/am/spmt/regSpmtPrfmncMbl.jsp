@@ -1529,10 +1529,15 @@
         $(_el).val(val);
         let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").attr("sortInvnt"));
 
-        if(mapInvntQntt.has($(_el).closest('tr').index())){
-            let originQnttMap = mapInvntQntt.get($(_el).closest('tr').index());
+        /** 수정모드 진입시 재고 추가 마이너스 배제 **/
+        let originQnttMap = mapInvntQntt.get($(_el).closest('tr').index());
+        if(rowData.spmtQntt > 0 || rowData.spmtWght > 0) {
             originQnttMap.clear();
-            originQnttMap.set(rowData.spmtInvId[0],val);
+        }else{
+            if(mapInvntQntt.has($(_el).closest('tr').index())){
+                originQnttMap.clear();
+                originQnttMap.set(rowData.spmtInvId[0],val);
+            }
         }
     }
     /** 재고조회 **/
@@ -1886,9 +1891,10 @@
                 /** 출하번호 트리거 **/
                 $(inputId).trigger('change');
 
-
                 /** save JSON 저장 **/
                 tr.children(":last").find('input').attr("sortInvnt",JSON.stringify(item));
+
+                /** 재고선택[수량변경] **/
                 fn_selectInvnt(null,idx);
 
                 /** 외부 메인 설정 입력 **/
@@ -2005,46 +2011,46 @@
         /** 중복 상품 취합 **/
         let arr = saveJson.spmtPrfmncList;
 
-        let result = arr.reduce(function(acc,cur){
-            if(acc.length == 0){
-                acc.push(cur);
-            }else{
-                /** 존재 여부 **/
-                let flag = false;
-                acc.forEach(function(item){
-                    if(item.gdsInput == cur.gdsInput){
-                       if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
-                           if(gfn_isEmpty(spmtNo)) {
-                               if (item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno) {
-                                   item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
-                                   flag = true;
-                                   return;
-                               }
-                           }else{
-                              item.spmtGdsList.forEach(function(item){
-                                 let pckgno = item.pckgno;
-                                 /** 이미 등록된 데이터가 상위는 보장받음. **/
-                                 cur.spmtGdsList.forEach(function(it){
-                                     if(it.pckgno == pckgno){
-                                         flag = true;
-                                         return;
-                                     }
-                                 });
-                              });
-                              if(flag){
-                                  item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
-                              }
-                           }
-                       }
-                    }
-                });
-                if(!flag){
-                    acc.push(cur);
-                }
-            }
-            return acc;
-        }, []);
-        saveJson.spmtPrfmncList = result;
+        // let result = arr.reduce(function(acc,cur){
+        //     if(acc.length == 0){
+        //         acc.push(cur);
+        //     }else{
+        //         /** 존재 여부 **/
+        //         let flag = false;
+        //         acc.forEach(function(item){
+        //             if(item.gdsInput == cur.gdsInput){
+        //                if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
+        //                    if(gfn_isEmpty(spmtNo)) {
+        //                        if (item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno) {
+        //                            item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
+        //                            flag = true;
+        //                            return;
+        //                        }
+        //                    }else{
+        //                       item.spmtGdsList.forEach(function(item){
+        //                          let pckgno = item.pckgno;
+        //                          /** 이미 등록된 데이터가 상위는 보장받음. **/
+        //                          cur.spmtGdsList.forEach(function(it){
+        //                              if(it.pckgno == pckgno){
+        //                                  flag = true;
+        //                                  return;
+        //                              }
+        //                          });
+        //                       });
+        //                       if(flag){
+        //                           item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
+        //                       }
+        //                    }
+        //                }
+        //             }
+        //         });
+        //         if(!flag){
+        //             acc.push(cur);
+        //         }
+        //     }
+        //     return acc;
+        // }, []);
+        // saveJson.spmtPrfmncList = result;
         let returnSpmtNo = "";
 
         try{
