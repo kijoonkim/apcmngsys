@@ -111,8 +111,9 @@ public class ApcMaHrp1170Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============insertHrp1170=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
+        logger.info("=============insertHrp1000S1=====end========");
+        HashMap<String, Object> result = (HashMap<String, Object>) resultMap.get("result");
+        if (result.get("resultStatus").equals("E")) {
             String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
             String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
 

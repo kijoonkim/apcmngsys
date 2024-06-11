@@ -686,7 +686,7 @@
         let allDatas = gvwMasterGrid.getGridDataAll();
 
         //특정 열 부터 이벤트 적용
-        if (allDatas.length == 0 ){
+        if (_.isEmpty(allDatas)){
             return;
         }else if (nRow < 1){
             nRow = 1; //그리드 로우 첫번째값 셋팅;

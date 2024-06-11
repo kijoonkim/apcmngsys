@@ -106,7 +106,7 @@
                             id="srch-pay_type"
                             name="srch-pay_type"
                             class="form-control input-sm"
-                            jsondata-ref="jsonEmpState"
+                            jsondata-ref="jsonPayType"
                     />
                 </td>
                 <td colspan="5" style="border-right: hidden;">&nbsp;</td>
@@ -146,23 +146,23 @@
                         </div>
                     </div>
                 </td>
-                <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                <td colspan="2" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">사원</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-input
-                            uitype="hidden"
                             uitype="text"
                             id="srch-emp_code"
                             class="form-control input-sm"
                     ></sbux-input>
+                </td>
+                <td>
                     <sbux-input
-                            uitype="hidden"
                             uitype="text"
                             id="srch-emp_full_name"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" >
+                <td  class="td_input" >
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -170,7 +170,7 @@
                             onclick="fn_compopup1"
                     ></sbux-button>
                 </td>
-                <td style="border-right: hidden;">&nbsp;</td>
+                <%--<td style="border-right: hidden;">&nbsp;</td>--%>
             </tr>
             </tbody>
         </table>
@@ -257,18 +257,20 @@
     //-----------------------------------------------------------
 
     //grid 초기화
-    var NationInGrid; 			// 그리드를 담기위한 객체 선언
-    var jsonNationList = []; 	// 그리드의 참조 데이터 주소 선언
+    var grdExceptionList; 			// 그리드를 담기위한 객체 선언
+    var jsonExceptionList = []; 	// 그리드의 참조 데이터 주소 선언
 
     var jsonSiteCode = []; //사업장 ( L_ORG001 )srch-site_code
     var jsonPayType = []; //지급구분 ( L_HRB008 )srch-pay_type, PAY_TYPE
     var jsonApplyType = []; //적용구분 ( L_HRP021 )pay_apply_type, APPLY_TYPE
+    var jsonPayItemCode = []; //급여항목 ( L_HRP004 )pay_apply_type, APPLY_TYPE
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['srch-pay_type'], jsonPayType, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonApplyType, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList', 'srch-pay_type'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
 
             //사업장
             gfnma_multiSelectInit({
@@ -290,10 +292,31 @@
                 ]
             }),
 
+            //사업장
+            gfnma_multiSelectInit({
+                target			: ['#srch-pay_item_code']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRP004'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'PAY_ITEM_CODE'
+                ,colLabel		: 'PAY_ITEM_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'PAY_ITEM_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'PAY_ITEM_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            })
+
         ]);
     }
 
     const fn_compopup1 = function() {
+
         var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
         var replaceText0 = "_EMP_CODE";
         var replaceText1 = "_EMP_NAME";
@@ -303,7 +326,7 @@
         var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
             + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '입력부서');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
             compCode: gv_ma_selectedApcCd
             , clientCode: gv_ma_selectedClntCd
@@ -325,6 +348,35 @@
         });
 
     }
+
+    /*var fn_findEmpCodeForGvwCareer = function(row, col) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["사번", 		"사원명",		"부서"          ,"부서"           ,"재직상태"]
+            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME",	    "DEPT_CODE"    ,"DEPT_NAME"     ,"EMP_STATE"]
+            ,searchInputValues		: ["", 				searchText,		""         ,""              ,""]
+
+            ,searchInputTypes		: ["input", 		"input",		"input"     ,"input",       ,"select"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["사원번호",		"사원명", 		"부서명", 		"사업장명"    ,"재직구분"]
+            ,tableColumnNames		: ["EMP_CODE",	"EMP_NAME", 	"DEPT_NAME",  	"SITE_NAME"     ,"EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px",    "100px"         ,"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                grdExceptionList.setCellData(row, col, data['EMP_CODE']);
+                grdExceptionList.setCellData(row, col+1, data['EMP_NAME']);
+            },
+        });
+    }*/
 
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
@@ -364,9 +416,6 @@
 
     const fn_createGrid = function(chMode, rowData) {
 
-        console.log("-----chMode-------",chMode);
-        console.log("-----rowData-------",rowData);
-
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwException';
         SBGridProperties.id = 'grdExceptionList';
@@ -391,19 +440,19 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '100px', style: 'text-align:left'},
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'output', width: '100px', style: 'text-align:left',
                 format : {type:'number', rule:'#,##', emptyvalue:'0.00'}},
@@ -414,12 +463,23 @@
         ];
 
         grdExceptionList = _SBGrid.create(SBGridProperties);
+     /*   grdExceptionList.bind('dblclick', 'gvwCareerDblclick');*/
 
         if (rowData != null){
             grdExceptionList.push(rowData);
         }
 
     }
+
+/*    const gvwCareerDblclick = async function() {
+        var nRow = grdExceptionList.getRow();
+        var nCol = grdExceptionList.getCol();
+
+
+        if(nCol == 1) {
+            fn_findEmpCodeForGvwCareer(nRow, nCol);
+        }
+    }*/
 
 
     // 행 추가
@@ -428,9 +488,10 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            grdExceptionList.addRow(true);
+
+            grdExceptionList.addRow(true,['', '', '','','','','','000','0','']);
         }else{
-            grdExceptionList.insertRow(rowVal);
+            grdExceptionList.insertRow(rowVal, above, ['', '', '','','','','','000','0','']);
         }
     }
 
@@ -524,6 +585,8 @@
             ,V_P_PC: ''
         };
 
+        console.log('-----------------------',paramObj);
+
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp1170List.do", {
             getType				: 'json',
             workType			: 'Q',
@@ -532,7 +595,7 @@
         });
 
         const data = await postJsonPromise;
-        //console.log('data:', data);
+        console.log('data:', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -581,7 +644,7 @@
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
             var paramObj = {
-                P_HRP1000_S1: await getParamForm('u')
+                P_HRP1170_S: await getParamForm('u')
             }
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do",paramObj );
@@ -610,23 +673,28 @@
 
     }
 
-    const getParamForm = async function(typeData){
+    const getParamForm = async function (typeData) {
 
         let updateData;
+        let returnData = [];
 
-        if (typeData == 'u') { //업데이트
+        if (_.isEqual(typeData, 'u')) { //업데이트
 
             updateData = grdExceptionList.getUpdateData(true, 'all');
 
-        }else if(typeData == 'd'){
+        } else if (_.isEqual(typeData, 'd')) {
 
             updateData = grdExceptionList.getUpdateData(true, 'd');
 
         }
 
-        if (!_.isEmpty(updateData)){
 
-            updatedData.forEach((item, index) => {
+        console.log('---------------updateData---------------', updateData);
+        console.log('---------------typeData---------------', typeData);
+
+        if (!_.isEmpty(updateData)) {
+
+            updateData.forEach((item, index) => {
                 const param = {
 
                     cv_count: '0',
@@ -639,15 +707,15 @@
                         , V_P_COMP_CODE: gv_ma_selectedApcCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                        , V_P_PAY_TYPE: updateData.data.PAY_TYPE
-                        , V_P_EMP_CODE: updateData.data.EMP_CODE
-                        , V_P_PAY_ITEM_CODE: updateData.data.PAY_ITEM_CODE
-                        , V_P_PAY_YYYYMM_FR: updateData.data.PAY_YYYYMM_FR
-                        , V_P_PAY_YYYYMM_TO: updateData.data.PAY_YYYYMM_TO
-                        , V_P_PAY_APPLY_TYPE: updateData.data.PAY_APPLY_TYPE
-                        , V_P_PAY_APPLY_RATE: updateData.data.PAY_APPLY_RAT
-                        , V_P_PAY_APPLY_AMT: updateData.data.PAY_APPLY_AMT
-                        , V_P_MEMO: updateData.data.MEMO
+                        , V_P_PAY_TYPE: item.data.PAY_TYPE
+                        , V_P_EMP_CODE: item.data.EMP_CODE
+                        , V_P_PAY_ITEM_CODE: item.data.PAY_ITEM_CODE
+                        , V_P_PAY_YYYYMM_FR: item.data.PAY_YYYYMM_FR
+                        , V_P_PAY_YYYYMM_TO: item.data.PAY_YYYYMM_TO
+                        , V_P_PAY_APPLY_TYPE: item.data.PAY_APPLY_TYPE
+                        , V_P_PAY_APPLY_RATE: item.data.PAY_APPLY_RATE
+                        , V_P_PAY_APPLY_AMT: item.data.PAY_APPLY_AMT
+                        , V_P_MEMO: item.data.MEMO
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -656,7 +724,15 @@
                         , V_P_PC: ''
                     })
                 }
+
+                console.log("---------param--------- : ", param);
+                returnData.push(param);
+
             });
+
+            console.log("---------returnData--------- : ", returnData);
+            return returnData;
+
         }
     }
 
