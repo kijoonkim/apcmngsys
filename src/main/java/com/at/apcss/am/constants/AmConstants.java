@@ -315,5 +315,6 @@ public class AmConstants {
     public final static String CON_INVNTR_STTS_CD_FRCS_PCKG = "P1";		// 포장 강제 생성
     public final static String CON_INVNTR_STTS_CD_FRCS_SORT = "S1";		// 선별 강제 생성
     public final static String CON_INVNTR_STTS_CD_CHNG_SPMT = "D2";		// 출하 변경
+    public final static String CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO = "D3";		// 출하 강제 변경 (마이너스허용)
 
 }
