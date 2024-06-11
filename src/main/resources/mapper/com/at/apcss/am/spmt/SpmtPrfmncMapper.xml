@@ -1382,6 +1382,7 @@
 				, SP.SORT_GRD_CD
 				, SP.PRDCR_IDENTNO
 				, SP.GDS_GRD
+				, SP.SPMT_SN
 		]]>
 	</select>
 
