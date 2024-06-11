@@ -89,14 +89,28 @@ public interface ComUserMapper {
 
 
     /**
-     * 생산농가 계정관리 조회
+     * 생산농가 계정관리 요청목록 조회
      * @param hashMap
      * @return
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectComUserPrdcrAprvList(HashMap<String, Object> comUserVO) throws Exception;
 
+    /**
+     * 생산농가 계정관리 생산농가목록 조회
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectComUserPrdcrList(HashMap<String, Object> comUserVO) throws Exception;
+
+    public List<HashMap<String, Object>> selectComUserPrdcrRegList(HashMap<String, Object> comUserVO) throws Exception;
+
     public int updateUserAprv(HashMap<String, Object> comUserVO);
+    public int insertPrdcrUserId(HashMap<String, Object> comUserVO);
+    public int updatePrdcrUserId(HashMap<String, Object> comUserVO);
+    public List<HashMap<String, Object>> selectComUserAprvList(HashMap<String, Object> comUserVO) throws Exception;
+    public int deletePrdcrUserId(HashMap<String,Object> comUserVO);
 }
 
 

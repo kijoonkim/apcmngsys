@@ -474,6 +474,28 @@
 		]]>
     </select>
 
+    	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcEvrmntStngListForFarmUser	-->
+	<!-- DESC : APC 환경설정 정보 조회.	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.07  박승진        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectApcEvrmntStngListForFarmUser" parameterType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcEvrmntStng */
+				  APC.APC_CD					AS APC_CD
+				, APC.APC_NM					AS APC_NM
+				, APC.ADDR						AS ADDR
+			  FROM TB_APC_EVRMNT_STNG APC
+			  WHERE 1=1
+		]]>
+	  	<if test='apcNm != null and apcNm != ""'>
+		   AND APC.APC_NM LIKE '%' ||  #{apcNm} || '%'
+		</if>
+    </select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateApcEvrmntStngAuthrt		-->
 	<!-- DESC : APC 메뉴사용여부 변경.	                                             		-->

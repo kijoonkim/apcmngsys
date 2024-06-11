@@ -577,14 +577,14 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.25  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deletePrdcr" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    <update id="deletePrdcr" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
     	<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcr */
-			  FROM TB_PRDCR_INFO
+			UPDATE TB_PRDCR_INFO /* com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcr */
+			  SET DEL_YN = 'Y'
 	    	 WHERE APC_CD = #{apcCd}
 	    	   AND PRDCR_CD = #{prdcrCd}
     	]]>
-    </delete>
+    </update>
 
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updateApcPrdcr				-->

@@ -228,6 +228,10 @@
 		fn_init();
 	});
 
+	$(document).on("keydown",function(e){
+		console.log(e.keyCode + "keydown");
+	});
+
 	const fn_init = async function() {
 
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
@@ -275,6 +279,7 @@
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.entertotab = true;
 	    SBGridProperties.total={
 	    			type : 'grand',
 	    			position : 'bottom',
@@ -637,10 +642,13 @@
 	    grdWrhsSmmry = _SBGrid.create(SBGridProperties);
 	    grdWrhsSmmry.bind('valuechanged', fn_grdWrhsSmmryValueChanged);
 	    grdWrhsSmmry.bind('click', fn_lastWrhsCmptnYnChk);
+
         grdWrhsSmmry.setCellStyles(0,3,0,7,'background:#FF000030;font-size:12px;');
         grdWrhsSmmry.setCellStyles(0,8,0,13,'background:#FFFC3330;font-size:12px;');
         grdWrhsSmmry.setCellStyles(0,14,0,19,'background:#FFB53330;font-size:12px;');
 	}
+
+
 	const fn_lastWrhsCmptnYnChk = function(){
 		var nRow = grdWrhsSmmry.getRow();
 		var nRowData = grdWrhsSmmry.getRowData(nRow);
@@ -979,7 +987,7 @@
     	let nCol = grdWrhsSmmry.getCol();
 
 		const usrAttr = grdWrhsSmmry.getColUserAttr(nCol);
-
+		const total = 0;
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
 			const rowData = grdWrhsSmmry.getRowData(nRow, false);	// deep copy
@@ -994,7 +1002,6 @@
 					}
 
 					rowData.v1Qntt = v1Qntt;
-
 					rowData.qntt =
 						(parseInt(rowData.v1Qntt) || 0)
 						+ (parseInt(rowData.v2Qntt) || 0)
@@ -1140,7 +1147,7 @@
 
 					break;
 			}
-
+			rowData.qnttCyclSum = (parseInt(rowData.v1Qntt) || 0) + (parseInt(rowData.v2Qntt) || 0) + (parseInt(rowData.v3Qntt) || 0) + (parseInt(rowData.v4Qntt) || 0) + (parseInt(rowData.v5Qntt) || 0)
 			grdWrhsSmmry.refresh();
 		}
 
@@ -1273,17 +1280,17 @@
 			gfn_comAlert("W0005", "선택대상");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
-		
+
 		const prdcrCd = rawSmmryList.join("','");
-		
+
 		const params = {
-					apcCd: gv_selectedApcCd, 
+					apcCd: gv_selectedApcCd,
 					wrhsBgngYmd : wrhsBgngYmd,
 					wrhsEndYmd : wrhsEndYmd,
 					prdcrCd : prdcrCd
 		}
-		
-		
+
+
  		if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
  			gfn_DirectPrintClipReport(rptUrl, params);
  		}else{
@@ -1314,6 +1321,8 @@
 
 
 	}
+
+
 
 
 </script>

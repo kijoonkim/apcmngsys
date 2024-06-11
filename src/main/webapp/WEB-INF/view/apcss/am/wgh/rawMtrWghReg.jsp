@@ -44,6 +44,15 @@
 						text="계량확인서"
 					></sbux-button>
 					<sbux-button
+                            id="btn-srch-apcLinkPop"
+                            name="btn-srch-apcLinkPop"
+                            class="btn btn-sm btn-outline-danger"
+                            text="연계요청"
+                            uitype="modal"
+                            target-id="modal-apcLinkPop"
+                            onclick="fn_popApcLink"
+                       ></sbux-button>
+					<sbux-button
 						id="btnReset"
 						name="btnReset"
 						uitype="normal"
@@ -473,6 +482,23 @@
     	<jsp:include page="../../am/popup/wrhsPltBxPopup.jsp"></jsp:include>
     </div>
 
+    <!-- 원물계량연계 Modal -->
+    <div>
+        <sbux-modal
+            id="modal-apcLinkPop"
+            name="modal-apcLinkPop"
+            uitype="middle"
+            header-title="원물연계수신"
+            body-html-id="body-modal-apcLinkPop"
+            header-is-close-button="false"
+            footer-is-close-button="false"
+            style="width:800px"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-apcLinkPop">
+        <jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
+     </div>
+
 </body>
 <script type="text/javascript">
 
@@ -835,7 +861,7 @@
     		gfn_comAlert("W0001", "상품구분");		//	W0001	{0}을/를 선택하세요.
             return;
     	}
-    	
+
     	if (gfn_isEmpty(trsprtSeCd)) {
     		gfn_comAlert("W0001", "운송구분");		//	W0001	{0}을/를 선택하세요.
             return;
@@ -872,7 +898,7 @@
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
-		
+
 		const wghPrfmncDtlList = [];
 
 		jsonWrhsPltBx.wrhsPltBxData.forEach((pltBx) => {
@@ -913,7 +939,7 @@
         		prdctnYr: prdctnYr,				// 생산연도
         		wghPrfmncDtlList: wghPrfmncDtlList
         	}
-    	
+
     	if(!gfn_isEmpty(rawMtrWgh.vrtyCd)){
     		rawMtrWgh.vrtyCd = rawMtrWgh.vrtyCd.substring(4,8);
     	}
@@ -1180,7 +1206,7 @@
 			SBUxMethod.set("dtl-inp-prdcrNm", rowData.prdcrNm);
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 			SBUxMethod.set("dtl-inp-prdcrIdentno", rowData.prdcrIdentno);
-			
+
 			// 입고구분
 			SBUxMethod.set("dtl-rdo-wrhsSeCd", rowData.wrhsSeCd);
 			// 상품구분
@@ -1205,7 +1231,7 @@
 				SBUxMethod.set("dtl-inp-rmrk", "");
 			}
 			// 비고
-			
+
 			// 품목/품종
 			await fn_onChangeSrchVrtyCd({value: rowData.itemCd + rowData.vrtyCd});
 
@@ -1307,7 +1333,7 @@
 
 		let itemCd = obj.value;
 		const itemInfo = _.find(jsonApcItem, {value: itemCd});
-		
+
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd)			// 품종
 		]);
@@ -1588,6 +1614,22 @@
 	function fn_noKeyup(event) {
 
 	}
+
+	const fn_popApcLinkCallBack = function() {
+
+    }
+
+     const fn_popApcLink = function() {
+         popApcLink.init(
+                     {
+                         apcCd: gv_selectedApcCd,
+                         apcNm: gv_selectedApcNm,
+                         linkKnd: "W",
+                         kndList: ["W", "R"]
+                     },
+                     fn_popApcLinkCallBack
+                 );
+     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -34,12 +34,9 @@
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 국가정보 -->
+                    </h3>
                 </div>
                 <div style="margin-left: auto;">
-<!--                     <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button> -->
-<!--                     <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button> -->
-<!--                     <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button> -->
                 </div>
             </div>
             <div class="box-body">
@@ -351,8 +348,8 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.id}';
 	//-----------------------------------------------------------
-	var editType = 'N';
-	var jsonGroupCode		= [];	// 유형분류
+	var editType 		= 'N';
+	var jsonGroupCode	= [];	// 유형분류
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
@@ -387,12 +384,9 @@
     window.addEventListener('DOMContentLoaded', function(e) {
 
     	fn_initSBSelect();
-    	
     	fn_createGrid();
     	fn_createSubGrid();
-    	
     	cfn_search();
-    	
     });
     
 	// 신규
@@ -421,8 +415,8 @@
 	}
 
     //grid 초기화
-    var CMNSCDGrid; 				// 그리드를 담기위한 객체 선언
-    var jsonCMNSCDList 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var CMNSCDGrid; 			// 그리드를 담기위한 객체 선언
+    var jsonCMNSCDList 	= []; 	// 그리드의 참조 데이터 주소 선언
 
     function fn_createGrid() {
     	//코드목록 
@@ -886,7 +880,6 @@
     }
 
     //그룹코드 내역 저장
-    //P_COM3000_S
     const fn_saveFieldCaption = async function() {
 
     	let GROUP_CODE 			= gfnma_nvl(SBUxMethod.get("GROUP_CODE"));
@@ -984,7 +977,6 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -996,8 +988,16 @@
         		let rowVal 	  = CMNSCDSubGrid.getUpdateData(true, 'all');
         		if(rowLength >= 1 ){
         	    		for(var i = 0; rowLength > i; i ++){
-        	    			var workType = rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
-        		            		
+        	    			var workType 		= rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
+        		            var P_USE_YN 		= '';
+        		            var P_SYSTEM_YN 	= '';
+        	    			
+        	    			if(gfnma_nvl(rowVal[i].data.USE_YN) == ""){
+        	    				P_USE_YN = 'N';
+        	    			}
+        	    			if(gfnma_nvl(rowVal[i].data.SYSTEM_YN) == ""){
+        	    				P_SYSTEM_YN = 'N';
+        	    			}
         	    			var paramObj = {
         	   	  	    	      V_P_DEBUG_MODE_YN        : ''
         	   	  	    	      ,V_P_LANG_ID             : ''
@@ -1006,7 +1006,7 @@
         	   	  	    	      ,V_P_GROUP_CODE          : GROUP_CODE
         	   	  	    	      ,V_P_SUB_CODE            : gfnma_nvl(rowVal[i].data.SUB_CODE)
         	   	  	    	      ,V_P_CODE_NAME           : gfnma_nvl(rowVal[i].data.CODE_NAME)
-        	   	  	    	      ,V_P_SYSTEM_YN           : gfnma_nvl(rowVal[i].data.SYSTEM_YN)
+        	   	  	    	      ,V_P_SYSTEM_YN           : gfnma_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
         	   	  	    	      ,IV_P_EXTRA_FIELD1       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD1)
         	   	  	    	      ,IV_P_EXTRA_FIELD2       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD2)
         	   	  	    	      ,V_P_EXTRA_FIELD3        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD3)
@@ -1028,13 +1028,14 @@
         	   	  	    	      ,V_P_EXTRA_FIELD19       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD19)
         	   	  	    	      ,V_P_EXTRA_FIELD20       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD20)
         	   	  	    	      ,V_P_SORT_SEQ            : gfnma_nvl(rowVal[i].data.SORT_SEQ)
-        	   	  	    	      ,V_P_USE_YN              : gfnma_nvl(rowVal[i].data.USE_YN)
+        	   	  	    	      ,V_P_USE_YN              : gfnma_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
         	   	  	    	      ,V_P_FORM_ID             : p_formId
         	   	  	    	      ,V_P_MENU_ID             : p_menuId
         	   	  	    	      ,V_P_PROC_ID             : ''
         	   	  	    	      ,V_P_USERID              : p_userId
         	   	  	    	      ,V_P_PC                  : ''
         	    		    };		
+        	    			
         	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {
         	    	        	getType				: 'json',
         	    	        	workType			: workType,
@@ -1073,94 +1074,18 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-    
-    //저장
-    const fn_saveExtraField = async function(rowLength, rowVal) {
-
-    	if (rowLength > 0){
-
-    		for(var i = 0; rowLength > i; i ++){
-    			var workType = rowVal[i].data.status == 'i' ? 'N' : (rowVal[i].data.status == 'u' ? 'U' : 'D');
-	            		
-    			var paramObj = {
-   	  	    	      V_P_DEBUG_MODE_YN        : ''
-   	  	    	      ,V_P_LANG_ID             : ''
-   	  	    	      ,V_P_COMP_CODE           : gv_ma_selectedApcCd
-   	  	    	      ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-   	  	    	      ,V_P_GROUP_CODE          : gfnma_nvl(rowVal[i].data.GROUP_CODE)
-   	  	    	      ,V_P_SUB_CODE            : gfnma_nvl(rowVal[i].data.SUB_CODE)
-   	  	    	      ,V_P_CODE_NAME           : gfnma_nvl(rowVal[i].data.CODE_NAME)
-   	  	    	      ,V_P_SYSTEM_YN           : gfnma_nvl(rowVal[i].data.SYSTEM_YN)
-   	  	    	      ,IV_P_EXTRA_FIELD1       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD1)
-   	  	    	      ,IV_P_EXTRA_FIELD2       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD2)
-   	  	    	      ,V_P_EXTRA_FIELD3        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD3)
-   	  	    	      ,V_P_EXTRA_FIELD4        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD4)
-   	  	    	      ,V_P_EXTRA_FIELD5        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD5)
-   	  	    	      ,V_P_EXTRA_FIELD6        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD6)
-   	  	    	      ,V_P_EXTRA_FIELD7        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD7)
-   	  	    	      ,V_P_EXTRA_FIELD8        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD8)
-   	  	    	      ,V_P_EXTRA_FIELD9        : gfnma_nvl(rowVal[i].data.EXTRA_FIELD9)
-   	  	    	      ,V_P_EXTRA_FIELD10       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD10)
-   	  	    	      ,V_P_EXTRA_FIELD11       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD11)
-   	  	    	      ,V_P_EXTRA_FIELD12       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD12)
-   	  	    	      ,V_P_EXTRA_FIELD13       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD13)
-   	  	    	      ,V_P_EXTRA_FIELD14       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD14)
-   	  	    	      ,V_P_EXTRA_FIELD15       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD15)
-   	  	    	      ,V_P_EXTRA_FIELD16       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD16)
-   	  	    	      ,V_P_EXTRA_FIELD17       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD17)
-   	  	    	      ,V_P_EXTRA_FIELD18       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD18)
-   	  	    	      ,V_P_EXTRA_FIELD19       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD19)
-   	  	    	      ,V_P_EXTRA_FIELD20       : gfnma_nvl(rowVal[i].data.EXTRA_FIELD20)
-   	  	    	      ,V_P_SORT_SEQ            : gfnma_nvl(rowVal[i].data.SORT_SEQ)
-   	  	    	      ,V_P_USE_YN              : gfnma_nvl(rowVal[i].data.USE_YN)
-   	  	    	      ,V_P_FORM_ID             : p_formId
-   	  	    	      ,V_P_MENU_ID             : p_menuId
-   	  	    	      ,V_P_PROC_ID             : ''
-   	  	    	      ,V_P_USERID              : p_userId
-   	  	    	      ,V_P_PC                  : ''
-    		    };		
-    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3000_S1.do", {
-    	        	getType				: 'json',
-    	        	workType			: workType,
-    	        	cv_count			: '0',
-    	        	params				: gfnma_objectToString(paramObj)
-    			});    	 
-    	        const data = await postJsonPromise;
-
-    	        try {
-    	        	if (_.isEqual("S", data.resultStatus)) {
-    	        		if(data.resultMessage){
-    		          		alert(data.resultMessage);
-    	        		}
-    	        		cfn_search();
-    	        	} else {
-    	          		alert(data.resultMessage);
-    	        	}
-    	        } catch (e) {
-    	    		if (!(e instanceof Error)) {
-    	    			e = new Error(e);
-    	    		}
-    	    		console.error("failed", e.message);
-    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    	        }
-    		}
-    	}else{
-    		return;
-    	}
-    }
 
      // 행 추가
      const fn_addRow = function () {
-    	 editType = 'U'
          let rowVal = CMNSCDSubGrid.getRow();
 
-         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+    	//데이터가 없고 행선택이 없을경우.
+         if (rowVal == -1){ 
 
              CMNSCDSubGrid.addRow(true);
          }else{
              CMNSCDSubGrid.insertRow(rowVal);
          }
-         //grdFimList.refresh();
      }
 
      // 행 삭제

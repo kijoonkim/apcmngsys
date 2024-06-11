@@ -124,6 +124,26 @@
   color: black;
 }
 
+.button-brown{
+    background-color: #6b3111;
+    color: white;
+    border: 1px solid #6b3111;
+}
+
+.button-brown:hover {
+    background-color: white;
+    color: black;
+}
+.button-goldenBrown{
+    background-color: #bd8e1e;
+    color: white;
+    border: 1px solid #bd8e1e;
+}
+.button-goldenBrown:hover{
+    background-color: white;
+    color: black;
+}
+
         
         
     </style>
@@ -613,6 +633,7 @@
         <div class="user-info-wrap">
             <c:if test="${loginVO != null && loginVO.id != null}">
             	<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
+<%--                <button style="background-color: initial;border: hidden" onclick="fn_fullScreen()">👀</button>--%>
                 <span class="name-t"><c:out value='${userName}'></c:out></span>님 반갑습니다.
 				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
@@ -667,6 +688,8 @@
         		</div>
         		<div class="col-sm-6">
 					<div style="position: relative; text-align: right; margin: 3px;">
+                        <button id="main-btn-attach" class="button button-goldenBrown" style="display:none" onclick="mfn_attach()">파일첨부 📂</button>
+                        <button id="main-btn-appr" class="button button-brown" style="display:none" onclick="mfn_appr()">결재처리 ✒️</button>
 						<button id="main-btn-init" class="button button-blue" style="display:none" onclick="mfn_init()">초기화 🔃</button>
         				<button id="main-btn-add" class="button button-blue" style="display:none" onclick="mfn_add()">신규 ➕</button>
         				<button id="main-btn-save" class="button button-red" style="display:none" onclick="mfn_save()">저장 💾</button>
@@ -1036,31 +1059,73 @@
     		console.log(e.message);
     	}
     }
+
+    const mfn_appr = function() {
+        if (gfn_isEmpty(lv_frmId)) {
+            return;
+        }
+        try {
+            const tabContent = document.getElementById(lv_frmId).contentWindow;
+            if (typeof tabContent !== 'object') {
+                return;
+            }
+
+            tabContent.cfn_appr();
+
+        }catch (e){
+            console.log(e.message);
+        }
+    }
+
+    const mfn_attach = function() {
+        if (gfn_isEmpty(lv_frmId)) {
+            return;
+        }
+        try {
+            const tabContent = document.getElementById(lv_frmId).contentWindow;
+            if (typeof tabContent !== 'object') {
+                return;
+            }
+
+            tabContent.cfn_attach();
+
+        }catch (e){
+            console.log(e.message);
+        }
+    }
+
 	
 	const mfn_displayButton = function (_uiInfo) {
+
 		
 		const btnInit = document.getElementById("main-btn-init");
 		const btnAdd = document.getElementById("main-btn-add");
 		const btnSave = document.getElementById("main-btn-save");
 		const btnDel = document.getElementById("main-btn-del");
 		const btnSearch = document.getElementById("main-btn-search");
-		
+		const btnAttach = document.getElementById("main-btn-attach");
+		const btnAppr = document.getElementById("main-btn-appr");
+
 		btnInit.disabled = true;
 		btnAdd.disabled = true;
 		btnDel.disabled = true;
 		btnSave.disabled = true;
 		btnSearch.disabled = true;
+        btnAttach.disable = true;
+        btnAppr.disable = true;
 		
 		btnInit.style.display = "none";
 		btnAdd.style.display = "none";
 		btnDel.style.display = "none";
 		btnSave.style.display = "none";
 		btnSearch.style.display = "none";
+        btnAttach.style.display = "none";
+        btnAppr.style.display = "none";
 		
     	if (gfn_isEmpty(_uiInfo)) {
     		return;
     	}
-    	
+
     	try {
     		if (_uiInfo.hasOwnProperty('cmnsInit')) {
     			if (_uiInfo.cmnsInit['button']) {
@@ -1097,6 +1162,20 @@
     				btnSearch.style.display = _uiInfo.cmnsSearch['visible'] ? "" : "none";
     			}
     		}
+            if (_uiInfo.hasOwnProperty('cmnsUpload')) {
+                if (_uiInfo.cmnsUpload['button']) {
+                    btnAttach.disabled = false;
+                    btnAttach.disabled = _uiInfo.cmnsUpload['disabled'];
+                    btnAttach.style.display = _uiInfo.cmnsUpload['visible'] ? "" : "none";
+                }
+            }
+            if (_uiInfo.hasOwnProperty('cmnsAppr')) {
+                if (_uiInfo.cmnsAppr['button']) {
+                    btnAppr.disabled = false;
+                    btnAppr.disabled = _uiInfo.cmnsAppr['disabled'];
+                    btnAppr.style.display = _uiInfo.cmnsAppr['visible'] ? "" : "none";
+                }
+            }
     		
     	} catch (e) {
     		console.log(e.message);
@@ -1153,7 +1232,17 @@
         			button: false,
         			disabled: false,
         			visible: false,
-        		}
+        		},
+                cmnsUpload: {
+                    button: false,
+                    disabled: false,
+                    visible: false,
+                },
+                cmnsAppr: {
+                    button: false,
+                    disabled: false,
+                    visible: false,
+                }
 			}
 			
 			let _userId;
@@ -1200,7 +1289,17 @@
 		                		uiInfo.cmnsSearch.button = hasButton;
 		                		uiInfo.cmnsSearch.disabled = disabled;
 		                		uiInfo.cmnsSearch.visible = visible;
-		                		break;	                		
+		                		break;
+                            case "CMNS_UPLOAD":
+                                uiInfo.cmnsUpload.button = hasButton;
+                                uiInfo.cmnsUpload.disabled = disabled;
+                                uiInfo.cmnsUpload.visible = visible;
+                                break;
+                            case "CMNS_APPR":
+                                uiInfo.cmnsAppr.button = hasButton;
+                                uiInfo.cmnsAppr.disabled = disabled;
+                                uiInfo.cmnsAppr.visible = visible;
+                                break;
 		                }
 		            });
 		        	
@@ -1219,6 +1318,29 @@
 		mfn_displayButton(uiInfo);
 		
 	}
+    const fn_fullScreen = function(){
+            let el = $(".tab-content > div.active").children().attr('id');
+            let iframe = document.getElementById(el);
+            let dc =iframe.contentDocument || iframe.contentWindow.document;
+
+        if(!dc.fullscreenElement){
+            if(dc.documentElement.requestFullscreen){
+                dc.documentElement.requestFullscreen();
+            }else if(dc.documentElement.webkitRequestFullscreen){
+                dc.documentElement.webkitRequestFullscreen()
+            }else if(dc.documentElement.msRequestFullscreen){
+                dc.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(dc.exitFullscreen){
+                dc.exitFullscreen();
+            }else if(dc.webkitExitFullscreen){
+                dc.webkitExitFullscreen();
+            }else if(dc.msExitFullscreen){
+                dc.msExitFullscreen();
+            }
+        }
+    }
 	
 	
 </script>

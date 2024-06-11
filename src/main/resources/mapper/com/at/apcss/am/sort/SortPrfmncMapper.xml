@@ -131,7 +131,7 @@
     	</if>
 
 		<![CDATA[
-			 ORDER BY APC_CD, INPT_YMD, SORTNO, SORT_SN
+			 ORDER BY APC_CD, INPT_YMD, WRHSNO, SORTNO, SORT_SN
     		  ) pt0
 		]]>
 
@@ -355,7 +355,7 @@
   		FROM  (
     		SELECT
 			        'A품'       AS GRD
-			      , PRDCR_NM
+			      , FN_GET_PRDCR_NM (RPRS_PRDCR_CD, APC_CD) AS PRDCR_NM
     	]]>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="N"'>
     			  ,	INPT_YMD
@@ -402,7 +402,8 @@
 			      , SUM(Y_TOT) ylwTot
 			      , SUM(O_TOT) orgTot
 
-			FROM  ( SELECT  B.ITEM_CD
+			FROM  ( SELECT  A.APC_CD
+                          , B.ITEM_CD
 			              , A.INPT_YMD
 			              , B.RPRS_PRDCR_CD
 			              , FN_GET_PRDCR_NM (B.RPRS_PRDCR_CD, A.APC_CD) AS PRDCR_NM
@@ -458,10 +459,10 @@
 		       )
 		]]>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="N"'>
-		GROUP BY INPT_YMD, PRDCR_NM
+		GROUP BY APC_CD, INPT_YMD, RPRS_PRDCR_CD
     	</if>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="Y"'>
-		GROUP BY PRDCR_NM
+		GROUP BY APC_CD, RPRS_PRDCR_CD
     	</if>
     	<![CDATA[
 
@@ -469,7 +470,7 @@
 
 		SELECT
 				    'B품'       AS GRD
-			      , PRDCR_NM
+			      , FN_GET_PRDCR_NM (RPRS_PRDCR_CD, APC_CD) AS PRDCR_NM
     	]]>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="N"'>
     			  ,	INPT_YMD
@@ -516,10 +517,10 @@
 			      , SUM(Y_TOT) ylwTot
 			      , SUM(O_TOT) orgTot
 
-			FROM  ( SELECT  B.ITEM_CD
+			FROM  ( SELECT  A.APC_CD
+                          , B.ITEM_CD
 			              , A.INPT_YMD
 			              , B.RPRS_PRDCR_CD
-			              , FN_GET_PRDCR_NM (B.RPRS_PRDCR_CD, A.APC_CD) AS PRDCR_NM
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('07') THEN A.SORT_QNTT END AS R_2XL
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('08') THEN A.SORT_QNTT END AS R_XL
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('09') THEN A.SORT_QNTT END AS R_L
@@ -573,10 +574,10 @@
 
 		]]>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="N"'>
-			GROUP BY INPT_YMD, PRDCR_NM
+		GROUP BY APC_CD, INPT_YMD, RPRS_PRDCR_CD
     	</if>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="Y"'>
-			GROUP BY PRDCR_NM
+		GROUP BY APC_CD, RPRS_PRDCR_CD
     	</if>
     	<![CDATA[
 
@@ -584,7 +585,7 @@
 
 		SELECT
 				    'C품'       AS GRD
-			      , PRDCR_NM
+			      , FN_GET_PRDCR_NM (RPRS_PRDCR_CD, APC_CD) AS PRDCR_NM
     	]]>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="N"'>
     			  ,	INPT_YMD
@@ -631,10 +632,11 @@
 			      , SUM(Y_TOT) ylwTot
 			      , SUM(O_TOT) orgTot
 
-			FROM  ( SELECT  B.ITEM_CD
+			FROM  ( SELECT  A.APC_CD
+                          , B.ITEM_CD
 			              , A.INPT_YMD
 			              , B.RPRS_PRDCR_CD
-			              , FN_GET_PRDCR_NM (B.RPRS_PRDCR_CD, A.APC_CD) AS PRDCR_NM
+
 			              , 0 AS R_2XL
 			              , 0 AS R_XL
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('13') THEN A.SORT_QNTT END AS R_L
@@ -686,12 +688,12 @@
 				)
 		]]>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="N"'>
-			GROUP BY INPT_YMD, PRDCR_NM
+			GROUP BY APC_CD, INPT_YMD, RPRS_PRDCR_CD
 			) A
 			ORDER BY GRD ASC, INPT_YMD ASC
     	</if>
     	<if test='dsctnYn != null and dsctnYn != "" and dsctnYn =="Y"'>
-			GROUP BY PRDCR_NM
+			GROUP BY APC_CD, RPRS_PRDCR_CD
 			) A
 			ORDER BY GRD ASC
     	</if>
@@ -3364,4 +3366,227 @@
 	           AND GRD_KND					= #{grdKnd}
 		]]>
 	</delete>
+
+	<!-- ========================================================================== -->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnDtlTot  -->
+    <!-- DESC : 선별내역상세 조회		                                       		-->
+    <!-- ========================================================================== -->
+    <!-- DATE           AUTHOR            DESCRIPTION                               -->
+    <!-- ===========      ============      ======================================= -->
+    <!-- 2024.06.03     김호                Initial Creation                        -->
+    <!-- ========================================================================== -->
+	<select id="selectSortDsctnDtlTotList" parameterType="com.at.apcss.am.sort.vo.SortDsctnDtlTotVO" resultType="com.at.apcss.am.sort.vo.SortDsctnDtlTotVO">
+		<![CDATA[
+			SELECT  X.APC_CD
+			      , FN_GET_PRDCR_NM (X.RPRS_PRDCR_CD, X.APC_CD) AS PRDCR_NM
+			      , X.RPRS_PRDCR_CD
+			      ,	X.INPT_YMD
+			      , SUM(A_R_2XL)    AS A_RED_2Xl
+			      , SUM(A_R_XL)     AS A_RED_Xl
+			      , SUM(A_R_L)      AS A_RED_L
+			      , SUM(A_R_M)      AS A_RED_M
+			      , SUM(A_R_S)      AS A_RED_S
+			      , SUM(A_R_SS)     AS A_RED_SS
+			      , SUM(A_Y_2XL)    AS A_YLW_2Xl
+			      , SUM(A_Y_XL)     AS A_YLW_Xl
+			      , SUM(A_Y_L)      AS A_YLW_L
+			      , SUM(A_Y_M)      AS A_YLW_M
+			      , SUM(A_Y_S)      AS A_YLW_S
+			      , SUM(A_Y_SS)     AS A_YLW_SS
+			      , SUM(A_O_2XL)    AS A_ORG_2Xl
+			      , SUM(A_O_XL)     AS A_ORG_Xl
+			      , SUM(A_O_L)      AS A_ORG_L
+			      , SUM(A_O_M)      AS A_ORG_M
+			      , SUM(A_O_S)      AS A_ORG_S
+			      , SUM(A_O_SS)     AS A_ORG_SS
+			      , SUM(A_R_TOT)    AS A_RED_TOT
+			      , SUM(A_Y_TOT)    AS A_YLW_TOT
+			      , SUM(A_O_TOT)    AS A_ORG_TOT
+			      , (NVL(SUM(A_R_TOT), 0) + NVL(SUM(A_Y_TOT), 0) + NVL(SUM(A_O_TOT), 0)) AS A_TOT
+
+			      , SUM(B_R_2XL)    AS B_RED_2Xl
+			      , SUM(B_R_XL)     AS B_RED_Xl
+			      , SUM(B_R_L)      AS B_RED_L
+			      , SUM(B_R_M)      AS B_RED_M
+			      , SUM(B_R_S)      AS B_RED_S
+			      , SUM(B_R_SS)     AS B_RED_SS
+			      , SUM(B_Y_2XL)    AS B_YLW_2Xl
+			      , SUM(B_Y_XL)     AS B_YLW_Xl
+			      , SUM(B_Y_L)      AS B_YLW_L
+			      , SUM(B_Y_M)      AS B_YLW_M
+			      , SUM(B_Y_S)      AS B_YLW_S
+			      , SUM(B_Y_SS)     AS B_YLW_SS
+			      , SUM(B_O_2XL)    AS B_ORG_2Xl
+			      , SUM(B_O_XL)     AS B_ORG_Xl
+			      , SUM(B_O_L)      AS B_ORG_L
+			      , SUM(B_O_M)      AS B_ORG_M
+			      , SUM(B_O_S)      AS B_ORG_S
+			      , SUM(B_O_SS)     AS B_ORG_sS
+			      , SUM(B_R_TOT)    AS B_RED_TOT
+			      , SUM(B_Y_TOT)    AS B_YLW_TOT
+			      , SUM(B_O_TOT)    AS B_ORG_TOT
+			      , (NVL(SUM(B_R_TOT), 0) + NVL(SUM(B_Y_TOT), 0) + NVL(SUM(B_O_TOT), 0)) AS B_TOT
+
+
+			      , SUM(C_R_2XL)    AS C_RED_2Xl
+			      , SUM(C_R_XL)     AS C_RED_Xl
+			      , SUM(C_R_L)      AS C_RED_L
+			      , SUM(C_R_M)      AS C_RED_M
+			      , SUM(C_R_S)      AS C_RED_S
+			      , SUM(C_R_SS)     AS C_RED_SS
+			      , SUM(C_Y_2XL)    AS C_YLW_2Xl
+			      , SUM(C_Y_XL)     AS C_YLW_Xl
+			      , SUM(C_Y_L)      AS C_YLW_L
+			      , SUM(C_Y_M)      AS C_YLW_M
+			      , SUM(C_Y_S)      AS C_YLW_S
+			      , SUM(C_Y_SS)     AS C_YLW_SS
+			      , SUM(C_O_2XL)    AS C_ORG_2Xl
+			      , SUM(C_O_XL)     AS C_ORG_Xl
+			      , SUM(C_O_L)      AS C_ORG_L
+			      , SUM(C_O_M)      AS C_ORG_M
+			      , SUM(C_O_S)      AS C_ORG_S
+			      , SUM(C_O_SS)     AS C_ORG_SS
+			      , SUM(C_R_TOT)    AS C_RED_TOT
+			      , SUM(C_Y_TOT)    AS C_YLW_TOT
+			      , SUM(C_O_TOT)    AS C_ORG_TOT
+			      , (NVL(SUM(C_R_TOT), 0) + NVL(SUM(C_Y_TOT), 0) + NVL(SUM(C_O_TOT), 0)) AS C_TOT
+
+			      , SUM(SORT_QNTT)  AS TOT
+			      , (SELECT (NVL(Y.QNTT_CYCL_1, 0) +
+			                NVL(Y.QNTT_CYCL_2, 0) +
+			                NVL(Y.QNTT_CYCL_3, 0) +
+			                NVL(Y.QNTT_CYCL_4, 0) +
+			                NVL(Y.QNTT_CYCL_5, 0)) * 5
+			           FROM TB_RAW_MTR_WRHS_SMMRY Y
+			          WHERE X.APC_CD = Y.APC_CD
+			            AND X.RPRS_PRDCR_CD = Y.PRDCR_CD
+			            AND X.ITEM_CD = Y.ITEM_CD
+			            AND X.INPT_YMD = Y.SORT_YMD
+			            AND Y.VRTY_CD = '0300'
+			            AND Y.DEL_YN = 'N'
+			        ) AS RED_WRHS_WGHT
+			      , (SELECT (NVL(Y.QNTT_CYCL_1, 0) +
+			                NVL(Y.QNTT_CYCL_2, 0) +
+			                NVL(Y.QNTT_CYCL_3, 0) +
+			                NVL(Y.QNTT_CYCL_4, 0) +
+			                NVL(Y.QNTT_CYCL_5, 0)) * 5
+			           FROM TB_RAW_MTR_WRHS_SMMRY Y
+			          WHERE X.APC_CD = Y.APC_CD
+			            AND X.RPRS_PRDCR_CD = Y.PRDCR_CD
+			            AND X.ITEM_CD = Y.ITEM_CD
+			            AND X.INPT_YMD = Y.SORT_YMD
+			            AND Y.VRTY_CD = '0200'
+			            AND Y.DEL_YN = 'N'
+			        ) AS YLW_WRHS_WGHT
+			      , (SELECT (NVL(Y.QNTT_CYCL_1, 0) +
+			                NVL(Y.QNTT_CYCL_2, 0) +
+			                NVL(Y.QNTT_CYCL_3, 0) +
+			                NVL(Y.QNTT_CYCL_4, 0) +
+			                NVL(Y.QNTT_CYCL_5, 0)) * 5
+			           FROM TB_RAW_MTR_WRHS_SMMRY Y
+			          WHERE X.APC_CD = Y.APC_CD
+			            AND X.RPRS_PRDCR_CD = Y.PRDCR_CD
+			            AND X.ITEM_CD = Y.ITEM_CD
+			            AND X.INPT_YMD = Y.SORT_YMD
+			            AND Y.VRTY_CD = '0400'
+			            AND Y.DEL_YN = 'N'
+			        ) AS ORG_WRHS_WGHT
+
+			FROM  ( SELECT  A.APC_CD
+			              , B.ITEM_CD
+			              , A.INPT_YMD
+			              , B.RPRS_PRDCR_CD
+
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('01') THEN A.SORT_QNTT END AS A_R_2XL
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('02') THEN A.SORT_QNTT END AS A_R_XL
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('03') THEN A.SORT_QNTT END AS A_R_L
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('04') THEN A.SORT_QNTT END AS A_R_M
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('05') THEN A.SORT_QNTT END AS A_R_S
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('06') THEN A.SORT_QNTT END AS A_R_SS
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('01') THEN A.SORT_QNTT END AS A_Y_2XL
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('02') THEN A.SORT_QNTT END AS A_Y_XL
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('03') THEN A.SORT_QNTT END AS A_Y_L
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('04') THEN A.SORT_QNTT END AS A_Y_M
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('05') THEN A.SORT_QNTT END AS A_Y_S
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('06') THEN A.SORT_QNTT END AS A_Y_SS
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('01') THEN A.SORT_QNTT END AS A_O_2XL
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('02') THEN A.SORT_QNTT END AS A_O_XL
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('03') THEN A.SORT_QNTT END AS A_O_L
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('04') THEN A.SORT_QNTT END AS A_O_M
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('05') THEN A.SORT_QNTT END AS A_O_S
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('06') THEN A.SORT_QNTT END AS A_O_SS
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('01','02','03','04','05','06') THEN A.SORT_QNTT END AS A_R_TOT
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('01','02','03','04','05','06') THEN A.SORT_QNTT END AS A_Y_TOT
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('01','02','03','04','05','06') THEN A.SORT_QNTT END AS A_O_TOT
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('07') THEN A.SORT_QNTT END AS B_R_2XL
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('08') THEN A.SORT_QNTT END AS B_R_XL
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('09') THEN A.SORT_QNTT END AS B_R_L
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('10') THEN A.SORT_QNTT END AS B_R_M
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('11') THEN A.SORT_QNTT END AS B_R_S
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('12') THEN A.SORT_QNTT END AS B_R_SS
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('07') THEN A.SORT_QNTT END AS B_Y_2XL
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('08') THEN A.SORT_QNTT END AS B_Y_XL
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('09') THEN A.SORT_QNTT END AS B_Y_L
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('10') THEN A.SORT_QNTT END AS B_Y_M
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('11') THEN A.SORT_QNTT END AS B_Y_S
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('12') THEN A.SORT_QNTT END AS B_Y_SS
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('07') THEN A.SORT_QNTT END AS B_O_2XL
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('08') THEN A.SORT_QNTT END AS B_O_XL
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('09') THEN A.SORT_QNTT END AS B_O_L
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('10') THEN A.SORT_QNTT END AS B_O_M
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('11') THEN A.SORT_QNTT END AS B_O_S
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('12') THEN A.SORT_QNTT END AS B_O_SS
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('07','08','09','10','11','12') THEN A.SORT_QNTT END AS B_R_TOT
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('07','08','09','10','11','12') THEN A.SORT_QNTT END AS B_Y_TOT
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('07','08','09','10','11','12') THEN A.SORT_QNTT END AS B_O_TOT
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('13') THEN A.SORT_QNTT END AS C_R_2XL
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('14') THEN A.SORT_QNTT END AS C_R_XL
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('15') THEN A.SORT_QNTT END AS C_R_L
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('16') THEN A.SORT_QNTT END AS C_R_M
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('17') THEN A.SORT_QNTT END AS C_R_S
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('18') THEN A.SORT_QNTT END AS C_R_SS
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('13') THEN A.SORT_QNTT END AS C_Y_2XL
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('14') THEN A.SORT_QNTT END AS C_Y_XL
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('15') THEN A.SORT_QNTT END AS C_Y_L
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('16') THEN A.SORT_QNTT END AS C_Y_M
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('17') THEN A.SORT_QNTT END AS C_Y_S
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('18') THEN A.SORT_QNTT END AS C_Y_SS
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('13') THEN A.SORT_QNTT END AS C_O_2XL
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('14') THEN A.SORT_QNTT END AS C_O_XL
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('15') THEN A.SORT_QNTT END AS C_O_L
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('16') THEN A.SORT_QNTT END AS C_O_M
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('17') THEN A.SORT_QNTT END AS C_O_S
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('18') THEN A.SORT_QNTT END AS C_O_SS
+			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('13','14','15','16','17','18') THEN A.SORT_QNTT END AS C_R_TOT
+			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('13','14','15','16','17','18') THEN A.SORT_QNTT END AS C_Y_TOT
+			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('13','14','15','16','17','18') THEN A.SORT_QNTT END AS C_O_TOT
+			              , A.SORT_QNTT AS SORT_QNTT
+			          FROM  USRAM.TB_SORT_PRFMNC A
+			              , USRAM.TB_SORT_INVNTR B
+			         WHERE  A.APC_CD = B.APC_CD
+			           AND  A.SORTNO = B.SORTNO
+			           AND  A.SORT_SN = B.SORT_SN
+			           AND  A.DEL_YN = 'N'
+			           AND  B.DEL_YN = 'N'
+		]]>
+			<if test='apcCd != null and apcCd !=""'>
+			           AND A.APC_CD = #{apcCd}
+			</if>
+			<if test='itemCd != null and itemCd !=""'>
+			       	   AND B.ITEM_CD = #{itemCd}
+			</if>
+			<if test='prdcrCd != null and prdcrCd != ""'>
+			   	   	   AND B.RPRS_PRDCR_CD  = #{prdcrCd}
+			</if>
+       		<if test='inptYmdFrom != null and inptYmdFrom != ""'>
+				   	   AND A.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+			</if>
+			<if test='inptYmdTo != null and inptYmdTo != ""'>
+				   	   AND A.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+			</if>
+		<![CDATA[
+			   ) X
+			GROUP BY X.APC_CD, X.INPT_YMD, X.ITEM_CD, X.RPRS_PRDCR_CD
+		]]>
+	</select>
 </mapper>

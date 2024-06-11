@@ -119,7 +119,7 @@ function compopup1(options) {
 				    }
 					htma += '</select>';	
 				} else if(settings.searchInputTypes[i]=="datepicker") {
-					htma += '<sbux-datepicker  ' + tmp3 + ' uitype="popup" ></sbux-datepicker>';
+					htma += '<sbux-datepicker  ' + tmp3 + ' uitype="popup" value="' + settings.searchInputValues[i] + '" ></sbux-datepicker>';
 				}
 			} else {
 				htma += '<input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + settings.searchInputValues[i] + '" ></input>';

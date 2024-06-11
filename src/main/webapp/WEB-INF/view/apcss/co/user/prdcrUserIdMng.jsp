@@ -108,7 +108,7 @@
 					</tbody>
 				</table>
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<div class="ad_tbl_top2">
 							<ul class="ad_tbl_count">
 								<li>
@@ -120,10 +120,6 @@
 						<div>
 							<div id="sb-area-comUserPrdcrAprv" style="height:540px; width:100%;"></div>
 						</div>
-					</div>
-					<div class="col-md-1 justify-content-center">
-							<sbux-button id="btn_add_req" type = "button" button-size="large" class="btn btn-sm" text="⬅️" onclick="fn_aprvYupdate"> </sbux-button>
-							<sbux-button id="btn_del_prdcr" type = "button" button-size="large" class="btn btn-sm" text="➡️" onclick="fn_aprvNupdate"> </sbux-button>
 					</div>
 					<div class="col-md-6">
 						<div class="ad_tbl_top2">
@@ -199,10 +195,20 @@
         SBGridProperties.columns = [
         	{caption: [""],		ref: 'chk',	type: 'radio',		width: '50px',	style: 'text-align:center', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ["코드"],		ref: 'prdcrCd',	type: 'output',		width: '100px',	style: 'text-align:center'},
-            {caption: ["생산자명"],		ref: 'prdcrNm',	type: 'output',		width: '100px',	style: 'text-align:center'},
+            {caption: ["생산자명"],		ref: 'prdcrNm',	type: 'output',		width: '150px',	style: 'text-align:center'},
             {caption: ["전화번호"],	ref: 'telno',	type: 'output',		width: '150px',	style: 'text-align:center'},
             {caption: ["사용자ID"],	ref: 'userId',	type: 'output',		width: '150px',	style: 'text-align:center'},
             {caption: ["사용자명"],	ref: 'userNm',	type: 'output',		width: '150px',	style: 'text-align:center'},
+            {caption : [''],			ref : 'btnN',		width : '50px',		style : 'text-align:center',	type : 'button' , 		typeinfo : {buttonvalue: '해제', callback: fn_aprvNupdate}
+	            , renderer : function(objGrid,nRow,nCol,strValue,objRowData){
+	    			if(objRowData.userId === undefined){
+	    				return "";
+	    			}else{
+	    				return "<button type='button' class='btn btn-xs btn-outline-danger' onclick='fn_aprvNupdate()'>해제</button>";
+	    			}
+	            }
+    		},
+
             {caption: ["apc코드"],	ref: 'apcCd',     		type:'input',  	hidden: true},
             {caption: ["경영체등록번호"],	ref: 'mngmstRegno',     		type:'input',  	hidden: true}
         ];
@@ -226,13 +232,16 @@
 	    SBGridProperties.entertotab = true;
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
-        	{caption: [""],		ref: 'chk',	type: 'radio',		width: '50px',	style: 'text-align:center', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+        	//{caption: [""],		ref: 'chk',	type: 'radio',		width: '50px',	style: 'text-align:center', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+        	{caption : [''],			ref : 'btnY',		width : '50px',		style : 'text-align:center',	type : 'button' , 		typeinfo : {buttonvalue: '승인', callback: fn_aprvYupdate}},
         	{caption: ["ID"],		ref: 'userId',	type: 'output',		width: '100px',	style: 'text-align:center'},
             {caption: ["사용자명"],		ref: 'userNm',	type: 'output',		width: '100px',	style: 'text-align:center'},
+            //{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	width: '100px',	style: 'text-align:center'},
+            {caption: ["APC"],	ref: 'apcNm',     		type:'input',  	width: '100px',	style: 'text-align:center'},
             {caption: ["메일주소"],		ref: 'eml',	type: 'output',		width: '100px',	style: 'text-align:center'},
             {caption: ["전화번호"],	ref: 'telno',	type: 'output',		width: '150px',	style: 'text-align:center'},
-            {caption: ["비고"],	ref: 'rmrk',	type: 'output',		width: '150px',	style: 'text-align:center'},
-            {caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
+            {caption: ["비고"],	ref: 'rmrk',	type: 'output',		width: '400px',	style: 'text-align:center'},
+
             {caption: ["apc코드"],	ref: 'apcCd',     		type:'input',  	hidden: true},
         ];
 	    grdComUserPrdcrNotAprv = _SBGrid.create(SBGridProperties);
@@ -240,7 +249,7 @@
 
 
 
- 	// 생산농가에서 승인해제
+ 	// 생산농가 조회
     async function fn_callComUserPrdcrAprvList(){
     	let apcCd = SBUxMethod.get("gsb-slt-apcCd")
     	let prdcrNm = SBUxMethod.get("srch-inp-prdcrNm")
@@ -249,7 +258,7 @@
 
 
     	const postJsonPromise = gfn_postJSON("/co/user/selectComUserPrdcrAprvList.do", {
-	  		apcCd : apcCd ,
+	  		apcCd : gv_selectedApcCd ,
 	  		prdcrNm : prdcrNm,
 	  		userNm  : userNm,
 	  		userId    : userId
@@ -262,27 +271,40 @@
   	      		let totalRecordCount = 0;
   	      		jsonComUserPrdcrAprv.length = 0;
   	      		jsonComUserPrdcrNotAprv.length = 0;
+
   	          	data.resultList.forEach((item, index) => {
-  	  				const arr = {
+  	          		if(item.TYPE === "PRDCR_LIST"){
+  	          			//요청목록 그리드 데이터 추가
+	  	          		const arr = {
+								prdcrCd : item.PRDCR_CD,
+								prdcrNm : item.PRDCR_NM,
+								telno : item.TELNO,
+								userId : item.USER_ID,
+								apcCd : item.APC_CD,
+								rmrk : item.RMRK,
+								userNm : item.USER_NM
+		  				}
+	  					jsonComUserPrdcrAprv.push(arr);
+  	          		}else if(item.TYPE === "APRV_LIST"){
+  	          		//생산농가 그리드 데이터 추가
+  	          			const arr = {
   							prdcrCd : item.PRDCR_CD,
   							prdcrNm : item.PRDCR_NM,
-  							cdNm : item.cdNm,
   							telno : item.TELNO,
   							userId : item.USER_ID,
   							apcCd : item.APC_CD,
   							eml : item.EML,
   							rmrk : item.RMRK,
-  							userNm : item.USER_NM
-  	  				}
-  	  				if(item.APRV_YN === "Y"){
-  	  					jsonComUserPrdcrAprv.push(arr);
-  	  				}else{
+  							userNm : item.USER_NM,
+  							apcNm : item.APC_NM
+	  	  				}
   	  					jsonComUserPrdcrNotAprv.push(arr);
-  	  				}
-
-
+  	          		}
 
   	  			});
+
+
+
 
   	          	grdComUserPrdcrAprv.rebuild();
   	          	grdComUserPrdcrNotAprv.rebuild();
@@ -302,54 +324,58 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
     // 요청목록에서 승인
     const fn_aprvYupdate = async function() {
 
-    	const comUserAprv = grdComUserPrdcrNotAprv.getRowData(grdComUserPrdcrNotAprv.getRow());
-
-    	const param = {
-    			apcCd : comUserAprv.apcCd ,
-    			userId : comUserAprv.userId,
-    			aprvYn : "Y"
+    	const comUserNotAprv = grdComUserPrdcrNotAprv.getRowData(grdComUserPrdcrNotAprv.getRow());
+    	const comUserAprv = grdComUserPrdcrAprv.getRowData(grdComUserPrdcrAprv.getRow());
+    	var prdcrCd = comUserAprv.prdcrCd;
+    	var prdcrNm = comUserAprv.prdcrNm;
+    	var userId = comUserNotAprv.userId;
+    	if(prdcrCd === ""){
+    		console.log("생산자코드 입력하세요");
+    		return;
+    	}
+   		const param = {
+    			apcCd : comUserNotAprv.apcCd
+    			, userId : userId
+    			, aprvYn : "Y"
+    			, prdcrCd : comUserAprv.prdcrCd
     	}
 
+   		if(!confirm("요청목록 계정 : "+userId + "\n 생산자 : "+prdcrCd + "," +  prdcrNm + "\n 승인하시겠습니까?")){
+   			return;
+ 		}
 
 
-        if (gfn_comConfirm("Q0001", "저장")) {
-        	const postJsonPromise = gfn_postJSON("/co/user/saveComUserAprv.do", param);	// 프로그램id 추가
-			const data = await postJsonPromise;
-	        try {
-	        	if (_.isEqual("S", data.resultStatus)) {
-	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		fn_callComUserPrdcrAprvList();
 
-	        	} else {
-		        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
+       	const postJsonPromise = gfn_postJSON("/co/user/saveComUserAprv.do", param);	// 프로그램id 추가
+		const data = await postJsonPromise;
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        		fn_callComUserPrdcrAprvList();
+
+        	} else {
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        }
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+
     }
 
     const fn_aprvNupdate = async function() {
 
     	const comUserAprv = grdComUserPrdcrAprv.getRowData(grdComUserPrdcrAprv.getRow());
-
+		if(comUserAprv.userId === undefined){
+			gfn_comAlert("W0003","해제");
+			return;
+		}
     	const param = {
     			apcCd : comUserAprv.apcCd ,
     			userId : comUserAprv.userId,

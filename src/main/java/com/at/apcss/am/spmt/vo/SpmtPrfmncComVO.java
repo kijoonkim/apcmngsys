@@ -190,6 +190,10 @@ public class SpmtPrfmncComVO extends ComVO {
 	 */
 	private String invntrSttsCd;
 	
+	/**
+	 * 출하강제처리여부
+	 */
+	private String spmtFrcdPrcsYn;
 	
 	private List<SpmtPrfmncVO> spmtPrfmncList;
 

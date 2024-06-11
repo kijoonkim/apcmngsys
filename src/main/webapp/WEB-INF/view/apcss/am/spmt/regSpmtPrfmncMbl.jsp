@@ -275,6 +275,7 @@
                 <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
                 <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장발행" class="btn btn-sm btn-primary btn-mbl" onclick="fn_docSpmt()"></sbux-button>
+<%--                <sbux-button id="fullScreen" name="fullScreen" uitype="normal" text="전체화면" class="btn btn-sm btn-primary btn-mbl" onclick="fn_fullScreen"></sbux-button>--%>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
                         <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked>
@@ -1518,19 +1519,25 @@
     const fn_onchangeQntt = function(_el){
         let val = parseInt($(_el).val());
         let max = parseInt($(_el).attr("max"));
-
-        if(val > max){
-            gfn_comAlert("W0008","재고","수량");
-            val = max;
-        }
+        /**
+         * 20240605 마이너스재고 임시조치 max validation해제 **/
+        // if(val > max){
+        //     gfn_comAlert("W0008","재고","수량");
+        //     val = max;
+        // }
         $(_el).closest('tr').children().eq(8).find('input').val(val);
         $(_el).val(val);
         let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").attr("sortInvnt"));
 
-        if(mapInvntQntt.has($(_el).closest('tr').index())){
-            let originQnttMap = mapInvntQntt.get($(_el).closest('tr').index());
+        /** 수정모드 진입시 재고 추가 마이너스 배제 **/
+        let originQnttMap = mapInvntQntt.get($(_el).closest('tr').index());
+        if(rowData.spmtQntt > 0 || rowData.spmtWght > 0) {
             originQnttMap.clear();
-            originQnttMap.set(rowData.spmtInvId[0],val);
+        }else{
+            if(mapInvntQntt.has($(_el).closest('tr').index())){
+                originQnttMap.clear();
+                originQnttMap.set(rowData.spmtInvId[0],val);
+            }
         }
     }
     /** 재고조회 **/
@@ -1884,9 +1891,10 @@
                 /** 출하번호 트리거 **/
                 $(inputId).trigger('change');
 
-
                 /** save JSON 저장 **/
                 tr.children(":last").find('input').attr("sortInvnt",JSON.stringify(item));
+
+                /** 재고선택[수량변경] **/
                 fn_selectInvnt(null,idx);
 
                 /** 외부 메인 설정 입력 **/
@@ -2003,46 +2011,46 @@
         /** 중복 상품 취합 **/
         let arr = saveJson.spmtPrfmncList;
 
-        let result = arr.reduce(function(acc,cur){
-            if(acc.length == 0){
-                acc.push(cur);
-            }else{
-                /** 존재 여부 **/
-                let flag = false;
-                acc.forEach(function(item){
-                    if(item.gdsInput == cur.gdsInput){
-                       if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
-                           if(gfn_isEmpty(spmtNo)) {
-                               if (item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno) {
-                                   item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
-                                   flag = true;
-                                   return;
-                               }
-                           }else{
-                              item.spmtGdsList.forEach(function(item){
-                                 let pckgno = item.pckgno;
-                                 /** 이미 등록된 데이터가 상위는 보장받음. **/
-                                 cur.spmtGdsList.forEach(function(it){
-                                     if(it.pckgno == pckgno){
-                                         flag = true;
-                                         return;
-                                     }
-                                 });
-                              });
-                              if(flag){
-                                  item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
-                              }
-                           }
-                       }
-                    }
-                });
-                if(!flag){
-                    acc.push(cur);
-                }
-            }
-            return acc;
-        }, []);
-        saveJson.spmtPrfmncList = result;
+        // let result = arr.reduce(function(acc,cur){
+        //     if(acc.length == 0){
+        //         acc.push(cur);
+        //     }else{
+        //         /** 존재 여부 **/
+        //         let flag = false;
+        //         acc.forEach(function(item){
+        //             if(item.gdsInput == cur.gdsInput){
+        //                if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
+        //                    if(gfn_isEmpty(spmtNo)) {
+        //                        if (item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno) {
+        //                            item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
+        //                            flag = true;
+        //                            return;
+        //                        }
+        //                    }else{
+        //                       item.spmtGdsList.forEach(function(item){
+        //                          let pckgno = item.pckgno;
+        //                          /** 이미 등록된 데이터가 상위는 보장받음. **/
+        //                          cur.spmtGdsList.forEach(function(it){
+        //                              if(it.pckgno == pckgno){
+        //                                  flag = true;
+        //                                  return;
+        //                              }
+        //                          });
+        //                       });
+        //                       if(flag){
+        //                           item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
+        //                       }
+        //                    }
+        //                }
+        //             }
+        //         });
+        //         if(!flag){
+        //             acc.push(cur);
+        //         }
+        //     }
+        //     return acc;
+        // }, []);
+        // saveJson.spmtPrfmncList = result;
         let returnSpmtNo = "";
 
         try{
@@ -2244,6 +2252,26 @@
     const fn_focusout =function(e){
         if($(e.relatedTarget).attr('readonly') == 'readonly'){
             $(e.currentTarget).parent().nextAll().last().find('button').trigger('click');
+        }
+    }
+    const fn_fullScreen =function(){
+
+        if(!document.fullscreenElement){
+            if(document.documentElement.requestFullscreen){
+                document.documentElement.requestFullscreen();
+            }else if(document.documentElement.webkitRequestFullscreen){
+                document.documentElement.webkitRequestFullscreen()
+            }else if(document.documentElement.msRequestFullscreen){
+                document.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(document.exitFullscreen){
+                document.exitFullscreen();
+            }else if(document.webkitExitFullscreen){
+                document.webkitExitFullscreen();
+            }else if(document.msExitFullscreen){
+                document.msExitFullscreen();
+            }
         }
     }
 

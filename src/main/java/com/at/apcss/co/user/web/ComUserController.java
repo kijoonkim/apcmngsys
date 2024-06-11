@@ -244,9 +244,34 @@ public class ComUserController extends BaseController {
 
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<HashMap<String, Object>> resultVO;
+		List<HashMap<String, Object>> resultVO2;
 
 		try {
 			resultVO = comUserService.selectComUserPrdcrAprvList(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		try {
+			resultVO2 = comUserService.selectComUserPrdcrList(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultVO.addAll(resultVO2);
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultVO);
+
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/selectComUserPrdcrRegList.do")
+	public ResponseEntity<HashMap<String, Object>> selectComUserPrdcrRegList(@RequestBody HashMap<String,Object> comUserVO, HttpServletRequest request) throws Exception{
+
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String, Object>> resultVO;
+
+		try {
+			resultVO = comUserService.selectComUserPrdcrRegList(comUserVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -283,5 +308,79 @@ public class ComUserController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/co/user/savePrdcrUserId.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> savePrdcrUserId(@RequestBody List<HashMap<String,Object>> comUser, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+
+		try {
+			for(HashMap<String,Object> user : comUser) {
+				user.put("sysFrstInptUserId", getUserId());
+				user.put("sysFrstInptPrgrmId", getPrgrmId());
+				user.put("sysLastChgUserId", getUserId());
+				user.put("sysLastChgPrgrmId", getPrgrmId());
+				result += comUserService.savePrdcrUserId(user);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/deletePrdcrUserId.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deletePrdcrUserId(@RequestBody List<HashMap<String,Object>> comUser, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+
+		try {
+			for(HashMap<String,Object> user : comUser) {
+
+				result += comUserService.deletePrdcrUserId(user);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/selectComUserAprvList.do")
+	public ResponseEntity<HashMap<String, Object>> selectComUserAprvList(@RequestBody HashMap<String,Object> comUserVO, HttpServletRequest request) throws Exception{
+
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String, Object>> resultVO;
+
+		try {
+			resultVO = comUserService.selectComUserAprvList(comUserVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultVO);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 
 }
