@@ -110,6 +110,7 @@ public interface ComUserMapper {
     public int insertPrdcrUserId(HashMap<String, Object> comUserVO);
     public int updatePrdcrUserId(HashMap<String, Object> comUserVO);
     public List<HashMap<String, Object>> selectComUserAprvList(HashMap<String, Object> comUserVO) throws Exception;
+    public int deletePrdcrUserId(HashMap<String,Object> comUserVO);
 }
 
 

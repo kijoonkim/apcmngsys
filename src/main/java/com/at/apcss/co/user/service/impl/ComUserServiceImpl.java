@@ -388,5 +388,20 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
         return resultVO;
     }
 
+    /**
+     * 생산농가 계정관리 승인요청 삭제
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public int deletePrdcrUserId(HashMap<String,Object> comUserVO) throws Exception{
+    	int result = 0;
+
+		result = comUserMapper.deletePrdcrUserId(comUserVO);
+
+		return result;
+
+    }
+
 
 }

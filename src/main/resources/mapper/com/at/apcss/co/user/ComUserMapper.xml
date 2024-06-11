@@ -417,7 +417,7 @@
 			'APRV_LIST' AS TYPE
 			, CU.USER_ID AS USER_ID
 			, CU.USER_NM AS USER_NM
-			, CU.APC_CD AS APC_CD
+			, UPA.APC_CD AS APC_CD
 			, UPA.PRDCR_CD AS PRDCR_CD
 			, (SELECT FN_GET_PRDCR_NM(UPA.PRDCR_CD,UPA.APC_CD) FROM DUAL) AS PRDCR_NM
 			, CU.MNGMST_RGNO AS MNGMST_RGNO
@@ -431,14 +431,14 @@
 		FROM TB_COM_USER CU
 				, TB_COM_USER_PRDCR_APRV UPA
 		WHERE 1=1
-			AND CU.APC_CD = UPA.APC_CD
+
 			AND CU.USER_ID = UPA.USER_ID
 			AND UPA.DEL_YN = 'N'
 			AND UPA.APRV_YN = 'N'
 			AND CU.DEL_YN = 'N'
 	]]>
 	<if test='apcCd != null and apcCd != ""'>
-		AND CU.APC_CD = #{apcCd}
+		AND UPA.APC_CD = #{apcCd}
 	</if>
 	<if test='prdcrCd != null and prdcrCd != ""'>
 		AND UPA.PRDCR_CD = #{prdcrCd}
@@ -473,7 +473,7 @@
 							THEN (SELECT
 											USER_NM
 										FROM TB_COM_USER A
-									  WHERE A.APC_CD = UPA.APC_CD
+									  WHERE 1=1
 									  	  AND A.USER_ID = UPA.USER_ID
 									  	  AND UPA.APRV_YN = 'Y') END AS USER_NM
 					FROM TB_PRDCR_INFO PI
@@ -626,10 +626,21 @@
     	UPDATE TB_COM_USER_PRDCR_APRV
     	   SET
     	     APC_CD				= #{apcCd}
+    	   , RMRK 				= #{rmrk}
     	   , SYS_LAST_CHG_DT 		= SYSDATE
     	   , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
     	   , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
     	 WHERE USER_ID 					= #{userId}
+    	 	 AND APC_CD 						= #{apcCd}
+
+    	]]>
+    </update>
+
+    <update id="deletePrdcrUserId" parameterType="hashmap">
+   	<![CDATA[
+    	DELETE FROM TB_COM_USER_PRDCR_APRV
+    	 WHERE USER_ID 					= #{userId}
+    	 	 AND APC_CD 						= #{apcCd}
 
     	]]>
     </update>
