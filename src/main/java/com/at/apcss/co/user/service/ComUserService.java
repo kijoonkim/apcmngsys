@@ -191,4 +191,12 @@ public interface ComUserService {
      * @throws Exception
      */
     public int savePrdcrUserId(HashMap<String,Object> comUserVO) throws Exception;
+
+    /**
+     * 생산농가 계정관리 승인요청 삭제
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public int deletePrdcrUserId(HashMap<String,Object> comUserVO) throws Exception;
 }
