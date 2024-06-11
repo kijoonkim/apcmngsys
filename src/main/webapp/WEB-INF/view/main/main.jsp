@@ -134,6 +134,15 @@
     background-color: white;
     color: black;
 }
+.button-goldenBrown{
+    background-color: #bd8e1e;
+    color: white;
+    border: 1px solid #bd8e1e;
+}
+.button-goldenBrown:hover{
+    background-color: white;
+    color: black;
+}
 
         
         
@@ -679,8 +688,8 @@
         		</div>
         		<div class="col-sm-6">
 					<div style="position: relative; text-align: right; margin: 3px;">
-                        <button id="main-btn-attach" class="button" style="display:none" onclick="mfn_attach()">파일첨부 📂</button>
-                        <button id="main-btn-appr" class="button button-brown" style="display:none" onclick="mfn_attach()">결재처리 ✒️</button>
+                        <button id="main-btn-attach" class="button button-goldenBrown" style="display:none" onclick="mfn_attach()">파일첨부 📂</button>
+                        <button id="main-btn-appr" class="button button-brown" style="display:none" onclick="mfn_appr()">결재처리 ✒️</button>
 						<button id="main-btn-init" class="button button-blue" style="display:none" onclick="mfn_init()">초기화 🔃</button>
         				<button id="main-btn-add" class="button button-blue" style="display:none" onclick="mfn_add()">신규 ➕</button>
         				<button id="main-btn-save" class="button button-red" style="display:none" onclick="mfn_save()">저장 💾</button>
@@ -1050,6 +1059,41 @@
     		console.log(e.message);
     	}
     }
+
+    const mfn_appr = function() {
+        if (gfn_isEmpty(lv_frmId)) {
+            return;
+        }
+        try {
+            const tabContent = document.getElementById(lv_frmId).contentWindow;
+            if (typeof tabContent !== 'object') {
+                return;
+            }
+
+            tabContent.cfn_appr();
+
+        }catch (e){
+            console.log(e.message);
+        }
+    }
+
+    const mfn_attach = function() {
+        if (gfn_isEmpty(lv_frmId)) {
+            return;
+        }
+        try {
+            const tabContent = document.getElementById(lv_frmId).contentWindow;
+            if (typeof tabContent !== 'object') {
+                return;
+            }
+
+            tabContent.cfn_attach();
+
+        }catch (e){
+            console.log(e.message);
+        }
+    }
+
 	
 	const mfn_displayButton = function (_uiInfo) {
 
