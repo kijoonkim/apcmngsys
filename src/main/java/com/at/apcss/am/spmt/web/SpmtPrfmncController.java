@@ -149,6 +149,8 @@ public class SpmtPrfmncController extends BaseController {
 			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
 			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
 
+			spmtPrfmncComVO.setSpmtFrcdPrcsYn(ComConstants.CON_YES);
+			
 			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByPckgList(spmtPrfmncComVO);
 			if(rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);

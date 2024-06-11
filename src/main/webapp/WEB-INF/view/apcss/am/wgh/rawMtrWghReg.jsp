@@ -1625,6 +1625,7 @@
                          apcCd: gv_selectedApcCd,
                          apcNm: gv_selectedApcNm,
                          linkKnd: "W",
+                         kndList: ["W", "R"]
                      },
                      fn_popApcLinkCallBack
                  );

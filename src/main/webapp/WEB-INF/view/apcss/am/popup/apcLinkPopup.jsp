@@ -75,7 +75,7 @@
 									uitype="single"
 									jsondata-ref="jsonApcLinkPopLinkKnd"
 									unselected-text="선택"
-									class="form-control input-sm input-sm-ast"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									readonly
 								></sbux-select>
 							</th>
@@ -142,12 +142,12 @@ const popApcLink = {
 		apcCd: null,
 		apcNm: null,
 		linkKnd: null,
+		kndList: []
 	},
 	callbackFnc: function() {},
 	init: async function(_param, _callbackFnc) {
 		SBUxMethod.openModal(this.modalId);
 		this.param = gfn_cloneJson(_param);
-		console.log("param", this.param);
 		// set param
 		SBUxMethod.set("apcLinkPop-inp-apcCd", this.param.apcCd);
 		SBUxMethod.set("apcLinkPop-inp-apcNm", this.param.apcNm);
@@ -159,6 +159,34 @@ const popApcLink = {
 						'LINK_KND'
 					);
 		}
+console.log("jsonApcLinkPopLinkKnd", jsonApcLinkPopLinkKnd);
+console.log("this.param", this.param);
+		const kndList = this.param['kndList'];
+		console.log("kndList", kndList);
+		console.log("gfn_isEmpty(kndList)", gfn_isEmpty(kndList));
+		console.log("Array.isArray(kndList)", Array.isArray(kndList));
+		console.log("kndList.length", kndList.length);
+		if (!gfn_isEmpty(kndList)
+				&& Array.isArray(kndList)
+				&& kndList.length > 0) {
+			
+			console.log("check", "ok");
+			
+			jsonApcLinkPopLinkKnd =
+				jsonApcLinkPopLinkKnd.filter(function(linkKnd) {
+					return kndList.some((knd) => {
+						 return knd == linkKnd.value;	
+					});
+				});
+
+			SBUxMethod.refresh('apcLinkPop-slt-linkKnd');
+			SBUxMethod.attr('apcLinkPop-slt-linkKnd','readonly','false');
+
+			console.log("jsonApcLinkPopLinkKnd", jsonApcLinkPopLinkKnd);
+		} else {
+			SBUxMethod.attr('apcLinkPop-slt-linkKnd','readonly','true');
+		}
+		
 		SBUxMethod.set("apcLinkPop-slt-linkKnd", this.param.linkKnd);
 		
 		if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
@@ -340,8 +368,13 @@ const popApcLink = {
 	},
 	setGrid: async function() {
     	const apcCd = this.param.apcCd;
-    	const linkKnd = this.param.linkKnd;
-
+    	const linkKnd = SBUxMethod.get('apcLinkPop-slt-linkKnd');
+    	
+    	if (gfn_isEmpty(linkKnd)) {
+    		gfn_comAlert("W0001", "연계실적");		//	W0001	{0}을/를 선택하세요.
+            return;
+    	}
+    	
 		try {
 	        const postJsonPromise = gfn_postJSON("/am/apc/selectApcLinkTrsmMatSttsList.do", {
 	        	apcCd: apcCd,

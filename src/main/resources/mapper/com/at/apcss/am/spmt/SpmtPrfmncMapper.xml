@@ -457,6 +457,7 @@
 		SELECT  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncDtl */
 		       PD.APC_CD            AS APC_CD
 		     , PD.SPMTNO            AS SPMTNO
+		     , PD.SPMT_SN			AS SPMT_SN
 		     , PD.PCKGNO            AS PCKGNO
 		     , PD.PCKG_SN           AS PCKG_SN
 		     , PD.VRTY_CD           AS VRTY_CD
@@ -940,13 +941,13 @@
 	<!-- ==========================================================================	-->
 	<update id="deleteSpmtPrfmncCom" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
-		UPDATE TB_SPMT_PRFMNC_COM
-		   SET SYS_LAST_CHG_DT			= SYSDATE
-	    	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-	    	 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-		   	 , DEL_YN 					= 'Y'
-		 WHERE APC_CD 	= #{apcCd}
-		   AND SPMTNO	= #{spmtno}
+			UPDATE TB_SPMT_PRFMNC_COM
+			   SET SYS_LAST_CHG_DT			= SYSDATE
+		    	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		    	 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			   	 , DEL_YN 					= 'Y'
+			 WHERE APC_CD 	= #{apcCd}
+			   AND SPMTNO	= #{spmtno}
 		]]>
 	</update>
 	<!-- ==========================================================================	-->
@@ -959,14 +960,16 @@
 	<!-- ==========================================================================	-->
 	<update id="deleteSpmtPrfmncDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
-		UPDATE TB_SPMT_PRFMNC_DTL
-		   SET SYS_LAST_CHG_DT			= SYSDATE
-	    	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
-	    	 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-		   	 , DEL_YN 					= 'Y'
-		 WHERE APC_CD 	= #{apcCd}
-		   AND SPMTNO	= #{spmtno}
-		   AND PCKGNO   = #{pckgno}
+			UPDATE /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmncDtl */
+				TB_SPMT_PRFMNC_DTL
+			   SET SYS_LAST_CHG_DT			= SYSDATE
+		    	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		    	 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			   	 , DEL_YN 					= 'Y'
+			 WHERE APC_CD 	= #{apcCd}
+			   AND SPMTNO	= #{spmtno}
+			   AND PCKGNO   = #{pckgno}
+			   AND SPMT_SN	= #{spmtSn}
 		]]>
 	</update>
 	<!-- ==========================================================================	-->
