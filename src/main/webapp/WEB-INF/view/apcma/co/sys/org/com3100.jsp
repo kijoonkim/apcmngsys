@@ -36,12 +36,11 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
-                    <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-                    <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-                    <!-- 
-                    <sbux-button id="btnDelete" name="btnDelete" 	uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-                     -->
-                    <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+                	<!-- 
+                    <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add"></sbux-button>
+                    <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
+                    <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+                	 -->
                 </div>
             </div>
             <div class="box-body">
@@ -84,7 +83,7 @@
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             
-                            <th scope="row" class="th_bg">사원명</th>
+                            <th scope="row" class="th_bg">공통팝업샘플1</th>
 							<td colspan="2"  class="td_input" style="border-right: hidden;">
    								<sbux-input
 									uitype="text"
@@ -105,6 +104,40 @@
 									text="찾기" uitype="modal"
 									target-id="modal-compopup1"
 									onclick="fn_compopup1"
+								></sbux-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg"></th>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            
+                            <th scope="row" class="th_bg"></th>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            
+                            <th scope="row" class="th_bg">공통팝업샘플3</th>
+							<td colspan="2"  class="td_input" style="border-right: hidden;">
+   								<sbux-input
+									uitype="text"
+									id="SRCH_DEPT_NAME"
+									class="form-control input-sm"									
+   								></sbux-input>
+								<sbux-input
+									uitype="hidden"
+									uitype="text"
+									id="SRCH_DEPT_CODE"
+									class="form-control input-sm"
+   								></sbux-input>
+							</td>
+                            <td class="td_input" >
+								<sbux-button
+									class="btn btn-xs btn-outline-dark"
+									text="찾기" uitype="modal"
+									target-id="modal-compopup1"
+									onclick="fn_compopup3"
 								></sbux-button>
                             </td>
                         </tr>
@@ -220,7 +253,7 @@
     
 	<!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
     </div>
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -283,7 +316,7 @@
 
     	fn_initSBSelect();
     	fn_createGrid();
-    	fn_search();
+    	cfn_search();
     });
 
     //grid 초기화
@@ -302,16 +335,15 @@
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
-	    SBGridProperties.paging = {
-			'type' 			: 'page',
-		  	'count' 		: 5,
-		  	'size' 			: 20,
-		  	'sorttype' 		: 'page',
-		  	'showgoalpageui': true
-	    };
         SBGridProperties.columns = [
             {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["팝업"], 			ref: 'POP_BTN',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+            	}	
+            },
+            {caption: ["선택"],  			ref: 'POP_SEL',    				type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'output',  	width:'200px',  	style:'text-align:left'},
@@ -338,37 +370,65 @@
 
         NationInGrid = _SBGrid.create(SBGridProperties);
         NationInGrid.bind('click', 'fn_view');
-        NationInGrid.bind('beforepagechanged', 'fn_pagingComMsgList');
     }
 
+    /**
+     * 그리드내 팝업 조회
+     */
+	function fn_gridPopup(event, row, col) {
+		
+    	console.log('grid popup row:', row);
+    	console.log('grid popup col:', col);
+    	
+		event.stopPropagation();	//그리드로 이벤트 전파중지
+    	fn_compopup2(row, col);
+	}
+
+    /**
+     * 그리드내 공통팝업 오픈
+     */
+    var fn_compopup2 = function(row, col) {
+    	
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+		SBUxMethod.openModal('modal-compopup1');
+    	
+        var searchText 		= "";
+        var replaceText0 	= "_EMP_CODE_";
+        var replaceText1 	= "_EMP_NAME_"; 
+        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+    	
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_HRI001_ESS'
+           	,popupType				: 'A'
+    		,whereClause			: strWhereClause
+   			,searchCaptions			: ["사번", 		"사원명"]
+   			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
+   			,searchInputValues		: ["", 			searchText]
+    		,height					: '400px'
+   			,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
+   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
+   			,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				//그리드내 원하는 위치에 값 셋팅하기
+				NationInGrid.setCellData(row, (col+1), data['EMP_CODE']);
+			}
+    	});
+    }    	
+    	
     /**
      * 목록 조회
      */
-    const fn_search = async function() {
-
-    	// set pagination
-    	let pageSize = NationInGrid.getPageSize();
-    	let pageNo = 1;
-    	
-    	NationInGrid.movePaging(pageNo);
-    }
-
+	function cfn_search() {
+		fn_setNationInGrid();
+	}
+	
     /**
-     *
+     * 목록 가져오기
      */
-    const fn_pagingComMsgList = async function() {
-    	let recordCountPerPage 	= NationInGrid.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo 		= NationInGrid.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-		var getColRef 			= NationInGrid.getColRef("checked");
-		NationInGrid.setFixedcellcheckboxChecked(0, getColRef, false);
-    	fn_setNationInGrid(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setNationInGrid = async function(pageSize, pageNo) {
+    const fn_setNationInGrid = async function() {
 
     	// form clear
     	fn_clearForm();
@@ -440,8 +500,11 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
-    const fn_compopup1 = function() {
+	
+    /**
+     * 공통팝업
+     */
+    var fn_compopup1 = function() {
     	
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_EMP_CODE_";
@@ -449,10 +512,11 @@
         var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-    	compopup1.init({
+    	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_HRI001_ESS'
+        	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["사번", 		"사원명"]
    			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
@@ -467,37 +531,42 @@
 				SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
 			},
     	});
+  	}
+	
+    /**
+     * 공통팝업3
+     */
+    var fn_compopup3 = function() {
     	
-    	/*
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%'";
-    	
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
-    	compopup1.init({
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+    	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'L_ORG900_ESS'
-    		,whereClause			: strWhereClause
-   			,searchCaptions			: ["부서", 		"부서명"]
-   			,searchInputFields		: ["CODE", 		"NAME"]
-   			,searchInputValues		: ["", 			searchText]
+    		,bizcompId				: 'P_ORG001'
+    		,popupType				: 'B'
+    		,whereClause			: ''
+   			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputValues		: ["", 				searchText,		""]
+    	
+			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+    	
     		,height					: '400px'
-   			,tableHeader			: ["부서", "부서명"]
-   			,tableColumnNames		: ["CODE", "NAME"]
-   			,tableColumnWidths		: ["80px", "80px"]
+   			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-				SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+				SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
 			},
     	});
-    	*/
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
   	}
 
     //신규 작성
-    function fn_create() {
+    function cfn_add() {
     	
     	editType = "N";    	
 
@@ -536,10 +605,8 @@
         SBUxMethod.set("USE_YN", 				"");
     }
 
-    
-    
     //저장
-    const fn_save = async function() {
+    function cfn_save() {
 
     	let NATION_CODE 			= gfnma_nvl(SBUxMethod.get("NATION_CODE"));
     	let NATION_CODE_ABBR		= gfnma_nvl(SBUxMethod.get("NATION_CODE_ABBR"));
@@ -549,8 +616,7 @@
     	let REGION_CODE 			= gfnma_nvl(SBUxMethod.get("REGION_CODE"));
     	
     	//let CURRENCY_CODE			= gfnma_nvl(SBUxMethod.get("CURRENCY_CODE"));
-    	let tempObj					= gfnma_multiSelectGet('#CURRENCY_CODE');
-    	let CURRENCY_CODE			= tempObj.value;
+    	let CURRENCY_CODE			= gfnma_multiSelectGet('#CURRENCY_CODE');
     	
     	let MEMO 					= gfnma_nvl(SBUxMethod.get("MEMO"));
     	let SORT_SEQ 				= gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
@@ -667,7 +733,7 @@
         		if(data.resultMessage){
 	          		alert(data.resultMessage);
         		}
-        		fn_search();
+        		cfn_search();
         	} else {
           		alert(data.resultMessage);
         	}
@@ -680,9 +746,6 @@
         }
     }
 
-	/**
-     * @param {boolean} isConfirmed
-     */
 	const fn_subUpdate = async function (obj){
 
   	    var paramObj = { 
@@ -720,7 +783,7 @@
         		if(data.resultMessage){
 	          		alert(data.resultMessage);
         		}
-        		fn_search();
+        		cfn_search();
         	} else {
           		alert(data.resultMessage);
         	}
@@ -731,20 +794,6 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    }
-
-    //선택 삭제
-    function fn_delete() {
-
-        //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
-    	 
     }
 
     //상세정보 보기

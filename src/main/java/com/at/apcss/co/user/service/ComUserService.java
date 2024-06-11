@@ -145,12 +145,20 @@ public interface ComUserService {
 	public ComUserVO selectAccountDupChk(ComUserVO comUserVO) throws Exception;
 
     /**
-     * 생산농가 계정관리 조회
+     * 생산농가 계정관리 요청목록 조회
      * @param HashMap
      * @return
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectComUserPrdcrAprvList(HashMap<String, Object> comUserVO) throws Exception;
+
+    /**
+     * 생산농가 계정관리 생산농가 조회
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectComUserPrdcrList(HashMap<String, Object> comUserVO) throws Exception;
 
     public int updateUserAprv(HashMap<String,Object> comUserVO) throws Exception;
 }

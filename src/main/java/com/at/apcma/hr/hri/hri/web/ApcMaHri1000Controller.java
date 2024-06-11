@@ -143,15 +143,17 @@ public class ApcMaHri1000Controller extends BaseController {
                 if(key.contains("P_HRI1000_S")) {
                     if(param.get(key) instanceof List) {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-                        listData.stream().forEach(d -> {
-                            try {
-                                d.put("procedure", 		key);
-                                apcMaCommDirectService.callProc(d, session, request, "");
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                        resultMap.put(key, listData);
+                        if(listData.size() > 0) {
+                            listData.stream().forEach(d -> {
+                                try {
+                                    d.put("procedure", key);
+                                    apcMaCommDirectService.callProc(d, session, request, "");
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            });
+                            resultMap.put(key, listData);
+                        }
                     } else if (param.get(key) instanceof Map) {
                         Map<String, Object> mapData = (Map<String, Object>) param.get(key);
                         mapData.put("procedure", 		key);
@@ -165,14 +167,7 @@ public class ApcMaHri1000Controller extends BaseController {
         }
 
         logger.info("=============insertHri1000Detail=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
+        return getSuccessResponseEntity(resultMap);
     }
 
     @PostMapping(value = "/hr/hri/hri/deleteHri1000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})

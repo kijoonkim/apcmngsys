@@ -20,7 +20,6 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 
 @Controller
 public class PrdcrCrclOgnGenalTblMngController extends BaseController{
@@ -112,31 +111,43 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	//통합조직 적합여부 전체 갱신
+	//적합여부 전체 갱신
 	@PostMapping(value = "/pd/pcom/updateAllUoStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateAllUoStbltYn(@RequestBody ItemUoStbltYnVO ItemUoStbltYnVo, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> updateAllUoStbltYn(@RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
 		logger.debug("/pd/aom/updateAllUoStbltYn.do >>> 호출 >>> ");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		ItemUoStbltYnVo.setSysFrstInptUserId(getUserId());
-		ItemUoStbltYnVo.setSysFrstInptPrgrmId(getPrgrmId());
-		ItemUoStbltYnVo.setSysLastChgUserId(getUserId());
-		ItemUoStbltYnVo.setSysLastChgPrgrmId(getPrgrmId());
-
-		int insertedCnt = 0;
+		PrdcrCrclOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
+		PrdcrCrclOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		PrdcrCrclOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
+		PrdcrCrclOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		try {
-			insertedCnt = PrdcrCrclOgnGenalTblMngService.updateAllUoStbltYn(ItemUoStbltYnVo);
+			//생산자조직 세부정보 갱신
+			int frmhsItemChk = PrdcrCrclOgnGenalTblMngService.updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO);
+			//전문품목 매입매출 세부정보 갱신
+			int uoIsoItemChk = PrdcrCrclOgnGenalTblMngService.updateUoIsoItem(PrdcrCrclOgnGenalTblMngVO);
+
+			//생산자조직 적합여부 갱신
+			int frmhsCnt = PrdcrCrclOgnGenalTblMngService.updateAllFrmhsStbltYn(PrdcrCrclOgnGenalTblMngVO);
+			//출자출하조직 적합여부 갱신
+			int isoCnt = PrdcrCrclOgnGenalTblMngService.updateAllIsoStbltYn(PrdcrCrclOgnGenalTblMngVO);
+			//통합조직 적합여부 갱신
+			int uoCnt = PrdcrCrclOgnGenalTblMngService.updateAllUoStbltYn(PrdcrCrclOgnGenalTblMngVO);
+
+			resultMap.put("frmhsItemChk", frmhsItemChk);
+			resultMap.put("uoIsoItemChk", uoIsoItemChk);
+			resultMap.put("frmhsCnt", frmhsCnt);
+			resultMap.put("isoCnt", isoCnt);
+			resultMap.put("uoCnt", uoCnt);
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
-		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-
 		return getSuccessResponseEntity(resultMap);
 	}
 

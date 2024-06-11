@@ -574,7 +574,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
     </insert>
 
 	<select id="selectItemStbltYnList" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO" resultType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn */
+		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYnList */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -635,10 +635,10 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 					,TOT.UO_SPMT_AMT_TOT
 					,TOT.UO_SPMT_AMT_RT
 					,TOT.UO_SPMT_AMT_TOT_RT
-
+					/* 20240603 승인형 작년 기준인것을 올해 기준으로 변경 60 -> 50 , 60 -> 40 */
 					,(CASE WHEN TOT.UO_SPMT_AMT >= 500000 THEN 'Y' ELSE 'N' END) AS CHK_A_A
-					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 60 THEN 'Y' ELSE 'N' END) AS CHK_A_B
-					,(CASE WHEN TOT.UO_SPMT_AMT_TOT_RT >= 60 THEN 'Y' ELSE 'N' END) AS CHK_A_C
+					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 50 THEN 'Y' ELSE 'N' END) AS CHK_A_B
+					,(CASE WHEN TOT.UO_SPMT_AMT_TOT_RT >= 40 THEN 'Y' ELSE 'N' END) AS CHK_A_C
 
 					,(CASE WHEN TOT.UO_SPMT_AMT >= 300000 THEN 'Y' ELSE 'N' END) AS CHK_B_A
 					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 100 THEN 'Y' ELSE 'N' END) AS CHK_B_B

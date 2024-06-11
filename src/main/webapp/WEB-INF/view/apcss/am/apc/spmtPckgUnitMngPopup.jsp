@@ -90,6 +90,10 @@
 	var jsonSPUGrdVrtyCd = [];
 	var jsonSPUGrdSpcfctCd = [];
 	var jsonSPUGdsGrd = [];
+	var jsonStdPckgCd = [];
+	var jsonStdGrdCd = [];
+	var jsonStdEcfrdCd = [];
+	var jsonStdUnitCd = [];
 
 	const fn_initSBSelectSpmtPckgUnit = async function() {
 
@@ -97,6 +101,10 @@
 			gfn_setApcItemSBSelect("spmtPckgUnit-slt-itemCd", 	jsonSPUItemCd, 		gv_apcCd), 	// APC 품목(검색)
 			gfn_setApcItemSBSelect("grdSpmtPckgUnit", 			jsonSPUGrdItemCd, 	gv_apcCd),	// APC 품목(저장)
 			//gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonSPUGdsGrd, 		"GDS_GRD"),	// 상품등급(출하)
+			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdPckgCd, 		"STD_PCKG_CD"),	// 표준포장코드
+			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdGrdCd, 		"STD_GRD_CD"),	// 표준등급코드
+			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdEcfrdCd, 		"STD_ECFRD_CD"),	// 표준친환경코드
+			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdUnitCd, 		"STD_UNIT_CD"),	// 표준단위코드
 		]);
 		jsonSpmtPckgUnit.length = 0;
 		grdSpmtPckgUnit.refresh({"combo":true});
@@ -186,6 +194,14 @@
 	        		return ;
 	        	}
 		    }},
+		    {caption: ["표준포장코드"], 			ref: 'stdPckgCd',  type:'combo',  width:'100px',    style:'text-align:center',
+		    	typeinfo : {ref:'jsonStdPckgCd', displayui : false, label:'label', value:'value'}},
+			{caption: ["표준등급코드"], 			ref: 'stdGrdCd',  type:'combo',  width:'100px',    style:'text-align:center',
+	    		typeinfo : {ref:'jsonStdGrdCd', displayui : false, label:'label', value:'value'}},
+			{caption: ["표준친환경코드"], 			ref: 'stdEcfrdCd',  type:'combo',  width:'100px',    style:'text-align:center',
+    			typeinfo : {ref:'jsonStdEcfrdCd', displayui : false, label:'label', value:'value'}},
+			{caption: ["표준단위코드"], 			ref: 'stdUnitCd',  type:'combo',  width:'100px',    style:'text-align:center',
+   				typeinfo : {ref:'jsonStdUnitCd', displayui : false, label:'label', value:'value'}},
 	        {caption: ["출하포장단위코드"], ref: 'spmtPckgUnitCd',	type:'input',  hidden : true},
 	        {caption: ["APC코드"], 			ref: 'apcCd',   		type:'input',  hidden : true},
 	        {caption: ["품목명"], 			ref: 'itemNm',   		type:'input',  hidden : true},
@@ -304,6 +320,10 @@
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
 					  , plorCd			: item.plorCd
 					  , addRow			: "N"
+					  , stdPckgCd      : item.stdPckgCd
+					  , stdGrdCd      : item.stdGrdCd
+					  , stdUnitCd      : item.stdUnitCd
+					  , stdEcfrdCd      : item.stdEcfrdCd
   					}
   					jsonSpmtPckgUnit.push(spmtPckgUnitVO);
   				});
@@ -409,14 +429,14 @@
         	console.error("failed", e.message);
         }
 	}
-	
+
 	const fn_grdChoicePlor = async function(){
 		SBUxMethod.openModal('modal-plor');
 
 		await fn_plorStdMngCreateGrid();
 		await fn_selectAllPlor();
 	}
-	
+
 	const fn_callbackFncPlor = async function(rowData){
 		let nRow = grdSpmtPckgUnit.getRow();
 		let nRowData = grdSpmtPckgUnit.getRowData(nRow);

@@ -35,9 +35,9 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-            </div>
+<%--            <div style="margin-left: auto;">
+                <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
+            </div>--%>
         </div>
         <div class="box-body">
 
@@ -138,7 +138,7 @@
 
         fn_createGrid();
         fn_clearForm();
-        fn_search();
+        cfn_search();
     });
 
     function fnSrchChkgubunChange(args){
@@ -193,37 +193,17 @@
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
-        gvwInfo.bind('beforepagechanged', 'fn_pagingHriList');
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
     }
 
     /**
      * 목록 조회
      */
     const fn_search = async function() {
-
-        // set pagination
-        let pageSize = gvwInfo.getPageSize();
-        let pageNo = 1;
-
-        gvwInfo.movePaging(pageNo);
-    }
-
-    /**
-     *
-     */
-    const fn_pagingHriList = async function() {
-        let recordCountPerPage 	= gvwInfo.getPageSize();   			// 몇개의 데이터를 가져올지 설정
-        let currentPageNo 		= gvwInfo.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-        var getColRef 			= gvwInfo.getColRef("checked");
-        gvwInfo.setFixedcellcheckboxChecked(0, getColRef, false);
-        fn_setGvwInfo(recordCountPerPage, currentPageNo);
-    }
-
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setGvwInfo = async function(pageSize, pageNo) {
 
         gvwInfo.clearStatus();
 

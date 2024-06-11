@@ -51,8 +51,10 @@
                     <sbux-input id="FAMILY_CLAN" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%"></sbux-input>
                 </td>
                 <th rowspan="2" scope="row" class="th_bg">서명</th>
-                <td rowspan="2" class="td_input" style="border-right:hidden;">
-                    이미지 자리
+                <td rowspan="2" id="signImgArea" class="td_input" style="border-right:hidden; position: relative; vertical-align: top;">
+                    <img id="SIGN_IMG" style="width: 100%; height: 100%; position: absolute;">
+                    사진 업로드
+                    <input type="file" name="SIGN_IMG_FILE" id="SIGN_IMG_FILE" accept="image/*" style="display: none;">
                 </td>
                 <th scope="row" class="th_bg">상여수습종료일</th>
                 <td class="td_input" style="border-right:hidden;">
@@ -243,11 +245,27 @@
                 </td>
                 <th scope="row" class="th_bg">퇴사사유</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-select id="RETIRE_REASON" uitype="single" jsondata-ref="jsonRetireReason" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <%--<sbux-select id="RETIRE_REASON" uitype="single" jsondata-ref="jsonRetireReason" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                    <div class="dropdown">
+                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="RETIRE_REASON" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="RETIRE_REASON" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
                 </td>
                 <th scope="row" class="th_bg">퇴사사내사유</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-select id="RETIRE_IN_REASON" uitype="single" jsondata-ref="jsonRetireInReason" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <%--<sbux-select id="RETIRE_IN_REASON" uitype="single" jsondata-ref="jsonRetireInReason" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                    <div class="dropdown">
+                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="RETIRE_IN_REASON" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="RETIRE_IN_REASON" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
                 </td>
                 <th scope="row" class="th_bg">퇴직기산일</th>
                 <td class="td_input" style="border-right:hidden;">
@@ -391,11 +409,27 @@
                     <tr>
                         <th scope="row" class="th_bg">RH</th>
                         <td class="td_input" style="border-right:hidden;">
-                            <sbux-select id="BLOOD_TYPE_RH" uitype="single" jsondata-ref="jsonBloodTypeRh" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <%--<sbux-select id="BLOOD_TYPE_RH" uitype="single" jsondata-ref="jsonBloodTypeRh" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                            <div class="dropdown">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BLOOD_TYPE_RH" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="BLOOD_TYPE_RH" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
+                            </div>
                         </td>
                         <th scope="row" class="th_bg">ABO</th>
                         <td class="td_input" style="border-right:hidden;">
-                            <sbux-select id="BLOOD_TYPE_ABO" uitype="single" jsondata-ref="jsonBloodTypeAbo" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <%--<sbux-select id="BLOOD_TYPE_ABO" uitype="single" jsondata-ref="jsonBloodTypeAbo" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                            <div class="dropdown">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BLOOD_TYPE_ABO" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="BLOOD_TYPE_ABO" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -476,7 +510,15 @@
                         <tr>
                             <th scope="row" class="th_bg">종교</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-select id="RELIGION_CODE" uitype="single" jsondata-ref="jsonReligionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <%--<sbux-select id="RELIGION_CODE" uitype="single" jsondata-ref="jsonReligionCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="RELIGION_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="RELIGION_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -508,13 +550,29 @@
                         <tr>
                             <th scope="row" class="th_bg">주거구분</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-select id="HOUSE_TYPE" uitype="single" jsondata-ref="jsonHouseType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <%--<sbux-select id="HOUSE_TYPE" uitype="single" jsondata-ref="jsonHouseType" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="HOUSE_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="HOUSE_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">주택유형</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-select id="HOUSE_KIND" uitype="single" jsondata-ref="jsonHouseKind" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <%--<sbux-select id="HOUSE_KIND" uitype="single" jsondata-ref="jsonHouseKind" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="HOUSE_KIND" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="HOUSE_KIND" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -542,7 +600,15 @@
                         <tr>
                             <th scope="row" class="th_bg">결혼여부</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-select id="MARRIAGE_YN" uitype="single" jsondata-ref="jsonMarriageYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <%--<sbux-select id="MARRIAGE_YN" uitype="single" jsondata-ref="jsonMarriageYn" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="MARRIAGE_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="MARRIAGE_YN" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -612,7 +678,7 @@
                 <sbux-button id="btn_delRowForGvwFamily" name="btn_delRowForGvwFamily" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwFamily"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwFamily" style="height:560px;"></div>
         </div>
     </div>
@@ -626,7 +692,7 @@
                 <sbux-button id="btn_delRowForGvwSchool" name="btn_delRowForGvwSchool" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwSchool"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwSchool" style="height:560px;"></div>
         </div>
     </div>
@@ -640,7 +706,7 @@
                 <sbux-button id="btn_delRowForGvwCareer" name="btn_delRowForGvwCareer" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwCareer"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwCareer" style="height:560px;"></div>
         </div>
     </div>
@@ -654,7 +720,7 @@
                 <sbux-button id="btn_delRowForGvwLicense" name="btn_delRowForGvwLicense" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwLicense"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwLicense" style="height:560px;"></div>
         </div>
     </div>
@@ -668,7 +734,7 @@
                 <sbux-button id="btn_delRowForGvwLanguage" name="btn_delRowForGvwLanguage" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwLanguage"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwLanguage" style="height:200px;"></div>
         </div>
         <div class="ad_tbl_top2">
@@ -680,7 +746,7 @@
                 <sbux-button id="btn_delRowForGvwComputerSkill" name="btn_delRowForGvwComputerSkill" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwComputerSkill"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwComputerSkill" style="height:320px;"></div>
         </div>
     </div>
@@ -694,7 +760,7 @@
                 <sbux-button id="btn_delRowForGvwFile" name="btn_delRowForGvwFile" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwFile"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwFile" style="height:560px;"></div>
         </div>
     </div>
@@ -708,12 +774,12 @@
                 <sbux-button id="btn_delRowForGvwEducation" name="btn_delRowForGvwEducation" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwEducation"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwEducation" style="height:560px;"></div>
         </div>
     </div>
     <div id="tpgMasterSubDetail2" style="height: 596px;">
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>병역사항</caption>
                 <colgroup>
@@ -726,7 +792,15 @@
                 <tr>
                     <th scope="row" class="th_bg">병역구분</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="ARMY_TYPE" uitype="single" jsondata-ref="jsonArmyType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="ARMY_TYPE" uitype="single" jsondata-ref="jsonArmyType" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ARMY_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ARMY_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-checkbox
@@ -748,7 +822,7 @@
                 <li><span>병역사항</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>신체</caption>
                 <colgroup>
@@ -761,21 +835,53 @@
                 <tr>
                     <th scope="row" class="th_bg">병역병과</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="ARMY_PART" uitype="single" jsondata-ref="jsonArmyPart" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="ARMY_PART" uitype="single" jsondata-ref="jsonArmyPart" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ARMY_PART" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ARMY_PART" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">병역군별</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="ARMY_KIND" uitype="single" jsondata-ref="jsonArmyKind" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="ARMY_KIND" uitype="single" jsondata-ref="jsonArmyKind" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ARMY_KIND" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ARMY_KIND" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">전역구분</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="ARMY_DISCHARGE_TYPE" uitype="single" jsondata-ref="jsonArmyDischargeType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="ARMY_DISCHARGE_TYPE" uitype="single" jsondata-ref="jsonArmyDischargeType" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ARMY_DISCHARGE_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ARMY_DISCHARGE_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">병역계급</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="ARMY_GRADE" uitype="single" jsondata-ref="jsonArmyGrade" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="ARMY_GRADE" uitype="single" jsondata-ref="jsonArmyGrade" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ARMY_GRADE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="ARMY_GRADE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -824,7 +930,7 @@
                 <li><span>보훈</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>보훈</caption>
                 <colgroup>
@@ -837,11 +943,19 @@
                 <tr>
                     <th scope="row" class="th_bg">보훈대상여부</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="VETERANS_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-select id="VETERANS_YN" uitype="single" jsondata-ref="jsonUseYn" unselected-text="선택" class="form-control input-sm" onchange="fnVeteransYnChange(VETERANS_YN)"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">보훈등급</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="VETERANS_GRADE" uitype="single" jsondata-ref="jsonVeteransGrade" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="VETERANS_GRADE" uitype="single" jsondata-ref="jsonVeteransGrade" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VETERANS_GRADE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="VETERANS_GRADE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -853,7 +967,15 @@
                 <tr>
                     <th scope="row" class="th_bg">유공자와의관계</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="VETERANS_RELATION" uitype="single" jsondata-ref="jsonRelation" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="VETERANS_RELATION" uitype="single" jsondata-ref="jsonRelation" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VETERANS_RELATION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="VETERANS_RELATION" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">보훈번호</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -885,7 +1007,7 @@
                 <li><span>장애</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>장애</caption>
                 <colgroup>
@@ -898,7 +1020,15 @@
                 <tr>
                     <th scope="row" class="th_bg">장애등급</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="HANDICAP_GRADE" uitype="single" jsondata-ref="jsonHandicapGrade" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="HANDICAP_GRADE" uitype="single" jsondata-ref="jsonHandicapGrade" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="HANDICAP_GRADE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="HANDICAP_GRADE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">장애유형</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -930,7 +1060,7 @@
                 <li><span>여권/비자</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>여권/비자</caption>
                 <colgroup>
@@ -1003,7 +1133,7 @@
         </div>
     </div>
     <div id="tpgMasterSubDetail4" style="height: 596px;">
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>보증구분</caption>
                 <colgroup>
@@ -1027,7 +1157,7 @@
                 <li><span>보증보험</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>보증보험</caption>
                 <colgroup>
@@ -1058,11 +1188,11 @@
                 <tr>
                     <th scope="row" class="th_bg">보험액</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="INSURE_AMOUNT" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="INSURE_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"></sbux-input>
                     </td>
                     <th scope="row" class="th_bg">보험가액</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="INSURE_VALUE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="INSURE_VALUE" uitype="text" placeholder="" class="form-control input-sm" mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"></sbux-input>
                     </td>
                     <th scope="row" class="th_bg">보험시작일</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -1095,7 +1225,7 @@
                 <li><span>인보증1</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <table class="table table-bordered tbl_fixed">
                 <caption>인보증1</caption>
                 <colgroup>
@@ -1120,7 +1250,15 @@
                     </td>
                     <th scope="row" class="th_bg">관계</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="GUARANTOR1_RELATION" uitype="single" jsondata-ref="jsonRelation" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="GUARANTOR1_RELATION" uitype="single" jsondata-ref="jsonRelation" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="GUARANTOR1_RELATION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="GUARANTOR1_RELATION" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -1197,7 +1335,15 @@
                 </td>
                 <th scope="row" class="th_bg">관계</th>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-select id="GUARANTOR2_RELATION" uitype="single" jsondata-ref="jsonRelation" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <%--<sbux-select id="GUARANTOR2_RELATION" uitype="single" jsondata-ref="jsonRelation" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                    <div class="dropdown">
+                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="GUARANTOR2_RELATION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="GUARANTOR2_RELATION" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -1255,7 +1401,7 @@
                 <sbux-button id="btn_delRowForGvwPrize" name="btn_delRowForGvwPrize" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPrize"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwPrize" style="height:560px;"></div>
         </div>
     </div>
@@ -1269,7 +1415,7 @@
                 <sbux-button id="btn_delRowForGvwHealth" name="btn_delRowForGvwHealth" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwHealth"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwHealth" style="height:560px;"></div>
         </div>
     </div>
@@ -1279,7 +1425,7 @@
                 <li><span>발령사항</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwAppointment" style="height:560px;"></div>
         </div>
     </div>
@@ -1289,7 +1435,7 @@
                 <li><span>겸직부서</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwAddJob" style="height:560px;"></div>
         </div>
     </div>
@@ -1303,7 +1449,7 @@
                 <sbux-button id="btn_delRowForGvwTimeOffHistory" name="btn_delRowForGvwTimeOffHistory" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwTimeOffHistory"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwTimeOffHistory" style="height:560px;"></div>
         </div>
     </div>
@@ -1317,7 +1463,7 @@
                 <sbux-button id="btn_delRowForGvwGroupInsurance" name="btn_delRowForGvwGroupInsurance" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwGroupInsurance"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwGroupInsurance" style="height:560px;"></div>
         </div>
     </div>
@@ -1331,7 +1477,7 @@
                 <sbux-button id="btn_delRowForGvwDisease" name="btn_delRowForGvwDisease" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwDisease"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwDisease" style="height:560px;"></div>
         </div>
     </div>
@@ -1345,7 +1491,7 @@
                 <sbux-button id="btn_delRowForGvwPersonnelEvaluation" name="btn_delRowForGvwPersonnelEvaluation" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPersonnelEvaluation"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwPersonnelEvaluation" style="height:560px;"></div>
         </div>
     </div>
@@ -1359,7 +1505,7 @@
                 <sbux-button id="btn_delRowForGvwOfficialInjury" name="btn_delRowForGvwOfficialInjury" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwOfficialInjury"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwOfficialInjury" style="height:560px;"></div>
         </div>
     </div>
@@ -1373,7 +1519,7 @@
                 <sbux-button id="btn_delRowForGvwContractDeg" name="btn_delRowForGvwContractDeg" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwContractDeg"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwContractDeg" style="height:560px;"></div>
         </div>
     </div>
@@ -1387,7 +1533,7 @@
                 <sbux-button id="btn_delRowForGvwWorkPlan" name="btn_delRowForGvwWorkPlan" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwWorkPlan"></sbux-button>
             </div>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwWorkPlan" style="height:560px;"></div>
         </div>
     </div>
@@ -1397,7 +1543,7 @@
                 <li><span>근무조</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwEmp" style="height:560px;"></div>
         </div>
     </div>
@@ -1407,7 +1553,7 @@
                 <li><span>경조사비내역</span></li>
             </ul>
         </div>
-        <div class="table-responsive tbl_scroll_xs">
+        <div>
             <div id="sb-area-gvwExpenditurewelfare" style="height:560px;"></div>
         </div>
     </div>
@@ -1449,8 +1595,8 @@
         SBUxMethod.set("COMP_ENTER_DATE", "");
         SBUxMethod.set("PROMOTION_BASE_DATE", "");
         SBUxMethod.set("RETIRE_DATE", "");
-        SBUxMethod.set("RETIRE_REASON", "");
-        SBUxMethod.set("RETIRE_IN_REASON", "");
+        gfnma_multiSelectSet('#RETIRE_REASON', '', '', '');
+        gfnma_multiSelectSet('#RETIRE_IN_REASON', '', '', '');
         SBUxMethod.set("RETIRE_BASE_DATE", "");
         SBUxMethod.set("PREMATURE_DATE", "");
         SBUxMethod.set("RETIRE_PENSION_JOIN_YN", "");
@@ -1464,8 +1610,8 @@
         SBUxMethod.set("AGREE_YN", "");
 
         // 주거/생활/신체
-        SBUxMethod.set("BLOOD_TYPE_RH", "");
-        SBUxMethod.set("BLOOD_TYPE_ABO", "");
+        gfnma_multiSelectSet('#BLOOD_TYPE_RH', '', '', '');
+        gfnma_multiSelectSet('#BLOOD_TYPE_ABO', '', '', '');
         SBUxMethod.set("WEIGHT", "");
         SBUxMethod.set("HEIGHT", "");
         SBUxMethod.set("LEFT_EYE", "");
@@ -1476,23 +1622,23 @@
         SBUxMethod.set("SHOE_SIZE", "");
         SBUxMethod.set("HOBBY", "");
         SBUxMethod.set("SPECIAL_ABILITY", "");
-        SBUxMethod.set("RELIGION_CODE", "");
+        gfnma_multiSelectSet('#RELIGION_CODE', '', '', '');
         SBUxMethod.set("HOUSE_OWN_YN", "");
-        SBUxMethod.set("HOUSE_TYPE", "");
-        SBUxMethod.set("HOUSE_KIND", "");
-        SBUxMethod.set("MARRIAGE_YN", "");
+        gfnma_multiSelectSet('#HOUSE_TYPE', '', '', '');
+        gfnma_multiSelectSet('#HOUSE_KIND', '', '', '');
+        gfnma_multiSelectSet('#MARRIAGE_YN', '', '', '');
         SBUxMethod.set("MARRIAGE_DATE", "");
         SBUxMethod.set("CAR_OWN_YN", "");
         SBUxMethod.set("CAR_NUM", "");
         SBUxMethod.set("CAR_KIND", "");
 
         // 병역사항
-        SBUxMethod.set("ARMY_TYPE", "");
+        gfnma_multiSelectSet('#ARMY_TYPE', '', '', '');
         SBUxMethod.set("ARMY_INDUSTRY_YN", "");
-        SBUxMethod.set("ARMY_PART", "");
-        SBUxMethod.set("ARMY_KIND", "");
-        SBUxMethod.set("ARMY_DISCHARGE_TYPE", "");
-        SBUxMethod.set("ARMY_GRADE", "");
+        gfnma_multiSelectSet('#ARMY_PART', '', '', '');
+        gfnma_multiSelectSet('#ARMY_KIND', '', '', '');
+        gfnma_multiSelectSet('#ARMY_DISCHARGE_TYPE', '', '', '');
+        gfnma_multiSelectSet('#ARMY_GRADE', '', '', '');
         SBUxMethod.set("ARMY_START_DATE", "");
         SBUxMethod.set("ARMY_END_DATE", "");
         SBUxMethod.set("ARMY_EXEMPTION_DESCR", "");
@@ -1500,13 +1646,13 @@
 
         // 보훈/장애/여권/비자
         SBUxMethod.set("VETERANS_YN", "");
-        SBUxMethod.set("VETERANS_GRADE", "");
+        gfnma_multiSelectSet('#VETERANS_GRADE', '', '', '');
         SBUxMethod.set("VETERANS_MEMO", "");
-        SBUxMethod.set("VETERANS_RELATION", "");
+        gfnma_multiSelectSet('#VETERANS_RELATION', '', '', '');
         SBUxMethod.set("VETERANS_NUM", "");
         SBUxMethod.set("VETERANS_ORDER_YN", "");
         SBUxMethod.set("VETERANS_ORDER_DATE", "");
-        SBUxMethod.set("HANDICAP_GRADE", "");
+        gfnma_multiSelectSet('#HANDICAP_GRADE', '', '', '');
         SBUxMethod.set("HANDICAP_TYPE", "");
         SBUxMethod.set("HANDICAP_REASON", "");
         SBUxMethod.set("HANDICAP_ISSUE_DATE", "");
@@ -1522,13 +1668,13 @@
         SBUxMethod.set("INSURE_COMP_NAME", "");
         SBUxMethod.set("INSURE_NAME", "");
         SBUxMethod.set("INSURE_NUM", "");
-        SBUxMethod.set("INSURE_AMOUNT", "");
-        SBUxMethod.set("INSURE_VALUE", "");
+        SBUxMethod.set("INSURE_AMOUNT", "0");
+        SBUxMethod.set("INSURE_VALUE", "0");
         SBUxMethod.set("INSURE_START_DATE", "");
         SBUxMethod.set("INSURE_END_DATE", "");
         SBUxMethod.set("GUARANTOR1_NAME", "");
         SBUxMethod.set("GUARANTOR1_SOCIAL_NO", "");
-        SBUxMethod.set("GUARANTOR1_RELATION", "");
+        gfnma_multiSelectSet('#GUARANTOR1_RELATION', '', '', '');
         SBUxMethod.set("GUARANTOR1_COMP_NAME", "");
         SBUxMethod.set("GUARANTOR1_POSITION", "");
         SBUxMethod.set("GUARANTOR1_START_DATE", "");
@@ -1537,7 +1683,7 @@
         SBUxMethod.set("GUARANTOR1_ADDRESS", "");
         SBUxMethod.set("GUARANTOR2_NAME", "");
         SBUxMethod.set("GUARANTOR2_SOCIAL_NO", "");
-        SBUxMethod.set("GUARANTOR2_RELATION", "");
+        gfnma_multiSelectSet('#GUARANTOR2_RELATION', '', '', '');
         SBUxMethod.set("GUARANTOR2_COMP_NAME", "");
         SBUxMethod.set("GUARANTOR2_POSITION", "");
         SBUxMethod.set("GUARANTOR2_START_DATE", "");
@@ -1614,7 +1760,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left'},
+            {caption: ["가족주민등록번호"],       ref: 'SOCIAL_NO_REAL', 		type:'input',  	width:'135px',  	style:'text-align:left', typeinfo : {mask : {alias : '######-#######', unmaskvalue : true}}},
             {caption: ["가족주민등록번호2"],          ref: 'SOCIAL_NO', 		        type:'input',  	width:'140px',  style:'text-align:left', hidden: true},
             {caption: ["생년월일"],          ref: 'BIRTHDAY', 		    type:'datepicker',  	width:'100px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -1670,7 +1816,7 @@
         ];
 
         gvwFamily = _SBGrid.create(SBGridProperties);
-        //gvwFamily.bind('beforepagechanged', 'fn_pagingFamilyList');
+        gvwFamily.bind('valuechanged','gvwFamilyValueChanged');
     }
 
     function fn_createGvwSchoolGrid() {
@@ -1776,10 +1922,10 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'input',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
-            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'input',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경력년수"],          ref: 'CAREER_YEAR', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
+            {caption: ["경력개월"],          ref: 'CAREER_MONTH', 		        type:'output',  	width:'70px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 2}, format : {type:'number', rule:'#,###'}},
             {caption: ["회사명"],          ref: 'COMP_NAME', 		        type:'input',  	width:'120px',  style:'text-align:left'},
-            {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'input',  	width:'120px',  style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
+            {caption: ["부서명"],          ref: 'DEPT_NAME', 		    type:'output',  	width:'120px',  style:'text-align:left'},
             {caption: ["직위"],      	ref: 'POSITION', 		        type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["직종"],     	ref: 'JOB', 		         type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["담당업무"],     	ref: 'WORK', 		         type:'input',  	width:'180px',  style:'text-align:left'},
@@ -1797,7 +1943,8 @@
         ];
 
         gvwCareer = _SBGrid.create(SBGridProperties);
-        //gvwCareer.bind('beforepagechanged', 'fn_pagingCareerList');
+        gvwCareer.bind('valuechanged','gvwCareerValueChanged');
+        gvwCareer.bind('dblclick', 'gvwCareerDblclick');
     }
 
     function fn_createGvwLicenseGrid() {
@@ -2264,7 +2411,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'input',  	width:'90px',  	style:'text-align:left',
+            {caption: ["적용시작일"],        ref: 'START_DATE', 		     type:'datepicker',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -2272,7 +2419,7 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["휴직일수"],        ref: 'TIME_OFF_CNT', 		     type:'input',  	width:'80px',  	style:'text-align:left'},
+            {caption: ["휴직일수"],        ref: 'TIME_OFF_CNT', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["소속사업장"],        ref: 'SITE_CODE', 		     type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonSiteCode',
@@ -2281,13 +2428,14 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["소속부서코드"],  		ref: 'DEPT_CODE',    			type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소속부서"],        ref: 'DEPT_NAME', 		     type:'input',  	width:'150px',  	style:'text-align:left'}, // TODO: P_ORG001 팝업 적용 필요
+            {caption: ["소속부서코드"],  		ref: 'DEPT_CODE',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소속부서"],        ref: 'DEPT_NAME', 		     type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["비고"],        ref: 'MEMO', 		     type:'input',  	width:'300px',  	style:'text-align:left'}
         ];
 
         gvwTimeOffHistory = _SBGrid.create(SBGridProperties);
-        //gvwTimeOffHistory.bind('beforepagechanged', 'fn_pagingTimeOffHistoryList');
+        gvwTimeOffHistory.bind('valuechanged','gvwTimeOffHistoryValueChanged');
+        gvwTimeOffHistory.bind('dblclick', 'gvwTimeOffHistoryDblclick');
     }
 
     function fn_createGvwGroupInsuranceGrid() {
@@ -2653,9 +2801,156 @@
         //gvwExpenditurewelfare.bind('beforepagechanged', 'fn_pagingExpenditurewelfareList');
     }
 
+
+    const gvwFamilyValueChanged = async function() {
+        var nRow = gvwFamily.getRow();
+        var rowData = gvwFamily.getRowData(nRow);
+
+        if (rowData.BIRTHDAY == "") {
+            let strsocial_no = rowData.SOCIAL_NO_REAL.replace("-", "");
+
+            if (strsocial_no.length == 13) {
+                if (strsocial_no.substring(6, 7) == "1" || strsocial_no.substring(6, 7) == "2") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY'), "19" + strsocial_no.substring(0, 6));
+                } else if (strsocial_no.substring(6, 7) == "3" || strsocial_no.substring(6, 7) == "4") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY'), "20" + strsocial_no.substring(0, 6));
+                }
+
+                if (rowData.BIRTHDAY_TYPE == "") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY_TYPE'), "2");
+                }
+            }
+            //중국거민신분번호
+            else if (strsocial_no.length == 18) {
+                gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY'), strsocial_no.Substring(6, 14));
+                if (rowData.BIRTHDAY_TYPE == "") {
+                    gvwFamily.setCellData(nRow, gvwFamily.getColRef('BIRTHDAY_TYPE'), "2");
+                }
+            }
+        }
+
+    }
+
+    const gvwCareerValueChanged = async function() {
+        var nRow = gvwCareer.getRow();
+        var nCol = gvwCareer.getCol();
+        var rowData = gvwCareer.getRowData(nRow);
+
+        // 경력년수와 경력개월을 계산
+        let ymdstart_date = new Date();
+        let ymdend_date = new Date();
+
+        let career_month_double = 0;
+        let ymd_int = 0;
+
+        if (nCol == gvwCareer.getColRef('START_DATE') || nCol == gvwCareer.getColRef('END_DATE')) {
+            if (rowData.START_DATE != "" && rowData.END_DATE != "") {
+                ymdstart_date = new Date(rowData.START_DATE.substring(0, 4) + "-" + rowData.START_DATE.substring(4, 6) + "-" + rowData.START_DATE.substring(6, 8));
+                ymdend_date = new Date(rowData.END_DATE.substring(0, 4) + "-" + rowData.END_DATE.substring(4, 6) + "-" + rowData.END_DATE.substring(6, 8));
+                if (ymdstart_date > ymdend_date) {
+                    return;
+                }
+
+                if (ymdend_date.getFullYear() - ymdstart_date.getFullYear() == 0) {
+                    if (ymdend_date.getFullYear() != "9999") {
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    } else {
+                        ymdend_date = new Date("9998-12-31");
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    }
+                    if (career_month_double == 12) {
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_YEAR'), "1");
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_MONTH'), "0");
+                    } else {
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_YEAR'), "0");
+                        gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_MONTH'), career_month_double);
+                    }
+                }
+                else {
+                    if (ymdend_date.getFullYear() != "9999") {
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    } else {
+                        ymdend_date = new Date("9998-12-31");
+                        career_month_double = Math.floor(Math.abs((ymdend_date.getTime() - ymdstart_date.getTime()) / (1000 * 60 * 60 * 24 * 30))) + 1;
+                    }
+                    ymd_int = Math.trunc(career_month_double / 12);
+
+                    gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_YEAR'), ymd_int);
+                    gvwCareer.setCellData(nRow, gvwCareer.getColRef('CAREER_MONTH'), (career_month_double - (ymd_int*12)));
+
+                }
+            }
+        }
+    }
+
+    const gvwCareerDblclick = async function() {
+        var nRow = gvwCareer.getRow();
+        var nCol = gvwCareer.getCol();
+
+        if(nCol == 8) {
+            fn_findDeptCodeForGvwCareer(nRow, nCol);
+        }
+    }
+
+
+    const fnVeteransYnChange = async function(val) {
+        if (val == "")
+            return;
+
+        // 보훈/장애/여권의 보훈대상여부에 따라 입력가능 여부를 설정
+        if (val == "Y") {
+            SBUxMethod.attr('VETERANS_RELATION', 'readonly', 'false');
+            SBUxMethod.attr('VETERANS_NUM', 'readonly', 'false');
+            SBUxMethod.attr('VETERANS_ORDER_YN', 'readonly', 'false');
+            SBUxMethod.attr('VETERANS_ORDER_DATE', 'readonly', 'false');
+        } else {
+            SBUxMethod.attr('VETERANS_RELATION', 'readonly', 'true');
+            SBUxMethod.attr('VETERANS_NUM', 'readonly', 'true');
+            SBUxMethod.attr('VETERANS_ORDER_YN', 'readonly', 'true');
+            SBUxMethod.attr('VETERANS_ORDER_DATE', 'readonly', 'true');
+
+            gfnma_multiSelectSet('#VETERANS_RELATION', '', '', '');
+            SBUxMethod.set("VETERANS_NUM", "");
+            SBUxMethod.set("VETERANS_ORDER_YN", "");
+            SBUxMethod.set("VETERANS_ORDER_DATE", "");
+        }
+    }
+
+    const gvwTimeOffHistoryValueChanged = async function() {
+        var nRow = gvwTimeOffHistory.getRow();
+        var nCol = gvwTimeOffHistory.getCol();
+        var rowData = gvwTimeOffHistory.getRowData(nRow);
+
+        if (nCol == gvwTimeOffHistory.getColRef('START_DATE') || nCol == gvwTimeOffHistory.getColRef('END_DATE')) {
+            if (rowData.START_DATE == "" || rowData.END_DATE == "") return;
+
+            let istart_date = new Date(rowData.START_DATE.substring(0, 4) + "-" + rowData.START_DATE.substring(4, 6) + "-" + rowData.START_DATE.substring(6, 8));
+            let iend_date = new Date(rowData.END_DATE.substring(0, 4) + "-" + rowData.END_DATE.substring(4, 6) + "-" + rowData.END_DATE.substring(6, 8));
+
+            if (istart_date > iend_date) {
+                gfn_comAlert("W0008",  "휴직종료일", "휴직시작일");
+                gvwTimeOffHistory.setCellData(nRow, gvwTimeOffHistory.getColRef('END_DATE'), istart_date.getDate());
+            } else {
+                gvwTimeOffHistory.setCellData(nRow, gvwTimeOffHistory.getColRef('TIME_OFF_CNT'), Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1));
+            }
+        }
+    }
+
+    const gvwTimeOffHistoryDblclick = async function() {
+        var nRow = gvwTimeOffHistory.getRow();
+        var nCol = gvwTimeOffHistory.getCol();
+
+        if(nCol == 7){
+            fn_findDeptCodeForGvwTimeOffHistory(nRow, (nCol+1));
+        } else if(nCol == 8) {
+            fn_findDeptCodeForGvwTimeOffHistory(nRow, nCol);
+        }
+    }
+
+
     // 행 추가
     const fn_addRowForGvwFamily = function() {
-        let rowVal = gvwFamily.getRow();
+        let rowVal = gvwFamily.getRow();;
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
@@ -2765,13 +3060,16 @@
     }
 
     const fn_addRowForGvwTimeOffHistory = function() {
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
+        let DEPT_NAME = gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+
         let rowVal = gvwTimeOffHistory.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-
-            gvwTimeOffHistory.addRow(true);
+            gvwTimeOffHistory.addRow(true, {SITE_CODE: SITE_CODE, DEPT_CODE: DEPT_CODE, DEPT_NAME: DEPT_NAME});
         }else{
-            gvwTimeOffHistory.insertRow(rowVal);
+            gvwTimeOffHistory.insertRow(rowVal, 'below', {SITE_CODE: SITE_CODE, DEPT_CODE: DEPT_CODE, DEPT_NAME: DEPT_NAME});
         }
     }
 
@@ -3014,8 +3312,8 @@
 
     const getParamForHri1000S1 = async function(empCode) {
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let BLOOD_TYPE_RH = gfnma_nvl(SBUxMethod.get("BLOOD_TYPE_RH"));
-        let BLOOD_TYPE_ABO = gfnma_nvl(SBUxMethod.get("BLOOD_TYPE_ABO"));
+        let BLOOD_TYPE_RH = gfnma_nvl(gfnma_multiSelectGet('#BLOOD_TYPE_RH'));
+        let BLOOD_TYPE_ABO = gfnma_nvl(gfnma_multiSelectGet('#BLOOD_TYPE_ABO'));
         let HEIGHT = gfnma_nvl(SBUxMethod.get("HEIGHT"));
         let WEIGHT = gfnma_nvl(SBUxMethod.get("WEIGHT"));
         let LEFT_EYE = gfnma_nvl(SBUxMethod.get("LEFT_EYE"));
@@ -3024,23 +3322,23 @@
         let JACKET_SIZE = gfnma_nvl(SBUxMethod.get("JACKET_SIZE"));
         let PANTS_SIZE = gfnma_nvl(SBUxMethod.get("PANTS_SIZE"));
         let SHOE_SIZE = gfnma_nvl(SBUxMethod.get("SHOE_SIZE"));
-        let MARRIAGE_YN = gfnma_nvl(SBUxMethod.get("MARRIAGE_YN"));
+        let MARRIAGE_YN = gfnma_nvl(gfnma_multiSelectGet('#MARRIAGE_YN'));
         let MARRIAGE_DATE = gfnma_nvl(SBUxMethod.get("MARRIAGE_DATE"));
         let HOBBY = gfnma_nvl(SBUxMethod.get("HOBBY"));
         let SPECIAL_ABILITY = gfnma_nvl(SBUxMethod.get("SPECIAL_ABILITY"));
-        let RELIGION_CODE = gfnma_nvl(SBUxMethod.get("RELIGION_CODE"));
+        let RELIGION_CODE = gfnma_nvl(gfnma_multiSelectGet('#RELIGION_CODE'));
         let HOUSE_OWN_YN = gfnma_nvl(SBUxMethod.get("HOUSE_OWN_YN"));
-        let HOUSE_TYPE = gfnma_nvl(SBUxMethod.get("HOUSE_TYPE"));
-        let HOUSE_KIND = gfnma_nvl(SBUxMethod.get("HOUSE_KIND"));
+        let HOUSE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#HOUSE_TYPE'));
+        let HOUSE_KIND = gfnma_nvl(gfnma_multiSelectGet('#HOUSE_KIND'));
         let CAR_OWN_YN = gfnma_nvl(SBUxMethod.get("CAR_OWN_YN"));
         let CAR_KIND = gfnma_nvl(SBUxMethod.get("CAR_KIND"));
         let CAR_NUM = gfnma_nvl(SBUxMethod.get("CAR_NUM"));
-        let ARMY_TYPE = gfnma_nvl(SBUxMethod.get("ARMY_TYPE"));
+        let ARMY_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_TYPE'));
         let ARMY_INDUSTRY_YN = gfnma_nvl(SBUxMethod.get("ARMY_INDUSTRY_YN"));
-        let ARMY_KIND = gfnma_nvl(SBUxMethod.get("ARMY_KIND"));
-        let ARMY_PART = gfnma_nvl(SBUxMethod.get("ARMY_PART"));
-        let ARMY_GRADE = gfnma_nvl(SBUxMethod.get("ARMY_GRADE"));
-        let ARMY_DISCHARGE_TYPE = gfnma_nvl(SBUxMethod.get("ARMY_DISCHARGE_TYPE"));
+        let ARMY_KIND = gfnma_nvl(gfnma_multiSelectGet('#ARMY_KIND'));
+        let ARMY_PART = gfnma_nvl(gfnma_multiSelectGet('#ARMY_PART'));
+        let ARMY_GRADE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_GRADE'));
+        let ARMY_DISCHARGE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_DISCHARGE_TYPE'));
         let ARMY_START_DATE = gfnma_nvl(SBUxMethod.get("ARMY_START_DATE"));
         let ARMY_END_DATE = gfnma_nvl(SBUxMethod.get("ARMY_END_DATE"));
         let ARMY_DESCR = gfnma_nvl(SBUxMethod.get("ARMY_DESCR"));
@@ -3055,7 +3353,7 @@
         let INSURE_END_DATE = gfnma_nvl(SBUxMethod.get("INSURE_END_DATE"));
         let GUARANTOR1_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR1_NAME"));
         let GUARANTOR1_SOCIAL_NO = gfnma_nvl(SBUxMethod.get("GUARANTOR1_SOCIAL_NO"));
-        let GUARANTOR1_RELATION = gfnma_nvl(SBUxMethod.get("GUARANTOR1_RELATION"));
+        let GUARANTOR1_RELATION = gfnma_nvl(gfnma_multiSelectGet('#GUARANTOR1_RELATION'));
         let GUARANTOR1_COMP_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR1_COMP_NAME"));
         let GUARANTOR1_POSITION = gfnma_nvl(SBUxMethod.get("GUARANTOR1_POSITION"));
         let GUARANTOR1_ZIP_CODE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_ZIP_CODE"));
@@ -3064,7 +3362,7 @@
         let GUARANTOR1_END_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR1_END_DATE"));
         let GUARANTOR2_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR2_NAME"));
         let GUARANTOR2_SOCIAL_NO = gfnma_nvl(SBUxMethod.get("GUARANTOR2_SOCIAL_NO"));
-        let GUARANTOR2_RELATION = gfnma_nvl(SBUxMethod.get("GUARANTOR2_RELATION"));
+        let GUARANTOR2_RELATION = gfnma_nvl(gfnma_multiSelectGet('#GUARANTOR2_RELATION'));
         let GUARANTOR2_COMP_NAME = gfnma_nvl(SBUxMethod.get("GUARANTOR2_COMP_NAME"));
         let GUARANTOR2_POSITION = gfnma_nvl(SBUxMethod.get("GUARANTOR2_POSITION"));
         let GUARANTOR2_ZIP_CODE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_ZIP_CODE"));
@@ -3072,9 +3370,9 @@
         let GUARANTOR2_START_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_START_DATE"));
         let GUARANTOR2_END_DATE = gfnma_nvl(SBUxMethod.get("GUARANTOR2_END_DATE"));
         let VETERANS_YN = gfnma_nvl(SBUxMethod.get("VETERANS_YN"));
-        let VETERANS_GRADE = gfnma_nvl(SBUxMethod.get("VETERANS_GRADE"));
+        let VETERANS_GRADE = gfnma_nvl(gfnma_multiSelectGet('#VETERANS_GRADE'));
         let VETERANS_MEMO = gfnma_nvl(SBUxMethod.get("VETERANS_MEMO"));
-        let VETERANS_RELATION = gfnma_nvl(SBUxMethod.get("VETERANS_RELATION"));
+        let VETERANS_RELATION = gfnma_nvl(gfnma_multiSelectGet('#VETERANS_RELATION'));
         let VETERANS_NUM = gfnma_nvl(SBUxMethod.get("VETERANS_NUM"));
         let VETERANS_ORDER_YN = gfnma_nvl(SBUxMethod.get("VETERANS_ORDER_YN"));
         let VETERANS_ORDER_DATE = gfnma_nvl(SBUxMethod.get("VETERANS_ORDER_DATE"));
@@ -3085,7 +3383,7 @@
         let VISA_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("VISA_ISSUE_DATE"));
         let VISA_EXPIRE_DATE = gfnma_nvl(SBUxMethod.get("VISA_EXPIRE_DATE"));
         let HANDICAP_TYPE = gfnma_nvl(SBUxMethod.get("HANDICAP_TYPE"));
-        let HANDICAP_GRADE = gfnma_nvl(SBUxMethod.get("HANDICAP_GRADE"));
+        let HANDICAP_GRADE = gfnma_nvl(gfnma_multiSelectGet('#HANDICAP_GRADE'));
         let HANDICAP_ISSUE_DATE = gfnma_nvl(SBUxMethod.get("HANDICAP_ISSUE_DATE"));
         let HANDICAP_REASON = gfnma_nvl(SBUxMethod.get("HANDICAP_REASON"));
 
@@ -3192,7 +3490,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_FILE_NAME : item.data.FILE_NAME,
                     V_P_FILE_SERVER_PATH : item.data.FILE_SERVER_PATH,
                     V_P_FILE_TYPE : item.data.FILE_TYPE,
@@ -3253,7 +3551,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_NAME : item.data.NAME,
                     V_P_RELATION : item.data.RELATION,
                     V_P_SOCIAL_NO : item.data.SOCIAL_NO,
@@ -3306,7 +3604,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_SCHOOL_TYPE : item.data.SCHOOL_TYPE,
                     V_P_MANAGE_CODE : item.data.MANAGE_CODE,
                     V_P_SCHOOL_NAME : item.data.SCHOOL_NAME,
@@ -3349,7 +3647,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_LICENSE_CODE : item.data.LICENSE_CODE,
                     V_P_LICENSE_GRADE : item.data.LICENSE_GRADE,
                     V_P_LICENSE_NUM : item.data.LICENSE_NUM,
@@ -3393,7 +3691,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_CAREER_TYPE : item.data.CAREER_TYPE,
                     V_P_START_DATE : item.data.START_DATE,
                     V_P_END_DATE : item.data.END_DATE,
@@ -3436,7 +3734,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_TEST_TYPE : item.data.TEST_TYPE,
                     V_P_TEST_DATE : item.data.TEST_DATE,
                     V_P_AVAILABLE_DATE : item.data.AVAILABLE_DATE,
@@ -3476,7 +3774,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_EDU_NAME : item.data.EDU_NAME,
                     V_P_FOREIGN_YN : item.data.FOREIGN_YN,
                     V_P_EDU_METHOD : item.data.EDU_METHOD,
@@ -3518,7 +3816,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_PRIZE_TYPE : item.data.PRIZE_TYPE,
                     V_P_PRIZE_CATEGORY : item.data.PRIZE_CATEGORY,
                     V_P_PRIZE_DATE : item.data.PRIZE_DATE,
@@ -3561,7 +3859,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_CHECK_TYPE : item.data.CHECK_TYPE,
                     V_P_CHECK_DATE : item.data.CHECK_DATE,
                     V_P_CHECK_INSTITUTE : item.data.CHECK_INSTITUTE,
@@ -3634,7 +3932,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_TIME_OFF_TYPE : item.data.TIME_OFF_TYPE,
                     V_P_START_DATE : item.data.START_DATE,
                     V_P_END_DATE : item.data.END_DATE,
@@ -3670,7 +3968,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_OA_NAME : item.data.OA_NAME,
                     V_P_OA_SKILL_LEVEL : item.data.OA_SKILL_LEVEL,
                     V_P_MEMO : item.data.MEMO,
@@ -3702,7 +4000,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_GROUP_INSURE_CODE : item.data.GROUP_INSURE_CODE,
                     V_P_INSURE_NUM : item.data.INSURE_NUM,
                     V_P_INSURE_START_DATE : item.data.INSURE_START_DATE,
@@ -3738,7 +4036,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_DISEASE_TYPE : item.data.DISEASE_TYPE,
                     V_P_DISEASE_REASON : item.data.DISEASE_REASON,
                     V_P_DISEASE_START_DATE : item.data.DISEASE_START_DATE,
@@ -3777,7 +4075,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_EVAL_YEAR : item.data.EVAL_YEAR,
                     V_P_POSITION_CODE : item.data.POSITION_CODE,
                     V_P_EVAL_KPI_GRADE : item.data.EVAL_KPI_GRADE,
@@ -3811,7 +4109,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_OFFICIAL_INJURY_START_DATE : item.data.OFFICIAL_INJURY_START_DATE,
                     V_P_OFFICIAL_INJURY_DESCR : item.data.OFFICIAL_INJURY_DESCR,
                     V_P_MEMO : item.data.MEMO,
@@ -3916,7 +4214,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_WORKPLAN_TYPE : item.data.WORKPLAN_TYPE,
                     V_P_START_DATE : item.data.START_DATE,
                     V_P_END_DATE : item.data.END_DATE,
@@ -3948,7 +4246,7 @@
                 V_P_COMP_CODE : gv_ma_selectedApcCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_EMP_CODE : EMP_CODE,
-                V_P_AGREE_YN : AGREE_YN,
+                V_P_AGREE_YN : AGREE_YN.AGREE_YN,
                 V_P_AGREE_DATE : AGREE_DATE,
                 V_P_FORM_ID : p_formId,
                 V_P_MENU_ID : p_menuId,
@@ -3974,7 +4272,7 @@
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EMP_CODE : empCode,
-                    V_P_SEQ : item.data.SEQ,
+                    V_P_SEQ : item.rownum,
                     V_P_NAME : item.data.NAME,
                     V_P_RELATION : item.data.RELATION,
                     V_P_WELFARE_CODE : item.data.WELFARE_CODE,
@@ -4031,8 +4329,8 @@
             SBUxMethod.set("COMP_ENTER_DATE", data.COMP_ENTER_DATE);
             SBUxMethod.set("PROMOTION_BASE_DATE", data.PROMOTION_BASE_DATE);
             SBUxMethod.set("RETIRE_DATE", data.RETIRE_DATE);
-            SBUxMethod.set("RETIRE_REASON", data.RETIRE_REASON);
-            SBUxMethod.set("RETIRE_IN_REASON", data.RETIRE_IN_REASON);
+            gfnma_multiSelectSet('#RETIRE_REASON', 'SUB_CODE', 'CODE_NAME', data.RETIRE_REASON);
+            gfnma_multiSelectSet('#RETIRE_IN_REASON', 'SUB_CODE', 'CODE_NAME', data.RETIRE_IN_REASON);
             SBUxMethod.set("RETIRE_BASE_DATE", data.RETIRE_BASE_DATE);
             SBUxMethod.set("PREMATURE_DATE", data.PREMATURE_DATE);
             SBUxMethod.set("RETIRE_PENSION_JOIN_YN", data.RETIRE_PENSION_JOIN_YN);
@@ -4050,8 +4348,8 @@
     const fn_setTpgMasterSubDetail = async function(data) {
         // 주거/생활/신체
         if(data) {
-            SBUxMethod.set("BLOOD_TYPE_RH", data.BLOOD_TYPE_RH);
-            SBUxMethod.set("BLOOD_TYPE_ABO", data.BLOOD_TYPE_ABO);
+            gfnma_multiSelectSet('#BLOOD_TYPE_RH', 'SUB_CODE', 'CODE_NAME', data.BLOOD_TYPE_RH);
+            gfnma_multiSelectSet('#BLOOD_TYPE_ABO', 'SUB_CODE', 'CODE_NAME', data.BLOOD_TYPE_ABO);
             SBUxMethod.set("WEIGHT", data.WEIGHT);
             SBUxMethod.set("HEIGHT", data.HEIGHT);
             SBUxMethod.set("LEFT_EYE", data.LEFT_EYE);
@@ -4062,11 +4360,11 @@
             SBUxMethod.set("SHOE_SIZE", data.SHOE_SIZE);
             SBUxMethod.set("HOBBY", data.HOBBY);
             SBUxMethod.set("SPECIAL_ABILITY", data.SPECIAL_ABILITY);
-            SBUxMethod.set("RELIGION_CODE", data.RELIGION_CODE);
+            gfnma_multiSelectSet('#RELIGION_CODE', 'SUB_CODE', 'CODE_NAME', data.RELIGION_CODE);
             SBUxMethod.set("HOUSE_OWN_YN", data.HOUSE_OWN_YN);
-            SBUxMethod.set("HOUSE_TYPE", data.HOUSE_TYPE);
-            SBUxMethod.set("HOUSE_KIND", data.HOUSE_KIND);
-            SBUxMethod.set("MARRIAGE_YN", data.MARRIAGE_YN);
+            gfnma_multiSelectSet('#HOUSE_TYPE', 'SUB_CODE', 'CODE_NAME', data.HOUSE_TYPE);
+            gfnma_multiSelectSet('#HOUSE_KIND', 'SUB_CODE', 'CODE_NAME', data.HOUSE_KIND);
+            gfnma_multiSelectSet('#MARRIAGE_YN', 'SUB_CODE', 'CODE_NAME', data.MARRIAGE_YN);
             SBUxMethod.set("MARRIAGE_DATE", data.MARRIAGE_DATE);
             SBUxMethod.set("CAR_OWN_YN", data.CAR_OWN_YN);
             SBUxMethod.set("CAR_NUM", data.CAR_NUM);
@@ -4077,12 +4375,12 @@
     const fn_setTpgMasterSubDetail2 = async function(data) {
         // 병역사항
         if(data) {
-            SBUxMethod.set("ARMY_TYPE", data.ARMY_TYPE);
+            gfnma_multiSelectSet('#ARMY_TYPE', 'SUB_CODE', 'CODE_NAME', data.ARMY_TYPE);
             SBUxMethod.set("ARMY_INDUSTRY_YN", data.ARMY_INDUSTRY_YN);
-            SBUxMethod.set("ARMY_PART", data.ARMY_PART);
-            SBUxMethod.set("ARMY_KIND", data.ARMY_KIND);
-            SBUxMethod.set("ARMY_DISCHARGE_TYPE", data.ARMY_DISCHARGE_TYPE);
-            SBUxMethod.set("ARMY_GRADE", data.ARMY_GRADE);
+            gfnma_multiSelectSet('#ARMY_PART', 'SUB_CODE', 'CODE_NAME', data.ARMY_PART);
+            gfnma_multiSelectSet('#ARMY_KIND', 'SUB_CODE', 'CODE_NAME', data.ARMY_KIND);
+            gfnma_multiSelectSet('#ARMY_DISCHARGE_TYPE', 'SUB_CODE', 'CODE_NAME', data.ARMY_DISCHARGE_TYPE);
+            gfnma_multiSelectSet('#ARMY_GRADE', 'SUB_CODE', 'CODE_NAME', data.ARMY_GRADE);
             SBUxMethod.set("ARMY_START_DATE", data.ARMY_START_DATE);
             SBUxMethod.set("ARMY_END_DATE", data.ARMY_END_DATE);
             SBUxMethod.set("ARMY_EXEMPTION_DESCR", data.ARMY_EXEMPTION_DESCR);
@@ -4094,13 +4392,13 @@
         // 보훈/장애/여권/비자
         if(data) {
             SBUxMethod.set("VETERANS_YN", data.VETERANS_YN);
-            SBUxMethod.set("VETERANS_GRADE", data.VETERANS_GRADE);
+            gfnma_multiSelectSet('#VETERANS_GRADE', 'SUB_CODE', 'CODE_NAME', data.VETERANS_GRADE);
             SBUxMethod.set("VETERANS_MEMO", data.VETERANS_MEMO);
-            SBUxMethod.set("VETERANS_RELATION", data.VETERANS_RELATION);
+            gfnma_multiSelectSet('#VETERANS_RELATION', 'SUB_CODE', 'CODE_NAME', data.VETERANS_RELATION);
             SBUxMethod.set("VETERANS_NUM", data.VETERANS_NUM);
             SBUxMethod.set("VETERANS_ORDER_YN", data.VETERANS_ORDER_YN);
             SBUxMethod.set("VETERANS_ORDER_DATE", data.VETERANS_ORDER_DATE);
-            SBUxMethod.set("HANDICAP_GRADE", data.HANDICAP_GRADE);
+            gfnma_multiSelectSet('#HANDICAP_GRADE', 'SUB_CODE', 'CODE_NAME', data.HANDICAP_GRADE);
             SBUxMethod.set("HANDICAP_TYPE", data.HANDICAP_TYPE);
             SBUxMethod.set("HANDICAP_REASON", data.HANDICAP_REASON);
             SBUxMethod.set("HANDICAP_ISSUE_DATE", data.HANDICAP_ISSUE_DATE);
@@ -4126,7 +4424,7 @@
             SBUxMethod.set("INSURE_END_DATE", data.INSURE_END_DATE);
             SBUxMethod.set("GUARANTOR1_NAME", data.GUARANTOR1_NAME);
             SBUxMethod.set("GUARANTOR1_SOCIAL_NO", data.GUARANTOR1_SOCIAL_NO);
-            SBUxMethod.set("GUARANTOR1_RELATION", data.GUARANTOR1_RELATION);
+            gfnma_multiSelectSet('#GUARANTOR1_RELATION', 'SUB_CODE', 'CODE_NAME', data.GUARANTOR1_RELATION);
             SBUxMethod.set("GUARANTOR1_COMP_NAME", data.GUARANTOR1_COMP_NAME);
             SBUxMethod.set("GUARANTOR1_POSITION", data.GUARANTOR1_POSITION);
             SBUxMethod.set("GUARANTOR1_START_DATE", data.GUARANTOR1_START_DATE);
@@ -4135,7 +4433,7 @@
             SBUxMethod.set("GUARANTOR1_ADDRESS", data.GUARANTOR1_ADDRESS);
             SBUxMethod.set("GUARANTOR2_NAME", data.GUARANTOR2_NAME);
             SBUxMethod.set("GUARANTOR2_SOCIAL_NO", data.GUARANTOR2_SOCIAL_NO);
-            SBUxMethod.set("GUARANTOR2_RELATION", data.GUARANTOR2_RELATION);
+            gfnma_multiSelectSet('#GUARANTOR2_RELATION', 'SUB_CODE', 'CODE_NAME', data.GUARANTOR2_RELATION);
             SBUxMethod.set("GUARANTOR2_COMP_NAME", data.GUARANTOR2_COMP_NAME);
             SBUxMethod.set("GUARANTOR2_POSITION", data.GUARANTOR2_POSITION);
             SBUxMethod.set("GUARANTOR2_START_DATE", data.GUARANTOR2_START_DATE);

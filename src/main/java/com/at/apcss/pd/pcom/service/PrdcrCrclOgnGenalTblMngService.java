@@ -38,11 +38,51 @@ public interface PrdcrCrclOgnGenalTblMngService {
 
 	public int updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
-	public int updateAllUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+
 
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 
 	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
 	public int multiSaveItemUoActnMttr(List<PrdcrCrclOgnGenalTblMngVO> PrdcrCrclOgnGenalTblMngVOList) throws Exception;
+
+	/**
+	 * 생산자조직 세부정보 업데이트
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 전문품목 매입매출 세부정보 업데이트
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateUoIsoItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 생산자조직 적합여부 업데이트
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateAllFrmhsStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 적합여부 업데이트
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateAllIsoStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 통합조직 적합여부 업데이트
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateAllUoStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 }

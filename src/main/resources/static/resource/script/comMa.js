@@ -76,17 +76,18 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 	}
 
     var paramObj = { 
-		v_p_debug_mode_yn	: ''
-		,v_p_lang_id		: ''
-		,v_p_comp_code		: _compcode
-		,v_p_client_code	: _clientcode
-		,v_p_bizcomp_id		: _bizcompid
-		,v_p_where_clause	: _whereclause
-		,v_p_form_id		: ''
-		,v_p_menu_id		: ''
-		,v_p_proc_id		: ''
-		,v_p_userid			: ''
-		,v_p_pc				: ''
+		V_P_DEBUG_MODE_YN	: ''
+		,V_P_LANG_ID		: ''
+		,V_P_COMP_CODE		: _compcode
+		,V_P_CLIENT_CODE	: _clientcode
+		,V_P_BIZCOMP_ID		: _bizcompid
+		,V_P_WHERE_CLAUSE	: _whereclause
+		,V_P_PROC_PARAMS	: ''
+		,V_P_FORM_ID		: ''
+		,V_P_MENU_ID		: ''
+		,V_P_PROC_ID		: ''
+		,V_P_USERID			: ''
+		,V_P_PC				: ''
     };		
 
     const postJsonPromise = gfn_postJSON("/com/comSelectList.do", {
@@ -149,6 +150,75 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 }
 
 /**
+ * @name 		gfnma_setComSelect
+ * @description sbux-select 데이터 가져오기
+ * @function
+ * @param 		{(string|string[])} _targetIds
+ * @param 		{string} _bizcompid
+ * @param 		{string} _whereclause
+ * @param 		{string} _compcode
+ * @param 		{string} _clientcode
+ * @param 		{string} _subcode
+ * @param 		{string} _codename
+ * @returns 	{Array}
+ */
+async function gfnma_getComSelectList(_bizcompid, _whereclause, _compcode, _clientcode, _subcode, _codename, _callbackFn) {
+
+	if (gfn_isEmpty(_bizcompid)) {
+		return;
+	}
+
+    var paramObj = { 
+		V_P_DEBUG_MODE_YN	: ''
+		,V_P_LANG_ID		: ''
+		,V_P_COMP_CODE		: _compcode
+		,V_P_CLIENT_CODE	: _clientcode
+		,V_P_BIZCOMP_ID		: _bizcompid
+		,V_P_WHERE_CLAUSE	: _whereclause
+		,V_P_PROC_PARAMS	: ''
+		,V_P_FORM_ID		: ''
+		,V_P_MENU_ID		: ''
+		,V_P_PROC_ID		: ''
+		,V_P_USERID			: ''
+		,V_P_PC				: ''
+    };		
+
+    const postJsonPromise = gfn_postJSON("/com/comSelectList.do", {
+    	getType				: 'json',
+    	workType			: 'Q',
+    	cv_count			: '1',
+    	params				: gfnma_objectToString(paramObj)
+	});
+
+	const data = await postJsonPromise;
+	console.log('gfnma_getComSelectList get data:', data);
+
+	const rlist = [];
+	try {
+		data.cv_1.forEach((item) => {
+			const cdVl = {
+				text	: item[_codename],
+				label	: item[_codename],
+				value	: item[_subcode]
+			}
+			rlist.push(cdVl);
+		});
+		//console.log('rlist:', rlist);
+
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
+	}	
+	if(_callbackFn){
+		_callbackFn(rlist);
+	}
+	return rlist;
+}
+
+/**
  * @name 		gfnma_multiSelectInit
  * @description 멀티 컬럼 select
  * @function
@@ -182,17 +252,18 @@ async function gfnma_multiSelectInit(obj) {
 	var _columns		= obj.columns;
 
     var paramObj = { 
-		v_p_debug_mode_yn	: ''
-		,v_p_lang_id		: 'KOR'
-		,v_p_comp_code		: _compCode
-		,v_p_client_code	: _clientCode
-		,v_p_bizcomp_id		: _bizcompId
-		,v_p_where_clause	: _whereClause
-		,v_p_form_id		: _formId
-		,v_p_menu_id		: _menuId
-		,v_p_proc_id		: ''
-		,v_p_userid			: ''
-		,v_p_pc				: ''
+		V_P_DEBUG_MODE_YN	: ''
+		,V_P_LANG_ID		: 'KOR'
+		,V_P_COMP_CODE		: _compCode
+		,V_P_CLIENT_CODE	: _clientCode
+		,V_P_BIZCOMP_ID		: _bizcompId
+		,V_P_WHERE_CLAUSE	: _whereClause
+		,V_P_PROC_PARAMS	: ''
+		,V_P_FORM_ID		: _formId
+		,V_P_MENU_ID		: _menuId
+		,V_P_PROC_ID		: ''
+		,V_P_USERID			: ''
+		,V_P_PC				: ''
     };		
 
     const postJsonPromise = gfn_postJSON("/com/comSelectList.do", {
@@ -381,6 +452,32 @@ const gfnma_getNumber = function (str) {
 	var regex 	= /[^0-9]/g;
 	var result 	= str.replace(regex, "");
     return Number(result);
+}
+
+/**
+ * @name 		gfnma_isDate
+ * @description 날짜 유무를 검증한다.
+ * @function
+ * @param 		{string} str
+ * @returns 	{boolean}
+ */
+const gfnma_isDate = function (str) {
+	
+	var chk = false;
+	if(!str) return chk;
+	
+	var regex = /[^0-9]/g;
+	str = str.replace(regex, "") + '';
+	if(str.length==8){
+		if( !isNaN(str) &&
+				str.substr(0,2)=='20' &&
+					(Number(str.substr(4,2)) > 0 && Number(str.substr(4,2)) < 13) && 
+						(Number(str.slice(-2)) > 0 && Number(str.slice(-2)) < 32)
+		){
+			chk = true;
+		}
+	}
+	return chk;
 }
 
 

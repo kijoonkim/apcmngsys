@@ -42,14 +42,14 @@ public class SpmtPckgUnitVO extends ComVO{
 	 * 품종코드
 	 */
 	private String vrtyCd;
-	
+
 	private String itemVrtyCd;
-	
+
 	/**
 	 * 규격코드
 	 */
 	private String spcfctCd;
-	
+
 	private String itemSpcfctCd;
 	/**
 	 * 품목명
@@ -104,5 +104,22 @@ public class SpmtPckgUnitVO extends ComVO{
 	 * 원산지 코드
 	 */
 	private String plorCd;
+
+	/**
+	 *  표준단위코드
+	 */
+	private String stdUnitCd;
+	/**
+	 *  표준포장코드
+	 */
+	private String stdPckgCd;
+	/**
+	 *  표준친환경코드
+	 */
+	private String stdEcfrdCd;
+	/**
+	 *  표준등급코드
+	 */
+	private String stdGrdCd;
 
 }
