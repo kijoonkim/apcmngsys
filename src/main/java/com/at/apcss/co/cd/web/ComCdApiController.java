@@ -103,7 +103,7 @@ public class ComCdApiController extends BaseController {
 	}
 
 	//모바일 공통 호출 API
-	@PostMapping(value = "/api/mobile/co/cd/comCdDtls", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	@PostMapping(value = "/api/mobile/co/cd/comCdDtls.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectComCdDtlLists(@RequestBody ComCdVO comCdVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
