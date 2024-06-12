@@ -263,6 +263,15 @@
             bandgvwInfo.setCellStyle('background-color',
                 nRow, nCol,
                 nRow, nCol, colorList[bandgvwInfo.getCellData(nRow, nCol)]);
+
+            let index = jsonPatternListOrigin.findIndex((value) => (value['YYYYMMDD'] == bandgvwInfo.getRefOfCol(nCol).replace("D", "") && value['WORK_PATTERN_CODE'] == bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"))));
+
+            if(index != -1) {
+                jsonPatternListOrigin[index]['WORK_TYPE'] = "U";
+                jsonPatternListOrigin[index]['SHIFT_CODE'] = bandgvwInfo.getCellData(nRow, nCol);
+            } else {
+                jsonPatternListOrigin.push({WORK_TYPE: "N", SHIFT_CODE: bandgvwInfo.getCellData(nRow, nCol), WORK_PATTERN_CODE: bandgvwInfo.getColRef("WORK_PATTERN_CODE"), YYYYMMDD: bandgvwInfo.getRefOfCol(nCol).replace("D", "")})
+            }
         } else {
             bandgvwInfo.removeCellStyle(nRow, nCol);
         }
@@ -289,22 +298,18 @@
     }
 
     const fn_save = async function() {
-        let updatedData = bandgvwInfo.getUpdateData(true, 'all');
+        let updatedData = jsonPatternListOrigin.filter((value) => value['WORK_TYPE'] != "Q");
         let WORK_TYPE_D = "";
         let YYYYMMDD_D = "";
         let WORK_PATTERN_CODE_D = "";
-        let SHIFT_CODE_D = "";
+        let SHIFT_CODE_D = "";;
 
         updatedData.forEach((item, index) => {
-            for(var key in item.data) {
-                if(item.data[key] != jsonPatternListOrigin[item.rownum-4][key]) {
-                    if(colorList[item.data[key]]) {
-                        WORK_TYPE_D += (jsonPatternListOrigin[item.rownum - 4][key] ? 'U' : 'N') + "|";
-                        YYYYMMDD_D += key.replace("D", "") + "|";
-                        WORK_PATTERN_CODE_D += item.data.WORK_PATTERN_CODE + "|";
-                        SHIFT_CODE_D += item.data[key] + "|";
-                    }
-                }
+            if(colorList[item.SHIFT_CODE]) {
+                WORK_TYPE_D += item.WORK_TYPE + "|";
+                YYYYMMDD_D += item.YYYYMMDD + "|";
+                WORK_PATTERN_CODE_D += item.WORK_PATTERN_CODE + "|";
+                SHIFT_CODE_D += item.SHIFT_CODE + "|";
             }
         });
 
@@ -475,7 +480,7 @@
                 jsonPatternList.length = 0;
                 jsonPatternListOrigin.length = 0;
                 jsonPatternList = listData.cv_2;
-                jsonPatternListOrigin = JSON.parse(JSON.stringify(listData.cv_2));
+                jsonPatternListOrigin = listData.cv_3;
 
                 jsonColorList.length = 0;
                 listData.cv_4.forEach((item, index) => {
