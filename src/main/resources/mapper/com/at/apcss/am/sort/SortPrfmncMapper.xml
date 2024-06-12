@@ -121,7 +121,14 @@
 				AND SI.SPCFCT_CD = #{spcfctCd}
     	</if>
     	<if test='rprsPrdcrCd != null and rprsPrdcrCd != ""'>
-				AND SI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+    		<choose>
+                <when test='prdcrGroupYn != null and prdcrGroupYn != "" and prdcrGroupYn =="Y"'>
+                    AND SI.RPRS_PRDCR_CD IN (SELECT COL1 FROM TABLE(FN_SYS_SPLIT_STRING(#{rprsPrdcrCd})))
+                </when>
+                <otherwise>
+                    AND SI.RPRS_PRDCR_CD = #{rprsPrdcrCd}
+                </otherwise>
+            </choose>
     	</if>
     	<if test='vrtyCd != null and vrtyCd != ""'>
 				AND SI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))

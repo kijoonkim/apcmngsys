@@ -141,7 +141,7 @@
 		<if test=' prdcrCd != null and prdcrCd !=""'>
 			<choose>
 				<when test='prdcrGroupYn != null and prdcrGroupYn != "" and prdcrGroupYn =="Y"'>
-					AND PR.PRDCR_CD IN '%' || #{prdcrCd} || '%'
+					AND PR.PRDCR_CD IN (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{prdcrCd})))
 				</when>
 				<otherwise>
 					AND PR.PRDCR_CD = #{prdcrCd}
