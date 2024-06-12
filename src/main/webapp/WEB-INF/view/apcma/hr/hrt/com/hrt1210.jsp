@@ -646,7 +646,7 @@
                     <tr>
                         <th scope="row" class="th_bg">비고</th>
                         <td colspan="20" class="td_input">
-                            <sbux-textarea id="MEMO" class="form-control input-sm" uitype="normal" style="width:100%"></sbux-textarea>
+                            <sbux-textarea id="MEMO" rows="2" class="form-control input-sm" uitype="normal" style="width:100%"></sbux-textarea>
                         </td>
                     </tr>
                     </tbody>
