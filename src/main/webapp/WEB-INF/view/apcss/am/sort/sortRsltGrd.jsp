@@ -653,6 +653,7 @@
                          apcCd: gv_selectedApcCd,
                          apcNm: gv_selectedApcNm,
                          linkKnd: "S",
+                         kndList: ["S"]
                      },
                      fn_popApcLinkCallBack
                  );
