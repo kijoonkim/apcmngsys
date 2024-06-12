@@ -140,6 +140,9 @@
                 </otherwise>
             </choose>
 		</if>
+		<if test='prdcrNm != null and prdcrCNm != ""'>
+			    AND (SELECT FN_GET_PRDCR_NM(WP.PRDCR_CD, WP.APC_CD) FROM DUAL) = #{prdcrCNm}
+		</if>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND INV.ITEM_CD = #{itemCd}
 		</if>

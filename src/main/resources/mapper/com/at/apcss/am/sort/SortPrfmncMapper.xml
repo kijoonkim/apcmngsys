@@ -130,6 +130,9 @@
                 </otherwise>
             </choose>
     	</if>
+    	<if test='prdcrNm != null and prdcrCNm != ""'>
+				AND (SELECT FN_GET_PRDCR_NM(SI.RPRS_PRDCR_CD, SI.APC_CD) FROM DUAL) = #{prdcrCNm}
+		</if>
     	<if test='vrtyCd != null and vrtyCd != ""'>
 				AND SI.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
     	</if>
