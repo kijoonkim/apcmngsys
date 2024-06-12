@@ -425,6 +425,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		String invntrSttsCd = spmtPrfmncComVO.getInvntrSttsCd();
 		boolean needsIgnoreInvntrQntt = AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrSttsCd);
 
+		// 출하강제처리 여부 : 마이너스 재고생성하여 출하
+		boolean allowsFrcdPrcs = ComConstants.CON_YES.equals(spmtPrfmncComVO.getSpmtFrcdPrcsYn());
+		
 		List<GdsInvntrVO> invntrList = new ArrayList<>();
 
 		// 상품재고 배분
@@ -578,10 +581,20 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					wght = ComUtil.round(qntt * spcfctWght, 3);
 					spmtQntt -= qntt;
 
-					if (wght > invRmnWght) {	//  && !needsIgnoreInvntrQntt && isLastIndex) {
-						wght = invRmnWght;
+					// 출하강제처리 잔량이 남을 경우
+					if (allowsFrcdPrcs && isLastIndex && spmtQntt > 0) {
+						qntt += spmtQntt;
+						wght = ComUtil.round(qntt * spcfctWght, 3);
+						spmtQntt = 0;
+						
+						gdsInv.setInvntrSttsCd(AmConstants.CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO);
+						
+					} else {
+						if (wght > invRmnWght) {	//  && !needsIgnoreInvntrQntt && isLastIndex) {
+							wght = invRmnWght;
+						}
 					}
-
+					
 					gdsInv.setSpmtQntt(qntt);
 					gdsInv.setSpmtWght(wght);
 					gdsInv.setRmrk(rmrk);
@@ -590,7 +603,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					invntrList.add(gdsInv);
 				}
 			}
-
+			
 			// 재고 부족
 			if (spmtQntt > 0) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하가능재고");
