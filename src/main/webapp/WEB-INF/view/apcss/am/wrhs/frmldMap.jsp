@@ -133,7 +133,7 @@
 	    <script src="https://agis.epis.or.kr/ASD/pub2/js/jquery-3.4.1.js"></script>
 		<script src="https://agis.epis.or.kr/ASD/js/lib/openlayers/OpenLayers.js"></script>
 		<script src="https://agis.epis.or.kr/ASD/js/lib/proj4js/proj4.js"></script>
-		<script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=8AuulPFHOftqyHEmTdQK&domain=http://localhost:8085/"></script>
+		<script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=M4Z0Y2P5BcNV52OxjHYl&domain=http://localhost:8080/"></script>
 
 	    <script>
 			var map1;
@@ -142,8 +142,8 @@
 	        var mapMaxZoom = 20;
 	        var xyString;
 			var reqUrl;
-			var domain = "http://localhost:8085/";
-			var apiKey = "8AuulPFHOftqyHEmTdQK";
+			var domain = "http://localhost:8080/";
+			var apiKey = "M4Z0Y2P5BcNV52OxjHYl";
 
 	        function init() {
 	            map1 = farmmapObj.init("mapDiv1");
@@ -156,7 +156,7 @@
 	            getButton('menuMapMgr,btnMapMgr');
 				// addVectorLayer();
 
-	            var emapApiKey = '8AuulPFHOftqyHEmTdQK';
+	            var emapApiKey = 'M4Z0Y2P5BcNV52OxjHYl';
 	            var korean_map_tile = 'https://map.ngii.go.kr/openapi/Gettile.do?';
 	            var emapLayer = new OpenLayers.Layer.XYZ("2D", "", {
 	                url: korean_map_tile,
@@ -646,6 +646,7 @@
 	        }
 
 			function addVector() {
+				console.log('addVector in');
 				var data = returnjson;
 				if (returnjson == null) return;
 
@@ -700,14 +701,7 @@
 								fillColor: "black",
 								fillOpacity: 0.5,
 								strokeWidth: 2,
-								strokeColor: "#ff0000",
-							// 	strokeLinecap: "round",
-							// 	fontSize: "12px",
-							// 	fontColor: "black",
-							// 	fontWeight: "bold",
-							// 	label: label.toString(),
-							// 	labelOutlineColor: "#ffffff",
-							// 	labelOutlineWidth: 3
+								strokeColor: "#ff0000"
 							}
 						}
 						farmmapObj.addVector("vectorLayer", vectorOptions, map1);
@@ -1207,12 +1201,14 @@
 	            }
 	        }
 
-			function getFarmmapDataSeachBjdAndLandCode() {
+			const getFarmmapDataSeachBjdAndLandCode = async function() {
 				var params = {};
 				console.log('test');
+				var landCd = SBUxMethod.get("srch-slt-landCd");
+				console.log('getFarmmapDataSeachBjdAndLandCode landCd', landCd);
 				// params.bjdCd = $("#bjdCd4").val();
-				params.bjdCd = '5013031023';
-				params.landCd = '02'; // 01:논 02:밭 03:과수 04:시설 05:비경지
+				params.bjdCd = '5013031023'; // 조회
+				params.landCd = landCd; // 01:논 02:밭 03:과수 04:시설 05:비경지
 				params.mapType = 'farmmap';
 				params.columnType = 'ENG';
 				params.apiKey = apiKey;
@@ -1225,7 +1221,7 @@
 					url: reqUrl + "farmmapApi/getFarmmapDataSeachBjdAndLandCode.do",
 					dataType: "jsonp",
 					jsonpCallback: "searchCallback",
-					async: false,
+					async: true,
 					type: "GET",
 					cache: false,
 					data: params,
@@ -1238,6 +1234,10 @@
 					}
 				});
 				console.log('getFarmmapDataSeachBjdAndLandCode params',params);
+
+				console.log('성공');
+				await addVector();
+
 			}
 	    </script>
 </head>
@@ -1264,19 +1264,71 @@
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
-						<col style="width: 3%">
+						<col style="width: 6%">
+						<col style="width: 6%">
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<td>
+					<tr>
+						<th scope="row" class="th_bg"><span class="data_required" ></span>법정동코드</th>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select
+									id="srch-slt-test1"
+									name="srch-slt-test1"
+									uitype="single"
+									jsondata-ref="jsonApcTest1"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="">
+							</sbux-select>
+						</td>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select
+									id="srch-slt-test2"
+									name="srch-slt-test2"
+									uitype="single"
+									jsondata-ref="jsonApcTest2"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="">
+							</sbux-select>
+						</td>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select
+									id="srch-slt-test3"
+									name="srch-slt-test3"
+									uitype="single"
+									jsondata-ref="jsonApcTest3"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="">
+							</sbux-select>
+						</td>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-select
+									id="srch-slt-test4"
+									name="srch-slt-test4"
+									uitype="single"
+									jsondata-ref="jsonApcTest4"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="">
+							</sbux-select>
+						</td>
+						<th scope="row" class="th_bg"><span class="data_required" ></span>landCd</th>
+						<td class="td_input" style="border-right: hidden;">
+							<textarea id="info" name="info" style="width:100%" hidden="hidden"></textarea>
+							<sbux-select
+									id="srch-slt-landCd"
+									name="srch-slt-landCd"
+									uitype="single"
+									jsondata-ref="jsonApcLandCd"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									onchange="fn_resetTextArea();">
+							</sbux-select>
+						</td>
+					</tr>
+<%--						<tr>--%>
+<%--							<td>--%>
 <%--								<sbux-input--%>
 <%--									uitype="text"--%>
 <%--									id="info"--%>
@@ -1284,17 +1336,14 @@
 <%--									class="form-control input-sm"--%>
 <%--									maxlength="33"--%>
 <%--									show-clear-button="true"></sbux-input>--%>
-							</td>
-							<td colspan="3">
-								<textarea id="info" name="info" style="width:100%"></textarea>
-							</td>
-							<td>
-								<button type="button" class="button" onclick="javascript:getFarmmapDataSeachBjdAndLandCode();">조회</button>
-							</td>
-							<td>
-								<button type="button" class="button" onclick="addVector()">벡터그리기</button>
-							</td>
-						</tr>
+<%--							</td>--%>
+<%--							<td>--%>
+<%--								<button type="button" class="button" onclick="javascript:getFarmmapDataSeachBjdAndLandCode();">조회</button>--%>
+<%--							</td>--%>
+<%--							<td>--%>
+<%--								<button type="button" class="button" onclick="addVector()">벡터그리기</button>--%>
+<%--							</td>--%>
+<%--						</tr>--%>
 					</tbody>
 				</table>
 
@@ -1305,93 +1354,11 @@
 						<li><span>팜맵 정보</span></li>
 					</ul>
 				</div>
-				<div class="table-responsive tbl_scroll_sm">
-					<div>
-	        <div class="left">
-	            <br>
-	            <hr>
-	            <div id="menuMapMgr" onClick="getButton('menuMapMgr,btnMapMgr')" class="menu">지도관리 API</div><hr>
-	            <div id="menuLayer" onClick="getButton('menuLayer,btnLayer')" class="menu">레이어 API</div><hr>
-	            <div id="menuFarmmap" onClick="getButton('menuFarmmap,btnFarmmap')" class="menu">팜맵레이어 API</div><hr>
-	            <div id="menuMarker" onClick="getButton('menuMarker,btnMarker')" class="menu">마커 API</div><hr>
-	            <div id="menuVector" onClick="getButton('menuVector,btnVector')" class="menu">벡터 API</div><hr>
-	        </div>
-
-	        <div class="right">
-	            <div>
+	        <div>
+	            <div style="margin-bottom: 10px;">
 	                &nbsp;&nbsp; <b>위치</b> : <label id="whereis"></label> &nbsp;&nbsp;&nbsp;&nbsp; <b>줌</b> : <label id="zoom"></label>
 	            </div>
-
-				<hr>
-				<div id="buttonGroup">
-		            <div id="btnMapMgr">
-		            	&nbsp;&nbsp;
-		                <button type="button" class="lbutton" onclick="javascript:addMoveendEvent();">moveend 이벤트추가</button>
-		                <button type="button" class="button" onclick="javascript:removeMoveendEvent();">moveend 이벤트제거</button>
-		                <button type="button" class="button" onclick="javascript:addMapEvent();">맵이벤트추가</button>
-		                <button type="button" class="button" onclick="javascript:removeMapEvent();">맵이벤트제거</button>
-		                <button type="button" class="button" onclick="javascript:addControl();">컨트롤추가</button>
-		                <button type="button" class="button" onclick="javascript:removeControl();">컨트롤제거</button>
-		                <button type="button" class="button" onclick="javascript:getObject();">객체찾기</button>
-		                <button type="button" class="rbutton" onclick="javascript:clearMap();">맵초기화</button>
-		            </div>
-		            <div id="btnLayer" style="display: none;">
-		            	&nbsp;&nbsp;
-		                <button type="button" class="lbutton" onclick="javascript:addcctv();">CCTV WMS추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:addMarkerLayer();">마커레이어 추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:addVectorLayer();">벡터레이어 추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:activateVectorLayerEvent();">벡터 이벤트 활성</button>
-		                <button type="button" class="button" onclick="javascript:deactivateVectorLayerEvent();">벡터 이벤트 비활성</button>
-		                <button type="button" class="button" onclick="javascript:layerShowHide();">레이어 보기/숨김</button>
-		                <button type="button" class="rbutton" onclick="javascript:getLayerNameList();">레이어목록조회</button>
-		            </div>
-		            <div id="btnFarmmap" style="display: none;">
-		            	&nbsp;&nbsp;
-		                <button type="button" class="lbutton" onclick="javascript:addFarmmapLayer();">팜맵 추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:addWhiteFarmmapLayer();">팜맵 백지도 추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:addBasicInfomapLayer();">국토정보기본도 추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:addSearchFarmmapDataEvent();">조회이벤트 추가</button>
-		                <button type="button" class="button" onclick="javascript:removeSearchFarmmapDataEvent();">조회이벤트 제거</button>
-		                <button type="button" class="rbutton" onclick="javascript:getLegendImage();">팜맵범례조회</button>
-
-		                <div id="legendDiv" style="width: 100px; position: absolute; left: 1000px; top: 95px; z-index: 1006; display: none;">
-		                    <label id="legendImageLabel" style="color: teal; font-weight: 300; font-size: 15px;"></label> <img id="legendImage" src="" />
-		                </div>
-		            </div>
-		            <div id="btnMarker" style="display: none;">
-		            	&nbsp;&nbsp;
-		                <button type="button" class="lbutton" onclick="javascript:addMarkerLayer();">마커레이어 추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:addMarker();">마커생성</button>
-		                <button type="button" class="button" onclick="javascript:markerShowHide();">마커 보기/숨김</button>
-		                <button type="button" class="button" onclick="javascript:markerShowAllHideAll('showAll');">마커 전체보기</button>
-		                <button type="button" class="button" onclick="javascript:markerShowAllHideAll('hideAll');">마커 전체숨김</button>
-		                <button type="button" class="button" onclick="javascript:setMarkerSize();">마커 크기변경</button>
-		                <button type="button" class="button" onclick="javascript:setMarkerLocation();">마커 위치변경</button>
-		                <button type="button" class="button" onclick="javascript:setMarkerIcon();">마커 아이콘변경</button>
-		                <button type="button" class="button" onclick="javascript:setMarkerData();">마커 데이터변경</button>
-		                <button type="button" class="rbutton" onclick="javascript:removeMarker();">마커 제거</button>
-		            </div>
-		            <div id="btnVector" style="display: none;">
-		            	&nbsp;&nbsp;
-		                <button type="button" class="lbutton" onclick="javascript:addVectorLayer();">벡터레이어 추가/제거</button>
-		                <button type="button" class="button" onclick="javascript:addVector('point');">포인트 추가</button>
-		                <button type="button" class="button" onclick="javascript:addVector('lineString');">라인 추가</button>
-		                <button type="button" class="button" onclick="javascript:addVector('polygon');">폴리곤 추가</button>
-		                <button type="button" class="button" onclick="javascript:addVector('circle');">원 추가</button>
-		                <button type="button" class="button" onclick="javascript:hideShowVector('point2');">point2 숨김/보기</button>
-		                <button type="button" class="button" onclick="javascript:hideShowVector('point3');">point3 보기/보기</button>
-		                <button type="button" class="button" onclick="javascript:hideShowAllVector('hideAll');">벡터 전체숨김</button>
-		                <button type="button" class="button" onclick="javascript:hideShowAllVector('showAll');">벡터 전체보기</button>
-		                <button type="button" class="button" onclick="javascript:setVectorStyle('lineString','lineString1');">lineString1 스타일변경</button>
-		                <button type="button" class="button" onclick="javascript:setVectorData('data','point4');">point4 데이터변경</button>
-		                <button type="button" class="rbutton" onclick="javascript:removeVector('circle1');">circle1 제거</button>
-		            </div>
-	            </div>
-				<font size="2px">
-					<br>
-				</font>
-
-	            <div id="mapDiv1" style="height: 480px;"></div>
+	            <div id="mapDiv1" style="height: 500px;"></div>
 	        </div>
 	    </div>
 
@@ -1425,6 +1392,14 @@
 	<jsp:include page="../popup/framldMapPopup.jsp"/>
 </div>
 <script type="text/javascript">
+	// 01:논 02:밭 03:과수 04:시설 05:비경지
+	var jsonApcLandCd = [
+		{'text':'논', 'value':'01'},
+		{'text':'밭','value':'02'},
+		{'text':'과수','value':'03'},
+		{'text':'시설','value':'04'},
+		{'text':'비경지','value':'05'}
+	];
 
 	const frmidMapPopup = async function(data){
 		console.log('팝업 실행');
@@ -1433,8 +1408,8 @@
 		popFramldMap.init(gv_selectedApcCd, data);
 	}
 
-	function test(){
-		console.log('testtestsetset');
+	function fn_resetTextArea(){
+		$('#info').val('');
 	}
 
 </script>
