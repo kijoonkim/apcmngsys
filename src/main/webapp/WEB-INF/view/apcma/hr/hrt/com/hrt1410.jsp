@@ -28,279 +28,277 @@
 </head>
 <body oncontextmenu="return false">
 <section>
-    <section>
-        <div class="box box-solid">
-            <div class="box-header" style="display:flex; justify-content: flex-start;">
-                <div>
-                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3>
-                </div>
+    <div class="box box-solid">
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
+            <div>
+                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+                </h3>
             </div>
-            <div class="box-body">
+        </div>
+        <div class="box-body">
 
-                <!--[pp] 검색 -->
-                <!--[APC] START -->
-                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-                <!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
-                    <caption>검색 조건 설정</caption>
-                    <colgroup>
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <th scope="row" class="th_bg">사업장코드</th>
-                        <td class="td_input">
-                            <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                        </td>
-                        <td colspan="4"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg">부서코드</th>
-                        <td class="td_input">
-                            <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                        </td>
-                        <th scope="row" class="th_bg">부서명</th>
-                        <td class="td_input">
-                            <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                        </td>
-                        <th scope="row" class="th_bg">기준일자</th>
-                        <td class="td_input">
-                            <sbux-datepicker
-                                    uitype="popup"
-                                    id="SRCH_BASE_YYYYMMDD"
-                                    name="SRCH_BASE_YYYYMMDD"
-                                    date-format="yyyy-mm-dd"
-                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
-                                    style="width:100%;"
-                            />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="col-sm-3">
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
+            <table class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg">사업장코드</th>
+                    <td class="td_input">
+                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">부서코드</th>
+                    <td class="td_input">
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <th scope="row" class="th_bg">부서명</th>
+                    <td class="td_input">
+                        <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <th scope="row" class="th_bg">기준일자</th>
+                    <td class="td_input">
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_BASE_YYYYMMDD"
+                                name="SRCH_BASE_YYYYMMDD"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                style="width:100%;"
+                        />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="ad_tbl_top">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>생산조직</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-responsive tbl_scroll_sm">
+                        <div id="sb-area-treeMaster" style="height:725px;"></div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div>
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>생산조직</span>
+                                    <span>근무조정보</span>
                                 </li>
                             </ul>
                         </div>
-                        <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-treeMaster" style="height:725px;"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
                         <div>
-                            <div class="ad_tbl_top">
-                                <ul class="ad_tbl_count">
-                                    <li>
-                                        <span>근무조정보</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <table class="table table-bordered tbl_fixed">
-                                    <colgroup>
-                                        <col style="width:11%">
-                                        <col style="width:11%">
-                                        <col style="width:1%">
-                                        <col style="width:3%">
-                                        <col style="width:11%">
-                                        <col style="width:11%">
-                                        <col style="width:11%">
-                                        <col style="width:11%">
-                                        <col style="width:30%">
-                                    </colgroup>
-                                    <tr>
-                                        <th scope="row" class="th_bg">사업장</th>
-                                        <td colspan="4" class="td_input">
-                                            <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm" readonly></sbux-select>
-                                        </td>
-                                        <td colspan="5"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">부서코드</th>
-                                        <td class="td_input">
-                                            <sbux-input id="DEPT_CODE" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" readonly></sbux-input>
-                                        </td>
-                                        <td colspan="4"></td>
-                                        <th scope="row" class="th_bg"><span class="data_required"></span>부서명</th>
-                                        <td class="td_input">
-                                            <sbux-input id="DEPT_NAME" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" readonly></sbux-input>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">조직장</th>
-                                        <td class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="DEPT_LEADER" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                        </td>
-                                        <td></td>
-                                        <td colspan="2" class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="DEPT_LEADER_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                        </td>
-                                        <td class="td_input" style="border-right:hidden;">
-                                            <sbux-button
-                                                    class="btn btn-xs btn-outline-dark"
-                                                    text="찾기" uitype="modal"
-                                                    target-id="modal-compopup1"
-                                                    onclick="fn_findDeptLeaderEmpCode"
-                                                    readonly
-                                            ></sbux-button>
-                                        </td>
-                                        <th scope="row" class="th_bg"><span class="data_required"></span>근무패턴</th>
-                                        <td class="td_input">
-                                            <sbux-select id="WORK_PATTERN_CODE" uitype="single" jsondata-ref="jsonWorkPatternCode" unselected-text="선택" class="form-control input-sm" readonly></sbux-select>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">상위부서</th>
-                                        <td class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="PARENT_DEPT" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                        </td>
-                                        <td></td>
-                                        <td colspan="2"     class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="PARENT_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                        </td>
-                                        <td class="td_input" style="border-right:hidden;">
-                                            <sbux-button
-                                                    class="btn btn-xs btn-outline-dark"
-                                                    text="찾기" uitype="modal"
-                                                    target-id="modal-compopup1"
-                                                    onclick="fn_findParentDeptCode"
-                                                    readonly
-                                            ></sbux-button>
-                                        </td>
-                                        <td colspan="4"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">적용기간</th>
-                                        <td class="td_input" style="border-right:hidden;">
-                                            <sbux-datepicker
-                                                    uitype="popup"
-                                                    id="START_DATE"
-                                                    name="START_DATE"
-                                                    date-format="yyyy-mm-dd"
-                                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                                    style="width:100%;"
-                                                    readonly
-                                            />
-                                        </td>
-                                        <td class="td_input" style="border-right:hidden;">
-                                            <span> ~ </span>
-                                        </td>
-                                        <td colspan="2" class="td_input" style="border-right:hidden;">
-                                            <sbux-datepicker
-                                                    uitype="popup"
-                                                    id="END_DATE"
-                                                    name="END_DATE"
-                                                    date-format="yyyy-mm-dd"
-                                                    class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
-                                                    style="width:100%;"
-                                                    readonly
-                                            />
-                                        </td>
-                                        <td></td>
-                                        <th scope="row" class="th_bg">정렬순서</th>
-                                        <td class="td_input">
-                                            <sbux-input id="SORT_SEQ" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                        </td>
-                                        <td colspan="2"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">비고</th>
-                                        <td colspan="7">
-                                            <sbux-textarea id="MEMO" rows="2" class="form-control input-sm" uitype="normal" style="width:100%" readonly></sbux-textarea>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div>
+                            <table class="table table-bordered tbl_fixed">
+                                <colgroup>
+                                    <col style="width:11%">
+                                    <col style="width:11%">
+                                    <col style="width:1%">
+                                    <col style="width:3%">
+                                    <col style="width:11%">
+                                    <col style="width:11%">
+                                    <col style="width:11%">
+                                    <col style="width:11%">
+                                    <col style="width:30%">
+                                </colgroup>
+                                <tr>
+                                    <th scope="row" class="th_bg">사업장</th>
+                                    <td colspan="4" class="td_input">
+                                        <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm" readonly></sbux-select>
+                                    </td>
+                                    <td colspan="5"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">부서코드</th>
+                                    <td class="td_input">
+                                        <sbux-input id="DEPT_CODE" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" readonly></sbux-input>
+                                    </td>
+                                    <td colspan="4"></td>
+                                    <th scope="row" class="th_bg"><span class="data_required"></span>부서명</th>
+                                    <td class="td_input">
+                                        <sbux-input id="DEPT_NAME" class="form-control input-sm input-sm-ast" uitype="text" style="width:100%" readonly></sbux-input>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">조직장</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DEPT_LEADER" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    </td>
+                                    <td></td>
+                                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DEPT_LEADER_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="찾기" uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findDeptLeaderEmpCode"
+                                                readonly
+                                        ></sbux-button>
+                                    </td>
+                                    <th scope="row" class="th_bg"><span class="data_required"></span>근무패턴</th>
+                                    <td class="td_input">
+                                        <sbux-select id="WORK_PATTERN_CODE" uitype="single" jsondata-ref="jsonWorkPatternCode" unselected-text="선택" class="form-control input-sm" readonly></sbux-select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">상위부서</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PARENT_DEPT" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    </td>
+                                    <td></td>
+                                    <td colspan="2"     class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PARENT_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="찾기" uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findParentDeptCode"
+                                                readonly
+                                        ></sbux-button>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">적용기간</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-datepicker
+                                                uitype="popup"
+                                                id="START_DATE"
+                                                name="START_DATE"
+                                                date-format="yyyy-mm-dd"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                style="width:100%;"
+                                                readonly
+                                        />
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <span> ~ </span>
+                                    </td>
+                                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                                        <sbux-datepicker
+                                                uitype="popup"
+                                                id="END_DATE"
+                                                name="END_DATE"
+                                                date-format="yyyy-mm-dd"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                style="width:100%;"
+                                                readonly
+                                        />
+                                    </td>
+                                    <td></td>
+                                    <th scope="row" class="th_bg">정렬순서</th>
+                                    <td class="td_input">
+                                        <sbux-input id="SORT_SEQ" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    </td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">비고</th>
+                                    <td colspan="7">
+                                        <sbux-textarea id="MEMO" rows="2" class="form-control input-sm" uitype="normal" style="width:100%" readonly></sbux-textarea>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
 
-                            <div class="ad_tbl_top2">
-                                <ul class="ad_tbl_count">
-                                    <li>
-                                        <span>추가정보 편집</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
-                                </sbux-tabs>
-                                <div class="tab-content">
-                                    <div id="tpgShiftPatten">
-                                        <div class="ad_tbl_top2">
-                                            <ul class="ad_tbl_count">
-                                                <li>
-                                                    <span>근무조별 패턴 지정</span>
-                                                </li>
-                                            </ul>
-                                            <div class="ad_tbl_toplist">
-                                                <sbux-button id="btnDeleteRowForPattern" name="btnDeleteRowForPattern" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForPattern" style="float: right;"></sbux-button>
-                                                <sbux-button id="btnAddRowForPattern" name="btnAddRowForPattern" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForPattern" style="float: right;"></sbux-button>
-                                            </div>
-                                        </div>
-                                        <div class="table-responsive tbl_scroll_sm">
-                                            <div id="sb-area-gvwPattern" style="height:340px;"></div>
+                        <div class="ad_tbl_top2">
+                            <ul class="ad_tbl_count">
+                                <li>
+                                    <span>추가정보 편집</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
+                            </sbux-tabs>
+                            <div class="tab-content">
+                                <div id="tpgShiftPatten">
+                                    <div class="ad_tbl_top2">
+                                        <ul class="ad_tbl_count">
+                                            <li>
+                                                <span>근무조별 패턴 지정</span>
+                                            </li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btnDeleteRowForPattern" name="btnDeleteRowForPattern" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForPattern" style="float: right;"></sbux-button>
+                                            <sbux-button id="btnAddRowForPattern" name="btnAddRowForPattern" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForPattern" style="float: right;"></sbux-button>
                                         </div>
                                     </div>
-                                    <div id="tpgShiftPattenForEmployee">
-                                        <div class="ad_tbl_top">
-                                            <ul class="ad_tbl_count">
-                                                <li>
-                                                    <span>사원별 근무조 지정</span>
-                                                </li>
-                                            </ul>
-                                            <div class="ad_tbl_toplist">
-                                                <sbux-button id="btnDeleteRowForEmp" name="btnDeleteRowForEmp" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForEmp" style="float: right;"></sbux-button>
-                                                <sbux-button id="btnAddRowForEmp" name="btnAddRowForEmp" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForEmp" style="float: right;"></sbux-button>
-                                                <sbux-button id="btnSearchEmp" name="btnSearchEmp" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_searchEmp" style="float: right;"></sbux-button>
-                                                <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button>
-                                                <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button>
-                                                <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button>
-                                            </div>
+                                    <div class="table-responsive tbl_scroll_sm">
+                                        <div id="sb-area-gvwPattern" style="height:340px;"></div>
+                                    </div>
+                                </div>
+                                <div id="tpgShiftPattenForEmployee">
+                                    <div class="ad_tbl_top">
+                                        <ul class="ad_tbl_count">
+                                            <li>
+                                                <span>사원별 근무조 지정</span>
+                                            </li>
+                                        </ul>
+                                        <div class="ad_tbl_toplist">
+                                            <sbux-button id="btnDeleteRowForEmp" name="btnDeleteRowForEmp" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForEmp" style="float: right;"></sbux-button>
+                                            <sbux-button id="btnAddRowForEmp" name="btnAddRowForEmp" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForEmp" style="float: right;"></sbux-button>
+                                            <sbux-button id="btnSearchEmp" name="btnSearchEmp" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_searchEmp" style="float: right;"></sbux-button>
+                                            <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button>
+                                            <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button>
+                                            <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button>
                                         </div>
-                                        <div>
-                                            <table class="table table-bordered tbl_fixed">
-                                                <colgroup>
-                                                    <col style="width:10%">
-                                                    <col style="width:10%">
-                                                    <col style="width:10%">
-                                                    <col style="width:10%">
-                                                    <col style="width:60%">
-                                                </colgroup>
-                                                <tr>
-                                                    <th scope="row" class="th_bg">사원</th>
-                                                    <td class="td_input" style="border-right:hidden;">
-                                                        <sbux-input id="EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                                    </td>
-                                                    <td class="td_input" style="border-right:hidden;">
-                                                        <sbux-input id="EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                                    </td>
-                                                    <td class="td_input" style="border-right:hidden;">
-                                                        <sbux-button
-                                                                class="btn btn-xs btn-outline-dark"
-                                                                text="찾기" uitype="modal"
-                                                                target-id="modal-compopup1"
-                                                                onclick="fn_findEmpCode"
-                                                        ></sbux-button>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div>
-                                            <div id="sb-area-gvwEmp" style="height:300px;"></div>
-                                        </div>
+                                    </div>
+                                    <div>
+                                        <table class="table table-bordered tbl_fixed">
+                                            <colgroup>
+                                                <col style="width:10%">
+                                                <col style="width:10%">
+                                                <col style="width:10%">
+                                                <col style="width:10%">
+                                                <col style="width:60%">
+                                            </colgroup>
+                                            <tr>
+                                                <th scope="row" class="th_bg">사원</th>
+                                                <td class="td_input" style="border-right:hidden;">
+                                                    <sbux-input id="EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                </td>
+                                                <td class="td_input" style="border-right:hidden;">
+                                                    <sbux-input id="EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                </td>
+                                                <td class="td_input" style="border-right:hidden;">
+                                                    <sbux-button
+                                                            class="btn btn-xs btn-outline-dark"
+                                                            text="찾기" uitype="modal"
+                                                            target-id="modal-compopup1"
+                                                            onclick="fn_findEmpCode"
+                                                    ></sbux-button>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <div id="sb-area-gvwEmp" style="height:300px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +307,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </section>
 <!-- 팝업 Modal -->
 <div>
