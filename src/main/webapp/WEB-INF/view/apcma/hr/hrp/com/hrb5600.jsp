@@ -61,7 +61,6 @@
                 <col style="width: 6%">
                 <col style="width: 3%">
             </colgroup>
-            <>
             <tr>
                 <th scope="row" class="th_bg">기준일</th>
                 <td class="td_input" style="border-right: hidden;">
@@ -96,7 +95,7 @@
                             id="srch-pay_type"
                             name="srch-pay_type"
                             class="form-control input-sm"
-                            jsondata-ref="jsonEmpState"
+                            jsondata-ref="jsonPayType"
                     />
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -115,7 +114,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwMaster" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwList" style="height:800px; width:100%;"></div>
                 </div>
             </div>
 
@@ -152,7 +151,7 @@
                                         id="PAY_ITEM_CODE"
                                         name="PAY_ITEM_CODE"
                                         class="form-control input-sm inpt_data_reqed"
-                                        jsondata-ref=""
+                                        jsondata-ref="jsonPayItemCode2"
                                 />
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -166,7 +165,7 @@
                                         id="PAY_TYPE"
                                         name="PAY_TYPE"
                                         class="form-control input-sm inpt_data_reqed"
-                                        jsondata-ref=""
+                                        jsondata-ref="jsonPayType"
                                 />
                             </td>
                             <td class="td_input" style="border-right: hidden;">
@@ -209,11 +208,11 @@
                             <th scope="row" class="th_bg">적용기준1</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <div class="dropdown">
-                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_ITEM_RANGE_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="PAY_ITEM_RANGE_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
-                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down inpt_data_reqed"></i>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="PAY_ITEM_RANGE_TYPE1" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    <div id="ITEM_CHANGE_1" class="dropdown-menu input_change" aria-labelledby="PAY_ITEM_RANGE_TYPE1" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                                     </div>
                                 </div>
                             </td>
@@ -222,11 +221,11 @@
                             <th scope="row" class="th_bg">적용기준2</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <div class="dropdown">
-                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_ITEM_RANGE_TYPE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="PAY_ITEM_RANGE_TYPE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="PAY_ITEM_RANGE_TYPE2" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    <div id="ITEM_CHANGE_2" class="dropdown-menu input_change" aria-labelledby="PAY_ITEM_RANGE_TYPE2" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                                     </div>
                                 </div>
                             </td>
@@ -268,7 +267,7 @@
                     </div>
                 </div>
                 <div>
-                    <div id="sb-area-grwWithhold" style="height:283px; width:100%;"></div>
+                    <div id="sb-area-gvwBandgvwDetailList" style="height:283px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -282,6 +281,11 @@
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
     //-----------------------------------------------------------
+
+    var editType			= 'N';
+
+    var CHk_PAY_ITEM_RANGE_TYPE1 = '';
+    var CHk_PAY_ITEM_RANGE_TYPE2 = '';
 
     //grid 초기화
     var gvwListGrid; 			// 그리드를 담기위한 객체 선언
@@ -298,9 +302,11 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             gfnma_setComSelect(['srch-pay_type','PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode2, 'L_HRP004_B', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-
+            gfnma_setComSelect(['PAY_ITEM_CODE'], jsonPayItemCode2, 'L_HRP004_B', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            /*gfnma_setComSelect([''], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemRangeType, 'L_HRB026', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+*/
             //급여항목
             gfnma_multiSelectInit({
                 target			: ['#srch-pay_item_code']
@@ -406,12 +412,13 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["적용코드1"], ref: 'PAY_ITEM_RANGE_CODE1', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["적용금액"], ref: 'PAY_ITEM_RANGE_AMT', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["직급명","적용코드1"], ref: 'PAY_ITEM_RANGE_CODE1', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["명","적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["명","적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["적용금액","적용금액"], ref: 'PAY_ITEM_RANGE_AMT', type: 'input', width: '200px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
+            {caption: ["적용금액","비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'}
         ];
 
         gvwBandgvwDetailGrid = _SBGrid.create(SBGridProperties);
@@ -446,10 +453,11 @@
 
     // 신규
     function cfn_add() {
-
+        fn_add();
     }
     // 저장
     function cfn_save() {
+        fn_save();
     }
     // 삭제
     function cfn_del() {
@@ -539,8 +547,509 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
+    }
+
+    //상세정보 보기
+    async function fn_view() {
+
+        editType = 'U';
+
+        let APPLY_DATE = gfnma_nvl(SBUxMethod.get("srch-apply_date")); //기준일
+        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_item_code")); //급여항목
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+
+        let nRow = gvwListGrid.getRow();
+
+        if (nRow < 1){
+            nRow = 1;
+        }
+
+        let rowData = gvwListGrid.getRowData(nRow);
+
+
+        if (!_.isEmpty(rowData)) {
+            var paramObj = {
+                V_P_DEBUG_MODE_YN: ''
+                , V_P_LANG_ID: ''
+                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                , V_P_APPLY_DATE: APPLY_DATE
+                , V_P_PAY_ITEM_CODE: PAY_ITEM_CODE
+                , V_P_PAY_TYPE: PAY_TYPE
+                , V_P_APPLY_START_DATE: rowData.APPLY_START_DATE
+                , V_P_PAY_ITEM_RANGE_TYPE1: rowData.PAY_ITEM_RANGE_TYPE1
+                , V_P_PAY_ITEM_RANGE_TYPE2: rowData.PAY_ITEM_RANGE_TYPE2
+
+                , V_P_FORM_ID: p_formId
+                , V_P_MENU_ID: p_menuId
+                , V_P_PROC_ID: ''
+                , V_P_USERID: ''
+                , V_P_PC: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp5600List.do", {
+                getType: 'json',
+                workType: 'DETAIL',
+                cv_count: '4',
+                params: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log("----------------------2------------------------", data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    data.cv_2.forEach((item, index) => {
+
+                        SBUxMethod.set("PAY_ITEM_CODE", gfnma_nvl(item.PAY_ITEM_CODE));
+                        SBUxMethod.set("PAY_TYPE", gfnma_nvl(item.PAY_TYPE));
+                        SBUxMethod.set("ALL_YN", gfnma_nvl(item.ALL_YN));
+                        SBUxMethod.set("APPLY_START_DATE", gfnma_nvl(item.APPLY_START_DATE));
+                        SBUxMethod.set("APPLY_END_DATE", gfnma_nvl(item.APPLY_END_DATE));
+                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE1", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1));
+                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE2", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2));
+                        SBUxMethod.set("MEMO", gfnma_nvl(item.MEMO));
+
+                    });
+
+
+                    jsonBandgvwDetailList.length = 0;
+                    data.cv_3.forEach((item, index) => {
+                        const msg = {
+                            PAY_ITEM_RANGE_CODE1: gfnma_nvl(item.PAY_ITEM_RANGE_CODE1),
+                            PAY_ITEM_RANGE_NAME1: gfnma_nvl(item.PAY_ITEM_RANGE_NAME1),
+                            PAY_ITEM_RANGE_CODE2: gfnma_nvl(item.PAY_ITEM_RANGE_CODE2),
+                            PAY_ITEM_RANGE_NAME2: gfnma_nvl(item.PAY_ITEM_RANGE_NAME2),
+                            PAY_ITEM_RANGE_AMT: gfnma_nvl(item.PAY_ITEM_RANGE_AMT),
+                            MEMO: gfnma_nvl(item.MEMO)
+
+                        }
+                        jsonBandgvwDetailList.push(msg);
+                    });
+
+                    gvwBandgvwDetailGrid.rebuild();
+
+                    fn_settings();
+
+
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    //저장
+    const fn_item = async function () {
+
+        let APPLY_DATE = gfnma_nvl(SBUxMethod.get("srch-apply_date")); //기준일
+        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_item_code")); //급여항목
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+
+        let APPLY_START_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
+
+        let PAY_ITEM_RANGE_TYPE1 = gfnma_nvl(CHk_PAY_ITEM_RANGE_TYPE1);
+        let PAY_ITEM_RANGE_TYPE2 = gfnma_nvl(CHk_PAY_ITEM_RANGE_TYPE2);
+
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            , V_P_APPLY_DATE: APPLY_DATE
+            , V_P_PAY_ITEM_CODE: PAY_ITEM_CODE
+            , V_P_PAY_TYPE: PAY_TYPE
+            , V_P_APPLY_START_DATE: APPLY_START_DATE
+            , V_P_PAY_ITEM_RANGE_TYPE1: PAY_ITEM_RANGE_TYPE1
+            , V_P_PAY_ITEM_RANGE_TYPE2: PAY_ITEM_RANGE_TYPE2
+
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp5600List.do", {
+            getType: 'json',
+            workType: 'ITEM',
+            cv_count: '4',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log("----------------------3------------------------", data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+
+                jsonBandgvwDetailList.length = 0;
+                data.cv_4.forEach((item, index) => {
+                    const msg = {
+                        PAY_ITEM_RANGE_CODE1: gfnma_nvl(item.PAY_ITEM_RANGE_CODE1),
+                        PAY_ITEM_RANGE_NAME1: gfnma_nvl(item.PAY_ITEM_RANGE_NAME1),
+                        PAY_ITEM_RANGE_CODE2: gfnma_nvl(item.PAY_ITEM_RANGE_CODE2),
+                        PAY_ITEM_RANGE_NAME2: gfnma_nvl(item.PAY_ITEM_RANGE_NAME2),
+                        PAY_ITEM_RANGE_AMT: gfnma_nvl(item.PAY_ITEM_RANGE_AMT),
+                        MEMO: gfnma_nvl(item.MEMO)
+
+                    }
+                    jsonBandgvwDetailList.push(msg);
+                });
+
+                gvwBandgvwDetailGrid.rebuild();
+
+                /*fn_settings();*/
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
 
     }
+
+    //신규 작성
+    function fn_add() {
+
+        editType = 'N';
+
+        SBUxMethod.set("PAY_ITEM_CODE", 			"");
+        SBUxMethod.set("PAY_TYPE", 			"");
+        SBUxMethod.set("ALL_YN", 			"N");
+
+        let openDate = gfn_dateToYmd(new Date());
+
+        SBUxMethod.set("APPLY_START_DATE", 			openDate);
+        SBUxMethod.set("APPLY_END_DATE", 			"99991231");
+        /*SBUxMethod.attr('APPLY_END_DATE','readonly',true);*/
+
+        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE1', '', '', '');
+        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE2', '', '', '');
+
+
+        SBUxMethod.attr('PAY_ITEM_CODE','readonly',false);
+        SBUxMethod.attr('PAY_TYPE','readonly',false);
+        SBUxMethod.attr('APPLY_START_DATE','readonly',false);
+        /*SBUxMethod.attr('APPLY_END_DATE','readonly',true);*/
+        $('#PAY_ITEM_RANGE_TYPE1').attr('disabled',false);
+        $('#PAY_ITEM_RANGE_TYPE2').attr('disabled',false);
+
+
+        gvwBandgvwDetailGrid.clearStatus();
+        jsonBandgvwDetailList = 0;
+        gvwBandgvwDetailGrid.rebuild();
+
+    }
+
+    //저장
+    function fn_settings() {
+
+        SBUxMethod.attr('PAY_ITEM_CODE','readonly',true);
+        SBUxMethod.attr('PAY_TYPE','readonly',true);
+        SBUxMethod.attr('APPLY_START_DATE','readonly',true);
+        SBUxMethod.attr('APPLY_END_DATE','readonly',true);
+        $('#PAY_ITEM_RANGE_TYPE1').attr('disabled',true);
+        $('#PAY_ITEM_RANGE_TYPE2').attr('disabled',true);
+        /*SBUxMethod.attr('PAY_ITEM_RANGE_TYPE1','disabled',true);*/
+        /*SBUxMethod.attr('PAY_ITEM_RANGE_TYPE2','disabled',true);*/
+
+
+    }
+
+    //저장
+    const fn_save = async function () {
+
+        let PAY_ITEM_CODE 			= gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+        let PAY_TYPE 			    = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
+        let ALL_YN 			        = gfnma_nvl(SBUxMethod.get("ALL_YN"));
+        let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
+        let PAY_ITEM_RANGE_TYPE1	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
+        let PAY_ITEM_RANGE_TYPE2	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+        let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));
+
+        if (!PAY_ITEM_CODE) {
+            gfn_comAlert("W0002", "급여항목");
+            return;
+        }
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!APPLY_START_DATE) {
+            gfn_comAlert("W0002", "적용기간");
+            return;
+        }
+        if (!APPLY_END_DATE) {
+            gfn_comAlert("W0002", "적용기간");
+            return;
+        }
+        if (!PAY_ITEM_RANGE_TYPE1) {
+            gfn_comAlert("W0002", "적용기준1");
+            return;
+        }
+        if (!PAY_ITEM_RANGE_TYPE2) {
+            gfn_comAlert("W0002", "적용기준2");
+            return;
+        }
+
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN			: ''
+            ,V_P_LANG_ID				: ''
+            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+
+            ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE
+            ,V_P_PAY_TYPE             : PAY_TYPE
+            ,V_P_APPLY_START_DATE     : APPLY_START_DATE
+            ,V_P_APPLY_END_DATE       : APPLY_END_DATE
+            ,V_P_PAY_ITEM_RANGE_TYPE1 : PAY_ITEM_RANGE_TYPE1
+            ,V_P_PAY_ITEM_RANGE_TYPE2 : PAY_ITEM_RANGE_TYPE2
+            ,V_P_ALL_YN               : ALL_YN.ALL_YN
+            ,V_P_MEMO                 : MEMO
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+
+
+        };
+        if (_.isEqual(editType, "N")){
+            // 수정 저장
+            if (gfn_comConfirm("Q0001", "신규 등록")) {
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600.do", {
+                    getType: 'json',
+                    workType: 'N',
+                    cv_count: '0',
+                    params: gfnma_objectToString(paramObj)
+                });
+
+                const data = await postJsonPromise;
+
+                try {
+                    if (_.isEqual("S", data.resultStatus)) {
+                        if (data.resultMessage) {
+                            alert(data.resultMessage);
+                        }
+
+                        fn_saveS1();
+
+                    } else {
+                        alert(data.resultMessage);
+                    }
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    console.error("failed", e.message);
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                }
+            }
+        }else if (_.isEqual(editType, "U")){
+            // 수정 저장
+            if (gfn_comConfirm("Q0001", "수정 저장")) {
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600.do", {
+                    getType: 'json',
+                    workType: 'N',
+                    cv_count: '0',
+                    params: gfnma_objectToString(paramObj)
+                });
+                const data = await postJsonPromise;
+
+                try {
+                    if (_.isEqual("S", data.resultStatus)) {
+                        if (data.resultMessage) {
+                            alert(data.resultMessage);
+                        }
+
+                        fn_saveS1();
+
+                    } else {
+                        alert(data.resultMessage);
+                    }
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    console.error("failed", e.message);
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                }
+            }
+        }
+    }
+
+    //저장
+    const fn_saveS1 = async function () {
+
+        var paramObj = await getParamForm('u');
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", paramObj);
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+                fn_search(/*tabId*/);
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+
+
+    const getParamForm = async function (type) {
+
+        let PAY_ITEM_CODE 			= gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+        let PAY_TYPE 			    = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
+        let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
+
+
+        let updatedData;
+        let returnData = [];
+
+        if(_.isEqual(type, 'u')){
+
+            updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
+
+            updatedData.forEach((item, index) => {
+
+                const param = {
+
+                    cv_count: '0',
+                    getType: 'json',
+                    workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                    params: gfnma_objectToString({
+                        V_P_DEBUG_MODE_YN: ''
+                        , V_P_LANG_ID: ''
+                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                        ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE
+                        ,V_P_PAY_TYPE             : PAY_TYPE
+                        ,V_P_APPLY_START_DATE     : APPLY_START_DATE
+                        ,V_P_PAY_ITEM_RANGE_CODE1 : item.data.PAY_ITEM_RANGE_CODE1
+                        ,V_P_PAY_ITEM_RANGE_CODE2 : item.data.PAY_ITEM_RANGE_CODE2
+                        ,V_P_PAY_ITEM_RANGE_AMT   : item.data.PAY_ITEM_RANGE_AMT
+                        ,V_P_MEMO                 : item.data.MEMO
+
+                        , V_P_FORM_ID: p_formId
+                        , V_P_MENU_ID: p_menuId
+                        , V_P_PROC_ID: ''
+                        , V_P_USERID: ''
+                        , V_P_PC: ''
+
+                    })
+                }
+
+                console.log("---------param--------- : ", param);
+                returnData.push(param);
+
+            });
+        }else if (_.isEqual(type, 'd')){
+
+            updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
+
+            updatedData.forEach((item, index) => {
+
+                const param = {
+
+                    cv_count: '0',
+                    getType: 'json',
+                    workType: 'D',
+                    params: gfnma_objectToString({
+                        V_P_DEBUG_MODE_YN: ''
+                        , V_P_LANG_ID: ''
+                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                        ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE
+                        ,V_P_PAY_TYPE             : PAY_TYPE
+                        ,V_P_APPLY_START_DATE     : APPLY_START_DATE
+                        ,V_P_PAY_ITEM_RANGE_CODE1 : item.PAY_ITEM_RANGE_CODE1
+                        ,V_P_PAY_ITEM_RANGE_CODE2 : item.PAY_ITEM_RANGE_CODE2
+                        ,V_P_PAY_ITEM_RANGE_AMT   : item.PAY_ITEM_RANGE_AMT
+                        ,V_P_MEMO                 : item.MEMO
+
+                        , V_P_FORM_ID: p_formId
+                        , V_P_MENU_ID: p_menuId
+                        , V_P_PROC_ID: ''
+                        , V_P_USERID: ''
+                        , V_P_PC: ''
+
+                    })
+                }
+
+                console.log("---------param--------- : ", param);
+                returnData.push(param);
+
+            });
+
+        }
+
+
+        console.log("---------returnData--------- : ", returnData);
+        return returnData;
+    }
+
+    $(function () {
+
+        $("#PAY_ITEM_RANGE_TYPE1").on("DOMSubtreeModified",function(e){
+
+            let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
+
+            if (!_.isEmpty(PAY_ITEM_RANGE_TYPE1)) {
+                if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE1, PAY_ITEM_RANGE_TYPE1)) {
+                    CHk_PAY_ITEM_RANGE_TYPE1 = PAY_ITEM_RANGE_TYPE1
+                    fn_item();
+                }
+            }
+        });
+
+        $("#PAY_ITEM_RANGE_TYPE2").on("DOMSubtreeModified",function(e){
+
+            let PAY_ITEM_RANGE_TYPE2 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+
+            if (!_.isEmpty(PAY_ITEM_RANGE_TYPE2)) {
+                if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE2, PAY_ITEM_RANGE_TYPE2)) {
+                    CHk_PAY_ITEM_RANGE_TYPE2 = PAY_ITEM_RANGE_TYPE2
+                    fn_item();
+                }
+            }
+        });
+
+    });
 
 
 </script>
