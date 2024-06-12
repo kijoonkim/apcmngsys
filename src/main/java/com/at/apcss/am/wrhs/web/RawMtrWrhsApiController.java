@@ -43,13 +43,13 @@ public class RawMtrWrhsApiController extends BaseController {
 	private CmnsVrtyService cmnsVrtyService;
 
 	// 입고실적조회
-	@PostMapping(value = "/api/mobile/am/wrhs/selectRawMtrWrhsPrfmncLists.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsPrfmncList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/api/mobile/am/wrhs/selectRawMtrWrhsLists.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RawMtrWrhsVO> resultList;
 		try {
-			resultList = rawMtrWrhsService.selectRawMtrWrhsPrfmncList(rawMtrWrhsVO);
+			resultList = rawMtrWrhsService.selectRawMtrWrhsList(rawMtrWrhsVO);
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
