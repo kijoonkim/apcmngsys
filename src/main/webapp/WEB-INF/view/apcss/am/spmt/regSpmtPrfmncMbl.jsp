@@ -1985,7 +1985,7 @@
                 rowData = JSON.parse(rowData);
                 let qnttIdx = parseInt(rowData.gdsGrd);
                 let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
-                let gdsInput = gfn_isEmpty(rowData.spmtIndct) ? rowData.sortGrdNm: String(parseInt(rowData.spmtIndct));
+                let gdsInput = gfn_isEmpty(rowData.spmtIndct) ? rowData.sortGrdNm: String(rowData.spmtIndct);
 
                 rowData.spmtInvId.forEach(function(item,idx,arr){
                     arr[idx] = {

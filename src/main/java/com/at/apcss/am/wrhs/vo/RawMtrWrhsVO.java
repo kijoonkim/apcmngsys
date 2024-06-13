@@ -267,7 +267,7 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 재고유무
 	 */
 	private String invntrYn;
-	
+
 	/**
 	 * 재고상태코드
 	 */
@@ -276,14 +276,20 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 생산자인식번호
 	 */
 	private int prdcrIdentno;
-	
-	
+
+
 	/**
 	 * 표준등급
 	 */
 	private String stdGrd;
 	private String stdGrdCd;
 	private String stdGrdType;
+
+
+	/*
+	 * 생산자그룹여부
+	 * */
+	private String prdcrGroupYn;
 
 	/**
 	 * 표준등급 목록

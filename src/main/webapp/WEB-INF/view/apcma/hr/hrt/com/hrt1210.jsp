@@ -646,7 +646,7 @@
                     <tr>
                         <th scope="row" class="th_bg">비고</th>
                         <td colspan="20" class="td_input">
-                            <sbux-textarea id="MEMO" class="form-control input-sm" uitype="normal" style="width:100%"></sbux-textarea>
+                            <sbux-textarea id="MEMO" rows="2" class="form-control input-sm" uitype="normal" style="width:100%"></sbux-textarea>
                         </td>
                     </tr>
                     </tbody>
@@ -782,11 +782,11 @@
             {caption: ["교대조정보", "교대조명"], 	        ref: 'SHIFT_NAME',    	        type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: ["교대조정보", "교대조유형"], 	        ref: 'SHIFT_CATEGORY',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["출퇴근", "출근구분"], 	        ref: 'WORK_ON_DAY_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
-            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_HHMM',    	        type:'output',  	width:'70px',  	style:'text-align:center'},
+            {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_HHMM',    	        type:'output',  	width:'70px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
             {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
             {caption: ["출퇴근", "출근시각"], 	        ref: 'WORK_ON_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
             {caption: ["출퇴근", "퇴근구분"], 	        ref: 'WORK_OFF_DAY_TYPE',    	        type:'output',  	width:'80px',  	style:'text-align:center', hidden: true},
-            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_HHMM',    	        type:'output',  	width:'80px',  	style:'text-align:center'},
+            {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_HHMM',    	        type:'output',  	width:'80px',  	style:'text-align:center', format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}},
             {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_HH',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
             {caption: ["출퇴근", "퇴근시각"], 	        ref: 'WORK_OFF_MM',    	        type:'output',  	width:'75px',  	style:'text-align:center', hidden: true},
             {caption: ["출퇴근", "총근무시간"], 	        ref: 'WORK_HOURS',    	        type:'output',  	width:'75px',  	style:'text-align:center'},
@@ -1647,9 +1647,9 @@
     const fn_afterRebuild = async function() {
         let bandgvwInfoData = bandgvwInfo.getGridDataAll();
 
-        for(var i = 2; i < bandgvwInfoData.length; i++) {
-            let rowData = bandgvwInfo.getRowData(i);
-            bandgvwInfo.setCellStyle('background-color', i, 0, i, 0, rowData.BACK_COLOR);
+        for(var i = 0; i < bandgvwInfoData.length; i++) {
+            let rowData = bandgvwInfo.getRowData(i+2);
+            bandgvwInfo.setCellStyle('background-color', i+2, 0, i+2, 0, rowData.BACK_COLOR);
         }
     }
 

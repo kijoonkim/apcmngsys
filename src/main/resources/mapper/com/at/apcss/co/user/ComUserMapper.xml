@@ -409,7 +409,16 @@
 	</if>
 	</select>
 
-	<!-- 생산농가 계정관리 요청목록 조회 -->
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUserPrdcrAprvList             -->
+	<!-- DESC : 생산농가 계정관리 요청목록 조회                                          -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
 	<select id="selectComUserPrdcrAprvList" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
 
@@ -454,7 +463,15 @@
 
 	</select>
 
-	<!-- 생산농가 계정관리 생산농가목록 조회 -->
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUserPrdcrList             -->
+	<!-- DESC : 생산농가 계정관리 생산농가목록 조회                                          -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
 	<select id="selectComUserPrdcrList" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
 		SELECT
@@ -500,7 +517,15 @@
 
 	</select>
 
-	<!-- 생산농가 계정등록 요청목록 조회 -->
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUserPrdcrRegList             -->
+	<!-- DESC :  생산농가 계정등록 요청목록 조회                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
 	<select id="selectComUserPrdcrRegList" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
 
@@ -544,7 +569,14 @@
 
 
 	</select>
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUserAprvList             -->
+	<!-- DESC :  생산농가 승인,미승인 전체 목록 조회                                         -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
 	<select id="selectComUserAprvList" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
 
@@ -566,7 +598,15 @@
 
 	</select>
 
-	<!-- 생산농가 계정 승인 업데이트-->
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.updateUserAprv             -->
+	<!-- DESC : 생산농가 계정 승인 업데이트                                          -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
 	<update id="updateUserAprv" parameterType="hashmap">
     	<![CDATA[
     	UPDATE TB_COM_USER_PRDCR_APRV
@@ -589,6 +629,14 @@
     	]]>
     </update>
 
+<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.insertPrdcrUserId             -->
+	<!-- DESC :  생산농가 승인요청 등록                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
     <insert id="insertPrdcrUserId" parameterType="hashmap">
     	<![CDATA[
 	    	INSERT INTO /* com.at.apcss.co.user.ComUserMapper.savePrdcrUserId*/
@@ -622,6 +670,14 @@
     	]]>
     </insert>
 
+<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.updatePrdcrUserId             -->
+	<!-- DESC :  생산농가 승인요청 APC, 비고 수정                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
     <update id="updatePrdcrUserId" parameterType="hashmap">
     	<![CDATA[
     	UPDATE TB_COM_USER_PRDCR_APRV
@@ -637,6 +693,14 @@
     	]]>
     </update>
 
+<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.deletePrdcrUserId             -->
+	<!-- DESC : 생산농가 승인요청 삭제                                         -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
     <update id="deletePrdcrUserId" parameterType="hashmap">
    	<![CDATA[
     	DELETE FROM TB_COM_USER_PRDCR_APRV
@@ -645,5 +709,33 @@
 
     	]]>
     </update>
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectPrdcrList             		-->
+	<!-- DESC : 생산농가 계정에 속한 생산자 목록 조회.                              -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.11  	김   호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUserPrdcrList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			       PA.USER_ID       AS USER_ID
+			     , PA.APC_CD        AS APC_CD
+			     , PA.PRDCR_CD      AS PRDCR_CD
+			     , PA.RMRK          AS RMRK
+			     , PA.APRV_YN       AS APRV_YN
+			     , PA.REQ_DT        AS REQ_DT
+			     , PA.APRV_DT       AS APRV_DT
+			  FROM TB_COM_USER_PRDCR_APRV PA
+			 WHERE PA.DEL_YN 	= 'N'
+			   AND PA.APRV_YN 	= 'Y'
+		]]>
+			<if test='userId != null and userId !=""'>
+			   AND PA.USER_ID = #{userId}
+			</if>
+			<if test='apcCd != null and apcCd !=""'>
+			   AND PA.APC_CD = #{apcCd}
+			</if>
+	</select>
 </mapper>

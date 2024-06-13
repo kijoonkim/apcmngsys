@@ -259,6 +259,10 @@
 		let apcCd = gv_apcCd;
 		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		
+		if(itemCd === null || itemCd === undefined){
+			gfn_comAlert("W0001","품목");
+			return;
+		}
 		let nRow = grdBffaGrdType.getRow();
 		let rowData = grdBffaGrdType.getRowData(nRow);
 		SBUxMethod.set("idxLabel_grdType","");
@@ -302,25 +306,31 @@
 		
 		let nRow = grdBffaGrdType.getRow();
 		let rowData = grdBffaGrdType.getRowData(nRow);
+		if(rowData === undefined || rowData.grdType === ""){
+			jsonBffaGrdKnd.length = 0;
+			grdBffaGrdKnd.rebuild();
+			SBUxMethod.set("idxLabel_grdType","");
+			return;
+		}
 		let cdVl = grdBffaGrdType.getRowData(grdBffaGrdType.getRow()).cdVl;
 		let itemCd = SBUxMethod.get('grd-slt-BitemCd');
 		SBUxMethod.set("idxLabel_grdDtl","");
 		SBUxMethod.set("idxLabel_grdType",rowData.grdType);
-		
-		
-		
-		
+
+
+
+
 		let lastRowIndex = 0;
 		if(rowData.sn === "" || rowData.sn === undefined){
 			return
 		}
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectBffaSortKndList.do", {apcCd : apcCd, itemCd : itemCd, bffaGrdType : cdVl });
 	    let data = await postJsonPromise;
-	    
+
 	    try{
   			if (_.isEqual("S", data.resultStatus)) {
   				jsonBffaGrdKnd.length = 0;
-  				
+
   		    	data.resultList.forEach((item, index) => {
   					let stdGrdVO = {
 						delYn         : item.delYn
@@ -354,6 +364,12 @@
 		let nRow = grdBffaGrdKnd.getRow();
 		let rowData = grdBffaGrdKnd.getRowData(nRow);
 		
+		if(rowData === undefined || rowData.grdKndNm === ""){
+			jsonBffaGrdDtl.length = 0;
+			grdBffaGrdDtl.refresh();
+			SBUxMethod.set("idxLabel_grdDtl","");
+			return;
+		}
 		SBUxMethod.set("idxLabel_grdDtl",rowData.grdKndNm);
 		if(rowData.sn === "" || rowData.sn === undefined){
 			return
@@ -398,6 +414,7 @@
 		let lastRowIndex = 0;
 		
 		
+		let snChk = true;
 		let kndAllData = grdBffaGrdKnd.getGridDataAll();
 		let dtlAllData = grdBffaGrdDtl.getGridDataAll();
 		let sortParamList = [];
@@ -405,14 +422,24 @@
 		kndAllData.forEach((item,index) => {
 			let status = grdBffaGrdKnd.getRowStatus(index+1);
 			sortParamList.push({apcCd : gv_apcCd, itemCd : itemCd, bffaGrdType : bffaGrdType,grdKnd : item.grdKnd ,grdKndNm : item.grdKndNm,sn : item.sn, rmrk : '',status : status,type : "knd" });
+			if(item.grdKndNm != "" && item.sn === ""){
+				snChk = false;
+			}
 		});
 		
 		dtlAllData.forEach((item,index) => {
 			let status = grdBffaGrdDtl.getRowStatus(index+1);
 			let grdKnd = grdBffaGrdKnd.getRowData(grdBffaGrdKnd.getRow()).grdKnd;
 			sortParamList.push({apcCd : gv_apcCd, itemCd : itemCd, bffaGrdType : bffaGrdType, grdKnd : grdKnd  ,grdNm : item.grdNm,sn : item.sn, rmrk : '',status : status, type : "dtl" });
+			if(item.grdNm != "" && item.sn === ""){
+				snChk = false;
+			}
 		});
 		
+		if(snChk == false){
+			gfn_comAlert("W0002","순번");
+			return;
+		}
 	    try{
 	    	let postJsonPromise = gfn_postJSON("/am/cmns/saveBffaSort.do", sortParamList);
 		    let data = await postJsonPromise;

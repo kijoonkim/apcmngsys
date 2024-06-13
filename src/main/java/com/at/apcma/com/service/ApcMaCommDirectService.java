@@ -1,6 +1,7 @@
 package com.at.apcma.com.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,5 +47,17 @@ public interface ApcMaCommDirectService {
 	 */
 	public Map<String, Object> InnerCallProc2(Map<String, Object> param, String[][] plist) throws Exception;
 
+
+	/**
+	 * tree level 생성
+	 * @param node
+	 * @param deptMap
+	 * @param sortedDepartments
+	 * @param level
+	 * @return
+	 * @throws Exception
+	 */
+	void buildTree(Map<String, Object> node, Map<String, Map<String, Object>> deptMap,
+								  List<Map<String, Object>> sortedDepartments, int level);
 
 }

@@ -10,7 +10,7 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
-	
+
 <style type="text/css">
 .ad_tbl_toplist>span {
 	font-weight: bold;
@@ -23,9 +23,9 @@
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			
+
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
-				
+
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별결과표 -->
@@ -35,7 +35,7 @@
                             id="btn-srch-apcLinkPop"
                             name="btn-srch-apcLinkPop"
                             class="btn btn-sm btn-outline-danger"
-                            text="연계요청" 
+                            text="연계요청"
                             uitype="modal"
                             target-id="modal-apcLinkPop"
                             onclick="fn_popApcLink"
@@ -81,7 +81,7 @@
 					<tbody>
 						<tr>
 							<th colspan="1" scope="row" class="th_bg">선별일자</th>
-							
+
 							<td colspan="2" class="td_input"style="border-right: hidden;">
 								<sbux-datepicker
 									uitype="popup"
@@ -92,7 +92,7 @@
 									onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
 								></sbux-datepicker>
 							</td>
-							
+
 							<td colspan="2" class="td_input"style="border-right: hidden;">
 								<sbux-datepicker
 									uitype="popup"
@@ -144,51 +144,20 @@
 									onchange="fn_selectItem"
 								></sbux-select>
 							</td>
-														
-							
-							
-							
+
+
+
+
 						</tr>
 					</tbody>
 				</table>
-				
-				<div class="ad_tbl_top2">
-					
-					
-					<div class="ad_tbl_toplist">
-						
-						<span id="dtl-spn-sttsFigure" style="margin-left: 10px;font-size: 28px;">●</span>
-						<span id="dtl-spn-trsmMatSttsNm" style="margin-right: 20px;">기기상태</span>
-						<span>요청 :</span>
-						<span id="dtl-spn-reqDt"></span>
-						<span>완료 :</span>
-						<span id="dtl-spn-cmptnDt"></span>
-						<span id="dtl-spn-sttsNm" style="margin-right: 20px;">진행상태</span>
-						
-						<sbux-button
-							id="btn-sortReq"
-							name="btn-sortReq"
-							uitype="normal"
-							class="btn btn-sm btn-outline-danger"
-							onclick="fn_sortReq"
-							text="정보재수신"
-					    ></sbux-button>
-					    <sbux-button
-							id="btn-sortReqCncl"
-							name="btn-sortReqCncl"
-							uitype="normal"
-							class="btn btn-sm btn-outline-danger"
-							onclick="fn_sortReqCncl"
-							text="취소"
-					    ></sbux-button>
-					</div>
-								    
-				</div>
+
+
 				<div class="table-responsive tbl_scroll_sm">
 				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
 				</sbux-tabs>
-				
-				
+
+
 
 				<div class="tab-content">
 					<div id="exhstDsctnTab" >
@@ -201,7 +170,7 @@
 						<div id="sb-area-sortBffa" style="height:470px;"></div>
 					</div>
 				</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -215,13 +184,13 @@
     </div>
     <div>
         <sbux-modal
-            id="modal-apcLinkPop" 
-            name="modal-apcLinkPop" 
-            uitype="middle" 
-            header-title="선별연계수신" 
-            body-html-id="body-modal-apcLinkPop" 
-            header-is-close-button="false" 
-            footer-is-close-button="false" 
+            id="modal-apcLinkPop"
+            name="modal-apcLinkPop"
+            uitype="middle"
+            header-title="선별연계수신"
+            body-html-id="body-modal-apcLinkPop"
+            header-is-close-button="false"
+            footer-is-close-button="false"
             style="width:800px"
         ></sbux-modal>
     </div>
@@ -230,23 +199,23 @@
      </div>
 	<!-- clip report direct print area  -->
 	<div id="div-rpt-clipReportPrint" style="display:none;"></div>
-	
+
 	<div>
     	<sbux-modal id="modal-regSort" name="modal-regSort" uitype="middle" header-title="참외 육안선별 등록" body-html-id="body-modal-regSort" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-regSort">
     	<jsp:include page="../../am/popup/regSortBffa.jsp"></jsp:include>
 	</div>
-	
-    
+
+
 </body>
 
 <script type="text/javascript">
 
 	let lv_interval = 3 * 60 * 1000;
-	
+
 	let timerId;
-	
+
 	const fn_clearBatch = () => {
 		if (!gfn_isEmpty(timerId)) {
 			clearInterval(timerId);
@@ -254,16 +223,16 @@
 	}
 
 	let currApcLink;
-	
+
     /**
      * @name fn_getApcLink
      * @description apc 연계상태 확인
      * @function
      */
 	const fn_getApcLink = async function() {
-    	
+
 		fn_clearBatch();
-		
+
 		try {
 			const postJsonPromise = gfn_postJSON(
 						"/am/apc/selectApcLinkStts.do",
@@ -272,16 +241,16 @@
 	        const data = await postJsonPromise;
 
 	        if (_.isEqual("S", data.resultStatus)) {
-	        	
+
 	        	if (_.isEqual("S", data.resultStatus)) {
-	        		
+
 		        	const apcLink = data.resultMap;
 					fn_setApcLink(apcLink);
-		        	
+
 	        	} else {
 	        		fn_setApcLink(false);
 	        	}
-	        	
+
         	} else {
         		fn_setApcLink(false);
         	}
@@ -297,33 +266,33 @@
 			}, lv_interval);
 		}
     }
-    
+
     /**
      * @name fn_setApcLink
      * @description apc 연계상태 정보 표시
      * @function
      */
 	const fn_setApcLink = function(apcLink) {
-    	
+
 		const sttsFigure = document.querySelector('#dtl-spn-sttsFigure');
 		const trsmMatSttsNm = document.querySelector('#dtl-spn-trsmMatSttsNm');
 		const reqDt = document.querySelector('#dtl-spn-reqDt');
 		const cmptnDt = document.querySelector('#dtl-spn-cmptnDt');
 		const sttsNm = document.querySelector('#dtl-spn-sttsNm');
 		const emptyDt = "____-__-__ __:__:__";
-		
-    	if (gfn_isEmpty(apcLink)) {    		
+
+    	if (gfn_isEmpty(apcLink)) {
     		sttsFigure.style.color = "#000000";
     		trsmMatSttsNm.innerText = "...";
     		trsmMatSttsNm.style.color = "#808080";
-    		
+
     		reqDt.innerText = emptyDt;
     		cmptnDt.innerText = emptyDt;
     		sttsNm.innerText = "확인중";
     		sttsNm.style.color = "#808080";
-    		
+
     		currApcLink = null;
-    	} else {    		
+    	} else {
     		sttsFigure.style.color = apcLink.trsmMatSttsColor;
     		trsmMatSttsNm.innerText = apcLink.trsmMatSttsNm;
     		trsmMatSttsNm.style.color = apcLink.trsmMatSttsColor;
@@ -332,11 +301,11 @@
     		cmptnDt.innerText = _.isEqual(apcLink.sortLinkStts, "P0") ? gfn_nvl(apcLink.sortPrcsCmptnDt, emptyDt) : emptyDt;
     		sttsNm.innerText = apcLink.sortSttsNm;
     		sttsNm.style.color = apcLink.sortSttsColor;
-    		
+
     		currApcLink = apcLink;
     	}
     }
-	
+
     /**
      * @name fn_sortReq
      * @description 선별정보 연계요청
@@ -348,7 +317,7 @@
     		return;
     	}
  		// validation check
- 		
+
 		const param = {
 			apcCd: gv_selectedApcCd,
 			linkKnd: 'S',	// 선별
@@ -363,13 +332,13 @@
 						false
 					);
 	        const data = await postJsonPromise;
-	        
+
 	        if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -380,7 +349,7 @@
 			await fn_getApcLink();
 		}
 	}
- 	
+
     /**
      * @name fn_sortReqCncl
      * @description 선별정보 연계요청 취소
@@ -392,7 +361,7 @@
  		if (!gfn_comConfirm("Q0001", "정보재수신 요청취소")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
- 		
+
 		const param = {
 			apcCd: gv_selectedApcCd,
 			linkKnd: 'S',	// 선별
@@ -407,13 +376,13 @@
 						false
 					);
 	        const data = await postJsonPromise;
-	        
+
 	        if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -424,8 +393,8 @@
 			await fn_getApcLink();
 		}
 	}
- 	
-	
+
+
 	var jsonComFcltCd				= [];	// 선별기
 	var jsonPrdcrAutocomplete = []; // 생산자
 	var jsonApcItem			= [];	// 품목 	itemCd			검색
@@ -443,19 +412,19 @@
 		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 		//fn_createExhstDsctn();
 		//fn_createGrdDsctn();
-		
-		let rst = await Promise.all([			
+
+		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-fcltCd',jsonComFcltCd, 'SORT_FCLT_CD', 	gv_selectedApcCd),	// 설비
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),								// 품목
 			fn_getApcLink()
 		]);
-		
-		
-		
+
+
+
 		if(gv_apcCd === "0203"){
 				SBUxMethod.hideTab('idxTab_norm','grdDsctnTab');
 		}
-		
+
 		fn_selectSortBffaType();
 		fn_search();
 		fn_bffaSearch();
@@ -482,10 +451,10 @@
 	var jsonSortBffa = [];
     var exhstDsctnColumns = [];
     var addSortRsltExhstCol = [];
-    
+
     /** 육안선별 코드 변수 **/
     var BffaGrdType = [];
-    
+
     var tabJsonData = [
 		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "배출구별 집계", "targetid" : "exhstDsctnTab", "targetvalue" : "배출구별 집계" },
 		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "등급별 집계", "targetid" : "grdDsctnTab", "targetvalue" : "등급별 집계" },
@@ -521,9 +490,9 @@
 
 	    ];
         addSortRsltExhstCol = [];
-        
+
         jsonExhstColumnData.forEach(function(item){
-            
+
             addSortRsltExhstCol.push(
                     {caption : [item.GRD_SN.toString()], ref: 'exhst' + item.GRD_SN, type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; '
                     , format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true}
@@ -532,12 +501,12 @@
         let originColumns = SBGridProperties.columns;
         originColumns.splice(3,0,...addSortRsltExhstCol);
         SBGridProperties.columns = originColumns;
-        
+
         grdExhstDsctn = _SBGrid.create(SBGridProperties);
         //grdExhstDsctn.bind('click', fnClick)
         grdExhstDsctn.rebuild();
 	}
-	
+
 	const fn_createGrdDsctn= function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdDsctn';
@@ -552,7 +521,7 @@
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 		SBGridProperties.backcoloralternate = '#e0ffff';
-		SBGridProperties.clickeventarea = {fixed: false, empty: false};	   
+		SBGridProperties.clickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.columns = [
 	    	{caption : ["선별기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["선별정보"], ref: 'sortInfo', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
@@ -566,7 +535,7 @@
 
 	    ];
         let addSortRsltGrdCol = []
-        
+
         jsonGrdColumnData.forEach(function(item){
             addSortRsltGrdCol.push(
                     {caption : [item.GRD_NM], ref: 'grd' + item.GRD_SN, type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; '
@@ -581,7 +550,7 @@
 
 
 	}
-	
+
 	const fn_createSortBffa = function() {
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-sortBffa';
@@ -596,7 +565,7 @@
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 		//SBGridProperties.backcoloralternate = '#e0ffff';
-		SBGridProperties.dblclickeventarea = {fixed: false, empty: false};	   
+		SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.columns = [
 	    	{caption : ["선별일자"], ref: 'sortYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["선별기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
@@ -618,12 +587,12 @@
 	    	{caption: ["사전입고번호"],	ref: 'bffaWrhsno',     		type:'input',  	hidden: true},
 	    	{caption: ["품목코드"],	ref: 'itemCd',     		type:'input',  	hidden: true},
 	    	{caption: ["입고총중량"],	ref: 'wholWght',     		type:'input',  	hidden: true}
-	    	
-	    	
+
+
 
 	    ];
         let addSortBffaCol = []
-        
+
         jsonGrdColumnData.forEach(function(item){
         	addSortBffaCol.push(
                     {caption : [item.GRD_NM], ref: 'grd' + item.GRD_SN, type: 'input',  width:'100px', style: 'text-align:right; padding-right:5px; '
@@ -635,31 +604,32 @@
         SBGridProperties.columns = originColumns;
         grdSortBffa= _SBGrid.create(SBGridProperties);
         grdSortBffa.bind('dblclick', fn_reg_bffa);
-	    
+
 	}
-	
+
 	const fnClick = function(){
 		//fn_createGrid();
 		//SBUxMethod.openModal('modal-regSort');
 	}
 
     const fn_popApcLinkCallBack = function() {
-        
+
     }
-    
+
      const fn_popApcLink = function() {
          popApcLink.init(
                      {
                          apcCd: gv_selectedApcCd,
                          apcNm: gv_selectedApcNm,
                          linkKnd: "S",
+                         kndList: ["S"]
                      },
                      fn_popApcLinkCallBack
                  );
      }
-	
-	
-	
+
+
+
 	// 배출구별 집계
 	const fn_setExhstDsctnTot = async function() {
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
@@ -669,7 +639,7 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		//gv_selectedApcCd
 		const param = {
-			apcCd: gv_selectedApcCd 
+			apcCd: gv_selectedApcCd
 			, prdcrCd : prdcrCd
 			, inptYmdFrom : inptYmdFrom
 			, inptYmdTo  : inptYmdTo
@@ -765,24 +735,24 @@
 					,sbTot        : item.SORT_WGHT
         		}
 	        	jsonExhstDsctn.push(exhstDsctnQnttTot);
-	        	jsonExhstDsctn.push(exhstDsctnWghtTot);	    
-	        	sumTot1 = sumValues(sumTot1,exhstDsctnQnttTot);	        	
+	        	jsonExhstDsctn.push(exhstDsctnWghtTot);
+	        	sumTot1 = sumValues(sumTot1,exhstDsctnQnttTot);
         		sumTot2 = sumValues(sumTot2,exhstDsctnWghtTot);
-        		
-	        });	      
-	         
+
+	        });
+
 	        sumTot1["sortFclt"] = "합계"; sumTot1["grd"] = "수량"; sumTot1["sortInfo"] = "합계";
 	        sumTot2["sortFclt"] = "합계"; sumTot2["grd"] = "중량"; sumTot2["sortInfo"] = "합계";
-            sumTot1["sbTot"] = sumTot1.exhst1+    sumTot1.exhst2+    sumTot1.exhst3+    sumTot1.exhst4+    sumTot1.exhst5+    sumTot1.exhst6+    sumTot1.exhst7+    sumTot1.exhst8+    sumTot1.exhst9+    sumTot1.exhst10+    sumTot1.exhst11+    sumTot1.exhst12+    sumTot1.exhst13+    sumTot1.exhst14+    sumTot1.exhst15+    sumTot1.exhst16+    sumTot1.exhst17+    sumTot1.exhst18+    sumTot1.exhst19+    sumTot1.exhst20+    sumTot1.exhst21+    sumTot1.exhst22+    sumTot1.exhst23 + sumTot1.exhst24 + sumTot1.exhst25 + sumTot1.exhst26 + sumTot1.exhst27 + sumTot1.exhst28 + sumTot1.exhst29 + sumTot1.exhst30; 
+            sumTot1["sbTot"] = sumTot1.exhst1+    sumTot1.exhst2+    sumTot1.exhst3+    sumTot1.exhst4+    sumTot1.exhst5+    sumTot1.exhst6+    sumTot1.exhst7+    sumTot1.exhst8+    sumTot1.exhst9+    sumTot1.exhst10+    sumTot1.exhst11+    sumTot1.exhst12+    sumTot1.exhst13+    sumTot1.exhst14+    sumTot1.exhst15+    sumTot1.exhst16+    sumTot1.exhst17+    sumTot1.exhst18+    sumTot1.exhst19+    sumTot1.exhst20+    sumTot1.exhst21+    sumTot1.exhst22+    sumTot1.exhst23 + sumTot1.exhst24 + sumTot1.exhst25 + sumTot1.exhst26 + sumTot1.exhst27 + sumTot1.exhst28 + sumTot1.exhst29 + sumTot1.exhst30;
             sumTot2["sbTot"] = sumTot2.exhst1+    sumTot2.exhst2+    sumTot2.exhst3+    sumTot2.exhst4+    sumTot2.exhst5+    sumTot2.exhst6+    sumTot2.exhst7+    sumTot2.exhst8+    sumTot2.exhst9+    sumTot2.exhst10+    sumTot2.exhst11+    sumTot2.exhst12+    sumTot2.exhst13+    sumTot2.exhst14+    sumTot2.exhst15+    sumTot2.exhst16+    sumTot2.exhst17+    sumTot2.exhst18+    sumTot2.exhst19+    sumTot2.exhst20+    sumTot2.exhst21+    sumTot2.exhst22+    sumTot2.exhst23 + sumTot2.exhst24 + sumTot2.exhst25 + sumTot2.exhst26 + sumTot2.exhst27 + sumTot2.exhst28 + sumTot2.exhst29 + sumTot2.exhst30;
 
 	        jsonExhstDsctn.push(sumTot1);
 	        jsonExhstDsctn.push(sumTot2);
 	        //const allData = grdExhstDsctn.getGridDataAll();
-			
+
 
 	        grdExhstDsctn.refresh();
-	        
+
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -792,14 +762,14 @@
  			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	function sumValues(obj1,obj2){
 		const result = {};
 		for(const key in obj1){
 			if(obj1.hasOwnProperty(key)){
 				const val1 = obj1[key];
 				const val2 = obj2[key] || 0;
-				result[key] = val1 + val2 
+				result[key] = val1 + val2
 			}
 		}
 		return result;
@@ -829,7 +799,7 @@
 					);
 			let sumTot1 = {grd1 : 0,grd2 : 0, grd3 : 0,grd4 : 0,grd5 : 0,grd6 : 0,grd7 : 0,grd8 : 0,grd9 : 0};
  	        let sumTot2 = {grd1 : 0,grd2 : 0, grd3 : 0,grd4 : 0,grd5 : 0,grd6 : 0,grd7 : 0,grd8 : 0,grd9 : 0};
-	        const data = await postJsonPromise;	        	        
+	        const data = await postJsonPromise;
 	 	        data.resultList.forEach((item, index) => {
 	 	        	const grdDsctnQnttTot = {
 	 	        			sortFclt : item.FCLT_NM
@@ -843,7 +813,7 @@
 	         				,grd6 : item.QNTT_6
 	         				,grd7 : item.QNTT_7
 	         				,grd8 : item.QNTT_8
-	         				,grd9 : item.QNTT_9	         				
+	         				,grd9 : item.QNTT_9
 	         				,sbTot        : item.SORT_QNTT
 
 	 	        	};
@@ -859,19 +829,19 @@
 	         				,grd6 : item.WGHT_6
 	         				,grd7 : item.WGHT_7
 	         				,grd8 : item.WGHT_8
-	         				,grd9 : item.WGHT_9	         				
+	         				,grd9 : item.WGHT_9
 	         				,sbTot        : item.SORT_WGHT
 	         		};
 	 	        	jsonGrdDsctn.push(grdDsctnQnttTot);
-	 	        	jsonGrdDsctn.push(grdDsctnWghtTot);	    
-	 	        	sumTot1 = sumValues(sumTot1,grdDsctnQnttTot);	        	
+	 	        	jsonGrdDsctn.push(grdDsctnWghtTot);
+	 	        	sumTot1 = sumValues(sumTot1,grdDsctnQnttTot);
 	         		sumTot2 = sumValues(sumTot2,grdDsctnWghtTot);
-	         		
-	 	        });	      
-	 	         
+
+	 	        });
+
 	 	        sumTot1["sortFclt"] = "합계"; sumTot1["grd"] = "수량"; sumTot1["sortInfo"] = "합계";
 	 	        sumTot2["sortFclt"] = "합계"; sumTot2["grd"] = "중량"; sumTot2["sortInfo"] = "합계";
-	 	        sumTot1["sbTot"] = sumTot1.grd1 + sumTot1.grd2 + sumTot1.grd3 + sumTot1.grd4 + sumTot1.grd5 + sumTot1.grd6 + sumTot1.grd7 + sumTot1.grd8 + sumTot1.grd9;  
+	 	        sumTot1["sbTot"] = sumTot1.grd1 + sumTot1.grd2 + sumTot1.grd3 + sumTot1.grd4 + sumTot1.grd5 + sumTot1.grd6 + sumTot1.grd7 + sumTot1.grd8 + sumTot1.grd9;
 	 	        sumTot2["sbTot"] = sumTot2.grd1 + sumTot2.grd2 + sumTot2.grd3 + sumTot2.grd4 + sumTot2.grd5 + sumTot2.grd6 + sumTot2.grd7 + sumTot2.grd8 + sumTot2.grd9;
 
 	 	        jsonGrdDsctn.push(sumTot1);
@@ -882,7 +852,7 @@
 
 
 	        grdGrdDsctn.refresh();
-	        
+
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -892,7 +862,7 @@
  			//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
-	
+
 	// 육안판정등급 집계
 	const fn_setSortBffaTot = async function() {
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
@@ -904,7 +874,7 @@
 			wrhsYmdFrom: inptYmdFrom,
 			wrhsYmdTo: inptYmdTo,
 			itemCd: itemCd,
-			prdcrCd : prdcrCd			
+			prdcrCd : prdcrCd
 		}
 		jsonSortBffa.length = 0;
 		let totalRecordCount = 0;
@@ -915,8 +885,8 @@
 						null,
 						false
 					);
-			
-	        const data = await postJsonPromise;	        	        
+
+	        const data = await postJsonPromise;
 	 	        data.resultList.forEach((item, index) => {
 	 	        	const grdSortBffaTot = {
 	 	        			sortYmd : item.WRHS_YMD
@@ -937,23 +907,23 @@
 	         				,grd6 : item.WGHT_6
 	         				,grd7 : item.WGHT_7
 	         				,grd8 : item.WGHT_8
-	         				,grd9 : item.WGHT_9	         				
+	         				,grd9 : item.WGHT_9
 	         				,sbTot        : item.GRD_WGHT_TOT - item.GRD_TYPE_WGHT_TOT
 	         				,fcltCd : item.FCLT_CD
 	         				,prdcrCd     : item.PRDCR_CD
 	         				,bffaWrhsno : item.BFFA_WRHSNO
 	         				,itemCd : itemCd
-	         				,wholWght : item.GRD_WGHT_TOT 
-	         				
+	         				,wholWght : item.GRD_WGHT_TOT
+
 
 	 	        	};
 
 	 	        	jsonSortBffa.push(grdSortBffaTot);
-	 	        });	      
+	 	        });
 
-	        
+
 	 	       grdSortBffa.refresh();
-	        
+
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -966,7 +936,7 @@
 
 
 	const fn_search = async function () {
-        await fn_setExhstDsctnCol(); // 배출구 컬럼 
+        await fn_setExhstDsctnCol(); // 배출구 컬럼
         await fn_setGrdDsctnCol(); // 등급별 컬럼
         fn_createSortBffa();
         fn_createGrdDsctn();
@@ -1056,11 +1026,11 @@
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  		}
  	}
- 	
+
     const fn_setExhstDsctnCol = async function() {
         let itemCd = SBUxMethod.get('srch-slt-itemCd');
         const param = {
-            apcCd: gv_selectedApcCd 
+            apcCd: gv_selectedApcCd
             , grdSeCd : '02'
             , itemCd : itemCd
         }
@@ -1072,8 +1042,8 @@
                         null,
                         false
                     );
-            
-            
+
+
             const data = await postJsonPromise;
             jsonExhstColumnData = data.resultList;
             //await fn_createExhstDsctn();
@@ -1085,13 +1055,13 @@
             console.error("failed", e.message);
              //gfn_comAlert("E0001");    //    E0001    오류가 발생하였습니다.
         }
-        
+
     }
-    
+
     const fn_setGrdDsctnCol = async function() {
         let itemCd = SBUxMethod.get('srch-slt-itemCd');
         const param = {
-            apcCd: gv_selectedApcCd 
+            apcCd: gv_selectedApcCd
             , grdSeCd : '03'
             , itemCd : itemCd
         }
@@ -1103,8 +1073,8 @@
                         null,
                         false
                     );
-            
-            
+
+
             const data = await postJsonPromise;
             jsonGrdColumnData = data.resultList;
             //await fn_createGrdDsctn();
@@ -1117,10 +1087,10 @@
             console.error("failed", e.message);
              //gfn_comAlert("E0001");    //    E0001    오류가 발생하였습니다.
         }
-        
+
     }
-     
- 	
+
+
  	/**
 	 * @name fn_docSort
 	 * @description 선별확인서 발행
@@ -1147,7 +1117,7 @@
  		gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
  		//gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
  	}
- 	
+
     /** 육안선별 등록 팝업함수 **/
     const fn_reg_bffa = function(){
         let itemCd = SBUxMethod.get('srch-slt-itemCd');
@@ -1157,15 +1127,15 @@
             return
         }
         let rowData = grdSortBffa.getRowData(grdSortBffa.getRow());
-        
-        
+
+
         //popBffa.init(gv_apcCd,gv_selectedApcNm,itemCd,BffaGrdType,fn_bffaSearch);
-        
+
         popBffa.rsltChoice(rowData);
-        
+
         SBUxMethod.openModal('modal-regSort');
     }
- 	
+
     /** 품목 선택시 육안선별 종류 SELECT **/
     const fn_selectSortBffaType = async function(){
         let itemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -1186,7 +1156,7 @@
             }
         }
     }
-    
+
     /** 육안선별 목록 조회 **/
     const fn_bffaSearch = async function(){
         jsonSortBffa.length = 0;
@@ -1230,21 +1200,21 @@
                                  itemCd    : item.itemCd
                             }
                         //BffaGrdType.push(bffaObj);
-                    });                    
+                    });
                 }
             }catch (e){
 
             }
     }
-	
+
     function fnCloseProgress() {
 		var options = {
 			modelNm : 'main-loading'
 		};
 		SBUxMethod.closeProgress(options);
 	};
-     
-     
+
+
 
 
 </script>

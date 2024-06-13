@@ -1,5 +1,6 @@
 package com.at.apcma.com.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -360,5 +361,57 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		}
 		return rlist;
 	}
-	
+
+	@Override
+	public HashMap<String, Object> checkFormula(Map<String, Object> param) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<>();
+
+		String resultVal = ""; //성공값
+		String resultStatus = "S"; //성공으로 값 초기화
+		String v_errorStr = ""; //에러메세지 
+
+		for (Map.Entry<String, Object> value : param.entrySet()) {
+
+			Map<String, Object> map = new HashMap<>();
+			map.put("formula", value.getValue());
+
+			try {
+				resultVal = procMapper.checkFormula(map); // select 'formula' from dual
+
+				resultMap.put(value.getKey(), resultVal);
+
+			} catch (SQLException e) {
+				logger.debug(e.getMessage());
+				resultStatus = "E"; //sql 에러시 resultStatus 값 E
+				v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
+				resultMap.put("v_errorStr", v_errorStr);
+				resultMap.put("resultStatus", resultStatus);
+				return resultMap;
+
+			} finally {
+				resultMap.put("resultStatus", resultStatus);
+			}
+		}
+
+
+		return resultMap;
+	}
+
+
+	public void buildTree(Map<String, Object> node, Map<String, Map<String, Object>> deptMap,
+								  List<Map<String, Object>> sortedDepartments, int level) {
+		node.put("LEVEL", level);
+		sortedDepartments.add(node);
+
+		List<Map<String, Object>> children = deptMap.values().stream()
+				.filter(dept -> node.get("DEPT_CODE").equals(dept.get("PARENTKEYID")))
+				.sorted(Comparator.comparing(dept -> (BigDecimal) dept.get("SORT_SEQ")))
+				.collect(Collectors.toList());
+
+		for (Map<String, Object> child : children) {
+			buildTree(child, deptMap, sortedDepartments, level + 1);
+		}
+	}
+
 }
