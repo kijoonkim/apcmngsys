@@ -8,18 +8,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+	String domain = request.getServerName();
+
+	String key = "";
+
+	if ("133.186.212.16".equals(domain)) {
+		key = "NCfYZTYs0sp6X1s0lh5U";
+	} else if ("localhost".equals(domain)) {
+		key = "8AuulPFHOftqyHEmTdQK";
+	} else if ("apcss.smartapc.or.kr".equals(domain)) {
+		key = "NmdiNXbWcIWRYCX9O7jd";
+	}
+
+%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>title : 팜맵데이터</title>
     <script src="https://agis.epis.or.kr/ASD/js/lib/openlayers/OpenLayers.js"></script>
     <script src="https://agis.epis.or.kr/ASD/js/lib/proj4js/proj4.js"></script>
-    <script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=M4Z0Y2P5BcNV52OxjHYl&domain=http://localhost:8080/"></script>
+    <script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=<%=key%>&domain=<%=domain%>"></script>
     <script>
         var map1;
         var reqUrl;
-        var domain = "http://localhost:8080/";
-        var apiKey = "M4Z0Y2P5BcNV52OxjHYl";
+        var domain = '<%=domain%>';
+        var apiKey = '<%=key%>';
         var stdgCd = "";
 
         function getButton(ids) {
