@@ -510,6 +510,7 @@
 				 AND GRD.GRD_KND = GKD.GRD_KND
 				 AND GRD.GRD_CD = GKD.GRD_CD
 				 AND GRD.APC_CD = #{apcCd}
+				 WHERE 1=1
 				 AND BFFA_WRHSNO = #{bffaWrhsno}
 	]]>
 	</select>
