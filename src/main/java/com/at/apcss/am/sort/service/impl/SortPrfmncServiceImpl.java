@@ -291,6 +291,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 			return sortPrfmncMapper.insertSortBffa(sortBffaVO);
 		}else{
 			deleteSortBffaAll(sortBffaVO);
+			sortBffaVO.setPltno(wrhsno);
 			for(SortBffaWrhsStdGrdVO vo : sortBffaVO.getSortBffaWrhsStdGrdVO()) {
 				vo.setSysFrstInptDt(sysFrstInptDt);
 				vo.setSysFrstInptUserId(sysFrstInptUserId);

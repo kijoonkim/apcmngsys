@@ -866,7 +866,7 @@
             }else{
                 tableEl.append(
                     `<tr>`
-                      +`<td>`+item.cdVlNm+`</td>`
+                      +`<td rowspan>`+item.cdVlNm+`</td>`
                       +`<td>`
                       +`<div>
                             <sbux-checkbox
