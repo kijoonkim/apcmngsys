@@ -920,6 +920,10 @@
             });
             jsonNewGdsGrd = data.resultList;
 
+            jsonNewGdsGrd.forEach(function(item){
+
+            });
+
             console.log(jsonNewGdsGrd);
 
             let result = jsonNewGdsGrd.reduce(function(acc,cur){
