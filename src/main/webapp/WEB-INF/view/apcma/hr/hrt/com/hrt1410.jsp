@@ -509,7 +509,6 @@
         SBGridProperties.id 				= 'treeMaster';
         SBGridProperties.jsonref 			= 'jsonDeptList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.tree = {
             col : 0,
@@ -559,7 +558,6 @@
         SBGridProperties.id 				= 'gvwPattern';
         SBGridProperties.jsonref 			= 'jsonPatternList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.rowheader 			= ['SEQ'];
         SBGridProperties.rowheadercaption 	= {SEQ: 'No'};
