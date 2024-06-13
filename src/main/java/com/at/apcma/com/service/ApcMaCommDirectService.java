@@ -57,18 +57,6 @@ public interface ApcMaCommDirectService {
 	public HashMap<String, Object> checkFormula(Map<String, Object> param) throws Exception;
 
 	/**
-	 * tree level 생성
-	 * @param node
-	 * @param deptMap
-	 * @param sortedDepartments
-	 * @param level
-	 * @return
-	 * @throws Exception
-	 */
-	void buildTree(Map<String, Object> node, Map<String, Map<String, Object>> deptMap,
-				   List<Map<String, Object>> sortedDepartments, int level);
-
-	/**
 	 * 에러메시지 처리하는 Service
 	 * @param request
 	 * @param rtype

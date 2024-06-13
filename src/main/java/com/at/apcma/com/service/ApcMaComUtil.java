@@ -2,10 +2,9 @@ package com.at.apcma.com.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -182,6 +181,19 @@ public class ApcMaComUtil {
 	public static String nullToString(Object obj) throws Exception {
 		return (obj==null) ? "" : obj.toString();
 	}
-	
-	
+
+	public static void buildTree(Map<String, Object> node, Map<String, Map<String, Object>> deptMap,
+						  List<Map<String, Object>> sortedDepartments, int level) {
+		node.put("LEVEL", level);
+		sortedDepartments.add(node);
+
+		List<Map<String, Object>> children = deptMap.values().stream()
+				.filter(dept -> node.get("DEPT_CODE").equals(dept.get("PARENTKEYID")))
+				.sorted(Comparator.comparing(dept -> (BigDecimal) dept.get("SORT_SEQ")))
+				.collect(Collectors.toList());
+
+		for (Map<String, Object> child : children) {
+			buildTree(child, deptMap, sortedDepartments, level + 1);
+		}
+	}
 }
