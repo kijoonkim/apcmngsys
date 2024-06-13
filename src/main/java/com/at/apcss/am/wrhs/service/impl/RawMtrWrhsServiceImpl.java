@@ -76,6 +76,15 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 		return resultList;
 	}
+
+	@Override
+	public List<RawMtrWrhsVO> selectMblRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
+		List<RawMtrWrhsVO> resultList = rawMtrWrhsMapper.selectMblRawMtrWrhsList(rawMtrWrhsVO);
+
+		return resultList;
+	}
+
 	@Override
 	public List<RawMtrWrhsDsctnTotVO> selectDsctnTotList(RawMtrWrhsDsctnTotVO rawMtrWrhsVO) throws Exception {
 
