@@ -918,7 +918,9 @@
             console.log('data:', data);
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    alert(data.resultMessage);
+                    if(data.resultMessage){
+                        alert(data.resultMessage);
+                    }
                     fn_search();
                 } else {
                     alert(data.resultMessage);
@@ -950,7 +952,7 @@
         }
 
         grdRows.forEach((item, index) => {
-            EMP_CODE_D += gvwShift.getRowData(item).data.EMP_CODE + "|"
+            EMP_CODE_D += gvwShift.getRowData(item).EMP_CODE + "|"
         });
 
         if (EMP_CODE_D.length > 0) {
@@ -980,7 +982,7 @@
                 V_P_DATA_SOURCE : '1',
                 V_P_HOLIDAY_YN : '',
                 V_P_HOLIDAY2_YN : '',
-                V_P_EMP_CODE_D : '',
+                V_P_EMP_CODE_D : EMP_CODE_D,
                 V_P_NORMAL_START_DAY_TYPE : '',
                 V_P_NORMAL_START_HHMM : '',
                 V_P_NORMAL_END_DAY_TYPE : '',
@@ -1000,7 +1002,9 @@
         console.log('data:', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                alert(data.resultMessage);
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
                 fn_search();
             } else {
                 alert(data.resultMessage);
@@ -1031,7 +1035,7 @@
         }
 
         grdRows.forEach((item, index) => {
-            EMP_CODE_D += gvwShift.getRowData(item).data.EMP_CODE + "|"
+            EMP_CODE_D += gvwShift.getRowData(item).EMP_CODE + "|"
         });
 
         if (EMP_CODE_D.length > 0) {
@@ -1061,7 +1065,7 @@
                 V_P_DATA_SOURCE : '1',
                 V_P_HOLIDAY_YN : '',
                 V_P_HOLIDAY2_YN : '',
-                V_P_EMP_CODE_D : '',
+                V_P_EMP_CODE_D : EMP_CODE_D,
                 V_P_NORMAL_START_DAY_TYPE : '',
                 V_P_NORMAL_START_HHMM : '',
                 V_P_NORMAL_END_DAY_TYPE : '',
@@ -1081,7 +1085,9 @@
         console.log('data:', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                alert(data.resultMessage);
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
                 fn_search();
             } else {
                 alert(data.resultMessage);
@@ -1112,7 +1118,7 @@
         }
 
         grdRows.forEach((item, index) => {
-            EMP_CODE_D += gvwShift.getRowData(item).data.EMP_CODE + "|"
+            EMP_CODE_D += gvwShift.getRowData(item).EMP_CODE + "|"
         });
 
         if (EMP_CODE_D.length > 0) {
@@ -1142,7 +1148,7 @@
                 V_P_DATA_SOURCE : '1',
                 V_P_HOLIDAY_YN : '',
                 V_P_HOLIDAY2_YN : '',
-                V_P_EMP_CODE_D : '',
+                V_P_EMP_CODE_D : EMP_CODE_D,
                 V_P_NORMAL_START_DAY_TYPE : '',
                 V_P_NORMAL_START_HHMM : '',
                 V_P_NORMAL_END_DAY_TYPE : '',
@@ -1162,7 +1168,9 @@
         console.log('data:', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                alert(data.resultMessage);
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
                 fn_search();
             } else {
                 alert(data.resultMessage);
