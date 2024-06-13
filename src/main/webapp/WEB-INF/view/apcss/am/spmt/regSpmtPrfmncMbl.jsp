@@ -922,6 +922,10 @@
 
             console.log(jsonNewGdsGrd);
 
+            let result = jsonNewGdsGrd.reduce(function(acc,cur){
+                acc.find()
+            },[]);
+
         } catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
@@ -1391,9 +1395,7 @@
             fn_onChangePrdcr($(_el).parent().next('div').children());
 
             /** 선출하실적 등록시 필요한 ROW 설정 **/
-            console.log(tempJson,"출하번호 입력하면?");
             let inputIdx = parseInt(tempJson[0].aftrGrdCd) -1;
-            console.log(inputIdx,"너의 위치는?");
             $(parentTr).find("input[id]").each(function(idx,item){
                 if(inputIdx != idx){
                     $(item).attr({"type":"text","readonly":true});
