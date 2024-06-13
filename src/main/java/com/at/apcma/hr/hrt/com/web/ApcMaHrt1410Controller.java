@@ -67,7 +67,6 @@ public class ApcMaHrt1410Controller extends BaseController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

@@ -1647,9 +1647,9 @@
     const fn_afterRebuild = async function() {
         let bandgvwInfoData = bandgvwInfo.getGridDataAll();
 
-        for(var i = 2; i < bandgvwInfoData.length; i++) {
-            let rowData = bandgvwInfo.getRowData(i);
-            bandgvwInfo.setCellStyle('background-color', i, 0, i, 0, rowData.BACK_COLOR);
+        for(var i = 0; i < bandgvwInfoData.length; i++) {
+            let rowData = bandgvwInfo.getRowData(i+2);
+            bandgvwInfo.setCellStyle('background-color', i+2, 0, i+2, 0, rowData.BACK_COLOR);
         }
     }
 
