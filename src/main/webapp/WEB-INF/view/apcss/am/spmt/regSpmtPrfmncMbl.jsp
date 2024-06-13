@@ -910,8 +910,6 @@
                 grdSeCd : '02'
             });
             const data = await postJsonPromise;
-            data.resultList.forEach(function(item){
-            })
 
             data.resultList.forEach(function(item){
                for(let key in item){
@@ -921,6 +919,8 @@
                }
             });
             jsonNewGdsGrd = data.resultList;
+
+            console.log(jsonNewGdsGrd);
 
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -1373,7 +1373,7 @@
             $(lastInput).removeAttr('sortGds');
             $(lastInput).removeAttr('sortInvnt');
         } else {
-            /** 품목 단량 세팅 0번 인덱스로 없으면 어쩌지? **/
+            /** 여기서 이후 등급으로 INPUT 잡아야하는데. **/
             parentTr.children().eq(1).find('input').val(tempJson[0].itemNm);
             parentTr.children().eq(2).find('input').val(tempJson[0].vrtyNm);
             parentTr.children().eq(3).find('input').val(tempJson[0].spcfctNm);
@@ -1387,9 +1387,21 @@
                 parentTr.children().eq(0).find('input').eq(1).val("X");
             }
 
-
             /** 없는 출하번호로 인해 생산자전용 임시 JSON이 지워진경우 **/
             fn_onChangePrdcr($(_el).parent().next('div').children());
+
+            /** 선출하실적 등록시 필요한 ROW 설정 **/
+            console.log(tempJson,"출하번호 입력하면?");
+            let inputIdx = parseInt(tempJson[0].aftrGrdCd) -1;
+            console.log(inputIdx,"너의 위치는?");
+            $(parentTr).find("input[id]").each(function(idx,item){
+                if(inputIdx != idx){
+                    $(item).attr({"type":"text","readonly":true});
+                    $(item).css({"color": "white","background-color":"#999"});
+                    $(item).val("X");
+                }
+
+            });
 
             /** 등록 테이블 로우 추가 **/
             if (parentTr.next().length == 0 ) {
@@ -1427,18 +1439,11 @@
         /** 현재 출하번호에 맞는 상품리스트중에 생산자번호까지 일치하는 재고만 추림 2차 필터링 **/
         /** 생산자 번호만 바뀔가능성이 있음. **/
         if(!gfn_isEmpty(tempJson)){
-            parentTr.children().eq(4).find('input').val('');
-            parentTr.children().eq(5).find('input').val('');
-            parentTr.children().eq(6).find('input').val('');
-            parentTr.children().eq(4).find('input').removeAttr('max');
-            parentTr.children().eq(5).find('input').removeAttr('max');
-            parentTr.children().eq(6).find('input').removeAttr('max');
-            parentTr.children().eq(4).find('input').attr({'type':"number","readonly":false});
-            parentTr.children().eq(4).find('input').css({'color':"initial","background-color":"initial"});
-            parentTr.children().eq(5).find('input').attr({'type':"number","readonly":false});
-            parentTr.children().eq(5).find('input').css({'color':"initial","background-color":"initial"});
-            parentTr.children().eq(6).find('input').attr({'type':"number","readonly":false});
-            parentTr.children().eq(6).find('input').css({'color':"initial","background-color":"initial"});
+            let inputIdx = parseInt(tempJson[0].aftrGrdCd) +3
+            parentTr.children().eq(inputIdx).find('input').val('');
+            parentTr.children().eq(inputIdx).find('input').removeAttr('max');
+            parentTr.children().eq(inputIdx).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(inputIdx).find('input').attr({'type':"number","readonly":false});
             parentTr.children().eq(8).find('input').val('');
             mapInvntQntt.delete(parentTr.index());
             $(lastInput).removeAttr('sortInvnt');
@@ -2007,6 +2012,9 @@
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
+
+        console.log(saveJson,"저장전 데이터");
+        return;
 
         /** 중복 상품 취합 **/
         let arr = saveJson.spmtPrfmncList;
