@@ -213,9 +213,9 @@
                             fontSize: "12px",
                             fontColor: "black",
                             fontWeight: "bold",
-                            label: label.toString(),
-                            labelOutlineColor: "#ffffff",
-                            labelOutlineWidth: 3
+                            // label: label.toString(),
+                            // labelOutlineColor: "#ffffff",
+                            // labelOutlineWidth: 3
                         }
                     }
                     farmmapObj.addVector("vectorLayer", vectorOptions, map1);
