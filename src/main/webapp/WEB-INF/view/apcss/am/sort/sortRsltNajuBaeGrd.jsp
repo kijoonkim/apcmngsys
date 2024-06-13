@@ -440,6 +440,9 @@
 
 
 	const fn_createSortRslt= function() {
+		var jsonExhstColumnCnt = jsonExhstColumnData.map((item,index) => {return index+4});
+		jsonExhstColumnCnt.push(117);
+		jsonExhstColumnCnt.push(118);
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-sortRslt';
 	    SBGridProperties.id = 'grdSortRslt';
@@ -453,22 +456,30 @@
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
-		SBGridProperties.backcoloralternate = '#e0ffff';
+		//SBGridProperties.backcoloralternate = '#e0ffff';
 		SBGridProperties.total = {
 				  type 		: 'grand',
 				  position	: 'bottom',
 				  columns		: {
-				      standard : [1,2,3],
-				      sum : [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+				      standard : [2],
+				      sum : jsonExhstColumnCnt
+				  },
+				  grandtotalrow : {
+				      titlecol 	: 2,
+				      titlevalue	: '합계',
+				      style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+				      stylestartcol	: 0
 				  }
-		}
+
+		},
+
 	    SBGridProperties.columns = [
 	    	{caption : ["선별일자","선별일자"], ref: 'sortYmd', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["생산농가","생산농가"], ref: 'prdcrNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["호기","호기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	//{caption : ["투입CT","투입CT"], ref: 'bxCnt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-			{caption : ["총합","수량"], ref: 'totQntt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-			{caption : ["총합","중량"], ref: 'totWght', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
+			{caption : ["총합","수량"], ref: 'totQntt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff' , disabled:true  },
+			{caption : ["총합","중량"], ref: 'totWght', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff' , disabled:true  },
 
 	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
@@ -567,6 +578,39 @@
 	        			, QNTT_16 : item.QNTT_16
 	        			, QNTT_17 : item.QNTT_17
 	        			, QNTT_18 : item.QNTT_18
+	        			, QNTT_19 : item.QNTT_19
+	        			, QNTT_20 : item.QNTT_20
+	        			, QNTT_21 : item.QNTT_21
+	        			, QNTT_22 : item.QNTT_22
+	        			, QNTT_23 : item.QNTT_23
+	        			, QNTT_24 : item.QNTT_24
+	        			, QNTT_25 : item.QNTT_25
+	        			, QNTT_26 : item.QNTT_26
+	        			, QNTT_27 : item.QNTT_27
+	        			, QNTT_28 : item.QNTT_28
+	        			, QNTT_29 : item.QNTT_29
+	        			, QNTT_30 : item.QNTT_30
+	        			, QNTT_31 : item.QNTT_31
+	        			, QNTT_32 : item.QNTT_32
+	        			, QNTT_33 : item.QNTT_33
+	        			, QNTT_34 : item.QNTT_34
+	        			, QNTT_35 : item.QNTT_35
+	        			, QNTT_36 : item.QNTT_36
+	        			, QNTT_37 : item.QNTT_37
+	        			, QNTT_38 : item.QNTT_38
+	        			, QNTT_39 : item.QNTT_39
+	        			, QNTT_40 : item.QNTT_40
+	        			, QNTT_41 : item.QNTT_41
+	        			, QNTT_42 : item.QNTT_42
+	        			, QNTT_43 : item.QNTT_43
+	        			, QNTT_44 : item.QNTT_44
+	        			, QNTT_45 : item.QNTT_45
+	        			, QNTT_46 : item.QNTT_46
+	        			, QNTT_47 : item.QNTT_47
+	        			, QNTT_48 : item.QNTT_48
+	        			, QNTT_49 : item.QNTT_49
+	        			, QNTT_50 : item.QNTT_50
+	        			, totQntt : item.WGHT_1 + 	item.WGHT_2 + 	item.WGHT_3 + 	item.WGHT_4 + 	item.WGHT_5 + 	item.WGHT_6 + 	item.WGHT_7 + 	item.WGHT_8 + 	item.WGHT_9 + 	item.WGHT_10 + 	item.WGHT_11 + 	item.WGHT_12 + 	item.WGHT_13 + 	item.WGHT_14 + 	item.WGHT_15 + 	item.WGHT_16 + 	item.WGHT_17 + 	item.WGHT_18 + 	item.WGHT_19 + 	item.WGHT_20 + 	item.WGHT_21 + 	item.WGHT_22 + 	item.WGHT_23 + 	item.WGHT_24 + 	item.WGHT_25 + 	item.WGHT_26 + 	item.WGHT_27 + 	item.WGHT_28 + 	item.WGHT_29 + 	item.WGHT_30 + 	item.WGHT_31 + 	item.WGHT_32 + 	item.WGHT_33 + 	item.WGHT_34 + 	item.WGHT_35 + 	item.WGHT_36 + 	item.WGHT_37 + 	item.WGHT_38 + 	item.WGHT_39 + 	item.WGHT_40 + 	item.WGHT_41 + 	item.WGHT_42 + 	item.WGHT_43 + 	item.WGHT_44 + 	item.WGHT_45 + 	item.WGHT_46 + 	item.WGHT_47 + 	item.WGHT_48 + 	item.WGHT_49 + 	item.WGHT_50
 	        			, WGHT_1 : item.WGHT_1
 	        			, WGHT_2 : item.WGHT_2
 	        			, WGHT_3 : item.WGHT_3
@@ -585,6 +629,39 @@
 	        			, WGHT_16 : item.WGHT_16
 	        			, WGHT_17 : item.WGHT_17
 	        			, WGHT_18 : item.WGHT_18
+	        			, WGHT_19 : item.WGHT_19
+	        			, WGHT_20 : item.WGHT_20
+	        			, WGHT_21 : item.WGHT_21
+	        			, WGHT_22 : item.WGHT_22
+	        			, WGHT_23 : item.WGHT_23
+	        			, WGHT_24 : item.WGHT_24
+	        			, WGHT_25 : item.WGHT_25
+	        			, WGHT_26 : item.WGHT_26
+	        			, WGHT_27 : item.WGHT_27
+	        			, WGHT_28 : item.WGHT_28
+	        			, WGHT_29 : item.WGHT_29
+	        			, WGHT_30 : item.WGHT_30
+	        			, WGHT_31 : item.WGHT_31
+	        			, WGHT_32 : item.WGHT_32
+	        			, WGHT_33 : item.WGHT_33
+	        			, WGHT_34 : item.WGHT_34
+	        			, WGHT_35 : item.WGHT_35
+	        			, WGHT_36 : item.WGHT_36
+	        			, WGHT_37 : item.WGHT_37
+	        			, WGHT_38 : item.WGHT_38
+	        			, WGHT_39 : item.WGHT_39
+	        			, WGHT_40 : item.WGHT_40
+	        			, WGHT_41 : item.WGHT_41
+	        			, WGHT_42 : item.WGHT_42
+	        			, WGHT_43 : item.WGHT_43
+	        			, WGHT_44 : item.WGHT_44
+	        			, WGHT_45 : item.WGHT_45
+	        			, WGHT_46 : item.WGHT_46
+	        			, WGHT_47 : item.WGHT_47
+	        			, WGHT_48 : item.WGHT_48
+	        			, WGHT_49 : item.WGHT_49
+	        			, WGHT_50 : item.WGHT_50
+	        			, totWght : item.QNTT_1 + 	item.QNTT_2 + 	item.QNTT_3 + 	item.QNTT_4 + 	item.QNTT_5 + 	item.QNTT_6 + 	item.QNTT_7 + 	item.QNTT_8 + 	item.QNTT_9 + 	item.QNTT_10 + 	item.QNTT_11 + 	item.QNTT_12 + 	item.QNTT_13 + 	item.QNTT_14 + 	item.QNTT_15 + 	item.QNTT_16 + 	item.QNTT_17 + 	item.QNTT_18 + 	item.QNTT_19 + 	item.QNTT_20 + 	item.QNTT_21 + 	item.QNTT_22 + 	item.QNTT_23 + 	item.QNTT_24 + 	item.QNTT_25 + 	item.QNTT_26 + 	item.QNTT_27 + 	item.QNTT_28 + 	item.QNTT_29 + 	item.QNTT_30 + 	item.QNTT_31 + 	item.QNTT_32 + 	item.QNTT_33 + 	item.QNTT_34 + 	item.QNTT_35 + 	item.QNTT_36 + 	item.QNTT_37 + 	item.QNTT_38 + 	item.QNTT_39 + 	item.QNTT_40 + 	item.QNTT_41 + 	item.QNTT_42 + 	item.QNTT_43 + 	item.QNTT_44 + 	item.QNTT_45 + 	item.QNTT_46 + 	item.QNTT_47 + 	item.QNTT_48 + 	item.QNTT_49 + 	item.QNTT_50
 
 	        	};
 
@@ -592,7 +669,7 @@
 
 
 	        });
-
+	        jsonSortRslt.pop();
 	        grdSortRslt.refresh();
 
 
