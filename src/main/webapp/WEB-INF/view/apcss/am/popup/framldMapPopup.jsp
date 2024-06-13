@@ -340,7 +340,7 @@
                     <th>
                         <sbux-input id="framld-inp-apcNm" name="framld-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
                     </th>
-                    <th scope="row">PUN번호</th>
+                    <th scope="row">PNU번호</th>
                     <th class="td_input">
                         <sbux-input id="framld-inp-pnu" name="framld-inp-pnu" uitype="text" class="form-control input-sm" disabled></sbux-input>
                     </th>
