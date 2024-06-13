@@ -30,11 +30,10 @@
     <script src="https://agis.epis.or.kr/ASD/js/lib/proj4js/proj4.js"></script>
     <script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=<%=key%>&domain=<%=domain%>"></script>
     <script>
-        var map1;
-        var reqUrl;
+        var map1 = null;
+        var reqUrl  = null;
         var domain = '<%=domain%>';
         var apiKey = '<%=key%>';
-        var stdgCd = "";
 
         function getButton(ids) {
             var menuId = ids.split(",")[0];
@@ -335,7 +334,7 @@
                     <col style="width: auto">
                 </colgroup>
                 <tbody>
-                <textarea id="info" name="info" style="width:100%"></textarea>
+                <textarea id="info" name="info" style="width:100%; display: none;"></textarea>
                 <tr>
                     <th scope="row">APC명</th>
                     <th>
@@ -354,7 +353,7 @@
             <div class="ad_section_top">
                 <div id="menuFarmmapDataSeachBjdAndLandCode"></div>
                 <div id="formFarmmapDataSeachBjdAndLandCode"></div>
-                <div id="mapDiv1" style="width:100%;height:300px;"></div>
+                <div id="mapDiv1" style="width:100%;height:400px;"></div>
             </div>
             <!--[pp] //검색결과 -->
         </div>
