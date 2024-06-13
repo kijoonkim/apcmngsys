@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hrt.com.web;
 
+import com.at.apcma.com.service.ApcMaComUtil;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -60,7 +61,7 @@ public class ApcMaHrt1410Controller extends BaseController {
                     List<Map<String, Object>> sortedDepartments = new ArrayList<>();
                     listData.stream()
                             .filter(dept -> !dept.containsKey("PARENTKEYID") || !deptMap.containsKey(dept.get("PARENTKEYID")))
-                            .forEach(dept -> apcMaCommDirectService.buildTree(dept, deptMap, sortedDepartments, 0));
+                            .forEach(dept -> ApcMaComUtil.buildTree(dept, deptMap, sortedDepartments, 0));
 
                     resultMap.put("cv_1", sortedDepartments);
                 }
