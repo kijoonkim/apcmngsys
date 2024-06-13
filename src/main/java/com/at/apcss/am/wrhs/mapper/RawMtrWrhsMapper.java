@@ -192,4 +192,12 @@ public interface RawMtrWrhsMapper {
 	public int deleteRawMtrWrhsSmmry(RawMtrWrhsSmmryVO rawMtrWrhsSmmryVO) throws Exception;
 
 	List<RawMtrWrhsVO> selectRawMtrWrhsLatestInfoList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 모바일 원물입고 목록 조회
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsVO> selectMblRawMtrWrhsList(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }
