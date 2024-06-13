@@ -431,14 +431,23 @@
     <div id="body-modal-frmer">
     	<jsp:include page="../../am/popup/farmerInfoPopup.jsp"></jsp:include>
     </div>
+	<!-- 팜맵 팝업 Modal -->
+	<div id="body-modal-framldMap">
+		<jsp:include page="../popup/framldMapPopup.jsp"/>
+	</div>
 	
 </body>
+<div>
+	<sbux-modal id="modal-framldMap" name="modal-framldMap" uitype="middle" header-title="팜맵 데이터" body-html-id="body-modal-framldMap" footer-is-close-button="false" header-is-close-button="false" style="width:1100px" ></sbux-modal>
+</div>
 
 <script type="text/javascript">
 
-	
- 	
-	
+	const frmidMapPopup = async function(stdgCd){
+		SBUxMethod.openModal('modal-framldMap');
+		popFramldMap.init(gv_selectedApcCd, stdgCd);
+	}
+
 	var jsonPrdcrAutocomplete = []; // 생산자
 	
 	/**
@@ -1291,7 +1300,11 @@
      	SBUxMethod.set("inp-frln-fcltInstlYr",item.fcltInstlYr);
      	
      	
-     	
+		var clickCell = grdFrln.getCol();
+		console.log(clickCell, 'Z03E33');
+		if(clickCell === 1){
+			frmidMapPopup(item.stdgCd);
+		}
 		
 	}
 
