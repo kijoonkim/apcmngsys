@@ -68,5 +68,13 @@ public interface ApcMaCommDirectService {
 	void buildTree(Map<String, Object> node, Map<String, Map<String, Object>> deptMap,
 				   List<Map<String, Object>> sortedDepartments, int level);
 
-
+	/**
+	 * 에러메시지 처리하는 Service
+	 * @param request
+	 * @param rtype
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> checkError(Map<String, Object> param) throws Exception;
+	
 }

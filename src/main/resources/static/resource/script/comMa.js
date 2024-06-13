@@ -480,5 +480,73 @@ const gfnma_isDate = function (str) {
 	return chk;
 }
 
+/**
+ * @name 		gfnma_getFileSize
+ * @description 파일 크기 계산
+ * @param 		{object} target : 타겟명칭 혹은 객체
+ * @param 		{string} unit : mb, kb : 파일단위
+ * @returns 	{Number}
+ */
+const gfnma_getFileSize = function (target, unit) {
+    var iSize = 0;
+    var brow = gfnma_getBrowser();
+
+    var tar;
+    if (typeof target == 'string') {
+        tar = $(target);
+    } else {
+        tar = target;
+    }
+
+    if (brow.indexOf('IE') != -1 && brow.indexOf('IE:11') == -1) {
+        var objFSO = new ActiveXObject('Scripting.FileSystemObject');
+        var sPath = tar[0].value;
+        var objFile = objFSO.getFile(sPath);
+        iSize = objFile.size;
+    } else {
+        iSize = tar[0].files[0].size;
+    }
+    if (unit.toLowerCase() == 'kb') {
+        iSize = iSize / 1024;
+    } else if (unit.toLowerCase() == 'mb') {
+        iSize = iSize / 1024 / 1024;
+    } else {
+        // BYTE
+        iSize = iSize;
+    }
+    return Number(iSize);
+};
+
+const gfnma_getBrowser = function () {
+    var agt = navigator.userAgent.toLowerCase();
+    if ((navigator.appName == 'Netscape' && agt.indexOf('trident') != -1) || agt.indexOf('msie') != -1) {
+        if (agt.indexOf('msie') != -1) {
+            // 익스플로러 10 이하일 경우
+            var rv = -1;
+            if (navigator.appName == 'Microsoft Internet Explorer') {
+                var ua = navigator.userAgent;
+                var re = new RegExp('MSIE ([0-9]{1,}[.0-9]{0,})');
+                if (re.exec(ua) != null) rv = parseFloat(RegExp.$1);
+            }
+            return 'IE:' + rv;
+        } else {
+            return 'IE:11';
+        }
+    }
+
+    if (agt.indexOf('chrome') != -1) return 'Chrome';
+    if (agt.indexOf('opera') != -1) return 'Opera';
+    if (agt.indexOf('staroffice') != -1) return 'Star Office';
+    if (agt.indexOf('webtv') != -1) return 'WebTV';
+    if (agt.indexOf('beonex') != -1) return 'Beonex';
+    if (agt.indexOf('chimera') != -1) return 'Chimera';
+    if (agt.indexOf('netpositive') != -1) return 'NetPositive';
+    if (agt.indexOf('phoenix') != -1) return 'Phoenix';
+    if (agt.indexOf('firefox') != -1) return 'Firefox';
+    if (agt.indexOf('safari') != -1) return 'Safari';
+    if (agt.indexOf('skipstone') != -1) return 'SkipStone';
+    if (agt.indexOf('netscape') != -1) return 'Netscape';
+    if (agt.indexOf('mozilla/5.0') != -1) return 'Mozilla';
+};
 
 

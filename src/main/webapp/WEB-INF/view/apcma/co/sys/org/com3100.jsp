@@ -25,6 +25,7 @@
 	<title>title : 국가정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -36,8 +37,8 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
+                    <sbux-button uitype="normal" text="파일첨부" class="btn btn-sm btn-outline-danger" onclick="fn_filemng"></sbux-button>
                 	<!-- 
-                    <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="cfn_add"></sbux-button>
                     <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
                     <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
                 	 -->
@@ -380,7 +381,7 @@
     	console.log('grid popup row:', row);
     	console.log('grid popup col:', col);
     	
-		event.stopPropagation();	//그리드로 이벤트 전파중지
+		event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
     	fn_compopup2(row, col);
 	}
 
@@ -417,7 +418,22 @@
 			}
     	});
     }    	
+    
+    /**
+     * 파일첨부
+     */
+    var fn_filemng = function() {
     	
+		compopfilemng({
+    		compCode		: gv_ma_selectedApcCd
+    		,clientCode		: gv_ma_selectedClntCd
+    		,sourceType		: 'HRITRIPEXPENSEHEADER'
+    		,sourceCode		: 'TR231201-001'
+   			,formID			: p_formId
+   			,menuId			: p_menuId    		
+		});
+    }
+    
     /**
      * 목록 조회
      */
@@ -549,7 +565,7 @@
     		,whereClause			: ''
    			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
    			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-   			,searchInputValues		: ["", 				searchText,		""]
+   			,searchInputValues		: ["", 				searchText,		"2024-06-03"]
     	
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     	
