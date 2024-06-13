@@ -1,4 +1,4 @@
-package com.at.apcma.hr.hrp.com;
+package com.at.apcma.hr.hrp.com.web;
 
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
