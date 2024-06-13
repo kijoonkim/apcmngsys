@@ -131,7 +131,17 @@
 			   AND WP.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
 		</if>
 		<if test='prdcrCd != null and prdcrCd != ""'>
-			   AND WP.PRDCR_CD = #{prdcrCd}
+            <choose>
+                <when test='prdcrGroupYn != null and prdcrGroupYn != "" and prdcrGroupYn =="Y"'>
+                    AND WP.PRDCR_CD IN (SELECT COL1 FROM TABLE(FN_SYS_SPLIT_STRING(#{prdcrCd})))
+                </when>
+                <otherwise>
+                    AND WP.PRDCR_CD = #{prdcrCd}
+                </otherwise>
+            </choose>
+		</if>
+		<if test='prdcrNm != null and prdcrNm != ""'>
+			    AND (SELECT FN_GET_PRDCR_NM(WP.PRDCR_CD, WP.APC_CD) FROM DUAL) = #{prdcrNm}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
 			   AND INV.ITEM_CD = #{itemCd}
@@ -873,7 +883,7 @@
 			   AND WS.WRHS_END_YMD	= #{wrhsEndYmd}
 			   AND WS.PRDCR_CD = #{prdcrCd}
 			   AND WS.ITEM_CD = #{itemCd}
-			   AND WS.VRTY_CD = #{vrtyCd}			   
+			   AND WS.VRTY_CD = #{vrtyCd}
 		]]>
     </select>
 
@@ -920,7 +930,7 @@
 			   AND WS.WRHS_END_YMD	= #{wrhsEndYmd}
 			   AND WS.PRDCR_CD = #{prdcrCd}
 			   AND WS.ITEM_CD = #{itemCd}
-			   AND WS.VRTY_CD = #{vrtyCd}			   
+			   AND WS.VRTY_CD = #{vrtyCd}
 		]]>
     </select>
 
@@ -963,7 +973,7 @@
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_1_WGHT_CYCL_5
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.QNTT ELSE NULL END) AS V_1_QNTT
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_1 THEN A.WGHT ELSE NULL END) AS V_1_WGHT
-				
+
 				, MAX(ITM.VRTY_CD_2)		AS VRTY_CD_2
 				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_2_WRHS_CMPTN_YN
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_2_QNTT_CYCL_1
@@ -978,7 +988,7 @@
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_2_WGHT_CYCL_5
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.QNTT ELSE NULL END) AS V_2_QNTT
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_2 THEN A.WGHT ELSE NULL END) AS V_2_WGHT
-				
+
 				, MAX(ITM.VRTY_CD_3)		AS VRTY_CD_3
 				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_3_WRHS_CMPTN_YN
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_3_QNTT_CYCL_1
@@ -993,7 +1003,7 @@
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_3_WGHT_CYCL_5
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.QNTT ELSE NULL END) AS V_3_QNTT
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_3 THEN A.WGHT ELSE NULL END) AS V_3_WGHT
-				
+
 				, MAX(ITM.VRTY_CD_4)		AS VRTY_CD_4
 				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_4_WRHS_CMPTN_YN
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_4_QNTT_CYCL_1
@@ -1008,7 +1018,7 @@
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_4_WGHT_CYCL_5
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.QNTT ELSE NULL END) AS V_4_QNTT
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_4 THEN A.WGHT ELSE NULL END) AS V_4_WGHT
-				
+
 				, MAX(ITM.VRTY_CD_5)		AS VRTY_CD_5
 				, MAX(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WRHS_CMPTN_YN ELSE NULL END) AS V_5_WRHS_CMPTN_YN
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT_CYCL_1 ELSE NULL END) AS V_5_QNTT_CYCL_1
@@ -1023,7 +1033,7 @@
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT_CYCL_5 ELSE NULL END) AS V_5_WGHT_CYCL_5
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.QNTT ELSE NULL END) AS V_5_QNTT
 				, SUM(CASE WHEN A.VRTY_CD = ITM.VRTY_CD_5 THEN A.WGHT ELSE NULL END) AS V_5_WGHT
-				
+
 			  FROM (
 					SELECT
 						  WS.APC_CD				AS APC_CD
@@ -1095,7 +1105,7 @@
 					) ITM
 				  ON ITM.ITEM_CD = A.ITEM_CD
 			 WHERE A.APC_CD IS NOT NULL
-			 GROUP BY 
+			 GROUP BY
 			 	  A.APC_CD
 				, A.WRHS_BGNG_YMD
 				, A.WRHS_END_YMD
@@ -1211,7 +1221,7 @@
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
 	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
-				
+
 				, WRHS_CMPTN_YN = #{wrhsCmptnYn}
 				, QNTT_CYCL_1 = #{qnttCycl1}
 				, QNTT_CYCL_2 = #{qnttCycl2}
@@ -1434,5 +1444,5 @@
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
 		</if>
 	</select>
-	
+
 </mapper>

@@ -113,4 +113,65 @@ public class StdGrdApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// APC 표준등급종류 조회 모바일
+	@PostMapping(value = "/api/mobile/am/cmns/apcStdGrds.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectStdGrdLists(@RequestBody StdGrdVO stdGrdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<StdGrdVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = stdGrdService.selectStdGrdList(stdGrdVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 표준등급 상세 조회 모바일
+	@PostMapping(value = "/api/mobile/am/cmns/apcStdGrdDtls.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectStdGrdDtlLists(@RequestBody StdGrdDtlVO stdGrdDtlVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<StdGrdDtlVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = stdGrdService.selectStdGrdDtlList(stdGrdDtlVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC 표준등급 상세 조회 모바일
+	@PostMapping(value = "/api/mobile/am/cmns/apcStdGrdJgmts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectStdGrdJgmtLists(@RequestBody StdGrdJgmtVO stdGrdJgmtVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<StdGrdJgmtVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = stdGrdService.selectStdGrdJgmtList(stdGrdJgmtVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

@@ -35,7 +35,8 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 생산농가 APC등록 -->
 				</div>
 				<div style="margin-left: auto;">
-
+					<sbux-button id="btnAdd" name="btnAdd" uitype="normal"  text="추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"  text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal"  text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal"  text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</div>
@@ -146,14 +147,15 @@
         SBGridProperties.rowheaderwidth = {seq: '60'};
 	    SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
+        	{caption : [''],	ref : 'chkbox',	width : '50px',	style : 'text-align:center',	type : 'checkbox', typeinfo : {checkedvalue : 'T', uncheckedvalue : 'F'}},
         	{caption : ['APC명'], ref : 'apcCd', width : '200px',	style : 'text-align:center', type : 'combo', typeinfo : {ref:'jsonApcList', label:'label', value:'value', displayui : true}},
             //{caption: ["사용자ID"],		ref: 'userId',      type:'output',  	width:'100px',  style:'text-align:center'},
-            {caption: ["생산자명"], 		ref: 'prdcrNm',     	type:'output',  	width:'100px',  style:'text-align:center'},
+            //{caption: ["생산자명"], 		ref: 'prdcrNm',     	type:'output',  	width:'100px',  style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'rmrk',     	type:'input',  	width:'400px',  style:'text-align:center'},
             {caption: ["사용자명"], 		ref: 'userNm',     	type:'output',  	width:'100px',  style:'text-align:center'},
             {caption: ["승인여부"],  	ref: 'aprvYn',    type:'output',  	width:'50px',   style:'text-align:center'},
             {caption: ["요청일자"],  	ref: 'reqDt',    type:'output',  	width:'100px',   style:'text-align:center'},
             {caption: ["승인일자"],  	ref: 'aprvDt',    type:'output',  	width:'50px',   style:'text-align:center'},
-            {caption: ["비고"],      		ref: 'rmrk',        type:'output',  	hidden: true},
             {caption: ["사용자ID"],      		ref: 'userId',        type:'output',  	hidden: true},
             {caption: ["생산자코드"], 	ref: 'prdcrCd',  type:'output',  	hidden: true}
         ];
@@ -227,38 +229,51 @@
     //저장
     const fn_save = async function() {
     	var allData = grdPrdcrUserIdReg.getGridDataAll();
-    	var rowData;
+    	var rowData = [];
+    	var apc = [];
+    	var check = true;
     	allData.forEach((item,index) =>{
 
-    		rowData = {
+    		const data = {
     				prdcrNm : item.prdcrNm
     				,aprvYn :  item.aprvYn
     				,userId : item.userId
     				,apcCd : item.apcCd
     				,reqDt : item.reqDt
+    				,rmrk  : item.rmrk
     		}
+    		var findResult = apc.find(param => param === item.apcCd);
+    		apc.push(data.apcCd);
+    		if(findResult === item.apcCd){
+    			gfn_comAlert("W0010","선택","APC");
+    			check = false;
+    			return;
+    		}
+
+        	if(data.apcCd === ""){
+        		gfn_comAlert("W0001","APC");
+    			check = false;
+    			return;
+    		}
+
+        	if(data.aprvYn === "Y"){
+        		//gfn_comAlert("W0010","승인된","계정입니다.");
+    			return;
+        	}
+
+        	if(data.reqDt === ""){
+        		data["chk"] = "I";
+        	}else{
+        		data["chk"] = "U"
+        	}
+
+        	rowData.push(data);
     	});
 
-
-    	if(rowData.apcCd === ""){
-			console.log("apc를 선택해 주세요");
-			return;
+		if(check == true){
+			// 신규 등록
+			fn_subInsert(gfn_comConfirm("Q0001", "등록"),rowData);
 		}
-
-    	if(rowData.aprvYn === "Y"){
-    		console.log("승인된 계정입니다.");
-			return;
-    	}
-
-    	if(rowData.reqDt === ""){
-    		rowData["chk"] = "I";
-    	}else{
-    		rowData["chk"] = "U"
-    	}
-
-
-   		// 신규 등록
-		fn_subInsert(gfn_comConfirm("Q0001", "등록"),rowData);
 
 
     }
@@ -291,10 +306,47 @@
 
     }
 
+     const fn_delete = async function (){
+
+  	 	if (!gfn_comConfirm("Q0001","삭제")) return;
+        var allData = grdPrdcrUserIdReg.getGridDataAll();
+     	var rowData = [];
+     	allData.forEach((item,index) =>{
+     		if(item.chkbox === "T"){
+     			const deleteData = {
+         				userId : item.userId
+         				,apcCd : item.apcCd
+         		}
+         		rowData.push(deleteData);
+     		}
+
+     	})
+    	const postJsonPromise = gfn_postJSON("/co/user/deletePrdcrUserId.do",rowData);
+
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		gfn_comAlert("I0001");
+        		fn_search();
+        	} else {
+        		gfn_comAlert("E0001");
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+
+
      /** APC정보 팝업함수 **/
      const fn_apcInfoPopup = function(){
     	 var colIndex = grdPrdcrUserIdReg.getCol();
-    	 if(colIndex == 1){
+    	 if(colIndex == 2){
     		 SBUxMethod.openModal('modal-apcInfo');
     		 popApcInfo.init(fn_setApcInfo);
     	 }
@@ -313,6 +365,10 @@
     				aprvDt   :   rowData.aprvDt
     			};
     	 grdPrdcrUserIdReg.setRowData(rowIndex, objRowData, true);
+     }
+
+     const fn_addRow = function(){
+    	 grdPrdcrUserIdReg.addRow(true, {'userNm': gv_userNm , 'aprvYn':'N', userId : '${loginVO.id}'});
      }
 
 

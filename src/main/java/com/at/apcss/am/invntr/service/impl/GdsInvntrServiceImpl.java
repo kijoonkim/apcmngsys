@@ -308,9 +308,10 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		String invntrSttsCd = gdsInvntrVO.getInvntrSttsCd();
 		boolean needsIgnoreInvntrQntt = AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrSttsCd);
-
+		boolean allowMinusInvntr = AmConstants.CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO.equals(invntrSttsCd);
+		
 		if (gdsInvntrVO.getSpmtQntt() > invntrInfo.getInvntrQntt()) {
-			if (!needsIgnoreInvntrQntt) {
+			if (!needsIgnoreInvntrQntt && !allowMinusInvntr) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||출하량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
 		}
@@ -390,6 +391,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		} else {
 
 			if (AmConstants.CON_INVNTR_STTS_CD_CHNG_SPMT.equals(invntrInfo.getInvntrSttsCd())) {
+				gdsInvntrVO.setInvntrSttsCd(null);
+			}
+			if (AmConstants.CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO.equals(invntrInfo.getInvntrSttsCd())) {
 				gdsInvntrVO.setInvntrSttsCd(null);
 			}
 			gdsInvntrMapper.updateGdsInvntrSpmtPrfmnc(gdsInvntrVO);

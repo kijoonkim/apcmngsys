@@ -388,5 +388,30 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
         return resultVO;
     }
 
+    /**
+     * 생산농가 계정관리 승인요청 삭제
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public int deletePrdcrUserId(HashMap<String,Object> comUserVO) throws Exception{
+    	int result = 0;
+
+		result = comUserMapper.deletePrdcrUserId(comUserVO);
+
+		return result;
+
+    }
+    /**
+     * 생산농가 계정관리 요청목록 조회
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<HashMap<String, Object>> selectUserPrdcrList(HashMap<String, Object> comUserVO) throws Exception {
+        List<HashMap<String, Object>> resultVO = comUserMapper.selectUserPrdcrList(comUserVO);
+        return resultVO;
+    }
 
 }

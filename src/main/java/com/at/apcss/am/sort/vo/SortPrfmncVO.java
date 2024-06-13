@@ -393,6 +393,11 @@ public class SortPrfmncVO extends ComVO {
 	 */
 	private List<SortStdGrdVO> stdGrdList;
 
+	/*
+	 * 생산자그룹여부
+	 * */
+	private String prdcrGroupYn;
+
 	public List<SortStdGrdVO> getStdGrdList() {
 		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
 	}

@@ -310,20 +310,45 @@ public class ComUserController extends BaseController {
 	}
 
 	@PostMapping(value = "/co/user/savePrdcrUserId.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> savePrdcrUserId(@RequestBody HashMap<String,Object> comUser, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> savePrdcrUserId(@RequestBody List<HashMap<String,Object>> comUser, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
 
 		try {
+			for(HashMap<String,Object> user : comUser) {
+				user.put("sysFrstInptUserId", getUserId());
+				user.put("sysFrstInptPrgrmId", getPrgrmId());
+				user.put("sysLastChgUserId", getUserId());
+				user.put("sysLastChgPrgrmId", getPrgrmId());
+				result += comUserService.savePrdcrUserId(user);
+			}
 
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put("result", result);
 
-			comUser.put("sysFrstInptUserId", getUserId());
-			comUser.put("sysFrstInptPrgrmId", getPrgrmId());
-			comUser.put("sysLastChgUserId", getUserId());
-			comUser.put("sysLastChgPrgrmId", getPrgrmId());
-			result += comUserService.savePrdcrUserId(comUser);
+		return getSuccessResponseEntity(resultMap);
+	}
 
+	@PostMapping(value = "/co/user/deletePrdcrUserId.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deletePrdcrUserId(@RequestBody List<HashMap<String,Object>> comUser, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+
+		try {
+			for(HashMap<String,Object> user : comUser) {
+
+				result += comUserService.deletePrdcrUserId(user);
+			}
 
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());

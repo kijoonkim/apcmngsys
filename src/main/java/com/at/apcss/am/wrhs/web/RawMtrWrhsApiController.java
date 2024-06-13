@@ -43,13 +43,13 @@ public class RawMtrWrhsApiController extends BaseController {
 	private CmnsVrtyService cmnsVrtyService;
 
 	// 입고실적조회
-	@PostMapping(value = "/api/mobile/am/wrhs/selectRawMtrWrhsPrfmncLists.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsPrfmncList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/api/mobile/am/wrhs/selectRawMtrWrhsLists.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<RawMtrWrhsVO> resultList;
 		try {
-			resultList = rawMtrWrhsService.selectRawMtrWrhsPrfmncList(rawMtrWrhsVO);
+			resultList = rawMtrWrhsService.selectRawMtrWrhsList(rawMtrWrhsVO);
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
@@ -64,5 +64,86 @@ public class RawMtrWrhsApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	// 모바일 입고실적 INSERT
+	@PostMapping(value = "/api/mobile/am/wrhs/insertRawMtrWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+//		rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+//		rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+//		rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+//		rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		try {
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_MAP, rawMtrWrhsVO);
+		return getSuccessResponseEntity(resultMap);
+	}
+	//모바일 입고실적 UPDATE
+	@PostMapping(value = "/api/mobile/am/wrhs/updateRawMtrWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateRawMtrWrhs(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+//			rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
+//			rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+//			rawMtrWrhsVO.setSysLastChgUserId(getUserId());
+//			rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.updateRawMtrWrhs(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_MAP, rawMtrWrhsVO);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//모바일 실적정보 조회 API
+	@PostMapping(value = "/api/mobile/am/wrhs/selectRawMtrWrhsLatestInfoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsLatestInfoList(@RequestBody RawMtrWrhsVO rawMtrWrhsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RawMtrWrhsVO> resultList;
+		try {
+			resultList = rawMtrWrhsService.selectRawMtrWrhsLatestInfoList(rawMtrWrhsVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

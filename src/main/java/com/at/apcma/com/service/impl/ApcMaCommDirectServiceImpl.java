@@ -1,5 +1,6 @@
 package com.at.apcma.com.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -396,5 +397,20 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		return resultMap;
 	}
-	
+
+
+	public void buildTree(Map<String, Object> node, Map<String, Map<String, Object>> deptMap,
+								  List<Map<String, Object>> sortedDepartments, int level) {
+		node.put("LEVEL", level);
+		sortedDepartments.add(node);
+
+		List<Map<String, Object>> children = deptMap.values().stream()
+				.filter(dept -> node.get("DEPT_CODE").equals(dept.get("PARENTKEYID")))
+				.sorted(Comparator.comparing(dept -> (BigDecimal) dept.get("SORT_SEQ")))
+				.collect(Collectors.toList());
+
+		for (Map<String, Object> child : children) {
+			buildTree(child, deptMap, sortedDepartments, level + 1);
+		}
+	}
 }
