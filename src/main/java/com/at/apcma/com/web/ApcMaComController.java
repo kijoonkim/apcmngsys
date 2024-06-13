@@ -1,21 +1,42 @@
 package com.at.apcma.com.web;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 경영정보 공통업무를 처리하는 컨트롤러 클래스
@@ -39,6 +60,9 @@ public class ApcMaComController extends BaseController {
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
 	
+	@Resource(name= "apcMaComService")
+	private ApcMaComService apcMaComService;
+	
 	//select 조회
 	@PostMapping(value = "/com/comSelectList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> comSelectList(
@@ -57,11 +81,302 @@ public class ApcMaComController extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			logger.debug("", e);
 			return getErrorResponseEntity(e);
 		}
 
 		logger.info("=============comSelectList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}		
+	
+	//file select 조회
+	@PostMapping(value = "/com/comFileList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> comFileList(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============comFileList=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_COM5100_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============comFileList=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}		
+	
+	//file + 링크 저장
+	@PostMapping(value = "/com/saveFile.do")
+	public ResponseEntity<HashMap<String, Object>> saveFile(
+			@RequestParam HashMap<String, Object> param
+			,@RequestParam(value="files", required = false) List<MultipartFile> files
+    		,MultipartHttpServletRequest request
+			,Model model
+			,HttpSession session) throws Exception{
+		
+		logger.info("=============saveFile=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+    	int	cnt		= 0;	
+    	
+		try {
+
+			//get ipAddress
+			String ipAddress = request.getHeader("X-Forwarded-For");
+			if (ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+			
+			//공통파라미터
+			Map<String, Object> pamap = new HashMap<String,Object>();
+			pamap.put("comp_code", 		param.get("comp_code").toString());
+			pamap.put("client_code", 	param.get("client_code").toString());
+			pamap.put("source_type", 	param.get("source_type").toString());
+			pamap.put("source_code", 	param.get("source_code").toString());
+			pamap.put("formID", 		param.get("formID").toString());
+			pamap.put("menuId", 		param.get("menuId").toString());
+			pamap.put("ipAddress", 		ipAddress);
+			
+			List<Map<String, Object>> slist = new ObjectMapper().readValue(param.get("slist").toString(), new TypeReference<List<Map<String, Object>>>(){});
+			
+			//신규 -----------------------------------------------------
+			for (int i = 0; i < slist.size(); i++) {
+				Map<String, Object> tmap1 = slist.get(i);
+				if(tmap1.get("CHG_STAT").equals("N")) {
+					if(tmap1.get("FILE_TYPE").equals("2")) {
+						//링크
+						pamap.put("workType", 	"N");
+						pamap.put("SEQ", 		"0");
+						pamap.put("TITLE_TXT", 	tmap1.get("TITLE_TXT"));
+						pamap.put("LINK_TXT", 	tmap1.get("LINK_TXT"));
+						pamap.put("ORD_SEQ", 	tmap1.get("ORD_SEQ"));
+						resultMap = apcMaComService.linkAddProcess(pamap, session);
+						if(resultMap.get("resultStatus").equals("E")) {
+							return getSuccessResponseEntity(resultMap);
+						}
+					}
+				}
+			}
+			cnt = 0;
+			for (int i = 0; i < slist.size(); i++) {
+				Map<String, Object> tmap1 = slist.get(i);
+				if(tmap1.get("CHG_STAT").equals("N")) {
+					if(tmap1.get("FILE_TYPE").equals("1")) {
+						//파일
+						pamap.put("workType", 	"N");
+						pamap.put("SEQ", 		"0");
+						pamap.put("TITLE_TXT", 	tmap1.get("TITLE_TXT"));
+						pamap.put("ORD_SEQ", 	tmap1.get("ORD_SEQ"));
+						resultMap = apcMaComService.fileAddProcess(files.get(cnt), pamap, session);
+						cnt ++;
+						if(resultMap.get("resultStatus").equals("E")) {
+							return getSuccessResponseEntity(resultMap);
+						}
+					}
+				}
+			}
+			
+			//삭제/수정 -------------------------------------------------
+			for (int i = 0; i < slist.size(); i++) {
+				Map<String, Object> tmap1 = slist.get(i);
+				if(tmap1.get("ORG_STAT").equals("A")) {
+					if(!tmap1.get("CHG_STAT").equals("D")) {
+						//수정(링크,파일)
+						pamap.put("workType", 	"U");
+						pamap.put("SEQ", 		tmap1.get("SEQ"));
+						pamap.put("TITLE_TXT", 	tmap1.get("TITLE_TXT"));
+						pamap.put("ORD_SEQ", 	tmap1.get("ORD_SEQ"));
+						pamap.put("FILE_TYPE", 	tmap1.get("FILE_TYPE"));
+						resultMap = apcMaComService.linkFileUpdateProcess(pamap, session);
+						if(resultMap.get("resultStatus").equals("E")) {
+							return getSuccessResponseEntity(resultMap);
+						}
+					}
+				}
+			}
+			for (int i = 0; i < slist.size(); i++) {
+				Map<String, Object> tmap1 = slist.get(i);
+				if(tmap1.get("ORG_STAT").equals("A")) {
+					if(tmap1.get("CHG_STAT").equals("D")) {
+						//삭제
+						if(tmap1.get("FILE_TYPE").equals("1")) {
+							//파일
+							pamap.put("workType", 	"D");
+							pamap.put("SEQ", 		tmap1.get("SEQ"));
+							resultMap = apcMaComService.fileDeleteProcess(pamap, session);
+							if(resultMap.get("resultStatus").equals("E")) {
+								return getSuccessResponseEntity(resultMap);
+							}
+						} else {
+							//링크
+							pamap.put("workType", 	"D");
+							pamap.put("SEQ", 		tmap1.get("SEQ"));
+							resultMap = apcMaComService.linkDeleteProcess(pamap, session);
+							if(resultMap.get("resultStatus").equals("E")) {
+								return getSuccessResponseEntity(resultMap);
+							}
+						}
+					}
+				}
+			}
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============saveFile=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}		
+	
+    @RequestMapping("/com/getFileImage.do")
+    public void getFileImage(
+    		@RequestParam Map<String, Object> param
+    		,HttpServletRequest request
+    		,HttpServletResponse response
+    		,HttpSession session
+    		,Model model) throws Exception {
+    	
+    	logger.debug("/com/getFileImage started =======>" + param);
+    	
+    	try {
+			//get ipAddress
+			String ipAddress = request.getHeader("X-Forwarded-For");
+			if (ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+			
+    		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
+    		
+			//get delete key ---------------------------------------------------------
+			Map<String, Object> gmap4 = new HashMap<String, Object>();
+			gmap4.put("procedure", 			"P_COM5100_Q");
+			gmap4.put("workType", 			"Q1");
+			gmap4.put("getType", 			"json");
+			gmap4.put("cv_count", 			"1");
+			
+			String palist2[][] = {
+					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
+					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
+					{"V_P_COMP_CODE",			param.get("comp_code").toString()},
+					{"V_P_CLIENT_CODE",			param.get("client_code").toString()},
+					{"V_P_FILE_NAME",			""},
+					{"V_P_SOURCE_TYPE",			""},
+					{"V_P_SOURCE_CODE",			param.get("fkey").toString()},
+					{"V_P_USER",				""},
+					{"V_P_FORM_ID",				""},
+					{"V_P_MENU_ID",				""},
+					{"V_P_PROC_ID",				"P_COM5100_Q"},
+					{"V_P_USERID",				ssmap.get("USERID").toString()},
+					{"V_P_PC",					ipAddress}
+			};			
+			Map<String, Object> map3 = apcMaCommDirectService.InnerCallProc2(gmap4, palist2); 
+    		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
+			Map<String, Object> map4 = clist.get(0);			
+    		//-------------------------------------------------------------------------
+			String filePath = map4.get("FILE_SERVER_PATH").toString();
+			
+    		if(filePath!=null && !filePath.equals("")) {
+    			
+    			File imgFile = new File(filePath);
+    			FileInputStream fis 		= new FileInputStream(imgFile);
+    			ByteArrayOutputStream baos	= new ByteArrayOutputStream();
+    			byte[] buf 		= new byte[1024];
+    			int readlength 	= 0;
+    			while ( (readlength = fis.read(buf)) != -1 ) {
+					baos.write(buf,0,readlength);
+				}
+    			byte[] imgbuf	= null;
+    			imgbuf = baos.toByteArray();
+    			baos.close();
+    			fis.close();
+    			
+    			int length = imgbuf.length;
+    			OutputStream out = response.getOutputStream();
+    			out.write(imgbuf, 0, length);
+    			out.close();     			
+    		}
+    	} catch (Exception e) {
+    		logger.debug("", e);
+    	}
+    } 
+    
+    @RequestMapping("/com/getFileDown.do")
+    public void getFileDown(
+    		@RequestParam Map<String, Object> param
+    		,HttpServletRequest request
+    		,HttpServletResponse response
+    		,HttpSession session
+    		,Model model) throws Exception {
+    	
+    	logger.debug("/com/getFileDown started =======>" + param);
+    	
+    	try {
+    		//get ipAddress
+    		String ipAddress = request.getHeader("X-Forwarded-For");
+    		if (ipAddress == null) {
+    			ipAddress = request.getRemoteAddr();
+    		}
+    		
+    		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
+    		
+    		//get delete key ---------------------------------------------------------
+    		Map<String, Object> gmap4 = new HashMap<String, Object>();
+    		gmap4.put("procedure", 			"P_COM5100_Q");
+    		gmap4.put("workType", 			"Q1");
+    		gmap4.put("getType", 			"json");
+    		gmap4.put("cv_count", 			"1");
+    		
+    		String palist2[][] = {
+    				{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
+    				{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
+    				{"V_P_COMP_CODE",			param.get("comp_code").toString()},
+    				{"V_P_CLIENT_CODE",			param.get("client_code").toString()},
+    				{"V_P_FILE_NAME",			""},
+    				{"V_P_SOURCE_TYPE",			""},
+    				{"V_P_SOURCE_CODE",			param.get("fkey").toString()},
+    				{"V_P_USER",				""},
+    				{"V_P_FORM_ID",				""},
+    				{"V_P_MENU_ID",				""},
+    				{"V_P_PROC_ID",				"P_COM5100_Q"},
+    				{"V_P_USERID",				ssmap.get("USERID").toString()},
+    				{"V_P_PC",					ipAddress}
+    		};			
+    		Map<String, Object> map3 = apcMaCommDirectService.InnerCallProc2(gmap4, palist2); 
+    		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
+    		Map<String, Object> map4 = clist.get(0);			
+    		//-------------------------------------------------------------------------
+    		String filePath 	= map4.get("FILE_SERVER_PATH").toString();
+    		String orgfileName 	= map4.get("FILE_NAME").toString();
+    		
+    		if(filePath!=null && !filePath.equals("")) {
+    			
+    	        File f = new File(filePath);
+    	        // file 다운로드 설정
+    	        response.setContentType("application/download");
+    	        response.setContentLength((int)f.length());
+    	        response.setHeader("Content-disposition", "attachment;filename=\"" + URLEncoder.encode(orgfileName,"UTF-8") + "\"");
+    	        // response 객체를 통해서 서버로부터 파일 다운로드
+    	        OutputStream os = response.getOutputStream();
+    	        // 파일 입력 객체 생성
+    	        FileInputStream fis = new FileInputStream(f);
+    	        FileCopyUtils.copy(fis, os);
+    	        fis.close();
+    	        os.close();
+    		}
+    	} catch (Exception e) {
+    		logger.debug("", e);
+    	}
+    } 
+    
 }

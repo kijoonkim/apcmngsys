@@ -185,12 +185,24 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		return rmap;
 	}
 
-	private HashMap<String, Object> checkError(Map<String, Object> param) throws Exception{
+	public HashMap<String, Object> checkError(Map<String, Object> param) throws Exception{
 		
 		HashMap<String, Object> rmap = new HashMap<String, Object>();
 		rmap.putAll(param);
 		
 		try {
+			
+			//프로시저에서 v_errorCode 값이 없고,  v_errorStr 에러메시지 만 있는경우..
+			if(param.get("v_errorCode").equals("") && !param.get("v_errorStr").equals("")) {
+				rmap.put("resultStatus", 	"E");
+				rmap.put("resultMessage", 	param.get("v_errorStr").toString());
+			}
+			
+			//프로시저에서 v_errorCode 값이 반드시 있어야 하는데 없이 오는 경우..
+			if(param.get("v_errorCode").equals("")) {
+		    	rmap.put("resultStatus", 	"S");
+		    	rmap.put("resultMessage", 	"");
+			}
 			
 			//정상
 			HashMap<String, Object> emap1 = new HashMap<String, Object>();
