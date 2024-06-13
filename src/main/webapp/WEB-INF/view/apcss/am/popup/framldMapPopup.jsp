@@ -66,21 +66,18 @@
             getButton('menuFarmmapDataSeachBjdAndLandCode,formFarmmapDataSeachBjdAndLandCode');
         }
 
-        const getFarmmapDataSeachBjdAndLandCode = async function(){
+        const getFarmmapDataSeachPnu = async function(){
             $('#info').val(''); // info 초기화
-            stdgCd = SBUxMethod.get("framld-inp-stdgCd");
-            console.log(' getFarmmapDataSeachBjdAndLandCode stdgCd', stdgCd);
             var params = {};
-            params.bjdCd = stdgCd;
-            params.landCd = '02';
-            params.mapType = $("#mapType4").val();
-            params.columnType = $("#columnType4").val();
+            params.pnu = SBUxMethod.get("framld-inp-pnu");
+            params.mapType = $("#mapType1").val();
+            params.columnType = $("#columnType1").val();
             params.apiKey = apiKey;
             params.domain = domain;
             console.log('params', params);
 
             $.ajax({
-                url: reqUrl + "farmmapApi/getFarmmapDataSeachBjdAndLandCode.do",
+                url: reqUrl + "farmmapApi/getFarmmapDataSeachPnu.do",
                 dataType: "jsonp",
                 jsonpCallback: "searchCallback",
                 async: true,
@@ -118,8 +115,8 @@
             }
             console.log('vectorSelect2 if 다 통과함');
 
-            feature.style.fillColor = "#0505f5";
-            feature.style.strokeColor = "yellow";
+            feature.style.fillColor = "#8F9DE9";
+            feature.style.strokeColor = "#94CDDA";
             feature.style.strokeWidth = 5;
             feature.style.display = '';
             feature.layer.redraw();
@@ -143,9 +140,9 @@
                 feature.style.fillColor = "#FFFFFF";
                 feature.style.strokeColor = "#FFFFFF";
             } else {
-                feature.style.fillColor = "black";
-                feature.style.strokeColor = "#ff0000";
-                feature.style.strokeWidth = 2;
+                feature.style.fillColor = "#A5E0D9";
+                feature.style.strokeColor = "#8DFFEF";
+                feature.style.strokeWidth = 1;
             }
             feature.layer.redraw();
 
@@ -205,14 +202,14 @@
                         , xy: xy
                         , data: feature
                         , style: {
-                            fillColor: "black",
+                            fillColor: "#A5E0D9",
                             fillOpacity: 0.5,
                             strokeWidth: 2,
-                            strokeColor: "#ff0000",
+                            strokeColor: "#8DFFEF",
                             strokeLinecap: "round",
-                            fontSize: "12px",
-                            fontColor: "black",
-                            fontWeight: "bold",
+                            // fontSize: "12px",
+                            // fontColor: "black",
+                            // fontWeight: "bold",
                             // label: label.toString(),
                             // labelOutlineColor: "#ffffff",
                             // labelOutlineWidth: 3
@@ -283,10 +280,10 @@
                         , xy: xy
                         , data: feature
                         , style: {
-                            fillColor: "black",
+                            fillColor: "#A5E0D9",
                             fillOpacity: 0.001,
                             strokeWidth: 2,
-                            strokeColor: "#ff0000",
+                            strokeColor: "#8DFFEF",
                             strokeLinecap: "round",
                             fontSize: "12px",
                             fontColor: "yellow",
@@ -322,7 +319,7 @@
                 </p>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachBjdAndLandCode();"></sbux-button>
+                <sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();"></sbux-button>
                 <sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-framldMap')"></sbux-button>
             </div>
         </div>
@@ -344,9 +341,9 @@
                     <th>
                         <sbux-input id="framld-inp-apcNm" name="framld-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
                     </th>
-                    <th scope="row"></th>
+                    <th scope="row">PUN번호</th>
                     <th class="td_input">
-                        <sbux-input id="framld-inp-stdgCd" name="framld-inp-stdgCd" uitype="text" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="framld-inp-pnu" name="framld-inp-pnu" uitype="text" class="form-control input-sm" disabled></sbux-input>
                     </th>
                     <th>&nbsp;</th>
                 </tr>
@@ -379,12 +376,12 @@
         objGrid: null,
         gridJson: [],
         callbackFnc: function() {},
-        init: async function(_apcCd, _stdgCd) {
+        init: async function(_apcCd, _pnu) {
             console.log('popFramldMap init');
             SBUxMethod.set("framld-inp-apcNm", gv_selectedApcNm);
             console.log('popFramldMap apcNm', gv_selectedApcNm);
-            console.log('popFramldMap _stdgCd', _stdgCd);
-            SBUxMethod.set("framld-inp-stdgCd", _stdgCd);
+            SBUxMethod.set("framld-inp-pnu", _pnu);
+            SBUxMethod.set("framld-inp-pnu", "4684035022107840012");
         }
     }
 
