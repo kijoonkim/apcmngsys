@@ -82,4 +82,5 @@ public class StdGrdDtlVO extends StdGrdVO {
 	 * 표시명
 	 */
 	private String indctNm;
+	
 }
