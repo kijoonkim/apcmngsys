@@ -66,7 +66,7 @@
         }
 
         const getFarmmapDataSeachPnu = async function(){
-            $('#info').val(''); // info 초기화
+            await clearData(); // info 초기화
             var params = {};
             params.pnu = SBUxMethod.get("framld-inp-pnu");
             params.mapType = $("#mapType1").val();
@@ -303,6 +303,20 @@
             }
         }
 
+        const clearData = async function() {
+            $('#info').val('');
+
+            $('#vectorClickDiv').hide();
+
+            returnjson = null;
+
+            var layer = farmmapObj.getObject("layer", "vectorLayer", map1);
+
+            if (layer != null) {
+                farmmapObj.removeLayer("vectorLayer", map1);
+            }
+        }
+
     </script>
 </head>
 <body oncontextmenu="return false" onload="init()">
@@ -353,7 +367,7 @@
             <div class="ad_section_top">
                 <div id="menuFarmmapDataSeachBjdAndLandCode"></div>
                 <div id="formFarmmapDataSeachBjdAndLandCode"></div>
-                <div id="mapDiv1" style="width:100%;height:400px;"></div>
+                <div id="mapDiv1" style="width:1028px;height:400px;"></div>
             </div>
             <!--[pp] //검색결과 -->
         </div>
@@ -380,7 +394,6 @@
             SBUxMethod.set("framld-inp-apcNm", gv_selectedApcNm);
             console.log('popFramldMap apcNm', gv_selectedApcNm);
             SBUxMethod.set("framld-inp-pnu", _pnu);
-            SBUxMethod.set("framld-inp-pnu", "4684035022107840012");
         }
     }
 
