@@ -478,8 +478,8 @@
 	    	{caption : ["생산농가","생산농가"], ref: 'prdcrNm', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	{caption : ["호기","호기"], ref: 'sortFclt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
 	    	//{caption : ["투입CT","투입CT"], ref: 'bxCnt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;' , disabled:true  },
-			{caption : ["총합","수량"], ref: 'totQntt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff' , disabled:true  },
-			{caption : ["총합","중량"], ref: 'totWght', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff' , disabled:true  },
+			{caption : ["총합","수량"], ref: 'totQntt', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff' ,format : {type:'number', rule:'#,###', emptyvalue:'0'}, disabled:true  },
+			{caption : ["총합","중량"], ref: 'totWght', type: 'input',  width:'100px', style: 'text-align:center; padding-right:5px;background-color:#ceebff' , format : {type:'number', rule:'#,###.###', emptyvalue:'0'}, disabled:true  },
 
 	    	{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	hidden: true},
 	    	{caption: ["선별번호"],	ref: 'sortNo',     		type:'input',  	hidden: true}
@@ -495,7 +495,7 @@
                );
             addSortRsltExhstCol.push(
                     {caption : [item.GRD_NM.toString(),'중량'], ref: 'WGHT_' + item.GRD_SN, type: 'input',  width:'50px', style: 'text-align:right; padding-right:5px; '
-                    , format : {type:'number', rule:'#,###', emptyvalue:'0'}, merge: false ,disabled:true}
+                    , format : {type:'number', rule:'#,###.###', emptyvalue:'0'}, merge: false ,disabled:true}
                );
         })
         let originColumns = SBGridProperties.columns;
@@ -535,14 +535,12 @@
 		//gv_selectedApcCd
 		const param = {
 			apcCd: gv_selectedApcCd
-			//apcCd: '0503'
 			, prdcrCd : prdcrCd
 			, inptYmdFrom : inptYmdFrom
 			, inptYmdTo  : inptYmdTo
 			, sortFclt : sortFclt
 			, prdcrCd : prdcrCd
 			, itemCd : itemCd
-			//, itemCd : '1302'
 		}
 		jsonSortRslt.length = 0;
 		let totalRecordCount = 0;
@@ -610,7 +608,7 @@
 	        			, QNTT_48 : item.QNTT_48
 	        			, QNTT_49 : item.QNTT_49
 	        			, QNTT_50 : item.QNTT_50
-	        			, totQntt : item.WGHT_1 + 	item.WGHT_2 + 	item.WGHT_3 + 	item.WGHT_4 + 	item.WGHT_5 + 	item.WGHT_6 + 	item.WGHT_7 + 	item.WGHT_8 + 	item.WGHT_9 + 	item.WGHT_10 + 	item.WGHT_11 + 	item.WGHT_12 + 	item.WGHT_13 + 	item.WGHT_14 + 	item.WGHT_15 + 	item.WGHT_16 + 	item.WGHT_17 + 	item.WGHT_18 + 	item.WGHT_19 + 	item.WGHT_20 + 	item.WGHT_21 + 	item.WGHT_22 + 	item.WGHT_23 + 	item.WGHT_24 + 	item.WGHT_25 + 	item.WGHT_26 + 	item.WGHT_27 + 	item.WGHT_28 + 	item.WGHT_29 + 	item.WGHT_30 + 	item.WGHT_31 + 	item.WGHT_32 + 	item.WGHT_33 + 	item.WGHT_34 + 	item.WGHT_35 + 	item.WGHT_36 + 	item.WGHT_37 + 	item.WGHT_38 + 	item.WGHT_39 + 	item.WGHT_40 + 	item.WGHT_41 + 	item.WGHT_42 + 	item.WGHT_43 + 	item.WGHT_44 + 	item.WGHT_45 + 	item.WGHT_46 + 	item.WGHT_47 + 	item.WGHT_48 + 	item.WGHT_49 + 	item.WGHT_50
+
 	        			, WGHT_1 : item.WGHT_1
 	        			, WGHT_2 : item.WGHT_2
 	        			, WGHT_3 : item.WGHT_3
@@ -661,7 +659,8 @@
 	        			, WGHT_48 : item.WGHT_48
 	        			, WGHT_49 : item.WGHT_49
 	        			, WGHT_50 : item.WGHT_50
-	        			, totWght : item.QNTT_1 + 	item.QNTT_2 + 	item.QNTT_3 + 	item.QNTT_4 + 	item.QNTT_5 + 	item.QNTT_6 + 	item.QNTT_7 + 	item.QNTT_8 + 	item.QNTT_9 + 	item.QNTT_10 + 	item.QNTT_11 + 	item.QNTT_12 + 	item.QNTT_13 + 	item.QNTT_14 + 	item.QNTT_15 + 	item.QNTT_16 + 	item.QNTT_17 + 	item.QNTT_18 + 	item.QNTT_19 + 	item.QNTT_20 + 	item.QNTT_21 + 	item.QNTT_22 + 	item.QNTT_23 + 	item.QNTT_24 + 	item.QNTT_25 + 	item.QNTT_26 + 	item.QNTT_27 + 	item.QNTT_28 + 	item.QNTT_29 + 	item.QNTT_30 + 	item.QNTT_31 + 	item.QNTT_32 + 	item.QNTT_33 + 	item.QNTT_34 + 	item.QNTT_35 + 	item.QNTT_36 + 	item.QNTT_37 + 	item.QNTT_38 + 	item.QNTT_39 + 	item.QNTT_40 + 	item.QNTT_41 + 	item.QNTT_42 + 	item.QNTT_43 + 	item.QNTT_44 + 	item.QNTT_45 + 	item.QNTT_46 + 	item.QNTT_47 + 	item.QNTT_48 + 	item.QNTT_49 + 	item.QNTT_50
+	        			, totWght : item.WGHT_1 + 	item.WGHT_2 + 	item.WGHT_3 + 	item.WGHT_4 + 	item.WGHT_5 + 	item.WGHT_6 + 	item.WGHT_7 + 	item.WGHT_8 + 	item.WGHT_9 + 	item.WGHT_10 + 	item.WGHT_11 + 	item.WGHT_12 + 	item.WGHT_13 + 	item.WGHT_14 + 	item.WGHT_15 + 	item.WGHT_16 + 	item.WGHT_17 + 	item.WGHT_18 + 	item.WGHT_19 + 	item.WGHT_20 + 	item.WGHT_21 + 	item.WGHT_22 + 	item.WGHT_23 + 	item.WGHT_24 + 	item.WGHT_25 + 	item.WGHT_26 + 	item.WGHT_27 + 	item.WGHT_28 + 	item.WGHT_29 + 	item.WGHT_30 + 	item.WGHT_31 + 	item.WGHT_32 + 	item.WGHT_33 + 	item.WGHT_34 + 	item.WGHT_35 + 	item.WGHT_36 + 	item.WGHT_37 + 	item.WGHT_38 + 	item.WGHT_39 + 	item.WGHT_40 + 	item.WGHT_41 + 	item.WGHT_42 + 	item.WGHT_43 + 	item.WGHT_44 + 	item.WGHT_45 + 	item.WGHT_46 + 	item.WGHT_47 + 	item.WGHT_48 + 	item.WGHT_49 + 	item.WGHT_50
+	        			, totQntt : item.QNTT_1 + 	item.QNTT_2 + 	item.QNTT_3 + 	item.QNTT_4 + 	item.QNTT_5 + 	item.QNTT_6 + 	item.QNTT_7 + 	item.QNTT_8 + 	item.QNTT_9 + 	item.QNTT_10 + 	item.QNTT_11 + 	item.QNTT_12 + 	item.QNTT_13 + 	item.QNTT_14 + 	item.QNTT_15 + 	item.QNTT_16 + 	item.QNTT_17 + 	item.QNTT_18 + 	item.QNTT_19 + 	item.QNTT_20 + 	item.QNTT_21 + 	item.QNTT_22 + 	item.QNTT_23 + 	item.QNTT_24 + 	item.QNTT_25 + 	item.QNTT_26 + 	item.QNTT_27 + 	item.QNTT_28 + 	item.QNTT_29 + 	item.QNTT_30 + 	item.QNTT_31 + 	item.QNTT_32 + 	item.QNTT_33 + 	item.QNTT_34 + 	item.QNTT_35 + 	item.QNTT_36 + 	item.QNTT_37 + 	item.QNTT_38 + 	item.QNTT_39 + 	item.QNTT_40 + 	item.QNTT_41 + 	item.QNTT_42 + 	item.QNTT_43 + 	item.QNTT_44 + 	item.QNTT_45 + 	item.QNTT_46 + 	item.QNTT_47 + 	item.QNTT_48 + 	item.QNTT_49 + 	item.QNTT_50
 
 	        	};
 
