@@ -176,6 +176,11 @@
         SBGridProperties.jsonref 			= 'jsonPatternList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
+        SBGridProperties.pastemode = 'mutiple';
+        SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+        SBGridProperties.selectcellfocus = true;
+        SBGridProperties.updatepastestatus = true;
         SBGridProperties.extendlastcol 		= 'scroll';
 
         if(columnList != null && columnList.length > 1) {
@@ -190,6 +195,7 @@
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('afterrefresh','fn_bandgvwInfoAfterRefresh');
+        bandgvwInfo.bind('afterpaste','fn_bandgvwInfoValueChanged');
         bandgvwInfo.bind('valuechanged','fn_bandgvwInfoValueChanged');
     }
 
