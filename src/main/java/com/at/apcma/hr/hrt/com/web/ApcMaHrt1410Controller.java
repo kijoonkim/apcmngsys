@@ -98,14 +98,18 @@ public class ApcMaHrt1410Controller extends BaseController {
                 if(key.contains("subData")) {
                     if(param.get(key) instanceof List) {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-                        listData.stream().forEach(d -> {
-                            try {
-                                d.put("procedure", 		"P_HRT1410_S1");
-                                apcMaCommDirectService.callProc(d, session, request, "");
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
+
+                        for(int i = 0; i < listData.size(); i++) {
+                            listData.get(i).put("procedure", 		"P_HRT1410_S1");
+                            listData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
+                            if(listData.get(i).get("resultStatus").equals("E")) {
+                                String errorCode = Optional.ofNullable(listData.get(i).get("v_errorCode")).orElse("").toString();
+                                String errorStr = Optional.ofNullable(listData.get(i).get("resultMessage")).orElse("").toString();
+
+                                return getErrorResponseEntity(errorCode, errorStr);
                             }
-                        });
+                        }
+
                         resultMap.put(key, listData);
                     }
                 }
@@ -134,21 +138,25 @@ public class ApcMaHrt1410Controller extends BaseController {
                 if(key.contains("subData")) {
                     if(param.get(key) instanceof List) {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-                        listData.stream().forEach(d -> {
-                            try {
-                                d.put("procedure", 		"P_HRT1410_S2");
-                                apcMaCommDirectService.callProc(d, session, request, "");
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
+
+                        for(int i = 0; i < listData.size(); i++) {
+                            listData.get(i).put("procedure", 		"P_HRT1410_S2");
+                            listData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
+                            if(listData.get(i).get("resultStatus").equals("E")) {
+                                String errorCode = Optional.ofNullable(listData.get(i).get("v_errorCode")).orElse("").toString();
+                                String errorStr = Optional.ofNullable(listData.get(i).get("resultMessage")).orElse("").toString();
+
+                                return getErrorResponseEntity(errorCode, errorStr);
                             }
-                        });
+                        }
+
                         resultMap.put(key, listData);
                     }
                 }
             }
-
             return getSuccessResponseEntity(resultMap);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
