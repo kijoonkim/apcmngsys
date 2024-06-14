@@ -478,14 +478,11 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
-            {caption: ["출근시각"],        ref: 'WORK_ON_HHMM', 		         type:'datepicker',  	width:'70px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["출근시각"],        ref: 'WORK_ON_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["퇴근시각"],        ref: 'WORK_OFF_HHMM', 		         type:'datepicker',  	width:'70px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["퇴근시각"],        ref: 'WORK_OFF_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["정상근무시작유형"], 		ref: 'NORMAL_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '89px',
@@ -495,10 +492,8 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
-            {caption: ["정상근무시작시각"],        ref: 'NORMAL_START_HHMM', 		         type:'datepicker',  	width:'91px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["정상근무시작시각"],        ref: 'NORMAL_START_HHMM', 		         type:'input',  	width:'91px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["정상근무종료유형"], 		ref: 'NORMAL_END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '94px',
@@ -508,10 +503,8 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
-            {caption: ["정상근무종료시각"],        ref: 'NORMAL_END_HHMM', 		         type:'datepicker',  	width:'89px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["정상근무종료시각"],        ref: 'NORMAL_END_HHMM', 		         type:'input',  	width:'89px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["공휴일여부"],         ref: 'HOLIDAY_YN',    type:'checkbox',  	width:'75px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
@@ -524,7 +517,6 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
             {caption: ["데이타소스"], 		ref: 'DATA_SOURCE',   	    type:'combo', style:'text-align:left' ,width: '120px',
                 typeinfo: {
@@ -533,7 +525,6 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
             {caption: ["교대조(원)"],       ref: 'SHIFT_CODE_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["정상근무시작유형(원)"],       ref: 'NORMAL_START_DAY_TYPE_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
@@ -868,6 +859,21 @@
     }
 
     const fn_save = async function() {
+        var nCol = gvwShift.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = gvwShift.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwShift.getRowData(nRow);
+
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
+        let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
         let updatedData = gvwShiftInfo.getUpdateData(true, 'all');
         let listDate = [];
 
@@ -881,9 +887,9 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_SITE_CODE : item.data.SITE_CODE,
-                    V_P_DEPT_CODE : item.data.DEPT_CODE,
-                    V_P_EMP_CODE : item.data.EMP_CODE,
+                    V_P_SITE_CODE : SITE_CODE,
+                    V_P_DEPT_CODE : DEPT_CODE,
+                    V_P_EMP_CODE : EMP_CODE,
                     V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == '' ? 0 : item.data.TXN_ID,
                     V_P_APPLY_START_DATE : '',
                     V_P_APPLY_END_DATE : '',
