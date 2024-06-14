@@ -85,14 +85,19 @@ function compopfileview2(type, fkey, comp_code, client_code) {
 	    
 	} else if(type=='pdf') {
 		
-		var htm = '<div id="pdfViewer"></div>';
+		var htm = '<div id="pdfViewer" style="width:100%;height:550px;"></div>';
 		$('#preview-div').html(htm);
 		
-		var url = '/com/getFileDown.do';
+		var url = '/com/getPdfFileDown.do';
 		url		+= '?fkey=' + fkey;
 		url		+= '&comp_code=' + comp_code;
 		url		+= '&client_code=' + client_code;
 		
+console.log('url:', url);
+
+// let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=800, top=0,left=0";
+// window.open(url,"_blank", options);
+
 	    pdfjsLib.getDocument(url).promise.then(function(pdf) {
 	        // Get the first page
 	        pdf.getPage(1).then(function(page) {

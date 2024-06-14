@@ -37,8 +37,8 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
-                    <sbux-button uitype="normal" text="파일첨부" class="btn btn-sm btn-outline-danger" onclick="fn_filemng"></sbux-button>
                 	<!-- 
+                    <sbux-button uitype="normal" text="파일첨부" class="btn btn-sm btn-outline-danger" onclick="cfn_attach"></sbux-button>
                     <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
                     <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
                 	 -->
@@ -422,7 +422,7 @@
     /**
      * 파일첨부
      */
-    var fn_filemng = function() {
+    var cfn_attach = function() {
     	
 		compopfilemng({
     		compCode		: gv_ma_selectedApcCd
@@ -433,7 +433,7 @@
    			,menuId			: p_menuId    		
 		});
     }
-    
+
     /**
      * 목록 조회
      */
