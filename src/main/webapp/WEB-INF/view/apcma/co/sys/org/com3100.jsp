@@ -420,18 +420,26 @@
     }    	
     
     /**
+     * 파일첨부시 필요 변수
+     */
+	var lgv_sourceType = 'HRITRIPEXPENSEHEADER';    // 화면(업무0마다 소스타입이 다르다.
+	var lgv_sourceCode = 'TR231201-001';     		// 소스코드는 신규 저장후 리턴되는 값을 지정하여야 한다.
+	
+    /**
      * 파일첨부
      */
     var cfn_attach = function() {
     	
-		compopfilemng({
-    		compCode		: gv_ma_selectedApcCd
-    		,clientCode		: gv_ma_selectedClntCd
-    		,sourceType		: 'HRITRIPEXPENSEHEADER'
-    		,sourceCode		: 'TR231201-001'
-   			,formID			: p_formId
-   			,menuId			: p_menuId    		
-		});
+    	if( (lgv_sourceType) && (lgv_sourceCode) ){
+			compopfilemng({
+	    		compCode		: gv_ma_selectedApcCd
+	    		,clientCode		: gv_ma_selectedClntCd
+	    		,sourceType		: lgv_sourceType
+	    		,sourceCode		: lgv_sourceCode
+	   			,formID			: p_formId
+	   			,menuId			: p_menuId    		
+			});
+    	}
     }
 
     /**

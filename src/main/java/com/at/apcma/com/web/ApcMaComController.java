@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -21,11 +24,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -382,7 +388,7 @@ public class ApcMaComController extends BaseController {
     } 
     
     @RequestMapping("/com/getPdfFileDown.do")
-    public void getPdfFileDown(
+    public ResponseEntity<byte[]> getPdfFileDown(
     		@RequestParam Map<String, Object> param
     		,HttpServletRequest request
     		,HttpServletResponse response
@@ -390,6 +396,9 @@ public class ApcMaComController extends BaseController {
     		,Model model) throws Exception {
     	
     	logger.debug("/com/getPdfFileDown started =======>" + param);
+    	
+        HttpHeaders headers = new HttpHeaders();
+    	byte[] pdfBytes 	= null;
     	
     	try {
     		//get ipAddress
@@ -431,42 +440,21 @@ public class ApcMaComController extends BaseController {
     		
     		if(filePath!=null && !filePath.equals("")) {
     			
-    			FileInputStream fis 		= null;
-    			BufferedOutputStream bos 	= null;
-    			try {
-        			File pdfFile  = new File(filePath);
-        			
-        			//클라이언트 브라우져에서 바로 보는 방법(헤더 변경)
-        			 response.setContentType("application/pdf");
+    	        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+    	        headers.add("Content-Disposition", "inline; filename=example.pdf");
 
-        			 //★ 이 구문이 있으면 [다운로드], 이 구문이 없다면 바로 target 지정된 곳에 view 해줍니다.
-        			 response.addHeader("Content-Disposition", "attachment; filename=" + orgfileName );
-
-        			 //파일 읽고 쓰는 건 일반적인 Write방식이랑 동일합니다. 다만 reponse 출력 스트림 객체에 write.
-        			 fis = new FileInputStream(pdfFile);
-        			 int size = fis.available(); //지정 파일에서 읽을 수 있는 바이트 수를 반환
-        			 byte[] buf = new byte[size]; //버퍼설정
-        			 int readCount = fis.read(buf);
-
-        			 response.flushBuffer();
-        			 bos = new BufferedOutputStream(response.getOutputStream());
-
-        			 bos.write(buf, 0, readCount);
-        			 bos.flush();
-				} catch (Exception e) {
-		    		logger.debug("", e);
-				} finally {
-					try {
-						if (fis != null) fis.close(); //close는 꼭! 반드시!
-						if (bos != null) bos.close();
-					} catch (IOException e) {
-						logger.debug("", e);
-					}
-				}
+    	        try {
+    	            Path path = Paths.get(filePath);
+    	            pdfBytes = Files.readAllBytes(path);
+    	        } catch (IOException e) {
+    	    		logger.debug("", e);
+    	            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    	        }
     		}
     	} catch (Exception e) {
     		logger.debug("", e);
     	}
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     } 
     
 }

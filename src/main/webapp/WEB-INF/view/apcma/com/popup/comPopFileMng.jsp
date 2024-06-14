@@ -52,10 +52,15 @@
 								<td class="td_input" >
 									<input uitype="text" class="form-control input-sm cu-inp-source-code" readonly="readonly" value="">								
 								</td>
+								<th scope="th_bg"></th>							
+								<td class="td_input" >
+								</td>
+								<!-- 
 								<th scope="th_bg">파일명</th>							
 								<td class="td_input" >
 									<input uitype="text" class="form-control input-sm cu-inp-file-name" value="">								
 								</td>
+								 -->
 							</tr>
 						</tbody>
 					</table>
@@ -111,7 +116,6 @@ function compopfilemng(options) {
 	var chkLimitFile 	= ['zip','exe','dll','sh'];	//파일 업로드 제한 확장자 ['exe','dll','sh']
 	var chkLimitSizeMB 	= 20;						//파일 업로드 제한 용량(MB,KB)
 	var chkExtension 	= ['pdf','jpg','png'];		//미리보기 가능 확장자
-	var isPdf			= false;					//input file tag 이벤트시 pdf파일 여부 check
 	
 	var settings = {
 		compCode				: null
@@ -221,24 +225,6 @@ function compopfilemng(options) {
 			var fileName 	= fileValue[fileValue.length-1];
    			//제목에 파일명 추가
 			$(this).closest('tr').find('td').eq(3).find('input').val(fileName);
-			//파일(업로드전) 미리보기 셋팅
-//    			if(isPreview(fileName)){
-//    				var tmp1 = '<a href="#" class="cu-file-up-preview" style="font-weight:bold;color:blue;text-decoration:underline">Y</a>';
-//    				$(this).closest('tr').find('td').eq(5).html(tmp1);
-//    				$(this).closest('tr').find('td').eq(5).find('a').click(function(e){
-//    		   	 		e.preventDefault();
-// 		   		   	// input file event 객체를 전달한다.   		   	 		
-//    		   	 		if(fileName.indexOf('.pdf') !== -1){
-//    		   	 			//pdf
-// 	   		   	 		compopfileview1('pdf', event);  
-//    		   	 		} else {
-//    		   	 			//image
-// 	   		   	 		compopfileview1('image', event);  
-//    		   	 		}
-//    		   		});		
-//    			} else {
-//    				$(this).closest('tr').find('td').eq(5).html('N');
-//    			}   			
    		});	
 	}
 	
@@ -391,10 +377,16 @@ function compopfilemng(options) {
 	   	 	var fileName	= $(this).closest('tr').find('.cu-filedn-link').text();
    	 		if(fileName.indexOf('.pdf') !== -1){
 	 	 		//pdf
-	   	 		compopfileview2('pdf', fkey, comp_code, client_code);  
+	   			var url = '/com/getPdfFileDown.do';
+	   			url		+= '?fkey=' + fkey;
+	   			url		+= '&comp_code=' + comp_code;
+	   			url		+= '&client_code=' + client_code;
+			   	console.log('url:', url);
+			   	let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=800, top=0,left=0";
+			   	window.open(url,"_blank", options);	 	 		
   	 		} else {
   	 			//image
-	   	 		compopfileview2('image', fkey, comp_code, client_code); 
+	   	 		compopfileview2(fkey, comp_code, client_code); 
   	 		}	   	 		
    		});
    		//-------------------------------------------
@@ -522,7 +514,8 @@ function compopfilemng(options) {
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }		
-		
+	
+	 	SBUxMethod.closeModal(modalDivId);
 	}    
     
 	//저장 event
