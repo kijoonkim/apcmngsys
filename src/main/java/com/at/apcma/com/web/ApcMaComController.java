@@ -1,8 +1,10 @@
 package com.at.apcma.com.web;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -373,6 +375,94 @@ public class ApcMaComController extends BaseController {
     	        FileCopyUtils.copy(fis, os);
     	        fis.close();
     	        os.close();
+    		}
+    	} catch (Exception e) {
+    		logger.debug("", e);
+    	}
+    } 
+    
+    @RequestMapping("/com/getPdfFileDown.do")
+    public void getPdfFileDown(
+    		@RequestParam Map<String, Object> param
+    		,HttpServletRequest request
+    		,HttpServletResponse response
+    		,HttpSession session
+    		,Model model) throws Exception {
+    	
+    	logger.debug("/com/getPdfFileDown started =======>" + param);
+    	
+    	try {
+    		//get ipAddress
+    		String ipAddress = request.getHeader("X-Forwarded-For");
+    		if (ipAddress == null) {
+    			ipAddress = request.getRemoteAddr();
+    		}
+    		
+    		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
+    		
+    		//get delete key ---------------------------------------------------------
+    		Map<String, Object> gmap4 = new HashMap<String, Object>();
+    		gmap4.put("procedure", 			"P_COM5100_Q");
+    		gmap4.put("workType", 			"Q1");
+    		gmap4.put("getType", 			"json");
+    		gmap4.put("cv_count", 			"1");
+    		
+    		String palist2[][] = {
+    				{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
+    				{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
+    				{"V_P_COMP_CODE",			param.get("comp_code").toString()},
+    				{"V_P_CLIENT_CODE",			param.get("client_code").toString()},
+    				{"V_P_FILE_NAME",			""},
+    				{"V_P_SOURCE_TYPE",			""},
+    				{"V_P_SOURCE_CODE",			param.get("fkey").toString()},
+    				{"V_P_USER",				""},
+    				{"V_P_FORM_ID",				""},
+    				{"V_P_MENU_ID",				""},
+    				{"V_P_PROC_ID",				"P_COM5100_Q"},
+    				{"V_P_USERID",				ssmap.get("USERID").toString()},
+    				{"V_P_PC",					ipAddress}
+    		};			
+    		Map<String, Object> map3 = apcMaCommDirectService.InnerCallProc2(gmap4, palist2); 
+    		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
+    		Map<String, Object> map4 = clist.get(0);			
+    		//-------------------------------------------------------------------------
+    		String filePath 	= map4.get("FILE_SERVER_PATH").toString();
+    		String orgfileName 	= map4.get("FILE_NAME").toString();
+    		
+    		if(filePath!=null && !filePath.equals("")) {
+    			
+    			FileInputStream fis 		= null;
+    			BufferedOutputStream bos 	= null;
+    			try {
+        			File pdfFile  = new File(filePath);
+        			
+        			//클라이언트 브라우져에서 바로 보는 방법(헤더 변경)
+        			 response.setContentType("application/pdf");
+
+        			 //★ 이 구문이 있으면 [다운로드], 이 구문이 없다면 바로 target 지정된 곳에 view 해줍니다.
+        			 response.addHeader("Content-Disposition", "attachment; filename=" + orgfileName );
+
+        			 //파일 읽고 쓰는 건 일반적인 Write방식이랑 동일합니다. 다만 reponse 출력 스트림 객체에 write.
+        			 fis = new FileInputStream(pdfFile);
+        			 int size = fis.available(); //지정 파일에서 읽을 수 있는 바이트 수를 반환
+        			 byte[] buf = new byte[size]; //버퍼설정
+        			 int readCount = fis.read(buf);
+
+        			 response.flushBuffer();
+        			 bos = new BufferedOutputStream(response.getOutputStream());
+
+        			 bos.write(buf, 0, readCount);
+        			 bos.flush();
+				} catch (Exception e) {
+		    		logger.debug("", e);
+				} finally {
+					try {
+						if (fis != null) fis.close(); //close는 꼭! 반드시!
+						if (bos != null) bos.close();
+					} catch (IOException e) {
+						logger.debug("", e);
+					}
+				}
     		}
     	} catch (Exception e) {
     		logger.debug("", e);
