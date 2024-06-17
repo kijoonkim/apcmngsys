@@ -1444,5 +1444,84 @@
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
 		</if>
 	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectMblRawMtrWrhsList-->
+	<!-- DESC : 모바일 입고실적 목록 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.13  	윤필호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectMblRawMtrWrhsList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO">
+		<![CDATA[
+    		SELECT
+		]]>
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+				  ROWNUM AS ROW_SEQ
+				  , COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				  ,
+		</if>
+		<!-- End 페이징 -->
+		<![CDATA[
+				  pt0.*
+    		      , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+    		  FROM (
+					SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper.selectMblRawMtrWrhsList */
+						   WP.WRHS_YMD          AS WRHS_YMD
+						 , INV.VRTY_CD          AS VRTY_CD
+						 , WP.BX_QNTT           AS BX_QNTT
+						 , INV.ITEM_CD          AS ITEM_CD
+						 , WP.APC_CD            AS APC_CD
+						 , CASE WHEN VC.SORT_INPT_VL_TYPE = 'QNTT' THEN '' ELSE WP.WRHS_WGHT END AS WRHS_WGHT
 
+					  FROM
+						   TB_RAW_MTR_WRHS_PRFMNC WP
+						 , TB_RAW_MTR_INVNTR INV
+						 , TB_APC_VRTY_CRTR VC
+
+					 WHERE WP.APC_CD = INV.APC_CD
+					   AND WP.WRHSNO = INV.WRHSNO
+					   AND INV.APC_CD = VC.APC_CD
+					   AND INV.ITEM_CD = VC.ITEM_CD
+					   AND INV.VRTY_CD = VC.VRTY_CD
+					   AND WP.DEL_YN = 'N'
+					   AND INV.DEL_YN = 'N'
+					   AND VC.DEL_YN = 'N'
+		]]>
+		           <if test='apcCd != null and apcCd != ""'>
+					   AND WP.APC_CD = #{apcCd}
+				   </if>
+				   <if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+				   	   AND WP.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+				   </if>
+				   <if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+				   	   AND WP.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+				   </if>
+				   <if test='prdcrCd != null and prdcrCd != ""'>
+				       <choose>
+						   <when test='prdcrGroupYn != null and prdcrGroupYn != "" and prdcrGroupYn =="Y"'>
+							   AND WP.PRDCR_CD IN (SELECT COL1 FROM TABLE(FN_SYS_SPLIT_STRING(#{prdcrCd})))
+						   </when>
+					       <otherwise>
+							   AND WP.PRDCR_CD = #{prdcrCd}
+						   </otherwise>
+					   </choose>
+				   </if>
+				   <if test='prdcrNm != null and prdcrNm != ""'>
+					   AND (SELECT FN_GET_PRDCR_NM(WP.PRDCR_CD, WP.APC_CD) FROM DUAL) = #{prdcrNm}
+				   </if>
+
+				   <![CDATA[
+					   ORDER BY WP.APC_CD, WRHS_YMD, WP.WRHSNO DESC
+					   ) pt0
+				   ]]>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+		<!-- End 페이징 -->
+	</select>
 </mapper>

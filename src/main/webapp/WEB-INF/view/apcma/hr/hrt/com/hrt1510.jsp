@@ -28,6 +28,193 @@
 </head>
 <body oncontextmenu="return false">
 <section>
+    <div class="box box-solid">
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
+            <div>
+                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+                </h3>
+            </div>
+            <div style="margin-left: auto;">
+                <sbux-button id="btnUnconfirm" name="btnUnconfirm" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_unconfirm"></sbux-button>
+                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
+                <sbux-button id="btnApply" name="btnApply" uitype="normal" text="교대조 정보 생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_apply"></sbux-button>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
+            <table class="table table-bordered tbl_fixed">
+                <caption>검색 조건 설정</caption>
+                <colgroup>
+                    <col style="width: 11%">
+                    <col style="width: 11%">
+                    <col style="width: 1%">
+                    <col style="width: 11%">
+                    <col style="width: 11%">
+                    <col style="width: 11%">
+                    <col style="width: 11%">
+                    <col style="width: 11%">
+                    <col style="width: 11%">
+                    <col style="width: 11%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg">사업장</th>
+                    <td colspan="3" class="td_input">
+                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <th scope="row" class="th_bg">재직구분</th>
+                    <td class="td_input">
+                        <sbux-select id="SRCH_EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <td colspan="2"></td>
+                    <th scope="row" class="th_bg">근태관리</th>
+                    <td class="td_input">
+                        <sbux-select id="SRCH_WORK_TIME_YN" uitype="single" jsondata-ref="jsonWorkTimeYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">년월</th>
+                    <td class="td_input">
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_PERIOD_YYYYMM"
+                                name="SRCH_PERIOD_YYYYMM"
+                                date-format="yyyy-mm"
+                                datepicker-mode="month"
+                                class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                style="width:100%;"
+                        />
+                    </td>
+                    <td colspan="2"></td>
+                    <th scope="row" class="th_bg">부서</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findSrchDeptCode"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg">직종</th>
+                    <td class="td_input">
+                        <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">적용기간</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_APPLY_START_DATE"
+                                name="SRCH_APPLY_START_DATE"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                style="width:100%;"
+                        />
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <span> ~ </span>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_APPLY_END_DATE"
+                                name="SRCH_APPLY_END_DATE"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                style="width:100%;"
+                        />
+                    </td>
+                    <th scope="row" class="th_bg">사원</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findEmpCode"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg">
+                        <sbux-checkbox
+                                uitype="normal"
+                                id="SRCH_MULTI_YN"
+                                name="SRCH_MULTI_YN"
+                                uitype="normal"
+                                class="form-control input-sm"
+                                text="복수선택"
+                        />
+                    </th>
+                    <td class="td_input">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="복수선택" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_multiSelect"
+                        ></sbux-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="ad_tbl_top">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>사원리스트</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-responsive tbl_scroll_sm">
+                        <div id="sb-area-gvwShift" style="height:725px;"></div>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="ad_tbl_top">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>사원별 교대조 기본정보이력</span>
+                            </li>
+                        </ul>
+                        <div class="ad_tbl_toplist">
+                            <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
+                            <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow"></sbux-button>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="sb-area-gvwShiftInfo" style="height:480px;"></div>
+                    </div>
+
+                    <div class="ad_tbl_top2">
+                        <ul class="ad_tbl_count">
+                            <li>
+                                <span>근무일정 설정 체크리스트</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-responsive tbl_scroll_sm">
+                        <div id="sb-area-gvwCheck" style="height:200px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <!-- 팝업 Modal -->
 <div>
@@ -45,5 +232,963 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     //-----------------------------------------------------------
+
+    var jsonShiftCode = []; // 교대조
+    var jsonWorkPatternCode = []; // 근무패턴
+    var jsonPositionCode = []; // 직위
+    var jsonDutyCode = []; // 직책
+    var jsonJobRank = []; // 직급
+    var jsonEmpState = []; // 재직상태
+    var jsonDataSource = []; // 데이터 소스
+    var jsonShiftType = []; // 교대조구분
+    var jsonStartEndDayType = []; // 시작/종료일자유형
+    var jsonSiteCode = []; // 사업장
+    var jsonSrchJobGroup = []; // 직종
+    var jsonWorkTimeYn = []; // 근태관리 여부
+
+    //grid 초기화
+    var gvwShift; 			// 그리드를 담기위한 객체 선언
+    var gvwShiftInfo;
+    var gvwCheck;
+
+    var jsonEmpList = []; 	// 그리드의 참조 데이터 주소 선언
+    var jsonShiftInfoList = [];
+    var jsonCheckList = [];
+
+    const fn_initSBSelect = async function() {
+        SBUxMethod.set("SRCH_PERIOD_YYYYMM", gfn_dateToYm(new Date()));
+        SBUxMethod.set("SRCH_APPLY_START_DATE", gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_APPLY_END_DATE", gfn_dateLastYmd(new Date()));
+
+        let rst = await Promise.all([
+            // 교대조
+            gfnma_setComSelect(['gvwShift', 'gvwShiftInfo'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
+            // 근무패턴
+            gfnma_setComSelect(['gvwShift', 'gvwShiftInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 직위
+            gfnma_setComSelect(['gvwShift'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 직책
+            gfnma_setComSelect(['gvwShift'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 직급
+            gfnma_setComSelect(['gvwShift'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 재직상태
+            gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwShift'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 데이터 소스
+            gfnma_setComSelect(['gvwShiftInfo'], jsonDataSource, 'L_HRT027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 교대조구분
+            gfnma_setComSelect(['gvwShiftInfo'], jsonShiftType, 'L_HRT034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 시작/종료일자유형
+            gfnma_setComSelect(['gvwShiftInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 사업장
+            gfnma_setComSelect(['SRCH_SITE_CODE', 'gvwCheck'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            // 직종
+            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonSrchJobGroup, 'L_HRI047_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 근태관리 여부
+            gfnma_setComSelect(['SRCH_WORK_TIME_YN'], jsonWorkTimeYn, 'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        ]);
+    }
+
+    var fn_findSrchDeptCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findEmpCode = function() {
+        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var replaceText0 = "_EMP_CODE";
+        var replaceText1 = "_EMP_NAME";
+        var replaceText2 = "_DEPT_CODE";
+        var replaceText3 = "_DEPT_NAME";
+        var replaceText4 = "_EMP_STATE";
+        var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
+            + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        compopup1({
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_HRI001'
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
+            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , height: '400px'
+            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
+            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
+            , itemSelectEvent: function (data) {
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+            },
+        });
+
+    }
+
+    const fn_multiSelect = function() {
+        // TODO : 팝업 확인 필요
+    }
+
+    function fn_createGvwShiftGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwShift';
+        SBGridProperties.id 				= 'gvwShift';
+        SBGridProperties.jsonref 			= 'jsonEmpList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["부서"],         ref: 'DEPT_CODE',    type:'output',  	width:'85px',  style:'text-align:left'},
+            {caption: ["사번"],         ref: 'EMP_CODE',    type:'output',  	width:'70px',  style:'text-align:left'},
+            {caption: ["이름"],         ref: 'EMP_NAME',    type:'output',  	width:'92px',  style:'text-align:left'},
+            {caption: ["생산건수"],         ref: 'CREATE_CNT',    type:'output',  	width:'65px',  style:'text-align:left'},
+            {caption: ["확정건수"],         ref: 'CONFIRM_CNT',    type:'output',  	width:'58px',  style:'text-align:left'},
+            {caption: ["직위"], 		ref: 'POSITION_CODE',   	    type:'combo', style:'text-align:left' ,width: '82px',
+                typeinfo: {
+                    ref			: 'jsonPositionCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["교대조"], 		ref: 'SHIFT_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
+                typeinfo: {
+                    ref			: 'jsonShiftCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["근무패턴"], 		ref: 'WORK_PATTERN_CODE',   	    type:'combo', style:'text-align:left' ,width: '140px',
+                typeinfo: {
+                    ref			: 'jsonWorkPatternCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["부서명"],         ref: 'DEPT_NAME',    type:'output',  	width:'119px',  style:'text-align:left'},
+            {caption: ["근태관리"],         ref: 'WORK_TIME_YN',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["입사일"],        ref: 'ENTER_DATE', 		         type:'datepicker',  	width:'88px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["부서시작일"],        ref: 'DEPT_START_DATE', 		         type:'datepicker',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["부서종료일"],        ref: 'DEPT_END_DATE', 		         type:'datepicker',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["퇴사일"],        ref: 'RETIRE_DATE', 		         type:'datepicker',  	width:'91px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["재직상태"], 		ref: 'EMP_STATE',   	    type:'combo', style:'text-align:left' ,width: '82px',
+                typeinfo: {
+                    ref			: 'jsonEmpState',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["직책"], 		ref: 'DUTY_CODE',   	    type:'combo', style:'text-align:left' ,width: '82px',
+                typeinfo: {
+                    ref			: 'jsonDutyCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["직급"], 		ref: 'JOB_RANK',   	    type:'combo', style:'text-align:left' ,width: '79px',
+                typeinfo: {
+                    ref			: 'jsonJobRank',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+        ];
+
+        gvwShift = _SBGrid.create(SBGridProperties);
+        gvwShift.bind('click', 'fn_view');
+    }
+
+    function fn_createGvwShiftInfoGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwShiftInfo';
+        SBGridProperties.id 				= 'gvwShiftInfo';
+        SBGridProperties.jsonref 			= 'jsonShiftInfoList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["확정여부"],         ref: 'CONFIRM_FLAG',    type:'checkbox',  	width:'75px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["일자"],        ref: 'YYYYMMDD', 		         type:'datepicker',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["근무패턴"], 		ref: 'WORK_PATTERN_CODE',   	    type:'combo', style:'text-align:left' ,width: '140px',
+                typeinfo: {
+                    ref			: 'jsonWorkPatternCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["교대조"], 		ref: 'SHIFT_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
+                typeinfo: {
+                    ref			: 'jsonShiftCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["출근시각"],        ref: 'WORK_ON_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
+                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
+            },
+            {caption: ["퇴근시각"],        ref: 'WORK_OFF_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
+                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
+            },
+            {caption: ["정상근무시작유형"], 		ref: 'NORMAL_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '89px',
+                typeinfo: {
+                    ref			: 'jsonStartEndDayType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["정상근무시작시각"],        ref: 'NORMAL_START_HHMM', 		         type:'input',  	width:'91px',  	style:'text-align:left',
+                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
+            },
+            {caption: ["정상근무종료유형"], 		ref: 'NORMAL_END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '94px',
+                typeinfo: {
+                    ref			: 'jsonStartEndDayType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["정상근무종료시각"],        ref: 'NORMAL_END_HHMM', 		         type:'input',  	width:'89px',  	style:'text-align:left',
+                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
+            },
+            {caption: ["공휴일여부"],         ref: 'HOLIDAY_YN',    type:'checkbox',  	width:'75px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["명절여부"],         ref: 'HOLIDAY2_YN',    type:'checkbox',  	width:'75px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["휴게적용여부"],         ref: 'BREAK_APPLY_YN',    type:'checkbox',  	width:'91px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["교대조구분"], 		ref: 'SHIFT_TYPE',   	    type:'combo', style:'text-align:left' ,width: '91px',
+                typeinfo: {
+                    ref			: 'jsonShiftType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["데이타소스"], 		ref: 'DATA_SOURCE',   	    type:'combo', style:'text-align:left' ,width: '120px',
+                typeinfo: {
+                    ref			: 'jsonDataSource',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["교대조(원)"],       ref: 'SHIFT_CODE_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["정상근무시작유형(원)"],       ref: 'NORMAL_START_DAY_TYPE_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["정상근무시작시각(원)"],       ref: 'NORMAL_START_HHMM_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["정상근무종료유형(원)"],       ref: 'NORMAL_END_DAY_TYPE_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["정상근무종료시각(원)"],       ref: 'NORMAL_END_HHMM_OIRG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["휴게적용여부(원)"],       ref: 'BREAK_APPLY_YN_OIRG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+        ];
+
+        gvwShiftInfo = _SBGrid.create(SBGridProperties);
+    }
+
+    function fn_createGvwCheckGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwCheck';
+        SBGridProperties.id 				= 'gvwCheck';
+        SBGridProperties.jsonref 			= 'jsonCheckList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+                typeinfo: {
+                    ref			: 'jsonSiteCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["부서"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["부서명"],         ref: 'DEPT_NAME',    type:'output',  	width:'128px',  style:'text-align:left'},
+            {caption: ["사번"],         ref: 'EMP_CODE',    type:'output',  	width:'82px',  style:'text-align:left'},
+            {caption: ["사원명"],         ref: 'EMP_NAME',    type:'output',  	width:'120px',  style:'text-align:left'},
+            {caption: ["근태관리여부"],         ref: 'WORK_TIME_YN',    type:'checkbox',  	width:'96px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}, disabled: true},
+            {caption: ["일자"],        ref: 'YYYYMMDD', 		         type:'datepicker',  	width:'101px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["근무패턴코드"],         ref: 'WORK_PATTERN_CODE',    type:'output',  	width:'110px',  style:'text-align:left'},
+            {caption: ["체크유형"],         ref: 'CHECK_TYPE',    type:'output',  	width:'110px',  style:'text-align:left'},
+            {caption: ["설정가이드"],         ref: 'SETUP_GUIDE',    type:'output',  	width:'445px',  style:'text-align:left'},
+            {caption: ["법인"],         ref: 'COMP_CODE',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
+        ];
+
+        gvwCheck = _SBGrid.create(SBGridProperties);
+    }
+
+    window.addEventListener('DOMContentLoaded', function(e) {
+        fn_initSBSelect();
+        fn_createGvwShiftGrid();
+        fn_createGvwShiftInfoGrid();
+        fn_createGvwCheckGrid();
+        fn_search();
+    });
+
+    // 행추가
+    const fn_addRow = async function () {
+        let rowVal = gvwShiftInfo.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            gvwShiftInfo.addRow(true);
+        }else{
+            gvwShiftInfo.insertRow(rowVal);
+        }
+    }
+
+    // 행삭제
+    const fn_deleteRow = async function () {
+        let rowVal = gvwShiftInfo.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwShiftInfo.deleteRow(rowVal);
+        }
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+
+    const fn_search = async function() {
+        let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
+        let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        let EMP_CODE_D = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE_D"));
+        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let WORK_TIME_YN = gfnma_nvl(SBUxMethod.get("SRCH_WORK_TIME_YN"));
+        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYYMMDD_FR : YYYYMMDD_FR,
+            V_P_YYYYMMDD_TO : YYYYMMDD_TO,
+            V_P_SITE_CODE : SITE_CODE,
+            V_P_DEPT_CODE : DEPT_CODE,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_EMP_CODE_D : EMP_CODE_D,
+            V_P_EMP_STATE : EMP_STATE,
+            V_P_LOGIN_DEPT_CODE : '',
+            V_P_HR_MANAGER_YN : '',
+            V_P_WORK_TIME_YN : WORK_TIME_YN,
+            V_P_JOB_GROUP : JOB_GROUP,
+            V_P_SHIFT_CODE : '',
+            V_P_WORK_PATTERN_CODE : '',
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        console.log(paramObj)
+
+        const postJsonPromiseForList = gfn_postJSON("/hr/hrt/com/selectHrt1510List.do", {
+            getType				: 'json',
+            workType			: 'Q',
+            cv_count			: '8',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const postJsonPromiseForCheck = gfn_postJSON("/hr/hrt/com/selectHrt1510List.do", {
+            getType				: 'json',
+            workType			: 'CHECK',
+            cv_count			: '8',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                jsonEmpList.length = 0;
+                listData.cv_1.forEach((item, index) => {
+                    const msg = {
+                        CHK_YN : item.CHK_YN,
+                        DEPT_NAME : item.DEPT_NAME,
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_NAME : item.EMP_NAME,
+                        POSITION_CODE : item.POSITION_CODE,
+                        DUTY_CODE : item.DUTY_CODE,
+                        JOB_RANK : item.JOB_RANK,
+                        SITE_CODE : item.SITE_CODE,
+                        DEPT_CODE : item.DEPT_CODE,
+                        ENTER_DATE : item.ENTER_DATE,
+                        RETIRE_DATE : item.RETIRE_DATE,
+                        DEPT_START_DATE : item.DEPT_START_DATE,
+                        DEPT_END_DATE : item.DEPT_END_DATE,
+                        EMP_STATE : item.EMP_STATE,
+                        SORT_SEQ : item.SORT_SEQ,
+                        SORT_SEQ2 : item.SORT_SEQ2,
+                        WORK_TIME_YN : item.WORK_TIME_YN,
+                        CREATE_CNT : item.CREATE_CNT,
+                        CONFIRM_CNT : item.CONFIRM_CNT,
+                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE
+                    }
+
+                    jsonEmpList.push(msg);
+                });
+
+                gvwShift.rebuild();
+            } else {
+                alert(listData.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        const checkData = await postJsonPromiseForCheck;
+        console.log('data:', checkData);
+        try {
+            if (_.isEqual("S", checkData.resultStatus)) {
+
+                jsonCheckList.length = 0;
+                checkData.cv_8.forEach((item, index) => {
+                    const msg = {
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_NAME : item.EMP_NAME,
+                        SITE_CODE : item.SITE_CODE,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        POSITION_CODE : item.POSITION_CODE,
+                        DUTY_CODE : item.DUTY_CODE,
+                        JOB_RANK : item.JOB_RANK,
+                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        YYYYMMDD : item.YYYYMMDD,
+                        SHIFT_CODE : item.SHIFT_CODE,
+                        WORK_TIME_YN : item.WORK_TIME_YN,
+                        CHECK_TYPE : item.CHECK_TYPE,
+                        SETUP_GUIDE : item.SETUP_GUIDE,
+                        SORT_SEQ : item.SORT_SEQ
+                    }
+                    jsonCheckList.push(msg);
+                });
+
+                gvwCheck.rebuild();
+            } else {
+                alert(checkData.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_view = async function() {
+        var nCol = gvwShift.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = gvwShift.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwShift.getRowData(nRow);
+
+        let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
+        let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
+        let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
+        let EMP_CODE_D = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE_D"));
+        let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+        let WORK_TIME_YN = gfnma_nvl(SBUxMethod.get("SRCH_WORK_TIME_YN"));
+        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYYMMDD_FR : YYYYMMDD_FR,
+            V_P_YYYYMMDD_TO : YYYYMMDD_TO,
+            V_P_SITE_CODE : SITE_CODE,
+            V_P_DEPT_CODE : DEPT_CODE,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_EMP_CODE_D : EMP_CODE_D,
+            V_P_EMP_STATE : EMP_STATE,
+            V_P_LOGIN_DEPT_CODE : '',
+            V_P_HR_MANAGER_YN : '',
+            V_P_WORK_TIME_YN : WORK_TIME_YN,
+            V_P_JOB_GROUP : JOB_GROUP,
+            V_P_SHIFT_CODE : '',
+            V_P_WORK_PATTERN_CODE : '',
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        console.log(paramObj)
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/selectHrt1510List.do", {
+            getType				: 'json',
+            workType			: 'HISTORY',
+            cv_count			: '8',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                jsonShiftInfoList.length = 0;
+                data.cv_2.forEach((item, index) => {
+                    const msg = {
+                        YYYYMMDD : item.YYYYMMDD,
+                        SHIFT_CODE : item.SHIFT_CODE,
+                        DEPT_CODE : item.DEPT_CODE,
+                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        WORK_ON_HHMM : item.WORK_ON_HHMM,
+                        WORK_OFF_HHMM : item.WORK_OFF_HHMM,
+                        NORMAL_START_DAY_TYPE : item.NORMAL_START_DAY_TYPE,
+                        NORMAL_START_HHMM : item.NORMAL_START_HHMM,
+                        NORMAL_END_DAY_TYPE : item.NORMAL_END_DAY_TYPE,
+                        NORMAL_END_HHMM : item.NORMAL_END_HHMM,
+                        BREAK_APPLY_YN : item.BREAK_APPLY_YN,
+                        NORMAL_START_DAY_TYPE_ORIG : item.NORMAL_START_DAY_TYPE_ORIG,
+                        NORMAL_START_HHMM_ORIG : item.NORMAL_START_HHMM_ORIG,
+                        NORMAL_END_DAY_TYPE_ORIG : item.NORMAL_END_DAY_TYPE_ORIG,
+                        NORMAL_END_HHMM_ORIG : item.NORMAL_END_HHMM_ORIG,
+                        BREAK_APPLY_YN_ORIG : item.BREAK_APPLY_YN_ORIG,
+                        DATA_SOURCE : item.DATA_SOURCE,
+                        CONFIRM_FLAG : item.CONFIRM_FLAG,
+                        TXN_ID : item.TXN_ID,
+                        HOLIDAY_YN : item.HOLIDAY_YN,
+                        HOLIDAY2_YN : item.HOLIDAY2_YN,
+                        SHIFT_TYPE : item.SHIFT_TYPE
+                    }
+
+                    jsonShiftInfoList.push(msg);
+                });
+
+                gvwShiftInfo.rebuild();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_save = async function() {
+        var nCol = gvwShift.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = gvwShift.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwShift.getRowData(nRow);
+
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
+        let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
+        let updatedData = gvwShiftInfo.getUpdateData(true, 'all');
+        let listDate = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_SITE_CODE : SITE_CODE,
+                    V_P_DEPT_CODE : DEPT_CODE,
+                    V_P_EMP_CODE : EMP_CODE,
+                    V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == '' ? 0 : item.data.TXN_ID,
+                    V_P_APPLY_START_DATE : '',
+                    V_P_APPLY_END_DATE : '',
+                    V_P_YYYYMMDD : item.data.YYYYMMDD,
+                    V_P_SHIFT_CODE : item.data.SHIFT_CODE,
+                    V_P_WORK_PATTERN_CODE : item.data.WORK_PATTERN_CODE,
+                    V_P_SHIFT_TYPE : item.data.SHIFT_TYPE,
+                    V_P_CONFIRM_FLAG : item.data.CONFIRM_FLAG,
+                    V_P_DATA_SOURCE : item.data.DATA_SOURCE,
+                    V_P_HOLIDAY_YN : item.data.HOLIDAY_YN,
+                    V_P_HOLIDAY2_YN : item.data.HOLIDAY2_YN,
+                    V_P_EMP_CODE_D : '',
+                    V_P_NORMAL_START_DAY_TYPE : item.data.NORMAL_START_DAY_TYPE,
+                    V_P_NORMAL_START_HHMM : item.data.NORMAL_START_HHMM,
+                    V_P_NORMAL_END_DAY_TYPE : item.data.NORMAL_END_DAY_TYPE,
+                    V_P_NORMAL_END_HHMM : item.data.NORMAL_END_HHMM,
+                    V_P_BREAK_APPLY_YN : item.data.BREAK_APPLY_YN,
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            listDate.push(param);
+        });
+
+        if(listDate.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if(data.resultMessage){
+                        alert(data.resultMessage);
+                    }
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const fn_apply = async function() {
+        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
+        let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+
+        let grdRows = gvwShift.getCheckedRows(0, true);
+        let EMP_CODE_D = "";
+
+        if (grdRows.legnth == 0) {
+            gfn_comAlert("좌측 목록에서 인원을 선택하십시요");
+            return false;
+        }
+
+        grdRows.forEach((item, index) => {
+            EMP_CODE_D += gvwShift.getRowData(item).EMP_CODE + "|"
+        });
+
+        if (EMP_CODE_D.length > 0) {
+            EMP_CODE_D = EMP_CODE_D.substring(0, EMP_CODE_D.length - 1);
+        }
+
+        let listDate = [{
+            cv_count : '0',
+            getType : 'json',
+            workType : 'APPLY',
+            params: gfnma_objectToString({
+                V_P_DEBUG_MODE_YN : '',
+                V_P_LANG_ID	: '',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_SITE_CODE : SITE_CODE,
+                V_P_DEPT_CODE : DEPT_CODE,
+                V_P_EMP_CODE : EMP_CODE,
+                V_P_TXN_ID : 0,
+                V_P_APPLY_START_DATE : APPLY_START_DATE,
+                V_P_APPLY_END_DATE : APPLY_END_DATE,
+                V_P_YYYYMMDD : '',
+                V_P_SHIFT_CODE : '',
+                V_P_WORK_PATTERN_CODE : '',
+                V_P_SHIFT_TYPE : '',
+                V_P_CONFIRM_FLAG : '',
+                V_P_DATA_SOURCE : '1',
+                V_P_HOLIDAY_YN : '',
+                V_P_HOLIDAY2_YN : '',
+                V_P_EMP_CODE_D : EMP_CODE_D,
+                V_P_NORMAL_START_DAY_TYPE : '',
+                V_P_NORMAL_START_HHMM : '',
+                V_P_NORMAL_END_DAY_TYPE : '',
+                V_P_NORMAL_END_HHMM : '',
+                V_P_BREAK_APPLY_YN : '',
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            })
+        }];
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
+                fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_confirm = async function() {
+        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
+        let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+
+        let grdRows = gvwShift.getCheckedRows(0, true);
+        let EMP_CODE_D = "";
+
+        if (grdRows.legnth == 0) {
+            gfn_comAlert("좌측 목록에서 인원을 선택하십시요");
+            return false;
+        }
+
+        grdRows.forEach((item, index) => {
+            EMP_CODE_D += gvwShift.getRowData(item).EMP_CODE + "|"
+        });
+
+        if (EMP_CODE_D.length > 0) {
+            EMP_CODE_D = EMP_CODE_D.substring(0, EMP_CODE_D.length - 1);
+        }
+
+        let listDate = [{
+            cv_count : '0',
+            getType : 'json',
+            workType : 'CONFIRM',
+            params: gfnma_objectToString({
+                V_P_DEBUG_MODE_YN : '',
+                V_P_LANG_ID	: '',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_SITE_CODE : SITE_CODE,
+                V_P_DEPT_CODE : DEPT_CODE,
+                V_P_EMP_CODE : EMP_CODE,
+                V_P_TXN_ID : 0,
+                V_P_APPLY_START_DATE : APPLY_START_DATE,
+                V_P_APPLY_END_DATE : APPLY_END_DATE,
+                V_P_YYYYMMDD : '',
+                V_P_SHIFT_CODE : '',
+                V_P_WORK_PATTERN_CODE : '',
+                V_P_SHIFT_TYPE : '',
+                V_P_CONFIRM_FLAG : '',
+                V_P_DATA_SOURCE : '1',
+                V_P_HOLIDAY_YN : '',
+                V_P_HOLIDAY2_YN : '',
+                V_P_EMP_CODE_D : EMP_CODE_D,
+                V_P_NORMAL_START_DAY_TYPE : '',
+                V_P_NORMAL_START_HHMM : '',
+                V_P_NORMAL_END_DAY_TYPE : '',
+                V_P_NORMAL_END_HHMM : '',
+                V_P_BREAK_APPLY_YN : '',
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            })
+        }];
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
+                fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_unconfirm = async function() {
+        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
+        let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+
+        let grdRows = gvwShift.getCheckedRows(0, true);
+        let EMP_CODE_D = "";
+
+        if (grdRows.legnth == 0) {
+            gfn_comAlert("좌측 목록에서 인원을 선택하십시요");
+            return false;
+        }
+
+        grdRows.forEach((item, index) => {
+            EMP_CODE_D += gvwShift.getRowData(item).EMP_CODE + "|"
+        });
+
+        if (EMP_CODE_D.length > 0) {
+            EMP_CODE_D = EMP_CODE_D.substring(0, EMP_CODE_D.length - 1);
+        }
+
+        let listDate = [{
+            cv_count : '0',
+            getType : 'json',
+            workType : 'UNCONFIRM',
+            params: gfnma_objectToString({
+                V_P_DEBUG_MODE_YN : '',
+                V_P_LANG_ID	: '',
+                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_SITE_CODE : SITE_CODE,
+                V_P_DEPT_CODE : DEPT_CODE,
+                V_P_EMP_CODE : EMP_CODE,
+                V_P_TXN_ID : 0,
+                V_P_APPLY_START_DATE : APPLY_START_DATE,
+                V_P_APPLY_END_DATE : APPLY_END_DATE,
+                V_P_YYYYMMDD : '',
+                V_P_SHIFT_CODE : '',
+                V_P_WORK_PATTERN_CODE : '',
+                V_P_SHIFT_TYPE : '',
+                V_P_CONFIRM_FLAG : '',
+                V_P_DATA_SOURCE : '1',
+                V_P_HOLIDAY_YN : '',
+                V_P_HOLIDAY2_YN : '',
+                V_P_EMP_CODE_D : EMP_CODE_D,
+                V_P_NORMAL_START_DAY_TYPE : '',
+                V_P_NORMAL_START_HHMM : '',
+                V_P_NORMAL_END_DAY_TYPE : '',
+                V_P_NORMAL_END_HHMM : '',
+                V_P_BREAK_APPLY_YN : '',
+                V_P_FORM_ID : p_formId,
+                V_P_MENU_ID : p_menuId,
+                V_P_PROC_ID : '',
+                V_P_USERID : '',
+                V_P_PC : ''
+            })
+        }];
+
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.resultMessage){
+                    alert(data.resultMessage);
+                }
+                fn_search();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

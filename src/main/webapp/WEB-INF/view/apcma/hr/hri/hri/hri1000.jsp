@@ -1422,26 +1422,30 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var replaceText0 = "_EMP_CODE";
+        var replaceText1 = "_EMP_NAME";
+        var replaceText2 = "_DEPT_CODE";
+        var replaceText3 = "_DEPT_NAME";
+        var replaceText4 = "_EMP_STATE";
+        var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
+            + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
-            ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001'
-            ,popupType				: 'A'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["사번", 		"사원명"]
-            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
-            ,searchInputValues		: ["", 			searchText]
-            ,height					: '400px'
-            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
-            ,itemSelectEvent		: function (data){
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_HRI001'
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
+            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , height: '400px'
+            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
+            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
+            , itemSelectEvent: function (data) {
                 console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
@@ -1450,26 +1454,30 @@
     }
 
     const fn_findOldEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("OLD_EMP_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+        var searchText = gfnma_nvl(SBUxMethod.get("OLD_EMP_NAME"));
+        var replaceText0 = "_EMP_CODE";
+        var replaceText1 = "_EMP_NAME";
+        var replaceText2 = "_DEPT_CODE";
+        var replaceText3 = "_DEPT_NAME";
+        var replaceText4 = "_EMP_STATE";
+        var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
+            + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원조회');
         compopup1({
-            compCode				: gv_ma_selectedApcCd
-            ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001'
-            ,popupType				: 'A'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["사번", 		"사원명"]
-            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
-            ,searchInputValues		: ["", 			searchText]
-            ,height					: '400px'
-            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
-            ,itemSelectEvent		: function (data){
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_HRI001'
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
+            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , height: '400px'
+            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
+            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
+            , itemSelectEvent: function (data) {
                 console.log('callback data:', data);
                 SBUxMethod.set('OLD_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('OLD_EMP_CODE', data.EMP_CODE);

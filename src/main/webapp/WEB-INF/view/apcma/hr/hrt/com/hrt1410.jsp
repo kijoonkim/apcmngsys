@@ -509,7 +509,6 @@
         SBGridProperties.id 				= 'treeMaster';
         SBGridProperties.jsonref 			= 'jsonDeptList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.tree = {
             col : 0,
@@ -559,7 +558,6 @@
         SBGridProperties.id 				= 'gvwPattern';
         SBGridProperties.jsonref 			= 'jsonPatternList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.rowheader 			= ['SEQ'];
         SBGridProperties.rowheadercaption 	= {SEQ: 'No'};
@@ -741,9 +739,9 @@
         let rowVal = gvwEmp.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwEmp.addRow(true,  {DEPT_CODE: rowData.DEPT_CODE});
+            gvwEmp.addRow(true,  {DEPT_CODE: rowData.DEPT_CODE, EMP_BASE_FLAG: "N"});
         }else{
-            gvwEmp.insertRow(rowVal, 'below', {DEPT_CODE: rowData.DEPT_CODE});
+            gvwEmp.insertRow(rowVal, 'below', {DEPT_CODE: rowData.DEPT_CODE, EMP_BASE_FLAG: "N"});
         }
     }
 
@@ -1139,7 +1137,7 @@
                     return false;
                 }
             }
-
+            console.log(item)
             const param = {
                 cv_count : '0',
                 getType : 'json',
@@ -1149,13 +1147,13 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_TXN_ID : item.data.TXN_ID,
+                    V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == '' ? '0' : gfn_nvl(item.data.TXN_ID),
                     V_P_DEPT_CODE : item.data.DEPT_CODE,
                     V_P_EMP_CODE : item.data.EMP_CODE,
                     V_P_MEMO : item.data.MEMO,
                     V_P_START_DATE : item.data.START_DATE,
                     V_P_END_DATE : item.data.END_DATE,
-                    V_P_EMP_BASE_FLAG : item.data.EMP_BASE_FLAG,
+                    V_P_EMP_BASE_FLAG : gfn_nvl(item.data.EMP_BASE_FLAG) == '' ? 'N' : gfn_nvl(item.data.EMP_BASE_FLAG),
                     V_P_WORK_PATTERN_CODE : item.data.WORK_PATTERN_CODE,
                     V_P_POSITION_CODE : item.data.POSITION_CODE,
                     V_P_DUTY_CODE : item.data.DUTY_CODE,

@@ -48,6 +48,14 @@ public interface BizPlanReqMngMapper {
 	public int bppvUpdateSbmsnDcnmt(BizPlanReqMngVO bizPlanReqMngVO);
 
 	/**
+	 * 제출서류 일괄승인
+	 * @param BizPlanRegVO
+	 * @return List<BizPlanRegVO>
+	 * @throws Exception
+	 */
+	public int updateAllAprvYn(BizPlanReqMngVO bizPlanReqMngVO);
+
+	/**
 	 * 파일 정보 조회
 	 * @param BizPlanRegVO
 	 * @return BizPlanRegVO

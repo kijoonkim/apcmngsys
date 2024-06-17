@@ -22,6 +22,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnAllAprvYn" name="btnAllAprvYn" uitype="normal" text="제출조직 일괄승인" class="btn btn-sm btn-outline-danger" onclick="fn_AllAprvYn"></sbux-button>
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnDownloadAll" name="btnDownloadAll" uitype="normal" text="제출서류 일괄 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_downloadAll"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchBizPlan"></sbux-button>
@@ -516,6 +517,35 @@
 		}
 	}
 
+	//제출조직 일괄승인
+	async function fn_AllAprvYn(){
+		console.log("fn_AllAprvYn");
+
+		if (!confirm("제출조직 일괄승인 하시겠습니까?")) return;
+
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/updateAllAprvYn.do", {
+			yr : year
+		});
+		let data = await postJsonPromise;
+
+		try{
+			if(data.result > 0){
+				alert("제출조직 일괄승인 되었습니다.");
+				fn_searchBizPlan();
+			}else{
+				alert("제출조직 일괄승인 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
 
 	/* 로우데이터 요청 */
 

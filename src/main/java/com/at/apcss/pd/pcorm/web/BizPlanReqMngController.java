@@ -106,6 +106,30 @@ public class BizPlanReqMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//제출서류 일괄승인
+	@PostMapping(value = "/pd/pcorm/updateAllAprvYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateAllAprvYn(@RequestBody BizPlanReqMngVO bizPlanReqMngVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/aom/updateAllAprvYn.do >>> 호출 >>> ");
+
+		int result = 0;
+		try {
+
+			bizPlanReqMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			bizPlanReqMngVO.setSysFrstInptUserId(getUserId());
+			bizPlanReqMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			bizPlanReqMngVO.setSysLastChgUserId(getUserId());
+
+			result =+ bizPlanReqMngService.updateAllAprvYn(bizPlanReqMngVO);
+
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@GetMapping("/pd/pcorm/download/{fileSn}")
 	public void downloadFile(@PathVariable String fileSn, HttpServletRequest requset, HttpServletResponse response) throws Exception {
 		logger.debug("============/pd/pcorm/download/{fileSn}=============");
