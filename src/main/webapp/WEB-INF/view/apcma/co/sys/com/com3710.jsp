@@ -324,7 +324,7 @@
                                     <col style="width:75%">
                                 </colgroup>
                                 <tr id="codeSegTr1">
-                                    <th id="codeSegTh1" scope="row" class="th_bg">년도</th>
+                                    <th id="codeSegTh1" scope="row" class="th_bg"></th>
                                     <td class="td_input">
 										<div class="dropdown">
 										    <button 
@@ -344,7 +344,7 @@
                                     </td>
                                 </tr>             
                                 <tr id="codeSegTr2">
-                                    <th id="codeSegTh2" scope="row" class="th_bg">부서</th>
+                                    <th id="codeSegTh2" scope="row" class="th_bg"></th>
                                     <td class="td_input">
 										<div class="dropdown">
 										    <button 
@@ -364,7 +364,7 @@
                                     </td>
                                 </tr>  			
                                 <tr id="codeSegTr3">
-                                    <th id="codeSegTh3"scope="row" class="th_bg">호기</th>
+                                    <th id="codeSegTh3"scope="row" class="th_bg"></th>
                                     <td class="td_input">
 										<div class="dropdown">
 										    <button 
@@ -384,7 +384,7 @@
                                     </td>
                                 </tr>  		
                                 <tr id="codeSegTr4">
-                                    <th id="codeSegTh4" scope="row" class="th_bg">용도</th>
+                                    <th id="codeSegTh4" scope="row" class="th_bg"></th>
                                     <td class="td_input">
 										<div class="dropdown">
 										    <button 
@@ -403,126 +403,126 @@
 										</div>   
                                     </td>
                                 </tr>  																					                                                                                                                                                         
-<!--                                 <tr id="codeSegTr5"> -->
-<!--                                     <th id="codeSegTh5" scope="row" class="th_bg"></th> -->
-<!--                                     <td class="td_input"> -->
-<!-- 										<div class="dropdown"> -->
-<!-- 										    <button  -->
-<!-- 										    	style="width:160px;text-align:left"  -->
-<!-- 										    	class="btn btn-sm btn-light dropdown-toggle"  -->
-<!-- 										    	type="button" -->
-<!-- 										    	id="CODE_SEG05"  -->
-<!-- 										    	data-toggle="dropdown"  -->
-<!-- 										    	aria-haspopup="true"  -->
-<!-- 										    	aria-expanded="false"> -->
-<!-- 										    	<font>선택</font> -->
-<!-- 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>         -->
-<!-- 										    </button> -->
-<!-- 										    <div class="dropdown-menu" aria-labelledby=CODE_SEG05 style="width:250px;height:250px;padding-top:0px;overflow:auto"> -->
-<!-- 										    </div> -->
-<!-- 										</div>    -->
-<!--                                     </td> -->
-<!--                                 </tr>  																					                                                                                                                                                          -->
-<!--                                 <tr id="codeSegTr6"> -->
-<!--                                     <th id="codeSegTh6" scope="row" class="th_bg"></th> -->
-<!--                                     <td class="td_input"> -->
-<!-- 										<div class="dropdown"> -->
-<!-- 										    <button  -->
-<!-- 										    	style="width:160px;text-align:left"  -->
-<!-- 										    	class="btn btn-sm btn-light dropdown-toggle"  -->
-<!-- 										    	type="button" -->
-<!-- 										    	id="CODE_SEG06"  -->
-<!-- 										    	data-toggle="dropdown"  -->
-<!-- 										    	aria-haspopup="true"  -->
-<!-- 										    	aria-expanded="false"> -->
-<!-- 										    	<font>선택</font> -->
-<!-- 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>         -->
-<!-- 										    </button> -->
-<!-- 										    <div class="dropdown-menu" aria-labelledby=CODE_SEG06 style="width:250px;height:250px;padding-top:0px;overflow:auto"> -->
-<!-- 										    </div> -->
-<!-- 										</div>    -->
-<!--                                     </td> -->
-<!--                                 </tr>  																					                                                                                                                                                          -->
-<!--                                 <tr id="codeSegTr7"> -->
-<!--                                     <th id="codeSegTh7" scope="row" class="th_bg"></th> -->
-<!--                                     <td class="td_input"> -->
-<!-- 										<div class="dropdown"> -->
-<!-- 										    <button  -->
-<!-- 										    	style="width:160px;text-align:left"  -->
-<!-- 										    	class="btn btn-sm btn-light dropdown-toggle"  -->
-<!-- 										    	type="button" -->
-<!-- 										    	id="CODE_SEG07"  -->
-<!-- 										    	data-toggle="dropdown"  -->
-<!-- 										    	aria-haspopup="true"  -->
-<!-- 										    	aria-expanded="false"> -->
-<!-- 										    	<font>선택</font> -->
-<!-- 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>         -->
-<!-- 										    </button> -->
-<!-- 										    <div class="dropdown-menu" aria-labelledby=CODE_SEG07 style="width:250px;height:250px;padding-top:0px;overflow:auto"> -->
-<!-- 										    </div> -->
-<!-- 										</div>    -->
-<!--                                     </td> -->
-<!--                                 </tr>  																					                                                                                                                                                          -->
-<!--                                 <tr id="codeSegTr8"> -->
-<!--                                     <th id="codeSegTh8" scope="row" class="th_bg"></th> -->
-<!--                                     <td class="td_input"> -->
-<!-- 										<div class="dropdown"> -->
-<!-- 										    <button  -->
-<!-- 										    	style="width:160px;text-align:left"  -->
-<!-- 										    	class="btn btn-sm btn-light dropdown-toggle"  -->
-<!-- 										    	type="button" -->
-<!-- 										    	id="CODE_SEG08"  -->
-<!-- 										    	data-toggle="dropdown"  -->
-<!-- 										    	aria-haspopup="true"  -->
-<!-- 										    	aria-expanded="false"> -->
-<!-- 										    	<font>선택</font> -->
-<!-- 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>         -->
-<!-- 										    </button> -->
-<!-- 										    <div class="dropdown-menu" aria-labelledby=CODE_SEG08 style="width:250px;height:250px;padding-top:0px;overflow:auto"> -->
-<!-- 										    </div> -->
-<!-- 										</div>    -->
-<!--                                     </td> -->
-<!--                                 </tr>  																					                                                                                                                                                          -->
-<!--                                 <tr id="codeSegTr9"> -->
-<!--                                     <th id="codeSegTh9" scope="row" class="th_bg"></th> -->
-<!--                                     <td class="td_input"> -->
-<!-- 										<div class="dropdown"> -->
-<!-- 										    <button  -->
-<!-- 										    	style="width:160px;text-align:left"  -->
-<!-- 										    	class="btn btn-sm btn-light dropdown-toggle"  -->
-<!-- 										    	type="button" -->
-<!-- 										    	id="CODE_SEG09"  -->
-<!-- 										    	data-toggle="dropdown"  -->
-<!-- 										    	aria-haspopup="true"  -->
-<!-- 										    	aria-expanded="false"> -->
-<!-- 										    	<font>선택</font> -->
-<!-- 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>         -->
-<!-- 										    </button> -->
-<!-- 										    <div class="dropdown-menu" aria-labelledby=CODE_SEG09 style="width:250px;height:250px;padding-top:0px;overflow:auto"> -->
-<!-- 										    </div> -->
-<!-- 										</div>    -->
-<!--                                     </td> -->
-<!--                                 </tr>  																					                                                                                                                                                          -->
-<!--                                 <tr id="codeSegTr10"> -->
-<!--                                     <th id="codeSegTh10" scope="row" class="th_bg"></th> -->
-<!--                                     <td class="td_input"> -->
-<!-- 										<div class="dropdown"> -->
-<!-- 										    <button  -->
-<!-- 										    	style="width:160px;text-align:left"  -->
-<!-- 										    	class="btn btn-sm btn-light dropdown-toggle"  -->
-<!-- 										    	type="button" -->
-<!-- 										    	id="CODE_SEG010"  -->
-<!-- 										    	data-toggle="dropdown"  -->
-<!-- 										    	aria-haspopup="true"  -->
-<!-- 										    	aria-expanded="false"> -->
-<!-- 										    	<font>선택</font> -->
-<!-- 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>         -->
-<!-- 										    </button> -->
-<!-- 										    <div class="dropdown-menu" aria-labelledby=CODE_SEG010 style="width:250px;height:250px;padding-top:0px;overflow:auto"> -->
-<!-- 										    </div> -->
-<!-- 										</div>    -->
-<!--                                     </td> -->
-<!--                                 </tr>  																					                                                                                                                                                          -->
+                                <tr id="codeSegTr5">
+                                    <th id="codeSegTh5" scope="row" class="th_bg"></th>
+                                    <td class="td_input">
+										<div class="dropdown">
+										    <button 
+										    	style="width:160px;text-align:left" 
+										    	class="btn btn-sm btn-light dropdown-toggle" 
+										    	type="button"
+										    	id="CODE_SEG05" 
+										    	data-toggle="dropdown" 
+										    	aria-haspopup="true" 
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby=CODE_SEG05 style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>   
+                                    </td>
+                                </tr>  																					                                                                                                                                                         
+                                <tr id="codeSegTr6">
+                                    <th id="codeSegTh6" scope="row" class="th_bg"></th>
+                                    <td class="td_input">
+										<div class="dropdown">
+										    <button 
+										    	style="width:160px;text-align:left" 
+										    	class="btn btn-sm btn-light dropdown-toggle" 
+										    	type="button"
+										    	id="CODE_SEG06" 
+										    	data-toggle="dropdown" 
+										    	aria-haspopup="true" 
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby=CODE_SEG06 style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>   
+                                    </td>
+                                </tr>  																					                                                                                                                                                         
+                                <tr id="codeSegTr7">
+                                    <th id="codeSegTh7" scope="row" class="th_bg"></th>
+                                    <td class="td_input">
+										<div class="dropdown">
+										    <button 
+										    	style="width:160px;text-align:left" 
+										    	class="btn btn-sm btn-light dropdown-toggle" 
+										    	type="button"
+										    	id="CODE_SEG07" 
+										    	data-toggle="dropdown" 
+										    	aria-haspopup="true" 
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby=CODE_SEG07 style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>   
+                                    </td>
+                                </tr>  																					                                                                                                                                                         
+                                <tr id="codeSegTr8">
+                                    <th id="codeSegTh8" scope="row" class="th_bg"></th>
+                                    <td class="td_input">
+										<div class="dropdown">
+										    <button 
+										    	style="width:160px;text-align:left" 
+										    	class="btn btn-sm btn-light dropdown-toggle" 
+										    	type="button"
+										    	id="CODE_SEG08" 
+										    	data-toggle="dropdown" 
+										    	aria-haspopup="true" 
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby=CODE_SEG08 style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>   
+                                    </td>
+                                </tr>  																					                                                                                                                                                         
+                                <tr id="codeSegTr9">
+                                    <th id="codeSegTh9" scope="row" class="th_bg"></th>
+                                    <td class="td_input">
+										<div class="dropdown">
+										    <button 
+										    	style="width:160px;text-align:left" 
+										    	class="btn btn-sm btn-light dropdown-toggle" 
+										    	type="button"
+										    	id="CODE_SEG09" 
+										    	data-toggle="dropdown" 
+										    	aria-haspopup="true" 
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby=CODE_SEG09 style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>   
+                                    </td>
+                                </tr>  																					                                                                                                                                                         
+                                <tr id="codeSegTr10">
+                                    <th id="codeSegTh10" scope="row" class="th_bg"></th>
+                                    <td class="td_input">
+										<div class="dropdown">
+										    <button 
+										    	style="width:160px;text-align:left" 
+										    	class="btn btn-sm btn-light dropdown-toggle" 
+										    	type="button"
+										    	id="CODE_SEG010" 
+										    	data-toggle="dropdown" 
+										    	aria-haspopup="true" 
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby=CODE_SEG010 style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>   
+                                    </td>
+                                </tr>  																					                                                                                                                                                         
                             </table>
                         </div>                        
 						<div id="tab3">
@@ -657,6 +657,7 @@
  
 	// 조회
 	function cfn_search() {
+		editType = 'N';
 		fn_search();
 		fn_clearForm();
 		fn_createGrid();
@@ -791,8 +792,6 @@
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
-// console.log("master data ===>", data);	
-// console.log("master paramObj ===>", paramObj);	
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	
@@ -870,124 +869,63 @@
     	const data = await postJsonPromise;
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-// console.log(data);	    		
-// 	    		//마스터 트리 그리드를 비즈니스 컴포넌트 이용하여 그리기
-// console.log("data.cv_1.length", data.length);	    		
-// 	    		for(var i = 0; data.cv_1.length > i; i++){
-// 	    			if(data.cv_1[i].USE_YN == 'N'){
-// 	    				$('#codeSegTr' + i+1).css('display', 'none');
-// console.log("N #codeSegTr", i );	    				
-// 	    			}else{
-// 	    				$('#codeSegTr' + i+1).css('display', '');
-// 	    				$('#codeSegTh' + i+1).text(data.cv_1[i].GROUP_NAME);
-// console.log("Y #codeSegTr", i );
-// 	    			}
-// 	    		}
-	    		
-	    		
-    				//마스터 그리드 - jsonGroupCode1
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode0, data.cv_1[0].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode2
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode1, data.cv_1[1].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode3
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode2, data.cv_1[2].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode4
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode3, data.cv_1[3].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode5
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode4, data.cv_1[4].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode6
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode5, data.cv_1[4].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode7
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode6, data.cv_1[4].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode8
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode7, data.cv_1[4].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode9
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode8, data.cv_1[4].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    				//마스터 그리드 - jsonGroupCode10
-    				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode9, data.cv_1[4].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-	    		
-    				// 드랍다운 비즈니스 컴포넌트 이용하여 그리기
-	    			let rst = await Promise.all([
-	    				//년도
-	    				gfnma_multiSelectInit({
-	    					target			: ['#CODE_SEG01']
-	    					,compCode		: gv_ma_selectedApcCd
-	    					,clientCode		: gv_ma_selectedClntCd
-	    					,bizcompId		: data.cv_1[0].BIZCOMPONENT_ID
-	    					,whereClause	: ''
-	    					,formId			: p_formId
-	    					,menuId			: p_menuId
-	    					,selectValue	: ''
-	    					,dropType		: 'down' 	// up, down
-	    					,dropAlign		: 'left' 	// left, right
-	    					,colValue		: 'SUB_CODE'
-	    					,colLabel		: 'CODE_NAME'
-	    					,columns		:[
-	    			            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-	    			            {caption: "계정특성", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
-	    					]
-	    				}),
-	    				//부서
-	    				gfnma_multiSelectInit({
-	    					target			: ['#CODE_SEG02']
-	    					,compCode		: gv_ma_selectedApcCd
-	    					,clientCode		: gv_ma_selectedClntCd
-	    					,bizcompId		: data.cv_1[1].BIZCOMPONENT_ID
-	    					,whereClause	: ''
-	    					,formId			: p_formId
-	    					,menuId			: p_menuId
-	    					,selectValue	: ''
-	    					,dropType		: 'down' 	// up, down
-	    					,dropAlign		: 'left' 	// left, right
-	    					,colValue		: 'SUB_CODE'
-	    					,colLabel		: 'CODE_NAME'
-	    					,columns		:[
-	    			            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-	    			            {caption: "코드명	",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
-	    					]
-	    				}),
-	    				//호기
-	    				gfnma_multiSelectInit({
-	    					target			: ['#CODE_SEG03']
-	    					,compCode		: gv_ma_selectedApcCd
-	    					,clientCode		: gv_ma_selectedClntCd
-	    					,bizcompId		: data.cv_1[2].BIZCOMPONENT_ID
-	    					,whereClause	: ''
-	    					,formId			: p_formId
-	    					,menuId			: p_menuId
-	    					,selectValue	: ''
-	    					,dropType		: 'down' 	// up, down
-	    					,dropAlign		: 'left' 	// left, right
-	    					,colValue		: 'SUB_CODE'
-	    					,colLabel		: 'CODE_NAME'
-	    					,columns		:[
-	    			            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-	    			            {caption: "명칭",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
-	    					]
-	    				}),
-	    				//용도
-	    				gfnma_multiSelectInit({
-	    					target			: ['#CODE_SEG04']
-	    					,compCode		: gv_ma_selectedApcCd
-	    					,clientCode		: gv_ma_selectedClntCd
-	    					,bizcompId		: data.cv_1[3].BIZCOMPONENT_ID
-	    					,whereClause	: ''
-	    					,formId			: p_formId
-	    					,menuId			: p_menuId
-	    					,selectValue	: ''
-	    					,dropType		: 'down' 	// up, down
-	    					,dropAlign		: 'left' 	// left, right
-	    					,colValue		: 'SUB_CODE'
-	    					,colLabel		: 'CODE_NAME'
-	    					,columns		:[
-	    			            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-	    			            {caption: "코드명",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
-	    					]
-	    				}),
-	    			]);
-	    			
-	    			
-	    			
+					
+					var num;
+					var jsonGroupCodeName;
+		    		for(var i = 0; data.cv_1.length > i; i++){
+	    				num = i + 1;
+						if(data.cv_1[i].USE_YN == 'N'){
+		    				$('#codeSegTr'+num).css('display', 'none');
+						}else{
+		    				$('#codeSegTr'+num).css('display', '');
+		    				$('#codeSegTh'+num).text(data.cv_1[i].GROUP_NAME);
+		    				
+							if( i == '0'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode0, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '1'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode1, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '2'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode2, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '3'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode3, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '4'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode4, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '5'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode5, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '6'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode6, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '7'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode7, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '8'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode8, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							}else if( i == '9'){
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode9, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+							};
+
+							let rst = await Promise.all([
+								//채번관리 탭 항목 드랍다운 추가
+								gfnma_multiSelectInit({
+									target			: ['#'+data.cv_1[i].SEGMENT_FIELD_NAME.toUpperCase()]
+									,compCode		: gv_ma_selectedApcCd
+									,clientCode		: gv_ma_selectedClntCd
+									,bizcompId		: data.cv_1[i].BIZCOMPONENT_ID
+									,whereClause	: ''
+									,formId			: p_formId
+									,menuId			: p_menuId
+									,selectValue	: ''
+									,dropType		: 'down' 	// up, down
+									,dropAlign		: 'left' 	// left, right
+									,colValue		: 'SUB_CODE'
+									,colLabel		: 'CODE_NAME'
+									,columns		:[
+										{caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
+										{caption: "계정특성", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+									]
+								})
+							]);
+						}
+					}
+    				
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -1098,6 +1036,12 @@
 		gfnma_multiSelectSet('#CODE_SEG02', 	'', '', '');
 		gfnma_multiSelectSet('#CODE_SEG03', 	'', '', '');
 		gfnma_multiSelectSet('#CODE_SEG04', 	'', '', '');
+		gfnma_multiSelectSet('#CODE_SEG05', 	'', '', '');
+		gfnma_multiSelectSet('#CODE_SEG06', 	'', '', '');
+		gfnma_multiSelectSet('#CODE_SEG07', 	'', '', '');
+		gfnma_multiSelectSet('#CODE_SEG08', 	'', '', '');
+		gfnma_multiSelectSet('#CODE_SEG09', 	'', '', '');
+		gfnma_multiSelectSet('#CODE_SEG10', 	'', '', '');
 
     	//관리항목
     	SBUxMethod.set("ATTR1", 				"");
@@ -1205,10 +1149,6 @@
             gfn_comAlert("W0002", "프로젝트유형");
             return;
     	}
-    	if(gfnma_nvl(SBUxMethod.get("PROJECT_CODE")) == "") {
-            gfn_comAlert("W0002", "프로젝트코드");
-            return;
-    	}
     	if(gfnma_nvl(SBUxMethod.get("PROJECT_NAME")) == "") {
             gfn_comAlert("W0002", "프로젝트명");
             return;
@@ -1217,7 +1157,13 @@
             gfn_comAlert("W0002", "카테고리");
             return;
     	}
-    	
+    	if(gfnma_multiSelectGet('#CODE_SEG01') == "" ||
+    			gfnma_multiSelectGet('#CODE_SEG02') == ""||
+    			gfnma_multiSelectGet('#CODE_SEG03') == ""||
+    			gfnma_multiSelectGet('#CODE_SEG04') == ""){
+            gfn_comAlert("W0002", "채번관리 탭 정보");
+            return;
+    	}
     	if(editType == "N"){
     		var valUrl = "/co/sys/com/insertCom3710.do";
     	}else{
@@ -1258,16 +1204,16 @@
     		   ,V_P_ATTR8              : gfnma_nvl(SBUxMethod.get("ATTR8"))
     		   ,V_P_ATTR9              : gfnma_nvl(SBUxMethod.get("ATTR9"))
     		   ,V_P_ATTR10             : gfnma_nvl(SBUxMethod.get("ATTR10"))
-    		   ,V_P_CODE_SEG01         : gfnma_nvl(SBUxMethod.get("CODE_SEG01"))
-    		   ,V_P_CODE_SEG02         : gfnma_nvl(SBUxMethod.get("CODE_SEG02"))
-    		   ,V_P_CODE_SEG03         : gfnma_nvl(SBUxMethod.get("CODE_SEG03"))
-    		   ,V_P_CODE_SEG04         : gfnma_nvl(SBUxMethod.get("CODE_SEG04"))
-    		   ,V_P_CODE_SEG05         : gfnma_nvl(SBUxMethod.get("CODE_SEG05"))
-    		   ,V_P_CODE_SEG06         : gfnma_nvl(SBUxMethod.get("CODE_SEG06"))
-    		   ,V_P_CODE_SEG07         : gfnma_nvl(SBUxMethod.get("CODE_SEG07"))
-    		   ,V_P_CODE_SEG08         : gfnma_nvl(SBUxMethod.get("CODE_SEG08"))
-    		   ,V_P_CODE_SEG09         : gfnma_nvl(SBUxMethod.get("CODE_SEG09"))
-    		   ,V_P_CODE_SEG10         : gfnma_nvl(SBUxMethod.get("CODE_SEG10"))
+    		   ,V_P_CODE_SEG01         : gfnma_multiSelectGet('#CODE_SEG01')
+    		   ,V_P_CODE_SEG02         : gfnma_multiSelectGet("#CODE_SEG02")
+    		   ,V_P_CODE_SEG03         : gfnma_multiSelectGet("#CODE_SEG03")
+    		   ,V_P_CODE_SEG04         : gfnma_multiSelectGet("#CODE_SEG04")
+    		   ,V_P_CODE_SEG05         : gfnma_multiSelectGet("#CODE_SEG05")
+    		   ,V_P_CODE_SEG06         : gfnma_multiSelectGet("#CODE_SEG06")
+    		   ,V_P_CODE_SEG07         : gfnma_multiSelectGet("#CODE_SEG07")
+    		   ,V_P_CODE_SEG08         : gfnma_multiSelectGet("#CODE_SEG08")
+    		   ,V_P_CODE_SEG09         : gfnma_multiSelectGet("#CODE_SEG09")
+    		   ,V_P_CODE_SEG10         : gfnma_multiSelectGet("#CODE_SEG10")
     		   ,V_P_CIP_ACCOUNT_CODE   : gfnma_nvl(SBUxMethod.get("CIP_ACCOUNT_CODE"))
     		   ,V_P_ASSET_ACCOUNT_CODE : gfnma_nvl(SBUxMethod.get("ASSET_ACCOUNT_CODE"))
     		   ,V_P_FORM_ID            : p_formId
@@ -1283,8 +1229,6 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-// console.log("save paramObj", paramObj);        
-// console.log("save data", data);        
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -1318,7 +1262,6 @@
 		}
 		
 		let rowData = masterTreeGrid.getRowData(nRow);
-// console.log("rowData ===> ", rowData);
 
     	// 코드목록 그리드 초기화
     	fn_clearForm();
@@ -1351,8 +1294,6 @@
     	const subData = await postJsonPromise;
     	try {
 	    	if (_.isEqual("S", subData.resultStatus)) {
-// console.log("subData ===> ", subData);
-// console.log("sub paramObj ===> ", paramObj);
 	    		let obj = subData.cv_2[0];
 	    		// 기본정보
 		   		SBUxMethod.set("PROJECT_TYPE", 		    	obj.PROJECT_TYPE);
