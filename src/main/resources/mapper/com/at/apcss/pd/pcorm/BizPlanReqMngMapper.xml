@@ -263,4 +263,20 @@
 		FROM TB_EV_SBMSN_DCMNT_FILE
 		 WHERE FILE_SN 	= #{fileSn}
 	</delete>
+
+	<!-- 제출조직 일괄승인 -->
+	<update id="updateAllAprvYn" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		UPDATE /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.updateAllAprvYn */
+			TB_EV_SBMSN_DCMNT
+		SET
+			STTS	= '2'
+
+			, SYS_LAST_CHG_DT		= SYSDATE
+			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE 1=1
+		  AND YR		= #{yr}
+		  AND DCMNT_KND IN ('BP','S')
+		  AND APO_SE	= '1'
+	</update>
 </mapper>
