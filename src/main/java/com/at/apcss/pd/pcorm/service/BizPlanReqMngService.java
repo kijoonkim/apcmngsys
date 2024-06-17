@@ -38,12 +38,20 @@ public interface BizPlanReqMngService {
 	public List<BizPlanReqMngVO> bppvSelectFilePathList(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
 
 	/**
-	 * 서류 상태 업데이트 조회한다.
+	 * 서류 상태 업데이트 한다.
 	 * @param BizPlanReqMngVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int bppvUpdateSbmsnDcnmt(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
+
+	/**
+	 * 제출서류 일괄승인.
+	 * @param BizPlanReqMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateAllAprvYn(BizPlanReqMngVO bizPlanReqMngVO) throws Exception;
 
 	/**
 	 * 파일 정보를 조회한다.
