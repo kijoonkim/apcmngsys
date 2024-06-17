@@ -48,6 +48,12 @@ public class BizPlanReqMngServiceImpl extends BaseServiceImpl implements BizPlan
 	}
 
 	@Override
+	public int updateAllAprvYn(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
+		int updatedCnt = bizPlanReqMngMapper.updateAllAprvYn(bizPlanReqMngVO);
+		return updatedCnt;
+	}
+
+	@Override
 	public BizPlanReqMngVO selectFileInfo(BizPlanReqMngVO bizPlanReqMngVO) throws Exception {
 		BizPlanReqMngVO result = bizPlanReqMngMapper.selectFileInfo(bizPlanReqMngVO);
 		return result;
