@@ -343,22 +343,24 @@
                 <tr>
                     <th scope="row" class="th_bg th-mbl">박스수량/중량</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="srch-inp-wrhsQntt"
-                                name="srch-inp-wrhsQntt"
-                                uitype="text"
-                                class="inpt-mbl"
-                        ></sbux-input>
+<%--                        <sbux-input--%>
+<%--                                id="srch-inp-wrhsQntt"--%>
+<%--                                name="srch-inp-wrhsQntt"--%>
+<%--                                uitype="text"--%>
+<%--                                class="inpt-mbl"--%>
+<%--                        ></sbux-input>--%>
+                        <input id="srch-inp-wrhsQntt" type="text" class="inpt-mbl" style="padding : 6px 12px; border: 1px solid #bbc4d1;border-radius: 5px;" autocomplete="off"  onclick="handleClick(event)" ondblclick="handleDoubleClick(event)" />
                     </td>
 
                     <td class="td_input" style="border-right:hidden;"><span class="sbux-lbl-span" style="font-size: 22pt; font-weight: bold;">개</span></td>
-                    <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-input
-                                id="srch-inp-wrhsWght"
-                                name="srch-inp-wrhsWght"
-                                uitype="text"
-                                class="inpt-mbl"
-                        ></sbux-input>
+                    <td colspan="2" class="td_input" style="border-right:hidden; padding: 0!important;">
+<%--                        <sbux-input--%>
+<%--                                id="srch-inp-wrhsWght"--%>
+<%--                                name="srch-inp-wrhsWght"--%>
+<%--                                uitype="text"--%>
+<%--                                class="inpt-mbl"--%>
+<%--                        ></sbux-input>--%>
+                        <input id="srch-inp-wrhsWght" type="text" class="inpt-mbl" style="padding : 6px 12px; border: 1px solid #bbc4d1;border-radius: 5px;" autocomplete="off" onclick="handleClick(event)" ondblclick="handleDoubleClick(event)"/>
                     </td>
                     <td class="td_input" style="border-right:hidden;"><span class="sbux-lbl-span" style="font-size: 22pt; font-weight: bold;">Kg</span></td>
                     <td colspan="3"></td>
@@ -452,15 +454,15 @@
         let html = "";
         let count = jsonGrdColumnData.length;
         html += '<tr>';
-        html += '<td style="width:' + Math.floor(90 / count) + '%;">' + '<input style="width: 100%; border: 3px #E8F1F9 solid;" type="text" id="GRD_TYPE_1" name="GRD_TYPE_1" oninput="this.value = this.value.replace(/[^0-9]/g, \'\').replace(/\\d(?=(?:\\d{3})+$)/g, \'$&,\')"/>';
-        html += '<td style="width:' + Math.floor(90 / count) + '%;">' + '<input style="width: 100%; border: 3px #E8F1F9 solid;" type="text" id="GRD_TYPE_2" name="GRD_TYPE_2" oninput="this.value = this.value.replace(/[^0-9]/g, \'\').replace(/\\d(?=(?:\\d{3})+$)/g, \'$&,\')"/>';
+        html += '<td style="width:' + Math.floor(90 / count) + '%;">' + '<input autocomplete="off" style="width: 100%; border: 1px #E8F1F9 solid;" type="text" id="GRD_TYPE_1" name="GRD_TYPE_1" oninput="this.value = this.value.replace(/[^0-9]/g, \'\').replace(/\\d(?=(?:\\d{3})+$)/g, \'$&,\')" onclick="handleClick(event)" ondblclick="handleDoubleClick(event)"/>';
+        html += '<td style="width:' + Math.floor(90 / count) + '%;">' + '<input autocomplete="off" style="width: 100%; border: 1px #E8F1F9 solid;" type="text" id="GRD_TYPE_2" name="GRD_TYPE_2" oninput="this.value = this.value.replace(/[^0-9]/g, \'\').replace(/\\d(?=(?:\\d{3})+$)/g, \'$&,\')" onclick="handleClick(event)" ondblclick="handleDoubleClick(event)"/>';
         for(var i=0; i<count; i++){
             let grdCd = "";
             grdCd = jsonGrdColumnData[i].GRD_CD;
             // html += '<td style=width:' +90/count+ '%;>'+'<input style="width: 100%; border: 3px #E8F1F9 solid;" type="text" id="GRD_WGHT" name="'+ grdCd +'"/>'+'</td>';
             html += '<td style="width:' + Math.floor(90 / count) + '%;">' +
-                '<input style="width: 100%; border: 3px #E8F1F9 solid;" type="text" name="GRD_WGHT" id="' + grdCd + '" ' +
-                'oninput="this.value = this.value.replace(/[^0-9]/g, \'\').replace(/\\d(?=(?:\\d{3})+$)/g, \'$&,\')"/>' +
+                '<input style="width: 100%; border: 1px #E8F1F9 solid;" type="text" name="GRD_WGHT" id="' + grdCd + '" ' +
+                'oninput="this.value = this.value.replace(/[^0-9]/g, \'\').replace(/\\d(?=(?:\\d{3})+$)/g, \'$&,\')" autocomplete="off" onclick="handleClick(event)" ondblclick="handleDoubleClick(event)" />' +
                 '</td>';
         }
         html += '</tr>';
@@ -689,8 +691,10 @@
         /*입고일자 초기화*/
         SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
         /*수량/중량 초기화*/
-        SBUxMethod.clear("srch-inp-wrhsQntt");
-        SBUxMethod.clear("srch-inp-wrhsWght");
+        // SBUxMethod.clear("srch-inp-wrhsQntt");
+        // SBUxMethod.clear("srch-inp-wrhsWght");
+        $("#srch-inp-wrhsQntt").val("");
+        $("#srch-inp-wrhsWght").val("");
         /*선별기 초기화*/
         SBUxMethod.set("srch-slt-fcltCd", "");
 
@@ -717,8 +721,11 @@
         let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");         // 품종
         let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");       // 입고일자
         let fcltCd = SBUxMethod.get("srch-slt-fcltCd");         // 선별기
-        let wrhsQntt = SBUxMethod.get("srch-inp-wrhsQntt");     // 박스 수량
-        let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");     // 박스 중량
+        // let wrhsQntt = SBUxMethod.get("srch-inp-wrhsQntt");     // 박스 수량
+        // let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");     // 박스 중량
+
+        let wrhsQntt = $("#srch-inp-wrhsQntt").val();     // 박스 수량
+        let wrhsWght = $("#srch-inp-wrhsWght").val();     // 박스 중량
         let grdType1Wght = document.getElementById("GRD_TYPE_1").value;  // 열과
         let grdType2Wght = document.getElementById("GRD_TYPE_2").value;  // 폐기
         let rowSts = "I";
@@ -867,8 +874,10 @@
                     flag=false;
                     searchFlag=true;
                     bffaWrhsno="";
-                    SBUxMethod.set("srch-inp-wrhsQntt", "");
-                    SBUxMethod.set("srch-inp-wrhsWght", "");
+                    // SBUxMethod.set("srch-inp-wrhsQntt", "");
+                    // SBUxMethod.set("srch-inp-wrhsWght", "");
+                    $("#srch-inp-wrhsQntt").val("");
+                    $("#srch-inp-wrhsWght").val("");
                     fn_createTabelHeader();
                 }
                 else{flag=true;searchFlag=true;bffaWrhsno="";}
@@ -925,8 +934,11 @@
                 let wrhsWght = data.resultList.wrhsWght;
                 let wrhsYmd = data.resultList.wrhsYmd;
 
-                SBUxMethod.set("srch-inp-wrhsQntt", wrhsQntt);
-                SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
+                // SBUxMethod.set("srch-inp-wrhsQntt", wrhsQntt);
+                // SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
+                $("#srch-inp-wrhsQntt").val(wrhsQntt);
+                $("#srch-inp-wrhsWght").val(wrhsWght);
+
                 $("#GRD_TYPE_1").val(grdType1Wght);
                 $("#GRD_TYPE_2").val(grdType2Wght);
 
@@ -1007,8 +1019,10 @@
         searchFlag = false;
 
         /*수량/중량 초기화*/
-        SBUxMethod.clear("srch-inp-wrhsQntt");
-        SBUxMethod.clear("srch-inp-wrhsWght");
+        // SBUxMethod.clear("srch-inp-wrhsQntt");
+        // SBUxMethod.clear("srch-inp-wrhsWght");
+        $("#srch-inp-wrhsQntt").val("");
+        $("#srch-inp-wrhsWght").val("");
         fn_createTabelHeader();
     }
 
@@ -1016,6 +1030,31 @@
         parent.gfn_tabClose("TAB_AM_003_013");
     }
 
+    /** click => select() dblclick => none **/
+    let clickTimeout;
+
+    function handleClick(event) {
+        if (clickTimeout) {
+            clearTimeout(clickTimeout);
+            clickTimeout = null;
+            return;
+        }
+
+        clickTimeout = setTimeout(() => {
+            event.target.select();
+            clickTimeout = null;
+        }, 300);
+    }
+
+    function handleDoubleClick(event) {
+        clearTimeout(clickTimeout);
+        clickTimeout = null;
+
+        const input = event.target;
+        const length = input.value.length;
+        input.setSelectionRange(length, length);
+        input.focus();
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
