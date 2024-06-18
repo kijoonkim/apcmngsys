@@ -33,9 +33,9 @@
             height: 50px;
             font-size: 24px;
         }
-        .btn-mbl span{
-            padding-top: 5px;
-        }
+        /*.btn-mbl span{*/
+        /*    padding-top: 5px;*/
+        /*}*/
         .ma-bt {
             margin-bottom: 5px;
         }
@@ -43,29 +43,33 @@
             margin-right: 10px;
         }
         .btn-text{
-            font-size: 2vw;
+            font-size: 28px;
             min-font-size: x-large;
-            font-weight: 500;
-            padding-top: 5px;
+            font-weight: bold;
         }
         .btn-style{
-            background-color : white;
-            border-radius: 5px;
-            border: 2px solid cornflowerblue;
-            height: auto;
-            flex: 3 0 30%;
-            padding: 5px 0px;
-            cursor : initial;
+            font-size: 13px;
+            vertical-align: middle;
+            text-align: right;
+            border: 1px solid #f4f4f4;
+            border-bottom: 1px solid #ffffff;
+            word-wrap: break-word;
+            background-color: #e8f1f9;
+            font-weight: bold;
+            padding: 8px;
+            line-height: 1.42857143;
+            width: 100%;
         }
         .inp-style{
             border: 1px solid #bbc4d1;
             height: auto;
-            font-size: 2vw;
+            font-size: 28px;
             min-font-size: 20px;
             line-height: 1.5;
             padding: 6px 12px;
             flex: 5 0 40%;
             border-radius: 5px;
+            background-color: #FFF8DC;
         }
         .inp-select-nf-style{
             border: 1px solid #bbc4d1;
@@ -161,15 +165,32 @@
             width: 100%;
             /*height: 85%;*/
             font-size: .9em;
-            box-shadow: 0 2px 5px rgba(0,0,0,.25);
+            /*box-shadow: 0 2px 5px rgba(0,0,0,.25);*/
             overflow: hidden;
-            border-radius: 5px;
+            /*border-radius: 5px;*/
             table-layout: fixed;
         }
         #invnt_table thead, #reg_table_head thead{
-            font-width: bold;
-            color:#fff;
-            background: #255c91;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            color: #333;
+            font-family: Notokr, Apple SD Gothic Neo, Arial, Tahoma, sans-serif;
+            border-spacing: 0;
+            border-collapse: collapse;
+            box-sizing: border-box;
+            margin: 0;
+            border-color: #e8f1f9 !important;
+            border-bottom: 1px solid #ffffff !important;
+            word-wrap: break-word;
+            background-color: #e8f1f9;
+            text-align: center;
+            font-weight: bold;
+            font-size: 28px;
+            padding: 8px;
+            line-height: 1.42857143;
+            border: 1px solid #ddd;
+            border-top: 1px solid #f4f4f4;
+            vertical-align: middle;
         }
         #invnt_table th{
             text-align: center;
@@ -205,22 +226,22 @@
                 border-right: hidden;
 
         }
-        section *, .box-header button span{
-        font-family: 'LeferiPoint', sans-serif
-        }
+        /*section *, .box-header button span{*/
+        /*font-family: 'LeferiPoint', sans-serif*/
+        /*}*/
         #invnt_table tbody tr:hover td{
             background-color: #84afff;
             color: white;
         }
-        #reg_table_head thead tr th{
-            border: 3px solid white;
-            border-radius: 10px;
-        }
+        /*#reg_table_head thead tr th{*/
+        /*    border: 3px solid white;*/
+        /*    border-radius: 10px;*/
+        /*}*/
         #reg_table,#reg_table_head{
             table-layout: fixed;
         }
 
-        #reg_table tbody input{
+        #reg_table tbody input, #reg_table tbody select{
             width: 100%;
             margin-right: 5px;
             border: 1px solid #bbc4d1;
@@ -229,12 +250,13 @@
         #reg_table tbody button{
             padding : 0.5vh 0px 0vh 0px !important;
             width: 90%;
-            border: 0;
             border-radius: 5px;
-            background-color: #3eb7c2c4;
-            color: white;
+            border: 1px solid #343a40;
             font-weight: 400;
             font-size: 2rem;
+            color: #343a40;
+            background-color: #fff;
+            background-image: none;
         }
         #invntrTable, #spmtTable{
             border: 14px solid black;
@@ -288,14 +310,24 @@
         </div>
         <div class="box-body">
             <div style="display: flex;flex-direction: column;">
-                <div class="ma-bt row-style">
+                <div class="row-style ma-bt">
                     <button class="ma-rt btn-style" id="dtl-dtp-spmtYmd" onclick="fn_showOption(this)" style=" position: relative; cursor: pointer">
-                        <div class="btn-text">출하일자</div>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="15" viewBox="0 0 448 512">
-                        <path fill="#6495ed" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
-                        </svg>
+                        <div class="btn-text"><span class="data_required"></span>출하일자</div>
+<%--                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="15" viewBox="0 0 448 512">--%>
+<%--                        <path fill="#6495ed" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>--%>
+<%--                        </svg>--%>
                     </button>
-                    <input id="dtl-inp-spmtYmd" class="inp-style" type="date" required/>
+<%--                    <input id="dtl-inp-spmtYmd" class="inp-style" type="date" required/>--%>
+                    <div style="flex:5 0 40%; padding: 5px 0px">
+                    <sbux-datepicker
+                        id="dtl-inp-spmtYmd"
+                        name="dtl-inp-spmtYmd"
+                        uitype="popup"
+                        date-format="yyyy-mm-dd"
+                        style="background-color:#149FFF;color:white;height: 50px;font-size: 28px;border-radius: 5px"
+                        >
+                    </sbux-datepicker>
+                    </div>
                     <div class="sp-style" id="spmtNo" style="font-size:3vh; line-height: 2.5; padding-top: 10px"></div>
                 </div>
                 <div id="_dtl-dtp-spmtYmd" style="display: none;" class="row-style">
@@ -314,9 +346,9 @@
                         <div class="sp-style" ></div>
                     </div>
                 </div>
-                <div class="ma-bt row-style" style="position: relative">
+                <div class="row-style" style="position: relative">
                     <button class="ma-rt btn-style" style="height: auto">
-                        <div class="btn-text">거래처</div>
+                        <div class="btn-text"><span class="data_required"></span>거래처</div>
                     </button>
                     <sbux-select
                             id="dtl-dtp-cnpt"
@@ -329,8 +361,8 @@
                             style="position: relative">
                     </sbux-select>
                     <div class="sp-style" style="display: flex;flex-direction: row">
-                        <button class="btn-style ma-rt"><div id="dlngShapCd" class="btn-text" data-idx="1" onclick="fn_onChangeDlng(this)">위탁</div> </button>
-                        <button class="btn-style"><div id="dlngMthdCd" class="btn-text" data-idx="1" onclick="fn_onChangeDlng(this)">경매</div></button>
+                        <button class="btn-style ma-rt"><div id="dlngShapCd" style="text-align: center" class="btn-text" data-idx="1" onclick="fn_onChangeDlng(this)">위탁</div> </button>
+                        <button class="btn-style"><div id="dlngMthdCd" style="text-align: center" class="btn-text" data-idx="1" onclick="fn_onChangeDlng(this)">경매</div></button>
                     </div>
                 </div>
 <%--                <div class="ma-bt row-style"  style="position: relative"> &lt;%&ndash;//&ndash;%&gt;--%>
@@ -504,7 +536,7 @@
                                     <input type="number" onchange="fn_onChangePrdcr(this)" />
                                 </div>
                                 <div style="flex: 1; font-family: 'Font Awesome 5 Free'; display: flex;justify-content: center; margin-left: 5px">
-                                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" >조회</button>
+                                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="text-align: center;border: 1px solid #bbc4d1;" >조회</button>
                                 </div>
                             </div>
                         </td>
@@ -520,20 +552,20 @@
                         </td>
                         <td>
                             <div style="font-family: 'Font Awesome 5 Free';">
-                                <input type="text" />
+                                <select><option>선택</option></select>
                             </div>
                         </td>
                         <td>
-                            <input type="number" id="qnttInp1_0" onchange="fn_onchangeQntt(this)"/>
+                            <input type="number" id="qnttInp1_0" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
                         </td>
                         <td>
-                            <input type="number" id="qnttInp2_0" onchange="fn_onchangeQntt(this)"/>
+                            <input type="number" id="qnttInp2_0" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
                         </td>
                         <td>
-                            <input type="number" id="qnttInp3_0" onchange="fn_onchangeQntt(this)"/>
+                            <input type="number" id="qnttInp3_0" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
                         </td>
                         <td>
-                            <input type="number" id="qnttInp4_0" onchange="fn_onchangeQntt(this)"/>
+                            <input type="number" id="qnttInp4_0" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
                         </td>
                         <td>
                             <input readonly/>
@@ -759,7 +791,7 @@
                     <input type="number" onChange="fn_onChangePrdcr(this)"/>
                 </div>
                  <div style="flex: 1; font-family: 'Font Awesome 5 Free'; display: flex;justify-content: center; margin-left: 5px">
-                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style">조회</button>
+                    <button onclick="fn_searchInvntrQntt(this)" class="btn-style" style="text-align: center;border: 1px solid #bbc4d1;">조회</button>
                 </div>
             </div>
         </td>
@@ -775,20 +807,20 @@
         </td>
         <td>
             <div style="font-family: 'Font Awesome 5 Free';">
-                <input type="text"/>
+                <select><option>선택</option></select>
             </div>
         </td>
         <td>
-            <input type="number" id="qnttInp1_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
+            <input type="number" id="qnttInp1_`+_idx+`" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
         </td>
         <td>
-            <input type="number" id="qnttInp2_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
+            <input type="number" id="qnttInp2_`+_idx+`" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
         </td>
         <td>
-            <input type="number" id="qnttInp3_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
+            <input type="number" id="qnttInp3_`+_idx+`" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
         </td>
         <td>
-            <input type="number" id="qnttInp4_`+_idx+`" onchange="fn_onchangeQntt(this)"/>
+            <input type="number" id="qnttInp4_`+_idx+`" onchange="fn_onchangeQntt(this)" autocomplete="off"/>
         </td>
         <td>
             <input readOnly/>
@@ -806,7 +838,11 @@
 
 
     window.document.addEventListener("DOMContentLoaded", async function () {
-        $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(), '-'));
+        // $("#dtl-inp-spmtYmd").val(gfn_dateToYmd(new Date(), '-'));
+        SBUxMethod.set("dtl-inp-spmtYmd",gfn_dateToYmd(new Date()));
+        document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
+            el.style.height = "50px";
+        });
         let promise = Promise.all([
             gfn_setCpntRgnSBSelect('dtl-dtp-cnpt', jsonApcCnpt, gv_selectedApcCd),       // 거래처
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
@@ -910,8 +946,6 @@
                 grdSeCd : '02'
             });
             const data = await postJsonPromise;
-            data.resultList.forEach(function(item){
-            })
 
             data.resultList.forEach(function(item){
                for(let key in item){
@@ -921,6 +955,24 @@
                }
             });
             jsonNewGdsGrd = data.resultList;
+
+            let result = jsonNewGdsGrd.reduce(function(acc,cur){
+                let grdNm = cur.grdNm;
+                let itemCd = cur.itemCd;
+                let sn = cur.sn;
+                const even = (obj) => obj.grdNm == grdNm && obj.itemCd == itemCd && obj.sn == sn;
+                let el = acc.findIndex(even);
+                if(el != -1){
+                    if(acc[el].hasOwnProperty("spcfctMap")){
+                        acc[el].spcfctMap.set(cur.spcfctCd,cur.spcfctNm);
+                    }
+                }else{
+                    cur.spcfctMap = new Map([[cur.spcfctCd,cur.spcfctNm]]);
+                    acc.push(cur);
+                };
+                return acc;
+            },[]);
+            jsonNewGdsGrd = result;
 
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -1391,6 +1443,26 @@
             /** 없는 출하번호로 인해 생산자전용 임시 JSON이 지워진경우 **/
             fn_onChangePrdcr($(_el).parent().next('div').children());
 
+            /** 선출하실적 등록시 필요한 ROW 설정 **/
+            let inputIdx = parseInt(tempJson[0].aftrGrdCd) -1;
+            $(parentTr).find("input[id]").each(function(idx,item){
+                if(inputIdx != idx){
+                    $(item).attr({"type":"text","readonly":true});
+                    $(item).css({"color": "white","background-color":"#999"});
+                    $(item).val("X");
+                }
+            });
+
+            /** 선출하실적 등록시 단량 select option add **/
+            let selectEl = parentTr.children().eq(3).find('select');
+            let optionEl = ``;
+
+            for(const [key,value] of tempJson[0].spcfctMap.entries()){
+                optionEl += `<option value="`+key+`">`+value+`</option>`;
+            };
+
+            selectEl.append(optionEl);
+
             /** 등록 테이블 로우 추가 **/
             if (parentTr.next().length == 0 ) {
                 if(tempJson.length > 0) {
@@ -1427,18 +1499,11 @@
         /** 현재 출하번호에 맞는 상품리스트중에 생산자번호까지 일치하는 재고만 추림 2차 필터링 **/
         /** 생산자 번호만 바뀔가능성이 있음. **/
         if(!gfn_isEmpty(tempJson)){
-            parentTr.children().eq(4).find('input').val('');
-            parentTr.children().eq(5).find('input').val('');
-            parentTr.children().eq(6).find('input').val('');
-            parentTr.children().eq(4).find('input').removeAttr('max');
-            parentTr.children().eq(5).find('input').removeAttr('max');
-            parentTr.children().eq(6).find('input').removeAttr('max');
-            parentTr.children().eq(4).find('input').attr({'type':"number","readonly":false});
-            parentTr.children().eq(4).find('input').css({'color':"initial","background-color":"initial"});
-            parentTr.children().eq(5).find('input').attr({'type':"number","readonly":false});
-            parentTr.children().eq(5).find('input').css({'color':"initial","background-color":"initial"});
-            parentTr.children().eq(6).find('input').attr({'type':"number","readonly":false});
-            parentTr.children().eq(6).find('input').css({'color':"initial","background-color":"initial"});
+            let inputIdx = parseInt(tempJson[0].aftrGrdCd) +3
+            parentTr.children().eq(inputIdx).find('input').val('');
+            parentTr.children().eq(inputIdx).find('input').removeAttr('max');
+            parentTr.children().eq(inputIdx).find('input').css({'color':"initial","background-color":"initial"});
+            parentTr.children().eq(inputIdx).find('input').attr({'type':"number","readonly":false});
             parentTr.children().eq(8).find('input').val('');
             mapInvntQntt.delete(parentTr.index());
             $(lastInput).removeAttr('sortInvnt');
@@ -1527,16 +1592,19 @@
         // }
         $(_el).closest('tr').children().eq(8).find('input').val(val);
         $(_el).val(val);
-        let rowData = JSON.parse($(_el).closest('tr').children(":last").find("input").attr("sortInvnt"));
+        let rowData = $(_el).closest('tr').children(":last").find("input").attr("sortInvnt");
 
-        /** 수정모드 진입시 재고 추가 마이너스 배제 **/
-        let originQnttMap = mapInvntQntt.get($(_el).closest('tr').index());
-        if(rowData.spmtQntt > 0 || rowData.spmtWght > 0) {
-            originQnttMap.clear();
-        }else{
-            if(mapInvntQntt.has($(_el).closest('tr').index())){
+        if(!gfn_isEmpty(rowData)) {
+            rowData = JSON.parse(rowData);
+            /** 수정모드 진입시 재고 추가 마이너스 배제 **/
+            let originQnttMap = mapInvntQntt.get($(_el).closest('tr').index());
+            if (rowData.spmtQntt > 0 || rowData.spmtWght > 0) {
                 originQnttMap.clear();
-                originQnttMap.set(rowData.spmtInvId[0],val);
+            } else {
+                if (mapInvntQntt.has($(_el).closest('tr').index())) {
+                    originQnttMap.clear();
+                    originQnttMap.set(rowData.spmtInvId[0], val);
+                }
             }
         }
     }
@@ -1729,7 +1797,8 @@
             $(prdcrTd).val("X");
         }
 
-        originTr.children().eq(3).find('input').val(rowData.spcfctNm);
+        originTr.children().eq(3).find('select').val(rowData.spcfctCd);
+        originTr.children().eq(3).find('select').css("pointer-events","none");
         originTr.children().eq(3).find('input').attr("readonly",true);
 
         //gdsGrd
@@ -2004,9 +2073,30 @@
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
 
+            }else{
+                /** 선출하실적 rowData가 없음. **/
+                let rowData = $(this).children(":last").find("input").attr("sortgds");
+                if(!gfn_isEmpty(rowData)){
+                    rowData = JSON.parse(rowData);
+                    let qnttIdx = parseInt(rowData.aftrGrdCd);
+                    let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
+
+                    spmtPrfmnc = {
+                        spmtQntt: spmtQntt,
+                        // spmtPckgUnitCd : "",
+                        // spmtGdsList : "",
+                        rmrk : rmrk,
+                        gdsInput : rowData.grdNm,
+                        spmtSn : spmtSn,
+                        sortGrdCd : rowData.grdCd,
+                        aftrGrdCd : rowData.aftrGrdCd
+                    }
+                spmtPrfmncList.push(spmtPrfmnc);
+                }
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
+        return;
 
         /** 중복 상품 취합 **/
         let arr = saveJson.spmtPrfmncList;
