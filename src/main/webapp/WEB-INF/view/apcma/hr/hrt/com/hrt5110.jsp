@@ -499,7 +499,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("연차가 생성되었습니다.");
+                alert("연차가 생성되었습니다.");
             } else {
                 alert(data.resultMessage);
             }
@@ -571,7 +571,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("확정취소처리되었습니다.");
+                alert("확정취소처리되었습니다.");
                 fn_search();
             } else {
                 alert(data.resultMessage);
@@ -638,7 +638,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("확정처리되었습니다.");
+                alert("확정처리되었습니다.");
                 fn_search();
             } else {
                 alert(data.resultMessage);
@@ -705,7 +705,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("연차가 생성취소되었습니다.");
+                alert("연차가 생성취소되었습니다.");
                 fn_search();
             } else {
                 alert(data.resultMessage);
@@ -734,7 +734,7 @@
         let MEMO = gfnma_nvl(SBUxMethod.get("SRCH_MEMO"));
 
         if (PAID_VACATION_TYPE == "4050" && SPECIAL_PERIOD == "") {
-            gfn_comAlert("특별연차대상기간 선택후 실행하십시요");
+            alert("특별연차대상기간 선택후 실행하십시요");
             return;
         }
 
@@ -777,7 +777,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("연차가 생성되었습니다.");
+                alert("연차가 생성되었습니다.");
                 fn_search();
             } else {
                 alert(data.resultMessage);

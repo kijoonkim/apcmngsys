@@ -370,8 +370,10 @@
 
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["확정여부"],         ref: 'CONFIRM_YN',    type:'output',  	width:'75px',  style:'text-align:left'
+            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'42px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["확정여부"],         ref: 'CONFIRM_YN',    type:'checkbox',  	width:'75px',  style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
             },
             {caption: ["확정일"],       ref: 'CONFIRM_DATE', 		type:'datepicker',  	width:'105px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -495,7 +497,6 @@
             {caption: ["차감일수2"],         ref: 'MINUS2_WORK_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["조정일수"],         ref: 'ADJUST_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["년도"],         ref: 'YYYY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: [""],         ref: 'CHK_YN',    type:'output',  	width:'42px',  style:'text-align:left', hidden: true}
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
@@ -871,15 +872,16 @@
         let SPECIAL_PERIOD = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
 
         let grdRows = gvwInfo.getCheckedRows(0, true);
-
+        console.log(grdRows);
         if (grdRows.legnth == 0) {
-            gfn_comAlert("확정대상이 없습니다. 대상자 선택 후 처리하십시요");
+            alert("확정대상이 없습니다. 대상자 선택 후 처리하십시요");
             return false;
         }
 
         let isConfirm = false;
 
         grdRows.forEach((item, index) => {
+            console.log(gvwInfo.getRowData(item))
             if (gvwInfo.getRowData(item).CONFIRM_YN == "Y") {
                 isConfirm = true;
             }
@@ -889,7 +891,7 @@
         });
 
         if (isConfirm) {
-            gfn_comAlert("이미 확정된 인원이 포함되어 있습니다. 해당인원 제외후 확정하십시요");
+            alert("이미 확정된 인원이 포함되어 있습니다. 해당인원 제외후 확정하십시요");
             return false;
         }
 
@@ -933,7 +935,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("연차발생이 확정되었습니다.");
+                alert("연차발생이 확정되었습니다.");
                 fn_search();
             } else {
                 alert(data.resultMessage);
@@ -966,7 +968,7 @@
         let grdRows = gvwInfo.getCheckedRows(0, true);
 
         if (grdRows.legnth == 0) {
-            gfn_comAlert("확정대상이 없습니다. 대상자 선택 후 처리하십시요");
+            alert("확정대상이 없습니다. 대상자 선택 후 처리하십시요");
             return false;
         }
 
@@ -1016,7 +1018,7 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("연차발생이 확정취소되었습니다.");
+                alert("연차발생이 확정취소되었습니다.");
                 fn_search();
             } else {
                 alert(data.resultMessage);
