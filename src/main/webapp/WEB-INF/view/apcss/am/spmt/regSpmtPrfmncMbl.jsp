@@ -2096,10 +2096,9 @@
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
-        return;
 
-        /** 중복 상품 취합 **/
-        let arr = saveJson.spmtPrfmncList;
+        // /** 중복 상품 취합 **/
+        // let arr = saveJson.spmtPrfmncList;
 
         // let result = arr.reduce(function(acc,cur){
         //     if(acc.length == 0){
