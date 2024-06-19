@@ -760,7 +760,7 @@
 
 
         gvwBandgvwDetailGrid.clearStatus();
-        jsonBandgvwDetailList = 0;
+        jsonBandgvwDetailList.length = 0;
         gvwBandgvwDetailGrid.rebuild();
 
     }
@@ -909,7 +909,7 @@
     const fn_saveS1 = async function () {
 
         var paramObj = {
-            P_HRB5600_S1: await getParamFormS1()
+            P_HRB5600_S1: await getParamForm('u')
         }
 
 
