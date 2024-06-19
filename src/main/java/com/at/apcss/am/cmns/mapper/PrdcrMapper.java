@@ -30,6 +30,14 @@ public interface PrdcrMapper {
 	 * @throws Exception
 	 */
 	public PrdcrVO selectPrdcr(PrdcrVO prdcrVO) throws Exception;
+	
+	/**
+	 * 생산자정보 단건 조회 by 식별번호
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PrdcrVO selectPrdcrByIdentno(PrdcrVO prdcrVO) throws Exception;
 
 	/**
 	 * 생산자정보 단건 조회

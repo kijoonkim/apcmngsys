@@ -235,6 +235,11 @@ public class PrdcrVO extends ComVO {
 	 * 생산자관리유형
 	 */
 	private String prdcrMngType;
+	
+	/**
+	 * 식별번호:조회용
+	 */
+	private String identno;
 
 	/**
 	 * 생산자연결번호

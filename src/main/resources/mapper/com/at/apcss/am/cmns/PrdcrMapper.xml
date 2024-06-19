@@ -82,7 +82,46 @@
 
     </select>
 
-
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrByIdentno		-->
+	<!-- DESC : 생산자 단건 조회 by PrdcrIdentno.	                                -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdcrByIdentno" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrByIdentno */
+				   PR.APC_CD        AS APC_CD
+			     , PR.PRDCR_CD      AS PRDCR_CD
+			     , PR.PRDCR_NM      AS PRDCR_NM
+			     , PR.PRDCR_FRST_NM AS PRDCR_FRST_NM
+			     , PR.RPRS_ITEM_CD  AS RPRS_ITEM_CD
+			     , PR.RPRS_VRTY_CD  AS RPRS_VRTY_CD
+			     , PR.GDS_SE_CD     AS GDS_SE_CD
+			     , PR.WRHS_SE_CD    AS WRHS_SE_CD
+			     , PR.TRSPRT_SE_CD  AS TRSPRT_SE_CD
+			     , PR.CLCLN_CRTR_CD	AS CLCLN_CRTR_CD
+			     , PR.VHCLNO        AS VHCLNO
+			     , PR.TELNO        	AS TELNO
+			     , PR.PRDCR_LINK_CD	AS PRDCR_LINK_CD
+			     , PR.PRDCR_IDENTNO	AS PRDCR_IDENTNO
+			     , PR.PLOR_CD		AS PLOR_CD
+			     , PR.RMRK          AS RMRK
+			     , PR.DEL_YN        AS DEL_YN
+			  FROM TB_PRDCR_INFO PR
+			 WHERE PR.APC_CD = #{apcCd}
+			   AND PR.PRDCR_CD = (
+			 		SELECT MIN(X.PRDCR_CD)
+			 		  FROM TB_PRDCR_INFO X
+			 		 WHERE X.APC_CD = PR.APC_CD
+			 		   AND X.PRDCR_IDENTNO = #{identno}
+					   AND X.DEL_YN = 'N'
+			 	)
+		   ]]>
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrList				-->

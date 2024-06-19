@@ -19,8 +19,12 @@ import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.am.cmns.service.CmnsGdsService;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.CmnsValidationService;
+import com.at.apcss.am.cmns.service.CmnsVrtyService;
+import com.at.apcss.am.cmns.service.PrdcrService;
 import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
 import com.at.apcss.am.cmns.vo.CmnsGdsVO;
+import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
 import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
@@ -92,6 +96,15 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
 
+	// 생산자정보 서비스
+	@Resource(name= "prdcrService")
+	private PrdcrService prdcrService;
+	
+	// 품종정보 서비스
+	@Resource(name= "cmnsVrtyService")
+	private CmnsVrtyService cmnsVrtyService;
+
+	
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 
@@ -410,6 +423,17 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	}
 
 	@Override
+	public HashMap<String, Object> insertSpmtPrfmncCallByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception {
+		
+		HashMap<String, Object> rtnObj = insertSpmtPrfmncByPckgList(spmtPrfmncComVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		
+		return null;
+	}
+	
+	@Override
 	public HashMap<String, Object> insertSpmtPrfmncByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception {
 		HashMap<String, Object> rtnObj;
 
@@ -430,7 +454,22 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		
 		List<GdsInvntrVO> invntrList = new ArrayList<>();
 
+		// 상품재고 조회 임시 List (동일 제품 skip 용)
+		List<GdsInvntrVO> gdsTempList = new ArrayList<>();
+		
+		
+		String newSortno = ComConstants.CON_BLANK;
+		String newPckgno = ComConstants.CON_BLANK;
+		int newSortSn = 0;
+		int newPckgSn = 0;
+		
+		if (needsIgnoreInvntrQntt || allowsFrcdPrcs) {
+			newSortno = cmnsTaskNoService.selectSortno(apcCd, spmtYmd);
+			newPckgno = cmnsTaskNoService.selectPckgno(apcCd, spmtYmd);
+		}
+		
 		// 상품재고 배분
+		
 		for ( SpmtPrfmncVO spmt : spmtPrfmncList ) {
 
 			int spmtQntt = spmt.getSpmtQntt();
@@ -438,15 +477,29 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하수량");
 			}
 
+			String itemCd = ComUtil.nullToEmpty(spmt.getItemCd());
+			String vrtyCd = ComUtil.nullToEmpty(spmt.getVrtyCd());
+			String spcfctCd = ComUtil.nullToEmpty(spmt.getSpcfctCd());
+			
+			String gdsGrd = ComUtil.nullToEmpty(spmt.getGdsGrd());
+			String sortGrdCd = ComUtil.nullToEmpty(spmt.getSortGrdCd());
+			String prdcrIdentno = ComUtil.nullToEmpty(spmt.getPrdcrIdentno());
+			
+			
 			String spmtPckgUnitCd = ComUtil.nullToEmpty(spmt.getSpmtPckgUnitCd());
+			
+			
 			SpmtPckgUnitVO pckgUnitParam = new SpmtPckgUnitVO();
 			pckgUnitParam.setApcCd(apcCd);
 			pckgUnitParam.setSpmtPckgUnitCd(spmtPckgUnitCd);
+			
 			// 출하포장단위로 스펙 조회
 			SpmtPckgUnitVO spmtPckgUnitVO = spmtPckgUnitService.selectSpmtPckgUnit(pckgUnitParam);
 
 			if (spmtPckgUnitVO == null || !StringUtils.hasText(spmtPckgUnitVO.getSpmtPckgUnitCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품조회결과");
+				if (!allowsFrcdPrcs) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품조회결과");
+				}
 			}
 
 			double spcfctWght = spmtPckgUnitVO.getSpcfctWght();
@@ -455,6 +508,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			int pckgSn = spmt.getPckgSn();
 			String rmrk = spmt.getRmrk();
 
+			List<SpmtGdsVO> spmtGdsList = spmt.getSpmtGdsList();
+			int spmtSn = spmt.getSpmtSn();
+			
 			if (StringUtils.hasText(pckgno) && pckgSn > 0) {
 				GdsInvntrVO gdsVO = new GdsInvntrVO();
 				gdsVO.setApcCd(apcCd);
@@ -505,6 +561,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 				}
 
 				wght = ComUtil.round(qntt * spcfctWght, 3);
+				
 				spmtQntt -= qntt;
 
 				if (wght > invRmnWght) {	// && !needsIgnoreInvntrQntt) {
@@ -516,14 +573,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 				invntrList.add(gdsInv);
 
-			} else {
-
-				List<SpmtGdsVO> spmtGdsList = spmt.getSpmtGdsList();
-				int spmtSn = spmt.getSpmtSn();
-
-				if (spmtGdsList == null || spmtGdsList.isEmpty()) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품내역");
-				}
+			} else if (spmtGdsList != null && !spmtGdsList.isEmpty()) {
 
 				GdsInvntrVO gdsVO = new GdsInvntrVO();
 				gdsVO.setApcCd(apcCd);
@@ -540,19 +590,58 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 					idx++;
 					boolean isLastIndex = idx == gdsInvntrList.size() - 1;
-
+					
 					if (spmtQntt <= 0) {
 						break;
 					}
-
 
 					if (!spmtPckgUnitCd.equals(orgnInv.getSpmtPckgUnitCd())) {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "출하상품||재고상품");
 					}
 
+					vrtyCd = orgnInv.getVrtyCd();
+					spcfctCd = orgnInv.getSpcfctCd();
+					
 					int invRmnQntt = orgnInv.getInvntrQntt();
 					double invRmnWght = orgnInv.getInvntrWght();
 
+					String gdsPckgno = ComUtil.nullToEmpty(orgnInv.getPckgno());
+					int gdsPckgSn = orgnInv.getPckgSn();
+					
+					GdsInvntrVO gdsTempVO = null;
+					
+					// 상품임시테이블에서 찾기
+					for ( GdsInvntrVO gdsTemp : gdsTempList ) {
+						if (gdsPckgno.equals(gdsTemp.getPckgno()) && gdsPckgSn == gdsTemp.getPckgSn()) {
+							invRmnQntt = gdsTemp.getRmnQntt();
+							invRmnWght = gdsTemp.getRmnWght();
+							
+							logger.debug("@@@@chk invRmnQntt {}", invRmnQntt);
+							
+							gdsTempVO = gdsTemp;
+						}
+					}
+					
+					boolean needsTempAdd = false;
+					
+					if (gdsTempVO == null) {
+						gdsTempVO = new GdsInvntrVO();
+						BeanUtils.copyProperties(orgnInv, gdsTempVO);
+						
+						needsTempAdd = true;
+					}
+					
+					logger.debug("@@@@normal invRmnQntt {}", invRmnQntt);
+					
+					// 출하변경 시 마지막에 남은 잔량 처리
+					if (invRmnQntt <= 0 && !isLastIndex) {
+						continue;
+					}
+					
+					if (!needsIgnoreInvntrQntt && !allowsFrcdPrcs && invRmnQntt <= 0) {
+						continue;
+					}
+					
 					GdsInvntrVO gdsInv = new GdsInvntrVO();
 					BeanUtils.copyProperties(spmtPrfmncComVO, gdsInv);
 					BeanUtils.copyProperties(orgnInv, gdsInv,
@@ -580,7 +669,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 					wght = ComUtil.round(qntt * spcfctWght, 3);
 					spmtQntt -= qntt;
-
+					
 					// 출하강제처리 잔량이 남을 경우
 					if (allowsFrcdPrcs && isLastIndex && spmtQntt > 0) {
 						qntt += spmtQntt;
@@ -601,12 +690,106 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 					gdsInv.setSpmtSn(spmtSn);
 
 					invntrList.add(gdsInv);
+					
+					gdsTempVO.setRmnQntt(invRmnQntt - qntt);
+					gdsTempVO.setRmnWght(invRmnQntt - wght);
+					
+					if (needsTempAdd) {
+						gdsTempList.add(gdsTempVO);
+					}
 				}
+				
+			} else {
+				// 
 			}
 			
 			// 재고 부족
 			if (spmtQntt > 0) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하가능재고");
+				
+				if (allowsFrcdPrcs) {
+
+					if (StringUtils.hasText(itemCd)) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품목");	
+					}
+					
+					if (StringUtils.hasText(spcfctCd)) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "규격");	
+					}
+					
+					if (StringUtils.hasText(gdsGrd)) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품등급");	
+					}
+					
+					if (StringUtils.hasText(sortGrdCd)) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별등급");	
+					}
+					
+					if (!StringUtils.hasText(vrtyCd)) {
+						// 품종코드 찾기
+						CmnsVrtyVO vrtyParam = new CmnsVrtyVO();
+						vrtyParam.setApcCd(apcCd);
+						vrtyParam.setItemCd(itemCd);
+						List<CmnsVrtyVO> vrtyList = cmnsVrtyService.selectApcVrtyList(vrtyParam);
+						
+						if (vrtyList == null || vrtyList.isEmpty()) {
+							return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "품종정보");
+						}
+						if (vrtyList.size() > 1) {
+							return ComUtil.getResultMap(ComConstants.MSGCD_TGT_EQUAL_GREATER_THAN, "품종||두개");
+						}
+						
+						vrtyCd = vrtyList.get(0).getVrtyCd();
+					}
+					
+					String prdcrCd = ComConstants.CON_BLANK;
+					
+					if (StringUtils.hasText(prdcrIdentno)) {
+						PrdcrVO prdcrParam = new PrdcrVO();
+						prdcrParam.setApcCd(apcCd);
+						prdcrParam.setIdentno(prdcrIdentno);
+						PrdcrVO prdcrVO = prdcrService.selectPrdcrByIdentno(prdcrParam);
+						
+						if (prdcrVO != null && StringUtils.hasText(prdcrVO.getPrdcrCd())) {
+							prdcrCd = prdcrVO.getPrdcrCd();
+						} else {
+							return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "생산자정보");
+						}
+					}
+					
+					if (!StringUtils.hasText(spmtPckgUnitCd)) {
+						
+						SpmtPckgUnitVO spmtPckgUnitParam = new SpmtPckgUnitVO();
+						spmtPckgUnitParam.setApcCd(apcCd);
+						spmtPckgUnitParam.setItemCd(itemCd);
+						spmtPckgUnitParam.setVrtyCd(vrtyCd);
+						spmtPckgUnitParam.setSpcfctCd(spcfctCd);
+						spmtPckgUnitParam.setGdsGrd(sortGrdCd);
+						
+						List<SpmtPckgUnitVO> specList = spmtPckgUnitService.selectSpmtPckgUnitListBySpec(spmtPckgUnitParam);
+						if (specList == null || specList.isEmpty()) {
+							return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품정보");
+						}
+						
+						spmtPckgUnitCd = specList.get(0).getVrtyCd();
+						
+						spcfctWght = specList.get(0).getSpcfctWght();
+						
+						
+						// 선별재고 생성
+						//SortInvntrService
+						// 0재고 생성하여 상태코드 지정
+						// 번호, 순번
+						// 상품재고 생성
+						// GdsInvntrService
+						// 0 재고 생성하여 상태코드 지정
+						// 번호, 순번 
+					}
+					
+
+					
+				} else {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하가능재고");	
+				}
 			}
 		}
 
@@ -1686,4 +1869,5 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		return null;
 	}
+
 }

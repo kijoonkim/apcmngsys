@@ -46,8 +46,7 @@ public class ComUtil {
 		
 		double result = num;
 		
-		int factor = 10 ^ (digit * -1);
-		
+		double factor = Math.pow(10, (digit * -1));
 		result = Math.round(num / factor) * factor;
 		
 		return result;
@@ -61,7 +60,7 @@ public class ComUtil {
 		
 		int result = num;
 		
-		int factor = 10 ^ (digit * -1);
+		double factor = Math.pow(10, (digit * -1));
 		
 		result = (int)(Math.round(num / factor) * factor);
 		

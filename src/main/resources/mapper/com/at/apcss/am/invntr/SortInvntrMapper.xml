@@ -871,6 +871,7 @@
 					, PRCS_TYPE
 					, PCKG_YN
 					, SPMT_PCKG_UNIT_CD
+					, INVNTR_STTS_CD
 					, RMRK
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
@@ -906,6 +907,7 @@
 					, #{prcsType}
 					, #{pckgYn}
 					, #{spmtPckgUnitCd}
+					, #{invntrSttsCd}
 					, #{rmrk}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
