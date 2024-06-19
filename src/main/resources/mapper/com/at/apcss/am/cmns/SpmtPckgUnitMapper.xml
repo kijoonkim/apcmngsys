@@ -48,6 +48,67 @@
     </select>
 
 	<!-- ===============================================================================-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitListBySpec	-->
+	<!-- DESC : 출하포장단위 조회 by spec.	                                       		-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <select id="selectSpmtPckgUnitListBySpec" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitListBySpec */
+				  SPU.APC_CD          		AS APC_CD
+			    , SPU.SPMT_PCKG_UNIT_CD    	AS SPMT_PCKG_UNIT_CD
+			    , SPU.SPMT_PCKG_UNIT_NM    	AS SPMT_PCKG_UNIT_NM
+			    , SPU.BRND_NM				AS BRND_NM
+			    , SPU.ITEM_CD				AS ITEM_CD
+			    , SPU.VRTY_CD              	AS VRTY_CD
+			    , SPU.SPCFCT_CD            	AS SPCFCT_CD
+	    	    , SPU.EXTRNL_LNKG_CD 		AS EXTRNL_LNKG_CD
+	    	    , SPU.STD_PCKG_CD AS STD_PCKG_CD
+	    	    , SPU.STD_UNIT_CD AS STD_UNIT_CD
+	    	    , SPU.STD_ECFRD_CD AS STD_ECFRD_CD
+	    	    , SPU.STD_GRD_CD AS STD_GRD_CD
+				, SPU.DEL_YN               AS DEL_YN
+			    , SPU.GDS_GRD				AS GDS_GRD
+                , SC.WGHT                  AS SPCFCT_WGHT
+				, SC.BX_GDS_QNTT           AS BX_GDS_QNTT
+			  FROM
+			  	  TB_SPMT_PCKG_UNIT SPU
+				, TB_APC_SPCFCT_CRTR SC
+		     WHERE SPU.APC_CD = SC.APC_CD
+               AND SPU.ITEM_CD = SC.ITEM_CD
+               AND SPU.SPCFCT_CD = SC.SPCFCT_CD
+               AND SC.DEL_YN = 'N'
+               AND SPU.DEL_YN = 'N'
+			   AND SPU.APC_CD = #{apcCd}
+			   AND SPU.ITEM_CD = #{itemCd}
+			   AND SPU.VRTY_CD = #{vrtyCd}
+			   
+		]]>
+		
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			   AND SPU.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='gdsGrd != null and gdsGrd != ""'>
+			   AND (SPU.GDS_GRD = #{gdsGrd} OR SPU.GDS_GRD IS NULL)
+		</if>
+		<if test='spmtPckgUnitNm != null and spmtPckgUnitNm != ""'>
+			   AND SPU.SPMT_PCKG_UNIT_NM LIKE '%' ||  #{spmtPckgUnitNm} || '%'
+		</if>
+		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
+		  	   AND SPU.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
+		<![CDATA[
+			  ORDER BY APC_CD, ITEM_CD, SPMT_PCKG_UNIT_CD
+		]]>
+    	<!-- End 페이징 -->
+    </select>
+    
+    
+	<!-- ===============================================================================-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitList	-->
 	<!-- DESC : 출하포장단위 목록 조회.	                                       			-->
 	<!-- ==============================================================================	-->

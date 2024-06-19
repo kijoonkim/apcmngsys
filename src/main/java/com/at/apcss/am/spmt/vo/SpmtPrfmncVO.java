@@ -259,10 +259,22 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 등급코드
 	 */
 	private String grdCd;
+	
 	/**
-	 * 상품등급먕
+	 * 상품등급명
 	 */
 	private String gdsGrdNm;
+	
+	/**
+	 * 선별등급
+	 */
+	private String sortGrdCd;
+	
+	/**
+	 * 생산자식별번호
+	 */
+	private String prdcrIdentno;
+	
 	/**
 	 * 마감여부
 	 */

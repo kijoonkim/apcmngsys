@@ -29,6 +29,15 @@ public interface SpmtPckgUnitService {
 	public SpmtPckgUnitVO selectSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
 
 	/**
+	 * 출하포장단위 단건 조회 by 스펙
+	 * @param SpmtPckgUnitVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPckgUnitVO> selectSpmtPckgUnitListBySpec(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception;
+
+	
+	/**
 	 * 출하포장단위 목록 조회
 	 * @param SpmtPckgUnitVO
 	 * @return List<SpmtPckgUnitVO>
