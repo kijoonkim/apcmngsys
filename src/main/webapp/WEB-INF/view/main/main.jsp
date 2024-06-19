@@ -669,6 +669,8 @@
                     is-expand-only-select="true"
                     callback-slide-button="fn_SlideButton"
                     onclick="fn_selectMenu('LEFT', 'side_menu')"
+<%--                    vertical-scroll-height="800px"--%>
+<%--                    vertical-scroll-placement="left"--%>
                 ></sbux-sidemenu>
             </div>
         </div>

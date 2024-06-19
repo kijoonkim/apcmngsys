@@ -494,19 +494,16 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th rowspan="2" style="font-size: 2vw;">출하번호</th>
-                        <th rowspan="2" style="font-size: 2vw;">품목</th>
-                        <th rowspan="2" style="font-size: 2vw;">품종</th>
-                        <th rowspan="2" style="font-size: 2vw;">단량</th>
-                        <th colspan="5">등급 및 수량</th>
-                        <th rowspan="2" style="font-size: 2vw;">비고</th>
-                    </tr>
-                    <tr>
-                        <th>특</th>
-                        <th>상</th>
-                        <th>보통</th>
-                        <th>대</th>
-                        <th>계</th>
+                        <th style="font-size: 2vw;">출하번호</th>
+                        <th style="font-size: 2vw;">품목</th>
+                        <th style="font-size: 2vw;">품종</th>
+                        <th style="font-size: 2vw;">단량</th>
+                        <th style="font-size: 2vw;">특</th>
+                        <th style="font-size: 2vw;">상</th>
+                        <th style="font-size: 2vw;">보통</th>
+                        <th style="font-size: 2vw;">대</th>
+                        <th style="font-size: 2vw;">계</th>
+                        <th style="font-size: 2vw;">비고</th>
                     </tr>
                     </thead>
                 </table>
@@ -2072,7 +2069,6 @@
                     spmtSn : spmtSn
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
-
             }else{
                 /** 선출하실적 rowData가 없음. **/
                 let rowData = $(this).children(":last").find("input").attr("sortgds");
@@ -2092,10 +2088,12 @@
                         aftrGrdCd : rowData.aftrGrdCd
                     }
                 spmtPrfmncList.push(spmtPrfmnc);
+                /** SpmtFrcdPrcsYn 출하강제처리 여부 **/
                 }
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
+        console.log(saveJson,"저장전데이터");
 
         // /** 중복 상품 취합 **/
         // let arr = saveJson.spmtPrfmncList;
