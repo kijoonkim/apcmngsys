@@ -111,6 +111,14 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSpmtPrfmncByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+	
+	/**
+	 * 출하실적 등록 By 상품리스트
+	 * @param spmtPrfmncComVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSpmtPrfmncCallByPckgList(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
 
 	
 	/**

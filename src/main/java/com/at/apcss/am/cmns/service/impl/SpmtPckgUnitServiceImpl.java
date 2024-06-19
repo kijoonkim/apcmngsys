@@ -59,6 +59,14 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 	}
 
 	@Override
+	public List<SpmtPckgUnitVO> selectSpmtPckgUnitListBySpec(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
+		List<SpmtPckgUnitVO> resultList = spmtPckgUnitMapper.selectSpmtPckgUnitListBySpec(spmtPckgUnitVO);
+
+		return resultList;
+	}
+
+	
+	@Override
 	public List<SpmtPckgUnitVO> selectSpmtPckgUnitList(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
 		 List<SpmtPckgUnitVO> resultList = spmtPckgUnitMapper.selectSpmtPckgUnitList(spmtPckgUnitVO);
 		return resultList;

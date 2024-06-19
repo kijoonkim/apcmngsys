@@ -362,7 +362,7 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품재고정보");
 		}
 
-		if (gdsInvntrVO.getSpmtWght() > invntrInfo.getSpmtWght()) {
+		if (gdsInvntrVO.getSpmtQntt() > invntrInfo.getSpmtQntt()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "출하량||취소량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
