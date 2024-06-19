@@ -83,7 +83,15 @@
                     </td>
                     <th scope="row" class="th_bg">근무패턴</th>
                     <td class="td_input">
-                        <sbux-select id="SRCH_WORK_PATTERN_CODE" uitype="single" jsondata-ref="jsonWorkPatternCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_WORK_PATTERN_CODE" uitype="single" jsondata-ref="jsonWorkPatternCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_WORK_PATTERN_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_WORK_PATTERN_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
@@ -165,7 +173,25 @@
 
         let rst = await Promise.all([
             // 근무패턴
-            gfnma_setComSelect(['SRCH_WORK_PATTERN_CODE', 'bandgvwInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_WORK_PATTERN_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "근무패턴", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
         ]);
     }
 
@@ -366,7 +392,7 @@
     const fn_initCreate = async function() {
         let YYYYMMDD_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
         let YYYYMMDD_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-        let WORK_PATTERN_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_WORK_PATTERN_CODE"));
+        let WORK_PATTERN_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_WORK_PATTERN_CODE'));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: '',
@@ -444,7 +470,7 @@
     const fn_search = async function() {
         let YYYYMMDD_FR	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
         let YYYYMMDD_TO	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-        let WORK_PATTERN_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_WORK_PATTERN_CODE"));
+        let WORK_PATTERN_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_WORK_PATTERN_CODE'));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
