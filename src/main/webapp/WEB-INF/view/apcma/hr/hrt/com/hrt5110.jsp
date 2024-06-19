@@ -66,7 +66,15 @@
                 <tr>
                     <th scope="row" class="th_bg">사업장</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">재직구분</th>
                     <td colspan="3" class="td_input">
@@ -77,11 +85,27 @@
                 <tr>
                     <th scope="row" class="th_bg">직종</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchJobGroup(SRCH_JOB_GROUP)" required></sbux-select>
+                        <%--<sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchJobGroup(SRCH_JOB_GROUP)" required></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_JOB_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">연차유형</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_PAID_VACATION_TYPE" uitype="single" jsondata-ref="jsonPaidVacationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchPaidVacationType(SRCH_PAID_VACATION_TYPE)"  required></sbux-select>
+                        <%--<sbux-select id="SRCH_PAID_VACATION_TYPE" uitype="single" jsondata-ref="jsonPaidVacationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchPaidVacationType(SRCH_PAID_VACATION_TYPE)"  required></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_PAID_VACATION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_PAID_VACATION_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <td colspan="2"></td>
                 </tr>
@@ -213,13 +237,105 @@
 
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SITE_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SITE_CODE'
+                ,colLabel		: 'SITE_NAME'
+                ,columns		:[
+                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 재직상태
             gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직종
-            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonSrchJobGroup, 'L_HRI047_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonSrchJobGroup, 'L_HRI047_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_JOB_GROUP']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRI047_02'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+                ,callback       : function(args) {
+                    if (args == "") {
+                        return;
+                    } else if (args == "2") {
+                        gfnma_multiSelectSet('#SRCH_PAID_VACATION_TYPE', 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', "4010");
+                        SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+                        SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                    } else if (args == "3") {
+                        SBUxMethod.attr("SRCH_PAID_VACATION_TYPE", "required", "true");
+                    }
+                }
+            }),
             // 연차유형
-            gfnma_setComSelect(['SRCH_PAID_VACATION_TYPE', 'gvwStatus'], jsonPaidVacationType, 'L_HRT004_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwStatus'], jsonPaidVacationType, 'L_HRT004_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_PAID_VACATION_TYPE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRT004_02'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'TIME_ITEM_CODE'
+                ,colLabel		: 'TIME_ITEM_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'TIME_ITEM_CODE', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'TIME_ITEM_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "비고", 		ref: 'MEMO',    		width:'100px',  	style:'text-align:left'}
+                ]
+                ,callback       : function(args) {
+                    if (args == "") {
+                        return;
+                    } else if (args == "4050") {
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "true");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "disabled", "false");
+                        SBUxMethod.attr("SRCH_BASE_DATE", "required", "false");
+                        SBUxMethod.set("SRCH_BASE_DATE", "");
+                    } else if (args == "4010") {
+                        SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "disabled", "true");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+                        SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                    } else if (args == "4040") {
+                        SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "disabled", "true");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+                        SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                    } else if (args == "4080") {
+                        SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "disabled", "true");
+                        SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+                        SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+                    }
+                }
+            }),
             // 특별휴가기간
             gfnma_setComSelect(['SRCH_SPECIAL_PERIOD', 'gvwStatus'], jsonSpecialPeriod, 'L_HRT026', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 차년도존재여부
@@ -288,41 +404,6 @@
         });
     }
 
-    const fn_srchJobGroup = async function(args) {
-        if (args == "") {
-            return;
-        } else if (args == "2") {
-            SBUxMethod.set("SRCH_PAID_VACATION_TYPE", "4010");
-            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
-            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
-            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
-        } else if (args == "3") {
-            SBUxMethod.attr("SRCH_PAID_VACATION_TYPE", "required", "true");
-        }
-    }
-
-    const fn_srchPaidVacationType = async function(args) {
-        if (args == "") {
-            return;
-        } else if (args == "4050") {
-            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "true");
-            SBUxMethod.attr("SRCH_BASE_DATE", "required", "false");
-            SBUxMethod.set("SRCH_BASE_DATE", "");
-        } else if (args == "4010") {
-            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
-            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
-            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
-        } else if (args == "4040") {
-            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
-            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
-            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
-        } else if (args == "4080") {
-            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
-            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
-            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
-        }
-    }
-
     const fn_srchYyyy = async function(args) {
         SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date(args,0,1)));
     }
@@ -382,9 +463,9 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(SBUxMethod.get("SRCH_PAID_VACATION_TYPE"));
+        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
         let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
@@ -430,11 +511,10 @@
                 SBUxMethod.set("SRCH_BASE_DATE" , gfn_nvl(returnData.BASE_DATE));
                 SBUxMethod.set("SRCH_YYYY" , gfn_nvl(returnData.YYYY));
                 SBUxMethod.set("SRCH_EXIST_NEXT_YYYY" , gfn_nvl(returnData.EXIST_NEXT_YYYY));
-                SBUxMethod.set("SRCH_SITE_CODE" , gfn_nvl(returnData.SITE_CODE));
-                SBUxMethod.set("SRCH_PAID_VACATION_TYPE" , gfn_nvl(returnData.PAID_ANNUAL_TYPE));
+                gfnma_multiSelectSet('#SRCH_SITE_CODE', 'SITE_CODE', 'SITE_NAME', gfn_nvl(returnData.SITE_CODE));
+                gfnma_multiSelectSet('#SRCH_PAID_VACATION_TYPE', 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', gfn_nvl(returnData.PAID_ANNUAL_TYPE));
                 SBUxMethod.set("SRCH_SPECIAL_PERIOD" , gfn_nvl(returnData.SPECIAL_PERIOD));
-                SBUxMethod.set("SRCH_JOB_GROUP" , gfn_nvl(returnData.JOB_GROUP));
-
+                gfnma_multiSelectSet('#SRCH_JOB_GROUP', 'SUB_CODE', 'CODE_NAME', gfn_nvl(returnData.JOB_GROUP));
             } else {
                 alert(listData.resultMessage);
             }
@@ -492,9 +572,9 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(SBUxMethod.get("SRCH_PAID_VACATION_TYPE"));
+        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
         let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
@@ -564,9 +644,9 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(SBUxMethod.get("SRCH_PAID_VACATION_TYPE"));
+        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
         let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
@@ -631,9 +711,9 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(SBUxMethod.get("SRCH_PAID_VACATION_TYPE"));
+        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
         let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
@@ -698,9 +778,9 @@
             return false;
         }
 
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(SBUxMethod.get("SRCH_PAID_VACATION_TYPE"));
+        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
         let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
@@ -761,9 +841,9 @@
     }
 
     const fn_create = async function() {
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let JOB_GROUP	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-        let PAID_VACATION_TYPE	    = gfnma_nvl(SBUxMethod.get("SRCH_PAID_VACATION_TYPE"));
+        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let JOB_GROUP	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+        let PAID_VACATION_TYPE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_PAID_VACATION_TYPE'));
         let YYYY	    = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
         let BASE_DATE	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let SPECIAL_PERIOD	    = gfnma_nvl(SBUxMethod.get("SRCH_SPECIAL_PERIOD"));
