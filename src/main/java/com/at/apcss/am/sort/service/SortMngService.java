@@ -1,8 +1,10 @@
 package com.at.apcss.am.sort.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.at.apcss.am.sort.vo.SortMngVO;
+import com.at.apcss.am.sort.vo.SortPrfmncVO;
 
 /**
  * 선별관리 Service 인터페이스
@@ -28,8 +30,8 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortCmnd(SortMngVO sortMngVO) throws Exception;
-	
-	
+
+
 	/**
 	 * 선별투입 등록
 	 * @param sortMngVO
@@ -37,7 +39,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortInpt(SortMngVO sortMngVO) throws Exception;
-	
+
 	/**
 	 * 선별투입 삭제
 	 * @param sortMngVO
@@ -45,7 +47,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteSortInpt(SortMngVO sortMngVO) throws Exception;
-	
+
 	/**
 	 * 선별투입실적 등록
 	 * @param sortMngVO
@@ -53,7 +55,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortInptPrfmnc(SortMngVO sortMngVO) throws Exception;
-	
+
 	/**
 	 * 선별실적 등록
 	 * @param sortMngVO
@@ -62,7 +64,7 @@ public interface SortMngService {
 	 */
 	public HashMap<String, Object> insertSortPrfmnc(SortMngVO sortMngVO) throws Exception;
 
-	
+
 	/**
 	 * 선별실적 등록
 	 * @param sortMngVO
@@ -70,7 +72,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertImportSortRslt(SortMngVO sortMngVO) throws Exception;
-	
+
 	/**
 	 * 선별실적 등록
 	 * @param sortMngVO
@@ -78,7 +80,7 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortRslt(SortMngVO sortMngVO) throws Exception;
-	
+
 
 	/**
 	 * 선별지시 변경
@@ -101,6 +103,14 @@ public interface SortMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateSortPrfmnc(SortMngVO sortMngVO) throws Exception;
+
+	/**
+	 * 선별실적 변경
+	 * @param sortMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateSortPrfmncForFcrs(SortPrfmncVO sortMngVO) throws Exception;
 
 
 	/**
@@ -126,5 +136,5 @@ public interface SortMngService {
 	 */
 	public HashMap<String, Object> deleteSortPrfmnc(SortMngVO sortMngVO) throws Exception;
 
-	
+
 }

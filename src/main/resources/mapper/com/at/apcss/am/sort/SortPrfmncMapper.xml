@@ -871,6 +871,52 @@
 		]]>
     </select>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortUpdtList		-->
+	<!-- DESC : 선별실적 목록 (수정대상) 조회.	                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.19  박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <select id="selectSortUpdtForFcrs" parameterType="com.at.apcss.am.sort.vo.SortPrfmncVO" resultType="com.at.apcss.am.sort.vo.SortPrfmncVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortCnclList */
+				  SP.APC_CD			AS APC_CD
+				, SP.SORTNO			AS SORTNO
+				, SP.SORT_SN		AS SORT_SN
+				, SP.GRD_CD			AS GRD_CD
+				, SP.INPT_YMD		AS INPT_YMD
+				, SP.FCLT_CD		AS FCLT_CD
+				, SP.SORT_QNTT		AS SORT_QNTT
+				, SP.SORT_WGHT		AS SORT_WGHT
+				, SP.RMRK			AS RMRK
+				, SI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+				, SI.ITEM_CD		AS ITEM_CD
+				, SI.VRTY_CD		AS VRTY_CD
+				, SI.SPCFCT_CD		AS SPCFCT_CD
+				, SI.GDS_SE_CD		AS GDS_SE_CD
+				, SI.WRHS_SE_CD		AS WRHS_SE_CD
+				, SI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				, SI.INVNTR_QNTT	AS INVNTR_QNTT
+				, SI.INVNTR_WGHT	AS INVNTR_WGHT
+				, (SELECT MAX(X.PCKGNO) FROM TB_PCKG_INPT_PRFMNC X WHERE X.APC_CD = SI.APC_CD AND X.SORTNO = SI.SORTNO AND X.DEL_YN = 'N') AS NXT_PCKGNO
+
+			  FROM
+				  TB_SORT_PRFMNC SP
+				, TB_SORT_INVNTR SI
+			 WHERE SP.APC_CD = SI.APC_CD
+			   AND SP.SORTNO = SI.SORTNO
+			   AND SP.SORT_SN = SI.SORT_SN
+			   AND SP.DEL_YN = 'N'
+			   AND SI.DEL_YN = 'N'
+			   AND SP.APC_CD = #{apcCd}
+			   AND SP.SORTNO = #{sortno}
+			   AND SP.SORT_SN = #{sortSn}
+			 ORDER BY APC_CD, INPT_YMD, SORTNO, SORT_SN
+		]]>
+    </select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortInptPrfmncList	-->
 	<!-- DESC : 선별투입실적 목록 조회.	                                       			-->
