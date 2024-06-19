@@ -77,11 +77,11 @@
                 <tr>
                     <th scope="row" class="th_bg">직종</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                        <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchJobGroup(SRCH_JOB_GROUP)" required></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">연차유형</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_PAID_VACATION_TYPE" uitype="single" jsondata-ref="jsonPaidVacationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                        <sbux-select id="SRCH_PAID_VACATION_TYPE" uitype="single" jsondata-ref="jsonPaidVacationType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" onchange="fn_srchPaidVacationType(SRCH_PAID_VACATION_TYPE)"  required></sbux-select>
                     </td>
                     <td colspan="2"></td>
                 </tr>
@@ -95,6 +95,7 @@
                                 date-format="yyyy"
                                 datepicker-mode="year"
                                 class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+                                onchange="fn_srchYyyy(SRCH_YYYY)"
                                 required
                         />
                     </td>
@@ -285,6 +286,45 @@
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
         });
+    }
+
+    const fn_srchJobGroup = async function(args) {
+        if (args == "") {
+            return;
+        } else if (args == "2") {
+            SBUxMethod.set("SRCH_PAID_VACATION_TYPE", "4010");
+            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+        } else if (args == "3") {
+            SBUxMethod.attr("SRCH_PAID_VACATION_TYPE", "required", "true");
+        }
+    }
+
+    const fn_srchPaidVacationType = async function(args) {
+        if (args == "") {
+            return;
+        } else if (args == "4050") {
+            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "true");
+            SBUxMethod.attr("SRCH_BASE_DATE", "required", "false");
+            SBUxMethod.set("SRCH_BASE_DATE", "");
+        } else if (args == "4010") {
+            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+        } else if (args == "4040") {
+            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+        } else if (args == "4080") {
+            SBUxMethod.set("SRCH_SPECIAL_PERIOD", "");
+            SBUxMethod.attr("SRCH_SPECIAL_PERIOD", "required", "false");
+            SBUxMethod.attr("SRCH_BASE_DATE", "required", "true");
+        }
+    }
+
+    const fn_srchYyyy = async function(args) {
+        SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date(args,0,1)));
     }
 
     function fn_createGvwShiftGrid() {
