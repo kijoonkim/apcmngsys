@@ -193,7 +193,7 @@ public class SortMngController extends BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_MAP, sortMngVO);
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	@PostMapping(value = "/am/sort/updateSortPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateSortPrfmnc(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
 
@@ -224,7 +224,43 @@ public class SortMngController extends BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_MAP, sortMngVO);
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
+	@PostMapping(value = "/am/sort/updateSortPrfmncForFcrs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateSortPrfmncForFcrs(@RequestBody List<SortPrfmncVO> sortPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+				for(SortPrfmncVO  sortVO : sortPrfmncVO) {
+					sortVO.setSysFrstInptUserId(getUserId());
+					sortVO.setSysFrstInptPrgrmId(getPrgrmId());
+					sortVO.setSysLastChgUserId(getUserId());
+					sortVO.setSysLastChgPrgrmId(getPrgrmId());
+					HashMap<String, Object> rtnObj = sortMngService.updateSortPrfmncForFcrs(sortVO);
+					if (rtnObj != null) {
+						return getErrorResponseEntity(rtnObj);
+					}
+				}
+
+
+
+			//sortMngVO.setNeedsInptRegYn(ComConstants.CON_YES);	// 투입실적 자동등록
+
+
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_MAP, sortPrfmncVO);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	@PostMapping(value = "/am/sort/deleteSortPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSortPrfmnc(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
