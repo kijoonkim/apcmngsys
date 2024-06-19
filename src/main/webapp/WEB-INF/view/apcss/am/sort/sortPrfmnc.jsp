@@ -484,10 +484,10 @@
                 format : {type:'number', rule:'#,###'}, fixedRenderer: fnRenderer
             },
             {caption: ["선별","변경수량"],  			ref: 'chgSortQntt', 			type:'input',  	width:'60px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}, hidden : true
+            	format : {type:'number', rule:'#,###'}, hidden : true, userattr:{colNm:"chgQntt"}
             },
-            {caption: ["선별","변경중량 (Kg)"],  		ref: 'chgSortWght', 			type:'output',  	width:'80px',   style:'text-align:right',
-                format : {type:'number', rule:'#,###'}, hidden : true
+            {caption: ["선별","변경중량 (Kg)"],  		ref: 'chgSortWght', 			type:'input',  	width:'80px',   style:'text-align:right',
+                format : {type:'number', rule:'#,###'}, hidden : true, userattr:{colNm:"chgWght"}
             },
             {caption: ["입고구분","입고구분"],         ref: 'wrhsSeNm',            type:'output',      width:'60px',   style:'text-align:center', fixedRenderer: fnRenderer},
             {caption: ["상품구분","상품구분"],          ref: 'gdsSeNm',               type:'output',      width:'60px',   style:'text-align:center', fixedRenderer: fnRenderer},
@@ -515,6 +515,7 @@
         grdSortPrfmnc = _SBGrid.create(SBGridProperties);
         grdSortPrfmnc.bind('click', fn_viewSortInpt);
         grdSortPrfmnc.bind('valuechanged' , fn_grdRawMtrInvntrValueChanged);
+
         //grdSortPrfmnc.bind('beforepagechanged', fn_pagingSortPrfmnc);
     }
 
@@ -838,8 +839,8 @@
 
 		const allData = grdSortPrfmnc.getGridDataAll().filter((item)=>item.checkedYn === "Y");
 		var sortPrfmncList = [];
-		allData.forEach((item, index) => {
 
+		allData.forEach((item, index) => {
 					sortPrfmncList.push({
 						apcCd: gv_selectedApcCd
 						, sortno: item.sortno
@@ -855,6 +856,7 @@
 
     		}
 		);
+
 
 		if (sortPrfmncList.length == 0) {
 			gfn_comAlert("W0005", "수정대상");		//	W0005	{0}이/가 없습니다.
@@ -1174,25 +1176,41 @@
 		let inptQnttCol = grdSortPrfmnc.getColRef("chgSortQntt");
 		let inptWghtCol = grdSortPrfmnc.getColRef("chgSortWght");
 		let chkCol = grdSortPrfmnc.getColRef("checkedYn");
-
 		const rowData = grdSortPrfmnc.getRowData(nRow);	// deep copy
 		const spcfctCd = rowData.spcfctCd
 		const usrAttr = grdSortPrfmnc.getColUserAttr(nCol);
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+
+		let spcfct;
 		if(jsonApcSpcfct.length === 0 || !rowData.itemCd === itemCd ){
 			//jsonApcSpcfct.length = 0;
 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, rowData.itemCd);		// 규격
 		}
-		let spcfct;
 		jsonApcSpcfct.forEach( (item) => {
 			if(item.spcfctCd ===rowData.spcfctCd){
 				spcfct = item.wght
 				}
 			});
 
-		let sortQntt = parseInt(rowData.chgSortQntt) || 0;
-		let sortWght = sortQntt * spcfct;
-		grdSortPrfmnc.setCellData(nRow, inptWghtCol, sortWght,true);
+		if(rowData.chgSortQntt === "" || rowData.chgSortQntt === undefined){
+			gfn_comAlert("W0002","수량");
+			return;
+		}
+
+
+
+		const attrUsr = grdSortPrfmnc.getColUserAttr(nCol);
+		if (!gfn_isEmpty(attrUsr) && attrUsr.hasOwnProperty('colNm')) {
+			if(attrUsr.colNm == "chgQntt"){
+				let sortQntt = parseInt(rowData.chgSortQntt) || 0;
+				let sortWght = sortQntt * spcfct;
+				grdSortPrfmnc.setCellData(nRow, inptWghtCol, sortWght,true);
+			}else if(attrUsr.colNm == "chgWght"){
+				grdSortPrfmnc.setCellData(nRow, inptWghtCol, rowData.chgSortWght,true);
+			}
+		}
+
+
 		grdSortPrfmnc.setCellData(nRow, chkCol, "Y",true);
 	}
 
