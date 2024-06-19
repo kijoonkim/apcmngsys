@@ -60,6 +60,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			HashMap<String, Object> map1 = this.InnerCallProc(param, session, request, ptype);
 			rmap = this.checkError(map1);
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.debug(e.getMessage());
 		}
 		return rmap;
@@ -193,13 +194,13 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		try {
 			
 			//프로시저에서 v_errorCode 값이 없고,  v_errorStr 에러메시지 만 있는경우..
-			if(param.get("v_errorCode").equals("") && !param.get("v_errorStr").equals("")) {
+			if(Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("") && !Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("")) {
 				rmap.put("resultStatus", 	"E");
 				rmap.put("resultMessage", 	param.get("v_errorStr").toString());
 			}
 			
 			//프로시저에서 v_errorCode 값이 반드시 있어야 하는데 없이 오는 경우..
-			if(param.get("v_errorCode").equals("")) {
+			if(Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("")) {
 		    	rmap.put("resultStatus", 	"S");
 		    	rmap.put("resultMessage", 	"");
 			}
@@ -279,6 +280,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		        }
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.debug(e.getMessage());
 		}
 		return rmap;

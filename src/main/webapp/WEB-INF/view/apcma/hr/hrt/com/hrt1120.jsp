@@ -55,7 +55,15 @@
                 <tr>
                     <th scope="row" class="th_bg">근태집계단위</th>
                     <td class="td_input">
-                        <sbux-select id="SRCH_SUMMARY_SCALE" uitype="single" jsondata-ref="jsonSummaryScale" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_SUMMARY_SCALE" uitype="single" jsondata-ref="jsonSummaryScale" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SUMMARY_SCALE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SUMMARY_SCALE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">근태분류</th>
                     <td class="td_input">
@@ -140,7 +148,25 @@
 
         let rst = await Promise.all([
             // 집계기준
-            gfnma_setComSelect(['SRCH_SUMMARY_SCALE', 'gvwInfo'], jsonSummaryScale, 'L_HRT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryScale, 'L_HRT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SUMMARY_SCALE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRT001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 집계기준
             gfnma_setComSelect(['SRCH_TIME_CATEGORY', 'gvwInfo'], jsonTimeCategory, 'L_HRT024', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 시간
@@ -326,7 +352,7 @@
     }
 
     const fn_search = async function () {
-        let SUMMARY_SCALE = gfnma_nvl(SBUxMethod.get("SRCH_SUMMARY_SCALE"));
+        let SUMMARY_SCALE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SUMMARY_SCALE'));
         let TIME_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
         let TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
         let TIME_ITEM_NAME = gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));

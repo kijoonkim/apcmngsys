@@ -250,6 +250,7 @@ async function gfnma_multiSelectInit(obj) {
 	var _colValue		= obj.colValue;
 	var _colLabel		= obj.colLabel;
 	var _columns		= obj.columns;
+	var _callback		= obj.callback;
 
     var paramObj = { 
 		V_P_DEBUG_MODE_YN	: ''
@@ -329,6 +330,9 @@ async function gfnma_multiSelectInit(obj) {
 				$(tarId).attr('cu-value', cu_value);
 				$(tarId).attr('cu-label', cu_label);
 				$(tarId).find('font').text(cu_label);
+				if(typeof _callback == "function") {
+					_callback(cu_value)
+				}
 			}
 		});		
 	}	

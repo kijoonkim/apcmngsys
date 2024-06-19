@@ -65,7 +65,15 @@
                 <tr>
                     <th scope="row" class="th_bg">사업장</th>
                     <td colspan="3" class="td_input">
-                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">재직구분</th>
                     <td class="td_input">
@@ -88,6 +96,7 @@
                                 datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                onchange="fn_srchPeriodYyyymm(SRCH_PERIOD_YYYYMM)"
                         />
                     </td>
                     <td colspan="2"></td>
@@ -108,7 +117,15 @@
                     </td>
                     <th scope="row" class="th_bg">직종</th>
                     <td class="td_input">
-                        <sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_JOB_GROUP" uitype="single" jsondata-ref="jsonSrchJobGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_JOB_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_JOB_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -280,12 +297,53 @@
             // 시작/종료일자유형
             gfnma_setComSelect(['gvwShiftInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SRCH_SITE_CODE', 'gvwCheck'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCheck'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SITE_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SITE_CODE'
+                ,colLabel		: 'SITE_NAME'
+                ,columns		:[
+                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 직종
-            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonSrchJobGroup, 'L_HRI047_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            /*gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonSrchJobGroup, 'L_HRI047_02', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_JOB_GROUP']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRI047_02'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 근태관리 여부
             gfnma_setComSelect(['SRCH_WORK_TIME_YN'], jsonWorkTimeYn, 'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
+    }
+
+    const fn_srchPeriodYyyymm = async function(args) {
+        SBUxMethod.set("SRCH_APPLY_START_DATE", gfn_dateToYmd(new Date(args.substring(0,4), (args.substring(5,6)-1), 1)));
+        SBUxMethod.set("SRCH_APPLY_END_DATE", gfn_dateLastYmd(new Date(args.substring(0,4), (args.substring(5,6)-1), 1)));
     }
 
     var fn_findSrchDeptCode = function() {
@@ -478,14 +536,11 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
-            {caption: ["출근시각"],        ref: 'WORK_ON_HHMM', 		         type:'datepicker',  	width:'70px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["출근시각"],        ref: 'WORK_ON_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["퇴근시각"],        ref: 'WORK_OFF_HHMM', 		         type:'datepicker',  	width:'70px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["퇴근시각"],        ref: 'WORK_OFF_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["정상근무시작유형"], 		ref: 'NORMAL_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '89px',
@@ -495,10 +550,8 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
-            {caption: ["정상근무시작시각"],        ref: 'NORMAL_START_HHMM', 		         type:'datepicker',  	width:'91px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["정상근무시작시각"],        ref: 'NORMAL_START_HHMM', 		         type:'input',  	width:'91px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["정상근무종료유형"], 		ref: 'NORMAL_END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '94px',
@@ -508,10 +561,8 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
-            {caption: ["정상근무종료시각"],        ref: 'NORMAL_END_HHMM', 		         type:'datepicker',  	width:'89px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'HH:mm'},
+            {caption: ["정상근무종료시각"],        ref: 'NORMAL_END_HHMM', 		         type:'input',  	width:'89px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["공휴일여부"],         ref: 'HOLIDAY_YN',    type:'checkbox',  	width:'75px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
@@ -524,7 +575,6 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
             {caption: ["데이타소스"], 		ref: 'DATA_SOURCE',   	    type:'combo', style:'text-align:left' ,width: '120px',
                 typeinfo: {
@@ -533,7 +583,6 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
             },
             {caption: ["교대조(원)"],       ref: 'SHIFT_CODE_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["정상근무시작유형(원)"],       ref: 'NORMAL_START_DAY_TYPE_ORIG', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
@@ -544,6 +593,7 @@
         ];
 
         gvwShiftInfo = _SBGrid.create(SBGridProperties);
+        gvwShiftInfo.bind('valuechanged','fn_gvwShiftInfoValueChanged');
     }
 
     function fn_createGvwCheckGrid() {
@@ -612,6 +662,159 @@
         }
     }
 
+    const fn_gvwShiftInfoValueChanged = async function() {
+        var nRow = gvwShiftInfo.getRow();
+        var nCol = gvwShiftInfo.getCol();
+        var rowData = gvwShiftInfo.getRowData(nRow);
+
+       if (nCol == gvwShiftInfo.getColRef('SHIFT_CODE')) {
+            if (gfn_nvl(rowData.SHIFT_CODE) == "") {
+                return;
+            } else {
+                let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
+                let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
+                let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
+                let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
+                let EMP_CODE_D = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE_D"));
+                let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+                let WORK_TIME_YN = gfnma_nvl(SBUxMethod.get("SRCH_WORK_TIME_YN"));
+                let JOB_GROUP = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+                let SHIFT_CODE = gfn_nvl(rowData.SHIFT_CODE);
+
+                var paramObj = {
+                    V_P_DEBUG_MODE_YN	: '',
+                    V_P_LANG_ID		: '',
+                    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_YYYYMMDD_FR : YYYYMMDD_FR,
+                    V_P_YYYYMMDD_TO : YYYYMMDD_TO,
+                    V_P_SITE_CODE : SITE_CODE,
+                    V_P_DEPT_CODE : DEPT_CODE,
+                    V_P_EMP_CODE : EMP_CODE,
+                    V_P_EMP_CODE_D : EMP_CODE_D,
+                    V_P_EMP_STATE : EMP_STATE,
+                    V_P_LOGIN_DEPT_CODE : '',
+                    V_P_HR_MANAGER_YN : '',
+                    V_P_WORK_TIME_YN : WORK_TIME_YN,
+                    V_P_JOB_GROUP : JOB_GROUP,
+                    V_P_SHIFT_CODE : SHIFT_CODE,
+                    V_P_WORK_PATTERN_CODE : '',
+                    V_P_FORM_ID		: p_formId,
+                    V_P_MENU_ID		: p_menuId,
+                    V_P_PROC_ID		: '',
+                    V_P_USERID			: '',
+                    V_P_PC				: ''
+                };
+
+                console.log(paramObj)
+
+                const postJsonPromiseForShift = gfn_postJSON("/hr/hrt/com/selectHrt1510List.do", {
+                    getType				: 'json',
+                    workType			: 'SHIFT',
+                    cv_count			: '8',
+                    params				: gfnma_objectToString(paramObj)
+                });
+
+                const listData = await postJsonPromiseForShift;
+                console.log('data:', listData);
+
+                try {
+                    if (_.isEqual("S", listData.resultStatus)) {
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("WORK_ON_HHMM"), gfn_nvl(listData.cv_1[0].WORK_ON_HHMM), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("WORK_OFF_HHMM"), gfn_nvl(listData.cv_1[0].WORK_OFF_HHMM), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_START_DAY_TYPE"), gfn_nvl(listData.cv_1[0].NORMAL_START_DAY_TYPE), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_START_HHMM"), gfn_nvl(listData.cv_1[0].NORMAL_START_HHMM), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_END_DAY_TYPE"), gfn_nvl(listData.cv_1[0].NORMAL_END_DAY_TYPE), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_END_HHMM"), gfn_nvl(listData.cv_1[0].NORMAL_END_HHMM), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("BREAK_APPLY_YN"), gfn_nvl(listData.cv_1[0].BREAK_APPLY_YN), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_START_DAY_TYPE_ORIG"), gfn_nvl(listData.cv_1[0].NORMAL_START_DAY_TYPE_ORIG), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_START_HHMM_ORIG"), gfn_nvl(listData.cv_1[0].NORMAL_START_HHMM_ORIG), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_END_DAY_TYPE_ORIG"), gfn_nvl(listData.cv_1[0].NORMAL_END_DAY_TYPE_ORIG), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("NORMAL_END_HHMM_ORIG"), gfn_nvl(listData.cv_1[0].NORMAL_END_HHMM_ORIG), true);
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("BREAK_APPLY_YN_ORIG"), gfn_nvl(listData.cv_1[0].BREAK_APPLY_YN_ORIG), true);
+                    } else {
+                        alert(listData.resultMessage);
+                    }
+
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    console.error("failed", e.message);
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                }
+            }
+        } else if (nCol == gvwShiftInfo.getColRef('WORK_PATTERN_CODE')) {
+            if (gfn_nvl(rowData.WORK_PATTERN_CODE) == "") {
+                return;
+            } else {
+                let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
+                let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
+                let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
+                let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
+                let EMP_CODE_D = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE_D"));
+                let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+                let WORK_TIME_YN = gfnma_nvl(SBUxMethod.get("SRCH_WORK_TIME_YN"));
+                let JOB_GROUP = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
+                let WORK_PATTERN_CODE = gfn_nvl(rowData.WORK_PATTERN_CODE);
+
+                var paramObj = {
+                    V_P_DEBUG_MODE_YN	: '',
+                    V_P_LANG_ID		: '',
+                    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_YYYYMMDD_FR : YYYYMMDD_FR,
+                    V_P_YYYYMMDD_TO : YYYYMMDD_TO,
+                    V_P_SITE_CODE : SITE_CODE,
+                    V_P_DEPT_CODE : DEPT_CODE,
+                    V_P_EMP_CODE : EMP_CODE,
+                    V_P_EMP_CODE_D : EMP_CODE_D,
+                    V_P_EMP_STATE : EMP_STATE,
+                    V_P_LOGIN_DEPT_CODE : '',
+                    V_P_HR_MANAGER_YN : '',
+                    V_P_WORK_TIME_YN : WORK_TIME_YN,
+                    V_P_JOB_GROUP : JOB_GROUP,
+                    V_P_SHIFT_CODE : '',
+                    V_P_WORK_PATTERN_CODE : WORK_PATTERN_CODE,
+                    V_P_FORM_ID		: p_formId,
+                    V_P_MENU_ID		: p_menuId,
+                    V_P_PROC_ID		: '',
+                    V_P_USERID			: '',
+                    V_P_PC				: ''
+                };
+
+                console.log(paramObj)
+
+                const postJsonPromiseForShift = gfn_postJSON("/hr/hrt/com/selectHrt1510List.do", {
+                    getType				: 'json',
+                    workType			: 'PATTERN',
+                    cv_count			: '8',
+                    params				: gfnma_objectToString(paramObj)
+                });
+
+                const listData = await postJsonPromiseForShift;
+                console.log('data:', listData);
+
+                try {
+                    if (_.isEqual("S", listData.resultStatus)) {
+                        gvwShiftInfo.setCellData(nRow, gvwShiftInfo.getColRef("SHIFT_TYPE"), gfn_nvl(listData.cv_1[0].SHIFT_TYPE), true);
+                    } else {
+                        alert(listData.resultMessage);
+                    }
+
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    console.error("failed", e.message);
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                }
+            }
+        }
+    }
+
     // 조회
     function cfn_search() {
         fn_search();
@@ -625,13 +828,13 @@
     const fn_search = async function() {
         let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
         let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
         let EMP_CODE_D = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE_D"));
         let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let WORK_TIME_YN = gfnma_nvl(SBUxMethod.get("SRCH_WORK_TIME_YN"));
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let JOB_GROUP = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -776,13 +979,13 @@
 
         let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
         let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
         let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
         let EMP_CODE_D = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE_D"));
         let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let WORK_TIME_YN = gfnma_nvl(SBUxMethod.get("SRCH_WORK_TIME_YN"));
-        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+        let JOB_GROUP = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -868,6 +1071,21 @@
     }
 
     const fn_save = async function() {
+        var nCol = gvwShift.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = gvwShift.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwShift.getRowData(nRow);
+
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+        let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
+        let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
         let updatedData = gvwShiftInfo.getUpdateData(true, 'all');
         let listDate = [];
 
@@ -881,9 +1099,9 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedApcCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_SITE_CODE : item.data.SITE_CODE,
-                    V_P_DEPT_CODE : item.data.DEPT_CODE,
-                    V_P_EMP_CODE : item.data.EMP_CODE,
+                    V_P_SITE_CODE : SITE_CODE,
+                    V_P_DEPT_CODE : DEPT_CODE,
+                    V_P_EMP_CODE : EMP_CODE,
                     V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == '' ? 0 : item.data.TXN_ID,
                     V_P_APPLY_START_DATE : '',
                     V_P_APPLY_END_DATE : '',
@@ -939,7 +1157,7 @@
     const fn_apply = async function() {
         let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
         let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 
@@ -1022,7 +1240,7 @@
     const fn_confirm = async function() {
         let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
         let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 
@@ -1105,7 +1323,7 @@
     const fn_unconfirm = async function() {
         let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_START_DATE"));
         let APPLY_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_APPLY_END_DATE"));
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 

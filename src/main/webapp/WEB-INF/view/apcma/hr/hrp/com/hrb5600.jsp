@@ -366,6 +366,8 @@
 
         fn_createGrid();
         fn_createBandgvwDetailGrid();
+
+        fn_search();
     }
 
     //급여항목
@@ -461,6 +463,7 @@
     }
     // 삭제
     function cfn_del() {
+        fn_del();
     }
 
     // 조회
@@ -757,7 +760,7 @@
 
 
         gvwBandgvwDetailGrid.clearStatus();
-        jsonBandgvwDetailList = 0;
+        jsonBandgvwDetailList.length = 0;
         gvwBandgvwDetailGrid.rebuild();
 
     }
@@ -874,7 +877,7 @@
             if (gfn_comConfirm("Q0001", "수정 저장")) {
                 const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600.do", {
                     getType: 'json',
-                    workType: 'N',
+                    workType: 'U',
                     cv_count: '0',
                     params: gfnma_objectToString(paramObj)
                 });
@@ -905,7 +908,10 @@
     //저장
     const fn_saveS1 = async function () {
 
-        var paramObj = await getParamForm('u');
+        var paramObj = {
+            P_HRB5600_S1: await getParamForm('u')
+        }
+
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", paramObj);
         const data = await postJsonPromise;
@@ -973,13 +979,12 @@
                     })
                 }
 
-                console.log("---------param--------- : ", param);
                 returnData.push(param);
 
             });
         }else if (_.isEqual(type, 'd')){
 
-            updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
+            updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'd');
 
             updatedData.forEach((item, index) => {
 
@@ -1051,6 +1056,31 @@
 
     });
 
+    //삭제
+    const fn_del = async function () {
+
+        var paramObj = await getParamForm('d');
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", paramObj);
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+                fn_search(/*tabId*/);
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

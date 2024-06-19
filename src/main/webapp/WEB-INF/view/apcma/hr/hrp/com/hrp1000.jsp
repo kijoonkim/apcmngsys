@@ -1349,7 +1349,7 @@
         let nCol = gvwInfoGrid.getCol();
         let nRow = gvwInfoGrid.getRow();
 
-        if(date == '' || date == null) {
+        if(_.isEmpty(date)) {
             //특정 열 부터 이벤트 적용
             if (nCol < 1) {
                 return;
@@ -1715,28 +1715,28 @@
             const msg = {
                 APPLY_START_DATE: dateString,
                 APPLY_END_DATE: dateString,
-                MEMO: "",
-                SALARY_BASE_AMT: "",
-                JOB_BASE_AMT: "",
-                OT_FIXED_BASE_AMT: "",
-                ROLE_BASE_AMT: "",
-                INCENTIVE_BASE_AMT: "",
-                COMPETENCE_BASE_AMT: "",
-                MONTHLY_SALARY_AMT: "",
-                PAY_COUNT: "",
-                INCENTIVE_ADD_AMT: "",
-                BONUS_COUNT: "",
-                ANNUAL_SALARY_AMT: "",
-                INCENTIVE_MONTH_AMT: "",
-                HOURLY_BASE_AMT: "",
-                SUM_BASE_AMT: "",
-                ANNUAL_BASE_AMT: "",
-                USERID: "",
-                USERTIME: "",
-                DAILY_BASE_AMT: "",
-                BONUS_BASE_AMT: "",
-                CONTRIBUTE_BASE_AMT: "",
-                ADJUST_BASE_AMT: "",
+                MEMO: '',
+                SALARY_BASE_AMT: '',
+                JOB_BASE_AMT: '',
+                OT_FIXED_BASE_AMT: '',
+                ROLE_BASE_AMT: '',
+                INCENTIVE_BASE_AMT: '',
+                COMPETENCE_BASE_AMT: '',
+                MONTHLY_SALARY_AMT: '',
+                PAY_COUNT: '',
+                INCENTIVE_ADD_AMT: '',
+                BONUS_COUNT: '',
+                ANNUAL_SALARY_AMT: '',
+                INCENTIVE_MONTH_AMT: '',
+                HOURLY_BASE_AMT: '',
+                SUM_BASE_AMT: '',
+                ANNUAL_BASE_AMT: '',
+                USERID: '',
+                USERTIME: '',
+                DAILY_BASE_AMT: '',
+                BONUS_BASE_AMT: '',
+                CONTRIBUTE_BASE_AMT: '',
+                ADJUST_BASE_AMT: '',
 
                 status: 'i'
             }
@@ -1957,6 +1957,10 @@
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
             var paramObj =await getParamForm('u');
+
+            if (_.isEmpty(paramObj)){
+                return;
+            }
 
             console.log("+++++++++++++++++ paramObj +++++++++++++++++++++++", paramObj);
 
@@ -2275,10 +2279,10 @@
 
          }else if (typeData == 'd'){ // 삭제
 
-             payData = gvwPayGrid.getUpdateData('d'); //고정 수당항목
-             dedData = gvwDedGrid.getUpdateData('d'); //고정공제항목
-             varPayData = gvwVarPayGrid.getUpdateData('d');  //변동수당항목
-             varDedData = gvwVarDedGrid.getUpdateData('d'); //변동공제항목
+             payData = gvwPayGrid.getUpdateData(true, 'd'); //고정 수당항목
+             dedData = gvwDedGrid.getUpdateData(true, 'd'); //고정공제항목
+             varPayData = gvwVarPayGrid.getUpdateData(true, 'd');  //변동수당항목
+             varDedData = gvwVarDedGrid.getUpdateData(true, 'd'); //변동공제항목
 
          }
 

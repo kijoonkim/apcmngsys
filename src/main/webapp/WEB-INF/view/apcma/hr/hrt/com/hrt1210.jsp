@@ -57,7 +57,15 @@
                 <tr>
                     <th scope="row" class="th_bg">교대조</th>
                     <td class="td_input">
-                        <sbux-select id="SRCH_SHIFT_CODE" uitype="single" jsondata-ref="jsonShiftCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_SHIFT_CODE" uitype="single" jsondata-ref="jsonShiftCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SHIFT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SHIFT_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">교대조명</th>
                     <td class="td_input">
@@ -698,7 +706,25 @@
 
         let rst = await Promise.all([
             // 집계기준
-            gfnma_setComSelect(['SRCH_SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
+            /*gfnma_setComSelect(['SRCH_SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),*/
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SHIFT_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRT_SHIFTCODE'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SHIFT_CODE'
+                ,colLabel		: 'SHIFT_NAME'
+                ,columns		:[
+                    {caption: "교대조코드",		ref: 'SHIFT_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "교대조명", 		ref: 'SHIFT_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 사용여부
             gfnma_setComSelect(['SRCH_USE_YN'], jsonUseYn, 'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근무일
@@ -1306,7 +1332,7 @@
     const fn_search = async function() {
         editType = "N";
         SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
-        let SHIFT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SHIFT_CODE"));
+        let SHIFT_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SHIFT_CODE'));
         let SHIFT_NAME	    = gfnma_nvl(SBUxMethod.get("SRCH_SHIFT_NAME"));
         let USE_YN	    = gfnma_nvl(SBUxMethod.get("USE_YN"));
 

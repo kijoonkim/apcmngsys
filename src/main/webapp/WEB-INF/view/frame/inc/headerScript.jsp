@@ -100,10 +100,7 @@
 			const gv_loginUserNm = gjson_loginInfo.userNm;
 		</c:otherwise>
 	</c:choose>
-	
-	console.log("gjson_loginInfo", gjson_loginInfo);
-	console.log("gv_loginUserNm", gv_loginUserNm);
-	
+
 	<c:choose>
 		<c:when test="${loginVO != null && loginVO.id != null}">
 		<c:set scope="request" var="apcCd" value="${loginVO.apcCd}"></c:set>

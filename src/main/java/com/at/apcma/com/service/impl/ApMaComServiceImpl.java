@@ -55,7 +55,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
     }	
 	
 	//파일 업로드 경로
-	@Value("${upload.path2}")
+	@Value("${apcss.filepath.ma}")
     private String filePath;
     
     public Map<String, Object> callProcTibero(Map<String, Object> param) throws Exception{
@@ -289,25 +289,27 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			if(newFilePath.contains(":")){
 				//window path
 				if(!String.valueOf(newFilePath.charAt(newFilePath.length()-1)).equals("\\")) {
-					newFilePath = newFilePath + "\\"; 
+					newFilePath = newFilePath + "\\" + param.get("comp_code").toString() + "\\"; 
+				} else {
+					newFilePath = newFilePath + param.get("comp_code").toString() + "\\"; 
 				}
 				if(param.get("source_code")==null || param.get("source_code").equals("") || param.get("source_code").equals("null")) {
 					newFilePath = newFilePath + param.get("source_type").toString() + "\\" + "null" + "\\";
 				} else {
 					newFilePath = newFilePath + param.get("source_type").toString() + "\\" + param.get("source_code").toString() + "\\";
 				}
-				
 			} else {
 				//other path
 				if(!String.valueOf(newFilePath.charAt(newFilePath.length()-1)).equals("/")) {
-					newFilePath = newFilePath+ "/"; 
+					newFilePath = newFilePath + "/" + param.get("comp_code").toString() + "/"; 
+				} else {
+					newFilePath = newFilePath + param.get("comp_code").toString() + "/"; 
 				}
 				if(param.get("source_code")==null || param.get("source_code").equals("") || param.get("source_code").equals("null")) {
 					newFilePath = newFilePath + param.get("source_type").toString() + "/" + "null" + "/";
 				} else {
 					newFilePath = newFilePath + param.get("source_type").toString() + "/" + param.get("source_code").toString() + "/";
 				}
-				
 			}
 			
 			//file

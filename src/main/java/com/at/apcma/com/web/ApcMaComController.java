@@ -1,11 +1,16 @@
 package com.at.apcma.com.web;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -19,11 +24,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -377,6 +385,76 @@ public class ApcMaComController extends BaseController {
     	} catch (Exception e) {
     		logger.debug("", e);
     	}
+    } 
+    
+    @RequestMapping("/com/getPdfFileDown.do")
+    public ResponseEntity<byte[]> getPdfFileDown(
+    		@RequestParam Map<String, Object> param
+    		,HttpServletRequest request
+    		,HttpServletResponse response
+    		,HttpSession session
+    		,Model model) throws Exception {
+    	
+    	logger.debug("/com/getPdfFileDown started =======>" + param);
+    	
+        HttpHeaders headers = new HttpHeaders();
+    	byte[] pdfBytes 	= null;
+    	
+    	try {
+    		//get ipAddress
+    		String ipAddress = request.getHeader("X-Forwarded-For");
+    		if (ipAddress == null) {
+    			ipAddress = request.getRemoteAddr();
+    		}
+    		
+    		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
+    		
+    		//get delete key ---------------------------------------------------------
+    		Map<String, Object> gmap4 = new HashMap<String, Object>();
+    		gmap4.put("procedure", 			"P_COM5100_Q");
+    		gmap4.put("workType", 			"Q1");
+    		gmap4.put("getType", 			"json");
+    		gmap4.put("cv_count", 			"1");
+    		
+    		String palist2[][] = {
+    				{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
+    				{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
+    				{"V_P_COMP_CODE",			param.get("comp_code").toString()},
+    				{"V_P_CLIENT_CODE",			param.get("client_code").toString()},
+    				{"V_P_FILE_NAME",			""},
+    				{"V_P_SOURCE_TYPE",			""},
+    				{"V_P_SOURCE_CODE",			param.get("fkey").toString()},
+    				{"V_P_USER",				""},
+    				{"V_P_FORM_ID",				""},
+    				{"V_P_MENU_ID",				""},
+    				{"V_P_PROC_ID",				"P_COM5100_Q"},
+    				{"V_P_USERID",				ssmap.get("USERID").toString()},
+    				{"V_P_PC",					ipAddress}
+    		};			
+    		Map<String, Object> map3 = apcMaCommDirectService.InnerCallProc2(gmap4, palist2); 
+    		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
+    		Map<String, Object> map4 = clist.get(0);			
+    		//-------------------------------------------------------------------------
+    		String filePath 	= map4.get("FILE_SERVER_PATH").toString();
+    		String orgfileName 	= map4.get("FILE_NAME").toString();
+    		
+    		if(filePath!=null && !filePath.equals("")) {
+    			
+    	        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+    	        headers.add("Content-Disposition", "inline; filename=example.pdf");
+
+    	        try {
+    	            Path path = Paths.get(filePath);
+    	            pdfBytes = Files.readAllBytes(path);
+    	        } catch (IOException e) {
+    	    		logger.debug("", e);
+    	            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    	        }
+    		}
+    	} catch (Exception e) {
+    		logger.debug("", e);
+    	}
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     } 
     
 }
