@@ -1958,6 +1958,10 @@
 
             var paramObj =await getParamForm('u');
 
+            if (_.isEmpty(paramObj)){
+                return;
+            }
+
             console.log("+++++++++++++++++ paramObj +++++++++++++++++++++++", paramObj);
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000.do", {

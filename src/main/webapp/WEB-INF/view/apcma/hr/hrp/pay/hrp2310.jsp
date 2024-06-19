@@ -3,7 +3,7 @@
      * @Class Name        : hrp1000.jsp
      * @Description       : 급상여 조정 정보 화면
      * @author            : 인텔릭아이앤에스
-     * @since             : 2024.05.21
+     * @since             : 2024.06.14
      * @version           : 1.0
      * @Modification Information
      * @
@@ -103,7 +103,8 @@
                             uitype="popup"
                             datepicker-mode="month"
                             date-format="yyyymm"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed">
+                            class="form-control input-sm input-sm-ast inpt_data_reqed"
+                            onchange="fn_payDate">
                     </sbux-datepicker>
                 </td>
                 <th scope="row" class="th_bg">지급구분</th>
@@ -177,7 +178,7 @@
             <div class="col-sm-8">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
-                        <li><span>인사정보</span></li>
+                        <li><span>사원정보</span></li>
                     </ul>
                 </div>
                 <div>
@@ -191,6 +192,11 @@
                             <col style="width:3%">
                             <col style="width:4%">
                             <col style="width:2%">
+
+                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:4%">
+
                         </colgroup>
                         <tr>
                             <th scope="row" class="th_bg">급여체계</th>
@@ -200,6 +206,7 @@
                                         uitype="single"
                                         id="PAY_GROUP_CODE"
                                         name="PAY_GROUP_CODE"
+                                        unselected-text="전체"
                                         class="form-control input-sm"
                                         jsondata-ref="jsonPayGroupCode"
                                         readonly
@@ -224,7 +231,7 @@
                                         readonly
                                 ></sbux-input>
                             </td>
-                            <td  class="td_input" >
+                            <td colspan="4"  class="td_input" >
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -233,6 +240,7 @@
                                         readonly
                                 ></sbux-button>
                             </td>
+                            <%--<td colspan="3" style="border-right: hidden;"></td>--%>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">사번</th>
@@ -245,6 +253,7 @@
                                 <sbux-input uitype="text" id="EMP_NAME" class="form-control input-sm" readonly></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
+                            <td colspan="3" style="border-right: hidden;"></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">직급</th>
@@ -254,6 +263,7 @@
                                         uitype="single"
                                         id="JOB_RANK"
                                         name="JOB_RANK"
+                                        unselected-text="전체"
                                         class="form-control input-sm"
                                         jsondata-ref="jsonJobRank"
                                         readonly
@@ -267,6 +277,7 @@
                                         uitype="single"
                                         id="DUTY_CODE"
                                         name="DUTY_CODE"
+                                        unselected-text="전체"
                                         class="form-control input-sm"
                                         jsondata-ref="jsonDutyCode"
                                         readonly
@@ -299,6 +310,31 @@
                                 </sbux-datepicker>
                             </td>
                             <td colspan="2" style="border-right: hidden;"></td>
+                            <th scope="row" class="th_bg">퇴직자 정산세액 반영</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-button
+                                        id="btnApply"
+                                        name="btnApply"
+                                        uitype="normal"
+                                        text="정산반영"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_btnApply"
+                                        style="float: right;"
+                                        disabled>
+                                </sbux-button>
+                            </td>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-button
+                                        id="btnApplyCancel"
+                                        name="btnApplyCancel"
+                                        uitype="normal"
+                                        text="반영취소"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_btnApplyCancel"
+                                        style="float: right;"
+                                        disabled>
+                                </sbux-button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">수습만료일</th>
@@ -365,13 +401,13 @@
                             <th scope="row" class="th_bg">급여기본급</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SALARY_BASE_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">상여기본급</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="BONUS_BASE_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -379,19 +415,19 @@
                             <th scope="row" class="th_bg">급여총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">상여총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="BONUS_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">비과세액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="TAX_FREE_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -399,13 +435,13 @@
                             <th scope="row" class="th_bg">지급총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_TOTAL_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">공제총액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_DEDUCTION_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -413,19 +449,19 @@
                             <th scope="row" class="th_bg">실지급액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_NET_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">현금지급액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_CASH_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">이체액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="TRANSFER_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" readonly></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                         </tr>
@@ -441,6 +477,27 @@
                                     <span>지급항목</span>
                                 </li>
                             </ul>
+                            <div class="ad_tbl_toplist">
+                                <sbux-button
+                                        id="btnDel"
+                                        name="btnDel"
+                                        uitype="normal"
+                                        text="행삭제"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_delRow"
+                                        style="float: right;"
+                                >
+                                </sbux-button>
+                                <sbux-button
+                                        id="btnAdd"
+                                        name="btnAdd"
+                                        uitype="normal"
+                                        text="행추가"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_addRow"
+                                        style="float: right;"
+                                ></sbux-button>
+                            </div>
                         </div>
                         <div>
                             <div id="sb-area-gvwPay" style="height:400px; width:100%;"></div>
@@ -453,6 +510,27 @@
                                     <span>공제항목</span>
                                 </li>
                             </ul>
+                            <div class="ad_tbl_toplist">
+                                <sbux-button
+                                        id="btnDel1"
+                                        name="btnDel1"
+                                        uitype="normal"
+                                        text="행삭제"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_delRow1"
+                                        style="float: right;"
+                                >
+                                </sbux-button>
+                                <sbux-button
+                                        id="btnAdd1"
+                                        name="btnAdd1"
+                                        uitype="normal"
+                                        text="행추가"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_addRow1"
+                                        style="float: right;"
+                                ></sbux-button>
+                            </div>
                         </div>
                         <div>
                             <div id="sb-area-gvwDeduct" style="height:400px; width:100%;"></div>
@@ -523,8 +601,8 @@
             gfnma_setComSelect(['gvwListGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_setComSelect(['srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['srch-pay_type'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['srch-pay_date'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
-
+            /*gfnma_setComSelect(['srch-pay_date'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
+*/
             gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
             gfnma_setComSelect(['JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid','DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -599,6 +677,23 @@
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
+    /**
+     * 지급일자 조회
+     */
+    var fn_payDate = function() {
+
+        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
+
+        let V_P_WHERE_CLAUSE = "WHERE site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedApcCd+ "') AND pay_yyyymm = '"
+            + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
+
+        gfnma_setComSelect(['srch-pay_date'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
+
+
+    }
+
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
 
@@ -617,6 +712,11 @@
         fn_createPayGrid();
         fn_createDeductGrid();
         fn_createBasicGrid();
+
+        SBUxMethod.hide('btnAdd');
+        SBUxMethod.hide('btnAdd1');
+        SBUxMethod.hide('btnDel');
+        SBUxMethod.hide('btnDel1');
     }
 
     function cfn_save() {
@@ -627,11 +727,12 @@
         fn_search();
     }
 
-    function cfn_add(){
+    /*function cfn_add(){
 
     }
     function cfn_del(){
-    }
+        fn_del();
+    }*/
 
 
     //사원 리스트
@@ -643,17 +744,18 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.filtering = true
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["□"], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true,
+            {caption: ["□"], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
             {caption : ["사 업 장"], ref : 'SITE_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
@@ -663,7 +765,7 @@
             {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonDeptName', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["확정"], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true,
+            {caption: ["확정"], ref: 'PAY_CONFIRM_YN', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true,
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
@@ -679,7 +781,7 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ['급여반영월'], 		ref: 'PAY_APPLY_MONTH', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['급여반영월'], ref: 'PAY_APPLY_MONTH', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption : ["재직구분"], ref : 'EMP_STATE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
@@ -700,6 +802,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.filtering = true
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -736,6 +839,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.filtering = true
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -771,6 +875,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.filtering = true
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
@@ -796,9 +901,48 @@
     }
 
     /**
+     * 입력 초기화
+     */
+    const fn_clearForm = function(type) {
+
+
+        if (_.isEqual(type, '1')) {
+            SBUxMethod.set("PAY_GROUP_CODE", "");
+            SBUxMethod.set("DEPT_CODE", "");
+            SBUxMethod.set("DEPT_NAME", "");
+            SBUxMethod.set("EMP_CODE", "");
+            SBUxMethod.set("EMP_NAME", "");
+            SBUxMethod.set("JOB_RANK", "");
+            SBUxMethod.set("DUTY_CODE", "");
+            SBUxMethod.set("ENTER_DATE", "");
+            SBUxMethod.set("RETIRE_DATE", "");
+            SBUxMethod.set("TEMP_END_DATE", "");
+            SBUxMethod.set("BONUS_APPLY_START_DATE", "");
+            SBUxMethod.set("BONUS_APPLY_START_DATE", "");
+        }
+
+        SBUxMethod.set("PAY_DATE", 			"");
+        SBUxMethod.set("SALARY_BASE_AMT", 			"");
+        SBUxMethod.set("BONUS_BASE_AMT", 			"");
+        SBUxMethod.set("PAY_AMT", 			"");
+        SBUxMethod.set("BONUS_AMT", 			"");
+        SBUxMethod.set("TAX_FREE_AMT", 			"");
+        SBUxMethod.set("PAY_TOTAL_AMT", 			"");
+        SBUxMethod.set("PAY_DEDUCTION_AMT", 			"");
+        SBUxMethod.set("PAY_NET_AMT", 			"");
+        SBUxMethod.set("PAY_CASH_AMT", 			"");
+        SBUxMethod.set("TRANSFER_AMT", 			"");
+
+
+    }
+
+    /**
      * 목록 조회
      */
     const fn_search = async function (/*tabMoveVal*/) {
+
+        fn_clearForm('1');
+
 
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
@@ -830,7 +974,9 @@
             ,V_P_PC: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp2310List.do", {
+        console.log('-----------------123 : ', paramObj);
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2310List.do", {
             getType: 'json',
             workType: 'LIST',
             cv_count: '5',
@@ -891,6 +1037,8 @@
     //상세정보 보기
     async function fn_view() {
 
+        fn_clearForm('');
+
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
         let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
@@ -929,11 +1077,10 @@
                 ,V_P_PC: ''
             };
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp5600List.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2310List.do", {
                 getType: 'json',
                 workType: 'DETAIL',
-                cv_count: '5' +
-                    '',
+                cv_count: '5',
                 params: gfnma_objectToString(paramObj)
             });
 
@@ -1025,6 +1172,54 @@
 
                     gvwBasicGrid.rebuild();
 
+
+
+                    let PAY_CONFIRM_YN = rowData.PAY_CONFIRM_YN;
+                    let PAY_APPLY_MONTH = rowData.PAY_APPLY_MONTH;
+                    let PAY_APPLY_YN = rowData.PAY_APPLY_MONTH;
+
+                    let EMP_STATE = rowData.EMP_STATE;
+                    if (EMP_STATE == 'RETI' &&  PAY_TYPE == 1) {
+
+                        //grpPayApply 가 몬지 모르겠음
+                        /*grpPayApply.Visible = true;*/
+
+                        if (PAY_APPLY_YN == 'Y') {
+
+                            SBUxMethod.attr('btnApply', 'disabled', false);
+
+                            if (PAY_APPLY_MONTH == PAY_YYYYMM) {
+                                SBUxMethod.attr('btnApplyCancel', 'disabled', true);
+                            } else {
+                                SBUxMethod.attr('btnApplyCancel', 'disabled', false);
+                            }
+
+                        } else {
+
+                            SBUxMethod.attr('btnApplyCancel', 'disabled', false);
+                            SBUxMethod.attr('btnApply', 'disabled', true);
+                        }
+                    } else{
+
+                        /*grpPayApply.Visible = false;*/
+                    }
+
+
+                    /****************그리드 버튼 활성화****************/
+                    if (PAY_CONFIRM_YN == 'Y'){
+                        SBUxMethod.hide('btnAdd')
+                        SBUxMethod.hide('btnAdd1')
+                        SBUxMethod.hide('btnDel')
+                        SBUxMethod.hide('btnDel1')
+
+                    }else{
+
+                        SBUxMethod.show('btnAdd')
+                        SBUxMethod.show('btnAdd1')
+                        SBUxMethod.show('btnDel')
+                        SBUxMethod.show('btnDel1')
+                    }
+
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1039,11 +1234,543 @@
         }
     }
 
-    //저장
-    const fn_save = async function () {
+    // 행 추가
+    const fn_addRow = function () {
+        let rowVal = gvwPayGrid.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwPayGrid.addRow(true);
+        }else{
+            gvwPayGrid.insertRow(rowVal);
+        }
+        //grdFimList.refresh();
+    }
+
+    // 행삭제
+    const fn_delRow = async function () {
+
+        let rowVal = gvwPayGrid.getRow();
+
+        if (rowVal == -1) {
+
+            gvwPayGrid("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwPayGrid.deleteRow(rowVal);
+        }
+    }
+
+    // 행 추가
+    const fn_addRow1 = function () {
+        let rowVal = gvwDeductGrid.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+
+            gvwDeductGrid.addRow(true);
+        }else{
+            gvwDeductGrid.insertRow(rowVal);
+        }
+        //grdFimList.refresh();
+    }
+
+    // 행삭제
+    const fn_delRow1 = async function () {
+
+        let rowVal = gvwDeductGrid.getRow();
+
+        if (rowVal == -1) {
+
+            gvwDeductGrid("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwDeductGrid.deleteRow(rowVal);
+        }
+    }
+
+    //퇴직자 정산세액 반영 저장
+    const fn_btnApply = async function () {
+
+        let V_P_PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
+        let V_P_PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+        let PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let V_P_EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사번
+
+        if (!V_P_PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!V_P_PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일자");
+            return;
+        }
+        if (!V_P_EMP_CODE) {
+            gfn_comAlert("W0002", "사번");
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN			: ''
+            ,V_P_LANG_ID				: ''
+            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+
+            ,V_P_PAY_YYYYMM  : V_P_PAY_YYYYMM
+            ,V_P_PAY_TYPE    : V_P_PAY_TYPE
+            ,V_P_PAY_DATE    : PAY_DATE
+            ,V_P_EMP_CODE    : V_P_EMP_CODE
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+
+
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310.do", {
+            getType: 'json',
+            workType: 'N',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 
     }
 
+    //퇴직자 정산세액 반영 삭제
+    const fn_btnApplyCancel = async function () {
+
+        let V_P_PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
+        let V_P_PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+        let PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let V_P_EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사번
+
+        if (!V_P_PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!V_P_PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일자");
+            return;
+        }
+        if (!V_P_EMP_CODE) {
+            gfn_comAlert("W0002", "사번");
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN			: ''
+            ,V_P_LANG_ID				: ''
+            ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+
+            ,V_P_PAY_YYYYMM  : V_P_PAY_YYYYMM
+            ,V_P_PAY_TYPE    : V_P_PAY_TYPE
+            ,V_P_PAY_DATE    : PAY_DATE
+            ,V_P_EMP_CODE    : V_P_EMP_CODE
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+
+
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310.do", {
+            getType: 'json',
+            workType: 'D',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+
+    //저장
+    const fn_save = async function () {
+
+        var paramObj;
+
+        // 수정 저장
+        if (gfn_comConfirm("Q0001", "세금을 재계산을")) {
+
+            paramObj = await getParamForm('u', 'Y');
+
+        }else{
+            paramObj = await getParamForm('u', 'N');
+
+        }
+
+        if (_.isEmpty(paramObj)){
+            return;
+        }
+
+        console.log("+++++++++++++++++ paramObj +++++++++++++++++++++++", paramObj);
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310BAT.do", {
+            getType: 'json',
+            workType: 'U',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+
+                fn_view();
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const getParamForm = async function(type, strReCalculate){
+
+        let STRNUD_TYPE = '';
+        let STRPAY_ITEM_CODE = '';
+        let STRPAY_AMT = '';
+        let STRTAX_FREE_AMT = '';
+        let STRRE_PAY_YYYYMM = '';
+        let STRTAX_PAY_DATE = '';
+
+        let STREMP_CODE = '';
+
+        let dtSource1;
+        let dtSource2;
+        let dtSource3;
+
+
+        if (_.isEqual(type, 'u')) {
+            dtSource1 = gvwPayGrid.getUpdateData(true, 'all');
+            dtSource2 = gvwDeductGrid.getUpdateData(true, 'all');
+            dtSource3 = gvwBasicGrid.getUpdateData(true, 'all');
+
+            if (!_.isEmpty(dtSource1)) {
+
+                // 고정 수당항목 중복체크
+                dtSource1.forEach((item1, index1) => {
+
+                    let PAY_ITEM_CODE1 = item1.data.PAY_ITEM_CODE;
+                    let RE_PAY_YYYYMM_P1 = item1.data.RE_PAY_YYYYMM_P;
+
+                    dtSource1.forEach((item2, index2) => {
+
+                        let PAY_ITEM_CODE2 = item2.data.PAY_ITEM_CODE;
+                        let RE_PAY_YYYYMM_P2 = item2.data.RE_PAY_YYYYMM_P;
+
+                        let PAY_ITEM_CODE1 = item1.data.PAY_ITEM_CODE;
+                        if (PAY_ITEM_CODE1 == PAY_ITEM_CODE2 && RE_PAY_YYYYMM_P1 == RE_PAY_YYYYMM_P2) {
+
+                            gfn_comAlert("Q0000", "중복된 수당항목이 존재합니다."); //수정
+                            return;
+                        }
+
+                    })
+                })
+            }
+
+            if (!_.isEmpty(dtSource2)) {
+
+                // 고정 수당항목 중복체크
+                dtSource2.forEach((item1, index1) => {
+
+                    let PAY_ITEM_CODE1 = item1.data.PAY_ITEM_CODE;
+                    let RE_PAY_YYYYMM_P1 = item1.data.RE_PAY_YYYYMM_P;
+
+                    dtSource2.forEach((item2, index2) => {
+
+                        let PAY_ITEM_CODE2 = item2.data.PAY_ITEM_CODE;
+                        let RE_PAY_YYYYMM_P2 = item2.data.RE_PAY_YYYYMM_P;
+
+                        let PAY_ITEM_CODE1 = item1.data.PAY_ITEM_CODE;
+                        if (PAY_ITEM_CODE1 == PAY_ITEM_CODE2 && RE_PAY_YYYYMM_P1 == RE_PAY_YYYYMM_P2) {
+
+                            gfn_comAlert("Q0000", "중복된 수당항목이 존재합니다."); //수정
+                            return;
+                        }
+
+                    })
+                })
+            }
+
+
+
+            if (!_.isEmpty(dtSource1)) {
+
+                dtSource1.forEach((item, index1) => {
+
+                    TRNUD_TYPE += index + '|';
+                    TRPAY_ITEM_CODE += item.PAY_ITEM_CODE + '|';
+                    TRPAY_AMT += item.PAY_AMT + '|';
+                    TRTAX_FREE_AMT += item.TAX_FREE_AMT + '|';
+                    TRRE_PAY_YYYYMM += item.RE_PAY_YYYYMM_P + '|';
+                    TRTAX_PAY_DATE += item.TAX_PAY_DATE + '|';
+
+
+                })
+            }
+
+            if (!_.isEmpty(dtSource2)) {
+
+                dtSource2.forEach((item, index1) => {
+
+                    TRNUD_TYPE += index + '|';
+                    TRPAY_ITEM_CODE += item.PAY_ITEM_CODE + '|';
+                    TRPAY_AMT += item.PAY_AMT + '|';
+                    TRTAX_FREE_AMT +=  '0|'; // 공제항목에서 비과세액은 0으로 넘겨줌.
+                    TRRE_PAY_YYYYMM += item.RE_PAY_YYYYMM_P + '|';
+                    TRTAX_PAY_DATE += item.TAX_PAY_DATE + '|';
+
+
+                })
+            }
+
+            if (!_.isEmpty(dtSource3)) {
+
+                dtSource3.forEach((item, index1) => {
+
+                    TRNUD_TYPE += index + '|';
+                    TRPAY_ITEM_CODE += item.PAY_ITEM_CODE + '|';
+                    TRPAY_AMT += item.PAY_AMT + '|';
+                    TRTAX_FREE_AMT +=  '0|'; // 공제항목에서 비과세액은 0으로 넘겨줌.
+                    TRRE_PAY_YYYYMM += item.RE_PAY_YYYYMM_P + '|';
+                    TRTAX_PAY_DATE += item.TAX_PAY_DATE + '|';
+
+
+                })
+            }
+
+
+            if (STRNUD_TYPE.length > 0) {
+                STRNUD_TYPE = STRNUD_TYPE.slice(0, -1);
+                STRPAY_ITEM_CODE = STRPAY_ITEM_CODE.slice(0, -1);
+                STRPAY_AMT = STRPAY_AMT.slice(0, -1);
+                STRTAX_FREE_AMT = STRTAX_FREE_AMT.slice(0, -1);
+                STRRE_PAY_YYYYMM = STRRE_PAY_YYYYMM.slice(0, -1);
+                STRTAX_PAY_DATE = STRTAX_PAY_DATE.slice(0, -1);
+            }
+
+
+        }else if (_.isEqual(type, 'CONFIRM') || _.isEqual(type, 'CANCEL')){
+
+            let alldata = gvwListGrid.getGridDataAll();
+
+            console.log('-------alldata-------', alldata);
+
+            alldata.forEach((item, index) => {
+
+                if (item.CHK_YN == 'Y'){
+                    STREMP_CODE += item.EMP_CODE +'|';
+                }
+            })
+
+            if (STREMP_CODE.length > 1){
+                STREMP_CODE = STREMP_CODE.slice(0, -1);
+            }
+        }
+
+        console.log('-------STREMP_CODE-------', STREMP_CODE);
+
+        let SITE_CODE;
+        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+        let PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사번
+        let PAY_CASH_AMT = gfnma_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현급지급액
+        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
+
+
+        let rowVal = gvwListGrid.getRow();
+
+        console.log('-------rowVal-------', rowVal);
+
+        if (rowVal == -1) {
+            SITE_CODE = '';
+        }else{
+            let rowData = gvwListGrid.getRowData(rowVal);
+            console.log('-------rowData-------', rowData);
+            SITE_CODE = rowData.SITE_CODE;
+        }
+
+
+        let paramObj = {
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+
+            ,V_P_SITE_CODE           : SITE_CODE
+            ,V_P_PAY_YYYYMM          : PAY_YYYYMM
+            ,V_P_PAY_TYPE            : PAY_TYPE
+            ,V_P_PAY_DATE            : PAY_DATE
+            ,V_P_EMP_CODE            : EMP_CODE
+            ,V_P_PAY_CASH_AMT        : PAY_CASH_AMT
+            ,V_P_TAX_RE_CALCULATE_YN : strReCalculate
+            ,V_P_PAY_AREA            : PAY_AREA_TYPE
+
+            /*-- 급여수정 정보*/
+            ,V_P_NUD_TYPE            : STRNUD_TYPE
+            ,V_P_PAY_ITEM_CODE       : STRPAY_ITEM_CODE
+            ,V_P_PAY_AMT             : STRPAY_AMT
+            ,V_P_TAX_FREE_AMT        : STRTAX_FREE_AMT
+            ,V_P_RE_PAY_YYYYMM       : STRRE_PAY_YYYYMM
+
+            /*-- 확정, 확정 취소용*/
+            ,V_P_EMP_CODE1           : STREMP_CODE
+            ,V_P_TAX_PAY_DATE        : STRTAX_PAY_DATE
+
+
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
+            ,V_P_PROC_ID		: ''
+            ,V_P_USERID			: ''
+            ,V_P_PC				: ''
+        }
+
+
+        return paramObj;
+    }
+
+
+    //확정
+    const fn_btnConfirm = async function () {
+
+        var paramObj = await getParamForm('CONFIRM', '');
+
+        if (_.isEmpty(paramObj)){
+            return;
+        }
+
+        console.log("+++++++++++++++++ paramObj fn_btnConfirm+++++++++++++++++++++++", paramObj);
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310BAT.do", {
+            getType: 'json',
+            workType: 'CONFIRM',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+
+                fn_view();
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    //확정취소
+    const fn_btnCancel = async function () {
+
+        var paramObj = await getParamForm('CANCEL', '');
+
+
+        if (_.isEmpty(paramObj)){
+            return;
+        }
+
+        console.log("+++++++++++++++++ paramObj fn_btnCancel+++++++++++++++++++++++", paramObj);
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310BAT.do", {
+            getType: 'json',
+            workType: 'CANCEL',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+                fn_view();
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 
 </script>
 </body>
