@@ -1902,35 +1902,43 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
-		SortInvntrVO sortInvntrVO = new SortInvntrVO();
+		SortInvntrVO sortInvntrVOFcrs = new SortInvntrVO();
 		SortInvntrVO orgSortInvntrVO = new SortInvntrVO();
-		BeanUtils.copyProperties(sortMngVO, sortInvntrVO);
-		sortInvntrVO = sortInvntrService.selectSortInvntr(sortInvntrVO);
-		orgSortInvntrVO = sortInvntrVO;
+		BeanUtils.copyProperties(sortMngVO, sortInvntrVOFcrs);
+		sortInvntrVOFcrs = sortInvntrService.selectSortInvntr(sortInvntrVOFcrs);
+
 
 
 
 
 		if(pckgno != null) {
-			sortInvntrVO.setSortQntt(sortMngVO.getQntt());
-			sortInvntrVO.setSortWght(sortMngVO.getWght());
-			sortInvntrVO.setInvntrQntt(0);
-			sortInvntrVO.setInvntrWght(0);
-			sortInvntrVO.setPckgQntt(sortMngVO.getQntt());
-			sortInvntrVO.setPckgWght(sortMngVO.getWght());
-			sortInvntrVO.setPckgYn("Y");
+			sortInvntrVOFcrs.setSortQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setSortWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setInvntrQntt(0);
+			sortInvntrVOFcrs.setInvntrWght(0);
+			sortInvntrVOFcrs.setPckgQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setPckgWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setPckgYn("Y");
 		}else {
-			sortInvntrVO.setSortQntt(sortMngVO.getQntt());
-			sortInvntrVO.setSortWght(sortMngVO.getWght());
-			sortInvntrVO.setInvntrQntt(sortMngVO.getQntt());
-			sortInvntrVO.setInvntrWght(sortMngVO.getWght());
-			sortInvntrVO.setPckgQntt(0);
-			sortInvntrVO.setPckgWght(0);
+			sortInvntrVOFcrs.setSortQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setSortWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setInvntrQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setInvntrWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setPckgQntt(0);
+			sortInvntrVOFcrs.setPckgWght(0);
 		}
 
-		sortInvntrVO.setSysLastChgUserId(sortMngVO.getSysLastChgUserId());
-		sortInvntrVO.setSysLastChgPrgrmId(sortMngVO.getSysLastChgPrgrmId());
-		sortInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_C1);
+		sortInvntrVOFcrs.setSysLastChgUserId(sortMngVO.getSysLastChgUserId());
+		sortInvntrVOFcrs.setSysLastChgPrgrmId(sortMngVO.getSysLastChgPrgrmId());
+		sortInvntrVOFcrs.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_C1);
+
+		orgSortInvntrVO.setApcCd(apcCd);
+		orgSortInvntrVO.setSortno(sortMngVO.getSortno());
+		orgSortInvntrVO.setSortSn(sortsn);
+		orgSortInvntrVO.setInvntrQntt(sortMngVO.getQntt());
+		orgSortInvntrVO.setInvntrWght(sortMngVO.getWght());
+		orgSortInvntrVO.setSysLastChgUserId(sortMngVO.getSysLastChgUserId());
+		orgSortInvntrVO.setSysLastChgPrgrmId(sortMngVO.getSysLastChgPrgrmId());
 		// 선별 재고변경 이력 등록
 		rtnObj = sortInvntrService.insertSortChgHstry(orgSortInvntrVO);
 
@@ -1939,7 +1947,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
-		rtnObj = sortInvntrService.updateSortInvntr(sortInvntrVO);
+		rtnObj = sortInvntrService.updateSortInvntr(sortInvntrVOFcrs);
 
 		if (rtnObj != null) {
 			// error throw exception;
