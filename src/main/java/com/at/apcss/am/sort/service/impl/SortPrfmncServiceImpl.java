@@ -381,7 +381,21 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		List<WrhsSortGrdVO> wrhsSortGrdList =  sortBffaListVO.get(0).getWrhsSortGrdList();
 		List<SortBffaVO> sortBffaList = sortBffaListVO.get(0).getSortBffaVOList();
 
-		String bffaWrhsno = cmnsTaskNoService.selectBffaWrhsno(sortBffaListVO.get(0).getApcCd(), sortBffaListVO.get(0).getYmd());
+		String bffaWrhsno = ComUtil.nullToEmpty(sortBffaList.get(0).getBffaWrhsno());
+		if(bffaWrhsno.equals("") || bffaWrhsno == null){
+			SortBffaVO sortBffaVO = new SortBffaVO();
+			BeanUtils.copyProperties(sortBffaList.get(0),sortBffaVO);
+			List<SortBffaVO> resultList = new ArrayList<>();
+			String inptYmd = sortBffaList.get(0).getWrhsYmd();
+			sortBffaVO.setInptYmdFrom(inptYmd);
+			sortBffaVO.setInptYmdTo(inptYmd);
+			resultList = selectSortBffaListBySortno(sortBffaVO);
+			if(resultList == null){
+				bffaWrhsno = cmnsTaskNoService.selectBffaWrhsno(sortBffaListVO.get(0).getApcCd(), sortBffaListVO.get(0).getYmd());
+			}else{
+				bffaWrhsno = resultList.get(0).getBffaWrhsno();
+			}
+		}
 
 		for (WrhsSortGrdVO wrhsSortGrdVO : wrhsSortGrdList) {
 			wrhsSortGrdVO.setSysFrstInptPrgrmId(prgrmId);
@@ -389,46 +403,23 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 			wrhsSortGrdVO.setSysLastChgPrgrmId(prgrmId);
 			wrhsSortGrdVO.setSysLastChgUserId(userId);
 
-			if (ComConstants.ROW_STS_INSERT.equals(wrhsSortGrdVO.getRowSts())) {
-
-				wrhsSortGrdVO.setBffaWrhsno(bffaWrhsno);
-
-				if(sortPrfmncMapper.insertWrhsSortGrd(wrhsSortGrdVO) == 0) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
-				};
+			wrhsSortGrdVO.setBffaWrhsno(bffaWrhsno);
+			if(sortPrfmncMapper.insertWrhsSortGrd(wrhsSortGrdVO) == 0) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
 			}
-
-			if (ComConstants.ROW_STS_UPDATE.equals(wrhsSortGrdVO.getRowSts())) {
-				if(sortPrfmncMapper.updateWrhsSortGrd(wrhsSortGrdVO) == 0) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "수정 중 오류가 발생 했습니다."))); // E0000	{0}
-				};
-			}
-
 		}
 
 		for (SortBffaVO sortBffaVO : sortBffaList) {
-
 			sortBffaVO.setSysFrstInptPrgrmId(prgrmId);
 			sortBffaVO.setSysFrstInptUserId(userId);
 			sortBffaVO.setSysLastChgPrgrmId(prgrmId);
 			sortBffaVO.setSysLastChgUserId(userId);
 
-			if (ComConstants.ROW_STS_INSERT.equals(sortBffaVO.getRowSts())) {
-
-				sortBffaVO.setBffaWrhsno(bffaWrhsno);
-
-				if(sortPrfmncMapper.insertSortBffa(sortBffaVO) == 0) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
-				};
-			}
-
-			if (ComConstants.ROW_STS_UPDATE.equals(sortBffaVO.getRowSts())) {
-				if (sortPrfmncMapper.updateSortBffa(sortBffaVO) == 0) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "수정 중 오류가 발생 했습니다."))); // E0000	{0}
-				};
-			}
+			sortBffaVO.setBffaWrhsno(bffaWrhsno);
+			if(sortPrfmncMapper.insertSortBffaSpt(sortBffaVO) == 0) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
+			};
 		}
-
 		return null;
 	}
 

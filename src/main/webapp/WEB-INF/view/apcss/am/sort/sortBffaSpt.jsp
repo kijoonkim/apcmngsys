@@ -726,8 +726,8 @@
 
         let wrhsQntt = $("#srch-inp-wrhsQntt").val();     // 박스 수량
         let wrhsWght = $("#srch-inp-wrhsWght").val();     // 박스 중량
-        let grdType1Wght = document.getElementById("GRD_TYPE_1").value;  // 열과
-        let grdType2Wght = document.getElementById("GRD_TYPE_2").value;  // 폐기
+        let grdType1Wght = parseInt(document.getElementById("GRD_TYPE_1").value.replace(",",""));  // 열과
+        let grdType2Wght = parseInt(document.getElementById("GRD_TYPE_2").value.replace(",",""));  // 폐기
         let rowSts = "I";
 
         if(flag === true){
@@ -760,10 +760,10 @@
             gfn_comAlert("W0001", "선별기");
             return;
         }
-        if(!searchFlag){
-            gfn_comAlert("E0000", "조회 후 저장하세요.");
-            return;
-        }
+        // if(!searchFlag){
+        //     gfn_comAlert("E0000", "조회 후 저장하세요.");
+        //     return;
+        // }
         if(gfn_isEmpty(wrhsQntt)){
             wrhsQntt = 0;
         }
@@ -786,7 +786,6 @@
             , grdType2Wght:grdType2Wght
             // 조회에서 받아서 같이 바꿔주기
             , rowSts:rowSts
-            , grdKnd:"03"
         });
         // 윤안선별 결과 데이터
         let grdWghtInputs = document.querySelectorAll('[name="GRD_WGHT"]');
@@ -803,6 +802,7 @@
         });
         let allDataList = [];
         allDataList.push({apcCd:gv_selectedApcCd,ymd:wrhsYmd,rowSts:rowSts,'sortBffaVOList':jsonSrchData, 'wrhsSortGrdList':grdData});
+
         try {
             const postJsonPromise = gfn_postJSON("/am/sort/insertSortBffaSpt.do", allDataList);
             const data = await postJsonPromise;
@@ -879,8 +879,11 @@
                     $("#srch-inp-wrhsQntt").val("");
                     $("#srch-inp-wrhsWght").val("");
                     fn_createTabelHeader();
+                }else{
+                    flag=true;
+                    searchFlag=true;
+                    bffaWrhsno="";
                 }
-                else{flag=true;searchFlag=true;bffaWrhsno="";}
                 let totalRecordCount = 0;
 
                 jsonSearchData.length = 0;
@@ -934,13 +937,17 @@
                 let wrhsWght = data.resultList.wrhsWght;
                 let wrhsYmd = data.resultList.wrhsYmd;
 
+                console.log(data.resultList);
+
                 // SBUxMethod.set("srch-inp-wrhsQntt", wrhsQntt);
                 // SBUxMethod.set("srch-inp-wrhsWght", wrhsWght);
                 $("#srch-inp-wrhsQntt").val(wrhsQntt);
                 $("#srch-inp-wrhsWght").val(wrhsWght);
 
-                $("#GRD_TYPE_1").val(grdType1Wght);
-                $("#GRD_TYPE_2").val(grdType2Wght);
+                // $("#GRD_TYPE_1").val((grdType1Wght));
+                // $("#GRD_TYPE_2").val((grdType2Wght));
+                $("#GRD_TYPE_1").val(parseInt(grdType1Wght).toLocaleString());
+                $("#GRD_TYPE_2").val(parseInt(grdType2Wght).toLocaleString());
 
                 let searchGrdCd1DataActl1 = [];
                 for(let i=1; i<=jsonGrdColumnData.length; i++){
@@ -1043,7 +1050,7 @@
         clickTimeout = setTimeout(() => {
             event.target.select();
             clickTimeout = null;
-        }, 300);
+        }, 200);
     }
 
     function handleDoubleClick(event) {
