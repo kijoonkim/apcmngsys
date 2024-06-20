@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: com3100.jsp
+ * @Class Name 		: com3300.jsp
  * @Description 	: 전자세금계산서 관리(매출) 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.05.22
