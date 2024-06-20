@@ -41,8 +41,8 @@
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
                 <sbux-button id="btnAdminApproval" name="btnAdminApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="관리자승인" onclick="fn_adminApproval"></sbux-button>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
-                <%--<sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>--%>
-                <%--<sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>--%>
+                <sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>
+                <sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -1180,5 +1180,14 @@
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
         }
     }
+
+    const fn_approval = async function() {
+        // TODO : 결재공통 추가시 개발
+    }
+
+    const fn_approvalList = async function() {
+        // TODO : 결재공통 추가시 개발
+    }
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
