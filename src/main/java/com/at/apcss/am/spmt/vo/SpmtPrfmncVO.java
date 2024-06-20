@@ -269,6 +269,11 @@ public class SpmtPrfmncVO extends ComVO {
 	 * 선별등급
 	 */
 	private String sortGrdCd;
+
+	/**
+	 * 이후등급
+	 */
+	private String aftrGrdCd;
 	
 	/**
 	 * 생산자식별번호

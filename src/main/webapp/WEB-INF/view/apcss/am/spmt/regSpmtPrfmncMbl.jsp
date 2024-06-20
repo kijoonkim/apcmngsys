@@ -1603,6 +1603,11 @@
                     originQnttMap.set(rowData.spmtInvId[0], val);
                 }
             }
+            /** 마이너스 재고 판단 여부 rowData 삽입 **/
+            if(val > max){
+                rowData.spmtFrcdPrcsYn = 'Y';
+                $(_el).closest('tr').children(":last").find("input").attr("sortInvnt",JSON.stringify(rowData));
+            }
         }
     }
     /** 재고조회 **/
@@ -2070,26 +2075,33 @@
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
             }else{
-                /** 선출하실적 rowData가 없음. **/
-                let rowData = $(this).children(":last").find("input").attr("sortgds");
-                if(!gfn_isEmpty(rowData)){
-                    rowData = JSON.parse(rowData);
-                    let qnttIdx = parseInt(rowData.aftrGrdCd);
-                    let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
-
-                    spmtPrfmnc = {
-                        spmtQntt: spmtQntt,
-                        // spmtPckgUnitCd : "",
-                        // spmtGdsList : "",
-                        rmrk : rmrk,
-                        gdsInput : rowData.grdNm,
-                        spmtSn : spmtSn,
-                        sortGrdCd : rowData.grdCd,
-                        aftrGrdCd : rowData.aftrGrdCd
-                    }
-                spmtPrfmncList.push(spmtPrfmnc);
-                /** SpmtFrcdPrcsYn 출하강제처리 여부 **/
-                }
+                // /** 선출하실적 rowData가 없음. **/
+                // let rowData = $(this).children(":last").find("input").attr("sortgds");
+                // if(!gfn_isEmpty(rowData)){
+                //     rowData = JSON.parse(rowData);
+                //     let qnttIdx = parseInt(rowData.aftrGrdCd);
+                //     let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
+                //     let prdcrIdentno = $(this).children().eq(0).find("input").eq(1).val();
+                //     let spcfctCd = $(this).children().eq(3).find("select").val();
+                //     let itemCd = rowData.itemCd;
+                //     let vrtyCd = rowData.vrtyCd;
+                //
+                //     spmtPrfmnc = {
+                //         spmtQntt: spmtQntt,
+                //         // spmtPckgUnitCd : "",
+                //         // spmtGdsList : "",
+                //         rmrk : rmrk,
+                //         gdsInput : rowData.grdNm,
+                //         spmtSn : spmtSn,
+                //         sortGrdCd : rowData.grdCd,
+                //         aftrGrdCd : rowData.aftrGrdCd,
+                //         prdcrIdentno : prdcrIdentno,
+                //         spcfctCd : spcfctCd,
+                //         itemCd : itemCd,
+                //         vrtyCd : vrtyCd,
+                //     }
+                // spmtPrfmncList.push(spmtPrfmnc);
+                // }
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
