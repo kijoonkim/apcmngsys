@@ -647,24 +647,24 @@
 			              , A.INPT_YMD
 			              , B.RPRS_PRDCR_CD
 
-			              , 0 AS R_2XL
-			              , 0 AS R_XL
+			              , '' AS R_2XL
+			              , '' AS R_XL
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('13') THEN A.SORT_QNTT END AS R_L
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('14') THEN A.SORT_QNTT END AS R_M
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('15') THEN A.SORT_QNTT END AS R_S
-			              , 0 AS R_SS
-			              , 0 AS Y_2XL
-			              , 0 AS Y_XL
+			              , '' AS R_SS
+			              , '' AS Y_2XL
+			              , '' AS Y_XL
 			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('13') THEN A.SORT_QNTT END AS Y_L
 			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('14') THEN A.SORT_QNTT END AS Y_M
 			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('15') THEN A.SORT_QNTT END AS Y_S
-			              , 0 AS Y_SS
-			              , 0 AS O_2XL
-			              , 0 AS O_XL
+			              , '' AS Y_SS
+			              , '' AS O_2XL
+			              , '' AS O_XL
 			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('13') THEN A.SORT_QNTT END AS O_L
 			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('14') THEN A.SORT_QNTT END AS O_M
 			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('15') THEN A.SORT_QNTT END AS O_S
-			              , 0 AS O_SS
+			              , '' AS O_SS
 			              , CASE WHEN B.VRTY_CD = '0300' AND A.GRD_CD IN ('13','14','15') THEN A.SORT_QNTT END AS R_TOT
 			              , CASE WHEN B.VRTY_CD = '0200' AND A.GRD_CD IN ('13','14','15') THEN A.SORT_QNTT END AS Y_TOT
 			              , CASE WHEN B.VRTY_CD = '0400' AND A.GRD_CD IN ('13','14','15') THEN A.SORT_QNTT END AS O_TOT
