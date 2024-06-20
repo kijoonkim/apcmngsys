@@ -296,4 +296,12 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SortDsctnTotVO> selectSortDsctnDtlTotList(SortDsctnTotVO sortDsctnTotVO) throws Exception;
+
+	/**
+	 * 육안선별등록(현장용)
+	 * @param sortBffaVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSortBffaSpt(SortBffaVO sortBffaVO) throws Exception;
 }
