@@ -2105,7 +2105,6 @@
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
-        console.log(saveJson,"저장전데이터");
 
         // /** 중복 상품 취합 **/
         // let arr = saveJson.spmtPrfmncList;
