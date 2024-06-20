@@ -2612,7 +2612,7 @@
 	</delete>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.updateSortBffa  	-->
-	<!-- DESC : 육안선별 삭제                                                         -->
+	<!-- DESC : 육안선별 수정                                                         -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -3334,42 +3334,75 @@
     <!-- ========================================================================== -->
     <insert id="insertWrhsSortGrd" parameterType="com.at.apcss.am.sort.vo.WrhsSortGrdVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.insertWrhsSortGrd */
-	    		INTO TB_BFFA_WRHS_SORT_GRD
+	    	MERGE /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.insertWrhsSortGrd */
+	    		INTO TB_BFFA_WRHS_SORT_GRD AS A
+	    	    USING
+	    	        (SELECT
+	    	             #{apcCd} AS APC_CD
+	    	            ,#{bffaWrhsno} AS BFFA_WRHSNO
+	    	            ,#{itemCd} AS ITEM_CD
+						,#{grdNv} AS GRD_NV
+						,#{grdQntt} AS GRD_QNTT
+                        ,#{grdWght} AS GRD_WGHT
+						,#{grdKnd} AS GRD_KND
+						,#{grdCd} AS GRD_CD
+                        ,#{sysLastChgUserId} AS SYS_LAST_CHG_USER_ID
+                        ,#{sysLastChgUserId} AS SYS_LAST_CHG_PRGRM_ID
+                        ,#{sysFrstInptUserId} AS SYS_FRST_INPT_USER_ID
+                        ,#{sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID
+	    	        FROM DUAL
+	    	         ) AS B
+	    	    ON (A.APC_CD = B.APC_CD
+	    	        AND A.BFFA_WRHSNO = B.BFFA_WRHSNO
+	    	        AND A.ITEM_CD = B.ITEM_CD
+	    	        AND A.GRD_KND = B.GRD_KND
+	    	        AND A.GRD_CD = B.GRD_CD
+	    	        AND A.DEL_YN = 'N'
+	    	        )
+	    	    WHEN MATCHED THEN
+					UPDATE
+						SET
+						  A.GRD_NV			 	    = B.GRD_NV
+						, A.GRD_QNTT 				= B.GRD_QNTT
+						, A.GRD_WGHT 				= B.GRD_WGHT
+						, A.SYS_LAST_CHG_DT 		= SYSDATE
+						, A.SYS_LAST_CHG_USER_ID 	= B.SYS_LAST_CHG_USER_ID
+						, A.SYS_LAST_CHG_PRGRM_ID	= B.SYS_LAST_CHG_PRGRM_ID
+	    	    WHEN NOT MATCHED THEN
+	    	    	INSERT
 	    			(
-	    			   APC_CD
-	    			 , BFFA_WRHSNO
-	    			 , ITEM_CD
-	    			 , GRD_KND
-	    			 , GRD_CD
-	    			 , GRD_NV
-	    			 , GRD_QNTT
-	    			 , GRD_WGHT
-	    			 , SYS_FRST_INPT_DT
-	    			 , SYS_FRST_INPT_USER_ID
-	    			 , SYS_FRST_INPT_PRGRM_ID
-	    			 , SYS_LAST_CHG_DT
-	    			 , SYS_LAST_CHG_USER_ID
-	    			 , SYS_LAST_CHG_PRGRM_ID
+	    			   A.APC_CD
+	    			 , A.BFFA_WRHSNO
+	    			 , A.ITEM_CD
+	    			 , A.GRD_KND
+	    			 , A.GRD_CD
+	    			 , A.GRD_NV
+	    			 , A.GRD_QNTT
+	    			 , A.GRD_WGHT
+	    			 , A.SYS_FRST_INPT_DT
+	    			 , A.SYS_FRST_INPT_USER_ID
+	    			 , A.SYS_FRST_INPT_PRGRM_ID
+	    			 , A.SYS_LAST_CHG_DT
+	    			 , A.SYS_LAST_CHG_USER_ID
+	    			 , A.SYS_LAST_CHG_PRGRM_ID
 	    			)
 	    		VALUES
 	    			(
-	    			   #{apcCd}
-	    			 , #{bffaWrhsno}
-	    			 , #{itemCd}
-	    			 , #{grdKnd}
-	    			 , #{grdCd}
-	    			 , #{grdNv}
-	    			 , #{grdQntt}
-	    			 , #{grdWght}
-	    			 , SYSDATE
-	    			 , #{sysFrstInptUserId}
-	    			 , #{sysFrstInptPrgrmId}
-	    			 , SYSDATE
-	    			 , #{sysLastChgUserId}
-	    			 , #{sysLastChgPrgrmId}
+	    			  B.APC_CD
+	    			 ,B.BFFA_WRHSNO
+	    			 ,B.ITEM_CD
+	    			 ,B.GRD_KND
+	    			 ,B.GRD_CD
+	    			 ,B.GRD_NV
+	    			 ,B.GRD_QNTT
+	    			 ,B.GRD_WGHT
+	    			 ,SYSDATE
+	    			 ,B.SYS_FRST_INPT_USER_ID
+	    			 ,B.SYS_FRST_INPT_PRGRM_ID
+	    			 ,SYSDATE
+	    			 ,B.SYS_LAST_CHG_USER_ID
+	    			 ,B.SYS_LAST_CHG_PRGRM_ID
 	    			)
-
     	]]>
     </insert>
 
@@ -3641,4 +3674,99 @@
 			GROUP BY X.APC_CD, X.INPT_YMD, X.ITEM_CD, X.RPRS_PRDCR_CD
 		]]>
 	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.insertSortBffaSpt  	-->
+	<!-- DESC : 육안선별 등록(현장용)                                                    -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.20  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSortBffaSpt" parameterType="com.at.apcss.am.sort.vo.SortBffaVO">
+		<![CDATA[
+		MERGE
+			INTO TB_BFFA_WRHS_PRFMNC AS A
+				USING
+					(SELECT
+						 #{apcCd} AS APC_CD
+						  ,#{bffaWrhsno} AS BFFA_WRHSNO
+						  ,#{prdcrCd} AS PRDCR_CD
+						  ,#{itemCd} AS ITEM_CD
+						  ,#{vrtyCd} AS VRTY_CD
+						  ,#{wrhsYmd} AS WRHS_YMD
+						  ,#{fcltCd} AS FCLT_CD
+						  ,#{wrhsQntt} AS WRHS_QNTT
+						  ,#{wrhsWght} AS WRHS_WGHT
+						  ,#{grdType1Wght} AS GRD_TYPE_1_WGHT
+						  ,#{grdType2Wght} AS GRD_TYPE_2_WGHT
+						  ,#{sysLastChgUserId} AS SYS_LAST_CHG_USER_ID
+						  ,#{sysLastChgUserId} AS SYS_LAST_CHG_PRGRM_ID
+						  ,#{sysFrstInptUserId} AS SYS_FRST_INPT_USER_ID
+						  ,#{sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID
+					 FROM DUAL
+					) AS B
+				ON (A.APC_CD = B.APC_CD
+					AND A.BFFA_WRHSNO = B.BFFA_WRHSNO
+					AND A.DEL_YN = 'N'
+					)
+				WHEN MATCHED THEN
+					UPDATE
+						SET
+							A.PRDCR_CD = B.PRDCR_CD
+							,A.ITEM_CD = B.ITEM_CD
+							,A.VRTY_CD = B.VRTY_CD
+							,A.WRHS_YMD = B.WRHS_YMD
+							,A.FCLT_CD = B.FCLT_CD
+							,A.WRHS_QNTT = B.WRHS_QNTT
+							,A.WRHS_WGHT = B.WRHS_WGHT
+							,A.GRD_TYPE_1_WGHT = B.GRD_TYPE_1_WGHT
+							,A.GRD_TYPE_2_WGHT = B.GRD_TYPE_2_WGHT
+							,A.SYS_LAST_CHG_DT = SYSDATE
+							, A.SYS_LAST_CHG_USER_ID 	= B.SYS_LAST_CHG_USER_ID
+							, A.SYS_LAST_CHG_PRGRM_ID	= B.SYS_LAST_CHG_PRGRM_ID
+				WHEN NOT MATCHED THEN
+					INSERT
+						(
+						 A.APC_CD
+							,A.BFFA_WRHSNO
+							,A.PRDCR_CD
+							,A.ITEM_CD
+							,A.VRTY_CD
+							,A.WRHS_YMD
+							,A.FCLT_CD
+							,A.WRHS_QNTT
+							,A.WRHS_WGHT
+							,A.GRD_TYPE_1_WGHT
+							,A.GRD_TYPE_2_WGHT
+							,A.DEL_YN
+							,A.SYS_FRST_INPT_DT
+							,A.SYS_FRST_INPT_USER_ID
+							,A.SYS_FRST_INPT_PRGRM_ID
+							,A.SYS_LAST_CHG_DT
+							,A.SYS_LAST_CHG_USER_ID
+							,A.SYS_LAST_CHG_PRGRM_ID
+							)
+						VALUES
+							(
+								B.APC_CD
+							,B.BFFA_WRHSNO
+							,B.PRDCR_CD
+							,B.ITEM_CD
+							,B.VRTY_CD
+							,B.WRHS_YMD
+							,B.FCLT_CD
+							,B.WRHS_QNTT
+							,B.WRHS_WGHT
+							,B.GRD_TYPE_1_WGHT
+							,B.GRD_TYPE_2_WGHT
+							,'N'
+							,SYSDATE
+							,B.SYS_FRST_INPT_USER_ID
+							,B.SYS_FRST_INPT_PRGRM_ID
+							,SYSDATE
+							,B.SYS_LAST_CHG_USER_ID
+							,B.SYS_LAST_CHG_PRGRM_ID
+							)
+		]]>
+	</insert>
 </mapper>
