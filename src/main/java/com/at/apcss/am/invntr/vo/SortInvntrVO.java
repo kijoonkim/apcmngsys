@@ -287,6 +287,8 @@ public class SortInvntrVO extends ComVO {
 	 */
 	private String prcsType;
 
+	private String invntrSttsCd;
+	
 	private String spmtPckgUnitCd;
 	private String spmtPckgUnitNm;
 	
