@@ -494,10 +494,10 @@
             {caption: ["저장창고","저장창고"],         ref: 'warehouseSeNm',         type:'output',      width:'80px',    style:'text-align:center'},
             {caption: ["선별번호","선별번호"],         ref: 'sortno',                 type:'output',      width:'120px',  style:'text-align:center'},
             {caption: ["비고","비고"],             ref: 'rmrk',                  type:'output',      width:'200px',  style:'text-align:center'},
-            {caption: ["투입","수량"],              ref: 'inptQntt',               type:'output',      width:'60px',   style:'text-align:right',
+            {caption: ["투입","수량"],              ref: 'inptQntt',               type:'output',      width:'60px',   style:'text-align:right;',
                 format : {type:'number', rule:'#,###'}, hidden: true
             },
-            {caption: ["투입","중량 (Kg)"],          ref: 'inptWght',               type:'output',      width:'80px',   style:'text-align:right',
+            {caption: ["투입","중량 (Kg)"],          ref: 'inptWght',               type:'output',      width:'80px',   style:'text-align:right;',
                 format : {type:'number', rule:'#,###'}, hidden: true
             },
 
@@ -745,9 +745,13 @@
 
   	          	document.querySelector('#cnt-sort').innerText = totalRecordCount;
   	          	sortEditMode = true;
-  	          SBUxMethod.attr('btnUpdate', 'disabled', 'true');
+  	           SBUxMethod.attr('btnUpdate', 'disabled', 'true');
   	          	fn_EditMode();
 
+  	          	//변경수량, 중량 색 추가
+ 	           var getColRefQntt = grdSortPrfmnc.getColRef("chgSortQntt");
+  			   var getColRefWght = grdSortPrfmnc.getColRef("chgSortWght");
+  			   grdSortPrfmnc.setCellStyles(2,getColRefQntt,jsonSortPrfmnc.length,getColRefWght,'background-color:#FFF8DC');
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
@@ -1180,10 +1184,7 @@
 				}
 			});
 
-		if(rowData.chgSortQntt === "" || rowData.chgSortQntt === undefined){
-			gfn_comAlert("W0002","수량");
-			return;
-		}
+
 
 
 
@@ -1195,6 +1196,11 @@
 				grdSortPrfmnc.setCellData(nRow, inptWghtCol, sortWght,true);
 			}else if(attrUsr.colNm == "chgWght"){
 				grdSortPrfmnc.setCellData(nRow, inptWghtCol, rowData.chgSortWght,true);
+
+				if(rowData.chgSortQntt === "" || rowData.chgSortQntt === undefined){
+					gfn_comAlert("W0002","수량");
+					return;
+				}
 			}
 		}
 
