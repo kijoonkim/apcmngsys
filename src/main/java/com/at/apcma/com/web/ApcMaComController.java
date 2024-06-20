@@ -441,8 +441,7 @@ public class ApcMaComController extends BaseController {
     		if(filePath!=null && !filePath.equals("")) {
     			
     	        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-    	        headers.add("Content-Disposition", "inline; filename=example.pdf");
-
+    	        headers.add("Content-Disposition", "inline; filename=\"" + URLEncoder.encode(orgfileName,"UTF-8") + "\"");
     	        try {
     	            Path path = Paths.get(filePath);
     	            pdfBytes = Files.readAllBytes(path);
@@ -456,5 +455,32 @@ public class ApcMaComController extends BaseController {
     	}
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     } 
+	
+	//file select 조회
+	@PostMapping(value = "/com/comApprEmpList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> comApprEmpList(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============comApprEmpList=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIM3400_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============comApprEmpList=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}		
+    
     
 }
