@@ -465,23 +465,23 @@
 					}
         	},
             {caption: ["선별일자","선별일자"],        ref: 'inptYmd',             type:'output',      width:'90px',    style:'text-align:center'
-                , format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'} , fixedRenderer: fnRenderer
+                , format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
 
             },
-            {caption: ["팔레트번호","팔레트번호"],         ref: 'wrhsno',                 type:'output',      width:'120px',  style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["대표생산자","대표생산자"],     ref: 'rprsPrdcrNm',          type:'output',      width:'80px',   style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["설비명","설비명"],             ref: 'fcltNm',                 type:'output',      width:'120px',  style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["품목","품목"],                ref: 'itemNm',                 type:'output',      width:'80px',   style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["품종","품종"],                ref: 'vrtyNm',                 type:'output',      width:'80px',   style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["규격","규격"],              ref: 'spcfctNm',               type:'output',      width:'80px',   style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["등급","등급"],              ref: 'grdNm',                 type:'output',      width:'80px',   style:'text-align:center', fixedRenderer: fnRenderer},
+            {caption: ["팔레트번호","팔레트번호"],         ref: 'wrhsno',                 type:'output',      width:'120px',  style:'text-align:center' },
+            {caption: ["대표생산자","대표생산자"],     ref: 'rprsPrdcrNm',          type:'output',      width:'80px',   style:'text-align:center'},
+            {caption: ["설비명","설비명"],             ref: 'fcltNm',                 type:'output',      width:'120px',  style:'text-align:center'},
+            {caption: ["품목","품목"],                ref: 'itemNm',                 type:'output',      width:'80px',   style:'text-align:center'},
+            {caption: ["품종","품종"],                ref: 'vrtyNm',                 type:'output',      width:'80px',   style:'text-align:center'},
+            {caption: ["규격","규격"],              ref: 'spcfctNm',               type:'output',      width:'80px',   style:'text-align:center'},
+            {caption: ["등급","등급"],              ref: 'grdNm',                 type:'output',      width:'80px',   style:'text-align:center'},
 
 
             {caption: ["선별","수량"],  			ref: 'sortQntt', 			type:'output',  	width:'60px',   style:'text-align:right',
-            	format : {type:'number', rule:'#,###'}, fixedRenderer: fnRenderer
+            	format : {type:'number', rule:'#,###'}
             },
             {caption: ["선별","중량 (Kg)"],  		ref: 'sortWght', 			type:'output',  	width:'80px',   style:'text-align:right',
-                format : {type:'number', rule:'#,###'}, fixedRenderer: fnRenderer
+                format : {type:'number', rule:'#,###'}
             },
             {caption: ["선별","변경수량"],  			ref: 'chgSortQntt', 			type:'input',  	width:'60px',   style:'text-align:right',
             	format : {type:'number', rule:'#,###'}, hidden : true, userattr:{colNm:"chgQntt"}
@@ -489,16 +489,16 @@
             {caption: ["선별","변경중량 (Kg)"],  		ref: 'chgSortWght', 			type:'input',  	width:'80px',   style:'text-align:right',
                 format : {type:'number', rule:'#,###'}, hidden : true, userattr:{colNm:"chgWght"}
             },
-            {caption: ["입고구분","입고구분"],         ref: 'wrhsSeNm',            type:'output',      width:'60px',   style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["상품구분","상품구분"],          ref: 'gdsSeNm',               type:'output',      width:'60px',   style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["저장창고","저장창고"],         ref: 'warehouseSeNm',         type:'output',      width:'80px',    style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["선별번호","선별번호"],         ref: 'sortno',                 type:'output',      width:'120px',  style:'text-align:center', fixedRenderer: fnRenderer},
-            {caption: ["비고","비고"],             ref: 'rmrk',                  type:'output',      width:'200px',  style:'text-align:center', fixedRenderer: fnRenderer},
+            {caption: ["입고구분","입고구분"],         ref: 'wrhsSeNm',            type:'output',      width:'60px',   style:'text-align:center'},
+            {caption: ["상품구분","상품구분"],          ref: 'gdsSeNm',               type:'output',      width:'60px',   style:'text-align:center'},
+            {caption: ["저장창고","저장창고"],         ref: 'warehouseSeNm',         type:'output',      width:'80px',    style:'text-align:center'},
+            {caption: ["선별번호","선별번호"],         ref: 'sortno',                 type:'output',      width:'120px',  style:'text-align:center'},
+            {caption: ["비고","비고"],             ref: 'rmrk',                  type:'output',      width:'200px',  style:'text-align:center'},
             {caption: ["투입","수량"],              ref: 'inptQntt',               type:'output',      width:'60px',   style:'text-align:right',
-                format : {type:'number', rule:'#,###'}, hidden: true, fixedRenderer: fnRenderer
+                format : {type:'number', rule:'#,###'}, hidden: true
             },
             {caption: ["투입","중량 (Kg)"],          ref: 'inptWght',               type:'output',      width:'80px',   style:'text-align:right',
-                format : {type:'number', rule:'#,###'}, hidden: true, fixedRenderer: fnRenderer
+                format : {type:'number', rule:'#,###'}, hidden: true
             },
 
             {caption: ["선별번호"],				ref: 'sortno', 				type:'output',  	hidden: true},
@@ -557,18 +557,6 @@
 
     	if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")){
     		grdSortPrfmnc.exportData("xlsx","선별실적",true);
-            //grdSortPrfmnc.exportData("xlsx","선별실적",true);
-            var arr = Array.from({length:gridColLength},(_,i)=>i+1);
-            nCol.forEach((item)=>{
-                var index = arr.indexOf(item);
-                if(index>-1){
-                    arr.splice(index,1);
-                   }
-               });
-            grdSortPrfmnc.exportData('xls', '선별실적', true, {
-                arrRemoveCols: arr,
-                combolabel: true
-            });
     	}else{
     		grdSortPrfmnc.exportLocalExcel("선별실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     	}

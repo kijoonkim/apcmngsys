@@ -1761,11 +1761,11 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 
 		// 투입실적 확인
-		SortInptPrfmncVO sortInptParamVO = new SortInptPrfmncVO();
-		sortInptParamVO.setApcCd(apcCd);
-		sortInptParamVO.setSortno(sortno);
-
-		List<SortInptPrfmncVO> inptList = sortInptPrfmncService.selectSortInptCnclList(sortInptParamVO);
+//		SortInptPrfmncVO sortInptParamVO = new SortInptPrfmncVO();
+//		sortInptParamVO.setApcCd(apcCd);
+//		sortInptParamVO.setSortno(sortno);
+//
+//		List<SortInptPrfmncVO> inptList = sortInptPrfmncService.selectSortInptCnclList(sortInptParamVO);
 
 
 
@@ -1776,32 +1776,32 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 //		double rawMtrInptWght = 0;
 //		int rawMtrInptQntt = 0;
-		for(SortInptPrfmncVO inpt : inptList) {
-			RawMtrInvntrVO rawMtrInfo;
-			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
-			rawMtrInvntrVO.setWrhsno(inpt.getWrhsno());
-			rawMtrInvntrVO.setApcCd(apcCd);
-			rawMtrInfo = rawMtrInvntrService.selectRawMtrInvntr(rawMtrInvntrVO);
-			if (rawMtrInfo == null) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
-			}
+//		for(SortInptPrfmncVO inpt : inptList) {
+//			RawMtrInvntrVO rawMtrInfo;
+//			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+//			rawMtrInvntrVO.setWrhsno(inpt.getWrhsno());
+//			rawMtrInvntrVO.setApcCd(apcCd);
+//			rawMtrInfo = rawMtrInvntrService.selectRawMtrInvntr(rawMtrInvntrVO);
+//			if (rawMtrInfo == null) {
+//				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+//			}
 
 //			rawMtrInptQntt += rawMtrInfo.getInptQntt();
 //			rawMtrInptWght += rawMtrInfo.getInptWght();
 
-		}
+//		}
 
 
 
 
 
-		if (inptList == null || inptList.isEmpty()) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입실적");
-		}
-
-		if (sortPrfmncVO == null ) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별실적");
-		}
+//		if (inptList == null || inptList.isEmpty()) {
+//			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입실적");
+//		}
+//
+//		if (sortPrfmncVO == null ) {
+//			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별실적");
+//		}
 
 //		if (sortPrfmncVO == null ) {
 //			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
@@ -1871,9 +1871,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			int rtn = pckgInptService.updatePckgInpt(pckgInptVO);
 
 
-			if (rtn == 0) {
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
+//			if (rtn == 0) {
+//				throw new EgovBizException(getMessageForMap(rtnObj));
+//			}
 			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 			gdsInvntrVO.setApcCd(apcCd);
 			gdsInvntrVO.setPckgno(pckgno);
