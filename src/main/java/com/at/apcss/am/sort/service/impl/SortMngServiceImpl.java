@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -20,10 +21,17 @@ import com.at.apcss.am.cmns.vo.CmnsItemVO;
 import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
 import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
 import com.at.apcss.am.constants.AmConstants;
+import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.service.SortInvntrService;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.pckg.mapper.PckgInptMapper;
+import com.at.apcss.am.pckg.service.PckgInptService;
 import com.at.apcss.am.pckg.service.PckgMngService;
+import com.at.apcss.am.pckg.service.PckgPrfmncService;
+import com.at.apcss.am.pckg.vo.PckgInptVO;
 import com.at.apcss.am.pckg.vo.PckgMngVO;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 import com.at.apcss.am.sort.service.SortCmndService;
@@ -33,6 +41,7 @@ import com.at.apcss.am.sort.service.SortPrfmncService;
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
 import com.at.apcss.am.sort.vo.SortMngVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.am.spmt.service.SpmtPrfmncService;
 import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.constants.ApcConstants;
@@ -71,6 +80,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 	@Resource(name="sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
 
+	@Resource(name="sortInvntrService")
+	private SortInvntrService sortInvntrService;
+
 	@Resource(name="rawMtrInvntrService")
 	private RawMtrInvntrService rawMtrInvntrService;
 
@@ -92,6 +104,20 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 	@Resource(name="rawMtrWrhsService")
 	private RawMtrWrhsService rawMtrWrhsService;
+
+	@Resource(name="pckgInptService")
+	private PckgInptService pckgInptService;
+
+	@Resource(name="pckgPrfmncService")
+	private PckgPrfmncService pckgPrfmncService;
+
+
+	@Resource(name="gdsInvntrService")
+	private GdsInvntrService gdsInvntrService;
+
+	@Resource(name="spmtPrfmncService")
+	private SpmtPrfmncService spmtPrfmncService;
+
 
 	@Override
 	public HashMap<String, Object> insertSortCmnd(SortMngVO sortMngVO) throws Exception {
@@ -358,11 +384,11 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
 				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
-				
+
 				if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
 				}
-				
+
 				invntrVO.setInptPrgrsYn(orgnInv.getInptPrgrsYn());
 				invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
 				invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
@@ -375,7 +401,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				rawMtrInvntrVOList.add(invntrVO);
 			}
-			
+
 			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
 
 				String wrhsno = inv.getWrhsno();
@@ -410,7 +436,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
 				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
-				
+
 				if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
 				}
@@ -424,7 +450,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 					}
 				}
-				
+
 				invntrVO.setInptPrgrsYn(orgnInv.getInptPrgrsYn());
 				invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
 				invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
@@ -437,7 +463,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				rawMtrInvntrVOList.add(invntrVO);
 			}
-			
+
 			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
 
 				String inptYmd = ComConstants.CON_BLANK;
@@ -532,7 +558,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				}
 			}
 		}
-		
+
 		// 선별실적 등록
 		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
 		List<String> sortSnList = new ArrayList<>();
@@ -559,9 +585,9 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			sortPrfmncVOList.add(prfmncVO);
 
 			prfmncVO.setPckgYn(prfmncVO.getAutoPckgInptYn());
-			
+
 			if (ComConstants.CON_YES.equals(prfmncVO.getAutoPckgInptYn())) {
-				
+
 				SortPrfmncVO pckgVO = new SortPrfmncVO();
 				BeanUtils.copyProperties(prfmncVO, pckgVO);
 				pckgList.add(pckgVO);
@@ -605,7 +631,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				}
 			}
 		}
-		
+
 
 		// 포장자동등록 선택 시 포장실적 등록
 		if (!pckgList.isEmpty()) {
@@ -662,7 +688,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				pckgVO.setPckgSortno(sortVO.getSortno());
 				pckgVO.setPckgSortSn(sortVO.getSortSn());
-				
+
 				pckgPrfmncList.add(pckgVO);
 			}
 
@@ -1476,7 +1502,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			sortPrfmncVOList.add(prfmncVO);
 
 			prfmncVO.setPckgYn(prfmncVO.getAutoPckgInptYn());
-			
+
 			if (ComConstants.CON_YES.equals(prfmncVO.getAutoPckgInptYn())) {
 				SortPrfmncVO pckgVO = new SortPrfmncVO();
 				BeanUtils.copyProperties(prfmncVO, pckgVO);
@@ -1572,7 +1598,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				pckgVO.setSpcfctCd(spmtPckgUnitVO.getSpcfctCd());
 				pckgVO.setPckgSortno(sortVO.getSortno());
 				pckgVO.setPckgSortSn(sortVO.getSortSn());
-				
+
 				pckgPrfmncList.add(pckgVO);
 			}
 
@@ -1607,23 +1633,23 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 	@Override
 	public HashMap<String, Object> updateSortPrfmnc(SortMngVO sortMngVO) throws Exception {
-		
+
 		// apc 코드와 선별번호로 선별실적, 투입실적, 선별재고 삭제 : delYn 'Y'
 		HashMap<String, Object> rtnObj = new HashMap<>();
 		// validation check
 		String apcCd = sortMngVO.getApcCd();
-		
+
 		List<String> pckgnoList = new ArrayList<>();
-		
+
 		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
-		
+
 		String sortno = sortMngVO.getSortno();
 		if (!StringUtils.hasText(sortno)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별번호");
 		}
-		
+
 		SortPrfmncVO sortPrfmncParamVO = new SortPrfmncVO();
 		sortPrfmncParamVO.setApcCd(apcCd);
 		sortPrfmncParamVO.setSortno(sortno);
@@ -1632,15 +1658,15 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		if (prfmncList == null || prfmncList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별실적");
 		}
-		
+
 		if (prfmncList == null || prfmncList.isEmpty()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
 		}
 
 		List<SortPrfmncVO> sortPrfmncVOList = new ArrayList<>();
-		
+
 		for ( SortPrfmncVO sort : prfmncList ) {
-			
+
 			// 마감확인
 			String sortYmd = sort.getInptYmd();
 			String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, sortYmd);
@@ -1661,7 +1687,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 			prfmncVO.setSortRealDelY(ComConstants.CON_YES);
 			sortPrfmncVOList.add(prfmncVO);
-			
+
 			String pckgno = sort.getNxtPckgno();
 			if (StringUtils.hasText(pckgno) && !pckgnoList.contains(pckgno)) {
 				pckgnoList.add(pckgno);
@@ -1669,14 +1695,14 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		}
 
 		// 처리
-		
+
 		// 포장실적 삭제
 		for ( String pckgno : pckgnoList) {
 			PckgMngVO pckgMngVO = new PckgMngVO();
 			BeanUtils.copyProperties(sortMngVO, pckgMngVO);
 			pckgMngVO.setApcCd(apcCd);
 			pckgMngVO.setPckgno(pckgno);
-			
+
 			rtnObj = pckgMngService.deletePckgPrfmnc(pckgMngVO);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
@@ -1689,17 +1715,248 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		sortMngVO.setSortUpdtYn(ComConstants.CON_YES);
-		
+
 		rtnObj = insertSortPrfmnc(sortMngVO);
 		if (rtnObj != null) {
 			// error throw exception;
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		
+
 		return null;
 	}
+
+	@Override
+	public HashMap<String, Object> updateSortPrfmncForFcrs(SortPrfmncVO sortMngVO) throws Exception {
+
+		// apc 코드와 선별번호로 선별실적, 투입실적, 선별재고 삭제 : delYn 'Y'
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		// validation check
+		String apcCd = sortMngVO.getApcCd();
+
+
+
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		String sortno = sortMngVO.getSortno();
+		int sortsn = sortMngVO.getSortSn();
+
+
+		if (!StringUtils.hasText(sortno)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별번호");
+		}
+
+		SortPrfmncVO sortPrfmncParamVO = new SortPrfmncVO();
+
+		sortPrfmncParamVO.setApcCd(apcCd);
+		sortPrfmncParamVO.setSortno(sortno);
+		sortPrfmncParamVO.setSortSn(sortsn);
+		SortPrfmncVO sortPrfmncVO = sortPrfmncService.selectSortUpdtForFcrs(sortPrfmncParamVO);
+		List<SortPrfmncVO> prfmncList = sortPrfmncService.selectSortCnclList(sortPrfmncParamVO);
+
+//		SortPrfmncVO prfmncList = sortPrfmncService.selectSortPrfmnc(sortPrfmncParamVO);
+
+
+
+		// 투입실적 확인
+//		SortInptPrfmncVO sortInptParamVO = new SortInptPrfmncVO();
+//		sortInptParamVO.setApcCd(apcCd);
+//		sortInptParamVO.setSortno(sortno);
+//
+//		List<SortInptPrfmncVO> inptList = sortInptPrfmncService.selectSortInptCnclList(sortInptParamVO);
+
+
+
+
+
+
+
+
+//		double rawMtrInptWght = 0;
+//		int rawMtrInptQntt = 0;
+//		for(SortInptPrfmncVO inpt : inptList) {
+//			RawMtrInvntrVO rawMtrInfo;
+//			RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+//			rawMtrInvntrVO.setWrhsno(inpt.getWrhsno());
+//			rawMtrInvntrVO.setApcCd(apcCd);
+//			rawMtrInfo = rawMtrInvntrService.selectRawMtrInvntr(rawMtrInvntrVO);
+//			if (rawMtrInfo == null) {
+//				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+//			}
+
+//			rawMtrInptQntt += rawMtrInfo.getInptQntt();
+//			rawMtrInptWght += rawMtrInfo.getInptWght();
+
+//		}
+
+
+
+
+
+//		if (inptList == null || inptList.isEmpty()) {
+//			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입실적");
+//		}
+//
+//		if (sortPrfmncVO == null ) {
+//			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별실적");
+//		}
+
+//		if (sortPrfmncVO == null ) {
+//			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "삭제대상");
+//		}
+
+
+
+
+
+		// 마감확인
+		String sortYmd = sortPrfmncVO.getInptYmd();
+		String ddlnYn = cmnsValidationService.selectChkDdlnYn(apcCd, sortYmd);
+		if (!ComConstants.CON_NONE.equals(ddlnYn)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ALEADY_CLOSE, "선별재고");
+		}
+
+		SortPrfmncVO prfmncVO = new SortPrfmncVO();
+		BeanUtils.copyProperties(sortMngVO, prfmncVO);
+		BeanUtils.copyProperties(sortPrfmncVO, prfmncVO,
+				ApcConstants.PROP_APC_CD,
+				ComConstants.PROP_SYS_FRST_INPT_DT,
+				ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+				ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+				ComConstants.PROP_SYS_LAST_CHG_DT,
+				ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+				ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+
+		//prfmncVO.setSortRealDelY(ComConstants.CON_YES);
+		prfmncVO.setSortQntt(sortMngVO.getQntt());
+		prfmncVO.setSortWght(sortMngVO.getWght());
+
+
+		String pckgno = prfmncVO.getNxtPckgno();
+
+
+
+
+
+		// 포장실적 수정
+		if(pckgno != null) {
+			PckgPrfmncVO pckgPrfmncVO = new PckgPrfmncVO();
+			BeanUtils.copyProperties(sortMngVO, pckgPrfmncVO);
+			pckgPrfmncVO.setApcCd(apcCd);
+			pckgPrfmncVO.setPckgno(pckgno);
+			pckgPrfmncVO.setPckgSn(sortsn);
+			pckgPrfmncVO.setPckgYmd(sortYmd);
+			pckgPrfmncVO.setPckgWght(sortMngVO.getWght());
+			pckgPrfmncVO.setPckgQntt(sortMngVO.getQntt());
+
+
+
+
+			rtnObj = pckgPrfmncService.updatePckgPrfmnc(pckgPrfmncVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			PckgInptVO pckgInptVO = new PckgInptVO();
+			BeanUtils.copyProperties(sortMngVO, pckgInptVO);
+			pckgInptVO.setApcCd(apcCd);
+			pckgInptVO.setPckgno(pckgno);
+			pckgInptVO.setSortSn(sortsn);
+			pckgInptVO.setWght(sortMngVO.getWght());
+			pckgInptVO.setQntt(sortMngVO.getQntt());
+			pckgInptVO.setInptYmd(sortMngVO.getInptYmd());
+
+			int rtn = pckgInptService.updatePckgInpt(pckgInptVO);
+
+
+//			if (rtn == 0) {
+//				throw new EgovBizException(getMessageForMap(rtnObj));
+//			}
+			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+			gdsInvntrVO.setApcCd(apcCd);
+			gdsInvntrVO.setPckgno(pckgno);
+			gdsInvntrVO.setPckgSn(sortsn);
+
+			gdsInvntrVO = gdsInvntrService.selectGdsInvntr(gdsInvntrVO);
+
+			gdsInvntrVO.setPckgQntt(sortMngVO.getQntt());
+			gdsInvntrVO.setPckgWght(sortMngVO.getWght());
+			gdsInvntrVO.setInvntrQntt(sortMngVO.getQntt());
+			gdsInvntrVO.setInvntrWght(sortMngVO.getWght());
+			gdsInvntrVO.setSysLastChgUserId(sortMngVO.getSysLastChgUserId());
+			gdsInvntrVO.setSysLastChgPrgrmId(sortMngVO.getSysLastChgPrgrmId());
+
+			gdsInvntrService.updateGdsInvntr(gdsInvntrVO);
+
+		}
+
+		// 선별 재고,실적 수정
+
+		sortMngVO.setSortQntt(sortMngVO.getQntt());
+		sortMngVO.setSortWght(sortMngVO.getWght());
+		rtnObj = sortPrfmncService.updateSortPrfmnc(sortMngVO);
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		SortInvntrVO sortInvntrVOFcrs = new SortInvntrVO();
+		SortInvntrVO orgSortInvntrVO = new SortInvntrVO();
+		BeanUtils.copyProperties(sortMngVO, sortInvntrVOFcrs);
+		sortInvntrVOFcrs = sortInvntrService.selectSortInvntr(sortInvntrVOFcrs);
+
+
+
+
+
+		if(pckgno != null) {
+			sortInvntrVOFcrs.setSortQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setSortWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setInvntrQntt(0);
+			sortInvntrVOFcrs.setInvntrWght(0);
+			sortInvntrVOFcrs.setPckgQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setPckgWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setPckgYn("Y");
+		}else {
+			sortInvntrVOFcrs.setSortQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setSortWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setInvntrQntt(sortMngVO.getQntt());
+			sortInvntrVOFcrs.setInvntrWght(sortMngVO.getWght());
+			sortInvntrVOFcrs.setPckgQntt(0);
+			sortInvntrVOFcrs.setPckgWght(0);
+		}
+
+		sortInvntrVOFcrs.setSysLastChgUserId(sortMngVO.getSysLastChgUserId());
+		sortInvntrVOFcrs.setSysLastChgPrgrmId(sortMngVO.getSysLastChgPrgrmId());
+		sortInvntrVOFcrs.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_C1);
+
+		orgSortInvntrVO.setApcCd(apcCd);
+		orgSortInvntrVO.setSortno(sortMngVO.getSortno());
+		orgSortInvntrVO.setSortSn(sortsn);
+		orgSortInvntrVO.setInvntrQntt(sortMngVO.getQntt());
+		orgSortInvntrVO.setInvntrWght(sortMngVO.getWght());
+		orgSortInvntrVO.setSysLastChgUserId(sortMngVO.getSysLastChgUserId());
+		orgSortInvntrVO.setSysLastChgPrgrmId(sortMngVO.getSysLastChgPrgrmId());
+		// 선별 재고변경 이력 등록
+		rtnObj = sortInvntrService.insertSortChgHstry(orgSortInvntrVO);
+
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		rtnObj = sortInvntrService.updateSortInvntr(sortInvntrVOFcrs);
+
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
 
 	@Override
 	public HashMap<String, Object> deleteSortCmnd(SortMngVO sortMngVO) throws Exception {

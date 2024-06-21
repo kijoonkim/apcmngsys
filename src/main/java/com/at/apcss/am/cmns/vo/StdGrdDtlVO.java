@@ -82,4 +82,15 @@ public class StdGrdDtlVO extends StdGrdVO {
 	 * 표시명
 	 */
 	private String indctNm;
+
+	/**
+	 * 규격코드
+	 */
+	private String spcfctCd;
+
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm;
+
 }

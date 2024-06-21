@@ -303,6 +303,7 @@ async function gfnma_multiSelectInit(obj) {
 		htm += '<tbody></tbody>';
 		htm += '</table>';
 		$(tarId).closest('div').find('.dropdown-menu').html(htm);
+		$(tarId).closest('div').addClass('cu-multi-select');
 		
 		//table tbody
 		htm = '';
@@ -424,6 +425,25 @@ const gfnma_uxDataSet = function (target, obj) {
 			SBUxMethod.set(key,	obj[key]);
 		}
 	}
+}
+
+/**
+ * @name 		gfnma_uxDataClear
+ * @description 지정된 타겟에 자식 태그들의 ux컴포넌트 값을 초기화
+ * @function
+ * @param 		{string} target
+ * @returns 	{void}
+ */
+const gfnma_uxDataClear = function (target) {
+    var tar = typeof target == 'string' ? $(target) : target;
+	tar.find('input').val('');
+	tar.find('select').val('');
+	tar.find('.cu-multi-select').each(function(){
+		var id = $(this).find('button').eq(0).attr('id');
+		id = '#' + id;
+        gfnma_multiSelectSet(id, '', '', '');
+	});
+	//to do .. 필요하면 말하세요
 }
 
 /**

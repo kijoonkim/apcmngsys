@@ -37,6 +37,7 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
+                    <sbux-button uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" onclick="cfn_approval"></sbux-button>
                 	<!-- 
                     <sbux-button uitype="normal" text="파일첨부" class="btn btn-sm btn-outline-danger" onclick="cfn_attach"></sbux-button>
                     <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
@@ -50,7 +51,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -440,6 +441,27 @@
 	   			,menuId			: p_menuId    		
 			});
     	}
+    }
+	
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+    	gfnma_uxDataClear('#dataArea1');
+    }
+	
+    /**
+     * 결재처리
+     */
+    var cfn_approval = function() {
+    	compopappvmng({
+    		compCode		: gv_ma_selectedApcCd
+    		,clientCode		: gv_ma_selectedClntCd
+    		,sourceType		: lgv_sourceType
+    		,sourceCode		: lgv_sourceCode
+   			,formID			: p_formId
+   			,menuId			: p_menuId    		
+		});
     }
 
     /**
