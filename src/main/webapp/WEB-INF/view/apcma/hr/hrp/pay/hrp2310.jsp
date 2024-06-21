@@ -128,14 +128,6 @@
                             class="form-control input-sm inpt_data_reqed"
                             jsondata-ref="jsonPayDate"
                     />
-                  <%--  <sbux-datepicker
-                            id="srch-pay_date"
-                            name="srch-pay_date"
-                            uitype="popup"
-                            datepicker-mode="month"
-                            date-format="yyyymm"
-                            class="form-control input-sm input-sm-ast inpt_data_reqed">
-                    </sbux-datepicker>--%>
                 </td>
                 <th scope="row" class="th_bg">사번</th>
                 <td class="td_input" style="border-right: hidden;">
@@ -744,7 +736,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true
+        SBGridProperties.filtering = true;
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
