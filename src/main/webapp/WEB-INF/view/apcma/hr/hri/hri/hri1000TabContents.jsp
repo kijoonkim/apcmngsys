@@ -1944,7 +1944,7 @@
 
         gvwCareer = _SBGrid.create(SBGridProperties);
         gvwCareer.bind('valuechanged','gvwCareerValueChanged');
-        gvwCareer.bind('dblclick', 'gvwCareerDblclick');
+        gvwCareer.bind('dblclick', 'fn_gvwCareerDblclick');
     }
 
     function fn_createGvwLicenseGrid() {
@@ -2434,8 +2434,8 @@
         ];
 
         gvwTimeOffHistory = _SBGrid.create(SBGridProperties);
-        gvwTimeOffHistory.bind('valuechanged','gvwTimeOffHistoryValueChanged');
-        gvwTimeOffHistory.bind('dblclick', 'gvwTimeOffHistoryDblclick');
+        gvwTimeOffHistory.bind('valuechanged','fn_gvwTimeOffHistoryValueChanged');
+        gvwTimeOffHistory.bind('dblclick', 'fn_gvwTimeOffHistoryDblclick');
     }
 
     function fn_createGvwGroupInsuranceGrid() {
@@ -2883,7 +2883,7 @@
         }
     }
 
-    const gvwCareerDblclick = async function() {
+    const fn_gvwCareerDblclick = async function() {
         var nRow = gvwCareer.getRow();
         var nCol = gvwCareer.getCol();
 
@@ -2916,7 +2916,7 @@
         }
     }
 
-    const gvwTimeOffHistoryValueChanged = async function() {
+    const fn_gvwTimeOffHistoryValueChanged = async function() {
         var nRow = gvwTimeOffHistory.getRow();
         var nCol = gvwTimeOffHistory.getCol();
         var rowData = gvwTimeOffHistory.getRowData(nRow);
@@ -2936,7 +2936,7 @@
         }
     }
 
-    const gvwTimeOffHistoryDblclick = async function() {
+    const fn_gvwTimeOffHistoryDblclick = async function() {
         var nRow = gvwTimeOffHistory.getRow();
         var nCol = gvwTimeOffHistory.getCol();
 

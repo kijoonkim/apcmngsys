@@ -247,6 +247,7 @@
     var jsonHolidayYn = []; // 휴일여부
     var jsonWorkDayType = []; // 근무일
     var jsonStartEndDayType = []; // 시작/종료일자유형
+    var jsonEmpState = []; // 재직구분
 
     //grid 초기화
     var bandgvwInfo; 			// 그리드를 담기위한 객체 선언
@@ -301,6 +302,8 @@
             gfnma_setComSelect(['bandgvwInfo'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 시작/종료일자유형
             gfnma_setComSelect(['bandgvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 재직구분
+            gfnma_setComSelect(['bandgvwInfo'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -559,11 +562,12 @@
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('afterrebuild','fn_bandgvwInfoAfterRebuild');
+        bandgvwInfo.bind('dblclick', 'fn_bandgvwInfoDblclick');
     }
 
     const fn_bandgvwInfoAfterRebuild = async function() {
         let bandgvwInfoData = bandgvwInfo.getGridDataAll();
-        console.log(bandgvwInfoData)
+
         for(var i = 0; i < bandgvwInfoData.length; i++) {
             let rowData = bandgvwInfo.getRowData(i+2);
 
@@ -576,6 +580,15 @@
             } else if (rowData.REQUEST_STATUS_CODE == "4") {
                 bandgvwInfo.setRowStyle(i+2, 'data', 'background', '#FF6347');
             }
+        }
+    }
+
+    const fn_bandgvwInfoDblclick = async function() {
+        var nRow = bandgvwInfo.getRow();
+        var nCol = bandgvwInfo.getCol();
+
+        if(nCol == 6 || nCol == 7) {
+            fn_findEmpCodeForBandgvwInfo(nRow, nCol);
         }
     }
 
@@ -620,8 +633,9 @@
             ,whereClause			: ''
             , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "재직상태"]
             , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , ""  ,""             ,searchText         ,""]
-            ,searchInputTypes  : ["input",	"input", "input", "input", "select"]
+            ,searchInputValues		: ["", "", "", searchText, ""]
+            ,searchInputTypes		: ["input", "input", "input", "input", "select"]		//input, datepicker가 있는 경우
+            ,searchInputTypeValues	: ["", "", "", "", jsonEmpState]
             ,height: '400px'
             , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
@@ -638,14 +652,14 @@
                 SBUxMethod.set('JOB_RANK2', data.JOB_RANK);
             },
         });
-        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+        SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
     }
 
     const fn_findTimeItemCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));
         var replaceText0 	= "_TIME_ITEM_CODE_";
         var replaceText1 	= "_TIME_ITEM_NAME_";
-        var strWhereClause 	= "AND X.TIME_ITEM_CODE LIKE '%" + replaceText0 + "%' AND X.TIME_ITEM_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND TIME_ITEM_CODE LIKE '%" + replaceText0 + "%' AND TIME_ITEM_NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '일근태항목');
         compopup1({
@@ -667,6 +681,44 @@
                 SBUxMethod.set('SRCH_TIME_ITEM_NAME', data.TIME_ITEM_NAME);
             },
         });
+    }
+
+    const fn_findEmpCodeForBandgvwInfo = function(nRow, nCol) {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_EMP_WORK'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
+            ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "BASE_DATE"]
+            ,searchInputValues		: ["", "", "", searchText, ""]
+
+            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["사원코드", "사원명", "사원명", "부서코드", "부서명", "사업장코드", "사업장명", "재직구분", "재직상태명", "입사일", "연차기산일", "퇴사일", "직책", "PREMATURE_DATE", "직위코드", "직위명", "LABOR_COST_GROUP", "파트", "파트명", "직급"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME", "EMP_FULL_NAME", "DEPT_CODE", "DEPT_NAME", "SITE_CODE", "SITE_NAME", "EMP_STATE", "EMP_STATE_NAME",  "ENTER_DATE", "ANNUAL_INITIAL_DATE", "RETIRE_DATE", "DUTY_CODE", "PREMATURE_DATE", "POSITION_CODE", "POSITION_NAME", "LABOR_COST_GROUP", "COST_DEPT_CODE", "COST_DEPT_NAME", "JOB_RANK"]
+            ,tableColumnWidths		: ["100px", "100px", "0px", "80px", "140px", "0px", "0px", "0px", "0px", "100px", "0px", "100px", "0px", "0px", "100px", "100px", "0px", "0px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwEmp.setRowData(nRow, {
+                    DEPT_CODE: data['DEPT_CODE'],
+                    DEPT_NAME: data['DEPT_NAME'],
+                    DUTY_CODE: data['DUTY_CODE'],
+                    JOB_RANK: data['JOB_RANK'],
+                    EMP_CODE: data['EMP_CODE'],
+                    EMP_NAME: data['EMP_NAME'],
+                    EMP_STATE: data['EMP_STATE'],
+                    ENTER_DATE: data['ENTER_DATE'],
+                    POSITION_CODE: data['POSITION_CODE']
+                });
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
     }
 
     // 행추가
@@ -794,7 +846,10 @@
         }
     }
 
-    const fn_create = async function() {}
+    const fn_create = async function() {
+        jsonTimeShiftApplyList.length = 0;
+        bandgvwInfo.rebuild();
+    }
 
     const fn_save = async function() {
         if(!SBUxMethod.validateRequired()) {

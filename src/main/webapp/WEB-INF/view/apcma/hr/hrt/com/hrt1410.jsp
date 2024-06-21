@@ -701,7 +701,7 @@
         ];
 
         gvwEmp = _SBGrid.create(SBGridProperties);
-        gvwEmp.bind('dblclick', 'gvwEmpDblclick');
+        gvwEmp.bind('dblclick', 'fn_gvwEmpDblclick');
     }
 
     // 복사모드토글
@@ -1264,7 +1264,7 @@
         }
     }
 
-    const gvwEmpDblclick = async function() {
+    const fn_gvwEmpDblclick = async function() {
         var nRow = gvwEmp.getRow();
         var nCol = gvwEmp.getCol();
 
