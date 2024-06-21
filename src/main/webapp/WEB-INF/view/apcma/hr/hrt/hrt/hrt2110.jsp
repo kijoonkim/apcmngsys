@@ -235,6 +235,7 @@
     //-----------------------------------------------------------
 
     var copyMode            = "clear";
+    var bEventEnabled = true;
 
     var jsonSiteCode = []; // 사업장
     var jsonJobGroup = []; // 직군
@@ -376,7 +377,7 @@
             },
             {caption: ["주간근무시간", "주간(급여)"],         ref: 'WORK_TIME',    type:'output',  	width:'99px',  style:'text-align:left'},
             {caption: ["주간근무시간", "주간(근태)"],         ref: 'WORK_TIME_NET',    type:'output',  	width:'99px',  style:'text-align:left'},
-            {caption: ["근무조 정보(시작일기준)", "근무패턴"],         ref: 'WORK_PATTERN_CODE',    type:'output',  	width:'98px',  style:'text-align:left'},
+            {caption: ["근무조 정보(시작일기준)", "근무패턴"],         ref: 'WORK_PATTERN_CODE',    type:'input',  	width:'98px',  style:'text-align:left'},
             {caption: ["근무조 정보(시작일기준)", "교대조"], 		ref: 'SHIFT_CODE',   	    type:'combo', style:'text-align:left' ,width: '77px',
                 typeinfo: {
                     ref			: 'jsonShiftCode',
@@ -475,13 +476,12 @@
             {caption: ["내역", "시간"],        ref: 'TIME_HOURS', 		         type:'output',  	width:'130px',  	style:'text-align:left',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["내역", "행선지"],         ref: 'DESTINATION',    type:'output',  	width:'98px',  style:'text-align:left'},
-            {caption: ["내역", "사유"],         ref: 'CAUSE',    type:'output',  	width:'224px',  style:'text-align:left'},
-            {caption: ["내역", "비고"],         ref: 'MEMO',    type:'output',  	width:'200px',  style:'text-align:left'},
+            {caption: ["내역", "행선지"],         ref: 'DESTINATION',    type:'input',  	width:'98px',  style:'text-align:left'},
+            {caption: ["내역", "사유"],         ref: 'CAUSE',    type:'input',  	width:'224px',  style:'text-align:left'},
+            {caption: ["내역", "비고"],         ref: 'MEMO',    type:'input',  	width:'200px',  style:'text-align:left'},
             {caption: ["진행상태", "신청일"],         ref: 'REQUEST_DATE',    type:'output',  	width:'81px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
             },
             {caption: ["진행상태", "신청상태"], 		ref: 'REQUEST_STATUS_CODE',   	    type:'combo', style:'text-align:left' ,width: '82px',
                 typeinfo: {
@@ -509,12 +509,8 @@
                 , disabled: true
             },
             {caption: ["기타정보", "입력원천"],         ref: 'CREATE_TYPE',    type:'output',  	width:'62px',  style:'text-align:left'},
-            {caption: ["기타정보", "대체휴가사용여부"],        ref: 'SUBSTITUTE_VACATION_YN', 		     type:'checkbox',  	width:'110px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["기타정보", "휴일근무일"],       ref: 'HOLIDAY_WORK_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
+            {caption: ["기타정보", "대체휴가사용여부"],        ref: 'SUBSTITUTE_VACATION_YN', 		     type:'checkbox',  	width:'110px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ["기타정보", "휴일근무일"],       ref: 'HOLIDAY_WORK_DATE', 		type:'input',  	width:'90px',  	style:'text-align:left'},
             {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'77px',  style:'text-align:left', hidden: true},
             {caption: ["이력순번"],         ref: 'HISTORY_SEQ',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["종료일"],       ref: 'TIME_END_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
@@ -563,6 +559,7 @@
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('afterrebuild','fn_bandgvwInfoAfterRebuild');
         bandgvwInfo.bind('dblclick', 'fn_bandgvwInfoDblclick');
+        bandgvwInfo.bind('valuechanged', 'fn_bandgvwInfoValueChanged');
     }
 
     const fn_bandgvwInfoAfterRebuild = async function() {
@@ -587,8 +584,242 @@
         var nRow = bandgvwInfo.getRow();
         var nCol = bandgvwInfo.getCol();
 
-        if(nCol == 6 || nCol == 7) {
+        if(nCol == 6) {
             fn_findEmpCodeForBandgvwInfo(nRow, nCol);
+        }
+
+        if(nCol == 7) {
+            fn_findEmpCodeForBandgvwInfo(nRow, (nCol-1));
+        }
+
+        if(nCol == 22) {
+            fn_findTimeItemCodeForBandgvwInfo(nRow, nCol);
+        }
+
+        if(nCol == 23) {
+            fn_findTimeItemCodeForBandgvwInfo(nRow, (nCol-1));
+        }
+    }
+
+    const fn_bandgvwInfoValueChanged = async function() {
+        var nRow = bandgvwInfo.getRow();
+        var nCol = bandgvwInfo.getCol();
+        var rowData = bandgvwInfo.getRowData(nRow);
+
+        if (bandgvwInfo.FocusedRowHandle < 0)
+            return;
+
+        if (bEventEnabled) {
+            if ((nCol == bandgvwInfo.getColRef("TIME_START_DATE") || nCol == bandgvwInfo.getColRef("EMP_CODE")) && bEventEnabled ) {
+                bEventEnabled = false;
+                if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")) != "") {
+                    let TIME_START_DATE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")));
+                    let TIME_END_DATE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_DATE")));
+                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("DEPT_CODE")));
+                    let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                    let EMP_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")));
+                    let TIME_CATEGORY = gfnma_nvl(SBUxMethod.get("SRCH_TIME_CATEGORY"));
+                    let TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
+                    let REQUEST_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
+                    let RESULT_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN	: '',
+                        V_P_LANG_ID		: '',
+                        V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                        V_P_TIME_START_DATE : TIME_START_DATE,
+                        V_P_TIME_END_DATE : TIME_END_DATE,
+                        V_P_SITE_CODE : SITE_CODE,
+                        V_P_DEPT_CODE : DEPT_CODE,
+                        V_P_JOB_GROUP : JOB_GROUP,
+                        V_P_EMP_CODE : EMP_CODE,
+                        V_P_TIME_CATEGORY : TIME_CATEGORY,
+                        V_P_TIME_ITEM_CODE : TIME_ITEM_CODE,
+                        V_P_SHIFT_CODE : '',
+                        V_P_REQUEST_STATUS_CODE : REQUEST_STATUS_CODE,
+                        V_P_RESULT_STATUS_CODE : RESULT_STATUS_CODE,
+                        V_P_TXN_ID : 0,
+                        V_P_FORM_ID		: p_formId,
+                        V_P_MENU_ID		: p_menuId,
+                        V_P_PROC_ID		: '',
+                        V_P_USERID			: '',
+                        V_P_PC				: ''
+                    };
+
+                    const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2110List.do", {
+                        getType				: 'json',
+                        workType			: 'EMP',
+                        cv_count			: '2',
+                        params				: gfnma_objectToString(paramObj)
+                    });
+
+                    const listData = await postJsonPromiseForList;
+                    console.log('data:', listData);
+
+                    try {
+                        if (_.isEqual("S", listData.resultStatus)) {
+                            if (listData.cv_1.length == 0) {
+                                bEventEnabled = true;
+                                return true;
+                            }
+
+                            var rs_emp = listData.cv_1[0];
+                            if (rs_emp == null || rs_emp.length < 1) {
+                                gfn_comAlert("E0000", "해당 직원은 이미 근태신청실적이 존재하거나 근태일정이 등록되어있지 않습니다.");
+                                bEventEnabled = true;
+                                return;
+                            } else {
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TXN_ID"), parseInt(rs_emp["TXN_ID"]));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("HISTORY_SEQ"), parseInt(rs_emp["HISTORY_SEQ"]));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SITE_CODE"), rs_emp["SITE_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_CODE"), rs_emp["DEPT_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_NAME"), rs_emp["DEPT_NAME"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"), rs_emp["WORK_PATTERN_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_CODE"), rs_emp["SHIFT_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_DAY_TYPE"), rs_emp["WORK_DAY_TYPE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("HOLIDAY_YN"), rs_emp["HOLIDAY_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("POSITION_CODE"), rs_emp["POSITION_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_CATEGORY"), rs_emp["TIME_CATEGORY"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE"), rs_emp["TIME_ITEM_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_NAME"), rs_emp["TIME_ITEM_NAME"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_DAY_TYPE"), rs_emp["TIME_START_DAY_TYPE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_HHMM"), rs_emp["TIME_START_HHMM"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DATE"), bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")).replace("-",""));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DAY_TYPE"), rs_emp["TIME_END_DAY_TYPE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_HHMM"), rs_emp["TIME_END_HHMM"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_CONFIRM_DATE"), rs_emp["TIME_CONFIRM_DATE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("CONFIRM_YN"), rs_emp["CONFIRM_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("MEMO"), rs_emp["MEMO"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DESTINATION"), rs_emp["DESTINATION"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SEQ"), rs_emp["SEQ"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_STATUS_CODE"), rs_emp["REQUEST_STATUS_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_APPROVE_DATE"), rs_emp["REQUEST_APPROVE_DATE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_DATE"), rs_emp["REQUEST_DATE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("CREATE_TYPE"), rs_emp["CREATE_TYPE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("BREAK_APPLY_YN"), rs_emp["BREAK_APPLY_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_WORK_YN"), rs_emp["ALTER_WORK_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_REQ_YN"), rs_emp["ALTER_REQ_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_WORK_YN"), rs_emp["SHIFT_WORK_YN"]);
+                            }
+                        } else {
+                            alert(listData.resultMessage);
+                        }
+
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+            }
+
+            if (nCol == bandgvwInfo.getColRef("TIME_ITEM_CODE") && bEventEnabled) {
+                if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_ITEM_CODE")) != "") {
+                    if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")) != "") {
+                        let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
+                        let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
+                        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+                        let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+                        let TIME_CATEGORY = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_CATEGORY")));
+                        let TIME_ITEM_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_ITEM_CODE")));
+                        let REQUEST_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_REQUEST_STATUS_CODE"));
+                        let RESULT_STATUS_CODE = gfnma_nvl(SBUxMethod.get("SRCH_RESULT_STATUS_CODE"));
+
+                        var paramObj = {
+                            V_P_DEBUG_MODE_YN	: '',
+                            V_P_LANG_ID		: '',
+                            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                            V_P_TIME_START_DATE : TIME_START_DATE,
+                            V_P_TIME_END_DATE : TIME_END_DATE,
+                            V_P_SITE_CODE : SITE_CODE,
+                            V_P_DEPT_CODE : DEPT_CODE,
+                            V_P_JOB_GROUP : JOB_GROUP,
+                            V_P_EMP_CODE : EMP_CODE,
+                            V_P_TIME_CATEGORY : TIME_CATEGORY,
+                            V_P_TIME_ITEM_CODE : TIME_ITEM_CODE,
+                            V_P_SHIFT_CODE : '',
+                            V_P_REQUEST_STATUS_CODE : REQUEST_STATUS_CODE,
+                            V_P_RESULT_STATUS_CODE : RESULT_STATUS_CODE,
+                            V_P_TXN_ID : 0,
+                            V_P_FORM_ID		: p_formId,
+                            V_P_MENU_ID		: p_menuId,
+                            V_P_PROC_ID		: '',
+                            V_P_USERID			: '',
+                            V_P_PC				: ''
+                        };
+
+                        const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2110List.do", {
+                            getType				: 'json',
+                            workType			: 'DAY',
+                            cv_count			: '2',
+                            params				: gfnma_objectToString(paramObj)
+                        });
+
+                        const listData = await postJsonPromiseForList;
+                        console.log('data:', listData);
+
+                        try {
+                            if (_.isEqual("S", listData.resultStatus)) {
+                                var dtday = listData.cv_2[0];
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_WORK_YN"), gfn_nvl(dtday["ALTER_WORK_YN"]));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_REQ_YN"), gfn_nvl(dtday["ALTER_REQ_YN"]));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_WORK_YN"), gfn_nvl(dtday["SHIFT_WORK_YN"]));
+
+                                if (gfn_nvl(dtday["TIME_CATEGORY"]) == "5000") {
+                                    let timeStartDate = bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE"));
+                                    let dt_start = new Date(timeStartDate.substring(0, 4), timeStartDate.substring(4, 6), timeStartDate.substring(6, 8));
+                                    let dt_end = new Date(dt_start.getFullYear(), dt_start.getMonth(), (dt_start.getDay() + parseInt(dtday["VACATION_DAY"]) - 1));
+
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DATE"), gfn_dateToYmd(dt_end));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_DAYS"), gfn_nvl(dtday["VACATION_DAY"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_NET_DAYS"), "0");
+                                } else if (dtday["TIME_START_DAY_TYPE"] != "") {
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_DAY_TYPE"), gfn_nvl(dtday["TIME_START_DAY_TYPE"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_HHMM"), gfn_nvl(dtday["TIME_START_HHMM"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DAY_TYPE"), gfn_nvl(dtday["TIME_END_DAY_TYPE"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_HHMM"), gfn_nvl(dtday["TIME_END_HHMM"]));
+                                } else {
+                                    if (nCol == bandgvwInfo.getColRef("TIME_END_DATE") && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_DATE")) != "") {
+                                        if (parseInt(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")).replace(":", "")) > parseInt(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_DATE")).replace(":", ""))) {
+                                            gfn_comAlert("E0000", "근태시작일이 근태종료일이 보다 늦을 수 없습니다.")
+                                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DATE"), bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")));;
+                                            return;
+                                        }
+
+                                        let timeStartDate = bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE"));
+                                        let timeEndDate = bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE"));
+
+                                        let dt_start = new Date(timeStartDate.substring(0, 4), timeStartDate.substring(4, 6), timeStartDate.substring(6, 8));
+                                        let dt_end = new Date(timeEndDate.substring(0, 4), timeEndDate.substring(4, 6), timeEndDate.substring(6, 8));
+
+                                        let diff_day = gfn_diffDate(dt_end, dt_start);
+
+                                        bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_DAYS"), new Date(diff_day).getDay() + 1);
+                                        bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_NET_DAYS"), "0");
+                                    }
+                                }
+                            } else {
+                                alert(listData.resultMessage);
+                            }
+
+                        } catch (e) {
+                            if (!(e instanceof Error)) {
+                                e = new Error(e);
+                            }
+                            console.error("failed", e.message);
+                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                        }
+                    }
+                }
+            }
+            bEventEnabled = true;
         }
     }
 
@@ -631,11 +862,11 @@
             ,bizcompId				: 'P_EMP_WORK_DATE'
             ,popupType				: 'B'
             ,whereClause			: ''
-            , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "재직상태"]
-            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "일자",  "START_DATE", "END_DATE", "USERID"]
+            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"BASE_DATE", "START_DATE", "END_DATE", "USERID"]
             ,searchInputValues		: ["", "", "", searchText, ""]
-            ,searchInputTypes		: ["input", "input", "input", "input", "select"]		//input, datepicker가 있는 경우
-            ,searchInputTypeValues	: ["", "", "", "", jsonEmpState]
+            ,searchInputTypes		: ["input", "input", "input", "input", "select", "input", "input", "input"]		//input, datepicker가 있는 경우
+            ,searchInputTypeValues	: ["", "", "", "", jsonEmpState, "", "", ""]
             ,height: '400px'
             , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
@@ -681,12 +912,13 @@
                 SBUxMethod.set('SRCH_TIME_ITEM_NAME', data.TIME_ITEM_NAME);
             },
         });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'650px'});
     }
 
     const fn_findEmpCodeForBandgvwInfo = function(nRow, nCol) {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -695,9 +927,9 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
             ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "BASE_DATE"]
-            ,searchInputValues		: ["", "", "", searchText, ""]
+            ,searchInputValues		: ["", "", "", "", ""]
 
-            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
+            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker", "inputHidden"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["사원코드", "사원명", "사원명", "부서코드", "부서명", "사업장코드", "사업장명", "재직구분", "재직상태명", "입사일", "연차기산일", "퇴사일", "직책", "PREMATURE_DATE", "직위코드", "직위명", "LABOR_COST_GROUP", "파트", "파트명", "직급"]
@@ -705,20 +937,42 @@
             ,tableColumnWidths		: ["100px", "100px", "0px", "80px", "140px", "0px", "0px", "0px", "0px", "100px", "0px", "100px", "0px", "0px", "100px", "100px", "0px", "0px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwEmp.setRowData(nRow, {
-                    DEPT_CODE: data['DEPT_CODE'],
-                    DEPT_NAME: data['DEPT_NAME'],
-                    DUTY_CODE: data['DUTY_CODE'],
-                    JOB_RANK: data['JOB_RANK'],
-                    EMP_CODE: data['EMP_CODE'],
-                    EMP_NAME: data['EMP_NAME'],
-                    EMP_STATE: data['EMP_STATE'],
-                    ENTER_DATE: data['ENTER_DATE'],
-                    POSITION_CODE: data['POSITION_CODE']
-                });
+                bandgvwInfo.setCellData(nRow, (nCol-3), data['DEPT_CODE']);
+                bandgvwInfo.setCellData(nRow, (nCol-2), data['DEPT_NAME']);
+                bandgvwInfo.setCellData(nRow, (nCol+2), data['DUTY_CODE']);
+                bandgvwInfo.setCellData(nRow, (nCol+3), data['JOB_RANK']);
+                bandgvwInfo.setCellData(nRow, nCol, data['EMP_CODE']);
+                bandgvwInfo.setCellData(nRow, (nCol+1), data['EMP_NAME']);
+                bandgvwInfo.setCellData(nRow, (nCol-1), data['POSITION_CODE']);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
+    }
+
+    const fn_findTimeItemCodeForBandgvwInfo = function(nRow, nCol) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '일근태항목');
+        SBUxMethod.openModal('modal-compopup1');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRT004_06'
+            ,popupType				: 'A'
+            ,whereClause			: ''
+            ,searchCaptions			: ["코드", 		"명칭"]
+            ,searchInputFields		: ["TIME_ITEM_CODE", 	"TIME_ITEM_NAME"]
+            ,searchInputValues		: ["", 			""]
+            ,height					: '400px'
+            ,tableHeader			: ["코드", "명칭", "비고", "분류"]
+            ,tableColumnNames		: ["TIME_ITEM_CODE", "TIME_ITEM_NAME",  "MEMO", "TIME_CATEGORY"]
+            ,tableColumnWidths		: ["80px", "150px", "200px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                bandgvwInfo.setCellData(nRow, nCol, data['TIME_ITEM_CODE']);
+                bandgvwInfo.setCellData(nRow, (nCol+1), data['TIME_ITEM_NAME']);
+            },
+        });
+
+        SBUxMethod.setModalCss('modal-compopup1', {width:'650px'});
     }
 
     // 행추가
@@ -739,6 +993,7 @@
         var data = {
             TIME_START_DATE: TIME_START_DATE,
             TIME_END_DATE: TIME_END_DATE,
+            SEQ: 0,
             START_DAY_TYPE: "N0",
             END_DAY_TYPE: "N0",
             CHK_YN : "N",
