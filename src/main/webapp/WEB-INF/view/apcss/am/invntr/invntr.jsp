@@ -1240,6 +1240,7 @@
   	       				  , prdcrNm 		: item.prdcrNm
   	       				  , sortGrdNm     : item.sortGrdNm
   	       				  , wrhsYmd        : item.wrhsYmd
+  	       				  , sortGrdNm		: item.sortGrdNm
   	  				}
   	          		jsonGdsInvntr.push(gdsInvntr);
 
@@ -1306,6 +1307,7 @@
 		   , wrhsSeCd			: wrhsSeCd
 		   , warehouseSeCd		: warehouseSeCd
 		   , crtrYmd			: crtrYmd
+		   ,
 			// pagination
  	  		//, pagingYn 				: 'Y'
  	  		//, currentPageNo 		: pageNo
