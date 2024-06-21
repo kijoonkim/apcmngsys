@@ -253,6 +253,14 @@
 									<span style="font-size:12px">(조회건수 <span id="cnt-sort">0</span>건)</span>
 								</li>
 							</ul>
+							<sbux-button
+									id="btn-grd-controlPanel"
+									name="btn-grd-controlPanel"
+									class="btn btn-xs btn-outline-dark"
+									text="컬럼설정"
+									onclick="fn_showControlPanel"
+									style="margin-top: 5px;"
+							></sbux-button>
 						</div>
 						<div id="sb-area-grdSortPrfmnc" style="height:544px;"></div>
 					</div>
@@ -422,6 +430,16 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'scroll';
+
+	    SBGridProperties.controlpanelcolumnsui = {
+	    		  frozen		: false,
+	    		  hidden		: true,
+	    		  width		: false,
+	    		  filtering	: true,
+	    		  applycallback : function(objGrid){},
+
+	    		  columnsingrid : false
+	    		};
 		SBGridProperties.frozencols = 2;
 		/*
 	    SBGridProperties.paging = {
@@ -499,17 +517,9 @@
             },
             {caption: ["투입","중량 (Kg)"],          ref: 'inptWght',               type:'output',      width:'80px',   style:'text-align:right;',
                 format : {type:'number', rule:'#,###'}, hidden: true
-            },
+            }
 
-            {caption: ["선별번호"],				ref: 'sortno', 				type:'output',  	hidden: true},
-            {caption: ["선별순번"],				ref: 'sortSn', 				type:'output',  	hidden: true},
-            {caption: ["선별순번"],				ref: 'wrhsSeCd', 			type:'output',  	hidden: true},
-            {caption: ["대표생산자코드"],			ref: 'rprsPrdcrCd', 		type:'output',  	hidden: true},
-            {caption: ["투입창고코드"],				ref: 'inptWarehouseSeCd',	type:'output',  	hidden: true},
-            {caption: ["저장창고코드"],				ref: 'warehouseSeCd', 		type:'output',  	hidden: true},
-            {caption: ["등급코드"],				ref: 'grdCd', 		type:'output',  	hidden: true},
-            {caption: ["설비코드"],				ref: 'fcltCd', 		type:'output',  	hidden: true},
-            {caption: ["설비코드"],				ref: 'itemCd', 		type:'output',  	hidden: true}
+
         ];
         gridColLength = SBGridProperties.columns.filter((item)=>item.hidden === undefined).length;
         grdSortPrfmnc = _SBGrid.create(SBGridProperties);
@@ -1229,6 +1239,10 @@
 			grdSortPrfmnc.setColHidden(col2, false);
 		}
 
+	}
+
+	const fn_showControlPanel = function(){
+		grdSortPrfmnc.showControlPanelColumnsUI();
 	}
 
 	$(function(){
