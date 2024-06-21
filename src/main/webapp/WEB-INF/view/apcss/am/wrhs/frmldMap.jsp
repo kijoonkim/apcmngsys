@@ -145,17 +145,22 @@
 			var domain = "http://localhost:8080/";
 			var apiKey = "M4Z0Y2P5BcNV52OxjHYl";
 
+
+			// 팜맵이 로드될때 가장 먼저 실행되는 함수 body태그 안에 init 실행 있음
 	        function init() {
 	            map1 = farmmapObj.init("mapDiv1");
-				console.log('farmmapObj', farmmapObj);
 	            reqUrl = farmmapObj.rootUri; //  "https://agis.epis.or.kr/ASD/"
 
 	            addSearchFarmmapDataEvent();
+				// 맵을 움직일 때 이벤트 ( 줌인, 줌아웃, 클릭 - 드레그)
 	            addMoveendEvent();
 				// addFarmmapLayer();
+
+				// 전에 메뉴들 있을때 클릭하는 역활 ( 버튼에 색 부여 )
 	            getButton('menuMapMgr,btnMapMgr');
 				// addVectorLayer();
 
+				// apiKey https://agis.epis.or.kr/ASD/main/intro.do 사이트에서 발급 가능, domain 사용하고 있는 domain 참조
 	            var emapApiKey = 'M4Z0Y2P5BcNV52OxjHYl';
 	            var korean_map_tile = 'https://map.ngii.go.kr/openapi/Gettile.do?';
 	            var emapLayer = new OpenLayers.Layer.XYZ("2D", "", {
@@ -197,11 +202,13 @@
 	            map1.addLayer(emapLayer);
 	        }
 
+			// 맵을 움직일때 나오는 함수
 	        function addMoveendEvent() {
 	            farmmapObj.addEvent("moveend", map1, moveendEventCallback);
 	            moveendEventCallback();
 	        }
 
+			// 맵에서 줌인, 줌아웃, 이동 하면 실행되는 함수 ( 위도:경도 )
 	        function moveendEventCallback(e) {
 	            var params = {
 	                "lon": map1.getCenter().lon,
@@ -211,15 +218,18 @@
 	            $("#zoom").text(map1.getZoom());
 	        }
 
+			// 화면의 맵에 주소 표시
 	        function searchJusoWhenMovedMapCallback(result) {
 	            $("#whereis").text(result.data.juso);
 	        }
 
+			// 사용 안하는 함수 - 맵위에 마우스를 올리고 내릴때 이벤트 발생
 	        function addMapEvent() {
 	            farmmapObj.addEvent("mouseover", map1, mapEventCallback);
 	            farmmapObj.addEvent("mouseout", map1, mapEventCallback);
 	        }
 
+			// 사용 안하는 함수 - 맵 위에 마우스를 올리고 내릴떄 이벤트 발생
 	        function mapEventCallback(e) {
 	            if (e.type == "mouseover") {
 	                alert("===== mouse over =====");
@@ -230,29 +240,34 @@
 	            }
 	        }
 
+			// 사용안함 - 마우스 이벤트 제거
 	        function removeMoveendEvent() {
 	            farmmapObj.removeEvent("moveend", map1);
 	            $("#whereis").text("");
 	            $("#zoom").text("");
 	        }
 
+			// 사용안함 - 맵 이벤트 제거
 	        function removeMapEvent() {
 	            farmmapObj.removeEvent("mouseover", map1);
 	            farmmapObj.removeEvent("mouseout", map1);
 	        }
 
+			// 사용안함 - 맵 컨트롤 추가
 	        function addControl() {
 	            farmmapObj.addControl("scaleLine", map1);
 	            farmmapObj.addControl("panZoomBar", map1);
 	            farmmapObj.addControl("layerSwitcher", map1);
 	        }
 
+			// 사용안함 - 맵 컨트롤 제거
 	        function removeControl() {
 	            farmmapObj.removeControl("scaleLine", map1);
 	            farmmapObj.removeControl("panZoomBar", map1);
 	            farmmapObj.removeControl("layerSwitcher", map1);
 	        }
 
+			// 레이어 명을 이용한 객체찾기
 	        function getObject() {
 	            var layer = farmmapObj.getObject("layer", "팜맵", map1);
 	            if (layer != null) {
@@ -262,6 +277,7 @@
 	            }
 	        }
 
+			// 맵에 적용된 css, 조회 정보 제거
 	        function clearMap() {
 	            farmmapObj.clearMap(map1);
 
@@ -285,6 +301,7 @@
 				}
 			}
 
+			// 사용안함 - 마커레이어 추가
 	        function addMarkerLayer() {
 	            var layer = farmmapObj.getObject("layer", "markerLayer", map1);
 	            if (layer != null) {
@@ -295,8 +312,8 @@
 	            }
 	        }
 
+			// 팜맵 - 벡터 레이어 추가
 	        function addVectorLayer() {
-				console.log('addVectorLayer in');
 	            var layer = farmmapObj.getObject("layer", "vectorLayer", map1);
 
 	            if (layer != null) {
@@ -408,8 +425,11 @@
 	                farmmapObj.addBasicInfomapLayer("국토정보기본도", map1);
 	            }
 	        }
+
+
+
+			// 조회한 데이터를 맵에 뿌림
 			function searchCallback(data) {
-				console.log('searchCallback(data) is data = ', data);
 				$('#vectorClickDiv').hide();
 				returnjson = data;
 				$("#info").val(JSON.stringify(data, null, 4));
@@ -419,18 +439,6 @@
 				}
 				var layer = farmmapObj.getObject("layer", "vectorLayer", map1);
 			}
-	        // function searchCallback(data) {
-			// 	console.log('searchCallback on ', data);
-	        //     var keys = Object.keys(data);
-	        //     var text = "";
-	        //     for (var i = 0; i < keys.length; i++) {
-	        //         var searchData = data[keys[i]];
-	        //         text += keys[i] + " : " + JSON.stringify(searchData) + "\r\n\r\n";
-	        //     }
-			//
-			// 	console.log('text',text);
-	        //     $("#info").val(text);
-	        // }
 
 	        function addSearchFarmmapDataEvent() {
 	            farmmapObj.addSearchFarmmapDataEvent(map1, "searchCallback");
@@ -646,7 +654,6 @@
 	        }
 
 			function addVector() {
-				console.log('addVector in');
 				var data = returnjson;
 				if (returnjson == null) return;
 
@@ -1115,26 +1122,14 @@
 	        }
 
 			function vectorSelect2(feature, flag) {
-				console.log(' vectorSelect2 test');
-				console.log(' vectorSelect2 feature', feature);
-				console.log(' vectorSelect2 flag', flag);
 				if (!flag) {
-					console.log('!flag');
 					vectorUnselect2(farmmapObj.getObject("layer", "vectorLayer", map1).features[0]);
-					console.log('vectorUnselect2 갔다옴 !');
 				}
 
-				console.log('첫번째 if 끝');
-
 				if (feature.id != farmmapObj.getObject("layer", "vectorLayer", map1).features[0].id) {
-					console.log('2번째 if 시작');
-					console.log('farmmapObj.getObject("layer", "vectorLayer", map1).features[0].id', farmmapObj.getObject("layer", "vectorLayer", map1).features[0].id);
-					console.log('feature.id', feature.id);
 					feature.style.display = 'none';
 					feature.layer.redraw();
 				}
-
-				console.log('if 모두 끝 ');
 
 				feature.style.fillColor = "#0505f5";
 				feature.style.strokeColor = "yellow";
@@ -1147,14 +1142,11 @@
 					var keys = Object.keys(data);
 					var text = {};
 					var jsonFrmaldData = [];
-					console.log('vectorSelect2 keys', keys);
 					for (var i = 0; i < keys.length; i++) {
 						var searchData = data[keys[i]];
 						text[keys[i]] = data[keys[i]]
 						jsonFrmaldData.push(text);
 					}
-					// console.log('vectorSelect2 text', text);
-					console.log('vectorSelect2 text', jsonFrmaldData);
 					frmidMapPopup(jsonFrmaldData);
 					$("#vectorClickInfo").val(jsonFrmaldData);
 					$("#vectorClickDiv").show();
@@ -1162,7 +1154,6 @@
 			}
 
 			function vectorUnselect2(feature) {
-				console.log('vectorUnselect2 feature', feature);
 				if (feature.id.indexOf("source_") != -1) {
 					feature.style.fillColor = "#FFFFFF";
 					feature.style.strokeColor = "#FFFFFF";
@@ -1201,21 +1192,18 @@
 	            }
 	        }
 
+
+			// bjdCode를 사용한 조회 방식 farmmapApi/getFarmmapDataSeachBjdAndLandCode.do 라는 api를 통해서 조회함 보내는 파라미터에는
+			// 객체를 보내야함
 			const getFarmmapDataSeachBjdAndLandCode = async function() {
 				var params = {};
-				console.log('test');
 				var landCd = SBUxMethod.get("srch-slt-landCd");
-				console.log('getFarmmapDataSeachBjdAndLandCode landCd', landCd);
-				// params.bjdCd = $("#bjdCd4").val();
 				params.bjdCd = '5013031023'; // 조회
 				params.landCd = landCd; // 01:논 02:밭 03:과수 04:시설 05:비경지
 				params.mapType = 'farmmap';
 				params.columnType = 'ENG';
 				params.apiKey = apiKey;
 				params.domain = domain;
-
-				console.log('params', params);
-				console.log('reqUrl', reqUrl);
 
 				$.ajax({
 					url: reqUrl + "farmmapApi/getFarmmapDataSeachBjdAndLandCode.do",
@@ -1233,9 +1221,6 @@
 						console.log('==============error================');
 					}
 				});
-				console.log('getFarmmapDataSeachBjdAndLandCode params',params);
-
-				console.log('성공');
 				await addVector();
 
 			}
@@ -1402,8 +1387,6 @@
 	];
 
 	const frmidMapPopup = async function(data){
-		console.log('팝업 실행');
-		console.log('popup data', data);
 		SBUxMethod.openModal('modal-framldMap');
 		popFramldMap.init(gv_selectedApcCd, data);
 	}
