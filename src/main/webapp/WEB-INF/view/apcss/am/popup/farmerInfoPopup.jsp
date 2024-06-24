@@ -150,6 +150,9 @@
 		        {caption: ["대표자 주소"], 	ref: 'reprAddr',   	type:'input',     style:'text-align:left' ,width: '300px'},
 		        {caption: ["생년월일"], 	ref: 'brthdy',   	type:'input',     style:'text-align:center' ,width: '100px'},
 		        {caption: ["성별"], 	ref: 'sexdstn',   	type:'input',     style:'text-align:center' ,width: '100px'},
+		        {caption: ["본번"], 	ref: 'frlnMno',   	type:'input',     style:'text-align:center' ,width: '100px'},
+		        {caption: ["부번"], 	ref: 'frlnSno',   	type:'input',     style:'text-align:center' ,width: '100px'},
+		        {caption: ["법정동코드"], 	ref: 'stdgCd',   	type:'input',     style:'text-align:center' ,width: '100px'},
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true}
 		    ];
 		    grdFrmerInfo = _SBGrid.create(SBGridProperties);
@@ -175,8 +178,8 @@
 
 			let frmerSn = SBUxMethod.get("srch-inp-frmerSn");//
 			let mngmstRegno = SBUxMethod.get("srch-inp-mngmstRegno");//
-			
-			const postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerInfoList.do", {
+
+			const postJsonPromise = gfn_postJSON("/fm/farm/selectFarmerInfoListForAPC.do", {
 	    		 frmerSn : frmerSn
 	    		,mngmstRegno : mngmstRegno
 			});
@@ -187,28 +190,32 @@
 				jsonFrmerInfo.length = 0;
 	        	data.resultList.forEach((item, index) => {
 					const FrmerInfo = {
-							frmerSn : item.frmerSn
-							  , bzobRgno 		: item.bzobRgno
-							  , mngerRelate 	: item.mngerRelate
-							  , bzmCorpNm 	: item.bzmCorpNm
-							  , addr 		: item.addr
-							  , rrsdAddr 		: item.rrsdAddr
-							  , rdnmAddr 		: item.rdnmAddr
-							  , twNm 		: item.twNm
-							  , perCorpDvcdNm 		: item.perCorpDvcdNm
-							  , nafoDvcdNm 		: item.nafoDvcdNm
-							  , telno 		: item.telno
-							  , mblTelno 		: item.mblTelno
-							  , faxTelno 		: item.faxTelno
-							  , emailAddr 		: item.emailAddr
-							  , famgStrYmd 		: item.famgStrYmd
-							  , farmngEngageStleCdNm 		: item.farmngEngageStleCdNm
-							  , fndtYr 		: item.fndtYr
-							  , bzmRgno 		: item.bzmRgno
-							  , reprNm 		: item.reprNm
-							  , reprAddr 		: item.reprAddr
-							  , brthdy 		: item.brthdy
-							  , sexdstn 		: item.sexdstn
+							frmerSn : item.FRMER_SN
+							  , bzobRgno 		: item.BZOB_RGNO
+							  , mngerRelate 	: item.MNGER_RELATE
+							  , bzmCorpNm 	: item.BZM_CORP_NM
+							  , addr 		: item.ADDR
+							  , rrsdAddr 		: item.RRSD_ADDR
+							  , rdnmAddr 		: item.RDNM_ADDR
+							  , twNm 		: item.TW_NM
+							  , perCorpDvcdNm 		: item.PER_CORP_DVCD_NM
+							  , nafoDvcdNm 		: item.NAFO_DVCD_NM
+							  , telno 		: item.TELNO
+							  , mblTelno 		: item.MBL_TELNO
+							  , faxTelno 		: item.FAX_TELNO
+							  , emailAddr 		: item.EMAIL_ADDR
+							  , famgStrYmd 		: item.FAMG_STR_YMD
+							  , farmngBeginStleCdNm 			: item.FARMNG_BEGIN_STLE_CD_NM
+							  , farmngEngageStleCdNm 		: item.FARMNG_ENGAGE_STLE_CD_NM
+							  , fndtYr 		: item.FNDT_YR
+							  , bzmRgno 		: item.BZM_RGNO
+							  , reprNm 		: item.REPR_NM
+							  , reprAddr 		: item.REPR_ADDR
+							  , brthdy 		: item.BRTHDY
+							  , sexdstn 		: item.SEXDSTN
+							  , frlnSno      : item.FRLN_SNO
+							  , frlnMno		: item.FRLN_MNO
+							  , stdgCd		: item.STDG_CD
 					}
 					jsonFrmerInfo.push(FrmerInfo);
 				});
