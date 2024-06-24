@@ -1,5 +1,6 @@
 package com.at.apcss.fm.farm.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -112,6 +113,14 @@ public class FarmerInfoServiceImpl extends BaseServiceImpl implements FarmerInfo
 	@Override
 	public int deleteFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception {
 		return farmerInfoMapper.deleteFarmerInfo(farmerInfoVO);
+	}
+
+    @Override
+    public List<HashMap<String, Object>> selectFarmerInfoListForAPC(HashMap<String, Object> exhstDsctn) throws Exception {
+
+    	List<HashMap<String, Object>> resultVO = farmerInfoMapper.selectFarmerInfoListForAPC(exhstDsctn);
+
+		return resultVO;
 	}
 
 }
