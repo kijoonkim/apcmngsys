@@ -423,7 +423,7 @@
     /**
      * 파일첨부시 필요 변수
      */
-	var lgv_sourceType = 'HRITRIPEXPENSEHEADER';    // 화면(업무0마다 소스타입이 다르다.
+	var lgv_sourceType = 'HRITRIPEXPENSEHEADER';    // 화면(업무)마다 소스타입이 다르다.
 	var lgv_sourceCode = 'TR231201-001';     		// 소스코드는 신규 저장후 리턴되는 값을 지정하여야 한다.
 	
     /**
@@ -451,14 +451,32 @@
     }
 	
     /**
+     * 결재처리 필요 변수
+     */
+	var lgv_apv_apprId		= '0';    				// 상신시:0, 승인(반려): 부모에서 온 값
+	var lgv_apv_sourceNo	= '2024-00062';    		// 부모에서 온값
+	var lgv_apv_sourceType 	= 'OIL';     			// 부모에서 온값
+	var p_empCd = '${loginVO.empCd}';	
+	
+    /**
      * 결재처리
      */
     var cfn_approval = function() {
+    	
+    	var isHrManager = '${loginVO.isHrManager}';
+    	alert('isHrManager:' + isHrManager);
+    	return;
+    
+    	
     	compopappvmng({
-    		compCode		: gv_ma_selectedApcCd
+    		workType		: 'TEMPLATE'	// 상신:TEMPLATE , 승인(반려):APPR
+    		,compCode		: gv_ma_selectedApcCd
+    		,compCodeNm		: gv_ma_selectedApcNm
     		,clientCode		: gv_ma_selectedClntCd
-    		,sourceType		: lgv_sourceType
-    		,sourceCode		: lgv_sourceCode
+    		,apprId			: lgv_apv_apprId
+    		,sourceNo		: lgv_apv_sourceNo
+    		,sourceType		: lgv_apv_sourceType
+   			,empCode		: p_empCd
    			,formID			: p_formId
    			,menuId			: p_menuId    		
 		});
