@@ -53,7 +53,6 @@ public class ApcMaCom3710Controller extends BaseController {
 
 		try {
 			
-			Map<String, Object> gmap3 = (HashMap<String, Object>)session.getAttribute("maSessionInfo");
 			param.put("procedure", 		"P_COM3710_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
@@ -79,7 +78,6 @@ public class ApcMaCom3710Controller extends BaseController {
 		
 		try {
 			
-			Map<String, Object> gmap3 = (HashMap<String, Object>)session.getAttribute("maSessionInfo");
 			param.put("procedure", 		"P_COM3710_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			

@@ -53,7 +53,6 @@ public class ApcMaCom3100Controller extends BaseController {
 
 		try {
 			
-			Map<String, Object> gmap3 = (HashMap<String, Object>)session.getAttribute("maSessionInfo");
 			param.put("procedure", 		"SP_COM3100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
