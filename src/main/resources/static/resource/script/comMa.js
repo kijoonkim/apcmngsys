@@ -21,6 +21,32 @@ const gfnma_objectToString = function (obj) {
 }
 
 /**
+ * @name 		gfnma_date1
+ * @description 날짜를 yyyy-MM-dd HH:mm:ss 문자열로
+ * @function
+ * @returns 	{string}
+ */
+const gfnma_date1 = function () {
+	var rstr = '';
+	var pad = function(number, length) {
+	  var str = '' + number;
+	  while (str.length < length) {
+	    str = '0' + str;
+	  }
+	  return str;
+	}
+	var nowDate = new Date();	
+	var yyyy = nowDate.getFullYear().toString();
+	var MM = pad(nowDate.getMonth() + 1,2);
+	var dd = pad(nowDate.getDate(), 2);
+	var hh = pad(nowDate.getHours(), 2);
+	var mm = pad(nowDate.getMinutes(), 2)
+	var ss = pad(nowDate.getSeconds(), 2)
+	rstr = yyyy + '-' + MM + '-' + dd + ' ' + hh + ':' + mm + ':' + ss;
+	return rstr;
+}
+
+/**
  * @name 		gfnma_nvl
  * @description undefined 를 '' 로 변환
  * @function

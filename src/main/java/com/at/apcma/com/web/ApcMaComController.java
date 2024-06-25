@@ -456,7 +456,7 @@ public class ApcMaComController extends BaseController {
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     } 
 	
-	//file select 조회
+	//결재관리 사원(트리)/승인경로 조회
 	@PostMapping(value = "/com/comApprEmpList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> comApprEmpList(
 			@RequestBody Map<String, Object> param
@@ -479,6 +479,58 @@ public class ApcMaComController extends BaseController {
 		}
 		
 		logger.info("=============comApprEmpList=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}		
+	
+	//결재관리 승인/반려
+	@PostMapping(value = "/com/comApprEmpOk.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> comApprEmpOk(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============comApprEmpOk=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIM3400_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============comApprEmpOk=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}		
+	
+	//결재관리 회수/삭제
+	@PostMapping(value = "/com/comApprEmpCancel.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> comApprEmpCancel(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============comApprEmpCancel=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIM3400_S3");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============comApprEmpCancel=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}		
     
