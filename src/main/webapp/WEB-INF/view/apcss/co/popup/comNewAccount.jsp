@@ -108,7 +108,7 @@
 			return;
 		}
 
-		if(!param.apcCd.length === 4 ){
+		if(!param.apcCd.length != 4 ){
 			alert("apc코드는 4자리 입니다.");
 			return;
 		}
@@ -181,6 +181,7 @@
 		SBUxMethod.clear("com-account-userId");
 		SBUxMethod.clear("com-account-userPw");
 		SBUxMethod.clear("com-account-userNm");
+		SBUxMethod.clear("com-account-apcCd");
 		dupCheck = "N";
 	}
 
