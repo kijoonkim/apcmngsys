@@ -33,6 +33,12 @@
 					</colgroup>
 					<tbody>
 						<tr>
+							<th scope="row">APC코드</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="com-account-apcCd" name="com-account-apcCd" uitype="text" class="form-control input-sm" ></sbux-input>
+							</td>
+						</tr>
+						<tr>
 							<th scope="row">사용자명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="com-account-userNm" name="com-account-userNm" uitype="text" class="form-control input-sm" ></sbux-input>
@@ -78,14 +84,16 @@
 		let userId = SBUxMethod.get("com-account-userId");
 		let userPw = SBUxMethod.get("com-account-userPw");
 		let userNm = SBUxMethod.get("com-account-userNm");
-		let userType = SBUxMethod.get("srch-slt-comUserType")
-		let userStts = SBUxMethod.get("srch-slt-comUserStts")
+		let userType = SBUxMethod.get("srch-slt-comUserType");
+		let userStts = SBUxMethod.get("srch-slt-comUserStts");
+		let apcCd    =  SBUxMethod.get("com-account-apcCd");
 		let param = {
 				userId : userId
 				, pswd : userPw
 				, userNm : userNm
 				, userType : userType
 				, userStts : userStts
+				, apcCd    : apcCd
 		}
 		if(param.userNm.length == 0){
 			alert("사용자명을 입력하세요.");
@@ -97,6 +105,11 @@
 		}
 		if(param.pswd.length < 8 ){
 			alert("비밀번호는 8자 이상으로 설정하세요");
+			return;
+		}
+
+		if(!param.apcCd.length === 4 ){
+			alert("apc코드는 4자리 입니다.");
 			return;
 		}
 		try {
