@@ -118,6 +118,28 @@ const gfn_diffDate = function(fromDate, toDate) {
 }
 
 /**
+ * @name gfn_diffDate
+ * @description
+ * @param {Date} date
+ * @param {String} ymdFrom
+ * @param {String} ymdTo
+ * @function
+ * @returns
+ */
+const gfn_diffMonth = function(fromDate, toDate) {
+
+	var timeDiff = gfn_diffDate(fromDate,toDate)
+
+	 // 한 달을 30일로 가정하여 밀리초 단위로 변환
+	var oneMonthInMillis = 30 * 24 * 60 * 60 * 1000;
+
+    // 시간 차이를 한 달 단위로 변환
+	var diffInMonths = timeDiff / oneMonthInMillis;
+
+	return diffInMonths;
+}
+
+/**
  * @name gfn_excelSerialDateToJSDate
  * @description
  * @function
@@ -126,6 +148,6 @@ const gfn_diffDate = function(fromDate, toDate) {
 const gfn_excelSerialDateToJSDate = function (_excelSerialDate) {
 	const daysBeforeUnixEpoch = 70 * 365 + 19;
 	const hour = 60 * 60 * 1000;
-	
+
 	return new Date(Math.round((_excelSerialDate - daysBeforeUnixEpoch) * 24 * hour) + 12 * hour);
 }
