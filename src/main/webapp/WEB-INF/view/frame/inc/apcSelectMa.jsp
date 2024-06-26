@@ -77,6 +77,7 @@
 	</c:choose>
 		
 		var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+		var gv_ma_selectedApcNm	= '${loginVO.apcNm}';
 		//값선택
 		for (var i = 0; i < cjsonApcList.length; i++) {
 			var obj = cjsonApcList[i];
@@ -98,6 +99,7 @@
 		 */
 		const cfn_onChangeApc = function(obj) {
 			gv_ma_selectedApcCd = obj.value;
+			gv_ma_selectedApcNm = obj.text;
 		}
 
 	</script>

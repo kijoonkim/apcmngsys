@@ -288,7 +288,7 @@ public class SortInvntrVO extends ComVO {
 	private String prcsType;
 
 	/**
-	 * 출하포장단위
+	 * 출하포장단위코드
 	 */
 	private String spmtPckgUnitCd;
 

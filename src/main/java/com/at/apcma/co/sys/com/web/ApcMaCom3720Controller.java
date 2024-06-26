@@ -19,41 +19,41 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
 
 /**
- * 공통코드 처리하는 컨트롤러 클래스
+ * 프로젝트코드 정보 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
- * @since 		2024.05.29
+ * @since 		2024.06.18
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 공통코드 조회(Commonness Code) >>
+ * << 프로젝트코드 정보 조회 >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
- *  2023.05.29  천용진     	최초 생성
+ *  2024.06.18  천용진     	최초 생성
  *
  *  </pre>
  */
 @Controller
-public class ApcMaCom3000Controller extends BaseController {
+public class ApcMaCom3720Controller extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
 	
-	// 공통코드 정보 조회
-	@PostMapping(value = "/co/sys/com/selectCom3000List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectCom3000List(
+	// 프로젝트코드 정보 조회
+	@PostMapping(value = "/co/sys/com/selectCom3720.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectCom3720(
     		@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
-		logger.info("=============selectCom3000List=====start========");
+		logger.info("=============selectCom3720=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 			
-			param.put("procedure", 		"P_COM3000_Q");
+			param.put("procedure", 		"P_COM3720_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -61,24 +61,24 @@ public class ApcMaCom3000Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
-		logger.info("=============selectCom3000List=====end========");
+		logger.info("=============selectCom3720=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 공통코드 정보 삭제
-	@PostMapping(value = "/co/sys/com/deleteCom3000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteCom3000(
+	// 프로젝트코드 정보 삭제
+	@PostMapping(value = "/co/sys/com/deleteCom3720.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteCom3720(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============deleteCom3000=====start========");
+		logger.info("=============deleteCom3720=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S");
+			param.put("procedure", 		"P_COM3720_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -86,24 +86,24 @@ public class ApcMaCom3000Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		
-		logger.info("=============deleteCom3000=====end========");
+		logger.info("=============deleteCom3720=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 공통코드 정보 - 그룹코드 내역 신규
-	@PostMapping(value = "/co/sys/com/insertCom3000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertCom3000(
+	// 프로젝트코드 정보 신규
+	@PostMapping(value = "/co/sys/com/insertCom3720.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertCom3720(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============insertCom3000=====start========");
+		logger.info("=============insertCom3720=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S");
+			param.put("procedure", 		"P_COM3720_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -111,24 +111,24 @@ public class ApcMaCom3000Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		
-		logger.info("=============insertCom3000=====end========");
+		logger.info("=============insertCom3720=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 공통코드 정보 - 그룹코드 내역 수정
-	@PostMapping(value = "/co/sys/com/updateCom3000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateCom3000(
+	// 프로젝트코드 정보 - 정보 수정
+	@PostMapping(value = "/co/sys/com/updateCom3720.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateCom3720(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============updateCom3000=====start========");
+		logger.info("=============updateCom3720=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S");
+			param.put("procedure", 		"P_COM3720_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -136,24 +136,24 @@ public class ApcMaCom3000Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		
-		logger.info("=============updateCom3000=====end========");
+		logger.info("=============updateCom3720=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
 	
-	// 공통코드 정보 - 세부코드 정보 수정
-	@PostMapping(value = "/co/sys/com/updateCom3000_S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateCom3000_S1(
+	// 프로젝트코드 정보 - 상세내역 저장
+	@PostMapping(value = "/co/sys/com/updateCom3720_S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateCom3720_S1(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============updateCom3000_S1=====start========");
+		logger.info("=============updateCom3720_S1=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S1");
+			param.put("procedure", 		"P_COM3720_S1");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -161,8 +161,9 @@ public class ApcMaCom3000Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		
-		logger.info("=============updateCom3000_S1=====end========");
+		logger.info("=============updateCom3720_S1=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}	
+	
 
 }

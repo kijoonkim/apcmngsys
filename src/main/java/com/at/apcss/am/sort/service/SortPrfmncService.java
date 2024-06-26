@@ -90,6 +90,14 @@ public interface SortPrfmncService {
 	public List<SortPrfmncVO> selectSortCnclList(SortPrfmncVO sortPrfmncVO) throws Exception;
 
 	/**
+	 * 선별실적 수정목록 조회
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public SortPrfmncVO selectSortUpdtForFcrs(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+	/**
 	 * 선별실적 목록 조회 (선별번호 그룹)
 	 * @param sortPrfmncVO
 	 * @return

@@ -89,6 +89,9 @@ public class LoginVO implements Serializable{
 	private String hrmPayMngrYn;
 	private String acntgMngrYn;
 	
+	/** 경영관리 인사담당자 */
+	private String isHrManager;
+	
 	public String getBrno() {
 		return brno;
 	}
@@ -465,6 +468,12 @@ public class LoginVO implements Serializable{
 	}
 	public void setAcntgMngrYn(String acntgMngrYn) {
 		this.acntgMngrYn = acntgMngrYn;
+	}
+	public String getIsHrManager() {
+		return isHrManager;
+	}
+	public void setIsHrManager(String isHrManager) {
+		this.isHrManager = isHrManager;
 	}
 
 }

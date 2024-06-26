@@ -65,6 +65,21 @@ public class FarmerInfoController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 조회
+		@PostMapping(value = "/fm/farm/selectFarmerInfoListForAPC.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> selectFarmerInfoListForAPC(@RequestBody HashMap<String, Object> farmerInfoVO, HttpServletRequest request) throws Exception{
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+			List<HashMap<String,Object>> resultList;
+			try {
+				 resultList = farmerInfoService.selectFarmerInfoListForAPC(farmerInfoVO);
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+			return getSuccessResponseEntity(resultMap);
+		}
+
 
 
 	//등록

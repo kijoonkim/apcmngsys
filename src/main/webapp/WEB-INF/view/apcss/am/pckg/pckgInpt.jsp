@@ -375,12 +375,22 @@
 	const fn_dtpChange = function(){
 		let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
 		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
-		if(gfn_diffDate(pckgYmdFrom, pckgYmdTo) < 0){
+		var maxYmd = gfn_addDate(pckgYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-pckgYmdTo', maxYmd);
+
+		if(pckgYmdFrom > pckgYmdTo){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
 			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateToYmd(new Date()));
 			SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < pckgYmdTo) {
+    		SBUxMethod.set("srch-dtp-pckgYmdTo", maxYmd);
+	    }
+
+
 	}
 
 	function fn_createGrid() {
@@ -881,6 +891,9 @@
 
  		gfn_popClipReport("상품라벨", "am/gdsLabel.crf", {apcCd: gv_selectedApcCd, pckgno: pckgno});
  	}
+
+
+
 
  	$(function(){
  		$(".glyphicon").on("click", function(){

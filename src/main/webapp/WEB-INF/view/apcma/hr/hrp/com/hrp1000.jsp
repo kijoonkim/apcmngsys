@@ -1958,6 +1958,10 @@
 
             var paramObj =await getParamForm('u');
 
+            if (_.isEmpty(paramObj)){
+                return;
+            }
+
             console.log("+++++++++++++++++ paramObj +++++++++++++++++++++++", paramObj);
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000.do", {
@@ -2212,7 +2216,7 @@
 
 
         //중복체크를 해야할 경우
-        let chdate = gvwWithholdGrid.getGridDataAll();
+        //let chdate = gvwWithholdGrid.getGridDataAll();
 
         let updatedData = gvwWithholdGrid.getUpdateData(true, 'all');
         let returnData = [];

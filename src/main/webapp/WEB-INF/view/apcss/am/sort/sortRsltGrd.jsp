@@ -474,7 +474,7 @@
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuList1;		// 우클릭 메뉴 리스트
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
 		SBGridProperties.backcoloralternate = '#e0ffff';
 	    SBGridProperties.columns = [
@@ -519,7 +519,7 @@
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuList2;		// 우클릭 메뉴 리스트
 		SBGridProperties.backcoloralternate = '#e0ffff';
 		SBGridProperties.clickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.columns = [
@@ -563,7 +563,7 @@
 	    SBGridProperties.fixedrowheight = 50;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
+		SBGridProperties.contextmenulist = objMenuList3;		// 우클릭 메뉴 리스트
 		//SBGridProperties.backcoloralternate = '#e0ffff';
 		SBGridProperties.dblclickeventarea = {fixed: false, empty: false};
 	    SBGridProperties.columns = [
@@ -952,29 +952,61 @@
 	const fn_dtpChange = function(){
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
 		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
+		var maxYmd = gfn_addDate(inptYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-inptYmdTo', maxYmd);
 		if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
 			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < inptYmdTo) {
+    		SBUxMethod.set("srch-dtp-inptYmdTo", maxYmd);
+	    }
 	}
 
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
      */
-    const objMenuList = {
+    const objMenuList1 = {
         "excelDwnld": {
             "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
             "accesskey": "e",					//단축키
-            "callback": fn_excelDwnld,			//콜백함수명
+            "callback": fn_excelDwnld1,			//콜백함수명
         }
     };
+     const objMenuList2 = {
+    	        "excelDwnld": {
+    	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+    	            "accesskey": "e",					//단축키
+    	            "callback": fn_excelDwnld2,			//콜백함수명
+    	        }
+    	    };
+     const objMenuList3 = {
+    	        "excelDwnld": {
+    	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+    	            "accesskey": "e",					//단축키
+    	            "callback": fn_excelDwnld3,			//콜백함수명
+    	        }
+    	    };
 
      // 엑셀 다운로드
-     function fn_excelDwnld() {
+     function fn_excelDwnld1() {
+
     	 grdExhstDsctn.exportLocalExcel("배출구별집계", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+     }
+  	// 엑셀 다운로드
+     function fn_excelDwnld2() {
+
+    	 grdGrdDsctn.exportLocalExcel("등급별집계", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+     }
+  	// 엑셀 다운로드
+     function fn_excelDwnld3() {
+
+    	 grdSortBffa.exportLocalExcel("육안등급판정", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
      }
 
      /**
@@ -1213,6 +1245,8 @@
 		};
 		SBUxMethod.closeProgress(options);
 	};
+
+
 
 
 

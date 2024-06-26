@@ -73,7 +73,6 @@
             params.columnType = $("#columnType1").val();
             params.apiKey = apiKey;
             params.domain = domain;
-            console.log('params', params);
 
             $.ajax({
                 url: reqUrl + "farmmapApi/getFarmmapDataSeachPnu.do",
@@ -89,9 +88,11 @@
         }
 
         const searchCallback = async function(data) {
-            console.log('searchCallback(data) is data = ', data);
             returnjson = data;
-            console.log('JSON.stringify(data, null, 4)', JSON.stringify(data, null, 4));
+            if(data.output.farmmapData.count === 0){
+                gfn_comAlert("W0005", "검색결과");
+                return;
+            }
             $("#info").val(JSON.stringify(data, null, 4));
 
             if (layer != null) {
@@ -108,12 +109,9 @@
             }
 
             if (feature.id != farmmapObj.getObject("layer", "vectorLayer", map1).features[0].id) {
-                console.log('feature,id != farmmapObj.getObject');
                 feature.style.display = 'none';
                 feature.layer.redraw();
             }
-            console.log('vectorSelect2 if 다 통과함');
-
             feature.style.fillColor = "#8F9DE9";
             feature.style.strokeColor = "#94CDDA";
             feature.style.strokeWidth = 5;
@@ -150,7 +148,6 @@
 
         const addVector = async function() {
             var data = returnjson;
-            console.log(data, 'data');
             if (returnjson == null) return;
 
             var layerName = "vectorLayer";
@@ -332,7 +329,7 @@
                 </p>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();"></sbux-button>
+<%--                <sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();"></sbux-button>--%>
                 <sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-framldMap')"></sbux-button>
             </div>
         </div>
@@ -390,10 +387,10 @@
         gridJson: [],
         callbackFnc: function() {},
         init: async function(_apcCd, _pnu) {
-            console.log('popFramldMap init');
             SBUxMethod.set("framld-inp-apcNm", gv_selectedApcNm);
-            console.log('popFramldMap apcNm', gv_selectedApcNm);
             SBUxMethod.set("framld-inp-pnu", _pnu);
+
+            await getFarmmapDataSeachPnu();
         }
     }
 

@@ -41,8 +41,8 @@
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
                 <sbux-button id="btnAdminApproval" name="btnAdminApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="관리자승인" onclick="fn_adminApproval"></sbux-button>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
-                <%--<sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>--%>
-                <%--<sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>--%>
+                <sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>
+                <sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -302,7 +302,7 @@
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
-    var apcAdminType = '${loginVO.apcAdminType}';
+    var isHrManager = '${loginVO.isHrManager}';
     //-----------------------------------------------------------
 
     // only document
@@ -325,7 +325,7 @@
     const fn_initSBSelect = async function() {
         SBUxMethod.set("SRCH_REQUEST_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
         SBUxMethod.set("SRCH_REQUEST_DATE_TO", gfn_dateToYmd(new Date()));
-        if(apcAdminType != null) SBUxMethod.attr('btnAdminApproval',"disabled","true");
+        if(isHrManager != null) SBUxMethod.attr('btnAdminApproval',"disabled","true");
         $("#incomeTr").hide();
         $("#certiMemoTh").hide();
         $("#certiMemoTd").hide();
@@ -1004,7 +1004,7 @@
         let iprint_end_date = new Date(rowData.PRINT_END_DATE.replace("-", "") == "" ? "99999999": rowData.PRINT_END_DATE.replace("-", ""));
 
         // 인사총무관리자가 아닐 경우 출력가능여부가 "N"이면 출력이 안되도록 처리
-        if (apcAdminType != null) { // TODO: 권환 확인하여 오른쪽 조건 확인 필요  if(!SessionInfo.IsHRManager)
+        if (isHrManager != null) {
             if (strDate < iprint_start_date || strDate > iprint_end_date) {
                 alert("출력기간이 아니므로 출력이 불가능합니다.");
                 return;
@@ -1025,7 +1025,7 @@
             let reportFilePath = await fn_findReportFilePath(rowData.REPORT_TYPE);
 
             param.WORK_TYPE = "REPORT";
-            param.LANG_ID = 'KOR' // TODO: SessionInfo.LanguageID
+            param.LANG_ID = 'KOR'
             param.COMP_CODE = gv_ma_selectedApcCd;
             param.YE_TX_YYYY = rowData.INCOME_YEAR;
             param.SITE_CODE = '';
@@ -1043,7 +1043,7 @@
             let strretire_yyyy = rowData.RETIRE_DATE == "" ? "": rowData.RETIRE_DATE.substring(0, 4);
 
             param.WORK_TYPE = "REPORT";
-            param.LANG_ID = 'KOR' // TODO: SessionInfo.LanguageID
+            param.LANG_ID = 'KOR'
             param.COMP_CODE = gv_ma_selectedApcCd;
 
             param.YE_TX_YYYY = rowData.INCOME_YEAR;
@@ -1180,5 +1180,14 @@
             SBUxMethod.attr("INCOME_RECEIVE_END_DATE", "required", "false");
         }
     }
+
+    const fn_approval = async function() {
+        // TODO : 결재공통 추가시 개발
+    }
+
+    const fn_approvalList = async function() {
+        // TODO : 결재공통 추가시 개발
+    }
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

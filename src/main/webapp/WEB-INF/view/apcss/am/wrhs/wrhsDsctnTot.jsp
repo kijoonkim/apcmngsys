@@ -119,7 +119,7 @@
 						</tr>
 					</tbody>
 				</table>
-				
+
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li>
@@ -127,7 +127,7 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						
+
 						<span id="dtl-spn-sttsFigure" style="margin-left: 10px;font-size: 28px;">●</span>
 						<span id="dtl-spn-trsmMatSttsNm" style="margin-right: 20px;">기기상태</span>
 						<span>요청 :</span>
@@ -135,7 +135,7 @@
 						<span>완료 :</span>
 						<span id="dtl-spn-cmptnDt"></span>
 						<span id="dtl-spn-sttsNm" style="margin-right: 20px;">진행상태</span>
-						
+
 						<sbux-button
 							id="btn-wrhsReq"
 							name="btn-wrhsReq"
@@ -153,7 +153,7 @@
 							text="취소"
 					    ></sbux-button>
 					</div>
-				    
+
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-wrhsDsctnTot" style="height:544px;"></div>
@@ -168,15 +168,15 @@
 <script type="text/javascript">
 
 	let lv_interval = 3 * 60 * 1000;
-	
+
 	let timerId;
-	
+
 	const fn_clearBatch = () => {
 		if (!gfn_isEmpty(timerId)) {
 			clearInterval(timerId);
 		}
 	}
-	
+
 	let currApcLink;
 
     /**
@@ -185,9 +185,9 @@
      * @function
      */
 	const fn_getApcLink = async function() {
-    	
+
 		fn_clearBatch();
-		
+
 		try {
 			const postJsonPromise = gfn_postJSON(
 						"/am/apc/selectApcLinkStts.do",
@@ -196,16 +196,16 @@
 	        const data = await postJsonPromise;
 
 	        if (_.isEqual("S", data.resultStatus)) {
-	        	
+
 	        	if (_.isEqual("S", data.resultStatus)) {
-	        		
+
 		        	const apcLink = data.resultMap;
 					fn_setApcLink(apcLink);
-		        	
+
 	        	} else {
 	        		fn_setApcLink(false);
 	        	}
-	        	
+
         	} else {
         		fn_setApcLink(false);
         	}
@@ -221,33 +221,33 @@
 			}, lv_interval);
 		}
     }
-	
+
     /**
      * @name fn_setApcLink
      * @description apc 연계상태 정보 표시
      * @function
      */
 	const fn_setApcLink = function(apcLink) {
-    	
+
 		const sttsFigure = document.querySelector('#dtl-spn-sttsFigure');
 		const trsmMatSttsNm = document.querySelector('#dtl-spn-trsmMatSttsNm');
 		const reqDt = document.querySelector('#dtl-spn-reqDt');
 		const cmptnDt = document.querySelector('#dtl-spn-cmptnDt');
 		const sttsNm = document.querySelector('#dtl-spn-sttsNm');
 		const emptyDt = "____-__-__ __:__:__";
-		
-    	if (gfn_isEmpty(apcLink)) {    		
+
+    	if (gfn_isEmpty(apcLink)) {
     		sttsFigure.style.color = "#000000";
     		trsmMatSttsNm.innerText = "...";
     		trsmMatSttsNm.style.color = "#808080";
-    		
+
     		reqDt.innerText = emptyDt;
     		cmptnDt.innerText = emptyDt;
     		sttsNm.innerText = "확인중";
     		sttsNm.style.color = "#808080";
-    		
+
     		currApcLink = null;
-    	} else {    		
+    	} else {
     		sttsFigure.style.color = apcLink.trsmMatSttsColor;
     		trsmMatSttsNm.innerText = apcLink.trsmMatSttsNm;
     		trsmMatSttsNm.style.color = apcLink.trsmMatSttsColor;
@@ -256,11 +256,11 @@
     		cmptnDt.innerText = _.isEqual(apcLink.wrhsLinkStts, "P0") ? gfn_nvl(apcLink.wrhsPrcsCmptnDt, emptyDt) : emptyDt;
     		sttsNm.innerText = apcLink.wrhsSttsNm;
     		sttsNm.style.color = apcLink.wrhsSttsColor;
-    		
+
     		currApcLink = apcLink;
     	}
     }
-	
+
 
     /**
      * @name fn_wrhsReq
@@ -273,7 +273,7 @@
     		return;
     	}
  		// validation check
- 		
+
 		const param = {
 			apcCd: gv_selectedApcCd,
 			linkKnd: 'R',	// 입고
@@ -288,13 +288,13 @@
 						false
 					);
 	        const data = await postJsonPromise;
-	        
+
 	        if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -305,7 +305,7 @@
 			await fn_getApcLink();
 		}
 	}
- 	
+
     /**
      * @name fn_wrhsReqCncl
      * @description 입고정보 연계요청 취소
@@ -317,7 +317,7 @@
  		if (!gfn_comConfirm("Q0001", "정보재수신 요청취소")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
- 		
+
 		const param = {
 			apcCd: gv_selectedApcCd,
 			linkKnd: 'R',	// 입고
@@ -332,13 +332,13 @@
 						false
 					);
 	        const data = await postJsonPromise;
-	        
+
 	        if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
-	        
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -349,14 +349,14 @@
 			await fn_getApcLink();
 		}
 	}
-    
-	
+
+
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 		fn_init();
 	});
-	
+
 	document.getElementById("sb-area-wrhsDsctnTot").addEventListener('keypress',(e)=>{
 		if(e.keyCode===13){
 			e.preventDefault();
@@ -521,16 +521,26 @@
 		fn_setWrhsDsctnTot();
 
 	}
-	
+
 	const fn_dtpChange = function(){
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
-		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
+		var maxYmd = gfn_addDate(wrhsYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdTo', maxYmd);
+
+		if(wrhsYmdFrom > wrhsYmdTo){
 			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < wrhsYmdTo) {
+    		SBUxMethod.set("srch-dtp-wrhsYmdTo", maxYmd);
+	    }
+
+
 	}
 
 	/**
@@ -575,6 +585,8 @@
 
  		gfn_popClipReport("입고확인서", "am/popWrhsDsctnTot.crf", {apcCd: gv_selectedApcCd, prdcrCd : grdWrhsDsctnTotList[0] , wrhsYmd : grdWrhsDsctnTotList[1]});
  	}
-    
+
+
+
 </script>
 </html>

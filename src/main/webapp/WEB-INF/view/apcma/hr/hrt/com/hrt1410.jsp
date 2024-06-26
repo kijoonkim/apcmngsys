@@ -56,7 +56,15 @@
                 <tr>
                     <th scope="row" class="th_bg">사업장코드</th>
                     <td class="td_input">
-                        <sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <%--<sbux-select id="SRCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
                     </td>
                     <td colspan="4"></td>
                 </tr>
@@ -359,7 +367,25 @@
 
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SRCH_SITE_CODE', 'SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SITE_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SITE_CODE'
+                ,colLabel		: 'SITE_NAME'
+                ,columns		:[
+                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 근무패턴
             gfnma_setComSelect(['WORK_PATTERN_CODE', 'gvwPattern', 'gvwEmp'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 재직구분
@@ -675,7 +701,7 @@
         ];
 
         gvwEmp = _SBGrid.create(SBGridProperties);
-        gvwEmp.bind('dblclick', 'gvwEmpDblclick');
+        gvwEmp.bind('dblclick', 'fn_gvwEmpDblclick');
     }
 
     // 복사모드토글
@@ -779,7 +805,7 @@
         }
 
         let rowData = treeMaster.getRowData(nRow);
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         let BASE_YYYYMMDD = gfnma_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
@@ -901,7 +927,7 @@
 
     const fn_search = async function() {
         editType = "N";
-        let SITE_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
         let BASE_YYYYMMDD	    = gfnma_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
 
@@ -1002,7 +1028,7 @@
         SBUxMethod.set("SORT_SEQ", rowData.SORT_SEQ);
         SBUxMethod.set("MEMO", rowData.MEMO);
 
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+        let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
         let BASE_YYYYMMDD = gfnma_nvl(SBUxMethod.get("SRCH_BASE_YYYYMMDD"));
 
@@ -1238,7 +1264,7 @@
         }
     }
 
-    const gvwEmpDblclick = async function() {
+    const fn_gvwEmpDblclick = async function() {
         var nRow = gvwEmp.getRow();
         var nCol = gvwEmp.getCol();
 

@@ -277,6 +277,5 @@
 		WHERE 1=1
 		  AND YR		= #{yr}
 		  AND DCMNT_KND IN ('BP','S')
-		  AND APO_SE	= '1'
 	</update>
 </mapper>

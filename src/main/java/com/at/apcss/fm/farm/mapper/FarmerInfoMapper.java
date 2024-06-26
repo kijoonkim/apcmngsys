@@ -1,5 +1,6 @@
 package com.at.apcss.fm.farm.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,4 +49,6 @@ public interface FarmerInfoMapper {
 	public int updateMergeFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
 
 	public int deleteFarmerInfo(FarmerInfoVO farmerInfoVO) throws Exception;
+
+	public List<HashMap<String, Object>> selectFarmerInfoListForAPC(HashMap<String, Object> farmerInfoVO);
 }

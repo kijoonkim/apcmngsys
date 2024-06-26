@@ -108,6 +108,14 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		return resultList;
 	}
 
+	@Override
+	public SortPrfmncVO selectSortUpdtForFcrs(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		SortPrfmncVO resultList = sortPrfmncMapper.selectSortUpdtForFcrs(sortPrfmncVO);
+
+		return resultList;
+	}
+
 
 
 

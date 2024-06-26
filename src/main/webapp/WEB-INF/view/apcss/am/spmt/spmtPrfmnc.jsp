@@ -229,12 +229,23 @@
 	const fn_dtpChange = function(){
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
+		var maxYmd = gfn_addDate(spmtYmdFrom,90);
+
+		if (maxYmd < spmtYmdTo) {
+    		SBUxMethod.set("srch-dtp-spmtYmdTo", maxYmd);
+	    }
+
 		if(gfn_diffDate(spmtYmdFrom, spmtYmdTo) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
 			SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < spmtYmdTo) {
+    		SBUxMethod.set("srch-dtp-spmtYmdTo", maxYmd);
+	    }
+
 	}
 
 	function fn_createSpmtPrfmncGrid() {
@@ -335,7 +346,7 @@
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();
 		let nRow = grdSpmtPrfmnc.getRow();
-		
+
     	// 체크박스가 모두 활성화 되었을 경우 상단에 체크박스 체크
 		const allCheckBox = document.querySelector('#allSpmtPrfmncCheckBox');
 		let checkboxChecked = grdSpmtPrfmnc.getCheckedRows(0, true);
@@ -1033,9 +1044,9 @@
 
  		const spmtnoList = [];
 		const allData = grdSpmtPrfmnc.getGridDataAll();
-		
+
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				spmtnoList.push(item.spmtno);
@@ -1050,6 +1061,7 @@
  		const spmtno = spmtnoList.join("','");
  		gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
  	}
+
 
 
 	$(function(){

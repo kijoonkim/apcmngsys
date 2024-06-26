@@ -37,6 +37,7 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
+                    <sbux-button uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" onclick="cfn_approval"></sbux-button>
                 	<!-- 
                     <sbux-button uitype="normal" text="파일첨부" class="btn btn-sm btn-outline-danger" onclick="cfn_attach"></sbux-button>
                     <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
@@ -50,7 +51,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				<!--[APC] END -->
-                <table class="table table-bordered tbl_fixed">
+                <table id="srchArea1" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -422,7 +423,7 @@
     /**
      * 파일첨부시 필요 변수
      */
-	var lgv_sourceType = 'HRITRIPEXPENSEHEADER';    // 화면(업무0마다 소스타입이 다르다.
+	var lgv_sourceType = 'HRITRIPEXPENSEHEADER';    // 화면(업무)마다 소스타입이 다르다.
 	var lgv_sourceCode = 'TR231201-001';     		// 소스코드는 신규 저장후 리턴되는 값을 지정하여야 한다.
 	
     /**
@@ -440,6 +441,45 @@
 	   			,menuId			: p_menuId    		
 			});
     	}
+    }
+	
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+    	gfnma_uxDataClear('#dataArea1');
+    }
+	
+    /**
+     * 결재처리 필요 변수
+     */
+	var lgv_apv_apprId		= '0';    				// 상신시:0, 승인(반려): 부모에서 온 값
+	var lgv_apv_sourceNo	= '2024-00062';    		// 부모에서 온값
+	var lgv_apv_sourceType 	= 'OIL';     			// 부모에서 온값
+	var p_empCd = '${loginVO.empCd}';	
+	
+    /**
+     * 결재처리
+     */
+    var cfn_approval = function() {
+    	
+    	var isHrManager = '${loginVO.isHrManager}';
+    	alert('isHrManager:' + isHrManager);
+    	return;
+    
+    	
+    	compopappvmng({
+    		workType		: 'TEMPLATE'	// 상신:TEMPLATE , 승인(반려):APPR
+    		,compCode		: gv_ma_selectedApcCd
+    		,compCodeNm		: gv_ma_selectedApcNm
+    		,clientCode		: gv_ma_selectedClntCd
+    		,apprId			: lgv_apv_apprId
+    		,sourceNo		: lgv_apv_sourceNo
+    		,sourceType		: lgv_apv_sourceType
+   			,empCode		: p_empCd
+   			,formID			: p_formId
+   			,menuId			: p_menuId    		
+		});
     }
 
     /**

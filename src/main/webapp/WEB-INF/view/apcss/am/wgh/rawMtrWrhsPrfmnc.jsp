@@ -321,7 +321,7 @@ async function cfn_search() {
     var jsonWrhsSeCd			= [];	// 입고구분 checkbox 검색
    	var jsonGdsSeCd				= [];	// 상품구분 checkbox 검색
     var jsonTrsprtSeCd			= [];	// 운송구분 checkbox 검색
-    var jsonInvntrYn			= [{cdVl: "Y", cdVlNm: "재고있음"},{cdVl: "N", cdVlNm: "재고없음"}];	// 
+    var jsonInvntrYn			= [{cdVl: "Y", cdVlNm: "재고있음"},{cdVl: "N", cdVlNm: "재고없음"}];	//
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
@@ -416,12 +416,20 @@ async function cfn_search() {
 	const fn_dtpChange = function(){
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
+		var maxYmd = gfn_addDate(wrhsYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdTo', maxYmd);
+
 		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
 			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
 			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < wrhsYmdTo) {
+    		SBUxMethod.set("srch-dtp-wrhsYmdTo", maxYmd);
+	    }
 	}
 
 	var grdRawMtrWrhs;	// 원물입고실적 그리드
@@ -717,7 +725,7 @@ async function cfn_search() {
 		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 
 		let invntrYn = SBUxMethod.get("srch-slt-invntrYn");
-		
+
  	    try{
  	    	let postUrl = "/am/wrhs/selectRawMtrWrhsPrfmncList.do";
  			const postJsonPromise = gfn_postJSON(postUrl, {
@@ -1019,6 +1027,9 @@ async function cfn_search() {
         }
         grid.refresh();
     }
+
+
+
 
 	$(function(){
 		$(".glyphicon").on("click", function(){

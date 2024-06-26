@@ -288,8 +288,8 @@ function compopfilemng(options) {
    			,V_P_SOURCE_TYPE	: settings.sourceType
    			,V_P_SOURCE_CODE	: settings.sourceCode
    			,V_P_USER			: ''
-   			,V_P_FORM_ID		: ''
-   			,V_P_MENU_ID		: ''
+   			,V_P_FORM_ID		: settings.formID
+   			,V_P_MENU_ID		: settings.menuId
    			,V_P_PROC_ID		: ''
    			,V_P_USERID			: ''
    			,V_P_PC				: ''

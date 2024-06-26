@@ -78,6 +78,14 @@ public interface SortPrfmncMapper {
 	 */
 	public List<SortPrfmncVO> selectSortCnclList(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+	/**
+	 * 선별실적 목록 조회 (수정대상)
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public SortPrfmncVO selectSortUpdtForFcrs(SortPrfmncVO sortPrfmncVO) throws Exception;
+
 
 	/**
 	 * 선별투입실적 목록 조회

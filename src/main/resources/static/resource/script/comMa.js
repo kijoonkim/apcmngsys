@@ -21,6 +21,32 @@ const gfnma_objectToString = function (obj) {
 }
 
 /**
+ * @name 		gfnma_date1
+ * @description 날짜를 yyyy-MM-dd HH:mm:ss 문자열로
+ * @function
+ * @returns 	{string}
+ */
+const gfnma_date1 = function () {
+	var rstr = '';
+	var pad = function(number, length) {
+	  var str = '' + number;
+	  while (str.length < length) {
+	    str = '0' + str;
+	  }
+	  return str;
+	}
+	var nowDate = new Date();	
+	var yyyy = nowDate.getFullYear().toString();
+	var MM = pad(nowDate.getMonth() + 1,2);
+	var dd = pad(nowDate.getDate(), 2);
+	var hh = pad(nowDate.getHours(), 2);
+	var mm = pad(nowDate.getMinutes(), 2)
+	var ss = pad(nowDate.getSeconds(), 2)
+	rstr = yyyy + '-' + MM + '-' + dd + ' ' + hh + ':' + mm + ':' + ss;
+	return rstr;
+}
+
+/**
  * @name 		gfnma_nvl
  * @description undefined 를 '' 로 변환
  * @function
@@ -250,6 +276,7 @@ async function gfnma_multiSelectInit(obj) {
 	var _colValue		= obj.colValue;
 	var _colLabel		= obj.colLabel;
 	var _columns		= obj.columns;
+	var _callback		= obj.callback;
 
     var paramObj = { 
 		V_P_DEBUG_MODE_YN	: ''
@@ -302,6 +329,7 @@ async function gfnma_multiSelectInit(obj) {
 		htm += '<tbody></tbody>';
 		htm += '</table>';
 		$(tarId).closest('div').find('.dropdown-menu').html(htm);
+		$(tarId).closest('div').addClass('cu-multi-select');
 		
 		//table tbody
 		htm = '';
@@ -329,6 +357,9 @@ async function gfnma_multiSelectInit(obj) {
 				$(tarId).attr('cu-value', cu_value);
 				$(tarId).attr('cu-label', cu_label);
 				$(tarId).find('font').text(cu_label);
+				if(typeof _callback == "function") {
+					_callback(cu_value)
+				}
 			}
 		});		
 	}	
@@ -420,6 +451,25 @@ const gfnma_uxDataSet = function (target, obj) {
 			SBUxMethod.set(key,	obj[key]);
 		}
 	}
+}
+
+/**
+ * @name 		gfnma_uxDataClear
+ * @description 지정된 타겟에 자식 태그들의 ux컴포넌트 값을 초기화
+ * @function
+ * @param 		{string} target
+ * @returns 	{void}
+ */
+const gfnma_uxDataClear = function (target) {
+    var tar = typeof target == 'string' ? $(target) : target;
+	tar.find('input').val('');
+	tar.find('select').val('');
+	tar.find('.cu-multi-select').each(function(){
+		var id = $(this).find('button').eq(0).attr('id');
+		id = '#' + id;
+        gfnma_multiSelectSet(id, '', '', '');
+	});
+	//to do .. 필요하면 말하세요
 }
 
 /**

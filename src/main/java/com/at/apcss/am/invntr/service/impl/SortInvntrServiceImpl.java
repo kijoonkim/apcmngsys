@@ -589,7 +589,8 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 	@Override
 	public HashMap<String, Object> insertSortChgHstry(SortInvntrVO sortInvntrVO) throws Exception {
 
-		SortInvntrVO invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
+		SortInvntrVO invntrInfo = new SortInvntrVO();
+		invntrInfo = sortInvntrMapper.selectSortInvntr(sortInvntrVO);
 
 		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getSortno())) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "선별재고정보");

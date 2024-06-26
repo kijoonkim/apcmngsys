@@ -350,7 +350,7 @@
 			    ,#{pswd}
 			    ,#{userType}
 			    ,#{userStts}
-			    ,'0000'
+			    ,#{apcCd}
 			    ,'0'
 				,'N'
 				,'N'

@@ -210,8 +210,12 @@ public class LoginController extends BaseController {
 								}
 							}
 							request.getSession().setAttribute("maSessionInfo", gmap4);
-							//----------------------------------------------------------------------------
+							logger.debug("=======>>>>>>>>>>>>>>>>>>>maSessionInfo" + gmap4);
 							
+							//인사담당자
+							String isHrManager = (gmap4.get("ISHRMANAGER")==null) ? "N" : gmap4.get("ISHRMANAGER").toString();
+							resultVO.setIsHrManager(isHrManager);
+							//----------------------------------------------------------------------------
 							
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.LOGIN_SUCCESS);
 							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);

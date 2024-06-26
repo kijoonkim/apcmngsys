@@ -1379,7 +1379,7 @@
 	const fn_syncFarmerInfo = async function(){
 		const frmerNo = SBUxMethod.get("srch-inp-frmerSn")
 		const mngmstRegNo = SBUxMethod.get("srch-inp-mngmstRegNo")
-		let postJsonPromise = gfn_postJSON("/fm/farm/insertFarmerInfo.do", {
+		let postJsonPromise = gfn_postJSON("/fm/farm/multiSaveReleyFarmerInfoJsoneList.do", {
 			frmerSn : frmerNo
 			//, bzobRgno : mngmstRegNo
 		});
