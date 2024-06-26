@@ -3,11 +3,15 @@ package com.at.apcss.am.spmt.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -151,7 +155,7 @@ public class SpmtPrfmncController extends BaseController {
 
 			spmtPrfmncComVO.setSpmtFrcdPrcsYn(ComConstants.CON_YES);
 			
-			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByPckgList(spmtPrfmncComVO);
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncCallByPckgList(spmtPrfmncComVO);
 			if(rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
@@ -470,4 +474,37 @@ public class SpmtPrfmncController extends BaseController {
         
         return getSuccessResponseEntity(resultMap);
     }
+	@PostMapping(value = "/am/spmt/reconciliationDaliySpmt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateSpmtPrfmncByPckgList(@RequestBody Map<String, Object> data, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		try{
+			SortInvntrVO sortInvntrVO = mapper.convertValue(data.get("sortData"), SortInvntrVO.class);
+			SpmtPrfmncVO spmtPrfmncVO = mapper.convertValue(data.get("spmtData"), SpmtPrfmncVO.class);
+
+			/** 공통 세팅 **/
+			sortInvntrVO.setSysFrstInptUserId(getUserId());
+			sortInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+			sortInvntrVO.setSysLastChgUserId(getUserId());
+			sortInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			spmtPrfmncVO.setSysFrstInptUserId(getUserId());
+			spmtPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			spmtPrfmncVO.setSysLastChgUserId(getUserId());
+			spmtPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = spmtPrfmncService.reconciliationDaliySpmt(sortInvntrVO,spmtPrfmncVO);
+			if(rtnObj != null){
+				return getErrorResponseEntity(rtnObj);
+			}
+
+
+		}catch (Exception e){
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

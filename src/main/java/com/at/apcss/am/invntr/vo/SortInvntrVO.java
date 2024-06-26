@@ -287,10 +287,25 @@ public class SortInvntrVO extends ComVO {
 	 */
 	private String prcsType;
 
+	/**
+	 * 출하포장단위
+	 */
 	private String spmtPckgUnitCd;
+
+	/**
+	 * 출하포장단위명
+	 */
 	private String spmtPckgUnitNm;
-	
+
+	/**
+	 * 포장여부
+	 */
 	private String pckgYn;
+
+	/**
+	 * 재고상태코드
+	 */
+	private String invntrSttsCd;
 
 	private String sortRealDelY;
 	
