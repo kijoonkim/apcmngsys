@@ -375,14 +375,22 @@
 	const fn_dtpChange = function(){
 		let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
 		let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
-		if(gfn_diffDate(pckgYmdFrom, pckgYmdTo) < 0){
+		var maxYmd = gfn_addDate(pckgYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-pckgYmdTo', maxYmd);
+
+		if(pckgYmdFrom > pckgYmdTo){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
 			SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateToYmd(new Date()));
 			SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
 
-		checkDateDiffMonth(pckgYmdFrom,pckgYmdTo);
+		if (maxYmd < pckgYmdTo) {
+    		SBUxMethod.set("srch-dtp-pckgYmdTo", maxYmd);
+	    }
+
+
 	}
 
 	function fn_createGrid() {
@@ -884,17 +892,7 @@
  		gfn_popClipReport("상품라벨", "am/gdsLabel.crf", {apcCd: gv_selectedApcCd, pckgno: pckgno});
  	}
 
-	const checkDateDiffMonth = function (dateFrom, dateTo) {
 
-		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
-	    // 한 달 이상 차이가 나는지 확인
-	    if (timeDiffMonth> 1) {
-            gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.");
-	        SBUxMethod.set("srch-dtp-pckgYmdFrom", gfn_dateToYmd(new Date()));
-    		SBUxMethod.set("srch-dtp-pckgYmdTo", gfn_dateToYmd(new Date()));
-    		return;
-	    }
-	}
 
 
  	$(function(){

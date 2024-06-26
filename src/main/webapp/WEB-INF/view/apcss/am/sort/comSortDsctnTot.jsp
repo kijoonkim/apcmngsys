@@ -371,14 +371,20 @@
 	const fn_dtpChange = function(){
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
 		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
-		if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
+		var maxYmd = gfn_addDate(inptYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-inptYmdTo', maxYmd);
+
+		if(inptYmdFrom > inptYmdTo ){
 			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
 
-		checkDateDiffMonth(inptYmdFrom,inptYmdTo);
+		if (maxYmd < inptYmdTo) {
+    		SBUxMethod.set("srch-dtp-inptYmdTo", maxYmd);
+	    }
 	}
 
 	/**
@@ -619,17 +625,7 @@
 
 		}
 
-	    const checkDateDiffMonth = function (dateFrom, dateTo) {
 
-			var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
-		    // 한 달 이상 차이가 나는지 확인
-		    if (timeDiffMonth> 1) {
-		        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
-		        SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
-	    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
-	    		return;
-		    }
-		}
 
 </script>
 </html>

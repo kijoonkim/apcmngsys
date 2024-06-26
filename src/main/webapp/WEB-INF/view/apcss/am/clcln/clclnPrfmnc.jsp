@@ -297,13 +297,21 @@
 	const fn_dtpChange = function(){
 		let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
 		let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
-		if(gfn_diffDate(clclnYmdFrom, clclnYmdTo) < 0){
+		var maxYmd = gfn_addDate(clclnYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-clclnYmdTo', maxYmd);
+
+		if(clclnYmdFrom > clclnYmdTo){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
 			SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
-		checkDateDiffMonth(clclnYmdFrom,clclnYmdTo);
+
+		if (maxYmd < clclnYmdTo) {
+    		SBUxMethod.set("srch-dtp-clclnYmdTo", maxYmd);
+	    }
+
 	}
 
 	function fn_selectItem(){
@@ -512,7 +520,7 @@
   			if (_.isEqual("S", data.resultStatus)) {
 	          	/** @type {number} **/
 	      		let totalRecordCount = 0;
-	
+
 	      		jsonClclnPrfmnc.length = 0;
 	          	data.resultList.forEach((item, index) => {
 	          		const clclnPrfmnc = {
@@ -542,14 +550,14 @@
 	  						grdNm: item.grdNm,
 	  						cfmtnYnNm : item.cfmtnYnNm
 	  				}
-	
+
 	          		jsonClclnPrfmnc.push(clclnPrfmnc);
-	
+
 	  				if (index === 0) {
 	  					totalRecordCount = item.totalRecordCount;
 	  				}
 	  			});
-	
+
 	          	if (jsonClclnPrfmnc.length > 0) {
 	          		if (grdClclnPrfmnc.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 	          			grdClclnPrfmnc.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
@@ -561,7 +569,7 @@
 	          		grdClclnPrfmnc.setPageTotalCount(totalRecordCount);
 	          		grdClclnPrfmnc.rebuild();
 	          	}
-	
+
 	          	document.querySelector('#cnt-clcln').innerText = totalRecordCount;
 
         	} else {
@@ -716,17 +724,7 @@
 		}
 	}
 
-     const checkDateDiffMonth = function (dateFrom, dateTo) {
 
- 		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
- 	    // 한 달 이상 차이가 나는지 확인
- 	    if (timeDiffMonth> 1) {
- 	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
- 	        SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
-     		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateToYmd(new Date()));
-     		return;
- 	    }
- 	}
 
  	$(function(){
  		$(".glyphicon").on("click", function(){
