@@ -203,8 +203,8 @@
                             ></sbux-input>
                         </td>
                         <td class="td_input">
-                            <sbux-input i
-                                        d="SALES_COST_ACC_NAME"
+                            <sbux-input
+                                        id="SALES_COST_ACC_NAME"
                                         class="form-control input-sm"
                                         uitype="text"
                                         style="width:100%"
@@ -227,8 +227,8 @@
                             ></sbux-input>
                         </td>
                         <td class="td_input">
-                            <sbux-input i
-                                        d="SALES_COST_TEMP_ACC_NAME"
+                            <sbux-input
+                                        id="SALES_COST_TEMP_ACC_NAME"
                                         class="form-control input-sm"
                                         uitype="text"
                                         style="width:100%"
@@ -251,8 +251,8 @@
                             ></sbux-input>
                         </td>
                         <td class="td_input">
-                            <sbux-input i
-                                        d="SALES_COST_CENTER_NAME"
+                            <sbux-input
+                                        id="SALES_COST_CENTER_NAME"
                                         class="form-control input-sm"
                                         uitype="text"
                                         style="width:100%"
@@ -323,8 +323,8 @@
                             ></sbux-input>
                         </td>
                         <td class="td_input">
-                            <sbux-input i
-                                        d="ADMIN_COST_CENTER_NAME"
+                            <sbux-input
+                                        id="ADMIN_COST_CENTER_NAME"
                                         class="form-control input-sm"
                                         uitype="text"
                                         style="width:100%"
@@ -397,8 +397,8 @@
                             ></sbux-input>
                         </td>
                         <td class="td_input">
-                            <sbux-input i
-                                        d="MFG_COST_CENTER_NAME"
+                            <sbux-input
+                                        id="MFG_COST_CENTER_NAME"
                                         class="form-control input-sm"
                                         uitype="text"
                                         style="width:100%"
@@ -471,8 +471,8 @@
                             ></sbux-input>
                         </td>
                         <td class="td_input">
-                            <sbux-input i
-                                        d="RESEARCH_COST_CENTER_NAME"
+                            <sbux-input
+                                        id="RESEARCH_COST_CENTER_NAME"
                                         class="form-control input-sm"
                                         uitype="text"
                                         style="width:100%"
@@ -536,7 +536,7 @@
                             ></sbux-button>
                         </td>
                         <th colspan="2" scope="row" class="th_bg">차대구분</th>
-                        <td colspan="3" class="td_input" style="border-right:hidden;">
+                        <td colspan="3" class="td_input">
                             <%--<sbux-radio id="DEBIT_CREDIT" name="DEBIT_CREDIT" uitype="normal" jsondata-ref="radioJsonData">
                             </sbux-radio>--%>
                             <p class="ad_input_row">
@@ -544,11 +544,10 @@
                                         id="DEBIT_CREDIT"
                                         name="DEBIT_CREDIT"
                                         uitype="normal"
-                                        class="radio_label"
+                                        class="radio_label inpt_data_reqed"
                                         text-right-padding="10px"
                                         jsondata-ref="radioJsonData"
-                                        jsondata-text="cdVlNm"
-                                        jsondata-value="cdVl">
+                                        >
                                 </sbux-radio>
                             </p>
                         </td>
@@ -621,8 +620,8 @@
     var jsonBandgvwInfoList = []; 	// 그리드의 참조 데이터 주소 선언
 
     var radioJsonData = [
-        { cdVlNm : "차변"  , cdVl : "D"  },
-        { cdVlNm : "대변"  , cdVl : "C"  }
+        { text  : "차변"  , value  : "D"  },
+        { text  : "대변"  , value  : "C"  }
     ];
     var jsonPayGroupCode = []; //급여체계 //srch-pay_group_code  //L_HRI010
     var jsonHrPostingType = []; //전표구분 //srch-hr_posting_type	//L_HRP023
@@ -716,11 +715,11 @@
             ,bizcompId				: 'P_FIM045'
             ,popupType				: 'B'
             ,whereClause			: ''
-            ,searchCaptions			: ["코드"         , 	"코드명"           ]
-            ,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"    ]
-            ,searchInputValues		: [""            , 	searchText		  ]
+            ,searchCaptions			: ["코드"         , 	"코드명"           ,"오픈"]
+            ,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"    ,"V_P_OPEN_TO_ALL"]
+            ,searchInputValues		: [""            , 	searchText		  ,""]
 
-            ,searchInputTypes		: ["input"       , 	"input"           ]
+            ,searchInputTypes		: ["input"       , 	"input"           ,""]
 
             ,height					: '400px'
             ,tableHeader			: ["계정코드",		"계정명"   , 		"계정명(한글)"           ]
@@ -871,7 +870,7 @@
 
     // 조회
     function cfn_search() {
-        fn_search();
+        fn_search('search');
     }
 
     /**
@@ -906,7 +905,7 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["구분","차대구분"], ref: 'DEBIT_CREDIT', type: 'output', width: '100px', style: 'text-align:left' , disabled: true, hidden: true},
+            {caption: ["구분","차대구분"], ref: 'DEBIT_CREDIT', type: 'output', width: '100px', style: 'text-align:left' , hidden: true},
             {caption : ["구분","집계단위"], ref : 'POSTING_SUMMARY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPostingSummaryType', displayui : true, label : 'label', value : 'value'}
             },
@@ -968,7 +967,7 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function () {
+    const fn_search = async function (type) {
 
         let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_group_code")); //급여체계
         let HR_POSTING_TYPE			= gfnma_multiSelectGet('#srch-hr_posting_type');//전표구분
@@ -1068,7 +1067,9 @@
                 gvwBandgvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if (_.isEqual(type, 'search')){
+                    fn_view();
+                }
             } else {
                 alert(data.resultMessage);
             }
@@ -1087,6 +1088,10 @@
 
         gfnma_uxDataClear('#dataArea2');
 
+        SBUxMethod.set("ACCOUNTING_YN", 			"N");
+        SBUxMethod.set("ACCOUNTING_YN", 			"N");
+        SBUxMethod.set("ACCOUNTING_YN", 			"N");
+
         editType = "E";
 
         let nRow = gvwBandgvwInfoGrid.getRow();
@@ -1102,8 +1107,8 @@
 
         gfnma_uxDataSet('#dataArea2', rowData);
 
-/*        gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.POSTING_SUMMARY_TYPE);
-        gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM', 'SUB_CODE', 'CODE_NAME', rowData.ACCOUNT_PAY_ITEM);*/
+        gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.POSTING_SUMMARY_TYPE);
+        gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM', 'SUB_CODE', 'CODE_NAME', rowData.ACCOUNT_PAY_ITEM);
         SBUxMethod.set("DEBIT_CREDIT", rowData.DEBIT_CREDIT);
         /*SBUxMethod.set('DEBIT_CREDIT', 'D')*/
         /*$('input:radio[name=DEBIT_CREDIT]:input[value="D"]').attr("checked", true);*/
@@ -1128,7 +1133,7 @@
 
                 const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                     getType: 'json',
-                    workType: 'N',
+                    workType: '',
                     cv_count: '0',
                     params: gfnma_objectToString(paramObj)
                 });
@@ -1140,6 +1145,8 @@
                         if (data.resultMessage) {
                             alert(data.resultMessage);
                         }
+
+                        fn_search('save');
                     } else {
                         alert(data.resultMessage);
                     }
@@ -1169,7 +1176,7 @@
 
                 const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                     getType: 'json',
-                    workType: 'U',
+                    workType: '',
                     cv_count: '0',
                     params: gfnma_objectToString(paramObj)
                 });
@@ -1181,7 +1188,7 @@
                         if (data.resultMessage) {
                             alert(data.resultMessage);
                         }
-
+                        fn_search('save');
                     } else {
                         alert(data.resultMessage);
                     }
@@ -1202,12 +1209,20 @@
     const getParamForm = async function(){
 
         let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_group_code")); //급여체계
-        let HR_POSTING_TYPE = gfnma_nvl(SBUxMethod.get("srch-hr_posting_type")); //전표구분
+        let HR_POSTING_TYPE	= gfnma_multiSelectGet('#srch-hr_posting_type');//전표구분
         //let TXTCORRESPONDING_ACCOUNT = gfnma_nvl(SBUxMethod.get("srch-txtcorresponding_account")); //상대계정(미지급금)
 
+        if (!PAY_GROUP_CODE) {
+            gfn_comAlert("W0002", "급여체계");
+            return;
+        }
+        if (!HR_POSTING_TYPE) {
+            gfn_comAlert("W0002", "전표구분");
+            return;
+        }
 
         let HR_PAY_ACCOUNT_TYPE = gfnma_nvl(SBUxMethod.get("HR_PAY_ACCOUNT_TYPE"));         //급여항목
-        let POSTING_SUMMARY_TYPE = gfnma_multiSelectGet('#POSTING_SUMMARY_TYPE');
+        let POSTING_SUMMARY_TYPE = gfnma_multiSelectGet('#POSTING_SUMMARY_TYPE');//집계구분
         //let POSTING_SUMMARY_TYPE = gfnma_nvl(SBUxMethod.get("POSTING_SUMMARY_TYPE"));   //집계구분
 
 
@@ -1243,22 +1258,32 @@
         let AR_ACCOUNT_CODE = gfnma_nvl(SBUxMethod.get("AR_ACCOUNT_CODE"));   //미수금계정
         //let AR_ACCOUNT_NAME = gfnma_nvl(SBUxMethod.get("AR_ACCOUNT_NAME"));   //미수금계정
         let DEBIT_CREDIT = gfnma_nvl(SBUxMethod.get("DEBIT_CREDIT"));   //차대구분
-        let ACCOUNT_PAY_ITEM = gfnma_nvl(SBUxMethod.get("ACCOUNT_PAY_ITEM"));   //전표급여항목
+        let ACCOUNT_PAY_ITEM	= gfnma_multiSelectGet('#ACCOUNT_PAY_ITEM');//전표급여항목
+
+
         let ACCOUNT_PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("ACCOUNT_PAY_ITEM_NAME"));   //급여항목명
         let PAY_ITEM_UNIT_YN = gfnma_nvl(SBUxMethod.get("PAY_ITEM_UNIT_YN"));   //급여항목단위여부
 
 
         //필수값 검증
-        if(!SBUxMethod.validateRequired({
+        /*if(!SBUxMethod.validateRequired({
             isDetectAttack: true,
             group_id : 'dataArea2'})) {
             return false;
+        }*/
+        if (!HR_PAY_ACCOUNT_TYPE) {
+            gfn_comAlert("W0002", "전표구분");
+            return;
         }
 
         if (!POSTING_SUMMARY_TYPE) {
             gfn_comAlert("W0002", "사용여부");
             return;
         }
+       /* if (!DEBIT_CREDIT) {
+            gfn_comAlert("W0002", "차대구분");
+            return;
+        }*/
 
 
         let paramObj = {
@@ -1286,7 +1311,7 @@
             ,V_P_POSTING_RESULT_ADJUST_YN : POSTING_RESULT_ADJUST_YN.POSTING_RESULT_ADJUST_YN
             ,V_P_CS_CODE                  : CS_CODE
             ,V_P_ACCOUNTING_YN            : ACCOUNTING_YN.ACCOUNTING_YN
-            ,V_P_DEBIT_CREDIT             : DEBIT_CREDIT
+            ,V_P_DEBIT_CREDIT             : 'D'
             ,V_P_AP_ACCOUNT_CODE          : AP_ACCOUNT_CODE
             ,V_P_AR_ACCOUNT_CODE          : AR_ACCOUNT_CODE
             ,V_P_PAY_ITEM_UNIT_YN         : PAY_ITEM_UNIT_YN.PAY_ITEM_UNIT_YN
@@ -1311,6 +1336,10 @@
         SBUxMethod.attr('HR_PAY_ACCOUNT_TYPE',	'readonly', false);
 
         gfnma_uxDataClear('#dataArea2');
+
+        SBUxMethod.set("ACCOUNTING_YN", 			"N");
+        SBUxMethod.set("ACCOUNTING_YN", 			"N");
+        SBUxMethod.set("ACCOUNTING_YN", 			"N");
 
 
     }
@@ -1342,6 +1371,8 @@
                     if (data.resultMessage) {
                         alert(data.resultMessage);
                     }
+
+                    fn_search('search');
 
                 } else {
                     alert(data.resultMessage);
