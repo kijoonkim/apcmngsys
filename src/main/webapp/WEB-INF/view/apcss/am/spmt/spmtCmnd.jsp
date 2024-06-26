@@ -187,6 +187,10 @@
 	const fn_dtpChange = function(){
 		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
 		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
+		var maxYmd = gfn_addDate(cmndYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-cmndYmdTo', maxYmd);
+
 		if(gfn_diffDate(cmndYmdFrom, cmndYmdTo) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
 			SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -194,7 +198,10 @@
 			return;
 		}
 
-		checkDateDiffMonth(cmndYmdFrom,cmndYmdTo);
+		if (maxYmd < cmndYmdTo) {
+    		SBUxMethod.set("srch-dtp-inptYmdTo", maxYmd);
+	    }
+
 	}
 
 	function fn_createSpmtCmndGrid() {
@@ -559,17 +566,7 @@
 		}
 	}
 
-     const checkDateDiffMonth = function (dateFrom, dateTo) {
 
- 		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
- 	    // 한 달 이상 차이가 나는지 확인
- 	    if (timeDiffMonth> 1) {
- 	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
- 	        SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
-     		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
-     		return;
- 	    }
- 	}
 
  	$(function(){
  		$(".glyphicon").on("click", function(){

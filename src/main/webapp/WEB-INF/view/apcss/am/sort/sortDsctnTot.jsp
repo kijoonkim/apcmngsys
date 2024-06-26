@@ -1376,12 +1376,21 @@
 	const fn_dtpChange = function(){
 		let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
 		let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
-		if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
+		var maxYmd = gfn_addDate(inptYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-inptYmdTo', maxYmd);
+
+		if(inptYmdFrom > inptYmdTo){
 			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < inptYmdTo) {
+    		SBUxMethod.set("srch-dtp-inptYmdTo", maxYmd);
+	    }
+
 	}
 
 	/**

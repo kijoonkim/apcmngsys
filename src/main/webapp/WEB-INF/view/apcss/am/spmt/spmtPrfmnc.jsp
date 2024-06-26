@@ -229,15 +229,23 @@
 	const fn_dtpChange = function(){
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
+		var maxYmd = gfn_addDate(spmtYmdFrom,90);
+
+		if (maxYmd < spmtYmdTo) {
+    		SBUxMethod.set("srch-dtp-spmtYmdTo", maxYmd);
+	    }
+
 		if(gfn_diffDate(spmtYmdFrom, spmtYmdTo) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다."); //W0001{0}
 			SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 			return;
-
-
 		}
-		checkDateDiffMonth(spmtYmdFrom,spmtYmdTo);
+
+		if (maxYmd < spmtYmdTo) {
+    		SBUxMethod.set("srch-dtp-spmtYmdTo", maxYmd);
+	    }
+
 	}
 
 	function fn_createSpmtPrfmncGrid() {
@@ -1054,17 +1062,7 @@
  		gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
  	}
 
- 	const checkDateDiffMonth = function (dateFrom, dateTo) {
 
-		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
-	    // 한 달 이상 차이가 나는지 확인
-	    if (timeDiffMonth> 1) {
-	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
-	        SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
-    		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
-    		return;
-	    }
-	}
 
 	$(function(){
 		$(".glyphicon").on("click", function(){
