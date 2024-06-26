@@ -164,6 +164,8 @@
 			SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		checkDateDiffMonth(slsYmdFrom,slsYmdTo);
 	}
 
 
@@ -253,7 +255,7 @@
 			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		
+
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSlsPrfmnc.movePaging(currentPageNo);
@@ -270,7 +272,7 @@
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
-		
+
 		let SlsPrfmncVO = {apcCd 				: apcCd
 						 , slsYmdFrom 			: slsYmdFrom
 						 , slsYmdTo 			: slsYmdTo
@@ -488,6 +490,20 @@
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 		}
 	}
+
+	const checkDateDiffMonth = function (dateFrom, dateTo) {
+
+		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
+	    // 한 달 이상 차이가 나는지 확인
+	    if (timeDiffMonth> 1) {
+	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
+	        SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateFirstYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
+    		return;
+	    }
+
+	}
+
 
 	$(function(){
 		$(".glyphicon").on("click", function(){

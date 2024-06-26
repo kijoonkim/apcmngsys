@@ -377,6 +377,8 @@
 			SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		checkDateDiffMonth(inptYmdFrom,inptYmdTo);
 	}
 
 	/**
@@ -615,6 +617,18 @@
 			}
 			SBUxMethod.set("srch-inp-vrtyCd", "");
 
+		}
+
+	    const checkDateDiffMonth = function (dateFrom, dateTo) {
+
+			var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
+		    // 한 달 이상 차이가 나는지 확인
+		    if (timeDiffMonth> 1) {
+		        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
+		        SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+	    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
+	    		return;
+		    }
 		}
 
 </script>

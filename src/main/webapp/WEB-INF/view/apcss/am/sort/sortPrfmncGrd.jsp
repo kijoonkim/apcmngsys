@@ -328,6 +328,8 @@
     		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
     		return;
     	}
+
+    	checkDateDiffMonth(inptYmdFrom,inptYmdTo);
     }
 
 
@@ -381,7 +383,7 @@
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
             {caption: ["팔레트번호","팔레트번호"], 		ref: 'wrhsno',     			type:'output',  	width:'120px',  style:'text-align:center'},
-            
+
             {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  		type:'output',  	width:'80px',   style:'text-align:center'},
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     			type:'output',  	width:'120px',  style:'text-align:center'},
             {caption: ["품목","품목"],	    		ref: 'itemNm', 				type:'output',  	width:'80px',   style:'text-align:center'},
@@ -742,7 +744,7 @@
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
             {caption: ["팔레트번호","팔레트번호"], 		ref: 'wrhsno',     			type:'output',  	width:'120px',  style:'text-align:center'},
-            
+
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     			type:'output',  	width:'120px',  style:'text-align:center'},
             {caption: ["입고구분","입고구분"], 		ref: 'wrhsSeNm',    		type:'output',  	width:'60px',   style:'text-align:center'},
             {caption: ["상품구분","상품구분"],  		ref: 'gdsSeNm',       		type:'output',  	width:'60px',   style:'text-align:center'},
@@ -1159,6 +1161,18 @@
  		const sortno = sortnoList.join("','");
  		gfn_popClipReport("선별확인서", "am/sortLabel.crf", {apcCd: gv_selectedApcCd, sortno: sortno});
  	}
+
+	const checkDateDiffMonth = function (dateFrom, dateTo) {
+
+		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
+	    // 한 달 이상 차이가 나는지 확인
+	    if (timeDiffMonth> 1) {
+	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
+	        SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
+    		return;
+	    }
+	}
 
 	$(function(){
 		$(".glyphicon").on("click", function(){
