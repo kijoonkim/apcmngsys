@@ -234,7 +234,10 @@
 			SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 			return;
+
+
 		}
+		checkDateDiffMonth(spmtYmdFrom,spmtYmdTo);
 	}
 
 	function fn_createSpmtPrfmncGrid() {
@@ -335,7 +338,7 @@
 		let checkedYnCol = grdSpmtPrfmnc.getColRef("checkedYn");
 		let nCol = grdSpmtPrfmnc.getCol();
 		let nRow = grdSpmtPrfmnc.getRow();
-		
+
     	// 체크박스가 모두 활성화 되었을 경우 상단에 체크박스 체크
 		const allCheckBox = document.querySelector('#allSpmtPrfmncCheckBox');
 		let checkboxChecked = grdSpmtPrfmnc.getCheckedRows(0, true);
@@ -1033,9 +1036,9 @@
 
  		const spmtnoList = [];
 		const allData = grdSpmtPrfmnc.getGridDataAll();
-		
+
 		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DT_DOC');
-		
+
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
 				spmtnoList.push(item.spmtno);
@@ -1051,6 +1054,17 @@
  		gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
  	}
 
+ 	const checkDateDiffMonth = function (dateFrom, dateTo) {
+
+		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
+	    // 한 달 이상 차이가 나는지 확인
+	    if (timeDiffMonth> 1) {
+	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
+	        SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
+    		return;
+	    }
+	}
 
 	$(function(){
 		$(".glyphicon").on("click", function(){

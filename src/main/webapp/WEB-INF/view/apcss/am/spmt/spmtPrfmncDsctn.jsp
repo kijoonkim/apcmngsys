@@ -10,7 +10,7 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
-	
+
 <style type="text/css">
 .ad_tbl_toplist>span {
 	font-weight: bold;
@@ -131,7 +131,7 @@
 					<div id="sb-area-spmtPrfmncDsctn" style="height:559px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
-				
+
 			</div>
 		</div>
 	</section>
@@ -144,19 +144,19 @@
 		{'value' : 'B', 'text' : 'B품'},
 		{'value' : 'C', 'text' : 'C품'}
 	];
-	
+
 	var grdGubunNm = "";
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
-		
+
 		fn_init();
-		
+
 	});
 
 	const fn_init = async function() {
 		SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
-		
+
 		fn_createSpmtPrfmncDsctnGrid();
 		let rst = await Promise.all([
 			gfn_setCpntSBSelect('srch-slt-cnptCd', jsonCnptCd, gv_selectedApcCd)		// 출하처
@@ -172,6 +172,8 @@
  			SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
+
+ 		checkDateDiffMonth(spmtYmdFrom,spmtYmdTo);
  	}
 
 	// 그리드 id, 그리드 json
@@ -199,7 +201,7 @@
 	    	{caption: ["","출하일자"],		ref: 'spmtYmd', 	type: 'output',  	width:'100px', 	style: 'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	    	{caption: ["","출하번호"],   	ref: 'spmtno',     	type: 'output', 	width:'120px', 	style: 'text-align:center'},
 	    	{caption: ["","출하처"],   	ref: 'cnptNm',     	type: 'output', 	width:'120px', 	style: 'text-align:center'},
-	    	
+
 	    	{caption: ["빨강","2XL"], 	ref: 'redV1', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###'}},
 	    	{caption: ["빨강","XL"], 		ref: 'redV2', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###'}},
 	    	{caption: ["빨강","L"], 		ref: 'redV3', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###'}},
@@ -208,7 +210,7 @@
 	    	{caption: ["빨강","2S"], 		ref: 'redV6', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px;', 	format : {type:'number', rule:'#,###'}},
 	    	{caption: ["빨강","소계"],		ref: 'redSbTot', 	type: 'output',  	width:'85px',	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
 	    		format : {type:'number', rule:'#,###'}},
-	    							
+
 	    	{caption: ["노랑","2XL"], 	ref: 'ylwV1', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption: ["노랑","XL"], 		ref: 'ylwV2', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption: ["노랑","L"], 		ref: 'ylwV3', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
@@ -217,7 +219,7 @@
 	    	{caption: ["노랑","2S"], 		ref: 'ylwV6', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption: ["노랑","소계"],		ref: 'ylwSbTot', 	type: 'output',  	width:'85px', 	style: 'text-align:right; padding-right:5px;background-color:#ceebff;',
 	    		format : {type:'number', rule:'#,###'}},
-	    							
+
 	    	{caption: ["주황","2XL"], 	ref: 'orngV1', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption: ["주황","XL"], 		ref: 'orngV2', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
 	    	{caption: ["주황","L"], 		ref: 'orngV3', 		type: 'output',  	width:'50px', 	style: 'text-align:right; padding-right:5px; ', format : {type:'number', rule:'#,###'}},
@@ -233,7 +235,7 @@
 	    grdSpmtPrfmncDsctn = _SBGrid.create(SBGridProperties);
 	    grdSpmtPrfmncDsctn.bind('select' , fn_setValue);
 	    grdSpmtPrfmncDsctn.bind('deselect', fn_delValue);
-	    
+
         grdSpmtPrfmncDsctn.setCellStyles(0,5,1,11,'background:#FF000030');
 		grdSpmtPrfmncDsctn.setCellStyles(0,12,1,18,'background:#FFFC3330');
 		grdSpmtPrfmncDsctn.setCellStyles(0,19,1,25,'background:#FFB53330');
@@ -255,7 +257,7 @@
     function fn_excelDwnld() {
 		grdSpmtPrfmncDsctn.exportLocalExcel("출고내역집계", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
-	
+
 	// 조회
 	const fn_search = async function () {
 		if (gfn_isEmpty(SBUxMethod.get("srch-dtp-spmtYmdFrom")) || gfn_isEmpty(SBUxMethod.get("srch-dtp-spmtYmdTo"))) {
@@ -268,15 +270,15 @@
 		}
 		fn_callSelectSpmtPrfmncDsctnList();
 	}
-	
+
 	const fn_callSelectSpmtPrfmncDsctnList = async function() {
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
 		let cnptCd = SBUxMethod.get("srch-slt-cnptCd");
 		let grdGubun = SBUxMethod.get("srch-slt-grdGubun");
-		
+
 		grdGubunNm = SBUxMethod.getText('srch-slt-grdGubun');
-		
+
 		const SpmtDsctnTotVO = {
 			apcCd		: gv_selectedApcCd,
 			spmtYmdFrom	: spmtYmdFrom,
@@ -292,9 +294,9 @@
             	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	return;
 	        }
-        	
+
         	jsonSpmtPrfmncDsctn.length = 0;
-        	
+
 	        data.resultList.forEach((item, index) => {
 	        	const spmtPrfmncDsctn = {
 	        		  apcCd		: item.apcCd
@@ -303,7 +305,7 @@
 	        		, cnptCd	: item.cnptCd
 	        		, cnptNm	: item.cnptNm
 	        		, itemCd	: item.itemCd
-	        		
+
 	        	    , redV1 	: item.red2Xl
 	        	    , redV2 	: item.redXl
 	        	    , redV3 	: item.redL
@@ -311,7 +313,7 @@
 	        	    , redV5 	: item.redS
 	        	    , redV6 	: item.redSs
 	        	    , redSbTot 	: item.redTot
-	        	    
+
 	        	    , ylwV1 	: item.ylw2Xl
 	        	    , ylwV2 	: item.ylwXl
 	        	    , ylwV3 	: item.ylwL
@@ -319,7 +321,7 @@
 	        	    , ylwV5 	: item.ylwS
 	        	    , ylwV6 	: item.ylwSs
 	        	    , ylwSbTot 	: item.ylwTot
-	        	    
+
 	        	    , orngV1 	: item.org2Xl
 	        	    , orngV2 	: item.orgXl
 	        	    , orngV3 	: item.orgL
@@ -327,14 +329,14 @@
 	        	    , orngV5 	: item.orgS
 	        	    , orngV6 	: item.orgSs
 	        	    , orngSbTot : item.orgTot
-	        	    
+
 	        	    , totSum   	: item.tot
 	        	}
 	        	jsonSpmtPrfmncDsctn.push(spmtPrfmncDsctn);
 	        });
 
 	        grdSpmtPrfmncDsctn.rebuild();
-			
+
 			var getColRef = grdSpmtPrfmncDsctn.getColRef("checkedYn");
 	        grdSpmtPrfmncDsctn.setCellData(0, getColRef, grdGubunNm);
 
@@ -344,7 +346,7 @@
 			grdSpmtPrfmncDsctn.setCellStyles(0,5,1,11,'background:#FF000030');
 			grdSpmtPrfmncDsctn.setCellStyles(0,12,1,18,'background:#FFFC3330');
 			grdSpmtPrfmncDsctn.setCellStyles(0,19,1,25,'background:#FFB53330');
-			
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -353,12 +355,12 @@
  			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
- 	
+
     // 그리드 체크박스 전체 선택
     function fn_checkAll(grid, obj) {
         var gridList = grid.getGridDataAll();
         var checkedYn = obj.checked ? "Y" : "N";
-        
+
         //체크박스 열 index
         var getColRef = grid.getColRef("checkedYn");
     	var getRow = grid.getRow();
@@ -371,11 +373,11 @@
     	grid.setRow(getRow);
     	grid.setCol(getCol);
     }
-    
+
     // 그리드 merged Row 체크값 변경
     function fn_checkMergedCell(grid, jsonData, nRow) {
 		let rowData = grid.getRowData(nRow);
-		
+
 		for (var i=nRow-1; i<jsonData.length-1; i++) {
 			if (rowData.spmtno == jsonData[i].spmtno) {
 				jsonData[i].checkedYn = rowData.checkedYn;
@@ -390,9 +392,9 @@
     const fn_setValue = function() {
     	let nRow = grdSpmtPrfmncDsctn.getRow();
     	let checkedCol = grdSpmtPrfmncDsctn.getColRef("checkedYn");
-    	
+
     	fn_checkMergedCell(grdSpmtPrfmncDsctn, jsonSpmtPrfmncDsctn, nRow);
-    	
+
     	// 체크박스가 모두 활성화 되었을 경우 상단에 체크박스 체크
 		const allCheckBox = document.querySelector('#allSpmtPrfmncDsctnCheckBox');
 		let checkboxChecked = grdSpmtPrfmncDsctn.getCheckedRows(checkedCol);
@@ -408,7 +410,7 @@
 	 */
     const fn_delValue = async function(){
     	let nRow = grdSpmtPrfmncDsctn.getRow();
-    	
+
     	fn_checkMergedCell(grdSpmtPrfmncDsctn, jsonSpmtPrfmncDsctn, nRow);
 
 		// 상단 체크박스 비활성화
@@ -452,6 +454,18 @@
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
+	}
+
+    const checkDateDiffMonth = function (dateFrom, dateTo) {
+
+		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
+	    // 한 달 이상 차이가 나는지 확인
+	    if (timeDiffMonth> 1) {
+	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
+	        SBUxMethod.set("srch-dtp-spmtYmdFrom", gfn_dateFirstYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
+    		return;
+	    }
 	}
 </script>
 </html>

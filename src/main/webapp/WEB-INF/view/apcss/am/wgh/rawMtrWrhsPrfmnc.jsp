@@ -321,7 +321,7 @@ async function cfn_search() {
     var jsonWrhsSeCd			= [];	// 입고구분 checkbox 검색
    	var jsonGdsSeCd				= [];	// 상품구분 checkbox 검색
     var jsonTrsprtSeCd			= [];	// 운송구분 checkbox 검색
-    var jsonInvntrYn			= [{cdVl: "Y", cdVlNm: "재고있음"},{cdVl: "N", cdVlNm: "재고없음"}];	// 
+    var jsonInvntrYn			= [{cdVl: "Y", cdVlNm: "재고있음"},{cdVl: "N", cdVlNm: "재고없음"}];	//
 
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
@@ -422,6 +422,8 @@ async function cfn_search() {
 			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		checkDateDiffMonth(wrhsYmdFrom,wrhsYmdTo);
 	}
 
 	var grdRawMtrWrhs;	// 원물입고실적 그리드
@@ -717,7 +719,7 @@ async function cfn_search() {
 		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 
 		let invntrYn = SBUxMethod.get("srch-slt-invntrYn");
-		
+
  	    try{
  	    	let postUrl = "/am/wrhs/selectRawMtrWrhsPrfmncList.do";
  			const postJsonPromise = gfn_postJSON(postUrl, {
@@ -1019,6 +1021,19 @@ async function cfn_search() {
         }
         grid.refresh();
     }
+
+    const checkDateDiffMonth = function (dateFrom, dateTo) {
+
+		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
+	    // 한 달 이상 차이가 나는지 확인
+	    if (timeDiffMonth> 1) {
+	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
+	        SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+    		SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
+    		return;
+	    }
+	}
+
 
 	$(function(){
 		$(".glyphicon").on("click", function(){

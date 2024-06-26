@@ -193,6 +193,8 @@
 			SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		checkDateDiffMonth(cmndYmdFrom,cmndYmdTo);
 	}
 
 	function fn_createSpmtCmndGrid() {
@@ -487,10 +489,10 @@
 		if (gfn_isEmpty(itemCd)) {
 			jsonApcSpcfct.length=0;
 			jsonSpmtPckgUnitCd.length=0;
-			
+
 			SBUxMethod.refresh("srch-slt-spcfctCd");
 			SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
-			
+
 		} else {
 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);				// 규격
 			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);	// 포장단위
@@ -556,6 +558,18 @@
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
+
+     const checkDateDiffMonth = function (dateFrom, dateTo) {
+
+ 		var timeDiffMonth = gfn_diffMonth(dateFrom,dateTo);
+ 	    // 한 달 이상 차이가 나는지 확인
+ 	    if (timeDiffMonth> 1) {
+ 	        gfn_comAlert("E0000","일자는 한달 범위로 조회 가능합니다.")
+ 	        SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
+     		SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
+     		return;
+ 	    }
+ 	}
 
  	$(function(){
  		$(".glyphicon").on("click", function(){
