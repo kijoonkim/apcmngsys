@@ -142,11 +142,11 @@
                                     id="HR_PAY_ACCOUNT_TYPE"
                                     uitype="single"
                                     jsondata-ref="jsonHrPayAccountType"
-                                    unselected-text=""
+                                    unselected-text="선택"
                                     class="form-control input-sm inpt_data_reqed"
                                     readonly
-                                    required
-                            ></sbux-select>
+                                    required>
+                            </sbux-select>
                         </td>
                         <td style="border-right: hidden;">&nbsp;</td>
 
@@ -537,13 +537,19 @@
                         </td>
                         <th colspan="2" scope="row" class="th_bg">차대구분</th>
                         <td colspan="3" class="td_input" style="border-right:hidden;">
-                            <p class="ad_input_row inpt_data_reqed">
-                                <sbux-radio id="BTL-DEBIT_CREDIT1" name="DEBIT_CREDIT" uitype="normal" class="radio_label" value="D" checked></sbux-radio>
-                                <sbux-label class="radio_label" for-id="BTL-DEBIT_CREDIT1" text="차변"></sbux-label>
-                            </p>
-                            <p class="ad_input_row inpt_data_reqed">
-                                <sbux-radio id="BTL-DEBIT_CREDIT2" name="DEBIT_CREDIT" uitype="normal" class="radio_label" value="C"></sbux-radio>
-                                <sbux-label class="radio_label" for-id="BTL-DEBIT_CREDIT2" text="대변"></sbux-label>
+                            <%--<sbux-radio id="DEBIT_CREDIT" name="DEBIT_CREDIT" uitype="normal" jsondata-ref="radioJsonData">
+                            </sbux-radio>--%>
+                            <p class="ad_input_row">
+                                <sbux-radio
+                                        id="DEBIT_CREDIT"
+                                        name="DEBIT_CREDIT"
+                                        uitype="normal"
+                                        class="radio_label"
+                                        text-right-padding="10px"
+                                        jsondata-ref="radioJsonData"
+                                        jsondata-text="cdVlNm"
+                                        jsondata-value="cdVl">
+                                </sbux-radio>
                             </p>
                         </td>
                     </tr>
@@ -614,10 +620,10 @@
     var gvwBandgvwInfoGrid; 			// 그리드를 담기위한 객체 선언
     var jsonBandgvwInfoList = []; 	// 그리드의 참조 데이터 주소 선언
 
-    /*var radioJsonData = [
-        {text:'차변', value:'C'},
-        {text:'대변', value:'D'}
-    ];*/
+    var radioJsonData = [
+        { cdVlNm : "차변"  , cdVl : "D"  },
+        { cdVlNm : "대변"  , cdVl : "C"  }
+    ];
     var jsonPayGroupCode = []; //급여체계 //srch-pay_group_code  //L_HRI010
     var jsonHrPostingType = []; //전표구분 //srch-hr_posting_type	//L_HRP023
     var jsonHrPayAccountType = []; //급여항목 //HR_PAY_ACCOUNT_TYPE	//L_HRP004_A
@@ -818,7 +824,7 @@
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001'
+            ,bizcompId				: 'P_COM004'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사엄자번호" ]
@@ -1091,14 +1097,17 @@
 
         let rowData = gvwBandgvwInfoGrid.getRowData(nRow);
 
-        let POSTING_SUMMARY_TYPE = rowData.POSTING_SUMMARY_TYPE;
-        let DEBIT_CREDIT = rowData.DEBIT_CREDIT;
+        console.log('---------------rowData-----------------', rowData);
 
-        SBUxMethod.set("DEBIT_CREDIT", DEBIT_CREDIT);
-
-        gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', POSTING_SUMMARY_TYPE);
 
         gfnma_uxDataSet('#dataArea2', rowData);
+
+/*        gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.POSTING_SUMMARY_TYPE);
+        gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM', 'SUB_CODE', 'CODE_NAME', rowData.ACCOUNT_PAY_ITEM);*/
+        SBUxMethod.set("DEBIT_CREDIT", rowData.DEBIT_CREDIT);
+        /*SBUxMethod.set('DEBIT_CREDIT', 'D')*/
+        /*$('input:radio[name=DEBIT_CREDIT]:input[value="D"]').attr("checked", true);*/
+       /* $('#DEBIT_CREDIT1').attr("checked", true);*/
 
     }
 
@@ -1349,6 +1358,7 @@
 
     $(function () {
 
+        //전표구분 선택시 상태계정(미지지급금 set)
         $("#srch-hr_posting_type").on("DOMSubtreeModified",function(e){
 
             let HR_POSTING_TYPE = gfnma_multiSelectGet('#srch-hr_posting_type');
@@ -1357,12 +1367,7 @@
                 if (!_.isEqual(CHk_HR_POSTING_TYPE, HR_POSTING_TYPE)) {
                     CHk_HR_POSTING_TYPE = HR_POSTING_TYPE;
 
-                    console.log('-------------CHk_HR_POSTING_TYPE-------------',CHk_HR_POSTING_TYPE);
-                    console.log('-------------HR_POSTING_TYPE-------------',HR_POSTING_TYPE);
-
                     jsonHrPostingType.forEach((item,index)=>{
-
-                        console.log('-------------item-------------',item);
 
                         if (_.isEqual(HR_POSTING_TYPE, item.value)){
 
