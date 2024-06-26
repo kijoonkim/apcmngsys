@@ -2,6 +2,9 @@ package com.at.apcss.am.invntr.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
@@ -198,4 +201,40 @@ public interface GdsInvntrMapper {
 	 * @throws Exception
 	 */
     List<GdsInvntrVO> selectSortGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	/**
+	 * 상품재고 조회 [선출하 D3]
+	 * @param gdsInvntrVO
+	 * @return List<gdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<SpmtPrfmncVO> selectBelowZeroGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	/**
+	 * 일일대사 선출하실적 선별실적 => 상품재고 조회
+	 * @param sortInvntrVO
+	 * @return List<gdsInvntrVO>
+	 * @throws Exception
+	 */
+    GdsInvntrVO selectGdsInvntrToSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
+	/**
+	 * 일일대사 선출하실적 감가산 적용 UPDATE
+	 * @param originGdsInvntrVO
+	 * @return int
+	 * @throws Exception
+	 */
+	int updateReconciliation(GdsInvntrVO originGdsInvntrVO) throws Exception;
+
+	/**
+	 * 일일대사 선출하실적 마이너스재고 del_yn & 0값 처리
+	 * @param originGdsInvntrVO
+	 * @return int
+	 * @throws Exception
+	 */
+    int updateGdsInvntrDelQnttWght(GdsInvntrVO originGdsInvntrVO) throws Exception;
+	/**
+	 * 일일대사 선출하실적 선별실적별 재고정보 포함 SELECT
+	 * @param sortPrfmncVO
+	 * @return int
+	 * @throws Exception
+	 */
+    List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO);
 }

@@ -159,4 +159,11 @@ public interface SpmtPrfmncMapper {
 	 * @throws Exception
 	 */
 	List<SpmtPrfmncVO> selectSpmtPrfmncRegList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	/**
+	 * 출하실적상세 delete [DEL_YN X]
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	int deletePermanentSpmtDtl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }

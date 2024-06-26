@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
@@ -229,6 +230,12 @@ public interface SpmtPrfmncService {
      * @throws Exception
      */
     public HashMap<String, Object> deleteSpmt(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
-   
 
+	/**
+	 * 선출하실적 일일대사처리
+	 * @param sortInvntrVO,spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> reconciliationDaliySpmt(SortInvntrVO sortInvntrVO, SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }

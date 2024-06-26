@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -324,7 +327,13 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 
 		// 출하량
 		int spmtQntt = invntrInfo.getSpmtQntt() + gdsInvntrVO.getSpmtQntt();
+		if (needsIgnoreInvntrQntt || allowMinusInvntr) {
+			spmtQntt = gdsInvntrVO.getSpmtQntt();
+		}
 		double spmtWght = invntrInfo.getSpmtWght() + gdsInvntrVO.getSpmtWght();
+		if (needsIgnoreInvntrQntt || allowMinusInvntr) {
+			spmtWght = gdsInvntrVO.getSpmtWght();
+		}
 		gdsInvntrVO.setSpmtQntt(spmtQntt);
 		gdsInvntrVO.setSpmtWght(spmtWght);
 
@@ -649,5 +658,28 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		return gdsInvntrMapper.selectSortGdsInvntrList(gdsInvntrVO);
 	}
 
+	@Override
+	public List<SpmtPrfmncVO> selectBelowZeroGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
+		return gdsInvntrMapper.selectBelowZeroGdsInvntrList(gdsInvntrVO);
+	}
 
+	@Override
+	public GdsInvntrVO selectGdsInvntrToSortInvntr(SortInvntrVO sortInvntrVO) throws Exception {
+		return gdsInvntrMapper.selectGdsInvntrToSortInvntr(sortInvntrVO);
+	}
+
+	@Override
+	public int updateReconciliation(GdsInvntrVO originGdsInvntrVO) throws Exception {
+		return gdsInvntrMapper.updateReconciliation(originGdsInvntrVO);
+	}
+
+	@Override
+	public int updateGdsInvntrDelQnttWght(GdsInvntrVO originGdsInvntrVO) throws Exception {
+		return gdsInvntrMapper.updateGdsInvntrDelQnttWght(originGdsInvntrVO);
+	}
+
+	@Override
+	public List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO) throws Exception {
+		return gdsInvntrMapper.selectSortPrfmncToGdsInvntrList(sortPrfmncVO);
+	}
 }

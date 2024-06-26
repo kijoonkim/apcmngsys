@@ -7,6 +7,10 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.invntr.service.GdsInvntrService;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,14 +48,24 @@ public class SortPrfmncController extends BaseController {
 	@Resource(name = "sortPrfmncService")
 	private SortPrfmncService sortPrfmncService;
 
+	@Resource(name = "gdsInvntrService")
+	private GdsInvntrService gdsInvntrService;
+
 	@PostMapping(value = "/am/sort/selectSortPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		List<SortPrfmncVO> resultList = new ArrayList<>();
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		List<SpmtPrfmncVO> resultInvntrList = new ArrayList<>();
+		GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+		BeanUtils.copyProperties(sortPrfmncVO,gdsInvntrVO);
+		String pckgYmd = sortPrfmncVO.getInptYmdTo();
+		gdsInvntrVO.setPckgYmd(pckgYmd);
 
 		try {
-			resultList = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
+//			resultList = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
+			resultList = gdsInvntrService.selectSortPrfmncToGdsInvntrList(sortPrfmncVO);
+			resultInvntrList = gdsInvntrService.selectBelowZeroGdsInvntrList(gdsInvntrVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -62,6 +76,7 @@ public class SortPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put("anotherResultList",resultInvntrList);
 
 		return getSuccessResponseEntity(resultMap);
 	}

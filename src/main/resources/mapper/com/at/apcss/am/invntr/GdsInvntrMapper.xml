@@ -50,6 +50,10 @@
 				, GI.RTN_GDS_WGHT	AS RTN_GDS_WGHT
 				, GI.DEL_YN			AS DEL_YN
 				, GI.INVNTR_STTS_CD 	AS INVNTR_STTS_CD
+	    		, GI.PCKG_SORTNO	AS PCKG_SORTNO
+	    		, GI.PCKG_SORT_SN	AS PCKG_SORT_SN
+	    		, GI.SYS_LAST_CHG_USER_ID AS SYS_LAST_CHG_USER_ID
+	    		, GI.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
 			  FROM TB_GDS_INVNTR GI
 			 WHERE GI.APC_CD = #{apcCd}
 			   AND GI.PCKGNO = #{pckgno}
@@ -1594,4 +1598,256 @@
 		          ]]>
 	</select>
 
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectBelowZeroGdsInvntrList	-->
+	<!-- DESC : 일일대사처리용 D3정보조회                                     			    -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.04.30  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectBelowZeroGdsInvntrList" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[ /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectBelowZeroGdsInvntrList */
+		SELECT
+		    pt0.*
+		     , SGRD.GRD_NM																		AS SORT_GRD_NM
+			 , (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
+			 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+			 , (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)						AS CNPT_NM
+			 , (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) 		AS GDS_GRD_NM
+			 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)   AS SPMT_PCKG_UNIT_NM
+		FROM (SELECT
+				     PD.APC_CD            AS APC_CD
+				   , PD.SPMTNO            AS SPMTNO
+				   , PD.PCKGNO            AS PCKGNO
+				   , PD.PCKG_SN           AS PCKG_SN
+				   , PD.ITEM_CD           AS ITEM_CD
+				   , PD.VRTY_CD           AS VRTY_CD
+				   , PD.GDS_GRD           AS GDS_GRD
+				   , PD.SPCFCT_CD         AS SPCFCT_CD
+				   , PD.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+				   , PD.BRND_NM           AS BRND_NM
+				   , PD.GDS_CD            AS GDS_CD
+				   , PD.PRDCR_CD          AS PRDCR_CD
+				   , PD.SPMT_CMNDNO       AS SPMT_CMNDNO
+				   , PD.OUTORDRNO         AS OUTORDRNO
+				   , PD.SPMT_QNTT         AS SPMT_QNTT
+				   , PD.SPMT_WGHT         AS SPMT_WGHT
+				   , PD.ORGN_SPMTNO       AS ORGN_SPMTNO
+				   , PD.ORGN_PCKGNO       AS ORGN_PCKGNO
+				   , PD.ORGN_PCKG_SN      AS ORGN_PCKG_SN
+		           , PD.RMRK 			  AS RMRK
+				   , PC.SPMT_YMD          AS SPMT_YMD
+		      	   , PC.CNPT_CD 		  AS CNPT_CD
+				   , A.PCKG_SORTNO		  AS PCKG_SORTNO
+		      	   , A.PCKG_SORT_SN		  AS PCKG_SORT_SN
+			  FROM (
+					  SELECT GI.*
+					  FROM TB_GDS_INVNTR AS GI
+					  WHERE GI.APC_CD = #{apcCd}
+					  AND GI.PCKG_YMD = #{pckgYmd}
+					  AND GI.INVNTR_STTS_CD = 'D3'
+					  AND GI.DEL_YN = 'N'
+					  ) AS A
+				 	  JOIN TB_SPMT_PRFMNC_DTL AS PD
+						ON PD.APC_CD = A.APC_CD
+						AND PD.PCKGNO = A.PCKGNO
+						AND PD.PCKG_SN = A.PCKG_SN
+				      JOIN TB_SPMT_PRFMNC_COM AS PC
+					    ON PD.APC_CD = PC.APC_CD
+					    AND PD.SPMTNO = PC.SPMTNO
+				) AS pt0
+		JOIN TB_SORT_INVNTR AS SI
+		ON SI.APC_CD = pt0.APC_CD
+		AND SI.SORTNO = pt0.PCKG_SORTNO
+		AND SI.SORT_SN = pt0.PCKG_SORT_SN
+		AND SI.DEL_YN = 'N'
+		LEFT JOIN (
+			SELECT
+				X.ITEM_CD
+				 , X.GRD_CD
+				 , X.GRD_EXPLN
+				 , X.INVNTR_INQ_AU_CD
+				 , CASE WHEN INSTR(X.GRD_NM, '(') > 0 THEN SUBSTR(X.GRD_NM, 1, INSTR(X.GRD_NM, '(') - 1) ELSE X.GRD_NM END	AS GRD_NM
+				 , X.SN
+				 , ROW_NUMBER() OVER (PARTITION BY X.ITEM_CD ORDER BY X.SN) AS GRD_SN
+			FROM TB_APC_STD_GRD_DTL X
+			WHERE X.APC_CD = #{apcCd}
+			  AND X.GRD_SE_CD = '02'
+			  AND X.GRD_KND = (
+				SELECT MAX(KND.GRD_KND) KEEP (DENSE_RANK FIRST ORDER BY KND.SN) AS GRD_KND
+				FROM TB_APC_STD_GRD KND
+				WHERE KND.APC_CD = X.APC_CD
+				  AND KND.GRD_SE_CD = X.GRD_SE_CD
+				  AND KND.ITEM_CD = X.ITEM_CD
+				  AND KND.DEL_YN = 'N'
+			)
+		) SGRD
+		ON SGRD.ITEM_CD = pt0.ITEM_CD
+		AND SGRD.GRD_CD = SI.GRD_CD
+
+				]]>
+	</select>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrToSortInvntr-->
+	<!-- DESC : 일일대사처리용 선별재고로 상품재고조회                           			    -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.25  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectGdsInvntrToSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+	<![CDATA[
+	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrToSortInvntr */
+		   GI.APC_CD			AS APC_CD
+		 , GI.PCKGNO			AS PCKGNO
+		 , GI.PCKG_SN		AS PCKG_SN
+		 , GI.PCKG_YMD		AS PCKG_YMD
+		 , GI.FCLT_CD		AS FCLT_CD
+		 , GI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+		 , GI.ITEM_CD		AS ITEM_CD
+		 , GI.VRTY_CD		AS VRTY_CD
+		 , GI.SPCFCT_CD		AS SPCFCT_CD
+		 , GI.GDS_CD			AS GDS_CD
+		 , GI.GDS_GRD		AS GDS_GRD
+		 , GI.PCKG_SE_CD		AS PCKG_SE_CD
+		 , GI.GDS_SE_CD		AS GDS_SE_CD
+		 , GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+		 , GI.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+		 , GI.PCKG_QNTT		AS PCKG_QNTT
+		 , GI.PCKG_WGHT		AS PCKG_WGHT
+		 , GI.SPMT_QNTT		AS SPMT_QNTT
+		 , GI.SPMT_WGHT		AS SPMT_WGHT
+		 , GI.INVNTR_QNTT	AS INVNTR_QNTT
+		 , GI.INVNTR_WGHT	AS INVNTR_WGHT
+		 , GI.TRNSF_QNTT		AS TRNSF_QNTT
+		 , GI.TRNSF_WGHT		AS TRNSF_WGHT
+		 , GI.RTN_GDS_QNTT	AS RTN_GDS_QNTT
+		 , GI.RTN_GDS_WGHT	AS RTN_GDS_WGHT
+		 , GI.DEL_YN			AS DEL_YN
+		 , GI.INVNTR_STTS_CD 	AS INVNTR_STTS_CD
+	FROM TB_GDS_INVNTR AS GI
+	WHERE APC_CD = #{apcCd}
+	AND PCKG_SORTNO = #{sortno}
+	AND PCKG_SORT_SN = #{sortSn}
+	AND DEL_YN ='N'
+	]]>
+	</select>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateReconciliation      -->
+	<!-- DESC : 일일대사처리용 감가산 적용 UPDATE                       			        -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.25  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="updateReconciliation" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		UPDATE /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateReconciliation */
+		    TB_GDS_INVNTR
+		SET
+		     SPMT_QNTT		= #{spmtQntt}
+			,SPMT_WGHT		= #{spmtWght}
+			,INVNTR_QNTT	= #{invntrQntt}
+			,INVNTR_WGHT	= #{invntrWght}
+			,SYS_LAST_CHG_DT = SYSDATE
+		WHERE APC_CD 		= #{apcCd}
+		  AND PCKGNO 		= #{pckgno}
+		  AND PCKG_SN		= #{pckgSn}
+	</update>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateReconciliation      -->
+	<!-- DESC : 일일대사처리용 마이너스재고 DEL_YN, 수량,중량 0처리            			    -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="updateGdsInvntrDelQnttWght" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		UPDATE
+			TB_GDS_INVNTR
+		SET
+		   SPMT_QNTT		= 0
+		  ,SPMT_WGHT		= 0
+		  ,INVNTR_QNTT	= 0
+		  ,INVNTR_WGHT	= 0
+		  ,DEL_YN    	= 'Y'
+		  ,SYS_LAST_CHG_DT = SYSDATE
+		WHERE APC_CD = #{apcCd}
+		  AND PCKGNO = #{pckgno}
+		  AND PCKG_SN = #{pckgSn}
+	</update>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateReconciliation      -->
+	<!-- DESC : 일일대사 선출하실적 선별실적별 재고정보 포함 SELECT            			    -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectSortPrfmncToGdsInvntrList" parameterType="com.at.apcss.am.sort.vo.SortPrfmncVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		SELECT pt0.*
+			 , (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+			 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+			 , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS SORT_GRD_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+		FROM
+			(SELECT
+				 GI.APC_CD			AS APC_CD
+				  , GI.PCKGNO			AS PCKGNO
+				  , GI.PCKG_SN		AS PCKG_SN
+				  , GI.PCKG_YMD		AS PCKG_YMD
+				  , GI.FCLT_CD		AS FCLT_CD
+				  , GI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+				  , GI.ITEM_CD		AS ITEM_CD
+				  , GI.VRTY_CD		AS VRTY_CD
+				  , GI.SPCFCT_CD		AS SPCFCT_CD
+				  , GI.GDS_CD			AS GDS_CD
+				  , GI.GDS_GRD		AS GDS_GRD
+				  , GI.PCKG_SE_CD		AS PCKG_SE_CD
+				  , GI.GDS_SE_CD		AS GDS_SE_CD
+				  , GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				  , GI.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+				  , GI.PCKG_QNTT		AS PCKG_QNTT
+				  , GI.PCKG_WGHT		AS PCKG_WGHT
+				  , GI.SPMT_QNTT		AS SPMT_QNTT
+				  , GI.SPMT_WGHT		AS SPMT_WGHT
+				  , GI.INVNTR_QNTT	AS INVNTR_QNTT
+				  , GI.INVNTR_WGHT	AS INVNTR_WGHT
+				  , GI.TRNSF_QNTT		AS TRNSF_QNTT
+				  , GI.TRNSF_WGHT		AS TRNSF_WGHT
+				  , GI.RTN_GDS_QNTT	AS RTN_GDS_QNTT
+				  , GI.RTN_GDS_WGHT	AS RTN_GDS_WGHT
+				  , GI.DEL_YN			AS DEL_YN
+				  , GI.INVNTR_STTS_CD 	AS INVNTR_STTS_CD
+			      , GI.PCKG_SORTNO		AS PCKG_SORTNO
+			      , GI.PCKG_SORT_SN 	AS PCKG_SORT_SN
+				  , SP.GRD_CD				AS GRD_CD
+				  , SI.WRHS_SE_CD		AS WRHS_SE_CD
+			 FROM TB_SORT_PRFMNC AS SP
+				  JOIN TB_SORT_INVNTR AS SI
+					   ON SP.APC_CD = SI.APC_CD
+						   AND SP.SORTNO = SI.SORTNO
+						   AND SP.SORT_SN = SI.SORT_SN
+						   AND SP.DEL_YN = 'N'
+						   AND SI.DEL_YN = 'N'
+						   AND SP.APC_CD = '0503'
+						   AND SP.INPT_YMD = '20240626'
+						   AND SI.PCKG_YN = 'Y'
+				  JOIN TB_GDS_INVNTR AS GI
+					   ON GI.APC_CD = SI.APC_CD
+						   AND GI.PCKG_SORTNO = SI.SORTNO
+						   AND GI.PCKG_SORT_SN = SI.SORT_SN
+						   AND GI.SPMT_PCKG_UNIT_CD = SI.SPMT_PCKG_UNIT_CD
+						   AND GI.ITEM_CD = SI.ITEM_CD
+						   AND GI.VRTY_CD = SI.VRTY_CD
+			 			   AND GI.DEL_YN = 'N'
+			 ) AS pt0
+	</select>
 </mapper>
