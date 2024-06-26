@@ -246,7 +246,7 @@ public class MobileApiController extends BaseController{
 			resultData.put("accessToken", accessToken);
 
 			String refreshToken = UUID.randomUUID().toString();
-			Date expDate = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 90);	//90일
+			Date expDate = new Date(System.currentTimeMillis() + (24 * 60 * 60 * 90 * 1000L));	//90일
 
 			resultData.put("refreshToken", refreshToken);
 

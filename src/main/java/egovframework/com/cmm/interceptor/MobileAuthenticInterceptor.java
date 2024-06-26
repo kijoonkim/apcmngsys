@@ -1,6 +1,9 @@
 package egovframework.com.cmm.interceptor;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
 
@@ -8,7 +11,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,19 +88,70 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 				System.out.println("Unable to get JWT Token");
 				ModelAndView modelAndView = new ModelAndView("result");
 				JSONObject json = new JSONObject();
-				json.put("STATUS", "error");
-				json.put("CODE", "9999");
-				json.put("MESSAGE", "Unable to get JWT Token");
+				json.put("success", false);
+				json.put("code", "7777");
+				json.put("message", "Unable to get JWT Token");
 				modelAndView.addObject("result", json);
 				throw new ModelAndViewDefiningException(modelAndView);
 				//return false;
 			} catch (ExpiredJwtException e) {
+				byte[] rawData = null;
+				try {
+					InputStream inputStream = request.getInputStream();
+					rawData = IOUtils.toByteArray(inputStream);
+				} catch (IOException e2) {
+					throw e2;
+				}
 				System.out.println("JWT Token has expired");
 				ModelAndView modelAndView = new ModelAndView("result");
 				JSONObject json = new JSONObject();
-				json.put("STATUS", "error");
-				json.put("CODE", "9999");
-				json.put("MESSAGE", "JWT Token has expired");
+				json.put("success", false);
+				json.put("code", "6666");
+				json.put("message", "JWT Token has expired");
+				json.put("requestUrl", request.getRequestURL());
+				json.put("method", request.getMethod());
+				json.put("data", rawData != null ? rawData.toString() : "{}");
+
+				//JWT에서 UserId를 조회한다.
+				Base64.Decoder decoder = Base64.getUrlDecoder();
+				String[] parts = jwtToken.split("\\."); // Splitting header, payload and signature
+				System.out.println("Headers: "+new String(decoder.decode(parts[0]))); // Header
+				System.out.println("Payload: "+new String(decoder.decode(parts[1]))); // Payload
+				JSONParser parser = new JSONParser();
+				JSONObject jsonPayload = (JSONObject)parser.parse(new String(decoder.decode(parts[1])));
+				userId = jsonPayload != null && jsonPayload.get("sub") != null ? String.valueOf(jsonPayload.get("sub")) : "";
+
+				ComUserVO userDetails = comUserService.selectComUser(userId);
+				if ( userDetails != null) {
+					Map<String, Object> storedRefreshToken;
+					try {
+						storedRefreshToken = mobileApiService.findRefreshToken(userId);
+						egovframework.com.cmm.LoginVO cmmLoginVO = new egovframework.com.cmm.LoginVO();
+						cmmLoginVO.setId(userId);
+						if (storedRefreshToken != null && !isRefreshTokenExpired(storedRefreshToken)) {
+							//AccessToken을 업데이트한다.
+							cmmLoginVO.setId(userId);
+							json.put("accessToken", jwtTokenUtil.generateToken(cmmLoginVO));
+						}else {
+							json = new JSONObject();
+							json.put("success", false);
+							json.put("code", "8888");
+							json.put("message", "JWT Token has expired");
+							modelAndView.addObject("result", json);
+							throw new ModelAndViewDefiningException(modelAndView);
+						}
+					} catch (Exception e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+						json = new JSONObject();
+						json.put("success", false);
+						json.put("code", "7777");
+						json.put("message", "UNAUTHORIZED");
+						modelAndView.addObject("result", json);
+						throw new ModelAndViewDefiningException(modelAndView);
+					}
+				}
+
 				modelAndView.addObject("result", json);
 				throw new ModelAndViewDefiningException(modelAndView);
 			}
@@ -103,9 +159,9 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("Unable to get JWT Token");
 			ModelAndView modelAndView = new ModelAndView("result");
 			JSONObject json = new JSONObject();
-			json.put("STATUS", "error");
-			json.put("CODE", "9999");
-			json.put("MESSAGE", "Unable to get JWT Token");
+			json.put("success", false);
+			json.put("code", "7777");
+			json.put("message", "Unable to get JWT Token");
 			modelAndView.addObject("result", json);
 			throw new ModelAndViewDefiningException(modelAndView);
 			
@@ -125,9 +181,9 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 					}else {
 						ModelAndView modelAndView = new ModelAndView("result");
 						JSONObject json = new JSONObject();
-						json.put("STATUS", "error");
-						json.put("CODE", "9999");
-						json.put("MESSAGE", "JWT Token has expired");
+						json.put("success", false);
+						json.put("code", "8888");
+						json.put("message", "JWT Token has expired");
 						modelAndView.addObject("result", json);
 						throw new ModelAndViewDefiningException(modelAndView);
 					}
@@ -136,9 +192,9 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 					e.printStackTrace();
 					ModelAndView modelAndView = new ModelAndView("result");
 					JSONObject json = new JSONObject();
-					json.put("STATUS", "error");
-					json.put("CODE", "9999");
-					json.put("MESSAGE", "UNAUTHORIZED");
+					json.put("success", false);
+					json.put("code", "7777");
+					json.put("message", "UNAUTHORIZED");
 					modelAndView.addObject("result", json);
 					throw new ModelAndViewDefiningException(modelAndView);
 				}
