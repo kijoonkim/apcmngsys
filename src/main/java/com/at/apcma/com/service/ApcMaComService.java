@@ -58,5 +58,15 @@ public interface ApcMaComService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> fileAddProcess(MultipartFile mfile, Map<String, Object> param, HttpSession session);
+	
+	/**
+	 * 사진 및 싸인 이미지 저장 Service
+	 * @param param
+	 * @param session
+	 * @param ipAddress
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> hrImageUploadProcess(MultipartFile mfile, Map<String, Object> param, HttpSession session);
 
 }

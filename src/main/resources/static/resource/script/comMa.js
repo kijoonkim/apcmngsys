@@ -80,6 +80,103 @@ const gfnma_formIdStr = function (val) {
 }
 
 /**
+ * @name 		gfnma_setFileChangeEvent
+ * @description url 에서 formId 추출하기
+ * @function
+ * @param 		{string} target			//파일 input tag (복수가능)
+ * @param 		{string} accessFile		//파일 업로드 가능 확장자 : 업로드 가능, 제한은 2개중 한개의 리스트 목록만 있어야 함.
+ * @param 		{string} limitFile		//파일 업로드 제한 확장자 : 업로드 가능, 제한은 2개중 한개의 리스트 목록만 있어야 함. 
+ * @param 		{string} limitSizeMB	//파일 업로드 제한 용량(MB)
+ */
+const gfnma_setFileChangeEvent = function (obj) {
+	
+	// parameter setting ---------------------------
+	var _accessFile		= obj.accessFile;
+	var _limitFile		= obj.limitFile;
+	var _limitSizeMB	= obj.limitSizeMB;
+	// ----------------------------------------------
+
+	// 기본셋팅 -------------------------------------
+	var chkAccessFile 	= ['jpg','png','jpeg'];			//파일 업로드 가능 확장자 : 업로드 가능, 제한은 2개중 한개의 리스트 목록만 있어야 함.
+	var chkLimitFile 	= [];							//파일 업로드 제한 확장자 : 업로드 가능, 제한은 2개중 한개의 리스트 목록만 있어야 함. 
+	var chkLimitSizeMB 	= 20;							//파일 업로드 제한 용량(MB,KB)
+	// ----------------------------------------------
+	
+	var target = null;	
+    if (typeof obj.target == 'string') {
+		target = $(obj.target);
+	} else {
+		target = obj.target;
+	}
+	if(_accessFile){
+		if(_accessFile.length>0){
+		} else {
+			_accessFile = chkAccessFile.slice();
+		}
+	} else {
+		_accessFile = chkAccessFile.slice();
+	}
+	if(_limitFile){
+		if(_limitFile.length>0){
+		} else {
+			_limitFile = chkLimitFile.slice();
+		}
+	} else {
+		_limitFile = chkLimitFile.slice();
+	}
+	if(!_limitSizeMB){
+		_limitSizeMB = chkLimitSizeMB;
+	}
+	// -------------------------------------------------
+	
+	//alert
+	var ltfileStr = "";
+	if(_accessFile.length>0){
+		for (var i = 0; i < _accessFile.length; i++) {
+			ltfileStr += _accessFile[i] + ", ";
+		}
+		ltfileStr += "파일만 업로드 할 수 없습니다.";
+	}
+	if(_limitFile.length>0){
+		for (var i = 0; i < _limitFile.length; i++) {
+			ltfileStr += _limitFile[i] + ", ";
+		}
+		ltfileStr += "파일은 업로드 할 수 없습니다.";
+	}
+	
+	target.change(function(event) {
+		var ext = $(this).val().split('.').pop().toLowerCase();
+		
+		if(_accessFile.length>0){
+			if($.inArray(ext,_accessFile)==-1){
+				alert(ltfileStr);
+				$(this).val('');
+				return false;
+			} else {
+			}
+		}	
+		if(_limitFile.length>0){
+			if($.inArray(ext,_limitFile)==-1){
+			} else {
+				alert(ltfileStr);
+				$(this).val('');
+				return false;
+			}
+		}	
+		
+		if(_limitSizeMB){
+			var fsize = gfnma_getFileSize($(this), 'MB');
+			if(fsize > Number(_limitSizeMB)){
+				alert('파일 용량은 ' + _limitSizeMB + 'MB 를 초과할 수 없습니다.');
+				$(this).val('');
+				return false;
+			}
+		}
+	});		
+	
+}
+
+/**
  * @name 		gfnma_setComSelect
  * @description sbux-select 데이터 설정
  * @function
