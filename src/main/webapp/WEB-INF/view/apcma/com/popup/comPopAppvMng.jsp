@@ -121,24 +121,24 @@
 							</div>
 						</div>
 						<div style="overflow:auto;border:1px solid #d1cece;height:350px">
-							<table class="table table-bordered table-hover cu-basic-table" style="min-width:1570px">
+							<table class="table table-bordered table-hover cu-basic-table" style="min-width:1720px">
 						        <colgroup>
 			                        <col style="width: 50px">
 			                        <col style="width: 80px">
 			                        <col style="width: 60px">
 			                        <col style="width: 120px">
+			                        <col style="width: 70px">
 			                        <col style="width: 80px">
-			                        <col style="width: 80px">
+			                        <col style="width: 100px">
+			                        <col style="width: 100px">
+			                        <col style="width: 150px">
 			                        <col style="width: 100px">
 			                        <col style="width: 100px">
 			                        <col style="width: 100px">
+			                        <col style="width: 150px">
 			                        <col style="width: 100px">
 			                        <col style="width: 100px">
-			                        <col style="width: 100px">
-			                        <col style="width: 100px">
-			                        <col style="width: 100px">
-			                        <col style="width: 100px">
-			                        <col style="width: 100px">
+			                        <col style="width: 150px">
 			                        <col style="width: 100px">
 						        </colgroup>
 								<thead class="thead-light" style="text-align:left;background-color:#f5fbff;position:sticky;top:0;z-index:3">
@@ -237,22 +237,28 @@ function compopappvmng(options) {
 	//open modal
 	SBUxMethod.openModal(modalDivId);
 	
+	var fn_closeModal = function(){
+	 	SBUxMethod.closeModal(modalDivId);
+	}
+	
 	//상단 조회 표시
 	$(modalId).find('.cu-inp-comp-code').val(settings.compCodeNm);
 	$(modalId).find('.cu-inp-txtdept-code').val('');
 	$(modalId).find('.cu-inp-txtdept-name').val('');
 	$(modalId).find('.cu-inp-txtemp-code').val('');
 	$(modalId).find('.cu-inp-txtemp-name').val('');
+	//결재의견
+	$(modalId).find('.cu-txt-opinion').val('');
 	
 	//상신:TEMPLATE , 승인(반려):APPR
 	if(settings.workType=='TEMPLATE'){
 		$(modalId).find('.cu-btn-delete').hide();
 	} else if(settings.workType=='APPR'){
-		//승인(상신X)인 경우 행삭제,위로,아래로,반려 버튼이 안보인다.
+		//승인(상신X)인 경우 회수,행삭제,위로,아래로,반려 버튼이 안보인다.
+		$(modalId).find('.cu-btn-collect').hide();
 		$(modalId).find('.cu-btn-rowdel').hide();
 		$(modalId).find('.cu-btn-up').hide();
 		$(modalId).find('.cu-btn-down').hide();
-		$(modalId).find('.cu-btn-okcancel').hide();
 	}
 	
 	//승인경로
@@ -450,7 +456,7 @@ function compopappvmng(options) {
 		htm += '<td>' + gfnma_nvl(obj['DUTY_NAME'])			+ '</td>';
 		htm += '<td>' + gfnma_nvl(obj['EMP_NAME']) 			+ '</td>';
 		htm += '<td>' + gfnma_nvl(obj['PROXY_EMP_NAME']) 	+ '</td>';
-		htm += '<td>' + gfnma_nvl(obj['APPR_STATUS']) 		+ '</td>';
+		htm += '<td>' + gfnma_nvl(obj['APPR_STATUS_NAME'])	+ '</td>';
 		htm += '<td>' + gfnma_nvl(obj['APPR_DATE']) 		+ '</td>';
 		htm += '<td>' + gfnma_nvl(obj['APPR_OPINION']) 		+ '</td>';
 		htm += '<td>' + gfnma_nvl(obj['DESCRIPTION']) 		+ '</td>';
@@ -503,7 +509,7 @@ function compopappvmng(options) {
 			htm += '<td>' + gfnma_nvl(obj['DUTY_NAME'])			+ '</td>';
 			htm += '<td>' + gfnma_nvl(obj['EMP_NAME']) 			+ '</td>';
 			htm += '<td>' + gfnma_nvl(obj['PROXY_EMP_NAME']) 	+ '</td>';
-			htm += '<td>' + gfnma_nvl(obj['APPR_STATUS']) 		+ '</td>';
+			htm += '<td>' + gfnma_nvl(obj['APPR_STATUS_NAME']) 	+ '</td>';
 			htm += '<td>' + gfnma_nvl(obj['APPR_DATE']) 		+ '</td>';
 			htm += '<td>' + gfnma_nvl(obj['APPR_OPINION']) 		+ '</td>';
 			htm += '<td>' + gfnma_nvl(obj['DESCRIPTION']) 		+ '</td>';
@@ -569,24 +575,67 @@ function compopappvmng(options) {
 	    	   	/** @type {number} **/
 	    		let totalRecordCount = 0;
 	    	   	
-	    	   	data.cv_3.forEach((item, index) => {
-		    		const msg = {
-		    				APPR_SOURCE_TYPE	: item.APPR_SOURCE_TYPE,
-		    				APPR_CATEGORY		: item.APPR_CATEGORY,
-		    				APPR_CATEGORY_NAME	: item.APPR_CATEGORY_NAME,
-		    				APPR_TYPE			: item.APPR_TYPE,
-		    				APPR_TYPE_NAME		: item.APPR_TYPE_NAME,
-		    				DEPT_CODE			: item.DEPT_CODE,
-		    				DEPT_NAME			: item.DEPT_NAME,
-		    				DUTY_CODE			: item.DUTY_CODE,
-		    				DUTY_NAME			: item.DUTY_NAME,
-		    				EMP_CODE			: item.EMP_CODE,
-		    				EMP_NAME			: item.EMP_NAME,
-		    				STEP_SEQ			: item.STEP_SEQ
-		    		}
-		    		dlist.push(msg);
-		    		totalRecordCount ++;
-		    	});
+	    		if(settings.workType=='TEMPLATE'){
+		    	   	data.cv_3.forEach((item, index) => {
+			    		const msg = {
+			    				APPR_CATEGORY		: item.APPR_CATEGORY,
+			    				APPR_CATEGORY_NAME	: item.APPR_CATEGORY_NAME,
+			    				APPR_TYPE			: item.APPR_TYPE,
+			    				APPR_TYPE_NAME		: item.APPR_TYPE_NAME,
+			    				DEPT_CODE			: item.DEPT_CODE,
+			    				DEPT_NAME			: item.DEPT_NAME,
+			    				DUTY_CODE			: item.DUTY_CODE,
+			    				DUTY_NAME			: item.DUTY_NAME,
+			    				EMP_CODE			: item.EMP_CODE,
+			    				EMP_NAME			: item.EMP_NAME,
+			    				STEP_SEQ			: item.STEP_SEQ,
+			    				PROXY_EMP_NAME		: item.PROXY_EMP_NAME,
+			    				APPR_STATUS			: item.APPR_STATUS,
+			    				APPR_STATUS_NAME	: item.APPR_STATUS_NAME,
+			    				APPR_DATE			: item.APPR_DATE,
+			    				APPR_OPINION		: item.APPR_OPINION,
+			    				DESCRIPTION			: item.DESCRIPTION,
+			    				INSERT_USERID		: item.INSERT_USERID,
+			    				INSERT_TIME			: item.INSERT_TIME,
+			    				INSERT_PC			: item.INSERT_PC,
+			    				UPDATE_USERID		: item.UPDATE_USERID,
+			    				UPDATE_TIME			: item.UPDATE_TIME,
+			    				UPDATE_PC			: item.UPDATE_PC
+			    		}
+			    		dlist.push(msg);
+			    		totalRecordCount ++;
+			    	});
+	    		} else {
+		    	   	data.cv_2.forEach((item, index) => {
+			    		const msg = {
+			    				APPR_CATEGORY		: item.APPR_CATEGORY,
+			    				APPR_CATEGORY_NAME	: item.APPR_CATEGORY_NAME,
+			    				APPR_TYPE			: item.APPR_TYPE,
+			    				APPR_TYPE_NAME		: item.APPR_TYPE_NAME,
+			    				DEPT_CODE			: item.DEPT_CODE,
+			    				DEPT_NAME			: item.DEPT_NAME,
+			    				DUTY_CODE			: item.DUTY_CODE,
+			    				DUTY_NAME			: item.DUTY_NAME,
+			    				EMP_CODE			: item.EMP_CODE,
+			    				EMP_NAME			: item.EMP_NAME,
+			    				STEP_SEQ			: item.STEP_SEQ,
+			    				PROXY_EMP_NAME		: item.PROXY_EMP_NAME,
+			    				APPR_STATUS			: item.APPR_STATUS,
+			    				APPR_STATUS_NAME	: item.APPR_STATUS_NAME,
+			    				APPR_DATE			: item.APPR_DATE,
+			    				APPR_OPINION		: item.APPR_OPINION,
+			    				DESCRIPTION			: item.DESCRIPTION,
+			    				INSERT_USERID		: item.INSERT_USERID,
+			    				INSERT_TIME			: item.INSERT_TIME,
+			    				INSERT_PC			: item.INSERT_PC,
+			    				UPDATE_USERID		: item.UPDATE_USERID,
+			    				UPDATE_TIME			: item.UPDATE_TIME,
+			    				UPDATE_PC			: item.UPDATE_PC
+			    		}
+			    		dlist.push(msg);
+			    		totalRecordCount ++;
+			    	});
+	    		}
 	        	console.log('dlist :', dlist);
 	        	fn_createBasicGrid(dlist);	        	
 	    		} else {
@@ -668,10 +717,8 @@ function compopappvmng(options) {
     var fn_okResult = async function() {
 		
 		var tar 		= $('#compopappvmng').find('.cu-basic-table').find('tbody tr');
-		
 		var myEmpCode	= settings.empCode;
-		var myIdx		= tar.find('[cu-col-emp-code=' + myEmpCode + ']').index();
-		//console.log('myIdx:', myIdx);		
+		var myIdx		= $('#compopappvmng').find('.cu-basic-table').find('tbody').find('[cu-col-emp-code=' + myEmpCode + ']').index();
 		
 		if(tar.length<2){
             gfn_comAlert("E0000", "승인경로에 상신자 이외에 결재자가 없습니다.");
@@ -732,13 +779,13 @@ function compopappvmng(options) {
 				strupdate_time		+= gfnma_date1() 		+ gubun;
 				strupdate_pc		+= ""					+ gubun;
 			} else {
-				strappr_opinion		+= $(this).attr('cu-col-appr-opinion')	+ gubun;
-				strappr_status		+= $(this).attr('cu-col-appr-status')	+ gubun;
-				strappr_date		+= $(this).attr('cu-col-appr-date')		+ gubun;
-				strinsert_userid	+= myEmpCode + gubun;
+				strappr_opinion		+= $(this).attr('cu-col-appr-opinion') 	+ gubun;
+				strappr_status		+= $(this).attr('cu-col-appr-status') 	+ gubun;
+				strappr_date		+= $(this).attr('cu-col-appr-date') 	+ gubun;
+				strinsert_userid	+= $(this).attr('cu-col-insert-userid') + gubun;
 				strinsert_time		+= $(this).attr('cu-col-insert-time') 	+ gubun;
 				strinsert_pc		+= $(this).attr('cu-col-insert-pc') 	+ gubun;
-				strupdate_userid	+= myEmpCode + gubun;
+				strupdate_userid	+= $(this).attr('cu-col-update-userid') + gubun;
 				strupdate_time		+= $(this).attr('cu-col-update-time') 	+ gubun;
 				strupdate_pc		+= $(this).attr('cu-col-update-pc') 	+ gubun;
 			}
@@ -802,8 +849,11 @@ function compopappvmng(options) {
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
+		console.log('승인=====================================');    	
 		console.log('paramObj:', paramObj);    	
-       	
+		console.log('procedure: P_FIM3400_S');    	
+		console.log('tmp_workType:', tmp_workType);    	
+		
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpOk.do", {
    			getType				: 'json',
    			workType			: tmp_workType,
@@ -817,6 +867,7 @@ function compopappvmng(options) {
 	          		alert(data.resultMessage);
         		}
             	gfn_comAlert("I0001");		    		
+        		fn_closeModal();
     		} else {
     	  		alert(data.resultMessage);
     		}
@@ -839,10 +890,8 @@ function compopappvmng(options) {
     var fn_rejectResult = async function() {
 		
 		var tar 		= $('#compopappvmng').find('.cu-basic-table').find('tbody tr');
-		
 		var myEmpCode	= settings.empCode;
-		var myIdx		= tar.find('[cu-col-emp-code=' + myEmpCode + ']').index();
-		//console.log('myIdx:', myIdx);		
+		var myIdx		= $('#compopappvmng').find('.cu-basic-table').find('tbody').find('[cu-col-emp-code=' + myEmpCode + ']').index();
 		
 		if(tar.length<2){
             gfn_comAlert("E0000", "승인경로에 상신자 이외에 결재자가 없습니다.");
@@ -903,13 +952,13 @@ function compopappvmng(options) {
 				strupdate_time		+= gfnma_date1() 		+ gubun;
 				strupdate_pc		+= ""					+ gubun;
 			} else {
-				strappr_opinion		+= $(this).attr('cu-col-appr-opinion')	+ gubun;
-				strappr_status		+= $(this).attr('cu-col-appr-status')	+ gubun;
-				strappr_date		+= $(this).attr('cu-col-appr-date')		+ gubun;
-				strinsert_userid	+= myEmpCode + gubun;
+				strappr_opinion		+= $(this).attr('cu-col-appr-opinion') 	+ gubun;
+				strappr_status		+= $(this).attr('cu-col-appr-status') 	+ gubun;
+				strappr_date		+= $(this).attr('cu-col-appr-date') 	+ gubun;
+				strinsert_userid	+= $(this).attr('cu-col-insert-userid') + gubun;
 				strinsert_time		+= $(this).attr('cu-col-insert-time') 	+ gubun;
 				strinsert_pc		+= $(this).attr('cu-col-insert-pc') 	+ gubun;
-				strupdate_userid	+= myEmpCode + gubun;
+				strupdate_userid	+= $(this).attr('cu-col-update-userid') + gubun;
 				strupdate_time		+= $(this).attr('cu-col-update-time') 	+ gubun;
 				strupdate_pc		+= $(this).attr('cu-col-update-pc') 	+ gubun;
 			}
@@ -969,7 +1018,10 @@ function compopappvmng(options) {
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
+		console.log('반려=====================================');    	
 		console.log('paramObj:', paramObj);    	
+		console.log('procedure: P_FIM3400_S');    	
+		console.log('tmp_workType:', tmp_workType);    	
        	
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpOk.do", {
    			getType				: 'json',
@@ -984,6 +1036,7 @@ function compopappvmng(options) {
 	          		alert(data.resultMessage);
         		}
             	gfn_comAlert("I0001");		    		
+        		fn_closeModal();
     		} else {
     	  		alert(data.resultMessage);
     		}
@@ -1013,7 +1066,7 @@ function compopappvmng(options) {
 		
 		var tar 		= $('#compopappvmng').find('.cu-basic-table').find('tbody tr');
 		var myEmpCode	= settings.empCode;
-		var myIdx		= tar.find('[cu-col-emp-code=' + myEmpCode + ']').index();		
+		var myIdx		= $('#compopappvmng').find('.cu-basic-table').find('tbody').find('[cu-col-emp-code=' + myEmpCode + ']').index();		
 		
 		if(tar.length<2){
             gfn_comAlert("E0000", "승인경로에 상신자 이외에 결재자가 없습니다.");
@@ -1041,14 +1094,17 @@ function compopappvmng(options) {
 			,V_P_SOURCE_TYPE         : settings.sourceType
 			,V_P_SOURCE_NO           : settings.sourceNo
 			,V_P_REF_EMP_CODE        : myEmpCode
-			,V_P_EMP_CODE            : stremp_code
+			,V_P_EMP_CODE            : myEmpCode
    			,V_P_FORM_ID             : settings.formID
    			,V_P_MENU_ID             : settings.menuId
    			,V_P_PROC_ID             : ''
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
+		console.log('회수=====================================');    	
 		console.log('paramObj:', paramObj);    	
+		console.log('procedure: P_FIM3400_S3');    	
+		console.log('tmp_workType:', tmp_workType);    	
        	
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpCancel.do", {
    			getType				: 'json',
@@ -1063,6 +1119,7 @@ function compopappvmng(options) {
 	          		alert(data.resultMessage);
         		}
             	gfn_comAlert("I0001");		    		
+        		fn_closeModal();
     		} else {
     	  		alert(data.resultMessage);
     		}
@@ -1085,10 +1142,19 @@ function compopappvmng(options) {
     var fn_apprDelete = async function() {
 		
 		var tar 		= $('#compopappvmng').find('.cu-basic-table').find('tbody tr');
+		var myEmpCode	= settings.empCode;
+		var myIdx		= $('#compopappvmng').find('.cu-basic-table').find('tbody').find('[cu-col-emp-code=' + myEmpCode + ']').index();		
 		
 		if(tar.length<2){
             gfn_comAlert("E0000", "승인경로에 상신자 이외에 결재자가 없습니다.");
 			return false;
+		}
+		if(tar.length>(myIdx+1)){
+			myIdx = myIdx + 1;
+			if(tar.eq(myIdx).attr('cu-col-appr-date')!=null && tar.eq(myIdx).attr('cu-col-appr-date')!=''){
+	            gfn_comAlert("E0000", "상위 결재자가 승인 처리하여 결재삭제 할 수 없습니다.");
+				return false;
+			}
 		}
 		if(confirm("결재 삭제 하시겠습니까?")){
 		}else{
@@ -1105,14 +1171,17 @@ function compopappvmng(options) {
 			,V_P_SOURCE_TYPE         : settings.sourceType
 			,V_P_SOURCE_NO           : settings.sourceNo
 			,V_P_REF_EMP_CODE        : myEmpCode
-			,V_P_EMP_CODE            : stremp_code
+			,V_P_EMP_CODE            : myEmpCode
    			,V_P_FORM_ID             : settings.formID
    			,V_P_MENU_ID             : settings.menuId
    			,V_P_PROC_ID             : ''
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
+		console.log('결재삭제=====================================');    	
 		console.log('paramObj:', paramObj);    	
+		console.log('procedure: P_FIM3400_S3');    	
+		console.log('tmp_workType:', tmp_workType);    	
        	
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpCancel.do", {
    			getType				: 'json',
@@ -1127,6 +1196,7 @@ function compopappvmng(options) {
 	          		alert(data.resultMessage);
         		}
             	gfn_comAlert("I0001");		    		
+        		fn_closeModal();
     		} else {
     	  		alert(data.resultMessage);
     		}
@@ -1206,7 +1276,7 @@ function compopappvmng(options) {
 	//close event
 	$(modalId).find('.cu-btn-close').off('click');
 	$(modalId).find('.cu-btn-close').click(function(){
-	 	SBUxMethod.closeModal(modalDivId);
+		fn_closeModal();
 	});		
 	
 }

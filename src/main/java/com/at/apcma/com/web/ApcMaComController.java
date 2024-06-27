@@ -266,7 +266,7 @@ public class ApcMaComController extends BaseController {
 			
     		Map<String, Object> ssmap 	= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
     		
-			//get delete key ---------------------------------------------------------
+			//get key ---------------------------------------------------------
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
 			gmap4.put("procedure", 			"P_COM5100_Q");
 			gmap4.put("workType", 			"Q1");
@@ -456,6 +456,39 @@ public class ApcMaComController extends BaseController {
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     } 
 	
+	//인적사항 사진 및 싸인올리기
+	@PostMapping(value = "/com/hrImageUpload.do")
+	public ResponseEntity<HashMap<String, Object>> hrImageUpload(
+			@RequestParam HashMap<String, Object> param
+			,@RequestParam(value="files", required = false) List<MultipartFile> files
+    		,MultipartHttpServletRequest request
+			,Model model
+			,HttpSession session) throws Exception{
+		
+		logger.info("=============hrImageUpload=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+    	int	cnt		= 0;	
+    	
+		try {
+			
+			//get ipAddress
+			String ipAddress = request.getHeader("X-Forwarded-For");
+			if (ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+			param.put("ipAddress", ipAddress);
+			resultMap = apcMaComService.hrImageUploadProcess(files.get(0), param, session);
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============hrImageUpload=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}	    
+    
 	//결재관리 사원(트리)/승인경로 조회
 	@PostMapping(value = "/com/comApprEmpList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> comApprEmpList(
