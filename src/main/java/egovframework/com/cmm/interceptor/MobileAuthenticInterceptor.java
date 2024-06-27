@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -95,22 +96,26 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 				throw new ModelAndViewDefiningException(modelAndView);
 				//return false;
 			} catch (ExpiredJwtException e) {
-				byte[] rawData = null;
+				/*
+				byte[] data = null;
 				try {
 					InputStream inputStream = request.getInputStream();
-					rawData = IOUtils.toByteArray(inputStream);
+					data = IOUtils.toByteArray(inputStream);
 				} catch (IOException e2) {
 					throw e2;
-				}
+				}*/
+				String data = "POST".equalsIgnoreCase(request.getMethod()) ?
+						request.getReader().lines().collect(Collectors.joining(System.lineSeparator())) :
+						"";
 				System.out.println("JWT Token has expired");
 				ModelAndView modelAndView = new ModelAndView("result");
 				JSONObject json = new JSONObject();
 				json.put("success", false);
 				json.put("code", "6666");
 				json.put("message", "JWT Token has expired");
-				json.put("requestUrl", request.getRequestURL());
+				json.put("requestUrl", request.getRequestURI());
 				json.put("method", request.getMethod());
-				json.put("data", rawData != null ? rawData.toString() : "{}");
+				json.put("data", data != null ? data.toString() : "{}");
 
 				//JWT에서 UserId를 조회한다.
 				Base64.Decoder decoder = Base64.getUrlDecoder();
@@ -126,10 +131,9 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 					Map<String, Object> storedRefreshToken;
 					try {
 						storedRefreshToken = mobileApiService.findRefreshToken(userId);
-						egovframework.com.cmm.LoginVO cmmLoginVO = new egovframework.com.cmm.LoginVO();
-						cmmLoginVO.setId(userId);
 						if (storedRefreshToken != null && !isRefreshTokenExpired(storedRefreshToken)) {
 							//AccessToken을 업데이트한다.
+							egovframework.com.cmm.LoginVO cmmLoginVO = new egovframework.com.cmm.LoginVO();
 							cmmLoginVO.setId(userId);
 							json.put("accessToken", jwtTokenUtil.generateToken(cmmLoginVO));
 						}else {

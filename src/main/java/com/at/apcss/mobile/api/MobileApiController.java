@@ -170,7 +170,7 @@ public class MobileApiController extends BaseController{
 
 			ApcInfoVO apcInfoVO = new ApcInfoVO();
 
-			List<String> comApcList = new ArrayList<>();
+			List<ComApcJsonVO> comApcList = new ArrayList<>();
 			ObjectMapper objMapper = new ObjectMapper();
 
 			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
@@ -195,7 +195,7 @@ public class MobileApiController extends BaseController{
 					resultData.put("apcVO", comApcJsonVO);
 				}
 
-				comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+				comApcList.add(comApcJsonVO);
 				logger.debug(objMapper.writeValueAsString(comApcJsonVO));
 
 			}
