@@ -190,12 +190,23 @@
 	const fn_dtpChange = function(){
 		let strtCmndYmd = SBUxMethod.get("srch-dtp-cmndYmdFrom");
 		let endCmndYmd = SBUxMethod.get("srch-dtp-cmndYmdTo");
-		if(gfn_diffDate(strtCmndYmd, endCmndYmd) < 0){
+		var maxYmd = gfn_addDate(strtCmndYmd,90);
+
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-cmndYmdTo', maxYmd);
+
+		if(strtCmndYmd > endCmndYmd){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
 			SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < endCmndYmd) {
+    		SBUxMethod.set("srch-dtp-cmndYmdTo", maxYmd);
+	    }
+
+
 	}
 
 	var grdSortCmnd; // 그리드를 담기위한 객체 선언
@@ -689,6 +700,8 @@
 			grdSortCmnd.rebuild()
 		]);
 	}
+
+
 
 	$(function(){
 		$(".glyphicon").on("click", function(){

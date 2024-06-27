@@ -93,4 +93,14 @@ public class StdGrdDtlVO extends StdGrdVO {
 	 */
 	private String spcfctNm;
 
+	/**
+	 * 출파호장단위명
+	 */
+	private String spmtPckgUnitNm;
+
+	/**
+	 * 출파호장단위코드
+	 */
+	private String spmtPckgUnitCd;
+
 }

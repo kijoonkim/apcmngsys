@@ -158,12 +158,22 @@
 	const fn_dtpChange = function(){
 		let slsYmdFrom = SBUxMethod.get("srch-dtp-slsYmdFrom");
 		let slsYmdTo = SBUxMethod.get("srch-dtp-slsYmdTo");
-		if(gfn_diffDate(slsYmdFrom, slsYmdTo) < 0){
+		var maxYmd = gfn_addDate(slsYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-slsYmdTo', maxYmd);
+
+		if(slsYmdFrom > slsYmdTo){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
 			SBUxMethod.set("srch-dtp-slsYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-slsYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < slsYmdTo) {
+    		SBUxMethod.set("srch-dtp-slsYmdTo", maxYmd);
+	    }
+
+
 	}
 
 
@@ -253,7 +263,7 @@
 			gfn_comAlert("W0002", "매출일자");		//	W0002	{0}을/를 입력하세요.
             return;
 		}
-		
+
     	let recordCountPerPage = grdSlsPrfmnc.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
     	grdSlsPrfmnc.movePaging(currentPageNo);
@@ -270,7 +280,7 @@
 		let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let vrtyCd = SBUxMethod.get("srch-inp-vrtyCd");
-		
+
 		let SlsPrfmncVO = {apcCd 				: apcCd
 						 , slsYmdFrom 			: slsYmdFrom
 						 , slsYmdTo 			: slsYmdTo
@@ -488,6 +498,9 @@
 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
 		}
 	}
+
+
+
 
 	$(function(){
 		$(".glyphicon").on("click", function(){

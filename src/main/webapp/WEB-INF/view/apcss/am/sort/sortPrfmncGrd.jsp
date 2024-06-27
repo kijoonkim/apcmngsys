@@ -322,12 +322,20 @@
     const fn_dtpChange = function(){
     	let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
     	let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
-    	if(gfn_diffDate(inptYmdFrom, inptYmdTo) < 0){
+    	var maxYmd = gfn_addDate(inptYmdFrom,90);
+
+    	SBUxMethod.setDatepickerMaxDate('srch-dtp-inptYmdTo', maxYmd);
+
+    	if(inptYmdFrom > inptYmdTo){
     		gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
     		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
     		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
     		return;
     	}
+
+    	if (maxYmd < inptYmdTo) {
+    		SBUxMethod.set("srch-dtp-inptYmdTo", maxYmd);
+	    }
     }
 
 
@@ -381,7 +389,7 @@
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
             {caption: ["팔레트번호","팔레트번호"], 		ref: 'wrhsno',     			type:'output',  	width:'120px',  style:'text-align:center'},
-            
+
             {caption: ["대표생산자","대표생산자"], 	ref: 'rprsPrdcrNm',  		type:'output',  	width:'80px',   style:'text-align:center'},
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     			type:'output',  	width:'120px',  style:'text-align:center'},
             {caption: ["품목","품목"],	    		ref: 'itemNm', 				type:'output',  	width:'80px',   style:'text-align:center'},
@@ -742,7 +750,7 @@
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
             {caption: ["팔레트번호","팔레트번호"], 		ref: 'wrhsno',     			type:'output',  	width:'120px',  style:'text-align:center'},
-            
+
             {caption: ["설비명","설비명"], 			ref: 'fcltNm',     			type:'output',  	width:'120px',  style:'text-align:center'},
             {caption: ["입고구분","입고구분"], 		ref: 'wrhsSeNm',    		type:'output',  	width:'60px',   style:'text-align:center'},
             {caption: ["상품구분","상품구분"],  		ref: 'gdsSeNm',       		type:'output',  	width:'60px',   style:'text-align:center'},
@@ -1159,6 +1167,8 @@
  		const sortno = sortnoList.join("','");
  		gfn_popClipReport("선별확인서", "am/sortLabel.crf", {apcCd: gv_selectedApcCd, sortno: sortno});
  	}
+
+
 
 	$(function(){
 		$(".glyphicon").on("click", function(){

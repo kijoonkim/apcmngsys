@@ -1452,6 +1452,8 @@
 
             /** 선출하실적 등록시 단량 select option add **/
             let selectEl = parentTr.children().eq(3).find('select');
+            selectEl.children().remove();
+            selectEl.append(`<option>선택</option>`);
             let optionEl = ``;
 
             for(const [key,value] of tempJson[0].spcfctMap.entries()){
@@ -2038,6 +2040,9 @@
         let rows = $("#reg_table tbody").children();
         let spmtPrfmncList = [];
 
+        /** 저장시 선출하 내역에 대한 alertFlag **/
+        let alertFlag = false;
+
         let saveJson = {
             apcCd : gv_apcCd,
             spmtYmd : spmtYmd,
@@ -2050,7 +2055,8 @@
         rows.each(function() {
             let rowData = $(this).children(":last").find('input').attr("sortInvnt");
             let rmrk = $(this).children().eq(9).find('input').val();
-            let spmtSn = $(this).index() + 1;
+            // let spmtSn = $(this).index() + 1;
+            let spmtSn = spmtPrfmncList.length + 1;
 
             if(!gfn_isEmpty(rowData)){
                 rowData = JSON.parse(rowData);
@@ -2075,80 +2081,44 @@
                 }
                 spmtPrfmncList.push(spmtPrfmnc);
             }else{
-                // /** 선출하실적 rowData가 없음. **/
-                // let rowData = $(this).children(":last").find("input").attr("sortgds");
-                // if(!gfn_isEmpty(rowData)){
-                //     rowData = JSON.parse(rowData);
-                //     let qnttIdx = parseInt(rowData.aftrGrdCd);
-                //     let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
-                //     let prdcrIdentno = $(this).children().eq(0).find("input").eq(1).val();
-                //     let spcfctCd = $(this).children().eq(3).find("select").val();
-                //     let itemCd = rowData.itemCd;
-                //     let vrtyCd = rowData.vrtyCd;
-                //
-                //     spmtPrfmnc = {
-                //         spmtQntt: spmtQntt,
-                //         // spmtPckgUnitCd : "",
-                //         // spmtGdsList : "",
-                //         rmrk : rmrk,
-                //         gdsInput : rowData.grdNm,
-                //         spmtSn : spmtSn,
-                //         sortGrdCd : rowData.grdCd,
-                //         aftrGrdCd : rowData.aftrGrdCd,
-                //         prdcrIdentno : prdcrIdentno,
-                //         spcfctCd : spcfctCd,
-                //         itemCd : itemCd,
-                //         vrtyCd : vrtyCd,
-                //     }
-                // spmtPrfmncList.push(spmtPrfmnc);
-                // }
+                /** 선출하실적 rowData가 없음. **/
+                let rowData = $(this).children(":last").find("input").attr("sortgds");
+                if(!gfn_isEmpty(rowData)){
+                    rowData = JSON.parse(rowData);
+                    let qnttIdx = parseInt(rowData.aftrGrdCd);
+                    let spmtQntt = $(this).children().eq(qnttIdx + 3).find("input").val();
+                    let prdcrIdentno = $(this).children().eq(0).find("input").eq(1).val();
+                    let spcfctCd = $(this).children().eq(3).find("select").val();
+                    let itemCd = rowData.itemCd;
+                    let vrtyCd = rowData.vrtyCd;
+                    if(gfn_isEmpty(spmtQntt)){
+                        return true; //continue
+                    }
+                    alertFlag = true;
+
+                    spmtPrfmnc = {
+                        spmtQntt: spmtQntt,
+                        rmrk : rmrk,
+                        gdsInput : rowData.grdNm,
+                        spmtSn : spmtSn,
+                        sortGrdCd : rowData.grdCd,
+                        aftrGrdCd : rowData.aftrGrdCd,
+                        prdcrIdentno : prdcrIdentno,
+                        spcfctCd : spcfctCd,
+                        itemCd : itemCd,
+                        vrtyCd : vrtyCd,
+                    }
+                spmtPrfmncList.push(spmtPrfmnc);
+                }
             }
         });
         saveJson.spmtPrfmncList = spmtPrfmncList;
+        if(alertFlag){
+            if(!gfn_comConfirm("Q0000","선출하내역이 존재합니다. 저장하시겠습니까?")){
+                return;
+            }
+        }
 
-        // /** 중복 상품 취합 **/
-        // let arr = saveJson.spmtPrfmncList;
-
-        // let result = arr.reduce(function(acc,cur){
-        //     if(acc.length == 0){
-        //         acc.push(cur);
-        //     }else{
-        //         /** 존재 여부 **/
-        //         let flag = false;
-        //         acc.forEach(function(item){
-        //             if(item.gdsInput == cur.gdsInput){
-        //                if(item.spmtPckgUnitCd == cur.spmtPckgUnitCd){
-        //                    if(gfn_isEmpty(spmtNo)) {
-        //                        if (item.spmtGdsList[0].pckgno == cur.spmtGdsList[0].pckgno) {
-        //                            item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
-        //                            flag = true;
-        //                            return;
-        //                        }
-        //                    }else{
-        //                       item.spmtGdsList.forEach(function(item){
-        //                          let pckgno = item.pckgno;
-        //                          /** 이미 등록된 데이터가 상위는 보장받음. **/
-        //                          cur.spmtGdsList.forEach(function(it){
-        //                              if(it.pckgno == pckgno){
-        //                                  flag = true;
-        //                                  return;
-        //                              }
-        //                          });
-        //                       });
-        //                       if(flag){
-        //                           item.spmtQntt = (parseInt(item.spmtQntt) + parseInt(cur.spmtQntt)) + '';
-        //                       }
-        //                    }
-        //                }
-        //             }
-        //         });
-        //         if(!flag){
-        //             acc.push(cur);
-        //         }
-        //     }
-        //     return acc;
-        // }, []);
-        // saveJson.spmtPrfmncList = result;
         let returnSpmtNo = "";
 
         try{

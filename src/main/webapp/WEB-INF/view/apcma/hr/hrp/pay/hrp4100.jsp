@@ -33,7 +33,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3><!-- 급여 전표처리기준 -->
             </div>
         </div>
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -87,8 +87,8 @@
                             id="srch-txtcorresponding_account"
                             class="form-control input-sm"
                             uitype="text"
-                            style="width:100%">
-                            readonly
+                            style="width:100%"
+                            readonly>
                     </sbux-input>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -535,11 +535,16 @@
                                     onclick="fn_ACCOUNT_POPUP('9')"
                             ></sbux-button>
                         </td>
-
                         <th colspan="2" scope="row" class="th_bg">차대구분</th>
-                        <td colspan="3" class="td_input inpt_data_reqed" style="border-right: hidden;">
-                            <sbux-radio id="DEBIT_CREDIT" name="rdo_json" uitype="normal" jsondata-ref="radioJsonData">
-                            </sbux-radio>
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
+                            <p class="ad_input_row inpt_data_reqed">
+                                <sbux-radio id="BTL-DEBIT_CREDIT1" name="DEBIT_CREDIT" uitype="normal" class="radio_label" value="D" checked></sbux-radio>
+                                <sbux-label class="radio_label" for-id="BTL-DEBIT_CREDIT1" text="차변"></sbux-label>
+                            </p>
+                            <p class="ad_input_row inpt_data_reqed">
+                                <sbux-radio id="BTL-DEBIT_CREDIT2" name="DEBIT_CREDIT" uitype="normal" class="radio_label" value="C"></sbux-radio>
+                                <sbux-label class="radio_label" for-id="BTL-DEBIT_CREDIT2" text="대변"></sbux-label>
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -599,21 +604,22 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
-    '${loginVO.}';
     //-----------------------------------------------------------
 
     var editType			= "N";
+
+    var CHk_HR_POSTING_TYPE; //전표구분 체크
 
     //grid 초기화
     var gvwBandgvwInfoGrid; 			// 그리드를 담기위한 객체 선언
     var jsonBandgvwInfoList = []; 	// 그리드의 참조 데이터 주소 선언
 
-    var radioJsonData = [
-        { text : "차변"  , value : "C"   , style : "" },
-        { text : "대변"  , value : "D"   , style : "" }
-    ];
+    /*var radioJsonData = [
+        {text:'차변', value:'C'},
+        {text:'대변', value:'D'}
+    ];*/
     var jsonPayGroupCode = []; //급여체계 //srch-pay_group_code  //L_HRI010
-    var jsonHrPostingType = []; //전표구분 //srch-hr_posting_type	//L_HRI010
+    var jsonHrPostingType = []; //전표구분 //srch-hr_posting_type	//L_HRP023
     var jsonHrPayAccountType = []; //급여항목 //HR_PAY_ACCOUNT_TYPE	//L_HRP004_A
     var jsonPayItemCategory = []; //구분 //gvwBandgvwInfoGrid(PAY_ITEM_CATEGORY)	//L_HRB009
     var jsonPostingSummaryType = []; //집계단위 //gvwBandgvwInfoGrid(POSTING_SUMMARY_TYPE)	//L_HRP031
@@ -627,6 +633,7 @@
             gfnma_setComSelect(['gvwBandgvwInfoGrid','HR_PAY_ACCOUNT_TYPE'], jsonHrPayAccountType, 'L_HRP004_A', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPostingSummaryType, 'L_HRP031', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonHrPostingType, 'L_HRP023', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'EXTRA_FIELD1', 'Y', ''),
 
             //전표구분
             gfnma_multiSelectInit({
@@ -958,10 +965,14 @@
     const fn_search = async function () {
 
         let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_group_code")); //급여체계
-        let HR_POSTING_TYPE = gfnma_nvl(SBUxMethod.get("srch-hr_posting_type")); //전표구분
+        let HR_POSTING_TYPE			= gfnma_multiSelectGet('#srch-hr_posting_type');//전표구분
+        /*let HR_POSTING_TYPE = gfnma_nvl(SBUxMethod.get("srch-hr_posting_type")); //전표구분*/
         let TXTCORRESPONDING_ACCOUNT = gfnma_nvl(SBUxMethod.get("srch-txtcorresponding_account")); //상대계정(미지급금)
 
-        if(!SBUxMethod.validateRequired()) {
+        //필수값 검증
+        if(!SBUxMethod.validateRequired({
+            isDetectAttack: true,
+            group_id : 'dataArea1'})) {
             return false;
         }
 
@@ -1068,16 +1079,24 @@
     //상세정보 보기
     async function fn_view() {
 
+        gfnma_uxDataClear('#dataArea2');
+
         editType = "E";
 
         let nRow = gvwBandgvwInfoGrid.getRow();
 
-        if (nRow < 1){
-            nRow = 1;
+        if (nRow == -1){
+            nRow = 2;
         }
 
         let rowData = gvwBandgvwInfoGrid.getRowData(nRow);
 
+        let POSTING_SUMMARY_TYPE = rowData.POSTING_SUMMARY_TYPE;
+        let DEBIT_CREDIT = rowData.DEBIT_CREDIT;
+
+        SBUxMethod.set("DEBIT_CREDIT", DEBIT_CREDIT);
+
+        gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', POSTING_SUMMARY_TYPE);
 
         gfnma_uxDataSet('#dataArea2', rowData);
 
@@ -1098,7 +1117,7 @@
 
                 console.log("+++++++++++++++++ paramObj 저장+++++++++++++++++++++++", paramObj);
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp4100.do", {
+                const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                     getType: 'json',
                     workType: 'N',
                     cv_count: '0',
@@ -1126,7 +1145,7 @@
             }
 
 
-        }else if(editType=="U"){
+        }else if(editType=="E"){
 
             // 수정 저장
             if(gfn_comConfirm("Q0001", "수정 저장")){
@@ -1139,7 +1158,7 @@
 
                 console.log("+++++++++++++++++ paramObj 수정 저장+++++++++++++++++++++++", paramObj);
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp4100.do", {
+                const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                     getType: 'json',
                     workType: 'U',
                     cv_count: '0',
@@ -1179,7 +1198,10 @@
 
 
         let HR_PAY_ACCOUNT_TYPE = gfnma_nvl(SBUxMethod.get("HR_PAY_ACCOUNT_TYPE"));         //급여항목
-        let POSTING_SUMMARY_TYPE = gfnma_nvl(SBUxMethod.get("POSTING_SUMMARY_TYPE"));   //집계구분
+        let POSTING_SUMMARY_TYPE = gfnma_multiSelectGet('#POSTING_SUMMARY_TYPE');
+        //let POSTING_SUMMARY_TYPE = gfnma_nvl(SBUxMethod.get("POSTING_SUMMARY_TYPE"));   //집계구분
+
+
         let NEED_EMP_CODE_YN = gfnma_nvl(SBUxMethod.get("NEED_EMP_CODE_YN"));   //사원코드 필수입력
         let ACCOUNTING_YN = gfnma_nvl(SBUxMethod.get("ACCOUNTING_YN"));   //계정처리여부
         let POSTING_RESULT_ADJUST_YN = gfnma_nvl(SBUxMethod.get("POSTING_RESULT_ADJUST_YN"));   //회계집계데이터 조정가능
@@ -1217,6 +1239,18 @@
         let PAY_ITEM_UNIT_YN = gfnma_nvl(SBUxMethod.get("PAY_ITEM_UNIT_YN"));   //급여항목단위여부
 
 
+        //필수값 검증
+        if(!SBUxMethod.validateRequired({
+            isDetectAttack: true,
+            group_id : 'dataArea2'})) {
+            return false;
+        }
+
+        if (!POSTING_SUMMARY_TYPE) {
+            gfn_comAlert("W0002", "사용여부");
+            return;
+        }
+
 
         let paramObj = {
             V_P_DEBUG_MODE_YN	: ''
@@ -1239,14 +1273,14 @@
             ,V_P_ADMIN_COST_CENTER        : ADMIN_COST_CENTER
             ,V_P_MFG_COST_CENTER          : MFG_COST_CENTER
             ,V_P_RESEARCH_COST_CENTER     : RESEARCH_COST_CENTER
-            ,V_P_NEED_EMP_CODE_YN         : NEED_EMP_CODE_YN
-            ,V_P_POSTING_RESULT_ADJUST_YN : POSTING_RESULT_ADJUST_YN
+            ,V_P_NEED_EMP_CODE_YN         : NEED_EMP_CODE_YN.NEED_EMP_CODE_YN
+            ,V_P_POSTING_RESULT_ADJUST_YN : POSTING_RESULT_ADJUST_YN.POSTING_RESULT_ADJUST_YN
             ,V_P_CS_CODE                  : CS_CODE
-            ,V_P_ACCOUNTING_YN            : ACCOUNTING_YN
+            ,V_P_ACCOUNTING_YN            : ACCOUNTING_YN.ACCOUNTING_YN
             ,V_P_DEBIT_CREDIT             : DEBIT_CREDIT
             ,V_P_AP_ACCOUNT_CODE          : AP_ACCOUNT_CODE
             ,V_P_AR_ACCOUNT_CODE          : AR_ACCOUNT_CODE
-            ,V_P_PAY_ITEM_UNIT_YN         : PAY_ITEM_UNIT_YN
+            ,V_P_PAY_ITEM_UNIT_YN         : PAY_ITEM_UNIT_YN.PAY_ITEM_UNIT_YN
             ,V_P_ACCOUNT_PAY_ITEM         : ACCOUNT_PAY_ITEM
             ,V_P_ACCOUNT_PAY_ITEM_NAME    : ACCOUNT_PAY_ITEM_NAME
 
@@ -1285,7 +1319,7 @@
 
             console.log("+++++++++++++++++ paramObj fn_del+++++++++++++++++++++++", paramObj);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp4100.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                 getType: 'json',
                 workType: 'D',
                 cv_count: '0',
@@ -1312,6 +1346,35 @@
             }
         }
     }
+
+    $(function () {
+
+        $("#srch-hr_posting_type").on("DOMSubtreeModified",function(e){
+
+            let HR_POSTING_TYPE = gfnma_multiSelectGet('#srch-hr_posting_type');
+
+            if (!_.isEmpty(HR_POSTING_TYPE)) {
+                if (!_.isEqual(CHk_HR_POSTING_TYPE, HR_POSTING_TYPE)) {
+                    CHk_HR_POSTING_TYPE = HR_POSTING_TYPE;
+
+                    console.log('-------------CHk_HR_POSTING_TYPE-------------',CHk_HR_POSTING_TYPE);
+                    console.log('-------------HR_POSTING_TYPE-------------',HR_POSTING_TYPE);
+
+                    jsonHrPostingType.forEach((item,index)=>{
+
+                        console.log('-------------item-------------',item);
+
+                        if (_.isEqual(HR_POSTING_TYPE, item.value)){
+
+                            SBUxMethod.set("srch-txtcorresponding_account", item.label);
+                        }
+
+                    })
+                }
+            }
+        });
+
+    });
 
 </script>
 </body>

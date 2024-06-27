@@ -2216,7 +2216,7 @@
 
 
         //중복체크를 해야할 경우
-        let chdate = gvwWithholdGrid.getGridDataAll();
+        //let chdate = gvwWithholdGrid.getGridDataAll();
 
         let updatedData = gvwWithholdGrid.getUpdateData(true, 'all');
         let returnData = [];

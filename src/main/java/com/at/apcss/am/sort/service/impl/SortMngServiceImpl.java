@@ -27,7 +27,6 @@ import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.pckg.mapper.PckgInptMapper;
 import com.at.apcss.am.pckg.service.PckgInptService;
 import com.at.apcss.am.pckg.service.PckgMngService;
 import com.at.apcss.am.pckg.service.PckgPrfmncService;
@@ -1754,7 +1753,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		sortPrfmncParamVO.setSortno(sortno);
 		sortPrfmncParamVO.setSortSn(sortsn);
 		SortPrfmncVO sortPrfmncVO = sortPrfmncService.selectSortUpdtForFcrs(sortPrfmncParamVO);
-		List<SortPrfmncVO> prfmncList = sortPrfmncService.selectSortCnclList(sortPrfmncParamVO);
+		//List<SortPrfmncVO> prfmncList = sortPrfmncService.selectSortCnclList(sortPrfmncParamVO);
 
 //		SortPrfmncVO prfmncList = sortPrfmncService.selectSortPrfmnc(sortPrfmncParamVO);
 
@@ -2025,7 +2024,17 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 				// 선별량 재고량 변경 확인
 				if (sort.getInvntrQntt() < sort.getSortQntt()) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+					String pckgNo = sort.getNxtPckgno();
+					if(pckgNo == null) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+					}else {
+						PckgMngVO pckgMngVO = new PckgMngVO();
+						pckgMngVO.setApcCd(apcCd);
+						pckgMngVO.setPckgno(pckgNo);
+						BeanUtils.copyProperties(sortMngVO, pckgMngVO);
+						pckgMngService.deletePckgPrfmnc(pckgMngVO);
+					}
+
 				}
 
 				SortPrfmncVO prfmncVO = new SortPrfmncVO();

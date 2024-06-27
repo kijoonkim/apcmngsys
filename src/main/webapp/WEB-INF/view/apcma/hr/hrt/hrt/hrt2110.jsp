@@ -232,6 +232,7 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_empCd = '${loginVO.empCd}';
+    var p_userId = '${loginVO.userId}';
     //-----------------------------------------------------------
 
     var copyMode            = "clear";
@@ -854,6 +855,8 @@
 
     const fn_findEmpCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
+        let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 정보');
         compopup1({
@@ -862,14 +865,14 @@
             ,bizcompId				: 'P_EMP_WORK_DATE'
             ,popupType				: 'B'
             ,whereClause			: ''
-            , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "일자",  "START_DATE", "END_DATE", "USERID"]
+            , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "일자",  "", "", ""]
             , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"BASE_DATE", "START_DATE", "END_DATE", "USERID"]
-            ,searchInputValues		: ["", "", "", searchText, ""]
-            ,searchInputTypes		: ["input", "input", "input", "input", "select", "input", "input", "input"]		//input, datepicker가 있는 경우
+            ,searchInputValues		: ["", "", "", searchText, "", TIME_START_DATE, TIME_END_DATE, p_userId]
+            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker", "datepicker", "datepicker", "input"]		//input, datepicker가 있는 경우
             ,searchInputTypeValues	: ["", "", "", "", jsonEmpState, "", "", ""]
             ,height: '400px'
             , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
+            , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
@@ -925,16 +928,16 @@
             ,bizcompId				: 'P_EMP_WORK'
             ,popupType				: 'B'
             ,whereClause			: ''
-            ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
-            ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "BASE_DATE"]
-            ,searchInputValues		: ["", "", "", "", ""]
+            ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "기준일", "USERID"]
+            ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "BASE_DATE", "USERID"]
+            ,searchInputValues		: ["", "", "", "", "", p_userId]
 
-            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker", "inputHidden"]		//input, datepicker가 있는 경우
+            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker", "input"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
-            ,tableHeader			: ["사원코드", "사원명", "사원명", "부서코드", "부서명", "사업장코드", "사업장명", "재직구분", "재직상태명", "입사일", "연차기산일", "퇴사일", "직책", "PREMATURE_DATE", "직위코드", "직위명", "LABOR_COST_GROUP", "파트", "파트명", "직급"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME", "EMP_FULL_NAME", "DEPT_CODE", "DEPT_NAME", "SITE_CODE", "SITE_NAME", "EMP_STATE", "EMP_STATE_NAME",  "ENTER_DATE", "ANNUAL_INITIAL_DATE", "RETIRE_DATE", "DUTY_CODE", "PREMATURE_DATE", "POSITION_CODE", "POSITION_NAME", "LABOR_COST_GROUP", "COST_DEPT_CODE", "COST_DEPT_NAME", "JOB_RANK"]
-            ,tableColumnWidths		: ["100px", "100px", "0px", "80px", "140px", "0px", "0px", "0px", "0px", "100px", "0px", "100px", "0px", "0px", "100px", "100px", "0px", "0px", "100px", "100px"]
+            ,tableHeader			: ["사원코드", "사원명", "부서코드", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
+            ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 bandgvwInfo.setCellData(nRow, (nCol-3), data['DEPT_CODE']);
@@ -1098,6 +1101,25 @@
     const fn_attach = async function() {
         if (jsonTimeShiftApplyList.length <= 0) {
             return false;
+        }
+
+        var nRow = bandgvwInfo.getRow();
+        let strFileSourceType = "HRTTIMEDAILYPLAN";
+        if (nRow < 0) {
+            return;
+        }
+
+        let strsource_code = bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TXN_ID"));
+        console.log(strsource_code)
+        if( gfn_nvl(strFileSourceType) != "" && gfn_nvl(strsource_code) != "" ){
+            compopfilemng({
+                compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,sourceType		: strFileSourceType
+                ,sourceCode		: strsource_code
+                ,formID			: p_formId
+                ,menuId			: p_menuId
+            });
         }
     }
 

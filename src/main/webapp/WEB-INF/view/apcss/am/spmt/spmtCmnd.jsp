@@ -187,12 +187,21 @@
 	const fn_dtpChange = function(){
 		let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
 		let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
+		var maxYmd = gfn_addDate(cmndYmdFrom,90);
+
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-cmndYmdTo', maxYmd);
+
 		if(gfn_diffDate(cmndYmdFrom, cmndYmdTo) < 0){
 			gfn_comAlert("E0000", "시작일자는 종료일자보다 이후 일자입니다.");//W0001{0}
 			SBUxMethod.set("srch-dtp-cmndYmdFrom", gfn_dateFirstYmd(new Date()));
 			SBUxMethod.set("srch-dtp-cmndYmdTo", gfn_dateToYmd(new Date()));
 			return;
 		}
+
+		if (maxYmd < cmndYmdTo) {
+    		SBUxMethod.set("srch-dtp-inptYmdTo", maxYmd);
+	    }
+
 	}
 
 	function fn_createSpmtCmndGrid() {
@@ -487,10 +496,10 @@
 		if (gfn_isEmpty(itemCd)) {
 			jsonApcSpcfct.length=0;
 			jsonSpmtPckgUnitCd.length=0;
-			
+
 			SBUxMethod.refresh("srch-slt-spcfctCd");
 			SBUxMethod.refresh("srch-slt-spmtPckgUnitCd");
-			
+
 		} else {
 			await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd',	jsonApcSpcfct, 	gv_selectedApcCd, itemCd);				// 규격
 			await gfn_setSpmtPckgUnitSBSelect('srch-slt-spmtPckgUnitCd', jsonSpmtPckgUnitCd, gv_selectedApcCd, itemCd);	// 포장단위
@@ -556,6 +565,8 @@
 			SBUxMethod.set('srch-inp-vrtyNm', _vrtyNm.join(','));
 		}
 	}
+
+
 
  	$(function(){
  		$(".glyphicon").on("click", function(){

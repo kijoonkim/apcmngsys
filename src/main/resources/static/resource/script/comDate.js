@@ -118,6 +118,30 @@ const gfn_diffDate = function(fromDate, toDate) {
 }
 
 /**
+ * @name gfn_addDate
+ * @description
+ * @param {Date} date
+ * @param {String} ymdFrom
+ * @param {String} ymdTo
+ * @function
+ * @returns
+ */
+const gfn_addDate = function(fromDate,addDate) {
+
+	const from = new Date(fromDate.substr(0,4) + "-" + fromDate.substr(4,2) + "-" + fromDate.substr(6,2));
+
+	from.setDate(from.getDate()+addDate);
+	// 원하는 형식으로 날짜를 출력
+	var year = from.getFullYear();
+	var month = (from.getMonth() + 1).toString().padStart(2, '0');
+	var day = from.getDate().toString().padStart(2, '0');
+	var newDate = `${year}${month}${day}`;
+
+	return newDate;
+}
+
+
+/**
  * @name gfn_excelSerialDateToJSDate
  * @description
  * @function
@@ -126,6 +150,6 @@ const gfn_diffDate = function(fromDate, toDate) {
 const gfn_excelSerialDateToJSDate = function (_excelSerialDate) {
 	const daysBeforeUnixEpoch = 70 * 365 + 19;
 	const hour = 60 * 60 * 1000;
-	
+
 	return new Date(Math.round((_excelSerialDate - daysBeforeUnixEpoch) * 24 * hour) + 12 * hour);
 }

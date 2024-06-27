@@ -116,6 +116,109 @@ public class ApcMaComUtil {
 	}
 	
 	/**
+	 * 파일 업로드 - UUID로 저장
+	 * @param filepath
+	 * @param files
+	 * @return
+	 */
+	public static HashMap<String, Object> fileUpload2(String filepath, List<MultipartFile> files, String empCode){
+		
+		HashMap<String, Object> rmap = new HashMap<String, Object>();
+		rmap.put("success", 	false);
+		
+		if(!ApcMaComUtil.isExistFile(files)){
+			return rmap;
+		}
+		
+		// param set
+		boolean isSuccess 		= false;
+		ArrayList<String> flist = new ArrayList<String>();
+		
+		String dir 				= filepath;
+		String orgFileName 		= "";
+		String changeFileName 	= "";
+		String extFileName 		= "";
+		String newFileName 		= "";
+		String fullFileName 	= "";
+		
+		try {
+			
+			logger.debug("--------------------- file upload start ---------------------");
+			
+			MultipartFile multipartFile = null; 
+			
+			int count = 0;
+			for (int idx = 0; idx < files.size(); idx++) 
+			{
+				if(files.get(idx).getOriginalFilename().equals("")){
+					continue;
+				}
+				count ++;
+				
+				// [1] get extfileName and create fileName
+				multipartFile 	= files.get(idx);
+				orgFileName 	= files.get(idx).getOriginalFilename();
+				extFileName 	= orgFileName.substring(orgFileName.lastIndexOf(".") + 1);
+				changeFileName 	= empCode + "." + extFileName;
+				newFileName 	= StringUtils.remove(UUID.randomUUID().toString(),"-") + "." + extFileName;
+				fullFileName	= checkLastSlash(dir) + newFileName;
+				
+				// [2] file upload
+				new File(dir).mkdirs();
+				multipartFile.transferTo(new File(fullFileName));
+				
+				flist.add(newFileName);
+				
+				logger.debug("count : " 			+ String.valueOf(count));
+				logger.debug("orgFileName : " 		+ orgFileName);
+				logger.debug("changeFileName : " 	+ changeFileName);
+				logger.debug("saveFileName : " 		+ newFileName);
+				logger.debug("savePath : " 			+ checkLastSlash(dir));
+				logger.debug("size(byte) : " 		+ multipartFile.getSize());
+			}
+			logger.debug("--------------------- file upload end // ---------------------");
+			isSuccess = true;
+			
+		} catch (IOException e){
+			isSuccess = false;
+			logger.debug(e.getMessage());
+		} catch (Exception e){
+			isSuccess = false;
+			logger.debug(e.getMessage());
+		} finally {
+			if(!isSuccess && flist.size()>0){
+				try{
+					File cdir 		= new File(dir);
+					File[] fileList = cdir.listFiles();
+					for (File infile : fileList) 
+					{
+						if(flist.size()==0) break;
+						for (int i = 0; i < flist.size(); i++) {
+							if(infile.getName().equals(flist.get(i))){
+								infile.delete();
+								logger.debug("[Upload Error !!!!!!!] delete file: " + flist.get(i).toString());
+								flist.remove(i);
+								break;
+							}
+						}
+					}
+				}catch(Exception e){
+					logger.debug(e.getMessage());
+				}
+			}
+		}
+		
+		// return map set
+		rmap.put("success", 		isSuccess);
+		//rmap.put("orgFileName", 	orgFileName);
+		rmap.put("orgFileName", 	changeFileName);
+		rmap.put("saveFileName", 	newFileName);
+		rmap.put("fullFileName", 	fullFileName);
+		rmap.put("list", 			flist);
+		return rmap;
+	}
+	
+	/**
 	 * 파일 하나 삭제
 	 * @param filepath
 	 * @return

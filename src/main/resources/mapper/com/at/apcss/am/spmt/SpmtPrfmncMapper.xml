@@ -1061,6 +1061,7 @@
 					  , INV.PLOR_CD
 					  , INV.SORT_GRD_CD
 					  , INV.PRDCR_CD
+				      , MAX(INV.INVNTR_STTS_CD) AS INVNTR_STTS_CD
 					  , MAX(INV.ITEM_NM)			AS ITEM_NM
 					  , MAX(INV.GDS_GRD_NM)		AS GDS_GRD_NM
 					  , MAX(INV.SORT_GRD_NM)	AS SORT_GRD_NM
@@ -1091,6 +1092,7 @@
 						 , GI.INVNTR_WGHT		AS INVNTR_WGHT
 						 , SI.GRD_CD				AS SORT_GRD_CD
 						 , SGRD.GRD_NM			AS SORT_GRD_NM
+				   		 , GI.INVNTR_STTS_CD AS INVNTR_STTS_CD
 						 , CASE
 					 WHEN INSTR(ITM.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
 					 WHEN INSTR(SGRD.INVNTR_INQ_AU_CD, 'P') > 0 THEN NULL
@@ -1250,8 +1252,8 @@
 	<select id="selectSpmtPrfmncRegList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
 		<![CDATA[
 		SELECT
-			   SP.APC_CD
-			 , SP.SPMTNO				AS SPMTNO
+			   SP.APC_CD			AS APC_CD
+			 , SP.SPMTNO			AS SPMTNO
 			 , MAX(SP.SPMT_YMD)		AS SPMT_YMD
 			 , MAX(SP.CNPT_CD)		AS CNPT_CD
 			 , MAX(SP.DLNG_SHAP_CD)		AS DLNG_SHAP_CD
@@ -1268,7 +1270,7 @@
 			 , SP.SPCFCT_CD			AS SPCFCT_CD
 			 , SP.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
 			 , SP.SORT_GRD_CD		AS SORT_GRD_CD
-			 ,SP.GDS_GRD			AS GDS_GRD
+			 , SP.GDS_GRD			AS GDS_GRD
 			 , MAX(SP.ITEM_NM)		AS ITEM_NM
 			 , SUM(SP.SPMT_QNTT)		AS SPMT_QNTT
 			 , SUM(SP.SPMT_WGHT)		AS SPMT_WGHT
@@ -1337,7 +1339,7 @@
 			AND ITM.ITEM_CD = SD.ITEM_CD
 			AND ITM.DEL_YN = 'N'
 
-			JOIN TB_PRDCR_INFO PI
+			LEFT JOIN TB_PRDCR_INFO PI
 			ON PI.APC_CD = SD.APC_CD
 			AND PI.PRDCR_CD = SD.PRDCR_CD
 			AND PI.DEL_YN = 'N'
@@ -1345,7 +1347,6 @@
 			WHERE SC.APC_CD = #{apcCd}
 			AND SC.DEL_YN = 'N'
 			AND SD.SPMTNO = #{spmtno}
-			ORDER BY SD.SPMT_SN
 			)SP
 			LEFT JOIN (
 			SELECT
@@ -1386,8 +1387,20 @@
 				, SP.PRDCR_IDENTNO
 				, SP.GDS_GRD
 				, SP.SPMT_SN
+		ORDER BY SP.SPMT_SN
 		]]>
 	</select>
+
+	<delete id="deletePermanentSpmtDtl" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		DELETE
+			TB_SPMT_PRFMNC_DTL
+		WHERE
+			APC_CD = #{apcCd}
+			AND SPMTNO = #{spmtno}
+			AND PCKGNO = #{pckgno}
+			AND PCKG_SN = #{pckgSn}
+			AND SPMT_SN = #{spmtSn}
+	</delete>
 
 </mapper>
 
