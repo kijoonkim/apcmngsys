@@ -63,6 +63,31 @@ public class ApcMaHri1300Controller extends BaseController {
         return getSuccessResponseEntity(resultMap);
     }
 
+    // 발령번호 조회 팝업
+    @PostMapping(value = "/hr/hri/hri/selectHri1300PopupList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHri1300PopupList(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHri1300PopupList=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_HRI1300_POP_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHri1300PopupList=====end========");
+        return getSuccessResponseEntity(resultMap);
+    }
+
     // 마스터 저장
     @PostMapping(value = "/hr/hri/hri/insertHri1300Master.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHri1300Master(
