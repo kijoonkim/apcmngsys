@@ -1,4 +1,4 @@
-package com.at.apcma.hr.hrt.com.web;
+package com.at.apcma.hr.hrt.hrt.web;
 
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
- * 연차발생조정을 처리하는 컨트롤러 클래스
+ * 일근태조정(일반)을 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
  * @since 		2024.06.03
  * @version 	1.0
@@ -31,22 +31,22 @@ import java.util.*;
  *  </pre>
  */
 @Controller
-public class ApcMaHrt5200Controller extends BaseController {
+public class ApcMaHrt2310Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
-    @PostMapping(value = "/hr/hrt/com/selectHrt5200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHrt5200List(
+    @PostMapping(value = "/hr/hrt/hrt/selectHrt2310List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHrt2310List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============selectHrt5200List=====start========");
+        logger.info("=============selectHrt2310List=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRT5200_Q");
+            param.put("procedure", 		"P_HRT2310_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class ApcMaHrt5200Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectHrt5200List=====end========");
+        logger.info("=============selectHrt2310List=====end========");
         if(resultMap.get("resultStatus").equals("E")) {
             String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
             String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
@@ -65,14 +65,44 @@ public class ApcMaHrt5200Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/hr/hrt/com/insertHrt5200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHrt5200List(
+    @PostMapping(value = "/hr/hrt/hrt/insertHrt2310.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrt2310(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHrt5200List=====start========");
+        logger.info("=============insertHrt2310=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_HRT2310_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrt2310=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/hr/hrt/hrt/insertHrt2310List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrt2310List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrt2310List=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
@@ -82,9 +112,9 @@ public class ApcMaHrt5200Controller extends BaseController {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
                         List<HashMap<String,Object>> returnData = new ArrayList<>();
                         for(int i = 0; i < listData.size(); i++) {
-                            listData.get(i).put("procedure", 		"P_HRT5200_S");
+                            listData.get(i).put("procedure", 		"P_HRT2310_S");
                             returnData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
-                            if(returnData.get(i).get("resultStatus").equals("E")) {
+                            if(listData.get(i).get("resultStatus").equals("E")) {
                                 String errorCode = Optional.ofNullable(returnData.get(i).get("v_errorCode")).orElse("").toString();
                                 String errorStr = Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString();
 
@@ -92,46 +122,16 @@ public class ApcMaHrt5200Controller extends BaseController {
                             }
                         }
 
-                        resultMap.put(key, listData);
+                        resultMap.put(key, returnData);
                     }
                 }
             }
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntity(resultMap);
-
-        } catch (Exception e) {
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-    }
-
-    @PostMapping(value = "/hr/hrt/com/insertHrt5200Confirm.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHrt5200Confirm(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============insertHrt5200Confirm=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            param.put("procedure", 		"P_HRT5200_S2");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============insertHrt5200Confirm=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
         }
     }
 }

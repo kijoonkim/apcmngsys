@@ -624,10 +624,8 @@
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('afterrebuild','fn_bandgvwInfoAfterRebuild');
         bandgvwInfo.bind('afterrefresh','fn_bandgvwInfoAfterRefresh');
-        bandgvwInfo.bind('dblclick', 'fn_bandgvwInfoDblclick');
         bandgvwInfo.bind('valuechanged', 'fn_bandgvwInfoValueChanged');
     }
-
 
     const fn_bandgvwInfoAfterRebuild = async function() {
         let bandgvwInfoData = bandgvwInfo.getGridDataAll();
@@ -669,6 +667,230 @@
         }
     }
 
+    const fn_bandgvwInfoValueChanged = async function() {
+        var nRow = bandgvwInfo.getRow();
+        var nCol = bandgvwInfo.getCol();
+        var rowData = bandgvwInfo.getRowData(nRow);
+
+        if (nRow < 0)
+            return;
+
+        if (nCol == bandgvwInfo.getColRef("SHIFT_CODE")) {
+            if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("CONFIRM_YN")) == "Y") {
+                return;
+            } else {
+                if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")) != "") {
+                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+                    let SHIFT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
+                    let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN	: '',
+                        V_P_LANG_ID		: '',
+                        V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                        V_P_YYYYMMDD : '',
+                        V_P_DATE_TYPE : '',
+                        V_P_SITE_CODE : SITE_CODE,
+                        V_P_DEPT_CODE : DEPT_CODE,
+                        V_P_POSITION_CODE : '',
+                        V_P_WORK_PATTERN_CODE : '',
+                        V_P_JOB_GROUP : '',
+                        V_P_EMP_CODE : EMP_CODE,
+                        V_P_TIME_ITEM_CODE : '',
+                        V_P_CONFIRM_YN : '',
+                        V_P_SHIFT_CODE : SHIFT_CODE,
+                        V_P_START_DAY_TYPE : '',
+                        V_P_TIME_START_HHMM : '',
+                        V_P_END_DAY_TYPE : '',
+                        V_P_TIME_END_HHMM : '',
+                        V_P_FORMID : 'HRT2320',
+                        V_P_FORM_ID		: p_formId,
+                        V_P_MENU_ID		: p_menuId,
+                        V_P_PROC_ID		: '',
+                        V_P_USERID			: '',
+                        V_P_PC				: ''
+                    };
+
+                    const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/selectHrt2310List.do", {
+                        getType				: 'json',
+                        workType			: 'SHIFT',
+                        cv_count			: '5',
+                        params				: gfnma_objectToString(paramObj)
+                    });
+
+                    const data = await postJsonPromise;
+                    console.log('data:', listData);
+
+                    try {
+                        if (_.isEqual("S", data.resultStatus)) {
+                            var returnData = data.cv_3[0];
+                            bEventEnabled = false;
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("START_DAY_TYPE"), gfn_nvl(returnData["START_DAY_TYPE"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_HHMM"), gfn_nvl(returnData["TIME_START_HHMM"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("END_DAY_TYPE"), gfn_nvl(returnData["END_DAY_TYPE"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_HHMM"), gfn_nvl(returnData["TIME_END_HHMM"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_DAY_TYPE"), gfn_nvl(returnData["WORK_DAY_TYPE"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE"), gfn_nvl(returnData["TIME_ITEM_CODE"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_TIMES"), gfn_nvl(returnData["WORK_TIMES"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_HOURS"), gfn_nvl(returnData["TIME_HOURS"]));
+                            bEventEnabled = true;
+                        } else {
+                            alert(data.resultMessage);
+                        }
+
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+            }
+        }
+
+        if (nCol == bandgvwInfo.getColRef("START_DAY_TYPE") || nCol == bandgvwInfo.getColRef("TIME_START_HHMM") || nCol == bandgvwInfo.getColRef("END_DAY_TYPE") || nCol == bandgvwInfo.getColRef("TIME_END_HHMM")) {
+            if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("CONFIRM_YN")) == "Y") {
+                return;
+            } else {
+                if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM")) != "") {
+                    fnQRY_P_HRT2310_Q("");
+                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+                    let SHIFT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
+                    let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+                    let START_DAY_TYPE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE")));
+                    let TIME_START_HHMM = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM")));
+                    let END_DAY_TYPE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE")));
+                    let TIME_END_HHMM = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM")));
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN	: '',
+                        V_P_LANG_ID		: '',
+                        V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                        V_P_YYYYMMDD : '',
+                        V_P_DATE_TYPE : '',
+                        V_P_SITE_CODE : SITE_CODE,
+                        V_P_DEPT_CODE : DEPT_CODE,
+                        V_P_POSITION_CODE : '',
+                        V_P_WORK_PATTERN_CODE : '',
+                        V_P_JOB_GROUP : '',
+                        V_P_EMP_CODE : EMP_CODE,
+                        V_P_TIME_ITEM_CODE : '',
+                        V_P_CONFIRM_YN : '',
+                        V_P_SHIFT_CODE : SHIFT_CODE,
+                        V_P_START_DAY_TYPE : START_DAY_TYPE,
+                        V_P_TIME_START_HHMM : TIME_START_HHMM,
+                        V_P_END_DAY_TYPE : END_DAY_TYPE,
+                        V_P_TIME_END_HHMM : TIME_END_HHMM,
+                        V_P_FORMID : 'HRT2320',
+                        V_P_FORM_ID		: p_formId,
+                        V_P_MENU_ID		: p_menuId,
+                        V_P_PROC_ID		: '',
+                        V_P_USERID			: '',
+                        V_P_PC				: ''
+                    };
+
+                    const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/selectHrt2310List.do", {
+                        getType				: 'json',
+                        workType			: 'TIME',
+                        cv_count			: '5',
+                        params				: gfnma_objectToString(paramObj)
+                    });
+
+                    const data = await postJsonPromise;
+                    console.log('data:', listData);
+
+                    try {
+                        if (_.isEqual("S", data.resultStatus)) {
+                            var returnData = data.cv_4[0];
+                            bEventEnabled = false;
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_HOURS"), gfn_nvl(returnData["TIME_HOURS"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("NIGHT_TIME_ITEM_CODE"), gfn_nvl(returnData["NIGHT_TIME_ITEM_CODE"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("NIGHT_START_DAY_TYPE"), gfn_nvl(returnData["NIGHT_START_DAY_TYPE"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("NIGHT_START_HHMM"), gfn_nvl(returnData["NIGHT_START_HHMM"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("NIGHT_END_DAY_TYPE"), gfn_nvl(returnData["NIGHT_END_DAY_TYPE"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("NIGHT_END_HHMM"), gfn_nvl(returnData["NIGHT_END_HHMM"]));
+                            bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("NIGHT_HOURS"), gfn_nvl(returnData["NIGHT_HOURS"]));
+                            bEventEnabled = true;
+                        } else {
+                            alert(data.resultMessage);
+                        }
+
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+            }
+        }
+    }
+
+    var fn_findDeptCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findEmpCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var replaceText0 	= "_DEPT_NAME_";
+        var replaceText1 	= "_EMP_NAME_";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+            },
+        });
+    }
 
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_initSBSelect();
@@ -682,16 +904,16 @@
         let rowVal = bandgvwInfo.getRow();
 
         var data = {
-            WORK_DATA_SOURCE : "B",
-            CHK_YN : "N",
-            HOLIDAY2_YN : "N",
-            BREAK_APPLY_YN : "N",
-            ALTER_WORK_YN : "N",
-            ALTER_REQ_YN : "N",
-            SHIFT_WORK_YN : "N",
-            DINNER_YN : "N",
-            VACCINE_WORK_YN : "N",
-            MODIFIED_YN : "N",
+            WORK_DATA_SOURCE : 'B',
+            CHK_YN : 'N',
+            HOLIDAY2_YN : 'N',
+            BREAK_APPLY_YN : 'N',
+            ALTER_WORK_YN : 'N',
+            ALTER_REQ_YN : 'N',
+            SHIFT_WORK_YN : 'N',
+            DINNER_YN : 'N',
+            VACCINE_WORK_YN : 'N',
+            MODIFIED_YN : 'N',
         };
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
@@ -823,18 +1045,337 @@
     }
 
     const fn_save = async function () {
+        let updatedData = bandgvwInfo.getUpdateData(true, 'all');
+        let returnData = [];
 
+        updatedData.forEach((item, index) => {
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == "" ? 0 : parseInt(item.data.TXN_ID),
+                    V_P_SEQ_NO : gfn_nvl(item.data.SEQ_NO) == "" ? 0 : parseInt(item.data.SEQ_NO),
+                    V_P_SITE_CODE : item.data.SITE_CODE,
+                    V_P_DEPT_CODE : item.data.DEPT_CODE,
+                    V_P_POSITION_CODE : item.data.POSITION_CODE,
+                    V_P_WORK_PATTERN_CODE : item.data.WORK_PATTERN_CODE,
+                    V_P_SHIFT_CODE : item.data.SHIFT_CODE,
+                    V_P_EMP_CODE : item.data.EMP_CODE,
+                    V_P_BASE_YYYYMMDD : item.data.BASE_YYYYMMDD,
+                    V_P_WORK_YYYYMMDD : item.data.WORK_YYYYMMDD,
+                    V_P_ACCT_YYYYMMDD : item.data.ACCT_YYYYMMDD,
+                    V_P_HOLIDAY_YN : item.data.HOLIDAY_YN,
+                    V_P_HOLIDAY2_YN : item.data.HOLIDAY2_YN,
+                    V_P_WORK_DAY_TYPE : item.data.WORK_DAY_TYPE,
+                    V_P_TIME_ITEM_CODE : item.data.TIME_ITEM_CODE,
+                    V_P_TIME_ITEM_CODE_ORIG : item.data.TIME_ITEM_CODE_ORIG,
+                    V_P_START_DAY_TYPE : item.data.START_DAY_TYPE,
+                    V_P_TIME_START_HHMM : item.data.TIME_START_HHMM.replace(":", ""),
+                    V_P_END_DAY_TYPE : item.data.END_DAY_TYPE,
+                    V_P_TIME_END_HHMM : item.data.TIME_END_HHMM,
+                    V_P_CONFIRM_TIME : item.data.CONFIRM_TIME,
+                    V_P_CONFIRM_YN : item.data.CONFIRM_YN,
+                    V_P_MEMO : item.data.MEMO,
+                    V_P_CAUSE : item.data.CAUSE,
+                    V_P_STATUS_CODE : item.data.STATUS_CODE,
+                    V_P_APPROVE_DATE : item.data.APPROVE_DATE,
+                    V_P_SOURCE_TYPE : item.data.SOURCE_TYPE,
+                    V_P_SOURCE_CODE : item.data.SOURCE_CODE,
+                    V_P_NIGHT_TIME_ITEM_CODE : item.data.NIGHT_TIME_ITEM_CODE,
+                    V_P_NIGHT_START_DAY_TYPE : item.data.NIGHT_START_DAY_TYPE,
+                    V_P_NIGHT_START_HHMM : item.data.NIGHT_START_HHMM.replace(":", ""),
+                    V_P_NIGHT_END_DAY_TYPE : item.data.NIGHT_END_DAY_TYPE,
+                    V_P_NIGHT_END_HHMM : item.data.NIGHT_END_HHMM.replace(":", ""),
+                    V_P_WORK_DATA_SOURCE : item.data.WORK_DATA_SOURCE,
+                    V_P_TXN_ID_D : '',
+                    V_P_VACCINE_WORK_YN : item.data.VACCINE_WORK_YN,
+                    V_P_BREAK_APPLY_YN : item.data.BREAK_APPLY_YN,
+                    V_P_ALTER_WORK_YN : item.data.ALTER_WORK_YN,
+                    V_P_ALTER_REQ_YN : item.data.ALTER_REQ_YN,
+                    V_P_SHIFT_WORK_YN : item.data.SHIFT_WORK_YN,
+                    V_P_BREAK_START_DAY_TYPE1 : item.data.BREAK_START_DAY_TYPE1,
+                    V_P_BREAK_START_HHMM1 : item.data.BREAK_START_HHMM1,
+                    V_P_BREAK_END_DAY_TYPE1 : item.data.BREAK_END_DAY_TYPE1,
+                    V_P_BREAK_END_HHMM1 : item.data.BREAK_END_HHMM1,
+                    V_P_DINNER_YN : item.data.DINNER_YN,
+                    V_P_FORM_ID : p_formId.toUpperCase(),
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
+        });
+
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
     }
 
     const fn_allSave = async function () {
         if (jsonEmpList.length > 0) {
-            if (gfn_comConfirm("일괄저장하시겠습니까?")) {
+            if (gfn_comConfirm("Q0000", "일괄저장하시겠습니까?")) {
                 fn_save();
             }
         }
     }
 
-    const fn_delete = async function () {}
+    const fn_delete = async function () {
+        let gvwShiftCheckedList = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
+        let bandgvwInfoCheckedList = bandgvwInfo.getCheckedRows(bandgvwInfo.getColRef("CHK_YN"), true);
+
+        if(gvwShiftCheckedList.length == 0 && bandgvwInfoCheckedList.length == 0) {
+            return;
+        }
+
+        if (gfn_comConfirm("Q0000", "선택된 사원의 일근태를 정말 삭제하시겠습니까?")) {
+            if (gvwShiftCheckedList.length > 0) {
+                for (var i = 0; i < gvwShiftCheckedList.length; i++) {
+                    let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+                    let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfnma_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("DEPT_CODE")));
+                    let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                    let EMP_CODE = gfnma_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("EMP_CODE")));
+                    let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN	: '',
+                        V_P_LANG_ID		: '',
+                        V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                        V_P_YYYYMMDD_FR : YYYYMMDD_FR,
+                        V_P_YYYYMMDD_TO : YYYYMMDD_TO,
+                        V_P_SITE_CODE : SITE_CODE,
+                        V_P_DEPT_CODE : DEPT_CODE,
+                        V_P_JOB_GROUP : JOB_GROUP,
+                        V_P_EMP_CODE : EMP_CODE,
+                        V_P_EMP_STATE : EMP_STATE,
+                        V_P_LOGIN_DEPT_CODE : '',
+                        V_P_HR_MANAGER_YN : '',
+                        V_P_FORMID : "HRT2320",
+                        V_P_FORM_ID		: p_formId,
+                        V_P_MENU_ID		: p_menuId,
+                        V_P_PROC_ID		: '',
+                        V_P_USERID			: '',
+                        V_P_PC				: ''
+                    };
+
+                    const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2320List.do", {
+                        getType				: 'json',
+                        workType			: 'DETAIL',
+                        cv_count			: '2',
+                        params				: gfnma_objectToString(paramObj)
+                    });
+
+                    const listData = await postJsonPromiseForList;
+                    console.log('data:', listData);
+
+                    try {
+                        if (_.isEqual("S", listData.resultStatus)) {
+                            let strtxn_id = "";
+
+                            if(listData.cv_2.length > 0) {
+                                listData.cv_2.forEach((item, index) => {
+                                    strtxn_id += item.TXN_ID + "|";
+                                });
+
+                                var paramObj = {
+                                    V_P_DEBUG_MODE_YN	: '',
+                                    V_P_LANG_ID		: '',
+                                    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                                    V_P_TXN_ID : '0',
+                                    V_P_SEQ_NO : '0',
+                                    V_P_SITE_CODE : '',
+                                    V_P_DEPT_CODE : '',
+                                    V_P_POSITION_CODE : '',
+                                    V_P_WORK_PATTERN_CODE : '',
+                                    V_P_SHIFT_CODE : '',
+                                    V_P_EMP_CODE : '',
+                                    V_P_BASE_YYYYMMDD : '',
+                                    V_P_WORK_YYYYMMDD : '',
+                                    V_P_ACCT_YYYYMMDD : '',
+                                    V_P_HOLIDAY_YN : '',
+                                    V_P_HOLIDAY2_YN : '',
+                                    V_P_WORK_DAY_TYPE : '',
+                                    V_P_TIME_ITEM_CODE : '',
+                                    V_P_TIME_ITEM_CODE_ORIG : '',
+                                    V_P_START_DAY_TYPE : '',
+                                    V_P_TIME_START_HHMM : '',
+                                    V_P_END_DAY_TYPE : '',
+                                    V_P_TIME_END_HHMM : '',
+                                    V_P_CONFIRM_TIME : '',
+                                    V_P_CONFIRM_YN : '',
+                                    V_P_MEMO : '',
+                                    V_P_CAUSE : '',
+                                    V_P_STATUS_CODE : '',
+                                    V_P_APPROVE_DATE : '',
+                                    V_P_SOURCE_TYPE : '',
+                                    V_P_SOURCE_CODE : '',
+                                    V_P_NIGHT_TIME_ITEM_CODE : '',
+                                    V_P_NIGHT_START_DAY_TYPE : '',
+                                    V_P_NIGHT_START_HHMM : '',
+                                    V_P_NIGHT_END_DAY_TYPE : '',
+                                    V_P_NIGHT_END_HHMM : '',
+                                    V_P_WORK_DATA_SOURCE : '',
+                                    V_P_TXN_ID_D : strtxn_id,
+                                    V_P_VACCINE_WORK_YN : '',
+                                    V_P_BREAK_APPLY_YN : '',
+                                    V_P_ALTER_WORK_YN : '',
+                                    V_P_ALTER_REQ_YN : '',
+                                    V_P_SHIFT_WORK_YN : '',
+                                    V_P_BREAK_START_DAY_TYPE1 : '',
+                                    V_P_BREAK_START_HHMM1 : '',
+                                    V_P_BREAK_END_DAY_TYPE1 : '',
+                                    V_P_BREAK_END_HHMM1 : '',
+                                    V_P_DINNER_YN : '',
+                                    V_P_FORM_ID		: p_formId.toUpperCase(),
+                                    V_P_MENU_ID		: p_menuId,
+                                    V_P_PROC_ID		: '',
+                                    V_P_USERID			: '',
+                                    V_P_PC				: ''
+                                };
+
+                                const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                                    getType				: 'json',
+                                    workType			: 'DELETE',
+                                    cv_count			: '0',
+                                    params				: gfnma_objectToString(paramObj)
+                                });
+
+                                const data = await postJsonPromise;
+                                console.log('data:', data);
+
+                                if (_.isEqual("S", data.resultStatus)) {
+                                } else {
+                                    alert(data.resultMessage);
+                                }
+                            } else {
+                                gfn_comAlert("E0000","확정되어 있어 삭제할 수 없습니다.");
+                                return false;
+                            }
+                        } else {
+                            alert(listData.resultMessage);
+                        }
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+            } else {
+                let temp_txn_id = "";
+
+                if (bandgvwInfoCheckedList.length > 0) {
+                    bandgvwInfoCheckedList.forEach((item, index) => {
+                        temp_txn_id += bandgvwInfo.getCellData(item, bandgvwInfo.getColRef("TXN_ID")) + "|";
+                    })
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN	: '',
+                        V_P_LANG_ID		: '',
+                        V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                        V_P_TXN_ID : '0',
+                        V_P_SEQ_NO : '0',
+                        V_P_SITE_CODE : '',
+                        V_P_DEPT_CODE : '',
+                        V_P_POSITION_CODE : '',
+                        V_P_WORK_PATTERN_CODE : '',
+                        V_P_SHIFT_CODE : '',
+                        V_P_EMP_CODE : '',
+                        V_P_BASE_YYYYMMDD : '',
+                        V_P_WORK_YYYYMMDD : '',
+                        V_P_ACCT_YYYYMMDD : '',
+                        V_P_HOLIDAY_YN : '',
+                        V_P_HOLIDAY2_YN : '',
+                        V_P_WORK_DAY_TYPE : '',
+                        V_P_TIME_ITEM_CODE : '',
+                        V_P_TIME_ITEM_CODE_ORIG : '',
+                        V_P_START_DAY_TYPE : '',
+                        V_P_TIME_START_HHMM : '',
+                        V_P_END_DAY_TYPE : '',
+                        V_P_TIME_END_HHMM : '',
+                        V_P_CONFIRM_TIME : '',
+                        V_P_CONFIRM_YN : '',
+                        V_P_MEMO : '',
+                        V_P_CAUSE : '',
+                        V_P_STATUS_CODE : '',
+                        V_P_APPROVE_DATE : '',
+                        V_P_SOURCE_TYPE : '',
+                        V_P_SOURCE_CODE : '',
+                        V_P_NIGHT_TIME_ITEM_CODE : '',
+                        V_P_NIGHT_START_DAY_TYPE : '',
+                        V_P_NIGHT_START_HHMM : '',
+                        V_P_NIGHT_END_DAY_TYPE : '',
+                        V_P_NIGHT_END_HHMM : '',
+                        V_P_WORK_DATA_SOURCE : '',
+                        V_P_TXN_ID_D : temp_txn_id,
+                        V_P_VACCINE_WORK_YN : '',
+                        V_P_BREAK_APPLY_YN : '',
+                        V_P_ALTER_WORK_YN : '',
+                        V_P_ALTER_REQ_YN : '',
+                        V_P_SHIFT_WORK_YN : '',
+                        V_P_BREAK_START_DAY_TYPE1 : '',
+                        V_P_BREAK_START_HHMM1 : '',
+                        V_P_BREAK_END_DAY_TYPE1 : '',
+                        V_P_BREAK_END_HHMM1 : '',
+                        V_P_DINNER_YN : '',
+                        V_P_FORM_ID		: p_formId.toUpperCase(),
+                        V_P_MENU_ID		: p_menuId,
+                        V_P_PROC_ID		: '',
+                        V_P_USERID			: '',
+                        V_P_PC				: ''
+                    };
+
+                    const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                        getType				: 'json',
+                        workType			: 'DELETE',
+                        cv_count			: '0',
+                        params				: gfnma_objectToString(paramObj)
+                    });
+
+                    const data = await postJsonPromise;
+                    console.log('data:', data);
+
+                    if (_.isEqual("S", data.resultStatus)) {
+                    } else {
+                        alert(data.resultMessage);
+                    }
+                } else {
+                    gfn_comAlert("E0000", "삭제할 데이타가 없습니다.")
+                }
+            }
+            gfn_comAlert("I0001");
+            fn_search();
+            fn_view();
+        }
+    }
 
     const fn_search = async function () {
         let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
@@ -918,6 +1459,7 @@
     const fn_view = async function () {
         var nRow = gvwShift.getRow();
         var rowData = gvwShift.getRowData(nRow);
+
         let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
         let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
         let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
@@ -1054,7 +1596,7 @@
     }
 
     const fn_apprCancel = async function() {
-        if (gfn_comConfirm("기존 승인된 근태실적을 취소하시겠습니까?")) {
+        if (gfn_comConfirm("Q0000", "기존 승인된 근태실적을 취소하시겠습니까?")) {
             var nRow = bandgvwInfo.getRow();
             let temp_txn_id = "";
             let IntRowCount = 0;
@@ -1123,14 +1665,14 @@
                 V_P_BREAK_END_DAY_TYPE1 : '',
                 V_P_BREAK_END_HHMM1 : '',
                 V_P_DINNER_YN : '',
-                V_P_FORM_ID		: p_formId,
+                V_P_FORM_ID		: p_formId.toUpperCase(),
                 V_P_MENU_ID		: p_menuId,
                 V_P_PROC_ID		: '',
                 V_P_USERID			: '',
                 V_P_PC				: ''
             };
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/confirmHrt2320.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
                 getType				: 'json',
                 workType			: 'APPRCANCEL',
                 cv_count			: '0',
@@ -1260,14 +1802,14 @@
                                 V_P_BREAK_END_DAY_TYPE1 : '',
                                 V_P_BREAK_END_HHMM1 : '',
                                 V_P_DINNER_YN : '',
-                                V_P_FORM_ID		: p_formId,
+                                V_P_FORM_ID		: p_formId.toUpperCase(),
                                 V_P_MENU_ID		: p_menuId,
                                 V_P_PROC_ID		: '',
                                 V_P_USERID			: '',
                                 V_P_PC				: ''
                             };
 
-                            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/confirmHrt2320.do", {
+                            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
                                 getType				: 'json',
                                 workType			: 'CONFIRM',
                                 cv_count			: '0',
@@ -1368,14 +1910,14 @@
                 V_P_BREAK_END_DAY_TYPE1 : '',
                 V_P_BREAK_END_HHMM1 : '',
                 V_P_DINNER_YN : '',
-                V_P_FORM_ID		: p_formId,
+                V_P_FORM_ID		: p_formId.toUpperCase(),
                 V_P_MENU_ID		: p_menuId,
                 V_P_PROC_ID		: '',
                 V_P_USERID			: '',
                 V_P_PC				: ''
             };
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/confirmHrt2320.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
                 getType				: 'json',
                 workType			: 'CONFIRM',
                 cv_count			: '0',
@@ -1504,14 +2046,14 @@
                                 V_P_BREAK_END_DAY_TYPE1 : '',
                                 V_P_BREAK_END_HHMM1 : '',
                                 V_P_DINNER_YN : '',
-                                V_P_FORM_ID		: p_formId,
+                                V_P_FORM_ID		: p_formId.toUpperCase(),
                                 V_P_MENU_ID		: p_menuId,
                                 V_P_PROC_ID		: '',
                                 V_P_USERID			: '',
                                 V_P_PC				: ''
                             };
 
-                            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/confirmHrt2320.do", {
+                            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
                                 getType				: 'json',
                                 workType			: 'APPRCANCEL',
                                 cv_count			: '0',
@@ -1612,14 +2154,14 @@
                 V_P_BREAK_END_DAY_TYPE1 : '',
                 V_P_BREAK_END_HHMM1 : '',
                 V_P_DINNER_YN : '',
-                V_P_FORM_ID		: p_formId,
+                V_P_FORM_ID		: p_formId.toUpperCase(),
                 V_P_MENU_ID		: p_menuId,
                 V_P_PROC_ID		: '',
                 V_P_USERID			: '',
                 V_P_PC				: ''
             };
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/confirmHrt2320.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
                 getType				: 'json',
                 workType			: 'APPRCANCEL',
                 cv_count			: '0',

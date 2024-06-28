@@ -66,34 +66,4 @@ public class ApcMaHrt2320Controller extends BaseController {
             return getSuccessResponseEntity(resultMap);
         }
     }
-
-    @PostMapping(value = "/hr/hrt/hrt/confirmHrt2320.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> confirmHrt2320(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============confirmHrt2320=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            param.put("procedure", 		"P_HRT2310_S");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============confirmHrt2320=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
-    }
 }
