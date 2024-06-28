@@ -207,4 +207,21 @@ public interface ComUserService {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectUserPrdcrList(HashMap<String, Object> comUserVO) throws Exception;
+
+    /**
+     * 생산농가 계정관리 조회
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> selectUserAprv(HashMap<String,Object> aprvUserList) throws Exception;
+
+
+    /**
+     * 생산농가 계정관리 삭제
+     * @param hashMap
+     * @return
+     * @throws Exception
+     */
+    public int delComUserAprv(HashMap<String,Object> comUserVO) throws Exception;
 }

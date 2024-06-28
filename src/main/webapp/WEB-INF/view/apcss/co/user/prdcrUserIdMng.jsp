@@ -126,6 +126,25 @@
 							<ul class="ad_tbl_count">
 								<li><span>요청목록</span></li>
 							</ul>
+								<div class="ad_tbl_toplist">
+											<td class="td_input" style="border-right:hidden; border-left: hidden;">
+												<sbux-button
+													id="btnUserAdd"
+													name="btnUserAdd"
+													uitype="normal"
+													text="요청추가"
+													class="btn btn-sm btn-outline-danger"
+													onclick="fn_userAdd()"
+												></sbux-button>
+												<sbux-button
+													id="btnUserDel"
+													name="btnUserDel"
+													uitype="normal"
+													text="선택삭제"
+													class="btn btn-sm btn-outline-danger"
+													onclick="fn_userDel()"
+												></sbux-button>
+								</div>
 						</div>
 						<div>
 							<div id="sb-area-comUserPrdcrNotAprv" style="height:540px; width:100%;"></div>
@@ -136,6 +155,23 @@
         </div>
 	</div>
 </section>
+
+<!-- 생산자 팝업 -->
+	<div>
+        <sbux-modal
+        	id="modal-apcUserInfo"
+        	name="modal-apcUserInfo"
+        	uitype="middle"
+        	header-title="사용자선택"
+        	body-html-id="body-modal-apcUserInfo"
+        	footer-is-close-button="false"
+        	header-is-close-button="false"
+        	style="width:1000px"
+       	></sbux-modal>
+    </div>
+    <div id="body-modal-apcUserInfo">
+    	<jsp:include page="../../am/popup/apcUserInfoPopup.jsp"></jsp:include>
+    </div>
 </body>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
@@ -237,14 +273,17 @@
         	{caption: ["ID"],		ref: 'userId',	type: 'output',		width: '100px',	style: 'text-align:center'},
             {caption: ["사용자명"],		ref: 'userNm',	type: 'output',		width: '100px',	style: 'text-align:center'},
             //{caption: ["생산자코드"],	ref: 'prdcrCd',     		type:'input',  	width: '100px',	style: 'text-align:center'},
-            {caption: ["APC"],	ref: 'apcNm',     		type:'input',  	width: '100px',	style: 'text-align:center'},
+            //{caption: ["APC"],	ref: 'apcCd',     		type:'combo',type : 'combo', width: '200px',	style: 'text-align:center', typeinfo :{ ref : 'cjsonApcList', displayui : true, label : 'apcNm', value : 'apcCd'} },
+            {caption: ["APC명"],	ref: 'apcNm',     		type:'output', width: '200px',	style: 'text-align:center'},
             {caption: ["메일주소"],		ref: 'eml',	type: 'output',		width: '100px',	style: 'text-align:center'},
             {caption: ["전화번호"],	ref: 'telno',	type: 'output',		width: '150px',	style: 'text-align:center'},
             {caption: ["비고"],	ref: 'rmrk',	type: 'output',		width: '400px',	style: 'text-align:center'},
+            {caption: ["apc코드"],	ref: 'apcCd',     		type:'input',  	hidden: true}
 
-            {caption: ["apc코드"],	ref: 'apcCd',     		type:'input',  	hidden: true},
+
         ];
 	    grdComUserPrdcrNotAprv = _SBGrid.create(SBGridProperties);
+	    grdComUserPrdcrNotAprv.bind('click',fn_apcUserInfoPopup);
     }
 
 
@@ -327,20 +366,39 @@
     // 요청목록에서 승인
     const fn_aprvYupdate = async function() {
 
-    	const comUserNotAprv = grdComUserPrdcrNotAprv.getRowData(grdComUserPrdcrNotAprv.getRow());
-    	const comUserAprv = grdComUserPrdcrAprv.getRowData(grdComUserPrdcrAprv.getRow());
+    	let comUserNotAprv = grdComUserPrdcrNotAprv.getRowData(grdComUserPrdcrNotAprv.getRow());
+    	let comUserAprv = grdComUserPrdcrAprv.getRowData(grdComUserPrdcrAprv.getRow());
+		let rowStatus =  grdComUserPrdcrNotAprv.getRowStatus(grdComUserPrdcrNotAprv.getRow());
+
+		if(comUserAprv === undefined){
+			gfn_comAlert("W0003","저장");
+			return;
+		}
+
     	var prdcrCd = comUserAprv.prdcrCd;
     	var prdcrNm = comUserAprv.prdcrNm;
     	var userId = comUserNotAprv.userId;
-    	if(prdcrCd === ""){
-    		console.log("생산자코드 입력하세요");
+    	var userNm = comUserNotAprv.userNm;
+    	var notAprvApcCd = comUserNotAprv.apcCd;
+    	var aprvApcCd = comUserAprv.apcCd;
+
+    	if(userId === ""){
+    		gfn_comAlert("W0005","ID");
     		return;
     	}
+
+    	//if(notAprvApcCd !== aprvApcCd){
+    	//	gfn_comAlert("W0006","생산자APC","계정APC");
+    	//	return;
+    	//}
+
+
    		const param = {
     			apcCd : comUserNotAprv.apcCd
     			, userId : userId
     			, aprvYn : "Y"
     			, prdcrCd : comUserAprv.prdcrCd
+    			, rowStatus : rowStatus
     	}
 
    		if(!confirm("요청목록 계정 : "+userId + "\n 생산자 : "+prdcrCd + "," +  prdcrNm + "\n 승인하시겠습니까?")){
@@ -370,8 +428,9 @@
     }
 
     const fn_aprvNupdate = async function() {
+    	let rowIndex = grdComUserPrdcrAprv.getRow();
+    	let comUserAprv = grdComUserPrdcrAprv.getRowData(rowIndex);
 
-    	const comUserAprv = grdComUserPrdcrAprv.getRowData(grdComUserPrdcrAprv.getRow());
 		if(comUserAprv.userId === undefined){
 			gfn_comAlert("W0003","해제");
 			return;
@@ -379,7 +438,8 @@
     	const param = {
     			apcCd : comUserAprv.apcCd ,
     			userId : comUserAprv.userId,
-    			aprvYn : "N"
+    			aprvYn : "N",
+    			rowStatus : 2
     	}
 
 
@@ -405,7 +465,68 @@
         }
     }
 
+    const fn_userAdd = function(){
+    	grdComUserPrdcrNotAprv.addRow();
+    }
 
+    const fn_userDel = async function(){
+    	let rowIndex = grdComUserPrdcrNotAprv.getRow();
+    	let rowData = grdComUserPrdcrNotAprv.getRowData(rowIndex);
+    	let rowStatus =  grdComUserPrdcrNotAprv.getRowStatus(rowIndex);
+
+    	const param = {
+    			apcCd : rowData.apcCd ,
+    			userId : rowData.userId,
+    			prdcrCd : rowData.prdcrCd
+    	}
+
+    	if (gfn_comConfirm("Q0001", "삭제")) {
+        	const postJsonPromise = gfn_postJSON("/co/user/delComUserAprv.do", param);	// 프로그램id 추가
+			const data = await postJsonPromise;
+	        try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		fn_callComUserPrdcrAprvList();
+
+	        	} else {
+		        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+	        finally{
+	        	grdComUserPrdcrNotAprv.deleteRow(rowIndex);
+	        }
+        }
+    }
+
+    /** 사용자정보 팝업함수 **/
+    const fn_apcUserInfoPopup = function(){
+    	let colIndex = grdComUserPrdcrNotAprv.getColRef("userId");
+   	 	let rowIndex = grdComUserPrdcrNotAprv.getRow();
+   	 	let cellData = grdComUserPrdcrNotAprv.getCellData(rowIndex, colIndex);
+	   	 if(cellData === ""){
+	   		 SBUxMethod.openModal('modal-apcUserInfo');
+	   		 popApcUserInfo.init(fn_setApcUserInfo);
+	   	 }
+    }
+
+    const fn_setApcUserInfo = function(data){
+   	 	let rowIndex = grdComUserPrdcrNotAprv.getRow();
+
+   	 	var objRowData =	{
+   				apcCd	:	data.apcCd,
+   				userNm	:	data.userNm,
+   				userId    :  data.userId,
+   				apcNm  : data.apcNm
+   			};
+
+   	 	grdComUserPrdcrNotAprv.setRowData(rowIndex, objRowData, true);
+    }
 
 
 

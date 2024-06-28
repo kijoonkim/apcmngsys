@@ -119,6 +119,9 @@ public interface ComUserMapper {
     public int updatePrdcrUserId(HashMap<String, Object> comUserVO);
     public List<HashMap<String, Object>> selectComUserAprvList(HashMap<String, Object> comUserVO) throws Exception;
     public int deletePrdcrUserId(HashMap<String,Object> comUserVO);
+
+    public HashMap<String,Object> selectUserAprv(HashMap<String,Object> comUser);
+    public int delComUserAprv(HashMap<String,Object> comUser);
 }
 
 

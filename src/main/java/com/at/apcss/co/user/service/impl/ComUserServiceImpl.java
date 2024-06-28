@@ -414,4 +414,17 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
         return resultVO;
     }
 
+    @Override
+	public HashMap<String, Object> selectUserAprv(HashMap<String,Object> aprvUserList) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		rtnObj = comUserMapper.selectUserAprv(aprvUserList);
+		return rtnObj;
+	}
+
+    @Override
+	public int delComUserAprv(HashMap<String,Object> comUserVO) throws Exception {
+		int rtnObj = comUserMapper.delComUserAprv(comUserVO);
+		return rtnObj;
+	}
+
 }
