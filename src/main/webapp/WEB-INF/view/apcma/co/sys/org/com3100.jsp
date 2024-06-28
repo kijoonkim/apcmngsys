@@ -246,10 +246,22 @@
                                 
                             </table>
                             
-			                <div style="width:100%;display:flex;float:right;padding-top:35px;padding-bottom:15px">
+                            <br>
+                            <p>테스트</p>
+                            
+                            <hr>
+                            <p style="font-weight:bold;color:blue" >* 사진 및 싸인첨부 테스트</p>
+			                <div style="width:100%;display:flex;float:right;padding-top:5px;padding-bottom:15px">
 				                <input type="file" name="file" id="fileId">
 			                    <sbux-button uitype="normal" text="사진(싸인첨부)" 	class="btn btn-sm btn-outline-danger" onclick="fn_imgUpload"></sbux-button>
 			                </div>
+                            <br>
+                            
+                            <p style="font-weight:bold;color:blue" >* 복수코드 팝업</p>
+			                <div style="width:100%;display:flex;float:right;padding-top:5px;padding-bottom:15px">
+			                    <sbux-button uitype="normal" text="복수코드 팝업" 	class="btn btn-sm btn-outline-danger" onclick="fn_compopup4"></sbux-button>
+			                </div>
+                            <br>
                             
                         </div>
                     </div>
@@ -265,6 +277,14 @@
     </div>
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+    </div>
+    
+	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopup3">
+    	<jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
     </div>
     
 </body>
@@ -689,9 +709,6 @@
      */
     var fn_compopup3 = function() {
     	
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
-        
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
@@ -716,6 +733,23 @@
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
   	}
 
+    /**
+     * 복수코드 팝업
+     */
+    var fn_compopup4 = function() {
+    	
+    	SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+		SBUxMethod.openModal('modal-compopup3');
+		
+    	compopup3({
+    		height			: '400px'
+   			,callbackEvent	: function (data){
+   				console.log('callback data:', data);
+   			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+  	}    
+    
     //신규 작성
     function cfn_add() {
     	

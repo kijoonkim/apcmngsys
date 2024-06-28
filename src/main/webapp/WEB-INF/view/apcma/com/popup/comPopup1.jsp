@@ -275,11 +275,13 @@ function compopup1(options) {
     };
 	
 	//search button event
+	$(modalId).find('.cu-btn-sch-compopup1').off('click');
 	$(modalId).find('.cu-btn-sch-compopup1').click(function(){
     	getData();
 	});
 	
 	//close event
+	$(modalId).find('.cu-btn-close-compopup1').off('click');
 	$(modalId).find('.cu-btn-close-compopup1').click(function(){
 	 	SBUxMethod.closeModal(modalDivId);
 	});	
