@@ -2530,9 +2530,7 @@
 
                                     try {
                                         if (_.isEqual("S", leadData.resultStatus)) {
-                                            if (leadData.resultMessage) {
-                                                alert(leadData.resultMessage);
-                                            }
+                                            gfn_comAlert("I0001");
                                             cfn_search();
                                         } else {
                                             alert(leadData.resultMessage);
@@ -2644,9 +2642,7 @@
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }
+                    gfn_comAlert("I0001");
                     cfn_search();
                 } else {
                     alert(data.resultMessage);

@@ -2057,9 +2057,7 @@
 
                             try {
                                 if (_.isEqual("S", detailData.resultStatus)) {
-                                    if (detailData.resultMessage) {
-                                        alert(detailData.resultMessage);
-                                    }
+                                    gfn_comAlert("I0001");
                                     cfn_search();
                                 } else {
                                     alert(detailData.resultMessage);

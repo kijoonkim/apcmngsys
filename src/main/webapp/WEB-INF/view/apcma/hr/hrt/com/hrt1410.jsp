@@ -1234,7 +1234,10 @@
 
             try {
                 if (_.isEqual("S", empData.resultStatus)) {
-                    if(returnPatternData.length <= 0) fn_search();
+                    if(returnPatternData.length <= 0) {
+                        gfn_comAlert("I0001");
+                        fn_search();
+                    }
                 } else {
                     alert(empData.resultMessage);
                 }

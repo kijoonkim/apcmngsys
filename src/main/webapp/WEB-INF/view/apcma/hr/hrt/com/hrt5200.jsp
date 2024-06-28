@@ -954,7 +954,7 @@
             console.log('data:', data);
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    alert(data.resultMessage);
+                    gfn_comAlert("I0001");
                     fn_search();
                 } else {
                     alert(data.resultMessage);
