@@ -669,8 +669,8 @@
                     is-expand-only-select="true"
                     callback-slide-button="fn_SlideButton"
                     onclick="fn_selectMenu('LEFT', 'side_menu')"
-<%--                    vertical-scroll-height="800px"--%>
-<%--                    vertical-scroll-placement="left"--%>
+                    vertical-scroll-height="800px"
+                    vertical-scroll-placement="left"
                 ></sbux-sidemenu>
             </div>
         </div>
@@ -821,6 +821,7 @@
         initMain();
         var iframe = document.getElementById('idxfrmJson');
         iframe.scrolling = 'auto';
+        $("#idxSide_menu > div.sbux-sidemeu-slide-btn").style("z-index",1000);
         
         mfn_displayButton();
         
@@ -1259,6 +1260,14 @@
 						true
 					);
 		        const data = await postJsonPromise;
+                data.resultList.forEach(function (item) {
+                    for (let key in item) {
+                        if (item[key] == null) {
+                            delete item[key];
+                        }
+                    }
+                });
+                console.log(data.resultList,"??");
 		        try {
 		        	data.resultList.forEach((item, index) => {
 		        		
