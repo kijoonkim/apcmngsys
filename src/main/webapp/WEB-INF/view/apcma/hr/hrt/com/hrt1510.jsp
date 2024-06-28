@@ -176,13 +176,14 @@
                                 uitype="normal"
                                 class="form-control input-sm"
                                 text="복수선택"
+                                true-value="Y" false-value="N"
                         />
                     </th>
                     <td class="td_input">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="복수선택" uitype="modal"
-                                target-id="modal-compopup1"
+                                target-id="modal-compopup3"
                                 onclick="fn_multiSelect"
                         ></sbux-button>
                     </td>
@@ -240,6 +241,13 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
+
+<div>
+    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup3">
+    <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
+</div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -249,6 +257,8 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     //-----------------------------------------------------------
+
+    var strEmpCodeList = "";
 
     var jsonShiftCode = []; // 교대조
     var jsonWorkPatternCode = []; // 근무패턴
@@ -407,7 +417,27 @@
     }
 
     const fn_multiSelect = function() {
-        // TODO : 팝업 확인 필요
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strEmpCodeList = "";
+                data.forEach((item, index) => {
+                    strEmpCodeList += item + "|";
+                });
+
+                if (strEmpCodeList.length > 0)
+                    strEmpCodeList = strEmpCodeList.substring(0, strEmpCodeList.length - 1);
+
+                if (strEmpCodeList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
     }
 
     function fn_createGvwShiftGrid() {
@@ -829,7 +859,7 @@
         let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
-        let EMP_CODE_D = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE_D"));
+        let EMP_CODE_D = gfnma_nvl(strEmpCodeList);
         let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let WORK_TIME_YN = gfnma_nvl(SBUxMethod.get("SRCH_WORK_TIME_YN"));
         let JOB_GROUP = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_GROUP'));
