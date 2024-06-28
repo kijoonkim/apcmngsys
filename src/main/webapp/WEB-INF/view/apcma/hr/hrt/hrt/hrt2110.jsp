@@ -626,7 +626,7 @@
         var nCol = bandgvwInfo.getCol();
         var rowData = bandgvwInfo.getRowData(nRow);
 
-        if (bandgvwInfo.FocusedRowHandle < 0)
+        if (nRow < 0)
             return;
 
         if (bEventEnabled) {
@@ -897,12 +897,6 @@
                 console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
-                SBUxMethod.set('SITE_CODE2', data.SITE_CODE);
-                SBUxMethod.set('DEPT_CODE2', data.DEPT_CODE);
-                SBUxMethod.set('DEPT_NAME2', data.DEPT_NAME);
-                SBUxMethod.set('POSITION_CODE2', data.POSITION_CODE);
-                SBUxMethod.set('DUTY_CODE2', data.DUTY_CODE);
-                SBUxMethod.set('JOB_RANK2', data.JOB_RANK);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
