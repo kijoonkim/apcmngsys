@@ -288,12 +288,44 @@ public class ComUserController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
 		try {
+				comUser.put("sysFrstInptUserId",getUserId());
+				comUser.put("sysFrstInptPrgrmId",getPrgrmId());
 				comUser.put("sysLastChgUserId",getUserId());
 				comUser.put("sysLastChgPrgrmId",getPrgrmId());
+				HashMap<String, Object> check = comUserService.selectUserAprv(comUser);
+				String status = comUser.get("rowStatus").toString();
+				if(check == null &&  status.equals("1")) {
+					comUser.put("chk","I");
+					result += comUserService.savePrdcrUserId(comUser);
+				}else {
+					result += comUserService.updateUserAprv(comUser);
+				}
 
-				result += comUserService.updateUserAprv(comUser);
 
 
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put("result", result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	@PostMapping(value = "/co/user/delComUserAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> delComUserAprv(@RequestBody HashMap<String,Object> comUser, HttpServletRequest request) throws Exception {
+		//update 하는 리스트, 기능 구현하기
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+		try {							
+				result += comUserService.delComUserAprv(comUser);
 
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
