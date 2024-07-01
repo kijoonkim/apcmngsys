@@ -192,7 +192,7 @@
 							<td colspan="4" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_1" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="3"></sbux-radio>
-									<sbux-label class="radio_label bold" for-id="dtl-rdo-wrhsSeCd_3" text="매취"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-wrhsSeCd_1" text="매취"></sbux-label>
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_2" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="2"></sbux-radio>
@@ -200,7 +200,7 @@
 								</p>
 								<p class="ad_input_row">
 									<sbux-radio id="dtl-rdo-wrhsSeCd_3" name="dtl-rdo-wrhsSeCd" uitype="normal" class="radio_label" value="1" checked></sbux-radio>
-									<sbux-label class="radio_label bold" for-id="dtl-rdo-wrhsSeCd_1" text="일반"></sbux-label>
+									<sbux-label class="radio_label bold" for-id="dtl-rdo-wrhsSeCd_3" text="일반"></sbux-label>
 								</p>
 							</td>
 							<th scope="row" class="th_bg">상품구분</th>
@@ -1402,11 +1402,18 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("dtl-inp-prdcrCd", value);
-		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btnSrchPrdcr').click();
+		} else{
+			SBUxMethod.set("dtl-inp-prdcrCd", value);
+			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
-		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
-		fn_setPrdcrForm(prdcr);
+			fn_setPrdcrForm(prdcr);
+			
+		}
 	}
 
 	/**
