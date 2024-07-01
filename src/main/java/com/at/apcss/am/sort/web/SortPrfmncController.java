@@ -59,7 +59,7 @@ public class SortPrfmncController extends BaseController {
 		List<SpmtPrfmncVO> resultInvntrList = new ArrayList<>();
 		GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
 		BeanUtils.copyProperties(sortPrfmncVO,gdsInvntrVO);
-		String pckgYmd = sortPrfmncVO.getInptYmdTo();
+		String pckgYmd = sortPrfmncVO.getInptYmd();
 		gdsInvntrVO.setPckgYmd(pckgYmd);
 
 		try {

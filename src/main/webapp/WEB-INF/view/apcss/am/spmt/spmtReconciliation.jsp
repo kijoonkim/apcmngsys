@@ -224,12 +224,10 @@
     const fn_search = async function(){
         /** grid clear **/
         jsonSortPrfmnc.length = 0;
-        let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmd");
-        let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmd");
+        let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
         const postJsonPromise = gfn_postJSON("/am/sort/selectSortPrfmncList.do", {
             apcCd: gv_selectedApcCd,
-            inptYmdFrom: inptYmdFrom,
-            inptYmdTo: inptYmdTo,
+            inptYmd: inptYmd,
         });
         const data = await postJsonPromise;
 

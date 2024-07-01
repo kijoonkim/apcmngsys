@@ -1003,6 +1003,7 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   color: #fff;
+  z-index: 1000;
 }
 .sbux-sidemeu-slide-btn i {
   display: table-cell;
