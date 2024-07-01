@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +23,7 @@ public class EgovJwtTokenUtil implements Serializable{
 
 	private static final long serialVersionUID = -5180902194184255251L;
 	//public static final long JWT_TOKEN_VALIDITY = 24 * 60 * 60; //하루
-	public static final long JWT_TOKEN_VALIDITY = (long) ((1 * 60 * 60) / 60) * 60; //토큰의 유효시간 설정, 기본 60분
+	public static final long JWT_TOKEN_VALIDITY = 1 * 60 * 60; //토큰의 유효시간 설정, 기본 60분
 	
 	@Value("egovframe")
     private String secret;
@@ -56,11 +58,11 @@ public class EgovJwtTokenUtil implements Serializable{
     //generate token for user
     public String generateToken(LoginVO loginVO) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, loginVO.getUserSe()+loginVO.getId());
+        return doGenerateToken(claims, loginVO.getId());
     }
 
     public String generateToken(LoginVO loginVO, Map<String, Object> claims) {
-        return doGenerateToken(claims, loginVO.getUserSe()+loginVO.getId());
+        return doGenerateToken(claims, loginVO.getId());
     }
     
 	//while creating the token -
@@ -71,14 +73,22 @@ public class EgovJwtTokenUtil implements Serializable{
     private String doGenerateToken(Map<String, Object> claims, String subject) {
     	System.out.println("===>>> secret = "+secret);
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+            .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000L))
             .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
     
     //validate token
     public Boolean validateToken(String token, LoginVO loginVO) {
         final String username = getUsernameFromToken(token);
-        return (username.equals(loginVO.getUserSe()+loginVO.getId()) && !isTokenExpired(token));
+        return (username.equals(loginVO.getId()) && !isTokenExpired(token));
     }
 
+    public String getTokenFromRequest(HttpServletRequest request) {
+		final String requestTokenHeader = request.getHeader("Authorization");
+		//siteID 값을 구한다.
+		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+			return requestTokenHeader.substring(7);
+		}else
+			return null;
+	}
 }

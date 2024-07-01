@@ -37,7 +37,7 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
-                    <sbux-button uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" onclick="cfn_approval"></sbux-button>
+                    <sbux-button uitype="normal" text="결재처리" 		class="btn btn-sm btn-outline-danger" onclick="cfn_approval"></sbux-button>
                 	<!-- 
                     <sbux-button uitype="normal" text="파일첨부" class="btn btn-sm btn-outline-danger" onclick="cfn_attach"></sbux-button>
                     <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
@@ -245,6 +245,24 @@
                                 </tr>
                                 
                             </table>
+                            
+                            <br>
+                            <p>테스트</p>
+                            
+                            <hr>
+                            <p style="font-weight:bold;color:blue" >* 사진 및 싸인첨부 테스트</p>
+			                <div style="width:100%;display:flex;float:right;padding-top:5px;padding-bottom:15px">
+				                <input type="file" name="file" id="fileId">
+			                    <sbux-button uitype="normal" text="사진(싸인첨부)" 	class="btn btn-sm btn-outline-danger" onclick="fn_imgUpload"></sbux-button>
+			                </div>
+                            <br>
+                            
+                            <p style="font-weight:bold;color:blue" >* 복수코드 팝업</p>
+			                <div style="width:100%;display:flex;float:right;padding-top:5px;padding-bottom:15px">
+			                    <sbux-button uitype="normal" text="복수코드 팝업" 	class="btn btn-sm btn-outline-danger" onclick="fn_compopup4"></sbux-button>
+			                </div>
+                            <br>
+                            
                         </div>
                     </div>
 
@@ -259,6 +277,14 @@
     </div>
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+    </div>
+    
+	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopup3">
+    	<jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
     </div>
     
 </body>
@@ -315,7 +341,15 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
+		
+    	//파일 업로드 evnet : sample
+   		gfnma_setFileChangeEvent({
+   			target			: '#fileId'
+   			,accessFile		: ['jpg','jpeg','png']	//파일 업로드 가능 종류 ( 파일 가능종류는 => limitFile : [] )
+   			,limitFile		: []					//파일 업로드 제함 종류 ( 파일 가능종류는 => accessFile : [] )
+   			,limitSizeMB	: 10
+   		});
+    	
     	fn_initSBSelect();
     	fn_createGrid();
     	cfn_search();
@@ -456,18 +490,14 @@
 	var lgv_apv_apprId		= '0';    				// 상신시:0, 승인(반려): 부모에서 온 값
 	var lgv_apv_sourceNo	= '2024-00062';    		// 부모에서 온값
 	var lgv_apv_sourceType 	= 'OIL';     			// 부모에서 온값
-	var p_empCd = '${loginVO.empCd}';	
+	var p_empCd 			= '${loginVO.empCd}';	
 	
     /**
      * 결재처리
      */
     var cfn_approval = function() {
     	
-    	var isHrManager = '${loginVO.isHrManager}';
-    	alert('isHrManager:' + isHrManager);
-    	return;
-    
-    	
+    	//본인이 상신하는 경우
     	compopappvmng({
     		workType		: 'TEMPLATE'	// 상신:TEMPLATE , 승인(반려):APPR
     		,compCode		: gv_ma_selectedApcCd
@@ -480,8 +510,85 @@
    			,formID			: p_formId
    			,menuId			: p_menuId    		
 		});
+    	
+    	//본인이 상신한 것을 조회하는 경우
+//     	compopappvmng({
+//     		workType		: 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+//      	,compCode		: gv_ma_selectedApcCd
+//        	,compCodeNm		: gv_ma_selectedApcNm
+//        	,clientCode		: gv_ma_selectedClntCd
+//        	,apprId			: '18'		
+//        	,sourceNo		: lgv_apv_sourceNo
+//        	,sourceType		: lgv_apv_sourceType
+//    		,empCode		: p_empCd
+//    		,formID			: p_formId
+//    		,menuId			: p_menuId    		
+// 		});
+    	
+    	//상위 결재권자가 조회 및 승인 할때
+//     	compopappvmng({
+//     		workType		: 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+//     		,compCode		: gv_ma_selectedApcCd
+//     		,compCodeNm		: gv_ma_selectedApcNm
+//     		,clientCode		: gv_ma_selectedClntCd
+//     		,apprId			: '18'		// 부모화면에서 결재자가 가지고 있는 값
+//        	,sourceNo		: lgv_apv_sourceNo
+//        	,sourceType		: lgv_apv_sourceType
+//    		,empCode		: '26223075'	//p_empCd
+//    		,formID			: p_formId
+//    		,menuId			: p_menuId    		
+// 		});
+    	
     }
 
+    /**
+     * 사진 및 싸인 업로드
+     */
+	const fn_imgUpload = async function() {
+    	
+		var my_empCd = '${loginVO.empCd}';	
+    	
+    	if($('#fileId').val()){
+    	} else {
+            gfn_comAlert("E0000", "사진 혹은 싸인을 선택하세요.");
+            return false;
+    	}
+    	
+    	var paramData 	= new FormData();
+    	paramData.append("files", 			document.getElementById('fileId').files[0]);	
+    	paramData.append("type", 			"1");		// 1:사진 , 2:싸인
+    	paramData.append("empCode", 		my_empCd);
+    	paramData.append("comp_code", 		gv_ma_selectedApcCd);
+    	paramData.append("client_code", 	gv_ma_selectedClntCd);
+    	paramData.append("formID", 			p_formId);
+    	paramData.append("menuId", 			p_menuId);
+
+    	const postJsonPromise = gfn_postFormData("/com/hrImageUpload.do", paramData);
+    	const data = await postJsonPromise;
+
+    	try {
+    		if (_.isEqual("S", data.resultStatus)) {
+    			if(data.resultMessage){
+    				alert(data.resultMessage);
+    			}
+    			gfn_comAlert("I0001");	
+				console.log('result =====>>>>>>>', data);    			
+    		} else {
+    			alert(data.resultMessage);
+    		}
+    	} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+    		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    	}    	
+    	
+    	//이미지(사진,싸인) 보여줄때
+    	// <img src="/com/getFileImage.do?fkey=fdf31133e11545f0b2f0ada67efcd5e8.png&comp_code=8888&client_code=100" />
+    	
+    }
+    
     /**
      * 목록 조회
      */
@@ -602,9 +709,6 @@
      */
     var fn_compopup3 = function() {
     	
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
-        
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
@@ -629,6 +733,23 @@
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
   	}
 
+    /**
+     * 복수코드 팝업
+     */
+    var fn_compopup4 = function() {
+    	
+    	SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+		SBUxMethod.openModal('modal-compopup3');
+		
+    	compopup3({
+    		height			: '400px'
+   			,callbackEvent	: function (data){
+   				console.log('callback data:', data);
+   			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+  	}    
+    
     //신규 작성
     function cfn_add() {
     	

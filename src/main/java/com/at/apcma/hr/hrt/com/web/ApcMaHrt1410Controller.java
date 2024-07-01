@@ -98,13 +98,13 @@ public class ApcMaHrt1410Controller extends BaseController {
                 if(key.contains("subData")) {
                     if(param.get(key) instanceof List) {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-
+                        List<HashMap<String,Object>> returnData = new ArrayList<>();
                         for(int i = 0; i < listData.size(); i++) {
                             listData.get(i).put("procedure", 		"P_HRT1410_S1");
-                            listData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
-                            if(listData.get(i).get("resultStatus").equals("E")) {
-                                String errorCode = Optional.ofNullable(listData.get(i).get("v_errorCode")).orElse("").toString();
-                                String errorStr = Optional.ofNullable(listData.get(i).get("resultMessage")).orElse("").toString();
+                            returnData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
+                            if(returnData.get(i).get("resultStatus").equals("E")) {
+                                String errorCode = Optional.ofNullable(returnData.get(i).get("v_errorCode")).orElse("").toString();
+                                String errorStr = Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString();
 
                                 return getErrorResponseEntity(errorCode, errorStr);
                             }
@@ -138,13 +138,13 @@ public class ApcMaHrt1410Controller extends BaseController {
                 if(key.contains("subData")) {
                     if(param.get(key) instanceof List) {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-
+                        List<HashMap<String,Object>> returnData = new ArrayList<>();
                         for(int i = 0; i < listData.size(); i++) {
                             listData.get(i).put("procedure", 		"P_HRT1410_S2");
-                            listData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
-                            if(listData.get(i).get("resultStatus").equals("E")) {
-                                String errorCode = Optional.ofNullable(listData.get(i).get("v_errorCode")).orElse("").toString();
-                                String errorStr = Optional.ofNullable(listData.get(i).get("resultMessage")).orElse("").toString();
+                            returnData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
+                            if(returnData.get(i).get("resultStatus").equals("E")) {
+                                String errorCode = Optional.ofNullable(returnData.get(i).get("v_errorCode")).orElse("").toString();
+                                String errorStr = Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString();
 
                                 return getErrorResponseEntity(errorCode, errorStr);
                             }

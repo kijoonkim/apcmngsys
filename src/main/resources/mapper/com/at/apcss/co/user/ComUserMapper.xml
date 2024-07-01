@@ -644,6 +644,7 @@
 			   ( USER_ID
 			    ,APC_CD
 			    ,APRV_YN
+			    ,PRDCR_CD
 			    ,REQ_DT
 			    ,DEL_YN
 			    ,SYS_FRST_INPT_DT
@@ -657,6 +658,7 @@
 			    #{userId}
 			    ,#{apcCd}
 			    ,#{aprvYn}
+			    ,#{prdcrCd}
 			    ,SYSDATE
 			    ,'N'
 				,SYSDATE
@@ -738,4 +740,48 @@
 			   AND PA.APC_CD = #{apcCd}
 			</if>
 	</select>
+
+
+		<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectUserAprv                -->
+	<!-- DESC : 사용자 승인 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.27  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectUserAprv" parameterType="hashmap" resultType="hashmap">
+
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.user.ComUserMapper.selectUserAprv */
+			   *
+			  FROM TB_COM_USER_PRDCR_APRV CU
+			  WHERE CU.DEL_YN = 'N'
+			  	  AND CU.APC_CD = #{apcCd}
+			  	  AND CU.USER_ID = #{userId}
+
+		]]>
+    </select>
+
+
+    	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectUserAprv                -->
+	<!-- DESC : 사용자 승인 삭제.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.06.27  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="delComUserAprv" parameterType="hashmap">
+
+    	<![CDATA[
+			DELETE /* com.at.apcss.co.user.ComUserMapper.delComUserAprv */
+			  FROM TB_COM_USER_PRDCR_APRV CU
+			  WHERE CU.DEL_YN = 'N'
+			  	  AND CU.APC_CD = #{apcCd}
+			  	  AND CU.USER_ID = #{apcCd}
+			  	  AND CU.PRDCR_CD = #{prdcrCd}
+
+		]]>
+    </delete>
 </mapper>

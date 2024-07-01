@@ -98,7 +98,7 @@
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
-                                target-id="modal-compopup1"
+                                target-id="modal-srchAppointNum"
                                 onclick="fn_findSrchAppointNum"
                         ></sbux-button>
                     </td>
@@ -407,6 +407,128 @@
 <!-- 팝업 Modal -->
 <div>
     <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:800px" id="modal-srchAppointNum" name="modal-srchAppointNum" uitype="middle" header-title="발령정보" body-html-id="body-modal-srchAppointNum" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-srchAppointNum">
+    <section id="srchAppointNumPopup">
+        <div class="box box-solid">
+            <div class="box-header" style="display:flex; justify-content: flex-start;" >
+                <div>
+                    <table class="table table-bordered tbl_row tbl_fixed">
+                        <colgroup>
+                            <col style="width:auto">
+                            <col style="width:150px">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td class="td_input" >
+                                <table class="table table-bordered tbl_row tbl_fixed">
+                                    <colgroup>
+                                        <col style="width: 24%">
+                                        <col style="width: 24%">
+                                        <col style="width: 4%">
+                                        <col style="width: 24%">
+                                        <col style="width: 24%">
+                                    </colgroup>
+                                    <tbody class="cu-search-area">
+                                    <tr>
+                                        <th scope="th_bg">발령기간</th>
+                                        <td class="td_input" style="border-right:hidden;">
+                                            <sbux-datepicker
+                                                    uitype="popup"
+                                                    id="POP_APPOINT_DATE_FR"
+                                                    name="POP_APPOINT_DATE_FR"
+                                                    date-format="yyyy-mm-dd"
+                                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                    style="width:100%;"
+                                            />
+                                        </td>
+                                        <td class="td_input" style="border-right:hidden;">
+                                            <span> ~ </span>
+                                        </td>
+                                        <td class="td_input" style="border-right:hidden;">
+                                            <sbux-datepicker
+                                                    uitype="popup"
+                                                    id="POP_APPOINT_DATE"
+                                                    name="POP_APPOINT_DATE"
+                                                    date-format="yyyy-mm-dd"
+                                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                    style="width:100%;"
+                                            />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="th_bg">발령구분</th>
+                                        <td class="td_input" style="border-right: hidden;">
+                                            <div class="dropdown">
+                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="POP_APPOINT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <font>선택</font>
+                                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="POP_APPOINT_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <th scope="th_bg">적용여부</th>
+                                        <td class="td_input" style="border-right: hidden;">
+                                            <div class="dropdown">
+                                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="POP_APPLY_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <font>선택</font>
+                                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="POP_APPLY_YN" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                            <td class="td_input" style="text-align:right;" >
+                                <div>
+                                    <sbux-button uitype="normal" text="조회" class="btn btn-sm btn-outline-danger cu-btn-sch-compopup1" ></sbux-button>
+                                    <sbux-button uitype="normal" text="종료" class="btn btn-sm btn-outline-danger cu-btn-close-compopup1" ></sbux-button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="box-body">
+
+                <div class="card cu-table-div" style="border:1px solid #f4f4f4;overflow:auto;">
+                    <table class="table table-bordered table-hover cu-data-table">
+                        <colgroup>
+                            <col style="width: 10%">
+                            <col style="width: 20%">
+                            <col style="width: 15%">
+                            <col style="width: 27.5%">
+                            <col style="width: 10%">
+                            <col style="width: 27.5%">
+                        </colgroup>
+                        <thead class="thead-light" style="background-color:#f5fbff;position:sticky;top:0;z-index:3">
+                            <tr>
+                                <th style="text-align:left">발령일자</th>
+                                <th style="text-align:left">발령번호</th>
+                                <th style="text-align:left">발령구분</th>
+                                <th style="text-align:left">발령명칭</th>
+                                <th style="text-align:left">적용여부</th>
+                                <th style="text-align:left">비고</th>
+                            </tr>
+                        </thead>
+                        <tbody style="vertical-align:middle;">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!--[pp] //검색결과 -->
+        </div>
+    </section>
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -447,9 +569,10 @@
     var jsonJobFamily = []; // 현직원하위그룹
     var jsonParentingWorkType = []; // 육아시간근로단축
     var jsonTimeStartDayType = []; // 시작구분
+    var jsonEmpState = []; // 재직구분
 
     const fn_initSBSelect = async function () {
-        SBUxMethod.set("SRCH_APPOINT_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
+        SBUxMethod.set("SRCH_APPOINT_DATE_FR", gfn_dateFirstYmd(new Date()));
         SBUxMethod.set("SRCH_APPOINT_DATE", gfn_dateToYmd(new Date()));
         $("#btnClearMode").show();
         $("#btnLineCopyMode").hide();
@@ -479,7 +602,7 @@
             // 발령구분
             gfnma_setComSelect(['gvwList'], jsonAppointType, 'L_HRI041', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
-                target			: ['#SRCH_APPOINT_TYPE']
+                target			: ['#SRCH_APPOINT_TYPE', '#POP_APPOINT_TYPE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRI041'
@@ -498,6 +621,24 @@
             }),
             // 적용구분
             gfnma_setComSelect(['APPLY_YN'], jsonApplyYn, 'L_HRM003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_multiSelectInit({
+                target			: ['#POP_APPLY_YN']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRM003'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
             // 발령상태
             gfnma_setComSelect(['STATUS_CODE'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
@@ -574,30 +715,34 @@
             gfnma_setComSelect(['bandgvwDetail'], jsonParentingWorkType, 'L_HRM006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 시작구분
             gfnma_setComSelect(['bandgvwDetail'], jsonTimeStartDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
-
+            // 재직구분
+            gfnma_setComSelect(['EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
     const fn_findEmpCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
+        var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["사번", 		"사원명"]
-            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
-            ,searchInputValues		: ["", 			searchText]
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
             ,height					: '400px'
-            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('EMP_NAME', data.EMP_NAME);
@@ -663,29 +808,96 @@
     }
 
     const fn_findSrchAppointNum = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("APPOINT_TYPE_NAME"));
-        var replaceText0 	= "_SUB_CODE_";
-        var replaceText1 	= "_CODE_NAME_";
-        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
+        const getData = async function() {
+            let APPOINT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#POP_APPOINT_TYPE'));
+            let APPLY_YN = gfnma_nvl(gfnma_multiSelectGet('#POP_APPLY_YN'));
+            let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE_FR"));
+            let APPOINT_DATE_TO = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE"));
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '발령구분 조회');
-        compopup1({
-            compCode				: gv_ma_selectedApcCd
-            ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI041'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["발령코드", 		"발령구분"]
-            ,searchInputFields		: ["SUB_CODE", 		"CODE_NAME"]
-            ,searchInputValues		: ["", 			searchText]
-            ,height					: '400px'
-            ,tableHeader			: ["발령코드", "발령구분"]
-            ,tableColumnNames		: ["SUB_CODE", "CODE_NAME"]
-            ,tableColumnWidths		: ["80px", "80px"]
-            ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
-                SBUxMethod.set('APPOINT_TYPE_NAME', data.CODE_NAME);
-                SBUxMethod.set('APPOINT_TYPE', data.SUB_CODE);
-            },
+            var paramObj = {
+                V_P_DEBUG_MODE_YN: ''
+                , V_P_LANG_ID: ''
+                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+                , V_P_APPOINT_NUM : ''
+                , V_P_EMP_CODE : ''
+                , V_P_APPOINT_DATE_FR : APPOINT_DATE_FR
+                , V_P_APPOINT_DATE_TO : APPOINT_DATE_TO
+                , V_P_APPOINT_TYPE : APPOINT_TYPE
+                , V_P_APPLY_YN : APPLY_YN
+                , V_P_FORM_ID: p_formId
+                , V_P_MENU_ID: p_menuId
+                , V_P_PROC_ID: ''
+                , V_P_USERID: ''
+                , V_P_PC: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1300PopupList.do", {
+                getType: 'json',
+                workType: 'Q',
+                cv_count: '1',
+                params: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    //create td
+                    var tmp = "";
+                    var list = data.cv_1;
+                    var columns = ["APPOINT_DATE", "APPOINT_NUM", "APPOINT_TYPE", "APPOINT_TITLE", "APPLY_YN", "MEMO"];
+                    for (var i= 0; i < list.length; i++) {
+                        tmp += '<tr>'
+                        //표시되는 컬럼
+                        for (var j= 0; j < columns.length; j++) {
+                            var code = columns[j];
+                            tmp += '<td cu-name="' + code + '">' + list[i][code] + '</td>';
+                        }
+                        //비표시되는 컬럼
+                        var obj = list[i];
+                        for(var key in obj){
+                            for (var j= 0; j < columns.length; j++) {
+                                var code = columns[j];
+                                if(code!=key){
+                                    tmp += '<td style="display:none" cu-name="' + key + '">' + obj[key] + '</td>';
+                                }
+                            }
+                        }
+                        tmp += '</tr>'
+                    }
+                    $("#srchAppointNumPopup").find('.cu-data-table').find('tbody').html(tmp);
+                    $("#srchAppointNumPopup").find('.cu-data-table').find('tbody').find('tr').click(function(){
+                        var obj = gfnma_getObjectRowTable($(this));
+                        SBUxMethod.set("SRCH_APPOINT_NUM", obj.APPOINT_NUM);
+                        SBUxMethod.set("SRCH_APPOINT_TITLE", obj.APPOINT_TITLE);
+                        SBUxMethod.closeModal('modal-srchAppointNum');
+                    });
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+        SBUxMethod.set("POP_APPOINT_DATE_FR", gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("POP_APPOINT_DATE", gfn_dateToYmd(new Date()));
+        getData();
+        SBUxMethod.openModal('modal-srchAppointNum');
+
+        //search button event
+        $("#srchAppointNumPopup").find('.cu-btn-sch-compopup1').click(function(){
+            getData();
+        });
+
+        //close event
+        $("#srchAppointNumPopup").find('.cu-btn-close-compopup1').click(function(){
+            SBUxMethod.closeModal('modal-srchAppointNum');
         });
     }
 
@@ -1230,6 +1442,113 @@
         ];
 
         bandgvwDetail = _SBGrid.create(SBGridProperties);
+        bandgvwDetail.bind('valuechanged', 'fn_bandgvwDetailValueChanged');
+    }
+
+    const fn_bandgvwDetailValueChanged = async function() {
+        var nRow = bandgvwDetail.getRow();
+        var nCol = bandgvwDetail.getCol();
+        var rowData = bandgvwDetail.getRowData(nRow);
+
+        if (nCol == bandgvwDetail.getColRef('TIME_OFF_TYPE')) {
+            if (bandgvwDetail.getCellData(nRow, bandgvwDetail.getColRef('TIME_OFF_TYPE')) == "H0090") {
+                const getData = async function() {
+                    gfnma_multiSelectSet('#POP_APPOINT_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(SBUxMethod.get("APPOINT_TYPE")));
+                    let APPOINT_TYPE = gfnma_nvl(SBUxMethod.get("APPOINT_TYPE"));
+                    let APPLY_YN = "Y";
+                    let APPOINT_DATE_FR = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE_FR"));
+                    let APPOINT_DATE_TO = gfnma_nvl(SBUxMethod.get("POP_APPOINT_DATE"));
+                    let EMP_CODE = bandgvwDetail.getCellData(nRow, bandgvwDetail.getColRef('EMP_CODE'));
+                    let APPOINT_NUM = gfnma_nvl(SBUxMethod.get("APPOINT_NUM"));
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN: ''
+                        , V_P_LANG_ID: ''
+                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+                        , V_P_APPOINT_NUM : APPOINT_NUM
+                        , V_P_EMP_CODE : EMP_CODE
+                        , V_P_APPOINT_DATE_FR : APPOINT_DATE_FR
+                        , V_P_APPOINT_DATE_TO : APPOINT_DATE_TO
+                        , V_P_APPOINT_TYPE : APPOINT_TYPE
+                        , V_P_APPLY_YN : APPLY_YN
+                        , V_P_FORM_ID: p_formId
+                        , V_P_MENU_ID: p_menuId
+                        , V_P_PROC_ID: ''
+                        , V_P_USERID: ''
+                        , V_P_PC: ''
+                    };
+
+                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1300PopupList.do", {
+                        getType: 'json',
+                        workType: 'Q1',
+                        cv_count: '1',
+                        params: gfnma_objectToString(paramObj)
+                    });
+
+                    const data = await postJsonPromise;
+                    console.log('data:', data);
+                    try {
+                        if (_.isEqual("S", data.resultStatus)) {
+                            //create td
+                            var tmp = "";
+                            var list = data.cv_1;
+                            var columns = ["APPOINT_DATE", "APPOINT_NUM", "APPOINT_TYPE", "APPOINT_TITLE", "APPLY_YN", "MEMO"];
+                            for (var i= 0; i < list.length; i++) {
+                                tmp += '<tr>'
+                                //표시되는 컬럼
+                                for (var j= 0; j < columns.length; j++) {
+                                    var code = columns[j];
+                                    tmp += '<td cu-name="' + code + '">' + list[i][code] + '</td>';
+                                }
+                                //비표시되는 컬럼
+                                var obj = list[i];
+                                for(var key in obj){
+                                    for (var j= 0; j < columns.length; j++) {
+                                        var code = columns[j];
+                                        if(code!=key){
+                                            tmp += '<td style="display:none" cu-name="' + key + '">' + obj[key] + '</td>';
+                                        }
+                                    }
+                                }
+                                tmp += '</tr>'
+                            }
+                            $("#srchAppointNumPopup").find('.cu-data-table').find('tbody').html(tmp);
+                            $("#srchAppointNumPopup").find('.cu-data-table').find('tbody').find('tr').click(function(){
+                                var obj = gfnma_getObjectRowTable($(this));
+                                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef('FIRST_APPOINT_NUM'), obj.APPOINT_NUM);
+                                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef('APPOINT_REASON'), obj.APPOINT_TITLE);
+                                SBUxMethod.closeModal('modal-srchAppointNum');
+                            });
+                        } else {
+                            alert(data.resultMessage);
+                        }
+
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+                SBUxMethod.set("POP_APPOINT_DATE_FR", gfn_dateFirstYmd(new Date()));
+                SBUxMethod.set("POP_APPOINT_DATE", gfn_dateToYmd(new Date()));
+                getData();
+                SBUxMethod.openModal('modal-srchAppointNum');
+
+                //search button event
+                $("#srchAppointNumPopup").find('.cu-btn-sch-compopup1').click(function(){
+                    getData();
+                });
+
+                //close event
+                $("#srchAppointNumPopup").find('.cu-btn-close-compopup1').click(function(){
+                    SBUxMethod.closeModal('modal-srchAppointNum');
+                });
+
+            }
+        }
     }
 
     function fnDeptAppointYnChange(args){
@@ -2211,9 +2530,7 @@
 
                                     try {
                                         if (_.isEqual("S", leadData.resultStatus)) {
-                                            if (leadData.resultMessage) {
-                                                alert(leadData.resultMessage);
-                                            }
+                                            gfn_comAlert("I0001");
                                             cfn_search();
                                         } else {
                                             alert(leadData.resultMessage);
@@ -2325,9 +2642,7 @@
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }
+                    gfn_comAlert("I0001");
                     cfn_search();
                 } else {
                     alert(data.resultMessage);

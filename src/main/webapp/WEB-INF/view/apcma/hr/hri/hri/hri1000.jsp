@@ -212,6 +212,10 @@
                                     <th scope="row" class="th_bg">사번</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
+                                        <sbux-input id="EMP_PHOTO_PATH" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
+                                        <sbux-input id="EMP_PHOTO_NAME" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
+                                        <sbux-input id="SIGN_IMG_PATH" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
+                                        <sbux-input id="SIGN_IMG_NAME" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>주민등록번호</th>
                                     <td colspan="3" class="td_input">
@@ -1422,30 +1426,29 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE";
-        var replaceText1 = "_EMP_NAME";
-        var replaceText2 = "_DEPT_CODE";
-        var replaceText3 = "_DEPT_NAME";
-        var replaceText4 = "_EMP_STATE";
-        var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
-            + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var replaceText0 	= "_DEPT_NAME_";
+        var replaceText1 	= "_EMP_NAME_";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode: gv_ma_selectedApcCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'P_HRI001'
-            , popupType: 'A'
-            , whereClause: strWhereClause
-            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""             ,""         ,""]
-            , height: '400px'
-            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
-            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
-            , itemSelectEvent: function (data) {
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
@@ -1454,30 +1457,29 @@
     }
 
     const fn_findOldEmpCode = function() {
-        var searchText = gfnma_nvl(SBUxMethod.get("OLD_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE";
-        var replaceText1 = "_EMP_NAME";
-        var replaceText2 = "_DEPT_CODE";
-        var replaceText3 = "_DEPT_NAME";
-        var replaceText4 = "_EMP_STATE";
-        var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
-            + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
+        var searchText 		= gfnma_nvl(SBUxMethod.get("OLD_EMP_NAME"));
+        var replaceText0 	= "_DEPT_NAME_";
+        var replaceText1 	= "_EMP_NAME_";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '사원조회');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode: gv_ma_selectedApcCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'P_HRI001'
-            , popupType: 'A'
-            , whereClause: strWhereClause
-            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""             ,""         ,""]
-            , height: '400px'
-            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
-            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
-            , itemSelectEvent: function (data) {
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('OLD_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('OLD_EMP_CODE', data.EMP_CODE);
@@ -1487,9 +1489,10 @@
 
     const fn_findIntroducerCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("INTRODUCER_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
+        var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
@@ -1498,13 +1501,15 @@
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["사번", 		"사원명"]
-            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
-            ,searchInputValues		: ["", 			searchText]
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
             ,height					: '400px'
-            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('INTRODUCER_NAME', data.EMP_NAME);
@@ -1655,19 +1660,6 @@
         });
     }
 
-    function convertBase64(id, obj, file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            let blob = new Blob([e.target.result], { type: file.type });
-            document.getElementById(id).src = window.URL.createObjectURL(blob);
-
-            obj.base64 = btoa(new Uint8Array(e.target.result).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-            obj.fileType = file.type;
-            obj.fileName = file.name;
-        };
-        reader.readAsArrayBuffer(file);
-    }
-
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
         document.getElementById('empPhotoArea').addEventListener('click', function() {
@@ -1680,15 +1672,19 @@
 
         document.getElementById('EMP_PHOTO_FILE').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            if (file) {
-                convertBase64("EMP_PHOTO", empPhotoInfo, file);
+            let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"))
+
+            if(EMP_CODE != "") {
+                fn_imgUpload(EMP_CODE, file, "1");
             }
         });
 
         document.getElementById('SIGN_IMG_FILE').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            if (file) {
-                convertBase64("SIGN_IMG", signImgInfo, file);
+            let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"))
+
+            if(EMP_CODE != "") {
+                fn_imgUpload(EMP_CODE, file, "2");
             }
         });
 
@@ -2061,9 +2057,7 @@
 
                             try {
                                 if (_.isEqual("S", detailData.resultStatus)) {
-                                    if (detailData.resultMessage) {
-                                        alert(detailData.resultMessage);
-                                    }
+                                    gfn_comAlert("I0001");
                                     cfn_search();
                                 } else {
                                     alert(detailData.resultMessage);
@@ -2361,6 +2355,15 @@
         SBUxMethod.set("ANNUAL_BASE_DATE", data.ANNUAL_BASE_DATE);
         SBUxMethod.set("CURRENT_PAY_GRADE", data.CURRENT_PAY_GRADE);
         SBUxMethod.set("CURRENT_PAY_GRADE_DATE", data.CURRENT_PAY_GRADE_DATE);
+        if(gfn_nvl(data.EMP_PHOTO_NAME) != "") {
+            SBUxMethod.set("EMP_PHOTO_NAME", data.EMP_PHOTO_NAME);
+            $("#EMP_PHOTO").attr("src", "/com/getFileImage.do?fkey="+data.EMP_PHOTO_NAME+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+        }
+
+        if(gfn_nvl(data.SIGN_IMG_NAME) != "") {
+            SBUxMethod.set("SIGN_IMG_NAME", data.SIGN_IMG_NAME);
+            $("#SIGN_IMG").attr("src", "/com/getFileImage.do?fkey="+data.SIGN_IMG_NAME+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+        }
 
         if(data.JOB_GROUP == '3') {
             $('#START_PAY_GRADE_TH').hide();
@@ -3091,6 +3094,47 @@
             V_P_USERID : '',
             V_P_PC : ''
         }
+    }
+
+    const fn_imgUpload = async function(empCd, file, type) {
+        var paramData 	= new FormData();
+        paramData.append("files", 			file);
+        paramData.append("type", 			type);		// 1:사진 , 2:싸인
+        paramData.append("empCode", 		empCd);
+        paramData.append("comp_code", 		gv_ma_selectedApcCd);
+        paramData.append("client_code", 	gv_ma_selectedClntCd);
+        paramData.append("formID", 			p_formId);
+        paramData.append("menuId", 			p_menuId);
+
+        const postJsonPromise = gfn_postFormData("/com/hrImageUpload.do", paramData);
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(type == "1") {
+                    SBUxMethod.set("EMP_PHOTO_NAME", data.imgKey);
+                    SBUxMethod.set("EMP_PHOTO_PATH", data.params[6]);
+                    $("#EMP_PHOTO").attr("src", "/com/getFileImage.do?fkey="+data.imgKey+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+                } else if(type == "2") {
+                    SBUxMethod.set("SIGN_IMG_NAME", data.imgKey);
+                    SBUxMethod.set("SIGN_IMG_PATH", data.params[6]);
+                    $("#SIGN_IMG").attr("src", "/com/getFileImage.do?fkey="+data.imgKey+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+                }
+                console.log('result =====>>>>>>>', data);
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        //이미지(사진,싸인) 보여줄때
+        // <img src="/com/getFileImage.do?fkey=fdf31133e11545f0b2f0ada67efcd5e8.png&comp_code=8888&client_code=100" />
+
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

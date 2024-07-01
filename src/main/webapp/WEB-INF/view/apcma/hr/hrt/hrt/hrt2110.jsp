@@ -559,11 +559,30 @@
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('afterrebuild','fn_bandgvwInfoAfterRebuild');
+        bandgvwInfo.bind('afterrefresh','fn_bandgvwInfoAfterRefresh');
         bandgvwInfo.bind('dblclick', 'fn_bandgvwInfoDblclick');
         bandgvwInfo.bind('valuechanged', 'fn_bandgvwInfoValueChanged');
     }
 
     const fn_bandgvwInfoAfterRebuild = async function() {
+        let bandgvwInfoData = bandgvwInfo.getGridDataAll();
+
+        for(var i = 0; i < bandgvwInfoData.length; i++) {
+            let rowData = bandgvwInfo.getRowData(i+2);
+
+            if (rowData.CONFIRM_YN == "N") {
+                bandgvwInfo.setRowStyle(i+2, 'data', 'background', '#FFB6C1');
+            } else if (rowData.REQUEST_STATUS_CODE == "1") {
+                bandgvwInfo.setRowStyle(i+2, 'data', 'background', '#D3D3D3');
+            } else if (rowData.REQUEST_STATUS_CODE == "3") {
+                bandgvwInfo.setRowStyle(i+2, 'data', 'background', '#ADD8E6');
+            } else if (rowData.REQUEST_STATUS_CODE == "4") {
+                bandgvwInfo.setRowStyle(i+2, 'data', 'background', '#FF6347');
+            }
+        }
+    }
+
+    const fn_bandgvwInfoAfterRefresh = async function() {
         let bandgvwInfoData = bandgvwInfo.getGridDataAll();
 
         for(var i = 0; i < bandgvwInfoData.length; i++) {
@@ -607,7 +626,7 @@
         var nCol = bandgvwInfo.getCol();
         var rowData = bandgvwInfo.getRowData(nRow);
 
-        if (bandgvwInfo.FocusedRowHandle < 0)
+        if (nRow < 0)
             return;
 
         if (bEventEnabled) {
@@ -878,12 +897,6 @@
                 console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
-                SBUxMethod.set('SITE_CODE2', data.SITE_CODE);
-                SBUxMethod.set('DEPT_CODE2', data.DEPT_CODE);
-                SBUxMethod.set('DEPT_NAME2', data.DEPT_NAME);
-                SBUxMethod.set('POSITION_CODE2', data.POSITION_CODE);
-                SBUxMethod.set('DUTY_CODE2', data.DUTY_CODE);
-                SBUxMethod.set('JOB_RANK2', data.JOB_RANK);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
@@ -1030,7 +1043,7 @@
             bandgvwInfo.insertRow(rowVal, data);
         }
 
-        bandgvwInfo.rebuild();
+        bandgvwInfo.refresh();
     }
 
     // 행삭제
@@ -1202,9 +1215,7 @@
             console.log('data:', data);
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    if(data.resultMessage){
-                        alert(data.resultMessage);
-                    }
+                    gfn_comAlert("I0001");
                     fn_search();
                 } else {
                     alert(data.resultMessage);
@@ -1320,9 +1331,7 @@
             console.log('data:', data);
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
-                        alert(data.resultMessage);
-                    }
+                    gfn_comAlert("I0001");
                     fn_search();
                 } else {
                     alert(data.resultMessage);

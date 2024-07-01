@@ -224,24 +224,27 @@
 
     const fn_findEmpCode = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
+        var replaceText0 	= "_DEPT_NAME_";
         var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001_ESS'
+            ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["사번", 		"사원명"]
-            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
-            ,searchInputValues		: ["", 			searchText]
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
             ,height					: '400px'
-            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
