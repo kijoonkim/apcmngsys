@@ -256,12 +256,13 @@
             {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:right'},
             {caption : ['시작일'],       ref: 'START_DATE',      type:'datepicker' ,   typeinfo : {dateformat :"yy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
             {caption : ['종료일'],       ref: 'END_DATE',        type:'datepicker' ,   typeinfo : {dateformat :"yy-mm-dd", displayui:true},      width : '100px', style : 'text-align:center'},
-            {caption: ["회기진행상태"],	ref: 'FISCAL_STATUS', 	type:'combo',  	width:'100px',  	style:'text-align:center',displayui :true, oneclickedit: true,
+            {caption: ["회기진행상태"],	ref: 'FISCAL_STATUS', 	type:'combo',  	width:'100px',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonFiscalStatus',
 					label		: 'label',
 					value		: 'value',
-					itemcount	: 10
+					displayui :true, 
+					oneclickedit: true
             	}
             },
             {caption: ["적요"],			ref: 'DESCR',    		type:'input',  	width:'350px',  	style:'text-align:left'}
