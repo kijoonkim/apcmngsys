@@ -41,88 +41,6 @@
         </sbux-tabs>
         <div class="tab-content">
             <div id="tabInfo1" >
-                <div class="ad_tbl_toplist">
-                    <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
-                    <sbux-button
-                            id="btnUpload"
-                            name="btnUpload"
-                            uitype="normal"
-                            text="Excel 업로드"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_uld"
-                            style="float: right; margin-left: 15px;"
-                    ></sbux-button>
-                    <sbux-button
-                            id="btnDownload" name="btnDownload" uitype="normal" text="Excel 양식받기"
-                            class="btn btn-sm btn-outline-danger" onclick="fn_exportData" style="float: right; margin-left: 15px; display: none;"
-                    ></sbux-button>
-                    <sbux-button
-                            id="btnDataCheck"
-                            name="btnDataCheck"
-                            uitype="normal"
-                            text="데이터검증" <%--그리드 복사 불가. 붙여넣기 불가.--%>
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_btnDataCheck"
-                            style="float: right; margin-left: 15px; "
-                    ></sbux-button>
-                    <sbux-button
-                            id="btmCopyClear"
-                            name="btmCopyClear"
-                            uitype="normal"
-                            text="복사해제모드" <%--그리드 복사 불가. 붙여넣기 불가.--%>
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_gridCopyClear"
-                            style="float: right; display: block; margin-left: 15px;"
-                    ></sbux-button>
-                    <sbux-button
-                            id="btmCopyLine"
-                            name="btmCopyLine"
-                            uitype="normal"
-                            text="행복사모드" <%--행단위로 복사--%>
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_gridCopyLine"
-                            style="float: right; display: none; margin-left: 15px;"
-                    ></sbux-button>
-                    <sbux-button
-                            id="btmCopyCell"
-                            name="btmCopyCell"
-                            uitype="normal"
-                            text="셀복사모드" <%--셀단위로 복사--%>
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_gridCopyCell"
-                            style="float: right; display: none; margin-left: 15px;"
-                    ></sbux-button>
-                    <sbux-button
-                            class="btn btn-sm btn-outline-danger"
-                            text="급여반영취소" uitype="modal"
-                            onclick="fn_compopup3('CANCEL')"
-                            style="float: right; margin-left: 5px;"
-                    ></sbux-button>
-                   <%-- <sbux-button
-                            id="btnCancel"
-                            name="btnCancel"
-                            uitype="normal"
-                            text="급여반영취소"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_btnCancel"
-                            style="float: right; margin-left: 5px;"
-                    ></sbux-button>--%>
-<%--                    <sbux-button
-                            id="btnApply"
-                            name="btnApply"
-                            uitype="normal"
-                            text="급여반영"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="fn_compopup3"
-                            style="float: right;"
-                    ></sbux-button>--%>
-                    <sbux-button
-                            class="btn btn-sm btn-outline-danger"
-                            text="급여반영" uitype="modal"
-                            onclick="fn_compopup3('APPLY')"
-                            style="float: right;"
-                    ></sbux-button>
-                </div>
                 <div style="padding-bottom: 10px">
                     <table id="dataArea1" class="table table-bordered tbl_fixed">
                         <colgroup>
@@ -227,6 +145,75 @@
                         </tr>
                     </table>
                 </div>
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li><span>건강보험 실적</span></li>
+                    </ul>
+                    <div class="ad_tbl_toplist">
+                        <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
+                        <sbux-button
+                                id="btnUpload"
+                                name="btnUpload"
+                                uitype="normal"
+                                text="Excel 업로드"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_uld"
+                                style="float: right; margin-left: 15px;"
+                        ></sbux-button>
+                        <sbux-button
+                                id="btnDownload" name="btnDownload" uitype="normal" text="Excel 양식받기"
+                                class="btn btn-sm btn-outline-danger" onclick="fn_exportData" style="float: right; margin-left: 15px; display: none;"
+                        ></sbux-button>
+                        <sbux-button
+                                id="btnDataCheck"
+                                name="btnDataCheck"
+                                uitype="normal"
+                                text="데이터검증" <%--그리드 복사 불가. 붙여넣기 불가.--%>
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_btnDataCheck"
+                                style="float: right; margin-left: 15px; "
+                        ></sbux-button>
+                        <sbux-button
+                                id="btmCopyClear"
+                                name="btmCopyClear"
+                                uitype="normal"
+                                text="복사해제모드" <%--그리드 복사 불가. 붙여넣기 불가.--%>
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_gridCopyClear"
+                                style="float: right; display: block; margin-left: 15px;"
+                        ></sbux-button>
+                        <sbux-button
+                                id="btmCopyLine"
+                                name="btmCopyLine"
+                                uitype="normal"
+                                text="행복사모드" <%--행단위로 복사--%>
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_gridCopyLine"
+                                style="float: right; display: none; margin-left: 15px;"
+                        ></sbux-button>
+                        <sbux-button
+                                id="btmCopyCell"
+                                name="btmCopyCell"
+                                uitype="normal"
+                                text="셀복사모드" <%--셀단위로 복사--%>
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="fn_gridCopyCell"
+                                style="float: right; display: none; margin-left: 15px;"
+                        ></sbux-button>
+                        <sbux-button
+                                class="btn btn-sm btn-outline-danger"
+                                text="급여반영취소" uitype="modal"
+                                onclick="fn_compopup3('CANCEL')"
+                                style="float: right; margin-left: 5px;"
+                        ></sbux-button>
+                        <sbux-button
+                                class="btn btn-sm btn-outline-danger"
+                                text="급여반영" uitype="modal"
+                                onclick="fn_compopup3('APPLY')"
+                                style="float: right;"
+                        ></sbux-button>
+                    </div>
+                </div>
                 <div>
                     <div id="sb-area-gvwList" style="height:540px; width:100%;"></div>
                 </div>
@@ -285,6 +272,11 @@
                         </tr>
                     </table>
                 </div>
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li><span>내역 집계</span></li>
+                    </ul>
+                </div>
                 <div>
                     <div id="sb-area-gvwgrdPivotList" style="height:540px; width:100%;"></div>
                 </div>
@@ -326,6 +318,8 @@
 
     var jsonPayAreaType = []; //지급구분 //srch-pay_area_type, PAY_AREA_TYPE  //L_HRP034
     var jsonPayItem = []; //급여항목 //EMP_PAY_ITEM, COMP_PAY_ITEM //L_HRP004
+    var jsonPositionCode = []; //직위 //POSITION_CODE //L_HRI002
+
 
     var tabJsonData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "건강보험 내역 등록",     "targetid" : "tabInfo1" , "targetvalue" : "건강보험 내역 등록"},
@@ -336,7 +330,8 @@
         let rst = await Promise.all([
 
             gfnma_setComSelect(['gvwListGrid','srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', '')
+            gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
 
         ]);
     }
@@ -584,21 +579,33 @@
             {caption : ["급여영역"], ref : 'PAY_AREA_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayAreaType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["직위"], ref: 'POSITION_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["기준소득월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '120px', style: 'text-align:left'},
+            {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["월보험료(계)"], ref: 'TOTAL_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["산출보험(건강)"], ref: 'HEALTH_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["사용자부담금"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산금액(건강)"], ref: 'HEALTH_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["본인기여금"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["연말정산(건강)"], ref: 'HEALTH_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["산출보험(장기)"], ref: 'LONG_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["정산금액(장기)"], ref: 'LONG_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["연말정산(장기)"], ref: 'LONG_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["환급금이자(건강)"], ref: 'HEALTH_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["환급금이자(장기)"], ref: 'LONG_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["데이터확인"], ref: 'DATA_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
-                }, disabled: true
+                }
             },
             {caption: ["급여반영"], ref: 'PAY_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
@@ -610,16 +617,46 @@
             {caption: ["급여유형"], ref: 'PAY_TYPE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ['급여일'], ref: 'PAY_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption : ["급여항목(직원)"], ref : 'EMP_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["급여항목(건강-사원)"], ref : 'EMP_HEALTH_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["급여(직원)"], ref: 'EMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["건강보험(사원-급여반영)"], ref: 'EMP_HEALTH_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption : ["급여항목(회사)"], ref : 'COMP_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["급여항목(건강-회사)"], ref : 'COMP_HEALTH_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["급여(회사)"], ref: 'COMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }}
+            {caption: ["건강보험(직원-급여반영)"], ref: 'COMP_HEALTH_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption : ["급여항목(요양-사원)"], ref : 'EMP_LONG_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["요양보험(사원-급여반영)"], ref: 'EMP_LONG_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption : ["급여항목(요양-회사)"], ref : 'COMP_LONG_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["요양보험(회사-급여반영)"], ref: 'COMP_LONG_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption : ["정산급여항목(건강-사원)"], ref : 'EMP_HEALTH_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["정산급여(건강-사원)"], ref: 'EMP_HEALTH_ADJ_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption : ["연말정산급여항목(건강-사원)"], ref : 'EMP_HEALTH_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["연말정산급여(건강-사원)"], ref: 'EMP_HEALTH_YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption : ["정산급여항목(건강-회사)"], ref : 'COMP_HEALTH_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["정산급여(건강-회사)"], ref: 'COMP_HEALTH_ADJ_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption : ["연말정산급여항목(건강-회사)"], ref : 'COMP_HEALTH_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
+            },
+            {caption: ["연말정산급여(건강-회사)"], ref: 'COMP_HEALTH_YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
 
         ];
 
@@ -640,13 +677,23 @@
         {caption: ["분기"], ref: 'DATE_QUARTER', type: 'output', width: '100px', style: 'text-align:left'},
         {caption: ["월"], ref: 'DATE_MONTH', type: 'output', width: '100px', style: 'text-align:left'
             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-        {caption: ["기준소득월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
+        {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-        {caption: ["월보험료(계)"], ref: 'TOTAL_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+        {caption: ["산출보험(건강)"], ref: 'HEALTH_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-        {caption: ["사용자부담금"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+        {caption: ["정산금액(건강)"], ref: 'HEALTH_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:left'
             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-        {caption: ["본인기여금"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+        {caption: ["연말정산(건강)"], ref: 'HEALTH_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+        {caption: ["산출보험(장기)"], ref: 'LONG_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+        {caption: ["정산금액(장기)"], ref: 'LONG_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+        {caption: ["연말정산(장기)"], ref: 'LONG_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+        {caption: ["환급금이자(건강)"], ref: 'HEALTH_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:left'
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+        {caption: ["환급금이자(장기)"], ref: 'LONG_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:left'
             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
     ];
 
@@ -681,22 +728,29 @@
 
     function fn_createPivot(pivotData){
 
-         /*jsonPivotList.length = 0;
-               data.cv_3.forEach((item, index) => {
-                   const msg = {
-                       EMP_CODE             : gfnma_nvl(item.EMP_CODE),            //사번
-                       EMP_NAME             : gfnma_nvl(item.EMP_NAME),            //성명
-                       DATE_QUARTER         : gfnma_nvl(item.DATE_QUARTER),        //분기
-                       DATE_MONTH           : gfnma_nvl(item.DATE_MONTH),          //월
-                       BASE_INCOME_AMT      : gfnma_nvl(item.BASE_INCOME_AMT),     //기준소득월액
-                       TOTAL_INSURE_AMT     : gfnma_nvl(item.TOTAL_INSURE_AMT),    //월보험료(계)
-                       EMP_INSURE_AMT       : gfnma_nvl(item.EMP_INSURE_AMT),      //본인기여금
-                       COMP_INSURE_AMT      : gfnma_nvl(item.COMP_INSURE_AMT)      //사용자부담금
-                   }
-                   jsonPivotList.push(msg);
-               });
+        /* jsonPivotList.length = 0;
+        data.cv_3.forEach((item, index) => {
+            const msg = {
+                EMP_CODE             : gfnma_nvl(item.EMP_CODE),            //사번
+                EMP_NAME             : gfnma_nvl(item.EMP_NAME),            //성명
+                DATE_QUARTER         : gfnma_nvl(item.DATE_QUARTER),        //분기
+                DATE_MONTH           : gfnma_nvl(item.DATE_MONTH),          //월
+                BASE_INCOME_AMT      : gfnma_nvl(item.BASE_INCOME_AMT),     //보수월액
+                /!*BASE_INCOME_AMT      : gfnma_nvl(item.BASE_INCOME_AMT),   //기준소득월액*!/
+                HEALTH_INSURE_AMT      : gfnma_nvl(item.HEALTH_INSURE_AMT), //산출보험(건강)
+                HEALTH_ADJUST_AMT      : gfnma_nvl(item.HEALTH_ADJUST_AMT), //정산금액(건강)
+                HEALTH_YE_ADJ_AMT      : gfnma_nvl(item.HEALTH_YE_ADJ_AMT), //연말정산(건강)
+                LONG_INSURE_AMT      : gfnma_nvl(item.LONG_INSURE_AMT),     //산출보험(장기)
+                LONG_ADJUST_AMT      : gfnma_nvl(item.LONG_ADJUST_AMT),     //정산금액(장기)
+                LONG_YE_ADJ_AMT      : gfnma_nvl(item.LONG_YE_ADJ_AMT),     //연말정산(장기)
+                HEALTH_REFUND_INTEREST      : gfnma_nvl(item.HEALTH_REFUND_INTEREST),   //환급금이자(건강)
+                LONG_REFUND_INTEREST      : gfnma_nvl(item.LONG_REFUND_INTEREST)        //환급금이자(장기)
 
-               gvwPivotListGrid.rebuild();*/
+            }
+            jsonPivotList.push(msg);
+        });
+
+        gvwPivotListGrid.rebuild();*/
 
         //분기 항목 정의
         let DATE_QUARTER_ARR = [];
@@ -845,29 +899,55 @@
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHECK_YN            : gfnma_nvl(item.CHECK_YN),
-                        INSURE_YYYYMM       : gfnma_nvl(item.INSURE_YYYYMM),
-                        DEPT_CODE           : gfnma_nvl(item.DEPT_CODE),
-                        DEPT_NAME           : gfnma_nvl(item.DEPT_NAME),
-                        POSITION_CODE       : gfnma_nvl(item.POSITION_CODE),
-                        PAY_AREA_TYPE       : gfnma_nvl(item.PAY_AREA_TYPE),
-                        EMP_CODE            : gfnma_nvl(item.EMP_CODE),
-                        EMP_NAME            : gfnma_nvl(item.EMP_NAME),
-                        SOCIAL_NO           : gfnma_nvl(item.SOCIAL_NO),
-                        BASE_INCOME_AMT     : gfnma_nvl(item.BASE_INCOME_AMT),
-                        TOTAL_INSURE_AMT    : gfnma_nvl(item.TOTAL_INSURE_AMT),
-                        EMP_INSURE_AMT      : gfnma_nvl(item.EMP_INSURE_AMT),
-                        COMP_INSURE_AMT     : gfnma_nvl(item.COMP_INSURE_AMT),
-                        MEMO                : gfnma_nvl(item.MEMO),
-                        PAY_YN              : gfnma_nvl(item.PAY_YN),
-                        PAY_YYYYMM          : gfnma_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE            : gfnma_nvl(item.PAY_TYPE),
-                        PAY_DATE            : gfnma_nvl(item.PAY_DATE),
-                        EMP_PAY_ITEM        : gfnma_nvl(item.EMP_PAY_ITEM),
-                        EMP_PAY_AMT         : gfnma_nvl(item.EMP_PAY_AMT),
-                        COMP_PAY_ITEM       : gfnma_nvl(item.COMP_PAY_ITEM),
-                        COMP_PAY_AMT        : gfnma_nvl(item.COMP_PAY_AMT),
-                        DATA_YN             : gfnma_nvl(item.DATA_YN)
+                        CHECK_YN                    : gfnma_nvl(item.CHECK_YN),
+                        COMP_CODE                   : gfnma_nvl(item.COMP_CODE),
+                        INSURE_YYYYMM               : gfnma_nvl(item.INSURE_YYYYMM),
+                        DEPT_CODE                   : gfnma_nvl(item.DEPT_CODE),
+                        DEPT_NAME                   : gfnma_nvl(item.DEPT_NAME),
+                        POSITION_CODE               : gfnma_nvl(item.POSITION_CODE),
+                        PAY_AREA_TYPE               : gfnma_nvl(item.PAY_AREA_TYPE),
+                        EMP_CODE                    : gfnma_nvl(item.EMP_CODE),
+                        EMP_NAME                    : gfnma_nvl(item.EMP_NAME),
+                        SOCIAL_NO                   : gfnma_nvl(item.SOCIAL_NO),
+                        BASE_INCOME_AMT             : gfnma_nvl(item.BASE_INCOME_AMT),
+                        HEALTH_INSURE_AMT           : gfnma_nvl(item.HEALTH_INSURE_AMT),
+                        HEALTH_ADJUST_AMT           : gfnma_nvl(item.HEALTH_ADJUST_AMT),
+                        HEALTH_YE_ADJ_AMT           : gfnma_nvl(item.HEALTH_YE_ADJ_AMT),
+                        LONG_INSURE_AMT             : gfnma_nvl(item.LONG_INSURE_AMT),
+                        LONG_ADJUST_AMT             : gfnma_nvl(item.LONG_ADJUST_AMT),
+                        LONG_YE_ADJ_AMT             : gfnma_nvl(item.LONG_YE_ADJ_AMT),
+                        HEALTH_REFUND_INTEREST      : gfnma_nvl(item.HEALTH_REFUND_INTEREST),
+                        LONG_REFUND_INTEREST        : gfnma_nvl(item.LONG_REFUND_INTEREST),
+                        MEMO                        : gfnma_nvl(item.MEMO),
+                        DATA_YN                     : gfnma_nvl(item.DATA_YN),
+                        PAY_YN                      : gfnma_nvl(item.PAY_YN),
+                        PAY_YYYYMM                  : gfnma_nvl(item.PAY_YYYYMM),
+                        PAY_TYPE                    : gfnma_nvl(item.PAY_TYPE),
+                        PAY_DATE                    : gfnma_nvl(item.PAY_DATE),
+                        EMP_HEALTH_PAY_ITEM         : gfnma_nvl(item.EMP_HEALTH_PAY_ITEM),
+                        EMP_HEALTH_PAY_AMT          : gfnma_nvl(item.EMP_HEALTH_PAY_AMT),
+                        COMP_HEALTH_PAY_ITEM        : gfnma_nvl(item.COMP_HEALTH_PAY_ITEM),
+                        COMP_HEATH_PAY_AMT          : gfnma_nvl(item.COMP_HEATH_PAY_AMT),
+                        EMP_LONG_PAY_ITEM           : gfnma_nvl(item.EMP_LONG_PAY_ITEM),
+                        EMP_LONG_PAY_AMT            : gfnma_nvl(item.EMP_LONG_PAY_AMT),
+                        COMP_LONG_PAY_ITEM          : gfnma_nvl(item.COMP_LONG_PAY_ITEM),
+                        COMP_LONG_PAY_AMT           : gfnma_nvl(item.COMP_LONG_PAY_AMT),
+                        EMP_HEALTH_ADJ_PAY_ITEM     : gfnma_nvl(item.EMP_HEALTH_ADJ_PAY_ITEM),
+                        EMP_HEALTH_ADJ_PAY_AMT      : gfnma_nvl(item.EMP_HEALTH_ADJ_PAY_AMT),
+                        EMP_LONG_ADJ_PAY_ITEM       : gfnma_nvl(item.EMP_LONG_ADJ_PAY_ITEM),
+                        EMP_LONG_ADJ_PAY_AMT        : gfnma_nvl(item.EMP_LONG_ADJ_PAY_AMT),
+                        EMP_HEALTH_YE_PAY_ITEM      : gfnma_nvl(item.EMP_HEALTH_YE_PAY_ITEM),
+                        EMP_HEALTH_YE_PAY_AMT       : gfnma_nvl(item.EMP_HEALTH_YE_PAY_AMT),
+                        EMP_LONG_YE_PAY_ITEM        : gfnma_nvl(item.EMP_LONG_YE_PAY_ITEM),
+                        EMP_LONG_YE_PAY_AMT         : gfnma_nvl(item.EMP_LONG_YE_PAY_AMT),
+                        COMP_HEALTH_ADJ_PAY_ITEM    : gfnma_nvl(item.COMP_HEALTH_ADJ_PAY_ITEM),
+                        COMP_HEALTH_ADJ_PAY_AMT     : gfnma_nvl(item.COMP_HEALTH_ADJ_PAY_AMT),
+                        COMP_LONG_ADJ_PAY_ITEM      : gfnma_nvl(item.COMP_LONG_ADJ_PAY_ITEM),
+                        COMP_LONG_ADJ_PAY_AMT       : gfnma_nvl(item.COMP_LONG_ADJ_PAY_AMT),
+                        COMP_HEALTH_YE_PAY_ITEM     : gfnma_nvl(item.COMP_HEALTH_YE_PAY_ITEM),
+                        COMP_HEALTH_YE_PAY_AMT      : gfnma_nvl(item.COMP_HEALTH_YE_PAY_AMT),
+                        COMP_LONG_YE_PAY_ITEM       : gfnma_nvl(item.COMP_LONG_YE_PAY_ITEM),
+                        COMP_LONG_YE_PAY_AMT        : gfnma_nvl(item.COMP_LONG_YE_PAY_AMT)
 
                     }
                     jsonGvwList.push(msg);
@@ -891,10 +971,17 @@
                         EMP_NAME             : gfnma_nvl(item.EMP_NAME),            //성명
                         DATE_QUARTER         : gfnma_nvl(item.DATE_QUARTER),        //분기
                         DATE_MONTH           : gfnma_nvl(item.DATE_MONTH),          //월
-                        BASE_INCOME_AMT      : gfnma_nvl(item.BASE_INCOME_AMT),     //기준소득월액
-                        TOTAL_INSURE_AMT     : gfnma_nvl(item.TOTAL_INSURE_AMT),    //월보험료(계)
-                        EMP_INSURE_AMT       : gfnma_nvl(item.EMP_INSURE_AMT),      //본인기여금
-                        COMP_INSURE_AMT      : gfnma_nvl(item.COMP_INSURE_AMT)      //사용자부담금
+                        BASE_INCOME_AMT      : gfnma_nvl(item.BASE_INCOME_AMT),     //보수월액
+                        /*BASE_INCOME_AMT      : gfnma_nvl(item.BASE_INCOME_AMT),   //기준소득월액*/
+                        HEALTH_INSURE_AMT      : gfnma_nvl(item.HEALTH_INSURE_AMT), //산출보험(건강)
+                        HEALTH_ADJUST_AMT      : gfnma_nvl(item.HEALTH_ADJUST_AMT), //정산금액(건강)
+                        HEALTH_YE_ADJ_AMT      : gfnma_nvl(item.HEALTH_YE_ADJ_AMT), //연말정산(건강)
+                        LONG_INSURE_AMT      : gfnma_nvl(item.LONG_INSURE_AMT),     //산출보험(장기)
+                        LONG_ADJUST_AMT      : gfnma_nvl(item.LONG_ADJUST_AMT),     //정산금액(장기)
+                        LONG_YE_ADJ_AMT      : gfnma_nvl(item.LONG_YE_ADJ_AMT),     //연말정산(장기)
+                        HEALTH_REFUND_INTEREST      : gfnma_nvl(item.HEALTH_REFUND_INTEREST),   //환급금이자(건강)
+                        LONG_REFUND_INTEREST      : gfnma_nvl(item.LONG_REFUND_INTEREST)        //환급금이자(장기)
+
                     }
                     jsonPivotList.push(msg);
                 });
@@ -1209,7 +1296,7 @@
             , V_P_PC: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp5100S.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp5200S.do", {
             getType: 'json',
             workType: 'CHECK',
             cv_count: '0',
