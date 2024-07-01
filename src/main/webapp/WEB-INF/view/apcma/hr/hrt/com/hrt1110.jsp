@@ -277,7 +277,7 @@
 
     const fn_save = async function () {
         let updatedData = gvwInfo.getUpdateData(true, 'all');
-        let listDate = [];
+        let listData = [];
 
         updatedData.forEach((item, index) => {
             const param = {
@@ -311,11 +311,11 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
         });
 
-        if(listDate.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1110List.do", {listData: listDate});
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
