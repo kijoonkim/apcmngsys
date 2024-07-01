@@ -1,7 +1,18 @@
 package com.at.apcma.hr.hrt.hrt.web;
 
+import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /**
  * 월별근태조정을 처리하는 컨트롤러 클래스
@@ -21,4 +32,147 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class ApcMaHrt2520Controller extends BaseController {
+    @Resource(name= "apcMaCommDirectService")
+    private ApcMaCommDirectService apcMaCommDirectService;
+
+    @PostMapping(value = "/hr/hrt/hrt/selectHrt2520List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHrt2310List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHrt2520List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_HRT2520_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHrt2520List=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+
+    @PostMapping(value = "/hr/hrt/hrt/insertHrt2520.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrt2310(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrt2520=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_HRT2520_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrt2520=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/hr/hrt/hrt/insertHrt2520List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrt2310List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrt2520List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for(String key : param.keySet()){
+                if(key.contains("listData")) {
+                    if(param.get(key) instanceof List) {
+                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+                        List<HashMap<String,Object>> returnData = new ArrayList<>();
+                        for(int i = 0; i < listData.size(); i++) {
+                            listData.get(i).put("procedure", 		"P_HRT2520_S");
+                            returnData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
+                            if(listData.get(i).get("resultStatus").equals("E")) {
+                                String errorCode = Optional.ofNullable(returnData.get(i).get("v_errorCode")).orElse("").toString();
+                                String errorStr = Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString();
+
+                                return getErrorResponseEntity(errorCode, errorStr);
+                            }
+                        }
+
+                        resultMap.put(key, returnData);
+                    }
+                }
+            }
+            logger.info("=============insertHrt2520List=====end========");
+            return getSuccessResponseEntity(resultMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    @PostMapping(value = "/hr/hrt/hrt/insertHrt2520DetailList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrt2520DetailList(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrt2520DetailList=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for(String key : param.keySet()){
+                if(key.contains("listData")) {
+                    if(param.get(key) instanceof List) {
+                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+                        List<HashMap<String,Object>> returnData = new ArrayList<>();
+                        for(int i = 0; i < listData.size(); i++) {
+                            listData.get(i).put("procedure", 		"P_HRT2520_S1");
+                            returnData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
+                            if(listData.get(i).get("resultStatus").equals("E")) {
+                                String errorCode = Optional.ofNullable(returnData.get(i).get("v_errorCode")).orElse("").toString();
+                                String errorStr = Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString();
+
+                                return getErrorResponseEntity(errorCode, errorStr);
+                            }
+                        }
+
+                        resultMap.put(key, returnData);
+                    }
+                }
+            }
+            logger.info("=============insertHrt2520DetailList=====end========");
+            return getSuccessResponseEntity(resultMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
 }

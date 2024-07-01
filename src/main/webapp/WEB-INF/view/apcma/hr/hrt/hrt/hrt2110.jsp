@@ -1147,7 +1147,7 @@
         }
 
         let updatedData = bandgvwInfo.getUpdateData(true, 'all');
-        let listDate = [];
+        let listData = [];
 
         updatedData.forEach((item, index) => {
             const param = {
@@ -1205,11 +1205,11 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
         });
 
-        if(listDate.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1266,7 +1266,7 @@
                 return false;
             }
 
-            let listDate = [];
+            let listData = [];
 
             const param = {
                 cv_count: '0',
@@ -1323,9 +1323,9 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1716,7 +1716,7 @@
                 return false;
             }
 
-            let listDate = [];
+            let listData = [];
 
             const param = {
                 cv_count: '0',
@@ -1773,9 +1773,9 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1829,7 +1829,7 @@
                 return false;
             }
 
-            let listDate = [];
+            let listData = [];
 
             const param = {
                 cv_count: '0',
@@ -1886,9 +1886,9 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1941,7 +1941,7 @@
             return false;
         }
 
-        let listDate = [];
+        let listData = [];
 
         const param = {
             cv_count: '0',
@@ -1998,9 +1998,9 @@
                 V_P_PC: ''
             })
         }
-        listDate.push(param);
+        listData.push(param);
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
         const data = await postJsonPromise;
         console.log('data:', data);
@@ -2052,7 +2052,7 @@
             return false;
         }
 
-        let listDate = [];
+        let listData = [];
 
         const param = {
             cv_count: '0',
@@ -2109,9 +2109,9 @@
                 V_P_PC: ''
             })
         }
-        listDate.push(param);
+        listData.push(param);
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
         const data = await postJsonPromise;
         console.log('data:', data);
