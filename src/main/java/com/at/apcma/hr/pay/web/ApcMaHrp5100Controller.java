@@ -17,18 +17,18 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * 급여 전표처리 컨트롤러 클래스
+ * 국민연금 내역 관리 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
- * @since 		2024.06.21
+ * @since 		2024.06.27
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 급여 전표처리 정보(Modification Information) >>
+ * << 국민연금 내역 관리 정보(Modification Information) >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
- *  2023.06.24  표주완     	최초 생성
+ *  2023.06.27  표주완     	최초 생성
  *
  *  </pre>
  */
