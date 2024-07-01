@@ -267,10 +267,6 @@
 				return;
 			} else {
 				let rowData = grdPrdcrPop.getRowData(nRow);
-				SBUxMethod.set("srch-inp-prdcrCd", rowData.prdcrCd);
-				SBUxMethod.set("srch-inp-prdcrNm", rowData.prdcrNm);
-				SBUxMethod.set("srch-inp-prdcrIdentno", rowData.prdcrIdentno);
-				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 				gfn_closeModal(popPrdcr.modalId, popPrdcr.callbackFnc, rowData);
 			}
 		},
@@ -484,7 +480,15 @@
 					    rmrk 			: item.rmrk,
 					    delYn 			: item.delYn,
 					    apcCd 			: item.apcCd,
-					    extrnlLnkgCd	: item.extrnlLnkgCd
+					    extrnlLnkgCd	: item.extrnlLnkgCd,
+					    frmerno			: item.frmerno,
+					    admstOwnrRgdtAddr : item.admstOwnrRgdtAddr,
+					    mblTelno		: item.mblTelno,
+					    rprsPoeFrlnArea	: item.rprsPoeFrlnArea,
+					    rprsFrlnAddr	: item.rprsFrlnAddr,
+					    rprsFrlnMno 	: item.rprsFrlnMno,
+					    rprsFrlnSno 	: item.rprsFrlnSno
+
 					}
 
 					if (!gfn_isEmpty(item.rprsItemCd) && !gfn_isEmpty(item.rprsVrtyCd)) {
