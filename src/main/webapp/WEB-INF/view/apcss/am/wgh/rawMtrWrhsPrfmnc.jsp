@@ -805,7 +805,7 @@ async function cfn_search() {
   				}
   			});
 
-          	grdRawMtrWrhs.rebuild();
+          	//grdRawMtrWrhs.rebuild();
 
           	if (jsonRawMtrWrhs.length > 0) {
           		if(grdRawMtrWrhs.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
@@ -887,7 +887,7 @@ async function cfn_search() {
 			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
 			fn_setPrdcrForm(prdcr);
-			
+
 		}
 	}
 
