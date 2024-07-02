@@ -1482,10 +1482,27 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btnSrchPrdcr').click();
+		} else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
-		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			fn_setPrdcrForm(prdcr);
+			
+		}
+	}
+
+	const fn_setPrdcrForm = async function(prdcr) {
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
+		}
+
 	}
 
  	/**
@@ -1518,6 +1535,8 @@
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+			fn_setPrdcrForm(prdcr);
 		}
 	}
 
