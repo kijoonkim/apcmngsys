@@ -428,6 +428,35 @@
 
         gvwInfo = _SBGrid.create(SBGridProperties);
         gvwInfo.bind('click', 'fn_view');
+        gvwInfo.bind('valuechanged', 'fn_gvwInfoValueChanged');
+    }
+
+    const fn_gvwInfoValueChanged = async function () {
+        var nRow = gvwInfo.getRow();
+        var nCol = gvwInfo.getCol();
+        var rowData = gvwInfo.getRowData(nRow);
+
+        if (nRow < 0)
+            return;
+
+        if (nCol == gvwInfo.getColRef("AFTER_HOURS_TIME1") || nCol == gvwInfo.getColRef("AFTER_HOURS_TIME2")
+            || nCol == gvwInfo.getColRef("OVER_TIME") || nCol == gvwInfo.getColRef("NIGHT_TIME")
+            || nCol == gvwInfo.getColRef("HOLIDAY_TIME") || nCol == gvwInfo.getColRef("HOLIDAY_OVER_TIME")
+            || nCol == gvwInfo.getColRef("SUNDAY_TIME")  || nCol == gvwInfo.getColRef("SUNDAY_OVER_TIME")
+            || nCol == gvwInfo.getColRef("EXTRA_FIELD1") || nCol == gvwInfo.getColRef("EXTRA_FIELD2")) {
+            let dafter_hours_time1 = parseInt(rowData.AFTER_HOURS_TIME1);
+            let dafter_hours_time2 = parseInt(rowData.AFTER_HOURS_TIME2);
+            let dover_time = parseInt(rowData.OVER_TIME);
+            let dnight_time = parseInt(rowData.NIGHT_TIME);
+            let dholiday_time = parseInt(rowData.HOLIDAY_TIME);
+            let dholiday_over_time = parseInt(rowData.HOLIDAY_OVER_TIME);
+            let dsunday_time = parseInt(rowData.SUNDAY_TIME);
+            let dsunday_over_time = parseInt(rowData.SUNDAY_OVER_TIME);
+            let dextra_field1 = parseInt(rowData.EXTRA_FIELD1);
+            let dextra_field2 = parseInt(rowData.EXTRA_FIELD2);
+
+            gvwInfo.setCellData(nRow, gvwInfo.getColRef("TIME_SUM"), (dafter_hours_time1 + dafter_hours_time2 + dover_time + dnight_time + dholiday_time + dholiday_over_time + dsunday_time + dsunday_over_time + dextra_field1 + dextra_field2));
+        }
     }
 
     function fn_createGrdDetailGrid() {
@@ -1178,6 +1207,14 @@
                     });
 
                     gvwInfo.setCaption(stringGvwInfoCaptionList.substring(0, stringGvwInfoCaptionList.length-1));
+
+                    listData.cv_2.forEach((item, index) => {
+                        let nCol = gvwInfo.getColRef(item.TIME_FIELD_NAME.toUpperCase());
+
+                        if (item.USE_YN == "Y") {
+                            gvwInfo.moveColumn(nCol, (item.SORT_SEQ + 6));
+                        }
+                    });
                 }
 
                 let existsYn = gfn_nvl(listData.cv_3[0]["EXISTS_YN"]);
