@@ -95,8 +95,14 @@ public class LoginVO implements Serializable{
 	/** 사용자 주소 */
 	private String addr;
 
-	public String getAddr() { return addr; }
-	
+	public String getAddr() {
+		return addr;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
 	public String getBrno() {
 		return brno;
 	}
