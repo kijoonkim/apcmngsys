@@ -96,6 +96,7 @@
 									name="srch-slt-vrtyCd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									jsondata-ref="jsonApcVrty"
+									jsondata-value="itemVrtyCd"
 									onchange="fn_onChangeSrchVrtyCd(this)"
 								/>
 							</td>
@@ -1434,11 +1435,18 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('srch-btn-slt-prdcrNm').click();
+		} else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
-		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
-		fn_setPrdcrForm(prdcr);
+			fn_setPrdcrForm(prdcr);
+			
+		}
 	}
 
  	/**
@@ -1479,8 +1487,9 @@
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
-			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyNm);
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
+			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsItemCd + prdcr.rprsVrtyCd);
+			fn_onChangeSrchVrtyCd({value : prdcr.rprsItemCd + prdcr.rprsVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -1577,7 +1586,7 @@
 	 */
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
-		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd});
+		const vrtyInfo = _.find(jsonApcVrty, {value: vrtyCd.substring(4,8)});
 
 		if (gfn_isEmpty(vrtyInfo)) {
 			SBUxMethod.set("srch-inp-unitWght", "");
@@ -1587,13 +1596,19 @@
 			SBUxMethod.set("srch-inp-unitWght", unitWght);
 		}
 
-		const itemCd = vrtyInfo.mastervalue;
-
-		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
-		if (itemCd != prvItemCd) {
-			SBUxMethod.set("srch-slt-itemCd", itemCd);
-			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+		if(!gfn_isEmpty(vrtyCd)){
+			const itemCd = vrtyCd.substring(0,4);
+			
+			const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+			if (itemCd != prvItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			} else {
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			}
 		}
 	}
 
