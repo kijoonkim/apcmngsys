@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcma.com.mapper.ProcMapper;
 import com.at.apcma.com.service.ApcMaCommDirectService;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.util.ComUtil;
 
 /**
@@ -62,6 +63,9 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(e.getMessage());
+			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
+			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
+			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
 		}
 		return rmap;
 	}
@@ -145,6 +149,9 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
+			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
+			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
+			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
 		}
 		return rmap;
 	}    
@@ -197,12 +204,14 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			if(Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("") && !Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("")) {
 				rmap.put("resultStatus", 	"E");
 				rmap.put("resultMessage", 	param.get("v_errorStr").toString());
+				return rmap;
 			}
 			
 			//프로시저에서 v_errorCode 값이 반드시 있어야 하는데 없이 오는 경우..
 			if(Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("")) {
 		    	rmap.put("resultStatus", 	"S");
 		    	rmap.put("resultMessage", 	"");
+				return rmap;
 			}
 			
 			//정상
@@ -227,17 +236,27 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			emap2.put("ERR0011", 	"거래처의 계정과목이 누락되었습니다.(Error : ERR0011)");
 			
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"USRMAT.SP_SERVICEMESSAGE");
+			gmap1.put("procedure", 			"USRMAT.P_SERVICEMESSAGE");
 			gmap1.put("workType", 			"QESS");
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"1");
 			
     		String gmap2[][] = {
+				{"V_P_DEBUG_MODE_YN",		""},
+				{"V_P_LANG_ID",				""},
+				{"V_P_COMP_CODE",			""},
+				{"V_P_CLIENT_CODE",			""},
 				{"V_S_LANGCODE",			"KOR"},
 				{"V_S_ERROR_CODE",			""},
 				{"V_S_ERROR_STR",			""},
-				{"V_S_ERROR_TYPE",			""}
-        	};			
+				{"V_S_ERROR_TYPE",			""},
+				{"V_P_FORM_ID",				""},
+				{"V_P_MENU_ID",				""},
+				{"V_P_PROC_ID",				""},
+				{"V_P_USERID",				""},
+				{"V_P_PC",					""}
+        	};
+    		
 			Map<String, Object> gmap3 = this.InnerCallProc2(gmap1, gmap2);    
 			List<Map<String, Object>> cv_1 = (ArrayList<Map<String, Object>>)gmap3.get("cv_1");
 			
@@ -282,6 +301,9 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(e.getMessage());
+			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
+			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
+			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
 		}
 		return rmap;
 	}	
