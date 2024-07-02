@@ -37,12 +37,6 @@
                     </h3><!-- 국가정보 -->
                 </div>
                 <div style="margin-left: auto;">
-                    <sbux-button uitype="normal" text="결재처리" 		class="btn btn-sm btn-outline-danger" onclick="cfn_approval"></sbux-button>
-                	<!-- 
-                    <sbux-button uitype="normal" text="파일첨부" class="btn btn-sm btn-outline-danger" onclick="cfn_attach"></sbux-button>
-                    <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="cfn_save"></sbux-button>
-                    <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="cfn_search"></sbux-button>
-                	 -->
                 </div>
             </div>
             <div class="box-body">
@@ -495,7 +489,7 @@
     /**
      * 결재처리
      */
-    var cfn_approval = function() {
+    var cfn_appr = function() {
     	
     	//본인이 상신하는 경우
     	compopappvmng({
