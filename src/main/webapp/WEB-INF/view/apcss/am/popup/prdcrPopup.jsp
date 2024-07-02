@@ -484,11 +484,13 @@
 					    frmerno			: item.frmerno,
 					    admstOwnrRgdtAddr : item.admstOwnrRgdtAddr,
 					    mblTelno		: item.mblTelno,
-					    rprsPoeFrlnArea	: item.rprsPoeFrlnArea,
-					    rprsFrlnAddr	: item.rprsFrlnAddr,
-					    rprsFrlnMno 	: item.rprsFrlnMno,
-					    rprsFrlnSno 	: item.rprsFrlnSno
-
+					    crtrArea		: item.crtrArea,
+					    plntngArea		: item.plntngArea,
+					    prchsQntt 		: item.prchsQntt,
+					    prchsAmt 		: item.prchsAmt,
+					    frmhsAddr		: item.frmhsAddr,
+					    frmhsCtpv		: item.frmhsCtpv,
+					    frmhsTelno		: item.frmhsTelno,
 					}
 
 					if (!gfn_isEmpty(item.rprsItemCd) && !gfn_isEmpty(item.rprsVrtyCd)) {
