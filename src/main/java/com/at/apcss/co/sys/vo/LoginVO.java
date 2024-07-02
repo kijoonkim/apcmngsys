@@ -91,6 +91,11 @@ public class LoginVO implements Serializable{
 	
 	/** 경영관리 인사담당자 */
 	private String isHrManager;
+
+	/** 사용자 주소 */
+	private String addr;
+
+	public String getAddr() { return addr; }
 	
 	public String getBrno() {
 		return brno;
