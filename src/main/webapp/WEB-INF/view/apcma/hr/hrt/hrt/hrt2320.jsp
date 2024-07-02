@@ -756,7 +756,6 @@
                 return;
             } else {
                 if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM")) != "") {
-                    fnQRY_P_HRT2310_Q("");
                     let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
                     let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
                     let SHIFT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
@@ -1724,6 +1723,7 @@
                     V_P_EMP_STATE : EMP_STATE,
                     V_P_LOGIN_DEPT_CODE : '',
                     V_P_HR_MANAGER_YN : '',
+                    V_P_FORMID : "HRT2320",
                     V_P_FORM_ID		: p_formId,
                     V_P_MENU_ID		: p_menuId,
                     V_P_PROC_ID		: '',
@@ -1968,6 +1968,7 @@
                     V_P_EMP_STATE : EMP_STATE,
                     V_P_LOGIN_DEPT_CODE : '',
                     V_P_HR_MANAGER_YN : '',
+                    V_P_FORMID : "HRT2320",
                     V_P_FORM_ID		: p_formId,
                     V_P_MENU_ID		: p_menuId,
                     V_P_PROC_ID		: '',
