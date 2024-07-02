@@ -287,6 +287,20 @@ public abstract class BaseController {
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
+	protected ResponseEntity<HashMap<String, Object>> getSuccessResponseEntityMa(HashMap<String, Object> resultMap) {
+
+		resultMap.put(ComConstants.PROP_RESULT_STATUS, 	resultMap.get("resultStatus"));
+		resultMap.put(ComConstants.PROP_RESULT_CODE, 	"");
+
+		if(resultMap.get("resultStatus").equals("S")) {
+			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	ComConstants.CON_BLANK);
+			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	"");
+		} else {
+			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	resultMap.get("resultMessage"));
+		}
+		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
 	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(HashMap<String, Object> resultMap) {
 
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);

@@ -9,24 +9,35 @@
  * @param 		{Object} 
  * @returns 	{string}
  */
-const gfnma_objectToString = function (obj) {
+const gfnma_objectToString = function (obj, log) {
 	var res 	= '';
 	var temp 	= '';
+	var logstr	= '';
+	if(log){
+		logstr = '{\n';
+	}
 	for(key in obj){
 		temp = obj[key] + '';
 		res += temp + ',';
+		if(log){
+			logstr += key + ' : "' + obj[key] + '",\n';
+		}
 	}
 	res = res.slice(0, -1);
+	if(log){
+		logstr += '\n}';
+		console.log(logstr);
+	}
 	return res;
 }
 
 /**
- * @name 		gfnma_date1
- * @description 날짜를 yyyy-MM-dd HH:mm:ss 문자열로
+ * @name 		gfnma_date
+ * @description 날짜를 yyyyMMddHHmmss 문자열로
  * @function
  * @returns 	{string}
  */
-const gfnma_date1 = function () {
+const gfnma_date = function () {
 	var rstr = '';
 	var pad = function(number, length) {
 	  var str = '' + number;
@@ -42,7 +53,61 @@ const gfnma_date1 = function () {
 	var hh = pad(nowDate.getHours(), 2);
 	var mm = pad(nowDate.getMinutes(), 2)
 	var ss = pad(nowDate.getSeconds(), 2)
-	rstr = yyyy + '-' + MM + '-' + dd + ' ' + hh + ':' + mm + ':' + ss;
+	rstr = yyyy + MM + dd + hh + mm + ss;
+	return rstr;
+}
+
+/**
+ * @name 		gfnma_date1
+ * @description 날짜를 yyyy-MM-dd HH:mm:ss 문자열로
+ * @function
+ * @returns 	{string}
+ */
+const gfnma_date1 = function () {
+	var rstr = '';
+	rstr += gfnma_date().substr(0,4) + '-' + gfnma_date().substr(4,2) + '-' + gfnma_date().substr(6,2); 
+	rstr += ' ' + gfnma_date().substr(8,2) + ':' + gfnma_date().substr(10,2) + ':' + gfnma_date().substr(12,2);
+	return rstr;
+}
+
+/**
+ * @name 		gfnma_date2
+ * @description 오늘 월의 마지막 일자
+ * @function
+ * @returns 	{string}
+ */
+const gfnma_date2 = function() {
+	var rstr = '';
+	let date = new Date(gfnma_date().substr(0,4) , gfnma_date().substr(4,2), 0);
+	rstr = date.getDate();
+	if(rstr.length==1){
+		rstr = '0' + rstr;
+	}
+	rstr = gfnma_date().substr(0,4) + '-' + gfnma_date().substr(4,2) + '-' + rstr; 
+	return rstr;
+}
+
+/**
+ * @name 		gfnma_date3
+ * @description 해당 월의 마지막 일자
+ * @function
+ * @param 		{string} year 	: 년 
+ * @param 		{string} month 	: 월
+ * @returns 	{string}
+ */
+const gfnma_date3 = function(year, month) {
+	var rstr 	= '';
+	var p_month	= '';
+	if(month){
+		p_month = (month.length==1) ? '0' + month : month;
+	}  
+	var date = new Date(year, p_month, 0);
+	rstr = date.getDate();
+	if(rstr.length==1){
+		rstr = year + '-' + month + '-0' + rstr;
+	} else {
+		rstr = year + '-' + month + '-' + rstr;
+	}
 	return rstr;
 }
 
@@ -212,6 +277,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 		,V_P_USERID			: ''
 		,V_P_PC				: ''
     };		
+	//console.log('paramObj:', paramObj);
 
     const postJsonPromise = gfn_postJSON("/com/comSelectList.do", {
     	getType				: 'json',
@@ -221,7 +287,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 	});
 
 	const data = await postJsonPromise;
-	//console.log('select data:', data);
+	console.log('select data:', data);
 
 	try {
 		_jsondataRef.length = 0;
