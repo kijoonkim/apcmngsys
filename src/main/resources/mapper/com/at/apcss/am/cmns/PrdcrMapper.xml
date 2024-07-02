@@ -82,7 +82,7 @@
 
     </select>
 
-    
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrByIdentno		-->
 	<!-- DESC : 생산자 단건 조회 by PrdcrIdentno.	                                -->
@@ -160,9 +160,9 @@
 			     , PR.PLOR_CD			AS PLOR_CD
 			     , PR.RMRK          	AS RMRK
 			     , PR.FRMHS_NM      	AS FRMHS_NM
-			     , PR.FRMHS_TELNO		AS FRMHS_TELNO
+			     , NVL(PR.FRMHS_TELNO, FI.MBL_TELNO)		AS FRMHS_TELNO
 			     , PR.FRMHS_CTPV		AS FRMHS_CTPV
-			     , PR.FRMHS_ADDR		AS FRMHS_ADDR
+			     , NVL(PR.FRMHS_ADDR, FI.ADMST_OWNR_RGDT_ADDR)		AS FRMHS_ADDR
 			     , PR.DEL_YN        	AS DEL_YN
 			     , PR.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
 			     , (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = PR.APC_CD) AS APC_NM
@@ -171,10 +171,19 @@
 			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', PR.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', PR.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', PR.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+                 , PR.CRTR_AREA         AS CRTR_AREA
+                 , PR.PLNTNG_AREA       AS PLNTNG_AREA
+                 , PR.PRCHS_QNTT        AS PRCHS_QNTT
+                 , PR.PRCHS_AMT         AS PRCHS_AMT
+                 , FI.FRMERNO           AS FRMERNO
 
 			  FROM TB_PRDCR_INFO PR
-			 WHERE PR.APC_CD = #{apcCd}
-			   AND PR.DEL_YN = 'N'
+			     , TB_AX_FRMER_INFO FI
+
+			 WHERE PR.PRDCR_LINK_CD = FI.MNGMST_REGNO(+)
+               AND FI.DEL_YN(+) = 'N'
+			   AND PR.DEL_YN 	= 'N'
+			   AND PR.APC_CD 	= #{apcCd}
 		]]>
 
 		<if test=' prdcrCd != null and prdcrCd !=""'>
