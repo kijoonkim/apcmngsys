@@ -1697,9 +1697,6 @@
         let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
 
         if (grdRows.length > 0) {
-            if (gvwShift.FocusedRowHandle < 0)
-                return;
-
             for(var i = 0; i < grdRows.length; i++) {
                 let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
                 let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
@@ -1942,9 +1939,6 @@
         let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
 
         if (grdRows.length > 0) {
-            if (gvwShift.FocusedRowHandle < 0)
-                return;
-
             for(var i = 0; i < grdRows.length; i++) {
                 let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
                 let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
