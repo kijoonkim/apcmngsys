@@ -38,10 +38,11 @@
             <div style="margin-left: auto;">
                 <sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
                 <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>
-                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정/승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_cancel"></sbux-button>
-                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정/승인처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
+                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_cancel"></sbux-button>
+                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
+                <sbux-button id="btnManagerAppr" name="btnManagerAppr" uitype="normal" text="관리자승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_managerAppr"></sbux-button>
+                <sbux-button id="btnApprCancel" name="btnApprCancel" uitype="normal" text="관리자승인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_apprCancel"></sbux-button>
                 <sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="일괄저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_allSave"></sbux-button>
-                <sbux-button id="btnApprCancel" name="btnApprCancel" uitype="normal" text="승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_apprCancel"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -1597,589 +1598,696 @@
 
     const fn_apprCancel = async function() {
         if (gfn_comConfirm("Q0000", "기존 승인된 근태실적을 취소하시겠습니까?")) {
-            var nRow = bandgvwInfo.getRow();
-            let temp_txn_id = "";
-            let IntRowCount = 0;
-            if (nRow < 0)
-                return;
+            let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
 
-            jsonDayShiftList.forEach((item, index) => {
-                IntRowCount = IntRowCount + 1;
-                temp_txn_id += item.TXN_ID + "|";
-            });
+            if (grdRows.length > 0) {
+                for (var i = 0; i < grdRows.length; i++) {
+                    let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+                    let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
+                    let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                    let EMP_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
+                    let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
 
-            if (IntRowCount == 0) {
-                gfn_comAlert("E0000", "승인 취소할 데이타가 없습니다.");
-                return false;
-            }
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN: '',
+                        V_P_LANG_ID: '',
+                        V_P_COMP_CODE: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                        V_P_YYYYMMDD_FR: YYYYMMDD_FR,
+                        V_P_YYYYMMDD_TO: YYYYMMDD_TO,
+                        V_P_SITE_CODE: SITE_CODE,
+                        V_P_DEPT_CODE: DEPT_CODE,
+                        V_P_JOB_GROUP: JOB_GROUP,
+                        V_P_EMP_CODE: EMP_CODE,
+                        V_P_EMP_STATE: EMP_STATE,
+                        V_P_LOGIN_DEPT_CODE: '',
+                        V_P_HR_MANAGER_YN: '',
+                        V_P_FORMID: "HRT2320",
+                        V_P_FORM_ID: p_formId,
+                        V_P_MENU_ID: p_menuId,
+                        V_P_PROC_ID: '',
+                        V_P_USERID: '',
+                        V_P_PC: ''
+                    };
 
-            temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
+                    const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2320List.do", {
+                        getType: 'json',
+                        workType: 'DETAIL',
+                        cv_count: '2',
+                        params: gfnma_objectToString(paramObj)
+                    });
 
-            var paramObj = {
-                V_P_DEBUG_MODE_YN	: '',
-                V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
-                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                V_P_TXN_ID : '0',
-                V_P_SEQ_NO : '0',
-                V_P_SITE_CODE : '',
-                V_P_DEPT_CODE : '',
-                V_P_POSITION_CODE : '',
-                V_P_WORK_PATTERN_CODE : '',
-                V_P_SHIFT_CODE : '',
-                V_P_EMP_CODE : '',
-                V_P_BASE_YYYYMMDD : '',
-                V_P_WORK_YYYYMMDD : '',
-                V_P_ACCT_YYYYMMDD : '',
-                V_P_HOLIDAY_YN : '',
-                V_P_HOLIDAY2_YN : '',
-                V_P_WORK_DAY_TYPE : '',
-                V_P_TIME_ITEM_CODE : '',
-                V_P_TIME_ITEM_CODE_ORIG : '',
-                V_P_START_DAY_TYPE : '',
-                V_P_TIME_START_HHMM : '',
-                V_P_END_DAY_TYPE : '',
-                V_P_TIME_END_HHMM : '',
-                V_P_CONFIRM_TIME : '',
-                V_P_CONFIRM_YN : '',
-                V_P_MEMO : '',
-                V_P_CAUSE : '',
-                V_P_STATUS_CODE : '',
-                V_P_APPROVE_DATE : '',
-                V_P_SOURCE_TYPE : '',
-                V_P_SOURCE_CODE : '',
-                V_P_NIGHT_TIME_ITEM_CODE : '',
-                V_P_NIGHT_START_DAY_TYPE : '',
-                V_P_NIGHT_START_HHMM : '',
-                V_P_NIGHT_END_DAY_TYPE : '',
-                V_P_NIGHT_END_HHMM : '',
-                V_P_WORK_DATA_SOURCE : '',
-                V_P_TXN_ID_D : temp_txn_id,
-                V_P_VACCINE_WORK_YN : '',
-                V_P_BREAK_APPLY_YN : '',
-                V_P_ALTER_WORK_YN : '',
-                V_P_ALTER_REQ_YN : '',
-                V_P_SHIFT_WORK_YN : '',
-                V_P_BREAK_START_DAY_TYPE1 : '',
-                V_P_BREAK_START_HHMM1 : '',
-                V_P_BREAK_END_DAY_TYPE1 : '',
-                V_P_BREAK_END_HHMM1 : '',
-                V_P_DINNER_YN : '',
-                V_P_FORM_ID		: p_formId.toUpperCase(),
-                V_P_MENU_ID		: p_menuId,
-                V_P_PROC_ID		: '',
-                V_P_USERID			: '',
-                V_P_PC				: ''
-            };
+                    const listData = await postJsonPromiseForList;
+                    console.log('data:', listData);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
-                getType				: 'json',
-                workType			: 'APPRCANCEL',
-                cv_count			: '0',
-                params				: gfnma_objectToString(paramObj)
-            });
+                    try {
+                        if (_.isEqual("S", listData.resultStatus)) {
+                            let temp_txn_id = "";
 
-            const data = await postJsonPromise;
-            console.log('data:', data);
+                            listData.cv_2.forEach((item, index) => {
+                                temp_txn_id += item.TXN_ID + "|";
+                            });
 
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
-                    alert(data.resultMessage);
+                            if (temp_txn_id.length > 0) {
+                                temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
+
+                                var paramObj = {
+                                    V_P_DEBUG_MODE_YN: '',
+                                    V_P_LANG_ID: '',
+                                    V_P_COMP_CODE: gv_ma_selectedApcCd,
+                                    V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                                    V_P_TXN_ID: '0',
+                                    V_P_SEQ_NO: '0',
+                                    V_P_SITE_CODE: '',
+                                    V_P_DEPT_CODE: '',
+                                    V_P_POSITION_CODE: '',
+                                    V_P_WORK_PATTERN_CODE: '',
+                                    V_P_SHIFT_CODE: '',
+                                    V_P_EMP_CODE: '',
+                                    V_P_BASE_YYYYMMDD: '',
+                                    V_P_WORK_YYYYMMDD: '',
+                                    V_P_ACCT_YYYYMMDD: '',
+                                    V_P_HOLIDAY_YN: '',
+                                    V_P_HOLIDAY2_YN: '',
+                                    V_P_WORK_DAY_TYPE: '',
+                                    V_P_TIME_ITEM_CODE: '',
+                                    V_P_TIME_ITEM_CODE_ORIG: '',
+                                    V_P_START_DAY_TYPE: '',
+                                    V_P_TIME_START_HHMM: '',
+                                    V_P_END_DAY_TYPE: '',
+                                    V_P_TIME_END_HHMM: '',
+                                    V_P_CONFIRM_TIME: '',
+                                    V_P_CONFIRM_YN: '',
+                                    V_P_MEMO: '',
+                                    V_P_CAUSE: '',
+                                    V_P_STATUS_CODE: '',
+                                    V_P_APPROVE_DATE: '',
+                                    V_P_SOURCE_TYPE: '',
+                                    V_P_SOURCE_CODE: '',
+                                    V_P_NIGHT_TIME_ITEM_CODE: '',
+                                    V_P_NIGHT_START_DAY_TYPE: '',
+                                    V_P_NIGHT_START_HHMM: '',
+                                    V_P_NIGHT_END_DAY_TYPE: '',
+                                    V_P_NIGHT_END_HHMM: '',
+                                    V_P_WORK_DATA_SOURCE: '',
+                                    V_P_TXN_ID_D: temp_txn_id,
+                                    V_P_VACCINE_WORK_YN: '',
+                                    V_P_BREAK_APPLY_YN: '',
+                                    V_P_ALTER_WORK_YN: '',
+                                    V_P_ALTER_REQ_YN: '',
+                                    V_P_SHIFT_WORK_YN: '',
+                                    V_P_BREAK_START_DAY_TYPE1: '',
+                                    V_P_BREAK_START_HHMM1: '',
+                                    V_P_BREAK_END_DAY_TYPE1: '',
+                                    V_P_BREAK_END_HHMM1: '',
+                                    V_P_DINNER_YN: '',
+                                    V_P_FORM_ID: p_formId.toUpperCase(),
+                                    V_P_MENU_ID: p_menuId,
+                                    V_P_PROC_ID: '',
+                                    V_P_USERID: '',
+                                    V_P_PC: ''
+                                };
+
+                                const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                                    getType: 'json',
+                                    workType: 'APPRCANCEL',
+                                    cv_count: '0',
+                                    params: gfnma_objectToString(paramObj)
+                                });
+
+                                const data = await postJsonPromise;
+                                console.log('data:', data);
+
+                                if (_.isEqual("S", data.resultStatus)) {
+                                    if (data.resultMessage) {
+                                        alert(data.resultMessage);
+                                    }
+                                    fn_search();
+                                } else {
+                                    alert(data.resultMessage);
+                                }
+                            }
+                        } else {
+                            alert(listData.resultMessage);
+                        }
+
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
                 }
-                fn_search();
             } else {
-                alert(data.resultMessage);
-            }
+                //개별취소처리
+                let grdRows = bandgvwInfo.getCheckedRows(bandgvwInfo.getColRef("CHK_YN"), true);
+                if (grdRows.length > 0) {
+                    let temp_txn_id = "";
+                    let IntRowCount = 0;
 
+                    grdRows.forEach((item, index) => {
+                        IntRowCount = IntRowCount + 1;
+                        temp_txn_id += bandgvwInfo.getCellData(item, bandgvwInfo.getColRef("TXN_ID")) + "|";
+                    });
+
+                    if (IntRowCount == 0) {
+                        gfn_comAlert("E0000", "승인 취소할 데이타가 없습니다.");
+                        return false;
+                    } else {
+                        temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
+
+                        var paramObj = {
+                            V_P_DEBUG_MODE_YN: '',
+                            V_P_LANG_ID: '',
+                            V_P_COMP_CODE: gv_ma_selectedApcCd,
+                            V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                            V_P_TXN_ID: '0',
+                            V_P_SEQ_NO: '0',
+                            V_P_SITE_CODE: '',
+                            V_P_DEPT_CODE: '',
+                            V_P_POSITION_CODE: '',
+                            V_P_WORK_PATTERN_CODE: '',
+                            V_P_SHIFT_CODE: '',
+                            V_P_EMP_CODE: '',
+                            V_P_BASE_YYYYMMDD: '',
+                            V_P_WORK_YYYYMMDD: '',
+                            V_P_ACCT_YYYYMMDD: '',
+                            V_P_HOLIDAY_YN: '',
+                            V_P_HOLIDAY2_YN: '',
+                            V_P_WORK_DAY_TYPE: '',
+                            V_P_TIME_ITEM_CODE: '',
+                            V_P_TIME_ITEM_CODE_ORIG: '',
+                            V_P_START_DAY_TYPE: '',
+                            V_P_TIME_START_HHMM: '',
+                            V_P_END_DAY_TYPE: '',
+                            V_P_TIME_END_HHMM: '',
+                            V_P_CONFIRM_TIME: '',
+                            V_P_CONFIRM_YN: '',
+                            V_P_MEMO: '',
+                            V_P_CAUSE: '',
+                            V_P_STATUS_CODE: '',
+                            V_P_APPROVE_DATE: '',
+                            V_P_SOURCE_TYPE: '',
+                            V_P_SOURCE_CODE: '',
+                            V_P_NIGHT_TIME_ITEM_CODE: '',
+                            V_P_NIGHT_START_DAY_TYPE: '',
+                            V_P_NIGHT_START_HHMM: '',
+                            V_P_NIGHT_END_DAY_TYPE: '',
+                            V_P_NIGHT_END_HHMM: '',
+                            V_P_WORK_DATA_SOURCE: '',
+                            V_P_TXN_ID_D: temp_txn_id,
+                            V_P_VACCINE_WORK_YN: '',
+                            V_P_BREAK_APPLY_YN: '',
+                            V_P_ALTER_WORK_YN: '',
+                            V_P_ALTER_REQ_YN: '',
+                            V_P_SHIFT_WORK_YN: '',
+                            V_P_BREAK_START_DAY_TYPE1: '',
+                            V_P_BREAK_START_HHMM1: '',
+                            V_P_BREAK_END_DAY_TYPE1: '',
+                            V_P_BREAK_END_HHMM1: '',
+                            V_P_DINNER_YN: '',
+                            V_P_FORM_ID: p_formId.toUpperCase(),
+                            V_P_MENU_ID: p_menuId,
+                            V_P_PROC_ID: '',
+                            V_P_USERID: '',
+                            V_P_PC: ''
+                        };
+
+                        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                            getType: 'json',
+                            workType: 'APPRCANCEL',
+                            cv_count: '0',
+                            params: gfnma_objectToString(paramObj)
+                        });
+
+                        const data = await postJsonPromise;
+                        console.log('data:', data);
+
+                        if (_.isEqual("S", data.resultStatus)) {
+                            if (data.resultMessage) {
+                                alert(data.resultMessage);
+                            }
+                            fn_search();
+                        } else {
+                            alert(data.resultMessage);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    const fn_managerAppr = async function() {
+        if (gfn_comConfirm("Q0000", "근태실적을 승인하시겠습니까?")) {
+            let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
+
+            if (grdRows.length > 0) {
+                for (var i = 0; i < grdRows.length; i++) {
+                    let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+                    let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+                    let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                    let DEPT_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
+                    let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                    let EMP_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
+                    let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN: '',
+                        V_P_LANG_ID: '',
+                        V_P_COMP_CODE: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                        V_P_YYYYMMDD_FR: YYYYMMDD_FR,
+                        V_P_YYYYMMDD_TO: YYYYMMDD_TO,
+                        V_P_SITE_CODE: SITE_CODE,
+                        V_P_DEPT_CODE: DEPT_CODE,
+                        V_P_JOB_GROUP: JOB_GROUP,
+                        V_P_EMP_CODE: EMP_CODE,
+                        V_P_EMP_STATE: EMP_STATE,
+                        V_P_LOGIN_DEPT_CODE: '',
+                        V_P_HR_MANAGER_YN: '',
+                        V_P_FORMID: "HRT2320",
+                        V_P_FORM_ID: p_formId,
+                        V_P_MENU_ID: p_menuId,
+                        V_P_PROC_ID: '',
+                        V_P_USERID: '',
+                        V_P_PC: ''
+                    };
+
+                    const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2320List.do", {
+                        getType: 'json',
+                        workType: 'DETAIL',
+                        cv_count: '2',
+                        params: gfnma_objectToString(paramObj)
+                    });
+
+                    const listData = await postJsonPromiseForList;
+                    console.log('data:', listData);
+
+                    try {
+                        if (_.isEqual("S", listData.resultStatus)) {
+                            let temp_txn_id = "";
+
+                            listData.cv_2.forEach((item, index) => {
+                                temp_txn_id += item.TXN_ID + "|";
+                            });
+
+                            if (temp_txn_id.length > 0) {
+                                temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
+
+                                var paramObj = {
+                                    V_P_DEBUG_MODE_YN: '',
+                                    V_P_LANG_ID: '',
+                                    V_P_COMP_CODE: gv_ma_selectedApcCd,
+                                    V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                                    V_P_TXN_ID: '0',
+                                    V_P_SEQ_NO: '0',
+                                    V_P_SITE_CODE: '',
+                                    V_P_DEPT_CODE: '',
+                                    V_P_POSITION_CODE: '',
+                                    V_P_WORK_PATTERN_CODE: '',
+                                    V_P_SHIFT_CODE: '',
+                                    V_P_EMP_CODE: '',
+                                    V_P_BASE_YYYYMMDD: '',
+                                    V_P_WORK_YYYYMMDD: '',
+                                    V_P_ACCT_YYYYMMDD: '',
+                                    V_P_HOLIDAY_YN: '',
+                                    V_P_HOLIDAY2_YN: '',
+                                    V_P_WORK_DAY_TYPE: '',
+                                    V_P_TIME_ITEM_CODE: '',
+                                    V_P_TIME_ITEM_CODE_ORIG: '',
+                                    V_P_START_DAY_TYPE: '',
+                                    V_P_TIME_START_HHMM: '',
+                                    V_P_END_DAY_TYPE: '',
+                                    V_P_TIME_END_HHMM: '',
+                                    V_P_CONFIRM_TIME: '',
+                                    V_P_CONFIRM_YN: '',
+                                    V_P_MEMO: '',
+                                    V_P_CAUSE: '',
+                                    V_P_STATUS_CODE: '',
+                                    V_P_APPROVE_DATE: '',
+                                    V_P_SOURCE_TYPE: '',
+                                    V_P_SOURCE_CODE: '',
+                                    V_P_NIGHT_TIME_ITEM_CODE: '',
+                                    V_P_NIGHT_START_DAY_TYPE: '',
+                                    V_P_NIGHT_START_HHMM: '',
+                                    V_P_NIGHT_END_DAY_TYPE: '',
+                                    V_P_NIGHT_END_HHMM: '',
+                                    V_P_WORK_DATA_SOURCE: '',
+                                    V_P_TXN_ID_D: temp_txn_id,
+                                    V_P_VACCINE_WORK_YN: '',
+                                    V_P_BREAK_APPLY_YN: '',
+                                    V_P_ALTER_WORK_YN: '',
+                                    V_P_ALTER_REQ_YN: '',
+                                    V_P_SHIFT_WORK_YN: '',
+                                    V_P_BREAK_START_DAY_TYPE1: '',
+                                    V_P_BREAK_START_HHMM1: '',
+                                    V_P_BREAK_END_DAY_TYPE1: '',
+                                    V_P_BREAK_END_HHMM1: '',
+                                    V_P_DINNER_YN: '',
+                                    V_P_FORM_ID: p_formId.toUpperCase(),
+                                    V_P_MENU_ID: p_menuId,
+                                    V_P_PROC_ID: '',
+                                    V_P_USERID: '',
+                                    V_P_PC: ''
+                                };
+
+                                const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                                    getType: 'json',
+                                    workType: 'MANAGERAPPR',
+                                    cv_count: '0',
+                                    params: gfnma_objectToString(paramObj)
+                                });
+
+                                const data = await postJsonPromise;
+                                console.log('data:', data);
+
+                                if (_.isEqual("S", data.resultStatus)) {
+                                    if (data.resultMessage) {
+                                        alert(data.resultMessage);
+                                    }
+                                    fn_search();
+                                } else {
+                                    alert(data.resultMessage);
+                                }
+                            }
+                        } else {
+                            alert(listData.resultMessage);
+                        }
+
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+            } else {
+                //개별취소처리
+                let grdRows = bandgvwInfo.getCheckedRows(bandgvwInfo.getColRef("CHK_YN"), true);
+                if (grdRows.length > 0) {
+                    let temp_txn_id = "";
+                    let IntRowCount = 0;
+
+                    grdRows.forEach((item, index) => {
+                        IntRowCount = IntRowCount + 1;
+                        temp_txn_id += bandgvwInfo.getCellData(item, bandgvwInfo.getColRef("TXN_ID")) + "|";
+                    });
+
+                    if (IntRowCount == 0) {
+                        gfn_comAlert("E0000", "승인할 데이타가 없습니다.");
+                        return false;
+                    } else {
+                        temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
+
+                        var paramObj = {
+                            V_P_DEBUG_MODE_YN: '',
+                            V_P_LANG_ID: '',
+                            V_P_COMP_CODE: gv_ma_selectedApcCd,
+                            V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                            V_P_TXN_ID: '0',
+                            V_P_SEQ_NO: '0',
+                            V_P_SITE_CODE: '',
+                            V_P_DEPT_CODE: '',
+                            V_P_POSITION_CODE: '',
+                            V_P_WORK_PATTERN_CODE: '',
+                            V_P_SHIFT_CODE: '',
+                            V_P_EMP_CODE: '',
+                            V_P_BASE_YYYYMMDD: '',
+                            V_P_WORK_YYYYMMDD: '',
+                            V_P_ACCT_YYYYMMDD: '',
+                            V_P_HOLIDAY_YN: '',
+                            V_P_HOLIDAY2_YN: '',
+                            V_P_WORK_DAY_TYPE: '',
+                            V_P_TIME_ITEM_CODE: '',
+                            V_P_TIME_ITEM_CODE_ORIG: '',
+                            V_P_START_DAY_TYPE: '',
+                            V_P_TIME_START_HHMM: '',
+                            V_P_END_DAY_TYPE: '',
+                            V_P_TIME_END_HHMM: '',
+                            V_P_CONFIRM_TIME: '',
+                            V_P_CONFIRM_YN: '',
+                            V_P_MEMO: '',
+                            V_P_CAUSE: '',
+                            V_P_STATUS_CODE: '',
+                            V_P_APPROVE_DATE: '',
+                            V_P_SOURCE_TYPE: '',
+                            V_P_SOURCE_CODE: '',
+                            V_P_NIGHT_TIME_ITEM_CODE: '',
+                            V_P_NIGHT_START_DAY_TYPE: '',
+                            V_P_NIGHT_START_HHMM: '',
+                            V_P_NIGHT_END_DAY_TYPE: '',
+                            V_P_NIGHT_END_HHMM: '',
+                            V_P_WORK_DATA_SOURCE: '',
+                            V_P_TXN_ID_D: temp_txn_id,
+                            V_P_VACCINE_WORK_YN: '',
+                            V_P_BREAK_APPLY_YN: '',
+                            V_P_ALTER_WORK_YN: '',
+                            V_P_ALTER_REQ_YN: '',
+                            V_P_SHIFT_WORK_YN: '',
+                            V_P_BREAK_START_DAY_TYPE1: '',
+                            V_P_BREAK_START_HHMM1: '',
+                            V_P_BREAK_END_DAY_TYPE1: '',
+                            V_P_BREAK_END_HHMM1: '',
+                            V_P_DINNER_YN: '',
+                            V_P_FORM_ID: p_formId.toUpperCase(),
+                            V_P_MENU_ID: p_menuId,
+                            V_P_PROC_ID: '',
+                            V_P_USERID: '',
+                            V_P_PC: ''
+                        };
+
+                        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                            getType: 'json',
+                            workType: 'MANAGERAPPR',
+                            cv_count: '0',
+                            params: gfnma_objectToString(paramObj)
+                        });
+
+                        const data = await postJsonPromise;
+                        console.log('data:', data);
+
+                        if (_.isEqual("S", data.resultStatus)) {
+                            if (data.resultMessage) {
+                                alert(data.resultMessage);
+                            }
+                            fn_search();
+                        } else {
+                            alert(data.resultMessage);
+                        }
+                    }
+                }
+            }
         }
     }
 
     const fn_confirm = async function() {
-        let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
+        let grdRows = bandgvwInfo.getCheckedRows(bandgvwInfo.getColRef("CHK_YN"), true);
+        let IntRowCount3 = 0;
 
         if (grdRows.length > 0) {
-            if (gvwShift.FocusedRowHandle < 0)
-                return;
+            grdRows.forEach((item, index) => {
+                if (gfn_nvl(bandgvwInfo.getRowData(item).TXN_ID) == "" || parseInt(gfn_nvl(bandgvwInfo.getRowData(item).TXN_ID)) == 0) {
+                    IntRowCount3 = IntRowCount3 + 1;
+                }
+            });
 
-            for(var i = 0; i < grdRows.length; i++) {
-                let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-                let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-                let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                let DEPT_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
-                let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                let EMP_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
-                let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+            if (IntRowCount3 != 0) {
+                gfn_comAlert("E0000", "저장후 실행하십시요.");
+                return;
+            }
+
+            let IntRowCount = 0;
+            let temp_txn_id = "";
+
+            grdRows.forEach((item, index) => {
+                IntRowCount = IntRowCount + 1;
+                temp_txn_id += bandgvwInfo.getCellData(item, bandgvwInfo.getColRef("TXN_ID")) + "|";
+            });
+
+            if(IntRowCount == 0) {
+                gfn_comAlert("E0000", "확정할 데이타가 없습니다.");
+                return;
+            } else {
+                temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
 
                 var paramObj = {
-                    V_P_DEBUG_MODE_YN	: '',
-                    V_P_LANG_ID		: '',
-                    V_P_COMP_CODE		: gv_ma_selectedApcCd,
-                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_YYYYMMDD_FR : YYYYMMDD_FR,
-                    V_P_YYYYMMDD_TO : YYYYMMDD_TO,
-                    V_P_SITE_CODE : SITE_CODE,
-                    V_P_DEPT_CODE : DEPT_CODE,
-                    V_P_JOB_GROUP : JOB_GROUP,
-                    V_P_EMP_CODE : EMP_CODE,
-                    V_P_EMP_STATE : EMP_STATE,
-                    V_P_LOGIN_DEPT_CODE : '',
-                    V_P_HR_MANAGER_YN : '',
-                    V_P_FORMID : "HRT2325",
-                    V_P_FORM_ID		: p_formId,
-                    V_P_MENU_ID		: p_menuId,
-                    V_P_PROC_ID		: '',
-                    V_P_USERID			: '',
-                    V_P_PC				: ''
+                    V_P_DEBUG_MODE_YN: '',
+                    V_P_LANG_ID: '',
+                    V_P_COMP_CODE: gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                    V_P_TXN_ID: '0',
+                    V_P_SEQ_NO: '0',
+                    V_P_SITE_CODE: '',
+                    V_P_DEPT_CODE: '',
+                    V_P_POSITION_CODE: '',
+                    V_P_WORK_PATTERN_CODE: '',
+                    V_P_SHIFT_CODE: '',
+                    V_P_EMP_CODE: '',
+                    V_P_BASE_YYYYMMDD: '',
+                    V_P_WORK_YYYYMMDD: '',
+                    V_P_ACCT_YYYYMMDD: '',
+                    V_P_HOLIDAY_YN: '',
+                    V_P_HOLIDAY2_YN: '',
+                    V_P_WORK_DAY_TYPE: '',
+                    V_P_TIME_ITEM_CODE: '',
+                    V_P_TIME_ITEM_CODE_ORIG: '',
+                    V_P_START_DAY_TYPE: '',
+                    V_P_TIME_START_HHMM: '',
+                    V_P_END_DAY_TYPE: '',
+                    V_P_TIME_END_HHMM: '',
+                    V_P_CONFIRM_TIME: '',
+                    V_P_CONFIRM_YN: '',
+                    V_P_MEMO: '',
+                    V_P_CAUSE: '',
+                    V_P_STATUS_CODE: '',
+                    V_P_APPROVE_DATE: '',
+                    V_P_SOURCE_TYPE: '',
+                    V_P_SOURCE_CODE: '',
+                    V_P_NIGHT_TIME_ITEM_CODE: '',
+                    V_P_NIGHT_START_DAY_TYPE: '',
+                    V_P_NIGHT_START_HHMM: '',
+                    V_P_NIGHT_END_DAY_TYPE: '',
+                    V_P_NIGHT_END_HHMM: '',
+                    V_P_WORK_DATA_SOURCE: '',
+                    V_P_TXN_ID_D: temp_txn_id,
+                    V_P_VACCINE_WORK_YN: '',
+                    V_P_BREAK_APPLY_YN: '',
+                    V_P_ALTER_WORK_YN: '',
+                    V_P_ALTER_REQ_YN: '',
+                    V_P_SHIFT_WORK_YN: '',
+                    V_P_BREAK_START_DAY_TYPE1: '',
+                    V_P_BREAK_START_HHMM1: '',
+                    V_P_BREAK_END_DAY_TYPE1: '',
+                    V_P_BREAK_END_HHMM1: '',
+                    V_P_DINNER_YN: '',
+                    V_P_FORM_ID: p_formId.toUpperCase(),
+                    V_P_MENU_ID: p_menuId,
+                    V_P_PROC_ID: '',
+                    V_P_USERID: '',
+                    V_P_PC: ''
                 };
 
-                const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2325List.do", {
-                    getType				: 'json',
-                    workType			: 'DETAIL',
-                    cv_count			: '2',
-                    params				: gfnma_objectToString(paramObj)
+                const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                    getType: 'json',
+                    workType: 'CONFIRM',
+                    cv_count: '0',
+                    params: gfnma_objectToString(paramObj)
                 });
 
-                const listData = await postJsonPromiseForList;
-                console.log('data:', listData);
+                const data = await postJsonPromise;
+                console.log('data:', data);
 
-                try {
-                    if (_.isEqual("S", listData.resultStatus)) {
-                        let temp_txn_id = "";
-
-                        listData.cv_2.forEach((item, index) => {
-                            temp_txn_id += item.TXN_ID + "|";
-                        });
-
-                        if(temp_txn_idl.length > 0) {
-                            temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
-
-                            var paramObj = {
-                                V_P_DEBUG_MODE_YN	: '',
-                                V_P_LANG_ID		: '',
-                                V_P_COMP_CODE		: gv_ma_selectedApcCd,
-                                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                                V_P_TXN_ID : '0',
-                                V_P_SEQ_NO : '0',
-                                V_P_SITE_CODE : '',
-                                V_P_DEPT_CODE : '',
-                                V_P_POSITION_CODE : '',
-                                V_P_WORK_PATTERN_CODE : '',
-                                V_P_SHIFT_CODE : '',
-                                V_P_EMP_CODE : '',
-                                V_P_BASE_YYYYMMDD : '',
-                                V_P_WORK_YYYYMMDD : '',
-                                V_P_ACCT_YYYYMMDD : '',
-                                V_P_HOLIDAY_YN : '',
-                                V_P_HOLIDAY2_YN : '',
-                                V_P_WORK_DAY_TYPE : '',
-                                V_P_TIME_ITEM_CODE : '',
-                                V_P_TIME_ITEM_CODE_ORIG : '',
-                                V_P_START_DAY_TYPE : '',
-                                V_P_TIME_START_HHMM : '',
-                                V_P_END_DAY_TYPE : '',
-                                V_P_TIME_END_HHMM : '',
-                                V_P_CONFIRM_TIME : '',
-                                V_P_CONFIRM_YN : '',
-                                V_P_MEMO : '',
-                                V_P_CAUSE : '',
-                                V_P_STATUS_CODE : '',
-                                V_P_APPROVE_DATE : '',
-                                V_P_SOURCE_TYPE : '',
-                                V_P_SOURCE_CODE : '',
-                                V_P_NIGHT_TIME_ITEM_CODE : '',
-                                V_P_NIGHT_START_DAY_TYPE : '',
-                                V_P_NIGHT_START_HHMM : '',
-                                V_P_NIGHT_END_DAY_TYPE : '',
-                                V_P_NIGHT_END_HHMM : '',
-                                V_P_WORK_DATA_SOURCE : '',
-                                V_P_TXN_ID_D : temp_txn_id,
-                                V_P_VACCINE_WORK_YN : '',
-                                V_P_BREAK_APPLY_YN : '',
-                                V_P_ALTER_WORK_YN : '',
-                                V_P_ALTER_REQ_YN : '',
-                                V_P_SHIFT_WORK_YN : '',
-                                V_P_BREAK_START_DAY_TYPE1 : '',
-                                V_P_BREAK_START_HHMM1 : '',
-                                V_P_BREAK_END_DAY_TYPE1 : '',
-                                V_P_BREAK_END_HHMM1 : '',
-                                V_P_DINNER_YN : '',
-                                V_P_FORM_ID		: p_formId.toUpperCase(),
-                                V_P_MENU_ID		: p_menuId,
-                                V_P_PROC_ID		: '',
-                                V_P_USERID			: '',
-                                V_P_PC				: ''
-                            };
-
-                            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
-                                getType				: 'json',
-                                workType			: 'CONFIRM',
-                                cv_count			: '0',
-                                params				: gfnma_objectToString(paramObj)
-                            });
-
-                            const data = await postJsonPromise;
-                            console.log('data:', data);
-
-                            if (_.isEqual("S", data.resultStatus)) {
-                                if (data.resultMessage) {
-                                    alert(data.resultMessage);
-                                }
-                                fn_search();
-                            } else {
-                                alert(data.resultMessage);
-                            }
-                        }
-                    } else {
-                        alert(listData.resultMessage);
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
                     }
-
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
                 }
             }
         } else {
-            //개별취소처리
-            var nRow = bandgvwInfo.getRow();
-            let temp_txn_id = "";
-            let IntRowCount = 0;
-            if (nRow < 0)
-                return;
-
-            jsonDayShiftList.forEach((item, index) => {
-                IntRowCount = IntRowCount + 1;
-                temp_txn_id += item.TXN_ID + "|";
-            });
-
-            if (IntRowCount == 0) {
-                gfn_comAlert("E0000", "승인 취소할 데이타가 없습니다.");
-                return false;
-            }
-
-            temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
-
-            var paramObj = {
-                V_P_DEBUG_MODE_YN	: '',
-                V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
-                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                V_P_TXN_ID : '0',
-                V_P_SEQ_NO : '0',
-                V_P_SITE_CODE : '',
-                V_P_DEPT_CODE : '',
-                V_P_POSITION_CODE : '',
-                V_P_WORK_PATTERN_CODE : '',
-                V_P_SHIFT_CODE : '',
-                V_P_EMP_CODE : '',
-                V_P_BASE_YYYYMMDD : '',
-                V_P_WORK_YYYYMMDD : '',
-                V_P_ACCT_YYYYMMDD : '',
-                V_P_HOLIDAY_YN : '',
-                V_P_HOLIDAY2_YN : '',
-                V_P_WORK_DAY_TYPE : '',
-                V_P_TIME_ITEM_CODE : '',
-                V_P_TIME_ITEM_CODE_ORIG : '',
-                V_P_START_DAY_TYPE : '',
-                V_P_TIME_START_HHMM : '',
-                V_P_END_DAY_TYPE : '',
-                V_P_TIME_END_HHMM : '',
-                V_P_CONFIRM_TIME : '',
-                V_P_CONFIRM_YN : '',
-                V_P_MEMO : '',
-                V_P_CAUSE : '',
-                V_P_STATUS_CODE : '',
-                V_P_APPROVE_DATE : '',
-                V_P_SOURCE_TYPE : '',
-                V_P_SOURCE_CODE : '',
-                V_P_NIGHT_TIME_ITEM_CODE : '',
-                V_P_NIGHT_START_DAY_TYPE : '',
-                V_P_NIGHT_START_HHMM : '',
-                V_P_NIGHT_END_DAY_TYPE : '',
-                V_P_NIGHT_END_HHMM : '',
-                V_P_WORK_DATA_SOURCE : '',
-                V_P_TXN_ID_D : temp_txn_id,
-                V_P_VACCINE_WORK_YN : '',
-                V_P_BREAK_APPLY_YN : '',
-                V_P_ALTER_WORK_YN : '',
-                V_P_ALTER_REQ_YN : '',
-                V_P_SHIFT_WORK_YN : '',
-                V_P_BREAK_START_DAY_TYPE1 : '',
-                V_P_BREAK_START_HHMM1 : '',
-                V_P_BREAK_END_DAY_TYPE1 : '',
-                V_P_BREAK_END_HHMM1 : '',
-                V_P_DINNER_YN : '',
-                V_P_FORM_ID		: p_formId.toUpperCase(),
-                V_P_MENU_ID		: p_menuId,
-                V_P_PROC_ID		: '',
-                V_P_USERID			: '',
-                V_P_PC				: ''
-            };
-
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
-                getType				: 'json',
-                workType			: 'CONFIRM',
-                cv_count			: '0',
-                params				: gfnma_objectToString(paramObj)
-            });
-
-            const data = await postJsonPromise;
-            console.log('data:', data);
-
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
-                    alert(data.resultMessage);
-                }
-                fn_search();
-            } else {
-                alert(data.resultMessage);
-            }
+            gfn_comAlert("E0000", "확정대상을 선택하십시요.");
+            return;
         }
     }
 
     const fn_cancel = async function() {
-        let grdRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
-
-        if (grdRows.length > 0) {
-            if (gvwShift.FocusedRowHandle < 0)
-                return;
-
-            for(var i = 0; i < grdRows.length; i++) {
-                let YYYYMMDD_FR = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
-                let YYYYMMDD_TO = gfnma_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
-                let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                let DEPT_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).DEPT_CODE);
-                let JOB_GROUP = gfnma_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                let EMP_CODE = gfnma_nvl(gvwShift.getRowData(grdRows[i]).EMP_CODE);
-                let EMP_STATE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
-
-                var paramObj = {
-                    V_P_DEBUG_MODE_YN	: '',
-                    V_P_LANG_ID		: '',
-                    V_P_COMP_CODE		: gv_ma_selectedApcCd,
-                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_YYYYMMDD_FR : YYYYMMDD_FR,
-                    V_P_YYYYMMDD_TO : YYYYMMDD_TO,
-                    V_P_SITE_CODE : SITE_CODE,
-                    V_P_DEPT_CODE : DEPT_CODE,
-                    V_P_JOB_GROUP : JOB_GROUP,
-                    V_P_EMP_CODE : EMP_CODE,
-                    V_P_EMP_STATE : EMP_STATE,
-                    V_P_LOGIN_DEPT_CODE : '',
-                    V_P_HR_MANAGER_YN : '',
-                    V_P_FORMID : "HRT2325",
-                    V_P_FORM_ID		: p_formId,
-                    V_P_MENU_ID		: p_menuId,
-                    V_P_PROC_ID		: '',
-                    V_P_USERID			: '',
-                    V_P_PC				: ''
-                };
-
-                const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2325List.do", {
-                    getType				: 'json',
-                    workType			: 'DETAIL',
-                    cv_count			: '2',
-                    params				: gfnma_objectToString(paramObj)
-                });
-
-                const listData = await postJsonPromiseForList;
-                console.log('data:', listData);
-
-                try {
-                    if (_.isEqual("S", listData.resultStatus)) {
-                        let temp_txn_id = "";
-
-                        listData.cv_2.forEach((item, index) => {
-                            temp_txn_id += item.TXN_ID + "|";
-                        });
-
-                        if(temp_txn_idl.length > 0) {
-                            temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
-
-                            var paramObj = {
-                                V_P_DEBUG_MODE_YN	: '',
-                                V_P_LANG_ID		: '',
-                                V_P_COMP_CODE		: gv_ma_selectedApcCd,
-                                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                                V_P_TXN_ID : '0',
-                                V_P_SEQ_NO : '0',
-                                V_P_SITE_CODE : '',
-                                V_P_DEPT_CODE : '',
-                                V_P_POSITION_CODE : '',
-                                V_P_WORK_PATTERN_CODE : '',
-                                V_P_SHIFT_CODE : '',
-                                V_P_EMP_CODE : '',
-                                V_P_BASE_YYYYMMDD : '',
-                                V_P_WORK_YYYYMMDD : '',
-                                V_P_ACCT_YYYYMMDD : '',
-                                V_P_HOLIDAY_YN : '',
-                                V_P_HOLIDAY2_YN : '',
-                                V_P_WORK_DAY_TYPE : '',
-                                V_P_TIME_ITEM_CODE : '',
-                                V_P_TIME_ITEM_CODE_ORIG : '',
-                                V_P_START_DAY_TYPE : '',
-                                V_P_TIME_START_HHMM : '',
-                                V_P_END_DAY_TYPE : '',
-                                V_P_TIME_END_HHMM : '',
-                                V_P_CONFIRM_TIME : '',
-                                V_P_CONFIRM_YN : '',
-                                V_P_MEMO : '',
-                                V_P_CAUSE : '',
-                                V_P_STATUS_CODE : '',
-                                V_P_APPROVE_DATE : '',
-                                V_P_SOURCE_TYPE : '',
-                                V_P_SOURCE_CODE : '',
-                                V_P_NIGHT_TIME_ITEM_CODE : '',
-                                V_P_NIGHT_START_DAY_TYPE : '',
-                                V_P_NIGHT_START_HHMM : '',
-                                V_P_NIGHT_END_DAY_TYPE : '',
-                                V_P_NIGHT_END_HHMM : '',
-                                V_P_WORK_DATA_SOURCE : '',
-                                V_P_TXN_ID_D : temp_txn_id,
-                                V_P_VACCINE_WORK_YN : '',
-                                V_P_BREAK_APPLY_YN : '',
-                                V_P_ALTER_WORK_YN : '',
-                                V_P_ALTER_REQ_YN : '',
-                                V_P_SHIFT_WORK_YN : '',
-                                V_P_BREAK_START_DAY_TYPE1 : '',
-                                V_P_BREAK_START_HHMM1 : '',
-                                V_P_BREAK_END_DAY_TYPE1 : '',
-                                V_P_BREAK_END_HHMM1 : '',
-                                V_P_DINNER_YN : '',
-                                V_P_FORM_ID		: p_formId.toUpperCase(),
-                                V_P_MENU_ID		: p_menuId,
-                                V_P_PROC_ID		: '',
-                                V_P_USERID			: '',
-                                V_P_PC				: ''
-                            };
-
-                            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
-                                getType				: 'json',
-                                workType			: 'APPRCANCEL',
-                                cv_count			: '0',
-                                params				: gfnma_objectToString(paramObj)
-                            });
-
-                            const data = await postJsonPromise;
-                            console.log('data:', data);
-
-                            if (_.isEqual("S", data.resultStatus)) {
-                                if (data.resultMessage) {
-                                    alert(data.resultMessage);
-                                }
-                                fn_search();
-                            } else {
-                                alert(data.resultMessage);
-                            }
-                        }
-                    } else {
-                        alert(listData.resultMessage);
-                    }
-
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-                }
-            }
-        } else {
-            //개별취소처리
-            var nRow = bandgvwInfo.getRow();
+        if (gfn_comConfirm("Q0000", "기존 확정된 근태실적을 취소하시겠습니까?")) {
+            let grdRows = bandgvwInfo.getCheckedRows(bandgvwInfo.getColRef("CHK_YN"), true);
             let temp_txn_id = "";
             let IntRowCount = 0;
-            if (nRow < 0)
-                return;
 
-            jsonDayShiftList.forEach((item, index) => {
+            grdRows.forEach((item, index) => {
                 IntRowCount = IntRowCount + 1;
-                temp_txn_id += item.TXN_ID + "|";
+                temp_txn_id += bandgvwInfo.getCellData(item, bandgvwInfo.getColRef("TXN_ID")) + "|";
             });
 
-            if (IntRowCount == 0) {
-                gfn_comAlert("E0000", "승인 취소할 데이타가 없습니다.");
-                return false;
-            }
+            if(IntRowCount == 0) {
+                gfn_comAlert("E0000", "취소할 데이타가 없습니다.");
+                return;
+            } else {
+                temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
 
-            temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
+                var paramObj = {
+                    V_P_DEBUG_MODE_YN: '',
+                    V_P_LANG_ID: '',
+                    V_P_COMP_CODE: gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                    V_P_TXN_ID: '0',
+                    V_P_SEQ_NO: '0',
+                    V_P_SITE_CODE: '',
+                    V_P_DEPT_CODE: '',
+                    V_P_POSITION_CODE: '',
+                    V_P_WORK_PATTERN_CODE: '',
+                    V_P_SHIFT_CODE: '',
+                    V_P_EMP_CODE: '',
+                    V_P_BASE_YYYYMMDD: '',
+                    V_P_WORK_YYYYMMDD: '',
+                    V_P_ACCT_YYYYMMDD: '',
+                    V_P_HOLIDAY_YN: '',
+                    V_P_HOLIDAY2_YN: '',
+                    V_P_WORK_DAY_TYPE: '',
+                    V_P_TIME_ITEM_CODE: '',
+                    V_P_TIME_ITEM_CODE_ORIG: '',
+                    V_P_START_DAY_TYPE: '',
+                    V_P_TIME_START_HHMM: '',
+                    V_P_END_DAY_TYPE: '',
+                    V_P_TIME_END_HHMM: '',
+                    V_P_CONFIRM_TIME: '',
+                    V_P_CONFIRM_YN: '',
+                    V_P_MEMO: '',
+                    V_P_CAUSE: '',
+                    V_P_STATUS_CODE: '',
+                    V_P_APPROVE_DATE: '',
+                    V_P_SOURCE_TYPE: '',
+                    V_P_SOURCE_CODE: '',
+                    V_P_NIGHT_TIME_ITEM_CODE: '',
+                    V_P_NIGHT_START_DAY_TYPE: '',
+                    V_P_NIGHT_START_HHMM: '',
+                    V_P_NIGHT_END_DAY_TYPE: '',
+                    V_P_NIGHT_END_HHMM: '',
+                    V_P_WORK_DATA_SOURCE: '',
+                    V_P_TXN_ID_D: temp_txn_id,
+                    V_P_VACCINE_WORK_YN: '',
+                    V_P_BREAK_APPLY_YN: '',
+                    V_P_ALTER_WORK_YN: '',
+                    V_P_ALTER_REQ_YN: '',
+                    V_P_SHIFT_WORK_YN: '',
+                    V_P_BREAK_START_DAY_TYPE1: '',
+                    V_P_BREAK_START_HHMM1: '',
+                    V_P_BREAK_END_DAY_TYPE1: '',
+                    V_P_BREAK_END_HHMM1: '',
+                    V_P_DINNER_YN: '',
+                    V_P_FORM_ID: p_formId.toUpperCase(),
+                    V_P_MENU_ID: p_menuId,
+                    V_P_PROC_ID: '',
+                    V_P_USERID: '',
+                    V_P_PC: ''
+                };
 
-            var paramObj = {
-                V_P_DEBUG_MODE_YN	: '',
-                V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedApcCd,
-                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                V_P_TXN_ID : '0',
-                V_P_SEQ_NO : '0',
-                V_P_SITE_CODE : '',
-                V_P_DEPT_CODE : '',
-                V_P_POSITION_CODE : '',
-                V_P_WORK_PATTERN_CODE : '',
-                V_P_SHIFT_CODE : '',
-                V_P_EMP_CODE : '',
-                V_P_BASE_YYYYMMDD : '',
-                V_P_WORK_YYYYMMDD : '',
-                V_P_ACCT_YYYYMMDD : '',
-                V_P_HOLIDAY_YN : '',
-                V_P_HOLIDAY2_YN : '',
-                V_P_WORK_DAY_TYPE : '',
-                V_P_TIME_ITEM_CODE : '',
-                V_P_TIME_ITEM_CODE_ORIG : '',
-                V_P_START_DAY_TYPE : '',
-                V_P_TIME_START_HHMM : '',
-                V_P_END_DAY_TYPE : '',
-                V_P_TIME_END_HHMM : '',
-                V_P_CONFIRM_TIME : '',
-                V_P_CONFIRM_YN : '',
-                V_P_MEMO : '',
-                V_P_CAUSE : '',
-                V_P_STATUS_CODE : '',
-                V_P_APPROVE_DATE : '',
-                V_P_SOURCE_TYPE : '',
-                V_P_SOURCE_CODE : '',
-                V_P_NIGHT_TIME_ITEM_CODE : '',
-                V_P_NIGHT_START_DAY_TYPE : '',
-                V_P_NIGHT_START_HHMM : '',
-                V_P_NIGHT_END_DAY_TYPE : '',
-                V_P_NIGHT_END_HHMM : '',
-                V_P_WORK_DATA_SOURCE : '',
-                V_P_TXN_ID_D : temp_txn_id,
-                V_P_VACCINE_WORK_YN : '',
-                V_P_BREAK_APPLY_YN : '',
-                V_P_ALTER_WORK_YN : '',
-                V_P_ALTER_REQ_YN : '',
-                V_P_SHIFT_WORK_YN : '',
-                V_P_BREAK_START_DAY_TYPE1 : '',
-                V_P_BREAK_START_HHMM1 : '',
-                V_P_BREAK_END_DAY_TYPE1 : '',
-                V_P_BREAK_END_HHMM1 : '',
-                V_P_DINNER_YN : '',
-                V_P_FORM_ID		: p_formId.toUpperCase(),
-                V_P_MENU_ID		: p_menuId,
-                V_P_PROC_ID		: '',
-                V_P_USERID			: '',
-                V_P_PC				: ''
-            };
+                const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
+                    getType: 'json',
+                    workType: 'CANCEL',
+                    cv_count: '0',
+                    params: gfnma_objectToString(paramObj)
+                });
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310.do", {
-                getType				: 'json',
-                workType			: 'APPRCANCEL',
-                cv_count			: '0',
-                params				: gfnma_objectToString(paramObj)
-            });
+                const data = await postJsonPromise;
+                console.log('data:', data);
 
-            const data = await postJsonPromise;
-            console.log('data:', data);
-
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }
+                    fn_search();
+                } else {
                     alert(data.resultMessage);
                 }
-                fn_search();
-            } else {
-                alert(data.resultMessage);
             }
         }
     }
