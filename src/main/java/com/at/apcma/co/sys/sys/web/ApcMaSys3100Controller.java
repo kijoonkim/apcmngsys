@@ -62,7 +62,7 @@ public class ApcMaSys3100Controller extends BaseController{
         }
 
         logger.info("=============selectSys3100List=====end========");
-        return getSuccessResponseEntity(resultMap);
+        return getSuccessResponseEntityMa(resultMap);
     }
 
     // 소수점 설정 정보 신규
@@ -87,7 +87,7 @@ public class ApcMaSys3100Controller extends BaseController{
         }
 
         logger.info("=============insertSys3100=====end========");
-        return getSuccessResponseEntity(resultMap);
+        return getSuccessResponseEntityMa(resultMap);
     }
 
 
@@ -113,7 +113,7 @@ public class ApcMaSys3100Controller extends BaseController{
         }
 
         logger.info("=============updateSys3100=====end========");
-        return getSuccessResponseEntity(resultMap);
+        return getSuccessResponseEntityMa(resultMap);
     }
 
     // 소수점 설정 정보 삭제
@@ -138,6 +138,6 @@ public class ApcMaSys3100Controller extends BaseController{
         }
 
         logger.info("=============deleteSys3100=====end========");
-        return getSuccessResponseEntity(resultMap);
+        return getSuccessResponseEntityMa(resultMap);
     }
 }
