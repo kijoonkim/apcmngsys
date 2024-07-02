@@ -82,8 +82,9 @@ function compopup3(options) {
 	var modalDivId 	= 'modal-compopup3';
 	
 	var settings = {
-		height				: null
-		,callbackEvent		: null
+		height					: null
+		,callbackEvent			: null
+		,cancelEvent			: null
 	};
 	$.extend(settings, options);	
 	//console.log('settings:', settings);
@@ -108,7 +109,7 @@ function compopup3(options) {
 		htm += '<tr>';
 		htm += '<td></td>';
 		htm += '<td>';
-		htm += '<input uitype="text" class="form-control input-sm" style="width:100%" value="" />'
+		htm += '<input uitype="text" class="form-control input-sm" style="width:100%" value="" />';
 		htm += '</td>';
 		htm += '</tr>';
 		tar.append(htm);
@@ -122,6 +123,17 @@ function compopup3(options) {
 		        $(this).addClass('cu-table-selected').siblings().removeClass('cu-table-selected');
 		     }
 		});			
+		
+		tar.find('input').off('keypress');
+		tar.find('input').keypress(function(e){
+			if(e.keyCode && e.keyCode == 13){
+				addTr();
+				return false;
+			}
+		});		
+		
+		var idx = tar.find('tr').length;
+		tar.find('tr').eq(idx-1).trigger('click').find('input').focus();
 	};
 	$(modalId).find('.cu-btn-plus').off('click');
 	$(modalId).find('.cu-btn-plus').click(function(e){
@@ -175,6 +187,9 @@ function compopup3(options) {
 	//close event
 	$(modalId).find('.cu-btn-cancel').off('click');
 	$(modalId).find('.cu-btn-cancel').click(function(){
+ 		if(settings.cancelEvent){
+ 			settings.cancelEvent();
+ 		}
 	 	SBUxMethod.closeModal(modalDivId);
 	});	
 	
