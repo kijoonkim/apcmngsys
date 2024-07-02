@@ -33,30 +33,6 @@
             </div>
             <div style="margin-left: auto;">
                 <sbux-button
-                        id="btnDocSort"
-                        name="btnDocSort"
-                        uitype="normal"
-                        text="선별확인서"
-                        class="btn btn-sm btn-success"
-                        onclick="fn_docSort"
-                ></sbux-button>
-                <sbux-button
-                        id="btnLblSort"
-                        name="btnLblSort"
-                        uitype="normal"
-                        text="선별라벨"
-                        class="btn btn-sm btn-success"
-                        onclick="fn_lblSort"
-                ></sbux-button>
-                <sbux-button
-                        id="btnDelete"
-                        name="btnDelete"
-                        uitype="normal"
-                        text="삭제"
-                        class="btn btn-sm btn-outline-dark"
-                        onclick="fn_delete"
-                ></sbux-button>
-                <sbux-button
                         id="btnSearch"
                         name="btnSearch"
                         uitype="normal"
@@ -246,7 +222,9 @@
                     }
                 });
                 data.resultList.forEach((item, index) => {
-                    jsonSortPrfmnc.push(item);
+                    if(item.invntrQntt > 0){
+                        jsonSortPrfmnc.push(item);
+                    }
                 });
                 /** 선출하 목록 **/
                 jsonSpmtPrfmnc.length = 0;
