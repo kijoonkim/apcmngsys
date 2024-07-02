@@ -171,7 +171,7 @@
                                 uitype="normal"
                                 text="반영취소"
                                 class="btn btn-sm btn-outline-danger"
-                                onclick="fn_btnCancelPosting"
+                                onclick="fn_btnPayResult('PAYROLLD')"
                                 style="float: right;"
                         >
                         </sbux-button>
@@ -181,7 +181,7 @@
                                 uitype="normal"
                                 text="회계반영"
                                 class="btn btn-sm btn-outline-danger"
-                                onclick="fn_btnCreatePosting"
+                                onclick="fn_btnPayResult('PAYROLLN')"
                                 style="float: right;"
                         ></sbux-button>
                         <sbux-button
@@ -1351,6 +1351,101 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+    //회계반영  [프로시저 변경 : P_Z_IF_PayResult_S = 'N'  -> P_HRP4200_S1 = 'PayRollN']
+    const fn_btnPayResult = async function (type) {
+
+        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
+        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
+        let PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
+
+        let POSTING_DATE = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계일자(퇴직일)
+        let EXPECTED_PAY_DATE = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
+        let SOURCE_DOC = gfnma_nvl(SBUxMethod.get("SOURCE_DOC")); //SOURCE_DOC
+
+        if (!PAY_AREA_TYPE) {
+            gfn_comAlert("W0002", "급여영역");
+            return;
+        }
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일자");
+            return;
+        }
+
+        let grdData = gvwInfoGrid.getGridDataAll();
+
+        grdData.forEach((item, index) => {
+
+            if (_.isEqual(item.NEED_EMP_CODE_YN, 'Y') && gfnma_nvl(item.EMP_CODE) == '' ){
+                gfn_comAlert("Q0000", "사원코드 필수입력 항목입니다.");
+                return false;
+            }
+        });
+
+        let paramObj = {
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+
+            /*,V_P_PAY_YYYYMM            : PAY_YYYYMM
+            ,V_P_PAY_TYPE              : PAY_TYPE
+            ,V_P_PAY_DATE              : PAY_DATE
+            ,V_P_POSTING_DATE          : POSTING_DATE
+            ,V_P_EXPECTED_PAY_DATE     : EXPECTED_PAY_DATE
+            ,V_P_SOURCE_DOC            : SOURCE_DOC  //추가 20181218*/
+
+            ,V_P_PERIOD_YYYYMM     : PAY_YYYYMM
+            ,V_P_PAY_TYPE          : PAY_TYPE
+            ,V_P_PAY_DATE          : PAY_DATE
+            ,V_P_SOURCE_DOC        : SOURCE_DOC //추가 20181218
+
+
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
+            ,V_P_PROC_ID		: ''
+            ,V_P_USERID			: ''
+            ,V_P_PC				: ''
+        }
+        console.log("+++++++++++++++++ Posting 저장+++++++++++++++++++++++", paramObj);
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S1.do", {
+            getType: 'json',
+            workType: type,
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        console.log("+++++++++++++++++ Posting 저장+++++++++++++++++++++++", data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
 </script>
 </body>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
