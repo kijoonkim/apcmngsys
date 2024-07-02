@@ -937,6 +937,7 @@ async function cfn_search() {
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 				if (prvItemCd != prdcr.rprsItemCd) {
 					SBUxMethod.setValue('srch-slt-itemCd', prdcr.rprsItemCd);
+					fn_selectItem();
 				}
 			}
 		}
