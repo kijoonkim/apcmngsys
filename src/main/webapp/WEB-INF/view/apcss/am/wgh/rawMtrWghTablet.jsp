@@ -128,7 +128,7 @@
 									maxlength="2"
 									autocomplete="off"
 									onkeyup="fn_noKeyup"
-									onchange="fn_onChangePrdcrIdentno(this)"
+									onchange="fn_onChangeSrchPrdcrIdentno(this)"
 								/>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -1304,11 +1304,45 @@
 
 	}
 
+	/**
+	 * @name fn_onChangeSrchPrdcrIdentno
+	 * @description 생산자 식별번호 변경 event
+	 */
+	const fn_onChangeSrchPrdcrIdentno = function(obj) {
+
+		if (gfn_isEmpty(SBUxMethod.get("dtl-inp-prdcrIdentno"))) {
+			return;
+		}
+
+		SBUxMethod.set("dtl-inp-prdcrCd", "");
+		SBUxMethod.set("dtl-inp-prdcrNm", "");
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "");	//skyblue
+
+		let prdcrIdentno = parseInt(SBUxMethod.get("dtl-inp-prdcrIdentno")) || 0;
+
+		if (prdcrIdentno < 1) {
+			return;
+		}
+
+		const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
+		if (gfn_isEmpty(prdcrInfo)) {
+			return;
+		}
+
+		SBUxMethod.set("dtl-inp-prdcrCd", prdcrInfo.prdcrCd);
+		SBUxMethod.set("dtl-inp-prdcrNm", prdcrInfo.prdcrNm);
+		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		fn_setPrdcrForm(prdcrInfo);
+
+	}
+
 	const fn_setPrdcrForm = async function(prdcr) {
-		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
+
+		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.itemVrtyCd);
-			fn_onChangeSrchVrtyCd({value:prdcr.itemVrtyCd});
+			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.rprsItemCd + prdcr.rprsVrtyCd);
+			fn_onChangeSrchVrtyCd({value : prdcr.rprsItemCd + prdcr.rprsVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
@@ -1324,6 +1358,9 @@
 		}
 		if (!gfn_isEmpty(prdcr.gdsSeCd)) {	// 상품구분
 			SBUxMethod.set("dtl-rdo-gdsSeCd", prdcr.gdsSeCd);
+		}
+		if (!gfn_isEmpty(prdcr.trsprtSeCd)) {	// 운송구분
+			SBUxMethod.set("dtl-rdo-trsprtSeCd", prdcr.trsprtSeCd);
 		}
 		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
 			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);

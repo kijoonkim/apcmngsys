@@ -840,11 +840,18 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btn-srch-prdcr').click();
+		} else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
-		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
-		fn_setPrdcrForm(prdcr);
+			fn_setPrdcrForm(prdcr);
+			
+		}
 	}
 
  	/**
@@ -873,8 +880,6 @@
 		await fn_getPrdcrs();
 
 		if (!gfn_isEmpty(prdcr)) {
-			SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
-			SBUxMethod.set("srch-slt-vrtyCd", prdcr.itemVrtyCd);
 			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
 			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
 			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
@@ -886,8 +891,9 @@
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
-			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonComVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyNm);
+			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd);
+			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsItemCd + prdcr.rprsVrtyCd);
+			fn_onChangeSrchVrtyCd({value : prdcr.rprsItemCd + prdcr.rprsVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
@@ -896,9 +902,6 @@
 					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
 				}
 			}
-		}
-		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
-			SBUxMethod.set("srch-inp-vhclno", prdcr.vhclno);
 		}
 
 		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {

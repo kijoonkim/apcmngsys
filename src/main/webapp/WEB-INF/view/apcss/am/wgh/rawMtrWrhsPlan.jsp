@@ -148,7 +148,7 @@
 									name="dtl-inp-prdcrNm"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									placeholder="초성검색 가능"
-									autocomplete-ref="jsonPrdcrAutocomplete"
+									autocomplete-ref="jsonPrdcrAutocompleteDtl"
 									autocomplete-text="name"
     								oninput="fn_onInputPrdcrNmDtl(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
@@ -592,7 +592,7 @@
   				}
           		jsonWrhsPlan.push(wrhsPlan);
   			});
-          	grdWrhsPlan.refresh();
+          	grdWrhsPlan.rebuild();
           	grdWrhsPlan.addRow();
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -935,6 +935,7 @@
 	 */
 	const fn_clearPrdcrDtl = function() {
 		SBUxMethod.set("dtl-inp-prdcrCd", "");
+		SBUxMethod.set("dtl-inp-prdcrIdentno", "");
 		SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:''");
 	}
 
@@ -950,7 +951,42 @@
 		else{
 			SBUxMethod.set("dtl-inp-prdcrCd", value);
 			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonPrdcrDtl, {prdcrCd: value});
+			fn_setPrdcrFormDtl(prdcr);
 		}
+	}
+
+	const fn_setPrdcrFormDtl = async function(prdcr) {
+		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
+			const rprsVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
+			await gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
+			SBUxMethod.set("dtl-slt-vrtyCd", rprsVrtyCd);
+			fn_onChangeSrchVrtyCd({value:rprsVrtyCd});
+		} else {
+			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
+				const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
+				if (prvItemCd != prdcr.rprsItemCd) {
+					SBUxMethod.set("dtl-slt-itemCd", prdcr.rprsItemCd);
+					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
+				}
+			}
+		}
+		// if (!gfn_isEmpty(prdcr.wrhsSeCd)) {	// 입고구분
+		// 	SBUxMethod.set("dtl-rdo-wrhsSeCd", prdcr.wrhsSeCd);
+		// }
+		// if (!gfn_isEmpty(prdcr.gdsSeCd)) {	// 상품구분
+		// 	SBUxMethod.set("dtl-rdo-gdsSeCd", prdcr.gdsSeCd);
+		// }
+		// if (!gfn_isEmpty(prdcr.trsprtSeCd)) {	// 운송구분
+		// 	SBUxMethod.set("dtl-rdo-trsprtSeCd", prdcr.trsprtSeCd);
+		// }
+
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("dtl-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("dtl-inp-prdcrIdentno", "");
+		}
+
 	}
 
 	const fn_onChangeSrchPrdcrIdentnoDtl = function(obj) {
