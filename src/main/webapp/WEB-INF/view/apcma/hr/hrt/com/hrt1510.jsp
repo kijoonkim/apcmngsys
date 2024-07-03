@@ -1121,6 +1121,7 @@
             const param = {
                 cv_count : '0',
                 getType : 'json',
+                rownum: item.rownum,
                 workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
@@ -1206,6 +1207,7 @@
         let listData = [{
             cv_count : '0',
             getType : 'json',
+            rownum: item.rownum,
             workType : 'APPLY',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
@@ -1289,6 +1291,7 @@
         let listData = [{
             cv_count : '0',
             getType : 'json',
+            rownum: item.rownum,
             workType : 'CONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
@@ -1372,6 +1375,7 @@
         let listData = [{
             cv_count : '0',
             getType : 'json',
+            rownum: item.rownum,
             workType : 'UNCONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
