@@ -81,7 +81,7 @@ public class ApcMaHrt1510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForLisData(param, session, request, "", "P_HRT1510_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRT1510_S");
 
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntityMa(resultMap);
