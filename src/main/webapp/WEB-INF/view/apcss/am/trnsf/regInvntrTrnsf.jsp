@@ -1127,8 +1127,8 @@
 		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
 			document.getElementById('btnSrchPrdcr').click();
 		} else{
-			SBUxMethod.set("dtl-inp-prdcrCd", value);
-			SBUxMethod.attr("dtl-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
 			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
 			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
