@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hrt.com.web;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -34,6 +35,9 @@ import java.util.*;
 public class ApcMaHrt5200Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
+
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
 
     @PostMapping(value = "/hr/hrt/com/selectHrt5200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrt5200List(
@@ -76,29 +80,10 @@ public class ApcMaHrt5200Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            for(String key : param.keySet()){
-                if(key.contains("listData")) {
-                    if(param.get(key) instanceof List) {
-                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-                        List<HashMap<String,Object>> returnData = new ArrayList<>();
-                        for(int i = 0; i < listData.size(); i++) {
-                            listData.get(i).put("procedure", 		"P_HRT5200_S");
-                            returnData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
-                            if(returnData.get(i).get("resultStatus").equals("E")) {
-                                String errorCode = Optional.ofNullable(returnData.get(i).get("v_errorCode")).orElse("").toString();
-                                String errorStr = Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString();
+            resultMap = apcMaComService.processForLisData(param, session, request, "", "P_HRT5200_S");
 
-                                return getErrorResponseEntity(errorCode, errorStr);
-                            }
-                        }
-
-                        resultMap.put(key, listData);
-                    }
-                }
-            }
             logger.info("=============insertHrt5200List=====end========");
-            return getSuccessResponseEntity(resultMap);
-
+            return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
