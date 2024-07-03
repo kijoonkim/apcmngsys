@@ -35,7 +35,7 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3><!-- 국가정보 -->
             </div>
-            <div style="margin-left: auto;">
+           <%-- <div style="margin-left: auto;">
                 <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger"
                              onclick="fn_create"></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
@@ -44,12 +44,12 @@
                              onclick="fn_delete"></sbux-button>
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger"
                              onclick="fn_search"></sbux-button>
-            </div>
+            </div>--%>
         </div>
 
         <!--[pp] 검색 -->
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table class="table table-bordered tbl_fixed">
+        <table id="dataArea1" class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
                 <col style="width: 7%">
@@ -70,7 +70,7 @@
             <tbody>
             <tr>
                 <th scope="row" class="th_bg">채번그룹</th>
-                <td colspan="" class="td_input" style="border-right:hidden;">
+               <%-- <td colspan="" class="td_input" style="border-right:hidden;">
                     <sbux-select
                             unselected-text="전체"
                             uitype="single"
@@ -79,6 +79,16 @@
                             class="form-control input-sm"
                             jsondata-ref="jsonNumberingGroup"
                     />
+                </td>--%>
+                <td class="td_input" style="border-right: hidden;">
+                    <div class="dropdown">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-numbering_group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="srch-numbering_group" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
                 </td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <td style="border-right: hidden;">&nbsp;</td>
@@ -135,7 +145,7 @@
                                             style="width:100%"></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">채번그룹</th>
-                            <td class="td_input">
+                            <%--<td class="td_input">
                                 <sbux-select
                                         id="NUMBERING_GROUP"
                                         name="NUMBERING_GROUP"
@@ -144,6 +154,16 @@
                                         unselected-text="전체"
                                         class="form-control input-sm"
                                 ></sbux-select>
+                            </td>--%>
+                            <td class="td_input" style="border-right: hidden;">
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="NUMBERING_GROUP" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="NUMBERING_GROUP" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
                             </td>
                             <th scope="row" class="th_bg">사용여부</th>
                             <td class="td_input">
@@ -505,8 +525,28 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
            /* gfnma_setComSelect(['NUMBER_ELEMENT3'], jsonNumberElement1, 'L_SYS002', '', '', 'sub_code', 'code_name', 'Y', ''),*/
-            gfnma_setComSelect(['srch-numbering_group'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //gfnma_setComSelect(['srch-numbering_group'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+
+            //급여체계
+            gfnma_multiSelectInit({
+                target			: ['#srch-numbering_group','#NUMBERING_GROUP']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_SYS001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
 
             gfnma_multiSelectInit({
                 target			: ['#NUMBER_ELEMENT1','#NUMBER_ELEMENT2','#NUMBER_ELEMENT3','#NUMBER_ELEMENT4','#NUMBER_ELEMENT5'
@@ -544,6 +584,32 @@
         fn_createGrid();
         fn_createHistoryGrid();
         fn_search();
+    }
+
+    // 신규
+    function cfn_add() {
+        fn_create();
+    }
+    // 저장
+    function cfn_save() {
+
+        fn_save();
+    }
+    // 삭제
+    function cfn_del() {
+        fn_delete();
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
     }
 
     function fn_createGrid() {
@@ -1357,7 +1423,7 @@
 
 
 
-        const postJsonPromise = gfn_postJSON("/co/sys/sys/updateSys3200.do", {
+        const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3200.do", {
             getType: 'json',
             workType: 'U',
             cv_count: '0',
@@ -1465,7 +1531,7 @@
                 , V_P_PC: ''
             };
 
-            const postJsonPromise = gfn_postJSON("/co/sys/sys/deleteSys3100.do", {
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3200.do", {
                 getType: 'json',
                 workType: 'D',
                 cv_count: '0',
@@ -1491,54 +1557,6 @@
         }
 
     }
-   /* //샘플채번 보기
-    const fn_searchSample = async function (numberingId) {
-
-        var paramObj = {
-            V_P_DEBUG_MODE_YN: ''
-            , V_P_LANG_ID: 'KOR'
-            , V_P_COMP_CODE: '8888'
-            , V_P_CLIENT_CODE: '100'
-
-            ,V_P_NUMBERING_ID: numberingId
-
-            , V_P_FORM_ID: p_formId
-            , V_P_MENU_ID: p_menuId
-            , V_P_PROC_ID: ''
-            , V_P_USERID: ''
-            , V_P_PC: ''
-        };
-
-        const postJsonPromise = gfn_postJSON("/co/sys/sys/select3200Sample.do", {
-            getType: 'json',
-            workType: 'Q',
-            cv_count: '1',
-            params: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
-
-        console.log("---------VIEWSAMPLE----------- : " ,data);
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-
-                data.cv_1.forEach((item, index) => {
-                    SBUxMethod.set("NUMBER_SAMPLE", item.NUMBER_SAMPLE);
-                });
-
-            } else {
-                alert(data.resultMessage);
-            }
-
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-
-
-    }*/
 
     //샘플채번 등록
     const fn_SearchNumSP = async function () {
