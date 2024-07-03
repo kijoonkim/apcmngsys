@@ -565,7 +565,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 
 						if(returnData.get(i).get("resultStatus").equals("E")) {
 							result.put("resultStatus", "E");
-							result.put("resultCode", Integer.valueOf(Optional.ofNullable(listData.get(i).get("idx")).orElse("-1").toString()));
+							result.put("resultCode", Integer.valueOf(Optional.ofNullable(listData.get(i).get("rownum")).orElse("-1").toString()));
 							result.put("resultMessage", Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString());
 
 							return result;
