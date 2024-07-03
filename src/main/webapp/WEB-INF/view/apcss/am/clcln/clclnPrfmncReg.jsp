@@ -187,6 +187,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
+									autocomplete-height="270px"
     								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
 								></sbux-input>
@@ -726,9 +727,9 @@
 		SBUxMethod.set("srch-slt-itemCd", null);
 		// 품종
 		SBUxMethod.set("srch-slt-vrtyCd", null);
-
+		
 		// 생산자
-		SBUxMethod.set("srch-inp-prdcrCd", "");
+		fn_clearPrdcr();
 		SBUxMethod.set("srch-inp-prdcrNm", "");
 
 		// 확정여부
@@ -793,11 +794,18 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btnSrchPrdcrCd').click();
+		} else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
-		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
-		fn_setPrdcrForm(prdcr);
+			fn_setPrdcrForm(prdcr);
+			
+		}
 	}
 
  	/**
@@ -814,10 +822,10 @@
  	 */
 	const fn_setPrdcrForm = async function(prdcr) {
 
-		if (!gfn_isEmpty(prdcr.itemVrtyCd)) {	// 대표품종
+		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
-			SBUxMethod.set("srch-slt-vrtyCd", prdcr.itemVrtyCd);
-			fn_onChangeSrchVrtyCd({value:prdcr.itemVrtyCd});
+			SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsItemCd + prdcr.rprsVrtyCd);
+			fn_onChangeSrchVrtyCd({value : prdcr.rprsItemCd + prdcr.rprsVrtyCd});
 		} else {
 			if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");

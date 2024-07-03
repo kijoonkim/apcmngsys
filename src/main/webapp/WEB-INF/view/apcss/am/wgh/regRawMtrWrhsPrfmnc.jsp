@@ -108,6 +108,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
+									autocomplete-height="270px"
     								onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
@@ -1264,11 +1265,24 @@
 	}
 
 	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
+
+	/**
 	 * @name fn_onKeyUpPrdcrNm
 	 * @description 생산자명 입력 시 event : autocomplete
 	 */
 	const fn_onKeyUpPrdcrNm = function(prdcrNm){
 		fn_clearPrdcr();
+		if(getByteLengthOfString(prdcrNm) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
