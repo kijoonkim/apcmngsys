@@ -229,6 +229,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocompleteDtl"
 									autocomplete-text="name"
+									autocomplete-height="270px"
     								oninput="fn_onInputPrdcrNmDtl(event)"
         							autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
    								></sbux-input>
