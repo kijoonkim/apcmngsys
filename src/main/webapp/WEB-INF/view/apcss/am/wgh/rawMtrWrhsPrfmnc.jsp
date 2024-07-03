@@ -929,7 +929,6 @@ async function cfn_search() {
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
-			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonComVrty, gv_selectedApcCd);
 			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyNm);
 			SBUxMethod.setValue('srch-slt-itemCd', prdcr.rprsItemCd);
 		} else {
