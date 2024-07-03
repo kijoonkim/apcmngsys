@@ -65,7 +65,7 @@ public class ApcMaSys3100Controller extends BaseController{
         return getSuccessResponseEntityMa(resultMap);
     }
 
-    // 소수점 설정 정보 신규
+    // 소수점 설정 정보 저장
     @PostMapping(value = "/co/sys/sys/insertSys3100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertSys3100(
             @RequestBody Map<String, Object> param
@@ -87,57 +87,6 @@ public class ApcMaSys3100Controller extends BaseController{
         }
 
         logger.info("=============insertSys3100=====end========");
-        return getSuccessResponseEntityMa(resultMap);
-    }
-
-
-    // 소수점 설정 정보 수정
-    @PostMapping(value = "/co/sys/sys/updateSys3100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> updateSys3100(
-            @RequestBody Map<String, Object> param
-            ,Model model
-            ,HttpSession session
-            ,HttpServletRequest request) throws Exception{
-
-        logger.info("=============updateSys3100=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-
-            param.put("procedure", 		"P_SYS3100_S");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-
-        } catch (Exception e) {
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============updateSys3100=====end========");
-        return getSuccessResponseEntityMa(resultMap);
-    }
-
-    // 소수점 설정 정보 삭제
-    @PostMapping(value = "/co/sys/sys/deleteSys3100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> deleteSys3100(
-            @RequestBody Map<String, Object> param
-            ,Model model
-            ,HttpSession session
-            ,HttpServletRequest request) throws Exception{
-
-        logger.info("=============deleteSys3100=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-
-            param.put("procedure", 		"P_SYS3100_S");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-
-        } catch (Exception e) {
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============deleteSys3100=====end========");
         return getSuccessResponseEntityMa(resultMap);
     }
 }
