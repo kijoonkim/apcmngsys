@@ -3,7 +3,6 @@ package com.at.apcss.am.cmns.vo;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -235,7 +234,7 @@ public class PrdcrVO extends ComVO {
 	 * 생산자관리유형
 	 */
 	private String prdcrMngType;
-	
+
 	/**
 	 * 식별번호:조회용
 	 */
@@ -247,9 +246,29 @@ public class PrdcrVO extends ComVO {
 	private String extrnlLnkgCd;
 
 	/**
-	 * 생산자연결번호
+	 * 생산자그룹여부
 	 */
 	private String prdcrGroupYn;
+	/**
+	 * 농가대표주소
+	 */
+	private String rprsFrlnAddr;
+	/**
+	 * 농가대표계약면적(평)
+	 */
+	private String rprsPoeFrlnArea;
+	/**
+	 * 농가대표본번
+	 */
+	private String rprsFrlnMno;
+	/**
+	 * 농가대표부번
+	 */
+	private String rprsFrlnSno;
+	private int crtrArea;
+	private int plntngArea;
+	private int prchsQntt;
+	private int prchsAmt;
 
 	private List<PrdcrVO> prdcrList;
 
