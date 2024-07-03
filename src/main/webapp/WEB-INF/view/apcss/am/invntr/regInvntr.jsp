@@ -395,7 +395,6 @@
 	 * @description 품목 선택 변경 event
 	 */
 	const fn_onChangeSrchItemCd = async function(obj) {
-
 		let itemCd = obj.value;
 		jsonComSpcfct.length = 0;
 		SBUxMethod.refresh("srch-slt-spcfctCd");
@@ -433,8 +432,6 @@
 		await gStdGrdObj.init(gv_selectedApcCd, grdSeCd, itemCd);
 
 		if (checkSection == 1) {
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
 			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
 		} else {
 			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false');
@@ -1006,7 +1003,6 @@
 
   	  			});
   	        	inptCmndDsctnList.rebuild();
-  	          	fn_onChangeSrchItemCd({value: itemCd});
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -1083,7 +1079,6 @@
 
   	  			});
   	         	inptCmndDsctnList.rebuild();
-  	          	fn_onChangeSrchItemCd({value: itemCd});
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
