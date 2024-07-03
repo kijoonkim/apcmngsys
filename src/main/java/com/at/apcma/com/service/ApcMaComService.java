@@ -78,6 +78,6 @@ public interface ApcMaComService {
 	 * @param procedureName
 	 * @return
 	 */
-	HashMap<String, Object> processForLisData(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception;
+	HashMap<String, Object> processForListData(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception;
 
 }

@@ -546,7 +546,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 	 * @param procedureName
 	 * @return
 	 */
-	public HashMap<String, Object> processForLisData(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception {
+	public HashMap<String, Object> processForListData(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception {
 		List<HashMap<String,Object>> returnData = new ArrayList<>();
 		HashMap<String, Object> result = new HashMap<>();
 
