@@ -73,8 +73,8 @@
             </table>
             <!-- content_header end -->
             <!-- content_body start -->
-            <div style="border: 1px solid black; display: flex; flex-direction: column; height: 80vh">
-                <div style="flex: 1; border: 1px solid red">
+            <div style="display: flex; flex-direction: column; height: 80vh">
+                <div style="flex: 1;">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
                             <li><span>신고 기준정보 리스트</span></li>
@@ -82,91 +82,77 @@
                     </div>
                     <div id="sb-area-기준정보"></div>
                 </div>
-                <div style="flex: 1; border: 1px solid red">
+                <div style="flex: 1;">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
                             <li><span>신고 기준정보 편집</span></li>
                         </ul>
                     </div>
-                    <div class="box-body">
+                    <div>
                         <table class="table table-bordered tbl_fixed">
                             <caption>검색 조건 설정</caption>
                             <colgroup>
-                                <col style="width: 7%">
-                                <col style="width: 6%">
-                                <col style="width: 6%">
+                                <col style="width: 10%">
+                                <col style="width: 9%">
                                 <col style="width: 3%">
-                                <col style="width: 7%">
-                                <col style="width: 6%">
-                                <col style="width: 6%">
+                                <col style="width: 10%">
+                                <col style="width: 9%">
                                 <col style="width: 3%">
-                                <col style="width: 7%">
-                                <col style="width: 6%">
-                                <col style="width: 6%">
+                                <col style="width: 10%">
+                                <col style="width: 9%">
                                 <col style="width: 3%">
                             </colgroup>
                             <tbody>
                             <tr>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>기준연도</th>
+                                <th scope="row" class="th_bg"><span></span>기준연도</th> <!--class="data_required" 필수 표기 -->
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>부가세기간구분</th>
-                                <td></td>
+                                <th scope="row" class="th_bg"><span ></span>부가세기간구분</th>
                                 <td></td>
                                 <td></td>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>신고구분</th>
-                                <td></td>
+                                <th scope="row" class="th_bg"><span ></span>신고구분</th>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>부가세 서식명</th>
+                                <th scope="row" class="th_bg"><span ></span>부가세 서식명</th>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>신고기준월</th>
-                                <td></td>
+                                <th scope="row" class="th_bg"><span ></span>신고기준월</th>
                                 <td></td>
                                 <td></td>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>신고일</th>
-                                <td></td>
+                                <th scope="row" class="th_bg"><span ></span>신고일</th>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>조기환급 신고여부</th>
+                                <th scope="row" class="th_bg"><span ></span>조기환급 신고여부</th>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>환급구분</th>
-                                <td></td>
+                                <th scope="row" class="th_bg"><span ></span>환급구분</th>
                                 <td></td>
                                 <td></td>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>조기환급취소여부</th>
-                                <td></td>
+                                <th scope="row" class="th_bg"><span ></span>조기환급취소여부</th>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>총괄(단위과세)번호</th>
+                                <th scope="row" class="th_bg"><span ></span>총괄(단위과세)번호</th>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="7"></td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg"><span class="data_required"></span>비고</th>
+                                <th scope="row" class="th_bg"><span ></span>비고</th>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="7"></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div style="flex: 1; border: 1px solid red">
-                    <div style="display: flex">
-                        <div style="flex: 1">
+                <div style="flex: 1;">
+                    <div style="display: flex;justify-content: space-between;">
+                        <div style="width: 35%">
                             <div class="ad_tbl_top">
                                 <ul class="ad_tbl_count">
                                     <li><span>신고사업장 정보 리스트</span></li>
@@ -174,7 +160,7 @@
                             </div>
                             <div id="sb-area-신고사업장"></div>
                         </div>
-                        <div style="flex: 1">
+                        <div style="width: 50%">
                             <div class="ad_tbl_top">
                                 <ul class="ad_tbl_count">
                                     <li><span>부가세 부속서류 첨부 리스트</span></li>
