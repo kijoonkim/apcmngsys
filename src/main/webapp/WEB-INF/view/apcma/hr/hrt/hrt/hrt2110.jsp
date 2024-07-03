@@ -1147,12 +1147,13 @@
         }
 
         let updatedData = bandgvwInfo.getUpdateData(true, 'all');
-        let listDate = [];
+        let listData = [];
 
         updatedData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1205,11 +1206,11 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
         });
 
-        if(listDate.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1266,11 +1267,12 @@
                 return false;
             }
 
-            let listDate = [];
+            let listData = [];
 
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: 'DELETE',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1323,9 +1325,9 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1716,11 +1718,12 @@
                 return false;
             }
 
-            let listDate = [];
+            let listData = [];
 
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: 'MANAGERAPPR',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1773,9 +1776,9 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1829,11 +1832,12 @@
                 return false;
             }
 
-            let listDate = [];
+            let listData = [];
 
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: 'APPRCANCEL',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1886,9 +1890,9 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1941,11 +1945,12 @@
             return false;
         }
 
-        let listDate = [];
+        let listData = [];
 
         const param = {
             cv_count: '0',
             getType: 'json',
+            rownum: item.rownum,
             workType: 'CONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN: '',
@@ -1998,9 +2003,9 @@
                 V_P_PC: ''
             })
         }
-        listDate.push(param);
+        listData.push(param);
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
         const data = await postJsonPromise;
         console.log('data:', data);
@@ -2052,11 +2057,12 @@
             return false;
         }
 
-        let listDate = [];
+        let listData = [];
 
         const param = {
             cv_count: '0',
             getType: 'json',
+            rownum: item.rownum,
             workType: 'CANCEL',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN: '',
@@ -2109,9 +2115,9 @@
                 V_P_PC: ''
             })
         }
-        listDate.push(param);
+        listData.push(param);
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listDate});
+        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
         const data = await postJsonPromise;
         console.log('data:', data);

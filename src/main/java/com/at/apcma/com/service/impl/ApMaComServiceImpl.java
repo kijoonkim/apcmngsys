@@ -1,22 +1,9 @@
 package com.at.apcma.com.service.impl;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpSession;
-
+import com.at.apcma.com.mapper.ProcMapper;
+import com.at.apcma.com.service.ApcMaComService;
+import com.at.apcma.com.service.ApcMaComUtil;
+import com.at.apcma.com.service.ApcMaCommDirectService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +12,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.at.apcma.com.mapper.ProcMapper;
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaComUtil;
-import com.at.apcma.com.service.ApcMaCommDirectService;
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.*;
 
 /**
  * @Class Name 		: ComMsgServiceImpl.java
@@ -541,5 +536,45 @@ public class ApMaComServiceImpl implements ApcMaComService {
 		}
 		return rmap;
 	}
-	
+
+	/**
+	 * 화면에서 list로 보낸 data를 for-loop를 통해 일괄 처리
+	 * @param param
+	 * @param session
+	 * @param request
+	 * @param ptype
+	 * @param procedureName
+	 * @return
+	 */
+	public HashMap<String, Object> processForListData(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception {
+		List<HashMap<String,Object>> returnData = new ArrayList<>();
+		HashMap<String, Object> result = new HashMap<>();
+
+		result.put("resultStatus", "S");
+		result.put("resultCode", "");
+		result.put("resultMessage", "");
+
+		for(String key : param.keySet()){
+			if(key.contains("listData")) {
+				if(param.get(key) instanceof List) {
+					List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+
+					for(int i = 0; i < listData.size(); i++) {
+						listData.get(i).put("procedure", procedureName);
+						returnData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, Optional.ofNullable(ptype).orElse("")));
+
+						if(returnData.get(i).get("resultStatus").equals("E")) {
+							result.put("resultStatus", "E");
+							result.put("resultCode", Integer.valueOf(Optional.ofNullable(listData.get(i).get("rownum")).orElse("-1").toString()));
+							result.put("resultMessage", Optional.ofNullable(returnData.get(i).get("resultMessage")).orElse("").toString());
+
+							return result;
+						}
+					}
+				}
+			}
+		}
+
+		return result;
+    }
 }

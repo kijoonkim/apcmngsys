@@ -1115,12 +1115,13 @@
         let DEPT_CODE = gfnma_nvl(rowData.DEPT_CODE);
         let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
         let updatedData = gvwShiftInfo.getUpdateData(true, 'all');
-        let listDate = [];
+        let listData = [];
 
         updatedData.forEach((item, index) => {
             const param = {
                 cv_count : '0',
                 getType : 'json',
+                rownum: item.rownum,
                 workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
@@ -1154,11 +1155,11 @@
                     V_P_PC : ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
         });
 
-        if(listDate.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -1203,9 +1204,10 @@
             EMP_CODE_D = EMP_CODE_D.substring(0, EMP_CODE_D.length - 1);
         }
 
-        let listDate = [{
+        let listData = [{
             cv_count : '0',
             getType : 'json',
+            rownum: item.rownum,
             workType : 'APPLY',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
@@ -1240,7 +1242,7 @@
             })
         }];
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listData});
 
         const data = await postJsonPromise;
         console.log('data:', data);
@@ -1286,9 +1288,10 @@
             EMP_CODE_D = EMP_CODE_D.substring(0, EMP_CODE_D.length - 1);
         }
 
-        let listDate = [{
+        let listData = [{
             cv_count : '0',
             getType : 'json',
+            rownum: item.rownum,
             workType : 'CONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
@@ -1323,7 +1326,7 @@
             })
         }];
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listData});
 
         const data = await postJsonPromise;
         console.log('data:', data);
@@ -1369,9 +1372,10 @@
             EMP_CODE_D = EMP_CODE_D.substring(0, EMP_CODE_D.length - 1);
         }
 
-        let listDate = [{
+        let listData = [{
             cv_count : '0',
             getType : 'json',
+            rownum: item.rownum,
             workType : 'UNCONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN : '',
@@ -1406,7 +1410,7 @@
             })
         }];
 
-        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listDate});
+        const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1510List.do", {listData: listData});
 
         const data = await postJsonPromise;
         console.log('data:', data);

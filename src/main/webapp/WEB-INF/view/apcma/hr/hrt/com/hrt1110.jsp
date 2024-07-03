@@ -277,12 +277,13 @@
 
     const fn_save = async function () {
         let updatedData = gvwInfo.getUpdateData(true, 'all');
-        let listDate = [];
+        let listData = [];
 
         updatedData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -311,11 +312,11 @@
                     V_P_PC: ''
                 })
             }
-            listDate.push(param);
+            listData.push(param);
         });
 
-        if(listDate.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1110List.do", {listData: listDate});
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/com/insertHrt1110List.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
