@@ -274,6 +274,9 @@
 
 	var jsonRawMtrInvntr = [];
 	function fn_createGrid1() {
+
+		SBUxMethod.set("srch-slt-spcfctCd", "");
+		
 		checkSection = 1;
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid = 'rawMtrInvntrGridArea';
