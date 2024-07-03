@@ -1170,6 +1170,7 @@
             const param = {
                 cv_count : '0',
                 getType : 'json',
+                rownum: item.rownum,
                 workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
@@ -1206,6 +1207,7 @@
             const param = {
                 cv_count : '0',
                 getType : 'json',
+                rownum: item.rownum,
                 workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
@@ -1229,7 +1231,7 @@
         });
 
         if(returnEmpData.length > 0) {
-            const postJsonPromiseForEmp = gfn_postJSON("/hr/hrt/com/insertHrt1410Emp.do", {subData: returnEmpData});
+            const postJsonPromiseForEmp = gfn_postJSON("/hr/hrt/com/insertHrt1410Emp.do", {listData: returnEmpData});
             const empData = await postJsonPromiseForEmp;
 
             try {
@@ -1251,7 +1253,7 @@
         }
 
         if(returnPatternData.length > 0) {
-            const postJsonPromiseForPattern = gfn_postJSON("/hr/hrt/com/insertHrt1410Patten.do", {subData: returnPatternData});
+            const postJsonPromiseForPattern = gfn_postJSON("/hr/hrt/com/insertHrt1410Patten.do", {listData: returnPatternData});
             const patternData = await postJsonPromiseForPattern;
 
             try {
