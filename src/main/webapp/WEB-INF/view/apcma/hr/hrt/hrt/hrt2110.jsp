@@ -1153,6 +1153,7 @@
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1271,6 +1272,7 @@
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: 'DELETE',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1721,6 +1723,7 @@
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: 'MANAGERAPPR',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1834,6 +1837,7 @@
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: 'APPRCANCEL',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
@@ -1946,6 +1950,7 @@
         const param = {
             cv_count: '0',
             getType: 'json',
+            rownum: item.rownum,
             workType: 'CONFIRM',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN: '',
@@ -2057,6 +2062,7 @@
         const param = {
             cv_count: '0',
             getType: 'json',
+            rownum: item.rownum,
             workType: 'CANCEL',
             params: gfnma_objectToString({
                 V_P_DEBUG_MODE_YN: '',
