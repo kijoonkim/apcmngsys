@@ -111,7 +111,7 @@ public class ApcMaHrt2520Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForLisData(param, session, request, "", "P_HRT2520_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRT2520_S");
 
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -133,7 +133,7 @@ public class ApcMaHrt2520Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForLisData(param, session, request, "", "P_HRT2520_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRT2520_S1");
 
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntityMa(resultMap);
