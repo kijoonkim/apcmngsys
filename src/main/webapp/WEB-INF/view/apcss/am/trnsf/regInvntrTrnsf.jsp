@@ -323,8 +323,6 @@
 		}
 
 		if (checkSection == 1) {
-			jsonComSpcfct.length = 0;
-			SBUxMethod.refresh("srch-slt-spcfctCd");
 			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
 		} else {
 			SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false');
@@ -361,7 +359,7 @@
 	var jsoninptCmndDsctnList = []; // 그리드의 참조 데이터 주소 선언
 
 	function fn_sample1(){
-		fn_initSBSelect();
+		SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'true');
 
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
@@ -372,7 +370,7 @@
 		fn_createGrid1();
 	}
 	function fn_sample2(){
-		fn_initSBSelect();
+    	SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false');
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
 		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"white","color":"black"});
@@ -381,7 +379,7 @@
 		fn_createGrid2();
 	}
 	function fn_sample3(){
-		fn_initSBSelect();
+    	SBUxMethod.attr('srch-slt-spcfctCd', 'disabled', 'false');
 		$("#srch-btn-rawmtrInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-sortInvntrDsctn").css({"background-color":"white","color":"black"});
 		$("#srch-btn-gdsInvntrDsctn").css({"background-color":"#149FFF","color":"white"});
