@@ -475,6 +475,11 @@
 
     const fn_init = async function () {
 
+        let openDate = gfn_dateToYm(new Date());
+
+        //귀속년월 날자값 셋팅
+        SBUxMethod.set("srch-pay_yyyymm", 			openDate);
+
         fn_createGrid();
         fn_createDetallGrid();
 
@@ -1022,32 +1027,33 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            var paramObj = {
-                P_HRP2200_S1: await getParamFormS1('u')
-            }
+            listData = [];
+            listData =  await getParamFormS1('u');
 
-            if (_.isEmpty(paramObj)){
-                gfn_comAlert("W0003", "등록 및 수정");			// W0003	{0}할 대상이 없습니다.
-                return ;
-            }
+            if (listData.length > 0) {
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", paramObj);
-            const data = await postJsonPromise;
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", {listData: listData});
+                const data = await postJsonPromise;
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
+                try {
+                    if (_.isEqual("S", data.resultStatus)) {
+
+                        if (data.resultMessage) {
+                            alert(data.resultMessage);
+                        }else{
+                            gfn_comAlert("I0001");
+                            fn_search();
+                        }
+
+                    } else {
                         alert(data.resultMessage);
                     }
-                    fn_search(/*tabId*/);
-                } else {
-                    alert(data.resultMessage);
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
     }
@@ -1199,32 +1205,31 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            var paramObj = {
-                P_HRP2200_S1: await getParamFormS1('d')
-            }
+            listData = [];
+            listData =  await getParamFormS1('d');
 
-            if (paramObj.length == 0 ){
-                gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
-                return ;
-            }
+            if (listData.length > 0) {
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", paramObj);
-            const data = await postJsonPromise;
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", {listData: listData});
+                const data = await postJsonPromise;
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
+                try {
+                    if (_.isEqual("S", data.resultStatus)) {
+                        if (data.resultMessage) {
+                            alert(data.resultMessage);
+                        }else{
+                            gfn_comAlert("I0001");
+                            fn_search();
+                        }
+                    } else {
                         alert(data.resultMessage);
                     }
-                    fn_search(/*tabId*/);
-                } else {
-                    alert(data.resultMessage);
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
     }

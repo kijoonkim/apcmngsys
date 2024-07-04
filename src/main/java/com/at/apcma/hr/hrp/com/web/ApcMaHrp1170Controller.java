@@ -65,14 +65,8 @@ public class ApcMaHrp1170Controller extends BaseController {
         }
 
         logger.info("=============selectHrp1170List=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntityMa(resultMap);
-        }
     }
 
     // 월별 급상여 예외자 정보 등록
