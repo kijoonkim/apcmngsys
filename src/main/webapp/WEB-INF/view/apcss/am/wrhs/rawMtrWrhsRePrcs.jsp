@@ -310,7 +310,7 @@
 		await fn_reset();
 	}
 	async function cfn_add() {
-	
+
 	}
 	async function cfn_del() {
 
@@ -420,6 +420,8 @@
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.frozencols = 2;
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 		SBGridProperties.columns = [
 			{
 				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
@@ -720,7 +722,7 @@
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
 	        }
-  			
+
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -1148,15 +1150,15 @@
 	const fn_setValue = function(){
     	let nRow = grdRawMtrInvntr.getRow();
     	let nCol = grdRawMtrInvntr.getCol();
-    	
+
     	let checkboxChecked = grdRawMtrInvntr.getCheckedRows(0, true);
     	const allCheckbox = grdRawMtrInvntr.getGridDataAll();
     	if(checkboxChecked.length == allCheckbox.length){
     		allCheckBox.checked = true;
     	}
-    	
+
 		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
-		
+
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
 				const rowData = grdRawMtrInvntr.getRowData(nRow, false);
@@ -1184,7 +1186,7 @@
     	let nRow = grdRawMtrInvntr.getRow();
     	let nCol = grdRawMtrInvntr.getCol();
     	const allCheckBox = document.querySelector('#allCheckBox');
-    	
+
 		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
@@ -1446,7 +1448,7 @@
 			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
 			fn_setPrdcrForm(prdcr);
-			
+
 		}
 	}
 
@@ -1599,7 +1601,7 @@
 
 		if(!gfn_isEmpty(vrtyCd)){
 			const itemCd = vrtyCd.substring(0,4);
-			
+
 			const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 			if (itemCd != prvItemCd) {
 				SBUxMethod.set("srch-slt-itemCd", itemCd);
@@ -1628,7 +1630,7 @@
         }
     	grid.clickCell(getRow, getCol);
     }
-    
+
 	const fn_reset = async function(){
  		// 검색조건 초기화
  		SBUxMethod.set("srch-dtp-wrhsYmdFrom",gfn_dateFirstYmd(new Date()));
@@ -1639,12 +1641,29 @@
  		SBUxMethod.set("srch-inp-prdcrNm","");
 		SBUxMethod.set("srch-inp-prdcrCd","");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
-		
+
 		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
 		SBUxMethod.set("lbl-grdInptWght","");
 		SBUxMethod.set("lbl-grdPrcsWght","");
 	}
-	
+
+	const objMenuList1 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld1,			//콜백함수명
+	        }
+
+	    };
+
+	function fn_excelDwnld1() {
+
+
+		grdRawMtrInvntr.exportLocalExcel("원물재고내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+
+
+    }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
