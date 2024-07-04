@@ -37,6 +37,7 @@
                     </h3><!-- 법인카드승인내역관리(매입) -->
                 </div>
                 <div style="margin-left: auto;">
+-                    <sbux-button uitype="normal" text="데이터불러오기" 		class="btn btn-sm btn-outline-danger" onclick="fn_callDataList"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -140,6 +141,7 @@
 										uitype="text"
 										id="srch-txtemp-name"
 										class="form-control input-sm"									
+								        onchange = "fn_chgUser"
 	   								></sbux-input>
 									<sbux-input
 										uitype="hidden"
@@ -163,8 +165,9 @@
 	   								<sbux-input
 										uitype="text"
 										id="srch-txtdept-name"
-										class="form-control input-sm">
-									</sbux-input>
+										class="form-control input-sm"
+								        onchange = "fn_chgDept"
+									></sbux-input>
 									<sbux-input
 										uitype="hidden"
 										uitype="text"
@@ -259,11 +262,11 @@
 	                        </li>
 	                    </ul>
 	                    <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
-		                    <sbux-button uitype="normal" text="거래처생성" 		class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="cfn_approval"></sbux-button>
-		                    <sbux-button uitype="normal" text="전표번호갱신" 	class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="cfn_approval"></sbux-button>
+		                    <sbux-button uitype="normal" text="거래처생성" 		class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="fn_btnCustomer"></sbux-button>
+		                    <sbux-button uitype="normal" text="전표번호갱신" 	class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="fn_btnDocRefresh"></sbux-button>
 	                    	<lavel style="margin-right:5px;padding-top:5px" >전기일</lavel>
-						    <sbux-datepicker style="padding-right:10px !important;width:100px" id="srch-pay_s2date" name="srch-pay_s2date" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker> 
-		                    <sbux-button uitype="normal" text="전기일자 일괄변경" 	class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="cfn_approval"></sbux-button>
+						    <sbux-datepicker style="padding-right:10px !important;width:100px" id="srch-pay-s2date" name="srch-pay-s2date" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker> 
+		                    <sbux-button uitype="normal" text="전기일자 일괄변경" 	class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="fn_btnDocDateAllChange"></sbux-button>
 	                    	<lavel style="margin-right:5px;padding-top:5px" >제외사유</lavel>
 							<div class="dropdown" style="margin-right:5px" >
 							    <button style="width:200px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-cboexcept-code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -364,7 +367,7 @@
     	fn_payDate();
     	
     	fn_initSBSelect();
-		
+    	fn_createGrid();		
     });
 
     //grid 초기화
@@ -384,55 +387,92 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["팝업"], 			ref: 'POP_BTN',    				type:'button',  	width:'40px',  		style:'text-align:center', 
-            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
-            	}	
-            },
-            {caption: ["선택"],  			ref: 'POP_SEL',    				type:'input',  		width:'100px',  	style:'text-align:left'},
-            {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["지역"],				ref: 'REGION_CODE', 			type:'combo',  		width:'100px',  	style:'text-align:left', disabled: true,
-            	typeinfo: {
-					ref			: 'jsonRegionCode',
-					label		: 'label',
-					value		: 'value',
-					itemcount	: 10
-            	}
-            },
-            {caption: ["통화"],				ref: 'CURRENCY_CODE',   		type:'combo',  		width:'100px',  	style:'text-align:left', disabled: true,
-            	typeinfo: {
-					ref			: 'jsonCurrenvyCode',
-					label		: 'label',
-					value		: 'value',
-					itemcount	: 10
-            	}
-            },
-            {caption: ["비고"], 			ref: 'MEMO', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["사용여부"], 		ref: 'USE_YN', 				type:'output',		width:'80px',		style:'text-align:center'}
+        	
+        	{caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '40px', style: 'text-align:center',
+        	    typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
+        	        checkedvalue: 'Y', uncheckedvalue: 'N'
+        	    }
+        	},        	
+            {caption: ["전표상태"],				ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표번호"], 			ref: 'DOC_NAME',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["결재자"],  				ref: 'FINAL_STEP_SEQ', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["거래구분"],      		ref: 'APPR_CANCEL_TYPE_NAME', 	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부서명"],				ref: 'DEPT_NAME',				type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["사용자명"], 			ref: 'EMP_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["카드번호"], 			ref: 'CARD_NO',  				type:'output',  	width:'300px',  	style:'text-align:left'},
+            {caption: ["승인번호"], 			ref: 'APPR_NO',  				type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["코스트센터(전표)"],		ref: 'COST_CENTER_CODE',  		type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["사용계정명"], 			ref: 'ACCOUNT_NAME',  			type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["전기일자"], 			ref: 'DOC_DATE',  				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["거래일자"], 			ref: 'TXN_DATE',  				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["거래처명"], 			ref: 'CS_NAME',  				type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["가맹점 사업자번호"], 	ref: 'CS_BIZ_REGNO',  			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["가맹점명"], 			ref: 'BIZ_CS_NAME',  			type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["업종코드"], 			ref: 'BIZ_CODE',  				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["업종명"], 				ref: 'BIZ_ITEMS',  				type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["카드유형"], 			ref: 'ZCARD_KIND_NAME',  		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["매입금액"], 			ref: 'CARD_AMT',  				type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["매입부가세"], 			ref: 'CARD_VAT_AMT',  			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["총액"], 				ref: 'SUM_AMOUNT',  			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["전표담당자명"], 		ref: 'ACCOUNT_EMP_NAME',  		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["결재예정일자"], 		ref: 'SETTLE_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["제외사유코드"], 		ref: 'EXCEPT_CODE',  			type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["제외사유"], 			ref: 'EXCEPT_REASON',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["제외금액"], 			ref: 'EXCEPT_AMOUNT',  			type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["가맹점과세구분"], 		ref: 'TAX_TYPE_NAME',  			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["과세유형"], 			ref: 'TAX_GUBUN_NAME',  		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전기일/증빙일"], 		ref: 'ZTRAN_DATE2',  			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["전표ID"], 				ref: 'DOC_ID',  				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표금액"], 			ref: 'HEADER_INVOICE_AMOUNT',  	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표공급가액"], 		ref: 'HEADER_CARD_AMT',  		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표부가세금액"], 		ref: 'HEADER_VAT_AMOUNT',  		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["적요"], 				ref: 'HEADER_DESC',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["폐업일자"], 			ref: 'BIZ_CLOSE_DATE',  		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["세무일자"], 			ref: 'TAX_DATE',  				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["가맹점휴폐업정보"], 	ref: 'ZVENDOR_CLOSE_IN',  		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["수정일자"], 			ref: 'ZUPDATE_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["승인일자"], 			ref: 'APPR_DATE',  				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["승인시각"], 			ref: 'APPR_TIME',  				type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["지급일자"], 			ref: 'ZCHARGE_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["남은결재자"], 			ref: 'APPR_STATUS_COUNT',  		type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption: ["매입일자"], 			ref: 'TRANS_DATE',  			type:'output',  	width:'120px',  	style:'text-align:left'}
         ];
 
         Fig3150Grid = _SBGrid.create(SBGridProperties);
         Fig3150Grid.bind('click', 'fn_view');
     }
+	
+    //상세정보 보기
+    function fn_view() {
 
+    	editType = "E";    	
+    	
+    	var nCol = Fig3150Grid.getCol();
+        //특정 열 부터 이벤트 적용
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = Fig3150Grid.getRow();
+		if (nRow < 1) {
+            return;
+		}
+
+        let rowData = Fig3150Grid.getRowData(nRow);
+    }
+    
     /**
      * 목록 조회
      */
 	function cfn_search() {
-		fn_setFig3150Grid();
+		fn_setFig3150Grid('Q');
 	}
-	
+    
     /**
      * 목록 가져오기
      */
-    const fn_setFig3150Grid = async function() {
+    const fn_setFig3150Grid = async function(wtype) {
 
-//		Fig3150Grid.clearStatus();
+		Fig3150Grid.clearStatus();
 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
 		
@@ -494,7 +534,7 @@
 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/selectFig3150List.do", {
         	getType				: 'json',
-        	workType			: 'Q',
+        	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
@@ -509,51 +549,59 @@
   	    		let totalRecordCount = 0;
 
   	        	jsonFig3150List.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
+  	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						DOC_STATUS				: item.DOC_STATUS,				//전표상태	--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
-  						DOC_NAME				: item.DOC_NAME,				//전표번호
-  						FINAL_STEP_SEQ			: item.FINAL_STEP_SEQ,			//결재자	--> ?
-  						APPR_CANCEL_TYPE		: item.APPR_CANCEL_TYPE,		//거래구분	--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
-  						DEPT_NAME				: item.DEPT_NAME,				//부서명	--> ?
-  						EMP_NAME				: item.EMP_NAME,				//사용자명
-  						CARD_NO					: item.CARD_NO,					//카드번호
-  						APPR_NO					: item.APPR_NO,					//승인번호
-  						COST_CENTER_CODE		: item.COST_CENTER_CODE,		//코스트센터(전표)
-  						ACCOUNT_CODE			: item.ACCOUNT_CODE,			//사용계정	--> ACCOUNT_CODE_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
-  						DOC_DATE				: item.DOC_DATE,				//전기일자
-  						TXN_DATE				: item.TXN_DATE,				//거래일자
-  						CS_NAME					: item.CS_NAME,					//거래처명
-  						CS_BIZ_REGNO			: item.CS_BIZ_REGNO,			//가맹점 사업자번호
-  						BIZ_CS_NAME				: item.BIZ_CS_NAME,				//가맹점명
-  						BIZ_CODE				: item.BIZ_CODE,				//업종코드
-  						BIZ_ITEMS				: item.BIZ_ITEMS,				//업종명
-  						ZCARD_KIND				: item.ZCARD_KIND,				//카드유형	--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
-  						CARD_AMT				: item.CARD_AMT,				//매입금액
-  						CARD_VAT_AMT			: item.CARD_VAT_AMT,			//매입부가세
-  						SUM_AMOUNT				: item.SUM_AMOUNT,				//총액
-  						ACCOUNT_EMP_CODE		: item.ACCOUNT_EMP_CODE,		//전표담당자명 --> ACCOUNT_EMP_CODE_NAME(필요)  <-- P_HRI001 공통코드 조인
-  						SETTLE_DATE				: item.SETTLE_DATE,				//결재예정일자
-  						EXCEPT_CODE				: item.EXCEPT_CODE,				//제외사유코드 	--> ?
-  						EXCEPT_REASON			: item.EXCEPT_REASON,			//제외사유	 	--> ?
-  						EXCEPT_AMOUNT			: item.EXCEPT_AMOUNT,			//제외금액	 	--> ?
-  						TAX_TYPE				: item.TAX_TYPE,				//가맹점과세구분	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
-  						TAX_GUBUN_NAME			: item.TAX_GUBUN_NAME,			//과세유형		--> ?
-  						ZTRAN_DATE2				: item.ZTRAN_DATE2,				//전기일/증빙일	
-  						DOC_ID					: item.DOC_ID,					//전표ID	
-  						HEADER_INVOICE_AMOUNT	: item.HEADER_INVOICE_AMOUNT,	//전표금액	
-  						HEADER_CARD_AMT			: item.HEADER_CARD_AMT,			//전표공급가액
-  						HEADER_VAT_AMOUNT		: item.HEADER_VAT_AMOUNT,		//전표부가세금액
-  						HEADER_DESC				: item.HEADER_DESC,				//적요				--> ?
-  						BIZ_CLOSE_DATE			: item.BIZ_CLOSE_DATE,			//폐업일자			--> ?
-  						TAX_DATE				: item.TAX_DATE,				//세무일자			--> ?
-  						ZVENDOR_CLOSE_IN		: item.ZVENDOR_CLOSE_IN,		//가맹점휴폐업정보	--> ?
-  						ZUPDATE_DATE			: item.ZUPDATE_DATE,			//수정일자			--> ?
-  						APPR_DATE				: item.APPR_DATE,				//승인일자			
-  						APPR_TIME				: item.APPR_TIME,				//승인시각			
-  						ZCHARGE_DATE			: item.ZCHARGE_DATE,			//지급일자			--> ?
-  						APPR_STATUS_COUNT		: item.APPR_STATUS_COUNT,		//남은결재자		
-  						TRANS_DATE				: item.TRANS_DATE				//매입일자
+  						CHK_YN					: "",							//checkbox
+  						DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),				//전표상태			--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
+  						DOC_STATUS_NAME			: gfnma_nvl(item.DOC_STATUS_NAME),			//전표상태명		--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
+  						DOC_NAME				: gfnma_nvl(item.DOC_NAME),					//전표번호
+  						FINAL_STEP_SEQ			: gfnma_nvl(item.FINAL_STEP_SEQ),			//결재자			--> ?
+  						APPR_CANCEL_TYPE		: gfnma_nvl(item.APPR_CANCEL_TYPE),			//거래구분			--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
+  						APPR_CANCEL_TYPE_NAME	: gfnma_nvl(item.APPR_CANCEL_TYPE_NAME),	//거래구분명		--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),				//부서명			
+  						EMP_NAME				: gfnma_nvl(item.EMP_NAME),					//사용자명
+  						CARD_NO					: gfnma_nvl(item.CARD_NO),					//카드번호
+  						APPR_NO					: gfnma_nvl(item.APPR_NO),					//승인번호
+  						COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),			//코스트센터(전표)
+  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),				//사용계정			--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
+  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),				//사용계정명		--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
+  						DOC_DATE				: gfnma_nvl(item.DOC_DATE),					//전기일자
+  						TXN_DATE				: gfnma_nvl(item.TXN_DATE),					//거래일자
+  						CS_NAME					: gfnma_nvl(item.CS_NAME),					//거래처명
+  						CS_BIZ_REGNO			: gfnma_nvl(item.CS_BIZ_REGNO),				//가맹점 사업자번호
+  						BIZ_CS_NAME				: gfnma_nvl(item.BIZ_CS_NAME),				//가맹점명
+  						BIZ_CODE				: gfnma_nvl(item.BIZ_CODE),					//업종코드
+  						BIZ_ITEMS				: gfnma_nvl(item.BIZ_ITEMS),				//업종명
+  						ZCARD_KIND				: gfnma_nvl(item.ZCARD_KIND),				//카드유형			--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
+  						ZCARD_KIND_NAME			: gfnma_nvl(item.ZCARD_KIND_NAME),			//카드유형명		--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
+  						CARD_AMT				: gfnma_nvl(item.CARD_AMT),					//매입금액
+  						CARD_VAT_AMT			: gfnma_nvl(item.CARD_VAT_AMT),				//매입부가세
+  						SUM_AMOUNT				: gfnma_nvl(item.SUM_AMOUNT),				//총액
+  						ACCOUNT_EMP_CODE		: gfnma_nvl(item.ACCOUNT_EMP_CODE),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
+  						ACCOUNT_EMP_NAME		: gfnma_nvl(item.ACCOUNT_EMP_NAME),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
+  						SETTLE_DATE				: gfnma_nvl(item.SETTLE_DATE),				//결재예정일자
+  						EXCEPT_CODE				: gfnma_nvl(item.EXCEPT_CODE),				//제외사유코드 		--> ?
+  						EXCEPT_REASON			: gfnma_nvl(item.EXCEPT_REASON),			//제외사유	 		--> ?
+  						EXCEPT_AMOUNT			: gfnma_nvl(item.EXCEPT_AMOUNT),			//제외금액	 		--> ?
+  						TAX_TYPE				: gfnma_nvl(item.TAX_TYPE),					//가맹점과세구분	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
+  						TAX_TYPE_NAME			: gfnma_nvl(item.TAX_TYPE_NAME),			//가맹점과세구분명	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
+  						TAX_GUBUN_NAME			: gfnma_nvl(item.TAX_GUBUN_NAME),			//과세유형			--> ?
+  						ZTRAN_DATE2				: gfnma_nvl(item.ZTRAN_DATE2),				//전기일/증빙일	
+  						DOC_ID					: gfnma_nvl(item.DOC_ID),					//전표ID	
+  						HEADER_INVOICE_AMOUNT	: gfnma_nvl(item.HEADER_INVOICE_AMOUNT),	//전표금액	
+  						HEADER_CARD_AMT			: gfnma_nvl(item.HEADER_CARD_AMT),			//전표공급가액
+  						HEADER_VAT_AMOUNT		: gfnma_nvl(item.HEADER_VAT_AMOUNT),		//전표부가세금액
+  						HEADER_DESC				: gfnma_nvl(item.HEADER_DESC),				//적요				--> ?
+  						BIZ_CLOSE_DATE			: gfnma_nvl(item.BIZ_CLOSE_DATE),			//폐업일자			--> ?
+  						TAX_DATE				: gfnma_nvl(item.TAX_DATE),					//세무일자			--> ?
+  						ZVENDOR_CLOSE_IN		: gfnma_nvl(item.ZVENDOR_CLOSE_IN),			//가맹점휴폐업정보	--> ?
+  						ZUPDATE_DATE			: gfnma_nvl(item.ZUPDATE_DATE),				//수정일자			--> ?
+  						APPR_DATE				: gfnma_nvl(item.APPR_DATE),				//승인일자			
+  						APPR_TIME				: gfnma_nvl(item.APPR_TIME),				//승인시각			
+  						ZCHARGE_DATE			: gfnma_nvl(item.ZCHARGE_DATE),				//지급일자			--> ?
+  						APPR_STATUS_COUNT		: gfnma_nvl(item.APPR_STATUS_COUNT),		//남은결재자		
+  						TRANS_DATE				: gfnma_nvl(item.TRANS_DATE),				//매입일자
+  						CARD_ID					: gfnma_nvl(item.CARD_ID)				
   					}
   					jsonFig3150List.push(msg);
   					totalRecordCount ++;
@@ -574,29 +622,66 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-	
-    //상세정보 보기
-    function fn_view() {
-
-    	editType = "E";    	
+    
+    /**
+     * 데이터불러오기
+     */
+    const fn_callDataList = async function() {
     	
-    	var nCol = Fig3150Grid.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-        var nRow = Fig3150Grid.getRow();
-		if (nRow < 1) {
-            return;
-		}
-
-        let rowData = Fig3150Grid.getRowData(nRow);
+		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
+		let p_ymdtxn_date_fr	= gfnma_nvl(SBUxMethod.get("srch-ymdtxn-date-fr"));
+		let p_ymdtxn_date_to 	= gfnma_nvl(SBUxMethod.get("srch-ymdtxn-date-to"));
 		
-        SBUxMethod.attr('NATION_CODE',	'readonly', true);
-        
-        gfnma_uxDataSet('#dataArea1', rowData);
-        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', rowData.CURRENCY_CODE);
-    }
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			,V_P_FI_ORG_CODE		: p_cbofi_org_code		//회계단위
+			,V_P_TXN_DATE_FR		: p_ymdtxn_date_fr		//사용일자 시작
+			,V_P_TXN_DATE_TO		: p_ymdtxn_date_to		//사용일자 종료
+			,V_P_DOC_DATE_FR		: ''
+			,V_P_DOC_DATE_TO		: ''
+			,V_P_APPR_CANCEL_TYPE	: ''	
+			,V_P_CARD_NO			: ''
+			,V_P_APPR_NO			: ''
+			,V_P_TXN_DATE			: ''
+			,V_P_DOC_DATE			: ''
+			,V_P_ACCOUNT_EMP_CODE	: ''	
+			,V_P_CARD_ID			: ''			
+			,V_P_CARD_AMT			: '0'			
+			,V_P_CARD_VAT_AMT		: '0'			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: ''
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fap/car/selectFig3150Save.do", {
+        	getType				: 'json',
+        	workType			: 'S',
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  				fn_setFig3150Grid('Q');  				
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }    	
+	}
     
     /**
      * 사용자 팝업
@@ -729,6 +814,259 @@
 		SBUxMethod.set('srch-ymddoc-date-to', edate);
 		SBUxMethod.set('srch-ymdtxn-date-fr', sdate);
 		SBUxMethod.set('srch-ymdtxn-date-to', edate);
+    }
+
+    //사용자 변경 evnet
+    var fn_chgUser = function() {
+    	var str = SBUxMethod.get('srch-txtemp-name');
+    	if(!str){
+    		SBUxMethod.set('srch-txtemp-code', '');
+    	}
+    }
+
+    //사용자부서 변경 evnet
+    var fn_chgDept = function() {
+    	var str = SBUxMethod.get('srch-txtdept-name');
+    	if(!str){
+    		SBUxMethod.set('srch-txtdept-code', '');
+    	}
+    }
+
+    //거래처생성
+    var fn_btnCustomer = async function() {
+    	
+    	var cnt 		= 0
+    	var chkList		= [];
+    	for (var i = 0; i < jsonFig3150List.length; i++) {
+			var obj = jsonFig3150List[i];
+			if(obj['CHK_YN']=='Y'){
+				cnt ++;
+				obj['rownum'] = i;
+				chkList.push(obj);
+			}
+		}
+		if(cnt==0){
+        	gfn_comAlert("E0000", "처리대상이 없습니다.");
+        	return;
+		}    	
+		
+		if(confirm("거래처 생성 하시겠습니까?")){
+		}else{
+			return;
+		}		
+		
+		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
+		let p_ymdtxn_date_fr	= gfnma_nvl(SBUxMethod.get("srch-ymdtxn-date-fr"));
+		let p_ymdtxn_date_to 	= gfnma_nvl(SBUxMethod.get("srch-ymdtxn-date-to"));
+		
+		//서버 전송 리스트
+        let listData = [];
+    	for (var i = 0; i < chkList.length; i++) {
+			var obj = chkList[i];
+            const param = {
+                    cv_count	: '0',
+                    getType		: 'json',
+                    rownum		: obj.rownum,
+                    workType	: 'IF',
+                    params		: gfnma_objectToString({
+                        V_P_DEBUG_MODE_YN			: '',
+                        V_P_LANG_ID					: '',
+                        V_P_COMP_CODE				: gv_ma_selectedApcCd,
+                        V_P_CLIENT_CODE				: gv_ma_selectedClntCd,
+                        V_P_FI_ORG_CODE 			: p_cbofi_org_code,
+                        V_P_TXN_DATE_FR 			: p_ymdtxn_date_fr,
+                        V_P_TXN_DATE_TO 			: p_ymdtxn_date_to,
+                        V_P_CARD_NO					: obj.CARD_NO,
+                        V_P_APPR_NO					: obj.APPR_NO,
+                        V_P_TXN_DATE				: obj.TXN_DATE,
+                        V_P_FORM_ID					: p_formId,
+                        V_P_MENU_ID					: p_menuId,
+                        V_P_PROC_ID					: '',
+                        V_P_USERID					: '',
+                        V_P_PC						: ''
+                    })
+            	}			
+            listData.push(param);
+    	}	
+
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150Customer.do", {listData: listData});
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    cfn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }    	
+    }
+
+    //전표번호갱신
+    var fn_btnDocRefresh = async function() {
+    	
+		//선택된 행
+        var nRow = Fig3150Grid.getRow();
+		if (nRow < 1) {
+            gfn_comAlert("E0000", "갱신할 행을 선택하세요");
+            return;
+		}
+
+		if(confirm("전표번호를 갱신 하시겠습니까?")){
+		}else{
+			return;
+		}		
+        var rowData = Fig3150Grid.getRowData(nRow);
+        console.error(rowData);
+		
+	    var paramObj = { 
+				V_P_DEBUG_MODE_YN		: ''
+				,V_P_LANG_ID			: ''
+				,V_P_COMP_CODE			: gv_ma_selectedApcCd
+				,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+				,V_P_APPR_CANCEL_TYPE	: rowData.APPR_CANCEL_TYPE	
+				,V_P_CARD_NO			: rowData.CARD_NO
+				,V_P_APPR_NO			: rowData.APPR_NO
+				,V_P_TXN_DATE			: rowData.TXN_DATE
+				,V_P_DOC_ID				: rowData.DOC_ID			
+				,V_P_FORM_ID			: p_formId
+				,V_P_MENU_ID			: p_menuId
+				,V_P_PROC_ID			: ''
+				,V_P_USERID				: ''
+				,V_P_PC					: '' 
+		};		
+
+        const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocRefresh.do", {
+        	getType				: 'json',
+        	workType			: 'U',
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj, true)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+		
+		try {
+  			if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");
+                cfn_search();
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }    	
+    }
+    
+    //전기일자 일괄변경
+    var fn_btnDocDateAllChange = async function() {
+    	
+    	var cnt 		= 0
+    	var chkList		= [];
+    	for (var i = 0; i < jsonFig3150List.length; i++) {
+			var obj = jsonFig3150List[i];
+			if(obj['CHK_YN']=='Y' && obj['DOC_STATUS'] != '6'){
+				cnt ++;
+				obj['rownum'] = i;
+				chkList.push(obj);
+			}
+		}
+		if(cnt==0){
+        	gfn_comAlert("E0000", "처리대상이 없습니다.");
+        	return;
+		}    	
+		
+		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
+		let p_ymddoc_date_fr	= gfnma_nvl(SBUxMethod.get("srch-ymddoc-date-fr"));
+		let p_ymddoc_date_to 	= gfnma_nvl(SBUxMethod.get("srch-ymddoc-date-to"));
+		let p_ymdtxn_date_fr	= gfnma_nvl(SBUxMethod.get("srch-ymdtxn-date-fr"));
+		let p_ymdtxn_date_to 	= gfnma_nvl(SBUxMethod.get("srch-ymdtxn-date-to"));
+		
+		let p_doc_date 			= gfnma_nvl(SBUxMethod.get("srch-pay-s2date"));
+		
+		if(!p_doc_date){
+        	gfn_comAlert("E0000", "전기일을 입력하세요.");
+        	return;
+		}
+		
+		if(confirm("정말 변경하시겠습니까? 변경하시려면 YES를 클릭하세요.")){
+		}else{
+			return;
+		}		
+		
+		//서버 전송 리스트
+        let listData = [];
+    	for (var i = 0; i < chkList.length; i++) {
+			var obj = chkList[i];
+            const param = {
+                    cv_count	: '0',
+                    getType		: 'json',
+                    rownum		: obj.rownum,
+                    workType	: 'CHANGE',
+           	    	params 		: gfnma_objectToString({
+               			V_P_DEBUG_MODE_YN		: ''
+               			,V_P_LANG_ID			: ''
+               			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+               			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+               			,V_P_FI_ORG_CODE		: p_cbofi_org_code		//회계단위
+               			,V_P_TXN_DATE_FR		: p_ymdtxn_date_fr		//사용일자 시작
+               			,V_P_TXN_DATE_TO		: p_ymdtxn_date_to		//사용일자 종료
+               			,V_P_DOC_DATE_FR		: p_ymddoc_date_fr		//전기일자 시작
+               			,V_P_DOC_DATE_TO		: p_ymddoc_date_to		//전기일자 종료
+               			,V_P_APPR_CANCEL_TYPE	: obj.APPR_CANCEL_TYPE	
+               			,V_P_CARD_NO			: obj.CARD_NO
+               			,V_P_APPR_NO			: obj.APPR_NO
+               			,V_P_TXN_DATE			: obj.TXN_DATE
+               			,V_P_DOC_DATE			: p_doc_date
+               			,V_P_ACCOUNT_EMP_CODE	: obj.ACCOUNT_EMP_CODE	
+               			,V_P_CARD_ID			: obj.CARD_ID			
+               			,V_P_CARD_AMT			: '0'			
+               			,V_P_CARD_VAT_AMT		: '0'			
+               			,V_P_FORM_ID			: p_formId
+               			,V_P_MENU_ID			: p_menuId
+               			,V_P_PROC_ID			: ''
+               			,V_P_USERID				: ''
+               			,V_P_PC					: '' 
+                    })
+            	}			
+            listData.push(param);
+    	}	
+
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocDateAllChange.do", {listData: listData});
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    cfn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }    	
     }
     
 </script>
