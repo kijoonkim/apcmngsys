@@ -626,6 +626,7 @@
         /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.filtering = true;
         SBGridProperties.columns = [
             {caption: ["채번 ID"], ref: 'NUMBERING_ID', type: 'output', width: '150px', style: 'text-align:left'},
             {caption: ["채 번 명"], ref: 'NUMBERING_NAME', type: 'output', width: '200px', style: 'text-align:left'},
@@ -735,7 +736,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log("----------------data------------- : ", data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -807,52 +807,55 @@
 
         let nRows = gvwInfoGrid.getRows();
         if (nRows < 1) {
-            return;
+            nRows = 1;
         }
 
         let rowData = gvwInfoGrid.getRowData(1);
 
-        SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
-        SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
-        SBUxMethod.set("USE_YN", rowData.USE_YN);
-        SBUxMethod.set("NUMBERING_NAME", rowData.NUMBERING_NAME);
-        SBUxMethod.set("NUMBER_LENGTH", rowData.NUMBER_LENGTH);
-        SBUxMethod.set("DESCR", rowData.DESCR);
-        SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
+        if (!_.isEmpty(rowData)) {
+
+            SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
+            SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
+            SBUxMethod.set("USE_YN", rowData.USE_YN);
+            SBUxMethod.set("NUMBERING_NAME", rowData.NUMBERING_NAME);
+            SBUxMethod.set("NUMBER_LENGTH", rowData.NUMBER_LENGTH);
+            SBUxMethod.set("DESCR", rowData.DESCR);
+            SBUxMethod.set("AUTO_NUM_YN", rowData.AUTO_NUM_YN);
 
 
-        /*SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);*/
-        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT1);
-        SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT1);
-        SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
+            /*SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);*/
+            gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT1);
+            SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT1);
+            SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT2);
-        SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT2);
-        SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT2);
+            SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT2);
+            SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT3);
-        SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT3);
-        SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT3);
+            SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT3);
+            SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT4);
-        SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT4);
-        SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT4);
+            SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT4);
+            SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT5);
-        SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT5);
-        SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT5);
+            SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT5);
+            SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
 
-        SBUxMethod.set("START_SERNO", rowData.START_SERNO);
-        SBUxMethod.set("UNIQUE_YN", rowData.UNIQUE_YN);
+            SBUxMethod.set("START_SERNO", rowData.START_SERNO);
+            SBUxMethod.set("UNIQUE_YN", rowData.UNIQUE_YN);
 
-        SBUxMethod.set("NUMBER_SAMPLE", rowData.NUMBER_SAMPLE);
+            SBUxMethod.set("NUMBER_SAMPLE", rowData.NUMBER_SAMPLE);
 
-        fn_searchHistory(rowData.NUMBERING_ID);
+            fn_searchHistory(rowData);
+        }
     }
 
 
@@ -905,11 +908,11 @@
      */
     const fn_searchHistory = async function (rowData) {
 
-        if (rowData != null && rowData != '') {
+        if (!_.isEmpty(rowData)) {
 
             gvwHistoryGrid.clearStatus();
 
-            let V_P_NUMBERING_ID = rowData;
+           /* let V_P_NUMBERING_ID = rowData;*/
 
             var paramHisObj = {
                 V_P_DEBUG_MODE_YN: ''
@@ -1011,8 +1014,6 @@
         }
 
         let rowData = gvwInfoGrid.getRowData(nRow);
-
-        console.log("-------------rowData---------------", rowData);
 
         SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
         SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
@@ -1347,29 +1348,32 @@
         if(updatedData.length <= 0){
             return;
         }
+        listData = [];
+        listData =  await getParamForm(numberId, updatedData)
 
-        var paramObj = {
-            P_SYS3200_S1: await getParamForm(numberId, updatedData)
-        }
+        if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3200His.do",  {listData: listData});
+            const data = await postJsonPromise;
 
-        const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3200His.do", paramObj);
-        const data = await postJsonPromise;
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001");
+                        fn_search();
+                    }
 
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+                } else {
                     alert(data.resultMessage);
                 }
-                fn_search();
-            } else {
-                alert(data.resultMessage);
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -1645,7 +1649,6 @@
             params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log("-------------------VIEWSAMPLE--------------------- : ", data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1657,9 +1660,6 @@
                 if(returnStr != null){
                     SBUxMethod.set("NUMBER_SAMPLE", returnStr);
                 }
-               /* fn_saveHis(obj.NUMBERING_ID); //채번이력 저장*/
-                //fn_search();
-                //fn_searchSample(NUMBERING_ID);
             } else {
                 alert(data.resultMessage);
             }
