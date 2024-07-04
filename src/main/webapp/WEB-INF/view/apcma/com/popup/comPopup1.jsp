@@ -214,9 +214,19 @@ function compopup1(options) {
 				}
 				idx ++;
 			});
+			if(wstr){
+				if(Array.isArray(wstr)){
+					if(wstr.length>0){
+						wstr.forEach(function(item) {
+							pstr += item + '|';
+						});						
+					}
+				}
+			}
 			if(pstr){
 				pstr = pstr.slice(0, -1);
 			}			
+			console.log('type B형 parameter:', pstr);			
 		}
 		
    		var paramObj = { 
