@@ -411,6 +411,7 @@
                 });
 
                 calendarYear(new Date());
+                fn_view(gfn_dateToYmd(new Date()));
             } else {
                 alert(data.resultMessage);
             }
@@ -560,8 +561,7 @@
     $(document).on("click", ".calendar table > tbody > tr > td", function(event) {
         event.stopPropagation();
         var eventTarget = event.target;
-        //
-        console.log(eventTarget)
+
         while (eventTarget.tagName != "TD") {
             eventTarget = eventTarget.parentElement;
         }

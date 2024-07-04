@@ -2280,6 +2280,10 @@
                 });
 
                 gvwList.rebuild();
+
+                if(jsonEmpTotalList.length > 0) {
+                    gvwList.clickRow(1);
+                }
             } else {
                 alert(data.resultMessage);
             }

@@ -730,6 +730,10 @@
                 });
 
                 bandgvwInfo.rebuild();
+
+                if(jsonReportList.length > 0) {
+                    bandgvwInfo.clickRow(1);
+                }
             } else {
                 alert(data.resultMessage);
             }
