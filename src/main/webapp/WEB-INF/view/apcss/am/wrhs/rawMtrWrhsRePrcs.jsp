@@ -698,7 +698,8 @@
         let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");        // 입고일자to
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
-  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
+  		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd").slice(4,8);				// 품종
+
 
   		let inptYmd = SBUxMethod.get("dtl-dtp-inptYmd");
 
