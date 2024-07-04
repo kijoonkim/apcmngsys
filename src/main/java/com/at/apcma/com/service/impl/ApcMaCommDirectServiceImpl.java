@@ -270,9 +270,9 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			    if(p_errorCode.equals(key)) {
 			    	rmap.put("resultStatus", 	"S");
 			    	rmap.put("resultMessage", 	value);
-			    	if(!p_errorCode.equals("MSG0001")) {
-			    		rmap.put("resultMessage", 	"");
-			    	}
+//			    	if(!p_errorCode.equals("MSG0001")) {
+//			    		rmap.put("resultMessage", 	"");
+//			    	}
 			    	return rmap;
 			    }
 			}			
@@ -283,9 +283,9 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			    if(p_errorCode.equals(key)) {
 			    	rmap.put("resultStatus", 	"E");
 			    	rmap.put("resultMessage", 	value);
-			    	if(!p_errorCode.equals("MSG0001")) {
-			    		rmap.put("resultMessage", 	"");
-			    	}
+//			    	if(!p_errorCode.equals("MSG0001")) {
+//			    		rmap.put("resultMessage", 	"");
+//			    	}
 			    	return rmap;
 			    }
 			}			
