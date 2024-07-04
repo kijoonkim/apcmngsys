@@ -989,6 +989,10 @@
                 });
 
                 treeMaster.rebuild();
+
+                if(jsonDeptList.length > 0) {
+                    treeMaster.clickRow(1);
+                }
             } else {
                 alert(data.resultMessage);
             }

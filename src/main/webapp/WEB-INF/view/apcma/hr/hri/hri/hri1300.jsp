@@ -2295,6 +2295,10 @@
                 });
 
                 gvwList.rebuild();
+
+                if(jsonEmpList.length > 0) {
+                    gvwList.clickRow(1);
+                }
             } else {
                 alert(data.resultMessage);
             }

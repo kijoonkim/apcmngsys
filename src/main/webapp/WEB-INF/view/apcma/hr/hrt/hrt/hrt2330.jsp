@@ -35,15 +35,6 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
-                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>
-                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_cancel"></sbux-button>
-                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
-                <sbux-button id="btnManagerAppr" name="btnManagerAppr" uitype="normal" text="관리자승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_managerAppr"></sbux-button>
-                <sbux-button id="btnApprCancel" name="btnApprCancel" uitype="normal" text="관리자승인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_apprCancel"></sbux-button>
-                <sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="일괄저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_allSave"></sbux-button>
-            </div>
         </div>
         <div class="box-body">
 
@@ -93,6 +84,7 @@
                                 id="SRCH_PERIOD_YYYYMM"
                                 name="SRCH_PERIOD_YYYYMM"
                                 date-format="yyyy-mm"
+                                datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
                         />
@@ -197,7 +189,7 @@
                         </ul>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-bandgvwInfo" style="height:580px;"></div>
+                        <div id="sb-area-gvwDetail" style="height:580px;"></div>
                     </div>
                 </div>
             </div>
@@ -233,7 +225,6 @@
     var jsonTimeItemCode = []; // 근태항목
     var jsonStartEndDayType = []; // 시작/종료구분
     var jsonStatusCode = []; // 상태
-    var jsonConfirmYn = []; // 확정여부
 
     const fn_initSBSelect = async function() {
         $("#btnClearMode").show();
@@ -245,7 +236,7 @@
 
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['bandgvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedApcCd
@@ -269,25 +260,23 @@
             // 직군
             gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047_03', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['gvwShift', 'bandgvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwShift', 'gvwDetail'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 교대조
             gfnma_setComSelect(['gvwShift'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
             // 근무패턴
             gfnma_setComSelect(['gvwShift'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 휴일여부
-            gfnma_setComSelect(['bandgvwInfo'], jsonHolidayYn, 'L_HRT015', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonHolidayYn, 'L_HRT015', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근무일구분
-            gfnma_setComSelect(['bandgvwInfo'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 구분
-            gfnma_setComSelect(['bandgvwInfo'], jsonTimeCategory, 'L_HRT024_05', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonTimeCategory, 'L_HRT024_05', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 근태항목
-            gfnma_setComSelect(['bandgvwInfo'], jsonTimeItemCode, 'L_HRT004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonTimeItemCode, 'L_HRT004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', 'Y', ''),
             // 시작/종료일자유형
-            gfnma_setComSelect(['bandgvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 상태
-            gfnma_setComSelect(['bandgvwInfo'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 확정여부
-            gfnma_setComSelect(['bandgvwInfo'], jsonConfirmYn, 'L_HRT014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
     }
 
@@ -363,181 +352,51 @@
         gvwShift.bind('click', 'fn_view');
     }
 
-    function fn_createBandgvwInfoGrid() {
+    function fn_createGvwDetailGrid() {
         var SBGridProperties 				= {};
-        SBGridProperties.parentid 			= 'sb-area-bandgvwInfo';
-        SBGridProperties.id 				= 'bandgvwInfo';
+        SBGridProperties.parentid 			= 'sb-area-gvwDetail';
+        SBGridProperties.id 				= 'gvwDetail';
         SBGridProperties.jsonref 			= 'jsonDayShiftList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.frozencols = 5;
+        SBGridProperties.frozencols = 7;
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [4],
+                sum : [15, 16, 17, 18, 19, 20,
+                    21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                    41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                    51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                    61, 62, 63, 64, 65, 66, 67, 68, 69, 70,
+                    71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+                    81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
+                    91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
+                    101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+                    111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
+                ],
+                count : [4]
+            },
+            datasorting	: true,
+            usedecimal : false,
+        };
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["", ""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
-            {caption: ["진행상황", "근무일"],       ref: 'BASE_YYYYMMDD', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["일자"],       ref: 'YYYYMMDD', 		type:'datepicker',  	width:'101px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["진행상황", "상태"], 		ref: 'STATUS_CODE',   	    type:'combo', style:'text-align:left' ,width: '65px',
-                typeinfo: {
-                    ref			: 'jsonStatusCode',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["진행상황", "확정"], 		ref: 'CONFIRM_YN',   	    type:'combo', style:'text-align:left' ,width: '77px',
-                typeinfo: {
-                    ref			: 'jsonConfirmYn',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["진행상황", "확정일자"],        ref: 'CONFIRM_TIME', 		         type:'input',  	width:'80px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["근무일정보", "근무패턴"],         ref: 'WORK_PATTERN_CODE',    type:'input',  	width:'83px',  style:'text-align:left'},
-            {caption: ["근무일정보", "교대조"], 		ref: 'SHIFT_CODE',   	    type:'combo', style:'text-align:left' ,width: '77px',
-                typeinfo: {
-                    ref			: 'jsonShiftCode',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["근무일정보", "휴일"], 		ref: 'HOLIDAY_YN',   	    type:'combo', style:'text-align:left' ,width: '65px',
-                typeinfo: {
-                    ref			: 'jsonHolidayYn',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["근무일정보", "명절"],        ref: 'HOLIDAY2_YN', 		     type:'checkbox',  	width:'60px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["근무일정보", "근무일"], 		ref: 'WORK_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
-                typeinfo: {
-                    ref			: 'jsonWorkDayType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["근무일정보", "정상근무시간"],         ref: 'WORK_TIMES',    type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["근태항목", "순번"],         ref: 'HISTORY_SEQ',    type:'output',  	width:'50px',  style:'text-align:left'},
-            {caption: ["근태항목", "구분"], 		ref: 'TIME_CATEGORY',   	    type:'combo', style:'text-align:left' ,width: '75px',
-                typeinfo: {
-                    ref			: 'jsonTimeCategory',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["근태항목", "항목"],         ref: 'TIME_ITEM_CODE',    type:'output',  	width:'86px',  style:'text-align:left'},
-            {caption: ["근태항목", "명칭"],         ref: 'TIME_ITEM_NAME',    type:'output',  	width:'117px',  style:'text-align:left'},
-            {caption: ["근태항목", "당초근태"], 		ref: 'TIME_ITEM_CODE_ORIG',   	    type:'combo', style:'text-align:left' ,width: '118px',
-                typeinfo: {
-                    ref			: 'jsonTimeItemCode',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["시작", "구분"], 		ref: 'START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '65px',
-                typeinfo: {
-                    ref			: 'jsonStartEndDayType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["시작", "시각"],        ref: 'TIME_START_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["종료", "구분"], 		ref: 'END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '60px',
-                typeinfo: {
-                    ref			: 'jsonStartEndDayType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["종료", "시각"],        ref: 'TIME_END_HHMM', 		         type:'input',  	width:'60px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["종료", "휴게적용여부"],        ref: 'BREAK_APPLY_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["종료", "대체근무여부"],        ref: 'ALTER_WORK_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["종료", "대체근무신청대상"],        ref: 'ALTER_REQ_YN', 		     type:'checkbox',  	width:'96px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["종료", "교대수당대상"],        ref: 'SHIFT_WORK_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["종료", "일반직석식"],        ref: 'DINNER_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
-            {caption: ["종료", "석식시작유형"], 		ref: 'BREAK_START_DAY_TYPE1',   	    type:'combo', style:'text-align:left' ,width: '75px',
-                typeinfo: {
-                    ref			: 'jsonStartEndDayType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["종료", "석식시작시각"],        ref: 'BREAK_START_HHMM1', 		         type:'input',  	width:'75px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["종료", "석식종료유형"], 		ref: 'BREAK_END_DAY_TYPE1',   	    type:'combo', style:'text-align:left' ,width: '75px',
-                typeinfo: {
-                    ref			: 'jsonStartEndDayType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["종료", "석식종료시각"],        ref: 'BREAK_END_HHMM1', 		         type:'input',  	width:'75px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["백신수당", "백신수당"],        ref: 'VACCINE_WORK_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["내역", "시간"],        ref: 'TIME_HOURS', 		         type:'output',  	width:'94px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["내역", "비고"],         ref: 'MEMO',    type:'input',  	width:'137px',  style:'text-align:left'},
-            {caption: ["내역", "사유"],         ref: 'CAUSE',    type:'input',  	width:'106px',  style:'text-align:left'},
-            {caption: ["야간시간", "근태항목"], 		ref: 'NIGHT_TIME_ITEM_CODE',   	    type:'combo', style:'text-align:left' ,width: '75px',
-                typeinfo: {
-                    ref			: 'jsonTimeItemCode',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
+            {caption: ["근태년월"],       ref: 'YYYYMM', 		type:'datepicker',  	width:'70px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm'},
+                format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["야간시간", "시작유형"], 		ref: 'NIGHT_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
-                typeinfo: {
-                    ref			: 'jsonStartEndDayType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["야간시간", "시작시각"],        ref: 'NIGHT_START_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["야간시간", "종료유형"], 		ref: 'NIGHT_END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
-                typeinfo: {
-                    ref			: 'jsonStartEndDayType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-            },
-            {caption: ["야간시간", "종료시각"],        ref: 'NIGHT_END_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["야간시간", "종료시간"],        ref: 'NIGHT_HOURS', 		         type:'output',  	width:'75px',  	style:'text-align:left',
-                format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
-            },
-            {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'60px',  style:'text-align:left', hidden: true},
-            {caption: ["신청자정보", "사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
+            {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
                 typeinfo: {
                     ref			: 'jsonSiteCode',
                     label		: 'label',
@@ -547,8 +406,22 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["신청자정보", "부서"],         ref: 'DEPT_NAME',    type:'output',  	width:'120px',  style:'text-align:left', hidden: true},
-            {caption: ["신청자정보", "직위"], 		ref: 'POSITION_CODE',   	    type:'combo', style:'text-align:left' ,width: '67px',
+            {caption: ["확정"], 		ref: 'WORK_SUMMARY_CONFIRM_YN',   	    type:'combo', style:'text-align:left' ,width: '50px', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
+            {caption: ["확정일자"],       ref: 'CONFIRM_DATE', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["소급월"],       ref: 'ACCT_YYYYMMDD', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["사번"],         ref: 'EMP_CODE',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["이름"],         ref: 'EMP_NAME',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["부서"],         ref: 'DEPT_NAME',    type:'output',  	width:'120px',  style:'text-align:left', hidden: true},
+            {caption: ["직위"], 		ref: 'POSITION_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
                 typeinfo: {
                     ref			: 'jsonPositionCode',
                     label		: 'label',
@@ -558,39 +431,110 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["신청자정보", "사번"],         ref: 'EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["이름"],         ref: 'EMP_NAME',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
-            {caption: ["내역", "부서분류"],         ref: 'DEPT_CATEGORY',    type:'input',  	width:'50px',  style:'text-align:left', hidden: true},
-            {caption: ["내역", "부서순번"],         ref: 'SORT_SEQ',    type:'input',  	width:'73px',  style:'text-align:left', hidden: true},
-            {caption: ["신청자정보", "상위부서"],         ref: 'PARENT_DEPT',    type:'output',  	width:'50px',  style:'text-align:left', hidden: true},
-            {caption: ["내역", "부서순번"],         ref: 'POSITION_CODE_SEQ',    type:'input',  	width:'50px',  style:'text-align:left', hidden: true},
-            {caption: ["진행상태", "승인일자"],       ref: 'APPROVE_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-                , hidden: true
-            },
-            {caption: ["내역", "실적구분"],         ref: 'ACCRUAL_FLAG',    type:'input',  	width:'50px',  style:'text-align:left', hidden: true},
-            {caption: ["진행상태", "실적일자"],       ref: 'ACCT_YYYYMMDD', 		type:'datepicker',  	width:'50px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-                , hidden: true
-            },
-            {caption: ["내역", "데이터 수정여부"],        ref: 'MODIFIED_YN', 		     type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true, hidden: true},
-            {caption: ["내역", "소스유형"],         ref: 'SOURCE_TYPE',    type:'input',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["내역", "소스코드"],         ref: 'SOURCE_CODE',    type:'input',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["신청자정보", "부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["진행상태", "근태일(근무기준)"],       ref: 'WORK_YYYYMMDD', 		type:'datepicker',  	width:'75px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-                , hidden: true
-            },
-            {caption: ["내역", "WORK_DATA_SOURCE"],         ref: 'WORK_DATA_SOURCE',    type:'input',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["근속년수"],         ref: 'WORK_YEARS',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["총일수"],         ref: 'TOT_DAY',    type:'output',  	width:'70px',  style:'text-align:left'},
+            {caption: ["근무일수"],         ref: 'WORK_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["유급휴일"],         ref: 'PAID_HOLIDAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["무급휴일"],         ref: 'NONPAID_HOLIDAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["실근무일수"],         ref: 'REAL_WORK_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["OT시간(합계)"],         ref: 'TIME_SUM',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["연차발생"],         ref: 'ANNUAL_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["향군근무"],         ref: 'EXTRA_FIELD1',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["연차사용"],         ref: 'ANNUAL_USE_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["잔여연차"],         ref: 'ANNUAL_REMAIN_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["대체휴가"],         ref: 'REPLACE_VACATION_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["교육일수"],         ref: 'EDU_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["휴일근무일수"],         ref: 'HOLIDAY_WORK_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["결근일수"],         ref: 'ABSENCE_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["추가일수"],         ref: 'ADD_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["공상일수"],         ref: 'OFFICIAL_INJURY_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼3"],         ref: 'EXTRA_FIELD3',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["야간시간"],         ref: 'NIGHT_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["정상시간"],         ref: 'TOTAL_WORK_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["연장시간"],         ref: 'OVER_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["휴일시간"],         ref: 'HOLIDAY_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["휴일연장시간"],         ref: 'HOLIDAY_OVER_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["유휴근로"],         ref: 'ATTR3_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["유휴연장"],         ref: 'ATTR4_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조시간6"],         ref: 'ATTR6_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조시간7"],         ref: 'ATTR7_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["향군(연장)"],         ref: 'ATTR1_TIME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["교육(연장)"],         ref: 'ATTR2_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["지각횟수"],         ref: 'LATE_CNT',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["지각시간"],         ref: 'LATE_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["조퇴횟수"],         ref: 'EARLY_LEAVE_CNT',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["조퇴시간"],         ref: 'EARLY_LEAVE_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["외출횟수"],         ref: 'GO_OUT_CNT',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["외출시간"],         ref: 'GO_OUT_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["외근횟수"],         ref: 'OUTSIDE_CNT',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["외근시간"],         ref: 'OUTSIDE_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["청원휴가사용"],         ref: 'EXTRA_FIELD2',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼4"],         ref: 'EXTRA_FIELD4',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼5"],         ref: 'EXTRA_FIELD5',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조일수10"],         ref: 'ATTR10_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼6"],         ref: 'EXTRA_FIELD6',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼7"],         ref: 'EXTRA_FIELD7',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼8"],         ref: 'EXTRA_FIELD8',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼9"],         ref: 'EXTRA_FIELD9',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유컬럼10"],         ref: 'EXTRA_FIELD10',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조시간5"],         ref: 'ATTR5_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조시간8"],         ref: 'ATTR8_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조시간9"],         ref: 'ATTR9_TIME',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조일수1"],         ref: 'ATTR1_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조일수2"],         ref: 'ATTR2_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조일수4"],         ref: 'ATTR4_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조일수6"],         ref: 'ATTR6_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조일수7"],         ref: 'ATTR7_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["여유필드11"],         ref: 'EXTRA_FIELD11',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드12"],         ref: 'EXTRA_FIELD12',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드13"],         ref: 'EXTRA_FIELD13',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드14"],         ref: 'EXTRA_FIELD14',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드15"],         ref: 'EXTRA_FIELD15',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드16"],         ref: 'EXTRA_FIELD16',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드17"],         ref: 'EXTRA_FIELD17',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드18"],         ref: 'EXTRA_FIELD18',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["여유필드19"],         ref: 'EXTRA_FIELD19',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조일수11"],         ref: 'ATTR11_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조일수12"],         ref: 'ATTR12_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조일수13"],         ref: 'ATTR13_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조일수14"],         ref: 'ATTR14_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조일수15"],         ref: 'ATTR15_DAY',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조시간11"],         ref: 'ATTR11_TIME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조시간12"],         ref: 'ATTR12_TIME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조시간13"],         ref: 'ATTR13_TIME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조시간14"],         ref: 'ATTR14_TIME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조시간15"],         ref: 'ATTR15_TIME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조시간16"],         ref: 'ATTR16_TIME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["참조일수8"],         ref: 'ATTR8_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["참조일수9"],         ref: 'ATTR9_DAY',    type:'output',  	width:'80px',  style:'text-align:left'},
+
+            {caption: ["경조휴가"],         ref: 'CELEBRATE_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["시간외A시간"],         ref: 'AFTER_HOURS_TIME1',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["시간외B시간"],         ref: 'AFTER_HOURS_TIME2',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["월차발생"],         ref: 'MONTHLY_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["월차사용"],         ref: 'MONTHLY_USE_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["생휴발생"],         ref: 'MENSTRUEL_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["생휴사용"],         ref: 'MENSTRUEL_USE_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["당직일수"],         ref: 'NIGHT_DUTY_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["일요일시간"],         ref: 'SUNDAY_TIME',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["일요일연장시간"],         ref: 'SUNDAY_OVER_TIME',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
+            {caption: ["주휴일수"],         ref: 'WEEKLY_HOLIDAY_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["참조시간10"],         ref: 'ATTR10_TIME',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["명절근로"],         ref: 'ATTR3_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["명절연장"],         ref: 'ATTR5_DAY',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["여유필드20"],         ref: 'EXTRA_FIELD20',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조일수16"],         ref: 'ATTR16_DAY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조일수17"],         ref: 'ATTR17_DAY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조일수18"],         ref: 'ATTR18_DAY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조일수19"],         ref: 'ATTR19_DAY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조일수20"],         ref: 'ATTR20_DAY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조시간17"],         ref: 'ATTR17_TIME',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조시간18"],         ref: 'ATTR18_TIME',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조시간19"],         ref: 'ATTR19_TIME',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["참조시간20"],         ref: 'ATTR20_TIME',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
         ];
 
-        bandgvwInfo = _SBGrid.create(SBGridProperties);
+        gvwDetail = _SBGrid.create(SBGridProperties);
     }
 
     const fn_view = async function () {
@@ -717,7 +661,35 @@
                     }
                     jsonDayShiftList.push(msg);
                 });
-                bandgvwInfo.rebuild();
+
+                gvwDetail.rebuild();
+
+                if(listData.cv_3.length > 0) {
+                    let gvwDetailCaptionList = gvwDetail.getCaption('array');
+
+                    listData.cv_3.forEach((item, index) => {
+                        let nCol = gvwDetail.getColRef(item.TIME_FIELD_NAME.toUpperCase());
+
+                        if (item.USE_YN == "Y") {
+                            gvwDetail.setColHidden(nCol, false, false);
+                            gvwDetailCaptionList[nCol] = item.TIME_SUMMARY_NAME;
+                        } else {
+                            gvwDetail.setColHidden(nCol, true, false);
+                        }
+                    });
+
+                    let stringGvwDetailCaptionList = "";
+                    gvwDetailCaptionList.forEach((item, index) => {
+                        console.log(item);
+                        stringGvwDetailCaptionList += item + "^";
+                    });
+
+
+                    stringGvwDetailCaptionList = stringGvwDetailCaptionList.substring(0, stringGvwDetailCaptionList.length-1)
+                    console.log(stringGvwDetailCaptionList);
+
+                    gvwDetail.setCaption(stringGvwDetailCaptionList);
+                }
             } else {
                 alert(listData.resultMessage);
             }
@@ -731,10 +703,70 @@
         }
     }
 
+    var fn_findDeptCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findEmpCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var replaceText0 	= "_DEPT_NAME_";
+        var replaceText1 	= "_EMP_NAME_";
+        var replaceText2 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+            },
+        });
+    }
+
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_initSBSelect();
         fn_createGvwShiftGrid();
-        fn_createBandgvwInfoGrid();
+        fn_createGvwDetailGrid();
         fn_search();
     });
 
@@ -807,7 +839,13 @@
                     }
                     jsonEmpList.push(msg);
                 });
+
                 gvwShift.rebuild();
+
+                if(jsonEmpList.length > 0) {
+                    gvwShift.clickRow(1);
+                }
+
             } else {
                 alert(listData.resultMessage);
             }

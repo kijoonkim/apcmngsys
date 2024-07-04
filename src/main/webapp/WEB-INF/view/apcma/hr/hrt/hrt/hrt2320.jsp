@@ -92,6 +92,7 @@
                                 id="SRCH_PERIOD_YYYYMM"
                                 name="SRCH_PERIOD_YYYYMM"
                                 date-format="yyyy-mm"
+                                datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
                         />
@@ -1373,7 +1374,6 @@
             }
             gfn_comAlert("I0001");
             fn_search();
-            fn_view();
         }
     }
 
@@ -1443,6 +1443,10 @@
                     jsonEmpList.push(msg);
                 });
                 gvwShift.rebuild();
+
+                if(jsonEmpList.length > 0) {
+                    gvwShift.clickRow(1);
+                }
             } else {
                 alert(listData.resultMessage);
             }
