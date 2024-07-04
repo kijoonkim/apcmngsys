@@ -131,7 +131,7 @@ public class ApcMaSys3200Controller extends BaseController {
         try {
             resultMap = apcMaComService.processForListData(param, session, request, "", "P_SYS3200_S1");
 
-            logger.info("=============insertHrp1170=====end========");
+            logger.info("=============insertSys3200His=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());

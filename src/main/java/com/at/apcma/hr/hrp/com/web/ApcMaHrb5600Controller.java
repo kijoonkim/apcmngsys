@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hrp.com.web;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -39,6 +40,9 @@ public class ApcMaHrb5600Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
+
     // 수당기준 정보 조회
     @PostMapping(value = "/hr/hrp/com/selectHrp5600List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrp5600List(
@@ -61,17 +65,11 @@ public class ApcMaHrb5600Controller extends BaseController {
         }
 
         logger.info("=============selectHrp5600List=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
-    // 수당기준 정보 조회
+    // 수당기준 정보 저장
     @PostMapping(value = "/hr/hrp/com/insertHrp5600.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrp5600(
             @RequestBody Map<String, Object> param
@@ -93,17 +91,10 @@ public class ApcMaHrb5600Controller extends BaseController {
         }
 
         logger.info("=============insertHrp5600=====end========");
-        /*if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {*/
-            return getSuccessResponseEntity(resultMap);
-        /*}*/
+        return getSuccessResponseEntityMa(resultMap);
     }
 
-    // 수당기준 정보 조회
+    // 수당기준 적용기준 상세 저장
     @PostMapping(value = "/hr/hrp/com/insertHrp5600S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrp5600S1(
             @RequestBody Map<String, Object> param
@@ -115,43 +106,13 @@ public class ApcMaHrb5600Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRB5600_S1");
 
-            for(String key : param.keySet()){
-                if(key.contains("P_HRB5600_S1")) {
-                    if(param.get(key) instanceof List) {
-                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-                        listData.stream().forEach(d -> {
-                            try {
-                                d.put("procedure", 		key);
-                                d = apcMaCommDirectService.callProc(d, session, request, "");
-                                resultMap.put("result", d);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                        resultMap.put(key, listData);
-                    } else if (param.get(key) instanceof Map) {
-                        Map<String, Object> mapData = (Map<String, Object>) param.get(key);
-                        mapData.put("procedure", 		key);
-                        resultMap.put(key, apcMaCommDirectService.callProc(mapData, session, request, ""));
-                    }
-                }
-            }
-
+            logger.info("=============insertHrp1170=====end========");
+            return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============insertHrp1000S1=====end========");
-        HashMap<String, Object> result = (HashMap<String, Object>) resultMap.get("result");
-        if (result.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
         }
     }
 }
