@@ -143,6 +143,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
+									autocomplete-height="270px"
     								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
@@ -929,7 +930,6 @@ async function cfn_search() {
 	const fn_setPrdcrForm = async function(prdcr) {
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
-			await gfn_setApcVrtySBSelect('srch-inp-vrtyCd', jsonComVrty, gv_selectedApcCd);
 			SBUxMethod.set("srch-inp-vrtyCd", prdcr.rprsVrtyNm);
 			SBUxMethod.setValue('srch-slt-itemCd', prdcr.rprsItemCd);
 		} else {
@@ -937,6 +937,7 @@ async function cfn_search() {
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 				if (prvItemCd != prdcr.rprsItemCd) {
 					SBUxMethod.setValue('srch-slt-itemCd', prdcr.rprsItemCd);
+					fn_selectItem();
 				}
 			}
 		}

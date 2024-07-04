@@ -119,6 +119,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
+									autocomplete-height="270px"
     								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
@@ -418,6 +419,7 @@
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),								// 품목
 			fn_getApcLink()
 		]);
+		fn_getPrdcrs();
 
 
 
@@ -1009,6 +1011,15 @@
     	 grdSortBffa.exportLocalExcel("육안등급판정", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
      }
 
+ 	/*
+ 	* @name fn_getPrdcrs
+ 	* @description 생산자 자동완성 목록 가져오기
+ 	*/
+ 	const fn_getPrdcrs = async function() {
+ 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+ 		jsonPrdcr = gfn_setFrst(jsonPrdcr);
+ 	}
+
      /**
   	* @name fn_onInputPrdcrNm
   	* @description 생산자명 입력 시 event : autocomplete
@@ -1040,10 +1051,12 @@
  		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
  		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
  			document.getElementById('btn-srch-prdcr').click();
- 		}
- 		else{
+ 		} else{
  			SBUxMethod.set("srch-inp-prdcrCd", value);
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+ 			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+ 			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
+ 			
  		}
  	}
 
@@ -1058,6 +1071,15 @@
  			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
  		}
  	}
+
+	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
+	}
 
     const fn_setExhstDsctnCol = async function() {
         let itemCd = SBUxMethod.get('srch-slt-itemCd');

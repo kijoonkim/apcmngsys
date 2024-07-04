@@ -115,6 +115,7 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
+									autocomplete-height="270px"
     								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
@@ -210,6 +211,7 @@
 		let rst = await Promise.all([
 			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),										// 품목
 		]);
+		fn_getPrdcrs();
 		fn_search();
 	}
 
@@ -466,7 +468,7 @@
 				const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 				if (prvItemCd != prdcr.rprsItemCd) {
 					SBUxMethod.setValue('srch-slt-itemCd', prdcr.rprsItemCd);
-					fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
+					fn_selectItem();
 				}
 			}
 		}
@@ -507,11 +509,18 @@
 	 * @description 생산자 autocomplete 선택 callback
 	 */
 	function fn_onSelectPrdcrNm(value, label, item) {
-		SBUxMethod.set("srch-inp-prdcrCd", value);
-		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+			document.getElementById('btn-srch-prdcr').click();
+		} else{
+			SBUxMethod.set("srch-inp-prdcrCd", value);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
-		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
-		fn_setPrdcrForm(prdcr);
+			fn_setPrdcrForm(prdcr);
+			
+		}
 	}
 
 	/**
@@ -551,7 +560,7 @@
 
 
 	const fn_onChangeSrchPrdcrIdentno = function(obj) {
-
+		
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
 			return;
 		}
@@ -570,6 +579,8 @@
 		if (gfn_isEmpty(prdcrInfo)) {
 			return;
 		}
+		
+		console.log(jsonPrdcr);
 
 		SBUxMethod.set("srch-inp-prdcrCd", prdcrInfo.prdcrCd);
 		SBUxMethod.set("srch-inp-prdcrNm", prdcrInfo.prdcrNm);
@@ -577,6 +588,15 @@
 
 		fn_setPrdcrForm(prdcrInfo);
 
+	}
+
+	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+ 	const getByteLengthOfString = function (s, b, i, c) {
+		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		  return b;
 	}
 
 	 const fn_modalVrty = function() {

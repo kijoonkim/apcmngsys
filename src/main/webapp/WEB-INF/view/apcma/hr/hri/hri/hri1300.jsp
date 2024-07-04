@@ -2405,6 +2405,7 @@
                         const param = {
                             cv_count: '0',
                             getType: 'json',
+                            rownum: item.rownum,
                             workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                             params: gfnma_objectToString({
                                 V_P_DEBUG_MODE_YN: '',
@@ -2457,7 +2458,7 @@
                     });
 
                     if(returnData.length > 0) {
-                        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: returnData});
+                        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {listData: returnData});
                         const subData = await postJsonPromise;
 
                         try {
@@ -2474,6 +2475,7 @@
                                         const param = {
                                             cv_count: '0',
                                             getType: 'json',
+                                            rownum: item.rownum,
                                             workType: leadType,
                                             params: gfnma_objectToString({
                                                 V_P_DEBUG_MODE_YN: '',
@@ -2525,7 +2527,7 @@
                                         leadSendData.push(param);
                                     });
 
-                                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: leadSendData});
+                                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {listData: leadSendData});
                                     const leadData = await postJsonPromise;
 
                                     try {
@@ -3175,7 +3177,7 @@
             }
         });
 
-        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {subData: returnData});
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1300Sub.do", {listData: returnData});
 
         const data = await postJsonPromise;
         console.log('data:', data);

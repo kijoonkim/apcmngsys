@@ -706,7 +706,7 @@
                         V_P_TIME_START_HHMM : '',
                         V_P_END_DAY_TYPE : '',
                         V_P_TIME_END_HHMM : '',
-                        V_P_FORMID : 'HRT2320',
+                        V_P_FORMID : 'HRT2325',
                         V_P_FORM_ID		: p_formId,
                         V_P_MENU_ID		: p_menuId,
                         V_P_PROC_ID		: '',
@@ -722,7 +722,7 @@
                     });
 
                     const data = await postJsonPromise;
-                    console.log('data:', listData);
+                    console.log('data:', data);
 
                     try {
                         if (_.isEqual("S", data.resultStatus)) {
@@ -757,7 +757,6 @@
                 return;
             } else {
                 if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE")) != "" && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM")) != "") {
-                    fnQRY_P_HRT2310_Q("");
                     let SITE_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
                     let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
                     let SHIFT_CODE = gfnma_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("SHIFT_CODE")));
@@ -787,7 +786,7 @@
                         V_P_TIME_START_HHMM : TIME_START_HHMM,
                         V_P_END_DAY_TYPE : END_DAY_TYPE,
                         V_P_TIME_END_HHMM : TIME_END_HHMM,
-                        V_P_FORMID : 'HRT2320',
+                        V_P_FORMID : 'HRT2325',
                         V_P_FORM_ID		: p_formId,
                         V_P_MENU_ID		: p_menuId,
                         V_P_PROC_ID		: '',
@@ -803,7 +802,7 @@
                     });
 
                     const data = await postJsonPromise;
-                    console.log('data:', listData);
+                    console.log('data:', data);
 
                     try {
                         if (_.isEqual("S", data.resultStatus)) {
@@ -827,6 +826,37 @@
                         }
                         console.error("failed", e.message);
                         gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+            }
+        }
+
+        if (bEventEnabled) {
+            if (nCol == bandgvwInfo.getColRef("TIME_START_HHMM")) {
+                if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "3040") {
+                    // 조퇴
+                    let emp_code = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")));
+                    let base_yyyymmdd = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("BASE_YYYYMMDD")));
+
+                    for (var i = 0; i < jsonDayShiftList.length; i++){
+                        if (jsonDayShiftList[i]["EMP_CODE"] == emp_code && jsonDayShiftList[i]["BASE_YYYYMMDD"] == base_yyyymmdd && jsonDayShiftList[i]["time_item_code"] == "1010") {
+                            bandgvwInfo.setCellData((i+2), bandgvwInfo.getColRef("END_DAY_TYPE"), gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("START_DAY_TYPE"))));
+                            bandgvwInfo.setCellData((i+2), bandgvwInfo.getColRef("TIME_END_HHMM"), gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_HHMM"))));
+                        }
+                    }
+                }
+            }
+
+            if (nCol == bandgvwInfo.getColRef("TIME_END_HHMM")) {
+                if (bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "3050") {
+                    // 지각
+                    let emp_code = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("EMP_CODE")));
+                    let base_yyyymmdd = gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("BASE_YYYYMMDD")));
+                    for (var i = 0; i < jsonDayShiftList.length; i++){
+                        if (jsonDayShiftList[i]["EMP_CODE"] == emp_code && jsonDayShiftList[i]["BASE_YYYYMMDD"] == base_yyyymmdd && jsonDayShiftList[i]["time_item_code"] == "1010") {
+                            bandgvwInfo.setCellData((i+2), bandgvwInfo.getColRef("START_DAY_TYPE"), gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("END_DAY_TYPE"))));
+                            bandgvwInfo.setCellData((i+2), bandgvwInfo.getColRef("TIME_START_HHMM"), gfn_nvl(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_HHMM"))));
+                        }
                     }
                 }
             }
@@ -1053,6 +1083,7 @@
             const param = {
                 cv_count : '0',
                 getType : 'json',
+                rownum: item.rownum,
                 workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
@@ -1583,6 +1614,19 @@
                     jsonDayShiftList.push(msg);
                 });
                 bandgvwInfo.rebuild();
+
+                for(var i = 0;  i < jsonDayShiftList.length; i++) {
+                    if (jsonDayShiftList[i]["CONFIRM_YN"] == "Y") {
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("TIME_CATEGORY"), (i+2), bandgvwInfo.getColRef("TIME_CATEGORY"), true);
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("TIME_ITEM_CODE"), (i+2), bandgvwInfo.getColRef("TIME_ITEM_CODE"), true);
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("TIME_ITEM_NAME"), (i+2), bandgvwInfo.getColRef("TIME_ITEM_NAME"), true);
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("START_DAY_TYPE"), (i+2), bandgvwInfo.getColRef("START_DAY_TYPE"), true);
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("TIME_START_HHMM"), (i+2), bandgvwInfo.getColRef("TIME_START_HHMM"), true);
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("END_DAY_TYPE"), (i+2), bandgvwInfo.getColRef("END_DAY_TYPE"), true);
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("TIME_END_HHMM"), (i+2), bandgvwInfo.getColRef("TIME_END_HHMM"), true);
+                        bandgvwInfo.setCellDisabled((i+2), bandgvwInfo.getColRef("MEMO"), (i+2), bandgvwInfo.getColRef("MEMO"), true);
+                    }
+                }
             } else {
                 alert(listData.resultMessage);
             }

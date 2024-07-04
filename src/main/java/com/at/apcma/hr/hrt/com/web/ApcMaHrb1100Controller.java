@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hrt.com.web;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -37,6 +38,9 @@ import java.util.Optional;
 public class ApcMaHrb1100Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
+
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
 
     @PostMapping(value = "/hr/hrt/com/selectHrb1100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrb1100List(
@@ -111,28 +115,10 @@ public class ApcMaHrb1100Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            for(String key : param.keySet()){
-                if(key.contains("subData")) {
-                    if(param.get(key) instanceof List) {
-                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRB1100_S1");
 
-                        for(int i = 0; i < listData.size(); i++) {
-                            listData.get(i).put("procedure", 		"P_HRB1100_S1");
-                            listData.add(i, apcMaCommDirectService.callProc(listData.get(i), session, request, ""));
-                            if(listData.get(i).get("resultStatus").equals("E")) {
-                                String errorCode = Optional.ofNullable(listData.get(i).get("v_errorCode")).orElse("").toString();
-                                String errorStr = Optional.ofNullable(listData.get(i).get("resultMessage")).orElse("").toString();
-
-                                return getErrorResponseEntity(errorCode, errorStr);
-                            }
-                        }
-
-                        resultMap.put(key, listData);
-                    }
-                }
-            }
-            logger.info("=============insertHrb1100Sub=====end========");
-            return getSuccessResponseEntity(resultMap);
+            logger.info("=============insertHrt5200List=====end========");
+            return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);

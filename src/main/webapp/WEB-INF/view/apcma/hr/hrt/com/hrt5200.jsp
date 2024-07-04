@@ -914,6 +914,7 @@
             const param = {
                 cv_count: '0',
                 getType: 'json',
+                rownum: item.rownum,
                 workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
