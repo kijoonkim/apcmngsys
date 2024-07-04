@@ -192,6 +192,8 @@
     let 신고사업장;
     let 부가세;
 
+    let json기준정보 = [{}];
+
     /** 기준정보 GRID **/
     function fn_create기준정보(){
         var SBGridProperties = {};
@@ -200,19 +202,19 @@
         SBGridProperties.jsonref = 'json기준정보';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns =[
-            {caption: ['기준연도'], 			ref: 'brndNm', 		width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['부가세기간구분'], 			ref: 'cnptNm', 		width: '130px',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고구분'],				ref: 'itemNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
-            {caption: ['부가세 서식명'],				ref: 'vrtyNm', 		width: '80px',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고기준시작월'], 				ref: 'spcfctNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고기준종료월'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고사업장수'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고일'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['비고'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['총괄납부(단위과세)관리번호'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['조기환급신고여부'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['환급구분'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
-            {caption: ['환급취소여부'], 				ref: 'gdsGrdNm', 	width: '100px',	type: 'output',	style:'text-align: center'},
+            {caption: ['기준연도'], 			ref: 'brndNm', 		width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['부가세기간구분'], 			ref: 'cnptNm', 		width: '7%',	type: 'inputcombo',	style:'text-align: center'},
+            {caption: ['신고구분'],				ref: 'itemNm', 		width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['부가세 서식명'],				ref: 'vrtyNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고기준시작월'], 				ref: 'spcfctNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고기준종료월'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고사업장수'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고일'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['비고'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['총괄납부(단위과세)관리번호'], 				ref: 'gdsGrdNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['조기환급신고여부'], 				ref: 'gdsGrdNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['환급구분'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['환급취소여부'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
         ]
         기준정보 = _SBGrid.create(SBGridProperties);
     }
