@@ -671,6 +671,8 @@
      */
     var fn_compopup1 = function() {
     	
+    	//type A 형 팝업
+    	
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_EMP_CODE_";
         var replaceText1 	= "_EMP_NAME_";
@@ -702,19 +704,21 @@
      * 공통팝업3
      */
     var fn_compopup3 = function() {
+
+    	//type B 형 팝업
+    	var addParams = ['p1', 'p2'];	//bizcompId 의 파라미터에 따라 추가할것
     	
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_ORG001'
     		,popupType				: 'B'
-    		,whereClause			: ''
+    		,whereClause			: addParams
    			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
    			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-   			,searchInputValues		: ["", 				searchText,		"2024-06-03"]
-    	
+   			,searchInputValues		: ["", 				"",				""]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
-    	
     		,height					: '400px'
    			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
    			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
@@ -724,7 +728,7 @@
 				SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
 			},
     	});
-    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    	//SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
   	}
 
     /**
