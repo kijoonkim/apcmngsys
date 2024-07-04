@@ -449,13 +449,13 @@ async function cfn_search() {
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 	    SBGridProperties.extendlastcol = 'none';
 	    SBGridProperties.scrollbubbling = false;
-	    SBGridProperties.paging = {
-			'type' : 'page',
-		  	'count' : 5,
-		  	'size' : 100,
-		  	'sorttype' : 'page',
-		  	'showgoalpageui' : true
-	    };
+	    //SBGridProperties.paging = {
+		//	'type' : 'page',
+		//  	'count' : 5,
+		//  	'size' : 100,
+		//  	'sorttype' : 'page',
+		//  	'showgoalpageui' : true
+	    //};
 	    SBGridProperties.columns = [
 			{
 				caption : ["<input type='checkbox' onchange='fn_checkAll(grdRawMtrWrhs, this);'>"],
@@ -741,11 +741,11 @@ async function cfn_search() {
 	 				vrtyCd: vrtyCd,
 	 				itemCd: itemCd,
 	 				vhclno: vhclno,
-	 				invntrYn: invntrYn,
+	 				invntrYn: invntrYn
 	 	          	// pagination
-	 	  	  		pagingYn : 'Y',
-	 	  			currentPageNo : pageNo,
-	 	   		  	recordCountPerPage : pageSize
+	 	  	  		//pagingYn : 'Y',
+	 	  			//currentPageNo : pageNo,
+	 	   		  	//recordCountPerPage : pageSize
 	 	  		});
 
  	        const data = await postJsonPromise;
