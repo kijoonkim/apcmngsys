@@ -38,25 +38,25 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <div style="margin-left: auto;">
-                <%-- <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
+            <%--<div style="margin-left: auto;">
+                &lt;%&ndash; <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
                               class="btn btn-sm btn-outline-danger"
-                              onclick="fn_create"></sbux-button>--%>
+                              onclick="fn_create"></sbux-button>&ndash;%&gt;
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
                              onclick="fn_save"></sbux-button>
-                <%--<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
+                &lt;%&ndash;<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
                              class="btn btn-sm btn-outline-danger"
-                             onclick="fn_delete"></sbux-button>--%>
+                             onclick="fn_delete"></sbux-button>&ndash;%&gt;
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
                              class="btn btn-sm btn-outline-danger"
                              onclick="fn_search"></sbux-button>
-            </div>
+            </div>--%>
         </div>
 
         <!--[pp] 검색 -->
         <!--[APC] START -->
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table class="table table-bordered tbl_fixed">
+        <table id="dataArea1" class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
                 <col style="width: 7%">
@@ -391,6 +391,31 @@
         /*fn_search();*/
     }
 
+    // 신규
+  /*  function cfn_add() {
+        fn_create();
+    }*/
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+    // 삭제
+    /*function cfn_del() {
+        fn_delete();
+    }*/
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
+    }
+
     var tabJsonData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "급여항목",         "targetid" : "salaryTab" , "targetvalue" : "급여항목"},
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "근태항목",         "targetid" : "workTab" ,     "targetvalue" : "근태항목"},
@@ -581,8 +606,6 @@
 
         const data = await postJsonPromise;
 
-        console.log("-----------------------MASTER-----------------------------", data);
-
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -624,14 +647,7 @@
                 gvwMasterGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                //수정했던 탭 페이지로 이동
-                /*if (tabMoveVal != null && tabMoveVal != ''){
-
-                    SBUxMethod.set('idx1', 'SBUx_IDE_JSON');
-                }*/
-
                 fn_view();
-
 
             } else {
                 alert(data.resultMessage);
@@ -660,7 +676,6 @@
             nRow = 1; //그리드 로우 첫번째값 셋팅
         }
 
-
         let rowData = gvwMasterGrid.getRowData(nRow);
 
         if (!_.isEmpty(rowData)) {
@@ -686,7 +701,6 @@
                 , V_P_LANG_ID: 'KOR'
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
 
                 , V_P_PAY_GROUP_CODE: PAY_GROUP_CODE
                 , V_P_PAY_TYPE: PAY_TYPE
@@ -771,8 +785,6 @@
 
         let nRow = gvwMasterGrid.getRow();
 
-        console.log("--------salary nRow--------------",nRow);
-
         let rowData;
         if (nRow < 1) {
             return;
@@ -824,15 +836,11 @@
         SBUxMethod.set("PAY_FORMULA", 			PAY_FORMULA + '<'+ sRowData.PAY_ITEM_CODE +'>');
         SBUxMethod.set("PAY_FORMULA_DESC", 		PAY_FORMULA_DESC + '<'+ sRowData.PAY_ITEM_NAME +'>');
 
-
-
     }
 
     async function fn_workView() {
 
         let nRow = gvwMasterGrid.getRow();
-
-        console.log("--------work nRow--------------",nRow);
 
         let rowData;
         if (nRow < 1) {
@@ -859,8 +867,6 @@
         }
 
         let wRowData = gvwWorkGrid.getRowData(wRow);
-
-        console.log("--------work wRowData--------------",wRowData);
 
         if (!_.isEmpty(wRowData)) {
 
@@ -914,7 +920,6 @@
         }
     }
 
-
     //저장
     const fn_save = async function () {
 
@@ -935,11 +940,9 @@
             return;
         }
 
-
         let PAY_GROUP_CODE = gfnma_multiSelectGet("#cbopay_group_code");
         let PAY_TYPE = gfnma_multiSelectGet("#cbopay_type");
         let PAY_ITEM_CATEGORY = gfnma_multiSelectGet("#cbopay_item_category");
-
 
         let PAY_FORMULA = gfnma_nvl(SBUxMethod.get("PAY_FORMULA"));
         let QTY_FORMULA = gfnma_nvl(SBUxMethod.get("QTY_FORMULA"));
@@ -1052,10 +1055,6 @@
         let work = gvwWorkGrid.getGridDataAll();
         let setting = gvwSettingGrid.getGridDataAll();
 
-        console.log("======================salary===============================", salary);
-        console.log("======================work===============================", work);
-        console.log("======================setting===============================", setting);
-
         salary.forEach((item, index) => {
 
             let PAY_ITEM_CODE = '/<' + item.PAY_ITEM_CODE + '>/g';
@@ -1109,8 +1108,6 @@
            /* , QTY_FORMULA_DESC: gfnma_nvl(QTY_FORMULA_DESC)*/
 
         }
-
-        console.log("+++++++++++++++++ paramObj +++++++++++++++++++++++", paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/chkHrb5300.do", paramObj);
 

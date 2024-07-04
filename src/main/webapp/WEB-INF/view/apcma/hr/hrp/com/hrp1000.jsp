@@ -353,25 +353,27 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">여수습종료일</th>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
-                                        uitype="popup"
                                         id="TEMP_END_DATE"
                                         name="TEMP_END_DATE"
-                                        class="input-sm"
-                                        autocomplete="off"
-                                ></sbux-datepicker>
+                                        uitype="popup"
+                                        date-format="yyyymmdd"
+                                        class="form-control input-sm input-sm-ast"
+                                        readonly>
+                                </sbux-datepicker>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <th scope="row" class="th_bg">상여적용시작일</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
-                                        uitype="popup"
                                         id="BONUS_APPLY_START_DATE"
                                         name="BONUS_APPLY_START_DATE"
-                                        class="input-sm"
-                                        autocomplete="off"
-                                ></sbux-datepicker>
+                                        uitype="popup"
+                                        date-format="yyyymmdd"
+                                        class="form-control input-sm input-sm-ast"
+                                        readonly>
+                                </sbux-datepicker>
                             </td>
                         </tr>
                     </table>
@@ -397,17 +399,17 @@
                     </colgroup>
                     <tr>
                         <th scope="row" class="th_bg">급여체계</th>
-                        <td colspan="" class="td_input" style="border-right:hidden;">
+                        <%--<td colspan="" class="td_input" style="border-right:hidden;">
                             <sbux-input id="BANK_ACCOUNT" uitype="text" style="width:100%" placeholder=""
                                         class="form-control input-sm"></sbux-input>
-                        </td>
-                        <td class="td_input" style="border-right: hidden;">
+                        </td>--%>
+                        <td colspan="2" class="td_input" style="border-right: hidden;">
                             <sbux-select
                                     unselected-text=""
                                     uitype="single"
                                     id="PAY_GROUP_CODE"
                                     name="PAY_GROUP_CODE"
-                                    class="form-control input-sm"
+                                    class="form-control input-sm inpt_data_reqed"
                                     jsondata-ref="jsonPayGroupCode"
                             />
                         </td>
@@ -859,7 +861,10 @@
     }
     // 삭제
     function cfn_del() {
-        fn_delete();
+        //fn_delete();
+        if (gfn_comConfirm("Q0001", "삭제")) {
+            fn_deleteS2();
+        }
     }
 
     // 조회
@@ -909,8 +914,10 @@
             {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonDeptName', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["입사일"], ref: 'ENTER_DATE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["퇴사일"], ref: 'RETIRE_DATE', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ['입사일'], ref: 'ENTER_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+            {caption: ['퇴사일'], ref: 'RETIRE_DATE', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption : ["급여계좌은행"], ref : 'BANK_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonBankCode', displayui : true, label : 'label', value : 'value'}
             },
@@ -1102,11 +1109,11 @@
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,  disabled: true,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
@@ -1142,11 +1149,11 @@
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,  disabled: true,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ['지급일(세무)'], ref: 'TAX_PAY_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false, hidden: true,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
@@ -1184,9 +1191,9 @@
             {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
             {caption: ['적용시작월'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymm'}, disabled: true},
             {caption: ['적용종료월'], ref: 'APPLY_END_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymm'}},
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayApplyType', displayui : true, label : 'label', value : 'value'}
             },
@@ -1994,7 +2001,7 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            var paramObj =await getParamForm('u');
+            var paramObj =await getParamForm();
 
             if (_.isEmpty(paramObj)){
                 return;
@@ -2035,86 +2042,23 @@
     //저장
     const fn_saveS1 = async function () {
 
-        var paramObj = {
-           P_HRP1000_S1: await getParamFormS1()
-        }
+        listData = [];
+        listData =  await getParamFormS1('u');
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do",paramObj );
+        if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", {listData: listData});
 
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
-                    alert(data.resultMessage);
-                }
-                fn_saveS2();
-                /*fn_search(/!*tabId*!/); *///현재 저장했던 탭위치 ID를 넘겨준다.
-            } else {
-                alert(data.resultMessage);
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    //저장
-    const fn_saveS2 = async function () {
-
-        var paramObj = {
-            P_HRP1000_S2: await getParamFormS2()
-        }
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S2.do",paramObj );
-
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
-                    alert(data.resultMessage);
-                }
-                fn_search(/*tabId*/); //현재 저장했던 탭위치 ID를 넘겨준다.
-            } else {
-                alert(data.resultMessage);
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-
-    }
-
-    //삭제
-    const fn_delete = async function () {
-
-        let tabId = SBUxMethod.get('tabJson'); //현재탭 아이디
-
-        if (gfn_comConfirm("Q0001", "삭제")) {
-
-            var paramObj = await getParamForm('d');
-
-            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000.do", {
-                getType: 'json',
-                workType: 'D',
-                cv_count: '0',
-                params: gfnma_objectToString(paramObj)
-            });
             const data = await postJsonPromise;
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
+
                     if (data.resultMessage) {
                         alert(data.resultMessage);
+                    }else{
+                        fn_saveS2();
                     }
-                    fn_search(/*tabId*/);
+
                 } else {
                     alert(data.resultMessage);
                 }
@@ -2122,208 +2066,458 @@
                 if (!(e instanceof Error)) {
                     e = new Error(e);
                 }
+                console.error("failed", e.message);
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
     }
 
+    //저장
+    const fn_saveS2 = async function () {
 
-    const getParamFormS1 = async function(){
+        listData = [];
+        listData =  await getParamFormS2('u');
 
+        if (listData.length > 0) {
 
-        /**************** 중복체크 *******************/
-        let chdate = gvwPayInfoGrid.getGridDataAll();
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S2.do", {listData: listData});
 
-        // 고정 수당항목 중복체크
-        chdate.forEach((item1, index1) => {
+            const data = await postJsonPromise;
 
-            //종료일이 시작일보다 작을경우
-            if (item1.APPLY_START_DATE > item1.APPLY_END_DATE){
-                gfn_comAlert("Q0000", "종료일자보다 큰 시작일자 지정은 불가능합니다."); //수정
-                return;
-            }
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
 
-            chdate.forEach((item2, index2) => {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001");
+                        fn_search();
+                    }
 
-                //시작일 종료일이 같은 데이터가 있을경우
-                if (index1 != index2 && item1.APPLY_START_DATE == item2.APPLY_START_DATE && item1.APPLY_END_DATE == item2.APPLY_END_DATE){
-                    gfn_comAlert("Q0000", "동일한 기간(일자)정보가 존재합니다."); //수정
-                    return;
+                } else {
+                    alert(data.resultMessage);
                 }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
 
-            });
+    }
+
+    //삭제
+    const fn_deleteS1 = async function () {
+
+        listData = [];
+        listData =  await getParamFormS1('d');
+
+        if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", {listData: listData});
+
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        fn_delete();
+                    }
+
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }else{
+            fn_delete();
+        }
+    }
+
+
+        //삭제
+    const fn_deleteS2 = async function () {
+
+        listData = [];
+        listData =  await getParamFormS2('d');
+
+        if (listData.length > 0) {
+
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S2.do", {listData: listData});
+
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        fn_deleteS1();
+                    }
+
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }else{
+            fn_deleteS1();
+        }
+    }
+
+    //삭제
+    const fn_delete = async function () {
+
+        let tabId = SBUxMethod.get('tabJson'); //현재탭 아이디
+
+        var paramObj = await getParamForm();
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000.do", {
+            getType: 'json',
+            workType: 'D',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
         });
-        /**************** 중복체크 *******************/
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+                fn_search(/*tabId*/);
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
 
 
+    const getParamFormS1 = async function(type){
 
-        let updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');
-
-        console.log("---------------updatedData--------------- : ", updatedData);
+        let updatedData;
+        let allDate = gvwPayInfoGrid.getGridDataAll();
         let returnData = [];
 
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
 
+        if (_.isEqual(type, 'u')) {
 
-        updatedData.forEach((item, index) => {
+            /**************** 중복체크  Start *******************/
 
-        const param = {
+            // 고정 수당항목 중복체크
+            allDate.forEach((item1, index1) => {
 
-            cv_count : '0',
-            getType : 'json',
-            workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-            params: gfnma_objectToString({
-                V_P_DEBUG_MODE_YN			: ''
-                ,V_P_LANG_ID				: ''
-                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
-                ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+                //종료일이 시작일보다 작을경우
+                if (item1.APPLY_START_DATE > item1.APPLY_END_DATE) {
+                    gfn_comAlert("Q0000", "종료일자보다 큰 시작일자 지정은 불가능합니다."); //수정
+                    return;
+                }
 
-                ,V_P_EMP_CODE: EMP_CODE
-                ,V_P_APPLY_START_DATE: item.data.APPLY_START_DATE
-                ,V_P_APPLY_END_DATE: item.data.APPLY_END_DATE
-                ,V_P_ANNUAL_SALARY_AMT: item.data.ANNUAL_SALARY_AMT
-                ,V_P_PAY_COUNT: item.data.PAY_COUNT
-                ,V_P_SALARY_BASE_AMT: item.data.SALARY_BASE_AMT
-                ,V_P_BONUS_BASE_AMT: item.data.BONUS_BASE_AMT
-                ,V_P_INCENTIVE_BASE_AMT: item.data.INCENTIVE_BASE_AMT
-                ,V_P_COMPETENCE_BASE_AMT: item.data.COMPETENCE_BASE_AMT
-                ,V_P_DAILY_BASE_AMT: item.data.DAILY_BASE_AMT
-                ,V_P_HOURLY_BASE_AMT: item.data.HOURLY_BASE_AMT
-                ,V_P_INCENTIVE_ADD_AMT: item.data.INCENTIVE_ADD_AMT
-                ,V_P_BONUS_COUNT: item.data.BONUS_COUNT
-                ,V_P_INCENTIVE_MONTH_AMT: item.data.INCENTIVE_MONTH_AMT
-                ,V_P_SUNDRY_ALLOW_AMT: ""
-                ,V_P_QUALIFICN_ALLOW_AMT: ""
-                ,V_P_JOB_BASE_AMT: item.data.JOB_BASE_AMT
-                ,V_P_OT_FIXED_BASE_AMT: item.data.OT_FIXED_BASE_AMT
-                ,V_P_CONTRIBUTE_BASE_AMT: item.data.CONTRIBUTE_BASE_AMT
-                ,V_P_ADJUST_BASE_AMT: item.data.ADJUST_BASE_AMT
-                ,V_P_ROLE_BASE_AMT: item.data.ROLE_BASE_AMT
-                ,V_P_SALARY_AMT01: ""
-                ,V_P_SALARY_AMT02: ""
-                ,V_P_SALARY_AMT03: ""
-                ,V_P_SALARY_AMT04: ""
-                ,V_P_SALARY_AMT05: ""
-                ,V_P_SALARY_AMT06: ""
-                ,V_P_SALARY_AMT07: ""
-                ,V_P_SALARY_AMT08: ""
-                ,V_P_SALARY_AMT09: ""
-                ,V_P_SALARY_AMT10: ""
-                ,V_P_SALARY_AMT11: ""
-                ,V_P_SALARY_AMT12: ""
-                ,V_P_SALARY_AMT13: ""
-                ,V_P_SALARY_AMT14: ""
-                ,V_P_SALARY_AMT15: ""
-                ,V_P_SALARY_AMT16: ""
-                ,V_P_SALARY_AMT17: ""
-                ,V_P_SALARY_AMT18: ""
-                ,V_P_SALARY_AMT19: ""
-                ,V_P_SALARY_AMT20: ""
-                ,V_P_SALARY_AMT21: ""
-                ,V_P_SALARY_AMT22: ""
-                ,V_P_SALARY_AMT23: ""
-                ,V_P_SALARY_AMT24: ""
-                ,V_P_SALARY_AMT25: ""
-                ,V_P_SALARY_AMT26: ""
-                ,V_P_SALARY_AMT27: ""
-                ,V_P_SALARY_AMT28: ""
-                ,V_P_SALARY_AMT29: ""
-                ,V_P_SALARY_AMT30: ""
-                ,V_P_MEMO: item.data.MEMO
+                allDate.forEach((item2, index2) => {
 
-                ,V_P_FORM_ID: p_formId
-                ,V_P_MENU_ID: p_menuId
-                ,V_P_PROC_ID: ''
-                ,V_P_USERID: ''
-                ,V_P_PC: ''
+                    //시작일 종료일이 같은 데이터가 있을경우
+                    if (index1 != index2 && item1.APPLY_START_DATE == item2.APPLY_START_DATE && item1.APPLY_END_DATE == item2.APPLY_END_DATE) {
+                        gfn_comAlert("Q0000", "동일한 기간(일자)정보가 존재합니다."); //수정
+                        return;
+                    }
 
-            })
+                });
+            });
+            /**************** 중복체크 End *******************/
+
+            //수정시 수정된 데이터만 가져감
+            updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');
+
+            if (!_.isEmpty(updatedData)) {
+
+                updatedData.forEach((item, index) => {
+
+                    const param = {
+
+                        cv_count: '0',
+                        getType: 'json',
+                        workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                        params: gfnma_objectToString({
+                            V_P_DEBUG_MODE_YN: ''
+                            , V_P_LANG_ID: ''
+                            , V_P_COMP_CODE: gv_ma_selectedApcCd
+                            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                            , V_P_EMP_CODE: EMP_CODE
+                            , V_P_APPLY_START_DATE: item.data.APPLY_START_DATE
+                            , V_P_APPLY_END_DATE: item.data.APPLY_END_DATE
+                            , V_P_ANNUAL_SALARY_AMT: item.data.ANNUAL_SALARY_AMT
+                            , V_P_PAY_COUNT: item.data.PAY_COUNT
+                            , V_P_SALARY_BASE_AMT: item.data.SALARY_BASE_AMT
+                            , V_P_BONUS_BASE_AMT: item.data.BONUS_BASE_AMT
+                            , V_P_INCENTIVE_BASE_AMT: item.data.INCENTIVE_BASE_AMT
+                            , V_P_COMPETENCE_BASE_AMT: item.data.COMPETENCE_BASE_AMT
+                            , V_P_DAILY_BASE_AMT: item.data.DAILY_BASE_AMT
+                            , V_P_HOURLY_BASE_AMT: item.data.HOURLY_BASE_AMT
+                            , V_P_INCENTIVE_ADD_AMT: item.data.INCENTIVE_ADD_AMT
+                            , V_P_BONUS_COUNT: item.data.BONUS_COUNT
+                            , V_P_INCENTIVE_MONTH_AMT: item.data.INCENTIVE_MONTH_AMT
+                            , V_P_SUNDRY_ALLOW_AMT: ""
+                            , V_P_QUALIFICN_ALLOW_AMT: ""
+                            , V_P_JOB_BASE_AMT: item.data.JOB_BASE_AMT
+                            , V_P_OT_FIXED_BASE_AMT: item.data.OT_FIXED_BASE_AMT
+                            , V_P_CONTRIBUTE_BASE_AMT: item.data.CONTRIBUTE_BASE_AMT
+                            , V_P_ADJUST_BASE_AMT: item.data.ADJUST_BASE_AMT
+                            , V_P_ROLE_BASE_AMT: item.data.ROLE_BASE_AMT
+                            , V_P_SALARY_AMT01: ""
+                            , V_P_SALARY_AMT02: ""
+                            , V_P_SALARY_AMT03: ""
+                            , V_P_SALARY_AMT04: ""
+                            , V_P_SALARY_AMT05: ""
+                            , V_P_SALARY_AMT06: ""
+                            , V_P_SALARY_AMT07: ""
+                            , V_P_SALARY_AMT08: ""
+                            , V_P_SALARY_AMT09: ""
+                            , V_P_SALARY_AMT10: ""
+                            , V_P_SALARY_AMT11: ""
+                            , V_P_SALARY_AMT12: ""
+                            , V_P_SALARY_AMT13: ""
+                            , V_P_SALARY_AMT14: ""
+                            , V_P_SALARY_AMT15: ""
+                            , V_P_SALARY_AMT16: ""
+                            , V_P_SALARY_AMT17: ""
+                            , V_P_SALARY_AMT18: ""
+                            , V_P_SALARY_AMT19: ""
+                            , V_P_SALARY_AMT20: ""
+                            , V_P_SALARY_AMT21: ""
+                            , V_P_SALARY_AMT22: ""
+                            , V_P_SALARY_AMT23: ""
+                            , V_P_SALARY_AMT24: ""
+                            , V_P_SALARY_AMT25: ""
+                            , V_P_SALARY_AMT26: ""
+                            , V_P_SALARY_AMT27: ""
+                            , V_P_SALARY_AMT28: ""
+                            , V_P_SALARY_AMT29: ""
+                            , V_P_SALARY_AMT30: ""
+                            , V_P_MEMO: item.data.MEMO
+
+                            , V_P_FORM_ID: p_formId
+                            , V_P_MENU_ID: p_menuId
+                            , V_P_PROC_ID: ''
+                            , V_P_USERID: ''
+                            , V_P_PC: ''
+
+                        })
+                    }
+
+                    returnData.push(param);
+
+                });
+            }
+
+        }else if (_.isEqual(type, 'd')){
+
+            if (!_.isEmpty(allDate)) {
+
+                allDate.forEach((item, index) => {
+
+                    const param = {
+
+                        cv_count: '0',
+                        getType: 'json',
+                        workType: 'D',
+                        params: gfnma_objectToString({
+                            V_P_DEBUG_MODE_YN: ''
+                            , V_P_LANG_ID: ''
+                            , V_P_COMP_CODE: gv_ma_selectedApcCd
+                            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                            , V_P_EMP_CODE                  : EMP_CODE
+                            , V_P_APPLY_START_DATE          : item.APPLY_START_DATE
+                            , V_P_APPLY_END_DATE            : item.APPLY_END_DATE
+                            , V_P_ANNUAL_SALARY_AMT         : item.ANNUAL_SALARY_AMT
+                            , V_P_PAY_COUNT                 : item.PAY_COUNT
+                            , V_P_SALARY_BASE_AMT           : item.SALARY_BASE_AMT
+                            , V_P_BONUS_BASE_AMT            : item.BONUS_BASE_AMT
+                            , V_P_INCENTIVE_BASE_AMT        : item.INCENTIVE_BASE_AMT
+                            , V_P_COMPETENCE_BASE_AMT       : item.COMPETENCE_BASE_AMT
+                            , V_P_DAILY_BASE_AMT            : item.DAILY_BASE_AMT
+                            , V_P_HOURLY_BASE_AMT           : item.HOURLY_BASE_AMT
+                            , V_P_INCENTIVE_ADD_AMT         : item.INCENTIVE_ADD_AMT
+                            , V_P_BONUS_COUNT               : item.BONUS_COUNT
+                            , V_P_INCENTIVE_MONTH_AMT       : item.INCENTIVE_MONTH_AMT
+                            , V_P_SUNDRY_ALLOW_AMT          : ""
+                            , V_P_QUALIFICN_ALLOW_AMT       : ""
+                            , V_P_JOB_BASE_AMT              : item.JOB_BASE_AMT
+                            , V_P_OT_FIXED_BASE_AMT         : item.OT_FIXED_BASE_AMT
+                            , V_P_CONTRIBUTE_BASE_AMT       : item.CONTRIBUTE_BASE_AMT
+                            , V_P_ADJUST_BASE_AMT           : item.ADJUST_BASE_AMT
+                            , V_P_ROLE_BASE_AMT             : item.ROLE_BASE_AMT
+                            , V_P_SALARY_AMT01: ""
+                            , V_P_SALARY_AMT02: ""
+                            , V_P_SALARY_AMT03: ""
+                            , V_P_SALARY_AMT04: ""
+                            , V_P_SALARY_AMT05: ""
+                            , V_P_SALARY_AMT06: ""
+                            , V_P_SALARY_AMT07: ""
+                            , V_P_SALARY_AMT08: ""
+                            , V_P_SALARY_AMT09: ""
+                            , V_P_SALARY_AMT10: ""
+                            , V_P_SALARY_AMT11: ""
+                            , V_P_SALARY_AMT12: ""
+                            , V_P_SALARY_AMT13: ""
+                            , V_P_SALARY_AMT14: ""
+                            , V_P_SALARY_AMT15: ""
+                            , V_P_SALARY_AMT16: ""
+                            , V_P_SALARY_AMT17: ""
+                            , V_P_SALARY_AMT18: ""
+                            , V_P_SALARY_AMT19: ""
+                            , V_P_SALARY_AMT20: ""
+                            , V_P_SALARY_AMT21: ""
+                            , V_P_SALARY_AMT22: ""
+                            , V_P_SALARY_AMT23: ""
+                            , V_P_SALARY_AMT24: ""
+                            , V_P_SALARY_AMT25: ""
+                            , V_P_SALARY_AMT26: ""
+                            , V_P_SALARY_AMT27: ""
+                            , V_P_SALARY_AMT28: ""
+                            , V_P_SALARY_AMT29: ""
+                            , V_P_SALARY_AMT30: ""
+                            , V_P_MEMO: item.MEMO
+
+                            , V_P_FORM_ID: p_formId
+                            , V_P_MENU_ID: p_menuId
+                            , V_P_PROC_ID: ''
+                            , V_P_USERID: ''
+                            , V_P_PC: ''
+
+                        })
+                    }
+
+                    returnData.push(param);
+
+                });
+            }
         }
 
-        console.log("---------param--------- : ", param);
-        returnData.push(param);
-
-        });
-
-        console.log("---------returnData--------- : ", returnData);
         return  returnData;
 
     }
 
-    const getParamFormS2 = async function(){
+    const getParamFormS2 = async function(type){
 
 
         //중복체크를 해야할 경우
         //let chdate = gvwWithholdGrid.getGridDataAll();
 
-        let updatedData = gvwWithholdGrid.getUpdateData(true, 'all');
+        let updatedData;
         let returnData = [];
 
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
 
-        updatedData.forEach((item, index) => {
+        if (_.isEqual(type, 'u')) {
 
-            const param = {
+            updatedData = gvwWithholdGrid.getUpdateData(true, 'all');
 
-                cv_count : '0',
-                getType : 'json',
-                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                params: gfnma_objectToString({
+            if (!_.isEmpty(updatedData)) {
+                updatedData.forEach((item, index) => {
 
-                        V_P_DEBUG_MODE_YN			: ''
-                        ,V_P_LANG_ID				: ''
-                        ,V_P_COMP_CODE				: gv_ma_selectedApcCd
-                        ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+                    const param = {
 
-                        ,V_P_EMP_CODE: EMP_CODE
-                        ,V_P_APPLY_START_DATE: item.data.APPLY_START_DATE
-                        ,V_P_APPLY_END_DATE: item.data.APPLY_END_DATE
-                        ,V_P_WITHHOLD_RATE: item.data.WITHHOLD_RATE
-                        ,V_P_MEMO: item.data.MEMO
+                        cv_count: '0',
+                        getType: 'json',
+                        workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                        params: gfnma_objectToString({
 
-                        ,V_P_FORM_ID: p_formId
-                        ,V_P_MENU_ID: p_menuId
-                        ,V_P_PROC_ID: ''
-                        ,V_P_USERID: ''
-                        ,V_P_PC: ''
+                            V_P_DEBUG_MODE_YN: ''
+                            , V_P_LANG_ID: ''
+                            , V_P_COMP_CODE: gv_ma_selectedApcCd
+                            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                })
+                            , V_P_EMP_CODE: EMP_CODE
+                            , V_P_APPLY_START_DATE: item.data.APPLY_START_DATE
+                            , V_P_APPLY_END_DATE: item.data.APPLY_END_DATE
+                            , V_P_WITHHOLD_RATE: item.data.WITHHOLD_RATE
+                            , V_P_MEMO: item.data.MEMO
+
+                            , V_P_FORM_ID: p_formId
+                            , V_P_MENU_ID: p_menuId
+                            , V_P_PROC_ID: ''
+                            , V_P_USERID: ''
+                            , V_P_PC: ''
+
+                        })
+                    }
+                    returnData.push(param);
+                });
             }
-            returnData.push(param);
-        });
+
+        }else if (_.isEqual(type, 'd')){
+
+            updatedData = gvwWithholdGrid.getGridDataAll();
+
+            if (!_.isEmpty(updatedData)) {
+                updatedData.forEach((item, index) => {
+
+                    const param = {
+
+                        cv_count: '0',
+                        getType: 'json',
+                        workType: 'D',
+                        params: gfnma_objectToString({
+
+                            V_P_DEBUG_MODE_YN: ''
+                            , V_P_LANG_ID: ''
+                            , V_P_COMP_CODE: gv_ma_selectedApcCd
+                            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                            , V_P_EMP_CODE: EMP_CODE
+                            , V_P_APPLY_START_DATE: item.APPLY_START_DATE
+                            , V_P_APPLY_END_DATE: item.APPLY_END_DATE
+                            , V_P_WITHHOLD_RATE: item.WITHHOLD_RATE
+                            , V_P_MEMO: item.MEMO
+
+                            , V_P_FORM_ID: p_formId
+                            , V_P_MENU_ID: p_menuId
+                            , V_P_PROC_ID: ''
+                            , V_P_USERID: ''
+                            , V_P_PC: ''
+
+                        })
+                    }
+                    returnData.push(param);
+                });
+            }
+
+        }
 
         return  returnData;
 
     }
 
-    const getParamForm = async function(typeData){
+    const getParamForm = async function(){
 
         let payData;//고정 수당항목
         let dedData; //고정공제항목
         let varPayData;  //변동수당항목
         let varDedData; //변동공제항목
-
-        /*payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
-        dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
-        varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
-        varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목*/
-
-        if (typeData == 'u'){ //업데이트
-
-             payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
-             dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
-             varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
-             varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목
-
-         }else if (typeData == 'd'){ // 삭제
-
-             payData = gvwPayGrid.getUpdateData(true, 'd'); //고정 수당항목
-             dedData = gvwDedGrid.getUpdateData(true, 'd'); //고정공제항목
-             varPayData = gvwVarPayGrid.getUpdateData(true, 'd');  //변동수당항목
-             varDedData = gvwVarDedGrid.getUpdateData(true, 'd'); //변동공제항목
-
-         }
-
 
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
@@ -2384,6 +2578,23 @@
 
         //고정 수당/공제 그리드 정보를 | 로 묶어 한개의 변수로 조합
         /*let payData = gvwPayGrid.getGridDataAll();*/
+
+
+        /*if (typeData == 'u'){ //업데이트*/
+
+            payData = gvwPayGrid.getGridDataAll(); //고정 수당항목
+            dedData = gvwDedGrid.getGridDataAll(); //고정공제항목
+            varPayData = gvwVarPayGrid.getGridDataAll();  //변동수당항목
+            varDedData = gvwVarDedGrid.getGridDataAll(); //변동공제항목
+
+      /*  }else if (typeData == 'd'){ // 삭제
+
+            payData = gvwPayGrid.getUpdateData(true, 'd'); //고정 수당항목
+            dedData = gvwDedGrid.getUpdateData(true, 'd'); //고정공제항목
+            varPayData = gvwVarPayGrid.getUpdateData(true, 'd');  //변동수당항목
+            varDedData = gvwVarDedGrid.getUpdateData(true, 'd'); //변동공제항목
+
+        }*/
 
         // 고정 수당항목 중복체크
         payData.forEach((item1, index1) => {
@@ -2534,11 +2745,6 @@
             }
         });
 
-        let hrpMasterDatas = gvwHrpMasterGrid.getGridDataAll();
-
-        var date = new Date();
-        var lastDate = date.getFullYear()+("0"+(date.getMonth()+1)).slice(-2)+("0"+date.getDate()).slice(-2);
-
         let RET_PENS_BANK_ACC = '';
         let PENSION_YN = '';
         let PENSION_JOIN_DATE = '';
@@ -2556,6 +2762,7 @@
         let LAST_APPLICATION_DATE = '';//디폴트값 셋팅
         let LONGTERM_CARE_YN = '';
 
+        let hrpMasterDatas = gvwHrpMasterGrid.getGridDataAll();
         console.log("+++++++++++++++++++hrpMasterDatas+++++++++++++++++++++++++++  : ",hrpMasterDatas);
 
         hrpMasterDatas.forEach((item, index) => {
@@ -2578,33 +2785,16 @@
         });
 
         //디폴트값 셋팅
-        if(PAY_YN ==''){
-            PAY_YN = 'Y';
-        }else if(BONUS_PAY_YN == ''){
-            BONUS_PAY_YN = 'N';
-        }else if(RETIRE_PAY_YN == ''){
-            RETIRE_PAY_YN = 'Y';
-        }else if(OVER_TIME_PAY_YN == ''){
-            OVER_TIME_PAY_YN = 'Y';
-        }else if(INCOME_TAX_YN == ''){
-            INCOME_TAX_YN = 'Y';
-        }else if(SUPPORTEE_QTY == ''){
+
+        if(SUPPORTEE_QTY == ''){
             SUPPORTEE_QTY = 1;
-        }else if(PENSION_YN == ''){
-            PENSION_YN = 'Y';
-        }else if(HEALTH_INSURE_YN == ''){
-            HEALTH_INSURE_YN = 'Y';
-        }else if(EMPLOY_INSURE_YN == ''){
-            EMPLOY_INSURE_YN = 'Y';
         }else if(PENSION_BASE_AMT == ''){
             PENSION_BASE_AMT = 1;
-        }else if(HEALTH_INSURE_BASE_AMT == ''){
-            HEALTH_INSURE_BASE_AMT = 0;
         }else if(APPLICATION_RATE == ''){
             APPLICATION_RATE = 100;
         }else if(LAST_APPLICATION_DATE == ''){
-            var date = new Date();
-            var lastDate = date.getFullYear()+("0"+(date.getMonth()+1)).slice(-2)+("0"+date.getDate()).slice(-2);
+
+            let lastDate = gfn_dateToYmd(new Date());
             LAST_APPLICATION_DATE = lastDate;
         }
 
@@ -2615,69 +2805,67 @@
                 ,V_P_COMP_CODE		: gv_ma_selectedApcCd
                 ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
 
-                ,V_P_TYPEEMP_CODE: EMP_CODE
-                ,V_P_TYPESALARY_CLASS: SALARY_CLASS
-                ,V_P_TYPETEMP_END_DATE: TEMP_END_DATE
-                ,V_P_TYPEBONUS_APPLY_START_DATE: BONUS_APPLY_START_DATE
-                ,V_P_TYPEPAY_GROUP_CODE: PAY_GROUP_CODE
-                ,V_P_TYPEPAY_YN: PAY_YN.PAY_YN
-                ,V_P_TYPEBONUS_PAY_YN: BONUS_PAY_YN.BONUS_PAY_YN
-                ,V_P_TYPERETIRE_PAY_YN: RETIRE_PAY_YN.RETIRE_PAY_YN
-                ,V_P_TYPESUPPORTEE_QTY: SUPPORTEE_QTY
-                ,V_P_TYPECHILDREN_QTY: CHILDREN_QTY
-                ,V_P_TYPELUNCH_PAY_YN: LUNCH_PAY_YN.LUNCH_PAY_YN
-                ,V_P_TYPEMUTUAL_AID_MEMBER_YN: MUTUAL_AID_MEMBER_YN.MUTUAL_AID_MEMBER_YN
-                ,V_P_TYPEMONTHLY_DONATION_YN: MONTHLY_DONATION_YN.MONTHLY_DONATION_YN
-                ,V_P_TYPEOVER_TIME_PAY_YN: OVER_TIME_PAY_YN.OVER_TIME_PAY_YN
-                ,V_P_TYPEINCOME_TAX_YN: INCOME_TAX_YN.INCOME_TAX_YN
-                ,V_P_TYPEOT_TAX_FREE_YN: OT_TAX_FREE_YN.OT_TAX_FREE_YN
-                ,V_P_TYPEPENSION_YN: PENSION_YN
-                ,V_P_TYPEPENSION_JOIN_DATE: ''
-                ,V_P_TYPEPENSION_CLOSE_DATE: ''
-                ,V_P_TYPEPENSION_NO: ''
-                ,V_P_TYPEPENSION_BASE_AMT: PENSION_BASE_AMT
-                ,V_P_TYPEHEALTH_INSURE_YN: HEALTH_INSURE_YN
-                ,V_P_TYPEHEALTH_INSURE_JOIN_DATE: ''
-                ,V_P_TYPEHEALTH_INSURE_CLOSE_DATE: ''
-                ,V_P_TYPEHEALTH_INSURE_NO: ''
-                ,V_P_TYPEHEALTH_INSURE_BASE_AMT: HEALTH_INSURE_BASE_AMT
-                ,V_P_TYPEEMPLOY_INSURE_YN: EMPLOY_INSURE_YN
-                ,V_P_TYPEEMPLOY_INSURE_BASE_AMT: EMPLOY_INSURE_BASE_AMT
-                ,V_P_TYPEMAIN_ACC_TYPE: MAIN_ACC_TYPE
-                ,V_P_TYPEBANK_CODE: BANK_CODE
-                ,V_P_TYPEBANK_ACCOUNT: BANK_ACCOUNT
-                ,V_P_TYPEBANK_ACCOUNT_ORIG: ""
-                ,V_P_TYPEBANK_CODE2: BANK_CODE2
-                ,V_P_TYPEBANK_ACCOUNT2: BANK_ACCOUNT2_REAL
-                ,V_P_TYPEBANK_ACCOUNT2_ORIG: ""
-                ,V_P_TYPEIRP_BANK_CODE: ""
-                ,V_P_TYPEIRP_BANK_ACCOUNT: ""
-                ,V_P_TYPEIRP_BANK_ACCOUNT_ORIG: ""
-                ,V_P_TYPEAPPLICATION_RATE: APPLICATION_RATE
-                ,V_P_TYPELAST_APPLICATION_DATE: LAST_APPLICATION_DATE
-                ,V_P_TYPELONGTERM_CARE_YN: LONGTERM_CARE_YN
-                ,V_P_TYPEBANK2_PAY_ITEM: BANK2_PAY_ITEM
+                , V_P_EMP_CODE                  : EMP_CODE
+                , V_P_SALARY_CLASS              : SALARY_CLASS
+                , V_P_TEMP_END_DATE             : TEMP_END_DATE
+                , V_P_BONUS_APPLY_START_DATE    : BONUS_APPLY_START_DATE
+                , V_P_PAY_GROUP_CODE            : PAY_GROUP_CODE
+                , V_P_PAY_YN                    : PAY_YN.PAY_YN == '' ? 'N' : PAY_YN.PAY_YN
+                , V_P_BONUS_PAY_YN              : BONUS_PAY_YN.BONUS_PAY_YN == '' ? 'N' : BONUS_PAY_YN.BONUS_PAY_YN
+                , V_P_RETIRE_PAY_YN             : RETIRE_PAY_YN.RETIRE_PAY_YN == '' ? 'N' : RETIRE_PAY_YN.RETIRE_PAY_YN
+                , V_P_SUPPORTEE_QTY             : SUPPORTEE_QTY
+                , V_P_CHILDREN_QTY              : CHILDREN_QTY
+                , V_P_LUNCH_PAY_YN              : LUNCH_PAY_YN.LUNCH_PAY_YN == '' ? 'N' : LUNCH_PAY_YN.LUNCH_PAY_YN
+                , V_P_MUTUAL_AID_MEMBER_YN      : MUTUAL_AID_MEMBER_YN.MUTUAL_AID_MEMBER_YN == '' ? 'N' : MUTUAL_AID_MEMBER_YN.MUTUAL_AID_MEMBER_YN
+                , V_P_MONTHLY_DONATION_YN       : MONTHLY_DONATION_YN.MONTHLY_DONATION_YN == '' ? 'N' : MONTHLY_DONATION_YN.MONTHLY_DONATION_YN
+                , V_P_OVER_TIME_PAY_YN          : OVER_TIME_PAY_YN.OVER_TIME_PAY_YN == '' ? 'N' : OVER_TIME_PAY_YN.OVER_TIME_PAY_YN
+                , V_P_INCOME_TAX_YN             : INCOME_TAX_YN.INCOME_TAX_YN == '' ? 'N' : INCOME_TAX_YN.INCOME_TAX_YN
+                , V_P_OT_TAX_FREE_YN            : OT_TAX_FREE_YN.OT_TAX_FREE_YN == '' ? 'N' : OT_TAX_FREE_YN.OT_TAX_FREE_YN
+                , V_P_PENSION_YN                : PENSION_YN == '' ? 'N' : PENSION_YN
+                , V_P_PENSION_JOIN_DATE         : ''
+                , V_P_PENSION_CLOSE_DATE        : ''
+                , V_P_PENSION_NO                : ''
+                , V_P_PENSION_BASE_AMT          : PENSION_BASE_AMT
+                , V_P_HEALTH_INSURE_YN          : HEALTH_INSURE_YN == '' ? 'N' : HEALTH_INSURE_YN
+                , V_P_HEALTH_INSURE_JOIN_DATE   : ''
+                , V_P_HEALTH_INSURE_CLOSE_DATE  : ''
+                , V_P_HEALTH_INSURE_NO          : ''
+                , V_P_HEALTH_INSURE_BASE_AMT    : HEALTH_INSURE_BASE_AMT == '' ? 0 : HEALTH_INSURE_BASE_AMT
+                , V_P_EMPLOY_INSURE_YN          : EMPLOY_INSURE_YN == '' ? 'N' : EMPLOY_INSURE_YN
+                , V_P_EMPLOY_INSURE_BASE_AMT    : EMPLOY_INSURE_BASE_AMT == '' ? 0 : EMPLOY_INSURE_BASE_AMT
+                , V_P_MAIN_ACC_TYPE             : MAIN_ACC_TYPE
+                , V_P_BANK_CODE                 : BANK_CODE
+                , V_P_BANK_ACCOUNT              : BANK_ACCOUNT
+                , V_P_BANK_ACCOUNT_ORIG         : ''
+                , V_P_BANK_CODE2                : BANK_CODE2
+                , V_P_BANK_ACCOUNT2             : BANK_ACCOUNT2_REAL
+                , V_P_BANK_ACCOUNT2_ORIG        : ''
+                , V_P_IRP_BANK_CODE             : ''
+                , V_P_IRP_BANK_ACCOUNT          : ''
+                , V_P_IRP_BANK_ACCOUNT_ORIG     : ''
+                , V_P_APPLICATION_RATE          : APPLICATION_RATE
+                , V_P_LAST_APPLICATION_DATE     : LAST_APPLICATION_DATE
+                , V_P_LONGTERM_CARE_YN          : LONGTERM_CARE_YN == '' ? 'N' : LONGTERM_CARE_YN
+                , V_P_BANK2_PAY_ITEM            : BANK2_PAY_ITEM
+                //-- 고정 수당/공제 항목
+                , V_P_TYPE                      : TYPETYPE
+                , V_P_TXN_ID                    : TYPETXN_ID
+                , V_P_PAY_TYPE                  : TYPEPAY_TYPE
+                , V_P_PAY_ITEM_CODE             : TYPEPAY_ITEM_CODE
+                , V_P_APPLY_START_DATE          : TYPEAPPLY_START_DATE
+                , V_P_APPLY_END_DATE            : TYPEAPPLY_END_DATE
+                , V_P_PAY_AMT                   : TYPEPAY_AMT
+                , V_P_PAY_MEMO                  : TYPEPAY_MEMO
+                //-- 변동 수당/공제 항목
+                , V_P_TYPE1                     : TYPETYPE1
+                , V_P_TXN_ID1                   : TYPETXN_ID1
+                , V_P_PAY_TYPE1                 : TYPEPAY_TYPE1
+                , V_P_PAY_ITEM_CODE1            : TYPEPAY_ITEM_CODE1
+                , V_P_APPLY_START_DATE1         : TYPEAPPLY_START_DATE1
+                , V_P_PAY_AMT1                  : TYPEPAY_AMT1
+                , V_P_PAY_MEMO1                 : TYPEPAY_MEMO1
+                , V_P_TAX_PAY_DATE1             : TYPETAX_PAY_DATE1
 
-                /*-- 고정 수당/공제 항목*/
-                ,V_P_TYPETYPE: TYPETYPE
-                ,V_P_TYPETXN_ID: TYPETXN_ID
-                ,V_P_TYPEPAY_TYPE: TYPEPAY_TYPE
-                ,V_P_TYPEPAY_ITEM_CODE: TYPEPAY_ITEM_CODE
-                ,V_P_TYPEAPPLY_START_DATE: TYPEAPPLY_START_DATE
-                ,V_P_TYPEAPPLY_END_DATE: TYPEAPPLY_END_DATE
-                ,V_P_TYPEPAY_AMT: TYPEPAY_AMT
-                ,V_P_TYPEPAY_MEMO: TYPEPAY_MEMO
-
-                /*-- 변동 수당/공제 항목*/
-                ,V_P_TYPETYPE1: TYPETYPE1
-                ,V_P_TYPETXN_ID1: TYPETXN_ID1
-                ,V_P_TYPEPAY_TYPE1: TYPEPAY_TYPE1
-                ,V_P_TYPEPAY_ITEM_CODE1: TYPEPAY_ITEM_CODE1
-                ,V_P_TYPEAPPLY_START_DATE1: TYPEAPPLY_START_DATE1
-                ,V_P_TYPEPAY_AMT1: TYPEPAY_AMT1
-                ,V_P_TYPEPAY_MEMO1: TYPEPAY_MEMO1
-                ,V_P_TYPETAX_PAY_DATE1: TYPETAX_PAY_DATE1
-                /*-----------------------------------*/
                 ,V_P_FORM_ID		: p_formId
                 ,V_P_MENU_ID		: p_menuId
                 ,V_P_PROC_ID		: ''

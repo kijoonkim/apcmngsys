@@ -18,12 +18,10 @@ import java.util.Optional;
 
 /**
  * 급여체계별 급여항목 컨트롤러 클래스
- * @author 		인텔릭아이앤에스
- * @since 		2024.06.03
- * @version 	1.0
- * @see
  *
- * <pre>
+ * @author 인텔릭아이앤에스
+ * @version 1.0
+ * @see <pre>
  * << 급여체계별 급여항목 정보(Modification Information) >>
  *
  *  수정일      수정자		수정내용
@@ -31,23 +29,24 @@ import java.util.Optional;
  *  2023.06.03  표주완     	최초 생성
  *
  *  </pre>
+ * @since 2024.06.03
  */
 @Controller
 public class ApcMaHrb5300Controller extends BaseController {
 
-    @Resource(name= "apcMaCommDirectService")
+    @Resource(name = "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
-    // 개인급여 정보 조회
-    @PostMapping(value = "/hr/hrp/com/selectHrb5300List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    // 급여체계별 급여항목 정보 조회
+    @PostMapping(value = "/hr/hrp/com/selectHrb5300List.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrb5300List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
-            , HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============selectHrb5300List=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
@@ -60,26 +59,20 @@ public class ApcMaHrb5300Controller extends BaseController {
         }
 
         logger.info("=============selectHrb5300List=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
-    // 개인급여 정보 조회
-    @PostMapping(value = "/hr/hrp/com/insertHrb5300.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    // 급여체계별 급여항목 저장
+    @PostMapping(value = "/hr/hrp/com/insertHrb5300.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrb5300(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
-            , HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============insertHrb5300=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
@@ -92,26 +85,20 @@ public class ApcMaHrb5300Controller extends BaseController {
         }
 
         logger.info("=============insertHrb5300=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
-    // 개인급여 정보 조회
-    @PostMapping(value = "/hr/hrp/com/chkHrb5300.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    // 급여체계별 급여항목 구문확인 버튼
+    @PostMapping(value = "/hr/hrp/com/chkHrb5300.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> chkHrb5300(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
-            , HttpServletRequest request) throws Exception{
+            , HttpServletRequest request) throws Exception {
 
         logger.info("=============chkHrb5300=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
             resultMap = apcMaCommDirectService.checkFormula(param);
@@ -122,17 +109,9 @@ public class ApcMaHrb5300Controller extends BaseController {
         }
 
         logger.info("=============chkHrb5300=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
-
-
 
 
 }

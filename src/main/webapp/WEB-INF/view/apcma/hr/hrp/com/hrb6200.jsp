@@ -36,7 +36,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3><!-- 간이세액조건표 -->
             </div>
         </div>
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -945,30 +945,34 @@
             return;
         }
 
-        var paramObj = {
-            P_HRB6200_S1: await getParamFormS1(updatedData)
-        }
+        listData = [];
+        listData =  await getParamFormS1(updatedData);
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb6200S1.do", paramObj);
-        const data = await postJsonPromise;
+        if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb6200S1.do", {listData: listData});
+            const data = await postJsonPromise;
 
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        /*fn_search();*/
+                    }
+
+                    fn_saveS2();
+                    return;
+
+                } else {
                     alert(data.resultMessage);
                 }
-
-                fn_saveS2();
-                return;
-
-            } else {
-                alert(data.resultMessage);
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -1045,29 +1049,31 @@
             return;
         }
 
-        var paramObj = {
-            P_HRB6200_S2: await getParamFormS2(updatedData)
-        }
+        listData = [];
+        listData =  await getParamFormS2(updatedData);
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb6200S2.do", paramObj);
-        const data = await postJsonPromise;
+        if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb6200S2.do", {listData: listData});
+            const data = await postJsonPromise;
 
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search();
+                    }
+
+                } else {
                     alert(data.resultMessage);
                 }
-
-                fn_search();
-
-            } else {
-                alert(data.resultMessage);
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 

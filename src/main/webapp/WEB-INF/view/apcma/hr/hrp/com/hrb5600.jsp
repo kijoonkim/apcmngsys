@@ -43,7 +43,7 @@
         <!--[pp] 검색 -->
         <!--[APC] START -->
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table class="table table-bordered tbl_fixed">
+        <table id="dataArea1" class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
                 <col style="width: 7%">
@@ -473,6 +473,13 @@
     }
 
     /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
+    }
+
+    /**
      * 목록 조회
      */
     const fn_search = async function (/*tabMoveVal*/) {
@@ -509,7 +516,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log("----------------------------------------------",data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -599,7 +605,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log("----------------------2------------------------", data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -611,9 +616,12 @@
                         SBUxMethod.set("ALL_YN", gfnma_nvl(item.ALL_YN));
                         SBUxMethod.set("APPLY_START_DATE", gfnma_nvl(item.APPLY_START_DATE));
                         SBUxMethod.set("APPLY_END_DATE", gfnma_nvl(item.APPLY_END_DATE));
-                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE1", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1));
-                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE2", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2));
+                       /* SBUxMethod.set("PAY_ITEM_RANGE_TYPE1", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1));
+                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE2", gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2));*/
                         SBUxMethod.set("MEMO", gfnma_nvl(item.MEMO));
+
+                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE1', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(item.PAY_ITEM_RANGE_TYPE1));
+                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE2', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(item.PAY_ITEM_RANGE_TYPE2));
 
                     });
 
@@ -692,7 +700,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log("----------------------3------------------------", data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -908,30 +915,33 @@
     //저장
     const fn_saveS1 = async function () {
 
-        var paramObj = {
-            P_HRB5600_S1: await getParamForm('u')
-        }
+        listData = [];
+        listData =  await getParamForm('u');
 
+        if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600S1.do", {listData: listData});
+            const data = await postJsonPromise;
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", paramObj);
-        const data = await postJsonPromise;
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
 
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search();
+                    }
+
+                } else {
                     alert(data.resultMessage);
                 }
-                fn_search(/*tabId*/);
-            } else {
-                alert(data.resultMessage);
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
     }
 
 
@@ -984,7 +994,7 @@
             });
         }else if (_.isEqual(type, 'd')){
 
-            updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'd');
+            updatedData = gvwBandgvwDetailGrid.getGridDataAll();
 
             updatedData.forEach((item, index) => {
 
@@ -1015,16 +1025,10 @@
 
                     })
                 }
-
-                console.log("---------param--------- : ", param);
                 returnData.push(param);
-
             });
 
         }
-
-
-        console.log("---------returnData--------- : ", returnData);
         return returnData;
     }
 
@@ -1059,25 +1063,32 @@
     //삭제
     const fn_del = async function () {
 
-        var paramObj = await getParamForm('d');
+        listData = [];
+        listData =  await getParamForm('d');
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", paramObj);
-        const data = await postJsonPromise;
+        if (listData.length > 0) {
 
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600S1.do", {listData: listData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search();
+                    }
+
+                } else {
                     alert(data.resultMessage);
                 }
-                fn_search(/*tabId*/);
-            } else {
-                alert(data.resultMessage);
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
     }
