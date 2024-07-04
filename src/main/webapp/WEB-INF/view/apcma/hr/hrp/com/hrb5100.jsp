@@ -164,6 +164,7 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     //-----------------------------------------------------------
+    var editType			= "N";
 
     var jsonHobongType = []; // 호봉유형
     var jsonPayAreaType = []; // 급여영역
@@ -341,7 +342,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["기타", "비례계수"],         ref: 'PAY_PROPORTION_COEF',    type:'input',  	width:'90px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00'}},
+            {caption: ["기타", "비례계수"],         ref: 'PAY_PROPORTION_COEF',    type:'input',  	width:'90px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
             {caption: ["기타", "메모"],         ref: 'MEMO',    type:'input',  	width:'241px',  style:'text-align:left'},
             {caption: ["기타", "사용"],			    ref: 'USE_YN', 			        type:'checkbox',  	width:'63px',  	style:'text-align:center', typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}},
         ];
@@ -350,6 +351,8 @@
     }
 
     const fn_view = async function () {
+        editType = "U";
+        SBUxMethod.attr("PAY_GROUP_CODE", "readonly", true);
         var nRow = gvwMaster.getRow();
         var rowData = gvwMaster.getRowData(nRow);
 
@@ -430,6 +433,28 @@
         }
     }
 
+    // 행추가
+    const fn_addRow = async function () {
+        let rowVal = bandgvwDetail.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            bandgvwDetail.addRow(true, {USE_YN: "Y"});
+        }else{
+            bandgvwDetail.insertRow(rowVal, 'below', {USE_YN: "Y"});
+        }
+    }
+
+    // 행삭제
+    const fn_deleteRow = async function () {
+        let rowVal = bandgvwDetail.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
+            return;
+        } else {
+            bandgvwDetail.deleteRow(rowVal);
+        }
+    }
+
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_initSBSelect();
         fn_createGvwMasterGrid();
@@ -457,11 +482,188 @@
         fn_create();
     }
 
-    const fn_save = async function () {}
+    const fn_save = async function () {
+        let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
+        let PAY_GROUP_NAME = gfnma_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
+        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
+        let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
+        let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
+        let HOBONG_TYPE = gfnma_nvl(SBUxMethod.get("HOBONG_TYPE"));
+        let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN"));
+        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
+        let PAY_TOTAL_TBALE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
 
-    const fn_delete = async function () {}
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_GROUP_CODE : PAY_GROUP_CODE,
+            V_P_PAY_GROUP_NAME : PAY_GROUP_NAME,
+            V_P_USE_YN : USE_YN,
+            V_P_DESCR : DESCR,
+            V_P_SORT_SEQ : SORT_SEQ,
+            V_P_HOBONG_TYPE : HOBONG_TYPE,
+            V_P_PAY_YN : PAY_YN,
+            P_V_PAY_AREA_TYPE : PAY_AREA_TYPE,
+            P_V_PAY_TOTAL_TBALE_TYPE : PAY_TOTAL_TBALE_TYPE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb5100.do", {
+            getType				: 'json',
+            workType			: editType,
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                let updatedData = bandgvwDetail.getUpdateData(true, 'all');
+                let returnData = [];
+
+                updatedData.forEach((item, index) => {
+                    const param = {
+                        cv_count : '0',
+                        getType : 'json',
+                        rownum: item.rownum,
+                        workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                        params: gfnma_objectToString({
+                            V_P_DEBUG_MODE_YN : '',
+                            V_P_LANG_ID	: '',
+                            V_P_COMP_CODE : gv_ma_selectedApcCd,
+                            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                            V_P_PAY_GROUP_CODE : item.data.PAY_GROUP_CODE,
+                            V_P_PAY_TYPE : item.data.PAY_TYPE,
+                            V_P_PAY_DAY_MONTH_TYPE : item.data.PAY_DAY_MONTH_TYPE,
+                            V_P_PAY_DAY_DD : item.data.PAY_DAY_DD,
+                            V_P_PAY_START_MONTH_TYPE : item.data.PAY_START_MONTH_TYPE,
+                            V_P_PAY_START_DAY_DD : item.data.PAY_START_DAY_DD,
+                            V_P_PAY_END_MONTH_TYPE : item.data.PAY_END_MONTH_TYPE,
+                            V_P_PAY_END_DAY_DD : item.data.PAY_END_DAY_DD,
+                            V_P_WORK_START_MONTH_TYPE : item.data.WORK_START_MONTH_TYPE,
+                            V_P_WORK_START_DAY_DD : item.data.WORK_START_DAY_DD,
+                            V_P_WORK_END_MONTH_TYPE : item.data.WORK_END_MONTH_TYPE,
+                            V_P_WORK_END_DAY_DD : item.data.WORK_END_DAY_DD,
+                            V_P_MEMO : item.data.MEMO,
+                            V_P_PAY_PROPORTION_COEF : item.data.PAY_PROPORTION_COEF,
+                            V_P_USE_YN : item.data.USE_YN,
+                            V_P_FORM_ID : p_formId,
+                            V_P_MENU_ID : p_menuId,
+                            V_P_PROC_ID : '',
+                            V_P_USERID : '',
+                            V_P_PC : ''
+                        })
+                    }
+                    returnData.push(param);
+                });
+
+                if(returnData.length > 0) {
+                    const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb5100List.do", {listData: returnData});
+                    const data = await postJsonPromise;
+
+                    try {
+                        if (_.isEqual("S", data.resultStatus)) {
+                            gfn_comAlert("I0001");
+                            fn_search();
+                        } else {
+                            alert(data.resultMessage);
+                        }
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                } else {
+                    fn_search();
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_delete = async function () {
+        if(gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE")) == "") return;
+
+        if(gfn_comConfirm("Q0000", "정말 삭제하시겠습니까?")) {
+            let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
+            let PAY_GROUP_NAME = gfnma_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
+            let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
+            let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
+            let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
+            let HOBONG_TYPE = gfnma_nvl(SBUxMethod.get("HOBONG_TYPE"));
+            let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN"));
+            let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
+            let PAY_TOTAL_TBALE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_PAY_GROUP_CODE : PAY_GROUP_CODE,
+                V_P_PAY_GROUP_NAME : PAY_GROUP_NAME,
+                V_P_USE_YN : USE_YN,
+                V_P_DESCR : DESCR,
+                V_P_SORT_SEQ : SORT_SEQ,
+                V_P_HOBONG_TYPE : HOBONG_TYPE,
+                V_P_PAY_YN : PAY_YN,
+                P_V_PAY_AREA_TYPE : PAY_AREA_TYPE,
+                P_V_PAY_TOTAL_TBALE_TYPE : PAY_TOTAL_TBALE_TYPE,
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrb5100.do", {
+                getType				: 'json',
+                workType			: 'D',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
 
     const fn_search = async function () {
+        editType = "N";
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
@@ -502,6 +704,8 @@
 
                 if(jsonPayGroupList.length > 0) {
                     gvwMaster.clickRow(1);
+                } else {
+                    fn_create();
                 }
             } else {
                 alert(data.resultMessage);
@@ -516,6 +720,20 @@
         }
     }
 
-    const fn_create = async function () {}
+    const fn_create = async function () {
+        editType = "N";
+        SBUxMethod.attr("PAY_GROUP_CODE", "readonly", false);
+        SBUxMethod.set("PAY_GROUP_CODE", "");
+        SBUxMethod.set("PAY_GROUP_NAME", "");
+        SBUxMethod.set("DESCR", "");
+        SBUxMethod.set("SORT_SEQ", "");
+        SBUxMethod.set("USE_YN", "Y");
+        SBUxMethod.set("HOBONG_TYPE", "");
+        SBUxMethod.set("PAY_YN", "");
+        SBUxMethod.set("PAY_AREA_TYPE", "");
+        gfnma_multiSelectSet('#PAY_TOTAL_TBALE_TYPE', '', '', '');
+        jsonPayBySiteList.length = 0;
+        bandgvwDetail.rebuild();
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hrp.com.web;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -37,6 +38,9 @@ public class ApcMaHrb5100Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
+
     @PostMapping(value = "/hr/hrp/com/selectHrb5100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrt2320List(
             @RequestBody Map<String, Object> param
@@ -64,6 +68,58 @@ public class ApcMaHrb5100Controller extends BaseController {
             return getErrorResponseEntity(errorCode, errorStr);
         } else {
             return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/hr/hrp/com/insertHrb5100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrb5100(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrb5100=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_HRB5100_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrb5100=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/hr/hrp/com/insertHrb5100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrb5100List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrb5100List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRB5100_S1");
+
+            logger.info("=============insertHrb5100List=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
         }
     }
 }
