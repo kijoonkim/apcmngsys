@@ -232,10 +232,6 @@
         gvwInfoGrid.clearStatus();
 
         let DECIMAL_ID = gfnma_nvl(SBUxMethod.get("search_decimal_id"));
-       /* if (!_.isEmpty(DECIMAL_ID)){
-            DECIMAL_ID = DECIMAL_ID.toLowerCase;
-            console.log('---DECIMAL_ID---',DECIMAL_ID);
-        }*/
         let DECIMAL_NAME = gfnma_nvl(SBUxMethod.get("search_decimal_name"));
 
         var paramObj = {
@@ -284,19 +280,6 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                //그리드 첫번째 정보 테이블에 셋팅
-              /*  var nRow = gvwInfoGrid.getRow();
-                if (nRow < 1) {
-                    nRow = 1;
-                }
-                let rowData = gvwInfoGrid.getRowData(nRow);
-
-                SBUxMethod.set("DECIMAL_ID", rowData.DECIMAL_ID);
-                SBUxMethod.set("DECIMAL_NAME", rowData.DECIMAL_NAME);
-                SBUxMethod.set("DECIMAL_LENGTH", rowData.DECIMAL_LENGTH);
-                SBUxMethod.set("DESCR", rowData.DESCR);
-                SBUxMethod.set("USE_YN", rowData.USE_YN);*/
-
                 fn_view();
 
             } else {
@@ -332,6 +315,7 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.filtering = true;
         /* SBGridProperties.rowheader = 'seq';*/
         /*SBGridProperties.rowheadercaption = {seq: 'No'};*/
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
