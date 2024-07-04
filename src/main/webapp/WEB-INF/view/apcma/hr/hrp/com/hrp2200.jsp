@@ -33,12 +33,12 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3><!-- 급여 변동항목 등록 -->
             </div>
-            <div style="margin-left: auto;">
-                <%-- <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
+           <%-- <div style="margin-left: auto;">
+                &lt;%&ndash; <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
                               class="btn btn-sm btn-outline-danger"
-                              onclick="fn_create"></sbux-button>--%>
+                              onclick="fn_create"></sbux-button>&ndash;%&gt;
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
                              onclick="fn_save"></sbux-button>
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
@@ -47,13 +47,13 @@
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
                              class="btn btn-sm btn-outline-danger"
                              onclick="fn_search"></sbux-button>
-            </div>
+            </div>--%>
         </div>
 
         <!--[pp] 검색 -->
         <!--[APC] START -->
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table class="table table-bordered tbl_fixed">
+        <table id="dataArea1" class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
                 <col style="width: 7%">
@@ -110,37 +110,22 @@
                 <td style="border-right: hidden;">&nbsp;</td>
                 <td style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">입력부서</th>
-               <%-- <td class="td_input" style="border-right:hidden;">
-                    <sbux-input id="srch-entry_dept_code" uitype="text" style="width:100%" placeholder=""
-                                class="form-control input-sm"></sbux-input>
-                </td>
                 <td class="td_input" style="border-right: hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="srch-entry_dept_name"
-                            name="srch-entry_dept_name"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonPayAreaType"
-                    />
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>--%>
-
-                <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
                     <sbux-input
                             uitype="text"
                             id="srch-entry_dept_code"
                             class="form-control input-sm"
                     ></sbux-input>
+                </td>
+                <td class="td_input" style="border-right: hidden;">
                     <sbux-input
-                            uitype="hidden"
+                    <%-- uitype="hidden"--%>
                             uitype="text"
                             id="srch-entry_dept_name"
                             class="form-control input-sm"
-
                     ></sbux-input>
                 </td>
-                <td class="td_input" >
+                <td colspan="2" class="td_input" >
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -148,7 +133,6 @@
                             onclick="fn_compopup1"
                     ></sbux-button>
                 </td>
-                <td style="border-right: hidden;">&nbsp;</td>
 
             </tr>
             </tbody>
@@ -255,13 +239,13 @@
                             <th scope="row" class="th_bg">급여항목코드</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_ITEM_CODE" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm"></sbux-input>
+                                            class="form-control input-sm" readonly></sbux-input>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <th scope="row" class="th_bg">급여항목명</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_ITEM_NAME" uitype="text" style="width:95%" placeholder=""
-                                            class="form-control input-sm"></sbux-input>
+                                            class="form-control input-sm" readonly></sbux-input>
                             </td>
                            <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
 
@@ -273,9 +257,13 @@
                             <th scope="row" class="th_bg">입력부서</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="ENTRY_DEPT_CODE" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm"></sbux-input>
+                                            class="form-control input-sm" readonly></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <td colspan="" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="ENTRY_DEPT_NAME" uitype="text" style="width:100%" placeholder=""
+                                            class="form-control input-sm" readonly></sbux-input>
+                            </td>
+                            <%--<td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-select
                                         unselected-text=""
                                         uitype="single"
@@ -284,7 +272,7 @@
                                         class="form-control input-sm"
                                         jsondata-ref="jsonApcBx"
                                 />
-                            </td>
+                            </td>--%>
 
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -456,33 +444,33 @@
         ]);
     }
 
-    const fn_compopup1 = function() {
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-entry_dept_name"));
-        var replaceText0 = "_DEPT_CODE";
-        var replaceText1 = "_DEPT_NAME";
-        var replaceText2 = "_BASE_DATE";
-        var strWhereClause = "";/*"AND X.V_P_DEPT_CODE LIKE '%" + replaceText0 + "%' AND X.V_P_DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.V_P_BASE_DATE ="+replaceText2*/
+    var fn_compopup1 = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-entry_dept_name"));
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '입력부서');
-        compopup1.init({
-            compCode: gv_ma_selectedApcCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'P_ORG001'
-            , whereClause: strWhereClause
-            , searchCaptions:    ["부서코드"    , "부서명"     , "기준일"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "BASE_DATE"]
-            , searchInputValues: [""           , searchText ,""]
-            , height: '400px'
-            , tableHeader:       ["부서코드"    , "부서명"     , "사업장"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "SITE_CODE"]
-            , tableColumnWidths: ["80px"      , "80px"      , "80px"]
-            , itemSelectEvent: function (data) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('srch-entry_dept_name', data.DEPT_NAME);
                 SBUxMethod.set('srch-entry_dept_code', data.DEPT_CODE);
             },
         });
-
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
     const fn_init = async function () {
@@ -491,6 +479,31 @@
         fn_createDetallGrid();
 
         /*fn_search();*/
+    }
+
+    // 신규
+   /* function cfn_add() {
+        fn_create();
+    }*/
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+    // 삭제
+    function cfn_del() {
+        fn_delete();
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
     }
 
     //급여변동항목 리스트
