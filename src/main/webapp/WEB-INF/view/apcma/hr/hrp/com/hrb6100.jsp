@@ -239,7 +239,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["비과세한도액"],         ref: 'TAX_FREE_LIMIT_AMT',    type:'input',  	width:'100px',  style:'text-align:left', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}}
+            {caption: ["비과세한도액"],         ref: 'TAX_FREE_LIMIT_AMT',    type:'input',  	width:'100px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}}
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
@@ -273,7 +273,7 @@
             V_P_PC				: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrb5100List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrb6100List.do", {
             getType				: 'json',
             workType			: 'DETAIL',
             cv_count			: '2',
