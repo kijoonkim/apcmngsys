@@ -546,8 +546,18 @@
             {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'100px', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcItem', label:'label', value:'value', displayui : false}
             },
-            {caption: ["품종"], 		ref: 'vrtyCd',		type:'combo',  width:'100px', style: 'text-align:center',
-            	typeinfo: {ref:'jsonApcVrty', label:'label', value:'value', displayui : false}
+            {
+            	caption: ["품종"], 		
+            	ref: 'vrtyCd',		
+            	type:'combo',  
+            	width:'100px', 
+            	style: 'text-align:center',
+            	typeinfo: {
+            		ref:'jsonApcVrty', 
+            		label:'label', 
+            		value:'itemVrtyCd', 
+            		displayui : false
+            	}
             },
             /*
             {caption: ["박스종류"],	ref: 'bxKnd',    type:'combo',  width:'140px', style: 'text-align:center',
@@ -997,9 +1007,11 @@
 	            return;
 	    	}
 
+	    	let subVrtyCd = vrtyCd.substring(4);
+	    	
 			rawMtrRePrcs = {
 				itemCd: itemCd,
-   				vrtyCd: vrtyCd,
+   				vrtyCd: subVrtyCd,	//vrtyCd,
    				pltno: rowData.pltno,
    				warehouseSeCd: warehouseSeCd,
    				bxKnd: rowData.bxKnd,
