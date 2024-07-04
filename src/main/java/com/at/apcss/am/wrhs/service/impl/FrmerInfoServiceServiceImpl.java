@@ -15,6 +15,7 @@ import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.CltvtnListVO;
+import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -253,7 +254,7 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 					cltvtnFrmhsQltVO.setSysFrstInptPrgrmId(prgrmId);
 					cltvtnFrmhsQltVO.setSysFrstInptUserId(userId);
 
-					if (1 != insertCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
+					if (0 == insertCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 					}
 				}
@@ -264,7 +265,7 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재배농가품질번호"); // W0005	{0}이/가 없습니다.
 					}
 
-					if (1 != updateCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
+					if (0 == updateCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 					}
 				}
@@ -314,20 +315,200 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 		return updatedCnt;
 	}
 
+	/**
+	 * 재배농가품질 삭제
+	 * @param cltvtnFrmhsQltVO
+	 * @param request
+	 * @return Integer
+	 * @throws Exception
+	 */
 	@Override
 	public HashMap<String, Object> deleteCltvtnFrmhsQlt(CltvtnFrmhsQltVO cltvtnFrmhsQltVO) throws Exception {
 
-		if (1 != frmerInfoMapper.deleteCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
+		if (0 == frmerInfoMapper.deleteCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
 			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
 		}
 
 		return null;
 	}
 
+	/**
+	 * 농가예상입고 목록 조회
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return List<FrmhsExpctWrhsVO>
+	 * @throws Exception
+	 */
 	@Override
 	public List<FrmhsExpctWrhsVO> selectFrmhsExpctWrhsList(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception {
 		List<FrmhsExpctWrhsVO> resultList = frmerInfoMapper.selectFrmhsExpctWrhsList(frmhsExpctWrhsVO);
 		return resultList;
+	}
+
+	/**
+	 * 농가예상입고 등록
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return Integer
+	 * @throws Exception
+	 */
+	@Override
+	public int insertFrmhsExpctWrhs(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception {
+		int insertedCnt = frmerInfoMapper.insertFrmhsExpctWrhs(frmhsExpctWrhsVO);
+		return insertedCnt;
+	}
+
+	/**
+	 * 농가예상입고 수정
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return Integer
+	 * @throws Exception
+	 */
+	@Override
+	public int updateFrmhsExpctWrhs(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception {
+		int updatedCnt = frmerInfoMapper.updateFrmhsExpctWrhs(frmhsExpctWrhsVO);
+		return updatedCnt;
+	}
+
+	/**
+	 * 농가예상입고 삭제
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return Integer
+	 * @throws Exception
+	 */
+	@Override
+	public int deleteFrmhsExpctWrhs(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception {
+		int deletedCnt = frmerInfoMapper.deleteFrmhsExpctWrhs(frmhsExpctWrhsVO);
+		return deletedCnt;
+	}
+
+	/**
+	 * 농가예상입고상세 등록
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return Integer
+	 * @throws Exception
+	 */
+	@Override
+	public int insertFrmhsExpctWrhsDtl(FrmhsExpctWrhsDtlVO frmhsExpctWrhsDtlVO) throws Exception {
+		int insertedCnt = frmerInfoMapper.insertFrmhsExpctWrhsDtl(frmhsExpctWrhsDtlVO);
+		return insertedCnt;
+	}
+
+	/**
+	 * 농가예상입고상세 수정
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return Integer
+	 * @throws Exception
+	 */
+	@Override
+	public int updateFrmhsExpctWrhsDtl(FrmhsExpctWrhsDtlVO frmhsExpctWrhsDtlVO) throws Exception {
+		int updatedCnt = frmerInfoMapper.updateFrmhsExpctWrhsDtl(frmhsExpctWrhsDtlVO);
+		return updatedCnt;
+	}
+
+	/**
+	 * 농가예상입고상세 삭제
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return Integer
+	 * @throws Exception
+	 */
+	@Override
+	public int deleteFrmhsExpctWrhsDtl(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception {
+		int deletedCnt = frmerInfoMapper.deleteFrmhsExpctWrhsDtl(frmhsExpctWrhsVO);
+		return deletedCnt;
+	}
+
+	/**
+	 * 농가예상입고 다중 저장
+	 * @param List<FrmhsExpctWrhsVO>
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@Override
+	public HashMap<String, Object> multiFrmhsExpctWrhsList(List<FrmhsExpctWrhsVO> frmhsExpctWrhsList) throws Exception {
+
+		for (FrmhsExpctWrhsVO frmhsExpctWrhsVO : frmhsExpctWrhsList) {
+
+			// 필수 값 체크
+			if (frmhsExpctWrhsVO.getApcCd().isEmpty()) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드"); // W0005	{0}이/가 없습니다.
+			}
+
+			if (frmhsExpctWrhsVO.getPrdcrCd().isEmpty()) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "생산자"); // W0005	{0}이/가 없습니다.
+			}
+
+
+			if (ComConstants.ROW_STS_INSERT.equals(frmhsExpctWrhsVO.getRowSts())) {
+				String frmhsExpctWrhsNo = frmerInfoMapper.selectGetFrmhsExpctWrhsNo(frmhsExpctWrhsVO);
+
+				frmhsExpctWrhsVO.setFrmhsExpctWrhsNo(frmhsExpctWrhsNo);
+
+				if (0 == frmerInfoMapper.insertFrmhsExpctWrhs(frmhsExpctWrhsVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+
+				List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList = frmhsExpctWrhsVO.getFrmhsExpctWrhsDtlList();
+
+				for (FrmhsExpctWrhsDtlVO frmhsExpctWrhsDtlVO : frmhsExpctWrhsDtlList) {
+
+					frmhsExpctWrhsDtlVO.setFrmhsExpctWrhsNo(frmhsExpctWrhsNo);
+
+					if (0 == frmerInfoMapper.insertFrmhsExpctWrhsDtl(frmhsExpctWrhsDtlVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				}
+
+			}
+
+
+			if (ComConstants.ROW_STS_UPDATE.equals(frmhsExpctWrhsVO.getRowSts())) {
+
+				if (0 == frmerInfoMapper.updateFrmhsExpctWrhs(frmhsExpctWrhsVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+
+				List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList = frmhsExpctWrhsVO.getFrmhsExpctWrhsDtlList();
+
+				for (FrmhsExpctWrhsDtlVO frmhsExpctWrhsDtlVO : frmhsExpctWrhsDtlList) {
+
+					if (0 == frmerInfoMapper.updateFrmhsExpctWrhsDtl(frmhsExpctWrhsDtlVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				}
+			}
+
+		}
+
+
+		return null;
+	}
+
+	/**
+	 * 농가예상입고 삭제(상세 포함)
+	 * @param frmhsExpctWrhsVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@Override
+	public HashMap<String, Object> deleteFrmhsExpct(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception {
+
+		if (0 == frmerInfoMapper.deleteFrmhsExpctWrhs(frmhsExpctWrhsVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		if (0 == frmerInfoMapper.deleteFrmhsExpctWrhsDtl(frmhsExpctWrhsVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
 	}
 
 }

@@ -17,6 +17,7 @@ import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.CltvtnListVO;
+import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -231,6 +232,86 @@ public class FrmerInfoController extends BaseController{
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 영농관리 다중 저장
+	 * @param cltvtnFrmhsQltVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/multiFrmhsExpctWrhsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiFrmhsExpctWrhsList(@RequestBody List<FrmhsExpctWrhsVO> frmhsExpctWrhsList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			for (FrmhsExpctWrhsVO frmhsExpctWrhsVO : frmhsExpctWrhsList) {
+				frmhsExpctWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+				frmhsExpctWrhsVO.setSysFrstInptUserId(getUserId());
+				frmhsExpctWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+				frmhsExpctWrhsVO.setSysLastChgUserId(getUserId());
+
+				List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList = frmhsExpctWrhsVO.getFrmhsExpctWrhsDtlList();
+
+				for (FrmhsExpctWrhsDtlVO frmhsExpctWrhsDtlVO : frmhsExpctWrhsDtlList) {
+
+					frmhsExpctWrhsDtlVO.setSysFrstInptPrgrmId(getPrgrmId());
+					frmhsExpctWrhsDtlVO.setSysFrstInptUserId(getUserId());
+					frmhsExpctWrhsDtlVO.setSysLastChgPrgrmId(getPrgrmId());
+					frmhsExpctWrhsDtlVO.setSysLastChgUserId(getUserId());
+				}
+			}
+
+			HashMap<String, Object> rtnObj = frmerInfoService.multiFrmhsExpctWrhsList(frmhsExpctWrhsList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 영농관리 - 재배농가품질 삭제
+	 * @param CltvtnFrmhsQltVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/deleteFrmhsExpctWrhs.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteFrmhsExpctWrhs(@RequestBody FrmhsExpctWrhsVO frmhsExpctWrhsVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			frmhsExpctWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
+			frmhsExpctWrhsVO.setSysFrstInptUserId(getUserId());
+			frmhsExpctWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
+			frmhsExpctWrhsVO.setSysLastChgUserId(getUserId());
+
+			HashMap<String, Object> rtnObj = frmerInfoService.deleteFrmhsExpct(frmhsExpctWrhsVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
 		return getSuccessResponseEntity(resultMap);
 	}
 }

@@ -75,9 +75,9 @@
 									placeholder="초성검색 가능"
 									autocomplete-ref="jsonPrdcrAutocomplete"
 									autocomplete-text="name"
-									autocomplete-height="270px"
     								oninput="fn_onInputPrdcrNm(event)"
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
+    								autocomplete-height="270px"
    								></sbux-input>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -114,9 +114,6 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
 					</sbux-tabs>
-
-
-
 					<div class="tab-content">
 						<div id="frmerInfoTab" >
 							<div class="ad_tbl_top">
@@ -151,6 +148,7 @@
 													autocomplete-text="name"
 				    								oninput="fn_onInputPrdcrNmDtl(event)"
 				    								autocomplete-select-callback="fn_onSelectPrdcrNmDtl"
+				    								autocomplete-height="270px"
 				   								></sbux-input>
 											</td>
 											<td class="td_input" style="border-right: hidden;">
@@ -311,7 +309,6 @@
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdMeshSe, 				'MESH_SE_CD'),			//
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdHdofcExtrnlSe, 		'HDOFC_EXTRNL_SE_CD'),	// 본사/외부구분코드
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdExtrnlWarehouseSe, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 외부창고코드
-
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdLastStrgSe, 			'LAST_STRG_SE_CD'),		// 최종저장구분
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdPrchsCmptnYn, 		'CLCTM_YN'),			// 수매완료여부
     	])
@@ -429,11 +426,12 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowQlt(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-		    {caption: ['농가명', 	'농가명'], 		ref: 'prdcrCd', 	type: 'combo', 	width: '200px', style: 'text-align:center', sortable: false,
+		    {caption: ['농가명', 	'농가명'], 		ref: 'prdcrCd', 	type: 'inputcombo', 	width: '200px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonGrdPrdcr', 		label:'label', value:'value', itemcount: 10}},
 		    {caption : ['지역', 	'지역'], 		ref: 'frmhsCtpvNm', type: 'output', 	width: '100px', style: 'text-align:center'},
 		    {caption : ['상세주소', '상세주소'], 	ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:center'},
-		    {caption : ['연락처', 	'연락처'], 		ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center'},
+		    {caption : ['연락처', 	'연락처'], 		ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
+		    	format : {type:'string', rule:'000-0000-0000'}},
 		    {caption : ['품종(캔)', '뉴마르스'], 	ref: 'sdQntt1', 	type: 'input', 		width: '80px', 	style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		    {caption : ['품종(캔)', '카타마루'], 	ref: 'sdQntt2', 	type: 'input', 		width: '80px',  style:'text-align: right',
@@ -513,11 +511,12 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowExpct(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-		    {caption: ['농가명'], 			ref: 'prdcrCd', 	type: 'combo', 	width: '200px', style: 'text-align:center', sortable: false,
+		    {caption: ['농가명'], 			ref: 'prdcrCd', 	type: 'inputcombo', 	width: '200px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonGrdPrdcr', 	label:'label', value:'value', itemcount: 10}},
 		    {caption : ['지역'], 			ref: 'frmhsCtpvNm', type: 'output', 	width: '100px', style: 'text-align:center'},
 		    {caption : ['상세주소'], 		ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:center'},
-		    {caption : ['연락처'], 			ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center'},
+		    {caption : ['연락처'], 			ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
+		    	format : {type:'string', rule:'000-0000-0000'}},
 		    {caption : ['본사/외부구분'], 	ref: 'hdofcExtrnlSeCd', 	type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonGrdHdofcExtrnlSe', 	label:'label', value:'value', itemcount: 10}},
 		    {caption : ['외부창고명'], 		ref: 'extrnlWarehouseSeCd', type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
@@ -547,7 +546,7 @@
 	    		{caption : ['최종저장구분'], 	ref: 'lastStrgSeCd', type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonGrdLastStrgSe', 	label:'label', value:'value', itemcount: 10}},
 				{caption : ['담당자'], 			ref: 'pic', type: 'input', 	width: '100px', style: 'text-align:center'},
-				{caption : ['예상량대비'], 	ref: 'plntngArea', 	type: 'input', 	width: '80px', style:'text-align: right',
+				{caption : ['예상량대비'], 	ref: 'expctVlmVrss', 	type: 'input', 	width: '80px', style:'text-align: right',
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 				{caption : ['수매완료여부'], 	ref: 'prchsCmptnYn', type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonGrdPrchsCmptnYn', 	label:'label', value:'value', itemcount: 10}},
@@ -556,16 +555,13 @@
 
 	    SBGridProperties.columns = columns;
 	    grdFrmhsExpctWrhs = _SBGrid.create(SBGridProperties);
-	    grdFrmhsExpctWrhs.addRow(true);
-
+	    grdFrmhsExpctWrhs.bind('valuechanged', 'fn_grdValueChanged');
 
 	}
 	const fn_setFrlnInput = function(){
 		const item = grdCltvtnHstry.getRowData(grdCltvtnHstry.getRow());
 
      	let col = grdCltvtnHstry.getCol();
-
-     	console.log("item", item)
 
 		var mapCol = grdCltvtnHstry.getColRef("map");
 		if(mapCol === col){
@@ -595,22 +591,134 @@
 
 	const fn_grdValueChanged = function () {
 
-		let nRow = grdCltvtnFrmhsQlt.getRow();
-		let nCol = grdCltvtnFrmhsQlt.getCol();
-		let prdcrCol = grdCltvtnFrmhsQlt.getColRef("prdcrCd");
-		let frmhsAddrCol = grdCltvtnFrmhsQlt.getColRef("frmhsAddr");
-		let frmhsTelnoCol = grdCltvtnFrmhsQlt.getColRef("frmhsTelno");
-		let frmhsCtpvCol = grdCltvtnFrmhsQlt.getColRef("frmhsCtpv");
+		let choiceTab = SBUxMethod.get("idxTab_norm");
 
-		if (nCol == prdcrCol) {
-			let rowData = grdCltvtnFrmhsQlt.getRowData(nRow);
-			let prdcrCd = rowData.prdcrCd;
-			let prdcrInfo = _.find(jsonGrdPrdcr, {value: prdcrCd});
+		if (choiceTab == "frmhsQltTab") {
+			let nRow = grdCltvtnFrmhsQlt.getRow();
+			let nCol = grdCltvtnFrmhsQlt.getCol();
+			let prdcrCol = grdCltvtnFrmhsQlt.getColRef("prdcrCd");
+			let frmhsAddrCol = grdCltvtnFrmhsQlt.getColRef("frmhsAddr");
+			let frmhsTelnoCol = grdCltvtnFrmhsQlt.getColRef("frmhsTelno");
+			let frmhsCtpvNmCol = grdCltvtnFrmhsQlt.getColRef("frmhsCtpvNm");
 
-			grdCltvtnFrmhsQlt.setCellData(nRow, frmhsAddrCol, prdcrInfo.admstOwnrRgdtAddr);
-			grdCltvtnFrmhsQlt.setCellData(nRow, frmhsTelnoCol, prdcrInfo.mblTelno);
-			grdCltvtnFrmhsQlt.setCellData(nRow, frmhsCtpvCol, prdcrInfo.frmhsCtpv);
+			if (nCol == prdcrCol) {
+				let rowData = grdCltvtnFrmhsQlt.getRowData(nRow);
+				let prdcrCd = rowData.prdcrCd;
+				let prdcrInfo = _.find(jsonGrdPrdcr, {value: prdcrCd});
+
+				grdCltvtnFrmhsQlt.setCellData(nRow, frmhsAddrCol, prdcrInfo.frmhsAddr);
+				grdCltvtnFrmhsQlt.setCellData(nRow, frmhsTelnoCol, prdcrInfo.frmhsTelno);
+				grdCltvtnFrmhsQlt.setCellData(nRow, frmhsCtpvNmCol, prdcrInfo.frmhsCtpvNm);
+			}
 		}
+
+		if (choiceTab == "frmhsExpctWrhsTab") {
+			let nRow = grdFrmhsExpctWrhs.getRow();
+			let nCol = grdFrmhsExpctWrhs.getCol();
+			let prdcrCol = grdFrmhsExpctWrhs.getColRef("prdcrCd");
+			let crtrYmCol = grdFrmhsExpctWrhs.getColRef("crtrYm");
+			let frmhsAddrCol = grdFrmhsExpctWrhs.getColRef("frmhsAddr");
+			let frmhsTelnoCol = grdFrmhsExpctWrhs.getColRef("frmhsTelno");
+			let frmhsCtpvNmCol = grdFrmhsExpctWrhs.getColRef("frmhsCtpvNm");
+
+			if (nCol == prdcrCol) {
+				let rowData = grdFrmhsExpctWrhs.getRowData(nRow);
+				let prdcrCd = rowData.prdcrCd;
+				let crtrYm = rowData.crtrYm;
+
+				if (!gfn_isEmpty(crtrYm)) {
+					let grdData = grdFrmhsExpctWrhs.getGridDataAll();
+					for (var i=1; i<=grdData.length; i++) {
+
+						if (i == nRow) {
+							continue;
+						}
+
+						let grdRowData = grdFrmhsExpctWrhs.getRowData(i);
+						let grdCryrYm  = grdRowData.crtrYm;
+						let grdPrdcrCd  = grdRowData.prdcrCd;
+
+						if (prdcrCd == grdPrdcrCd && crtrYm == grdCryrYm) {
+							grdFrmhsExpctWrhs.setCellData(nRow, prdcrCol, "");
+							gfn_comAlert("W0009", "해당 농가에" + crtrYm) // W0009 {0}이/가 있습니다.
+							return;
+						}
+					}
+				}
+
+				let prdcrInfo = _.find(jsonGrdPrdcr, {value: prdcrCd});
+
+				grdFrmhsExpctWrhs.setCellData(nRow, frmhsAddrCol, prdcrInfo.frmhsAddr);
+				grdFrmhsExpctWrhs.setCellData(nRow, frmhsTelnoCol, prdcrInfo.frmhsTelno);
+				grdFrmhsExpctWrhs.setCellData(nRow, frmhsCtpvNmCol, prdcrInfo.frmhsCtpvNm);
+
+			}
+
+			if (nCol == crtrYmCol) {
+				let rowData = grdFrmhsExpctWrhs.getRowData(nRow);
+				let prdcrCd = rowData.prdcrCd;
+				let crtrYm = rowData.crtrYm;
+
+				if (!gfn_isEmpty(prdcrCd)) {
+					let grdData = grdFrmhsExpctWrhs.getGridDataAll();
+					for (var i=1; i<=grdData.length; i++) {
+
+						if (i == nRow) {
+							continue;
+						}
+
+						let grdRowData = grdFrmhsExpctWrhs.getRowData(i);
+						let grdCryrYm  = grdRowData.crtrYm;
+						let grdPrdcrCd  = grdRowData.prdcrCd;
+
+						if (prdcrCd == grdPrdcrCd && crtrYm == grdCryrYm) {
+							grdFrmhsExpctWrhs.setCellData(nRow, crtrYmCol, "");
+							gfn_comAlert("W0009", "해당 농가에" + crtrYm) // W0009 {0}이/가 있습니다.
+							return;
+						}
+					}
+
+				}
+
+				let lastDay = parseInt(fn_getLastDayOfMonth(crtrYm)) + 1 ;
+				if (32 != lastDay) {
+
+					let firstCol = grdFrmhsExpctWrhs.getColRef("ymd1Qntt");
+					let lastCol = grdFrmhsExpctWrhs.getColRef("ymd31Qntt");
+
+					grdFrmhsExpctWrhs.setCellDisabled(nRow, firstCol, nRow, lastCol, false);
+
+					for (var i=lastDay; i<=31; i++) {
+						let colKey =  "ymd"+i+"Qntt";
+						let col = grdFrmhsExpctWrhs.getColRef(colKey);
+						grdFrmhsExpctWrhs.setCellDisabled(nRow, col, nRow, col, true);
+					}
+				} else {
+
+					let firstCol = grdFrmhsExpctWrhs.getColRef("ymd1Qntt");
+					let lastCol = grdFrmhsExpctWrhs.getColRef("ymd31Qntt");
+
+					grdFrmhsExpctWrhs.setCellDisabled(nRow, firstCol, nRow, lastCol, false);
+				}
+			}
+		}
+	}
+
+
+	const fn_getLastDayOfMonth = function (yyyymm) {
+
+	    // 년도와 월 추출
+	    var year = parseInt(yyyymm.substring(0, 4), 10);
+	    var month = parseInt(yyyymm.substring(4, 6), 10);
+
+	    // Date 객체 생성하여 해당 월의 다음 달의 첫 날을 구함
+	    var nextMonthFirstDay = new Date(year, month, 1);
+
+	    // 이전 월의 마지막 날을 구하기 위해 하루 전으로 설정
+	    nextMonthFirstDay.setDate(nextMonthFirstDay.getDate() - 1);
+
+	    // 이전 월의 마지막 날짜 반환
+	    return nextMonthFirstDay.getDate();
 	}
 
 	const fn_search = async function () {
@@ -844,7 +952,6 @@
  						false
  					);
  	        const data = await postJsonPromise;
- 	        console.log("data", data)
  	        data.resultList.forEach((item, index) => {
 
  	        	jsonFrmhsExpctWrhs.push(item);
@@ -857,7 +964,13 @@
  	      	grdFrmhsExpctWrhs.setCellDisabled(0, 0, grdFrmhsExpctWrhs.getRows() -1, grdFrmhsExpctWrhs.getCols() -1, false);
  	      	grdFrmhsExpctWrhs.setCellDisabled(grdFrmhsExpctWrhs.getRows() -1, 0, grdFrmhsExpctWrhs.getRows() -1, grdFrmhsExpctWrhs.getCols() -1, true);
 
- 	      	grdFrmhsExpctWrhs.setCellDisabled(0, 0, grdFrmhsExpctWrhs.getRows() -1, 1, true);
+ 	      	let prdcrCdCol = grdFrmhsExpctWrhs.getColRef("prdcrCd");
+			let crtrYmCol = grdFrmhsExpctWrhs.getColRef("crtrYm");
+
+ 	      	grdFrmhsExpctWrhs.setCellDisabled(0, prdcrCdCol, grdFrmhsExpctWrhs.getRows() -1, prdcrCdCol, true);
+ 	      	grdFrmhsExpctWrhs.setCellDisabled(0, crtrYmCol, grdFrmhsExpctWrhs.getRows() -1, crtrYmCol, true);
+
+ 	      	fn_ymdCellDisabled();
 
  		} catch (e) {
  			if (!(e instanceof Error)) {
@@ -865,6 +978,70 @@
  			}
  			console.error("failed", e.message);
  		}
+    }
+
+    const fn_ymdCellDisabled = function () {
+    	let grdData = grdFrmhsExpctWrhs.getGridDataAll();
+
+      	for (var i=1; i<=grdData.length; i++) {
+
+      		let rowData = grdFrmhsExpctWrhs.getRowData(i);
+
+      		let crtrYm = rowData.crtrYm;
+
+      		if (!gfn_isEmpty(crtrYm)) {
+      			let lastDay = parseInt(fn_getLastDayOfMonth(crtrYm)) + 1 ;
+
+				if (32 != lastDay) {
+
+					for (var j=lastDay; j<=31; j++) {
+						let colKey =  "ymd"+j+"Qntt";
+						let col = grdFrmhsExpctWrhs.getColRef(colKey);
+						grdFrmhsExpctWrhs.setCellDisabled(j, col, j, col, true);
+					}
+				}
+      		}
+      	}
+    }
+
+    const fn_procRowExpct = function (gubun, nRow, nCol) {
+
+    	if (gubun == "ADD") {
+    		grdFrmhsExpctWrhs.setCellData(nRow, nCol, "N", true);
+    		grdFrmhsExpctWrhs.addRow(true);
+
+    		grdFrmhsExpctWrhs.setCellDisabled(0, 0, grdFrmhsExpctWrhs.getRows() -1, grdFrmhsExpctWrhs.getCols() -1, false);
+    		grdFrmhsExpctWrhs.setCellDisabled(grdFrmhsExpctWrhs.getRows() -1, 0, grdFrmhsExpctWrhs.getRows() -1, grdFrmhsExpctWrhs.getCols() -1, true);
+    		let grdData = grdFrmhsExpctWrhs.getGridDataAll();
+    		for (var i=0; i<grdData.length; i++) {
+
+    			let rowData = grdData[i];
+    			let frmhsExpctWrhsNo = rowData.frmhsExpctWrhsNo;
+
+    			if (!gfn_isEmpty(frmhsExpctWrhsNo)) {
+
+    				let prdcrCdCol = grdFrmhsExpctWrhs.getColRef("prdcrCd");
+    				let crtrYmCol = grdFrmhsExpctWrhs.getColRef("crtrYm");
+
+    				grdFrmhsExpctWrhs.setCellDisabled(0+1, prdcrCdCol, i+1, prdcrCdCol, true);
+    				grdFrmhsExpctWrhs.setCellDisabled(0+1, crtrYmCol, i+1, crtrYmCol, true);
+
+    				fn_ymdCellDisabled();
+    			}
+    		}
+
+    	} else if (gubun == "DEL") {
+
+    		if(grdFrmhsExpctWrhs.getRowStatus(nRow) == 0 || grdFrmhsExpctWrhs.getRowStatus(nRow) == 2){
+        		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
+        			var frmhsExpctWrhsVO = grdFrmhsExpctWrhs.getRowData(nRow);
+        			fn_del(frmhsExpctWrhsVO, nRow);
+        		}
+        	}else{
+        		grdFrmhsExpctWrhs.deleteRow(nRow);
+        	}
+
+    	}
     }
 
     const fn_procRowQlt = function (gubun, nRow, nCol) {
@@ -883,7 +1060,8 @@
     			let cltvtnFrmhsQltNo = rowData.cltvtnFrmhsQltNo;
 
     			if (!gfn_isEmpty(cltvtnFrmhsQltNo)) {
-    				grdCltvtnFrmhsQlt.setCellDisabled(0+2, 1, i+2, 1, true);
+    				let prdcrCdCol = grdFrmhsExpctWrhs.getColRef("prdcrCd");
+    				grdCltvtnFrmhsQlt.setCellDisabled(0+2, prdcrCdCol, i+2, prdcrCdCol, true);
     			}
     		}
 
@@ -916,7 +1094,7 @@
 		}
 
 		if (choiceTab == "frmhsExpctWrhsTab") {
-
+			fn_insertFrmhsExpctWrhs();
 		}
 	}
 
@@ -950,7 +1128,23 @@
 		}
 
 		if (choiceTab == "frmhsExpctWrhsTab") {
+			const postJsonPromise = gfn_postJSON("/am/wrhs/deleteFrmhsExpctWrhs.do", deleteVO);
+	    	const data = await postJsonPromise;
 
+	    	try{
+	    		if (_.isEqual("S", data.resultStatus)) {
+	    			grdFrmhsExpctWrhs.deleteRow(nRow);
+	       			//gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	        	} else {
+    	    		gfn_comAlert(data.resultCode, data.resultMessage);
+    	    	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
 		}
 	}
 
@@ -970,7 +1164,7 @@
 				let prdcrCd = rowData.prdcrCd;
 
 				if (gfn_isEmpty(prdcrCd)) {
-		  			gfn_comAlert("W0001", "거래처명");		//	W0001	{0}을/를 선택하세요.
+		  			gfn_comAlert("W0001", "농가명");		//	W0001	{0}을/를 선택하세요.
 		            return;
 		  		}
 
@@ -1012,6 +1206,124 @@
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
 		}
+
+	}
+
+	const fn_insertFrmhsExpctWrhs = async function () {
+
+		let grdData = grdFrmhsExpctWrhs.getGridDataAll();
+
+		let frmhsExpctWrhsList = [];
+
+		for (var i=0; i<grdData.length; i++) {
+			let rowData = grdFrmhsExpctWrhs.getRowData(i+1);
+			let rowSts = grdFrmhsExpctWrhs.getRowStatus(i+1);
+			let delYn = rowData.delYn;
+			if (!gfn_isEmpty(delYn)) {
+
+				let prdcrCd = rowData.prdcrCd;
+
+				if (gfn_isEmpty(prdcrCd)) {
+		  			gfn_comAlert("W0001", "농가명");		//	W0001	{0}을/를 선택하세요.
+		            return;
+		  		}
+
+				if (rowSts === 3){
+					rowData.rowSts = "I";
+					rowData.apcCd = gv_selectedApcCd;
+
+					let frmhsExpctWrhsDtlList = [];
+
+					for (var j=1; j<=31; j++) {
+
+						let ymdKey = "ymd" + j + "Qntt";
+
+						let qntt = rowData[ymdKey];
+
+
+						if (!gfn_isEmpty(qntt) && qntt > 0) {
+
+							let frmhsExpctWrhsDtl = {
+								apcCd 		: gv_selectedApcCd
+							  , prdcrCd 	: rowData.prdcrCd
+							  , crtrYm 		: rowData.crtrYm
+							  , ymd			: j
+							  , qntt		: qntt
+							}
+
+							frmhsExpctWrhsDtlList.push(frmhsExpctWrhsDtl);
+						}
+					}
+
+					if (frmhsExpctWrhsDtlList.length > 0) {
+						rowData.frmhsExpctWrhsDtlList = frmhsExpctWrhsDtlList;
+					}
+
+					frmhsExpctWrhsList.push(rowData);
+				} else if (rowSts === 2){
+					rowData.rowSts = "U";
+
+					let frmhsExpctWrhsDtlList = [];
+
+					for (var j=1; j<=31; j++) {
+
+						let ymdKey = "ymd" + j + "Qntt";
+
+						let qntt = rowData[ymdKey];
+
+						if (!gfn_isEmpty(qntt) && qntt > 0) {
+
+							let frmhsExpctWrhsDtl = {
+								apcCd 				: gv_selectedApcCd
+							  , prdcrCd 			: rowData.prdcrCd
+							  , frmhsExpctWrhsNo 	: rowData.frmhsExpctWrhsNo
+							  , crtrYm 				: rowData.crtrYm
+							  , ymd					: j
+							  , qntt				: qntt
+							}
+
+							frmhsExpctWrhsDtlList.push(frmhsExpctWrhsDtl);
+						}
+					}
+
+					if (frmhsExpctWrhsDtlList.length > 0) {
+						rowData.frmhsExpctWrhsDtlList = frmhsExpctWrhsDtlList;
+					}
+
+					frmhsExpctWrhsList.push(rowData);
+				} else {
+					continue;
+				}
+			}
+		}
+
+		if (frmhsExpctWrhsList.length == 0) {
+			gfn_comAlert("W0003", "저장");			// W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		console.log("frmhsExpctWrhsList", frmhsExpctWrhsList);
+
+		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
+			const postJsonPromise = gfn_postJSON("/am/wrhs/multiFrmhsExpctWrhsList.do", frmhsExpctWrhsList);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	    		if (_.isEqual("S", data.resultStatus)) {
+		    		fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	        	} else {
+    	    		gfn_comAlert(data.resultCode, data.resultMessage);
+    	    	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+
 
 	}
 
