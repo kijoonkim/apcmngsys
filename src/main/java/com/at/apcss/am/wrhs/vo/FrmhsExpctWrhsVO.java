@@ -1,5 +1,8 @@
 package com.at.apcss.am.wrhs.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -43,6 +46,10 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	 * */
 	private String frmhsAddr;
 	/*
+	 * 농가연락처
+	 * */
+	private String frmhsTelno;
+	/*
 	 * 농가지역
 	 * */
 	private String frmhsCtpvNm;
@@ -50,7 +57,7 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	/*
 	 * 농가계약면적
 	 * */
-	private int crtrArea;
+	private int plntngArea;
 	/*
 	 * 농가예상입고번호
 	 * */
@@ -127,4 +134,19 @@ public class FrmhsExpctWrhsVO extends ComVO {
     private int ymd30Qntt;
     private int ymd31Qntt;
     private int tot;
+
+    /*
+	 * 농가예상입고상세
+	 * */
+	private List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList;
+
+
+	public List<FrmhsExpctWrhsDtlVO> getFrmhsExpctWrhsDtlList() {
+		return this.frmhsExpctWrhsDtlList == null ? null : frmhsExpctWrhsDtlList.stream().collect(Collectors.toList());
+	}
+
+	public void setFrmhsExpctWrhsDtlList(List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList) {
+		this.frmhsExpctWrhsDtlList = frmhsExpctWrhsDtlList == null ? null : frmhsExpctWrhsDtlList.stream().collect(Collectors.toList());
+	}
+
 }

@@ -56,6 +56,20 @@
 	</select>
 
 	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetFrmhsExpctWrhsNo	-->
+	<!-- DESC : 영농관리 - 농가예상입고번호 발번.                    					-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectGetFrmhsExpctWrhsNo" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="string">
+		<![CDATA[
+			SELECT FN_GET_ID_FRMHS_EXPCT_WRHS(#{apcCd} , #{prdcrCd}) AS FRMHS_EXPCT_WRHS_NO FROM DUAL
+		]]>
+	</select>
+
+	<!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnBscInfoList		-->
 	<!-- DESC : 영농관리 - 재배기본정도 목록 조회.                    					-->
 	<!-- ==============================================================================	-->
@@ -408,7 +422,7 @@
 
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnFrmhsQlt		-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsList	-->
 	<!-- DESC : 영농관리 - 재배농가품질 수정.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
@@ -417,15 +431,17 @@
 	<!-- ==============================================================================	-->
 	<select id="selectFrmhsExpctWrhsList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
 		<![CDATA[
-			SELECT
+			SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsList */
 			       pt0.APC_CD                       AS APC_CD
 			     , pt0.PRDCR_CD                     AS PRDCR_CD
+			     , MAX(pt0.CRTR_YM)					AS CRTR_YM
 			     , MAX(pt0.RPRS_ITEM_CD)            AS RPRS_ITEM_CD
 			     , MAX(pt0.RPRS_VRTY_CD)            AS RPRS_VRTY_CD
 			     , MAX(pt0.FRMHS_ADDR)              AS FRMHS_ADDR
 			     , MAX(pt0.FRMHS_CTPV)              AS FRMHS_CTPV
 			     , MAX(pt0.FRMHS_CTPV_NM)           AS FRMHS_CTPV_NM
-			     , MAX(pt0.CRTR_AREA)               AS CRTR_AREA
+			     , MAX(pt0.FRMHS_TELNO)             AS FRMHS_TELNO
+			     , MAX(pt0.PLNTNG_AREA)             AS PLNTNG_AREA
 			     , pt0.FRMHS_EXPCT_WRHS_NO          AS FRMHS_EXPCT_WRHS_NO
 			     , MAX(pt0.HDOFC_EXTRNL_SE_CD)      AS HDOFC_EXTRNL_SE_CD
 			     , MAX(pt0.EXTRNL_WAREHOUSE_CD)     AS EXTRNL_WAREHOUSE_CD
@@ -474,10 +490,12 @@
 			             , FW.PRDCR_CD                  AS PRDCR_CD
 			             , PI.RPRS_ITEM_CD              AS RPRS_ITEM_CD
 			             , PI.RPRS_VRTY_CD              AS RPRS_VRTY_CD
-			             , PI.FRMHS_ADDR                AS FRMHS_ADDR
-			             , PI.FRMHS_CTPV                AS FRMHS_CTPV
+			             , NVL(PI.FRMHS_ADDR, FI.ADMST_OWNR_RGDT_ADDR)      AS FRMHS_ADDR
+			             , PI.PLNTNG_AREA               AS PLNTNG_AREA
+			             , NVL(PI.FRMHS_TELNO, FI.MBL_TELNO)		        AS FRMHS_TELNO
 			             , (SELECT FN_GET_COM_CD_VL_NM('CTPV', PI.FRMHS_CTPV) FROM DUAL) 		AS FRMHS_CTPV_NM
 			             , PI.CRTR_AREA                 AS CRTR_AREA
+			             , PI.FRMHS_CTPV                AS FRMHS_CTPV
 			             , FW.FRMHS_EXPCT_WRHS_NO       AS FRMHS_EXPCT_WRHS_NO
 			             , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
 			             , FW.EXTRNL_WAREHOUSE_CD       AS EXTRNL_WAREHOUSE_CD
@@ -526,11 +544,14 @@
 			          FROM TB_PRDCR_INFO PI
 			             , TB_FRMHS_EXPCT_WRHS FW
 			             , TB_FRMHS_EXPCT_WRHS_DTL FWD
+			             , TB_AX_FRMER_INFO FI
 			         WHERE PI.APC_CD = FW.APC_CD
 			           AND PI.PRDCR_CD = FW.PRDCR_CD
 			           AND FW.APC_CD = FWD.APC_CD
 			           AND FW.PRDCR_CD = FWD.PRDCR_CD
 			           AND FW.FRMHS_EXPCT_WRHS_NO = FWD.FRMHS_EXPCT_WRHS_NO
+			           AND PI.PRDCR_LINK_CD = FI.MNGMST_REGNO(+)
+           			   AND FI.DEL_YN(+) = 'N'
 			           AND PI.DEL_YN = 'N'
 			           AND FW.DEL_YN = 'N'
 			           AND FWD.DEL_YN = 'N'
@@ -548,4 +569,239 @@
 		]]>
 
 	</select>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhs		-->
+	<!-- DESC : 영농관리 - 농가예상입고 등록.                    						-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<insert id="insertFrmhsExpctWrhs" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhs */
+			  INTO TB_FRMHS_EXPCT_WRHS
+			     ( APC_CD
+				 , PRDCR_CD
+				 , FRMHS_EXPCT_WRHS_NO
+				 , HDOFC_EXTRNL_SE_CD
+				 , EXTRNL_WAREHOUSE_CD
+				 , HRVST_YMD
+				 , EXPCT_NET
+				 , LAST_STRG_SE_CD
+				 , PIC
+				 , EXPCT_VLM_VRSS
+				 , PRCHS_CMPTN_YN
+				 , RMRK
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+				 )
+			VALUES
+				 ( #{apcCd}
+				 , #{prdcrCd}
+				 , #{frmhsExpctWrhsNo}
+				 , #{hdofcExtrnlSeCd}
+				 , #{extrnlWarehouseCd}
+				 , #{hrvstYmd}
+				 , #{expctNet}
+				 , #{lastStrgSeCd}
+				 , #{pic}
+				 , #{expctVlmVrss}
+				 , #{prchsCmptnYn}
+				 , #{rmrk}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+				 )
+		]]>
+	</insert>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs		-->
+	<!-- DESC : 영농관리 - 농가예상입고 수정.                    						-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="updateFrmhsExpctWrhs" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs */
+				   TB_FRMHS_EXPCT_WRHS
+		       SET
+				   HDOFC_EXTRNL_SE_CD       = #{hdofcExtrnlSeCd}
+				 , EXTRNL_WAREHOUSE_CD      = #{extrnlWarehouseCd}
+				 , HRVST_YMD                = #{hrvstYmd}
+				 , EXPCT_NET                = #{expctNet}
+				 , LAST_STRG_SE_CD          = #{lastStrgSeCd}
+				 , PIC                      = #{pic}
+				 , EXPCT_VLM_VRSS           = #{expctVlmVrss}
+				 , PRCHS_CMPTN_YN           = #{prchsCmptnYn}
+				 , RMRK                     = #{rmrk}
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND PRDCR_CD 				= #{prdcrCd}
+			   AND FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
+		]]>
+	</update>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhs		-->
+	<!-- DESC : 영농관리 - 농가예상입고 삭제.                    						-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="deleteFrmhsExpctWrhs" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhs */
+				   TB_FRMHS_EXPCT_WRHS
+		       SET
+				   DEL_YN 					= 'Y'
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND PRDCR_CD 				= #{prdcrCd}
+			   AND FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
+		]]>
+	</update>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDtl		-->
+	<!-- DESC : 영농관리 - 농가예상입고상세 등록.                    					-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<insert id="insertFrmhsExpctWrhsDtl" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDtl */
+			  INTO TB_FRMHS_EXPCT_WRHS_DTL
+			     ( APC_CD
+				 , PRDCR_CD
+				 , FRMHS_EXPCT_WRHS_NO
+				 , CRTR_YM
+				 , YMD
+				 , QNTT
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+				 )
+			VALUES
+				 ( #{apcCd}
+				 , #{prdcrCd}
+				 , #{frmhsExpctWrhsNo}
+				 , #{crtrYm}
+				 , #{ymd}
+				 , #{qntt}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+				 )
+		]]>
+	</insert>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhsDtl		-->
+	<!-- DESC : 영농관리 - 농가예상입고상세 수정.                    					-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="updateFrmhsExpctWrhsDtl" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO">
+		<![CDATA[
+			MERGE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs */
+			 INTO TB_FRMHS_EXPCT_WRHS_DTL A
+			USING DUAL
+			   ON (
+			       	   A.APC_CD 					= #{apcCd}
+			       AND A.PRDCR_CD 					= #{prdcrCd}
+			       AND A.FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
+			       AND A.CRTR_YM					= #{crtrYm}
+			       AND A.YMD						= #{ymd}
+			      )
+			 WHEN MATCHED THEN
+					UPDATE
+				       SET
+						   A.QNTT					= #{qntt}
+						 , A.SYS_LAST_CHG_DT        = SYSDATE
+						 , A.SYS_LAST_CHG_USER_ID   = #{sysLastChgUserId}
+						 , A.SYS_LAST_CHG_PRGRM_ID  = #{sysLastChgPrgrmId}
+					 WHERE A.APC_CD 				= #{apcCd}
+					   AND A.PRDCR_CD 				= #{prdcrCd}
+					   AND A.FRMHS_EXPCT_WRHS_NO 	= #{frmhsExpctWrhsNo}
+					   AND A.CRTR_YM				= #{crtrYm}
+					   AND A.YMD					= #{ymd}
+		     WHEN NOT MATCHED THEN
+		     		INSERT
+					     ( APC_CD
+						 , PRDCR_CD
+						 , FRMHS_EXPCT_WRHS_NO
+						 , CRTR_YM
+						 , YMD
+						 , QNTT
+						 , SYS_FRST_INPT_DT
+						 , SYS_FRST_INPT_USER_ID
+						 , SYS_FRST_INPT_PRGRM_ID
+						 , SYS_LAST_CHG_DT
+						 , SYS_LAST_CHG_USER_ID
+						 , SYS_LAST_CHG_PRGRM_ID
+						 )
+					VALUES
+						 ( #{apcCd}
+						 , #{prdcrCd}
+						 , #{frmhsExpctWrhsNo}
+						 , #{crtrYm}
+						 , #{ymd}
+						 , #{qntt}
+						 , SYSDATE
+						 , #{sysFrstInptUserId}
+						 , #{sysFrstInptPrgrmId}
+						 , SYSDATE
+						 , #{sysLastChgUserId}
+						 , #{sysLastChgPrgrmId}
+						 )
+		]]>
+	</update>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhsDtl		-->
+	<!-- DESC : 영농관리 - 농가예상입고상세 삭제.                    					-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="deleteFrmhsExpctWrhsDtl" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhsDtl */
+				   TB_FRMHS_EXPCT_WRHS_DTL
+		       SET
+				   DEL_YN 					= 'Y'
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND PRDCR_CD 				= #{prdcrCd}
+			   AND FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
+		]]>
+	</update>
 </mapper>
