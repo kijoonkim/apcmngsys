@@ -225,6 +225,7 @@ public class PrdcrVO extends ComVO {
 	 * 농가 지역코드
 	 */
 	private String frmhsCtpv;
+	private String frmhsCtpvNm;
 	/**
 	 * 농가 주소
 	 */

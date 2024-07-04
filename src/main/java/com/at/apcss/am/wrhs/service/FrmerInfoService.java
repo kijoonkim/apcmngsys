@@ -7,6 +7,7 @@ import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.CltvtnListVO;
+import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
 
 /**
@@ -120,5 +121,69 @@ public interface FrmerInfoService {
 	 * @throws Exception
 	 */
 	public List<FrmhsExpctWrhsVO> selectFrmhsExpctWrhsList(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
+
+	/**
+	 * 농가예상입고 등록
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int insertFrmhsExpctWrhs(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
+
+	/**
+	 * 농가예상입고 수정
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateFrmhsExpctWrhs(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
+
+	/**
+	 * 농가예상입고 삭제
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int deleteFrmhsExpctWrhs(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
+
+	/**
+	 * 농가예상입고상세 등록
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int insertFrmhsExpctWrhsDtl(FrmhsExpctWrhsDtlVO frmhsExpctWrhsDtlVO) throws Exception;
+
+	/**
+	 * 농가예상입고상세 수정
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateFrmhsExpctWrhsDtl(FrmhsExpctWrhsDtlVO frmhsExpctWrhsDtlVO) throws Exception;
+
+	/**
+	 * 농가예상입고상세 삭제
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int deleteFrmhsExpctWrhsDtl(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
+
+	/**
+	 * 농가예상입고 다중 저장
+	 * @param List<FrmhsExpctWrhsVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiFrmhsExpctWrhsList(List<FrmhsExpctWrhsVO> frmhsExpctWrhsList) throws Exception;
+
+	/**
+	 * 농가예상입고 전체 삭제
+	 * @param frmhsExpctWrhsVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteFrmhsExpct(FrmhsExpctWrhsVO frmhsExpctWrhsVO) throws Exception;
 
 }
