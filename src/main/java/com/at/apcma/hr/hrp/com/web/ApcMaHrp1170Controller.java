@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hrp.com.web;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -39,6 +40,9 @@ public class ApcMaHrp1170Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
+
     // 월별 급상여 예외자 정보 조회
     @PostMapping(value = "/hr/hrp/com/selectHrp1170List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrp1170List(
@@ -67,7 +71,7 @@ public class ApcMaHrp1170Controller extends BaseController {
 
             return getErrorResponseEntity(errorCode, errorStr);
         } else {
-            return getSuccessResponseEntity(resultMap);
+            return getSuccessResponseEntityMa(resultMap);
         }
     }
 
@@ -83,43 +87,13 @@ public class ApcMaHrp1170Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRP1170_S");
 
-            for(String key : param.keySet()){
-                if(key.contains("P_HRP1170_S")) {
-                    if(param.get(key) instanceof List) {
-                        List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
-                        listData.stream().forEach(d -> {
-                            try {
-                                d.put("procedure", 		key);
-                                d = apcMaCommDirectService.callProc(d, session, request, "");
-                                resultMap.put("result", d);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                        resultMap.put(key, listData);
-                    } else if (param.get(key) instanceof Map) {
-                        Map<String, Object> mapData = (Map<String, Object>) param.get(key);
-                        mapData.put("procedure", 		key);
-                        resultMap.put(key, apcMaCommDirectService.callProc(mapData, session, request, ""));
-                    }
-                }
-            }
-
+            logger.info("=============insertHrp1170=====end========");
+            return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============insertHrp1000S1=====end========");
-        HashMap<String, Object> result = (HashMap<String, Object>) resultMap.get("result");
-        if (result.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
         }
     }
 }
