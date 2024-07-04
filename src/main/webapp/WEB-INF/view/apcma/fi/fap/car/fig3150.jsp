@@ -276,10 +276,9 @@
 							    <div class="dropdown-menu" aria-labelledby="srch-cboexcept-code" style="width:300px;height:150px;padding-top:0px;overflow:auto">
 							    </div>
 							</div>                                    
-							<sbux-input uitype="text" id="SRCH_DEPT_NAME_1" 	class="form-control input-sm" 			style="width:120px;margin-right:5px"></sbux-input>
-		                    <sbux-button uitype="normal" text="제외처리" 		class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="cfn_approval"></sbux-button>
-		                    <sbux-button uitype="normal" text="제외처리" 		class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="cfn_approval"></sbux-button>
-		                    <sbux-button uitype="normal" text="제외처리 취소" 	class="btn btn-sm btn-outline-danger" 	onclick="cfn_approval"></sbux-button>
+							<sbux-input uitype="text" id="srch-txtexcept-reason" 	class="form-control input-sm" 			style="width:120px;margin-right:5px"></sbux-input>
+		                    <sbux-button uitype="normal" text="제외처리" 		class="btn btn-sm btn-outline-danger" 	style="margin-right:5px" onclick="fn_btnExclusion"></sbux-button>
+		                    <sbux-button uitype="normal" text="제외처리 취소" 	class="btn btn-sm btn-outline-danger" 	onclick="fn_btnExclusionCancel"></sbux-button>
 	                    </div>
 	                </div>
 	                <div>
@@ -1048,6 +1047,174 @@
 
         if(listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocDateAllChange.do", {listData: listData});
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    cfn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }    	
+    }
+    
+    //제외처리
+    var fn_btnExclusion = async function() {
+    	
+    	var cnt 		= 0
+    	var chkList		= [];
+    	for (var i = 0; i < jsonFig3150List.length; i++) {
+			var obj = jsonFig3150List[i];
+			if(obj['CHK_YN']=='Y' && obj['DOC_STATUS'] != '6'){
+				cnt ++;
+				obj['rownum'] = i;
+				chkList.push(obj);
+			}
+		}
+		if(cnt==0){
+        	gfn_comAlert("E0000", "처리대상이 없습니다.");
+        	return;
+		}    	
+		
+    	let p_cboexcept_code	= gfnma_multiSelectGet('#srch-cboexcept-code');			//제외처리 선택
+		let p_txtexcept_reason	= gfnma_nvl(SBUxMethod.get("srch-txtexcept-reason"));	//제외처리 수기입력
+		
+		if(!p_cboexcept_code){
+        	gfn_comAlert("E0000", "제외사유를 선택하세요.");
+        	return;
+		}    	
+		
+		if(confirm("정말 제외처리 하시겠습니까? 제외 하시려면 Yes를 클릭하세요.")){
+		}else{
+			return;
+		}		
+		
+		//서버 전송 리스트
+        let listData = [];
+    	for (var i = 0; i < chkList.length; i++) {
+			var obj = chkList[i];
+            const param = {
+                    cv_count	: '0',
+                    getType		: 'json',
+                    rownum		: obj.rownum,
+                    workType	: 'EXCLUSION',
+           	    	params 		: gfnma_objectToString({
+               			V_P_DEBUG_MODE_YN		: ''
+               			,V_P_LANG_ID			: ''
+               			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+               			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+               			,V_P_APPR_CANCEL_TYPE	: obj.APPR_CANCEL_TYPE	
+               			,V_P_APPR_NO			: obj.APPR_NO
+               			,V_P_CARD_NO			: obj.CARD_NO
+               			,V_P_EXCEPT_CODE		: p_cboexcept_code
+               			,V_P_EXCEPT_REASON		: p_txtexcept_reason
+               			,V_P_CARD_ID			: obj.CARD_ID			
+               			,V_P_FORM_ID			: p_formId
+               			,V_P_MENU_ID			: p_menuId
+               			,V_P_PROC_ID			: ''
+               			,V_P_USERID				: ''
+               			,V_P_PC					: '' 
+                    })
+            	}			
+            listData.push(param);
+    	}	
+
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocExclusion.do", {listData: listData});
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    cfn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }    	
+    }
+    
+    //제외처리취소
+    var fn_btnExclusionCancel = async function() {
+    	
+    	var cnt 		= 0
+    	var chkList		= [];
+    	for (var i = 0; i < jsonFig3150List.length; i++) {
+			var obj = jsonFig3150List[i];
+			if(obj['CHK_YN']=='Y' && obj['DOC_STATUS'] == '-9'){
+				cnt ++;
+				obj['rownum'] = i;
+				chkList.push(obj);
+			}
+		}
+		if(cnt==0){
+        	gfn_comAlert("E0000", "처리대상이 없습니다.");
+        	return;
+		}    	
+		
+    	let p_cboexcept_code	= gfnma_multiSelectGet('#srch-cboexcept-code');			//제외처리 선택
+		let p_txtexcept_reason	= gfnma_nvl(SBUxMethod.get("srch-txtexcept-reason"));	//제외처리 수기입력
+		
+		if(!p_cboexcept_code){
+        	gfn_comAlert("E0000", "제외사유를 선택하세요.");
+        	return;
+		}    	
+		
+		if(confirm("정말 제외취소 처리 하시겠습니까? 제외취소 하시려면 Yes를 클릭하세요.")){
+		}else{
+			return;
+		}		
+		
+		//서버 전송 리스트
+        let listData = [];
+    	for (var i = 0; i < chkList.length; i++) {
+			var obj = chkList[i];
+            const param = {
+                    cv_count	: '0',
+                    getType		: 'json',
+                    rownum		: obj.rownum,
+                    workType	: 'EXCLUSION_CANCEL',
+           	    	params 		: gfnma_objectToString({
+               			V_P_DEBUG_MODE_YN		: ''
+               			,V_P_LANG_ID			: ''
+               			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+               			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+               			,V_P_APPR_CANCEL_TYPE	: obj.APPR_CANCEL_TYPE	
+               			,V_P_APPR_NO			: obj.APPR_NO
+               			,V_P_CARD_NO			: obj.CARD_NO
+               			,V_P_EXCEPT_CODE		: p_cboexcept_code
+               			,V_P_EXCEPT_REASON		: p_txtexcept_reason
+               			,V_P_CARD_ID			: obj.CARD_ID			
+               			,V_P_FORM_ID			: p_formId
+               			,V_P_MENU_ID			: p_menuId
+               			,V_P_PROC_ID			: ''
+               			,V_P_USERID				: ''
+               			,V_P_PC					: '' 
+                    })
+            	}			
+            listData.push(param);
+    	}	
+
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocExclusionCancel.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);

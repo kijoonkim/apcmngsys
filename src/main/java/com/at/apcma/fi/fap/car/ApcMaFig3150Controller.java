@@ -165,5 +165,53 @@ public class ApcMaFig3150Controller extends BaseController {
     	logger.info("=============saveFig3150DocDateAllChange=====end========");
     	return getSuccessResponseEntityMa(resultMap);
     }
+    
+    // 법인카드승인내역관리 제외처리
+    @PostMapping(value = "/fi/fap/car/saveFig3150DocExclusion.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> saveFig3150DocExclusion(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============saveFig3150DocExclusion=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3150_S3");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============saveFig3150DocExclusion=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }
+    
+    // 법인카드승인내역관리 제외처리취소
+    @PostMapping(value = "/fi/fap/car/saveFig3150DocExclusionCancel.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> saveFig3150DocExclusionCancel(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============saveFig3150DocExclusionCancel=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3150_S3");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============saveFig3150DocExclusionCancel=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }
 	
 }
