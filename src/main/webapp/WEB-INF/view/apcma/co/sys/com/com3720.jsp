@@ -327,11 +327,12 @@
 		editType = 'N';
 	}
 	
-	// 그룹코드 내역, 세부코드 정보 저장
-	function cfn_save() {
-		fn_saveFieldCaption();
-	}
-	
+    // 저장
+    function cfn_save() {
+		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+			fn_saveFieldCaption();
+		}
+    }
 	// 마스터 그리드 삭제
 	function cfn_del() {
 		fn_delete();
