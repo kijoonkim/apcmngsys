@@ -38,7 +38,7 @@ public class ApcMaHrp5100Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
-    // 급여 전표처리기준 조회
+    // 국민연금 내역 관리 조회
     @PostMapping(value = "/hr/hrp/pay/selectHrp5100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrp5100List(
             @RequestBody Map<String, Object> param
@@ -60,17 +60,11 @@ public class ApcMaHrp5100Controller extends BaseController {
         }
 
         logger.info("=============selectHrp5100List=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
-    // 국민연금 변동항목반영 저장
+    // 국민연금 내역 관리 급여반영,취소
     @PostMapping(value = "/hr/hrp/pay/insertHrp5100S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrp5100S1(
             @RequestBody Map<String, Object> param
@@ -92,17 +86,11 @@ public class ApcMaHrp5100Controller extends BaseController {
         }
 
         logger.info("=============insertHrp5100S1=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
-    // 국민연금 내역 관리 저장 프로시저
+    // 국민연금 내역 관리 저장 체크
     @PostMapping(value = "/hr/hrp/pay/insertHrp5100S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrp5100S(
             @RequestBody Map<String, Object> param
@@ -124,13 +112,7 @@ public class ApcMaHrp5100Controller extends BaseController {
         }
 
         logger.info("=============insertHrp5100S=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 }

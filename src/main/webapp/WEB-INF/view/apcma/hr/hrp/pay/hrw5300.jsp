@@ -337,7 +337,7 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -358,8 +358,8 @@
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -367,7 +367,7 @@
 
     const fn_compopup2 = function() {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText = gfnma_nvl(SBUxMethod.get("EMP_NAME"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -385,7 +385,7 @@
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
             , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
@@ -466,9 +466,16 @@
         jsonGvwList.length = 0;
         gvwListGrid.rebuild();
 
+        //데이터검증 버튼 활성화
         SBUxMethod.attr('btnDataCheck',	'disabled', false);
+        //엑셀업로드 버튼 활성화
         SBUxMethod.attr('btnUpload',	'disabled', false);
+        //엑셀다운로드 버튼 활성화
         SBUxMethod.attr('btnDownload',	'disabled', false);
+
+        //신규작성시 그리드의 타입콤보박스 disabled : true로 콤보박스값 선택 가능하게 설정
+        gvwListGrid.setColDisabled(6, true);
+        gvwListGrid.setColDisabled(7, true);
     }
     /**
      * 저장
@@ -867,7 +874,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('---------------------------------- :  ',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -904,7 +910,6 @@
                 });
 
                 gvwListGrid.rebuild();
-
 
                 /*let pivotData = [];
                 pivotData =  data.cv_3;
@@ -1065,7 +1070,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('---------------------------------- :  ',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1163,7 +1167,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('---------------------------------- :  ',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1257,7 +1260,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('---------------------------------- :  ',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1354,7 +1356,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('---------------------------------- :  ',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1362,6 +1363,8 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
+
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
 
             } else {
                 alert(data.resultMessage);
@@ -1423,7 +1426,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('---------------------------------- :  ',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1431,6 +1433,8 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
+
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
 
             } else {
                 alert(data.resultMessage);
