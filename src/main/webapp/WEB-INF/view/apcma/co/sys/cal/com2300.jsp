@@ -240,11 +240,12 @@
 	function cfn_add() {
 	}
 	
-	// 그룹코드 내역, 세부코드 정보 저장
-	function cfn_save() {
-		fn_save();
-	}
-	
+    // 저장
+    function cfn_save() {
+		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+	        fn_save();
+		}
+    }
 	// 삭제
 	function cfn_del() {
 		fn_delete();
