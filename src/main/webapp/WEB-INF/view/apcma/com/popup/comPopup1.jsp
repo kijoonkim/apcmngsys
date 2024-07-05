@@ -260,7 +260,7 @@ function compopup1(options) {
 			//표시되는 컬럼
 	   	 	for (var j= 0; j < settings.tableColumnNames.length; j++) {
 				var code = settings.tableColumnNames[j];
-				tmp += '<td cu-name="' + code + '">' + list[i][code] + '</td>';
+				tmp += '<td cu-name="' + code + '">' + gfn_nvl(list[i][code]) + '</td>';
 			}
 			//비표시되는 컬럼
 			var obj = list[i];
@@ -268,7 +268,7 @@ function compopup1(options) {
 		   	 	for (var j= 0; j < settings.tableColumnNames.length; j++) {
 					var code = settings.tableColumnNames[j];
 					if(code!=key){
-						tmp += '<td style="display:none" cu-name="' + key + '">' + obj[key] + '</td>';
+						tmp += '<td style="display:none" cu-name="' + key + '">' + gfn_nvl(obj[key]) + '</td>';
 					}
 				}
 			}

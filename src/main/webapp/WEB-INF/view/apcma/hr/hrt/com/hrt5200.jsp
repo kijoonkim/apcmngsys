@@ -412,7 +412,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 				searchText,		""]
+            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 

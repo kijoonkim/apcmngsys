@@ -855,7 +855,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 				searchText,		""]
+            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
@@ -877,18 +877,20 @@
         let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
         let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
 
+        //type B 형 팝업
+        var addParams = [TIME_START_DATE, TIME_END_DATE, p_userId];	//bizcompId 의 파라미터에 따라 추가할것
+
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_EMP_WORK_DATE'
             ,popupType				: 'B'
-            ,whereClause			: ''
-            , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "일자",  "", "", ""]
-            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"BASE_DATE", "START_DATE", "END_DATE", "USERID"]
-            ,searchInputValues		: ["", "", "", searchText, "", TIME_START_DATE, TIME_END_DATE, p_userId]
-            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker", "datepicker", "datepicker", "input"]		//input, datepicker가 있는 경우
-            ,searchInputTypeValues	: ["", "", "", "", jsonEmpState, "", "", ""]
+            ,whereClause			: addParams
+            , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
+            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"BASE_DATE"]
+            ,searchInputValues		: ["", "", "", searchText, gfn_dateToYmd(new Date())]
+            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
             ,height: '400px'
             , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
             , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
@@ -935,18 +937,19 @@
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         SBUxMethod.openModal('modal-compopup1');
 
+        //type B 형 팝업
+        var addParams = [p_userId];	//bizcompId 의 파라미터에 따라 추가할것
+
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_EMP_WORK'
             ,popupType				: 'B'
-            ,whereClause			: ''
-            ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "기준일", "USERID"]
-            ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "BASE_DATE", "USERID"]
-            ,searchInputValues		: ["", "", "", "", "", p_userId]
-
-            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker", "input"]		//input, datepicker가 있는 경우
-
+            ,whereClause			: addParams
+            ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
+            ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "BASE_DATE"]
+            ,searchInputValues		: ["", "", "", "", gfn_dateToYmd(new Date())]
+            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
             ,height					: '400px'
             ,tableHeader			: ["사원코드", "사원명", "부서코드", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
@@ -962,6 +965,7 @@
                 bandgvwInfo.setCellData(nRow, (nCol-1), data['POSITION_CODE']);
             },
         });
+
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
     }
 
