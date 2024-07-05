@@ -153,3 +153,26 @@ const gfn_excelSerialDateToJSDate = function (_excelSerialDate) {
 
 	return new Date(Math.round((_excelSerialDate - daysBeforeUnixEpoch) * 24 * hour) + 12 * hour);
 }
+
+/**
+ * @name gfn_setDatePickerRange
+ * @description 검색 조건 datePicker n개월 제한
+ * @function
+ * @returns
+ */
+const gfn_setDatePickerRange = function(_fromYmd, _toYmd, _){
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

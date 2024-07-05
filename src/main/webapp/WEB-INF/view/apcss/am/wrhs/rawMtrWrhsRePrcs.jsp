@@ -69,13 +69,21 @@
 					<tbody>
 						<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"></sbux-datepicker>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+										id="srch-dtp-wrhsYmd"
+										name="srch-dtp-wrhsYmd"
+										uitype="range"
+										date-format="yyyy-mm-dd"
+										class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
+										callback-before-open="fn_dateValidate(this)"
+										>
+								</sbux-datepicker>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>
-							</td>
-							<td style="border-right: hidden;"></td>
+<%--							<td class="td_input" style="border-right: hidden;">--%>
+<%--								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>--%>
+<%--							</td>--%>
+<%--							<td colspan="2" style="border-right: hidden;"></td>--%>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -378,6 +386,11 @@
 		SBUxMethod.set("srch-dtp-wrhsYmdFrom", firstYmd);
 		SBUxMethod.set("srch-dtp-wrhsYmdTo", lastYmd);
 		SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdTo', nowYmd);
+		//style="display:flex;gap:0.5vw"
+		$("#srch-dtp-wrhsYmdFrom span.sbux-pik-wrap").css({"display":"flex","gap":"0.5vw"});
+		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdFrom', nowYmd);
+
 
 		let result = await Promise.all([
 				fn_initSBSelect(),
@@ -802,8 +815,8 @@
      */
 	const fn_search = async function() {
 
-		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");    // 입고일자from
-        let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");        // 입고일자to
+		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmd_from");    // 입고일자from
+        let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmd_to");        // 입고일자to
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
 
@@ -1627,6 +1640,14 @@
 		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
 		SBUxMethod.set("lbl-grdInptWght","");
 		SBUxMethod.set("lbl-grdPrcsWght","");
+	}
+
+	const fn_dateValidate = function(_el){
+
+		console.log(_el);
+		console.log($(_el));
+		// console.log(SBUxMethod.get("srch-dtp-wrhsYmdFrom_to"));
+		// console.log(SBUxMethod.get("srch-dtp-wrhsYmdFrom_from"));
 	}
 	
 </script>
