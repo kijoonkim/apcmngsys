@@ -311,7 +311,8 @@ async function cfn_save() {
 async function cfn_search() {
 	await fn_search();
 }
-
+	// 원물입고실적 조회 날짜 제한
+	const lv_ymd_limit = 90;
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 	var jsonComVrty				= [];
 	var jsonComWarehouseSeCd	= [];	// 창고 		warehouseSeCd	검색
@@ -417,14 +418,15 @@ async function cfn_search() {
 	const fn_dtpChange = function(){
 		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
 		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
-		var maxYmd = gfn_addDate(wrhsYmdFrom,90);
+		var maxYmd = gfn_addDate(wrhsYmdFrom,lv_ymd_limit);
 
 		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdTo', maxYmd);
 
 		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
 			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
-			SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
-			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
+			var dt = gfn_addDate(wrhsYmdFrom,30)
+			SBUxMethod.set("srch-dtp-wrhsYmdFrom", wrhsYmdFrom);
+			SBUxMethod.set("srch-dtp-wrhsYmdTo", dt);
 			return;
 		}
 
@@ -807,7 +809,7 @@ async function cfn_search() {
   			});
 
           	//grdRawMtrWrhs.rebuild();
-
+			document.querySelector('#cnt-wrhs').innerText = jsonRawMtrWrhs.length;
           	if (jsonRawMtrWrhs.length > 0) {
           		if(grdRawMtrWrhs.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
           			grdRawMtrWrhs.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
