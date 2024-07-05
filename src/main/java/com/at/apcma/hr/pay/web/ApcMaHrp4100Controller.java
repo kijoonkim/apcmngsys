@@ -60,14 +60,8 @@ public class ApcMaHrp4100Controller extends BaseController {
         }
 
         logger.info("=============selectHrp4100List=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
     // 급여 전표처리기준 저장
@@ -92,14 +86,7 @@ public class ApcMaHrp4100Controller extends BaseController {
         }
 
         logger.info("=============insertHrp4100=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
+        return getSuccessResponseEntityMa(resultMap);
     }
 
 }

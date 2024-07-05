@@ -33,7 +33,7 @@
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                </h3><!-- 국가정보 -->
+                </h3><!-- 급상여 계산(신규) -->
             </div>
         </div>
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -84,7 +84,7 @@
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">급상여구분</th>
-                <td class="td_input" style="border-right: hidden;">
+               <%-- <td class="td_input" style="border-right: hidden;">
                     <sbux-select
                             unselected-text=""
                             uitype="single"
@@ -93,12 +93,22 @@
                             class="form-control input-sm inpt_data_reqed"
                             jsondata-ref="jsonPayCalculateType"
                     />
+                </td>--%>
+                <td class="td_input">
+                    <sbux-select
+                            id="srch-pay_calculate_type"
+                            uitype="single"
+                            jsondata-ref="jsonPayCalculateType"
+                            unselected-text="선택"
+                            class="form-control input-sm"
+                            <%--onchange="fn_payType"--%>>
+                    </sbux-select>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
             </tr>
             <tr>
                 <th scope="row" class="th_bg">지급구분</th>
-                <td class="td_input" style="border-right: hidden;">
+                <%--<td class="td_input" style="border-right: hidden;">
                     <sbux-select
                             unselected-text=""
                             uitype="single"
@@ -108,6 +118,16 @@
                             jsondata-ref="jsonPayType"
                             onchange="fn_payType"
                     />
+                </td>--%>
+                <td class="td_input">
+                    <sbux-select
+                            id="srch-pay_type"
+                            uitype="single"
+                            jsondata-ref="jsonPayType"
+                            unselected-text="선택"
+                            class="form-control input-sm inpt_data_reqed"
+                            onchange="fn_payType">
+                    </sbux-select>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">지급일</th>
@@ -166,7 +186,7 @@
                     <tbody>
                     <tr>
                         <th scope="row" class="th_bg">법인</th>
-                        <td class="td_input" style="border-right: hidden;">
+                       <%-- <td class="td_input" style="border-right: hidden;">
                             <sbux-select
                                     unselected-text=""
                                     uitype="single"
@@ -176,6 +196,15 @@
                                     class="form-control input-sm"
                                     jsondata-ref="jsonCompCode"
                             />
+                        </td>--%>
+                        <td class="td_input">
+                            <sbux-select
+                                    id="COMP_CODE"
+                                    uitype="single"
+                                    jsondata-ref="jsonCompCode"
+                                    unselected-text="선택"
+                                    class="form-control input-sm inpt_data_reqed">
+                            </sbux-select>
                         </td>
                         <td style="border-right: hidden;">&nbsp;</td>
                         <td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -215,7 +244,7 @@
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">급여영역</th>
-                        <td class="td_input" style="border-right: hidden;">
+                        <%--<td class="td_input" style="border-right: hidden;">
                             <sbux-select
                                     unselected-text=""
                                     uitype="single"
@@ -226,12 +255,23 @@
                                     jsondata-ref="jsonPayAreaType"
                                     group-id="group1" required
                             />
+                        </td>--%>
+                        <td class="td_input">
+                            <sbux-select
+                                    id="PAY_AREA_TYPE"
+                                    uitype="single"
+                                    jsondata-ref="jsonPayAreaType"
+                                    unselected-text="선택"
+                                    class="form-control input-sm inpt_data_reqed"
+                                    group-id="group1"
+                                    required>
+                            </sbux-select>
                         </td>
                         <td colspan="9" style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">사업장</th>
-                        <td class="td_input" style="border-right: hidden;">
+                        <%--<td class="td_input" style="border-right: hidden;">
                             <sbux-select
                                     unselected-text=""
                                     uitype="single"
@@ -241,12 +281,21 @@
                                     class="form-control input-sm"
                                     jsondata-ref="jsonSiteCode"
                             />
+                        </td>--%>
+                        <td class="td_input">
+                            <sbux-select
+                                    id="SITE_CODE"
+                                    uitype="single"
+                                    jsondata-ref="jsonSiteCode"
+                                    unselected-text="선택"
+                                    class="form-control input-sm">
+                            </sbux-select>
                         </td>
                         <td colspan="9" style="border-right: hidden;">&nbsp;</td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">급여체계</th>
-                        <td class="td_input" style="border-right: hidden;">
+                        <%--<td class="td_input" style="border-right: hidden;">
                             <sbux-select
                                     unselected-text=""
                                     uitype="single"
@@ -256,6 +305,15 @@
                                     class="form-control input-sm"
                                     jsondata-ref="jsonPayGroupCode"
                             />
+                        </td>--%>
+                        <td class="td_input">
+                            <sbux-select
+                                    id="PAY_GROUP_CODE"
+                                    uitype="single"
+                                    jsondata-ref="jsonPayGroupCode"
+                                    unselected-text="선택"
+                                    class="form-control input-sm">
+                            </sbux-select>
                         </td>
                         <td colspan="9" style="border-right: hidden;">&nbsp;</td>
                     </tr>
@@ -263,11 +321,13 @@
                         <th scope="row" class="th_bg">부서</th>
                         <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
                             <sbux-input
-                                    uitype="hidden"
+                                    <%--uitype="hidden"--%>
                                     uitype="text"
                                     id="DEPT_CODE"
                                     class="form-control input-sm"
                             ></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
                             <sbux-input
                                     uitype="text"
                                     id="DEPT_NAME"
@@ -275,7 +335,7 @@
 
                             ></sbux-input>
                         </td>
-                        <td colspan="9" class="td_input" >
+                        <td colspan="8" class="td_input" >
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
                                     text="찾기" uitype="modal"
@@ -288,11 +348,13 @@
                         <th scope="row" class="th_bg">사원</th>
                         <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
                             <sbux-input
-                                    uitype="hidden"
+                                    <%--uitype="hidden"--%>
                                     uitype="text"
                                     id="EMP_CODE"
                                     class="form-control input-sm"
                             ></sbux-input>
+                        </td>
+                        <td class="td_input" style="border-right: hidden;">
                             <sbux-input
                                     uitype="text"
                                     id="EMP_FULL_NAME"
@@ -300,7 +362,7 @@
 
                             ></sbux-input>
                         </td>
-                        <td class="td_input" >
+                        <td colspan="8" class="td_input" >
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
                                     text="찾기" uitype="modal"
@@ -318,7 +380,7 @@
                                     false-value="N"
                             ></sbux-checkbox>
                         </td>
-                        <td colspan="7"  class="td_input" style="border-right: hidden; display : none;">
+                        <td colspan="6"  class="td_input" style="border-right: hidden; display : none;">
                             <sbux-button
                                     id="btnMultiSelect"
                                     name="btnMultiSelect"
