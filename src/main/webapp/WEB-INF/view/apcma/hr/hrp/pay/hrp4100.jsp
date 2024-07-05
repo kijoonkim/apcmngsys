@@ -537,19 +537,12 @@
                         </td>
                         <th colspan="2" scope="row" class="th_bg">차대구분</th>
                         <td colspan="3" class="td_input">
-                            <%--<sbux-radio id="DEBIT_CREDIT" name="DEBIT_CREDIT" uitype="normal" jsondata-ref="radioJsonData">
-                            </sbux-radio>--%>
-                            <p class="ad_input_row">
-                                <sbux-radio
-                                        id="DEBIT_CREDIT"
-                                        name="DEBIT_CREDIT"
-                                        uitype="normal"
-                                        class="radio_label inpt_data_reqed"
-                                        text-right-padding="10px"
-                                        jsondata-ref="radioJsonData"
-                                        >
-                                </sbux-radio>
-                            </p>
+                            <sbux-radio id="D" name="DEBIT_CREDIT" uitype="normal"
+                                        text="차변" value="D" checked>
+                            </sbux-radio>
+                            <sbux-radio id="C" name="DEBIT_CREDIT" uitype="normal"
+                                        text="대변" value="C">
+                            </sbux-radio>
                         </td>
                     </tr>
                     <tr>
@@ -619,10 +612,10 @@
     var gvwBandgvwInfoGrid; 			// 그리드를 담기위한 객체 선언
     var jsonBandgvwInfoList = []; 	// 그리드의 참조 데이터 주소 선언
 
-    var radioJsonData = [
+    /*var radioJsonData = [
         { text  : "차변"  , value  : "D"  },
         { text  : "대변"  , value  : "C"  }
-    ];
+    ];*/
     var jsonPayGroupCode = []; //급여체계 //srch-pay_group_code  //L_HRI010
     var jsonHrPostingType = []; //전표구분 //srch-hr_posting_type	//L_HRP023
     var jsonHrPayAccountType = []; //급여항목 //HR_PAY_ACCOUNT_TYPE	//L_HRP004_A
@@ -1086,8 +1079,6 @@
         gfnma_uxDataClear('#dataArea2');
 
         SBUxMethod.set("ACCOUNTING_YN", 			"N");
-        SBUxMethod.set("ACCOUNTING_YN", 			"N");
-        SBUxMethod.set("ACCOUNTING_YN", 			"N");
 
         editType = "E";
 
@@ -1099,14 +1090,14 @@
 
         let rowData = gvwBandgvwInfoGrid.getRowData(nRow);
 
+        //라디오버튼 초기화시 리플레시 해줘야함
+        SBUxMethod.refresh('DEBIT_CREDIT')
+
+
         gfnma_uxDataSet('#dataArea2', rowData);
 
         gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.POSTING_SUMMARY_TYPE);
         gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM', 'SUB_CODE', 'CODE_NAME', rowData.ACCOUNT_PAY_ITEM);
-        SBUxMethod.set("DEBIT_CREDIT", rowData.DEBIT_CREDIT);
-        /*SBUxMethod.set('DEBIT_CREDIT', 'D')*/
-        /*$('input:radio[name=DEBIT_CREDIT]:input[value="D"]').attr("checked", true);*/
-       /* $('#DEBIT_CREDIT1').attr("checked", true);*/
 
     }
 
@@ -1256,7 +1247,6 @@
         let DEBIT_CREDIT = gfnma_nvl(SBUxMethod.get("DEBIT_CREDIT"));   //차대구분
         let ACCOUNT_PAY_ITEM	= gfnma_multiSelectGet('#ACCOUNT_PAY_ITEM');//전표급여항목
 
-
         let ACCOUNT_PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("ACCOUNT_PAY_ITEM_NAME"));   //급여항목명
         let PAY_ITEM_UNIT_YN = gfnma_nvl(SBUxMethod.get("PAY_ITEM_UNIT_YN"));   //급여항목단위여부
 
@@ -1307,7 +1297,7 @@
             ,V_P_POSTING_RESULT_ADJUST_YN : POSTING_RESULT_ADJUST_YN.POSTING_RESULT_ADJUST_YN
             ,V_P_CS_CODE                  : CS_CODE
             ,V_P_ACCOUNTING_YN            : ACCOUNTING_YN.ACCOUNTING_YN
-            ,V_P_DEBIT_CREDIT             : 'D'
+            ,V_P_DEBIT_CREDIT             : DEBIT_CREDIT
             ,V_P_AP_ACCOUNT_CODE          : AP_ACCOUNT_CODE
             ,V_P_AR_ACCOUNT_CODE          : AR_ACCOUNT_CODE
             ,V_P_PAY_ITEM_UNIT_YN         : PAY_ITEM_UNIT_YN.PAY_ITEM_UNIT_YN
