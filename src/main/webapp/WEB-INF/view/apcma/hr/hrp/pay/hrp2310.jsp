@@ -47,9 +47,8 @@
             </div>
         </div>
 
-
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table class="table table-bordered tbl_fixed">
+        <table id="dataArea1" class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
                 <col style="width: 7%">
@@ -90,6 +89,7 @@
                             name="srch-pay_area_type"
                             class="form-control input-sm inpt_data_reqed"
                             jsondata-ref="jsonPayAreaType"
+                            onchange="fn_payDate"
                     />
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -116,6 +116,7 @@
                             name="srch-pay_type"
                             class="form-control input-sm inpt_data_reqed"
                             jsondata-ref="jsonPayType"
+                            onchange="fn_payDate"
                     />
                 </td>
                 <th scope="row" class="th_bg">지급일자</th>
@@ -192,7 +193,7 @@
                         </colgroup>
                         <tr>
                             <th scope="row" class="th_bg">급여체계</th>
-                            <td class="td_input" style="border-right: hidden;">
+                          <%--  <td class="td_input" style="border-right: hidden;">
                                 <sbux-select
                                         unselected-text=""
                                         uitype="single"
@@ -203,8 +204,18 @@
                                         jsondata-ref="jsonPayGroupCode"
                                         readonly
                                 />
+                            </td>--%>
+                            <td colspan="2" class="td_input">
+                                <sbux-select
+                                        id="PAY_GROUP_CODE"
+                                        uitype="single"
+                                        jsondata-ref="jsonPayGroupCode"
+                                        unselected-text="선택"
+                                        class="form-control input-sm"
+                                        readonly>
+                                </sbux-select>
                             </td>
-                            <td style="border-right: hidden;"></td>
+                            <%--<td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">부서</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-input
@@ -236,10 +247,10 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">사번</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-input uitype="text" id="EMP_CODE" class="form-control input-sm" readonly></sbux-input>
                             </td>
-                            <td style="border-right: hidden;"></td>
+                            <%--<td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">이름</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-input uitype="text" id="EMP_NAME" class="form-control input-sm" readonly></sbux-input>
@@ -249,7 +260,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">직급</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <%--<td class="td_input" style="border-right: hidden;">
                                 <sbux-select
                                         unselected-text=""
                                         uitype="single"
@@ -260,10 +271,20 @@
                                         jsondata-ref="jsonJobRank"
                                         readonly
                                 />
+                            </td>--%>
+                            <td colspan="2" class="td_input">
+                                <sbux-select
+                                        id="JOB_RANK"
+                                        uitype="single"
+                                        jsondata-ref="jsonJobRank"
+                                        unselected-text="선택"
+                                        class="form-control input-sm"
+                                        readonly>
+                                </sbux-select>
                             </td>
-                            <td style="border-right: hidden;"></td>
+                           <%-- <td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">직책</th>
-                            <td class="td_input" style="border-right: hidden;">
+                           <%-- <td class="td_input" style="border-right: hidden;">
                                 <sbux-select
                                         unselected-text=""
                                         uitype="single"
@@ -274,34 +295,44 @@
                                         jsondata-ref="jsonDutyCode"
                                         readonly
                                 />
+                            </td>--%>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="DUTY_CODE"
+                                        uitype="single"
+                                        jsondata-ref="jsonDutyCode"
+                                        unselected-text="선택"
+                                        class="form-control input-sm"
+                                        readonly>
+                                </sbux-select>
                             </td>
                             <td colspan="2" style="border-right: hidden;"></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">입사일</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
                                         id="ENTER_DATE"
                                         name="ENTER_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="form-control input-sm input-sm-ast"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
-                            <td style="border-right: hidden;"></td>
+                           <%-- <td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">퇴사일</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
                                         id="RETIRE_DATE"
                                         name="RETIRE_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="form-control input-sm input-sm-ast"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
-                            <td colspan="2" style="border-right: hidden;"></td>
+                            <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">퇴직자 정산세액 반영</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-button
@@ -330,29 +361,29 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">수습만료일</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
                                         id="TEMP_END_DATE"
                                         name="TEMP_END_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="form-control input-sm input-sm-ast"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
-                            <td style="border-right: hidden;"></td>
+                          <%--  <td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">상여수습종료일</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
                                         id="BONUS_APPLY_START_DATE"
                                         name="BONUS_APPLY_START_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="form-control input-sm input-sm-ast"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
-                            <td colspan="2" style="border-right: hidden;"></td>
+                            <td style="border-right: hidden;"></td>
                         </tr>
                     </table>
                 </div>
@@ -385,7 +416,7 @@
                                         name="PAY_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="form-control input-sm input-sm-ast"
                                         readonly>
                                 </sbux-datepicker>
                             </td>
@@ -719,6 +750,13 @@
         fn_search();
     }
 
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
+    }
+
     /*function cfn_add(){
 
     }
@@ -944,6 +982,22 @@
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사번
         let EMP_NAME = gfnma_nvl(SBUxMethod.get("srch-emp_name")); //이름
 
+        if (!PAY_AREA_TYPE) {
+            gfn_comAlert("W0002", "급여영역");
+            return;
+        }
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일자");
+            return;
+        }
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -966,7 +1020,6 @@
             ,V_P_PC: ''
         };
 
-        console.log('-----------------123 : ', paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2310List.do", {
             getType: 'json',
@@ -976,7 +1029,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log("----------------------------------------------",data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1077,7 +1129,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log("----------------------2------------------------", data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -1445,8 +1496,6 @@
             return;
         }
 
-        console.log("+++++++++++++++++ paramObj +++++++++++++++++++++++", paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310BAT.do", {
             getType: 'json',
             workType: 'U',
@@ -1460,9 +1509,10 @@
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
                     alert(data.resultMessage);
+                }else{
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_view();
                 }
-
-                fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -1607,8 +1657,6 @@
 
             let alldata = gvwListGrid.getGridDataAll();
 
-            console.log('-------alldata-------', alldata);
-
             alldata.forEach((item, index) => {
 
                 if (item.CHK_YN == 'Y'){
@@ -1621,8 +1669,6 @@
             }
         }
 
-        console.log('-------STREMP_CODE-------', STREMP_CODE);
-
         let SITE_CODE;
         let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); //귀속년월
         let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
@@ -1631,16 +1677,12 @@
         let PAY_CASH_AMT = gfnma_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현급지급액
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
 
-
         let rowVal = gvwListGrid.getRow();
-
-        console.log('-------rowVal-------', rowVal);
 
         if (rowVal == -1) {
             SITE_CODE = '';
         }else{
             let rowData = gvwListGrid.getRowData(rowVal);
-            console.log('-------rowData-------', rowData);
             SITE_CODE = rowData.SITE_CODE;
         }
 
@@ -1693,8 +1735,6 @@
             return;
         }
 
-        console.log("+++++++++++++++++ paramObj fn_btnConfirm+++++++++++++++++++++++", paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310BAT.do", {
             getType: 'json',
             workType: 'CONFIRM',
@@ -1733,8 +1773,6 @@
         if (_.isEmpty(paramObj)){
             return;
         }
-
-        console.log("+++++++++++++++++ paramObj fn_btnCancel+++++++++++++++++++++++", paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2310BAT.do", {
             getType: 'json',

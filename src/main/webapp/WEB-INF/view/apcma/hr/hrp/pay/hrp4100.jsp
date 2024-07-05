@@ -1007,9 +1007,6 @@
 
         const data = await postJsonPromise;
 
-
-        console.log('---------------------------------- :  ',data);
-
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -1102,9 +1099,6 @@
 
         let rowData = gvwBandgvwInfoGrid.getRowData(nRow);
 
-        console.log('---------------rowData-----------------', rowData);
-
-
         gfnma_uxDataSet('#dataArea2', rowData);
 
         gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.POSTING_SUMMARY_TYPE);
@@ -1129,8 +1123,6 @@
                     return;
                 }
 
-                console.log("+++++++++++++++++ paramObj 저장+++++++++++++++++++++++", paramObj);
-
                 const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                     getType: 'json',
                     workType: '',
@@ -1142,11 +1134,14 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
+
                         if (data.resultMessage) {
                             alert(data.resultMessage);
+                        }else{
+                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                            fn_search('save');
                         }
 
-                        fn_search('save');
                     } else {
                         alert(data.resultMessage);
                     }
@@ -1172,8 +1167,6 @@
                     return;
                 }
 
-                console.log("+++++++++++++++++ paramObj 수정 저장+++++++++++++++++++++++", paramObj);
-
                 const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                     getType: 'json',
                     workType: '',
@@ -1187,8 +1180,11 @@
                     if (_.isEqual("S", data.resultStatus)) {
                         if (data.resultMessage) {
                             alert(data.resultMessage);
+                        }else{
+                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                            fn_search('save');
                         }
-                        fn_search('save');
+
                     } else {
                         alert(data.resultMessage);
                     }
@@ -1355,8 +1351,6 @@
                 return;
             }
 
-            console.log("+++++++++++++++++ paramObj fn_del+++++++++++++++++++++++", paramObj);
-
             const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4100.do", {
                 getType: 'json',
                 workType: 'D',
@@ -1370,9 +1364,10 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search('search');
                     }
-
-                    fn_search('search');
 
                 } else {
                     alert(data.resultMessage);

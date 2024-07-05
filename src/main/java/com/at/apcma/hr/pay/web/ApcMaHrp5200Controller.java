@@ -60,14 +60,8 @@ public class ApcMaHrp5200Controller extends BaseController {
         }
 
         logger.info("=============selectHrp5200List=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
     // 국민연금 변동항목반영 저장
@@ -92,14 +86,8 @@ public class ApcMaHrp5200Controller extends BaseController {
         }
 
         logger.info("=============insertHrp5200S1=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 
     // 국민연금 내역 관리 저장 프로시저
@@ -124,14 +112,8 @@ public class ApcMaHrp5200Controller extends BaseController {
         }
 
         logger.info("=============insertHrp5200S=====end========");
-        if (resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("v_errorStr")).orElse("").toString();
+        return getSuccessResponseEntityMa(resultMap);
 
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
     }
 }
 

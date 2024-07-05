@@ -255,7 +255,7 @@
                                             class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
-                            <th scope="row" class="th_bg">지급구분</th>
+                            <th scope="row" class="th_bg">진행상태</th>
                             <td class="td_input">
                                 <%--<sbux-select
                                         id="POSTING_STATUS"
@@ -714,9 +714,6 @@
 
             const data = await postJsonPromise;
 
-
-            console.log('---------------------------------- :  ',data);
-
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -858,8 +855,6 @@
             , V_P_PC: ''
         };
 
-        console.log('----------------paramObj------------------ :  ',paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp4200List.do", {
             getType: 'json',
             workType: 'LIST',
@@ -868,9 +863,6 @@
         });
 
         const data = await postJsonPromise;
-
-
-        console.log('---------------------------------- :  ',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -930,8 +922,6 @@
                     return;
                 }
 
-                console.log("+++++++++++++++++ paramObj 저장+++++++++++++++++++++++", paramObj);
-
                 const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S2.do", {
                     getType: 'json',
                     workType: 'U',
@@ -940,8 +930,6 @@
                 });
 
                 const data = await postJsonPromise;
-
-                console.log("+++++++++++++++++ data 저장+++++++++++++++++++++++", data);
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
@@ -971,8 +959,6 @@
                     return;
                 }
 
-                console.log("+++++++++++++++++ paramObj 저장+++++++++++++++++++++++", paramObj);
-
                 const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S2.do", {
                     getType: 'json',
                     workType: 'U',
@@ -981,8 +967,6 @@
                 });
 
                 const data = await postJsonPromise;
-
-                console.log("+++++++++++++++++ data 저장+++++++++++++++++++++++", data);
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
@@ -1078,32 +1062,36 @@
     //급상여 회계처리 라인 그리드 저장,수정
     const fn_saveS3 = async function () {
 
-        var paramObj = {
-            P_HRP4200_S3: await getParamFormS2()
-        }
+        listData = [];
+        listData =  await getParamFormS2();
 
-        console.log('---------P_HRP4200_S3- paramObj----------------', paramObj);
-        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S2.do",paramObj );
+        if (listData.length > 0) {
 
-        const data = await postJsonPromise;
+            const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S3.do", {listData: listData});
 
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }else{
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search();
+                    }
+
+                } else {
                     alert(data.resultMessage);
                 }
-                fn_search();
-            } else {
-                alert(data.resultMessage);
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
 
     }
 
@@ -1198,42 +1186,34 @@
             return;
         }
 
+        listData = [];
+        listData = await getParamFormBatch('BATCH');
 
-        var paramObj = {
-            P_HRP4200_S: await getParamFormBatch('BATCH')
-        }
+        if (listData.length > 0) {
+
+            const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S.do", {listData: listData});
+
+            const data = await postJsonPromise;
 
 
-        if (_.isEmpty(paramObj)) {
-            return;
-        }
-
-        console.log("+++++++++++++++++ paramObj BATCH 저장+++++++++++++++++++++++", paramObj);
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S.do", paramObj);
-
-        const data = await postJsonPromise;
-
-        console.log("+++++++++++++++++ data BATCH 저장+++++++++++++++++++++++", data);
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }
+                    /*fn_saveS3();*/
+                } else {
                     alert(data.resultMessage);
                 }
-                /*fn_saveS3();*/
-            } else {
-                alert(data.resultMessage);
-            }
-        } catch (e) {
+            } catch (e) {
 
-            if (!(e instanceof Error)) {
-                e = new Error(e);
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001", e.message);	//	E0001	오류가 발생하였습니다.
             }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001", e.message);	//	E0001	오류가 발생하였습니다.
         }
-
     }
 
     const getParamFormBatch = async function(type){
@@ -1316,39 +1296,31 @@
             return;
         }*/
 
+        listData = [];
+        listData = await getParamFormBatch('CANCEL');
 
-        var paramObj = {
-            P_HRP4200_S: await getParamFormBatch('CANCEL')
-        }
+        if (listData.length > 0) {
 
+            const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S.do", {listData: listData});
 
-        if (_.isEmpty(paramObj)) {
-            return;
-        }
+            const data = await postJsonPromise;
 
-        console.log("+++++++++++++++++ paramObj BATCH 저장+++++++++++++++++++++++", paramObj);
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S.do", paramObj);
-
-        const data = await postJsonPromise;
-
-        console.log("+++++++++++++++++ data BATCH 저장+++++++++++++++++++++++", data);
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }
+                    /*fn_saveS3();*/
+                } else {
                     alert(data.resultMessage);
                 }
-                /*fn_saveS3();*/
-            } else {
-                alert(data.resultMessage);
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 
@@ -1416,7 +1388,6 @@
             ,V_P_USERID			: ''
             ,V_P_PC				: ''
         }
-        console.log("+++++++++++++++++ Posting 저장+++++++++++++++++++++++", paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp4200S1.do", {
             getType: 'json',
@@ -1426,8 +1397,6 @@
         });
 
         const data = await postJsonPromise;
-
-        console.log("+++++++++++++++++ Posting 저장+++++++++++++++++++++++", data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
