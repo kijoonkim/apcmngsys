@@ -253,7 +253,9 @@
 
     // 저장
     function cfn_save() {
-        fn_save();
+		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+	        fn_save();
+		}
     }
 
     const fn_save = async function() {

@@ -645,10 +645,12 @@
 		$("#PROJECT_CODE" ).prop('readonly', false);
 	}
 	
-	// 그룹코드 내역, 세부코드 정보 저장
-	function cfn_save() {
-		fn_save();
-	}
+    // 저장
+    function cfn_save() {
+		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+	        fn_save();
+		}
+    }
 	
 	// 마스터 그리드 삭제
 	function cfn_del() {
@@ -1060,7 +1062,7 @@
     const fn_delete = async function(){
 
   	    var paramObj = {
-  	    	   V_P_DEBUG_MODE_YN       : ""
+	    	   V_P_DEBUG_MODE_YN       : ""
     		   ,V_P_LANG_ID            : ""
     		   ,V_P_COMP_CODE          : gv_ma_selectedApcCd
     		   ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
@@ -1093,16 +1095,16 @@
     		   ,V_P_ATTR8              : gfnma_nvl(SBUxMethod.get("ATTR8"))
     		   ,V_P_ATTR9              : gfnma_nvl(SBUxMethod.get("ATTR9"))
     		   ,V_P_ATTR10             : gfnma_nvl(SBUxMethod.get("ATTR10"))
-    		   ,V_P_CODE_SEG01         : gfnma_nvl(SBUxMethod.get("CODE_SEG01"))
-    		   ,V_P_CODE_SEG02         : gfnma_nvl(SBUxMethod.get("CODE_SEG02"))
-    		   ,V_P_CODE_SEG03         : gfnma_nvl(SBUxMethod.get("CODE_SEG03"))
-    		   ,V_P_CODE_SEG04         : gfnma_nvl(SBUxMethod.get("CODE_SEG04"))
-    		   ,V_P_CODE_SEG05         : gfnma_nvl(SBUxMethod.get("CODE_SEG05"))
-    		   ,V_P_CODE_SEG06         : gfnma_nvl(SBUxMethod.get("CODE_SEG06"))
-    		   ,V_P_CODE_SEG07         : gfnma_nvl(SBUxMethod.get("CODE_SEG07"))
-    		   ,V_P_CODE_SEG08         : gfnma_nvl(SBUxMethod.get("CODE_SEG08"))
-    		   ,V_P_CODE_SEG09         : gfnma_nvl(SBUxMethod.get("CODE_SEG09"))
-    		   ,V_P_CODE_SEG10         : gfnma_nvl(SBUxMethod.get("CODE_SEG10"))
+    		   ,V_P_CODE_SEG01         : gfnma_multiSelectGet('#CODE_SEG01')
+    		   ,V_P_CODE_SEG02         : gfnma_multiSelectGet("#CODE_SEG02")
+    		   ,V_P_CODE_SEG03         : gfnma_multiSelectGet("#CODE_SEG03")
+    		   ,V_P_CODE_SEG04         : gfnma_multiSelectGet("#CODE_SEG04")
+    		   ,V_P_CODE_SEG05         : gfnma_multiSelectGet("#CODE_SEG05")
+    		   ,V_P_CODE_SEG06         : gfnma_multiSelectGet("#CODE_SEG06")
+    		   ,V_P_CODE_SEG07         : gfnma_multiSelectGet("#CODE_SEG07")
+    		   ,V_P_CODE_SEG08         : gfnma_multiSelectGet("#CODE_SEG08")
+    		   ,V_P_CODE_SEG09         : gfnma_multiSelectGet("#CODE_SEG09")
+    		   ,V_P_CODE_SEG10         : gfnma_multiSelectGet("#CODE_SEG10")
     		   ,V_P_CIP_ACCOUNT_CODE   : gfnma_nvl(SBUxMethod.get("CIP_ACCOUNT_CODE"))
     		   ,V_P_ASSET_ACCOUNT_CODE : gfnma_nvl(SBUxMethod.get("ASSET_ACCOUNT_CODE"))
     		   ,V_P_FORM_ID            : p_formId
