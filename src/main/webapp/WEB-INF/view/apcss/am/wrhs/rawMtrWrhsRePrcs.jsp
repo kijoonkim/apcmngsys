@@ -69,21 +69,13 @@
 					<tbody>
 						<tr>
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-										id="srch-dtp-wrhsYmd"
-										name="srch-dtp-wrhsYmd"
-										uitype="range"
-										date-format="yyyy-mm-dd"
-										class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
-										callback-before-open="fn_dateValidate(this)"
-										>
-								</sbux-datepicker>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(this)"></sbux-datepicker>
 							</td>
-<%--							<td class="td_input" style="border-right: hidden;">--%>
-<%--								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>--%>
-<%--							</td>--%>
-<%--							<td colspan="2" style="border-right: hidden;"></td>--%>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(this)"></sbux-datepicker>
+							</td>
+							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
@@ -318,7 +310,7 @@
 		await fn_reset();
 	}
 	async function cfn_add() {
-	
+
 	}
 	async function cfn_del() {
 
@@ -385,14 +377,9 @@
 		let lastYmd = gfn_dateToYmd(nowDate);
 		let nowYmd = gfn_dateToYmd(nowDate);
 
-		SBUxMethod.set("srch-dtp-wrhsYmdFrom", firstYmd);
-		SBUxMethod.set("srch-dtp-wrhsYmdTo", lastYmd);
-		SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
-		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdTo', nowYmd);
-		//style="display:flex;gap:0.5vw"
-		$("#srch-dtp-wrhsYmdFrom span.sbux-pik-wrap").css({"display":"flex","gap":"0.5vw"});
-		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdFrom', nowYmd);
-
+		// SBUxMethod.set("srch-dtp-wrhsYmdFrom", firstYmd);
+		// SBUxMethod.set("srch-dtp-wrhsYmdTo", lastYmd);
+		// SBUxMethod.set("dtl-dtp-inptYmd", nowYmd);
 
 		let result = await Promise.all([
 				fn_initSBSelect(),
@@ -433,6 +420,8 @@
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.frozencols = 2;
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
 		SBGridProperties.columns = [
 			{
 				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
@@ -744,7 +733,7 @@
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
 	        }
-  			
+
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -828,8 +817,8 @@
      */
 	const fn_search = async function() {
 
-		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmd_from");    // 입고일자from
-        let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmd_to");        // 입고일자to
+		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");    // 입고일자from
+        let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");        // 입고일자to
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
 
@@ -1093,7 +1082,7 @@
      * @description 입고일자 from to validation
      * @function
      */
-	const fn_dtpChange = function(){
+	const fn_dtpChange = function(_targetId){
  		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
  		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
  		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
@@ -1102,6 +1091,7 @@
  			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
+		 gfn_monthValidation(_targetId);
  	}
 
 
@@ -1174,15 +1164,15 @@
 	const fn_setValue = function(){
     	let nRow = grdRawMtrInvntr.getRow();
     	let nCol = grdRawMtrInvntr.getCol();
-    	
+
     	let checkboxChecked = grdRawMtrInvntr.getCheckedRows(0, true);
     	const allCheckbox = grdRawMtrInvntr.getGridDataAll();
     	if(checkboxChecked.length == allCheckbox.length){
     		allCheckBox.checked = true;
     	}
-    	
+
 		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
-		
+
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
 				const rowData = grdRawMtrInvntr.getRowData(nRow, false);
@@ -1210,7 +1200,7 @@
     	let nRow = grdRawMtrInvntr.getRow();
     	let nCol = grdRawMtrInvntr.getCol();
     	const allCheckBox = document.querySelector('#allCheckBox');
-    	
+
 		const usrAttr = grdRawMtrInvntr.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			if (nCol == grdRawMtrInvntr.getColRef("checkedYn")) {
@@ -1472,7 +1462,7 @@
 			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
 			fn_setPrdcrForm(prdcr);
-			
+
 		}
 	}
 
@@ -1625,7 +1615,7 @@
 
 		if(!gfn_isEmpty(vrtyCd)){
 			const itemCd = vrtyCd.substring(0,4);
-			
+
 			const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
 			if (itemCd != prvItemCd) {
 				SBUxMethod.set("srch-slt-itemCd", itemCd);
@@ -1654,7 +1644,7 @@
         }
     	grid.clickCell(getRow, getCol);
     }
-    
+
 	const fn_reset = async function(){
  		// 검색조건 초기화
  		SBUxMethod.set("srch-dtp-wrhsYmdFrom",gfn_dateFirstYmd(new Date()));
@@ -1665,20 +1655,29 @@
  		SBUxMethod.set("srch-inp-prdcrNm","");
 		SBUxMethod.set("srch-inp-prdcrCd","");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
-		
+
 		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
 		SBUxMethod.set("lbl-grdInptWght","");
 		SBUxMethod.set("lbl-grdPrcsWght","");
 	}
 
-	const fn_dateValidate = function(_el){
+	const objMenuList1 = {
+	        "excelDwnld": {
+	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+	            "accesskey": "e",					//단축키
+	            "callback": fn_excelDwnld1,			//콜백함수명
+	        }
 
-		console.log(_el);
-		console.log($(_el));
-		// console.log(SBUxMethod.get("srch-dtp-wrhsYmdFrom_to"));
-		// console.log(SBUxMethod.get("srch-dtp-wrhsYmdFrom_from"));
-	}
-	
+	    };
+
+	function fn_excelDwnld1() {
+
+
+		grdRawMtrInvntr.exportLocalExcel("원물재고내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+
+
+    }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
