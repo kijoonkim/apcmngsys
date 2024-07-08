@@ -1,15 +1,15 @@
 <%
 /**
- * @Class Name 		: com3300.jsp
+ * @Class Name 		: fig3300.jsp
  * @Description 	: 전자세금계산서 관리(매출) 화면
  * @author 			: 인텔릭아이앤에스
- * @since 			: 2024.05.22
+ * @since 			: 2024.07.05
  * @version 		: 1.0
  * @Modification Information
  * @
  * @ 수정일       	수정자      수정내용
  * @ ----------		----------	---------------------------
- * @ 2024.05.22   	장성주		최초 생성
+ * @ 2024.07.05   	이경한		최초 생성
  * @see
  *
  */
@@ -35,14 +35,13 @@
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                     </h3><!-- 전자세금계산서 관리(매출) -->
                 </div>
-                <div style="margin-left: auto;">
-                    <sbux-button id="btnCreate" name="btnCreate" 	uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-                    <sbux-button id="btnSave" 	name="btnSave" 		uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-                    <!-- 
-                    <sbux-button id="btnDelete" name="btnDelete" 	uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-                     -->
-                    <sbux-button id="btnSearch" name="btnSearch" 	uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
-                </div>
+				<div style="margin-left: auto;">
+					<sbux-button id="btnXml" name="btnXml" uitype="normal" class="btn btn-sm btn-outline-danger" text="파일등록(XML)" onclick="fn_uploadXml"></sbux-button>
+					<sbux-button id="btnDisconnection" name="btnDisconnection" uitype="normal" class="btn btn-sm btn-outline-danger" text="전표연결 끊기" onclick="fn_disconnection"></sbux-button>
+					<sbux-button id="btnImport" name="btnImport" uitype="normal" class="btn btn-sm btn-outline-danger" text="불러오기" onclick="fn_import"></sbux-button>
+					<sbux-button id="btnExcelUpload" name="btnExcelUpload" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자세금계산서" onclick="fn_excelUpload"></sbux-button>
+					<sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자계산서" onclick="fn_excelUpload2"></sbux-button>
+				</div>
             </div>
             <div class="box-body">
 
@@ -53,129 +52,145 @@
                 <table class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
-
-                        <col style="width: 7%">
-                        <col style="width: 6%">
-                        <col style="width: 6%">
-                        <col style="width: 3%">
+                        <col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 1%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 10%">
                     </colgroup>
                     <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">조회구분</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
+						<tr>
+							<th scope="row" class="th_bg">사업단위</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<div class="dropdown">
+									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<font>선택</font>
+										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+									</div>
+								</div>
+							</td>
+							<th scope="row" class="th_bg">조회구분</th>
+							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-RidGubun1" name="rdo-RidGubun" uitype="normal" value="1" class="radio_label" checked></sbux-radio>
-									<label class="radio_label" for="rdo-RidGubun1">전체</label>
+									<sbux-radio id="rdo_norm1" name="SRCH_RIDGUBUN" uitype="normal" text="전체" value="99"></sbux-radio>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-RidGubun2" name="rdo-RidGubun" uitype="normal" value="2" class="radio_label"></sbux-radio>
-									<label class="radio_label" for="rdo-RidGubun2">세금계산서</label>
+									<sbux-radio id="rdo_norm2" name="SRCH_RIDGUBUN" uitype="normal" text="세금계산서" value="20"></sbux-radio>
 								</p>
 								<p class="ad_input_row">
-									<sbux-radio id="rdo-RidGubun3" name="rdo-RidGubun" uitype="normal" value="3" class="radio_label"></sbux-radio>
-									<label class="radio_label" for="rdo-RidGubun3">계산서</label>
+									<sbux-radio id="rdo_norm3" name="SRCH_RIDGUBUN" uitype="normal" text="계산서" value="10"></sbux-radio>
 								</p>
-                            </td>
-                            
-                            <th scope="row" class="th_bg">년월</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-								<sbux-datepicker id="srch_riod_yyyymm_p" name="picker_popup" uitype="popup" datepicker-mode="month" date-format="yyyy-mm"></sbux-datepicker>                            
-                            </td>
-                            
-                            <th scope="row" class="th_bg">작성일자</th>
-                            <td colspan="3" class="td_input" >
-								<sbux-datepicker id="srch_ymddate" name="picker_range" uitype="range" style="width:120px"></sbux-datepicker>                            
-                            </td>
-                            
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">상호</th>
-                            <td colspan="3" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="srch_txtcs_name" uitype="text" style="width:200px" placeholder="" class="form-control input-sm"></sbux-input>
-                            </td>
-                            
-                            <th scope="row" class="th_bg">담당자</th>
-                            <td class="td_input" style="border-right:hidden;">
-   								<sbux-input
-									uitype="text"
-									id="SRCH_TXTEMP_NAME"
-									class="form-control input-sm"									
-   								></sbux-input>
-   								<sbux-input
-									uitype="hidden"
-									id="SRCH_TXTEMP_CODE"
-									class="form-control input-sm"									
-   								></sbux-input>
-                            </td>
-                            <td colspan="2" class="td_input" >
-								<sbux-button
-									id="SRCH_EMP_BTN"
-									class="btn btn-xs btn-outline-dark"
-									text="찾기" uitype="modal"
-									target-id="modal-compopup1"
-								></sbux-button>
-                            </td>
-                            
-                        </tr>
+								<sbux-input id="SRCH_AMT" name="SRCH_AMT" uitype="hidden"></sbux-input>
+								<sbux-input id="SRCH_APPROVAL_NO" name="SRCH_APPROVAL_NO" uitype="hidden"></sbux-input>
+								<sbux-input id="SRCH_ROW_CNT" name="SRCH_ROW_CNT" uitype="hidden"></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row" class="th_bg">년월</th>
+							<td colspan="2" class="td_input" style="border-right:hidden;">
+								<sbux-datepicker
+										uitype="popup"
+										id="SRCH_PERIOD_YYYYMM"
+										name="SRCH_PERIOD_YYYYMM"
+										date-format="yyyy-mm"
+										datepicker-mode="month"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										style="width:100%;"
+								/>
+							</td>
+							<th scope="row" class="th_bg">사업자번호</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input id="SRCH_CS_BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+							</td>
+						</tr>
+						 <tr>
+							<th scope="row" class="th_bg">작성일자</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-datepicker
+										uitype="popup"
+										id="SRCH_DATE_FR"
+										name="SRCH_DATE_FR"
+										date-format="yyyy-mm-dd"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										style="width:100%;"
+								/>
+							</td>
+							<td class="td_input" style="border-right:hidden;">
+								<span> ~ </span>
+							</td>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-datepicker
+										uitype="popup"
+										id="SRCH_DATE_TO"
+										name="SRCH_DATE_TO"
+										date-format="yyyy-mm-dd"
+										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+										style="width:100%;"
+								/>
+							</td>
+							<th scope="row" class="th_bg">상호</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input id="SRCH_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+							</td>
+							 <th scope="row" class="th_bg">담당자</th>
+							 <td class="td_input" style="border-right:hidden;">
+								 <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+							 </td>
+							 <td class="td_input" style="border-right:hidden;">
+								 <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+							 </td>
+							 <td class="td_input" style="border-right:hidden;">
+								 <sbux-button
+										 class="btn btn-xs btn-outline-dark"
+										 text="찾기" uitype="modal"
+										 target-id="modal-compopup1"
+										 onclick="fn_findEmpCode"
+								 ></sbux-button>
+							 </td>
+						</tr>
                     </tbody>
                 </table>
-                
-				<!-- 1번째 그리드-->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li><span>조회결과</span></li>
-					</ul>
-					<div class="ad_tbl_toplist">
-						<span style="padding-right:10px;">제외사유</span>
-						<sbux-button
-									id="btnUld"
-									name="btnUld"
-									uitype="normal"
-									text="제외처리 취소"
-									class="btn btn-sm btn-outline-danger"
-									onclick="fn_uld"
-									style="float: right;"
-								></sbux-button>
-						<sbux-button
-									id="btnDelPrdcrList"
-									name="btnDelPrdcrList"
-									uitype="normal"
-									text="제외처리"
-									class="btn btn-sm btn-outline-danger"
-									onclick="fn_delPrdcrList"
-									style="float: right;"
-						>
-						</sbux-button>
-                        <sbux-input id="srch_txtcs_name" uitype="text" style="width:200px;float:right;" placeholder="" class="form-control input-sm" ></sbux-input>
-                        <sbux-select id="REGION_CODE" uitype="single" jsondata-ref="jsonRegionCode" style="width:200px;float:right;" unselected-text="선택" class="form-control input-sm" ></sbux-select>
+				<div class="row">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span>조회 결과</span>
+							</li>
+						</ul>
+						<div class="ad_tbl_toplist">
+							<sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="제외처리 취소" class="btn btn-sm btn-outline-danger" onclick="fn_cancel" style="float: right;"></sbux-button>
+							<sbux-button id="btnExclusion" name="btnExclusion" uitype="normal" text="제외처리" class="btn btn-sm btn-outline-danger" onclick="fn_exclusion" style="float: right;"></sbux-button>
+							<sbux-input id="EXCEPT_REASON" uitype="text" placeholder="" class="form-control input-sm" style="float: right;"></sbux-input>
+							<div class="dropdown" style="float: right;">
+								<button style="width:10%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCEPT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<font>선택</font>
+									<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+								</button>
+								<div class="dropdown-menu" aria-labelledby="EXCEPT_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+								</div>
+							</div>
+							<span style="float: right;">제외사유</span>
+						</div>
+					</div>
+					<div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
+						<div id="sb-area-gvwList" style="height:350px;"></div>
+					</div>
+					<div class="ad_tbl_top2">
+						<ul class="ad_tbl_count">
+							<li><span>품목</span></li>
+						</ul>
+					</div>
+					<div>
+						<div id="sb-area-gvwItem" style="height:350px;"></div>
 					</div>
 				</div>
-				
-				<div>
-					<div id="sb-area-grdComMsg" style="height:258px;width:100%"></div>
-				</div>
-				
-				<div class="ad_tbl_top2">
-					<ul class="ad_tbl_count">
-						<li>
-							<span>품묵</span>
-						</li>
-					</ul>
-				</div>
-				                
-				<div>
-					<div id="sb-area-grdComItem" style="height:258px;width:100%"></div>
-				</div>
-				
             </div>
         </div>
     </section>
@@ -187,221 +202,796 @@
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
     </div>
-    
 </body>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	// ${comMenuVO.menuId}
-	
 	// common ---------------------------------------------------
-	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
-	var p_menuId 	= '${comMenuVO.menuId}';
+	var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
+	var p_menuId = '${comMenuVO.menuId}';
+	var p_fiOrgCode = "${loginVO.fiOrgCode}";
 	//-----------------------------------------------------------
 
 	var editType			= "N";
-	
-	var jsonRegionCode		= [];	// 지역
-	var jsonCurrenvyCode	= [];	// 통화
-	var jsonUserYnCode		= [
-		{value: 'Y', label: '사용', text: '사용'},
-		{value: 'N', label: '불가',	text: '불가'}
-	];	// 지역
-	
-	var jsonEmpStateCode	= [];	//재직상태
-	
+    var strjob_name = "IF_EC_FI_002";
+    var strIfType = "1";
+
+	var jsonExceptCode = []; // 제외코드
+	var jsonEinvoiceCategory = []; // 전자세금계산서분류
+	var jsonEinvoiceType = []; // 전자세금계산서종류
+	var jsonMatchMethod = []; // 정발행/역발행
+	var jsonReceiptOrBill = []; // 영수/청구 구분
+	var jsonCostCenterCode = []; // 원가중심점코드
+
+	//grid 초기화
+	var gvwList; 			// 그리드를 담기위한 객체 선언
+	var gvwItem;
+
+	var jsonSearchResultList = []; 	// 그리드의 참조 데이터 주소 선언
+	var jsonItemList = [];
+
 	const fn_initSBSelect = async function() {
+		SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
+		SBUxMethod.set("SRCH_DATE_FR",gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("SRCH_DATE_TO", gfn_dateLastYmd(new Date()));
+		SBUxMethod.set("SRCH_RIDGUBUN", "99");
+		gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+
+
 		let rst = await Promise.all([
+			// 사업단위
+			gfnma_multiSelectInit({
+				target			: ['#SRCH_FI_ORG_CODE']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_FIM022'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'FI_ORG_CODE'
+				,colLabel		: 'FI_ORG_NAME'
+				,columns		:[
+					{caption: "코드",		ref: 'FI_ORG_CODE', 			width:'150px',  	style:'text-align:left'},
+					{caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			// 제외사유
+			gfnma_setComSelect(['gvwList'], jsonExceptCode, 'L_FIM251', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CODE', 'NAME', 'Y', ''),
+			gfnma_multiSelectInit({
+				target			: ['#EXCEPT_CODE']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_FIM251'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'CODE'
+				,colLabel		: 'NAME'
+				,columns		:[
+					{caption: "제외사유",		ref: 'CODE', 			width:'150px',  	style:'text-align:left'},
+					{caption: "제외내용", 		ref: 'NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			// 전자세금계산서분류
+			gfnma_setComSelect(['gvwList'], jsonEinvoiceCategory, 'L_FIG3100', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			// 전자세금계산서종류
+			gfnma_setComSelect(['gvwList'], jsonEinvoiceType, 'L_FIG3100_TYPE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			// 정발행/역발행
+			gfnma_setComSelect(['gvwList'], jsonMatchMethod, 'L_FIT005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			// 영수/청구 구분
+			gfnma_setComSelect(['gvwList'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			// 원가중심점코드
+			gfnma_setComSelect(['gvwItem'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
 		]);
-	}	
+	}
 
-    // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
+	function fn_createGvwListGrid()  {
+		var SBGridProperties 				= {};
+		SBGridProperties.parentid 			= 'sb-area-gvwList';
+		SBGridProperties.id 				= 'gvwList';
+		SBGridProperties.jsonref 			= 'jsonSearchResultList';
+		SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+		SBGridProperties.allowcopy = true; //복사
+		SBGridProperties.frozencols = 4;
+		SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.columns = [
+			{caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'38px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+			{caption: ["전표작성"],			    ref: 'INTERFACED_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
+				typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+			},
+			{caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+				typeinfo: {dateformat: 'yyyy-mm-dd'},
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+				, disabled: true
+			},
+			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'output',  	width:'189px',  style:'text-align:left'},
+			{caption: ["발급일자"],       ref: 'ISSUE_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+				typeinfo: {dateformat: 'yyyy-mm-dd'},
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+				, disabled: true
+			},
+			{caption: ["전송일자"],       ref: 'SEND_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+				typeinfo: {dateformat: 'yyyy-mm-dd'},
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+				, disabled: true
+				, hidden: true
+			},
+			{caption: ["공급자사업자번호"],         ref: 'SELLER_REG_NO',    type:'output',  	width:'120px',  style:'text-align:left',
+				typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 10}
+				, format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+			},
+			{caption: ["종사업장번호"],         ref: 'SELLER_SUB_REG_NO',    type:'output',  	width:'88px',  style:'text-align:left'},
+			{caption: ["구분"],         ref: 'RID_GUBUN',    type:'output',  	width:'80px',  style:'text-align:left'},
+			{caption: ["DOC_ID"],         ref: 'DOC_ID',    type:'output',  	width:'80px',  style:'text-align:left', hidden: true},
+			{caption: ["전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'120px',  style:'text-align:left'},
+			{caption: ["배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'160px',  style:'text-align:left'},
+			{caption: ["거래처코드"],         ref: 'CS_CODE',    type:'output',  	width:'90px',  style:'text-align:left'},
+			{caption: ["상호"],         ref: 'SELLER_NAME',    type:'output',  	width:'106px',  style:'text-align:left'},
+			{caption: ["대표자명"],         ref: 'SELLER_OWNER',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["공급자주소"],         ref: 'SELLER_ADDRESS',    type:'output',  	width:'138px',  style:'text-align:left'},
+			{caption: ["공급받는자사업자번호"],         ref: 'BUYER_REG_NO',    type:'output',  	width:'150px',  style:'text-align:left',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 10}
+				, format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+			},
+			{caption: ["종사업자번호"],         ref: 'BUYER_SUB_REG_NO',    type:'output',  	width:'88px',  style:'text-align:left',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 10}
+				, format : {type:'number', rule:'###-##-#####', emptyvalue:'0'}
+			},
+			{caption: ["구매자상호"],         ref: 'BUYER_NAME',    type:'output',  	width:'112px',  style:'text-align:left'},
+			{caption: ["공급자업종"],         ref: 'SELLER_BIZ_CATEGORY',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["공급자업태"],         ref: 'SELLER_BIZ_ITEM',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["구매자대표자명"],         ref: 'BUYER_OWNER',    type:'output',  	width:'101px',  style:'text-align:left'},
+			{caption: ["구매자주소"],         ref: 'BUYER_ADDRESS',    type:'output',  	width:'174px',  style:'text-align:left'},
+			{caption: ["합계금액"],         ref: 'TOTAL_AMT',    type:'output',  	width:'116px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["공급가액"],         ref: 'TOTAL_TAXABLE_AMT',    type:'output',  	width:'105px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["세액"],         ref: 'TOTAL_VAT_AMT',    type:'output',  	width:'106px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["전표총금액"],         ref: 'DOC_TOTAL_AMT',    type:'output',  	width:'111px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["전표공급가액"],         ref: 'DOC_SUPPLY_AMT',    type:'output',  	width:'102px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["전표부가세"],         ref: 'DOC_VAT_AMT',    type:'output',  	width:'105px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["차이여부"],			    ref: 'DIFF_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
+				typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+			},
+			{caption: ["구매자업종"],         ref: 'BUYER_BIZ_CATEGORY',    type:'output',  	width:'114px',  style:'text-align:left'},
+			{caption: ["구매자업태"],         ref: 'BUYER_BIZ_ITEM',    type:'output',  	width:'111px',  style:'text-align:left'},
+			{caption: ["구매자유형"],         ref: 'BUYER_BIZ_TYPE',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["제외코드"], 		ref: 'EXCEPT_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
+				typeinfo: {
+					ref			: 'jsonExceptCode',
+					label		: 'label',
+					value		: 'value',
+					itemcount	: 10
+				}
+				, disabled: true
+			},
+			{caption: ["제외사유"],         ref: 'EXCEPT_REASON',    type:'output',  	width:'130px',  style:'text-align:left'},
+			{caption: ["전자세금계산서분류"], 		ref: 'EINVOICE_CATEGORY',   	    type:'combo', style:'text-align:left' ,width: '120px',
+				typeinfo: {
+					ref			: 'jsonEinvoiceCategory',
+					label		: 'label',
+					value		: 'value',
+					itemcount	: 10
+				}
+				, disabled: true
+			},
+			{caption: ["전자세금계산서종류"], 		ref: 'EINVOICE_TYPE',   	    type:'combo', style:'text-align:left' ,width: '120px',
+				typeinfo: {
+					ref			: 'jsonEinvoiceType',
+					label		: 'label',
+					value		: 'value',
+					itemcount	: 10
+				}
+				, disabled: true
+			},
+			{caption: ["정발행/역발행"], 		ref: 'MATCH_METHOD',   	    type:'combo', style:'text-align:left' ,width: '120px',
+				typeinfo: {
+					ref			: 'jsonMatchMethod',
+					label		: 'label',
+					value		: 'value',
+					itemcount	: 10
+				}
+				, disabled: true
+			},
+			{caption: ["발급유형"],         ref: 'ISSUE_TYPE',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["비고"],         ref: 'NOTE1',    type:'output',  	width:'155px',  style:'text-align:left'},
+			{caption: ["OTHER_DESC"],         ref: 'NOTE2',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["영수/청구 구분"], 		ref: 'RECEIPT_OR_BILL',   	    type:'combo', style:'text-align:left' ,width: '90px',
+				typeinfo: {
+					ref			: 'jsonReceiptOrBill',
+					label		: 'label',
+					value		: 'value',
+					itemcount	: 10
+				}
+				, disabled: true
+			},
+			{caption: ["공급자이메일"],         ref: 'SELLER_EMAIL',    type:'output',  	width:'125px',  style:'text-align:left'},
+			{caption: ["구매자이메일1"],         ref: 'BUYER_EMAIL1',    type:'output',  	width:'121px',  style:'text-align:left'},
+			{caption: ["구매자이메일2"],         ref: 'BUYER_EMAIL2',    type:'output',  	width:'109px',  style:'text-align:left'},
+			{caption: ["품목일자"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'87px',  	style:'text-align:left',
+				typeinfo: {dateformat: 'yyyy-mm-dd'},
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+				, disabled: true
+			},
+			{caption: ["품목명"],         ref: 'ITEM_NAME',    type:'output',  	width:'157px',  style:'text-align:left', hidden: true},
+			{caption: ["품목규격"],         ref: 'ITEM_SPEC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["품목수량"],         ref: 'ITEM_QTY',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["품목단가"],         ref: 'ITEM_UNIT_PRICE',    type:'output',  	width:'86px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, hidden: true
+			},
+			{caption: ["품목공급가액"],         ref: 'ITEM_TAXABLE_AMT',    type:'output',  	width:'93px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, hidden: true
+			},
+			{caption: ["품목가액"],         ref: 'ITEM_VAT_AMT',    type:'output',  	width:'93px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+				, hidden: true
+			},
+			{caption: ["품목비고"],         ref: 'ITEM_DESC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'}, // TODO: P_ORG001
+			{caption: ["상태"],         ref: 'ROW_STATUS',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["회계단위"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["조회시공급사코드"],         ref: 'CS_CODE_ORG',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+		];
 
-    	fn_initSBSelect();
-    	fn_createGrid();
-    	//fn_search();
-    	
-		//재직상태
-		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
-			function(list){
-				$('#SRCH_EMP_BTN').click(function(){
-					fn_compopup1(list);
-				});
+		gvwList = _SBGrid.create(SBGridProperties);
+		gvwList.bind('afterrebuild','fn_gvwListAfterRebuild');
+		gvwList.bind('afterrefresh','fn_gvwListAfterRebuild');
+		gvwList.bind('click', 'fn_view');
+	}
+
+	function fn_createGvwItemGrid() {
+		var SBGridProperties 				= {};
+		SBGridProperties.parentid 			= 'sb-area-gvwItem';
+		SBGridProperties.id 				= 'gvwItem';
+		SBGridProperties.jsonref 			= 'jsonItemList';
+		SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+		SBGridProperties.allowcopy = true; //복사
+		SBGridProperties.extendlastcol 		= 'scroll';
+		SBGridProperties.columns = [
+			{caption: ["승인번호"],         ref: 'APPROVAL_NO',    type:'output',  	width:'190px',  style:'text-align:left'},
+			{caption: ["품목순번"],         ref: 'SEQ',    type:'output',  	width:'60px',  style:'text-align:left'},
+			{caption: ["품목명"],         ref: 'ITEM_NAME',    type:'output',  	width:'150px',  style:'text-align:left'},
+			{caption: ["규격"],         ref: 'ITEM_SPEC',    type:'output',  	width:'100px',  style:'text-align:left'},
+			{caption: ["품목수량"],         ref: 'ITEM_QTY',    type:'output',  	width:'70px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["품목단가"],         ref: 'ITEM_UNIT_PRICE',    type:'output',  	width:'70px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["품목공급가액"],         ref: 'ITEM_TAXABLE_AMT',    type:'output',  	width:'100px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["품목세액"],         ref: 'ITEM_VAT_AMT',    type:'output',  	width:'100px',  style:'text-align:right',
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+				, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+			},
+			{caption: ["비고"],         ref: 'ITEM_DESC',    type:'output',  	width:'100px',  style:'text-align:left'},
+			{caption: ["원가중심점코드"], 		ref: 'COST_CENTER_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
+				typeinfo: {
+					ref			: 'jsonCostCenterCode',
+					label		: 'label',
+					value		: 'value',
+					itemcount	: 10
+				}
+				, disabled: true
+			},
+			{caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true}, // TODO: P_ORG001
+			{caption: ["부서"],       ref: 'DEPT_NAME', 		type:'output',  	width:'75px',  	style:'text-align:left'},
+			{caption: ["프로젝트코드"],         ref: 'PROJECT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true}, // TODO: P_COM028
+			{caption: ["프로젝트"],         ref: 'PROJECT_NAME',    type:'output',  	width:'75px',  style:'text-align:right'},
+			{caption: ["계정과목코드"],         ref: 'ACCOUNT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true}, // TODO: P_FIM045
+			{caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'output',  	width:'75px',  style:'text-align:right'},
+		];
+
+		gvwItem = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_gvwListAfterRebuild = async function() {
+		let gvwListData = gvwList.getGridDataAll();
+
+		for(var i = 0; i < gvwListData.length; i++) {
+			let rowData = gvwList.getRowData(i+1);
+
+			if (gfn_nvl(rowData.ACCOUNT_EMP_CODE) == "") {
+				gvwList.setRowStyle(i+1, 'data', 'background', '#FFC0CB');
 			}
-		)
-    });
+		}
+	}
 
-    //grid 초기화
-    var NationInGrid; 			// 그리드를 담기위한 객체 선언
-    var jsonNationList = []; 	// 그리드의 참조 데이터 주소 선언
+	const fn_view = async function () {
+		var nRow = gvwList.getRow();
+		var rowData = gvwList.getRowData(nRow);
 
-    function fn_createGrid() {
-        var SBGridProperties 				= {};
-	    SBGridProperties.parentid 			= 'sb-area-grdComMsg';
-	    SBGridProperties.id 				= 'NationInGrid';
-	    SBGridProperties.jsonref 			= 'jsonNationList';
-        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'byrow';
-	    SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
-		SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '60'};
-	    SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'output',  	width:'300px',  	style:'text-align:left'},
-            {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'output',  	width:'300px',  	style:'text-align:left'},
-            {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["지역"],				ref: 'REGION_CODE', 			type:'combo',  		width:'100px',  	style:'text-align:left', disabled: true,
-            	typeinfo: {
-					ref			: 'jsonRegionCode',
-					label		: 'label',
-					value		: 'value',
-					itemcount	: 10
-            	}
-            },
-            {caption: ["통화"],				ref: 'CURRENCY_CODE',   		type:'combo',  		width:'100px',  	style:'text-align:left', disabled: true,
-            	typeinfo: {
-					ref			: 'jsonCurrenvyCode',
-					label		: 'label',
-					value		: 'value',
-					itemcount	: 10
-            	}
-            },
-            {caption: ["비고"], 			ref: 'MEMO', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["사용여부"], 		ref: 'USE_YN', 				type:'output',		width:'80px',		style:'text-align:center'}
-        ];
+		if(gfn_nvl(rowData) == "") return;
 
-        NationInGrid = _SBGrid.create(SBGridProperties);
-        //NationInGrid.bind('click', 'fn_view');
-    }
+		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+		let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+		let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+		let CS_BIZ_REGNO = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
+		let APPROVAL_NO = gfnma_nvl(rowData.APPROVAL_NO);
+		let ITEM_TAXABLE_AMT = gfnma_nvl(SBUxMethod.get("SRCH_AMT"));
+		let CS_NAME = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME"));
+		let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+		let GUBUN = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
 
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-    	fn_setNationInGrid();
-    }
+		var paramObj = {
+			V_P_DEBUG_MODE_YN	: '',
+			V_P_LANG_ID		: '',
+			V_P_COMP_CODE		: gv_ma_selectedApcCd,
+			V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+			V_P_FI_ORG_CODE : FI_ORG_CODE,
+			V_P_DATE_FR : DATE_FR,
+			V_P_DATE_TO : DATE_TO,
+			V_P_CS_BIZ_REGNO : CS_BIZ_REGNO,
+			V_P_APPROVAL_NO : APPROVAL_NO,
+			V_P_ITEM_TAXABLE_AMT : ITEM_TAXABLE_AMT,
+			V_P_CS_NAME : CS_NAME,
+			V_P_EMP_CODE : EMP_CODE,
+			V_P_GUBUN : GUBUN,
+			V_P_FORM_ID		: p_formId,
+			V_P_MENU_ID		: p_menuId,
+			V_P_PROC_ID		: '',
+			V_P_USERID			: '',
+			V_P_PC				: ''
+		};
 
-    /**
-     * 목록 가져오기
-     */
-    const fn_setNationInGrid = async function() {
-
-		NationInGrid.clearStatus();
-
-		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
-		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
-		
-	    var paramObj = { 
-			V_P_DEBUG_MODE_YN	: ''
-			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_NATION_CODE	: NATION_CODE
-			,V_P_NATION_NAME	: NATION_NAME
-			,V_P_FORM_ID		: p_formId
-			,V_P_MENU_ID		: p_menuId
-			,V_P_PROC_ID		: ''
-			,V_P_USERID			: ''
-			,V_P_PC				: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '1',
-        	params				: gfnma_objectToString(paramObj)
+		const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3300List.do", {
+			getType				: 'json',
+			workType			: 'ITEM',
+			cv_count			: '3',
+			params				: gfnma_objectToString(paramObj)
 		});
 
-        const data = await postJsonPromise;
-		//console.log('data:', data);
-        try {
-  			if (_.isEqual("S", data.resultStatus)) {
+		const listData = await postJsonPromiseForList;
+		console.log('data:', listData);
 
-  	        	jsonNationList.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonNationList.push(msg);
-  				});
+		try {
+			if (_.isEqual("S", listData.resultStatus)) {
+				jsonItemList.length = 0;
+				listData.cv_3.forEach((item, index) => {
+					const msg = {
+						ROW_STATUS : item.ROW_STATUS,
+						APPROVAL_NO : item.APPROVAL_NO,
+						SEQ : item.SEQ,
+						ITEM_NAME : item.ITEM_NAME,
+						ITEM_SPEC : item.ITEM_SPEC,
+						ITEM_QTY : item.ITEM_QTY,
+						ITEM_UNIT_PRICE : item.ITEM_UNIT_PRICE,
+						ITEM_TAXABLE_AMT : item.ITEM_TAXABLE_AMT,
+						ITEM_VAT_AMT : item.ITEM_VAT_AMT,
+						ITEM_DESC : item.ITEM_DESC,
+						COST_CENTER_CODE : item.COST_CENTER_CODE,
+						DEPT_CODE : item.DEPT_CODE,
+						DEPT_NAME : item.DEPT_NAME,
+						PROJECT_CODE : item.PROJECT_CODE,
+						PROJECT_NAME : item.PROJECT_NAME,
+						ACCOUNT_CODE : item.ACCOUNT_CODE,
+						ACCOUNT_NAME : item.ACCOUNT_NAME,
+					}
+					jsonItemList.push(msg);
+				});
+				gvwItem.rebuild();
+			} else {
+				alert(listData.resultMessage);
+			}
 
-        		NationInGrid.rebuild();
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
 
-        	} else {
-          		alert(data.resultMessage);
-        	}
+    window.addEventListener('DOMContentLoaded', function(e) {
+		fn_initSBSelect();
+		fn_createGvwListGrid();
+		fn_createGvwItemGrid();
+    	fn_search();
+    });
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	// 저장
+	function cfn_save() {
+		fn_save();
+	}
+
+	// 삭제
+	function cfn_del() {
+		fn_delete();
+	}
+
+	// 조회
+	function cfn_search() {
+		fn_search();
+	}
+
+	const fn_save = async function () {
+        let updatedData = gvwList.getUpdateData(true, 'all');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                rownum: item.rownum,
+                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_FI_ORG_CODE : item.data.FI_ORG_CODE,
+                    V_P_WRITE_DATE : item.data.WRITE_DATE,
+                    V_P_APPROVAL_NO : item.data.APPROVAL_NO,
+                    V_P_ISSUE_DATE : item.data.ISSUE_DATE,
+                    V_P_SEND_DATE : item.data.SEND_DATE,
+                    V_P_SELLER_REG_NO : item.data.SELLER_REG_NO.replaceAll("-", ""),
+                    V_P_SELLER_SUB_REG_NO : item.data.SELLER_SUB_REG_NO,
+                    V_P_CS_CODE : item.data.CS_CODE,
+                    V_P_SELLER_NAME : item.data.SELLER_NAME,
+                    V_P_SELLER_OWNER : item.data.SELLER_OWNER,
+                    V_P_SELLER_ADDRESS : item.data.SELLER_ADDRESS,
+                    V_P_SELLER_BIZ_CATEGORY : item.data.SELLER_BIZ_CATEGORY,
+                    V_P_SELLER_BIZ_ITEM : item.data.SELLER_BIZ_ITEM,
+                    V_P_BUYER_REG_NO : item.data.BUYER_REG_NO.replaceAll("-", ""),
+                    V_P_BUYER_SUB_REG_NO : item.data.BUYER_SUB_REG_NO,
+                    V_P_BUYER_NAME : item.data.BUYER_NAME,
+                    V_P_BUYER_OWNER : item.data.BUYER_OWNER,
+                    V_P_BUYER_ADDRESS : item.data.BUYER_ADDRESS,
+                    V_P_BUYER_BIZ_CATEGORY : item.data.BUYER_BIZ_CATEGORY,
+                    V_P_BUYER_BIZ_ITEM : item.data.BUYER_BIZ_ITEM,
+                    V_P_BUYER_BIZ_TYPE : item.data.BUYER_BIZ_TYPE,
+                    V_P_TOTAL_AMT : parseInt(gfn_nvl(item.data.TOTAL_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_AMT)),
+                    V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(item.data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_TAXABLE_AMT)),
+                    V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(item.data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_VAT_AMT)),
+                    V_P_EINVOICE_CATEGORY : item.data.EINVOICE_CATEGORY,
+                    V_P_EINVOICE_TYPE : item.data.EINVOICE_TYPE,
+                    V_P_MATCH_METHOD : item.data.MATCH_METHOD,
+                    V_P_ISSUE_TYPE : item.data.ISSUE_TYPE,
+                    V_P_NOTE1 : item.data.NOTE1,
+                    V_P_NOTE2 : item.data.NOTE2,
+                    V_P_RECEIPT_OR_BILL : item.data.RECEIPT_OR_BILL,
+                    V_P_SELLER_EMAIL : item.data.SELLER_EMAIL,
+                    IV_P_BUYER_EMAIL1 : item.data._BUYER_EMAIL1,
+                    V_P_BUYER_EMAIL2 : item.data.BUYER_EMAIL2,
+                    V_P_ACCOUNT_EMP_CODE : item.data.ACCOUNT_EMP_CODE,
+                    V_P_TXN_DATE : item.data.TXN_DATE.replaceAll("-", ""),
+                    V_P_DOC_ID : item.data.DOC_ID,
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
+        });
+
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    let updatedData = gvwItem.getUpdateData(true, 'all');
+                    let returnData = [];
+
+                    updatedData.forEach((item, index) => {
+                        const param = {
+                            cv_count : '0',
+                            getType : 'json',
+                            rownum: item.rownum,
+                            workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                            params: gfnma_objectToString({
+                                V_P_DEBUG_MODE_YN : '',
+                                V_P_LANG_ID	: '',
+                                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                                V_P_APPROVAL_NO : item.data.APPROVAL_NO,
+                                V_P_SEQ : item.data.SEQ,
+                                V_P_ITEM_NAME : item.data.ITEM_NAME,
+                                V_P_ITEM_SPEC : item.data.ITEM_SPEC,
+                                V_P_ITEM_QTY : parseInt(gfn_nvl(item.data.ITEM_QTY) == "" ? "0" : gfn_nvl(item.data.ITEM_QTY)),
+                                V_P_ITEM_UNIT_PRICE : parseInt(gfn_nvl(item.data.ITEM_UNIT_PRICE) == "" ? "0" : gfn_nvl(item.data.ITEM_UNIT_PRICE)),
+                                V_P_ITEM_TAXABLE_AMT : parseInt(gfn_nvl(item.data.ITEM_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_TAXABLE_AMT)),
+                                V_P_ITEM_VAT_AMT : parseInt(gfn_nvl(item.data.ITEM_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_VAT_AMT)),
+                                V_P_ITEM_DESC : item.data.ITEM_DESC,
+                                V_P_COST_CENTER_CODE : item.data.COST_CENTER_CODE,
+                                V_P_DEPT_CODE : item.data.DEPT_CODE,
+                                V_P_PROJECT_CODE : item.data.PROJECT_CODE,
+                                V_P_ACCOUNT_CODE : item.data.ACCOUNT_CODE,
+                                V_P_FORM_ID : p_formId,
+                                V_P_MENU_ID : p_menuId,
+                                V_P_PROC_ID : '',
+                                V_P_USERID : '',
+                                V_P_PC : ''
+                            })
+                        }
+                        returnData.push(param);
+                    });
+
+                    if(returnData.length > 0) {
+                        const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300ItemList.do", {listData: returnData});
+                        const data = await postJsonPromise;
+
+                        try {
+                            if (_.isEqual("S", data.resultStatus)) {
+                                gfn_comAlert("I0001");
+                                fn_search();
+                            } else {
+                                alert(data.resultMessage);
+                            }
+                        } catch (e) {
+                            if (!(e instanceof Error)) {
+                                e = new Error(e);
+                            }
+                            console.error("failed", e.message);
+                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                        }
+                    }
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
         }
-    }    
-    
-	const fn_compopup1 = function(list) {
-		
-		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
-     	
-     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-     	compopup1({
-     		compCode				: gv_ma_selectedApcCd
-     		,clientCode				: gv_ma_selectedClntCd
-     		,bizcompId				: 'P_HRI001'
-           	,popupType				: 'A'
-     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
-   			,searchInputValues		: ["", 			searchText,		""]
-   			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
-   			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
-     		,height					: '400px'
-   			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
-   			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
- 			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
- 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NAME);
- 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CODE);
- 			},
-     	});    
-   	}
-     
-    //선택 삭제
-    function fn_delete() {
-
-        //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
     }
 
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
-    	 
+	const fn_delete = async function () {
+        let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
+        let returnData = [];
+
+        if(gvwListCheckedList.length == 0) {
+            return;
+        }
+
+		gvwListCheckedList.forEach((item, index) => {
+			let data = gvwList.getRowData(item);
+
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                rownum: item,
+                workType : 'D',
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_FI_ORG_CODE : data.FI_ORG_CODE,
+                    V_P_WRITE_DATE : data.WRITE_DATE,
+                    V_P_APPROVAL_NO : data.APPROVAL_NO,
+                    V_P_ISSUE_DATE : data.ISSUE_DATE,
+                    V_P_SEND_DATE : data.SEND_DATE,
+                    V_P_SELLER_REG_NO : data.SELLER_REG_NO.replaceAll("-", ""),
+                    V_P_SELLER_SUB_REG_NO : data.SELLER_SUB_REG_NO,
+                    V_P_CS_CODE : data.CS_CODE,
+                    V_P_SELLER_NAME : data.SELLER_NAME,
+                    V_P_SELLER_OWNER : data.SELLER_OWNER,
+                    V_P_SELLER_ADDRESS : data.SELLER_ADDRESS,
+                    V_P_SELLER_BIZ_CATEGORY : data.SELLER_BIZ_CATEGORY,
+                    V_P_SELLER_BIZ_ITEM : data.SELLER_BIZ_ITEM,
+                    V_P_BUYER_REG_NO : data.BUYER_REG_NO.replaceAll("-", ""),
+                    V_P_BUYER_SUB_REG_NO : data.BUYER_SUB_REG_NO,
+                    V_P_BUYER_NAME : data.BUYER_NAME,
+                    V_P_BUYER_OWNER : data.BUYER_OWNER,
+                    V_P_BUYER_ADDRESS : data.BUYER_ADDRESS,
+                    V_P_BUYER_BIZ_CATEGORY : data.BUYER_BIZ_CATEGORY,
+                    V_P_BUYER_BIZ_ITEM : data.BUYER_BIZ_ITEM,
+                    V_P_BUYER_BIZ_TYPE : data.BUYER_BIZ_TYPE,
+                    V_P_TOTAL_AMT : parseInt(gfn_nvl(data.TOTAL_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_AMT)),
+                    V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_TAXABLE_AMT)),
+                    V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_VAT_AMT)),
+                    V_P_EINVOICE_CATEGORY : data.EINVOICE_CATEGORY,
+                    V_P_EINVOICE_TYPE : data.EINVOICE_TYPE,
+                    V_P_MATCH_METHOD : data.MATCH_METHOD,
+                    V_P_ISSUE_TYPE : data.ISSUE_TYPE,
+                    V_P_NOTE1 : data.NOTE1,
+                    V_P_NOTE2 : data.NOTE2,
+                    V_P_RECEIPT_OR_BILL : data.RECEIPT_OR_BILL,
+                    V_P_SELLER_EMAIL : data.SELLER_EMAIL,
+                    IV_P_BUYER_EMAIL1 : data._BUYER_EMAIL1,
+                    V_P_BUYER_EMAIL2 : data.BUYER_EMAIL2,
+                    V_P_ACCOUNT_EMP_CODE : data.ACCOUNT_EMP_CODE,
+                    V_P_TXN_DATE : data.TXN_DATE.replaceAll("-", ""),
+                    V_P_DOC_ID : data.DOC_ID,
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
+        });
+
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
     }
 
+	const fn_search = async function () {
+		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+		let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+		let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+		let CS_BIZ_REGNO = gfnma_nvl(SBUxMethod.get("SRCH_CS_BIZ_REGNO"));
+		let APPROVAL_NO = gfnma_nvl(SBUxMethod.get("SRCH_APPROVAL_NO"));
+		let ITEM_TAXABLE_AMT = gfnma_nvl(SBUxMethod.get("SRCH_AMT"));
+		let CS_NAME = gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME"));
+		let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+		let GUBUN = gfnma_nvl(SBUxMethod.get("SRCH_RIDGUBUN"));
 
+		var paramObj = {
+			V_P_DEBUG_MODE_YN	: '',
+			V_P_LANG_ID		: '',
+			V_P_COMP_CODE		: gv_ma_selectedApcCd,
+			V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+			V_P_FI_ORG_CODE : FI_ORG_CODE,
+			V_P_DATE_FR : DATE_FR,
+			V_P_DATE_TO : DATE_TO,
+			V_P_CS_BIZ_REGNO : CS_BIZ_REGNO,
+			V_P_APPROVAL_NO : APPROVAL_NO,
+			V_P_ITEM_TAXABLE_AMT : ITEM_TAXABLE_AMT,
+			V_P_CS_NAME : CS_NAME,
+			V_P_EMP_CODE : EMP_CODE,
+			V_P_GUBUN : GUBUN,
+			V_P_FORM_ID		: p_formId,
+			V_P_MENU_ID		: p_menuId,
+			V_P_PROC_ID		: '',
+			V_P_USERID			: '',
+			V_P_PC				: ''
+		};
+
+		const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3300List.do", {
+			getType				: 'json',
+			workType			: 'Q',
+			cv_count			: '3',
+			params				: gfnma_objectToString(paramObj)
+		});
+
+		const listData = await postJsonPromiseForList;
+		console.log('data:', listData);
+
+		try {
+			if (_.isEqual("S", listData.resultStatus)) {
+				jsonSearchResultList.length = 0;
+				listData.cv_1.forEach((item, index) => {
+					const msg = {
+						ROW_STATUS : item.ROW_STATUS,
+						CHECK_YN : item.CHECK_YN,
+						WRITE_DATE : item.WRITE_DATE,
+						APPROVAL_NO : item.APPROVAL_NO,
+						ISSUE_DATE : item.ISSUE_DATE,
+						SEND_DATE : item.SEND_DATE,
+						SELLER_REG_NO : item.SELLER_REG_NO,
+						SELLER_SUB_REG_NO : item.SELLER_SUB_REG_NO,
+						CS_CODE : item.CS_CODE,
+						CS_CODE_ORG : item.CS_CODE_ORG,
+						SELLER_NAME : item.SELLER_NAME,
+						SELLER_OWNER : item.SELLER_OWNER,
+						SELLER_BIZ_CATEGORY : item.SELLER_BIZ_CATEGORY,
+						SELLER_BIZ_ITEM : item.SELLER_BIZ_ITEM,
+						SELLER_BIZ_TYPE : item.SELLER_BIZ_TYPE,
+						BUYER_REG_NO : item.BUYER_REG_NO,
+						BUYER_SUB_REG_NO : item.BUYER_SUB_REG_NO,
+						BUYER_NAME : item.BUYER_NAME,
+						BUYER_OWNER : item.BUYER_OWNER,
+						BUYER_BIZ_CATEGORY : item.BUYER_BIZ_CATEGORY,
+						BUYER_BIZ_ITEM : item.BUYER_BIZ_ITEM,
+						BUYER_BIZ_TYPE : item.BUYER_BIZ_TYPE,
+						TOTAL_AMT : item.TOTAL_AMT,
+						TOTAL_TAXABLE_AMT : item.TOTAL_TAXABLE_AMT,
+						TOTAL_VAT_AMT : item.TOTAL_VAT_AMT,
+						DOC_TOTAL_AMT : item.DOC_TOTAL_AMT,
+						DOC_SUPPLY_AMT : item.DOC_SUPPLY_AMT,
+						DOC_VAT_AMT : item.DOC_VAT_AMT,
+						DIFF_FLAG : item.DIFF_FLAG,
+						EINVOICE_CATEGORY : item.EINVOICE_CATEGORY,
+						EINVOICE_TYPE : item.EINVOICE_TYPE,
+						MATCH_METHOD : item.MATCH_METHOD,
+						ISSUE_TYPE : item.ISSUE_TYPE,
+						NOTE1 : item.NOTE1,
+						NOTE2 : item.NOTE2,
+						NOTE3 : item.NOTE3,
+						RECEIPT_OR_BILL : item.RECEIPT_OR_BILL,
+						SELLER_EMAIL : item.SELLER_EMAIL,
+						BUYER_EMAIL1 : item.BUYER_EMAIL1,
+						BUYER_EMAIL2 : item.BUYER_EMAIL2,
+						ACCOUNT_EMP_CODE : item.ACCOUNT_EMP_CODE,
+						ACCOUNT_EMP_NAME : item.ACCOUNT_EMP_NAME,
+						TXN_DATE : item.TXN_DATE,
+						INTERFACED_FLAG : item.INTERFACED_FLAG,
+						FI_ORG_CODE : item.FI_ORG_CODE,
+						SELLER_ADDRESS : item.SELLER_ADDRESS,
+						BUYER_ADDRESS : item.BUYER_ADDRESS,
+						DOC_ID : item.DOC_ID,
+						DOC_NAME : item.DOC_NAME,
+						DOC_BATCH_NO : item.DOC_BATCH_NO,
+						RID_GUBUN : item.RID_GUBUN,
+						EXCEPT_CODE : item.EXCEPT_CODE,
+						EXCEPT_REASON : item.EXCEPT_REASON,
+						ITEM_NAME : item.ITEM_NAME,
+						ITEM_SPEC : item.ITEM_SPEC,
+						ITEM_QTY : item.ITEM_QTY,
+						ITEM_UNIT_PRICE : item.ITEM_UNIT_PRICE,
+						ITEM_TAXABLE_AMT : item.ITEM_TAXABLE_AMT,
+						ITEM_VAT_AMT : item.ITEM_VAT_AMT,
+						ITEM_DESC : item.ITEM_DESC
+
+					}
+					jsonSearchResultList.push(msg);
+				});
+				gvwList.rebuild();
+
+				if(jsonSearchResultList.length > 0) {
+					gvwList.clickRow(1);
+				}
+			} else {
+				alert(listData.resultMessage);
+			}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
