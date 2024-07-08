@@ -265,12 +265,14 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
 
-				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
+//				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
+				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntrSumWrhsno(invntrVO);
 
 				if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
 				}
 
+				//최종중량 직접입력가능  > 삭제
 				if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
 					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 				}
@@ -370,10 +372,25 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			wrhsVO.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
 			wrhsVO.setStdGrdList(rePrcsInfo.getStdGrdList());
 
-			rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(wrhsVO);
-			if (rtnObj != null) {
-				// error throw exception;
-				throw new EgovBizException(getMessageForMap(rtnObj));
+			String[] wrhsnos = wrhsVO.getWrhsno().replace(" ","").split(",");
+			if(wrhsnos.length > 1){
+				for(int i = 0 ; i < wrhsnos.length; i++){
+					RawMtrWrhsVO updateWrhsVO = new RawMtrWrhsVO();
+					BeanUtils.copyProperties(wrhsVO,updateWrhsVO);
+					updateWrhsVO.setWrhsno(wrhsnos[i]);
+					rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(updateWrhsVO);
+
+					if (rtnObj != null) {
+						// error throw exception;
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+				}
+			}else {
+				rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(wrhsVO);
+				if (rtnObj != null) {
+					// error throw exception;
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
 			}
 		}
 

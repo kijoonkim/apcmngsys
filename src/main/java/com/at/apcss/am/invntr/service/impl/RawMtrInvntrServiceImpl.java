@@ -1,6 +1,7 @@
 package com.at.apcss.am.invntr.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -807,4 +808,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return result;
 	}
 
+	@Override
+	public RawMtrInvntrVO selectRawMtrInvntrSumWrhsno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		List<String> wrhsno = Arrays.asList(rawMtrInvntrVO.getWrhsno().replace(" ", "").split(","));
+		return rawMtrInvntrMapper.selectRawMtrInvntrSumWrhsno(rawMtrInvntrVO,wrhsno);
+	}
 }
