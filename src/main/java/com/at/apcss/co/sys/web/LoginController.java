@@ -215,6 +215,10 @@ public class LoginController extends BaseController {
 							//인사담당자
 							String isHrManager = (gmap4.get("ISHRMANAGER")==null) ? "N" : gmap4.get("ISHRMANAGER").toString();
 							resultVO.setIsHrManager(isHrManager);
+							
+							//인사담당자
+							String fiOrgCode = (gmap4.get("FIORGCODE")==null) ? "" : gmap4.get("FIORGCODE").toString();
+							resultVO.setFiOrgCode(fiOrgCode);
 							//----------------------------------------------------------------------------
 							
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.LOGIN_SUCCESS);
