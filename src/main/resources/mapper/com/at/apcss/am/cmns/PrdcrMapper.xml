@@ -656,4 +656,30 @@
 			  AND PRDCR_CD 				= #{prdcrCd}
     	]]>
     </update>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updateApcPrdcrFrmhs			-->
+	<!-- DESC : APC 생산자 정농가 기본 정보 업데이트  		                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.08  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateApcPrdcrFrmhs" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+			UPDATE TB_PRDCR_INFO
+			   SET SYS_LAST_CHG_DT		= SYSDATE
+			 	 , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID= #{sysLastChgPrgrmId}
+				 , FRMHS_TELNO			= #{frmhsTelno}
+				 , FRMHS_CTPV           = #{frmhsCtpv}
+				 , FRMHS_ADDR           = #{frmhsAddr}
+				 , CRTR_AREA            = #{crtrArea}
+				 , PLNTNG_AREA          = #{plntngArea}
+				 , PRCHS_QNTT           = #{prchsQntt}
+				 , PRCHS_AMT            = #{prchsAmt}
+			 WHERE APC_CD 				= #{apcCd}
+			   AND PRDCR_CD 			= #{prdcrCd}
+    	]]>
+    </update>
 </mapper>

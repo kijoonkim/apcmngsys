@@ -60,12 +60,12 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 
 	@Override
 	public PrdcrVO selectPrdcrByIdentno(PrdcrVO prdcrVO) throws Exception {
-		
+
 		PrdcrVO resultVO = prdcrMapper.selectPrdcrByIdentno(prdcrVO);
 
 		return resultVO;
 	}
-	
+
 	@Override
 	public List<PrdcrVO> selectPrdcrList(PrdcrVO prdcrVO) throws Exception {
 
@@ -233,6 +233,12 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 			updateApcPrdcr(prdcrVO);
 		}
 		return null;
+	}
+
+	@Override
+	public int updateApcPrdcrFrmhs(PrdcrVO prdcrVO) throws Exception {
+		int updatedCnt = prdcrMapper.updateApcPrdcrFrmhs(prdcrVO);
+		return updatedCnt;
 	}
 
 

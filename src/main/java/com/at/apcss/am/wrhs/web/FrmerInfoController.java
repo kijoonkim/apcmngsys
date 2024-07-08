@@ -177,17 +177,53 @@ public class FrmerInfoController extends BaseController{
 	 * @return HashMap<String, Object>
 	 * @throws Exception
 	 */
-	@PostMapping(value = "/am/wrhs/deleteCltvtnFrmhsQlt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteCltvtnFrmhsQlt(@RequestBody CltvtnFrmhsQltVO cltvtnFrmhsQltVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/wrhs/deleteCltvtnHstry.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteCltvtnHstry(@RequestBody CltvtnHstryVO cltvtnHstryVO, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 
-			cltvtnFrmhsQltVO.setSysFrstInptPrgrmId(getPrgrmId());
-			cltvtnFrmhsQltVO.setSysFrstInptUserId(getUserId());
-			cltvtnFrmhsQltVO.setSysLastChgPrgrmId(getPrgrmId());
-			cltvtnFrmhsQltVO.setSysLastChgUserId(getUserId());
+			cltvtnHstryVO.setSysFrstInptPrgrmId(getPrgrmId());
+			cltvtnHstryVO.setSysFrstInptUserId(getUserId());
+			cltvtnHstryVO.setSysLastChgPrgrmId(getPrgrmId());
+			cltvtnHstryVO.setSysLastChgUserId(getUserId());
 
-			HashMap<String, Object> rtnObj = frmerInfoService.deleteCltvtnFrmhsQlt(cltvtnFrmhsQltVO);
+			HashMap<String, Object> rtnObj = frmerInfoService.deleteCltvtnHstry(cltvtnHstryVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 영농관리 - 재배농가품질 다중 저장
+	 * @param List<CltvtnFrmhsQltVO>
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/multiCltvtnFrmhsQltList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiCltvtnFrmhsQltList(@RequestBody List<CltvtnFrmhsQltVO> cltvtnFrmhsQltList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			for (CltvtnFrmhsQltVO cltvtnFrmhsQltVO : cltvtnFrmhsQltList) {
+				cltvtnFrmhsQltVO.setSysFrstInptPrgrmId(getPrgrmId());
+				cltvtnFrmhsQltVO.setSysFrstInptUserId(getUserId());
+				cltvtnFrmhsQltVO.setSysLastChgPrgrmId(getPrgrmId());
+				cltvtnFrmhsQltVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = frmerInfoService.multiCltvtnFrmhsQltList(cltvtnFrmhsQltList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
