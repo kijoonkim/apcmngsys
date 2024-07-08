@@ -972,6 +972,8 @@
 
 				if (_.isEqual(stdGrdType, "WT")) {
 					cntWt++;
+					/** 여기 중량을 수량으로 바꿔야함. 그리고 중량 위쪽 그리드 중량 땡겨와서 단량 측정후에
+					 * 일단은 수량대비 중량 보여준뒤에 수정가능하게 > 뒤쪽 validation 체크해야함. **/
 					stdGrd.grdWght = parseFloat(rowData[colNm]) || 0;
 					if (gfn_isEmpty(grdCd)) {
 						grdCd = "*";
