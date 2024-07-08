@@ -37,7 +37,7 @@
             </div>
         </div>
         <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-        <table class="table table-bordered tbl_fixed">
+        <table id="dataArea1" class="table table-bordered tbl_fixed">
             <caption>검색 조건 설정</caption>
             <colgroup>
                 <col style="width: 7%">
@@ -138,7 +138,7 @@
                             uitype="popup"
                             date-format="yyyymmdd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            readonly>
+                            >
                     </sbux-datepicker>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -150,7 +150,7 @@
                             uitype="popup"
                             date-format="yyyymmdd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            readonly>
+                            >
                     </sbux-datepicker>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -590,7 +590,7 @@
      */
     var fn_compopup1 = function() {
 
-        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -619,16 +619,17 @@
     }
 
     const fn_compopup2 = function() {
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
-        var replaceText0 = "_EMP_CODE";
-        var replaceText1 = "_EMP_NAME";
-        var replaceText2 = "_DEPT_CODE";
-        var replaceText3 = "_DEPT_NAME";
-        var replaceText4 = "_EMP_STATE";
-        var strWhereClause = "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.DEPT_CODE ="+replaceText2
-            + "%' AND X.DEPT_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE ="+replaceText4;
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '입력부서');
+        var searchText = gfnma_nvl(SBUxMethod.get("EMP_FULL_NAME"));
+        var replaceText0 = "_EMP_CODE_";
+        var replaceText1 = "_EMP_NAME_";
+        var replaceText2 = "_DEPT_CODE_";
+        var replaceText3 = "_DEPT_NAME_";
+        var replaceText4 = "_EMP_STATE_";
+        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
             compCode: gv_ma_selectedApcCd
             , clientCode: gv_ma_selectedClntCd
@@ -637,15 +638,15 @@
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
             , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
             , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-emp_full_name', data.EMP_NAME);
-                SBUxMethod.set('srch-emp_code', data.EMP_CODE);
+                SBUxMethod.set('EMP_FULL_NAME', data.EMP_NAME);
+                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
             },
         });
 
@@ -666,6 +667,31 @@
         SBUxMethod.set('srch-pay_yyyymm', openDate);
 
         fn_createGrid();
+    }
+
+    // 신규
+    /*  function cfn_add() {
+          fn_create();
+      }*/
+    // 저장
+   /* function cfn_save() {
+        fn_save();
+    }*/
+    // 삭제
+    /*function cfn_del() {
+        fn_delete();
+    }*/
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
     }
 
     //계산이력(로그)
@@ -699,6 +725,113 @@
 
         gvwLogGrid = _SBGrid.create(SBGridProperties);
         gvwLogGrid.bind('click', 'fn_view');
+    }
+
+    // 지급일자 가져오기
+    const fn_search = async function () {
+
+        let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm")); // 귀속년월
+        let BASE_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-base_yyyymm")); // 상여기준월
+        let PAY_CALCULATE_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_calculate_type")); // 급상여구분
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); // 지급구분
+        let PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-pay_date")); // 지급일
+        let EXPECTED_PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-expected_pay_date")); // 퇴사일
+
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_SITE_CODE          : ''
+            ,V_P_PAY_YYYYMM         : PAY_YYYYMM
+            ,V_P_PAY_CALCULATE_TYPE : ''
+            /* -- 'PAY' : 급여,  'BONUS' : 상여,  'ALL' : 급상여*/
+            ,V_P_PAY_TYPE           : PAY_TYPE
+            ,V_P_PAY_DATE           : ''
+            ,V_P_PAY_AREA_TYPE      : ''
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2320List.do", {
+            getType: 'json',
+            workType: 'Q',
+            cv_count: '8',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log("----------------------------------------------",data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                data.cv_3.forEach((item, index) => {
+                    const msg = {
+                        PAY_ITEM_CODE		        : gfnma_nvl(item.PAY_ITEM_CODE),
+                        PAY_APPLY_YYYYMM_FR		        : gfnma_nvl(item.PAY_APPLY_YYYYMM_FR),
+                        PAY_APPLY_YYYYMM_TO		        : gfnma_nvl(item.PAY_APPLY_YYYYMM_TO)
+                    }
+                });
+
+                data.cv_4.forEach((item, index) => {
+                    const msg = {
+                        PAY_WORK_MONTHS		        : gfnma_nvl(item.PAY_WORK_MONTHS),
+                        BONUS_APPLY_TYPE		        : gfnma_nvl(item.BONUS_APPLY_TYPE),
+                        BONUS_RATE		        : gfnma_nvl(item.BONUS_RATE),
+                        BONUS_AMT		        : gfnma_nvl(item.BONUS_AMT),
+
+                    }
+                });
+
+
+                /** @type {number} **/
+                //let totalRecordCount = 0;
+
+                jsonGvwLogList.length = 0;
+                data.cv_5.forEach((item, index) => {
+                    const msg = {
+                        PAY_CALCULATE_SEQ		 : gfnma_nvl(item.PAY_CALCULATE_SEQ),
+                        CALCULATE_WORK_TYPE		 : gfnma_nvl(item.CALCULATE_WORK_TYPE),
+                        TAX_CALCULATE_TYPE		 : gfnma_nvl(item.TAX_CALCULATE_TYPE),
+                        TAX_RATE		         : gfnma_nvl(item.TAX_RATE),
+                        BONUS_CALCULATE_TYP      : gfnma_nvl(item.BONUS_CALCULATE_TYP),
+                        BONUS_RATE		         : gfnma_nvl(item.BONUS_RATE),
+                        BONUS_APPLY_TYPE		 : gfnma_nvl(item.BONUS_APPLY_TYPE),
+                        CALCULATE_CONDITION		 : gfnma_nvl(item.CALCULATE_CONDITION),
+                        MEMO		             : gfnma_nvl(item.MEMO),
+                        ACTION_START_TIME		 : gfnma_nvl(item.ACTION_START_TIME),
+                        ACTION_END_TIME		     : gfnma_nvl(item.ACTION_END_TIME),
+                        INSERT_USERID		     : gfnma_nvl(item.INSERT_USERID),
+                        INSERT_TIME		         : gfnma_nvl(item.INSERT_TIME),
+                        INSERT_PC		         : gfnma_nvl(item.INSERT_PC),
+                        PAY_AREA_TYPE		     : gfnma_nvl(item.PAY_AREA_TYPE),
+                    }
+                    jsonGvwLogList.push(msg);
+                    //totalRecordCount ++;
+                });
+
+                gvwLogGrid.rebuild();
+                //document.querySelector('#listCount').innerText = totalRecordCount;
+
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
 
@@ -736,7 +869,7 @@
             ,V_P_PC: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp1000List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2320List.do", {
             getType: 'json',
             workType: 'PAYDATE',
             cv_count: '8',
