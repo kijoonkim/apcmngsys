@@ -75,6 +75,14 @@ public interface FrmerInfoMapper {
 	public int updateCltvtnHstry(CltvtnHstryVO cltvtnHstryVO) throws Exception;
 
 	/**
+	 * 재배이력 삭제
+	 * @param cltvtnBscInfoVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int deleteCltvtnHstry(CltvtnHstryVO cltvtnHstryVO) throws Exception;
+
+	/**
 	 * 재배기본정보 NO 발번
 	 * @param cltvtnBscInfoVO
 	 * @return CltvtnBscInfoVO

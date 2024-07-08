@@ -28,7 +28,7 @@ public interface PrdcrService {
 	 * @throws Exception
 	 */
 	public PrdcrVO selectPrdcr(PrdcrVO prdcrVO) throws Exception;
-	
+
 	/**
 	 * 생산자정보 단건 조회 by 생산자식별번호
 	 * @param prdcrVO
@@ -52,7 +52,7 @@ public interface PrdcrService {
 	 * @throws Exception
 	 */
 	public List<PrdcrVO> selectPrdcrCdList(PrdcrVO prdcrVO) throws Exception;
-	
+
 	/**
 	 * 아그리스 생산자 마스터 목록 조회
 	 * @param prdcrVO
@@ -107,6 +107,14 @@ public interface PrdcrService {
 	 * @throws Exception
 	 */
 	public int updateApcPrdcr(PrdcrVO prdcrVO) throws Exception;
+
+	/**
+	 * APC 생산자 농가 기본 정보 업데이트
+	 * @param PrdcrVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateApcPrdcrFrmhs(PrdcrVO prdcrVO) throws Exception;
 	/**
 	 * APC 생산자 정보 업데이트 목록
 	 * @param List<PrdcrVO>

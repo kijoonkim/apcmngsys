@@ -74,6 +74,14 @@ public interface FrmerInfoService {
 	 */
 	public int updateCltvtnHstry(CltvtnHstryVO cltvtnHstryVO) throws Exception;
 
+	/**
+	 * 재배이력 삭제
+	 * @param cltvtnBscInfoVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteCltvtnHstry(CltvtnHstryVO cltvtnHstryVO) throws Exception;
+
 
 	/**
 	 * 재배정보 다중 저장
@@ -113,6 +121,14 @@ public interface FrmerInfoService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteCltvtnFrmhsQlt(CltvtnFrmhsQltVO cltvtnFrmhsQltVO) throws Exception;
+
+	/**
+	 * 재배농가품질 다중 저장
+	 * @param List<CltvtnFrmhsQltVO>
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiCltvtnFrmhsQltList(List<CltvtnFrmhsQltVO> cltvtnFrmhsQltList) throws Exception;
 
 	/**
 	 * 농가예상입고 목록 조회

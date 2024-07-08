@@ -1082,7 +1082,15 @@ const gfn_getPrdcrs = async function(_apcCd) {
 				prdcrLinkCd: item.prdcrLinkCd,
 				prdcrIdentno: item.prdcrIdentno,
 				name:item.prdcrNm,
-				value:item.prdcrCd
+				value:item.prdcrCd,
+				frmhsTelno:item.frmhsTelno,
+				frmhsCtpv:item.frmhsCtpv,
+				frmhsAddr:item.frmhsAddr,
+				crtrArea:item.crtrArea,
+				plntngArea:item.plntngArea,
+				prchsQntt:item.prchsQntt,
+				prchsAmt:item.prchsAmt,
+				frmerno:item.frmerno,
 			});
 		});
 	return sourceJson;

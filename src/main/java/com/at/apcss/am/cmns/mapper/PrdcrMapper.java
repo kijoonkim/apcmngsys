@@ -30,7 +30,7 @@ public interface PrdcrMapper {
 	 * @throws Exception
 	 */
 	public PrdcrVO selectPrdcr(PrdcrVO prdcrVO) throws Exception;
-	
+
 	/**
 	 * 생산자정보 단건 조회 by 식별번호
 	 * @param prdcrVO
@@ -126,4 +126,12 @@ public interface PrdcrMapper {
 	 * @throws Exception
 	 */
 	public int updateApcPrdcr(PrdcrVO prdcrVO) throws Exception;
+
+	/**
+	 * APC 생산자 농가 기본 정보 업데이트
+	 * @param PrdcrVO
+	 * @return integer
+	 * @throws Exception
+	 */
+	public int updateApcPrdcrFrmhs(PrdcrVO prdcrVO) throws Exception;
 }
