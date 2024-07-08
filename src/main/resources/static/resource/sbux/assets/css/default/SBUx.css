@@ -9110,8 +9110,8 @@ span.sbux-chk-wrap input .sbux-rdo-wrap label.checked .glyphicon:before {
   position: absolute;
   top: 0px;
   left: 4px;
-  width: 4px;
-  height: 9px;
+  width: 6px;
+  height: 10px;
   border: solid #307ea5;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -9152,8 +9152,8 @@ span.sbux-chk-wrap input.disabled:checked + label .glyphicon:before {
   position: absolute;
   top: 0px;
   left: 4px;
-  width: 4px;
-  height: 9px;
+  width: 6px;
+  height: 10px;
   border: solid #999;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
