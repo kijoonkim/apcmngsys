@@ -627,27 +627,14 @@
 
 		var mapCol = grdCltvtnHstry.getColRef("map");
 		if(mapCol === col){
-
-			var pnu = item.stdgCd + "1" + fn_zeroPad(item.frlnMno, 4) + fn_zeroPad(item.frlnSno, 4);
-			frmidMapPopup(pnu);
+			frmidMapPopup(item);
 		}
 
 	}
 
-	/**
-     * @name fn_setFrlnInput
-     * @description 재배이력 지도(보기) 이벤트 팜맵 팝업 연결
-     * @param1 (number) number
-     * @param2 (number) length
-     * @result (String) pnu
-     */
-	const fn_zeroPad = function (number, length) {
-		return String(number).length >= length ? String(number) : String(number).padStart(length, '0');
-	}
-
-	const frmidMapPopup = async function(stdgCd){
+	const frmidMapPopup = async function(item){
 		SBUxMethod.openModal('modal-framldMap');
-		popFramldMap.init(gv_selectedApcCd, stdgCd);
+		popFramldMap.init(gv_selectedApcCd, item.stdgCd, item.frlnMno, item.frlnSno);
 	}
 
 	const fn_searchMap = function () {

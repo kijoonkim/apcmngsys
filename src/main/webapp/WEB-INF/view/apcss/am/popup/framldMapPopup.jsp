@@ -65,10 +65,24 @@
             getButton('menuFarmmapDataSeachBjdAndLandCode,formFarmmapDataSeachBjdAndLandCode');
         }
 
+        /**
+         * @name fn_setFrlnInput
+         * @description 재배이력 지도(보기) 이벤트 팜맵 팝업 연결
+         * @param1 (number) number
+         * @param2 (number) length
+         * @result (String) pnu
+         */
+    	const fn_zeroPad = function (number, length) {
+    		return String(number).length >= length ? String(number) : String(number).padStart(length, '0');
+    	}
+
         const getFarmmapDataSeachPnu = async function(){
             await clearData(); // info 초기화
             var params = {};
-            params.pnu = SBUxMethod.get("framld-inp-pnu");
+            var stdgCd = SBUxMethod.get("framld-inp-stdgCd");
+            var frlnMno = SBUxMethod.get("framld-inp-frlnMno");
+            var frlnSno = SBUxMethod.get("framld-inp-frlnSno");
+            params.pnu = stdgCd + "1" + fn_zeroPad(frlnMno, 4) + fn_zeroPad(frlnSno, 4);
             params.mapType = $("#mapType1").val();
             params.columnType = $("#columnType1").val();
             params.apiKey = apiKey;
@@ -329,7 +343,7 @@
                 </p>
             </div>
             <div style="margin-left: auto;">
-<%--                <sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();"></sbux-button>--%>
+                <sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();"></sbux-button>
                 <sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-framldMap')"></sbux-button>
             </div>
         </div>
@@ -338,6 +352,8 @@
             <table class="table table-bordered tbl_row tbl_fixed">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
+                    <col style="width: 12%">
+                    <col style="width: 24%">
                     <col style="width: 12%">
                     <col style="width: 24%">
                     <col style="width: 12%">
@@ -351,9 +367,14 @@
                     <th>
                         <sbux-input id="framld-inp-apcNm" name="framld-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
                     </th>
-                    <th scope="row">PNU번호</th>
+                    <th scope="row">본번</th>
                     <th class="td_input">
-                        <sbux-input id="framld-inp-pnu" name="framld-inp-pnu" uitype="text" class="form-control input-sm" disabled></sbux-input>
+                        <sbux-input id="framld-inp-frlnMno" name="framld-inp-frlnMno" uitype="text" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="framld-inp-stdgCd" name="framld-inp-stdgCd" uitype="hidden" class="form-control input-sm"></sbux-input>
+                    </th>
+                    <th scope="row">부번</th>
+                    <th class="td_input">
+                        <sbux-input id="framld-inp-frlnSno" name="framld-inp-frlnSno" uitype="text" class="form-control input-sm"></sbux-input>
                     </th>
                     <th>&nbsp;</th>
                 </tr>
@@ -386,9 +407,11 @@
         objGrid: null,
         gridJson: [],
         callbackFnc: function() {},
-        init: async function(_apcCd, _pnu) {
+        init: async function(_apcCd, _stdgCd, _frlnMno, _frlnSno) {
             SBUxMethod.set("framld-inp-apcNm", gv_selectedApcNm);
-            SBUxMethod.set("framld-inp-pnu", _pnu);
+            SBUxMethod.set("framld-inp-stdgCd", _stdgCd);
+            SBUxMethod.set("framld-inp-frlnMno", _frlnMno);
+            SBUxMethod.set("framld-inp-frlnSno", _frlnSno);
 
             await getFarmmapDataSeachPnu();
         }
