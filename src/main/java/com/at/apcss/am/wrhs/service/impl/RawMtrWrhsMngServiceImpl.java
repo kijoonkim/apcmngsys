@@ -306,6 +306,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			int wrhsQntt = inv.getWrhsQntt();
 			double wrhsWght = inv.getWrhsWght();
 
+			//재처리 내역 그리드 : rawMtrRePrcsList
 			for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
 
 				if (StringUtils.hasText(rePrcs.getWrhsno()) && rePrcs.getRmnWght() <= 0) {
@@ -411,14 +412,34 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			inptVO.setWght(inv.getInptWght());
 
 			// 투입실적있을 경우 update 처리로 분기
-			rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(inptVO);
+			/** 교통사고 지점 wrhsno 바꿔야함. **/
+			String[] wrhsnos = inptVO.getWrhsno().replace(" ","").split(",");
+			if(wrhsnos.length > 1){
+				for(int i = 0; i < wrhsnos.length; i++){
+					RawMtrWrhsVO updateWrhsVO = new RawMtrWrhsVO();
+					BeanUtils.copyProperties(inptVO,updateWrhsVO);
+					updateWrhsVO.setWrhsno(wrhsnos[i]);
+					rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(updateWrhsVO);
+				}
+			}else{
+				rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(inptVO);
+			}
 
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 
 			// 원물재고정보 update
-			rtnObj = rawMtrInvntrService.updateInvntrPrcs(inv);
+			if(wrhsnos.length > 1){
+				for(int i = 0; i < wrhsnos.length; i++){
+					RawMtrInvntrVO updateWrhsVO = new RawMtrInvntrVO();
+					BeanUtils.copyProperties(inv,updateWrhsVO);
+					updateWrhsVO.setWrhsno(wrhsnos[i]);
+					rtnObj = rawMtrInvntrService.updateInvntrRePrcs(updateWrhsVO);
+				}
+			}else{
+				rtnObj = rawMtrInvntrService.updateInvntrPrcs(inv);
+			}
 
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));

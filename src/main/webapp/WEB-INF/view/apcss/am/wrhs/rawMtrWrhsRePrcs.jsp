@@ -574,7 +574,7 @@
 			if (_.isEqual(item.stdGrdType, "RT")) {
 	    		cntRt++;
 	    		grd = {
-    				caption: [item.grdKndNm + " (Kg)"],
+    				caption: [item.grdKndNm + " (수량)"],
     				ref: gStdGrdObj.colPrfx + item.grdKnd,
     				type:'input',
     				width:'80px',
@@ -639,7 +639,7 @@
 			{
 				caption: ["총 중량 (Kg)"],
 				ref: 'wrhsWght',
-				type:'output',
+				type:'input',
 				width:'80px',
 				style: 'text-align:right',
 				userattr: {colNm: "wrhsWght"},
@@ -725,7 +725,6 @@
   	  		pagingYn : 'N',
   		});
         const data = await postJsonPromise;
-		console.log(data.resultList,"조회결과");
 
   		try {
 
@@ -886,6 +885,8 @@
     			invntrInptWght += wght;
     		}
 		});
+		/** 단량 체크 **/
+		let avg = invntrInptWght / invntrInptQntt;
 
 		if (rawMtrInvntrList.length == 0) {
 			gfn_comAlert("W0005", "원물재고대상");		//	W0005	{0}이/가 없습니다.
@@ -911,7 +912,7 @@
 			const vrtyCd = rowData.vrtyCd;
 			const warehouseSeCd = rowData.warehouseSeCd;
 			const pltno = rowData.pltno;
-			const wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
+			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
 			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
 
 			if (gfn_isEmpty(itemCd)) {
@@ -951,6 +952,7 @@
 
  	    	let cntWt = 0;
  	    	let grdWghtSum = 0;
+			let grdQnttSum = 0;
 			const stdGrdList = [];
 
 			let cntGrdError = 0;
@@ -966,7 +968,8 @@
 					itemCd: rowData.itemCd,
 					grdKnd: knd.grdKnd,
 					grdKndNm: knd.grdKndNm,
-					stdGrdType: stdGrdType
+					stdGrdType: stdGrdType,
+					grdCd: grdCd
 				}
 
 
@@ -974,11 +977,15 @@
 					cntWt++;
 					/** 여기 중량을 수량으로 바꿔야함. 그리고 중량 위쪽 그리드 중량 땡겨와서 단량 측정후에
 					 * 일단은 수량대비 중량 보여준뒤에 수정가능하게 > 뒤쪽 validation 체크해야함. **/
-					stdGrd.grdWght = parseFloat(rowData[colNm]) || 0;
-					if (gfn_isEmpty(grdCd)) {
-						grdCd = "*";
-					}
-					grdWghtSum += stdGrd.grdWght;
+					// stdGrd.grdWght = parseFloat(rowData[colNm]) || 0;
+					stdGrd.grdQntt = parseFloat(rowData[colNm]) || 0;
+					stdGrd.grdWght = stdGrd.grdQntt * avg;
+
+
+					// if (gfn_isEmpty(grdCd)) {
+					// 	grdCd = "*";
+					// }
+					grdQnttSum += stdGrd.grdQntt;
 
 				} else {
 
@@ -996,13 +1003,15 @@
 				stdGrdList.push(stdGrd);
 			});
 
+			wrhsQntt += grdQnttSum;
+
 			if (cntGrdError > 0) {
 				gfn_comAlert("W0005", "등급");
 				return;
 			}
 
-			if (cntWt > 0 && grdWghtSum <= 0) {
-				gfn_comAlert("W0005", "등급중량");	//	W0005	{0}이/가 없습니다.
+			if (cntWt > 0 && grdQnttSum <= 0) {
+				gfn_comAlert("W0005", "등급수량");	//	W0005	{0}이/가 없습니다.
 			}
 
 	    	if (gfn_isEmpty(grdCd)) {
@@ -1038,15 +1047,15 @@
 			return;
 		}
 
-		if (invntrInptWght < totalWrhsWght) {
-			gfn_comAlert("W0008", "투입량", "처리량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		if (invntrInptQntt < totalWrhsQntt) {
+			gfn_comAlert("W0008", "투입수량", "처리수량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			return;
 		}
 
 
 
 		// comConfirm
-		if (invntrInptWght > totalWrhsWght) {
+		if (invntrInptQntt > totalWrhsQntt) {
 			if (!gfn_comConfirm("Q0002", "투입잔량", "재처리 등록")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
 	    		return;
 	    	}
@@ -1065,7 +1074,7 @@
     	}
 
 		console.log(wrhsMng,"save전");
-		return;
+		// return;
 
     	const postJsonPromise = gfn_postJSON("/am/wrhs/insertRawMtrRePrcs.do", wrhsMng);
 		const data = await postJsonPromise;

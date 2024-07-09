@@ -222,4 +222,6 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public RawMtrInvntrVO selectRawMtrInvntrSumWrhsno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	public HashMap<String, Object> updateInvntrRePrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

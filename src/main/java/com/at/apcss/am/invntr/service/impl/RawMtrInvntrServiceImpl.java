@@ -728,6 +728,43 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		return null;
 	}
+	@Override
+	public HashMap<String, Object> updateInvntrRePrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		/** wrhsno 가 여러개 **/
+		List<String> wrhsnos = Arrays.asList(rawMtrInvntrVO.getWrhsno().replace(" ","").split(","));
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+//		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntrSumWrhsno(rawMtrInvntrVO,wrhsnos);
+
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+		}
+
+		// 재고량
+		int invntrQntt = rawMtrInvntrVO.getInvntrQntt() - invntrInfo.getInvntrQntt();
+		double invntrWght = rawMtrInvntrVO.getInvntrWght() - invntrInfo.getInvntrWght();
+		rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+		rawMtrInvntrVO.setInvntrWght(invntrWght);
+
+		// 재처리량
+		int prcsQntt = invntrInfo.getPrcsQntt() + rawMtrInvntrVO.getPrcsQntt();
+		double prcsWght = invntrInfo.getPrcsWght() + rawMtrInvntrVO.getPrcsWght();
+		rawMtrInvntrVO.setPrcsQntt(prcsQntt);
+		rawMtrInvntrVO.setPrcsWght(prcsWght);
+
+		// 원물 재고변경 이력 등록 (재처리)
+		rawMtrInvntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P3);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(rawMtrInvntrVO);
+
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		//최종적으로 이게 한번만 호출되어야함.
+		rawMtrInvntrMapper.updateInvntrPrcs(rawMtrInvntrVO);
+
+		return null;
+	}
 
 	@Override
 	public HashMap<String, Object> deleteInvntrPrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
