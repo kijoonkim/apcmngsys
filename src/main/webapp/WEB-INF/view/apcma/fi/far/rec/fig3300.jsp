@@ -36,11 +36,11 @@
                     </h3><!-- 전자세금계산서 관리(매출) -->
                 </div>
 				<div style="margin-left: auto;">
-					<sbux-button id="btnXml" name="btnXml" uitype="normal" class="btn btn-sm btn-outline-danger" text="파일등록(XML)" onclick="fn_uploadXml"></sbux-button>
+					<sbux-button id="btnXml" name="btnXml" uitype="normal" class="btn btn-sm btn-outline-danger" text="파일등록(XML)" onclick="$('#xmlFile').click()"></sbux-button>
 					<sbux-button id="btnDisconnection" name="btnDisconnection" uitype="normal" class="btn btn-sm btn-outline-danger" text="전표연결 끊기" onclick="fn_disconnection"></sbux-button>
 					<sbux-button id="btnImport" name="btnImport" uitype="normal" class="btn btn-sm btn-outline-danger" text="불러오기" onclick="fn_import"></sbux-button>
-					<sbux-button id="btnExcelUpload" name="btnExcelUpload" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자세금계산서" onclick="fn_excelUpload"></sbux-button>
-					<sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자계산서" onclick="fn_excelUpload2"></sbux-button>
+					<sbux-button id="btnExcelUpload" name="btnExcelUpload" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자세금계산서" onclick="$('#excelFile').click()"></sbux-button>
+					<sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자계산서" onclick="$('#excelFile2').click()"></sbux-button>
 				</div>
             </div>
             <div class="box-body">
@@ -191,6 +191,9 @@
 						<div id="sb-area-gvwItem" style="height:350px;"></div>
 					</div>
 				</div>
+				<input type="file" name="file" id="xmlFile" accept="text/xml" style="display: none;">
+				<input type="file" name="file" id="excelFile" accept=".xls,.xlsx" style="display: none;">
+				<input type="file" name="file" id="excelFile2" accept=".xls,.xlsx" style="display: none;">
             </div>
         </div>
     </section>
@@ -205,6 +208,8 @@
 </body>
 
 <!-- inline scripts related to this page -->
+<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
+</html>
 <script type="text/javascript">
 
 	// common ---------------------------------------------------
@@ -214,8 +219,8 @@
 	//-----------------------------------------------------------
 
 	var editType			= "N";
-    var strjob_name = "IF_EC_FI_002";
-    var strIfType = "1";
+	var strjob_name = "IF_EC_FI_002";
+	var strIfType = "1";
 
 	var jsonExceptCode = []; // 제외코드
 	var jsonEinvoiceCategory = []; // 전자세금계산서분류
@@ -616,12 +621,275 @@
 		}
 	}
 
-    window.addEventListener('DOMContentLoaded', function(e) {
+	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_initSBSelect();
 		fn_createGvwListGrid();
 		fn_createGvwItemGrid();
-    	fn_search();
-    });
+		fn_search();
+
+		document.getElementById('xmlFile').addEventListener('change', function(event) {
+			if(!window.FileReader) return;
+			var reader = new FileReader();
+
+			reader.addEventListener(
+					"load",
+					() => {
+						// this will then display a text file
+						fn_uploadXml(reader.result);
+					},
+					false,
+			);
+			reader.readAsText(event.target.files[0]);
+		});
+
+		document.getElementById('excelFile').addEventListener('change', function(event) {
+			if(!window.FileReader) return;
+
+			if (event.target.files[0].name.substring(0, 9) != "매입전자세금계산서") {
+				gfn_comAlert("E0000", "매입전자세금계산서만 가능합니다. 파일명은 '매입전자세금계산서..' 로 시작해야합니다. 파일명을 확인해주세요")
+				return;
+			}
+
+			var reader = new FileReader();
+			let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+			let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+			let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+
+			reader.addEventListener(
+					"load",
+					() => {
+						let workBook = XLSX.read(reader.result, { type: 'binary' });
+						workBook.SheetNames.forEach(function (sheetName) {
+							if(sheetName == "세금계산서") {
+								let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 6, header: [
+										"WRITE_DATE",
+										"APPROVAL_NO",
+										"ISSUE_DATE",
+										"SEND_DATE",
+										"SELLER_REG_NO",
+										"SELLER_SUB_REG_NO",
+										"SELLER_NAME",
+										"SELLER_OWNER",
+										"SELLER_ADDRESS",
+										"BUYER_REG_NO",
+										"BUYER_SUB_REG_NO",
+										"BUYER_NAME",
+										"BUYER_OWNER",
+										"BUYER_ADDRESS",
+										"TOTAL_AMT",
+										"TOTAL_VAT_AMT",
+										"TOTAL_TAXABLE_AMT",
+										"EINVOICE_CATEGORY",
+										"EINVOICE_TYPE",
+										"ISSUE_TYPE",
+										"DESCRIPTION",
+										"RECEIPT_OR_BILL",
+										"SELLER_EMAIL",
+										"BUYER_EMAIL1",
+										"BUYER_EMAIL2",
+										"TXN_DATE",
+										"ITEM_NAME",
+										"ITEM_SPEC",
+										"ITEM_QTY",
+										"ITEM_UNIT_PRICE",
+										"ITEM_VAT_AMT",
+										"ITEM_TAXABLE_AMT",
+										"ITEM_DESC"
+									]});
+
+
+								list.forEach((item, index) => {
+									if(gfn_nvl(item.APPROVAL_NO) != "") {
+										if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) < parseInt(strmindate)) {
+											strmindate = item.ISSUE_DATE.replaceAll("-", "");
+										}
+
+										if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) > parseInt(strmaxdate)) {
+											strmaxdate = item.ISSUE_DATE.replaceAll("-", "");
+										}
+
+										item["WRITE_DATE"] = item.WRITE_DATE.replaceAll("-", "");
+										item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
+										item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
+										item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
+										item["SELLER_ADDRESS"] = item.SELLER_ADDRESS.replaceAll("\,", "&#44;");
+										item["BUYER_ADDRESS"] = item.BUYER_ADDRESS.replaceAll("\,", "&#44;");
+
+										item["OTHER_DESC"] = "";
+										item["ACCOUNT_EMP_CODE"] = "";
+										item["FI_ORG_CODE"] = FI_ORG_CODE;
+										item["MATCH_METHOD"] = "";
+										item["SELLER_BIZ_CATEGORY"] = "";
+										item["SELLER_BIZ_ITEM"] = "";
+										item["BUYER_BIZ_CATEGORY"] = "";
+										item["BUYER_BIZ_ITEM"] = "";
+										item["BUYER_BIZ_TYPE"] = "";
+										item["DOC_ID"] = "";
+
+										gvwList.addRow(true, item);
+									}
+								});
+							}
+
+							if(sheetName == "품목") {
+								let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 5, header: [
+										"APPROVAL_NO",
+										"SEQ",
+										"SELLER_REG_NO",
+										"BUYER_REG_NO",
+										"WRITE_DATE",
+										"ITEM_NAME",
+										"ITEM_SPEC",
+										"ITEM_QTY",
+										"ITEM_UNIT_PRICE",
+										"ITEM_TAXABLE_AMT",
+										"ITEM_VAT_AMT",
+										"ITEM_DESC"
+									]});
+
+								rows.forEach((item, index) => {
+									item["COST_CENTER_CODE"] = "";
+									item["ACCOUNT_CODE"] = "";
+									item["DEPT_CODE"] = "";
+									item["PROJECT_CODE"] = "";
+
+									gvwItem.addRow(true, item);
+								});
+							}
+						})
+						fn_excelUpload();
+					},
+					false,
+			);
+			reader.readAsBinaryString(event.target.files[0]);
+		});
+
+		document.getElementById('excelFile2').addEventListener('change', function(event) {
+			if(!window.FileReader) return;
+
+			if (event.target.files[0].name.substring(0, 7) != "매입전자계산서") {
+				gfn_comAlert("E0000", "매입전자계산서만 가능합니다. 파일명은 '매입전자계산서..' 로 시작해야합니다. 파일명을 확인해주세요")
+				return;
+			}
+
+			var reader = new FileReader();
+			let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+			let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+			let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+
+			reader.addEventListener(
+					"load",
+					() => {
+						let workBook = XLSX.read(reader.result, { type: 'binary' });
+						workBook.SheetNames.forEach(function (sheetName) {
+							if(sheetName == "세금계산서") {
+								let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 6, header: [
+										"WRITE_DATE",
+										"APPROVAL_NO",
+										"ISSUE_DATE",
+										"SEND_DATE",
+										"SELLER_REG_NO",
+										"SELLER_SUB_REG_NO",
+										"SELLER_NAME",
+										"SELLER_OWNER",
+										"SELLER_ADDRESS",
+										"BUYER_REG_NO",
+										"BUYER_SUB_REG_NO",
+										"BUYER_NAME",
+										"BUYER_OWNER",
+										"BUYER_ADDRESS",
+										"TOTAL_AMT",
+										"TOTAL_VAT_AMT",
+										"EINVOICE_CATEGORY",
+										"EINVOICE_TYPE",
+										"ISSUE_TYPE",
+										"DESCRIPTION",
+										"RECEIPT_OR_BILL",
+										"SELLER_EMAIL",
+										"BUYER_EMAIL1",
+										"BUYER_EMAIL2",
+										"TXN_DATE",
+										"ITEM_NAME",
+										"ITEM_SPEC",
+										"ITEM_QTY",
+										"ITEM_UNIT_PRICE",
+										"ITEM_TAXABLE_AMT",
+										"ITEM_VAT_AMT",
+										"ITEM_DESC"
+									]});
+
+								list.forEach((item, index) => {
+									if(gfn_nvl(item.APPROVAL_NO) != "") {
+										if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) < parseInt(strmindate)) {
+											strmindate = item.ISSUE_DATE.replaceAll("-", "");
+										}
+
+										if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) > parseInt(strmaxdate)) {
+											strmaxdate = item.ISSUE_DATE.replaceAll("-", "");
+										}
+
+										item["WRITE_DATE"] = item.WRITE_DATE.replaceAll("-", "");
+										item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
+										item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
+										item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
+										item["SELLER_ADDRESS"] = item.SELLER_ADDRESS.replaceAll("\,", "&#44;");
+										item["BUYER_ADDRESS"] = item.BUYER_ADDRESS.replaceAll("\,", "&#44;");
+
+										item["TOTAL_TAXABLE_AMT"] = '0';
+										item["OTHER_DESC"] = "";
+										item["ACCOUNT_EMP_CODE"] = "";
+										item["FI_ORG_CODE"] = FI_ORG_CODE;
+										item["MATCH_METHOD"] = "";
+										item["SELLER_BIZ_CATEGORY"] = "";
+										item["SELLER_BIZ_ITEM"] = "";
+										item["BUYER_BIZ_CATEGORY"] = "";
+										item["BUYER_BIZ_ITEM"] = "";
+										item["BUYER_BIZ_TYPE"] = "";
+										item["DOC_ID"] = "";
+
+										gvwList.addRow(true, item);
+									}
+								});
+							}
+
+							if(sheetName == "품목") {
+								let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 5, header: [
+										"APPROVAL_NO",
+										"SEQ",
+										"SELLER_REG_NO",
+										"BUYER_REG_NO",
+										"WRITE_DATE",
+										"ITEM_NAME",
+										"ITEM_SPEC",
+										"ITEM_QTY",
+										"ITEM_UNIT_PRICE",
+										"ITEM_TAXABLE_AMT",
+										"ITEM_VAT_AMT",
+										"ITEM_DESC"
+									]});
+
+								rows.forEach((item, index) => {
+									item["ITEM_QTY"] = gfn_nvl(item.ITEM_QTY) == "" ? '0' : item.ITEM_QTY;
+									item["ITEM_UNIT_PRICE"] = gfn_nvl(item.ITEM_UNIT_PRICE) == "" ? '0' : item.ITEM_UNIT_PRICE;
+									item["ITEM_TAXABLE_AMT"] = gfn_nvl(item.ITEM_TAXABLE_AMT) == "" ? '0' : item.ITEM_TAXABLE_AMT;
+
+									item["ITEM_VAT_AMT"] = '0';
+									item["COST_CENTER_CODE"] = "";
+									item["ACCOUNT_CODE"] = "";
+									item["DEPT_CODE"] = "";
+									item["PROJECT_CODE"] = "";
+
+									gvwItem.addRow(true, item);
+								});
+							}
+						})
+						fn_excelUpload()
+					},
+					false,
+			);
+			reader.readAsBinaryString(event.target.files[0]);
+		});
+	});
 
 	// 저장
 	function cfn_save() {
@@ -639,230 +907,230 @@
 	}
 
 	const fn_save = async function () {
-        let updatedData = gvwList.getUpdateData(true, 'all');
-        let returnData = [];
+		let updatedData = gvwList.getUpdateData(true, 'all');
+		let returnData = [];
 
-        updatedData.forEach((item, index) => {
-            const param = {
-                cv_count : '0',
-                getType : 'json',
-                rownum: item.rownum,
-                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                params: gfnma_objectToString({
-                    V_P_DEBUG_MODE_YN : '',
-                    V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
-                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_FI_ORG_CODE : item.data.FI_ORG_CODE,
-                    V_P_WRITE_DATE : item.data.WRITE_DATE,
-                    V_P_APPROVAL_NO : item.data.APPROVAL_NO,
-                    V_P_ISSUE_DATE : item.data.ISSUE_DATE,
-                    V_P_SEND_DATE : item.data.SEND_DATE,
-                    V_P_SELLER_REG_NO : item.data.SELLER_REG_NO.replaceAll("-", ""),
-                    V_P_SELLER_SUB_REG_NO : item.data.SELLER_SUB_REG_NO,
-                    V_P_CS_CODE : item.data.CS_CODE,
-                    V_P_SELLER_NAME : item.data.SELLER_NAME,
-                    V_P_SELLER_OWNER : item.data.SELLER_OWNER,
-                    V_P_SELLER_ADDRESS : item.data.SELLER_ADDRESS,
-                    V_P_SELLER_BIZ_CATEGORY : item.data.SELLER_BIZ_CATEGORY,
-                    V_P_SELLER_BIZ_ITEM : item.data.SELLER_BIZ_ITEM,
-                    V_P_BUYER_REG_NO : item.data.BUYER_REG_NO.replaceAll("-", ""),
-                    V_P_BUYER_SUB_REG_NO : item.data.BUYER_SUB_REG_NO,
-                    V_P_BUYER_NAME : item.data.BUYER_NAME,
-                    V_P_BUYER_OWNER : item.data.BUYER_OWNER,
-                    V_P_BUYER_ADDRESS : item.data.BUYER_ADDRESS,
-                    V_P_BUYER_BIZ_CATEGORY : item.data.BUYER_BIZ_CATEGORY,
-                    V_P_BUYER_BIZ_ITEM : item.data.BUYER_BIZ_ITEM,
-                    V_P_BUYER_BIZ_TYPE : item.data.BUYER_BIZ_TYPE,
-                    V_P_TOTAL_AMT : parseInt(gfn_nvl(item.data.TOTAL_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_AMT)),
-                    V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(item.data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_TAXABLE_AMT)),
-                    V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(item.data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_VAT_AMT)),
-                    V_P_EINVOICE_CATEGORY : item.data.EINVOICE_CATEGORY,
-                    V_P_EINVOICE_TYPE : item.data.EINVOICE_TYPE,
-                    V_P_MATCH_METHOD : item.data.MATCH_METHOD,
-                    V_P_ISSUE_TYPE : item.data.ISSUE_TYPE,
-                    V_P_NOTE1 : item.data.NOTE1,
-                    V_P_NOTE2 : item.data.NOTE2,
-                    V_P_RECEIPT_OR_BILL : item.data.RECEIPT_OR_BILL,
-                    V_P_SELLER_EMAIL : item.data.SELLER_EMAIL,
-                    IV_P_BUYER_EMAIL1 : item.data._BUYER_EMAIL1,
-                    V_P_BUYER_EMAIL2 : item.data.BUYER_EMAIL2,
-                    V_P_ACCOUNT_EMP_CODE : item.data.ACCOUNT_EMP_CODE,
-                    V_P_TXN_DATE : item.data.TXN_DATE.replaceAll("-", ""),
-                    V_P_DOC_ID : item.data.DOC_ID,
-                    V_P_FORM_ID : p_formId,
-                    V_P_MENU_ID : p_menuId,
-                    V_P_PROC_ID : '',
-                    V_P_USERID : '',
-                    V_P_PC : ''
-                })
-            }
-            returnData.push(param);
-        });
+		updatedData.forEach((item, index) => {
+			const param = {
+				cv_count : '0',
+				getType : 'json',
+				rownum: item.rownum,
+				workType : 'U',
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN : '',
+					V_P_LANG_ID	: '',
+					V_P_COMP_CODE : gv_ma_selectedApcCd,
+					V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+					V_P_FI_ORG_CODE : item.data.FI_ORG_CODE,
+					V_P_WRITE_DATE : item.data.WRITE_DATE,
+					V_P_APPROVAL_NO : item.data.APPROVAL_NO,
+					V_P_ISSUE_DATE : item.data.ISSUE_DATE,
+					V_P_SEND_DATE : item.data.SEND_DATE,
+					V_P_SELLER_REG_NO : item.data.SELLER_REG_NO.replaceAll("-", ""),
+					V_P_SELLER_SUB_REG_NO : item.data.SELLER_SUB_REG_NO,
+					V_P_CS_CODE : item.data.CS_CODE,
+					V_P_SELLER_NAME : item.data.SELLER_NAME,
+					V_P_SELLER_OWNER : item.data.SELLER_OWNER,
+					V_P_SELLER_ADDRESS : item.data.SELLER_ADDRESS,
+					V_P_SELLER_BIZ_CATEGORY : item.data.SELLER_BIZ_CATEGORY,
+					V_P_SELLER_BIZ_ITEM : item.data.SELLER_BIZ_ITEM,
+					V_P_BUYER_REG_NO : item.data.BUYER_REG_NO.replaceAll("-", ""),
+					V_P_BUYER_SUB_REG_NO : item.data.BUYER_SUB_REG_NO,
+					V_P_BUYER_NAME : item.data.BUYER_NAME,
+					V_P_BUYER_OWNER : item.data.BUYER_OWNER,
+					V_P_BUYER_ADDRESS : item.data.BUYER_ADDRESS,
+					V_P_BUYER_BIZ_CATEGORY : item.data.BUYER_BIZ_CATEGORY,
+					V_P_BUYER_BIZ_ITEM : item.data.BUYER_BIZ_ITEM,
+					V_P_BUYER_BIZ_TYPE : item.data.BUYER_BIZ_TYPE,
+					V_P_TOTAL_AMT : parseInt(gfn_nvl(item.data.TOTAL_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_AMT)),
+					V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(item.data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_TAXABLE_AMT)),
+					V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(item.data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_VAT_AMT)),
+					V_P_EINVOICE_CATEGORY : item.data.EINVOICE_CATEGORY,
+					V_P_EINVOICE_TYPE : item.data.EINVOICE_TYPE,
+					V_P_MATCH_METHOD : item.data.MATCH_METHOD,
+					V_P_ISSUE_TYPE : item.data.ISSUE_TYPE,
+					V_P_NOTE1 : item.data.NOTE1,
+					V_P_NOTE2 : item.data.NOTE2,
+					V_P_RECEIPT_OR_BILL : item.data.RECEIPT_OR_BILL,
+					V_P_SELLER_EMAIL : item.data.SELLER_EMAIL,
+					IV_P_BUYER_EMAIL1 : item.data._BUYER_EMAIL1,
+					V_P_BUYER_EMAIL2 : item.data.BUYER_EMAIL2,
+					V_P_ACCOUNT_EMP_CODE : item.data.ACCOUNT_EMP_CODE,
+					V_P_TXN_DATE : item.data.TXN_DATE.replaceAll("-", ""),
+					V_P_DOC_ID : item.data.DOC_ID,
+					V_P_FORM_ID : p_formId,
+					V_P_MENU_ID : p_menuId,
+					V_P_PROC_ID : '',
+					V_P_USERID : '',
+					V_P_PC : ''
+				})
+			}
+			returnData.push(param);
+		});
 
-        if(returnData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
-            const data = await postJsonPromise;
+		if(returnData.length > 0) {
+			const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+			const data = await postJsonPromise;
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    let updatedData = gvwItem.getUpdateData(true, 'all');
-                    let returnData = [];
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					let updatedData = gvwItem.getUpdateData(true, 'all');
+					let returnData = [];
 
-                    updatedData.forEach((item, index) => {
-                        const param = {
-                            cv_count : '0',
-                            getType : 'json',
-                            rownum: item.rownum,
-                            workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                            params: gfnma_objectToString({
-                                V_P_DEBUG_MODE_YN : '',
-                                V_P_LANG_ID	: '',
-                                V_P_COMP_CODE : gv_ma_selectedApcCd,
-                                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                                V_P_APPROVAL_NO : item.data.APPROVAL_NO,
-                                V_P_SEQ : item.data.SEQ,
-                                V_P_ITEM_NAME : item.data.ITEM_NAME,
-                                V_P_ITEM_SPEC : item.data.ITEM_SPEC,
-                                V_P_ITEM_QTY : parseInt(gfn_nvl(item.data.ITEM_QTY) == "" ? "0" : gfn_nvl(item.data.ITEM_QTY)),
-                                V_P_ITEM_UNIT_PRICE : parseInt(gfn_nvl(item.data.ITEM_UNIT_PRICE) == "" ? "0" : gfn_nvl(item.data.ITEM_UNIT_PRICE)),
-                                V_P_ITEM_TAXABLE_AMT : parseInt(gfn_nvl(item.data.ITEM_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_TAXABLE_AMT)),
-                                V_P_ITEM_VAT_AMT : parseInt(gfn_nvl(item.data.ITEM_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_VAT_AMT)),
-                                V_P_ITEM_DESC : item.data.ITEM_DESC,
-                                V_P_COST_CENTER_CODE : item.data.COST_CENTER_CODE,
-                                V_P_DEPT_CODE : item.data.DEPT_CODE,
-                                V_P_PROJECT_CODE : item.data.PROJECT_CODE,
-                                V_P_ACCOUNT_CODE : item.data.ACCOUNT_CODE,
-                                V_P_FORM_ID : p_formId,
-                                V_P_MENU_ID : p_menuId,
-                                V_P_PROC_ID : '',
-                                V_P_USERID : '',
-                                V_P_PC : ''
-                            })
-                        }
-                        returnData.push(param);
-                    });
+					updatedData.forEach((item, index) => {
+						const param = {
+							cv_count : '0',
+							getType : 'json',
+							rownum: item.rownum,
+							workType : 'U1',
+							params: gfnma_objectToString({
+								V_P_DEBUG_MODE_YN : '',
+								V_P_LANG_ID	: '',
+								V_P_COMP_CODE : gv_ma_selectedApcCd,
+								V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+								V_P_APPROVAL_NO : item.data.APPROVAL_NO,
+								V_P_SEQ : item.data.SEQ,
+								V_P_ITEM_NAME : item.data.ITEM_NAME,
+								V_P_ITEM_SPEC : item.data.ITEM_SPEC,
+								V_P_ITEM_QTY : parseInt(gfn_nvl(item.data.ITEM_QTY) == "" ? "0" : gfn_nvl(item.data.ITEM_QTY)),
+								V_P_ITEM_UNIT_PRICE : parseInt(gfn_nvl(item.data.ITEM_UNIT_PRICE) == "" ? "0" : gfn_nvl(item.data.ITEM_UNIT_PRICE)),
+								V_P_ITEM_TAXABLE_AMT : parseInt(gfn_nvl(item.data.ITEM_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_TAXABLE_AMT)),
+								V_P_ITEM_VAT_AMT : parseInt(gfn_nvl(item.data.ITEM_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_VAT_AMT)),
+								V_P_ITEM_DESC : item.data.ITEM_DESC,
+								V_P_COST_CENTER_CODE : item.data.COST_CENTER_CODE,
+								V_P_DEPT_CODE : item.data.DEPT_CODE,
+								V_P_PROJECT_CODE : item.data.PROJECT_CODE,
+								V_P_ACCOUNT_CODE : item.data.ACCOUNT_CODE,
+								V_P_FORM_ID : p_formId,
+								V_P_MENU_ID : p_menuId,
+								V_P_PROC_ID : '',
+								V_P_USERID : '',
+								V_P_PC : ''
+							})
+						}
+						returnData.push(param);
+					});
 
-                    if(returnData.length > 0) {
-                        const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300ItemList.do", {listData: returnData});
-                        const data = await postJsonPromise;
+					if(returnData.length > 0) {
+						const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300ItemList.do", {listData: returnData});
+						const data = await postJsonPromise;
 
-                        try {
-                            if (_.isEqual("S", data.resultStatus)) {
-                                gfn_comAlert("I0001");
-                                fn_search();
-                            } else {
-                                alert(data.resultMessage);
-                            }
-                        } catch (e) {
-                            if (!(e instanceof Error)) {
-                                e = new Error(e);
-                            }
-                            console.error("failed", e.message);
-                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-                        }
-                    }
-                } else {
-                    alert(data.resultMessage);
-                }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
-        }
-    }
+						try {
+							if (_.isEqual("S", data.resultStatus)) {
+								gfn_comAlert("I0001");
+								fn_search();
+							} else {
+								alert(data.resultMessage);
+							}
+						} catch (e) {
+							if (!(e instanceof Error)) {
+								e = new Error(e);
+							}
+							console.error("failed", e.message);
+							gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+						}
+					}
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
 
 	const fn_delete = async function () {
-        let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
-        let returnData = [];
+		let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
+		let returnData = [];
 
-        if(gvwListCheckedList.length == 0) {
-            return;
-        }
+		if(gvwListCheckedList.length == 0) {
+			return;
+		}
 
 		gvwListCheckedList.forEach((item, index) => {
 			let data = gvwList.getRowData(item);
 
-            const param = {
-                cv_count : '0',
-                getType : 'json',
-                rownum: item,
-                workType : 'D',
-                params: gfnma_objectToString({
-                    V_P_DEBUG_MODE_YN : '',
-                    V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
-                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_FI_ORG_CODE : data.FI_ORG_CODE,
-                    V_P_WRITE_DATE : data.WRITE_DATE,
-                    V_P_APPROVAL_NO : data.APPROVAL_NO,
-                    V_P_ISSUE_DATE : data.ISSUE_DATE,
-                    V_P_SEND_DATE : data.SEND_DATE,
-                    V_P_SELLER_REG_NO : data.SELLER_REG_NO.replaceAll("-", ""),
-                    V_P_SELLER_SUB_REG_NO : data.SELLER_SUB_REG_NO,
-                    V_P_CS_CODE : data.CS_CODE,
-                    V_P_SELLER_NAME : data.SELLER_NAME,
-                    V_P_SELLER_OWNER : data.SELLER_OWNER,
-                    V_P_SELLER_ADDRESS : data.SELLER_ADDRESS,
-                    V_P_SELLER_BIZ_CATEGORY : data.SELLER_BIZ_CATEGORY,
-                    V_P_SELLER_BIZ_ITEM : data.SELLER_BIZ_ITEM,
-                    V_P_BUYER_REG_NO : data.BUYER_REG_NO.replaceAll("-", ""),
-                    V_P_BUYER_SUB_REG_NO : data.BUYER_SUB_REG_NO,
-                    V_P_BUYER_NAME : data.BUYER_NAME,
-                    V_P_BUYER_OWNER : data.BUYER_OWNER,
-                    V_P_BUYER_ADDRESS : data.BUYER_ADDRESS,
-                    V_P_BUYER_BIZ_CATEGORY : data.BUYER_BIZ_CATEGORY,
-                    V_P_BUYER_BIZ_ITEM : data.BUYER_BIZ_ITEM,
-                    V_P_BUYER_BIZ_TYPE : data.BUYER_BIZ_TYPE,
-                    V_P_TOTAL_AMT : parseInt(gfn_nvl(data.TOTAL_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_AMT)),
-                    V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_TAXABLE_AMT)),
-                    V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_VAT_AMT)),
-                    V_P_EINVOICE_CATEGORY : data.EINVOICE_CATEGORY,
-                    V_P_EINVOICE_TYPE : data.EINVOICE_TYPE,
-                    V_P_MATCH_METHOD : data.MATCH_METHOD,
-                    V_P_ISSUE_TYPE : data.ISSUE_TYPE,
-                    V_P_NOTE1 : data.NOTE1,
-                    V_P_NOTE2 : data.NOTE2,
-                    V_P_RECEIPT_OR_BILL : data.RECEIPT_OR_BILL,
-                    V_P_SELLER_EMAIL : data.SELLER_EMAIL,
-                    IV_P_BUYER_EMAIL1 : data._BUYER_EMAIL1,
-                    V_P_BUYER_EMAIL2 : data.BUYER_EMAIL2,
-                    V_P_ACCOUNT_EMP_CODE : data.ACCOUNT_EMP_CODE,
-                    V_P_TXN_DATE : data.TXN_DATE.replaceAll("-", ""),
-                    V_P_DOC_ID : data.DOC_ID,
-                    V_P_FORM_ID : p_formId,
-                    V_P_MENU_ID : p_menuId,
-                    V_P_PROC_ID : '',
-                    V_P_USERID : '',
-                    V_P_PC : ''
-                })
-            }
-            returnData.push(param);
-        });
+			const param = {
+				cv_count : '0',
+				getType : 'json',
+				rownum: item,
+				workType : 'D',
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN : '',
+					V_P_LANG_ID	: '',
+					V_P_COMP_CODE : gv_ma_selectedApcCd,
+					V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+					V_P_FI_ORG_CODE : data.FI_ORG_CODE,
+					V_P_WRITE_DATE : data.WRITE_DATE,
+					V_P_APPROVAL_NO : data.APPROVAL_NO,
+					V_P_ISSUE_DATE : data.ISSUE_DATE,
+					V_P_SEND_DATE : data.SEND_DATE,
+					V_P_SELLER_REG_NO : data.SELLER_REG_NO.replaceAll("-", ""),
+					V_P_SELLER_SUB_REG_NO : data.SELLER_SUB_REG_NO,
+					V_P_CS_CODE : data.CS_CODE,
+					V_P_SELLER_NAME : data.SELLER_NAME,
+					V_P_SELLER_OWNER : data.SELLER_OWNER,
+					V_P_SELLER_ADDRESS : data.SELLER_ADDRESS,
+					V_P_SELLER_BIZ_CATEGORY : data.SELLER_BIZ_CATEGORY,
+					V_P_SELLER_BIZ_ITEM : data.SELLER_BIZ_ITEM,
+					V_P_BUYER_REG_NO : data.BUYER_REG_NO.replaceAll("-", ""),
+					V_P_BUYER_SUB_REG_NO : data.BUYER_SUB_REG_NO,
+					V_P_BUYER_NAME : data.BUYER_NAME,
+					V_P_BUYER_OWNER : data.BUYER_OWNER,
+					V_P_BUYER_ADDRESS : data.BUYER_ADDRESS,
+					V_P_BUYER_BIZ_CATEGORY : data.BUYER_BIZ_CATEGORY,
+					V_P_BUYER_BIZ_ITEM : data.BUYER_BIZ_ITEM,
+					V_P_BUYER_BIZ_TYPE : data.BUYER_BIZ_TYPE,
+					V_P_TOTAL_AMT : parseInt(gfn_nvl(data.TOTAL_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_AMT)),
+					V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_TAXABLE_AMT)),
+					V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(data.TOTAL_VAT_AMT)),
+					V_P_EINVOICE_CATEGORY : data.EINVOICE_CATEGORY,
+					V_P_EINVOICE_TYPE : data.EINVOICE_TYPE,
+					V_P_MATCH_METHOD : data.MATCH_METHOD,
+					V_P_ISSUE_TYPE : data.ISSUE_TYPE,
+					V_P_NOTE1 : data.NOTE1,
+					V_P_NOTE2 : data.NOTE2,
+					V_P_RECEIPT_OR_BILL : data.RECEIPT_OR_BILL,
+					V_P_SELLER_EMAIL : data.SELLER_EMAIL,
+					IV_P_BUYER_EMAIL1 : data._BUYER_EMAIL1,
+					V_P_BUYER_EMAIL2 : data.BUYER_EMAIL2,
+					V_P_ACCOUNT_EMP_CODE : data.ACCOUNT_EMP_CODE,
+					V_P_TXN_DATE : data.TXN_DATE.replaceAll("-", ""),
+					V_P_DOC_ID : data.DOC_ID,
+					V_P_FORM_ID : p_formId,
+					V_P_MENU_ID : p_menuId,
+					V_P_PROC_ID : '',
+					V_P_USERID : '',
+					V_P_PC : ''
+				})
+			}
+			returnData.push(param);
+		});
 
-        if(returnData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
-            const data = await postJsonPromise;
+		if(returnData.length > 0) {
+			const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+			const data = await postJsonPromise;
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    gfn_comAlert("I0001");
-                    fn_search();
-                } else {
-                    alert(data.resultMessage);
-                }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
-        }
-    }
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001");
+					fn_search();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
 
 	const fn_search = async function () {
 		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
@@ -909,6 +1177,7 @@
 		try {
 			if (_.isEqual("S", listData.resultStatus)) {
 				jsonSearchResultList.length = 0;
+
 				listData.cv_1.forEach((item, index) => {
 					const msg = {
 						ROW_STATUS : item.ROW_STATUS,
@@ -979,6 +1248,9 @@
 
 				if(jsonSearchResultList.length > 0) {
 					gvwList.clickRow(1);
+				} else {
+					jsonItemList.length = 0;
+					gvwItem.rebuild();
 				}
 			} else {
 				alert(listData.resultMessage);
@@ -992,6 +1264,709 @@
 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
+
+	const fn_uploadXml = async function (file) {
+		let parser = new DOMParser();
+		let xml = parser.parseFromString(file, "text/html");
+		let parseXmlForJson = xmlToJson(xml);
+		let TAXINVOICE = parseXmlForJson.HTML.BODY.TAXINVOICE;
+		console.log(TAXINVOICE)
+		let nodeTaxInvoice = TAXINVOICE;
+		let nodeExchangedDocument = TAXINVOICE.EXCHANGEDDOCUMENT;
+		let nodeTaxInvoiceDocument = TAXINVOICE.TAXINVOICEDOCUMENT;
+		let nodeInvoicerParty = TAXINVOICE.TAXINVOICETRADESETTLEMENT.INVOICERPARTY;
+		let nodeInvoiceeParty = TAXINVOICE.TAXINVOICETRADESETTLEMENT.INVOICEEPARTY;
+		let nodeSpecifiedMonetarySummation = TAXINVOICE.TAXINVOICETRADESETTLEMENT.SPECIFIEDMONETARYSUMMATION;
+		let nodeTaxInvoiceTradeLineItem = TAXINVOICE.TAXINVOICETRADELINEITEM;
+		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+
+		if (nodeTaxInvoice != null) {
+			var rowHeader = {};
+
+			rowHeader["CHECK_YN"] = "N";
+			rowHeader["INTERFACED_FLAG"] = "N";
+			rowHeader["CS_CODE"] = "";
+			rowHeader["CS_CODE_ORG"] = "";
+			rowHeader["ACCOUNT_EMP_CODE"] = "";
+			rowHeader["DOC_ID"] = null;
+			rowHeader["FI_ORG_CODE"] = FI_ORG_CODE;
+			rowHeader["NOTE2"] = "";
+			rowHeader["MATCH_METHOD"] = "";
+			rowHeader["ISSUE_TYPE"] = "";
+			rowHeader["SELLER_SUB_REG_NO"] = "";
+			rowHeader["BUYER_SUB_REG_NO"] = "";
+
+			//발행일자
+			rowHeader["SEND_DATE"] = nodeExchangedDocument["ISSUEDATETIME"].substring(0, 8);
+
+			//세금계산서정보
+			let strIssueId = nodeTaxInvoiceDocument["ISSUEID"];
+			rowHeader["APPROVAL_NO"] = strIssueId;
+			rowHeader["EINVOICE_CATEGORY"] = nodeTaxInvoiceDocument["TYPECODE"];
+			rowHeader["EINVOICE_TYPE"] = nodeTaxInvoiceDocument["TYPECODE"].substring(2, 4);
+			if (gfn_nvl(nodeTaxInvoiceDocument["DESCRIPTIONTEXT"]) != "") {
+				rowHeader["NOTE1"] = nodeTaxInvoiceDocument["DESCRIPTIONTEXT"];
+			}
+			rowHeader["WRITE_DATE"] = nodeTaxInvoiceDocument["ISSUEDATETIME"];
+			rowHeader["ISSUE_DATE"] = nodeTaxInvoiceDocument["ISSUEDATETIME"];
+			rowHeader["TXN_DATE"] = nodeTaxInvoiceDocument["ISSUEDATETIME"];
+			rowHeader["RECEIPT_OR_BILL"] = nodeTaxInvoiceDocument["PURPOSECODE"];
+			rowHeader["MATCH_METHOD"] = "1";
+			rowHeader["ISSUE_TYPE"] = "1";
+
+			//공급하는자
+			rowHeader["SELLER_REG_NO"] = nodeInvoicerParty["ID"];
+			rowHeader["SELLER_BIZ_CATEGORY"] = nodeInvoicerParty["TYPECODE"];
+			rowHeader["SELLER_NAME"] = nodeInvoicerParty["NAMETEXT"];
+			rowHeader["SELLER_BIZ_ITEM"] = nodeInvoicerParty["CLASSIFICATIONCODE"];
+			rowHeader["SELLER_OWNER"] = nodeInvoicerParty["SPECIFIEDPERSON"].NAMETEXT;
+			if (gfn_nvl(nodeInvoicerParty["DEFINEDCONTACT"]) != "") {
+				rowHeader["SELLER_EMAIL"] = nodeInvoicerParty["DEFINEDCONTACT"].URICOMMUNICATION;
+			}
+			rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SPECIFIEDADDRESS"].LINEONETEXT.replaceAll("\,", "&#44;");
+
+
+			//공급받는자
+			rowHeader["BUYER_REG_NO"] = nodeInvoiceeParty["ID"];
+			rowHeader["BUYER_BIZ_CATEGORY"] = nodeInvoiceeParty["TYPECODE"];
+			rowHeader["BUYER_NAME"] = nodeInvoiceeParty["NAMETEXT"];
+			rowHeader["BUYER_BIZ_ITEM"] = nodeInvoiceeParty["CLASSIFICATIONCODE"];
+			rowHeader["BUYER_BIZ_TYPE"] = nodeInvoiceeParty["SPECIFIEDORGANIZATION"].BUSINESSTYPECODE;
+			rowHeader["BUYER_OWNER"] = nodeInvoiceeParty["SPECIFIEDPERSON"].NAMETEXT;
+			rowHeader["BUYER_EMAIL1"] = nodeInvoiceeParty["PRIMARYDEFINEDCONTACT"].URICOMMUNICATION;
+			if (gfn_nvl(nodeInvoiceeParty["SECONDARYDEFINEDCONTACT"]) != "") {
+				rowHeader["BUYER_EMAIL2"] = nodeInvoiceeParty["SECONDARYDEFINEDCONTACT"].URICOMMUNICATION;
+			}
+			if (gfn_nvl(nodeInvoiceeParty["SPECIFIEDADDRESS"]) != "") {
+				rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SPECIFIEDADDRESS"].LINEONETEXT.replaceAll("\,", "&#44;");
+			}
+
+			rowHeader["TOTAL_TAXABLE_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["CHARGETOTALAMOUNT"]) == "" ? '0' : nodeSpecifiedMonetarySummation["CHARGETOTALAMOUNT"];
+			rowHeader["TOTAL_VAT_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["TAXTOTALAMOUNT"]) == "" ? '0' : nodeSpecifiedMonetarySummation["TAXTOTALAMOUNT"];
+			rowHeader["TOTAL_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["GRANDTOTALAMOUNT"]) == "" ? '0' : nodeSpecifiedMonetarySummation["GRANDTOTALAMOUNT"];
+
+			gvwList.addRow(true, rowHeader);
+
+			if(Array.isArray(nodeTaxInvoiceTradeLineItem)) {
+				nodeTaxInvoiceTradeLineItem.forEach((item, index) => {
+					var rowItem = {};
+					rowItem["APPROVAL_NO"] = strIssueId;
+					rowItem["SEQ"] = item["SEQUENCENUMERIC"];
+					rowItem["ITEM_TAXABLE_AMT"] = item["INVOICEAMOUNT"];
+					if (gfn_nvl(item["SecondaryDefinedContact"]) != "") {
+						rowItem["ITEM_QTY"] = item["CHARGEABLEUNITQUANTITY"];
+					}
+					rowItem["ITEM_NAME"] = item["NAMETEXT"];
+					rowItem["TXN_DATE"] = item["PURCHASEEXPIRYDATETIME"];
+					rowItem["ITEM_VAT_AMT"] = item["TOTALTAX"].CALCULATEDAMOUNT;
+					if (gfn_nvl(item["UNITPRICE"]) != "") {
+						rowItem["ITEM_UNIT_PRICE"] = item["UNITPRICE"].UNITAMOUNT;
+					}
+					gvwItem.addRow(true, rowItem);
+				});
+			} else {
+				var rowItem = {};
+				rowItem["APPROVAL_NO"] = strIssueId;
+				rowItem["SEQ"] = nodeTaxInvoiceTradeLineItem["SEQUENCENUMERIC"];
+				rowItem["ITEM_TAXABLE_AMT"] = nodeTaxInvoiceTradeLineItem["INVOICEAMOUNT"];
+				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["SecondaryDefinedContact"]) != "") {
+					rowItem["ITEM_QTY"] = nodeTaxInvoiceTradeLineItem["CHARGEABLEUNITQUANTITY"];
+				}
+				rowItem["ITEM_NAME"] = nodeTaxInvoiceTradeLineItem["NAMETEXT"];
+				rowItem["TXN_DATE"] = nodeTaxInvoiceTradeLineItem["PURCHASEEXPIRYDATETIME"];
+				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["TOTALTAX"]) != "") {
+					rowItem["ITEM_VAT_AMT"] = nodeTaxInvoiceTradeLineItem["TOTALTAX"].CALCULATEDAMOUNT;
+				}
+				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["UNITPRICE"]) != "") {
+					rowItem["ITEM_UNIT_PRICE"] = nodeTaxInvoiceTradeLineItem["UNITPRICE"].UNITAMOUNT;
+				}
+
+				gvwItem.addRow(true, rowItem);
+			}
+		}
+
+		let updatedData = gvwList.getUpdateData(true, 'i');
+		let returnData = [];
+
+		updatedData.forEach((item, index) => {
+			const param = {
+				cv_count : '0',
+				getType : 'json',
+				rownum: item.rownum,
+				workType : 'N1',
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN : '',
+					V_P_LANG_ID	: '',
+					V_P_COMP_CODE : gv_ma_selectedApcCd,
+					V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+					V_P_FI_ORG_CODE : gfn_nvl(item.data.FI_ORG_CODE),
+					V_P_WRITE_DATE : gfn_nvl(item.data.WRITE_DATE),
+					V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
+					V_P_ISSUE_DATE : gfn_nvl(item.data.ISSUE_DATE),
+					V_P_SEND_DATE : gfn_nvl(item.data.SEND_DATE),
+					V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replaceAll("-", "")),
+					V_P_SELLER_SUB_REG_NO : gfn_nvl(item.data.SELLER_SUB_REG_NO),
+					V_P_CS_CODE : gfn_nvl(item.data.CS_CODE),
+					V_P_SELLER_NAME : gfn_nvl(item.data.SELLER_NAME),
+					V_P_SELLER_OWNER : gfn_nvl(item.data.SELLER_OWNER),
+					V_P_SELLER_ADDRESS : gfn_nvl(item.data.SELLER_ADDRESS),
+					V_P_SELLER_BIZ_CATEGORY : gfn_nvl(item.data.SELLER_BIZ_CATEGORY),
+					V_P_SELLER_BIZ_ITEM : gfn_nvl(item.data.SELLER_BIZ_ITEM),
+					V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replaceAll("-", "")),
+					V_P_BUYER_SUB_REG_NO : gfn_nvl(item.data.BUYER_SUB_REG_NO),
+					V_P_BUYER_NAME : gfn_nvl(item.data.BUYER_NAME),
+					V_P_BUYER_OWNER : gfn_nvl(item.data.BUYER_OWNER),
+					V_P_BUYER_ADDRESS : gfn_nvl(item.data.BUYER_ADDRESS),
+					V_P_BUYER_BIZ_CATEGORY : gfn_nvl(item.data.BUYER_BIZ_CATEGORY),
+					V_P_BUYER_BIZ_ITEM : gfn_nvl(item.data.BUYER_BIZ_ITEM),
+					V_P_BUYER_BIZ_TYPE : gfn_nvl(item.data.BUYER_BIZ_TYPE),
+					V_P_TOTAL_AMT : parseInt(gfn_nvl(item.data.TOTAL_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_AMT)),
+					V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(item.data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_TAXABLE_AMT)),
+					V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(item.data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_VAT_AMT)),
+					V_P_EINVOICE_CATEGORY : gfn_nvl(item.data.EINVOICE_CATEGORY),
+					V_P_EINVOICE_TYPE : gfn_nvl(item.data.EINVOICE_TYPE),
+					V_P_MATCH_METHOD : gfn_nvl(item.data.MATCH_METHOD),
+					V_P_ISSUE_TYPE : gfn_nvl(item.data.ISSUE_TYPE),
+					V_P_NOTE1 : gfn_nvl(item.data.NOTE1),
+					V_P_NOTE2 : gfn_nvl(item.data.NOTE2),
+					V_P_RECEIPT_OR_BILL : gfn_nvl(item.data.RECEIPT_OR_BILL),
+					V_P_SELLER_EMAIL : gfn_nvl(item.data.SELLER_EMAIL),
+					IV_P_BUYER_EMAIL1 : gfn_nvl(item.data.BUYER_EMAIL1),
+					V_P_BUYER_EMAIL2 : gfn_nvl(item.data.BUYER_EMAIL2),
+					V_P_ACCOUNT_EMP_CODE : gfn_nvl(item.data.ACCOUNT_EMP_CODE),
+					V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replaceAll("-", "")),
+					V_P_DOC_ID : gfn_nvl(item.data.DOC_ID),
+					V_P_FORM_ID : p_formId,
+					V_P_MENU_ID : p_menuId,
+					V_P_PROC_ID : '',
+					V_P_USERID : '',
+					V_P_PC : ''
+				})
+			}
+			returnData.push(param);
+		});
+		if(returnData.length > 0) {
+			const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+			const data = await postJsonPromise;
+
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					let updatedData = gvwItem.getUpdateData(true, 'i');
+					let returnData = [];
+
+					updatedData.forEach((item, index) => {
+						const param = {
+							cv_count : '0',
+							getType : 'json',
+							rownum: item.rownum,
+							workType : 'N',
+							params: gfnma_objectToString({
+								V_P_DEBUG_MODE_YN : '',
+								V_P_LANG_ID	: '',
+								V_P_COMP_CODE : gv_ma_selectedApcCd,
+								V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+								V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
+								V_P_SEQ : gfn_nvl(item.data.SEQ),
+								V_P_ITEM_NAME : gfn_nvl(item.data.ITEM_NAME),
+								V_P_ITEM_SPEC : gfn_nvl(item.data.ITEM_SPEC),
+								V_P_ITEM_QTY : parseInt(gfn_nvl(item.data.ITEM_QTY) == "" ? "0" : gfn_nvl(item.data.ITEM_QTY)),
+								V_P_ITEM_UNIT_PRICE : parseInt(gfn_nvl(item.data.ITEM_UNIT_PRICE) == "" ? "0" : gfn_nvl(item.data.ITEM_UNIT_PRICE)),
+								V_P_ITEM_TAXABLE_AMT : parseInt(gfn_nvl(item.data.ITEM_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_TAXABLE_AMT)),
+								V_P_ITEM_VAT_AMT : parseInt(gfn_nvl(item.data.ITEM_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_VAT_AMT)),
+								V_P_ITEM_DESC : gfn_nvl(item.data.ITEM_DESC),
+								V_P_COST_CENTER_CODE : gfn_nvl(item.data.COST_CENTER_CODE),
+								V_P_DEPT_CODE : gfn_nvl(item.data.DEPT_CODE),
+								V_P_PROJECT_CODE : gfn_nvl(item.data.PROJECT_CODE),
+								V_P_ACCOUNT_CODE : gfn_nvl(item.data.ACCOUNT_CODE),
+								V_P_FORM_ID : p_formId,
+								V_P_MENU_ID : p_menuId,
+								V_P_PROC_ID : '',
+								V_P_USERID : '',
+								V_P_PC : ''
+							})
+						}
+						returnData.push(param);
+					});
+
+					if(returnData.length > 0) {
+						const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300ItemList.do", {listData: returnData});
+						const data = await postJsonPromise;
+
+						try {
+							if (_.isEqual("S", data.resultStatus)) {
+								gfn_comAlert("I0001");
+								fn_search();
+							} else {
+								alert(data.resultMessage);
+							}
+						} catch (e) {
+							if (!(e instanceof Error)) {
+								e = new Error(e);
+							}
+							console.error("failed", e.message);
+							gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+						}
+					}
+				} else {
+					alert(data.resultMessage);
+					fn_search();
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
+
+	function xmlToJson(xml) {
+		var obj = {};
+
+		if (xml.nodeType == 1) {
+			if (xml.attributes.length > 0) {
+				obj["@attributes"] = {};
+				for (var j = 0; j < xml.attributes.length; j++) {
+					var attribute = xml.attributes.item(j);
+					obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+				}
+			}
+		} else if (xml.nodeType == 3) {
+			obj = xml.nodeValue;
+		}
+
+		var textNodes = [].slice.call(xml.childNodes).filter(function(node) {
+			return node.nodeType === 3;
+		});
+		if (xml.hasChildNodes() && xml.childNodes.length === textNodes.length) {
+			obj = [].slice.call(xml.childNodes).reduce(function(text, node) {
+				return text + node.nodeValue;
+			}, "");
+		} else if (xml.hasChildNodes()) {
+			for (var i = 0; i < xml.childNodes.length; i++) {
+				var item = xml.childNodes.item(i);
+				var nodeName = item.nodeName;
+				if (typeof obj[nodeName] == "undefined") {
+					obj[nodeName] = xmlToJson(item);
+				} else {
+					if (typeof obj[nodeName].push == "undefined") {
+						var old = obj[nodeName];
+						obj[nodeName] = [];
+						obj[nodeName].push(old);
+					}
+					obj[nodeName].push(xmlToJson(item));
+				}
+			}
+		}
+		return obj;
+	}
+
+	const fn_disconnection = async function () {
+		var nRow = gvwList.getRow();
+		var rowData = gvwList.getRowData(nRow);
+
+		gvwList.setCellData(nRow, gvwList.getColRef("DOC_ID"), "");
+		gvwList.setCellData(nRow, gvwList.getColRef("DOC_NAME"), "");
+
+		if(gfn_nvl(rowData) == "") return;
+
+		const param = {
+			cv_count : '0',
+			getType : 'json',
+			rownum: nRow,
+			workType : 'U',
+			params: gfnma_objectToString({
+				V_P_DEBUG_MODE_YN : '',
+				V_P_LANG_ID	: '',
+				V_P_COMP_CODE : gv_ma_selectedApcCd,
+				V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+				V_P_FI_ORG_CODE : rowData.FI_ORG_CODE,
+				V_P_WRITE_DATE : rowData.WRITE_DATE,
+				V_P_APPROVAL_NO : rowData.APPROVAL_NO,
+				V_P_ISSUE_DATE : rowData.ISSUE_DATE,
+				V_P_SEND_DATE : rowData.SEND_DATE,
+				V_P_SELLER_REG_NO : rowData.SELLER_REG_NO.replaceAll("-", ""),
+				V_P_SELLER_SUB_REG_NO : rowData.SELLER_SUB_REG_NO,
+				V_P_CS_CODE : rowData.CS_CODE,
+				V_P_SELLER_NAME : rowData.SELLER_NAME,
+				V_P_SELLER_OWNER : rowData.SELLER_OWNER,
+				V_P_SELLER_ADDRESS : rowData.SELLER_ADDRESS,
+				V_P_SELLER_BIZ_CATEGORY : rowData.SELLER_BIZ_CATEGORY,
+				V_P_SELLER_BIZ_ITEM : rowData.SELLER_BIZ_ITEM,
+				V_P_BUYER_REG_NO : rowData.BUYER_REG_NO.replaceAll("-", ""),
+				V_P_BUYER_SUB_REG_NO : rowData.BUYER_SUB_REG_NO,
+				V_P_BUYER_NAME : rowData.BUYER_NAME,
+				V_P_BUYER_OWNER : rowData.BUYER_OWNER,
+				V_P_BUYER_ADDRESS : rowData.BUYER_ADDRESS,
+				V_P_BUYER_BIZ_CATEGORY : rowData.BUYER_BIZ_CATEGORY,
+				V_P_BUYER_BIZ_ITEM : rowData.BUYER_BIZ_ITEM,
+				V_P_BUYER_BIZ_TYPE : rowData.BUYER_BIZ_TYPE,
+				V_P_TOTAL_AMT : parseInt(gfn_nvl(rowData.TOTAL_AMT) == "" ? "0" : gfn_nvl(rowData.TOTAL_AMT)),
+				V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(rowData.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(rowData.TOTAL_TAXABLE_AMT)),
+				V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(rowData.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(rowData.TOTAL_VAT_AMT)),
+				V_P_EINVOICE_CATEGORY : rowData.EINVOICE_CATEGORY,
+				V_P_EINVOICE_TYPE : rowData.EINVOICE_TYPE,
+				V_P_MATCH_METHOD : rowData.MATCH_METHOD,
+				V_P_ISSUE_TYPE : rowData.ISSUE_TYPE,
+				V_P_NOTE1 : rowData.NOTE1,
+				V_P_NOTE2 : rowData.NOTE2,
+				V_P_RECEIPT_OR_BILL : rowData.RECEIPT_OR_BILL,
+				V_P_SELLER_EMAIL : rowData.SELLER_EMAIL,
+				IV_P_BUYER_EMAIL1 : rowData._BUYER_EMAIL1,
+				V_P_BUYER_EMAIL2 : rowData.BUYER_EMAIL2,
+				V_P_ACCOUNT_EMP_CODE : rowData.ACCOUNT_EMP_CODE,
+				V_P_TXN_DATE : rowData.TXN_DATE.replaceAll("-", ""),
+				V_P_DOC_ID : rowData.DOC_ID,
+				V_P_FORM_ID : p_formId,
+				V_P_MENU_ID : p_menuId,
+				V_P_PROC_ID : '',
+				V_P_USERID : '',
+				V_P_PC : ''
+			})
+		}
+		returnData.push(param);
+
+		if(returnData.length > 0) {
+			const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+			const data = await postJsonPromise;
+
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001");
+					fn_search();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
+
+	const fn_import = async function () {
+		let DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+		let DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+
+		var paramObj = {
+			V_P_DEBUG_MODE_YN	: '',
+			V_P_LANG_ID		: '',
+			V_P_COMP_CODE		: gv_ma_selectedApcCd,
+			V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+			V_P_DATE_FR : DATE_FR,
+			V_P_DATE_TO : DATE_TO,
+			V_P_JOB_NAME : strjob_name,
+			V_P_INTERFACE_RUN : 'Y',
+			V_P_SCHEDULENAME : '',
+			V_P_COMMAND : '',
+			V_P_ADD_TIME : 0,
+			V_P_FREQ_TYPE : 0,
+			V_P_FREQ_INTERVAL : 0,
+			V_P_STEP_NAME : '',
+			V_P_SUBSYSTEM : '',
+			V_P_DATABASE_NAME : '',
+			V_P_RETRY_ATTEMPTS : 0,
+			V_P_RETRY_INTERVAL : '',
+			V_P_INTERFACE_ID : strjob_name,
+			V_P_FORM_ID		: p_formId,
+			V_P_MENU_ID		: p_menuId,
+			V_P_PROC_ID		: '',
+			V_P_USERID			: '',
+			V_P_PC				: ''
+		};
+
+		const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/importFig3300List.do", {
+			getType				: 'json',
+			workType			: 'Q',
+			cv_count			: '3',
+			params				: gfnma_objectToString(paramObj)
+		});
+
+		const listData = await postJsonPromiseForList;
+		console.log('data:', listData);
+
+		try {
+			if (_.isEqual("S", listData.resultStatus)) {
+				gfn_comAlert("I0001");
+				fn_search();
+			} else {
+				alert(listData.resultMessage);
+			}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	const fn_excelUpload = async function () {
+		let updatedData = gvwList.getUpdateData(true, 'i');
+		let returnData = [];
+
+		updatedData.forEach((item, index) => {
+			const param = {
+				cv_count : '0',
+				getType : 'json',
+				rownum: item.rownum,
+				workType : 'N1',
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN : '',
+					V_P_LANG_ID	: '',
+					V_P_COMP_CODE : gv_ma_selectedApcCd,
+					V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+					V_P_FI_ORG_CODE : gfn_nvl(item.data.FI_ORG_CODE),
+					V_P_WRITE_DATE : gfn_nvl(item.data.WRITE_DATE),
+					V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
+					V_P_ISSUE_DATE : gfn_nvl(item.data.ISSUE_DATE),
+					V_P_SEND_DATE : gfn_nvl(item.data.SEND_DATE),
+					V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replaceAll("-", "")),
+					V_P_SELLER_SUB_REG_NO : gfn_nvl(item.data.SELLER_SUB_REG_NO),
+					V_P_CS_CODE : gfn_nvl(item.data.CS_CODE),
+					V_P_SELLER_NAME : gfn_nvl(item.data.SELLER_NAME),
+					V_P_SELLER_OWNER : gfn_nvl(item.data.SELLER_OWNER),
+					V_P_SELLER_ADDRESS : gfn_nvl(item.data.SELLER_ADDRESS),
+					V_P_SELLER_BIZ_CATEGORY : gfn_nvl(item.data.SELLER_BIZ_CATEGORY),
+					V_P_SELLER_BIZ_ITEM : gfn_nvl(item.data.SELLER_BIZ_ITEM),
+					V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replaceAll("-", "")),
+					V_P_BUYER_SUB_REG_NO : gfn_nvl(item.data.BUYER_SUB_REG_NO),
+					V_P_BUYER_NAME : gfn_nvl(item.data.BUYER_NAME),
+					V_P_BUYER_OWNER : gfn_nvl(item.data.BUYER_OWNER),
+					V_P_BUYER_ADDRESS : gfn_nvl(item.data.BUYER_ADDRESS),
+					V_P_BUYER_BIZ_CATEGORY : gfn_nvl(item.data.BUYER_BIZ_CATEGORY),
+					V_P_BUYER_BIZ_ITEM : gfn_nvl(item.data.BUYER_BIZ_ITEM),
+					V_P_BUYER_BIZ_TYPE : gfn_nvl(item.data.BUYER_BIZ_TYPE),
+					V_P_TOTAL_AMT : parseInt(gfn_nvl(item.data.TOTAL_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_AMT)),
+					V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(item.data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_TAXABLE_AMT)),
+					V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(item.data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_VAT_AMT)),
+					V_P_EINVOICE_CATEGORY : gfn_nvl(item.data.EINVOICE_CATEGORY),
+					V_P_EINVOICE_TYPE : gfn_nvl(item.data.EINVOICE_TYPE),
+					V_P_MATCH_METHOD : gfn_nvl(item.data.MATCH_METHOD),
+					V_P_ISSUE_TYPE : gfn_nvl(item.data.ISSUE_TYPE),
+					V_P_NOTE1 : gfn_nvl(item.data.NOTE1),
+					V_P_NOTE2 : gfn_nvl(item.data.NOTE2),
+					V_P_RECEIPT_OR_BILL : gfn_nvl(item.data.RECEIPT_OR_BILL),
+					V_P_SELLER_EMAIL : gfn_nvl(item.data.SELLER_EMAIL),
+					IV_P_BUYER_EMAIL1 : gfn_nvl(item.data.BUYER_EMAIL1),
+					V_P_BUYER_EMAIL2 : gfn_nvl(item.data.BUYER_EMAIL2),
+					V_P_ACCOUNT_EMP_CODE : gfn_nvl(item.data.ACCOUNT_EMP_CODE),
+					V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replaceAll("-", "")),
+					V_P_DOC_ID : gfn_nvl(item.data.DOC_ID),
+					V_P_FORM_ID : p_formId,
+					V_P_MENU_ID : p_menuId,
+					V_P_PROC_ID : '',
+					V_P_USERID : '',
+					V_P_PC : ''
+				})
+			}
+			returnData.push(param);
+		});
+
+		if(returnData.length > 0) {
+			const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+			const data = await postJsonPromise;
+
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					let updatedData = gvwItem.getUpdateData(true, 'i');
+					let returnData = [];
+
+					updatedData.forEach((item, index) => {
+						const param = {
+							cv_count: '0',
+							getType: 'json',
+							rownum: item.rownum,
+							workType: 'N',
+							params: gfnma_objectToString({
+								V_P_DEBUG_MODE_YN: '',
+								V_P_LANG_ID: '',
+								V_P_COMP_CODE: gv_ma_selectedApcCd,
+								V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+								V_P_APPROVAL_NO: gfn_nvl(item.data.APPROVAL_NO),
+								V_P_SEQ: gfn_nvl(item.data.SEQ),
+								V_P_ITEM_NAME: gfn_nvl(item.data.ITEM_NAME),
+								V_P_ITEM_SPEC: gfn_nvl(item.data.ITEM_SPEC),
+								V_P_ITEM_QTY: parseInt(gfn_nvl(item.data.ITEM_QTY) == "" ? "0" : gfn_nvl(item.data.ITEM_QTY)),
+								V_P_ITEM_UNIT_PRICE: parseInt(gfn_nvl(item.data.ITEM_UNIT_PRICE) == "" ? "0" : gfn_nvl(item.data.ITEM_UNIT_PRICE)),
+								V_P_ITEM_TAXABLE_AMT: parseInt(gfn_nvl(item.data.ITEM_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_TAXABLE_AMT)),
+								V_P_ITEM_VAT_AMT: parseInt(gfn_nvl(item.data.ITEM_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_VAT_AMT)),
+								V_P_ITEM_DESC: gfn_nvl(item.data.ITEM_DESC),
+								V_P_COST_CENTER_CODE: gfn_nvl(item.data.COST_CENTER_CODE),
+								V_P_DEPT_CODE: gfn_nvl(item.data.DEPT_CODE),
+								V_P_PROJECT_CODE: gfn_nvl(item.data.PROJECT_CODE),
+								V_P_ACCOUNT_CODE: gfn_nvl(item.data.ACCOUNT_CODE),
+								V_P_FORM_ID: p_formId,
+								V_P_MENU_ID: p_menuId,
+								V_P_PROC_ID: '',
+								V_P_USERID: '',
+								V_P_PC: ''
+							})
+						}
+						returnData.push(param);
+					});
+
+					if (returnData.length > 0) {
+						const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300ItemList.do", {listData: returnData});
+						const data = await postJsonPromise;
+
+						try {
+							if (_.isEqual("S", data.resultStatus)) {
+								gfn_comAlert("I0001");
+								fn_search();
+							} else {
+								alert(data.resultMessage);
+							}
+						} catch (e) {
+							if (!(e instanceof Error)) {
+								e = new Error(e);
+							}
+							console.error("failed", e.message);
+							gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+						}
+					}
+				} else {
+					alert(data.resultMessage);
+					fn_search();
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
+
+	const fn_exclusion = async function () {
+		let EXCEPT_CODE = gfn_nvl(gfnma_multiSelectGet("#EXCEPT_CODE"));
+		let EXCEPT_REASON = gfnma_nvl(SBUxMethod.get("EXCEPT_REASON"));
+		let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
+		let returnData = [];
+
+		if (EXCEPT_CODE == "") {
+			gfn_comAlert("E0000", "제외사유를 선택하세요.");
+			return;
+		}
+
+		if(gvwListCheckedList.length == 0) {
+			gfn_comAlert("E0000", "처리대상이 없습니다.")
+			return;
+		}
+
+		gvwListCheckedList.forEach((item, index) => {
+			let data = gvwList.getRowData(item);
+			const param = {
+				cv_count : '0',
+				getType : 'json',
+				rownum: item,
+				workType : 'EXCEPT',
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN : '',
+					V_P_LANG_ID	: '',
+					V_P_COMP_CODE : gv_ma_selectedApcCd,
+					V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+					V_P_APPROVAL_NO : data.APPROVAL_NO,
+					V_P_EXCEPT_CODE : EXCEPT_CODE,
+					V_P_EXCEPT_REASON : EXCEPT_REASON,
+					V_P_EXCEPT_AMOUNT : 0,
+					V_P_FORM_ID : p_formId,
+					V_P_MENU_ID : p_menuId,
+					V_P_PROC_ID : '',
+					V_P_USERID : '',
+					V_P_PC : ''
+				})
+			}
+			returnData.push(param);
+		});
+
+		if(returnData.length > 0) {
+			const postJsonPromise = gfn_postJSON("/fi/far/rec/exclusionFig3300List.do", {listData: returnData});
+			const data = await postJsonPromise;
+
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001");
+					fn_search();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
+
+	const fn_cancel = async function () {
+		let EXCEPT_CODE = gfn_nvl(gfnma_multiSelectGet("#EXCEPT_CODE"));
+		let EXCEPT_REASON = gfnma_nvl(SBUxMethod.get("EXCEPT_REASON"));
+		let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
+		let returnData = [];
+
+		if (EXCEPT_CODE == "") {
+			gfn_comAlert("E0000", "제외사유를 선택하세요.");
+			return;
+		}
+
+		if(gvwListCheckedList.length == 0) {
+			gfn_comAlert("E0000", "처리대상이 없습니다.")
+			return;
+		}
+
+		gvwListCheckedList.forEach((item, index) => {
+			let data = gvwList.getRowData(item);
+			const param = {
+				cv_count : '0',
+				getType : 'json',
+				rownum: item,
+				workType : 'CANCEL',
+				params: gfnma_objectToString({
+					V_P_DEBUG_MODE_YN : '',
+					V_P_LANG_ID	: '',
+					V_P_COMP_CODE : gv_ma_selectedApcCd,
+					V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+					V_P_APPROVAL_NO : data.APPROVAL_NO,
+					V_P_EXCEPT_CODE : EXCEPT_CODE,
+					V_P_EXCEPT_REASON : EXCEPT_REASON,
+					V_P_EXCEPT_AMOUNT : 0,
+					V_P_FORM_ID : p_formId,
+					V_P_MENU_ID : p_menuId,
+					V_P_PROC_ID : '',
+					V_P_USERID : '',
+					V_P_PC : ''
+				})
+			}
+			returnData.push(param);
+		});
+
+		if(returnData.length > 0) {
+			const postJsonPromise = gfn_postJSON("/fi/far/rec/exclusionFig3300List.do", {listData: returnData});
+			const data = await postJsonPromise;
+
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001");
+					fn_search();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
 </script>
-<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
-</html>
