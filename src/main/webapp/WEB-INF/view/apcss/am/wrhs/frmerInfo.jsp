@@ -102,7 +102,7 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
-							<th class="ta_r th_bg"><span class="data_required"></span>품목</th>
+							<th class="ta_r th_bg">품목</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
 							</td>
@@ -355,7 +355,7 @@
     	fn_frmhsExpctWrhs();
 
 		let rst = await Promise.all([
-			gfn_setApcItemSBSelect('dtl-slt-itemCd', 	jsonApcItem, 				gv_selectedApcCd),		// 품목
+			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 				gv_selectedApcCd),		// 품목
 			gfn_setComCdSBSelect('dtl-slt-frmhsCtpv', 	jsonCtpv,  					'CTPV'),				// 지역
 			gfn_setPrdcrSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPrdcr, 				gv_selectedApcCd),		// Grid 생산자
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdSdngStts,  			'SDNG_STTS_CD'),		// 파종상태
@@ -368,6 +368,12 @@
     	])
 
     	grdFrmhsExpctWrhs.refresh({"combo":true})
+
+    	if (jsonApcItem.length == 1) {
+    		let itemCd = jsonApcItem[0].itemCd;
+			console.log("itemCd", itemCd)
+    		SBUxMethod.set("srch-slt-itemCd", itemCd);
+    	}
 
 	}
 
