@@ -608,17 +608,20 @@ const gfnma_multiSelectSet = function (id, colValue, colLabel, findValue) {
  * @name 		gfnma_multiSelectGet
  * @description 멀티 컬럼 select 에 선택된 값 가져오기 
  * @function
- * @param 		{string} id
+ * @param 		{string} id		: target
+ * @param 		{string} type	: null: value 값 / object: object 값
  * @returns 	{object}
  */
-const gfnma_multiSelectGet = function (id) {
-	/*
+const gfnma_multiSelectGet = function (id, type) {
 	var obj = {
 		value	: gfnma_nvl($(id).attr('cu-value')),
 		label	: gfnma_nvl($(id).attr('cu-label'))
 	};
-	*/
-	return gfnma_nvl($(id).attr('cu-value'));
+	if(type){
+		return obj;
+	} else {
+		return gfnma_nvl($(id).attr('cu-value'));
+	}
 }
 
 /**

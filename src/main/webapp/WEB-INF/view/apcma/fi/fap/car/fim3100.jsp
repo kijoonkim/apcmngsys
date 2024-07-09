@@ -573,7 +573,6 @@
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
-	var fiOrgCode 	= '${loginVO.fiOrgCode}';
 	//-----------------------------------------------------------
 
 	var editType	= "N";
