@@ -167,9 +167,9 @@
 						<div class="ad_tbl_toplist">
 							<sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="제외처리 취소" class="btn btn-sm btn-outline-danger" onclick="fn_cancel" style="float: right;"></sbux-button>
 							<sbux-button id="btnExclusion" name="btnExclusion" uitype="normal" text="제외처리" class="btn btn-sm btn-outline-danger" onclick="fn_exclusion" style="float: right;"></sbux-button>
-							<sbux-input id="EXCEPT_REASON" uitype="text" placeholder="" class="form-control input-sm" style="float: right;"></sbux-input>
-							<div class="dropdown" style="float: right;">
-								<button style="width:10%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCEPT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<sbux-input id="EXCEPT_REASON" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;"></sbux-input>
+							<div class="dropdown" style="float: right; width: 10%; margin-right: 5px;">
+								<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCEPT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<font>선택</font>
 									<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 								</button>
