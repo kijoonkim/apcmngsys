@@ -51,7 +51,7 @@ public class ApcMaHrp2420Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2420_Q");
+            param.put("procedure", "P_HRP2435_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
