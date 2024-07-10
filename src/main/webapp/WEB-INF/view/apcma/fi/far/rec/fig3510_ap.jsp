@@ -27,8 +27,9 @@
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
-<section>
-</section>
+<jsp:include page="./fig3510.jsp">
+    <jsp:param name="sourceType" value="AP"></jsp:param>
+</jsp:include>
 <!-- 팝업 Modal -->
 <div>
     <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
