@@ -67,7 +67,7 @@
 						<col style="width: 6%">
 					</colgroup>
 					<tbody>
-						<tr>
+						<tr style="border-top: hidden">
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(this)"></sbux-datepicker>
@@ -534,7 +534,7 @@
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.columns = [
-        	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'60px', style: 'text-align:center',
+        	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'5%', style: 'text-align:center',
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if (gfn_isEmpty(strValue)){
 	            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(" + nRow + ", " + nCol + ")'>추가</button>";
@@ -542,14 +542,14 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
 					}
 		    }},
-            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'100px', style: 'text-align:center',
+            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'8%', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcItem', label:'label', value:'value', displayui : false}
             },
             {
             	caption: ["품종"], 		
             	ref: 'vrtyCd',		
             	type:'combo',  
-            	width:'100px', 
+            	width:'8%',
             	style: 'text-align:center',
             	typeinfo: {
             		ref:'jsonApcVrty', 
@@ -568,6 +568,7 @@
 
 		const columnsStdGrd = [];
 		let cntRt = 0;
+		let width = 40 / gjsonStdGrdObjKnd.length;
 
 		gjsonStdGrdObjKnd.forEach((item, index) => {
 
@@ -577,7 +578,7 @@
     				caption: [item.grdKndNm + " (수량)"],
     				ref: gStdGrdObj.colPrfx + item.grdKnd,
     				type:'input',
-    				width:'80px',
+    				width: '7%',
     				style: 'text-align:right;background-color:#FFF8DC;',
     				userattr: {colNm: "stdGrdWght"},
     				typeinfo: {
@@ -606,7 +607,7 @@
 					caption: ["판정등급"],
 					ref: "jgmtGrdCd",
 					type:'combo',
-					width:'80px',
+					width:'7%',
 					style: 'text-align:center;',
 					userattr: {colNm: "jgmtGrd"},
 					typeinfo: {ref: gStdGrdObj.jgmtJsonId, label:'grdNm', value:'grdCd', displayui : false}
@@ -640,7 +641,7 @@
 				caption: ["총 중량 (Kg)"],
 				ref: 'wrhsWght',
 				type:'input',
-				width:'80px',
+				width:'8%',
 				style: 'text-align:right',
 				userattr: {colNm: "wrhsWght"},
 				format : {type:'number', rule:'#,### '},
@@ -663,14 +664,14 @@
                 format : {type:'number', rule:'#,###'}
 			},
 			 */
-            {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
+            {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'8%', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
             },
             {
             	caption: ["컨테이너번호"],
             	ref: 'pltno',
             	type:'input',
-            	width:'150px',
+            	width:'12%',
             	style: 'text-align:center;background-color:#FFF8DC;',
             	typeinfo: {
 	                maxlength: 20,
@@ -678,9 +679,7 @@
 	                mask : {alias : '*', repeat : '*'}
                 }
             },
-            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px'},
-	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
-	        //{caption: [" "],		ref: '_',			type:'output',  width:'1px'},
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'9%'},
 		];
 
 		columns2.forEach((item, index) => {

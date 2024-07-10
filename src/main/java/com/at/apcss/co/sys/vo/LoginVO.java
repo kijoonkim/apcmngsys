@@ -92,8 +92,8 @@ public class LoginVO implements Serializable{
 	/** 경영관리 인사담당자 */
 	private String isHrManager;
 
-    /** 경영관리 회계단위 */
-    private String fiOrgCode;
+	/** 경영관리 회계단위 */
+	private String fiOrgCode;
 
 	/** 사용자 주소 */
 	private String addr;

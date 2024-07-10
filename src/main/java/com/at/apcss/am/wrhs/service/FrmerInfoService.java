@@ -123,8 +123,6 @@ public interface FrmerInfoService {
 	public HashMap<String, Object> deleteCltvtnFrmhsQlt(CltvtnFrmhsQltVO cltvtnFrmhsQltVO) throws Exception;
 
 	/**
-<<<<<<< HEAD
-=======
 	 * 재배농가품질 다중 저장
 	 * @param List<CltvtnFrmhsQltVO>
 	 * @return HashMap<String, Object>
@@ -133,7 +131,6 @@ public interface FrmerInfoService {
 	public HashMap<String, Object> multiCltvtnFrmhsQltList(List<CltvtnFrmhsQltVO> cltvtnFrmhsQltList) throws Exception;
 
 	/**
->>>>>>> main
 	 * 농가예상입고 목록 조회
 	 * @param frmhsExpctWrhsVO
 	 * @return List<FrmhsExpctWrhsVO>

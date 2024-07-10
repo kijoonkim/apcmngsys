@@ -67,10 +67,10 @@ public class SpmtPckgUnitApiController extends BaseController{
 
 	@PostMapping(value = "/am/cmns/updateSpmtPckgUnitsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateSpmtPckgUnitsList(@RequestBody List<SpmtPckgUnitVO> spmtPckgUnitList, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			
+
 			for (SpmtPckgUnitVO spmtPckgUnitVO : spmtPckgUnitList) {
 				spmtPckgUnitVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtPckgUnitVO.setSysLastChgUserId(getUserId());
@@ -92,7 +92,7 @@ public class SpmtPckgUnitApiController extends BaseController{
 	}
 
 	@PostMapping(value = "/api/mobile/am/cmns/spmtPckgUnits.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectSpmtPckgUnitList(@RequestBody SpmtPckgUnitVO spmtPckgUnitVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPckgUnitLists(@RequestBody SpmtPckgUnitVO spmtPckgUnitVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SpmtPckgUnitVO> resultList = new ArrayList<>();
