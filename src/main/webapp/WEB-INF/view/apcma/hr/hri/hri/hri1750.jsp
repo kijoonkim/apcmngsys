@@ -1002,6 +1002,7 @@
     }
 
     const fn_print = async function() {
+        // TODO : 레포트 개발 필요
         var nRow = bandgvwInfo.getRow();
         let rowData = bandgvwInfo.getRowData(nRow);
 
