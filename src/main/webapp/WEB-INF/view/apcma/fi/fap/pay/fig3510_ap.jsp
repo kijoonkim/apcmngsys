@@ -26,25 +26,8 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
-<body oncontextmenu="return false">
-<jsp:include page="./fig3510.jsp">
+
+<jsp:include page="../../far/rec/fig3510.jsp">
     <jsp:param name="sourceType" value="AP"></jsp:param>
 </jsp:include>
-<!-- 팝업 Modal -->
-<div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
-</div>
-<div id="body-modal-compopup1">
-    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-</div>
-</body>
-
-<!-- inline scripts related to this page -->
-<script type="text/javascript">
-
-    // common ---------------------------------------------------
-    var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
-    var p_menuId = '${comMenuVO.menuId}';
-    //-----------------------------------------------------------
-</script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

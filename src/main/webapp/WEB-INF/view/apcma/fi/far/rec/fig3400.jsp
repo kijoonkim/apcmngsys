@@ -171,8 +171,8 @@
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
 										uitype="popup"
-										id="SRCH_DATE_FR"
-										name="SRCH_DATE_FR"
+										id="SRCH_TXN_DATE_FROM"
+										name="SRCH_TXN_DATE_FROM"
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 										style="width:100%;"
@@ -184,8 +184,8 @@
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
 										uitype="popup"
-										id="SRCH_DATE_TO"
-										name="SRCH_DATE_TO"
+										id="SRCH_TXN_DATE_TO"
+										name="SRCH_TXN_DATE_TO"
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 										style="width:100%;"
@@ -245,13 +245,17 @@
                                         true-value="Y" false-value="N"
                                 />
                             </th>
-                            <td class="td_input">
+                            <td colspan="2" class="td_input">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        text="복수선택" uitype="modal"
+                                        text="복수전표" uitype="modal"
                                         target-id="modal-compopup3"
                                         onclick="fn_multiSelect"
                                 ></sbux-button>
+                            </td>
+                            <th scope="row" class="th_bg">제목</th>
+                            <td colspan="5" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="SRCH_DESC" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                         </tr>
                     </tbody>
@@ -272,7 +276,7 @@
                                         <sbux-button id="btnReject" name="btnReject" uitype="normal" text="일괄반려" class="btn btn-sm btn-outline-danger" onclick="fn_reject" style="float: right;"></sbux-button>
                                         <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="일괄결재" class="btn btn-sm btn-outline-danger" onclick="fn_approve" style="float: right;"></sbux-button>
                                         <sbux-input id="APPR_OPINION" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;"></sbux-input>
-                                        <span style="float: right;">결제의견</span>
+                                        <span style="float: right;">결재의견</span>
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
@@ -309,7 +313,7 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <div id="sb-area-gvwDetail" style="height:150px;"></div>
+                                                <div id="sb-area-gvwApprove" style="height:150px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -342,16 +346,25 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
+
+<div>
+    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup3">
+    <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
+</div>
 </body>
 
-<!-- inline scripts related to this page -->
 <script type="text/javascript">
 
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
+    var p_empCd = '${loginVO.empCd}';
     var p_fiOrgCode = "${loginVO.fiOrgCode}";
     //-----------------------------------------------------------
+
+    var strDocNameList = "";
 
     var jsonFiOrgCode = []; // 사업단위
     var jsonDocStatus = []; // 전표상태
@@ -379,7 +392,7 @@
     var gvwInfo;
     var gvwAccount;
     var gvwPayment;
-    var gvwDetail;
+    var gvwApprove;
 
     var jsonSalesInvoiceList = []; 	// 그리드의 참조 데이터 주소 선언
     var jsonInfotList = [];
@@ -403,10 +416,10 @@
 
     const fn_initSBSelect = async function() {
         SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_DATE_FR",gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_DATE_TO", gfn_dateLastYmd(new Date()));
+        SBUxMethod.set("SRCH_TXN_DATE_FROM",gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_TXN_DATE_TO", gfn_dateLastYmd(new Date()));
+        SBUxMethod.set("SRCH_REVERSE_FLAG", "Y");
         gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-
 
         let rst = await Promise.all([
             // 사업단위
@@ -494,13 +507,13 @@
             // 상태코드
             gfnma_setComSelect(['gvwPayment'], jsonStatusCode, 'L_FIM074', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 구분
-            gfnma_setComSelect(['gvwDetail'], jsonApprType, 'L_FIM004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwApprove'], jsonApprType, 'L_FIM004', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 결재구분
-            gfnma_setComSelect(['gvwDetail'], jsonApprCategory, 'L_FIM065', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwApprove'], jsonApprCategory, 'L_FIM065', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['gvwDetail'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwApprove'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 승인결과
-            gfnma_setComSelect(['gvwDetail'], jsonApprStatus, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwApprove'], jsonApprStatus, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
         ]);
     }
@@ -854,8 +867,8 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["ITEM_ID"], 	        ref: 'ITEM_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
-            {caption: ["KEY_ID"], 	        ref: 'KEY_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left'},
+            {caption: ["ITEM_ID"], 	        ref: 'ITEM_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
+            {caption: ["KEY_ID"], 	        ref: 'KEY_ID',    	        type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["전표번호"], 	        ref: 'DOC_NAME',    	        type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["전표유형"], 		ref: 'DOC_TYPE',   	    type:'combo', style:'text-align:left' ,width: '83px',
                 typeinfo: {
@@ -1167,10 +1180,10 @@
         gvwPayment = _SBGrid.create(SBGridProperties);
     }
 
-    function fn_createGvwDetailGrid() {
+    function fn_createGvwApproveGrid() {
         var SBGridProperties 				= {};
-        SBGridProperties.parentid 			= 'sb-area-gvwDetail';
-        SBGridProperties.id 				= 'gvwDetail';
+        SBGridProperties.parentid 			= 'sb-area-gvwApprove';
+        SBGridProperties.id 				= 'gvwApprove';
         SBGridProperties.jsonref 			= 'jsonDetailList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
@@ -1230,10 +1243,507 @@
             {caption: ["결재의견"], 	        ref: 'APPR_OPINION',    	        type:'output',  	width:'345px',  	style:'text-align:left'},
         ];
 
-        gvwDetail = _SBGrid.create(SBGridProperties);
+        gvwApprove = _SBGrid.create(SBGridProperties);
     }
 
-    const fn_view = async function () {}
+    const fn_searchApplyTab = async function (rowData) {
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+        let DOC_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_TYPE"));
+        let DOC_ID = gfn_nvl(rowData.DOC_ID) == "" ? 0 : parseInt(rowData.DOC_ID);
+        let TXN_DATE_FROM = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM"));
+        let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO"));
+        let CS_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYER_CODE"));
+        let PAYEE_DEPT = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_CODE"));
+        let PAYEE_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_CODE"));
+        let DOC_STATUS = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_STATUS"));
+        let CREATED_DEPT = gfn_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_CODE"));
+        let CREATED_BY = gfn_nvl(SBUxMethod.get("SRCH_CREATED_BY_CODE"));
+        let REVERSE_FLAG = gfn_nvl(SBUxMethod.get("SRCH_REVERSE_FLAG").SRCH_REVERSE_FLAG);
+        let APPR_ONLY_FLAG = gfn_nvl(SBUxMethod.get("SRCH_APPR_ONLY_FLAG").SRCH_APPR_ONLY_FLAG);
+        let DOC_NAME = gfn_nvl(SBUxMethod.get("SRCH_DOC_NAME"));
+        let DOC_NAME_D = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == "Y" ? strDocNameList : "";
+        let DESC = gfn_nvl(SBUxMethod.get("SRCH_DESC"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_FI_ORG_CODE : FI_ORG_CODE,
+            V_P_DOC_TYPE : DOC_TYPE,
+            V_P_DOC_ID : DOC_ID,
+            V_P_TXN_DATE_FROM : TXN_DATE_FROM,
+            V_P_TXN_DATE_TO : TXN_DATE_TO,
+            V_P_CS_CODE : CS_CODE,
+            V_P_PAYEE_DEPT : PAYEE_DEPT,
+            V_P_PAYEE_CODE : PAYEE_CODE,
+            V_P_DOC_STATUS : DOC_STATUS,
+            V_P_CREATED_DEPT : CREATED_DEPT,
+            V_P_CREATED_BY : CREATED_BY,
+            V_P_REVERSE_FLAG : REVERSE_FLAG,
+            V_P_APPR_ONLY_FLAG : APPR_ONLY_FLAG,
+            V_P_DOC_NAME : DOC_NAME,
+            V_P_DOC_NAME_D : DOC_NAME_D,
+            V_P_DESC : DESC,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3400List.do", {
+            getType				: 'json',
+            workType			: 'PAYMENT',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                jsonPaymentList.length = 0;
+
+                listData.cv_1.forEach((item, index) => {
+                    const msg = {
+                        TREASURY_BATCH_NO : item.TREASURY_BATCH_NO,
+                        TREASURY_ID : item.TREASURY_ID,
+                        TREASURY_LINE_NUM : item.TREASURY_LINE_NUM,
+                        PLANNED_PAY_DATE : item.PLANNED_PAY_DATE,
+                        PAY_DATE : item.PAY_DATE,
+                        STATUS_CODE : item.STATUS_CODE,
+                        PAY_METHOD : item.PAY_METHOD,
+                        DOC_TYPE : item.DOC_TYPE,
+                        DOC_NAME : item.DOC_NAME,
+                        DOC_ID : item.DOC_ID,
+                        DOC_STATUS : item.DOC_STATUS,
+                        CURRENCY_CODE : item.CURRENCY_CODE,
+                        ORIGINAL_AMOUNT : item.ORIGINAL_AMOUNT,
+                        FUNCTIONAL_AMOUNT : item.FUNCTIONAL_AMOUNT
+                    }
+                    jsonPaymentList.push(msg);
+                });
+                gvwPayment.rebuild();
+            } else {
+                alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_searchAccountTab = async function (rowData) {
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+        let DOC_ID = gfn_nvl(rowData.DOC_ID) == "" ? 0 : parseInt(rowData.DOC_ID);
+        let EMP_CODE = gfn_nvl(p_empCd);
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_FI_ORG_CODE : FI_ORG_CODE,
+            V_P_DOC_ID : DOC_ID,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3400ListForAccount.do", {
+            getType				: 'json',
+            workType			: 'ACCOUNT',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                jsonAccountList.length = 0;
+
+                listData.cv_1.forEach((item, index) => {
+                    const msg = {
+                        KEY_ID : item.KEY_ID,
+                        ITEM_ID : item.ITEM_ID,
+                        ITEM_SEQ : item.ITEM_SEQ,
+                        LINE_TYPE : item.LINE_TYPE,
+                        DEBIT_CREDIT : item.DEBIT_CREDIT,
+                        VAT_TYPE : item.VAT_TYPE,
+                        VAT_NAME : item.VAT_NAME,
+                        DEPT_CODE : item.DEPT_CODE,
+                        COST_CENTER_CODE : item.COST_CENTER_CODE,
+                        PROJECT_CODE : item.PROJECT_CODE,
+                        ORIGINAL_CR_AMT : item.ORIGINAL_CR_AMT,
+                        ORIGINAL_DR_AMT : item.ORIGINAL_DR_AMT,
+                        FUNCTIONAL_CR_AMT : item.FUNCTIONAL_CR_AMT,
+                        FUNCTIONAL_DR_AMT : item.FUNCTIONAL_DR_AMT,
+                        TXN_QTY : item.TXN_QTY,
+                        ACCOUNT_CODE : item.ACCOUNT_CODE,
+                        ACCOUNT_NAME : item.ACCOUNT_NAME,
+                        ACC_ITEM_CODE1 : item.ACC_ITEM_CODE1,
+                        ACC_ITEM_CODE2 : item.ACC_ITEM_CODE2,
+                        ACC_ITEM_CODE3 : item.ACC_ITEM_CODE3,
+                        ACC_ITEM_CODE4 : item.ACC_ITEM_CODE4,
+                        ACC_ITEM_CODE5 : item.ACC_ITEM_CODE5,
+                        ACC_ITEM_CODE6 : item.ACC_ITEM_CODE6,
+                        ACC_ITEM_CODE7 : item.ACC_ITEM_CODE7,
+                        ACC_ITEM_CODE8 : item.ACC_ITEM_CODE8,
+                        ACC_ITEM_CODE9 : item.ACC_ITEM_CODE9,
+                        ACC_ITEM_CODE10 : item.ACC_ITEM_CODE10,
+                        ACC_ITEM_NAME1 : item.ACC_ITEM_NAME1,
+                        ACC_ITEM_NAME2 : item.ACC_ITEM_NAME2,
+                        ACC_ITEM_NAME3 : item.ACC_ITEM_NAME3,
+                        ACC_ITEM_NAME4 : item.ACC_ITEM_NAME4,
+                        ACC_ITEM_NAME5 : item.ACC_ITEM_NAME5,
+                        ACC_ITEM_NAME6 : item.ACC_ITEM_NAME6,
+                        ACC_ITEM_NAME7 : item.ACC_ITEM_NAME7,
+                        ACC_ITEM_NAME8 : item.ACC_ITEM_NAME8,
+                        ACC_ITEM_NAME9 : item.ACC_ITEM_NAME9,
+                        ACC_ITEM_NAME10 : item.ACC_ITEM_NAME10,
+                        ACC_ITEM_YN1 : item.ACC_ITEM_YN1,
+                        ACC_ITEM_YN2 : item.ACC_ITEM_YN2,
+                        ACC_ITEM_YN3 : item.ACC_ITEM_YN3,
+                        ACC_ITEM_YN4 : item.ACC_ITEM_YN4,
+                        ACC_ITEM_YN5 : item.ACC_ITEM_YN5,
+                        ACC_ITEM_YN6 : item.ACC_ITEM_YN6,
+                        ACC_ITEM_YN7 : item.ACC_ITEM_YN7,
+                        ACC_ITEM_YN8 : item.ACC_ITEM_YN8,
+                        ACC_ITEM_YN9 : item.ACC_ITEM_YN9,
+                        ACC_ITEM_YN10 : item.ACC_ITEM_YN10,
+                        DATA_TYPE1 : item.DATA_TYPE1,
+                        DATA_TYPE2 : item.DATA_TYPE2,
+                        DATA_TYPE3 : item.DATA_TYPE3,
+                        DATA_TYPE4 : item.DATA_TYPE4,
+                        DATA_TYPE5 : item.DATA_TYPE5,
+                        DATA_TYPE6 : item.DATA_TYPE6,
+                        DATA_TYPE7 : item.DATA_TYPE7,
+                        DATA_TYPE8 : item.DATA_TYPE8,
+                        DATA_TYPE9 : item.DATA_TYPE9,
+                        DATA_TYPE10 : item.DATA_TYPE10,
+                        POPUP_ID1 : item.POPUP_ID1,
+                        POPUP_ID2 : item.POPUP_ID2,
+                        POPUP_ID3 : item.POPUP_ID3,
+                        POPUP_ID4 : item.POPUP_ID4,
+                        POPUP_ID5 : item.POPUP_ID5,
+                        POPUP_ID6 : item.POPUP_ID6,
+                        POPUP_ID7 : item.POPUP_ID7,
+                        POPUP_ID8 : item.POPUP_ID8,
+                        POPUP_ID9 : item.POPUP_ID9,
+                        POPUP_ID10 : item.POPUP_ID10,
+                        ACC_CHARACTER : item.ACC_CHARACTER,
+                        ACC_ITEM_VALUE1 : item.ACC_ITEM_VALUE1,
+                        ACC_ITEM_VALUE2 : item.ACC_ITEM_VALUE2,
+                        ACC_ITEM_VALUE3 : item.ACC_ITEM_VALUE3,
+                        ACC_ITEM_VALUE4 : item.ACC_ITEM_VALUE4,
+                        ACC_ITEM_VALUE5 : item.ACC_ITEM_VALUE5,
+                        ACC_ITEM_VALUE6 : item.ACC_ITEM_VALUE6,
+                        ACC_ITEM_VALUE7 : item.ACC_ITEM_VALUE7,
+                        ACC_ITEM_VALUE8 : item.ACC_ITEM_VALUE8,
+                        ACC_ITEM_VALUE9 : item.ACC_ITEM_VALUE9,
+                        ACC_ITEM_VALUE10 : item.ACC_ITEM_VALUE10,
+                        ACC_VALUE_NAME1 : item.ACC_VALUE_NAME1,
+                        ACC_VALUE_NAME2 : item.ACC_VALUE_NAME2,
+                        ACC_VALUE_NAME3 : item.ACC_VALUE_NAME3,
+                        ACC_VALUE_NAME4 : item.ACC_VALUE_NAME4,
+                        ACC_VALUE_NAME5 : item.ACC_VALUE_NAME5,
+                        ACC_VALUE_NAME6 : item.ACC_VALUE_NAME6,
+                        ACC_VALUE_NAME7 : item.ACC_VALUE_NAME7,
+                        ACC_VALUE_NAME8 : item.ACC_VALUE_NAME8,
+                        ACC_VALUE_NAME9 : item.ACC_VALUE_NAME9,
+                        ACC_VALUE_NAME10 : item.ACC_VALUE_NAME10,
+                        ITEM_CODE : item.ITEM_CODE,
+                        UOM : item.UOM,
+                        TXN_QTY : item.TXN_QTY,
+                        DEPT_NAME : item.DEPT_NAME,
+                        DESCRIPTION : item.DESCRIPTION,
+                        FI_ORG_CODE : item.FI_ORG_CODE,
+                        DOC_ID : item.DOC_ID,
+                        DOC_NAME : item.DOC_NAME,
+                        DOC_TYPE : item.DOC_TYPE,
+                        DOC_STATUS : item.DOC_STATUS
+                    }
+                    jsonAccountList.push(msg);
+                });
+                gvwAccount.rebuild();
+            } else {
+                alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_searchApproveTab = async function (rowData) {
+        let APPR_ID = gfn_nvl(rowData.APPR_ID) == "" ? 0 : parseInt(rowData.APPR_ID);
+        let SOURCE_NO = gfn_nvl(rowData.DOC_ID);
+        let SOURCE_TYPE = gfn_nvl(rowData.DOC_TYPE);
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_APPR_ID : APPR_ID,
+            V_P_SOURCE_NO : SOURCE_NO,
+            V_P_SOURCE_TYPE : SOURCE_TYPE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3400ListForApprove.do", {
+            getType				: 'json',
+            workType			: 'LIST',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                jsonDetailList.length = 0;
+
+                listData.cv_1.forEach((item, index) => {
+                    const msg = {
+                        APPR_ID : item.APPR_ID,
+                        STEP_SEQ : item.STEP_SEQ,
+                        APPR_TYPE : item.APPR_TYPE,
+                        APPR_CATEGORY : item.APPR_CATEGORY,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        DUTY_CODE : item.DUTY_CODE,
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_NAME : item.EMP_NAME,
+                        APPR_STATUS : item.APPR_STATUS,
+                        APPR_DATE : item.APPR_DATE,
+                        APPR_OPINION : item.APPR_OPINION,
+                        UPDATE_USERID : item.UPDATE_USERID,
+                        UPDATE_EMP_NAME : item.UPDATE_EMP_NAME,
+                        UPDATE_TIME : item.UPDATE_TIME,
+                        UPDATE_PC : item.UPDATE_PC,
+                        DESCRIPTION : item.DESCRIPTION,
+                        PROXY_EMP_CODE : item.PROXY_EMP_CODE,
+                        PROXY_EMP_NAME : item.PROXY_EMP_NAME
+                    }
+                    jsonDetailList.push(msg);
+                });
+                gvwApprove.rebuild();
+            } else {
+                alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_view = async function () {
+        var nRow = gvwMaster.getRow();
+        var rowData = gvwMaster.getRowData(nRow);
+
+        if(gfn_nvl(rowData) == "") return;
+
+        fn_searchApplyTab(rowData)
+        fn_searchAccountTab(rowData)
+        fn_searchApproveTab(rowData)
+    }
+
+    const fn_findPayerName = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYER_NAME"));
+        var replaceText0 	= "_CS_CODE_";
+        var replaceText1 	= "_CS_NAME_";
+        var replaceText2 	= "_BIZ_REGNO_";
+        var strWhereClause 	= "AND A.CS_CODE LIKE '%" + replaceText0 + "%' AND A.CS_NAME LIKE '%" + replaceText1 + "%' AND A.BIZ_REGNO LIKE '%" + replaceText2 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_CS_SALE'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["고객사코드",		"사업자번호", 		"고객사명"]
+            ,searchInputFields		: ["CS_CODE",	"BIZ_REGNO", 	"CS_NAME"]
+            ,searchInputValues		: ["", 			"",		searchText]
+            ,searchInputTypes		: ["input", 	"input",		"input"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				""]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["거래처코드", "거래처명", "사업자번호", "대표자", "업태", "종목", "주소"
+                , "전화", "팩스", "채권계정", "채권계정명", "선수금계정", "선수금계정명", "수금기준", "수금기준명", "수금방법", "통화"]
+            ,tableColumnNames		: ["CS_CODE", "CS_NAME",  "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS"
+                , "TEL", "FAX", "AR_ACC_CODE", "AR_ACC_NAME", "ADVANCE_ACC_CODE", "ADVANCE_ACC_NAME", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
+            ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_PAYER_CODE', data.CS_CODE);
+                SBUxMethod.set('SRCH_PAYER_NAME', data.CS_NAME);
+            },
+        });
+    }
+
+    const fn_findCreatedDeptName = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_CREATED_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_CREATED_DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findPayeeDeptName = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_PAYEE_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_PAYEE_DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_findCreatedByName = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CREATED_BY_NAME"));
+        var replaceText0 	= "_USER_ID_";
+        var replaceText1 	= "_USER_NAME_";
+        var strWhereClause 	= "AND A.USER_ID LIKE '%" + replaceText0 + "%' AND A.USER_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사용자 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_USER_02'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["사용자",		"사용자명"]
+            ,searchInputFields		: ["USER_ID",	"USER_NAME"]
+            ,searchInputValues		: ["", 			searchText]
+            ,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			""]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사용자id", "사용자명", "부서코드", "부서명"]
+            ,tableColumnNames		: ["USER_ID", "USER_NAME",  "DEPT_CODE", "DEPT_NAME"]
+            ,tableColumnWidths		: ["100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_CREATED_BY_CODE', data.USER_ID);
+                SBUxMethod.set('SRCH_CREATED_BY_NAME', data.USER_NAME);
+            },
+        });
+    }
+
+    const fn_findPayeeName = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYEE_NAME"));
+        var replaceText0 	= "_USER_ID_";
+        var replaceText1 	= "_USER_NAME_";
+        var strWhereClause 	= "AND A.USER_ID LIKE '%" + replaceText0 + "%' AND A.USER_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사용자 조회');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_USER_02'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["사용자",		"사용자명"]
+            ,searchInputFields		: ["USER_ID",	"USER_NAME"]
+            ,searchInputValues		: ["", 			searchText]
+            ,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			""]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사용자id", "사용자명", "부서코드", "부서명"]
+            ,tableColumnNames		: ["USER_ID", "USER_NAME",  "DEPT_CODE", "DEPT_NAME"]
+            ,tableColumnWidths		: ["100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_PAYEE_CODE', data.USER_ID);
+                SBUxMethod.set('SRCH_PAYEE_NAME', data.USER_NAME);
+            },
+        });
+    }
+
+    const fn_multiSelect = function() {
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strDocNameList = "";
+                data.forEach((item, index) => {
+                    strDocNameList += item + "|";
+                });
+
+                if (strDocNameList.length > 0)
+                    strDocNameList = strDocNameList.substring(0, strDocNameList.length - 1);
+
+                if (strDocNameList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+    }
 
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_initSBSelect();
@@ -1241,8 +1751,542 @@
         fn_createGvwInfoGrid();
         fn_createGvwAccountGrid();
         fn_createGvwPaymentGrid();
-        fn_createGvwDetailGrid();
-        //fn_search();
+        fn_createGvwApproveGrid();
+        fn_search();
     });
+
+    // 신규
+    function cfn_add() {
+        fn_create();
+    }
+
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    const fn_create = async function () {
+        // TODO : 페이지 이동 공통 생성시 작업
+    }
+
+    const fn_save = async function () {
+        let gvwListCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHECK_YN"), true);
+        let returnData = [];
+
+        if (gvwListCheckedList.length == 0) {
+            gfn_comAlert("E0000", "선택한 건이 없습니다.");
+            return;
+        }
+
+        gvwListCheckedList.forEach((item, index) => {
+            let data = gvwList.getRowData(item);
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                rownum: item,
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_DOC_ID : parseInt(data.DOC_ID),
+                    V_P_VOUCHER_TYPE : data.VOUCHER_TYPE,
+                    IV_P_VOUCHER_NO : data.VOUCHER_NO,
+                    V_P_VOUCHER_RECEIPT_DATE : data.VOUCHER_RECEIPT_DATE,
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                }),
+                workType : 'U'
+            }
+            returnData.push(param);
+        });
+
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3400List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const fn_search = async function () {
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+        let DOC_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_TYPE"));
+        let TXN_DATE_FROM = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM"));
+        let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO"));
+        let CS_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYER_CODE"));
+        let PAYEE_DEPT = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_CODE"));
+        let PAYEE_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_CODE"));
+        let DOC_STATUS = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_STATUS"));
+        let CREATED_DEPT = gfn_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_CODE"));
+        let CREATED_BY = gfn_nvl(SBUxMethod.get("SRCH_CREATED_BY_CODE"));
+        let REVERSE_FLAG = gfn_nvl(SBUxMethod.get("SRCH_REVERSE_FLAG").SRCH_REVERSE_FLAG);
+        let APPR_ONLY_FLAG = gfn_nvl(SBUxMethod.get("SRCH_APPR_ONLY_FLAG").SRCH_APPR_ONLY_FLAG);
+        let DOC_NAME = gfn_nvl(SBUxMethod.get("SRCH_DOC_NAME"));
+        let DOC_NAME_D = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == "Y" ? strDocNameList : "";
+        let DESC = gfn_nvl(SBUxMethod.get("SRCH_DESC"));
+        let ACTIVE_MASTER_TAB = SBUxMethod.get('idxTabMaster');
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_FI_ORG_CODE : FI_ORG_CODE,
+            V_P_DOC_TYPE : DOC_TYPE,
+            V_P_DOC_ID : '0',
+            V_P_TXN_DATE_FROM : TXN_DATE_FROM,
+            V_P_TXN_DATE_TO : TXN_DATE_TO,
+            V_P_CS_CODE : CS_CODE,
+            V_P_PAYEE_DEPT : PAYEE_DEPT,
+            V_P_PAYEE_CODE : PAYEE_CODE,
+            V_P_DOC_STATUS : DOC_STATUS,
+            V_P_CREATED_DEPT : CREATED_DEPT,
+            V_P_CREATED_BY : CREATED_BY,
+            V_P_REVERSE_FLAG : REVERSE_FLAG,
+            V_P_APPR_ONLY_FLAG : APPR_ONLY_FLAG,
+            V_P_DOC_NAME : DOC_NAME,
+            V_P_DOC_NAME_D : DOC_NAME_D,
+            V_P_DESC : DESC,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3400List.do", {
+            getType				: 'json',
+            workType			: ACTIVE_MASTER_TAB == "tabPageEx1" ? "Q" : "Q2",
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                if(ACTIVE_MASTER_TAB == "tabPageEx1") {
+                    jsonSalesInvoiceList.length = 0;
+
+                    listData.cv_1.forEach((item, index) => {
+                        const msg = {
+                            CHECK_YN: item.CHECK_YN,
+                            DOC_BATCH_NO: item.DOC_BATCH_NO,
+                            DOC_NUM: item.DOC_NUM,
+                            FI_ORG_CODE: item.FI_ORG_CODE,
+                            SITE_CODE: item.SITE_CODE,
+                            DOC_NAME: item.DOC_NAME,
+                            DOC_ID: item.DOC_ID,
+                            PAYER_ID: item.PAYER_ID,
+                            PAYER_NAME: item.PAYER_NAME,
+                            PAYER_BIZ_REGNO: item.PAYER_BIZ_REGNO,
+                            DOC_DATE: item.DOC_DATE,
+                            DOC_TYPE: item.DOC_TYPE,
+                            PAY_METHOD: item.PAY_METHOD,
+                            CURRENCY_CODE: item.CURRENCY_CODE,
+                            EXCHANGE_TYPE: item.EXCHANGE_TYPE,
+                            EXCHANGE_RATE: item.EXCHANGE_RATE,
+                            SUPPLY_AMOUNT: item.SUPPLY_AMOUNT,
+                            VAT_AMOUNT: item.VAT_AMOUNT,
+                            ORIGINAL_AMOUNT: item.ORIGINAL_AMOUNT,
+                            FUNCTIONAL_AMOUNT: item.FUNCTIONAL_AMOUNT,
+                            APPLIED_DOC_NAME: item.APPLIED_DOC_NAME,
+                            APPLIED_DOC_DATE: item.APPLIED_DOC_DATE,
+                            APPLIED_AMOUNT: item.APPLIED_AMOUNT,
+                            APPLY_COMPLETE_FLAG: item.APPLY_COMPLETE_FLAG,
+                            APPLY_COMPLETE_DATE: item.APPLY_COMPLETE_DATE,
+                            APPLIED_FLAG: item.APPLIED_FLAG,
+                            EXPECTED_PAY_DATE: item.EXPECTED_PAY_DATE,
+                            DOC_STATUS: item.DOC_STATUS,
+                            VOUCHER_TYPE: item.VOUCHER_TYPE,
+                            VOUCHER_NO: item.VOUCHER_NO,
+                            PAYEE_CODE: item.PAYEE_CODE,
+                            CREATED_BY: item.CREATED_BY,
+                            INSERT_TIME: item.INSERT_TIME,
+                            INSERT_DATE: item.INSERT_DATE,
+                            DESCRIPTION: item.DESCRIPTION,
+                            CARD_NO: item.CARD_NO,
+                            VOUCHER_RECEIPT_DATE: item.VOUCHER_RECEIPT_DATE,
+                            ACCT_OPINION: item.ACCT_OPINION,
+                            TR_OPINION: item.TR_OPINION,
+                            CONFIRM_EMP_CODE: item.CONFIRM_EMP_CODE,
+                            PROXY_EMP_CODE: item.PROXY_EMP_CODE,
+                            APPR_ID: item.APPR_ID,
+                            APPLY_DOC_NAME: item.APPLY_DOC_NAME,
+                            REVERSE_FLAG: item.REVERSE_FLAG,
+                            REVERSE_DOC_ID: item.REVERSE_DOC_ID,
+                            REVERSE_DOC_NAME: item.REVERSE_DOC_NAME,
+                            ORIG_DOC_ID: item.ORIG_DOC_ID,
+                            ORIG_DOC_NAME: item.ORIG_DOC_NAME,
+                            CREDIT_AREA: item.CREDIT_AREA,
+                            AP_DOC_YN: item.AP_DOC_YN,
+                            AR_DOC_YN: item.AR_DOC_YN,
+                            ESS_DOC_YN: item.ESS_DOC_YN,
+                            AP_DOC_VIEW_YN: item.AP_DOC_VIEW_YN,
+                            AP_DOC_WRITE_YN: item.AP_DOC_WRITE_YN,
+                            AR_DOC_WRITE_YN: item.AR_DOC_WRITE_YN,
+                            MANUAL_DOC_WRITE_YN: item.MANUAL_DOC_WRITE_YN,
+                            MULTI_AP_WRITE_YN: item.MULTI_AP_WRITE_YN,
+                            APPR_SOURCE_TYPE: item.APPR_SOURCE_TYPE,
+                            REQUEST_EMP: item.REQUEST_EMP,
+                            BEFORE_APPR_EMP: item.BEFORE_APPR_EMP,
+                            NEXT_APPR_EMP: item.NEXT_APPR_EMP,
+                            BEFORE_PROXY_EMP: item.BEFORE_PROXY_EMP,
+                            NEXT_PROXY_EMP: item.NEXT_PROXY_EMP
+                        }
+                        jsonSalesInvoiceList.push(msg);
+                    });
+                    gvwMaster.rebuild();
+
+                    if (jsonSalesInvoiceList.length > 0) {
+                        gvwMaster.clickRow(1);
+                    }
+                } else {
+                    listData.cv_1.forEach((item, index) => {
+                        const msg = {
+                            CHECK_YN: item.CHECK_YN,
+                            DOC_BATCH_NO: item.DOC_BATCH_NO,
+                            DOC_NUM: item.DOC_NUM,
+                            FI_ORG_CODE: item.FI_ORG_CODE,
+                            SITE_CODE: item.SITE_CODE,
+                            DOC_NAME: item.DOC_NAME,
+                            DOC_ID: item.DOC_ID,
+                            PAYER_ID: item.PAYER_ID,
+                            PAYER_NAME: item.PAYER_NAME,
+                            PAYER_BIZ_REGNO: item.PAYER_BIZ_REGNO,
+                            DOC_DATE: item.DOC_DATE,
+                            DOC_TYPE: item.DOC_TYPE,
+                            PAY_METHOD: item.PAY_METHOD,
+                            CURRENCY_CODE: item.CURRENCY_CODE,
+                            EXCHANGE_TYPE: item.EXCHANGE_TYPE,
+                            EXCHANGE_RATE: item.EXCHANGE_RATE,
+                            SUPPLY_AMOUNT: item.SUPPLY_AMOUNT,
+                            VAT_AMOUNT: item.VAT_AMOUNT,
+                            ORIGINAL_AMOUNT: item.ORIGINAL_AMOUNT,
+                            FUNCTIONAL_AMOUNT: item.FUNCTIONAL_AMOUNT,
+                            APPLIED_DOC_NAME: item.APPLIED_DOC_NAME,
+                            APPLIED_DOC_DATE: item.APPLIED_DOC_DATE,
+                            APPLIED_AMOUNT: item.APPLIED_AMOUNT,
+                            APPLY_COMPLETE_FLAG: item.APPLY_COMPLETE_FLAG,
+                            APPLY_COMPLETE_DATE: item.APPLY_COMPLETE_DATE,
+                            APPLIED_FLAG: item.APPLIED_FLAG,
+                            EXPECTED_PAY_DATE: item.EXPECTED_PAY_DATE,
+                            DOC_STATUS: item.DOC_STATUS,
+                            VOUCHER_TYPE: item.VOUCHER_TYPE,
+                            VOUCHER_NO: item.VOUCHER_NO,
+                            PAYEE_CODE: item.PAYEE_CODE,
+                            CREATED_BY: item.CREATED_BY,
+                            INSERT_TIME: item.INSERT_TIME,
+                            INSERT_DATE: item.INSERT_DATE,
+                            DESCRIPTION: item.DESCRIPTION,
+                            CARD_NO: item.CARD_NO,
+                            VOUCHER_RECEIPT_DATE: item.VOUCHER_RECEIPT_DATE,
+                            ACCT_OPINION: item.ACCT_OPINION,
+                            TR_OPINION: item.TR_OPINION,
+                            CONFIRM_EMP_CODE: item.CONFIRM_EMP_CODE,
+                            PROXY_EMP_CODE: item.PROXY_EMP_CODE,
+                            APPR_ID: item.APPR_ID,
+                            APPLY_DOC_NAME: item.APPLY_DOC_NAME,
+                            REVERSE_FLAG: item.REVERSE_FLAG,
+                            REVERSE_DOC_ID: item.REVERSE_DOC_ID,
+                            REVERSE_DOC_NAME: item.REVERSE_DOC_NAME,
+                            ORIG_DOC_ID: item.ORIG_DOC_ID,
+                            ORIG_DOC_NAME: item.ORIG_DOC_NAME,
+                            CREDIT_AREA: item.CREDIT_AREA,
+                            AP_DOC_YN: item.AP_DOC_YN,
+                            AR_DOC_YN: item.AR_DOC_YN,
+                            ESS_DOC_YN: item.ESS_DOC_YN,
+                            AP_DOC_VIEW_YN: item.AP_DOC_VIEW_YN,
+                            AP_DOC_WRITE_YN: item.AP_DOC_WRITE_YN,
+                            AR_DOC_WRITE_YN: item.AR_DOC_WRITE_YN,
+                            MANUAL_DOC_WRITE_YN: item.MANUAL_DOC_WRITE_YN,
+                            MULTI_AP_WRITE_YN: item.MULTI_AP_WRITE_YN,
+                            APPR_SOURCE_TYPE: item.APPR_SOURCE_TYPE,
+                            REQUEST_EMP: item.REQUEST_EMP,
+                            BEFORE_APPR_EMP: item.BEFORE_APPR_EMP,
+                            NEXT_APPR_EMP: item.NEXT_APPR_EMP,
+                            BEFORE_PROXY_EMP: item.BEFORE_PROXY_EMP,
+                            NEXT_PROXY_EMP: item.NEXT_PROXY_EMP
+                        }
+                        jsonInfotList.push(msg);
+                    });
+                    gvwInfo.rebuild();
+                }
+            } else {
+                alert(listData.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_print = async function (strprinttype) {
+        // TODO : 레포트 개발 필요
+        var param = {};
+
+        param["WORK_TYPE"] = "INVOICE";
+        param["PRINT_TYPE"] = strprinttype;
+
+        var strdoc_batch_no = "";
+        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwMaster.getColRef("CHECK_YN"), true);
+
+        if (gvwListCheckedList.length == 0) {
+            gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
+            return;
+        } else {
+            gvwListCheckedList.forEach((item, index) => {
+                let data = gvwMaster.getRowData(item);
+
+                if (strdoc_batch_no != "")
+                {
+                    strdoc_batch_no += "|";
+                }
+                strdoc_batch_no += data.DOC_BATCH_NO;
+            });
+
+            if (strdoc_batch_no == "") {
+                gfn_comAlert("E0000", "출력할 전표를 선택해 주십시오");
+                return;
+            }
+        }
+
+        if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?"){
+            param["DOC_BATCH_NO"] = strdoc_batch_no;
+            gfn_popClipReport("", reportFilePath, param);
+            //object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1000.dll", htparam, OpenType.Modal);
+        }
+    }
+
+    const fn_reject = async function () {
+        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwList.getColRef("CHECK_YN"), true);
+        let APPR_OPINION = gfn_nvl(SBUxMethod.get("APPR_OPINION"));
+        if (gvwListCheckedList.length == 0)
+            return;
+
+        if(APPR_OPINION == "") {
+            gfn_comAlert("E0000", "반려시 결재의견은 필수입니다.")
+            return;
+        }
+
+        var strappr_id = "";
+        var strappr_opinion = "";
+
+        var intcount = 0;
+
+        gvwListCheckedList.forEach((item, index) => {
+            // 사용자가 이번 결재권자이거나 수임권자이면
+            let data = gvwMaster.getRowData(item);
+            if (data.CONFIRM_EMP_CODE == p_empCd || data.PROXY_EMP_CODE == p_empCd) {
+                strappr_id += data.APPR_ID + "|";
+                strappr_opinion += gfn_nvl(SBUxMethod.get("APPR_OPINION")) + "|";
+                intcount += 1;
+            }
+        });
+
+        if (intcount == 0) {
+            gfn_comAlert("E0000", "결재 처리할 건이 없습니다.")
+            return;
+        } else {
+            strappr_id = strappr_id.substring(0, strappr_id.length - 1);
+            strappr_opinion = strappr_opinion.substring(0, strappr_opinion.length - 1);
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_APPR_ID : strappr_id,
+                V_P_APPR_OPINION : strappr_opinion,
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3400ForApprove.do", {
+                getType				: 'json',
+                workType			: 'REJECT',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const fn_approve = async function () {
+        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwList.getColRef("CHECK_YN"), true);
+        if (gvwListCheckedList.length == 0)
+            return;
+
+        var strappr_id = "";
+        var strappr_opinion = "";
+
+        var intcount = 0;
+
+        gvwListCheckedList.forEach((item, index) => {
+            // 사용자가 이번 결재권자이거나 수임권자이면
+            let data = gvwMaster.getRowData(item);
+            if (data.CONFIRM_EMP_CODE == p_empCd || data.PROXY_EMP_CODE == p_empCd) {
+                strappr_id += data.APPR_ID + "|";
+                strappr_opinion += gfn_nvl(SBUxMethod.get("APPR_OPINION")) + "|";
+                intcount += 1;
+            }
+        });
+
+        if (intcount == 0) {
+            gfn_comAlert("E0000", "결재 처리할 건이 없습니다.")
+            return;
+        } else {
+            strappr_id = strappr_id.substring(0, strappr_id.length - 1);
+            strappr_opinion = strappr_opinion.substring(0, strappr_opinion.length - 1);
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_APPR_ID : strappr_id,
+                V_P_APPR_OPINION : strappr_opinion,
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3400ForApprove.do", {
+                getType				: 'json',
+                workType			: 'APPROVE',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const fn_getVoucherNo = async function () {
+        let gvwListCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHECK_YN"), true);
+        if (gvwListCheckedList.length == 0)
+            return;
+
+        var intcount = 0;
+        var strdoc_id = "";
+
+        gvwListCheckedList.forEach((item, index) => {
+            let data = gvwInfo.getRowData(item);
+            strdoc_id += data.DOC_ID + "|";
+            intcount += 1;
+        });
+
+        if (intcount == 0) {
+            gfn_comAlert("E0000", "선택 된 건이 없습니다.")
+            return;
+        } else {
+            strdoc_id = strdoc_id.substring(0, strdoc_id.length - 1);
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_DOC_ID_D : strdoc_id,
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3400ForGetVoucherNo.do", {
+                getType				: 'json',
+                workType			: 'GET',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
 </script>
+<!-- inline scripts related to this page -->
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
