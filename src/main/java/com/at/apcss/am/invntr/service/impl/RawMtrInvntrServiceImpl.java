@@ -169,7 +169,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 					stdGrd.setGrdNv(grdDtlVO.getGrdVl());
 
-					if (AmConstants.CON_STD_GRD_TYPE_VL.equals(stdGrd.getStdGrdType())) { //TODO:: 2의 흔적을 찾아서...
+					if (AmConstants.CON_STD_GRD_TYPE_VL.equals(stdGrd.getStdGrdType())) {
 
 						cntCalc++;
 						sumGrdNv += stdGrd.getGrdNv();
