@@ -708,7 +708,7 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            listData = [];
+            let listData = [];
             listData =  await getParamForm('u');
            /* var paramObj = {
                 P_HRP1170_S: await getParamForm('u')
