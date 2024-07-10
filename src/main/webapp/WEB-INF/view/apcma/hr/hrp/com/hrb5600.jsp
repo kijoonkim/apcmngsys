@@ -1063,34 +1063,36 @@
     //삭제
     const fn_del = async function () {
 
-        listData = [];
-        listData =  await getParamForm('d');
+        if (gfn_comConfirm("Q0001", "삭제")) {
 
-        if (listData.length > 0) {
+            listData = [];
+            listData = await getParamForm('d');
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600S1.do", {listData: listData});
-            const data = await postJsonPromise;
+            if (listData.length > 0) {
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600S1.do", {listData: listData});
+                const data = await postJsonPromise;
+
+                try {
+                    if (_.isEqual("S", data.resultStatus)) {
+                        if (data.resultMessage) {
+                            alert(data.resultMessage);
+                        } else {
+                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                            fn_search();
+                        }
+
+                    } else {
                         alert(data.resultMessage);
-                    }else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                        fn_search();
                     }
-
-                } else {
-                    alert(data.resultMessage);
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
-
     }
 
 </script>

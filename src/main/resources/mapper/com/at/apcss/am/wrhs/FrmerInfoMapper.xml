@@ -15,7 +15,7 @@
 
 	<!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnBscInfoNo	-->
-	<!-- DESC : 영농관리 - 재배기본정보 NO 발번.                    					-->
+	<!-- DESC : 영농관리 - 재배기본정보번호 발번.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
@@ -29,7 +29,7 @@
 
 	<!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnHstryNo		-->
-	<!-- DESC : 영농관리 - 재배이력 NO 발번.                    						-->
+	<!-- DESC : 영농관리 - 재배이력번호 발번.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
@@ -37,7 +37,7 @@
 	<!-- ==============================================================================	-->
 	<select id="selectGetCltvtnHstryNo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="string">
 		<![CDATA[
-			SELECT FN_GET_ID_CLTVTN_BSC_INFO(#{apcCd} , #{prdcrCd}) AS CLTVTN_BSC_INFO_NO FROM DUAL
+			SELECT FN_GET_ID_CLTVTN_HSTRY(#{apcCd} , #{prdcrCd}, #{mngmstRegno}, #{farmLandSn}) AS CLTVTN_HSTRY_NO FROM DUAL
 		]]>
 	</select>
 
@@ -106,6 +106,119 @@
 		]]>
     </select>
 
+    <!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo			-->
+	<!-- DESC : 영농관리 - 재배기본정도 저장.                    						-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <insert id="insertCltvtnBscInfo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO">
+    	<![CDATA[
+    		INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo */
+    		  INTO TB_CLTVTN_BSC_INFO
+    		     (
+    		       APC_CD
+				 , PRDCR_CD
+				 , CLTVTN_BSC_INFO_NO
+				 , SD_CD_1
+				 , SD_CD_2
+				 , SD_CD_3
+				 , SD_CD_4
+				 , SD_CD_5
+				 , SD_QNTT_1
+				 , SD_QNTT_2
+				 , SD_QNTT_3
+				 , SD_QNTT_4
+				 , SD_QNTT_5
+				 , LWPT_FRTLZR
+				 , SDNG_YMD
+				 , CLCLN_YMD
+				 , CMPT_YMD_CYCL_1
+				 , CMPT_YMD_CYCL_2
+				 , STRG_RSLT
+				 , RMRK
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+				 )
+			VALUES
+				 (
+				   #{apcCd}
+				 , #{prdcrCd}
+				 , #{cltvtnBscInfoNo}
+				 , #{sdCd1}
+				 , #{sdCd2}
+				 , #{sdCd3}
+				 , #{sdCd4}
+				 , #{sdCd5}
+				 , #{sdQntt1}
+				 , #{sdQntt2}
+				 , #{sdQntt3}
+				 , #{sdQntt4}
+				 , #{sdQntt5}
+				 , #{lwptFrtlzr}
+				 , #{sdngYmd}
+				 , #{clclnYmd}
+				 , #{cmptYmdCycl1}
+				 , #{cmptYmdCycl2}
+				 , #{strgRslt}
+				 , #{rmrk}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+				 )
+
+
+    	]]>
+    </insert>
+
+    <!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo			-->
+	<!-- DESC : 영농관리 - 재배기본정도 저장.                    						-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <update id="updateCltvtnBscInfo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO">
+    	<![CDATA[
+    		UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo */
+    		  	   TB_CLTVTN_BSC_INFO
+    		   SET SD_CD_1					= #{sdCd1}
+				 , SD_CD_2                  = #{sdCd2}
+				 , SD_CD_3                  = #{sdCd3}
+				 , SD_CD_4                  = #{sdCd4}
+				 , SD_CD_5                  = #{sdCd5}
+				 , SD_QNTT_1                = #{sdQntt1}
+				 , SD_QNTT_2                = #{sdQntt2}
+				 , SD_QNTT_3                = #{sdQntt3}
+				 , SD_QNTT_4                = #{sdQntt4}
+				 , SD_QNTT_5                = #{sdQntt5}
+				 , LWPT_FRTLZR              = #{lwptFrtlzr}
+				 , SDNG_YMD                 = #{sdngYmd}
+				 , CLCLN_YMD                = #{clclnYmd}
+				 , CMPT_YMD_CYCL_1          = #{cmptYmdCycl1}
+				 , CMPT_YMD_CYCL_2          = #{cmptYmdCycl2}
+				 , STRG_RSLT                = #{strgRslt}
+				 , RMRK                     = #{rmrk}
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD                   = #{apcCd}
+			   AND PRDCR_CD                 = #{prdcrCd}
+			   AND CLTVTN_BSC_INFO_NO       = #{cltvtnBscInfoNo}
+    	]]>
+    </update>
+
+
 	<!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList		-->
 	<!-- DESC : 영농관리 - 재배이력 목록 조회.                    						-->
@@ -116,42 +229,147 @@
 	<!-- ==============================================================================	-->
     <select id="selectCltvtnHstryList" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
     	<![CDATA[
-	    	SELECT
-			       NVL(CH.APC_CD, #{apcCd})            		AS APC_CD
-			     , NVL(CH.PRDCR_CD, #{prdcrCd})         	AS PRDCR_CD
-			     , NVL(CH.PRDCR_LINK_CD, FL.MNGMST_REGNO)   AS MNGMST_REGNO
-			     , FL.SN                AS FARM_LAND_SN
-			     , FL.FRLN_ADDR         AS FRLN_ADDR
-			     , FL.STDG_CD           AS STDG_CD
-			     , FL.FRLN_MNO          AS FRLN_MNO
-			     , FL.FRLN_SNO          AS FRLN_SNO
-			     , CH.CN                AS CN
-			     , CH.RMRK              AS RMRK
-			     , CH.CLTVTN_HSTRY_NO	AS CLTVTN_HSTRY_NO
-			  FROM (SELECT
-			               PI.APC_CD
-			             , PI.PRDCR_CD
-			             , PI.PRDCR_LINK_CD
-			             , X.FARM_LAND_SN
-			             , X.CLTVTN_HSTRY_NO
-			             , X.CN
-			             , X.RMRK
-			          FROM TB_PRDCR_INFO PI
-			             , TB_CLTVTN_HSTRY X
-			         WHERE PI.APC_CD = X.APC_CD(+)
-			           AND PI.PRDCR_CD = X.PRDCR_CD(+)
-			           AND PI.APC_CD    = #{apcCd}
-			           AND PI.PRDCR_CD  = #{prdcrCd}
-			           AND PI.DEL_YN = 'N'
+	    	SELECT pt0.*
+			  FROM (SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList */
+			               X.APC_CD
+			             , X.PRDCR_CD
+			             , Y.MNGMST_REGNO
+			             , Y.FARM_LAND_SN
+			             , Y.CLTVTN_HSTRY_NO
+			             , Y.CN
+			             , Y.RMRK
+			             , Y.DEL_YN
+			             , Z.FRLN_ADDR
+			             , Z.STDG_CD
+			             , Z.FRLN_MNO
+			             , Z.FRLN_SNO
+			          FROM TB_PRDCR_INFO X
+			             , TB_CLTVTN_HSTRY Y
+			             , TB_AX_FARM_LAND_INFO Z
+			         WHERE X.APC_CD = Y.APC_CD
+			           AND X.PRDCR_CD = Y.PRDCR_CD
+			           AND Y.MNGMST_REGNO = Z.MNGMST_REGNO
+			           AND Y.FARM_LAND_SN = Z.SN
+			           AND X.APC_CD    = #{apcCd}
+			           AND X.PRDCR_CD  = #{prdcrCd}
 			           AND X.DEL_YN = 'N'
-			       ) CH
-			  FULL JOIN TB_AX_FARM_LAND_INFO FL
-			    ON (CH.PRDCR_LINK_CD(+) = FL.MNGMST_REGNO AND CH.FARM_LAND_SN(+) = FL.SN(+))
-			 WHERE FL.DEL_YN = 'N'
-			   AND FL.MNGMST_REGNO = #{mngmstRegno}
-			ORDER BY FL.SN
+			           AND Y.DEL_YN = 'N'
+			           AND Z.DEL_YN = 'N'
+
+			        UNION ALL
+			        SELECT
+			               #{apcCd}
+			             , #{prdcrCd}
+			             , #{mngmstRegno}
+			             , X.SN
+			             , ''
+			             , ''
+			             , ''
+			             , ''
+			             , X.FRLN_ADDR
+			             , X.STDG_CD
+			             , X.FRLN_MNO
+			             , X.FRLN_SNO
+			          FROM TB_AX_FARM_LAND_INFO X
+			         WHERE X.MNGMST_REGNO = #{mngmstRegno}
+			      ) pt0
+			ORDER BY FARM_LAND_SN
 		]]>
     </select>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnHstry			-->
+	<!-- DESC : 영농관리 - 재배이력 등록.                    							-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<insert id="insertCltvtnHstry" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnHstry */
+			  INTO TB_CLTVTN_HSTRY
+			     (
+				   APC_CD
+				 , PRDCR_CD
+				 , MNGMST_REGNO
+				 , FARM_LAND_SN
+				 , CLTVTN_HSTRY_NO
+				 , CN
+				 , RMRK
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+			     )
+			VALUES
+				(
+				   #{apcCd}
+				 , #{prdcrCd}
+				 , #{mngmstRegno}
+				 , #{farmLandSn}
+				 , #{cltvtnHstryNo}
+				 , #{cn}
+				 , #{rmrk}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+			     )
+		]]>
+	</insert>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry			-->
+	<!-- DESC : 영농관리 - 재배이력 수정.                    							-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="updateCltvtnHstry" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry */
+				   TB_CLTVTN_HSTRY
+			   SET CN                       = #{cn}
+				 , RMRK                     = #{rmrk}
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND PRDCR_CD                 = #{prdcrCd}
+			   AND MNGMST_REGNO             = #{mngmstRegno}
+			   AND FARM_LAND_SN             = #{farmLandSn}
+			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
+		]]>
+	</update>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnHstry			-->
+	<!-- DESC : 영농관리 - 재배이력 삭제.                    							-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<update id="deleteCltvtnHstry" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnHstry */
+				   TB_CLTVTN_HSTRY
+			   SET DEL_YN                   = 'Y'
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND PRDCR_CD                 = #{prdcrCd}
+			   AND MNGMST_REGNO             = #{mngmstRegno}
+			   AND FARM_LAND_SN             = #{farmLandSn}
+			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
+		]]>
+	</update>
 
     <!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnFrmhsQltList	-->
@@ -163,6 +381,7 @@
 	<!-- ==============================================================================	-->
     <select id="selectCltvtnFrmhsQltList" parameterType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO" resultType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
     	<![CDATA[
+    		/* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnFrmhsQltList */
     		SELECT pt0.*
     		     , (SELECT FN_GET_COM_CD_VL_NM('PLNTNG_STTS_CD', pt0.PLNTNG_STTS_CD) FROM DUAL) 	AS PLNTNG_STTS_NM
 				 , (SELECT FN_GET_COM_CD_VL_NM('SDNG_STTS_CD', pt0.SDNG_STTS_CD) FROM DUAL) 		AS SDNG_STTS_NM
@@ -753,7 +972,8 @@
 					   AND A.YMD					= #{ymd}
 		     WHEN NOT MATCHED THEN
 		     		INSERT
-					     ( APC_CD
+					     (
+					       APC_CD
 						 , PRDCR_CD
 						 , FRMHS_EXPCT_WRHS_NO
 						 , CRTR_YM
@@ -767,7 +987,8 @@
 						 , SYS_LAST_CHG_PRGRM_ID
 						 )
 					VALUES
-						 ( #{apcCd}
+						 (
+						   #{apcCd}
 						 , #{prdcrCd}
 						 , #{frmhsExpctWrhsNo}
 						 , #{crtrYm}

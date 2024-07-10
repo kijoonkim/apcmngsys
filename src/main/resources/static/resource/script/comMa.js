@@ -112,6 +112,20 @@ const gfnma_date3 = function(year, month) {
 }
 
 /**
+ * @name 		gfnma_date4
+ * @description 오늘날짜를 yyyy-MM-dd 형식으로 반환
+ * @function
+ * @param 		{string} str : 구분자 
+ * @returns 	{string}
+ */
+const gfnma_date4 = function (str) {
+	var rstr 	= '';
+	var gubun	= (str) ? str : '-';
+	rstr += gfnma_date().substr(0,4) + gubun + gfnma_date().substr(4,2) + gubun + gfnma_date().substr(6,2); 
+	return rstr;
+}
+
+/**
  * @name 		gfnma_nvl
  * @description undefined 를 '' 로 변환
  * @function
@@ -119,7 +133,14 @@ const gfnma_date3 = function(year, month) {
  * @returns 	{string}
  */
 const gfnma_nvl = function (val) {
-	return (val==undefined || val=='undefined') ? '' : val;
+	var str = '';
+	if(val==null || val==undefined || val=='undefined'){
+		str = '';
+	} else {
+		str = val + '';
+	}
+	str = str.trim();
+	return str;
 }
 
 /**
@@ -587,16 +608,20 @@ const gfnma_multiSelectSet = function (id, colValue, colLabel, findValue) {
  * @name 		gfnma_multiSelectGet
  * @description 멀티 컬럼 select 에 선택된 값 가져오기 
  * @function
- * @param 		{string} id
+ * @param 		{string} id		: target
+ * @param 		{string} type	: null: value 값 / object: object 값
  * @returns 	{object}
  */
-const gfnma_multiSelectGet = function (id) {
-	
+const gfnma_multiSelectGet = function (id, type) {
 	var obj = {
 		value	: gfnma_nvl($(id).attr('cu-value')),
 		label	: gfnma_nvl($(id).attr('cu-label'))
 	};
-	return gfnma_nvl($(id).attr('cu-value'));
+	if(type){
+		return obj;
+	} else {
+		return gfnma_nvl($(id).attr('cu-value'));
+	}
 }
 
 /**
@@ -626,6 +651,11 @@ const gfnma_uxDataSet = function (target, obj) {
 const gfnma_uxDataClear = function (target) {
     var tar = typeof target == 'string' ? $(target) : target;
 	tar.find('input').val('');
+	tar.find('input').each(function(){
+		var id = $(this).attr('id');
+		SBUxMethod.set(id, '');
+	});
+	tar.find('input[type=checkbox]').prop('checked', false);
 	tar.find('select').val('');
 	tar.find('.cu-multi-select').each(function(){
 		var id = $(this).find('button').eq(0).attr('id');
@@ -633,6 +663,35 @@ const gfnma_uxDataClear = function (target) {
         gfnma_multiSelectSet(id, '', '', '');
 	});
 	//to do .. 필요하면 말하세요
+}
+
+/**
+ * @name 		gfnma_uxDisabled
+ * @description 지정된 타겟에 자식 태그들의 ux컴포넌트 값을 초기화
+ * @function
+ * @param 		{string} target
+ * @param 		{string} bol	: readonly true false
+ * @returns 	{void}
+ */
+const gfnma_uxDisabled = function (target, bol) {
+	
+	//input
+	$(target).find('input').each(function(){
+		$(this).prop('readonly', bol);
+	});
+
+	//checkbox
+	$(target).find('input[type=checkbox]').each(function(){
+		$(this).prop('disabled', bol);
+	});
+	
+	//gfnma_multiSelectInit
+	$(target).find('.dropdown').each(function(){
+		$(this).find('button').prop('disabled', bol);
+	});
+	
+	//모달버튼
+	$(target).find('button[data-sbux-toggle=modal]').prop('disabled', bol);
 }
 
 /**

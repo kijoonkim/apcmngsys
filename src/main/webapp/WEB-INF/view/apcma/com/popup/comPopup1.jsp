@@ -14,7 +14,7 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<colgroup>
 							<col style="width:auto">
-							<col style="width:150px">
+							<col style="width:95px">
 						</colgroup>
 						<tbody>
 							<tr>
@@ -33,8 +33,8 @@
 								
 								<td class="td_input" style="text-align:right;" >
 									<div>
-										<sbux-button uitype="normal" text="조회" class="btn btn-sm btn-outline-danger cu-btn-sch-compopup1" ></sbux-button>
-										<sbux-button uitype="normal" text="종료" class="btn btn-sm btn-outline-danger cu-btn-close-compopup1" ></sbux-button>
+										<button class="btn btn-sm btn-outline-danger cu-btn-sch-compopup1" style="min-width:40px" >조회</button>
+										<button class="btn btn-sm btn-outline-danger cu-btn-close-compopup1"  style="min-width:40px" >종료</button>
 									</div>
 								</td>
 							</tr>
@@ -83,6 +83,7 @@ function compopup1(options) {
 		,searchInputValues		: null
 		,searchInputTypes		: null
 		,searchInputTypeValues	: null
+		,width					: null
 		,height					: null
 		,tableHeader			: null
 		,tableColumnNames		: null
@@ -93,7 +94,12 @@ function compopup1(options) {
 	//console.log('settings:', settings);
 
 	//css
- 	$(modalId).find('.cu-table-div').css('height', settings.height);
+	if(settings.width){
+	 	$(modalId).closest('.sbux-mol-md-dlg').css('width', settings.width);
+	}
+	if(settings.height){
+	 	$(modalId).find('.cu-table-div').css('height', settings.height);
+	}
 
 	// get data
     var createTable = function() {

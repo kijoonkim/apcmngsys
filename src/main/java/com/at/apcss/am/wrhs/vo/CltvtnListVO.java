@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.vo;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -26,6 +27,8 @@ import lombok.Setter;
 @Setter
 public class CltvtnListVO extends ComVO {
 
+	private PrdcrVO prdcrVO;
+	private CltvtnBscInfoVO cltvtnBscInfoVO;
 	/*
 	 * 재배기본정보
 	 * */
@@ -34,10 +37,6 @@ public class CltvtnListVO extends ComVO {
 	 * 재배이력
 	 * */
 	private List<CltvtnHstryVO> cltvtnHstryList;
-	/*
-	 * 재배농가품질
-	 * */
-	private List<CltvtnFrmhsQltVO> cltvtnFrmhsQltList;
 
 
 	public List<CltvtnBscInfoVO> getCltvtnBscInfoList() {
@@ -54,13 +53,5 @@ public class CltvtnListVO extends ComVO {
 
 	public void setCltvtnHstryList(List<CltvtnHstryVO> cltvtnHstryList) {
 		this.cltvtnHstryList = cltvtnHstryList == null ? null : cltvtnHstryList.stream().collect(Collectors.toList());
-	}
-
-	public List<CltvtnFrmhsQltVO> getCltvtnFrmhsQltList() {
-		return this.cltvtnFrmhsQltList == null ? null : cltvtnFrmhsQltList.stream().collect(Collectors.toList());
-	}
-
-	public void setCltvtnFrmhsQltList(List<CltvtnFrmhsQltVO> cltvtnFrmhsQltList) {
-		this.cltvtnFrmhsQltList = cltvtnFrmhsQltList == null ? null : cltvtnFrmhsQltList.stream().collect(Collectors.toList());
 	}
 }
