@@ -885,8 +885,6 @@
     			invntrInptWght += wght;
     		}
 		});
-		/** 단량 체크 **/
-		let avg = invntrInptWght / invntrInptQntt;
 
 		if (rawMtrInvntrList.length == 0) {
 			gfn_comAlert("W0005", "원물재고대상");		//	W0005	{0}이/가 없습니다.
@@ -906,7 +904,6 @@
 			if (gfn_isEmpty(rowData.itemCd)) {
 				continue;
 			}
-			console.log(rowData,"내가입력한거어딧는데요");
 
 			const itemCd = rowData.itemCd;
 			const vrtyCd = rowData.vrtyCd;
@@ -914,6 +911,14 @@
 			const pltno = rowData.pltno;
 			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
 			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
+			let avg = 0;
+			for(let key in rowData){
+				if(key.includes(gStdGrdObj.colPrfx)){
+					avg += parseInt(rowData[key]);
+				}
+			}
+			avg = wrhsWght/avg;
+
 
 			if (gfn_isEmpty(itemCd)) {
 				gfn_comAlert("W0005", "품목");		//	W0005	{0}이/가 없습니다.
@@ -954,8 +959,8 @@
  	    	let grdWghtSum = 0;
 			let grdQnttSum = 0;
 			const stdGrdList = [];
-
 			let cntGrdError = 0;
+
 			gjsonStdGrdObjKnd.forEach((knd, idx) => {
 
 				let colNm =  gStdGrdObj.colPrfx + knd.grdKnd;
@@ -1072,9 +1077,6 @@
     		rawMtrInvntrList: rawMtrInvntrList,
     		rawMtrRePrcsList: rawMtrRePrcsList
     	}
-
-		console.log(wrhsMng,"save전");
-		// return;
 
     	const postJsonPromise = gfn_postJSON("/am/wrhs/insertRawMtrRePrcs.do", wrhsMng);
 		const data = await postJsonPromise;

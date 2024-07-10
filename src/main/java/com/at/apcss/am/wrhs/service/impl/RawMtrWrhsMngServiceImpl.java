@@ -348,7 +348,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 				rePrcs.setRmnQntt(rePrcs.getRmnQntt() - applQntt);
 				rePrcs.setRmnWght(rePrcs.getRmnWght() - applWght);
 			}
-
+			/** 여기서도 사실상 지금은 하나의 로우로 취급하고 inv이 처리가 되는데 사실 N개가 있을수 있음;; **/
 			inv.setInptYmd(wrhsYmd);
 			inv.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
 			inv.setPrcsQntt(inptQntt);
@@ -389,25 +389,10 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			wrhsVO.setStdGrdList(rePrcsInfo.getStdGrdList());
 
 			String[] wrhsnos = wrhsVO.getWrhsno().replace(" ","").split(",");
-			/** 출근하면 여기부터 포문 날려버리고 그냥 wrhsno 없이 보내도됨. 이중 생성 해결 완료 ^_^ **/
-			if(wrhsnos.length > 1){
-				for(int i = 0 ; i < wrhsnos.length; i++){
-					RawMtrWrhsVO updateWrhsVO = new RawMtrWrhsVO();
-					BeanUtils.copyProperties(wrhsVO,updateWrhsVO);
-					updateWrhsVO.setWrhsno(wrhsnos[i]);
-					rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(updateWrhsVO);
-
-					if (rtnObj != null) {
-						// error throw exception;
-						throw new EgovBizException(getMessageForMap(rtnObj));
-					}
-				}
-			}else {
-				rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(wrhsVO);
-				if (rtnObj != null) {
-					// error throw exception;
-					throw new EgovBizException(getMessageForMap(rtnObj));
-				}
+			rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(wrhsVO);
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
 
@@ -446,13 +431,9 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			}
 
 			// 원물재고정보 update
+			/** 이부분이 상단 그리드 되돌리는 곳. 0처리가 되어야함 ? 아니면 사용한만큼 빠져야함. **/
 			if(wrhsnos.length > 1){
-				for(int i = 0; i < wrhsnos.length; i++){
-					RawMtrInvntrVO updateWrhsVO = new RawMtrInvntrVO();
-					BeanUtils.copyProperties(inv,updateWrhsVO);
-					updateWrhsVO.setWrhsno(wrhsnos[i]);
-					rtnObj = rawMtrInvntrService.updateInvntrRePrcs(updateWrhsVO);
-				}
+				rtnObj = rawMtrInvntrService.updateInvntrRePrcs(inv);
 			}else{
 				rtnObj = rawMtrInvntrService.updateInvntrPrcs(inv);
 			}
