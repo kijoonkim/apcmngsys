@@ -1,6 +1,7 @@
 package com.at.apcss.am.invntr.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -727,6 +728,78 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 		return null;
 	}
+	@Override
+	public HashMap<String, Object> updateInvntrRePrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		/** wrhsno 가 여러개 **/
+		String[] wrhsnos = rawMtrInvntrVO.getWrhsno().replace(" ","").split(",");
+		String sysFrstInptUserId = rawMtrInvntrVO.getSysFrstInptUserId();
+		String sysFrstInptPrgrmId = rawMtrInvntrVO.getSysFrstInptPrgrmId();
+		String sysLastChgUserId = rawMtrInvntrVO.getSysLastChgUserId();
+		String sysLastChgPrgrmId = rawMtrInvntrVO.getSysLastChgPrgrmId();
+
+
+		/** 총 처리 수량 중량 **/
+		int prcsQntt = rawMtrInvntrVO.getPrcsQntt();
+		double prcsWght = rawMtrInvntrVO.getPrcsWght();
+
+		/** 상단 재고 내역에서 로우당 여러개의 입고실적이 있을경우 info를 가져옴 **/
+		for(int i = 0; i < wrhsnos.length; i++){
+			rawMtrInvntrVO.setWrhsno(wrhsnos[i]);
+			RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+			invntrInfo.setSysFrstInptUserId(sysFrstInptUserId);
+			invntrInfo.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
+			invntrInfo.setSysLastChgUserId(sysLastChgUserId);
+			invntrInfo.setSysLastChgPrgrmId(sysLastChgPrgrmId);
+
+			if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+			}
+			// 재고량
+			/** sum된 데이터의 재고량에서 비교하기때문에 info에서 가져온 양이 총 처리 수량보다 크지만 않다면 인포의재고만큼
+			 *  제로로 세팅하면됨 여러재고가 처리량을 다 소화하고도 남는다면 남는 만큼 세팅이 중요함. **/
+//			int invntrQntt = rawMtrInvntrVO.getInvntrQntt() - invntrInfo.getInvntrQntt();
+//			double invntrWght = rawMtrInvntrVO.getInvntrWght() - invntrInfo.getInvntrWght();
+//			rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+//			rawMtrInvntrVO.setInvntrWght(invntrWght);
+			if(prcsQntt >= invntrInfo.getInvntrQntt()) {
+				/** update할 info 객체에 셋팅 **/
+				invntrInfo.setInvntrQntt(0); //수량
+				invntrInfo.setInvntrWght(0); //중량
+				invntrInfo.setPrcsQntt(invntrInfo.getInvntrQntt()); //재처리수량
+				invntrInfo.setPrcsWght(invntrInfo.getInvntrWght()); //재처리중량
+				prcsQntt -= invntrInfo.getInvntrQntt();
+				prcsWght -= invntrInfo.getInvntrWght();
+			}else{
+				/** 남을때 **/
+				invntrInfo.setInvntrQntt(invntrInfo.getInvntrQntt()-prcsQntt); //수량
+				invntrInfo.setInvntrWght(invntrInfo.getInvntrWght()-prcsWght); //중량
+				invntrInfo.setPrcsQntt(invntrInfo.getInvntrQntt()); //재처리수량
+				invntrInfo.setPrcsWght(invntrInfo.getInvntrWght()); //재처리중량
+				prcsQntt -= invntrInfo.getInvntrQntt();
+				prcsWght -= invntrInfo.getInvntrWght();
+			}
+
+			// 재처리량
+			/** info에는 재처리량이 없음. 고로 그냥 info에 세팅을 해주면됨. 수량만큼**/
+//			int prcsQntt = invntrInfo.getPrcsQntt() + rawMtrInvntrVO.getPrcsQntt();
+//			double prcsWght = invntrInfo.getPrcsWght() + rawMtrInvntrVO.getPrcsWght();
+//			rawMtrInvntrVO.setPrcsQntt(prcsQntt);
+//			rawMtrInvntrVO.setPrcsWght(prcsWght);
+
+			// 원물 재고변경 이력 등록 (재처리)
+			invntrInfo.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_P3);
+			HashMap<String, Object> rtnObj = insertRawMtrChgHstry(invntrInfo);
+
+			if (rtnObj != null) {
+				// error throw exception;
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			//이거 상단이라서 위에 있는 만큼 돌아야함
+			rawMtrInvntrMapper.updateInvntrPrcs(invntrInfo);
+		}
+		return null;
+	}
 
 	@Override
 	public HashMap<String, Object> deleteInvntrPrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
@@ -807,4 +880,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return result;
 	}
 
+	@Override
+	public RawMtrInvntrVO selectRawMtrInvntrSumWrhsno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		List<String> wrhsno = Arrays.asList(rawMtrInvntrVO.getWrhsno().replace(" ", "").split(","));
+		return rawMtrInvntrMapper.selectRawMtrInvntrSumWrhsno(rawMtrInvntrVO,wrhsno);
+	}
 }

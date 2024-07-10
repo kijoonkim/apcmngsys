@@ -2,6 +2,7 @@ package com.at.apcss.am.invntr.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
@@ -225,4 +226,6 @@ public interface RawMtrInvntrMapper {
 	 * @throws Exception
 	 */
 	int rawMtrItemCdUpdate(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	RawMtrInvntrVO selectRawMtrInvntrSumWrhsno(@Param("vo")RawMtrInvntrVO rawMtrInvntrVO,@Param("wrhsno") List<String> wrhsno) throws Exception;
 }
