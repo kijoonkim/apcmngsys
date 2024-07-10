@@ -92,7 +92,7 @@ public class SpmtPckgUnitApiController extends BaseController{
 	}
 
 	@PostMapping(value = "/api/mobile/am/cmns/spmtPckgUnits.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectSpmtPckgUnitList(@RequestBody SpmtPckgUnitVO spmtPckgUnitVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPckgUnitLists(@RequestBody SpmtPckgUnitVO spmtPckgUnitVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SpmtPckgUnitVO> resultList = new ArrayList<>();
