@@ -62,7 +62,7 @@ public class ApcMaCom3720Controller extends BaseController {
 		}
 
 		logger.info("=============selectCom3720=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 프로젝트코드 정보 삭제
@@ -87,7 +87,7 @@ public class ApcMaCom3720Controller extends BaseController {
 		}
 		
 		logger.info("=============deleteCom3720=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 프로젝트코드 정보 신규
@@ -112,7 +112,7 @@ public class ApcMaCom3720Controller extends BaseController {
 		}
 		
 		logger.info("=============insertCom3720=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 프로젝트코드 정보 - 정보 수정
@@ -137,7 +137,7 @@ public class ApcMaCom3720Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom3720=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 프로젝트코드 정보 - 상세내역 저장
@@ -162,7 +162,7 @@ public class ApcMaCom3720Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom3720_S1=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 
