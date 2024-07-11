@@ -27,6 +27,7 @@
 		<result property="endLgnIp" column="END_LGN_IP"/>
 		<result property="lckYn" column="LCK_YN"/>
 		<result property="addr" column="ADDR"/>
+		<result property="frmerSn" column="FRMER_SN"/>
 
 		<result property="clntCd" column="CLNT_CD" />
 		<result property="corpCd" column="CORP_CD" />
@@ -99,6 +100,7 @@
 				, CU.APC_CD			AS APC_CD
 				, CU.BRNO			AS BRNO
 			    , CU.ADDR           AS ADDR
+			    , CU.FRMER_SN       AS FRMER_SN
 				, (SELECT FN_GET_APC_NM(CU.APC_CD) FROM DUAL) AS APC_NM
 				, (SELECT X.APC_SE_CD FROM TB_APC_EVRMNT_STNG X WHERE X.APC_CD = CU.APC_CD) AS APC_SE_CD
 
