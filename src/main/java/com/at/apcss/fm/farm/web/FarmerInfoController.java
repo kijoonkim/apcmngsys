@@ -51,7 +51,7 @@ public class FarmerInfoController extends BaseController{
 
 
 	// 조회
-	@PostMapping(value = "/fm/farm/selectFarmerInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	@PostMapping(value = {"/fm/farm/selectFarmerInfoList.do", "/api/mobile/fm/farm/selectFarmerInfoList.do"}, consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectfarmerInfoList(Model model, @RequestBody FarmerInfoVO farmerInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FarmerInfoVO> resultList = new ArrayList<>();
