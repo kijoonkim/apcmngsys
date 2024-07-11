@@ -190,9 +190,9 @@
 									class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed"
 								></sbux-datepicker>
 							</td>
-							<td colspan="2" style="border-right: hidden"></td>
+							<td colspan="2"></td>
 
-<%--							<th scope="row" class="th_bg">투입 총량</th>--%>
+							<th scope="row" class="th_bg">투입 총량</th>
 							<!--
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -220,15 +220,36 @@
 							</td>
 							<td style="border-right: hidden;">Kg</td>
 							-->
-<%--							<td colspan="4" class="td_input" >--%>
-<%--								<sbux-label--%>
-<%--									id="lbl-grdInptWght"--%>
-<%--									name="lbl-grdInptWght"--%>
-<%--									uitype="normal"--%>
-<%--									text=""--%>
-<%--									style="font-size:12px;font-weight:bold;"--%>
-<%--								></sbux-label>--%>
-<%--							</td>--%>
+							<td colspan="4" class="td_input" style="border-right: hidden">
+								<sbux-label
+										id="lbl-grdInptQnttHead"
+										name="lbl-grdInptQnttHead"
+										uitype="normal"
+										text="수량 : "
+										style="font-size:12px;font-weight:bold;"
+								></sbux-label>
+								<sbux-label
+										id="lbl-grdInptQntt"
+										name="lbl-grdInptQntt"
+										uitype="normal"
+										text="0"
+										style="font-size:12px;font-weight:bold;margin-right: 15px"
+								></sbux-label>
+								<sbux-label
+									id="lbl-grdInptWghtHead"
+									name="lbl-grdInptWghtHead"
+									uitype="normal"
+									text="중량 : "
+									style="font-size:12px;font-weight:bold;"
+								></sbux-label>
+								<sbux-label
+										id="lbl-grdInptWght"
+										name="lbl-grdInptWght"
+										uitype="normal"
+										text="0"
+										style="font-size:12px;font-weight:bold;"
+								></sbux-label>
+							</td>
 
 <%--							<th scope="row" class="th_bg">투입 잔량</th>--%>
 							<!--
@@ -568,7 +589,6 @@
 
 		const columnsStdGrd = [];
 		let cntRt = 0;
-		let width = 40 / gjsonStdGrdObjKnd.length;
 
 		gjsonStdGrdObjKnd.forEach((item, index) => {
 
@@ -984,6 +1004,7 @@
 					// stdGrd.grdWght = parseFloat(rowData[colNm]) || 0;
 					stdGrd.grdQntt = parseFloat(rowData[colNm]) || 0;
 					stdGrd.grdWght = stdGrd.grdQntt * avg;
+					stdGrd.grdCd = "";
 
 
 					// if (gfn_isEmpty(grdCd)) {
@@ -1167,9 +1188,10 @@
 		SBUxMethod.set("dtl-inp-wrhsQntt", 0);
 		SBUxMethod.set("dtl-inp-wrhsWght", 0);
 		*/
-		SBUxMethod.set("lbl-grdInptWght", "");
+		SBUxMethod.set("lbl-grdInptWght", "0");
+		SBUxMethod.set("lbl-grdInptQntt", "0");
 		//SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
-		SBUxMethod.set("lbl-grdPrcsWght", "");
+		// SBUxMethod.set("lbl-grdPrcsWght", "");
  	}
 
 	/**
@@ -1293,6 +1315,9 @@
 	const fn_grdRawMtrRePrcsValueChanged = function() {
 		var nRow = grdRawMtrRePrcs.getRow();
 		var nCol = grdRawMtrRePrcs.getCol();
+		let wght = SBUxMethod.get("lbl-grdInptWght");
+		let qntt = SBUxMethod.get("lbl-grdInptQntt");
+		let avg = wght / qntt;
 
 		const usrAttr = grdRawMtrRePrcs.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
@@ -1333,7 +1358,7 @@
  					gjsonStdGrdObjKnd.forEach((item, index) => {
 						if (_.isEqual(item.stdGrdType, "RT")) {
 							let colNm = gStdGrdObj.colPrfx + item.grdKnd;
-							grdWghtSum += parseFloat(rowData[colNm]) || 0;
+							grdWghtSum += parseFloat(rowData[colNm]) * avg || 0;
 						}
 				  	});
  					rowData.wrhsWght = grdWghtSum;
@@ -1435,9 +1460,10 @@
 			rmnWghtInfo += std.grdKndNm + "  " + std.rmnWght + " Kg";
 		});
 
-		SBUxMethod.set("lbl-grdInptWght", inptWghtInfo);
+		SBUxMethod.set("lbl-grdInptWght", totalInptWght);
+		SBUxMethod.set("lbl-grdInptQntt", totalInptQntt);
 		//SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
-		SBUxMethod.set("lbl-grdPrcsWght", rmnWghtInfo);
+		// SBUxMethod.set("lbl-grdPrcsWght", totalInptWght);
  	}
 
 	/*
@@ -1673,8 +1699,14 @@
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
 
 		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
-		SBUxMethod.set("lbl-grdInptWght","");
-		SBUxMethod.set("lbl-grdPrcsWght","");
+		SBUxMethod.set("lbl-grdInptWght", "0");
+		SBUxMethod.set("lbl-grdInptQntt", "0");
+		$("#cnt-rawMtrInvtr").html("0");
+		jsonRawMtrInvntr.length = 0;
+		jsonRawMtrRePrcs.length = 0;
+		grdRawMtrInvntr.rebuild();
+		$("#sb-area-grdRawMtrRePrcs").empty();
+		fn_createGridRawMtrRePrcs();
 	}
 
 	const objMenuList1 = {
