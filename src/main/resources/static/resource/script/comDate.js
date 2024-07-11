@@ -161,69 +161,25 @@ const gfn_excelSerialDateToJSDate = function (_excelSerialDate) {
  * @function
  * @returns
  */
-const gfn_monthValidation = function(_el,_month = 3){
-	let targetId;
-	let originId = _el.id;
+const gfn_monthValidation = function(_current,_target,_month = 3){
+	let date = SBUxMethod.get(_current);
+	let flag = _current.endsWith("To");
+	changeMonths(date,_month,flag);
 
-	function checkRange(_id){
-		const regex = /to|from/i;
-		return regex.test(_id);
-	}
 	function changeMonths(_date, _months, _flag) {
 		let year = parseInt(_date.substring(0, 4), 10);
 		let month = parseInt(_date.substring(4, 6), 10) - 1;
 		let day = parseInt(_date.substring(6, 8), 10);
 		let result = new Date(year, month, day);
-
-		console.log(result,"또?");
-		try {
-			if (_flag) {
-				result.setMonth(result.getMonth() + _months);
-				result = gfn_dateToYmd(result);
-				console.log(result,"true");
-				SBUxMethod.set(targetId,result);
-				SBUxMethod.setDatepickerMaxDate(targetId,result);
-				SBUxMethod.refresh(targetId);
-			} else {
-				result.setMonth(result.getMonth() - _months);
-				result = gfn_dateToYmd(result);
-				console.log(result,"false");
-				SBUxMethod.set(targetId,result);
-				SBUxMethod.setDatepickerMinDate(targetId,result);
-				SBUxMethod.refresh(targetId);
-			}
-		}catch (e){
-			console.log(e.toString());
+		if(_flag){
+			result.setMonth(result.getMonth() - _months);
+			result = gfn_dateToYmd(result);
+			SBUxMethod.setDatepickerMinDate(_target,result);
+		}else{
+			result.setMonth(result.getMonth() + _months);
+			result = gfn_dateToYmd(result);
+			SBUxMethod.setDatepickerMaxDate(_target,result);
 		}
-	}
-
-	function setTargetid(_id) {
-		let checkFrom = _id.endsWith("From");
-		let checkTo = _id.endsWith("To");
-
-		if (checkFrom || checkTo) {
-			if (checkTo) {
-				return _id.slice(0, _id.lastIndexOf("To")) + "From";
-			} else if (checkFrom) {
-				return _id.slice(0, _id.lastIndexOf("From")) + "To";
-			}
-		} else {
-			return _id;
-		}
-	}
-
-	if(checkRange(originId)){
-		targetId = setTargetid(originId);
-
-		let targetValue = SBUxMethod.get(targetId);
-		let addMinus = false;
-
-		if(!gfn_isEmpty(targetValue)){
-			addMinus = targetId.includes("To");
-			changeMonths(targetValue,_month,addMinus);
-		}
-	}else{
-		return;
 	}
 }
 
