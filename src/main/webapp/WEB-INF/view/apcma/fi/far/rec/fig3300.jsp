@@ -191,7 +191,7 @@
 						<div id="sb-area-gvwItem" style="height:350px;"></div>
 					</div>
 				</div>
-				<input type="file" name="file" id="xmlFile" accept="text/xml" style="display: none;">
+				<input type="file" name="file" id="xmlFile" accept="text/xml" style="display: none;" multiple>
 				<input type="file" name="file" id="excelFile" accept=".xls,.xlsx" style="display: none;">
 				<input type="file" name="file" id="excelFile2" accept=".xls,.xlsx" style="display: none;">
             </div>
@@ -228,6 +228,7 @@
 	var jsonMatchMethod = []; // 정발행/역발행
 	var jsonReceiptOrBill = []; // 영수/청구 구분
 	var jsonCostCenterCode = []; // 원가중심점코드
+	var jsonEmpState = []; // 재직구분
 
 	//grid 초기화
 	var gvwList; 			// 그리드를 담기위한 객체 선언
@@ -294,6 +295,8 @@
 			gfnma_setComSelect(['gvwList'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			// 원가중심점코드
 			gfnma_setComSelect(['gvwItem'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
+			// 재직구분
+			gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}
 
@@ -461,7 +464,7 @@
 			},
 			{caption: ["품목비고"],         ref: 'ITEM_DESC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
-			{caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'}, // TODO: P_ORG001
+			{caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
 			{caption: ["상태"],         ref: 'ROW_STATUS',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["회계단위"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["조회시공급사코드"],         ref: 'CS_CODE_ORG',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
@@ -470,6 +473,7 @@
 		gvwList = _SBGrid.create(SBGridProperties);
 		gvwList.bind('afterrebuild','fn_gvwListAfterRebuild');
 		gvwList.bind('afterrefresh','fn_gvwListAfterRebuild');
+		gvwList.bind('dblclick', 'fn_gvwListDblclick');
 		gvwList.bind('click', 'fn_view');
 	}
 
@@ -512,15 +516,16 @@
 				}
 				, disabled: true
 			},
-			{caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true}, // TODO: P_ORG001
+			{caption: ["부서코드"],         ref: 'DEPT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
 			{caption: ["부서"],       ref: 'DEPT_NAME', 		type:'output',  	width:'75px',  	style:'text-align:left'},
-			{caption: ["프로젝트코드"],         ref: 'PROJECT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true}, // TODO: P_COM028
-			{caption: ["프로젝트"],         ref: 'PROJECT_NAME',    type:'output',  	width:'75px',  style:'text-align:right'},
-			{caption: ["계정과목코드"],         ref: 'ACCOUNT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true}, // TODO: P_FIM045
-			{caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'output',  	width:'75px',  style:'text-align:right'},
+			{caption: ["프로젝트코드"],         ref: 'PROJECT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["프로젝트"],         ref: 'PROJECT_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
+			{caption: ["계정과목코드"],         ref: 'ACCOUNT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+			{caption: ["계정과목"],         ref: 'ACCOUNT_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
 		];
 
 		gvwItem = _SBGrid.create(SBGridProperties);
+		gvwItem.bind('dblclick', 'fn_gvwItemDblclick');
 	}
 
 	const fn_gvwListAfterRebuild = async function() {
@@ -535,9 +540,157 @@
 		}
 	}
 
+	const fn_gvwListDblclick = async function() {
+		var nRow = gvwList.getRow();
+		var nCol = gvwList.getCol();
+
+		if(nCol == 53) {
+			fn_findEmpCodeForGvwList(nRow, nCol);
+		}
+
+		if(nCol == 54) {
+			fn_findEmpCodeForGvwList(nRow, (nCol - 1));
+		}
+	}
+
+	const fn_gvwItemDblclick = async function() {
+		var nRow = gvwItem.getRow();
+		var nCol = gvwItem.getCol();
+
+		if(nCol == 11) {
+			fn_findDeptCodeForGvwItem(nRow, nCol);
+		}
+
+		if(nCol == 13) {
+			fn_findProjectCodeForGvwList(nRow, nCol);
+		}
+
+		if(nCol == 15) {
+			fn_findAccountCodeForGvwList(nRow, nCol);
+		}
+	}
+
+	var fn_findEmpCodeForGvwList = function(row, col) {
+		SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+		SBUxMethod.openModal('modal-compopup1');
+
+		var searchText 		= '';
+		compopup1({
+			compCode				: gv_ma_selectedApcCd
+			,clientCode				: gv_ma_selectedClntCd
+			,bizcompId				: 'P_HRI001'
+			,popupType				: 'A'
+			,whereClause			: ''
+			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+			,searchInputValues		: ["", 			searchText,		""]
+			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+			,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+			,height					: '400px'
+			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				gvwList.setCellData(row, col, data.EMP_CODE);
+				gvwList.setCellData(row, (col+1), data.EMP_NAME);
+			},
+		});
+	}
+
+	var fn_findDeptCodeForGvwItem = function(row, col) {
+		SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+		SBUxMethod.openModal('modal-compopup1');
+
+		var searchText 		= '';
+		compopup1({
+			compCode				: gv_ma_selectedApcCd
+			,clientCode				: gv_ma_selectedClntCd
+			,bizcompId				: 'P_ORG001'
+			,popupType				: 'B'
+			,whereClause			: ''
+			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+			,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+
+			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+			,height					: '400px'
+			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				gvwItem.setCellData(row, (col-1), data.DEPT_CODE);
+				gvwItem.setCellData(row, col, data.DEPT_NAME);
+			},
+		});
+	}
+
+	var fn_findProjectCodeForGvwList = function(row, col) {
+		SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
+		SBUxMethod.openModal('modal-compopup1');
+
+		var strWhereClause 	= "AND FI_ORG_CODE = '" + gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")) + "'" ;
+
+		var searchText 		= '';
+		compopup1({
+			compCode				: gv_ma_selectedApcCd
+			,clientCode				: gv_ma_selectedClntCd
+			,bizcompId				: 'P_COM028'
+			,popupType				: 'A'
+			,whereClause			: strWhereClause
+			,searchCaptions			: ["프로젝트코드",		"프로젝트명"]
+			,searchInputFields		: ["PROJECT_CODE",	"PROJECT_NAME"]
+			,searchInputValues		: ["", 			searchText]
+			,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
+			,searchInputTypeValues	: ["", 			""]				//select 경우
+			,height					: '400px'
+			,tableHeader			: ["프로젝트코드", "프로젝트명"]
+			,tableColumnNames		: ["PROJECT_CODE", "PROJECT_NAME"]
+			,tableColumnWidths		: ["150px", "250px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				gvwList.setCellData(row, (col-1), data.PROJECT_CODE);
+				gvwList.setCellData(row, col, data.PROJECT_NAME);
+			},
+		});
+	}
+
+	var fn_findAccountCodeForGvwList = function(row, col) {
+		SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
+		SBUxMethod.openModal('modal-compopup1');
+
+		var searchText 		= '';
+		var addParams = ['NULL'];
+		compopup1({
+			compCode				: gv_ma_selectedApcCd
+			,clientCode				: gv_ma_selectedClntCd
+			,bizcompId				: 'P_FIM045'
+			,popupType				: 'B'
+			,whereClause			: addParams
+			,searchCaptions			: ["코드", 		"코드명"]
+			,searchInputFields		: ["V_P_ACCOUNT_CODE", 	"V_P_ACCOUNT_NAME"]
+			,searchInputValues		: ["", 				searchText]
+			,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
+			,height					: '400px'
+			,tableHeader			: ["계정코드",		"계정명", 		"계정명(한글)"]
+			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
+			,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				gvwItem.setCellData(row, (col-1), data.ACCOUNT_CODE);
+				gvwItem.setCellData(row, col, data.ACCOUNT_NAME);
+			},
+		});
+	}
+
 	const fn_view = async function () {
 		var nRow = gvwList.getRow();
+		var nCol = gvwList.getCol();
 		var rowData = gvwList.getRowData(nRow);
+
+		if(nCol == 53 || nCol == 54) return;
 
 		if(gfn_nvl(rowData) == "") return;
 
@@ -622,7 +775,7 @@
 	}
 
 	const fn_findEmpCode = function() {
-		var searchText 		= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
 		var replaceText0 	= "_DEPT_NAME_";
 		var replaceText1 	= "_EMP_NAME_";
 		var replaceText2 	= "_EMP_STATE_";
@@ -660,17 +813,28 @@
 
 		document.getElementById('xmlFile').addEventListener('change', function(event) {
 			if(!window.FileReader) return;
-			var reader = new FileReader();
 
-			reader.addEventListener(
-					"load",
-					() => {
-						// this will then display a text file
+			var files = event.target.files;
+			var promises = Array.from(files).map(file => {
+				return new Promise((resolve, reject) => {
+					var reader = new FileReader();
+
+					reader.addEventListener("load", () => {
 						fn_uploadXml(reader.result);
-					},
-					false,
-			);
-			reader.readAsText(event.target.files[0]);
+						resolve();
+					}, false);
+
+					reader.addEventListener("error", reject, false);
+
+					reader.readAsText(file);
+				});
+			});
+
+			Promise.all(promises).then(() => {
+				fn_insertXmlData();
+			}).catch(error => {
+				console.error("Error processing files:", error);
+			});
 		});
 
 		document.getElementById('excelFile').addEventListener('change', function(event) {
@@ -1301,7 +1465,6 @@
 		let xml = parser.parseFromString(file, "text/html");
 		let parseXmlForJson = xmlToJson(xml);
 		let TAXINVOICE = parseXmlForJson.HTML.BODY.TAXINVOICE;
-		console.log(TAXINVOICE)
 		let nodeTaxInvoice = TAXINVOICE;
 		let nodeExchangedDocument = TAXINVOICE.EXCHANGEDDOCUMENT;
 		let nodeTaxInvoiceDocument = TAXINVOICE.TAXINVOICEDOCUMENT;
@@ -1415,7 +1578,9 @@
 				gvwItem.addRow(true, rowItem);
 			}
 		}
+	}
 
+	const fn_insertXmlData = async function () {
 		let updatedData = gvwList.getUpdateData(true, 'i');
 		let returnData = [];
 

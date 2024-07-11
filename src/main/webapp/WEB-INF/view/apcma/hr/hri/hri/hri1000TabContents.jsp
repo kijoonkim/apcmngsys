@@ -3510,7 +3510,6 @@
     }
 
     const getParamForHri1000S3 = async function(strStatus, empCode) {
-        // TODO: 사원사진, 서명사진 프로세스 확인
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         let EMP_PHOTO = gfnma_nvl(SBUxMethod.get("EMP_PHOTO"));
         let SIGN_IMG = gfnma_nvl(SBUxMethod.get("SIGN_IMG"));

@@ -1760,11 +1760,6 @@
         fn_create();
     }
 
-    // 저장
-    function cfn_save() {
-        fn_save();
-    }
-
     // 조회
     function cfn_search() {
         fn_search();
@@ -1772,62 +1767,6 @@
 
     const fn_create = async function () {
         // TODO : 페이지 이동 공통 생성시 작업
-    }
-
-    const fn_save = async function () {
-        let gvwListCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHECK_YN"), true);
-        let returnData = [];
-
-        if (gvwListCheckedList.length == 0) {
-            gfn_comAlert("E0000", "선택한 건이 없습니다.");
-            return;
-        }
-
-        gvwListCheckedList.forEach((item, index) => {
-            let data = gvwList.getRowData(item);
-            const param = {
-                cv_count : '0',
-                getType : 'json',
-                rownum: item,
-                params: gfnma_objectToString({
-                    V_P_DEBUG_MODE_YN : '',
-                    V_P_LANG_ID	: '',
-                    V_P_COMP_CODE : gv_ma_selectedApcCd,
-                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_DOC_ID : parseInt(data.DOC_ID),
-                    V_P_VOUCHER_TYPE : data.VOUCHER_TYPE,
-                    IV_P_VOUCHER_NO : data.VOUCHER_NO,
-                    V_P_VOUCHER_RECEIPT_DATE : data.VOUCHER_RECEIPT_DATE,
-                    V_P_FORM_ID : p_formId,
-                    V_P_MENU_ID : p_menuId,
-                    V_P_PROC_ID : '',
-                    V_P_USERID : '',
-                    V_P_PC : ''
-                }),
-                workType : 'U'
-            }
-            returnData.push(param);
-        });
-
-        if(returnData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3400List.do", {listData: returnData});
-            const data = await postJsonPromise;
-
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    gfn_comAlert("I0001");
-                    fn_search();
-                } else {
-                    alert(data.resultMessage);
-                }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
-        }
     }
 
     const fn_search = async function () {
@@ -2078,7 +2017,7 @@
             }
         }
 
-        if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?"){
+        if (gfn_comConfirm("Q0000", "선택된 전표를 출력하시겠습니까?")) {
             param["DOC_BATCH_NO"] = strdoc_batch_no;
             gfn_popClipReport("", reportFilePath, param);
             //object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1000.dll", htparam, OpenType.Modal);
