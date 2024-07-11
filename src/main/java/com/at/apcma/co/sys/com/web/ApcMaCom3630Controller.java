@@ -62,7 +62,7 @@ public class ApcMaCom3630Controller extends BaseController {
 		}
 
 		logger.info("=============selectCom3630=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 계정과목 정보 삭제
@@ -87,7 +87,7 @@ public class ApcMaCom3630Controller extends BaseController {
 		}
 		
 		logger.info("=============deleteCom3630=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 계정과목 정보 신규
@@ -112,7 +112,7 @@ public class ApcMaCom3630Controller extends BaseController {
 		}
 		
 		logger.info("=============insertCom3630=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 계정과목 정보 - 정보 수정
@@ -137,7 +137,7 @@ public class ApcMaCom3630Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom3630=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 

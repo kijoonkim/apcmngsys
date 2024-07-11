@@ -62,7 +62,7 @@ public class ApcMaCom3610Controller extends BaseController {
 		}
 
 		logger.info("=============selectCom3610List=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 관리항목 삭제
@@ -87,7 +87,7 @@ public class ApcMaCom3610Controller extends BaseController {
 		}
 		
 		logger.info("=============deleteCom3610=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 관리항목 신규
@@ -112,7 +112,7 @@ public class ApcMaCom3610Controller extends BaseController {
 		}
 		
 		logger.info("=============insertCom3610=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 관리항목 - 기초정보 수정
@@ -137,7 +137,7 @@ public class ApcMaCom3610Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom3610=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 관리항목 - 사용자정의 관리항목 데이터 수정
@@ -162,7 +162,7 @@ public class ApcMaCom3610Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom3610_S1=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 
 }
