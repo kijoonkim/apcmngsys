@@ -98,6 +98,16 @@ public class LoginVO implements Serializable{
 	/** 사용자 주소 */
 	private String addr;
 
+	/** 농업인 일련번호 */
+	private String frmerSn;
+
+	public String getFrmerSn() {
+		return frmerSn;
+	}
+	public void setFrmerSn(String frmerSn) {
+		this.frmerSn = frmerSn;
+	}
+
 	public String getAddr() {
 		return addr;
 	}

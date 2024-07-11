@@ -251,6 +251,7 @@ public class MobileApiController extends BaseController{
 			resultData.put("apcNm", resultVO.getApcNm());
 			resultData.put("userType", userType);
 			resultData.put("addr", resultVO.getAddr());
+			resultData.put("frmerSn", resultVO.getFrmerSn());
 
 			//로그인 이력
 			comLogVo.setUserType(userType);
