@@ -14,17 +14,17 @@
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<colgroup>
 							<col style="width:auto">
-							<col style="width:95px">
+							<col style="width:110px">
 						</colgroup>
 						<tbody>
 							<tr>
 								<td class="td_input" >
 									<table class="table table-bordered tbl_row tbl_fixed">
 										<colgroup>
-											<col style="width: 25%">
-											<col style="width: 25%">
-											<col style="width: 25%">
-											<col style="width: 25%">
+											<col style="width: 24%">
+											<col style="width: 26%">
+											<col style="width: 24%">
+											<col style="width: 26%">
 										</colgroup>
 										<tbody class="cu-search-area">
 										</tbody>
@@ -34,7 +34,7 @@
 								<td class="td_input" style="text-align:right;" >
 									<div>
 										<button class="btn btn-sm btn-outline-danger cu-btn-sch-compopup1" style="min-width:40px" >조회</button>
-										<button class="btn btn-sm btn-outline-danger cu-btn-close-compopup1"  style="min-width:40px" >종료</button>
+										<button class="btn btn-sm btn-outline-danger cu-btn-close-compopup1"  style="min-width:40px" >초기화</button>
 									</div>
 								</td>
 							</tr>
@@ -94,6 +94,7 @@ function compopup1(options) {
 	//console.log('settings:', settings);
 
 	//css
+	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
 	 	$(modalId).closest('.sbux-mol-md-dlg').css('width', settings.width);
 	}
@@ -125,7 +126,7 @@ function compopup1(options) {
 				    }
 					htma += '</select>';	
 				} else if(settings.searchInputTypes[i]=="datepicker") {
-					htma += '<sbux-datepicker  ' + tmp3 + ' uitype="popup" value="' + settings.searchInputValues[i] + '" ></sbux-datepicker>';
+					htma += '<sbux-datepicker  ' + tmp3 + ' uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed" value="' + settings.searchInputValues[i] + '" ></sbux-datepicker>';
 				}
 			} else {
 				htma += '<input ' + tmp3 + ' uitype="text" class="form-control input-sm" value="' + settings.searchInputValues[i] + '" ></input>';
@@ -299,7 +300,8 @@ function compopup1(options) {
 	//close event
 	$(modalId).find('.cu-btn-close-compopup1').off('click');
 	$(modalId).find('.cu-btn-close-compopup1').click(function(){
-	 	SBUxMethod.closeModal(modalDivId);
+	 	//SBUxMethod.closeModal(modalDivId);
+		gfnma_uxDataClear('.cu-search-area');
 	});	
 	
 	//start

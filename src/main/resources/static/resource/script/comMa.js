@@ -308,35 +308,37 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 	});
 
 	const data = await postJsonPromise;
-	console.log('select data:', data);
+	console.log('select data ('+_bizcompid + '):', data);
 
 	try {
 		_jsondataRef.length = 0;
 		data.cv_1.forEach((item) => {
-			if(_defaultvalue){
-				if(_defaultvalue==item[_subcode]){
-					const cdVl = {
-						text		: item[_codename],
-						label		: item[_codename],
-						value		: item[_subcode],
-						selected	: "selected"
+			if(item){
+				if(_defaultvalue){
+					if(_defaultvalue==item[_subcode]){
+						const cdVl = {
+							text		: gfnma_nvl(item[_codename]),
+							label		: gfnma_nvl(item[_codename]),
+							value		: gfnma_nvl(item[_subcode]),
+							selected	: "selected"
+						}
+						_jsondataRef.push(cdVl);
+					} else {
+						const cdVl = {
+							text	: gfnma_nvl(item[_codename]),
+							label	: gfnma_nvl(item[_codename]),
+							value	: gfnma_nvl(item[_subcode])
+						}
+						_jsondataRef.push(cdVl);
 					}
-					_jsondataRef.push(cdVl);
 				} else {
 					const cdVl = {
-						text	: item[_codename],
-						label	: item[_codename],
-						value	: item[_subcode]
+						text	: gfnma_nvl(item[_codename]),
+						label	: gfnma_nvl(item[_codename]),
+						value	: gfnma_nvl(item[_subcode])
 					}
 					_jsondataRef.push(cdVl);
 				}
-			} else {
-				const cdVl = {
-					text	: item[_codename],
-					label	: item[_codename],
-					value	: item[_subcode]
-				}
-				_jsondataRef.push(cdVl);
 			}
 		});
 		//console.log('_jsondataRef:', _jsondataRef);
@@ -485,7 +487,7 @@ async function gfnma_multiSelectInit(obj) {
 	});
 
 	const data = await postJsonPromise;
-	console.log('select data:', data);
+	console.log('multi select data ('+_bizcompId + '):', data);
 
 	const innerCreat = function (tarId, data) {
 		
@@ -513,6 +515,7 @@ async function gfnma_multiSelectInit(obj) {
 		htm += '<tbody></tbody>';
 		htm += '</table>';
 		$(tarId).closest('div').find('.dropdown-menu').html(htm);
+		$(tarId).closest('div').find('.dropdown-menu').css('border', 'solid 1px #a3a1a1');
 		$(tarId).closest('div').addClass('cu-multi-select');
 		
 		//table tbody
@@ -657,6 +660,10 @@ const gfnma_uxDataClear = function (target) {
 	});
 	tar.find('input[type=checkbox]').prop('checked', false);
 	tar.find('select').val('');
+	tar.find('select').each(function(){
+		var id = $(this).attr('id');
+		SBUxMethod.set(id, '');
+	});
 	tar.find('.cu-multi-select').each(function(){
 		var id = $(this).find('button').eq(0).attr('id');
 		id = '#' + id;

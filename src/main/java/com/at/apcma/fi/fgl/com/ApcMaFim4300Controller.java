@@ -1,4 +1,4 @@
-package com.at.apcma.fi.fap.car;
+package com.at.apcma.fi.fgl.com;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,14 +19,14 @@ import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
- * 계정마스타관리 처리하는 컨트롤러 클래스
+ * 전표유형관리 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
- * @since 		2024.07.04
+ * @since 		2024.07.11
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 계정마스타관리(Modification Information) >>
+ * << 전표유형관리(Modification Information) >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
@@ -35,7 +35,7 @@ import com.at.apcss.co.sys.controller.BaseController;
  *  </pre>
  */
 @Controller
-public class ApcMaEfi0010Controller extends BaseController {
+public class ApcMaFim4300Controller extends BaseController {
 
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
@@ -43,20 +43,20 @@ public class ApcMaEfi0010Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
     
-    // 계정마스타관리 조회
-    @PostMapping(value = "/fi/fap/car/selectEfi0010List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectEfi0010List(
+    // 전표유형관리 조회
+    @PostMapping(value = "/fi/fgl/com/selectFim4300List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFim4300List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============selectEfi0010List=====start========");
+        logger.info("=============selectFim4300List=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
 
-            param.put("procedure", 		"P_EFI0010_Q");
+            param.put("procedure", 		"P_FIM4300_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -64,32 +64,8 @@ public class ApcMaEfi0010Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectEfi0010List=====end========");
+        logger.info("=============selectFim4300List=====end========");
         return getSuccessResponseEntityMa(resultMap);
-    }
-    
-    // 계정마스타관리 저장 및 수정
-    @PostMapping(value = "/fi/fap/car/saveEfi0010.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> saveEfi0010(
-    		@RequestBody Map<String, Object> param
-    		, Model model
-    		, HttpSession session
-    		, HttpServletRequest request) throws Exception{
-    	
-    	logger.info("=============saveEfi0010=====start========");
-    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
-    	
-    	try {
-    		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_EFI0010_S");
-    		
-    	} catch (Exception e) {
-    		logger.debug(e.getMessage());
-    		return getErrorResponseEntity(e);
-    	}
-    	
-    	logger.info("=============saveEfi0010=====end========");
-    	return getSuccessResponseEntityMa(resultMap);
     }
     
 
