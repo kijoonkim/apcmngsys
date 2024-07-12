@@ -57,20 +57,20 @@
                             </li>
                         </ul>
                         <div class="ad_tbl_toplist" style="display: flex; align-items: center; justify-content: flex-end;">
-                            <div style="display: flex; align-items: center; justify-content: start; width: 20%;">
-                            <span>전표템플릿</span>
-                                <div class="dropdown">
+                            <div style="display: flex; align-items: center; justify-content: start; width: 30%;">
+                                <span style="margin-right: 10px;">전표템플릿</span>
+                                <div class="dropdown" style="width: 40%; margin-right: 10px;">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="RULE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="RULE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    <div class="dropdown-menu" aria-labelledby="RULE_CODE" style="width:700px;height:150px;padding-top:0px;overflow:auto">
                                     </div>
                                 </div>
                                 <sbux-checkbox uitype="normal" id="CLOSE_YN" name="CLOSE_YN" uitype="normal" class="form-control input-sm check" text="역분개라인생성" true-value="Y" false-value="N"/>
                             </div>
-                            <div style="display: flex; align-items: center; justify-content: start; width: 20%;">
-                                <span>세금계산서</span>
+                            <div style="display: flex; align-items: center; justify-content: left; width: 30%; margin-right: 5%">
+                                <span style="margin-right: 10px;">세금계산서</span>
                                 <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                 <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
@@ -525,7 +525,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="ETAX_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="ETAX_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -561,7 +561,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="CARD_USE_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="CARD_USE_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -576,7 +576,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="LOCAL_CREDIT_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="LOCAL_CREDIT_TYPE" style="width:200px;height:100px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -604,7 +604,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="VAT_NOT_DEDUCTION_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="VAT_NOT_DEDUCTION_TYPE" style="width:280px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -615,7 +615,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="REPORT_OMIT_YN" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="REPORT_OMIT_YN" style="width:130px;height:80px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -640,7 +640,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="DUP_ISSUE_BILL_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="DUP_ISSUE_BILL_TYPE" style="width:100px;height:100px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -651,7 +651,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="VAT_ASSET_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="VAT_ASSET_TYPE" style="width:150px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -676,7 +676,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="AFTER_DUE_DATE_YN" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="AFTER_DUE_DATE_YN" style="width:130px;height:80px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -687,7 +687,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="ZERO_REPORT_YN" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="ZERO_REPORT_YN" style="width:150px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -711,7 +711,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="EXCLUDE_REVENUE_AMT_YN" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="EXCLUDE_REVENUE_AMT_YN" style="width:150px;height:80px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -722,7 +722,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="ZERO_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="ZERO_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -921,7 +921,7 @@
 </section>
 <!-- 팝업 Modal -->
 <div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -985,7 +985,7 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'TAX_SITE_CODE'
                 ,colLabel		: 'TAX_SITE_NAME'
                 ,columns		:[
@@ -1163,11 +1163,11 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "발행구분", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
@@ -1182,11 +1182,11 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "카드구분", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
@@ -1205,7 +1205,7 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "구분", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
@@ -1220,11 +1220,11 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "불공제 사유 유형", 		ref: 'CODE_NAME',    		width:'230px',  	style:'text-align:left'}
                 ]
             }),
@@ -1239,11 +1239,11 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "해당여부", 		ref: 'CODE_NAME',    		width:'80px',  	style:'text-align:left'}
                 ]
             }),
@@ -1257,12 +1257,12 @@
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropType		: 'up' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "구분", 		ref: 'CODE_NAME',    		width:'50px',  	style:'text-align:left'}
                 ]
             }),
@@ -1276,13 +1276,13 @@
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropType		: 'up' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
-                    {caption: "자산구분", 		ref: 'CODE_NAME',    		width:'50px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
+                    {caption: "자산구분", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'}
                 ]
             }),
             // 중복발행구분
@@ -1295,12 +1295,12 @@
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropType		: 'up' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "해당여부", 		ref: 'CODE_NAME',    		width:'80px',  	style:'text-align:left'}
                 ]
             }),
@@ -1314,13 +1314,13 @@
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropType		: 'up' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
-                    {caption: "해당여부", 		ref: 'CODE_NAME',    		width:'80px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
+                    {caption: "해당여부", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'}
                 ]
             }),
             // 수입금액제외
@@ -1333,13 +1333,13 @@
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropType		: 'up' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
-                    {caption: "해당여부", 		ref: 'CODE_NAME',    		width:'80px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
+                    {caption: "해당여부", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'}
                 ]
             }),
             // 수입금액제외
@@ -1353,12 +1353,12 @@
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropType		: 'up' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'40px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
@@ -1738,6 +1738,34 @@
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_initSBSelect();
         fn_createGvwWFItemGrid();
-        //fn_search();
+        fn_search();
     });
+
+    // 신규
+    function cfn_add() {
+        fn_create();
+    }
+
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+
+    // 삭제
+    function cfn_del() {
+        fn_delete();
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    const fn_create = async function () {}
+
+    const fn_save = async function () {}
+
+    const fn_delete = async function () {}
+
+    const fn_search = async function () {}
 </script>
