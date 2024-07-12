@@ -146,7 +146,7 @@
     
 	<!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     </div>
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>

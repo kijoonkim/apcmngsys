@@ -267,7 +267,7 @@
     
 	<!-- 팝업 Modal -->
     <div>
-        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+        <sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     </div>
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -717,7 +717,7 @@
     		,whereClause			: addParams
    			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
    			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-   			,searchInputValues		: ["", 				"",				""]
+   			,searchInputValues		: ["", 				"",				"2024-07-10"]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,height					: '400px'
    			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
