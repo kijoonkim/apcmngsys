@@ -322,6 +322,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 							value		: gfnma_nvl(item[_subcode]),
 							selected	: "selected"
 						}
+						if(_allyn== "Y") Object.assign(cdVl, item);
 						_jsondataRef.push(cdVl);
 					} else {
 						const cdVl = {
@@ -329,6 +330,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 							label	: gfnma_nvl(item[_codename]),
 							value	: gfnma_nvl(item[_subcode])
 						}
+						if(_allyn== "Y") Object.assign(cdVl, item);
 						_jsondataRef.push(cdVl);
 					}
 				} else {
@@ -337,6 +339,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 						label	: gfnma_nvl(item[_codename]),
 						value	: gfnma_nvl(item[_subcode])
 					}
+					if(_allyn== "Y") Object.assign(cdVl, item);
 					_jsondataRef.push(cdVl);
 				}
 			}
