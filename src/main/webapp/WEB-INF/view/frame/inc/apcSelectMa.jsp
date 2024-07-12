@@ -25,7 +25,7 @@
 	<script type="text/javascript">
 		var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 		var temp_jsonClientCode		= [];
-		gfnma_setComSelect(['gsb-slt-clntCd'], temp_jsonClientCode, 'L_CLIENT', '', '', 'CLIENT_CODE', 'CLIENT_NAME', 'Y', gv_ma_selectedClntCd);
+		gfnma_setComSelect(['gsb-slt-clntCd'], temp_jsonClientCode, 'L_CLIENT', '', '', '', 'CLIENT_CODE', 'CLIENT_NAME', 'Y', gv_ma_selectedClntCd);
 		
 		/**
 		 * @name
