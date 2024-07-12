@@ -289,7 +289,7 @@
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="CURRENCY_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                        <div class="dropdown-menu" aria-labelledby="CURRENCY_CODE" style="width:250px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
                                 </td>
@@ -340,7 +340,7 @@
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                        <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:600px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
                                 </td>
@@ -400,7 +400,7 @@
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="BANK_ACCOUNT_SEQ" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                        <div class="dropdown-menu" aria-labelledby="BANK_ACCOUNT_SEQ" style="width:1010px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
                                 </td>
@@ -891,7 +891,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findAccItem(3)"
+                                                        onclick="fn_findAccItem(4)"
                                                 ></sbux-button>
                                             </td>
                                             <th scope="row" class="th_bg">관리항목8</th>
@@ -934,9 +934,21 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
-    var strsource_type ="<%=request.getParameter("sourceType")%>";
+    var strsourceType = "<%=request.getParameter("sourceType")%>";
+    if(strsourceType == "") strsourceType = "AP";
+    var p_empCd = '${loginVO.empCd}';
     var p_fiOrgCode = "${loginVO.fiOrgCode}";
+
+    var bnew = true;
+    var bAllowPrint = false;
+    var bfocuschange = false;
+
+    var strCurrntDate;
+    var strFileSourceType = "FIGDOCHEADER";
+    var strFI_DELETE_USER = "";
     //-----------------------------------------------------------
+
+    var editType			= "Q";
     var copyMode            = "clear";
 
     var jsonDocType = []; // 전표구분
@@ -971,7 +983,6 @@
         SBUxMethod.set("SRCH_TXN_DATE_FROM",gfn_dateFirstYmd(new Date()));
         SBUxMethod.set("SRCH_TXN_DATE_TO", gfn_dateLastYmd(new Date()));
         SBUxMethod.set("SRCH_REVERSE_FLAG", "Y");
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
 
         let rst = await Promise.all([
             // 사업단위
@@ -1068,7 +1079,7 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'CURRENCY_CODE'
                 ,colLabel		: 'CURRENCY_NAME'
                 ,columns		:[
@@ -1087,7 +1098,7 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'VAT_CODE'
                 ,colLabel		: 'VAT_NAME'
                 ,columns		:[
@@ -1111,7 +1122,7 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'BANK_ACCOUNT_SEQ'
                 ,colLabel		: 'SEQ_NAME'
                 ,columns		:[
@@ -1373,6 +1384,8 @@
             // 여신영역
             gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
+
+        console.log(jsonCurrencyCode)
     }
 
     var fn_findDeptCode = function() {
@@ -1402,6 +1415,183 @@
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    var fn_findApprovalNo = function () {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("APPROVAL_NO"));
+        var CS_CODE 		= gfnma_nvl(SBUxMethod.get("CS_CODE"));
+        var addParams = [CS_CODE, '', strsourceType];
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_INVOICE_'+ strsourceType
+            ,popupType				: 'B'
+            ,whereClause			: addParams
+            ,searchCaptions			: ["승인번호", "사업자번호", "상호", "작성시작일자", "작성종료일자"]
+            ,searchInputFields		: ["APPROVAL_NO", "SELLER_REG_NO", "SELLER_NAME", "DATE_FR", "DATE_TO"]
+            ,searchInputValues		: [searchText, "", "", gfn_dateFirstYmd(new Date()), gfn_dateToYmd(new Date())]
+
+            ,searchInputTypes		: ["input", "input", "input", "datepicker", "datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["승인번호", "발급일자", "전송일자", "사업자번호", "상호", "대표자명", "합계금액", "공급가액", "부가세액"
+                , "전자세금계산서분류", "전자세금계산서분류명", "전표담당자명", "증빙유형", "거래처코드", "거래처명"]
+            ,tableColumnNames		: ["WRITE_DATE", "APPROVAL_NO", "ISSUE_DATE", "SEND_DATE", "SELLER_REG_NO", "SELLER_NAME", "SELLER_OWNER"
+                , "TOTAL_AMT", "TOTAL_TAXABLE_AMT", "TOTAL_VAT_AMT", "EINVOICE_CATEGORY", "EINVOICE_CATEGORY_NAME", "ACCOUNT_EMP_NAME", "VOUCHER_TYPE", "CS_CODE", "CS_NAME"]
+            ,tableColumnWidths		: ["100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('APPROVAL_NO', data.APPROVAL_NO);
+                SBUxMethod.set('VOUCHER_TYPE', data.VOUCHER_TYPE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    var fn_findCsCode = function () {
+        var CS_CODE 		= gfnma_nvl(SBUxMethod.get("CS_CODE"));
+        var CS_NAME 		= gfnma_nvl(SBUxMethod.get("CS_NAME"));
+        var replaceText0 	= "_CS_CODE_";
+        var replaceText1 	= "_CS_NAME_";
+        var replaceText2 	= "_BIZ_REGNO_";
+        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%" + replaceText2 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: strsourceType == "AP" ? 'P_CS_PURCHASE_DOC' : "P_CS_SALE_DOC"
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["거래처코드", "거래처명", "사업자번호"]
+            ,searchInputFields		: ["CS_CODE", "CS_NAME", "BIZ_REGNO"]
+            ,searchInputValues		: [CS_CODE, CS_NAME, ""]
+            ,height					: '400px'
+            ,tableHeader			: ["거래처코드", "거래처명", "사업자번호", "거래중지여부", "대표자", "업태", "종목", "주소", "전화", "팩스"
+                , "채무계정", "채무계정명", "지급기준", "지급기준명", "지급방법", "통화", "TXN_STOP_REASON"]
+            ,tableColumnNames		: ["CS_CODE", "CS_NAME", "BIZ_REGNO", "TXN_STOP_YN", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS"
+                , "ADDRESS", "TEL", "FAX", "AP_ACC_CODE", "AP_ACC_NAME", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE", "TXN_STOP_REASON"]
+            ,tableColumnWidths		: ["90px", "150px", "130px", "70px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px"
+                , "100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('CS_CODE', data.CS_CODE);
+                SBUxMethod.set('CS_NAME', data.CS_NAME);
+                SBUxMethod.set('BIZ_REGNO', data.BIZ_REGNO);
+            },
+        });
+    }
+
+    var fn_findPayTermCode = function () {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("PAY_TERM_NAME"));
+        var replaceText0 	= "_PAY_TERM_CODE_";
+        var replaceText1 	= "_PAY_TERM_NAME_";
+        var strWhereClause 	= "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: strsourceType == "AP" ? 'P_PAY_DATE_P' : "P_PAY_DATE_S"
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", 		"명칭"]
+            ,searchInputFields		: ["PAY_TERM_CODE", 		"PAY_TERM_NAME"]
+            ,searchInputValues		: ["", 			searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["지급기일코드", "지급기일명", "지급기준"]
+            ,tableColumnNames		: ["PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD_NAME"]
+            ,tableColumnWidths		: ["80px", "250px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NAME);
+                SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CODE);
+            },
+        });
+    }
+
+    var fn_findAccItem = function (num) {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("ACC_VALUE_NAME"+num));
+        var replaceText0 	= "_ACC_ITEM_VALUE_";
+        var replaceText1 	= "_ACC_VALUE_NAME_";
+        var strWhereClause 	= "AND ACC_ITEM_VALUE LIKE '%" + replaceText0 + "%' AND ACC_VALUE_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FIM041'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["관리항목코드", 		"관리항목명"]
+            ,searchInputFields		: ["ACC_ITEM_VALUE", 		"ACC_VALUE_NAME"]
+            ,searchInputValues		: ["", 			searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["관리항목", "관리항목명", "데이터유형", "컨트롤유형"]
+            ,tableColumnNames		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", "DATA_TYPE", "CONTROL_TYPE"]
+            ,tableColumnWidths		: ["100px", "100px", "80px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('ACC_VALUE_NAME'+num, data.ACC_VALUE_NAME);
+                SBUxMethod.set('ACC_ITEM_VALUE'+num, data.ACC_ITEM_VALUE);
+            },
+        });
+    }
+
+    var fn_findVatTypeForGvwWFItem = function(row, col) {
+        var addParam = [gfn_dateToYmd(new Date())];
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부가세계정정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: strsourceType == "AP" ? 'P_ACCOUNT_POPUP_AP_Q' : "P_ACCOUNT_POPUP_AR_Q"
+            ,popupType				: 'B'
+            ,whereClause			: addParam
+            ,searchCaptions			: ["코드", 		"코드명"]
+            ,searchInputFields		: ["VAT_CODE", 	"VAT_NAME"]
+            ,searchInputValues		: ["", 				""]
+            ,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
+            ,height					: '400px'
+            ,tableHeader			: ["부가세코드",		"부가세명", 		"부가세유형"]
+            ,tableColumnNames		: ["VAT_CODE",	"VAT_NAME", 	"VAT_TYPE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"200px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwWFItem.setCellData(row, (col-1), data.VAT_CODE);
+                gvwWFItem.setCellData(row, col, data.VAT_NAME);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'400px'})
+    }
+
+    var fn_findAccountCodeForGvwWFItem = function(row, col) {
+        var addParam = [null];
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: "P_FIM045"
+            ,popupType				: 'B'
+            ,whereClause			: addParam
+            ,searchCaptions			: ["코드", 		"코드명"]
+            ,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+            ,searchInputValues		: ["", 				""]
+            ,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
+            ,height					: '400px'
+            ,tableHeader			: ["계정코드",		"계정명", 		"계정명(한글)"]
+            ,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
+            ,tableColumnWidths		: ["100px", 		"200px", 		"200px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwWFItem.setCellData(row, (col-1), data.ACCOUNT_CODE);
+                gvwWFItem.setCellData(row, col, data.ACCOUNT_NAME);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'500px'})
     }
 
     // 복사모드토글
@@ -1470,8 +1660,8 @@
                 }
                 , disabled: true
             },
-            {caption: ["부가세유형코드"], 	        ref: 'VAT_TYPE',    	        type:'output',  	width:'72px',  	style:'text-align:left', hidden: true}, // TODO : P_ACCOUNT_POPUP_Q
-            {caption: ["부가세유형"], 	        ref: 'VAT_NAME',    	        type:'output',  	width:'184px',  	style:'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
+            {caption: ["부가세유형"], 	        ref: 'VAT_TYPE',    	        type:'output',  	width:'72px',  	style:'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
+            {caption: ["부가세유형명"], 	        ref: 'VAT_NAME',    	        type:'output',  	width:'184px',  	style:'text-align:left'}, // TODO : P_ACCOUNT_POPUP_Q
             {caption: ["계정코드"], 	        ref: 'ACCOUNT_CODE',    	        type:'output',  	width:'80px',  	style:'text-align:left'}, // TODO : P_FIM045
             {caption: ["계정과목명"], 	        ref: 'ACCOUNT_NAME',    	        type:'output',  	width:'170px',  	style:'text-align:left'}, // TODO : P_FIM045
             {caption: ["통화금액"],         ref: 'ORIGINAL_AMT',    type:'output',  	width:'126px',  style:'text-align:left',
@@ -1732,7 +1922,86 @@
         ];
 
         gvwWFItem = _SBGrid.create(SBGridProperties);
+        gvwWFItem.bind('dblclick', 'fn_gvwWFItemDblclick');
         //gvwWFItem.bind('click', 'fn_view');
+    }
+
+    const fn_gvwWFItemDblclick = async function() {
+        var nRow = gvwWFItem.getRow();
+        var nCol = gvwWFItem.getCol();
+
+        console.log(nCol);
+
+        if(nCol == 5) {
+            fn_findVatTypeForGvwWFItem(nRow, nCol);
+        }
+
+        if(nCol == 6) {
+            fn_findVatTypeForGvwWFItem(nRow, (nCol - 1));
+        }
+
+        if(nCol == 7) {
+            fn_findAccountCodeForGvwWFItem(nRow, nCol);
+        }
+
+        if(nCol == 8) {
+            fn_findAccountCodeForGvwWFItem(nRow, (nCol - 1));
+        }
+    }
+
+    // 행추가
+    const fn_addRow = async function () {
+        let rowVal = gvwWFItem.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            gvwWFItem.addRow(true, {
+                KEY_ID : gfnma_nvl(SBUxMethod.get("KEY_ID")),
+                ITEM_SEQ : jsonAccountLineList.length,
+                LINE_TYPE : "2",
+                SITE_CODE : gfnma_nvl(SBUxMethod.get("SITE_CODE")),
+                DEPT_CODE : gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
+                DEBIT_CREDIT : gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
+                ORIGINAL_AMT : 0,
+                VAT_AMT : 0,
+                SUPPLY_AMT : 0,
+                CURRENCY_CODE : gfnma_nvl(SBUxMethod.get("CURRENCY_CODE")),
+                EXCHANGE_RATE : gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
+                CS_CODE : gfnma_nvl(SBUxMethod.get("CS_CODE")),
+                VAT_TYPE : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
+                VAT_NAME : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').label),
+                DESCRIPTION : gfnma_nvl(SBUxMethod.get("DESCRIPTION")),
+            });
+        }else{
+            gvwWFItem.insertRow(rowVal, {
+                KEY_ID : gfnma_nvl(SBUxMethod.get("KEY_ID")),
+                ITEM_SEQ : jsonAccountLineList.length,
+                LINE_TYPE : "2",
+                SITE_CODE : gfnma_nvl(SBUxMethod.get("SITE_CODE")),
+                DEPT_CODE : gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
+                DEBIT_CREDIT : gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
+                ORIGINAL_AMT : 0,
+                VAT_AMT : 0,
+                SUPPLY_AMT : 0,
+                CURRENCY_CODE : gfnma_nvl(SBUxMethod.get("CURRENCY_CODE")),
+                EXCHANGE_RATE : gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
+                CS_CODE : gfnma_nvl(SBUxMethod.get("CS_CODE")),
+                VAT_TYPE : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
+                VAT_NAME : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').label),
+                DESCRIPTION : gfnma_nvl(SBUxMethod.get("DESCRIPTION")),
+            });
+        }
+    }
+
+    // 행삭제
+    const fn_deleteRow = async function () {
+        let rowVal = gvwWFItem.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwWFItem.deleteRow(rowVal);
+            fn_summary();
+        }
     }
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -1761,11 +2030,577 @@
         fn_search();
     }
 
-    const fn_create = async function () {}
+    const fn_summary = async function () {
+        let dorigin_dr_amt = 0;
+        let dorigin_cr_amt = 0;
+        let dfunctional_dr_amt = 0;
+        let dfunctional_cr_amt = 0;
+
+        let exp_amt = 0;
+        let exp_amt_krw = 0;
+
+        let vat_amt = 0;
+        let vat_amt_krw = 0;
+
+        let x = -1;
+
+        for (var i = 0; i < jsonAccountLineList.length; i++){
+            dorigin_dr_amt += gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DEBIT_CREDIT")) == "D" ? parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT"))) : 0;
+            dorigin_cr_amt += gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DEBIT_CREDIT")) == "C" ? parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT"))) : 0;
+            dfunctional_dr_amt += gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DEBIT_CREDIT")) == "D" ? parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("FUNCTIONAL_AMT"))) : 0;
+            dfunctional_cr_amt += gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DEBIT_CREDIT")) == "C" ? parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("FUNCTIONAL_AMT"))) : 0;
+
+            if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "2") {
+                exp_amt += parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")));
+                exp_amt_krw += parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("FUNCTIONAL_AMT")));
+            }
+
+            if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3") {
+                vat_amt += parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")));
+                vat_amt_krw += parseInt(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("FUNCTIONAL_AMT")));
+
+                x = (i+1);
+            }
+        }
+
+        SBUxMethod.set("DR_SUM", dorigin_dr_amt);
+        SBUxMethod.set("CR_SUM", dorigin_cr_amt);
+        SBUxMethod.set("DIFF_ORIGIN", dorigin_dr_amt - dorigin_cr_amt);
+        SBUxMethod.set("DIFF_FUNTION", dfunctional_dr_amt - dfunctional_cr_amt);
+
+        if (!bnew || bfocuschange)
+            return;
+
+        if (x > 0) {
+            let VAT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE'));
+            if (VAT_TYPE == "A0" || VAT_TYPE == "A1" || VAT_TYPE == "A2" || VAT_TYPE == "A3") {
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT"), exp_amt)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT_KRW"), exp_amt_krw)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("VAT_EXPORT_AMT"), exp_amt)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("VAT_EXPORT_AMT_KRW"), exp_amt_krw)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("FOREIGN_AMT"), exp_amt)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("WON_AMT"), exp_amt_krw)
+                gvwWFItem.setCellData(x, gvwWFItem.getColRef("SHIPPING_DATE"), SBUxMethod.get("DOC_DATE"))
+            }
+        }
+
+    }
+
+    const fn_create = async function () {
+        if (gfnma_nvl(SBUxMethod.get("DOC_NAME")) != "") {
+            if (gfn_comConfirm("Q0000", "PROJECTBASE_003"))
+            {
+                return;
+            }
+        }
+
+        var strcurrent_date = gfn_dateToYmd(new Date());
+
+        bnew = false;
+
+        SBUxMethod.set("DOC_BATCH_NO",'');
+
+        // TODO: this.InitControls(panWFTop);
+        // TODO: this.InitControls(grdWFItem);
+        // TODO: this.InitControls(panWFMiddleBottom);
+        // TODO: this.InitControls(panWFBottom);
+
+        SBUxMethod.set("SITE_CODE",SessionInfo.SiteCode);
+        SBUxMethod.set("CURRENCY_CODE",SessionInfo.CurrCode);
+        SBUxMethod.set("BASE_SCALE",parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == SessionInfo.CurrCode)[0]["BASE_SCALE"]));
+
+        // TODO: btnAttach.Enabled = false;
+        SBUxMethod.attr('VAT_TYPE', 'readonly', 'false');
+
+        SBUxMethod.set("APPROVAL_NO",'');
+        SBUxMethod.set("VOUCHER_TYPE",'');
+        SBUxMethod.set("VOUCHER_NO",'');
+
+        if (strsourceType == "AR") {
+            SBUxMethod.attr('CARD_USE_TYPE', 'readonly', 'true');
+            SBUxMethod.attr('CARD_NUM', 'readonly', 'true');
+            SBUxMethod.attr('VAT_ASSET_TYPE', 'readonly', 'true');
+            SBUxMethod.attr('VAT_NOT_DEDUCTION_TYPE', 'readonly', 'true');
+            SBUxMethod.attr('REPORT_OMIT_YN', 'readonly', 'true');
+
+            txtcs_code.Properties.Popup.PopupTitle = "거래처 (판매)";
+            txtcs_name.Properties.Popup.PopupTitle = "거래처 (판매)";
+
+            SetLookUp(cborule_code, "", "L_RULE", "ar_doc_write_yn = 'Y'");
+
+            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
+            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
+            SetLookUp(cbodoc_type, "", "L_FIM051", "ar_doc_write_yn = 'Y'");
+
+
+            lblpay_term_code.Text = "수금기준";
+            lblpay_term_code.WordText = "수금기준";
+
+            lblpay_method.Text = "수금방법";
+            lblpay_method.WordText = "수금기준";
+
+            lblpay_base_date.Text = "수금기산일자";
+            lblpay_base_date.WordText = "수금기산일자";
+
+            lblexpected_pay_date.Text = "수금만기일자";
+            lblexpected_pay_date.WordText = "수금만기일자";
+
+            txtpay_term_code.Properties.WordText = "수금기준";
+
+            cbosub_tax_site_code.Properties.AllowBlank = false;
+            cbosub_tax_site_code.Properties.Appearance.BackColor = AllowBlankColor;
+            cbosub_tax_site_code.EditValue = "T02";
+
+        } else if (strsourceType == "AP") {
+            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AP_Q";
+            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AP_Q";
+
+
+            cbodup_issue_bill_type.Enabled = false;
+            cboexclude_revenue_amt_yn.Enabled = false;
+
+            if (!SessionInfo.IsAccountManager)
+            {
+                cboafter_due_date_yn.Enabled = false;
+                cboreport_omit_yn.Enabled = false;
+            }
+
+
+            txtcs_code.Properties.Popup.PopupTitle = "거래처 (구매)";
+            txtcs_name.Properties.Popup.PopupTitle = "거래처 (구매)";
+            SetLookUp(cborule_code, "", "L_RULE", "ap_doc_write_yn = 'Y'");
+            SetLookUp(cbodoc_type, "", "L_FIM051", "ap_doc_write_yn = 'Y'");
+
+            lblpay_term_code.Text = "지급기준";
+            lblpay_term_code.WordText = "지급기준";
+
+            lblpay_method.Text = "지급방법";
+            lblpay_method.WordText = "지급기준";
+
+            lblpay_base_date.Text = "지급기산일자";
+            lblpay_base_date.WordText = "지급기산일자";
+
+            lblexpected_pay_date.Text = "지급만기일자";
+            lblexpected_pay_date.WordText = "지급만기일자";
+
+            txtpay_term_code.Properties.WordText = "지급기준";
+
+            cbosub_tax_site_code.Properties.AllowBlank = true;
+            cbosub_tax_site_code.Properties.Appearance.BackColor = Color.White;
+            cbosub_tax_site_code.EditValue = "T02";
+        } else if (strsource_type.Equals("BAD")) {
+            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
+            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
+
+            cbodup_issue_bill_type.Enabled = false;
+            cboexclude_revenue_amt_yn.Enabled = false;
+
+            if (!SessionInfo.IsAccountManager)
+            {
+                cboafter_due_date_yn.Enabled = false;
+                cboreport_omit_yn.Enabled = false;
+            }
+
+            this.Text = "대손채권 입력";
+
+            txtcs_code.Properties.Popup.BizComponentID = "P_CS_SALE_DOC";
+            txtcs_name.Properties.Popup.BizComponentID = "P_CS_SALE_DOC";
+            txtpay_term_code.Properties.Popup.BizComponentID = "P_PAY_DATE_S";
+            txtpay_term_name.Properties.Popup.BizComponentID = "P_PAY_DATE_S";
+            txtcs_code.Properties.Popup.PopupTitle = "거래처 (판매)";
+            txtcs_name.Properties.Popup.PopupTitle = "거래처 (판매)";
+
+            SetLookUp(cborule_code, "", "L_RULE", "doc_type LIKE '91%'");
+            SetLookUp(cbodoc_type, "", "L_FIM051", "doc_type like '91%'");
+            cbodoc_type.EditValue = "91";
+
+            cbosub_tax_site_code.Properties.AllowBlank = false;
+            cbosub_tax_site_code.Properties.Appearance.BackColor = AllowBlankColor;
+            cbosub_tax_site_code.EditValue = "T02";
+        }
+
+        Object oFromDate = ymdfrom_date.EditValue;
+        Object oToDate = ymdto_date.EditValue;
+
+        ymdfrom_date.EditValue = oFromDate;
+        ymdto_date.EditValue = oToDate;
+
+        SaveButton = true;
+        DeleteButton = false;
+        btnSubmit.Enabled = false;
+        btnConfirmHist.Enabled = false;
+
+        PreviewButton = false;
+        PrintButton = false;
+
+        btnAddRow.Enabled = false;
+        btnDeleteRow.Enabled = false;
+        btnCreateLine.Enabled = false;
+
+        btnAddeinvoiceitem.Enabled = true;
+        btnAddinvoiceitem.Enabled = true;
+
+        txtkey_id.Text = "1";
+
+        cborule_code.Enabled = true;
+        cbocurrency_code.EditValue = SessionInfo.CurrCode;
+        numexchange_rate.EditValue = 1;
+
+        cbocomp_code.EditValue = SessionInfo.CompCode;
+        cbofi_org_code.EditValue = SessionInfo.FIOrgCode;
+        cboacct_rule_code.EditValue = SessionInfo.DefaultAcctRule;
+
+        cbodoc_status.EditValue = "1";
+
+        ymddoc_date.EditValue = strcurrent_date;
+        ymdstandard_date.EditValue = ymddoc_date.EditValue.ToString();
+
+        ymdvoucher_receipt_date.EditValue = ymddoc_date.EditValue.ToString();
+        ymdexpected_pay_date.EditValue = strcurrent_date;
+        cbopayee_code.EditValue = SessionInfo.UserID;
+        txtinsert_userid.EditValue = SessionInfo.UserID;
+
+        txtdoc_num.Text = "1";
+
+        txtdept_codetxtdept_codetxtdept_code.Text = SessionInfo.DeptCode;
+        txtdept_name.Text = SessionInfo.DeptName;
+
+        txtsource_doc.Text = "MANUAL";
+
+        cbotax_site_code.EditValue = "T02";
+
+        if (strsource_type.Equals("AP")) {
+            cbodoc_type.EditValue = "19"; //미지급
+        } else if (strsource_type.Equals("AR")) {
+            cbodoc_type.EditValue = "39"; //채권
+        }
+        cbodoc_type.Properties.ReadOnly = false;
+
+        if (SessionInfo.IsAccountManager || SessionInfo.IsAccountChief) {
+            txtopen_to_all_yn.EditValue = "N";
+            txtopen_to_fcm_yn.EditValue = "N";
+        } else {
+            txtopen_to_all_yn.EditValue = "Y";
+            txtopen_to_fcm_yn.EditValue = "Y";
+        }
+
+        panWFTop.ActionMode = ActionMode.Save;
+        gvwWFItem.ActionMode = ActionMode.Save;
+
+        bnew = true;
+    }
 
     const fn_save = async function () {}
 
     const fn_delete = async function () {}
 
-    const fn_search = async function () {}
+    const fn_search = async function () {
+        let DOC_BATCH_NO = gfnma_nvl(SBUxMethod.get("DOC_BATCH_NO"));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            IV_P_DOC_BATCH_NO : DOC_BATCH_NO,
+            V_P_DOC_NUM : 0,
+            V_P_DOC_ID : 0,
+            V_P_DOC_DATE : '',
+            V_P_CURRENCY_CODE : '',
+            V_P_PAY_METHOD : '',
+            V_P_CS_CODE : '',
+            V_P_RULE_CODE : '',
+            V_P_SOURCE_TYPE : strsourceType,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/far/rec/selectFig3510List.do", {
+            getType				: 'json',
+            workType			: 'Q',
+            cv_count			: '10',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                jsonAccountLineList.length = 0;
+
+                var formData = listData.cv_2[0];
+
+               /* const msg = {
+                    KEY_ID : item.KEY_ID,
+                    ACCT_RULE_CODE : item.ACCT_RULE_CODE,
+                    FI_ORG_CODE : item.FI_ORG_CODE,
+                    SITE_CODE : item.SITE_CODE,
+                    DEPT_CODE : item.DEPT_CODE,
+                    DEPT_NAME : item.DEPT_NAME,
+                    DOC_ID : item.DOC_ID,
+                    DOC_TYPE : item.DOC_TYPE,
+                    DOC_DATE : item.DOC_DATE,
+                    CS_CODE : item.CS_CODE,
+                    CS_NAME : item.CS_NAME,
+                    BIZ_REGNO : item.BIZ_REGNO,
+                    DOC_NAME : item.DOC_NAME,
+                    DOC_NUM : item.DOC_NUM,
+                    CURRENCY_CODE : item.CURRENCY_CODE,
+                    EXCHANGE_RATE : item.EXCHANGE_RATE,
+                    BASE_SCALE : item.BASE_SCALE,
+                    VAT_CODE : item.VAT_CODE,
+                    DOC_AMT : item.DOC_AMT,
+                    PAY_METHOD : item.PAY_METHOD,
+                    PAY_TERM_CODE : item.PAY_TERM_CODE,
+                    PAY_TERM_NAME : item.PAY_TERM_NAME,
+                    VAT_AMOUNT : item.VAT_AMOUNT,
+                    STANDARD_DATE : item.STANDARD_DATE,
+                    SUPPLY_AMT : item.SUPPLY_AMT,
+                    DESCRIPTION : item.DESCRIPTION,
+                    PAY_BASE_DATE : item.PAY_BASE_DATE,
+                    EXPECTED_PAY_DATE : item.EXPECTED_PAY_DATE,
+                    BASIS_TYPE : item.BASIS_TYPE,
+                    DIFF_DAY : item.DIFF_DAY,
+                    BILL_DUE_DATE : item.BILL_DUE_DATE,
+                    BILL_DUE_DAY : item.BILL_DUE_DAY,
+                    BILL_DUE_PAY_DATE : item.BILL_DUE_PAY_DATE,
+                    VOUCHER_RECEIPT_DATE : item.VOUCHER_RECEIPT_DATE,
+                    VOUCHER_TYPE : item.VOUCHER_TYPE,
+                    VOUCHER_NO : item.VOUCHER_NO,
+                    PAYEE_CODE : item.PAYEE_CODE,
+                    PAYEE_NAME : item.PAYEE_NAME,
+                    APPROVE_DATE : item.APPROVE_DATE,
+                    FINAL_APPROVER : item.FINAL_APPROVER,
+                    DOC_STATUS : item.DOC_STATUS,
+                    ACCT_OPINION : item.ACCT_OPINION,
+                    TR_OPINION : item.TR_OPINION,
+                    POSTING_DATE : item.POSTING_DATE,
+                    POSTING_USER : item.POSTING_USER,
+                    UNPOSTING_DATE : item.UNPOSTING_DATE,
+                    UNPOSTING_USER : item.UNPOSTING_USER,
+                    REGISTER_YN : item.REGISTER_YN,
+                    APPR_COUNT : item.APPR_COUNT,
+                    APPR_ID : item.APPR_ID,
+                    INSERT_USERID : item.INSERT_USERID,
+                    CONFIRM_EMP_CODE : item.CONFIRM_EMP_CODE,
+                    PROXY_EMP_CODE : item.PROXY_EMP_CODE,
+                    TEMP_AREA : item.TEMP_AREA,
+                    BANK_ACCOUNT_SEQ : item.BANK_ACCOUNT_SEQ,
+                    BANK_CODE : item.BANK_CODE,
+                    BANK_ACCOUNT_NO : item.BANK_ACCOUNT_NO,
+                    BANK_ACCOUNT_DESCRIPTION : item.BANK_ACCOUNT_DESCRIPTION,
+                    TAX_SITE_CODE : item.TAX_SITE_CODE,
+                    SUB_TAX_SITE_CODE : item.SUB_TAX_SITE_CODE,
+                    APPLY_COMPLETE_FLAG : item.APPLY_COMPLETE_FLAG,
+                    REVERSE_FLAG : item.REVERSE_FLAG,
+                    REVERSE_DOC_NAME : item.REVERSE_DOC_NAME,
+                    REVERSE_DOC_ID : item.REVERSE_DOC_ID,
+                    ORIG_DOC_ID : item.ORIG_DOC_ID,
+                    HEADER_COST_CENTER : item.HEADER_COST_CENTER,
+                    REQUEST_EMP : item.REQUEST_EMP,
+                    REQUEST_EMP_CODE : item.REQUEST_EMP_CODE,
+                    BEFORE_APPR_EMP : item.BEFORE_APPR_EMP,
+                    BEFORE_APPR_EMP_CODE : item.BEFORE_APPR_EMP_CODE,
+                    BEFORE_PROXY_EMP_CODE : item.BEFORE_PROXY_EMP_CODE,
+                    NEXT_APPR_EMP : item.NEXT_APPR_EMP,
+                    BILL_NO : item.BILL_NO
+                }*/
+
+                listData.cv_2.forEach((item, index) => {
+                    var msg = {
+                        KEY_ID: item.KEY_ID,
+                        ITEM_ID: item.ITEM_ID,
+                        ITEM_SEQ: item.ITEM_SEQ,
+                        LINE_TYPE: item.LINE_TYPE,
+                        DEBIT_CREDIT: item.DEBIT_CREDIT,
+                        VAT_TYPE: item.VAT_TYPE,
+                        VAT_NAME: item.VAT_NAME,
+                        VAT_TYPE_CODE: item.VAT_TYPE_CODE,
+                        DEPT_CODE: item.DEPT_CODE,
+                        COST_CENTER_CODE: item.COST_CENTER_CODE,
+                        COST_CENTER_NAME: item.COST_CENTER_NAME,
+                        PROJECT_CODE: item.PROJECT_CODE,
+                        PROJECT_NAME: item.PROJECT_NAME,
+                        ORIGINAL_AMT: item.ORIGINAL_AMT,
+                        FUNCTIONAL_AMT: item.FUNCTIONAL_AMT,
+                        ITEM_SUPPLY_AMOUNT: item.ITEM_SUPPLY_AMOUNT,
+                        TXN_QTY: item.TXN_QTY,
+                        ACCOUNT_CODE: item.ACCOUNT_CODE,
+                        ACCOUNT_NAME: item.ACCOUNT_NAME,
+                        COST_CLASS: item.COST_CLASS,
+                        TMP_ACCOUNT_CODE: item.TMP_ACCOUNT_CODE,
+                        TMP_ACCOUNT_NAME: item.TMP_ACCOUNT_NAME,
+                        ACC_CATEGORY: item.ACC_CATEGORY,
+                        ACC_ITEM_CODE1: item.ACC_ITEM_CODE1,
+                        ACC_ITEM_CODE2: item.ACC_ITEM_CODE2,
+                        ACC_ITEM_CODE3: item.ACC_ITEM_CODE3,
+                        ACC_ITEM_CODE4: item.ACC_ITEM_CODE4,
+                        ACC_ITEM_CODE5: item.ACC_ITEM_CODE5,
+                        ACC_ITEM_CODE6: item.ACC_ITEM_CODE6,
+                        ACC_ITEM_CODE7: item.ACC_ITEM_CODE7,
+                        ACC_ITEM_CODE8: item.ACC_ITEM_CODE8,
+                        ACC_ITEM_CODE9: item.ACC_ITEM_CODE9,
+                        ACC_ITEM_CODE10: item.ACC_ITEM_CODE10,
+                        ACC_ITEM_NAME1: item.ACC_ITEM_NAME1,
+                        ACC_ITEM_NAME2: item.ACC_ITEM_NAME2,
+                        ACC_ITEM_NAME3: item.ACC_ITEM_NAME3,
+                        ACC_ITEM_NAME4: item.ACC_ITEM_NAME4,
+                        ACC_ITEM_NAME5: item.ACC_ITEM_NAME5,
+                        ACC_ITEM_NAME6: item.ACC_ITEM_NAME6,
+                        ACC_ITEM_NAME7: item.ACC_ITEM_NAME7,
+                        ACC_ITEM_NAME8: item.ACC_ITEM_NAME8,
+                        ACC_ITEM_NAME9: item.ACC_ITEM_NAME9,
+                        ACC_ITEM_NAME10: item.ACC_ITEM_NAME10,
+                        ACC_ITEM_YN1: item.ACC_ITEM_YN1,
+                        ACC_ITEM_YN2: item.ACC_ITEM_YN2,
+                        ACC_ITEM_YN3: item.ACC_ITEM_YN3,
+                        ACC_ITEM_YN4: item.ACC_ITEM_YN4,
+                        ACC_ITEM_YN5: item.ACC_ITEM_YN5,
+                        ACC_ITEM_YN6: item.ACC_ITEM_YN6,
+                        ACC_ITEM_YN7: item.ACC_ITEM_YN7,
+                        ACC_ITEM_YN8: item.ACC_ITEM_YN8,
+                        ACC_ITEM_YN9: item.ACC_ITEM_YN9,
+                        ACC_ITEM_YN10: item.ACC_ITEM_YN10,
+                        DATA_TYPE1: item.DATA_TYPE1,
+                        DATA_TYPE2: item.DATA_TYPE2,
+                        DATA_TYPE3: item.DATA_TYPE3,
+                        DATA_TYPE4: item.DATA_TYPE4,
+                        DATA_TYPE5: item.DATA_TYPE5,
+                        DATA_TYPE6: item.DATA_TYPE6,
+                        DATA_TYPE7: item.DATA_TYPE7,
+                        DATA_TYPE8: item.DATA_TYPE8,
+                        DATA_TYPE9: item.DATA_TYPE9,
+                        DATA_TYPE10: item.DATA_TYPE10,
+                        POPUP_ID1: item.POPUP_ID1,
+                        POPUP_ID2: item.POPUP_ID2,
+                        POPUP_ID3: item.POPUP_ID3,
+                        POPUP_ID4: item.POPUP_ID4,
+                        POPUP_ID5: item.POPUP_ID5,
+                        POPUP_ID6: item.POPUP_ID6,
+                        POPUP_ID7: item.POPUP_ID7,
+                        POPUP_ID8: item.POPUP_ID8,
+                        POPUP_ID9: item.POPUP_ID9,
+                        POPUP_ID10: item.POPUP_ID10,
+                        ACC_CHARACTER: item.ACC_CHARACTER,
+                        ACC_ITEM_VALUE1: item.ACC_ITEM_VALUE1,
+                        ACC_ITEM_VALUE2: item.ACC_ITEM_VALUE2,
+                        ACC_ITEM_VALUE3: item.ACC_ITEM_VALUE3,
+                        ACC_ITEM_VALUE4: item.ACC_ITEM_VALUE4,
+                        ACC_ITEM_VALUE5: item.ACC_ITEM_VALUE5,
+                        ACC_ITEM_VALUE6: item.ACC_ITEM_VALUE6,
+                        ACC_ITEM_VALUE7: item.ACC_ITEM_VALUE7,
+                        ACC_ITEM_VALUE8: item.ACC_ITEM_VALUE8,
+                        ACC_ITEM_VALUE9: item.ACC_ITEM_VALUE9,
+                        ACC_ITEM_VALUE10: item.ACC_ITEM_VALUE10,
+                        ACC_VALUE_NAME1: item.ACC_VALUE_NAME1,
+                        ACC_VALUE_NAME2: item.ACC_VALUE_NAME2,
+                        ACC_VALUE_NAME3: item.ACC_VALUE_NAME3,
+                        ACC_VALUE_NAME4: item.ACC_VALUE_NAME4,
+                        ACC_VALUE_NAME5: item.ACC_VALUE_NAME5,
+                        ACC_VALUE_NAME6: item.ACC_VALUE_NAME6,
+                        ACC_VALUE_NAME7: item.ACC_VALUE_NAME7,
+                        ACC_VALUE_NAME8: item.ACC_VALUE_NAME8,
+                        ACC_VALUE_NAME9: item.ACC_VALUE_NAME9,
+                        ACC_VALUE_NAME10: item.ACC_VALUE_NAME10,
+                        ITEM_CODE: item.ITEM_CODE,
+                        UOM: item.UOM,
+                        TXN_QTY: item.TXN_QTY,
+                        DEPT_NAME: item.DEPT_NAME,
+                        DESCRIPTION: item.DESCRIPTION,
+                        ITEM_SOURCE_ID: item.ITEM_SOURCE_ID,
+                        ITEM_SOURCE_TYPE: item.ITEM_SOURCE_TYPE,
+                        ITEM_DOC_NAME: item.ITEM_DOC_NAME,
+                        SOURCE_RECORD_COUNT: item.SOURCE_RECORD_COUNT,
+                        PROJECT_YN: item.PROJECT_YN,
+                        CS_CODE: item.CS_CODE,
+                        PO_LINE_NO: item.PO_LINE_NO,
+                        CREDIT_AREA: item.CREDIT_AREA,
+                        SALES_PERSON: item.SALES_PERSON,
+                        CURRENCY_CODE: item.CURRENCY_CODE,
+                        EXCHANGE_TYPE: item.EXCHANGE_TYPE,
+                        EXCHANGE_RATE: item.EXCHANGE_RATE,
+                        BASE_SCALE: item.BASE_SCALE,
+                        WITHHOLD_FLAG: item.WITHHOLD_FLAG,
+                        WITHHOLD_TAX_TYPE: item.WITHHOLD_TAX_TYPE,
+                        WITHHOLD_CS_CODE: item.WITHHOLD_CS_CODE,
+                        WITHHOLD_TAX_TYPE2: item.WITHHOLD_TAX_TYPE2,
+                        WITHHOLD_CS_CODE2: item.WITHHOLD_CS_CODE2,
+                        PAY_TERM_CODE: item.PAY_TERM_CODE,
+                        EXPECTED_PAY_DATE: item.EXPECTED_PAY_DATE,
+                        PAY_METHOD: item.PAY_METHOD,
+                        VOUCHER_TYPE: item.VOUCHER_TYPE,
+                        VOUCHER_NO: item.VOUCHER_NO,
+                        VOUCHER_NO1: item.VOUCHER_NO1,
+                        VOUCHER_RECEIPT_DATE: item.VOUCHER_RECEIPT_DATE,
+                        FI_ORG_CODE: item.FI_ORG_CODE,
+                        SITE_CODE: item.SITE_CODE,
+                        APPLY_COMPLETE_DATE: item.APPLY_COMPLETE_DATE,
+                        APPLY_COMPLETE_FLAG: item.APPLY_COMPLETE_FLAG,
+                        SALES_CS_CODE: item.SALES_CS_CODE,
+                        ETAX_TYPE: item.ETAX_TYPE,
+                        AFTER_DUE_DATE_YN: item.AFTER_DUE_DATE_YN,
+                        DUP_ISSUE_BILL_TYPE: item.DUP_ISSUE_BILL_TYPE,
+                        EXCLUDE_REVENUE_AMT_YN: item.EXCLUDE_REVENUE_AMT_YN,
+                        CARD_USE_TYPE: item.CARD_USE_TYPE,
+                        CARD_NUM: item.CARD_NUM,
+                        VAT_NOT_DEDUCTION_TYPE: item.VAT_NOT_DEDUCTION_TYPE,
+                        REPORT_OMIT_YN: item.REPORT_OMIT_YN,
+                        STANDARD_DATE: item.STANDARD_DATE,
+                        VAT_ASSET_TYPE: item.VAT_ASSET_TYPE,
+                        SUPPLY_AMT: item.SUPPLY_AMT,
+                        VAT_AMT: item.VAT_AMT,
+                        ZERO_REPORT_YN: item.ZERO_REPORT_YN,
+                        LOCAL_CREDIT_TYPE: item.LOCAL_CREDIT_TYPE,
+                        DOCUMENT_NAME: item.DOCUMENT_NAME,
+                        ISSUE_NAME: item.ISSUE_NAME,
+                        DOCUMENT_ISSUE_DATE: item.DOCUMENT_ISSUE_DATE,
+                        EXPORT_LICENSE_NO: item.EXPORT_LICENSE_NO,
+                        SHIPPING_DATE: item.SHIPPING_DATE,
+                        EXPORT_AMT: item.EXPORT_AMT,
+                        EXPORT_AMT_KRW: item.EXPORT_AMT_KRW,
+                        VAT_EXPORT_AMT: item.VAT_EXPORT_AMT,
+                        VAT_EXPORT_AMT_KRW: item.VAT_EXPORT_AMT_KRW,
+                        FOREIGN_AMT: item.FOREIGN_AMT,
+                        WON_AMT: item.WON_AMT,
+                        DOCUMENT_NO: item.DOCUMENT_NO,
+                        ZERO_TYPE: item.ZERO_TYPE,
+                        HOLD_FLAG: item.HOLD_FLAG,
+                        RELEASE_DATE: item.RELEASE_DATE,
+                        RELEASE_USER: item.RELEASE_USER,
+                        HOLD_DATE: item.HOLD_DATE,
+                        HOLD_USER: item.HOLD_USER,
+                        HOLD_REASON: item.HOLD_REASON,
+                        PAY_BASE_DATE: item.PAY_BASE_DATE,
+                        BILL_DUE_DATE: item.BILL_DUE_DATE,
+                        BILL_DUE_DAY: item.BILL_DUE_DAY,
+                        BILL_DUE_PAY_DATE: item.BILL_DUE_PAY_DATE,
+                        PAY_TERM_ORIG: item.PAY_TERM_ORIG,
+                        PROD_GROUP: item.PROD_GROUP,
+                        BANK_ACCOUNT_SEQ: item.BANK_ACCOUNT_SEQ,
+                        MATL_NO: item.MATL_NO,
+                        PROD_ORDER_NO: item.PROD_ORDER_NO,
+                        SALES_NO: item.SALES_NO,
+                        ORDER_NO: item.ORDER_NO,
+                        NONDED_YN: item.NONDED_YN,
+                        REG_NO: item.REG_NO,
+                    }
+
+                    jsonAccountLineList.push(msg);
+                });
+                gvwWFItem.rebuild();
+            } else {
+                alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 </script>
