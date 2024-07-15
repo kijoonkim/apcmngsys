@@ -1,5 +1,8 @@
 package egovframework;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
@@ -8,6 +11,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.FileInputStream;
 
 @ServletComponentScan
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
@@ -26,6 +32,13 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		//springApplication.setLogStartupInfo(false);
 		springApplication.setWebApplicationType(WebApplicationType.SERVLET);
 		springApplication.run(args);
+
+		//Google Firebase SDK 초기화
+		String firebaseConfigPath = "firebase/apcss-e27c1-firebase-adminsdk-lozm8-64d60dbb91.json";
+		FirebaseOptions options = FirebaseOptions.builder()
+				.setCredentials(GoogleCredentials.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream()))
+				.build();
+		FirebaseApp.initializeApp(options);
 
 		System.out.println("##### EgovBootApplication End #####");
 	}
