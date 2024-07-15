@@ -609,9 +609,29 @@
 	}
 
 	// only document
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_init();
-		stdGrdSelect.init();
+	window.addEventListener('DOMContentLoaded', async function(e) {
+		await fn_init();
+		await stdGrdSelect.init();
+
+		/** main으로부터 호출되어 생성될때 localStorage통해 VO 즉시 검색 확인 **/
+		let initObject = localStorage.getItem("callMain");
+		if(!gfn_isEmpty(initObject)){
+			initObject = JSON.parse(initObject);
+			localStorage.removeItem("callMain");
+			await SBUxMethod.set("srch-inp-pltno",initObject.pltno);
+			await SBUxMethod.set("srch-dtp-wrhsYmd",initObject.wrhsYmd);
+			await fn_search()
+		}
+	});
+	/** main으로 부터 message 전달받는 핸들러 **/
+	window.addEventListener('message',function(event){
+		let obj = event.data;
+		if(!gfn_isEmpty(obj)){
+			SBUxMethod.set("srch-inp-pltno",obj.pltno);
+			SBUxMethod.set("srch-dtp-wrhsYmd",obj.wrhsYmd);
+			fn_search();
+		}
+
 	});
 
 	/**
@@ -1056,10 +1076,12 @@
 	const fn_setGrdRawMtrWrhs = async function() {
 
    		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
+		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
 
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsList.do", {
 			apcCd: gv_selectedApcCd,
 			wrhsYmd: wrhsYmd,
+			pltno: pltno,
 
           	// pagination
   	  		pagingYn : 'N',
@@ -1213,7 +1235,7 @@
  		SBUxMethod.set("srch-inp-wghtAvg", "");
 
  		// 팔레트번호
- 		SBUxMethod.set("srch-inp-pltno", "");
+ 		// SBUxMethod.set("srch-inp-pltno", "");
 
  		// 박스종류
  		SBUxMethod.set("srch-slt-bxKnd", null);

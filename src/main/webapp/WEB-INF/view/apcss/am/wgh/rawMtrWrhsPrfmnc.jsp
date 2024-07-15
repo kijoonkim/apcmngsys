@@ -528,6 +528,7 @@ async function cfn_search() {
 	    ];
 	    grdRawMtrWrhs = _SBGrid.create(SBGridProperties);
 	    grdRawMtrWrhs.bind("afterpagechanged" , fn_pagingGrdRawMtrWrhs);
+		grdRawMtrWrhs.bind("dblclick" , cfn_reqTab);
 	}
 
 	/**
@@ -1046,6 +1047,16 @@ async function cfn_search() {
 			vrtyCds.length = 0;
 		})
 	})
+
+	let cfn_reqTab = function(){
+		let idx = grdRawMtrWrhs.getRow();
+		let data = grdRawMtrWrhs.getRowData(idx);
+
+		data.target = 'AM_001_002'
+		let json = JSON.stringify(data);
+
+		window.parent.postMessage(json);
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

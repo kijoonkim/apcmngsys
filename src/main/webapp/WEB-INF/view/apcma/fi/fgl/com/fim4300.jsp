@@ -207,11 +207,20 @@
     	
 		$('#btn1-row-add').click(function(e){
 			e.preventDefault();
-			fn_gridRowAdd();
+			fn_gridMastRowAdd();
 		});
-		$('#btn-row-del').click(function(e){
+		$('#btn1-row-del').click(function(e){
 			e.preventDefault();
-			fn_gridRowDel();
+			fn_gridMastRowDel();
+		});
+    	
+		$('#btn2-row-add').click(function(e){
+			e.preventDefault();
+			fn_gridDetailRowAdd();
+		});
+		$('#btn2-row-del').click(function(e){
+			e.preventDefault();
+			fn_gridDetailRowDel();
 		});
     });
 
@@ -232,7 +241,7 @@
 	    SBGridProperties.id 				= 'Fim4300GridMast';
 	    SBGridProperties.jsonref 			= 'jsonFim4300Mast';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.selectmode 		= 'free';
         SBGridProperties.frozencols 		= 2;
 	    SBGridProperties.allowcopy 			= true; //복사	    
         SBGridProperties.rowheader 			= 'seq';
@@ -513,10 +522,14 @@
 		}
 
         let rowData = Fim4300GridMast.getRowData(nRow);
-		console.log(rowData);        
+		//console.log(rowData);        
 		
 		let doc_type = rowData.DOC_TYPE;
- 		fn_setFim4300GridDetail('DETAIL', doc_type);
+		
+		setTimeout(()=>{
+			fn_setFim4300GridDetail('DETAIL', doc_type);
+		},200)
+ 		//fn_setFim4300GridDetail('DETAIL', doc_type);
     }
     
     //grid Detail 초기화
@@ -772,6 +785,10 @@
   						EXCHAGE_GAIN_ACC_NAME	: gfnma_nvl(item.EXCHAGE_GAIN_ACC_NAME),
   						EXCHAGE_LOSS_ACC		: gfnma_nvl(item.EXCHAGE_LOSS_ACC),
   						EXCHAGE_LOSS_ACC_NAME	: gfnma_nvl(item.EXCHAGE_LOSS_ACC_NAME),
+  						VAL_GAIN_ACC			: gfnma_nvl(item.VAL_GAIN_ACC),
+  						VAL_GAIN_ACC_NAME		: gfnma_nvl(item.VAL_GAIN_ACC_NAME),
+  						VAL_LOSS_ACC			: gfnma_nvl(item.VAL_LOSS_ACC),
+  						VAL_LOSS_ACC_NAME		: gfnma_nvl(item.VAL_LOSS_ACC_NAME),
   						SYSTEM_YN				: gfnma_nvl(item.SYSTEM_YN),
   						USE_YN					: gfnma_nvl(item.USE_YN),
   						ORDER_SEQ				: gfnma_nvl(item.ORDER_SEQ),
@@ -920,19 +937,52 @@
     }
     
     /**
-     * 행추가
+     * mast 행추가
      */
-    var fn_gridRowAdd = function() {
-        var idx = Fim4300GridDetail.getRows();
-		console.log(idx);        
-        Fim4300GridDetail.insertRow((idx-1), 'below');
+    var fn_gridMastRowAdd = function() {
+        var idx = Fim4300GridMast.getRow();
+        if(idx==-1){
+        	idx = 0;
+        }
+		Fim4300GridMast.insertRow(idx, 'below');
+		//USE_YN
+		Fim4300GridMast.setCellData((idx+1), 19, 'Y', true, true);
+		//detail 초기화
+    	jsonFim4300Detail = [];
+      	Fim4300GridDetail.rebuild();
+      	$('#listCount2').text('0');
     }
     
     /**
-     * 행삭제
+     * mast 행삭제
      */
-    var fn_gridRowDel = function() {
-		Fim4300GridDetail.deleteRow(Fim4300GridDetail.getRow());
+    var fn_gridMastRowDel = function() {
+    	Fim4300GridMast.deleteRow(Fim4300GridMast.getRow());
+		//detail 초기화
+    	jsonFim4300Detail = [];
+      	Fim4300GridDetail.rebuild();
+    }
+    
+    /**
+     * detail 행추가
+     */
+    var fn_gridDetailRowAdd = function() {
+        var idx 	= Fim4300GridDetail.getRow();
+        var rows 	= Fim4300GridDetail.getRows();
+        if(idx==-1){
+        	idx = 0;
+        }
+        if(rows>0){
+        	idx = rows-1;
+        }
+        Fim4300GridDetail.insertRow(idx, 'below');
+    }
+    
+    /**
+     * detail 행삭제
+     */
+    var fn_gridDetailRowDel = function() {
+    	Fim4300GridDetail.deleteRow(Fim4300GridDetail.getRow());
     }
     
     /**
@@ -940,118 +990,177 @@
      */
     function cfn_save() {
 
-    	let p_txtrule_code1 	= gfnma_nvl(SBUxMethod.get("srch-txtrule-code1"));
-    	let p_rule_name			= gfnma_nvl(SBUxMethod.get("srch-rule-name"));
-    	let p_lblacct_rule_code	= gfnma_nvl(SBUxMethod.get("srch-lblacct-rule-code"));
-    	let p_cbocurrency_code	= gfnma_multiSelectGet('#srch-cbocurrency-code');
-    	let p_cbodoc_type		= gfnma_multiSelectGet('#srch-cbodoc-type');
-    	let p_chksystem_yn		= gfnma_nvl(SBUxMethod.get('srch-chksystem-yn')['srch-chksystem-yn']);
-    	let p_memomemo			= gfnma_multiSelectGet('#srch-memomemo');
-
-    	if (!p_txtrule_code1) {
-            gfn_comAlert("W0002", "전표Rule코드");
-            return;
-        }
-    	if (!p_rule_name) {
-            gfn_comAlert("W0002", "전표Rule명");
-            return;
-        }
-    	if (!p_lblacct_rule_code) {
-            gfn_comAlert("W0002", "회계기준");
-            return;
-        }
-    	if (!p_cbocurrency_code) {
-            gfn_comAlert("W0002", "통화");
-            return;
-        }
-    	if (!p_cbodoc_type) {
-            gfn_comAlert("W0002", "전표구분");
-            return;
-        }
-
-    	if (editType=="N") {
-    		// 신규 등록
-    		if(gfn_comConfirm("Q0001", "신규 등록")){
-    			var obj = {
-    				RULE_CODE				: p_txtrule_code1
-   			    	,RULE_NAME				: p_rule_name
-   			    	,DOC_TYPE				: p_cbodoc_type
-   			    	,ACCT_RULE_CODE			: p_lblacct_rule_code
-   			    	,CURRENCY_CODE 			: p_cbocurrency_code
-   			    	,MEMO 					: p_memomemo
-   			    	,SYSTEM_YN 				: p_chksystem_yn
-    			}
-				fn_subInsert1(obj);
-    		} 
-    	} else if(editType=="E") {
-    		// 수정 저장
-    		if(gfn_comConfirm("Q0001", "수정 저장")){
-    			var obj = {
-       				RULE_CODE				: p_txtrule_code1
-   			    	,RULE_NAME				: p_rule_name
-   			    	,DOC_TYPE				: p_cbodoc_type
-   			    	,ACCT_RULE_CODE			: p_lblacct_rule_code
-   			    	,CURRENCY_CODE 			: p_cbocurrency_code
-   			    	,MEMO 					: p_memomemo
-   			    	,SYSTEM_YN 				: p_chksystem_yn
-    			}
-    			fn_subUpdate1(obj);
-    		} 
+    	//A: 마스타만 저장하는 경우
+    	//B: 디테일만 저장하는 경우  
+    	//C: 마스타, 디테일 그리드 모두 저장하는 경우
+    	var saveType = '';	
+    	
+    	//전표유형관리 check ------------------------------------------------
+    	var chkMastList = Fim4300GridMast.getUpdateData(true)
+		//console.log('chkMastList:', chkMastList);    	
+		if(chkMastList.length>1) {
+			gfn_comAlert("Q0000", "전표유형관리 마스타를 신규(수정)으로 1건 이상 저장하는 경우\n결제경로는 저장되지 않습니다.");
+		};
+	   	for (var i = 0; i < chkMastList.length; i++) {
+	   		var doc_type = chkMastList[i]['data']['DOC_TYPE'];
+	   		var doc_name = chkMastList[i]['data']['DOC_NAME'];
+	   		if(!doc_type){
+				gfn_comAlert("W0002", "전표유형관리의 전표유형");
+	   			return;
+	   		} else if(!doc_name){
+				gfn_comAlert("W0002", "전표유형관리의 전표유형명");
+	   			return;
+	   		}
+	   	}
+	   	
+    	//결제경로 check -----------------------------------------------------
+    	var chkDetailList = Fim4300GridDetail.getUpdateData(true)
+		//console.log('chkDetailList:', chkDetailList);    	
+	   	for (var i = 0; i < chkDetailList.length; i++) {
+	   		var appr_rule 	= chkDetailList[i]['data']['APPR_RULE'];
+	   		var doc_type 	= chkDetailList[i]['data']['DOC_TYPE'];
+	   		if(!appr_rule){
+				gfn_comAlert("W0002", "결제경로의 결재룰");
+	   			return;
+	   		} else if(!doc_type){
+				gfn_comAlert("W0002", "결제경로의 전표유형");
+	   			return;
+	   		}
+	   	}
+		
+		if(gfn_comConfirm("Q0001", "저장")){
+		} else {
+			return;
+		}
+	   	
+    	if(chkMastList.length>1){
+			saveType = 'A';
+		   	fn_subSaveMast(saveType);
+    	} else if(chkMastList.length==1 && chkDetailList.length==0){
+			saveType = 'A';
+		   	fn_subSaveMast(saveType);
+    	} else if(chkMastList.length==1 && chkDetailList.length>0){
+			saveType = 'C';
+		   	fn_subSaveMast(saveType);
+    	} else if(chkMastList.length==0 && chkDetailList.length>0){
+			saveType = 'B';
+		   	fn_subSaveDetail();
     	}
+    	console.log('saveType:', saveType);
     }    
         
     /**
      * mast 저장
      */
-    const fn_subInsert1 = async function (obj){
+    const fn_subSaveMast = async function (saveType){
 
- 	    var paramObj = { 
-			V_P_DEBUG_MODE_YN			: ''
-			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
-			,V_P_RULE_CODE				: obj.RULE_CODE
-			,V_P_RULE_NAME				: obj.RULE_NAME
-			,V_P_DOC_TYPE     			: obj.DOC_TYPE
-			,V_P_ACCT_RULE_CODE			: obj.ACCT_RULE_CODE
-			,V_P_CURRENCY_CODE			: obj.CURRENCY_CODE
-			,V_P_MEMO					: obj.MEMO
-			,V_P_SYSTEM_YN				: obj.SYSTEM_YN
-			,V_P_FORM_ID				: p_formId
-			,V_P_MENU_ID				: p_menuId
-			,V_P_PROC_ID				: ''
-			,V_P_USERID					: ''
-			,V_P_PC						: '' 
-	    };		
+   	 var chkList = Fim4300GridMast.getUpdateData(true)
+	 console.log('---->> grid all');
+	 console.log(chkList);
+	 
+	 //서버 전송 리스트
+	 let listData 	= [];
+	 let workt		= ""; 
+	 for (var i = 0; i < chkList.length; i++) {
+		var obj = chkList[i].data;
+		if(chkList[i].status=='i'){
+			workt = 'N';
+		} else if(chkList[i].status=='u'){
+			workt = 'U';
+		} else{
+			workt = 'D';
+		}
+	 	const param = {
+	 			cv_count	: '0',
+	 			getType		: 'json',
+	 			rownum		: chkList[i].rownum,
+	 			workType	: workt,
+	 			params		: gfnma_objectToString({
+	 				V_P_DEBUG_MODE_YN			: '',
+	 				V_P_LANG_ID					: '',
+	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
+	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
+	 				
+	 				V_P_DOC_TYPE				: gfnma_nvl(obj.DOC_TYPE),
+	 				V_P_DOC_NAME				: gfnma_nvl(obj.DOC_NAME),
+	 				V_P_DOC_NAME_CHN			: gfnma_nvl(obj.DOC_NAME_CHN),
+	 				V_P_DESCRIPTION				: gfnma_nvl(obj.DESCRIPTION),
+	 				V_P_PREFIX_CODE				: gfnma_nvl(obj.PREFIX_CODE),
+	 				V_P_EXCHAGE_GAIN_ACC		: gfnma_nvl(obj.EXCHAGE_GAIN_ACC),
+	 				V_P_EXCHAGE_LOSS_ACC		: gfnma_nvl(obj.EXCHAGE_LOSS_ACC),
+	 				V_P_VAL_GAIN_ACC			: gfnma_nvl(obj.VAL_GAIN_ACC),
+	 				V_P_VAL_LOSS_ACC			: gfnma_nvl(obj.VAL_LOSS_ACC),
+	 				V_P_SYSTEM_YN				: gfnma_nvl(obj.SYSTEM_YN),
+	 				V_P_USE_YN					: gfnma_nvl(obj.USE_YN),
+	 				V_P_ORDER_SEQ				: gfnma_nvl(obj.ORDER_SEQ),
+	 				V_P_ATTR1					: gfnma_nvl(obj.ATTR1),
+	 				V_P_ATTR2					: gfnma_nvl(obj.ATTR2),
+	 				V_P_ATTR3					: gfnma_nvl(obj.ATTR3),
+	 				V_P_ATTR4					: gfnma_nvl(obj.ATTR4),
+	 				V_P_ATTR5					: gfnma_nvl(obj.ATTR5),
+	 				V_P_ATTR6					: gfnma_nvl(obj.ATTR6),
+	 				V_P_ATTR7					: gfnma_nvl(obj.ATTR7),
+	 				V_P_ATTR8					: gfnma_nvl(obj.ATTR8),
+	 				V_P_ATTR9					: gfnma_nvl(obj.ATTR9),
+	 				V_P_ATTR10					: gfnma_nvl(obj.ATTR10),
+	 				V_P_AP_DOC_YN				: gfnma_nvl(obj.AP_DOC_YN),
+	 				V_P_AR_DOC_YN				: gfnma_nvl(obj.AR_DOC_YN),
+	 				V_P_AP_DOC_VIEW_YN			: gfnma_nvl(obj.AP_DOC_VIEW_YN),
+	 				V_P_AP_DOC_VIEW_EXCLUDE_YN	: gfnma_nvl(obj.AP_DOC_VIEW_EXCLUDE_YN),
+	 				V_P_ESS_DOC_YN				: gfnma_nvl(obj.ESS_DOC_YN),
+	 				V_P_AP_DOC_WRITE_YN			: gfnma_nvl(obj.AP_DOC_WRITE_YN),
+	 				V_P_AR_DOC_WRITE_YN			: gfnma_nvl(obj.AR_DOC_WRITE_YN),
+	 				V_P_MANUAL_DOC_WRITE_YN		: gfnma_nvl(obj.MANUAL_DOC_WRITE_YN),
+	 				V_P_MULTI_AP_WRITE_YN		: gfnma_nvl(obj.MULTI_AP_WRITE_YN),
+	 				V_P_DOC_END_YN				: gfnma_nvl(obj.DOC_END_YN),
+	 				V_P_DOC_RELEASE_YN			: gfnma_nvl(obj.DOC_RELEASE_YN),
+	 				V_P_APPR_TEMPLATE			: gfnma_nvl(obj.APPR_TEMPLATE),
+	 				V_P_APPR_SOURCE_TYPE		: gfnma_nvl(obj.APPR_SOURCE_TYPE),
+	 				
+	 				V_P_FORM_ID					: gfnma_nvl(p_formId),
+	 				V_P_MENU_ID					: gfnma_nvl(p_menuId),
+	 				V_P_PROC_ID					: '',
+	 				V_P_USERID					: '',
+	 				V_P_PC						: ''
+	 			})
+	 		}			
+	 	listData.push(param);
+	 }	
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4300Mast.do", {
-        	getType				: 'json',
-        	workType			: 'N',
-        	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
-		});    	 
-        const data = await postJsonPromise;
+	 if(listData.length > 0) {
+	 	const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4300mast.do", {listData: listData});
 
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		fn_subInsert2(obj);
-        	} else {
-          		alert(data.resultMessage);
+	 	const data = await postJsonPromise;
+	 	console.log('data:', data);
+	 	try {
+	 		if (_.isEqual("S", data.resultStatus)) {
+	 			if(saveType=='A'){
+		 			gfn_comAlert("I0001");
+		 			cfn_search();
+		 			return;
+	 			} else if(saveType=='C'){
+	 				fn_subSaveDetail();
+	 				return;
+	 			}
+	 		} else {
+	 			alert(data.resultMessage);
+	 		}
 	 			cfn_search();
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
+
+	 	} catch (e) {
+	 		if (!(e instanceof Error)) {
+	 			e = new Error(e);
+	 		}
+	 		console.error("failed", e.message);
+	 		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	 	}
+	 }     
     }    
     
     /**
      * detail 저장
      */
-     const fn_subInsert2 = async function(pobj){
+     const fn_subSaveDetail = async function(){
     	
     	 var chkList = Fim4300GridDetail.getUpdateData(true)
     	 console.log('---->> grid all');
@@ -1062,25 +1171,52 @@
     	 let workt		= ""; 
     	 for (var i = 0; i < chkList.length; i++) {
  			var obj = chkList[i].data;
+ 			if(chkList[i].status=='i'){
+ 				workt = 'N';
+ 			} else if(chkList[i].status=='u'){
+ 				workt = 'U';
+ 			} else{
+ 				workt = 'D';
+ 			}
     	 	const param = {
     	 			cv_count	: '0',
     	 			getType		: 'json',
     	 			rownum		: chkList[i].rownum,
-    	 			workType	: 'N',
+    	 			workType	: workt,
     	 			params		: gfnma_objectToString({
     	 				V_P_DEBUG_MODE_YN			: '',
     	 				V_P_LANG_ID					: '',
     	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
     	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
-    	 				V_P_RULE_CODE				: gfnma_nvl(pobj.RULE_CODE),
-    	 				V_P_ITEM_SEQ				: gfnma_nvl(i+1),
-    	 				V_P_LINE_TYPE     			: gfnma_nvl(obj.LINE_TYPE),
-    	 				V_P_DEBIT_CREDIT			: gfnma_nvl(obj.DEBIT_CREDIT),
-    	 				V_P_VAT_TYPE				: gfnma_nvl(obj.VAT_TYPE),
-    	 				V_P_ACCOUNT_CODE			: gfnma_nvl(obj.ACCOUNT_CODE),
+    	 				
+    	 				V_P_DOC_TYPE				: gfnma_nvl(obj.DOC_TYPE),
     	 				V_P_DEPT_CODE				: gfnma_nvl(obj.DEPT_CODE),
-    	 				V_P_COST_CENTER_CODE		: gfnma_nvl(obj.COST_CENTER_CODE),
+    	 				V_P_APPR_EMP_CODE			: gfnma_nvl(obj.APPR_EMP_CODE),
+    	 				V_P_APPR_RELATION			: gfnma_nvl(obj.APPR_RELATION),
     	 				V_P_DESCRIPTION				: gfnma_nvl(obj.DESCRIPTION),
+    	 				V_P_SEQ						: gfnma_nvl(obj.SEQ),
+    	 				V_P_USE_YN					: gfnma_nvl(obj.USE_YN),
+    	 				V_P_ORDER_SEQ				: gfnma_nvl(obj.ORDER_SEQ),
+    	 				V_P_ATTR1					: gfnma_nvl(obj.ATTR1),
+    	 				V_P_ATTR2					: gfnma_nvl(obj.ATTR2),
+    	 				V_P_ATTR3					: gfnma_nvl(obj.ATTR3),
+    	 				V_P_ATTR4					: gfnma_nvl(obj.ATTR4),
+    	 				V_P_ATTR5					: gfnma_nvl(obj.ATTR5),
+    	 				V_P_ATTR6					: gfnma_nvl(obj.ATTR6),
+    	 				V_P_ATTR7					: gfnma_nvl(obj.ATTR7),
+    	 				V_P_ATTR8					: gfnma_nvl(obj.ATTR8),
+    	 				V_P_ATTR9					: gfnma_nvl(obj.ATTR9),
+    	 				V_P_ATTR10					: gfnma_nvl(obj.ATTR10),
+    	 				V_P_APPR_CATEGORY			: gfnma_nvl(obj.APPR_CATEGORY),
+    	 				V_P_AMT_RULE				: gfnma_nvl(obj.AMT_RULE),
+    	 				V_P_AMT_FR					: gfnma_nvl(obj.AMT_FR),
+    	 				V_P_AMT_TO					: gfnma_nvl(obj.AMT_TO),
+    	 				V_P_SUB_CODE1				: gfnma_nvl(obj.SUB_CODE1),
+    	 				V_P_SUB_CODE2				: gfnma_nvl(obj.SUB_CODE2),
+    	 				V_P_SUB_CODE3				: gfnma_nvl(obj.SUB_CODE3),
+    	 				V_P_SUB_CODE4				: gfnma_nvl(obj.SUB_CODE4),
+    	 				V_P_SUB_CODE5				: gfnma_nvl(obj.SUB_CODE5),
+    	 				
     	 				V_P_FORM_ID					: gfnma_nvl(p_formId),
     	 				V_P_MENU_ID					: gfnma_nvl(p_menuId),
     	 				V_P_PROC_ID					: '',
@@ -1114,126 +1250,6 @@
     	 }       	
     }
         
-    /**
-     * mast 수정
-     */
-    const fn_subUpdate1 = async function (obj){
-
- 	    var paramObj = { 
-			V_P_DEBUG_MODE_YN			: ''
-			,V_P_LANG_ID				: ''
-			,V_P_COMP_CODE				: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
-			,V_P_RULE_CODE				: obj.RULE_CODE
-			,V_P_RULE_NAME				: obj.RULE_NAME
-			,V_P_DOC_TYPE     			: obj.DOC_TYPE
-			,V_P_ACCT_RULE_CODE			: obj.ACCT_RULE_CODE
-			,V_P_CURRENCY_CODE			: obj.CURRENCY_CODE
-			,V_P_MEMO					: obj.MEMO
-			,V_P_SYSTEM_YN				: obj.SYSTEM_YN
-			,V_P_FORM_ID				: p_formId
-			,V_P_MENU_ID				: p_menuId
-			,V_P_PROC_ID				: ''
-			,V_P_USERID					: ''
-			,V_P_PC						: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4300Mast.do", {
-        	getType				: 'json',
-        	workType			: 'U',
-        	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
-		});    	 
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		fn_subUpdate2(obj);
-        	} else {
-          		alert(data.resultMessage);
-	 			cfn_search();
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }    
-    
-    /**
-     * detail 수정
-     */
-     const fn_subUpdate2 = async function(pobj){
-    	
-		 var chkList = Fim4300GridDetail.getUpdateData(true);
-    	 console.log('---->> grid all');
-    	 console.log(chkList);
-    	 
-    	 //서버 전송 리스트
-    	 let listData 	= [];
-    	 let workt		= ""; 
-    	 for (var i = 0; i < chkList.length; i++) {
- 			var obj = chkList[i].data;
-			if(chkList[i].status=='i'){
-				workt = 'N';
-			} else if(chkList[i].status=='u'){
-				workt = 'U';
-			} else{
-				workt = 'D';
-			}
-    	 	const param = {
-    	 			cv_count	: '0',
-    	 			getType		: 'json',
-    	 			rownum		: chkList[i].rownum,
-    	 			workType	: workt,
-    	 			params		: gfnma_objectToString({
-    	 				V_P_DEBUG_MODE_YN			: '',
-    	 				V_P_LANG_ID					: '',
-    	 				V_P_COMP_CODE				: gfnma_nvl(gv_ma_selectedApcCd),
-    	 				V_P_CLIENT_CODE				: gfnma_nvl(gv_ma_selectedClntCd),
-    	 				V_P_RULE_CODE				: gfnma_nvl(pobj.RULE_CODE),
-    	 				V_P_ITEM_SEQ				: gfnma_nvl(obj.ITEM_SEQ),
-    	 				V_P_LINE_TYPE     			: gfnma_nvl(obj.LINE_TYPE),
-    	 				V_P_DEBIT_CREDIT			: gfnma_nvl(obj.DEBIT_CREDIT),
-    	 				V_P_VAT_TYPE				: gfnma_nvl(obj.VAT_TYPE),
-    	 				V_P_ACCOUNT_CODE			: gfnma_nvl(obj.ACCOUNT_CODE),
-    	 				V_P_DEPT_CODE				: gfnma_nvl(obj.DEPT_CODE),
-    	 				V_P_COST_CENTER_CODE		: gfnma_nvl(obj.COST_CENTER_CODE),
-    	 				V_P_DESCRIPTION				: gfnma_nvl(obj.DESCRIPTION),
-    	 				V_P_FORM_ID					: gfnma_nvl(p_formId),
-    	 				V_P_MENU_ID					: gfnma_nvl(p_menuId),
-    	 				V_P_PROC_ID					: '',
-    	 				V_P_USERID					: '',
-    	 				V_P_PC						: ''
-    	 			})
-    	 		}			
-    	 	listData.push(param);
-    	 }	
-
-    	 if(listData.length > 0) {
-    	 	const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4300detail.do", {listData: listData});
-
-    	 	const data = await postJsonPromise;
-    	 	console.log('data:', data);
-    	 	try {
-    	 		if (_.isEqual("S", data.resultStatus)) {
-    	 			gfn_comAlert("I0001");
-    	 		} else {
-    	 			alert(data.resultMessage);
-    	 		}
-	 			cfn_search();
-
-    	 	} catch (e) {
-    	 		if (!(e instanceof Error)) {
-    	 			e = new Error(e);
-    	 		}
-    	 		console.error("failed", e.message);
-    	 		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    	 	}
-    	 }       	
-    }
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
