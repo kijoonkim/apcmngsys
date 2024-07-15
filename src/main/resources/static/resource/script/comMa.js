@@ -831,4 +831,27 @@ const gfnma_getBrowser = function () {
     if (agt.indexOf('mozilla/5.0') != -1) return 'Mozilla';
 };
 
+/**
+ * @name 		validateRequired
+ * @description 필수값 체크
+ * @function
+ */
+const validateRequired = function () {
+	let requiredFields = document.querySelectorAll('[aria-required="true"]');
+	let allValid = true;
+
+	requiredFields.forEach(field => {
+		if (field.tagName === 'INPUT') {
+			if (field.value.trim() === '') {
+				allValid = false;
+			}
+		} else if (field.tagName === 'BUTTON') {
+			if (!field.getAttribute('data-selected-value')) {
+				allValid = false;
+			}
+		}
+	});
+
+	return allValid;
+}
 

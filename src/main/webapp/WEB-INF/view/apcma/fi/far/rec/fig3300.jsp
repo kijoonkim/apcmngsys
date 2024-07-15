@@ -215,7 +215,7 @@
 	// common ---------------------------------------------------
 	var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId = '${comMenuVO.menuId}';
-	var p_fiOrgCode = "${loginVO.fiOrgCode}";
+	var p_fiOrgCode = "${loginVO.maFIOrgCode}";
 	//-----------------------------------------------------------
 
 	var editType			= "N";

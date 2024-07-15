@@ -231,8 +231,8 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
-    var p_empCd = '${loginVO.empCd}';
-    var p_userId = '${loginVO.userId}';
+    var p_empCd = '${loginVO.maEmpCode}';
+    var p_userId = '${loginVO.maUserId}';
     //-----------------------------------------------------------
 
     var copyMode            = "clear";

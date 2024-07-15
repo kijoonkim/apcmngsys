@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body oncontextmenu="return false">
-<style>
-    /*.left-section, .right-section {
-        display: flex;
-        align-items: center;
-    }
-    .ad_tbl_toplist .dropdown {
-        margin-left: 5px;
-    }
-    .ad_tbl_toplist .form-control, .ad_tbl_toplist .btn, .ad_tbl_toplist span {
-        margin-left: 5px;
-    }*/
-</style>
 <section>
     <div class="box box-solid">
             <%--<div class="box-header" style="display:flex; justify-content: flex-start;">
@@ -45,6 +33,10 @@
                             <th scope="row" class="th_bg">사업장</th>
                             <td class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SRCH_SITE_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_CARD_YN" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_FROM_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_TO_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_INVOCE_BATCH_NO" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                             </td>
 						</tr>
                     </tbody>
@@ -70,7 +62,7 @@
                                 <sbux-checkbox uitype="normal" id="CLOSE_YN" name="CLOSE_YN" uitype="normal" class="form-control input-sm check" text="역분개라인생성" true-value="Y" false-value="N"/>
                             </div>
                             <div style="display: flex; align-items: center; justify-content: left; width: 30%; margin-right: 5%">
-                                <span style="margin-right: 10px;">세금계산서</span>
+                                <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
                                 <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                 <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
@@ -181,12 +173,14 @@
                                         <div class="dropdown-menu" aria-labelledby="PAYEE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
+                                    <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">거래처</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -203,7 +197,7 @@
                                     ></sbux-button>
                                 </td>
                                 <td></td>
-                                <th scope="row" class="th_bg">지급기준</th>
+                                <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
@@ -253,7 +247,7 @@
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
-                                <th scope="row" class="th_bg">지급방법</th>
+                                <th scope="row" class="th_bg" id="LBL_PAY_METHOD">지급방법</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
                                         <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -296,7 +290,7 @@
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
                                 </td>
-                                <th scope="row" class="th_bg">지급기산일자</th>
+                                <th scope="row" class="th_bg" id="LBL_PAY_BASE_DATE">지급기산일자</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-datepicker
                                             uitype="popup"
@@ -345,7 +339,7 @@
                                     </div>
                                 </td>
                                 <td></td>
-                                <th scope="row" class="th_bg">지급만기일자</th>
+                                <th scope="row" class="th_bg" id="LBL_EXPECTED_PAY_DATE">지급만기일자</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-datepicker
                                             uitype="popup"
@@ -354,6 +348,7 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            onchange="fn_changeExpectedPayDate(EXPECTED_PAY_DATE)"
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">어음만기일자</th>
@@ -439,6 +434,38 @@
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
+                                <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             </tr>
                             </tbody>
                         </table>
@@ -909,6 +936,11 @@
                                                         onclick="fn_findAccItem(8)"
                                                 ></sbux-button>
                                             </td>
+                                            <sbux-input id="DEBIT_CREDIT" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="ACC_CODE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="DESCRIPTION" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="PROJECT_CODE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="PROJECT_NAME" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -936,8 +968,18 @@
     var p_menuId = '${comMenuVO.menuId}';
     var strsourceType = "<%=request.getParameter("sourceType")%>";
     if(strsourceType == "") strsourceType = "AP";
-    var p_empCd = '${loginVO.empCd}';
-    var p_fiOrgCode = "${loginVO.fiOrgCode}";
+    var p_userId = '${loginVO.maUserID}';
+    var p_empCd = '${loginVO.maEmpCode}';
+    var p_fiOrgCode = "${loginVO.maFIOrgCode}";
+    var p_currCode = "${loginVO.maCurrCode}";
+    var p_currUnit = "${loginVO.maCurrUnit}";
+    var p_defaultAcctRule = "${loginVO.maDefaultAcctRule}";
+    var p_deptCode = "${loginVO.maDeptCode}";
+    var p_deptName = "${loginVO.maDeptName}";
+    var p_isAccountManager = "${loginVO.maIsAccountManager}";
+    var p_isAccountChief = "${loginVO.maIsAccountChief}";
+    var p_siteCode = "${loginVO.maSiteCode}";
+    var p_fiDeleteUser =  "${loginVO.maFI_DELETE_USER}";
 
     var bnew = true;
     var bAllowPrint = false;
@@ -973,17 +1015,6 @@
     ];
 
     const fn_initSBSelect = async function() {
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-        $("#apcSelectMa").hide();
-        SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE",p_fiOrgCode);
-        SBUxMethod.set("SRCH_SITE_CODE",'');
-        SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_TXN_DATE_FROM",gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_TXN_DATE_TO", gfn_dateLastYmd(new Date()));
-        SBUxMethod.set("SRCH_REVERSE_FLAG", "Y");
-
         let rst = await Promise.all([
             // 사업단위
             gfnma_multiSelectInit({
@@ -1005,7 +1036,7 @@
                 ]
             }),
             // 전표구분
-            gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', 'WHERE ' + (strsourceType == "AP" ? "ap_doc_write_yn = 'Y'" : (strsourceType == "BAD"  ? "doc_type like '91%'" : "ar_doc_write_yn = 'Y'")), gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 전표상태
             gfnma_multiSelectInit({
                 target			: ['#DOC_STATUS']
@@ -1031,7 +1062,7 @@
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_USER'
-                ,whereClause	: ''
+                ,whereClause	: "AND a.user_id IN (SELECT CASE WHEN b.account_manager_yn = 'Y' THEN a.user_id ELSE b.user_id END FROM sysUserMaster b WHERE b.user_id = '" + p_userId + "')"
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
@@ -1093,7 +1124,7 @@
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_VAT_INFO'
-                ,whereClause	: ''
+                ,whereClause	: "AND a.use_yn = 'Y' AND b.ar_ap_type = '" + strsourceType + "'"
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
@@ -1111,41 +1142,13 @@
                     {caption: "하한비율", 		ref: 'LIMIT_MINUS_RATE',    		width:'50px',  	style:'text-align:left'},
                 ]
             }),
-            // 계좌정보
-            gfnma_multiSelectInit({
-                target			: ['#BANK_ACCOUNT_SEQ']
-                ,compCode		: gv_ma_selectedApcCd
-                ,clientCode		: gv_ma_selectedClntCd
-                ,bizcompId		: 'L_CS_ACCOUNT'
-                ,whereClause	: ''
-                ,formId			: p_formId
-                ,menuId			: p_menuId
-                ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'BANK_ACCOUNT_SEQ'
-                ,colLabel		: 'SEQ_NAME'
-                ,columns		:[
-                    {caption: "행번",		ref: 'BANK_ACCOUNT_SEQ', 			width:'50px',  	style:'text-align:left'},
-                    {caption: "행번명", 		ref: 'SEQ_NAME',    		width:'60px',  	style:'text-align:left'},
-                    {caption: "은행코드", 		ref: 'BANK_CODE',    		width:'50px',  	style:'text-align:left'},
-                    {caption: "은행명", 		ref: 'BANK_NAME',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "계좌번호", 		ref: 'BANK_ACCOUNT_NO',    		width:'130px',  	style:'text-align:left'},
-                    {caption: "비고", 		ref: 'DESCRIPTION',    		width:'120px',  	style:'text-align:left'},
-                    {caption: "계좌주", 		ref: 'BANK_ACCOUNT_OWNER',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "거래처", 		ref: 'CS_CODE',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "시작일", 		ref: 'EFFECT_START_DATE',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "종료일", 		ref: 'EFFECT_END_DATE',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "복수등록", 		ref: 'BNKCNT',    		width:'100px',  	style:'text-align:left'},
-                ]
-            }),
             // 전표템플릿
             gfnma_multiSelectInit({
                 target			: ['#RULE_CODE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_RULE'
-                ,whereClause	: ''
+                ,whereClause	: (strsourceType == "AP" ? "AND ap_doc_write_yn = 'Y'" : (strsourceType == "BAD" ? "AND doc_type LIKE '91%'" : "AND ar_doc_write_yn = 'Y'"))
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
@@ -1373,6 +1376,34 @@
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
+            // 계좌정보
+            gfnma_multiSelectInit({
+                target			: ['#BANK_ACCOUNT_SEQ']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_CS_ACCOUNT'
+                ,whereClause	: "AND a.cs_code = '" + gfnma_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
+                ,colValue		: 'BANK_ACCOUNT_SEQ'
+                ,colLabel		: 'SEQ_NAME'
+                ,columns		:[
+                    {caption: "행번",		ref: 'BANK_ACCOUNT_SEQ', 			width:'50px',  	style:'text-align:left'},
+                    {caption: "행번명", 		ref: 'SEQ_NAME',    		width:'60px',  	style:'text-align:left'},
+                    {caption: "은행코드", 		ref: 'BANK_CODE',    		width:'50px',  	style:'text-align:left'},
+                    {caption: "은행명", 		ref: 'BANK_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "계좌번호", 		ref: 'BANK_ACCOUNT_NO',    		width:'130px',  	style:'text-align:left'},
+                    {caption: "비고", 		ref: 'DESCRIPTION',    		width:'120px',  	style:'text-align:left'},
+                    {caption: "계좌주", 		ref: 'BANK_ACCOUNT_OWNER',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "거래처", 		ref: 'CS_CODE',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "시작일", 		ref: 'EFFECT_START_DATE',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "종료일", 		ref: 'EFFECT_END_DATE',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "복수등록", 		ref: 'BNKCNT',    		width:'100px',  	style:'text-align:left'},
+                ]
+            }),
             // 유형
             gfnma_setComSelect(['gvwWFItem'], jsonLineType, 'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 차/대
@@ -1384,8 +1415,41 @@
             // 여신영역
             gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
+    }
 
-        console.log(jsonCurrencyCode)
+    var fn_getBankAccountSeq = function () {
+        // 계좌정보
+        gfnma_multiSelectInit({
+            target			: ['#BANK_ACCOUNT_SEQ']
+            ,compCode		: gv_ma_selectedApcCd
+            ,clientCode		: gv_ma_selectedClntCd
+            ,bizcompId		: 'L_CS_ACCOUNT'
+            ,whereClause	: "AND a.cs_code = '" + gfnma_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+            ,formId			: p_formId
+            ,menuId			: p_menuId
+            ,selectValue	: ''
+            ,dropType		: 'down' 	// up, down
+            ,dropAlign		: 'left' 	// left, right
+            ,colValue		: 'BANK_ACCOUNT_SEQ'
+            ,colLabel		: 'SEQ_NAME'
+            ,columns		:[
+                {caption: "행번",		ref: 'BANK_ACCOUNT_SEQ', 			width:'50px',  	style:'text-align:left'},
+                {caption: "행번명", 		ref: 'SEQ_NAME',    		width:'60px',  	style:'text-align:left'},
+                {caption: "은행코드", 		ref: 'BANK_CODE',    		width:'50px',  	style:'text-align:left'},
+                {caption: "은행명", 		ref: 'BANK_NAME',    		width:'100px',  	style:'text-align:left'},
+                {caption: "계좌번호", 		ref: 'BANK_ACCOUNT_NO',    		width:'130px',  	style:'text-align:left'},
+                {caption: "비고", 		ref: 'DESCRIPTION',    		width:'120px',  	style:'text-align:left'},
+                {caption: "계좌주", 		ref: 'BANK_ACCOUNT_OWNER',    		width:'100px',  	style:'text-align:left'},
+                {caption: "거래처", 		ref: 'CS_CODE',    		width:'100px',  	style:'text-align:left'},
+                {caption: "시작일", 		ref: 'EFFECT_START_DATE',    		width:'100px',  	style:'text-align:left'},
+                {caption: "종료일", 		ref: 'EFFECT_END_DATE',    		width:'100px',  	style:'text-align:left'},
+                {caption: "복수등록", 		ref: 'BNKCNT',    		width:'100px',  	style:'text-align:left'},
+            ]
+        });
+    }
+
+    var fn_changeExpectedPayDate = function (data) {
+        fn_getBankAccountSeq();
     }
 
     var fn_findDeptCode = function() {
@@ -1422,7 +1486,7 @@
         var CS_CODE 		= gfnma_nvl(SBUxMethod.get("CS_CODE"));
         var addParams = [CS_CODE, '', strsourceType];
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '세금계산서목록');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1456,9 +1520,10 @@
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%" + replaceText2 + "%'";
+        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%" + replaceText2 + "%'"
+            + (strsourceType == "AP" ? " BETWEEN effect_start_date AND effect_end_date " : "");
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1480,6 +1545,7 @@
                 SBUxMethod.set('CS_CODE', data.CS_CODE);
                 SBUxMethod.set('CS_NAME', data.CS_NAME);
                 SBUxMethod.set('BIZ_REGNO', data.BIZ_REGNO);
+                fn_getBankAccountSeq();
             },
         });
     }
@@ -1923,6 +1989,7 @@
 
         gvwWFItem = _SBGrid.create(SBGridProperties);
         gvwWFItem.bind('dblclick', 'fn_gvwWFItemDblclick');
+        gvwWFItem.bind('valuechanged','fn_gvwWFItemValueChanged');
         //gvwWFItem.bind('click', 'fn_view');
     }
 
@@ -1949,6 +2016,344 @@
         }
     }
 
+    const fn_gvwWFItemValueChanged = async function() {
+        var nRow = gvwWFItem.getRow();
+        var nCol = gvwWFItem.getCol();
+        var rowData = gvwWFItem.getRowData(nRow);
+
+        if (nCol == gvwWFItem.getColRef("CURRENCY_CODE")) {
+
+            let ht = fn_getExchangeRate(ymddoc_date.yyyymmdd, gvwWFItem.GetValue(e.RowHandle, "currency_code").ToString(), null);
+
+            gvwWFItem.SetValue(e.RowHandle, "exchange_rate", Decimal.Parse(ht["RATE"].ToString()));
+            gvwWFItem.SetValue(e.RowHandle, "base_scale", Decimal.Parse(ht["BASE_SCALE"].ToString()));
+            gvwWFItem.SetValue(e.RowHandle, "functional_amt", Math.Round(decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "original_amt").ToString()) * decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "exchange_rate").ToString()) / decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "base_scale").ToString()), p_currUnit));
+        }
+
+        if (nCol == gvwWFItem.getColRef("ORIGINAL_AMT")) {
+
+            gvwWFItem.SetValue(e.RowHandle, "functional_amt", Math.Round(decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "original_amt").ToString()) * decimal.Parse(numexchange_rate.EditValue.ToString()) / decimal.Parse(numbase_scale.EditValue.ToString()), p_currUnit));
+            // 합계
+            fn_summary();
+        }
+
+        if (nCol == gvwWFItem.getColRef("FUNCTIONAL_AMT")) {
+            // 합계
+            fn_summary();
+        } else if (nCol == gvwWFItem.getColRef("ACCOUNT_CODE")) {
+            ChangeControlSettings(gvwWFItem.GetFocusedDataRow());
+        } else if (nCol == gvwWFItem.getColRef("DEBIT_CREDIT")) {
+
+            // 합계
+            fn_summary();
+
+            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACCOUNT_CODE")) == "" || gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACCOUNT_NAME")) == "")
+                return;
+
+            SBUxMethod.set("DEBIT_CREDIT", gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")));
+
+            // 차대 구분에 따라 컨트롤 필수 속성 변경
+            for (var i = 1; i <= 10; i++){
+                var txtacc_item_value = gfn_nvl(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_VALUE"+i)));
+                var txtacc_value_name = gfn_nvl(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_VALUE_NAME"+i)));
+
+                if (txtacc_item_value != "") {
+                    if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "D") {
+                        if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN"+i)) == "Y") {
+                            txtacc_item_value.Properties.AllowBlank = false;
+                            txtacc_item_value.BackColor = AllowBlankColor;
+
+                            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE"+i)) == "POPUP") {
+                                txtacc_value_name.Properties.AllowBlank = false;
+                                txtacc_value_name.BackColor = AllowBlankColor;
+                            }
+                        } else {
+                            txtacc_item_value.Properties.AllowBlank = true;
+                            txtacc_item_value.BackColor = AppearanceBackColor;
+                        }
+                    } else if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "C") {
+                        if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN"+i)) == "Y") {
+                            txtacc_item_value.Properties.AllowBlank = false;
+                            txtacc_item_value.BackColor = AllowBlankColor;
+
+                            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE"+i)) == "POPUP") {
+                                txtacc_value_name.Properties.AllowBlank = false;
+                                txtacc_value_name.BackColor = AllowBlankColor;
+                            }
+                        } else {
+                            txtacc_item_value.Properties.AllowBlank = true;
+                            txtacc_item_value.BackColor = AppearanceBackColor;
+                        }
+                    }
+                }
+            }
+        } else if (nCol == gvwWFItem.getColRef("ACC_CHARACTER")) {
+            ChangeControlSettings(gvwWFItem.GetFocusedDataRow());
+        } else if (nCol == gvwWFItem.getColRef("LINE_TYPE")) {
+            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "2")
+                // TODO : 확인필요
+                colaccount_code.Popup.WhereQuery = "acc_character in ('C','V')";
+        } else if (nCol == gvwWFItem.getColRef("COST_CLASS")) {
+            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACCOUNT_CODE")) != "") {
+                var strAccountCostClass = gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("COST_CLASS"));
+                fnCostClassCheck("Y", strAccountCostClass);
+            }
+        }
+    }
+
+    const fn_getExchangeRate = async function (stryyyymmdd, strcurrency_code, strrate_type) {
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYYMMDD : stryyyymmdd,
+            V_P_CURR_CODE : strcurrency_code,
+            V_P_RATE_TYPE : strrate_type,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/far/rec/getExchangeRate.do", {
+            getType				: 'json',
+            workType			: 'Q2',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                return {
+                    RATE: data.cv_1[0]["RATE"],
+                    BASE_SCALE: data.cv_1[0]["BASE_SCALE"]
+                };
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const ChangeControlSettings = async function (dr) {
+        if (dr == null)
+            return;
+
+        for (var i = 1; i <= 10; i++) {
+            // 라벨명 설정
+            let lblacc_item_name = FindControl("lblacc_item_name" + i.ToString());
+            if (lblacc_item_name != null)
+                lblacc_item_name.Text = dr["ACC_ITEM_NAME" + i];
+
+            // 컨트롤 타입 설정
+            let txtacc_item_value = FindControl("txtacc_item_value" + i.ToString());
+            if (txtacc_item_value != "") {
+                switch (dr["DATA_TYPE" + i])
+                {
+                    case "TEXT":
+                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None;
+                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = false;
+                        txtacc_item_value.RightToLeft = RightToLeft.No;
+                        txtacc_item_value.Enabled = true;
+                        break;
+                    case "POPUP":
+                        txtacc_item_value.RightToLeft = RightToLeft.No;
+                        txtacc_item_value.Enabled = true;
+                        break;
+                    case "NUM":
+                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
+                        txtacc_item_value.Properties.Mask.EditMask = "###,###,###,###,###,###,##0";
+                        if (txtacc_item_value.Text == "")
+                            txtacc_item_value.Text = "0";
+                        txtacc_item_value.RightToLeft = RightToLeft.Yes;
+                        txtacc_item_value.Enabled = true;
+                        break;
+                    case "YYYY":
+                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTime;
+                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
+                        txtacc_item_value.Properties.Mask.EditMask = "yyyy";
+                        txtacc_item_value.Text = null;
+                        txtacc_item_value.Enabled = true;
+                        break;
+                    case "YYYYMM":
+                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTime;
+                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
+                        txtacc_item_value.Properties.Mask.EditMask = "yyyy-MM";
+                        txtacc_item_value.Text = null;
+                        txtacc_item_value.Enabled = true;
+                        break;
+                    case "YYYYMMDD":
+                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
+                        txtacc_item_value.Properties.Mask.ShowPlaceHolders = false;
+                        txtacc_item_value.Properties.Mask.EditMask = @"\d{4}-\d{2}-\d{2}";
+                        txtacc_item_value.Text = null;
+                        txtacc_item_value.Enabled = true;
+                        break;
+                    default:
+                        txtacc_item_value.Enabled = false;
+                        break;
+                }
+            }
+
+            // 팝업 설정
+            let txtacc_value_name = FindControl("txtacc_value_name" + i);
+
+            if (txtacc_value_name != "") {
+                if (dr["data_type" + i.ToString()].ToString() == "POPUP") {
+                    txtacc_item_value.Properties.Popup.BizComponentID = dr["popup_id" + i.ToString()].ToString();
+                    txtacc_item_value.Properties.Popup.FormType = "popBase";
+
+                    txtacc_value_name.Enabled = true;
+                    txtacc_value_name.Properties.Popup.BizComponentID = dr["popup_id" + i.ToString()].ToString();
+                    txtacc_value_name.Properties.Popup.FormType = "popBase";
+
+                    txtacc_item_value.Properties.Popup.WhereList.Clear();
+                    WhereListItem witem1 = new WhereListItem("acc_item_value", "%_%", txtacc_item_value.Name);
+                    txtacc_item_value.Properties.Popup.WhereList.Add(witem1);
+
+                    txtacc_value_name.Properties.Popup.WhereList.Clear();
+                    WhereListItem witem2 = new WhereListItem("acc_value_name", "%_%", txtacc_value_name.Name);
+                    txtacc_value_name.Properties.Popup.WhereList.Add(witem2);
+
+                    //P_LOAN01   차입금
+                    //P_NOTE02   받을어음
+                    //P_NOTE03   지급어음
+                    //P_SAVE01   예적금
+                    if (dr["popup_id" + i.ToString()].ToString() == "P_LOAN01" ||
+                        dr["popup_id" + i.ToString()].ToString() == "P_NOTE02" ||
+                        dr["popup_id" + i.ToString()].ToString() == "P_NOTE03" ||
+                        dr["popup_id" + i.ToString()].ToString() == "P_SAVE01") {
+                        WhereListItem witem3 = new WhereListItem("fi_org_code", "=", cbofi_org_code.Name);
+                        txtacc_item_value.Properties.Popup.WhereList.Add(witem3);
+                        WhereListItem witem4 = new WhereListItem("fi_org_code", "=", cbofi_org_code.Name);
+                        txtacc_value_name.Properties.Popup.WhereList.Add(witem4);
+                    }
+                } else {
+                    txtacc_item_value.Properties.Popup.BizComponentID = "";
+
+                    txtacc_value_name.Enabled = false;
+                    txtacc_value_name.Properties.Popup.BizComponentID = "";
+                }
+            }
+
+            // 필수입력 설정
+            if (dr["acc_item_yn" + i.ToString()].ToString() == "Y") {
+                txtacc_item_value.Properties.AllowBlank = false;
+                txtacc_item_value.BackColor = AllowBlankColor;
+
+                if (dr["data_type" + i.ToString()].ToString() == "POPUP") {
+                    txtacc_value_name.Properties.AllowBlank = false;
+                    txtacc_value_name.BackColor = AllowBlankColor;
+                } else {
+                    txtacc_value_name.Properties.AllowBlank = true;
+                    txtacc_value_name.BackColor = AppearanceBackColor;
+                }
+            } else {
+                txtacc_item_value.Properties.AllowBlank = true;
+                txtacc_item_value.BackColor = AppearanceBackColor;
+                txtacc_value_name.Properties.AllowBlank = true;
+                txtacc_value_name.BackColor = AppearanceBackColor;
+            }
+        }
+    }
+
+    const fnCostClassCheck = async function (strCostClassCheckYN, strCostClass) {
+        JPlatform.Client.Controls8.Design.WhereListItem whereListItem25 = new JPlatform.Client.Controls8.Design.WhereListItem();
+        JPlatform.Client.Controls8.Design.WhereListItem whereListItem26 = new JPlatform.Client.Controls8.Design.WhereListItem();
+        JPlatform.Client.Controls8.Design.WhereListItem whereListItem27 = new JPlatform.Client.Controls8.Design.WhereListItem();
+        JPlatform.Client.Controls8.Design.WhereListItem whereListItem28 = new JPlatform.Client.Controls8.Design.WhereListItem();
+        JPlatform.Client.Controls8.Design.WhereListItem whereListItem29 = new JPlatform.Client.Controls8.Design.WhereListItem();
+        JPlatform.Client.Controls8.Design.WhereListItem whereListItem30 = new JPlatform.Client.Controls8.Design.WhereListItem();
+
+        if (strCostClassCheckYN == "N") {
+            this.colcost_center_code.Popup.WhereList.Clear();
+            whereListItem25.ControlName = "cost_center_code";
+            whereListItem25.Field = "cost_center_code";
+            whereListItem25.Operator = "%_%";
+            whereListItem26.ControlName = "";
+            whereListItem26.Field = "cost_center_name";
+            whereListItem26.Operator = "%_%";
+            this.colcost_center_code.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
+            whereListItem25,
+                whereListItem26});
+
+            this.colcost_center_name.Popup.WhereList.Clear();
+            whereListItem28.ControlName = "";
+            whereListItem28.Field = "cost_center_code";
+            whereListItem28.Operator = "%_%";
+            whereListItem29.ControlName = "cost_center_name";
+            whereListItem29.Field = "cost_center_name";
+            whereListItem29.Operator = "%_%";
+            this.colcost_center_name.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
+            whereListItem28,
+                whereListItem29});
+        } else {
+            if (strCostClass == "" || strCostClass == "8" || strCostClass == "9") {
+                this.colcost_center_code.Popup.WhereList.Clear();
+                whereListItem25.ControlName = "cost_center_code";
+                whereListItem25.Field = "cost_center_code";
+                whereListItem25.Operator = "_%";
+                whereListItem26.ControlName = "";
+                whereListItem26.Field = "cost_center_name";
+                whereListItem26.Operator = "_%";
+                this.colcost_center_code.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
+                whereListItem25,
+                    whereListItem26});
+
+                this.colcost_center_name.Popup.WhereList.Clear();
+                whereListItem28.ControlName = "";
+                whereListItem28.Field = "cost_center_code";
+                whereListItem28.Operator = "_%";
+                whereListItem29.ControlName = "cost_center_name";
+                whereListItem29.Field = "cost_center_name";
+                whereListItem29.Operator = "%_%";
+                this.colcost_center_name.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
+                whereListItem28,
+                    whereListItem29});
+            } else {
+                this.colcost_center_code.Popup.WhereList.Clear();
+                whereListItem25.ControlName = "cost_center_code";
+                whereListItem25.Field = "cost_center_code";
+                whereListItem25.Operator = "%_%";
+                whereListItem26.ControlName = "";
+                whereListItem26.Field = "cost_center_name";
+                whereListItem26.Operator = "%_%";
+                whereListItem27.ControlName = "cost_class";
+                whereListItem27.Field = "cost_class";
+                whereListItem27.Operator = "_%";
+                this.colcost_center_code.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
+                whereListItem25,
+                    whereListItem26,
+                    whereListItem27});
+
+                this.colcost_center_name.Popup.WhereList.Clear();
+                whereListItem28.ControlName = "";
+                whereListItem28.Field = "cost_center_code";
+                whereListItem28.Operator = "%_%";
+                whereListItem29.ControlName = "cost_center_name";
+                whereListItem29.Field = "cost_center_name";
+                whereListItem29.Operator = "%_%";
+                whereListItem30.ControlName = "cost_class";
+                whereListItem30.Field = "cost_class";
+                whereListItem30.Operator = "_%";
+                this.colcost_center_name.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
+                whereListItem28,
+                    whereListItem29,
+                    whereListItem30});
+            }
+        }
+    }
+
     // 행추가
     const fn_addRow = async function () {
         let rowVal = gvwWFItem.getRow();
@@ -1958,13 +2363,13 @@
                 KEY_ID : gfnma_nvl(SBUxMethod.get("KEY_ID")),
                 ITEM_SEQ : jsonAccountLineList.length,
                 LINE_TYPE : "2",
-                SITE_CODE : gfnma_nvl(SBUxMethod.get("SITE_CODE")),
+                SITE_CODE : gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
                 DEPT_CODE : gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
                 DEBIT_CREDIT : gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
                 ORIGINAL_AMT : 0,
                 VAT_AMT : 0,
                 SUPPLY_AMT : 0,
-                CURRENCY_CODE : gfnma_nvl(SBUxMethod.get("CURRENCY_CODE")),
+                CURRENCY_CODE : gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
                 EXCHANGE_RATE : gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
                 CS_CODE : gfnma_nvl(SBUxMethod.get("CS_CODE")),
                 VAT_TYPE : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
@@ -1976,13 +2381,13 @@
                 KEY_ID : gfnma_nvl(SBUxMethod.get("KEY_ID")),
                 ITEM_SEQ : jsonAccountLineList.length,
                 LINE_TYPE : "2",
-                SITE_CODE : gfnma_nvl(SBUxMethod.get("SITE_CODE")),
+                SITE_CODE : gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
                 DEPT_CODE : gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
                 DEBIT_CREDIT : gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
                 ORIGINAL_AMT : 0,
                 VAT_AMT : 0,
                 SUPPLY_AMT : 0,
-                CURRENCY_CODE : gfnma_nvl(SBUxMethod.get("CURRENCY_CODE")),
+                CURRENCY_CODE : gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
                 EXCHANGE_RATE : gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
                 CS_CODE : gfnma_nvl(SBUxMethod.get("CS_CODE")),
                 VAT_TYPE : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
@@ -2007,7 +2412,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_initSBSelect();
         fn_createGvwWFItemGrid();
-        fn_search();
+        fn_onload();
     });
 
     // 신규
@@ -2028,6 +2433,173 @@
     // 조회
     function cfn_search() {
         fn_search();
+    }
+
+    const fn_onload = async function () {
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+        $("#apcSelectMa").hide();
+        SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
+
+        strCurrntDate = gfn_dateToYmd(new Date());
+
+        if(strsourceType == null) {
+            strsourceType = "AP";
+        }
+        SBUxMethod.set("REVERSE_YN",'N');
+        //회계 삭제 권한
+        if (p_fiDeleteUser != null)
+            strFI_DELETE_USER = p_fiDeleteUser;
+
+        // TODO : 추후 탭간 이동(파라미터포함) 기능 개발시 수정필요
+        let parentParameter = {}
+        if (parentParameter) {
+            if (parentParameter.has("DOC_BATCH_NO")) {
+                SBUxMethod.set("DOC_BATCH_NO", parentParameter["DOC_BATCH_NO"]);
+            }
+
+            if (parentParameter.has("SOURCE_TYPE")) {
+                strsourceType = parentParameter["SOURCE_TYPE"];
+            }
+
+            SBUxMethod.set("SRCH_INVOCE_BATCH_NO", strsourceType);
+
+            if (parentParameter.has("DOC_NUM")) {
+                SBUxMethod.set("DOC_NUM", parentParameter["DOC_NUM"]);
+            }
+
+            if (parentParameter.has("TXN_FROM_DATE")) {
+                SBUxMethod.set("SRCH_FROM_DATE", parentParameter["TXN_FROM_DATE"]);
+            }
+            if (parentParameter.has("TXN_TO_DATE")) {
+                SBUxMethod.set("SRCH_TO_DATE", parentParameter["TXN_TO_DATE"]);
+            }
+            if (parentParameter.has("COMP_CODE")) {
+                // TODO : 확인필요
+                gv_ma_selectedApcCd = parentParameter["COMP_CODE"];
+            }
+
+            if (parentParameter.has("FI_ORG_CODE")) {
+                SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", parentParameter["FI_ORG_CODE"]);
+            }
+
+            if (parentParameter.has("VOUCHER_TYPE")) {
+                SBUxMethod.set("VOUCHER_TYPE", parentParameter["VOUCHER_TYPE"]);
+            }
+
+            SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
+
+            if (parentParameter.has("VOUCHER_NO")) {
+                SBUxMethod.set("VOUCHER_NO", parentParameter["VOUCHER_NO"]);
+            }
+
+            if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) != "") {
+                fn_search();
+            }
+
+            if (strsourceType == "AR") {
+                strFileSourceType = "FIGDOCHEADER";
+                $("#CARD_USE_TYPE").attr('disabled', 'true');
+                SBUxMethod.attr('CARD_NUM', 'readonly', 'true');
+                $("#VAT_ASSET_TYPE").attr('disabled', 'true');
+                $("#VAT_NOT_DEDUCTION_TYPE").attr('disabled', 'true');
+                $("#REPORT_OMIT_YN").attr('disabled', 'true');
+
+                $("#LBL_PAY_TERM_CODE").text("수금기준");
+                $("#LBL_PAY_METHOD").text("수금방법");
+                $("#LBL_PAY_BASE_DATE").text("수금기산일자");
+                $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
+
+                $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+
+                $("#btnScmInfo").attr('disabled', 'false');
+
+                SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
+
+            } else if (strsourceType == "AP") {
+                strFileSourceType = "FIGDOCHEADER";
+
+                $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+                $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
+
+                $("#btnScmInfo").attr('disabled', 'false');
+
+                $("#btnCreateInvoice").hide();
+                $("#btnCancelInvoice").hide();
+
+                if (!p_isAccountManager) {
+                    $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                    $("#REPORT_OMIT_YN").attr('disabled', 'true');
+                }
+
+                $("#LBL_PAY_TERM_CODE").text("지급기준");
+                $("#LBL_PAY_METHOD").text("지급방법");
+                $("#LBL_PAY_BASE_DATE").text("지급기산일자");
+                $("#LBL_EXPECTED_PAY_DATE").text("지급만기일자");
+
+                SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
+
+                $("#SUB_TAX_SITE_CODE").attr("aria-required", "false");
+                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+            } else if (strsourceType == "BAD") {
+                strFileSourceType = "BADSALESDOC";
+                $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+                $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
+
+                $("#LBL_INVOICE").hide();
+                $("#APPROVAL_NO").hide();
+
+                $("#btnCreateInvoice").hide();
+
+                if (!p_isAccountManager) {
+                    $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                    $("#REPORT_OMIT_YN").attr('disabled', 'true');
+                }
+
+                SBUxMethod.set("DOC_TYPE", "91");
+
+                SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
+
+                $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+            }
+            if (parentParameter.has("APRINT")) {
+                if (parentParameter["APRINT"].ToString() != "Y") {
+                    bAllowPrint = false;
+                } else {
+                    bAllowPrint = true;
+                }
+            }
+        } else {
+            SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
+            SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
+            SBUxMethod.set("SRCH_INVOCE_BATCH_NO", strsourceType);
+             if (strsourceType == "AP") {
+                 $("#btnCreateInvoice").hide();
+                 $("#btnCancelInvoice").hide();
+            }
+        }
+        if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
+            fn_create();
+
+            $("#btnAddRow").attr("disabled", "true");
+            $("#btnDeleteRow").attr("disabled", "true");
+        }
+
+        //사용자
+        SBUxMethod.set("EMP_CODE", gfnma_nvl(gfnma_multiSelectGet('#PAYEE_CODE')));
+
+        if (p_isAccountManager || p_isAccountChief) {
+            SBUxMethod.set("OPEN_TO_ALL_YN", "N");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "N");
+            $("#btnDocCopy").show();
+        } else {
+            SBUxMethod.set("OPEN_TO_ALL_YN", "Y");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "Y");
+            $("#btnDocCopy").hide();
+        }
     }
 
     const fn_summary = async function () {
@@ -2105,9 +2677,9 @@
         // TODO: this.InitControls(panWFMiddleBottom);
         // TODO: this.InitControls(panWFBottom);
 
-        SBUxMethod.set("SITE_CODE",SessionInfo.SiteCode);
-        SBUxMethod.set("CURRENCY_CODE",SessionInfo.CurrCode);
-        SBUxMethod.set("BASE_SCALE",parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == SessionInfo.CurrCode)[0]["BASE_SCALE"]));
+        SBUxMethod.set("SRCH_SITE_CODE",p_siteCode);
+        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', p_currCode);
+        SBUxMethod.set("BASE_SCALE",parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == p_currCode)[0]["BASE_SCALE"]));
 
         // TODO: btnAttach.Enabled = false;
         SBUxMethod.attr('VAT_TYPE', 'readonly', 'false');
@@ -2117,175 +2689,108 @@
         SBUxMethod.set("VOUCHER_NO",'');
 
         if (strsourceType == "AR") {
-            SBUxMethod.attr('CARD_USE_TYPE', 'readonly', 'true');
+            $("#CARD_USE_TYPE").attr('disabled', 'true');
             SBUxMethod.attr('CARD_NUM', 'readonly', 'true');
-            SBUxMethod.attr('VAT_ASSET_TYPE', 'readonly', 'true');
-            SBUxMethod.attr('VAT_NOT_DEDUCTION_TYPE', 'readonly', 'true');
-            SBUxMethod.attr('REPORT_OMIT_YN', 'readonly', 'true');
+            $("#VAT_ASSET_TYPE").attr('disabled', 'true');
+            $("#VAT_NOT_DEDUCTION_TYPE").attr('disabled', 'true');
+            $("#REPORT_OMIT_YN").attr('disabled', 'true');
 
-            txtcs_code.Properties.Popup.PopupTitle = "거래처 (판매)";
-            txtcs_name.Properties.Popup.PopupTitle = "거래처 (판매)";
+            $("#LBL_PAY_TERM_CODE").text("수금기준");
+            $("#LBL_PAY_METHOD").text("수금방법");
+            $("#LBL_PAY_BASE_DATE").text("수금기산일자");
+            $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
 
-            SetLookUp(cborule_code, "", "L_RULE", "ar_doc_write_yn = 'Y'");
-
-            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-            SetLookUp(cbodoc_type, "", "L_FIM051", "ar_doc_write_yn = 'Y'");
-
-
-            lblpay_term_code.Text = "수금기준";
-            lblpay_term_code.WordText = "수금기준";
-
-            lblpay_method.Text = "수금방법";
-            lblpay_method.WordText = "수금기준";
-
-            lblpay_base_date.Text = "수금기산일자";
-            lblpay_base_date.WordText = "수금기산일자";
-
-            lblexpected_pay_date.Text = "수금만기일자";
-            lblexpected_pay_date.WordText = "수금만기일자";
-
-            txtpay_term_code.Properties.WordText = "수금기준";
-
-            cbosub_tax_site_code.Properties.AllowBlank = false;
-            cbosub_tax_site_code.Properties.Appearance.BackColor = AllowBlankColor;
-            cbosub_tax_site_code.EditValue = "T02";
+            $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         } else if (strsourceType == "AP") {
-            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AP_Q";
-            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AP_Q";
+             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+             $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
 
-
-            cbodup_issue_bill_type.Enabled = false;
-            cboexclude_revenue_amt_yn.Enabled = false;
-
-            if (!SessionInfo.IsAccountManager)
-            {
-                cboafter_due_date_yn.Enabled = false;
-                cboreport_omit_yn.Enabled = false;
+            if (!p_isAccountManager) {
+                $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                $("#REPORT_OMIT_YN").attr('disabled', 'true');
             }
 
+            $("#LBL_PAY_TERM_CODE").text("지급기준");
+            $("#LBL_PAY_METHOD").text("지급방법");
+            $("#LBL_PAY_BASE_DATE").text("지급기산일자");
+            $("#LBL_EXPECTED_PAY_DATE").text("지급만기일자");
 
-            txtcs_code.Properties.Popup.PopupTitle = "거래처 (구매)";
-            txtcs_name.Properties.Popup.PopupTitle = "거래처 (구매)";
-            SetLookUp(cborule_code, "", "L_RULE", "ap_doc_write_yn = 'Y'");
-            SetLookUp(cbodoc_type, "", "L_FIM051", "ap_doc_write_yn = 'Y'");
+            $("#SUB_TAX_SITE_CODE").attr("aria-required", "false");
+            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+        } else if (strsourceType == "BAD") {
+            $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+            $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
 
-            lblpay_term_code.Text = "지급기준";
-            lblpay_term_code.WordText = "지급기준";
-
-            lblpay_method.Text = "지급방법";
-            lblpay_method.WordText = "지급기준";
-
-            lblpay_base_date.Text = "지급기산일자";
-            lblpay_base_date.WordText = "지급기산일자";
-
-            lblexpected_pay_date.Text = "지급만기일자";
-            lblexpected_pay_date.WordText = "지급만기일자";
-
-            txtpay_term_code.Properties.WordText = "지급기준";
-
-            cbosub_tax_site_code.Properties.AllowBlank = true;
-            cbosub_tax_site_code.Properties.Appearance.BackColor = Color.White;
-            cbosub_tax_site_code.EditValue = "T02";
-        } else if (strsource_type.Equals("BAD")) {
-            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-
-            cbodup_issue_bill_type.Enabled = false;
-            cboexclude_revenue_amt_yn.Enabled = false;
-
-            if (!SessionInfo.IsAccountManager)
-            {
-                cboafter_due_date_yn.Enabled = false;
-                cboreport_omit_yn.Enabled = false;
+            if (!p_isAccountManager) {
+                $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                $("#REPORT_OMIT_YN").attr('disabled', 'true');
             }
 
-            this.Text = "대손채권 입력";
+            SBUxMethod.set("DOC_TYPE", "91");
 
-            txtcs_code.Properties.Popup.BizComponentID = "P_CS_SALE_DOC";
-            txtcs_name.Properties.Popup.BizComponentID = "P_CS_SALE_DOC";
-            txtpay_term_code.Properties.Popup.BizComponentID = "P_PAY_DATE_S";
-            txtpay_term_name.Properties.Popup.BizComponentID = "P_PAY_DATE_S";
-            txtcs_code.Properties.Popup.PopupTitle = "거래처 (판매)";
-            txtcs_name.Properties.Popup.PopupTitle = "거래처 (판매)";
-
-            SetLookUp(cborule_code, "", "L_RULE", "doc_type LIKE '91%'");
-            SetLookUp(cbodoc_type, "", "L_FIM051", "doc_type like '91%'");
-            cbodoc_type.EditValue = "91";
-
-            cbosub_tax_site_code.Properties.AllowBlank = false;
-            cbosub_tax_site_code.Properties.Appearance.BackColor = AllowBlankColor;
-            cbosub_tax_site_code.EditValue = "T02";
+            $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
-        Object oFromDate = ymdfrom_date.EditValue;
-        Object oToDate = ymdto_date.EditValue;
+        // TODO: SaveButton = true;
+        // TODO: DeleteButton = false;
+        // TODO: btnSubmit.Enabled = false;
+        // TODO: btnConfirmHist.Enabled = false;
 
-        ymdfrom_date.EditValue = oFromDate;
-        ymdto_date.EditValue = oToDate;
+        // TODO: PreviewButton = false;
+        // TODO: PrintButton = false;
 
-        SaveButton = true;
-        DeleteButton = false;
-        btnSubmit.Enabled = false;
-        btnConfirmHist.Enabled = false;
+        $("#btnAddRow").attr("disabled", "true");
+        $("#btnDeleteRow").attr("disabled", "true");
+        $("#btnCreateLine").attr("disabled", "true");
 
-        PreviewButton = false;
-        PrintButton = false;
+        SBUxMethod.set("KEY_ID", "1");
 
-        btnAddRow.Enabled = false;
-        btnDeleteRow.Enabled = false;
-        btnCreateLine.Enabled = false;
+        $("#RULE_CODE").attr('disabled', 'true');
+        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', p_currCode);
+        SBUxMethod.set("EXCHANGE_RATE", 1);
 
-        btnAddeinvoiceitem.Enabled = true;
-        btnAddinvoiceitem.Enabled = true;
+        SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
+        SBUxMethod.set("ACCT_RULE_CODE", p_defaultAcctRule);
 
-        txtkey_id.Text = "1";
+        gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', "1");
 
-        cborule_code.Enabled = true;
-        cbocurrency_code.EditValue = SessionInfo.CurrCode;
-        numexchange_rate.EditValue = 1;
+        SBUxMethod.set("DOC_DATE", strcurrent_date);
+        SBUxMethod.set("STANDARD_DATE", strcurrent_date);
 
-        cbocomp_code.EditValue = SessionInfo.CompCode;
-        cbofi_org_code.EditValue = SessionInfo.FIOrgCode;
-        cboacct_rule_code.EditValue = SessionInfo.DefaultAcctRule;
+        SBUxMethod.set("VOUCHER_RECEIPT_DATE", strcurrent_date);
+        SBUxMethod.set("EXPECTED_PAY_DATE", strcurrent_date);
 
-        cbodoc_status.EditValue = "1";
+        gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', p_userId);
+        SBUxMethod.set("INSERT_USERID", p_userId);
 
-        ymddoc_date.EditValue = strcurrent_date;
-        ymdstandard_date.EditValue = ymddoc_date.EditValue.ToString();
+        SBUxMethod.set("DOC_NUM", "1");
 
-        ymdvoucher_receipt_date.EditValue = ymddoc_date.EditValue.ToString();
-        ymdexpected_pay_date.EditValue = strcurrent_date;
-        cbopayee_code.EditValue = SessionInfo.UserID;
-        txtinsert_userid.EditValue = SessionInfo.UserID;
+        SBUxMethod.set("DEPT_CODE", p_deptCode);
+        SBUxMethod.set("DEPT_NAME", p_deptName);
 
-        txtdoc_num.Text = "1";
+        SBUxMethod.set("SOURCE_DOC", "MANUAL");
+        gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
-        txtdept_codetxtdept_codetxtdept_code.Text = SessionInfo.DeptCode;
-        txtdept_name.Text = SessionInfo.DeptName;
-
-        txtsource_doc.Text = "MANUAL";
-
-        cbotax_site_code.EditValue = "T02";
-
-        if (strsource_type.Equals("AP")) {
-            cbodoc_type.EditValue = "19"; //미지급
-        } else if (strsource_type.Equals("AR")) {
-            cbodoc_type.EditValue = "39"; //채권
+        if (strsourceType == "AP") {
+            SBUxMethod.set("DOC_TYPE", "19"); //미지급
+        } else if (strsourceType == "AR") {
+            SBUxMethod.set("DOC_TYPE", "39"); //채권
         }
-        cbodoc_type.Properties.ReadOnly = false;
+        SBUxMethod.attr("DOC_TYPE", "readonly", false);
 
-        if (SessionInfo.IsAccountManager || SessionInfo.IsAccountChief) {
-            txtopen_to_all_yn.EditValue = "N";
-            txtopen_to_fcm_yn.EditValue = "N";
+        if (p_isAccountManager || p_isAccountChief) {
+            SBUxMethod.set("OPEN_TO_ALL_YN", "N");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "N");
         } else {
-            txtopen_to_all_yn.EditValue = "Y";
-            txtopen_to_fcm_yn.EditValue = "Y";
+            SBUxMethod.set("OPEN_TO_ALL_YN", "Y");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "Y");
         }
 
-        panWFTop.ActionMode = ActionMode.Save;
-        gvwWFItem.ActionMode = ActionMode.Save;
+        // TODO: panWFTop.ActionMode = ActionMode.Save;
+        // TODO: gvwWFItem.ActionMode = ActionMode.Save;
 
         bnew = true;
     }
@@ -2295,6 +2800,10 @@
     const fn_delete = async function () {}
 
     const fn_search = async function () {
+        if(!SBUxMethod.validateRequired() && !validateRequired()) {
+            return false;
+        }
+
         let DOC_BATCH_NO = gfnma_nvl(SBUxMethod.get("DOC_BATCH_NO"));
 
         var paramObj = {
@@ -2591,7 +3100,19 @@
 
                     jsonAccountLineList.push(msg);
                 });
+
+                if (gfnma_nvl(SBUxMethod.get("DOC_NAME")) != "") {
+                    gvwWFItem.clickRow(1);
+                    fn_summary();
+                } else {
+                    jsonAccountLineList.length = 0;
+                    gvwWFItem.rebuild();
+                    fn_create();
+                }
                 gvwWFItem.rebuild();
+
+                gfnma_multiSelectSet('#RULE_CODE', '', '', '');
+                $("#RULE_CODE").attr('disabled', 'true');
             } else {
                 alert(listData.resultMessage);
             }
