@@ -89,12 +89,6 @@ public class LoginVO implements Serializable{
 	private String hrmPayMngrYn;
 	private String acntgMngrYn;
 	
-	/** 경영관리 인사담당자 */
-	private String isHrManager;
-
-	/** 경영관리 회계단위 */
-	private String fiOrgCode;
-
 	/** 사용자 주소 */
 	private String addr;
 
@@ -493,17 +487,509 @@ public class LoginVO implements Serializable{
 	public void setAcntgMngrYn(String acntgMngrYn) {
 		this.acntgMngrYn = acntgMngrYn;
 	}
-	public String getIsHrManager() {
-		return isHrManager;
+	
+	//------------------------------------------------------
+	/** 경영관리 */
+	private String maBaseCurrCode;		//	기본통화코드
+	private String maBaseLangID;		//	기본언어코드
+	private String maBIZSTOPURL;		//	거래중지 정보전송
+	private String maCalApiUrl;			//	공휴일 조회 API URL
+	private String maCompCode;			//	법인코드
+	private String maCompName;			//	법인명
+	private String maCurrCode;			//	통화
+	private String maCurrName;			//	통화
+	private String maCurrUnit;			//	통화
+	private String maDefaultAcctRule;	//	회계기준
+	private String maDeptCode;			//	부서코드
+	private String maDeptName;			//	부서명
+	private String maDeptRule;			//	부서기준(1:부서기준, 2:원가중심점기준)
+	private String maDutyCode;			//	직책코드
+	private String maEmpCode;			//	사원코드
+	private String maEmpName;			//	사원명
+	private String maEmpNameEN;			//	사원명 영문
+	private String maEmpNameFOR;		//	사원명 한자
+	private String maEssHome;			//	ESS_HOME
+	private String maEssReportHome;		//	ESS REPORT홈(EssReportHome)
+	private String maFBSBATCHID;		//	펌뱅킹FTP ID
+	private String maFBSBATCHPW;		//	펌뱅킹FTP PASSWORD
+	private String maFBSBIP;			//	펌뱅킹 소켓 IP
+	private String maFBSBPORT;			//	펌뱅킹 소켓 PORT
+	private String maFBSCIP;			//	펌뱅킹 소켓 IP (CB)
+	private String maFBSCPORT;			//	펌뱅킹 소켓 PORT (CB)
+	private String maFBSFIP;			//	펌뱅킹 소켓 IP (외화)
+	private String maFBSFPORT;			//	펌뱅킹 소켓 PORT (외화)
+	private String maFBSRECEIVEPATH;	//	펌뱅킹배치수신폴더(FTP서버 위치 기준으로 정의)
+	private String maFBSRIP;			//	펌뱅킹 소켓 IP
+	private String maFBSRPORT;			//	펌뱅킹 소켓 PORT
+	private String maFBSSENDPATH;		//	펌뱅킹배치송신폴더(FTP서버 위치 기준으로 정의)
+	private String maFBSSERVERTYPE;		//	서버구분 (DEV : 개발계, PROD : 가동계) /펌뱅킹 전문 송신시 업체코드 자동세팅용
+	private String maFBSVAN;			//	ECBANK(원화)
+	private String maFBSVANCB;			//	ECBANKCB
+	private String maFBSVANFC;			//	ECBANKFC(외화)
+	private String maFI_DELETE_USER;	//	회계삭제권한
+	private String maFileServerHome;	//	파일서버홈
+	private String maFIOrgCode;			//	회계
+	private String maGADeptCode;		//	총무부서 코드
+	private String maGW_SITE;			//	그룹웨어결제 화면
+	private String maHRDeptCode;		//	인사 부서 코드
+	private String maHREvaluateRole;	//	e-평가 권한
+	private String maHriReport;			//	인사기록카드
+	private String maIsAccountChief;	//	회계팀장 여부 2016.07.11
+	private String maIsAccountManager;	//	회계담당자 여부
+	private String maIsGW;				//	그룹웨어 결제여부
+	private String maIsHRManager;		//	인사총무관리자 여부
+	private String maIsHRPayManager;	//	인사급여관리자 여부
+	private String maIsManager;			//	특정임원여부
+	private String maIsPayResultAdjust;	//	급여조정여부
+	private String maIsPostingUser;		//	전기담당자 여부
+	private String maIsSalesEmp;		//	영업사원 여부
+	private String maIsTrManager;		//	특정임원여부
+	private String maIsTrUser;			//	특정임원여부
+	private String maJobCode;			//	직무코드
+	private String maJobFamilyCode;		//	직종코드
+	private String maJobRankCode;		//	직급코드
+	private String maLanguageID;		//	언어코드
+	private String maNTSBIZURL;			//	국세청 사업자등록현황 전송
+	private String maPositionCode;		//	직위코드
+	private String maProxyEmpCode;		//	
+	private String maScmHome;			//	scm홈
+	private String maSiteCode;			//	사업장코드
+	private String maSiteName;			//	사업장명
+	private String maSystemDeptCode;	//	System 부서 코드
+	private String maSystemDeveloper;	//	개발자권한
+	private String maTaxSiteCode;		//	신고사업장코드
+	private String maTaxSiteName;		//	신고사업장명
+	private String maUserID;			//	사용자ID
+	private String maUserName;			//	사용자Name
+	
+	public String getMaBaseCurrCode() {
+		return maBaseCurrCode;
 	}
-	public void setIsHrManager(String isHrManager) {
-		this.isHrManager = isHrManager;
+	public void setMaBaseCurrCode(String maBaseCurrCode) {
+		this.maBaseCurrCode = maBaseCurrCode;
 	}
-	public String getFiOrgCode() {
-		return fiOrgCode;
+	public String getMaBaseLangID() {
+		return maBaseLangID;
 	}
-	public void setFiOrgCode(String fiOrgCode) {
-		this.fiOrgCode = fiOrgCode;
+	public void setMaBaseLangID(String maBaseLangID) {
+		this.maBaseLangID = maBaseLangID;
 	}
+	public String getMaBIZSTOPURL() {
+		return maBIZSTOPURL;
+	}
+	public void setMaBIZSTOPURL(String maBIZSTOPURL) {
+		this.maBIZSTOPURL = maBIZSTOPURL;
+	}
+	public String getMaCalApiUrl() {
+		return maCalApiUrl;
+	}
+	public void setMaCalApiUrl(String maCalApiUrl) {
+		this.maCalApiUrl = maCalApiUrl;
+	}
+	public String getMaCompCode() {
+		return maCompCode;
+	}
+	public void setMaCompCode(String maCompCode) {
+		this.maCompCode = maCompCode;
+	}
+	public String getMaCompName() {
+		return maCompName;
+	}
+	public void setMaCompName(String maCompName) {
+		this.maCompName = maCompName;
+	}
+	public String getMaCurrCode() {
+		return maCurrCode;
+	}
+	public void setMaCurrCode(String maCurrCode) {
+		this.maCurrCode = maCurrCode;
+	}
+	public String getMaCurrName() {
+		return maCurrName;
+	}
+	public void setMaCurrName(String maCurrName) {
+		this.maCurrName = maCurrName;
+	}
+	public String getMaCurrUnit() {
+		return maCurrUnit;
+	}
+	public void setMaCurrUnit(String maCurrUnit) {
+		this.maCurrUnit = maCurrUnit;
+	}
+	public String getMaDefaultAcctRule() {
+		return maDefaultAcctRule;
+	}
+	public void setMaDefaultAcctRule(String maDefaultAcctRule) {
+		this.maDefaultAcctRule = maDefaultAcctRule;
+	}
+	public String getMaDeptCode() {
+		return maDeptCode;
+	}
+	public void setMaDeptCode(String maDeptCode) {
+		this.maDeptCode = maDeptCode;
+	}
+	public String getMaDeptName() {
+		return maDeptName;
+	}
+	public void setMaDeptName(String maDeptName) {
+		this.maDeptName = maDeptName;
+	}
+	public String getMaDeptRule() {
+		return maDeptRule;
+	}
+	public void setMaDeptRule(String maDeptRule) {
+		this.maDeptRule = maDeptRule;
+	}
+	public String getMaDutyCode() {
+		return maDutyCode;
+	}
+	public void setMaDutyCode(String maDutyCode) {
+		this.maDutyCode = maDutyCode;
+	}
+	public String getMaEmpCode() {
+		return maEmpCode;
+	}
+	public void setMaEmpCode(String maEmpCode) {
+		this.maEmpCode = maEmpCode;
+	}
+	public String getMaEmpName() {
+		return maEmpName;
+	}
+	public void setMaEmpName(String maEmpName) {
+		this.maEmpName = maEmpName;
+	}
+	public String getMaEmpNameEN() {
+		return maEmpNameEN;
+	}
+	public void setMaEmpNameEN(String maEmpNameEN) {
+		this.maEmpNameEN = maEmpNameEN;
+	}
+	public String getMaEmpNameFOR() {
+		return maEmpNameFOR;
+	}
+	public void setMaEmpNameFOR(String maEmpNameFOR) {
+		this.maEmpNameFOR = maEmpNameFOR;
+	}
+	public String getMaEssHome() {
+		return maEssHome;
+	}
+	public void setMaEssHome(String maEssHome) {
+		this.maEssHome = maEssHome;
+	}
+	public String getMaEssReportHome() {
+		return maEssReportHome;
+	}
+	public void setMaEssReportHome(String maEssReportHome) {
+		this.maEssReportHome = maEssReportHome;
+	}
+	public String getMaFBSBATCHID() {
+		return maFBSBATCHID;
+	}
+	public void setMaFBSBATCHID(String maFBSBATCHID) {
+		this.maFBSBATCHID = maFBSBATCHID;
+	}
+	public String getMaFBSBATCHPW() {
+		return maFBSBATCHPW;
+	}
+	public void setMaFBSBATCHPW(String maFBSBATCHPW) {
+		this.maFBSBATCHPW = maFBSBATCHPW;
+	}
+	public String getMaFBSBIP() {
+		return maFBSBIP;
+	}
+	public void setMaFBSBIP(String maFBSBIP) {
+		this.maFBSBIP = maFBSBIP;
+	}
+	public String getMaFBSBPORT() {
+		return maFBSBPORT;
+	}
+	public void setMaFBSBPORT(String maFBSBPORT) {
+		this.maFBSBPORT = maFBSBPORT;
+	}
+	public String getMaFBSCIP() {
+		return maFBSCIP;
+	}
+	public void setMaFBSCIP(String maFBSCIP) {
+		this.maFBSCIP = maFBSCIP;
+	}
+	public String getMaFBSCPORT() {
+		return maFBSCPORT;
+	}
+	public void setMaFBSCPORT(String maFBSCPORT) {
+		this.maFBSCPORT = maFBSCPORT;
+	}
+	public String getMaFBSFIP() {
+		return maFBSFIP;
+	}
+	public void setMaFBSFIP(String maFBSFIP) {
+		this.maFBSFIP = maFBSFIP;
+	}
+	public String getMaFBSFPORT() {
+		return maFBSFPORT;
+	}
+	public void setMaFBSFPORT(String maFBSFPORT) {
+		this.maFBSFPORT = maFBSFPORT;
+	}
+	public String getMaFBSRECEIVEPATH() {
+		return maFBSRECEIVEPATH;
+	}
+	public void setMaFBSRECEIVEPATH(String maFBSRECEIVEPATH) {
+		this.maFBSRECEIVEPATH = maFBSRECEIVEPATH;
+	}
+	public String getMaFBSRIP() {
+		return maFBSRIP;
+	}
+	public void setMaFBSRIP(String maFBSRIP) {
+		this.maFBSRIP = maFBSRIP;
+	}
+	public String getMaFBSRPORT() {
+		return maFBSRPORT;
+	}
+	public void setMaFBSRPORT(String maFBSRPORT) {
+		this.maFBSRPORT = maFBSRPORT;
+	}
+	public String getMaFBSSENDPATH() {
+		return maFBSSENDPATH;
+	}
+	public void setMaFBSSENDPATH(String maFBSSENDPATH) {
+		this.maFBSSENDPATH = maFBSSENDPATH;
+	}
+	public String getMaFBSSERVERTYPE() {
+		return maFBSSERVERTYPE;
+	}
+	public void setMaFBSSERVERTYPE(String maFBSSERVERTYPE) {
+		this.maFBSSERVERTYPE = maFBSSERVERTYPE;
+	}
+	public String getMaFBSVAN() {
+		return maFBSVAN;
+	}
+	public void setMaFBSVAN(String maFBSVAN) {
+		this.maFBSVAN = maFBSVAN;
+	}
+	public String getMaFBSVANCB() {
+		return maFBSVANCB;
+	}
+	public void setMaFBSVANCB(String maFBSVANCB) {
+		this.maFBSVANCB = maFBSVANCB;
+	}
+	public String getMaFBSVANFC() {
+		return maFBSVANFC;
+	}
+	public void setMaFBSVANFC(String maFBSVANFC) {
+		this.maFBSVANFC = maFBSVANFC;
+	}
+	public String getMaFI_DELETE_USER() {
+		return maFI_DELETE_USER;
+	}
+	public void setMaFI_DELETE_USER(String maFI_DELETE_USER) {
+		this.maFI_DELETE_USER = maFI_DELETE_USER;
+	}
+	public String getMaFileServerHome() {
+		return maFileServerHome;
+	}
+	public void setMaFileServerHome(String maFileServerHome) {
+		this.maFileServerHome = maFileServerHome;
+	}
+	public String getMaFIOrgCode() {
+		return maFIOrgCode;
+	}
+	public void setMaFIOrgCode(String maFIOrgCode) {
+		this.maFIOrgCode = maFIOrgCode;
+	}
+	public String getMaGADeptCode() {
+		return maGADeptCode;
+	}
+	public void setMaGADeptCode(String maGADeptCode) {
+		this.maGADeptCode = maGADeptCode;
+	}
+	public String getMaGW_SITE() {
+		return maGW_SITE;
+	}
+	public void setMaGW_SITE(String maGW_SITE) {
+		this.maGW_SITE = maGW_SITE;
+	}
+	public String getMaHRDeptCode() {
+		return maHRDeptCode;
+	}
+	public void setMaHRDeptCode(String maHRDeptCode) {
+		this.maHRDeptCode = maHRDeptCode;
+	}
+	public String getMaHREvaluateRole() {
+		return maHREvaluateRole;
+	}
+	public void setMaHREvaluateRole(String maHREvaluateRole) {
+		this.maHREvaluateRole = maHREvaluateRole;
+	}
+	public String getMaHriReport() {
+		return maHriReport;
+	}
+	public void setMaHriReport(String maHriReport) {
+		this.maHriReport = maHriReport;
+	}
+	public String getMaIsAccountChief() {
+		return maIsAccountChief;
+	}
+	public void setMaIsAccountChief(String maIsAccountChief) {
+		this.maIsAccountChief = maIsAccountChief;
+	}
+	public String getMaIsAccountManager() {
+		return maIsAccountManager;
+	}
+	public void setMaIsAccountManager(String maIsAccountManager) {
+		this.maIsAccountManager = maIsAccountManager;
+	}
+	public String getMaIsGW() {
+		return maIsGW;
+	}
+	public void setMaIsGW(String maIsGW) {
+		this.maIsGW = maIsGW;
+	}
+	public String getMaIsHRManager() {
+		return maIsHRManager;
+	}
+	public void setMaIsHRManager(String maIsHRManager) {
+		this.maIsHRManager = maIsHRManager;
+	}
+	public String getMaIsHRPayManager() {
+		return maIsHRPayManager;
+	}
+	public void setMaIsHRPayManager(String maIsHRPayManager) {
+		this.maIsHRPayManager = maIsHRPayManager;
+	}
+	public String getMaIsManager() {
+		return maIsManager;
+	}
+	public void setMaIsManager(String maIsManager) {
+		this.maIsManager = maIsManager;
+	}
+	public String getMaIsPayResultAdjust() {
+		return maIsPayResultAdjust;
+	}
+	public void setMaIsPayResultAdjust(String maIsPayResultAdjust) {
+		this.maIsPayResultAdjust = maIsPayResultAdjust;
+	}
+	public String getMaIsPostingUser() {
+		return maIsPostingUser;
+	}
+	public void setMaIsPostingUser(String maIsPostingUser) {
+		this.maIsPostingUser = maIsPostingUser;
+	}
+	public String getMaIsSalesEmp() {
+		return maIsSalesEmp;
+	}
+	public void setMaIsSalesEmp(String maIsSalesEmp) {
+		this.maIsSalesEmp = maIsSalesEmp;
+	}
+	public String getMaIsTrManager() {
+		return maIsTrManager;
+	}
+	public void setMaIsTrManager(String maIsTrManager) {
+		this.maIsTrManager = maIsTrManager;
+	}
+	public String getMaIsTrUser() {
+		return maIsTrUser;
+	}
+	public void setMaIsTrUser(String maIsTrUser) {
+		this.maIsTrUser = maIsTrUser;
+	}
+	public String getMaJobCode() {
+		return maJobCode;
+	}
+	public void setMaJobCode(String maJobCode) {
+		this.maJobCode = maJobCode;
+	}
+	public String getMaJobFamilyCode() {
+		return maJobFamilyCode;
+	}
+	public void setMaJobFamilyCode(String maJobFamilyCode) {
+		this.maJobFamilyCode = maJobFamilyCode;
+	}
+	public String getMaJobRankCode() {
+		return maJobRankCode;
+	}
+	public void setMaJobRankCode(String maJobRankCode) {
+		this.maJobRankCode = maJobRankCode;
+	}
+	public String getMaLanguageID() {
+		return maLanguageID;
+	}
+	public void setMaLanguageID(String maLanguageID) {
+		this.maLanguageID = maLanguageID;
+	}
+	public String getMaNTSBIZURL() {
+		return maNTSBIZURL;
+	}
+	public void setMaNTSBIZURL(String maNTSBIZURL) {
+		this.maNTSBIZURL = maNTSBIZURL;
+	}
+	public String getMaPositionCode() {
+		return maPositionCode;
+	}
+	public void setMaPositionCode(String maPositionCode) {
+		this.maPositionCode = maPositionCode;
+	}
+	public String getMaProxyEmpCode() {
+		return maProxyEmpCode;
+	}
+	public void setMaProxyEmpCode(String maProxyEmpCode) {
+		this.maProxyEmpCode = maProxyEmpCode;
+	}
+	public String getMaScmHome() {
+		return maScmHome;
+	}
+	public void setMaScmHome(String maScmHome) {
+		this.maScmHome = maScmHome;
+	}
+	public String getMaSiteCode() {
+		return maSiteCode;
+	}
+	public void setMaSiteCode(String maSiteCode) {
+		this.maSiteCode = maSiteCode;
+	}
+	public String getMaSiteName() {
+		return maSiteName;
+	}
+	public void setMaSiteName(String maSiteName) {
+		this.maSiteName = maSiteName;
+	}
+	public String getMaSystemDeptCode() {
+		return maSystemDeptCode;
+	}
+	public void setMaSystemDeptCode(String maSystemDeptCode) {
+		this.maSystemDeptCode = maSystemDeptCode;
+	}
+	public String getMaSystemDeveloper() {
+		return maSystemDeveloper;
+	}
+	public void setMaSystemDeveloper(String maSystemDeveloper) {
+		this.maSystemDeveloper = maSystemDeveloper;
+	}
+	public String getMaTaxSiteCode() {
+		return maTaxSiteCode;
+	}
+	public void setMaTaxSiteCode(String maTaxSiteCode) {
+		this.maTaxSiteCode = maTaxSiteCode;
+	}
+	public String getMaTaxSiteName() {
+		return maTaxSiteName;
+	}
+	public void setMaTaxSiteName(String maTaxSiteName) {
+		this.maTaxSiteName = maTaxSiteName;
+	}
+	public String getMaUserID() {
+		return maUserID;
+	}
+	public void setMaUserID(String maUserID) {
+		this.maUserID = maUserID;
+	}
+	public String getMaUserName() {
+		return maUserName;
+	}
+	public void setMaUserName(String maUserName) {
+		this.maUserName = maUserName;
+	}	
+	
+	//------------------------------------------------------
+
 
 }

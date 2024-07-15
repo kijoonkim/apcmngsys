@@ -93,7 +93,6 @@ public class ApcMaFim4100Controller extends BaseController {
     	return getSuccessResponseEntityMa(resultMap);
     }
     
-    
     // 전표생성RULE관리 detatl 저장
     @PostMapping(value = "/fi/fgl/com/saveFim4100detail.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> saveFim4100detail(
