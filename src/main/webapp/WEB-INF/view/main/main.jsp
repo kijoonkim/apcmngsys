@@ -833,7 +833,6 @@
                 let target = object.target;
                 let data = sideJsonData.filter((item) => item.id == target);
                 let openFlag = tabJsonData.some((item) => item.targetid.replace("TAB_","") == target);
-                localStorage.setItem("callMain",JSON.stringify(object));
 
                 if(openFlag){
                     /** receive Tab이 열려 있는 상태에선 msg를 전달하여 VO 전달 **/
@@ -844,6 +843,7 @@
                     el.contentWindow.postMessage(object);
 
                 }else{
+                    localStorage.setItem("callMain",JSON.stringify(object));
                     /** 현재 receive Tab이 없는경우 새로 오픈 **/
                     fn_actionGoPage(
                         data[0].url
