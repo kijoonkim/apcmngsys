@@ -68,5 +68,52 @@ public class ApcMaFim4300Controller extends BaseController {
         return getSuccessResponseEntityMa(resultMap);
     }
     
+    // 전표유형관리 mast 저장
+    @PostMapping(value = "/fi/fgl/com/saveFim4300mast.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> saveFim4300mast(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============saveFim4300mast=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM4300_S");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============saveFim4300mast=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }    
+    
+    // 전표유형관리 detail 저장
+    @PostMapping(value = "/fi/fgl/com/saveFim4300detail.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> saveFim4300detail(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============saveFim4300detail=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM4300_S1");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============saveFim4300detail=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }    
 
 }
