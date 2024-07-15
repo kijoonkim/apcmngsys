@@ -380,7 +380,6 @@
     //화면 이동
     const maxTebMenuCnt = 11;//메뉴탭 최대 허용 개수(10)
     const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
-    	
         if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);
         } else if (_menuGubun === "LEFT") {
@@ -825,10 +824,43 @@
         mfn_displayButton();
         
     });
+    /** 각각 탭끼리 소통 관제탑 메인
+     *  send Tab > main > receive Tab **/
     window.addEventListener('message',function(event){
-       if(event.data == 'sideMenuOff'){
-           SBUxMethod.closeSideMenu('side_menu');
-       }
+        try{
+            let object = JSON.parse(event.data);
+            if(!gfn_isEmpty(object)){
+                let target = object.target;
+                let data = sideJsonData.filter((item) => item.id == target);
+                let openFlag = tabJsonData.some((item) => item.targetid.replace("TAB_","") == target);
+                localStorage.setItem("callMain",JSON.stringify(object));
+
+                if(openFlag){
+                    /** receive Tab이 열려 있는 상태에선 msg를 전달하여 VO 전달 **/
+                    let iframe = "idxfrmJson_TAB_" + target;
+                    let el = document.getElementById(iframe);
+                    SBUxMethod.set("tab_menu","TAB_"+target);
+
+                    el.contentWindow.postMessage(object);
+
+                }else{
+                    /** 현재 receive Tab이 없는경우 새로 오픈 **/
+                    fn_actionGoPage(
+                        data[0].url
+                        , 'LEFT'
+                        , data[0].id
+                        , data[0].text
+                        , data[0].pid
+                    );
+                }
+            }
+        }catch (e){
+            if(event.data == 'sideMenuOff'){
+                SBUxMethod.closeSideMenu('side_menu');
+            }
+        }
+
+
     });
 
     const fn_modalPopup = async function() {
