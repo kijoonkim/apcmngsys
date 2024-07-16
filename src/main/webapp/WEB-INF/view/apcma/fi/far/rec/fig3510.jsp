@@ -780,45 +780,48 @@
                                     </colgroup>
                                     <tbody>
                                         <tr> <%--TODO : P_FIM041--%>
-                                            <th scope="row" class="th_bg">관리항목1</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE1">관리항목1</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE1" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE1" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME1"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(1)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목5</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE5">관리항목5</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE5" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE5" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME5" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME5"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(5)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목9</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE9">관리항목9</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE9" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE9" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME9" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME9"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
@@ -827,45 +830,48 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="th_bg">관리항목2</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE2">관리항목2</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE2" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE2" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME2" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME2"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(2)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목6</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE6">관리항목6</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE6" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE6" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME6" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME6"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(6)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목10</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE10">관리항목10</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE10" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE10" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME10" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME10"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
@@ -874,30 +880,32 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="th_bg">관리항목3</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE3">관리항목3</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE3" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE3" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME3" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME3"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(3)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목7</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE7">관리항목7</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE7" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE7" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME7" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME7"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
@@ -906,30 +914,32 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="th_bg">관리항목4</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE4">관리항목4</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE4" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE4" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME4" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME4"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(4)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목8</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE8">관리항목8</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE8" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE8" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME8" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME8"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
@@ -1013,6 +1023,32 @@
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "부가세", "targetid" : "tabPage2", "targetvalue" : "부가세" },
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "관리항목", "targetid" : "tabPage1", "targetvalue" : "관리항목" },
     ];
+
+    var accPopupBizcompIdList = {
+        ACC_VALUE_NAME1 : "",
+        ACC_VALUE_NAME2 : "",
+        ACC_VALUE_NAME3 : "",
+        ACC_VALUE_NAME4 : "",
+        ACC_VALUE_NAME5 : "",
+        ACC_VALUE_NAME6 : "",
+        ACC_VALUE_NAME7 : "",
+        ACC_VALUE_NAME8 : "",
+        ACC_VALUE_NAME9 : "",
+        ACC_VALUE_NAME10 : ""
+    }
+
+    var accPopupWhereList = {
+        ACC_VALUE_NAME1 : "",
+        ACC_VALUE_NAME2 : "",
+        ACC_VALUE_NAME3 : "",
+        ACC_VALUE_NAME4 : "",
+        ACC_VALUE_NAME5 : "",
+        ACC_VALUE_NAME6 : "",
+        ACC_VALUE_NAME7 : "",
+        ACC_VALUE_NAME8 : "",
+        ACC_VALUE_NAME9 : "",
+        ACC_VALUE_NAME10 : ""
+    }
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
@@ -1588,9 +1624,9 @@
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_FIM041'
+            ,bizcompId				: accPopupBizcompIdList["ACC_VALUE_NAME"+num]
             ,popupType				: 'A'
-            ,whereClause			: strWhereClause
+            ,whereClause			: accPopupWhereList["ACC_VALUE_NAME"+num]
             ,searchCaptions			: ["관리항목코드", 		"관리항목명"]
             ,searchInputFields		: ["ACC_ITEM_VALUE", 		"ACC_VALUE_NAME"]
             ,searchInputValues		: ["", 			searchText]
@@ -1610,6 +1646,7 @@
         var addParam = [gfn_dateToYmd(new Date())];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부가세계정정보');
+        SBUxMethod.openModal('modal-compopup1');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1626,17 +1663,18 @@
             ,tableColumnWidths		: ["100px", 		"200px", 		"100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwWFItem.setCellData(row, (col-1), data.VAT_CODE);
-                gvwWFItem.setCellData(row, col, data.VAT_NAME);
+                gvwWFItem.setCellData(row, col, data.VAT_CODE);
+                gvwWFItem.setCellData(row, (col+1), data.VAT_NAME);
             },
         });
-        SBUxMethod.setModalCss('modal-compopup1', {width:'400px'})
+        SBUxMethod.setModalCss('modal-compopup1', {width:'600px'})
     }
 
     var fn_findAccountCodeForGvwWFItem = function(row, col) {
         var addParam = [null];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
+        SBUxMethod.openModal('modal-compopup1');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1653,11 +1691,56 @@
             ,tableColumnWidths		: ["100px", 		"200px", 		"200px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwWFItem.setCellData(row, (col-1), data.ACCOUNT_CODE);
-                gvwWFItem.setCellData(row, col, data.ACCOUNT_NAME);
+                gvwWFItem.setCellData(row, col, data.ACCOUNT_CODE);
+                gvwWFItem.setCellData(row, (col+1), data.ACCOUNT_NAME);
+            },
+            returnDataFilter        : function (data) {
+                if (gvwWFItem.getCellData(row, gvwWFItem.getColRef("LINE_TYPE")) == "2") {
+                    return data.filter(d => {
+                        d["ACC_CHARACTER"] == "C" || d["ACC_CHARACTER"] == "V"
+                    });
+                } else {
+                    return data;
+                }
+            }
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'600px'})
+    }
+
+    var fn_findCostCenterCodeForGvwWFItem = function(row, col) {
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        var replaceText2 	= "_COST_CLASS_";
+        var strWhereClause 	= "AND A.COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME LIKE '%" + replaceText1 + "%'";
+        var rowData = gvwWFItem.getRowData(row);
+        if(gfn_nvl(rowData.COST_CLASS) != "" && gfn_nvl(rowData.ACCOUNT_CODE) != "") {
+            if (gfn_nvl(rowData.COST_CLASS) != "" && gfn_nvl(rowData.COST_CLASS) != "8" && gfn_nvl(rowData.COST_CLASS) != "9") {
+                strWhereClause += " AND A.COST_CLASS LIKE '%" + replaceText2 + "%'";
+            }
+        }
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
+        SBUxMethod.openModal('modal-compopup1');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: "P_CC_INPUT"
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", "명칭"]
+            ,searchInputFields		: ["COST_CENTER_CODE", "COST_CENTER_NAME"]
+            ,searchInputValues		: ["", ""]
+            ,height					: '400px'
+            ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "사업장", "여신영역"]
+            ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "DEPT_NAME", "SITE_CODE", "CREDIT_AREA"]
+            ,tableColumnWidths		: ["100px", "150px", "100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS);
+                gvwWFItem.setCellData(row, col, data.COST_CENTER_CODE);
+                gvwWFItem.setCellData(row, (col+1), data.COST_CENTER_NAME);
             },
         });
-        SBUxMethod.setModalCss('modal-compopup1', {width:'500px'})
     }
 
     // 복사모드토글
@@ -2014,6 +2097,14 @@
         if(nCol == 8) {
             fn_findAccountCodeForGvwWFItem(nRow, (nCol - 1));
         }
+
+        if(nCol == 15) {
+            fn_findCostCenterCodeForGvwWFItem(nRow, nCol);
+        }
+
+        if(nCol == 16) {
+            fn_findCostCenterCodeForGvwWFItem(nRow, (nCol - 1));
+        }
     }
 
     const fn_gvwWFItemValueChanged = async function() {
@@ -2041,7 +2132,7 @@
             // 합계
             fn_summary();
         } else if (nCol == gvwWFItem.getColRef("ACCOUNT_CODE")) {
-            ChangeControlSettings(gvwWFItem.GetFocusedDataRow());
+            fn_changeControlSettings(rowData);
         } else if (nCol == gvwWFItem.getColRef("DEBIT_CREDIT")) {
 
             // 합계
@@ -2054,50 +2145,34 @@
 
             // 차대 구분에 따라 컨트롤 필수 속성 변경
             for (var i = 1; i <= 10; i++){
-                var txtacc_item_value = gfn_nvl(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_VALUE"+i)));
-                var txtacc_value_name = gfn_nvl(gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_VALUE_NAME"+i)));
-
-                if (txtacc_item_value != "") {
+                if (gvwWFItem.getColRef("ACC_ITEM_VALUE"+i) != -1) {
                     if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "D") {
                         if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN"+i)) == "Y") {
-                            txtacc_item_value.Properties.AllowBlank = false;
-                            txtacc_item_value.BackColor = AllowBlankColor;
-
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "true");
                             if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE"+i)) == "POPUP") {
-                                txtacc_value_name.Properties.AllowBlank = false;
-                                txtacc_value_name.BackColor = AllowBlankColor;
+                                SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "true");
                             }
                         } else {
-                            txtacc_item_value.Properties.AllowBlank = true;
-                            txtacc_item_value.BackColor = AppearanceBackColor;
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "false");
                         }
                     } else if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "C") {
                         if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN"+i)) == "Y") {
-                            txtacc_item_value.Properties.AllowBlank = false;
-                            txtacc_item_value.BackColor = AllowBlankColor;
-
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "true");
                             if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE"+i)) == "POPUP") {
-                                txtacc_value_name.Properties.AllowBlank = false;
-                                txtacc_value_name.BackColor = AllowBlankColor;
+                                SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "true");
                             }
                         } else {
-                            txtacc_item_value.Properties.AllowBlank = true;
-                            txtacc_item_value.BackColor = AppearanceBackColor;
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "false");
                         }
                     }
                 }
             }
         } else if (nCol == gvwWFItem.getColRef("ACC_CHARACTER")) {
-            ChangeControlSettings(gvwWFItem.GetFocusedDataRow());
+            fn_changeControlSettings(rowData);
         } else if (nCol == gvwWFItem.getColRef("LINE_TYPE")) {
             if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "2")
                 // TODO : 확인필요
                 colaccount_code.Popup.WhereQuery = "acc_character in ('C','V')";
-        } else if (nCol == gvwWFItem.getColRef("COST_CLASS")) {
-            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACCOUNT_CODE")) != "") {
-                var strAccountCostClass = gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("COST_CLASS"));
-                fnCostClassCheck("Y", strAccountCostClass);
-            }
         }
     }
 
@@ -2143,213 +2218,87 @@
         }
     }
 
-    const ChangeControlSettings = async function (dr) {
+    const fn_changeControlSettings = async function (dr) {
         if (dr == null)
             return;
 
         for (var i = 1; i <= 10; i++) {
             // 라벨명 설정
-            let lblacc_item_name = FindControl("lblacc_item_name" + i.ToString());
-            if (lblacc_item_name != null)
-                lblacc_item_name.Text = dr["ACC_ITEM_NAME" + i];
+            $("LBL_ACC_ITEM_VALUE"+i).text(dr["ACC_ITEM_NAME" + i])
 
             // 컨트롤 타입 설정
-            let txtacc_item_value = FindControl("txtacc_item_value" + i.ToString());
-            if (txtacc_item_value != "") {
-                switch (dr["DATA_TYPE" + i])
-                {
-                    case "TEXT":
-                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None;
-                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = false;
-                        txtacc_item_value.RightToLeft = RightToLeft.No;
-                        txtacc_item_value.Enabled = true;
-                        break;
-                    case "POPUP":
-                        txtacc_item_value.RightToLeft = RightToLeft.No;
-                        txtacc_item_value.Enabled = true;
-                        break;
-                    case "NUM":
-                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
-                        txtacc_item_value.Properties.Mask.EditMask = "###,###,###,###,###,###,##0";
-                        if (txtacc_item_value.Text == "")
-                            txtacc_item_value.Text = "0";
-                        txtacc_item_value.RightToLeft = RightToLeft.Yes;
-                        txtacc_item_value.Enabled = true;
-                        break;
-                    case "YYYY":
-                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTime;
-                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
-                        txtacc_item_value.Properties.Mask.EditMask = "yyyy";
-                        txtacc_item_value.Text = null;
-                        txtacc_item_value.Enabled = true;
-                        break;
-                    case "YYYYMM":
-                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTime;
-                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
-                        txtacc_item_value.Properties.Mask.EditMask = "yyyy-MM";
-                        txtacc_item_value.Text = null;
-                        txtacc_item_value.Enabled = true;
-                        break;
-                    case "YYYYMMDD":
-                        txtacc_item_value.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
-                        txtacc_item_value.Properties.Mask.UseMaskAsDisplayFormat = true;
-                        txtacc_item_value.Properties.Mask.ShowPlaceHolders = false;
-                        txtacc_item_value.Properties.Mask.EditMask = @"\d{4}-\d{2}-\d{2}";
-                        txtacc_item_value.Text = null;
-                        txtacc_item_value.Enabled = true;
-                        break;
-                    default:
-                        txtacc_item_value.Enabled = false;
-                        break;
-                }
+            switch (dr["DATA_TYPE" + i]) {
+                case "TEXT":
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "POPUP":
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'true');
+                    break;
+                case "NUM":
+                    $('ACC_ITEM_VALUE'+i).prop("type", "number");
+                    $('ACC_ITEM_VALUE'+i).attr("pattern", "\d{1,3}(,\d{3})*");
+                    txtacc_item_value.Properties.Mask.EditMask = "###,###,###,###,###,###,##0";
+                    if (gfn_nvl(SBUxMethod.get('ACC_ITEM_VALUE'+i)) == "")
+                        SBUxMethod.set('ACC_ITEM_VALUE'+i, 0);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "YYYY":
+                    txtacc_item_value.Properties.Mask.EditMask = "yyyy";
+                    SBUxMethod.set('ACC_ITEM_VALUE'+i, null);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "YYYYMM":
+                    txtacc_item_value.Properties.Mask.EditMask = "yyyy-MM";
+                    SBUxMethod.set('ACC_ITEM_VALUE'+i, null);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "YYYYMMDD":
+                    txtacc_item_value.Properties.Mask.EditMask = "yyyy-MM-dd";
+                    SBUxMethod.set('ACC_ITEM_VALUE'+i, null);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                default:
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'true');
+                    break;
             }
 
             // 팝업 설정
-            let txtacc_value_name = FindControl("txtacc_value_name" + i);
+            if (dr["DATA_TYPE" + i] == "POPUP") {
+                SBUxMethod.attr('ACC_VALUE_NAME'+i, 'readonly', 'false');
+                SBUxMethod.attr('BTN_ACC_VALUE_NAME'+i, 'disabled', 'false');
 
-            if (txtacc_value_name != "") {
-                if (dr["data_type" + i.ToString()].ToString() == "POPUP") {
-                    txtacc_item_value.Properties.Popup.BizComponentID = dr["popup_id" + i.ToString()].ToString();
-                    txtacc_item_value.Properties.Popup.FormType = "popBase";
+                accPopupBizcompIdList["ACC_VALUE_NAME"+i] = dr["POPUP_ID" + i];
 
-                    txtacc_value_name.Enabled = true;
-                    txtacc_value_name.Properties.Popup.BizComponentID = dr["popup_id" + i.ToString()].ToString();
-                    txtacc_value_name.Properties.Popup.FormType = "popBase";
+                accPopupWhereList["ACC_VALUE_NAME"+i] = "";
+                accPopupWhereList["ACC_VALUE_NAME"+i] = " AND ACC_VALUE_NAME = '" + gfnma_nvl(SBUxMethod.get("ACC_VALUE_NAME" + i)) + "'";
 
-                    txtacc_item_value.Properties.Popup.WhereList.Clear();
-                    WhereListItem witem1 = new WhereListItem("acc_item_value", "%_%", txtacc_item_value.Name);
-                    txtacc_item_value.Properties.Popup.WhereList.Add(witem1);
-
-                    txtacc_value_name.Properties.Popup.WhereList.Clear();
-                    WhereListItem witem2 = new WhereListItem("acc_value_name", "%_%", txtacc_value_name.Name);
-                    txtacc_value_name.Properties.Popup.WhereList.Add(witem2);
-
-                    //P_LOAN01   차입금
-                    //P_NOTE02   받을어음
-                    //P_NOTE03   지급어음
-                    //P_SAVE01   예적금
-                    if (dr["popup_id" + i.ToString()].ToString() == "P_LOAN01" ||
-                        dr["popup_id" + i.ToString()].ToString() == "P_NOTE02" ||
-                        dr["popup_id" + i.ToString()].ToString() == "P_NOTE03" ||
-                        dr["popup_id" + i.ToString()].ToString() == "P_SAVE01") {
-                        WhereListItem witem3 = new WhereListItem("fi_org_code", "=", cbofi_org_code.Name);
-                        txtacc_item_value.Properties.Popup.WhereList.Add(witem3);
-                        WhereListItem witem4 = new WhereListItem("fi_org_code", "=", cbofi_org_code.Name);
-                        txtacc_value_name.Properties.Popup.WhereList.Add(witem4);
-                    }
-                } else {
-                    txtacc_item_value.Properties.Popup.BizComponentID = "";
-
-                    txtacc_value_name.Enabled = false;
-                    txtacc_value_name.Properties.Popup.BizComponentID = "";
+                //P_LOAN01   차입금
+                //P_NOTE02   받을어음
+                //P_NOTE03   지급어음
+                //P_SAVE01   예적금
+                if (dr["POPUP_ID" + i] == "P_LOAN01" ||
+                    dr["POPUP_ID" + i] == "P_NOTE02" ||
+                    dr["POPUP_ID" + i] == "P_NOTE03" ||
+                    dr["POPUP_ID" + i] == "P_SAVE01") {
+                    accPopupWhereList["ACC_VALUE_NAME"+i] += " AND FI_ORG_CODE = '" + p_fiOrgCode + "'";
                 }
+            } else {
+                SBUxMethod.attr('ACC_VALUE_NAME'+i, 'readonly', 'true');
+                SBUxMethod.attr('BTN_ACC_VALUE_NAME'+i, 'disabled', 'true');
             }
 
             // 필수입력 설정
-            if (dr["acc_item_yn" + i.ToString()].ToString() == "Y") {
-                txtacc_item_value.Properties.AllowBlank = false;
-                txtacc_item_value.BackColor = AllowBlankColor;
+            if (dr["ACC_ITEM_YN" + i] == "Y") {
+                SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "true");
 
-                if (dr["data_type" + i.ToString()].ToString() == "POPUP") {
-                    txtacc_value_name.Properties.AllowBlank = false;
-                    txtacc_value_name.BackColor = AllowBlankColor;
+                if (dr["DATA_TYPE" + i] == "POPUP") {
+                    SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "true");
                 } else {
-                    txtacc_value_name.Properties.AllowBlank = true;
-                    txtacc_value_name.BackColor = AppearanceBackColor;
+                    SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "false");
                 }
             } else {
-                txtacc_item_value.Properties.AllowBlank = true;
-                txtacc_item_value.BackColor = AppearanceBackColor;
-                txtacc_value_name.Properties.AllowBlank = true;
-                txtacc_value_name.BackColor = AppearanceBackColor;
-            }
-        }
-    }
-
-    const fnCostClassCheck = async function (strCostClassCheckYN, strCostClass) {
-        JPlatform.Client.Controls8.Design.WhereListItem whereListItem25 = new JPlatform.Client.Controls8.Design.WhereListItem();
-        JPlatform.Client.Controls8.Design.WhereListItem whereListItem26 = new JPlatform.Client.Controls8.Design.WhereListItem();
-        JPlatform.Client.Controls8.Design.WhereListItem whereListItem27 = new JPlatform.Client.Controls8.Design.WhereListItem();
-        JPlatform.Client.Controls8.Design.WhereListItem whereListItem28 = new JPlatform.Client.Controls8.Design.WhereListItem();
-        JPlatform.Client.Controls8.Design.WhereListItem whereListItem29 = new JPlatform.Client.Controls8.Design.WhereListItem();
-        JPlatform.Client.Controls8.Design.WhereListItem whereListItem30 = new JPlatform.Client.Controls8.Design.WhereListItem();
-
-        if (strCostClassCheckYN == "N") {
-            this.colcost_center_code.Popup.WhereList.Clear();
-            whereListItem25.ControlName = "cost_center_code";
-            whereListItem25.Field = "cost_center_code";
-            whereListItem25.Operator = "%_%";
-            whereListItem26.ControlName = "";
-            whereListItem26.Field = "cost_center_name";
-            whereListItem26.Operator = "%_%";
-            this.colcost_center_code.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
-            whereListItem25,
-                whereListItem26});
-
-            this.colcost_center_name.Popup.WhereList.Clear();
-            whereListItem28.ControlName = "";
-            whereListItem28.Field = "cost_center_code";
-            whereListItem28.Operator = "%_%";
-            whereListItem29.ControlName = "cost_center_name";
-            whereListItem29.Field = "cost_center_name";
-            whereListItem29.Operator = "%_%";
-            this.colcost_center_name.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
-            whereListItem28,
-                whereListItem29});
-        } else {
-            if (strCostClass == "" || strCostClass == "8" || strCostClass == "9") {
-                this.colcost_center_code.Popup.WhereList.Clear();
-                whereListItem25.ControlName = "cost_center_code";
-                whereListItem25.Field = "cost_center_code";
-                whereListItem25.Operator = "_%";
-                whereListItem26.ControlName = "";
-                whereListItem26.Field = "cost_center_name";
-                whereListItem26.Operator = "_%";
-                this.colcost_center_code.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
-                whereListItem25,
-                    whereListItem26});
-
-                this.colcost_center_name.Popup.WhereList.Clear();
-                whereListItem28.ControlName = "";
-                whereListItem28.Field = "cost_center_code";
-                whereListItem28.Operator = "_%";
-                whereListItem29.ControlName = "cost_center_name";
-                whereListItem29.Field = "cost_center_name";
-                whereListItem29.Operator = "%_%";
-                this.colcost_center_name.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
-                whereListItem28,
-                    whereListItem29});
-            } else {
-                this.colcost_center_code.Popup.WhereList.Clear();
-                whereListItem25.ControlName = "cost_center_code";
-                whereListItem25.Field = "cost_center_code";
-                whereListItem25.Operator = "%_%";
-                whereListItem26.ControlName = "";
-                whereListItem26.Field = "cost_center_name";
-                whereListItem26.Operator = "%_%";
-                whereListItem27.ControlName = "cost_class";
-                whereListItem27.Field = "cost_class";
-                whereListItem27.Operator = "_%";
-                this.colcost_center_code.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
-                whereListItem25,
-                    whereListItem26,
-                    whereListItem27});
-
-                this.colcost_center_name.Popup.WhereList.Clear();
-                whereListItem28.ControlName = "";
-                whereListItem28.Field = "cost_center_code";
-                whereListItem28.Operator = "%_%";
-                whereListItem29.ControlName = "cost_center_name";
-                whereListItem29.Field = "cost_center_name";
-                whereListItem29.Operator = "%_%";
-                whereListItem30.ControlName = "cost_class";
-                whereListItem30.Field = "cost_class";
-                whereListItem30.Operator = "_%";
-                this.colcost_center_name.Popup.WhereList.AddRange(new JPlatform.Client.Controls8.Design.WhereListItem[] {
-                whereListItem28,
-                    whereListItem29,
-                    whereListItem30});
+                SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "false");
+                SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "false");
             }
         }
     }
