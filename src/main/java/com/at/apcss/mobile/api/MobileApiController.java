@@ -448,7 +448,7 @@ public class MobileApiController extends BaseController{
 
 	@PostMapping("/subscribeNotice.do")
 	@ResponseBody
-	public JSONObject subscribeNotice(@RequestBody @Validated FcmSendVO fcmSendVO,
+	public JSONObject subscribeNotice(@RequestBody FcmSendVO fcmSendVO,
 									  Locale locale,
 									  HttpServletRequest request) throws IOException {
 		JSONObject resultJson = new JSONObject();
@@ -475,7 +475,7 @@ public class MobileApiController extends BaseController{
 
 	@PostMapping("/sendNotice.do")
 	@ResponseBody
-	public JSONObject sendNotice(@RequestBody @Validated FcmSendVO fcmSendVO,
+	public JSONObject sendNotice(@RequestBody FcmSendVO fcmSendVO,
 								  Locale locale,
 								  HttpServletRequest request) throws IOException {
 		JSONObject resultJson = new JSONObject();
@@ -504,7 +504,7 @@ public class MobileApiController extends BaseController{
 
 	@PostMapping("/sendMessageTo.do")
 	@ResponseBody
-	public JSONObject sendMessageTo(@RequestBody @Validated FcmSendVO fcmSendVO,
+	public JSONObject sendMessageTo(@RequestBody FcmSendVO fcmSendVO,
 								 Locale locale,
 								 HttpServletRequest request) throws IOException {
 		JSONObject resultJson = new JSONObject();
