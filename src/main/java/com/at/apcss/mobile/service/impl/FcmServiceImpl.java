@@ -39,6 +39,23 @@ public class FcmServiceImpl implements FcmService{
         return response.getSuccessCount();
     }
 
+    @Override
+    public int sendMessageTo(FcmSendVO fcmSendVO) throws FirebaseMessagingException {
+        List<Message> messages = Arrays.asList(
+                Message.builder()
+                        .setToken(fcmSendVO.getToken())
+                        .setNotification(Notification.builder()
+                                .setTitle(fcmSendVO.getTitle())
+                                .setBody(fcmSendVO.getBody())
+                                .build())
+                        .build()
+        );
+
+        BatchResponse response = FirebaseMessaging.getInstance().sendAll(messages);
+        System.out.println(response.getSuccessCount() + " messages were sent successfully");
+        return response.getSuccessCount();
+    }
+
     /**
      * Firebase Admin SDK의 비공개 키를 참조하여 Bearer 토큰을 발급 받습니다.
      *

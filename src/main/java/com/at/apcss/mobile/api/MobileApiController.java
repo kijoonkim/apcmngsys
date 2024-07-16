@@ -501,4 +501,32 @@ public class MobileApiController extends BaseController{
 
 		return resultJson;
 	}
+
+	@PostMapping("/fcm/sendMessageTo.do")
+	@ResponseBody
+	public JSONObject sendMessageTo(@RequestBody @Validated FcmSendVO fcmSendVO,
+								 Locale locale,
+								 HttpServletRequest request) throws IOException {
+		JSONObject resultJson = new JSONObject();
+		try {
+			int result = fcmService.sendMessageTo(fcmSendVO);
+
+			if (result > 0) {
+				resultJson.put("success", true);
+				resultJson.put("message", "성공");
+				resultJson.put("data", result);
+			} else {
+				resultJson.put("success", false);
+				resultJson.put("code", "6666");
+				resultJson.put("message", "fail");
+			}
+		} catch (FirebaseMessagingException e) {
+			e.printStackTrace();
+			resultJson.put("success", false);
+			resultJson.put("code", "6666");
+			resultJson.put("message", "fail");
+		}
+
+		return resultJson;
+	}
 }

@@ -11,4 +11,6 @@ public interface FcmService {
     int subscribeTopic(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
     //FCM 토픽 메세지
     int sendTopicMessage(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
+    //FCM 메세지 to Token
+    int sendMessageTo(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
 }
