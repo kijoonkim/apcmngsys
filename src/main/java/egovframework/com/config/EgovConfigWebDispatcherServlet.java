@@ -98,7 +98,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/uat/uia/**",
 				"/saveExcel.do",
 				"/report/**",
-				"/api/mobile/*.do");
+				"/api/mobile/**/*");
 		registry.addInterceptor(mobileAuthenticInterceptor())
 			.addPathPatterns(
 				"/api/mobile/**/*")

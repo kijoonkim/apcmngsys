@@ -446,7 +446,7 @@ public class MobileApiController extends BaseController{
 		return target.before(new Date(System.currentTimeMillis()));
 	}
 
-	@PostMapping("/fcm/subscribeNotice.do")
+	@PostMapping("/subscribeNotice.do")
 	@ResponseBody
 	public JSONObject subscribeNotice(@RequestBody @Validated FcmSendVO fcmSendVO,
 									  Locale locale,
@@ -473,7 +473,7 @@ public class MobileApiController extends BaseController{
 		return resultJson;
 	}
 
-	@PostMapping("/fcm/sendNotice.do")
+	@PostMapping("/sendNotice.do")
 	@ResponseBody
 	public JSONObject sendNotice(@RequestBody @Validated FcmSendVO fcmSendVO,
 								  Locale locale,
@@ -502,7 +502,7 @@ public class MobileApiController extends BaseController{
 		return resultJson;
 	}
 
-	@PostMapping("/fcm/sendMessageTo.do")
+	@PostMapping("/sendMessageTo.do")
 	@ResponseBody
 	public JSONObject sendMessageTo(@RequestBody @Validated FcmSendVO fcmSendVO,
 								 Locale locale,
