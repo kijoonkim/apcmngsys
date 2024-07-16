@@ -89,6 +89,7 @@ function compopup1(options) {
 		,tableColumnNames		: null
 		,tableColumnWidths		: null
 		,itemSelectEvent		: null
+		,returnDataFilter		: null
 	};
 	$.extend(settings, options);	
 	//console.log('settings:', settings);
@@ -262,6 +263,11 @@ function compopup1(options) {
     	//create td
 		var tmp = "";
 		var list = data.cv_1;
+
+		if(settings.returnDataFilter){
+			list = settings.returnDataFilter(list);
+		}
+
    	 	for (var i= 0; i < list.length; i++) {
 			tmp += '<tr>'
 			//표시되는 컬럼

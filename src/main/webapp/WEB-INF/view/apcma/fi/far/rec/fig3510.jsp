@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body oncontextmenu="return false">
-<style>
-    /*.left-section, .right-section {
-        display: flex;
-        align-items: center;
-    }
-    .ad_tbl_toplist .dropdown {
-        margin-left: 5px;
-    }
-    .ad_tbl_toplist .form-control, .ad_tbl_toplist .btn, .ad_tbl_toplist span {
-        margin-left: 5px;
-    }*/
-</style>
 <section>
     <div class="box box-solid">
             <%--<div class="box-header" style="display:flex; justify-content: flex-start;">
@@ -45,6 +33,10 @@
                             <th scope="row" class="th_bg">사업장</th>
                             <td class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SRCH_SITE_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_CARD_YN" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_FROM_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_TO_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                <sbux-input id="SRCH_INVOCE_BATCH_NO" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                             </td>
 						</tr>
                     </tbody>
@@ -70,7 +62,7 @@
                                 <sbux-checkbox uitype="normal" id="CLOSE_YN" name="CLOSE_YN" uitype="normal" class="form-control input-sm check" text="역분개라인생성" true-value="Y" false-value="N"/>
                             </div>
                             <div style="display: flex; align-items: center; justify-content: left; width: 30%; margin-right: 5%">
-                                <span style="margin-right: 10px;">세금계산서</span>
+                                <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
                                 <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                 <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
@@ -181,12 +173,14 @@
                                         <div class="dropdown-menu" aria-labelledby="PAYEE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
+                                    <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">거래처</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -203,7 +197,7 @@
                                     ></sbux-button>
                                 </td>
                                 <td></td>
-                                <th scope="row" class="th_bg">지급기준</th>
+                                <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
@@ -253,7 +247,7 @@
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
-                                <th scope="row" class="th_bg">지급방법</th>
+                                <th scope="row" class="th_bg" id="LBL_PAY_METHOD">지급방법</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
                                         <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -296,7 +290,7 @@
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
                                 </td>
-                                <th scope="row" class="th_bg">지급기산일자</th>
+                                <th scope="row" class="th_bg" id="LBL_PAY_BASE_DATE">지급기산일자</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-datepicker
                                             uitype="popup"
@@ -345,7 +339,7 @@
                                     </div>
                                 </td>
                                 <td></td>
-                                <th scope="row" class="th_bg">지급만기일자</th>
+                                <th scope="row" class="th_bg" id="LBL_EXPECTED_PAY_DATE">지급만기일자</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-datepicker
                                             uitype="popup"
@@ -354,6 +348,7 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            onchange="fn_changeExpectedPayDate(EXPECTED_PAY_DATE)"
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">어음만기일자</th>
@@ -439,6 +434,38 @@
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                 </td>
+                                <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             </tr>
                             </tbody>
                         </table>
@@ -753,45 +780,48 @@
                                     </colgroup>
                                     <tbody>
                                         <tr> <%--TODO : P_FIM041--%>
-                                            <th scope="row" class="th_bg">관리항목1</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE1">관리항목1</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE1" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE1" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME1"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(1)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목5</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE5">관리항목5</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE5" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE5" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME5" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME5"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(5)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목9</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE9">관리항목9</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE9" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE9" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME9" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME9"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
@@ -800,45 +830,48 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="th_bg">관리항목2</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE2">관리항목2</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE2" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE2" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME2" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME2"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(2)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목6</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE6">관리항목6</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE6" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE6" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME6" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME6"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(6)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목10</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE10">관리항목10</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE10" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE10" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME10" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME10"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
@@ -847,30 +880,32 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="th_bg">관리항목3</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE3">관리항목3</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE3" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE3" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME3" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME3"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(3)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목7</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE7">관리항목7</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE7" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE7" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME7" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME7"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
@@ -879,36 +914,43 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row" class="th_bg">관리항목4</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE4">관리항목4</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE4" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE4" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME4" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME4"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(4)"
                                                 ></sbux-button>
                                             </td>
-                                            <th scope="row" class="th_bg">관리항목8</th>
+                                            <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE8">관리항목8</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_ITEM_VALUE8" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                                <input id="ACC_ITEM_VALUE8" type="text" placeholder="" class="form-control input-sm" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME8" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
+                                                        id="BTN_ACC_VALUE_NAME8"
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
                                                         onclick="fn_findAccItem(8)"
                                                 ></sbux-button>
                                             </td>
+                                            <sbux-input id="DEBIT_CREDIT" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="ACC_CODE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="DESCRIPTION" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="PROJECT_CODE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="PROJECT_NAME" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -936,8 +978,18 @@
     var p_menuId = '${comMenuVO.menuId}';
     var strsourceType = "<%=request.getParameter("sourceType")%>";
     if(strsourceType == "") strsourceType = "AP";
-    var p_empCd = '${loginVO.empCd}';
-    var p_fiOrgCode = "${loginVO.fiOrgCode}";
+    var p_userId = '${loginVO.maUserID}';
+    var p_empCd = '${loginVO.maEmpCode}';
+    var p_fiOrgCode = "${loginVO.maFIOrgCode}";
+    var p_currCode = "${loginVO.maCurrCode}";
+    var p_currUnit = "${loginVO.maCurrUnit}";
+    var p_defaultAcctRule = "${loginVO.maDefaultAcctRule}";
+    var p_deptCode = "${loginVO.maDeptCode}";
+    var p_deptName = "${loginVO.maDeptName}";
+    var p_isAccountManager = "${loginVO.maIsAccountManager}";
+    var p_isAccountChief = "${loginVO.maIsAccountChief}";
+    var p_siteCode = "${loginVO.maSiteCode}";
+    var p_fiDeleteUser =  "${loginVO.maFI_DELETE_USER}";
 
     var bnew = true;
     var bAllowPrint = false;
@@ -972,18 +1024,33 @@
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "관리항목", "targetid" : "tabPage1", "targetvalue" : "관리항목" },
     ];
 
-    const fn_initSBSelect = async function() {
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-        $("#apcSelectMa").hide();
-        SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE",p_fiOrgCode);
-        SBUxMethod.set("SRCH_SITE_CODE",'');
-        SBUxMethod.set("SRCH_PERIOD_YYYYMM",gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_TXN_DATE_FROM",gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_TXN_DATE_TO", gfn_dateLastYmd(new Date()));
-        SBUxMethod.set("SRCH_REVERSE_FLAG", "Y");
+    var accPopupBizcompIdList = {
+        ACC_VALUE_NAME1 : "",
+        ACC_VALUE_NAME2 : "",
+        ACC_VALUE_NAME3 : "",
+        ACC_VALUE_NAME4 : "",
+        ACC_VALUE_NAME5 : "",
+        ACC_VALUE_NAME6 : "",
+        ACC_VALUE_NAME7 : "",
+        ACC_VALUE_NAME8 : "",
+        ACC_VALUE_NAME9 : "",
+        ACC_VALUE_NAME10 : ""
+    }
 
+    var accPopupWhereList = {
+        ACC_VALUE_NAME1 : "",
+        ACC_VALUE_NAME2 : "",
+        ACC_VALUE_NAME3 : "",
+        ACC_VALUE_NAME4 : "",
+        ACC_VALUE_NAME5 : "",
+        ACC_VALUE_NAME6 : "",
+        ACC_VALUE_NAME7 : "",
+        ACC_VALUE_NAME8 : "",
+        ACC_VALUE_NAME9 : "",
+        ACC_VALUE_NAME10 : ""
+    }
+
+    const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업단위
             gfnma_multiSelectInit({
@@ -1005,7 +1072,7 @@
                 ]
             }),
             // 전표구분
-            gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', 'WHERE ' + (strsourceType == "AP" ? "ap_doc_write_yn = 'Y'" : (strsourceType == "BAD"  ? "doc_type like '91%'" : "ar_doc_write_yn = 'Y'")), gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 전표상태
             gfnma_multiSelectInit({
                 target			: ['#DOC_STATUS']
@@ -1031,7 +1098,7 @@
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_USER'
-                ,whereClause	: ''
+                ,whereClause	: "AND a.user_id IN (SELECT CASE WHEN b.account_manager_yn = 'Y' THEN a.user_id ELSE b.user_id END FROM sysUserMaster b WHERE b.user_id = '" + p_userId + "')"
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
@@ -1093,7 +1160,7 @@
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_VAT_INFO'
-                ,whereClause	: ''
+                ,whereClause	: "AND a.use_yn = 'Y' AND b.ar_ap_type = '" + strsourceType + "'"
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
@@ -1111,41 +1178,13 @@
                     {caption: "하한비율", 		ref: 'LIMIT_MINUS_RATE',    		width:'50px',  	style:'text-align:left'},
                 ]
             }),
-            // 계좌정보
-            gfnma_multiSelectInit({
-                target			: ['#BANK_ACCOUNT_SEQ']
-                ,compCode		: gv_ma_selectedApcCd
-                ,clientCode		: gv_ma_selectedClntCd
-                ,bizcompId		: 'L_CS_ACCOUNT'
-                ,whereClause	: ''
-                ,formId			: p_formId
-                ,menuId			: p_menuId
-                ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'BANK_ACCOUNT_SEQ'
-                ,colLabel		: 'SEQ_NAME'
-                ,columns		:[
-                    {caption: "행번",		ref: 'BANK_ACCOUNT_SEQ', 			width:'50px',  	style:'text-align:left'},
-                    {caption: "행번명", 		ref: 'SEQ_NAME',    		width:'60px',  	style:'text-align:left'},
-                    {caption: "은행코드", 		ref: 'BANK_CODE',    		width:'50px',  	style:'text-align:left'},
-                    {caption: "은행명", 		ref: 'BANK_NAME',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "계좌번호", 		ref: 'BANK_ACCOUNT_NO',    		width:'130px',  	style:'text-align:left'},
-                    {caption: "비고", 		ref: 'DESCRIPTION',    		width:'120px',  	style:'text-align:left'},
-                    {caption: "계좌주", 		ref: 'BANK_ACCOUNT_OWNER',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "거래처", 		ref: 'CS_CODE',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "시작일", 		ref: 'EFFECT_START_DATE',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "종료일", 		ref: 'EFFECT_END_DATE',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "복수등록", 		ref: 'BNKCNT',    		width:'100px',  	style:'text-align:left'},
-                ]
-            }),
             // 전표템플릿
             gfnma_multiSelectInit({
                 target			: ['#RULE_CODE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_RULE'
-                ,whereClause	: ''
+                ,whereClause	: (strsourceType == "AP" ? "AND ap_doc_write_yn = 'Y'" : (strsourceType == "BAD" ? "AND doc_type LIKE '91%'" : "AND ar_doc_write_yn = 'Y'"))
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
@@ -1373,6 +1412,34 @@
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
+            // 계좌정보
+            gfnma_multiSelectInit({
+                target			: ['#BANK_ACCOUNT_SEQ']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_CS_ACCOUNT'
+                ,whereClause	: "AND a.cs_code = '" + gfnma_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'left' 	// left, right
+                ,colValue		: 'BANK_ACCOUNT_SEQ'
+                ,colLabel		: 'SEQ_NAME'
+                ,columns		:[
+                    {caption: "행번",		ref: 'BANK_ACCOUNT_SEQ', 			width:'50px',  	style:'text-align:left'},
+                    {caption: "행번명", 		ref: 'SEQ_NAME',    		width:'60px',  	style:'text-align:left'},
+                    {caption: "은행코드", 		ref: 'BANK_CODE',    		width:'50px',  	style:'text-align:left'},
+                    {caption: "은행명", 		ref: 'BANK_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "계좌번호", 		ref: 'BANK_ACCOUNT_NO',    		width:'130px',  	style:'text-align:left'},
+                    {caption: "비고", 		ref: 'DESCRIPTION',    		width:'120px',  	style:'text-align:left'},
+                    {caption: "계좌주", 		ref: 'BANK_ACCOUNT_OWNER',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "거래처", 		ref: 'CS_CODE',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "시작일", 		ref: 'EFFECT_START_DATE',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "종료일", 		ref: 'EFFECT_END_DATE',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "복수등록", 		ref: 'BNKCNT',    		width:'100px',  	style:'text-align:left'},
+                ]
+            }),
             // 유형
             gfnma_setComSelect(['gvwWFItem'], jsonLineType, 'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 차/대
@@ -1384,8 +1451,41 @@
             // 여신영역
             gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
         ]);
+    }
 
-        console.log(jsonCurrencyCode)
+    var fn_getBankAccountSeq = function () {
+        // 계좌정보
+        gfnma_multiSelectInit({
+            target			: ['#BANK_ACCOUNT_SEQ']
+            ,compCode		: gv_ma_selectedApcCd
+            ,clientCode		: gv_ma_selectedClntCd
+            ,bizcompId		: 'L_CS_ACCOUNT'
+            ,whereClause	: "AND a.cs_code = '" + gfnma_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+            ,formId			: p_formId
+            ,menuId			: p_menuId
+            ,selectValue	: ''
+            ,dropType		: 'down' 	// up, down
+            ,dropAlign		: 'left' 	// left, right
+            ,colValue		: 'BANK_ACCOUNT_SEQ'
+            ,colLabel		: 'SEQ_NAME'
+            ,columns		:[
+                {caption: "행번",		ref: 'BANK_ACCOUNT_SEQ', 			width:'50px',  	style:'text-align:left'},
+                {caption: "행번명", 		ref: 'SEQ_NAME',    		width:'60px',  	style:'text-align:left'},
+                {caption: "은행코드", 		ref: 'BANK_CODE',    		width:'50px',  	style:'text-align:left'},
+                {caption: "은행명", 		ref: 'BANK_NAME',    		width:'100px',  	style:'text-align:left'},
+                {caption: "계좌번호", 		ref: 'BANK_ACCOUNT_NO',    		width:'130px',  	style:'text-align:left'},
+                {caption: "비고", 		ref: 'DESCRIPTION',    		width:'120px',  	style:'text-align:left'},
+                {caption: "계좌주", 		ref: 'BANK_ACCOUNT_OWNER',    		width:'100px',  	style:'text-align:left'},
+                {caption: "거래처", 		ref: 'CS_CODE',    		width:'100px',  	style:'text-align:left'},
+                {caption: "시작일", 		ref: 'EFFECT_START_DATE',    		width:'100px',  	style:'text-align:left'},
+                {caption: "종료일", 		ref: 'EFFECT_END_DATE',    		width:'100px',  	style:'text-align:left'},
+                {caption: "복수등록", 		ref: 'BNKCNT',    		width:'100px',  	style:'text-align:left'},
+            ]
+        });
+    }
+
+    var fn_changeExpectedPayDate = function (data) {
+        fn_getBankAccountSeq();
     }
 
     var fn_findDeptCode = function() {
@@ -1422,7 +1522,7 @@
         var CS_CODE 		= gfnma_nvl(SBUxMethod.get("CS_CODE"));
         var addParams = [CS_CODE, '', strsourceType];
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '세금계산서목록');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1456,9 +1556,10 @@
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%" + replaceText2 + "%'";
+        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%" + replaceText2 + "%'"
+            + (strsourceType == "AP" ? " BETWEEN effect_start_date AND effect_end_date " : "");
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1480,6 +1581,7 @@
                 SBUxMethod.set('CS_CODE', data.CS_CODE);
                 SBUxMethod.set('CS_NAME', data.CS_NAME);
                 SBUxMethod.set('BIZ_REGNO', data.BIZ_REGNO);
+                fn_getBankAccountSeq();
             },
         });
     }
@@ -1522,9 +1624,9 @@
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_FIM041'
+            ,bizcompId				: accPopupBizcompIdList["ACC_VALUE_NAME"+num]
             ,popupType				: 'A'
-            ,whereClause			: strWhereClause
+            ,whereClause			: accPopupWhereList["ACC_VALUE_NAME"+num]
             ,searchCaptions			: ["관리항목코드", 		"관리항목명"]
             ,searchInputFields		: ["ACC_ITEM_VALUE", 		"ACC_VALUE_NAME"]
             ,searchInputValues		: ["", 			searchText]
@@ -1544,6 +1646,7 @@
         var addParam = [gfn_dateToYmd(new Date())];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부가세계정정보');
+        SBUxMethod.openModal('modal-compopup1');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1560,17 +1663,18 @@
             ,tableColumnWidths		: ["100px", 		"200px", 		"100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwWFItem.setCellData(row, (col-1), data.VAT_CODE);
-                gvwWFItem.setCellData(row, col, data.VAT_NAME);
+                gvwWFItem.setCellData(row, col, data.VAT_CODE);
+                gvwWFItem.setCellData(row, (col+1), data.VAT_NAME);
             },
         });
-        SBUxMethod.setModalCss('modal-compopup1', {width:'400px'})
+        SBUxMethod.setModalCss('modal-compopup1', {width:'600px'})
     }
 
     var fn_findAccountCodeForGvwWFItem = function(row, col) {
         var addParam = [null];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
+        SBUxMethod.openModal('modal-compopup1');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -1587,11 +1691,56 @@
             ,tableColumnWidths		: ["100px", 		"200px", 		"200px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwWFItem.setCellData(row, (col-1), data.ACCOUNT_CODE);
-                gvwWFItem.setCellData(row, col, data.ACCOUNT_NAME);
+                gvwWFItem.setCellData(row, col, data.ACCOUNT_CODE);
+                gvwWFItem.setCellData(row, (col+1), data.ACCOUNT_NAME);
+            },
+            returnDataFilter        : function (data) {
+                if (gvwWFItem.getCellData(row, gvwWFItem.getColRef("LINE_TYPE")) == "2") {
+                    return data.filter(d => {
+                        d["ACC_CHARACTER"] == "C" || d["ACC_CHARACTER"] == "V"
+                    });
+                } else {
+                    return data;
+                }
+            }
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'600px'})
+    }
+
+    var fn_findCostCenterCodeForGvwWFItem = function(row, col) {
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        var replaceText2 	= "_COST_CLASS_";
+        var strWhereClause 	= "AND A.COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME LIKE '%" + replaceText1 + "%'";
+        var rowData = gvwWFItem.getRowData(row);
+        if(gfn_nvl(rowData.COST_CLASS) != "" && gfn_nvl(rowData.ACCOUNT_CODE) != "") {
+            if (gfn_nvl(rowData.COST_CLASS) != "" && gfn_nvl(rowData.COST_CLASS) != "8" && gfn_nvl(rowData.COST_CLASS) != "9") {
+                strWhereClause += " AND A.COST_CLASS LIKE '%" + replaceText2 + "%'";
+            }
+        }
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
+        SBUxMethod.openModal('modal-compopup1');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: "P_CC_INPUT"
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", "명칭"]
+            ,searchInputFields		: ["COST_CENTER_CODE", "COST_CENTER_NAME"]
+            ,searchInputValues		: ["", ""]
+            ,height					: '400px'
+            ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "사업장", "여신영역"]
+            ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "DEPT_NAME", "SITE_CODE", "CREDIT_AREA"]
+            ,tableColumnWidths		: ["100px", "150px", "100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS);
+                gvwWFItem.setCellData(row, col, data.COST_CENTER_CODE);
+                gvwWFItem.setCellData(row, (col+1), data.COST_CENTER_NAME);
             },
         });
-        SBUxMethod.setModalCss('modal-compopup1', {width:'500px'})
     }
 
     // 복사모드토글
@@ -1923,6 +2072,7 @@
 
         gvwWFItem = _SBGrid.create(SBGridProperties);
         gvwWFItem.bind('dblclick', 'fn_gvwWFItemDblclick');
+        gvwWFItem.bind('valuechanged','fn_gvwWFItemValueChanged');
         //gvwWFItem.bind('click', 'fn_view');
     }
 
@@ -1947,6 +2097,210 @@
         if(nCol == 8) {
             fn_findAccountCodeForGvwWFItem(nRow, (nCol - 1));
         }
+
+        if(nCol == 15) {
+            fn_findCostCenterCodeForGvwWFItem(nRow, nCol);
+        }
+
+        if(nCol == 16) {
+            fn_findCostCenterCodeForGvwWFItem(nRow, (nCol - 1));
+        }
+    }
+
+    const fn_gvwWFItemValueChanged = async function() {
+        var nRow = gvwWFItem.getRow();
+        var nCol = gvwWFItem.getCol();
+        var rowData = gvwWFItem.getRowData(nRow);
+
+        if (nCol == gvwWFItem.getColRef("CURRENCY_CODE")) {
+
+            let ht = fn_getExchangeRate(ymddoc_date.yyyymmdd, gvwWFItem.GetValue(e.RowHandle, "currency_code").ToString(), null);
+
+            gvwWFItem.SetValue(e.RowHandle, "exchange_rate", Decimal.Parse(ht["RATE"].ToString()));
+            gvwWFItem.SetValue(e.RowHandle, "base_scale", Decimal.Parse(ht["BASE_SCALE"].ToString()));
+            gvwWFItem.SetValue(e.RowHandle, "functional_amt", Math.Round(decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "original_amt").ToString()) * decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "exchange_rate").ToString()) / decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "base_scale").ToString()), p_currUnit));
+        }
+
+        if (nCol == gvwWFItem.getColRef("ORIGINAL_AMT")) {
+
+            gvwWFItem.SetValue(e.RowHandle, "functional_amt", Math.Round(decimal.Parse(gvwWFItem.GetValue(e.RowHandle, "original_amt").ToString()) * decimal.Parse(numexchange_rate.EditValue.ToString()) / decimal.Parse(numbase_scale.EditValue.ToString()), p_currUnit));
+            // 합계
+            fn_summary();
+        }
+
+        if (nCol == gvwWFItem.getColRef("FUNCTIONAL_AMT")) {
+            // 합계
+            fn_summary();
+        } else if (nCol == gvwWFItem.getColRef("ACCOUNT_CODE")) {
+            fn_changeControlSettings(rowData);
+        } else if (nCol == gvwWFItem.getColRef("DEBIT_CREDIT")) {
+
+            // 합계
+            fn_summary();
+
+            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACCOUNT_CODE")) == "" || gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACCOUNT_NAME")) == "")
+                return;
+
+            SBUxMethod.set("DEBIT_CREDIT", gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")));
+
+            // 차대 구분에 따라 컨트롤 필수 속성 변경
+            for (var i = 1; i <= 10; i++){
+                if (gvwWFItem.getColRef("ACC_ITEM_VALUE"+i) != -1) {
+                    if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "D") {
+                        if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN"+i)) == "Y") {
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "true");
+                            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE"+i)) == "POPUP") {
+                                SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "true");
+                            }
+                        } else {
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "false");
+                        }
+                    } else if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DEBIT_CREDIT")) == "C") {
+                        if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("ACC_ITEM_YN"+i)) == "Y") {
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "true");
+                            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("DATA_TYPE"+i)) == "POPUP") {
+                                SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "true");
+                            }
+                        } else {
+                            SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "false");
+                        }
+                    }
+                }
+            }
+        } else if (nCol == gvwWFItem.getColRef("ACC_CHARACTER")) {
+            fn_changeControlSettings(rowData);
+        } else if (nCol == gvwWFItem.getColRef("LINE_TYPE")) {
+            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "2")
+                // TODO : 확인필요
+                colaccount_code.Popup.WhereQuery = "acc_character in ('C','V')";
+        }
+    }
+
+    const fn_getExchangeRate = async function (stryyyymmdd, strcurrency_code, strrate_type) {
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_YYYYMMDD : stryyyymmdd,
+            V_P_CURR_CODE : strcurrency_code,
+            V_P_RATE_TYPE : strrate_type,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/far/rec/getExchangeRate.do", {
+            getType				: 'json',
+            workType			: 'Q2',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                return {
+                    RATE: data.cv_1[0]["RATE"],
+                    BASE_SCALE: data.cv_1[0]["BASE_SCALE"]
+                };
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_changeControlSettings = async function (dr) {
+        if (dr == null)
+            return;
+
+        for (var i = 1; i <= 10; i++) {
+            // 라벨명 설정
+            $("LBL_ACC_ITEM_VALUE"+i).text(dr["ACC_ITEM_NAME" + i])
+
+            // 컨트롤 타입 설정
+            switch (dr["DATA_TYPE" + i]) {
+                case "TEXT":
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "POPUP":
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'true');
+                    break;
+                case "NUM":
+                    $('ACC_ITEM_VALUE'+i).prop("type", "number");
+                    $('ACC_ITEM_VALUE'+i).attr("pattern", "\d{1,3}(,\d{3})*");
+                    txtacc_item_value.Properties.Mask.EditMask = "###,###,###,###,###,###,##0";
+                    if (gfn_nvl(SBUxMethod.get('ACC_ITEM_VALUE'+i)) == "")
+                        SBUxMethod.set('ACC_ITEM_VALUE'+i, 0);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "YYYY":
+                    txtacc_item_value.Properties.Mask.EditMask = "yyyy";
+                    SBUxMethod.set('ACC_ITEM_VALUE'+i, null);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "YYYYMM":
+                    txtacc_item_value.Properties.Mask.EditMask = "yyyy-MM";
+                    SBUxMethod.set('ACC_ITEM_VALUE'+i, null);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                case "YYYYMMDD":
+                    txtacc_item_value.Properties.Mask.EditMask = "yyyy-MM-dd";
+                    SBUxMethod.set('ACC_ITEM_VALUE'+i, null);
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'false');
+                    break;
+                default:
+                    SBUxMethod.attr('ACC_ITEM_VALUE'+i, 'readonly', 'true');
+                    break;
+            }
+
+            // 팝업 설정
+            if (dr["DATA_TYPE" + i] == "POPUP") {
+                SBUxMethod.attr('ACC_VALUE_NAME'+i, 'readonly', 'false');
+                SBUxMethod.attr('BTN_ACC_VALUE_NAME'+i, 'disabled', 'false');
+
+                accPopupBizcompIdList["ACC_VALUE_NAME"+i] = dr["POPUP_ID" + i];
+
+                accPopupWhereList["ACC_VALUE_NAME"+i] = "";
+                accPopupWhereList["ACC_VALUE_NAME"+i] = " AND ACC_VALUE_NAME = '" + gfnma_nvl(SBUxMethod.get("ACC_VALUE_NAME" + i)) + "'";
+
+                //P_LOAN01   차입금
+                //P_NOTE02   받을어음
+                //P_NOTE03   지급어음
+                //P_SAVE01   예적금
+                if (dr["POPUP_ID" + i] == "P_LOAN01" ||
+                    dr["POPUP_ID" + i] == "P_NOTE02" ||
+                    dr["POPUP_ID" + i] == "P_NOTE03" ||
+                    dr["POPUP_ID" + i] == "P_SAVE01") {
+                    accPopupWhereList["ACC_VALUE_NAME"+i] += " AND FI_ORG_CODE = '" + p_fiOrgCode + "'";
+                }
+            } else {
+                SBUxMethod.attr('ACC_VALUE_NAME'+i, 'readonly', 'true');
+                SBUxMethod.attr('BTN_ACC_VALUE_NAME'+i, 'disabled', 'true');
+            }
+
+            // 필수입력 설정
+            if (dr["ACC_ITEM_YN" + i] == "Y") {
+                SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "true");
+
+                if (dr["DATA_TYPE" + i] == "POPUP") {
+                    SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "true");
+                } else {
+                    SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "false");
+                }
+            } else {
+                SBUxMethod.attr("ACC_ITEM_VALUE"+i, "required", "false");
+                SBUxMethod.attr("ACC_VALUE_NAME"+i, "required", "false");
+            }
+        }
     }
 
     // 행추가
@@ -1958,13 +2312,13 @@
                 KEY_ID : gfnma_nvl(SBUxMethod.get("KEY_ID")),
                 ITEM_SEQ : jsonAccountLineList.length,
                 LINE_TYPE : "2",
-                SITE_CODE : gfnma_nvl(SBUxMethod.get("SITE_CODE")),
+                SITE_CODE : gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
                 DEPT_CODE : gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
                 DEBIT_CREDIT : gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
                 ORIGINAL_AMT : 0,
                 VAT_AMT : 0,
                 SUPPLY_AMT : 0,
-                CURRENCY_CODE : gfnma_nvl(SBUxMethod.get("CURRENCY_CODE")),
+                CURRENCY_CODE : gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
                 EXCHANGE_RATE : gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
                 CS_CODE : gfnma_nvl(SBUxMethod.get("CS_CODE")),
                 VAT_TYPE : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
@@ -1976,13 +2330,13 @@
                 KEY_ID : gfnma_nvl(SBUxMethod.get("KEY_ID")),
                 ITEM_SEQ : jsonAccountLineList.length,
                 LINE_TYPE : "2",
-                SITE_CODE : gfnma_nvl(SBUxMethod.get("SITE_CODE")),
+                SITE_CODE : gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
                 DEPT_CODE : gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
                 DEBIT_CREDIT : gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
                 ORIGINAL_AMT : 0,
                 VAT_AMT : 0,
                 SUPPLY_AMT : 0,
-                CURRENCY_CODE : gfnma_nvl(SBUxMethod.get("CURRENCY_CODE")),
+                CURRENCY_CODE : gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
                 EXCHANGE_RATE : gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
                 CS_CODE : gfnma_nvl(SBUxMethod.get("CS_CODE")),
                 VAT_TYPE : gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
@@ -2007,7 +2361,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_initSBSelect();
         fn_createGvwWFItemGrid();
-        fn_search();
+        fn_onload();
     });
 
     // 신규
@@ -2028,6 +2382,173 @@
     // 조회
     function cfn_search() {
         fn_search();
+    }
+
+    const fn_onload = async function () {
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+        $("#apcSelectMa").hide();
+        SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
+
+        strCurrntDate = gfn_dateToYmd(new Date());
+
+        if(strsourceType == null) {
+            strsourceType = "AP";
+        }
+        SBUxMethod.set("REVERSE_YN",'N');
+        //회계 삭제 권한
+        if (p_fiDeleteUser != null)
+            strFI_DELETE_USER = p_fiDeleteUser;
+
+        // TODO : 추후 탭간 이동(파라미터포함) 기능 개발시 수정필요
+        let parentParameter = {}
+        if (parentParameter) {
+            if (parentParameter.has("DOC_BATCH_NO")) {
+                SBUxMethod.set("DOC_BATCH_NO", parentParameter["DOC_BATCH_NO"]);
+            }
+
+            if (parentParameter.has("SOURCE_TYPE")) {
+                strsourceType = parentParameter["SOURCE_TYPE"];
+            }
+
+            SBUxMethod.set("SRCH_INVOCE_BATCH_NO", strsourceType);
+
+            if (parentParameter.has("DOC_NUM")) {
+                SBUxMethod.set("DOC_NUM", parentParameter["DOC_NUM"]);
+            }
+
+            if (parentParameter.has("TXN_FROM_DATE")) {
+                SBUxMethod.set("SRCH_FROM_DATE", parentParameter["TXN_FROM_DATE"]);
+            }
+            if (parentParameter.has("TXN_TO_DATE")) {
+                SBUxMethod.set("SRCH_TO_DATE", parentParameter["TXN_TO_DATE"]);
+            }
+            if (parentParameter.has("COMP_CODE")) {
+                // TODO : 확인필요
+                gv_ma_selectedApcCd = parentParameter["COMP_CODE"];
+            }
+
+            if (parentParameter.has("FI_ORG_CODE")) {
+                SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", parentParameter["FI_ORG_CODE"]);
+            }
+
+            if (parentParameter.has("VOUCHER_TYPE")) {
+                SBUxMethod.set("VOUCHER_TYPE", parentParameter["VOUCHER_TYPE"]);
+            }
+
+            SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
+
+            if (parentParameter.has("VOUCHER_NO")) {
+                SBUxMethod.set("VOUCHER_NO", parentParameter["VOUCHER_NO"]);
+            }
+
+            if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) != "") {
+                fn_search();
+            }
+
+            if (strsourceType == "AR") {
+                strFileSourceType = "FIGDOCHEADER";
+                $("#CARD_USE_TYPE").attr('disabled', 'true');
+                SBUxMethod.attr('CARD_NUM', 'readonly', 'true');
+                $("#VAT_ASSET_TYPE").attr('disabled', 'true');
+                $("#VAT_NOT_DEDUCTION_TYPE").attr('disabled', 'true');
+                $("#REPORT_OMIT_YN").attr('disabled', 'true');
+
+                $("#LBL_PAY_TERM_CODE").text("수금기준");
+                $("#LBL_PAY_METHOD").text("수금방법");
+                $("#LBL_PAY_BASE_DATE").text("수금기산일자");
+                $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
+
+                $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+
+                $("#btnScmInfo").attr('disabled', 'false');
+
+                SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
+
+            } else if (strsourceType == "AP") {
+                strFileSourceType = "FIGDOCHEADER";
+
+                $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+                $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
+
+                $("#btnScmInfo").attr('disabled', 'false');
+
+                $("#btnCreateInvoice").hide();
+                $("#btnCancelInvoice").hide();
+
+                if (!p_isAccountManager) {
+                    $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                    $("#REPORT_OMIT_YN").attr('disabled', 'true');
+                }
+
+                $("#LBL_PAY_TERM_CODE").text("지급기준");
+                $("#LBL_PAY_METHOD").text("지급방법");
+                $("#LBL_PAY_BASE_DATE").text("지급기산일자");
+                $("#LBL_EXPECTED_PAY_DATE").text("지급만기일자");
+
+                SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
+
+                $("#SUB_TAX_SITE_CODE").attr("aria-required", "false");
+                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+            } else if (strsourceType == "BAD") {
+                strFileSourceType = "BADSALESDOC";
+                $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+                $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
+
+                $("#LBL_INVOICE").hide();
+                $("#APPROVAL_NO").hide();
+
+                $("#btnCreateInvoice").hide();
+
+                if (!p_isAccountManager) {
+                    $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                    $("#REPORT_OMIT_YN").attr('disabled', 'true');
+                }
+
+                SBUxMethod.set("DOC_TYPE", "91");
+
+                SBUxMethod.attr('DOC_TYPE', 'readonly', 'true');
+
+                $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+            }
+            if (parentParameter.has("APRINT")) {
+                if (parentParameter["APRINT"].ToString() != "Y") {
+                    bAllowPrint = false;
+                } else {
+                    bAllowPrint = true;
+                }
+            }
+        } else {
+            SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
+            SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
+            SBUxMethod.set("SRCH_INVOCE_BATCH_NO", strsourceType);
+             if (strsourceType == "AP") {
+                 $("#btnCreateInvoice").hide();
+                 $("#btnCancelInvoice").hide();
+            }
+        }
+        if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
+            fn_create();
+
+            $("#btnAddRow").attr("disabled", "true");
+            $("#btnDeleteRow").attr("disabled", "true");
+        }
+
+        //사용자
+        SBUxMethod.set("EMP_CODE", gfnma_nvl(gfnma_multiSelectGet('#PAYEE_CODE')));
+
+        if (p_isAccountManager || p_isAccountChief) {
+            SBUxMethod.set("OPEN_TO_ALL_YN", "N");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "N");
+            $("#btnDocCopy").show();
+        } else {
+            SBUxMethod.set("OPEN_TO_ALL_YN", "Y");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "Y");
+            $("#btnDocCopy").hide();
+        }
     }
 
     const fn_summary = async function () {
@@ -2105,9 +2626,9 @@
         // TODO: this.InitControls(panWFMiddleBottom);
         // TODO: this.InitControls(panWFBottom);
 
-        SBUxMethod.set("SITE_CODE",SessionInfo.SiteCode);
-        SBUxMethod.set("CURRENCY_CODE",SessionInfo.CurrCode);
-        SBUxMethod.set("BASE_SCALE",parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == SessionInfo.CurrCode)[0]["BASE_SCALE"]));
+        SBUxMethod.set("SRCH_SITE_CODE",p_siteCode);
+        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', p_currCode);
+        SBUxMethod.set("BASE_SCALE",parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == p_currCode)[0]["BASE_SCALE"]));
 
         // TODO: btnAttach.Enabled = false;
         SBUxMethod.attr('VAT_TYPE', 'readonly', 'false');
@@ -2117,175 +2638,108 @@
         SBUxMethod.set("VOUCHER_NO",'');
 
         if (strsourceType == "AR") {
-            SBUxMethod.attr('CARD_USE_TYPE', 'readonly', 'true');
+            $("#CARD_USE_TYPE").attr('disabled', 'true');
             SBUxMethod.attr('CARD_NUM', 'readonly', 'true');
-            SBUxMethod.attr('VAT_ASSET_TYPE', 'readonly', 'true');
-            SBUxMethod.attr('VAT_NOT_DEDUCTION_TYPE', 'readonly', 'true');
-            SBUxMethod.attr('REPORT_OMIT_YN', 'readonly', 'true');
+            $("#VAT_ASSET_TYPE").attr('disabled', 'true');
+            $("#VAT_NOT_DEDUCTION_TYPE").attr('disabled', 'true');
+            $("#REPORT_OMIT_YN").attr('disabled', 'true');
 
-            txtcs_code.Properties.Popup.PopupTitle = "거래처 (판매)";
-            txtcs_name.Properties.Popup.PopupTitle = "거래처 (판매)";
+            $("#LBL_PAY_TERM_CODE").text("수금기준");
+            $("#LBL_PAY_METHOD").text("수금방법");
+            $("#LBL_PAY_BASE_DATE").text("수금기산일자");
+            $("#LBL_EXPECTED_PAY_DATE").text("수금만기일자");
 
-            SetLookUp(cborule_code, "", "L_RULE", "ar_doc_write_yn = 'Y'");
-
-            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-            SetLookUp(cbodoc_type, "", "L_FIM051", "ar_doc_write_yn = 'Y'");
-
-
-            lblpay_term_code.Text = "수금기준";
-            lblpay_term_code.WordText = "수금기준";
-
-            lblpay_method.Text = "수금방법";
-            lblpay_method.WordText = "수금기준";
-
-            lblpay_base_date.Text = "수금기산일자";
-            lblpay_base_date.WordText = "수금기산일자";
-
-            lblexpected_pay_date.Text = "수금만기일자";
-            lblexpected_pay_date.WordText = "수금만기일자";
-
-            txtpay_term_code.Properties.WordText = "수금기준";
-
-            cbosub_tax_site_code.Properties.AllowBlank = false;
-            cbosub_tax_site_code.Properties.Appearance.BackColor = AllowBlankColor;
-            cbosub_tax_site_code.EditValue = "T02";
+            $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         } else if (strsourceType == "AP") {
-            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AP_Q";
-            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AP_Q";
+             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+             $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
 
-
-            cbodup_issue_bill_type.Enabled = false;
-            cboexclude_revenue_amt_yn.Enabled = false;
-
-            if (!SessionInfo.IsAccountManager)
-            {
-                cboafter_due_date_yn.Enabled = false;
-                cboreport_omit_yn.Enabled = false;
+            if (!p_isAccountManager) {
+                $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                $("#REPORT_OMIT_YN").attr('disabled', 'true');
             }
 
+            $("#LBL_PAY_TERM_CODE").text("지급기준");
+            $("#LBL_PAY_METHOD").text("지급방법");
+            $("#LBL_PAY_BASE_DATE").text("지급기산일자");
+            $("#LBL_EXPECTED_PAY_DATE").text("지급만기일자");
 
-            txtcs_code.Properties.Popup.PopupTitle = "거래처 (구매)";
-            txtcs_name.Properties.Popup.PopupTitle = "거래처 (구매)";
-            SetLookUp(cborule_code, "", "L_RULE", "ap_doc_write_yn = 'Y'");
-            SetLookUp(cbodoc_type, "", "L_FIM051", "ap_doc_write_yn = 'Y'");
+            $("#SUB_TAX_SITE_CODE").attr("aria-required", "false");
+            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+        } else if (strsourceType == "BAD") {
+            $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
+            $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
 
-            lblpay_term_code.Text = "지급기준";
-            lblpay_term_code.WordText = "지급기준";
-
-            lblpay_method.Text = "지급방법";
-            lblpay_method.WordText = "지급기준";
-
-            lblpay_base_date.Text = "지급기산일자";
-            lblpay_base_date.WordText = "지급기산일자";
-
-            lblexpected_pay_date.Text = "지급만기일자";
-            lblexpected_pay_date.WordText = "지급만기일자";
-
-            txtpay_term_code.Properties.WordText = "지급기준";
-
-            cbosub_tax_site_code.Properties.AllowBlank = true;
-            cbosub_tax_site_code.Properties.Appearance.BackColor = Color.White;
-            cbosub_tax_site_code.EditValue = "T02";
-        } else if (strsource_type.Equals("BAD")) {
-            colvat_type.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-            colvat_name.Popup.BizComponentID = "P_ACCOUNT_POPUP_AR_Q";
-
-            cbodup_issue_bill_type.Enabled = false;
-            cboexclude_revenue_amt_yn.Enabled = false;
-
-            if (!SessionInfo.IsAccountManager)
-            {
-                cboafter_due_date_yn.Enabled = false;
-                cboreport_omit_yn.Enabled = false;
+            if (!p_isAccountManager) {
+                $("#AFTER_DUE_DATE_YN").attr('disabled', 'true');
+                $("#REPORT_OMIT_YN").attr('disabled', 'true');
             }
 
-            this.Text = "대손채권 입력";
+            SBUxMethod.set("DOC_TYPE", "91");
 
-            txtcs_code.Properties.Popup.BizComponentID = "P_CS_SALE_DOC";
-            txtcs_name.Properties.Popup.BizComponentID = "P_CS_SALE_DOC";
-            txtpay_term_code.Properties.Popup.BizComponentID = "P_PAY_DATE_S";
-            txtpay_term_name.Properties.Popup.BizComponentID = "P_PAY_DATE_S";
-            txtcs_code.Properties.Popup.PopupTitle = "거래처 (판매)";
-            txtcs_name.Properties.Popup.PopupTitle = "거래처 (판매)";
-
-            SetLookUp(cborule_code, "", "L_RULE", "doc_type LIKE '91%'");
-            SetLookUp(cbodoc_type, "", "L_FIM051", "doc_type like '91%'");
-            cbodoc_type.EditValue = "91";
-
-            cbosub_tax_site_code.Properties.AllowBlank = false;
-            cbosub_tax_site_code.Properties.Appearance.BackColor = AllowBlankColor;
-            cbosub_tax_site_code.EditValue = "T02";
+            $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
+            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
-        Object oFromDate = ymdfrom_date.EditValue;
-        Object oToDate = ymdto_date.EditValue;
+        // TODO: SaveButton = true;
+        // TODO: DeleteButton = false;
+        // TODO: btnSubmit.Enabled = false;
+        // TODO: btnConfirmHist.Enabled = false;
 
-        ymdfrom_date.EditValue = oFromDate;
-        ymdto_date.EditValue = oToDate;
+        // TODO: PreviewButton = false;
+        // TODO: PrintButton = false;
 
-        SaveButton = true;
-        DeleteButton = false;
-        btnSubmit.Enabled = false;
-        btnConfirmHist.Enabled = false;
+        $("#btnAddRow").attr("disabled", "true");
+        $("#btnDeleteRow").attr("disabled", "true");
+        $("#btnCreateLine").attr("disabled", "true");
 
-        PreviewButton = false;
-        PrintButton = false;
+        SBUxMethod.set("KEY_ID", "1");
 
-        btnAddRow.Enabled = false;
-        btnDeleteRow.Enabled = false;
-        btnCreateLine.Enabled = false;
+        $("#RULE_CODE").attr('disabled', 'true');
+        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', p_currCode);
+        SBUxMethod.set("EXCHANGE_RATE", 1);
 
-        btnAddeinvoiceitem.Enabled = true;
-        btnAddinvoiceitem.Enabled = true;
+        SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
+        SBUxMethod.set("ACCT_RULE_CODE", p_defaultAcctRule);
 
-        txtkey_id.Text = "1";
+        gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', "1");
 
-        cborule_code.Enabled = true;
-        cbocurrency_code.EditValue = SessionInfo.CurrCode;
-        numexchange_rate.EditValue = 1;
+        SBUxMethod.set("DOC_DATE", strcurrent_date);
+        SBUxMethod.set("STANDARD_DATE", strcurrent_date);
 
-        cbocomp_code.EditValue = SessionInfo.CompCode;
-        cbofi_org_code.EditValue = SessionInfo.FIOrgCode;
-        cboacct_rule_code.EditValue = SessionInfo.DefaultAcctRule;
+        SBUxMethod.set("VOUCHER_RECEIPT_DATE", strcurrent_date);
+        SBUxMethod.set("EXPECTED_PAY_DATE", strcurrent_date);
 
-        cbodoc_status.EditValue = "1";
+        gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', p_userId);
+        SBUxMethod.set("INSERT_USERID", p_userId);
 
-        ymddoc_date.EditValue = strcurrent_date;
-        ymdstandard_date.EditValue = ymddoc_date.EditValue.ToString();
+        SBUxMethod.set("DOC_NUM", "1");
 
-        ymdvoucher_receipt_date.EditValue = ymddoc_date.EditValue.ToString();
-        ymdexpected_pay_date.EditValue = strcurrent_date;
-        cbopayee_code.EditValue = SessionInfo.UserID;
-        txtinsert_userid.EditValue = SessionInfo.UserID;
+        SBUxMethod.set("DEPT_CODE", p_deptCode);
+        SBUxMethod.set("DEPT_NAME", p_deptName);
 
-        txtdoc_num.Text = "1";
+        SBUxMethod.set("SOURCE_DOC", "MANUAL");
+        gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
-        txtdept_codetxtdept_codetxtdept_code.Text = SessionInfo.DeptCode;
-        txtdept_name.Text = SessionInfo.DeptName;
-
-        txtsource_doc.Text = "MANUAL";
-
-        cbotax_site_code.EditValue = "T02";
-
-        if (strsource_type.Equals("AP")) {
-            cbodoc_type.EditValue = "19"; //미지급
-        } else if (strsource_type.Equals("AR")) {
-            cbodoc_type.EditValue = "39"; //채권
+        if (strsourceType == "AP") {
+            SBUxMethod.set("DOC_TYPE", "19"); //미지급
+        } else if (strsourceType == "AR") {
+            SBUxMethod.set("DOC_TYPE", "39"); //채권
         }
-        cbodoc_type.Properties.ReadOnly = false;
+        SBUxMethod.attr("DOC_TYPE", "readonly", false);
 
-        if (SessionInfo.IsAccountManager || SessionInfo.IsAccountChief) {
-            txtopen_to_all_yn.EditValue = "N";
-            txtopen_to_fcm_yn.EditValue = "N";
+        if (p_isAccountManager || p_isAccountChief) {
+            SBUxMethod.set("OPEN_TO_ALL_YN", "N");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "N");
         } else {
-            txtopen_to_all_yn.EditValue = "Y";
-            txtopen_to_fcm_yn.EditValue = "Y";
+            SBUxMethod.set("OPEN_TO_ALL_YN", "Y");
+            SBUxMethod.set("OPEN_TO_FCM_YN", "Y");
         }
 
-        panWFTop.ActionMode = ActionMode.Save;
-        gvwWFItem.ActionMode = ActionMode.Save;
+        // TODO: panWFTop.ActionMode = ActionMode.Save;
+        // TODO: gvwWFItem.ActionMode = ActionMode.Save;
 
         bnew = true;
     }
@@ -2295,6 +2749,10 @@
     const fn_delete = async function () {}
 
     const fn_search = async function () {
+        if(!SBUxMethod.validateRequired() && !validateRequired()) {
+            return false;
+        }
+
         let DOC_BATCH_NO = gfnma_nvl(SBUxMethod.get("DOC_BATCH_NO"));
 
         var paramObj = {
@@ -2591,7 +3049,19 @@
 
                     jsonAccountLineList.push(msg);
                 });
+
+                if (gfnma_nvl(SBUxMethod.get("DOC_NAME")) != "") {
+                    gvwWFItem.clickRow(1);
+                    fn_summary();
+                } else {
+                    jsonAccountLineList.length = 0;
+                    gvwWFItem.rebuild();
+                    fn_create();
+                }
                 gvwWFItem.rebuild();
+
+                gfnma_multiSelectSet('#RULE_CODE', '', '', '');
+                $("#RULE_CODE").attr('disabled', 'true');
             } else {
                 alert(listData.resultMessage);
             }
