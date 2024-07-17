@@ -226,7 +226,11 @@ function compopup1(options) {
 				if(Array.isArray(wstr)){
 					if(wstr.length>0){
 						wstr.forEach(function(item) {
-							pstr += item + '|';
+							if(item) {
+								pstr += item + '|';
+							} else {
+								pstr += "NULL" + '|';
+							}
 						});						
 					}
 				}
