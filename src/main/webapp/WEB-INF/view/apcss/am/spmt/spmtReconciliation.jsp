@@ -201,7 +201,7 @@
         /** grid clear **/
         jsonSortPrfmnc.length = 0;
         let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
-        const postJsonPromise = gfn_postJSON("/am/sort/selectSortPrfmncList.do", {
+        const postJsonPromise = gfn_postJSON("/am/sort/selectSortPrfmncToGdsInvntrList.do", {
             apcCd: gv_selectedApcCd,
             inptYmd: inptYmd,
         });
