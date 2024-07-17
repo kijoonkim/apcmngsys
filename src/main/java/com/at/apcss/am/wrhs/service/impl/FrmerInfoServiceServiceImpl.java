@@ -9,7 +9,9 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.service.ComAtchflService;
 import com.at.apcss.am.cmns.service.PrdcrService;
+import com.at.apcss.am.cmns.vo.ComAtchflVO;
 import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.wrhs.mapper.FrmerInfoMapper;
 import com.at.apcss.am.wrhs.service.FrmerInfoService;
@@ -43,6 +45,9 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 
 	@Resource(name="cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
+
+	@Resource(name="comAtchflService")
+	private ComAtchflService comAtchflService;
 
 	@Resource(name="frmerInfoMapper")
 	private FrmerInfoMapper frmerInfoMapper;
@@ -243,6 +248,27 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 					if (cltvtnHstryVO.getCltvtnHstryNo().isEmpty()) {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재배이력번호"); // W0005	{0}이/가 없습니다.
 					}
+					ComAtchflVO comAtchflVO = cltvtnHstryVO.getComAtchflVO();
+
+					if (comAtchflVO != null) {
+						comAtchflVO.setAtchflPath(ComConstants.CON_AM_FILE_PATH);
+
+						HashMap<String, Object> rtnOjb = comAtchflService.fileUpload(comAtchflVO);
+
+						if (rtnOjb != null) {
+							return rtnOjb;
+						}
+
+						comAtchflVO.setSysFrstInptPrgrmId(prgrmId);
+						comAtchflVO.setSysFrstInptUserId(userId);
+						comAtchflVO.setSysLastChgPrgrmId(prgrmId);
+						comAtchflVO.setSysLastChgUserId(userId);
+
+						if (0 == comAtchflService.insertComAtchfl(comAtchflVO)) {
+							throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+						}
+					}
+
 
 					if (0 == frmerInfoMapper.updateCltvtnHstry(cltvtnHstryVO)) {
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}

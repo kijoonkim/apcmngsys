@@ -177,7 +177,7 @@
 													name="dtl-inp-frmhsTelno"
 													class="form-control input-sm"
 													uitype="text"
-													mask = "{ 'mask': '999-9999-9999', 'clearIncomplete': true }"
+													mask = "{ 'mask': '999-9999-9999', 'clearIncomplete': true, 'autoUnmask': true }"
 												></sbux-input>
 											</td>
 											<th scope="row" class="th_bg" >지역</th>
@@ -204,7 +204,7 @@
 													name="dtl-inp-plntngArea"
 													class="form-control input-sm"
 													uitype="text"
-													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 												></sbux-input>
 											</td>
 										</tr>
@@ -216,7 +216,7 @@
 													name="dtl-inp-squareFootage"
 													class="form-control input-sm"
 													uitype="text"
-													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 													readonly
 												></sbux-input>
 											</td>
@@ -227,7 +227,7 @@
 													name="dtl-inp-crtrArea"
 													class="form-control input-sm"
 													uitype="text"
-													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 												></sbux-input>
 											</td>
 										</tr>
@@ -239,7 +239,7 @@
 													name="dtl-inp-prchsQntt"
 													class="form-control input-sm"
 													uitype="text"
-													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												></sbux-input>
 											</td>
 											<th scope="row" class="th_bg" >수매금액(원)</th>
@@ -249,7 +249,7 @@
 													name="dtl-inp-prchsAmt"
 													class="form-control input-sm"
 													uitype="text"
-													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 												></sbux-input>
 											</td>
 										</tr>
@@ -284,10 +284,6 @@
 			</div>
 		</div>
 	</section>
-	<!-- 팜맵 팝업 Modal -->
-	<div id="body-modal-framldMap">
-		<jsp:include page="../popup/framldMapPopup.jsp"/>
-	</div>
 
 	<!-- 생산자 선택 Modal -->
     <div>
@@ -317,6 +313,25 @@
 			style="width:1100px"
 		></sbux-modal>
 	</div>
+	<!-- 팜맵 팝업 Modal -->
+	<div id="body-modal-framldMap">
+		<jsp:include page="../popup/framldMapPopup.jsp"/>
+	</div>
+	<div>
+		<sbux-modal
+			id="modal-image"
+			name="modal-image"
+			uitype="middle"
+			header-title="사진"
+			body-html-id="body-modal-image"
+			footer-is-close-button="false"
+			header-is-close-button="false"
+			style="width:1100px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-image">
+    	<jsp:include page="../../am/popup/imagePopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -371,7 +386,6 @@
 
     	if (jsonApcItem.length == 1) {
     		let itemCd = jsonApcItem[0].itemCd;
-			console.log("itemCd", itemCd)
     		SBUxMethod.set("srch-slt-itemCd", itemCd);
     	}
 
@@ -460,9 +474,31 @@
         	{caption : ['지도'], 	ref: 'map', 		type: 'button', 	width: '60px', style: 'text-align:center',
         		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
         	{caption : ['내용'], 	ref: 'cn', 			type: 'input', 		width: '300px', style: 'text-align:center'},
-        	/* {caption : ['사진'], 	ref: 'map', 		type: 'button', 	width: '60px', style: 'text-align:center',
-        		typeinfo : {buttonvalue: '첨부', buttonclass:'btn btn-xs btn-outline-danger', callback: fn_image}}, */
-        	{caption : ['비고'], 	ref: 'rmrk', 		type: 'input', 		width: '200px', style: 'text-align:center'},
+        	{caption : ['사진'], 	ref: 'atchflNo',	type: 'button', 	width: '60px', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if (strValue== null || strValue == "") {
+			        return "";
+	        	} else {
+	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_imagePop("+ nRow +")'>지도</button>";
+	        	}
+        	}},
+        	{caption : ['사진첨부'], ref: 'cltvtnHstryNo',	type: 'button', 	width: '60px', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        	if (strValue== null || strValue == "") {
+	        		return "";
+	        	} else {
+	        		let rowData = grdCltvtnHstry.getRowData(nRow);
+	        		let atchflNo = rowData.atchflNo;
+	        		if (!gfn_isEmpty(atchflNo)) {
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>변경</button>"
+		        		+ "<input type='file' id='inp-file-" + nRow + "' style='display:none' onchange='fn_fileSelect(event)' accept='.jpg, .jpeg, .png'></input>";
+	        		} else {
+	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>등록</button>"
+		        		+ "<input type='file' id='inp-file-" + nRow + "' style='display:none' onchange='fn_fileSelect(event)' accept='.jpg, .jpeg, .png'></input>";
+	        		}
+	        	}
+        	}},
+        	{caption : ['사진명'], 		ref: 'fileName', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
+        	{caption : ['쓰기여부'], 	ref: 'inputFlag', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
+        	{caption : ['비고'], 		ref: 'rmrk', 		type: 'input', 		width: '200px', style: 'text-align:center'},
 	    ];
 	    grdCltvtnHstry = _SBGrid.create(SBGridProperties);
 	    grdCltvtnHstry.bind('click', 'fn_setFrlnInput');
@@ -643,12 +679,79 @@
 		popFramldMap.init(gv_selectedApcCd, item.stdgCd, item.frlnMno, item.frlnSno);
 	}
 
-	const fn_searchMap = function () {
+	const fn_imagePop = function (nRow) {
+
+		let rowData = grdCltvtnHstry.getRowData(nRow);
+		let atchflNo = rowData.atchflNo;
+		let prntsTblNo = rowData.cltvtnHstryNo;
+
+		SBUxMethod.openModal('modal-image');
+		popImage.init(atchflNo, prntsTblNo, '01');
 
 	}
 
-	const fn_image = function () {
+	const fn_fileSelect = function (event) {
 
+		// event.target을 사용하여 파일 선택 input 요소를 참조합니다.
+	    const input = event.target;
+		const fileId = input.id;
+
+	    // 선택된 파일들이 저장된 FileList 객체를 가져옵니다.
+	    const files = input.files;
+
+	    // 선택된 파일의 수를 확인합니다.
+	    if (files.length > 0) {
+	        // 첫 번째 파일을 가져옵니다.
+	        const file = files[0];
+
+	        console.log('File name:', file.name);
+	        console.log('fileId:', fileId);
+	        console.log('File size:', file.size);
+	        console.log('File type:', file.type);
+	        console.log('Last modified:', file.lastModifiedDate);
+
+	        if (!gfn_isEmpty(fileId)) {
+
+	        	const maxSize = 8 * 1024 * 1024;  // 8MB in bytes
+
+	        	if (file.size > maxSize) {
+
+	        		input.value = '';
+		        	rgfn_comAlert("E0000", "파일의 크기가 큽니다." ) // E0000 {0}
+		        	return;
+		        } else {
+
+		        	// 문자열에서 마지막 하이픈의 위치를 찾습니다
+		        	const lastHyphenIndex = fileId.lastIndexOf('-');
+
+		        	// 하이픈 뒤의 부분을 가져오고, 숫자를 추출합니다
+		        	const lastNumber = parseInt(fileId.substring(lastHyphenIndex + 1));
+
+		        	let fileNameCol = grdCltvtnHstry.getColRef("fileName");
+
+		        	grdCltvtnHstry.setCellData(lastNumber, fileNameCol, file.name, true);
+		        	grdCltvtnHstry.setRowStatus(lastNumber, "update", true);
+		        }
+
+
+	        }
+
+
+	    } else {
+	        console.log('No file selected.');
+	    }
+
+	}
+
+	const fn_fileUpload = function (nRow) {
+
+		let fileId = 'inp-file-' + nRow;
+    	let key = '#' + fileId; // fileId를 선택자로 변환 (템플릿 리터럴 사용 안 함)
+        if ($(key).length) {  	// 요소 존재 여부 확인
+            $(key).click();  	// 'file-2' 버튼 클릭 이벤트 트리거
+        } else {
+            console.log(key + ' 요소가 존재하지 않습니다.');
+        }
 	}
 
 
@@ -904,11 +1007,22 @@
 	        		  , cltvtnHstryNo	: item.cltvtnHstryNo
 	        		  , rmrk 			: item.rmrk
 	        		  , delYn			: item.delYn
+	        		  , atchflNo		: item.atchflNo
+	        		  , filePath		: item.filePath
+	        	}
+
+	        	if (!gfn_isEmpty(item.cltvtnHstryNo)) {
+	        		cltvtnHstryVO.inputFlag = true;
+	        	} else {
+	        		cltvtnHstryVO.inputFlag = false;
 	        	}
 	        	jsonCltvtnHstry.push(cltvtnHstryVO);
 	        });
 
 	        grdCltvtnHstry.rebuild();
+
+	        fn_grdCltvtnHstryDisabled();
+
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -916,6 +1030,25 @@
 			}
 			console.error("failed", e.message);
 		}
+	}
+
+	const fn_grdCltvtnHstryDisabled = function () {
+		let grdData = grdCltvtnHstry.getGridDataAll();
+
+
+        for (var i=0; i<grdData.length; i++) {
+
+        	let rowData = grdCltvtnHstry.getRowData(i+1);
+
+        	let inputFlag = rowData.inputFlag;
+
+        	if (inputFlag) {
+        		grdCltvtnHstry.setCellDisabled(i+1, 0, i+1, grdCltvtnHstry.getCols() -1, false);
+        	} else {
+        		grdCltvtnHstry.setCellDisabled(i+1, 0, i+1, grdCltvtnHstry.getCols() -1, true);
+        	}
+
+        }
 	}
 
       /**
@@ -1085,8 +1218,11 @@
     		let rowData = grdCltvtnHstry.getRowData(nRow);
     		jsonCltvtnHstry.splice(nRow, 0, rowData);
     		grdCltvtnHstry.setCellData(nRow, nCol, "N", true);
+    		grdCltvtnHstry.setCellData(nRow, grdCltvtnHstry.getColRef("inputFlag"), true, true);
 
     		grdCltvtnHstry.refresh();
+
+    		fn_grdCltvtnHstryDisabled();
 
     	} else if (gubun == "DEL") {
 
@@ -1272,8 +1408,10 @@
 		for (var i=0; i<grdData.length; i++) {
 
 			let rowData = grdCltvtnHstry.getRowData(i+1);
+
 			let rowSts = grdCltvtnHstry.getRowStatus(i+1);
-			let cltvtnHstryNo = rowData.cltvtnHstryNo
+			let fileName = rowData.fileName;
+			let cltvtnHstryNo = rowData.cltvtnHstryNo;
 
 			if (gfn_isEmpty(cltvtnHstryNo)) {
 
@@ -1290,6 +1428,24 @@
 			} else {
 				if (rowSts === 2){
 					rowData.rowSts = "U";
+
+					if (!gfn_isEmpty(fileName)) {
+						let fileId = 'inp-file-' + (i+1);
+				    	let fileInput = document.getElementById(fileId);
+						let file = fileInput.files[0];
+						const base64File = await fileToBase64(file);
+
+						const comAtchflVO = {
+								prntsTblNo		: cltvtnHstryNo
+							  , prntsTblSeCd	: '01'
+							  , atchflOrgnNm	: file.name
+							  , atchflSz		: file.size
+							  , atchflExtnType	: file.type
+							  , base64File		: base64File
+						};
+
+				    	rowData.comAtchflVO = comAtchflVO;
+					}
 					cltvtnHstryList.push(rowData);
 				} else {
 					continue;
@@ -1312,29 +1468,36 @@
 
 		const postJsonPromise = gfn_postJSON("/am/wrhs/multiFrmerInfoList.do", cltvtnListVO);
     	const data = await postJsonPromise;
+    	if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
+    		try{
+        		if (_.isEqual("S", data.resultStatus)) {
+        			fn_search();
+           			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 
-    	try{
-    		if (_.isEqual("S", data.resultStatus)) {
-    			fn_search();
-       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-
-       			if (prdcrChgYn) {
-       				// 생산자 정보 업데이트
-       				await gfn_setPrdcrSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPrdcr, 				gv_selectedApcCd)		// Grid 생산자
-       				prdcrChgYn = false;
-       			}
-        	} else {
-	    		gfn_comAlert(data.resultCode, data.resultMessage);
-	    	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
+           			if (prdcrChgYn) {
+           				// 생산자 정보 업데이트
+           				await gfn_setPrdcrSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPrdcr, 				gv_selectedApcCd)		// Grid 생산자
+           				prdcrChgYn = false;
+           			}
+            	} else {
+    	    		gfn_comAlert(data.resultCode, data.resultMessage);
+    	    	}
+            } catch (e) {
+        		if (!(e instanceof Error)) {
+        			e = new Error(e);
+        		}
+        		console.error("failed", e.message);
+            	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-		}
-
+    	}
 	}
+
+	 const fileToBase64 = (file) => new Promise((resolve, reject) => {
+	        const reader = new FileReader();
+	        reader.onload = () => resolve(reader.result.split(',')[1]);  // Base64 문자열만 추출
+	        reader.onerror = reject;
+	        reader.readAsDataURL(file);
+	    });
 
 
 	const fn_del = async function (deleteVO, nRow) {

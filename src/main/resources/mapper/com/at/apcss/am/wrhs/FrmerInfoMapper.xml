@@ -239,6 +239,7 @@
 			             , Y.CN
 			             , Y.RMRK
 			             , Y.DEL_YN
+			             , (SELECT MAX(ATCHFL_NO) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = Y.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_NO
 			             , Z.FRLN_ADDR
 			             , Z.STDG_CD
 			             , Z.FRLN_MNO
@@ -262,6 +263,7 @@
 			             , #{prdcrCd}
 			             , #{mngmstRegno}
 			             , X.SN
+			             , ''
 			             , ''
 			             , ''
 			             , ''
