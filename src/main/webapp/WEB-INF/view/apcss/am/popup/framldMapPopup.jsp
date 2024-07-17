@@ -354,10 +354,12 @@
                 <colgroup>
                     <col style="width: 12%">
                     <col style="width: 24%">
+                    <col style="width: 10%">
                     <col style="width: 12%">
-                    <col style="width: 24%">
+                    <col style="width: 10%">
                     <col style="width: 12%">
-                    <col style="width: 24%">
+                    <col style="width: 10%">
+                    <col style="width: 12%">
                     <col style="width: auto">
                 </colgroup>
                 <tbody>
@@ -367,10 +369,13 @@
                     <th>
                         <sbux-input id="framld-inp-apcNm" name="framld-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
                     </th>
+                    <th scope="row">법정동코드</th>
+                    <th class="td_input">
+                        <sbux-input id="framld-inp-stdgCd" name="framld-inp-stdgCd" uitype="text" class="form-control input-sm"></sbux-input>
+                    </th>
                     <th scope="row">본번</th>
                     <th class="td_input">
                         <sbux-input id="framld-inp-frlnMno" name="framld-inp-frlnMno" uitype="text" class="form-control input-sm"></sbux-input>
-                        <sbux-input id="framld-inp-stdgCd" name="framld-inp-stdgCd" uitype="hidden" class="form-control input-sm"></sbux-input>
                     </th>
                     <th scope="row">부번</th>
                     <th class="td_input">
