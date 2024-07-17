@@ -55,17 +55,10 @@ public class SortPrfmncController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		List<GdsInvntrVO> resultList = new ArrayList<>();
-		List<SpmtPrfmncVO> resultInvntrList = new ArrayList<>();
-		GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
-		BeanUtils.copyProperties(sortPrfmncVO,gdsInvntrVO);
-		String pckgYmd = sortPrfmncVO.getInptYmd();
-		gdsInvntrVO.setPckgYmd(pckgYmd);
+		List<SortPrfmncVO> resultList = new ArrayList<>();
 
 		try {
-//			resultList = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
-			resultList = gdsInvntrService.selectSortPrfmncToGdsInvntrList(sortPrfmncVO);
-			resultInvntrList = gdsInvntrService.selectBelowZeroGdsInvntrList(gdsInvntrVO);
+			resultList = sortPrfmncService.selectSortPrfmncList(sortPrfmncVO);
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
@@ -76,7 +69,6 @@ public class SortPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		resultMap.put("anotherResultList",resultInvntrList);
 
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -640,6 +632,34 @@ public class SortPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/sort/selectSortPrfmncToGdsInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncToGdsInvntrList(@RequestBody SortPrfmncVO sortPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<GdsInvntrVO> resultList = new ArrayList<>();
+		List<SpmtPrfmncVO> resultInvntrList = new ArrayList<>();
+		GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+		BeanUtils.copyProperties(sortPrfmncVO,gdsInvntrVO);
+		String pckgYmd = sortPrfmncVO.getInptYmd();
+		gdsInvntrVO.setPckgYmd(pckgYmd);
+
+		try {
+			resultList = gdsInvntrService.selectSortPrfmncToGdsInvntrList(sortPrfmncVO);
+			resultInvntrList = gdsInvntrService.selectBelowZeroGdsInvntrList(gdsInvntrVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put("anotherResultList",resultInvntrList);
 
 		return getSuccessResponseEntity(resultMap);
 	}
