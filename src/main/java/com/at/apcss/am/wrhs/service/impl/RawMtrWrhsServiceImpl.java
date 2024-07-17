@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.mobile.service.FcmService;
-import com.at.apcss.mobile.vo.FcmSendVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +60,6 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 	@Resource(name="cmnsValidationService")
 	private CmnsValidationService cmnsValidationService;
-
-	@Resource(name="fcmService")
-	private FcmService fcmService;
 
 
 	@Override
@@ -161,9 +156,6 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		/** push알림 테스트 **/
-		FcmSendVO fcmSendVO =FcmSendVO.builder().title("부장님 제가 보이시나요?").body("ㅎㅎㅎ;;").build();
-		fcmService.sendTopicMessage(fcmSendVO);
 
 		return null;
 	}
