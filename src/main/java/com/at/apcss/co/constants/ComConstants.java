@@ -52,8 +52,6 @@ public class ComConstants {
 	public final static String CON_SYS_ID_AM = "AM";
 	public final static String CON_SYS_ID_MA = "MA";
 
-	public final static String CON_AM_FILE_PATH = "/home/tmax/jeus8/webapps/DATA/apcss";
-
 	public final static String PROP_SYS_PRGRM_ID = "sysPrgrmId";
 
 	public final static String PAGINATION_MAP = "paginationMap";

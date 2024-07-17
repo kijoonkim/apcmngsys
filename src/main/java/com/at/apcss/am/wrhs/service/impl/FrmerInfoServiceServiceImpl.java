@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.service.ComAtchflService;
 import com.at.apcss.am.cmns.service.PrdcrService;
 import com.at.apcss.am.cmns.vo.ComAtchflVO;
@@ -42,9 +41,6 @@ import com.at.apcss.co.sys.util.ComUtil;
  */
 @Service("frmerInfoService")
 public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements FrmerInfoService {
-
-	@Resource(name="cmnsTaskNoService")
-	private CmnsTaskNoService cmnsTaskNoService;
 
 	@Resource(name="comAtchflService")
 	private ComAtchflService comAtchflService;
@@ -251,7 +247,7 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 					ComAtchflVO comAtchflVO = cltvtnHstryVO.getComAtchflVO();
 
 					if (comAtchflVO != null) {
-						comAtchflVO.setAtchflPath(ComConstants.CON_AM_FILE_PATH);
+						comAtchflVO.setAtchflPath(cltvtnListVO.getAtchflPath());
 
 						HashMap<String, Object> rtnOjb = comAtchflService.fileUpload(comAtchflVO);
 

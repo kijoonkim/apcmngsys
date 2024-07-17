@@ -152,6 +152,8 @@ public class FrmerInfoController extends BaseController{
 			cltvtnListVO.setSysFrstInptUserId(getUserId());
 			cltvtnListVO.setSysLastChgPrgrmId(getPrgrmId());
 			cltvtnListVO.setSysLastChgUserId(getUserId());
+			cltvtnListVO.setAtchflPath(getFilepathAm());
+
 
 			HashMap<String, Object> rtnObj = frmerInfoService.multiFrmerInfoList(cltvtnListVO);
 			if (rtnObj != null) {
