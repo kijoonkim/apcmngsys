@@ -234,6 +234,7 @@
 										uitype="normal"
 										text="0"
 										style="font-size:12px;font-weight:bold;margin-right: 15px"
+										mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"
 								></sbux-label>
 								<sbux-label
 									id="lbl-grdInptWghtHead"
@@ -248,6 +249,7 @@
 										uitype="normal"
 										text="0"
 										style="font-size:12px;font-weight:bold;"
+										mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"
 								></sbux-label>
 							</td>
 
@@ -360,6 +362,8 @@
     /* SBGrid Data (JSON) */
 	var jsonRawMtrInvntr = [];
 	var jsonRawMtrRePrcs = [];
+
+	let qnttWghtAvg = 0;
 
 
 	const fn_initSBSelect = async function() {
@@ -563,14 +567,14 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
 					}
 		    }},
-            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'8%', style: 'text-align:center',
+            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'6%', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcItem', label:'label', value:'value', displayui : false}
             },
             {
             	caption: ["품종"], 		
             	ref: 'vrtyCd',		
             	type:'combo',  
-            	width:'8%',
+            	width:'6%',
             	style: 'text-align:center',
             	typeinfo: {
             		ref:'jsonApcVrty', 
@@ -627,7 +631,7 @@
 					caption: ["판정등급"],
 					ref: "jgmtGrdCd",
 					type:'combo',
-					width:'7%',
+					width:'6%',
 					style: 'text-align:center;',
 					userattr: {colNm: "jgmtGrd"},
 					typeinfo: {ref: gStdGrdObj.jgmtJsonId, label:'grdNm', value:'grdCd', displayui : false}
@@ -640,13 +644,12 @@
 		});
 
 		const columns2 = [
-			/*
 			{
 				caption: ["총 수량"],
 				ref: 'wrhsQntt',
 				datatype: 'number',
-				type:'input',
-				width:'80px',
+				type:'output',
+				width:'7%',
 				style: 'text-align:right',
 				userattr: {colNm: "wrhsQntt"},
 				typeinfo: {
@@ -656,12 +659,11 @@
                 },
                 format : {type:'number', rule:'#,###'}
 			},
-			*/
 			{
 				caption: ["총 중량 (Kg)"],
 				ref: 'wrhsWght',
 				type:'input',
-				width:'8%',
+				width:'7%',
 				style: 'text-align:right',
 				userattr: {colNm: "wrhsWght"},
 				format : {type:'number', rule:'#,### '},
@@ -691,7 +693,7 @@
             	caption: ["컨테이너번호"],
             	ref: 'pltno',
             	type:'input',
-            	width:'12%',
+            	width:'11%',
             	style: 'text-align:center;background-color:#FFF8DC;',
             	typeinfo: {
 	                maxlength: 20,
@@ -1315,21 +1317,14 @@
 	const fn_grdRawMtrRePrcsValueChanged = function() {
 		var nRow = grdRawMtrRePrcs.getRow();
 		var nCol = grdRawMtrRePrcs.getCol();
-		let wght = SBUxMethod.get("lbl-grdInptWght");
-		let qntt = SBUxMethod.get("lbl-grdInptQntt");
-		let avg = wght / qntt;
 
 		const usrAttr = grdRawMtrRePrcs.getColUserAttr(nCol);
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
 			const rowData = grdRawMtrRePrcs.getRowData(nRow, false);	// deep copy
-
 			switch (usrAttr.colNm) {
 
 				case "wrhsQntt":
-				case "wrhsWght":
-					fn_setPrcsInfo();
-					break;
 				case "stdGrd":
 					if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 						const stdGrdInfo = [];
@@ -1352,20 +1347,46 @@
  					rowData.grdNvSum = grdNvSum;
  					grdRawMtrRePrcs.refresh();
  					break;
-
+				case "wrhsWght":
+					let wrhsWght = 0;
+					let wrhsQntt = 0;
+					jsonRawMtrRePrcs.forEach((item) => {
+						wrhsQntt += parseInt(item.wrhsQntt) || 0;
+						wrhsWght += parseInt(item.wrhsWght) || 0;
+					});
+					wrhsWght = parseInt(SBUxMethod.get("lbl-grdInptWght").replace(/,/g, '')) - wrhsWght;
+					wrhsQntt = parseInt(SBUxMethod.get("lbl-grdInptQntt").replace(/,/g, '')) - wrhsQntt;
+					SBUxMethod.set("lbl-grdInptQntt",""+wrhsQntt);
+					SBUxMethod.set("lbl-grdInptWght",""+wrhsWght);
+					break;
 				case "stdGrdWght":
 					let grdWghtSum = 0;
+					let grdQntt = 0;
  					gjsonStdGrdObjKnd.forEach((item, index) => {
 						if (_.isEqual(item.stdGrdType, "RT")) {
 							let colNm = gStdGrdObj.colPrfx + item.grdKnd;
-							grdWghtSum += parseFloat(rowData[colNm]) * avg || 0;
+							grdWghtSum += parseInt(rowData[colNm]) * qnttWghtAvg || 0;
+							grdQntt += parseInt(rowData[colNm]) || 0;
 						}
 				  	});
- 					rowData.wrhsWght = grdWghtSum;
- 					grdRawMtrRePrcs.refresh();
- 					fn_setPrcsInfo();
- 					break;
+					fn_setPrcsInfo();
 
+					rowData.wrhsWght = grdWghtSum;
+					rowData.wrhsQntt = grdQntt;
+					grdRawMtrRePrcs.refresh();
+
+					let wght = 0;
+					let qntt = 0;
+					jsonRawMtrRePrcs.forEach((item) => {
+						qntt += parseInt(item.wrhsQntt) || 0;
+						wght += parseInt(item.wrhsWght) || 0;
+					});
+					wght = parseInt(SBUxMethod.get("lbl-grdInptWght").replace(/,/g, '')) - wght;
+					qntt = parseInt(SBUxMethod.get("lbl-grdInptQntt").replace(/,/g, '')) - qntt;
+
+					SBUxMethod.set("lbl-grdInptQntt",""+qntt);
+					SBUxMethod.set("lbl-grdInptWght",""+wght);
+ 					break;
 				default:
 					return;
 			}
@@ -1459,11 +1480,12 @@
 			prcsWghtInfo += std.grdKndNm + "  " + std.prcsWght + " Kg";
 			rmnWghtInfo += std.grdKndNm + "  " + std.rmnWght + " Kg";
 		});
-
-		SBUxMethod.set("lbl-grdInptWght", totalInptWght);
-		SBUxMethod.set("lbl-grdInptQntt", totalInptQntt);
+			SBUxMethod.set("lbl-grdInptWght", totalInptWght);
+			SBUxMethod.set("lbl-grdInptQntt", totalInptQntt);
 		//SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
 		// SBUxMethod.set("lbl-grdPrcsWght", totalInptWght);
+
+		qnttWghtAvg = parseInt(totalInptWght) / parseInt(totalInptQntt);
  	}
 
 	/*
