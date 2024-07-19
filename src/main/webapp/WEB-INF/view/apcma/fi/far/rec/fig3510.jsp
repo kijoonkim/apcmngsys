@@ -63,7 +63,7 @@
                             </div>
                             <div style="display: flex; align-items: center; justify-content: left; width: 30%; margin-right: 5%">
                                 <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
-                                <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeApprovalNo(APPROVAL_NO)"></sbux-input>
                                 <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                 <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
                             </div>
@@ -98,7 +98,7 @@
                                 <th scope="row" class="th_bg">신고사업장</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -109,7 +109,7 @@
                                 <th scope="row" class="th_bg">종사업장</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SUB_TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SUB_TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" >
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -120,15 +120,15 @@
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">배치번호</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_BATCH_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="DOC_BATCH_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">결의부서</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    <sbux-input id="DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    <sbux-input id="DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-button
@@ -142,11 +142,11 @@
                             <tr>
                                 <th scope="row" class="th_bg">전표유형</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-select id="DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm" group-id="panWFTop"></sbux-select>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -157,36 +157,36 @@
                                 <td colspan="3"></td>
                                 <th scope="row" class="th_bg">전표번호</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="DOC_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">전표ID</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">실사용자</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAYEE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAYEE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" disabled>
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="PAYEE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
-                                    <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">거래처</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" readonly></sbux-input>
+                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" group-id="panWFTop" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-button
@@ -199,10 +199,10 @@
                                 <td></td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" readonly></sbux-input>
+                                    <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" group-id="panWFTop" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-button
@@ -215,10 +215,18 @@
                                 <td></td>
                                 <th scope="row" class="th_bg">증빙번호</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-select id="VOUCHER_TYPE" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="VOUCHER_TYPE" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm" group-id="panWFTop"></sbux-select>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="VOUCHER_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="VOUCHER_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                </td>
+                                <td class="td_input" style="border-right:hidden;">
+                                    <sbux-button
+                                            class="btn btn-xs btn-outline-dark"
+                                            text="확인" uitype="modal"
+                                            target-id="modal-compopup1"
+                                            onclick="fn_taxView"
+                                    ></sbux-button>
                                 </td>
                             </tr>
                             <tr>
@@ -231,6 +239,8 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            onchange="fn_changeDocDate(DOC_DATE)"
+                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">신고일자</th>
@@ -242,26 +252,28 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            onchange="fn_changeStandardDate(STANDARD_DATE)"
+                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_METHOD">지급방법</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="PAY_METHOD" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                        <div class="dropdown-menu" aria-labelledby="PAY_METHOD" style="width:450px;height:150px;padding-top:0px;overflow:auto">
                                         </div>
                                     </div>
                                 </td>
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">매입송장번호</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="BILL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="BILL_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
@@ -274,12 +286,13 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">통화</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -288,7 +301,7 @@
                                     </div>
                                 </td>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_exchageUpdate" group-id="panWFTop" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_BASE_DATE">지급기산일자</th>
                                 <td class="td_input" style="border-right:hidden;">
@@ -299,11 +312,12 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DIFF_DAY" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" readonly></sbux-input>
-                                    <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden"></sbux-input>
+                                    <sbux-input id="DIFF_DAY" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFTop" readonly></sbux-input>
+                                    <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden" onchange="fn_changeBasisType(BASIS_TYPE)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">현업결재일</th>
@@ -315,22 +329,23 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            group-id="panWFTop"
                                             readonly
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="FINAL_APPROVER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="FINAL_APPROVER" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">총지급액</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" onchange="fn_changeDocAmt(DOC_AMT)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">세금코드</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -349,6 +364,7 @@
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
                                             onchange="fn_changeExpectedPayDate(EXPECTED_PAY_DATE)"
+                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">어음만기일자</th>
@@ -360,6 +376,7 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            group-id="panWFTop"
                                     />
                                 </td>
                                 <th scope="row" class="th_bg">회계승인일</th>
@@ -371,27 +388,28 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            group-id="panWFTop"
                                             readonly
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="POSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="POSTING_USER" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">부가세</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" onchange="fn_changeVatAmount(VAT_AMOUNT)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">공급가액</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">계좌정보</th>
                                 <td class="td_input" style="border-right:hidden;">
                                     <div class="dropdown">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BANK_ACCOUNT_SEQ" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BANK_ACCOUNT_SEQ" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop">
                                             <font>선택</font>
                                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                         </button>
@@ -400,10 +418,10 @@
                                     </div>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-select id="BANK_CODE" uitype="single" jsondata-ref="jsonBankCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="BANK_CODE" uitype="single" jsondata-ref="jsonBankCode" unselected-text="선택" class="form-control input-sm" group-id="panWFTop"></sbux-select>
                                 </td>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                                    <sbux-input id="BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">승인취소일</th>
                                 <td class="td_input" style="border-right:hidden;">
@@ -414,58 +432,59 @@
                                             date-format="yyyy-mm-dd"
                                             class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                             style="width:100%;"
+                                            group-id="panWFTop"
                                             readonly
                                     />
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="UNPOSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="UNPOSTING_USER" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">제목</th>
                                 <td colspan="5" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeDescription(DESCRIPTION)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">계좌비고</th>
                                 <td colspan="4" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="BANK_ACCOUNT_DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="BANK_ACCOUNT_DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">역분개전표</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
-                                <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm" onchange="fn_changeWriteDate(WRITE_DATE)" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
+                                <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                             </tr>
                             </tbody>
                         </table>
@@ -548,7 +567,7 @@
                                             <th scope="row" class="th_bg">전자발행</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ETAX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ETAX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -560,31 +579,34 @@
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-datepicker
                                                         uitype="popup"
-                                                        id="STANDARD_DATE"
-                                                        name="STANDARD_DATE"
+                                                        id="STANDARD_DATE1"
+                                                        name="STANDARD_DATE1"
+                                                        grid-ref="STANDARD_DATE"
+                                                        grid-id="gvwWFItem"
                                                         date-format="yyyy-mm-dd"
                                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                         style="width:100%;"
+                                                        group-id="panWFVat"
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">공급가액</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}"></sbux-input>
+                                                <sbux-input id="SUPPLY_AMT" name="SUPPLY_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">수출신고번호</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="EXPORT_LICENSE_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="EXPORT_LICENSE_NO" name="EXPORT_LICENSE_NO" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">당기제출금_외화</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                                                <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFVat"></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">카드용도</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CARD_USE_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CARD_USE_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -594,12 +616,12 @@
                                             </td>
                                             <th scope="row" class="th_bg">카드번호</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="CARD_NUM" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="CARD_NUM" name="EXPORT_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">내국신용장구분</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LOCAL_CREDIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LOCAL_CREDIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -613,21 +635,23 @@
                                                         uitype="popup"
                                                         id="SHIPPING_DATE"
                                                         name="SHIPPING_DATE"
+                                                        grid-id="gvwWFItem"
                                                         date-format="yyyy-mm-dd"
                                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                         style="width:100%;"
+                                                        group-id="panWFVat"
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">당기제출금_원화</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="EXPORT_AMT_KRW" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}"></sbux-input>
+                                                <sbux-input id="EXPORT_AMT_KRW" name="EXPORT_AMT_KRW" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">불공제유형</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_NOT_DEDUCTION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_NOT_DEDUCTION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -638,7 +662,7 @@
                                             <th scope="row" class="th_bg">예정신고누락</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="REPORT_OMIT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="REPORT_OMIT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -648,22 +672,22 @@
                                             </td>
                                             <th scope="row" class="th_bg">서류명</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="DOCUMENT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="DOCUMENT_NAME" name="DOCUMENT_NAME" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">수출외화금액</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="FOREIGN_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}"></sbux-input>
+                                                <sbux-input id="FOREIGN_AMT" name="FOREIGN_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">당기신고해당분_외화</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="VAT_EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}"></sbux-input>
+                                                <sbux-input id="VAT_EXPORT_AMT" name="VAT_EXPORT_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" group-id="panWFVat"></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">중복발행</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUP_ISSUE_BILL_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUP_ISSUE_BILL_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -674,7 +698,7 @@
                                             <th scope="row" class="th_bg">감가상각자산유형</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_ASSET_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_ASSET_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -684,22 +708,22 @@
                                             </td>
                                             <th scope="row" class="th_bg">발급자</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ISSUE_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ISSUE_NAME" name="ISSUE_NAME" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">수출원화금액</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="WON_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                                                <sbux-input id="WON_AMT" name="WON_AMT" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFVat"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">당기신고해당분_원화</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="VAT_EXPORT_AMT_KRW" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                                                <sbux-input id="VAT_EXPORT_AMT_KRW" name="VAT_EXPORT_AMT_KRW" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFVat"></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">11일외전송</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="AFTER_DUE_DATE_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="AFTER_DUE_DATE_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -710,7 +734,7 @@
                                             <th scope="row" class="th_bg">영세율첨부서류여부</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_REPORT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_REPORT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -724,9 +748,11 @@
                                                         uitype="popup"
                                                         id="DOCUMENT_ISSUE_DATE"
                                                         name="DOCUMENT_ISSUE_DATE"
+                                                        grid-id="gvwWFItem"
                                                         date-format="yyyy-mm-dd"
                                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                         style="width:100%;"
+                                                        group-id="panWFVat"
                                                 />
                                             </td>
                                         </tr>
@@ -734,7 +760,7 @@
                                             <th scope="row" class="th_bg">수입금액제외</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCLUDE_REVENUE_AMT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCLUDE_REVENUE_AMT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -745,7 +771,7 @@
                                             <th scope="row" class="th_bg">영세율구분</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -755,7 +781,7 @@
                                             </td>
                                             <th scope="row" class="th_bg">내국신용장서류번호</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="DOCUMENT_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="DOCUMENT_NO" name="DOCUMENT_NO" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat"></sbux-input>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -782,10 +808,10 @@
                                         <tr> <%--TODO : P_FIM041--%>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE1">관리항목1</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE1" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" grid-id="gvwWFItem" grid-event="valuechanged" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly/>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME1" name="ACC_VALUE_NAME1" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -798,10 +824,10 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE5">관리항목5</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE5" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME5" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME5" name="ACC_VALUE_NAME5" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -814,10 +840,10 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE9">관리항목9</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE9" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME9" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME9" name="ACC_VALUE_NAME9" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -832,10 +858,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE2">관리항목2</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE2" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME2" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME2" name="ACC_VALUE_NAME2" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -848,10 +874,10 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE6">관리항목6</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE6" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME6" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME6" name="ACC_VALUE_NAME6" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -864,10 +890,10 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE10">관리항목10</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE10" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME10" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME10" name="ACC_VALUE_NAME10" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -882,10 +908,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE3">관리항목3</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE3" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME3" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME3" name="ACC_VALUE_NAME3" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -898,10 +924,10 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE7">관리항목7</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE7" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME7" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME7" name="ACC_VALUE_NAME7" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -916,10 +942,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE4">관리항목4</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE4" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME4" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME4" name="ACC_VALUE_NAME4" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -932,10 +958,10 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE8">관리항목8</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE8" type="text" placeholder="" class="form-control input-sm" readonly />
+                                                <input id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ACC_VALUE_NAME8" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ACC_VALUE_NAME8" name="ACC_VALUE_NAME8" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -946,11 +972,11 @@
                                                         onclick="fn_findAccItem(8)"
                                                 ></sbux-button>
                                             </td>
-                                            <sbux-input id="DEBIT_CREDIT" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                            <sbux-input id="ACC_CODE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                            <sbux-input id="DESCRIPTION" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                            <sbux-input id="PROJECT_CODE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                            <sbux-input id="PROJECT_NAME" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                                            <sbux-input id="DEBIT_CREDIT" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
+                                            <sbux-input id="ACC_CODE" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
+                                            <sbux-input id="DESCRIPTION" name="DESCRIPTION" grid-id="gvwWFItem" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
+                                            <sbux-input id="PROJECT_CODE" name="PROJECT_CODE" grid-id="gvwWFItem" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
+                                            <sbux-input id="PROJECT_NAME" name="PROJECT_NAME" grid-id="gvwWFItem" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -993,7 +1019,6 @@
 
     var bnew = true;
     var bAllowPrint = false;
-    var bfocuschange = false;
 
     var strCurrntDate;
     var strFileSourceType = "FIGDOCHEADER";
@@ -1012,6 +1037,7 @@
     var jsonCurrencyCode = []; // 통화코드
     var jsonZeroType = []; // 영세율구분
     var jsonCreditArea = []; // 여신영역
+    var jsonBankAccountSeq = []; // 계좌정보
 
     //grid 초기화
     var gvwWFItem; 			// 그리드를 담기위한 객체 선언
@@ -1124,7 +1150,7 @@
                 , menuId: p_menuId
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
-                , dropAlign: 'right' 	// left, right
+                , dropAlign: 'left' 	// left, right
                 , colValue: 'SUB_CODE'
                 , colLabel: 'CODE_NAME'
                 , columns: [
@@ -1150,9 +1176,22 @@
                 , colValue: 'CURRENCY_CODE'
                 , colLabel: 'CURRENCY_NAME'
                 , columns: [
+                    {caption: "통화", ref: 'CURRENCY_CODE', width: '100px', style: 'text-align:left'},
                     {caption: "통화명", ref: 'CURRENCY_NAME', width: '100px', style: 'text-align:left'},
                     {caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    if(value == "KRW") {
+                        $("#EXCHANGE_RATE").attr('disabled', 'true');
+                    } else {
+                        $("#EXCHANGE_RATE").attr('disabled', 'false');
+                        gvwWFItem.setColDisabled(gvwWFItem.getColRef("FUNCTIONAL_AMT"), false, true);
+                    }
+
+                    SBUxMethod.set("BASE_SCALE", parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == value)[0]["BASE_SCALE"]));
+
+                    fn_getExchange();
+                }
             }),
             // 통화
             gfnma_multiSelectInit({
@@ -1199,6 +1238,18 @@
                     {caption: "AP_DOC_YN", ref: 'AP_DOC_YN', width: '100px', style: 'text-align:left'},
                     {caption: "AR_DOC_YN", ref: 'AR_DOC_YN', width: '100px', style: 'text-align:left'},
                 ]
+                , callback : function(value) {
+                    if (gfn_nvl(value) == "" || gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) != "" ) {
+                        return;
+                    }
+
+                    fn_searchRule();
+
+                    SBUxMethod.attr("DOC_TYPE", "readonly", "true");
+
+                    $("#btnAddRow").attr('disabled', 'false');
+                    $("#btnDeleteRow").attr('disabled', 'false');
+                }
             }),
             // 은행코드
             gfnma_setComSelect(['BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
@@ -1220,6 +1271,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "발행구분", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ETAX_TYPE"), value);
+                }
             }),
             // 카드용도구분
             gfnma_multiSelectInit({
@@ -1239,6 +1295,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "카드구분", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("CARD_USE_TYPE"), value);
+                }
             }),
             // 내국신용장구분
             gfnma_multiSelectInit({
@@ -1258,6 +1319,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "구분", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("LOCAL_CREDIT_TYPE"), value);
+                }
             }),
             // 불공제 사유 유형
             gfnma_multiSelectInit({
@@ -1277,6 +1343,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "불공제 사유 유형", ref: 'CODE_NAME', width: '230px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_NOT_DEDUCTION_TYPE"), value);
+                }
             }),
             // 예정누락여부
             gfnma_multiSelectInit({
@@ -1296,6 +1367,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "해당여부", ref: 'CODE_NAME', width: '80px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("REPORT_OMIT_YN"), value);
+                }
             }),
             // 중복발행구분
             gfnma_multiSelectInit({
@@ -1315,6 +1391,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "구분", ref: 'CODE_NAME', width: '50px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("DUP_ISSUE_BILL_TYPE"), value);
+                }
             }),
             // 감가상각자산유형
             gfnma_multiSelectInit({
@@ -1334,6 +1415,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "자산구분", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_ASSET_TYPE"), value);
+                }
             }),
             // 중복발행구분
             gfnma_multiSelectInit({
@@ -1353,6 +1439,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "해당여부", ref: 'CODE_NAME', width: '80px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("AFTER_DUE_DATE_YN"), value);
+                }
             }),
             // 영세율첨부서류여부
             gfnma_multiSelectInit({
@@ -1372,6 +1463,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "해당여부", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_REPORT_YN"), value);
+                }
             }),
             // 수입금액제외
             gfnma_multiSelectInit({
@@ -1391,6 +1487,11 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "해당여부", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("EXCLUDE_REVENUE_AMT_YN"), value);
+                }
             }),
             // 수입금액제외
             gfnma_setComSelect(['gvwWFItem'], jsonZeroType, 'L_FIT010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -1411,14 +1512,20 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "명칭", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    var nRow = gvwWFItem.getRow();
+                    if(nRow < 0) return;
+                    gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_TYPE"), value);
+                }
             }),
             // 계좌정보
+            gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target: ['#BANK_ACCOUNT_SEQ']
                 , compCode: gv_ma_selectedApcCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND a.cs_code = '" + gfnma_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+                , whereClause: "AND a.cs_code = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
@@ -1439,6 +1546,14 @@
                     {caption: "종료일", ref: 'EFFECT_END_DATE', width: '100px', style: 'text-align:left'},
                     {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
                 ]
+                , callback : function(value) {
+                    if (!bnew) return;
+
+                    SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
+                    SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
+                    SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
+                    SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BNKCNT"]);
+                }
             }),
             // 유형
             gfnma_setComSelect(['gvwWFItem'], jsonLineType, 'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -1460,7 +1575,7 @@
             , compCode: gv_ma_selectedApcCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_CS_ACCOUNT'
-            , whereClause: "AND a.cs_code = '" + gfnma_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+            , whereClause: "AND a.cs_code = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
             , formId: p_formId
             , menuId: p_menuId
             , selectValue: ''
@@ -1481,15 +1596,37 @@
                 {caption: "종료일", ref: 'EFFECT_END_DATE', width: '100px', style: 'text-align:left'},
                 {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
             ]
+            , callback : function(value) {
+                if (!bnew) return;
+
+                SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
+                SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
+                SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
+                SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BNKCNT"]);
+            }
         });
     }
 
-    var fn_changeExpectedPayDate = function (data) {
-        fn_getBankAccountSeq();
+    var fn_changeExpectedPayDate = function (value) {
+        if (!bnew)
+            return;
+
+        if (gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')) == "" || gfn_nvl(value) == "")
+            return;
+
+        SBUxMethod.set("DIFF_DAY", gfn_diffDate(value, SBUxMethod.get('PAY_BASE_DATE')));
+
+        if(gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
+            let ht1 = fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), value);
+
+            SBUxMethod.set("BILL_DUE_DATE", ht1[0].has("BILL_DUE_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DATE"]) : "" : "");
+            SBUxMethod.set("BILL_DUE_DAY", ht1[0].has("BILL_DUE_DAY") ? !gfn_nvl(ht1[0]["BILL_DUE_DAY"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DAY"]) : "" : "");
+            SBUxMethod.set("BILL_DUE_PAY_DATE", ht1[0].has("BILL_DUE_PAY_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) : "" : "");
+        }
     }
 
     var fn_findDeptCode = function () {
-        var searchText = gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -1516,8 +1653,8 @@
     }
 
     var fn_findApprovalNo = function () {
-        var searchText = gfnma_nvl(SBUxMethod.get("APPROVAL_NO"));
-        var CS_CODE = gfnma_nvl(SBUxMethod.get("CS_CODE"));
+        var searchText = gfn_nvl(SBUxMethod.get("APPROVAL_NO"));
+        var CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
         var addParams = [CS_CODE == "" ? null : CS_CODE, null, "'" + strsourceType + "'"];
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '세금계산서목록');
@@ -1547,8 +1684,8 @@
     }
 
     var fn_findCsCode = function () {
-        var CS_CODE = gfnma_nvl(SBUxMethod.get("CS_CODE"));
-        var CS_NAME = gfnma_nvl(SBUxMethod.get("CS_NAME"));
+        var CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
+        var CS_NAME = gfn_nvl(SBUxMethod.get("CS_NAME"));
         var replaceText0 = "_CS_CODE_";
         var replaceText1 = "_CS_NAME_";
         var replaceText2 = "_BIZ_REGNO_";
@@ -1577,13 +1714,28 @@
                 SBUxMethod.set('CS_CODE', data.CS_CODE);
                 SBUxMethod.set('CS_NAME', data.CS_NAME);
                 SBUxMethod.set('BIZ_REGNO', data.BIZ_REGNO);
+
+                if (data.CS_CODE != "" && gfn_nvl(SBUxMethod.get("DOC_TYPE")) != "") {
+                    SBUxMethod.attr("DOC_TYPE", "readonly", "true");
+
+                    $("#btnAddRow").attr('disabled', 'false');
+                    $("#btnDeleteRow").attr('disabled', 'false');
+                    $("#btnCreateLine").attr('disabled', 'false');
+                } else {
+                    SBUxMethod.attr("DOC_TYPE", "readonly", "false");
+
+                    $("#btnAddRow").attr('disabled', 'true');
+                    $("#btnDeleteRow").attr('disabled', 'true');
+                    $("#btnCreateLine").attr('disabled', 'true');
+                }
+
                 fn_getBankAccountSeq();
             },
         });
     }
 
     var fn_findPayTermCode = function () {
-        var searchText = gfnma_nvl(SBUxMethod.get("PAY_TERM_NAME"));
+        var searchText = gfn_nvl(SBUxMethod.get("PAY_TERM_NAME"));
         var replaceText0 = "_PAY_TERM_CODE_";
         var replaceText1 = "_PAY_TERM_NAME_";
         var strWhereClause = "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%'";
@@ -1611,7 +1763,7 @@
     }
 
     var fn_findAccItem = function (num) {
-        var searchText = gfnma_nvl(SBUxMethod.get("ACC_VALUE_NAME" + num));
+        var searchText = gfn_nvl(SBUxMethod.get("ACC_VALUE_NAME" + num));
         var replaceText0 = "_ACC_ITEM_VALUE_";
         var replaceText1 = "_ACC_VALUE_NAME_";
         var strWhereClause = "AND ACC_ITEM_VALUE LIKE '%" + replaceText0 + "%' AND ACC_VALUE_NAME LIKE '%" + replaceText1 + "%'";
@@ -2911,7 +3063,7 @@
         gvwWFItem = _SBGrid.create(SBGridProperties);
         gvwWFItem.bind('dblclick', 'fn_gvwWFItemDblclick');
         gvwWFItem.bind('valuechanged', 'fn_gvwWFItemValueChanged');
-        //gvwWFItem.bind('click', 'fn_view');
+        gvwWFItem.bind('click', 'fn_view');
     }
 
     const fn_gvwWFItemDblclick = async function () {
@@ -3006,7 +3158,186 @@
             }
         } else if (nCol == gvwWFItem.getColRef("ACC_CHARACTER")) {
             fn_changeControlSettings(rowData);
+        } else if (nCol == gvwWFItem.getColRef("ACC_ITEM_VALUE1")) {
+            if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "1" && (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("VAT_TYPE")) == "VK" || gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("VAT_TYPE")) == "VL")) {
+                SBUxMethod.set("VOUCHER_TYPE", "C")
+                SBUxMethod.set("VOUCHER_NO", SBUxMethod.get("ACC_ITEM_VALUE1"));
+            }
         }
+    }
+
+    const fn_baseFocusedRowChanged = async function (nRow, nCol) {
+        fn_changeControlSettings(gvwWFItem.getRowData(nRow));
+
+        if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "3") {
+            SBUxMethod.enableTab('idxTab','tabPage2')
+            SBUxMethod.setTab('idxTab','tabPage2');
+            $("#btnDeleteRow").attr('disabled', 'true');
+        } else if (gvwWFItem.getCellData(nRow, gvwWFItem.getColRef("LINE_TYPE")) == "1") {
+            SBUxMethod.disableTab('idxTab','tabPage2');
+            SBUxMethod.setTab('idxTab','tabPage1');
+            $("#btnDeleteRow").attr('disabled', 'false');
+        } else {
+            SBUxMethod.disableTab('idxTab','tabPage2');
+            SBUxMethod.setTab('idxTab','tabPage1');
+
+            if (gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')) == "1")
+                $("#btnDeleteRow").attr('disabled', 'false');
+        }
+    }
+
+    const fn_view = async function () {
+        var nRow = gvwWFItem.getRow();
+        var nCol = gvwWFItem.getCol();
+
+        if (nCol == 5 || nCol == 6 || nCol == 7 || nCol == 8 || nCol == 15 || nCol == 16) {
+            return;
+        }
+
+        gvwWFItem.Columns["key_id"].FilterInfo = new DevExpress.XtraGrid.Columns.ColumnFilterInfo(DevExpress.XtraGrid.Columns.ColumnFilterType.Custom, null, "[key_id] = '" + txtkey_id.Text + "' OR IsNullOrEmpty([key_id])");  //OR IsNullOrEmpty([group_code])
+
+        //버튼 활성화 제어
+
+        let strDoc_status = gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')); //전표 상태로 변경
+
+        if (gfn_nvl(SBUxMethod.get('DOC_TYPE')) != "19" && gfn_nvl(SBUxMethod.get('DOC_TYPE')) != "39")
+            $("#btnDocCopy").attr('disabled', 'true');
+
+        if (gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) == "") {
+            $("#main-btn-del").attr('disabled', 'true');
+            $("#main-btn-appr").attr('disabled', 'true');
+            // TODO : PreviewButton = false;
+            // TODO : PrintButton = false;
+
+            $("#btnAddRow").attr('disabled', 'true');
+            $("#btnDeleteRow").attr('disabled', 'true');
+            $("#btnCreateLine").attr('disabled', 'true');
+
+            if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) != p_userId) {
+                $("#main-btn-appr").attr('disabled', 'true');
+
+                $("#btnAddRow").attr('disabled', 'true');
+                $("#btnDeleteRow").attr('disabled', 'true');
+                $("#btnCreateLine").attr('disabled', 'true');
+            }
+
+            if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+                // TODO : btnConfirmHist.Enabled = true;
+                $("#main-btn-appr").attr('disabled', 'false');
+        } else {
+            if (strDoc_status == "1") {
+                //미승인
+                $("#main-btn-del").attr('disabled', 'false');
+                $("#main-btn-appr").attr('disabled', 'false');
+                // TODO : PreviewButton = true;
+                // TODO : PrintButton = true;
+
+                $("#btnAddRow").attr('disabled', 'false');
+                $("#btnDeleteRow").attr('disabled', 'false');
+                $("#btnCreateLine").attr('disabled', 'false');
+
+                $("#VAT_CODE").attr('disabled', 'false');
+
+                if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) != p_userId) {
+                    $("#main-btn-del").attr('disabled', 'true');
+                    $("#main-btn-appr").attr('disabled', 'true');
+
+                    $("#btnAddRow").attr('disabled', 'true');
+                    $("#btnDeleteRow").attr('disabled', 'true');
+                    $("#btnCreateLine").attr('disabled', 'true');
+                }
+
+                if (strFI_DELETE_USER == p_userId) {
+                    $("#main-btn-del").attr('disabled', 'false');
+                }
+
+            } else if (strDoc_status.Equals("3")) {
+                //승인중
+                $("#main-btn-appr").attr('disabled', 'true');
+                // TODO : PreviewButton = true;
+                // TODO : PrintButton = true;
+
+                $("#btnAddRow").attr('disabled', 'true');
+                $("#btnDeleteRow").attr('disabled', 'true');
+                $("#btnCreateLine").attr('disabled', 'true');
+
+                $("#VAT_CODE").attr('disabled', 'true');
+
+                if (gfn_nvl(SBUxMethod.get('CONFIRM_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('PROXY_EMP_CODE')) == p_empCd || gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd) {
+                    $("#main-btn-appr").attr('disabled', 'false');
+                }
+
+                if ((gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == gfn_nvl(SBUxMethod.get('REQUEST_EMP_CODE'))) && (gfn_nvl(SBUxMethod.get('BEFORE_APPR_EMP_CODE')) == p_empCd)) {
+                    $("#main-btn-del").attr('disabled', 'false');
+                } else {
+                    $("#main-btn-del").attr('disabled', 'true');
+                }
+
+                if (strFI_DELETE_USER == p_userId) {
+                    $("#main-btn-del").attr('disabled', 'false');
+                    $("#main-btn-appr").attr('disabled', 'false');
+                }
+
+                if (gfn_nvl(SBUxMethod.get('APPR_ID')) != "")
+                    // TODO : btnConfirmHist.Enabled = true;
+                    $("#main-btn-appr").attr('disabled', 'false');
+            } else if (strDoc_status.Equals("5")) {
+                //승인완료
+                $("#main-btn-del").attr('disabled', 'true');
+                $("#main-btn-appr").attr('disabled', 'true');
+                // TODO : PreviewButton = true;
+                // TODO : PrintButton = true;
+
+                $("#btnAddRow").attr('disabled', 'true');
+                $("#btnDeleteRow").attr('disabled', 'true');
+                $("#btnCreateLine").attr('disabled', 'true');
+
+                $("#VAT_CODE").attr('disabled', 'true');
+
+                if (strFI_DELETE_USER == p_userId) {
+                    $("#main-btn-del").attr('disabled', 'false');
+                }
+
+                //본인이 등록했고 본인만 결제권자 였으면 반려 가능
+                if (gfn_nvl(SBUxMethod.get('INSERT_USERID')) == p_userId && parseInt(gfn_nvl(SBUxMethod.get('APPR_COUNT')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_COUNT'))) == 1) {
+                    $("#main-btn-appr").attr('disabled', 'false');
+                    $("#main-btn-del").attr('disabled', 'false');
+                }
+
+                if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+                    // TODO : btnConfirmHist.Enabled = true;
+                    $("#main-btn-appr").attr('disabled', 'false');
+            } else {
+                //최종완료, 반려
+                $("#main-btn-del").attr('disabled', 'true');
+                $("#main-btn-appr").attr('disabled', 'true');
+                // TODO : PreviewButton = true;
+                // TODO : PrintButton = true;
+
+                $("#btnAddRow").attr('disabled', 'true');
+                $("#btnDeleteRow").attr('disabled', 'true');
+                $("#btnCreateLine").attr('disabled', 'true');
+
+                $("#VAT_CODE").attr('disabled', 'true');
+
+                if (parseInt(gfn_nvl(SBUxMethod.get('APPR_ID')) == "" ? "0" : gfn_nvl(SBUxMethod.get('APPR_ID'))) != 0)
+                    // TODO : btnConfirmHist.Enabled = true;
+                    $("#main-btn-appr").attr('disabled', 'false');
+            }
+        }
+
+        if (p_isAccountManager || (strDoc_status == "1" && gfn_nvl(SBUxMethod.get('INSERT_USERID')) == p_userId)) {
+            // TODO : panWFTop.ActionMode = ActionMode.Save;
+            // TODO : gvwWFItem.ActionMode = ActionMode.Save;
+        } else {
+            // TODO : panWFTop.ActionMode = ActionMode.View;
+            // TODO : gvwWFItem.ActionMode = ActionMode.View;
+        }
+
+        if (nRow < 0)
+            return;
+
+        fn_baseFocusedRowChanged(nRow, nCol);
     }
 
     const fn_getExchangeRate = async function (stryyyymmdd, strcurrency_code, strrate_type) {
@@ -3051,7 +3382,21 @@
         }
     }
 
+    const fn_getExchange = async function() {
+
+        if (gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')) == "")
+            return;
+
+        let ht = fn_getExchangeRate(SBUxMethod.get("DOC_DATE"), gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')), null);
+
+        SBUxMethod.set('exchange_rate', parseInt(ht["RATE"]));
+        SBUxMethod.set('base_scale', parseInt(ht["BASE_SCALE"]));
+
+        fn_exchageUpdate();
+    }
+
     const fn_changeControlSettings = async function (dr) {
+        // TODO : 확인 필요
         if (dr == null)
             return;
 
@@ -3103,7 +3448,7 @@
                 accPopupBizcompIdList["ACC_VALUE_NAME" + i] = dr["POPUP_ID" + i];
 
                 accPopupWhereList["ACC_VALUE_NAME" + i] = "";
-                accPopupWhereList["ACC_VALUE_NAME" + i] = " AND ACC_VALUE_NAME = '" + gfnma_nvl(SBUxMethod.get("ACC_VALUE_NAME" + i)) + "'";
+                accPopupWhereList["ACC_VALUE_NAME" + i] = " AND ACC_VALUE_NAME = '" + gfn_nvl(SBUxMethod.get("ACC_VALUE_NAME" + i)) + "'";
 
                 //P_LOAN01   차입금
                 //P_NOTE02   받을어음
@@ -3136,45 +3481,148 @@
         }
     }
 
+    const fn_changeDocDate = async function (value) {
+        if (!bnew || gfn_nvl(value) == "") {
+            return;
+        }
+
+        SBUxMethod.set('VOUCHER_RECEIPT_DATE', value);
+        SBUxMethod.set('STANDARD_DATE', value);
+
+        fn_getExchange();
+
+        fn_getBankAccountSeq();
+
+        if (gfn_nvl(SBUxMethod.get("PAY_TERM_CODE")) == "" || value == "")
+            return;
+
+        fn_setExpectedPayDateReadOnly();
+    }
+
+    const fn_changeDescription = async function (value) {
+        if (!bnew)
+            return;
+
+        if (jsonAccountLineList.length != 0) {
+            for (var i = 0; i < jsonAccountLineList.length; i++) {
+                if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DESCRIPTION")) == "") {
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("DESCRIPTION", value));
+                }
+            }
+        }
+    }
+
+    const fn_changeDocAmt = async function (value) {
+        if (!bnew)
+            return;
+
+        if (gfn_nvl(value) == "" || gfn_nvl(SBUxMethod.get("VAT_AMOUNT")) == "")
+            return;
+
+        SBUxMethod.set("SUPPLY_AMT", (Number(value) - Number(SBUxMethod.get("VAT_AMOUNT"))));
+    }
+
+    const fn_changeVatAmount = async function (value) {
+        if (!bnew)
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("DOC_AMT")) == "" || gfn_nvl(value) == "")
+            return;
+
+        SBUxMethod.set("SUPPLY_AMT", (Number(SBUxMethod.get("DOC_AMT")) - Number(value)));
+
+        if (jsonAccountLineList.length > 0) {
+            for (var i = 0; i < jsonAccountLineList.length; i++) {
+                if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3") {
+                    gvwWFItem.clickRow((i+1));
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("VAT_AMT"), value);
+                }
+            }
+        }
+    }
+
+    const fn_changeStandardDate = async function (value) {
+        if (gfn_nvl(value) == "")
+            return;
+
+        if (jsonAccountLineList.length > 0) {
+            for (var i = 0; i < jsonAccountLineList.length; i++) {
+                if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3") {
+                    gvwWFItem.clickRow((i+1));
+                    SBUxMethod.set("STANDARD_DATE1", value)
+                    gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("STANDARD_DATE"), value);
+                }
+            }
+        }
+    }
+
+    const fn_changeApprovalNo = async function (value) {
+        if (gfn_nvl(value) != "") {
+            SBUxMethod.set("VOUCHER_TYPE", "A")
+            SBUxMethod.set("VOUCHER_NO", value);
+
+            SBUxMethod.attr("CS_CODE", "readonly", "true");
+            SBUxMethod.attr("CS_NAME", "readonly", "true");
+            SBUxMethod.attr("BIZ_REGNO", "readonly", "true");
+            SBUxMethod.attr("VOUCHER_RECEIPT_DATE", "readonly", "true");
+        } else {
+            SBUxMethod.attr("CS_CODE", "readonly", "false");
+            SBUxMethod.attr("CS_NAME", "readonly", "false");
+            SBUxMethod.attr("BIZ_REGNO", "readonly", "false");
+            SBUxMethod.attr("VOUCHER_RECEIPT_DATE", "readonly", "false");
+        }
+    }
+
+    const fn_changeWriteDate = async function (value) {
+        SBUxMethod.set("VOUCHER_RECEIPT_DATE", value);
+        SBUxMethod.set("DOC_DATE", value);
+        SBUxMethod.set("STANDARD_DATE", value);
+    }
+
+    const fn_changeBasisType = async function (value) {
+        fn_setExpectedPayDateReadOnly();
+    }
+
+
     // 행추가
     const fn_addRow = async function () {
         let rowVal = gvwWFItem.getRow();
 
         if (rowVal == -1) { //데이터가 없고 행선택이 없을경우.
             gvwWFItem.addRow(true, {
-                KEY_ID: gfnma_nvl(SBUxMethod.get("KEY_ID")),
+                KEY_ID: gfn_nvl(SBUxMethod.get("KEY_ID")),
                 ITEM_SEQ: jsonAccountLineList.length,
                 LINE_TYPE: "2",
-                SITE_CODE: gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
-                DEPT_CODE: gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
-                DEBIT_CREDIT: gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
+                SITE_CODE: gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
+                DEPT_CODE: gfn_nvl(SBUxMethod.get("DEPT_CODE")),
+                DEBIT_CREDIT: gfn_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
                 ORIGINAL_AMT: 0,
                 VAT_AMT: 0,
                 SUPPLY_AMT: 0,
-                CURRENCY_CODE: gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
-                EXCHANGE_RATE: gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
-                CS_CODE: gfnma_nvl(SBUxMethod.get("CS_CODE")),
-                VAT_TYPE: gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
-                VAT_NAME: gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').label),
-                DESCRIPTION: gfnma_nvl(SBUxMethod.get("DESCRIPTION")),
+                CURRENCY_CODE: gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
+                EXCHANGE_RATE: gfn_nvl(SBUxMethod.get("EXCHANGE_RATE")),
+                CS_CODE: gfn_nvl(SBUxMethod.get("CS_CODE")),
+                VAT_TYPE: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
+                VAT_NAME: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').label),
+                DESCRIPTION: gfn_nvl(SBUxMethod.get("DESCRIPTION")),
             });
         } else {
             gvwWFItem.insertRow(rowVal, {
-                KEY_ID: gfnma_nvl(SBUxMethod.get("KEY_ID")),
+                KEY_ID: gfn_nvl(SBUxMethod.get("KEY_ID")),
                 ITEM_SEQ: jsonAccountLineList.length,
                 LINE_TYPE: "2",
-                SITE_CODE: gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
-                DEPT_CODE: gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
-                DEBIT_CREDIT: gfnma_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
+                SITE_CODE: gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
+                DEPT_CODE: gfn_nvl(SBUxMethod.get("DEPT_CODE")),
+                DEBIT_CREDIT: gfn_nvl(SBUxMethod.get("REVERSE_YN")) == "Y" ? "C" : "D",
                 ORIGINAL_AMT: 0,
                 VAT_AMT: 0,
                 SUPPLY_AMT: 0,
-                CURRENCY_CODE: gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
-                EXCHANGE_RATE: gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE")),
-                CS_CODE: gfnma_nvl(SBUxMethod.get("CS_CODE")),
-                VAT_TYPE: gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
-                VAT_NAME: gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').label),
-                DESCRIPTION: gfnma_nvl(SBUxMethod.get("DESCRIPTION")),
+                CURRENCY_CODE: gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
+                EXCHANGE_RATE: gfn_nvl(SBUxMethod.get("EXCHANGE_RATE")),
+                CS_CODE: gfn_nvl(SBUxMethod.get("CS_CODE")),
+                VAT_TYPE: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').value),
+                VAT_NAME: gfn_nvl(gfnma_multiSelectGet('#VAT_CODE', 'object').label),
+                DESCRIPTION: gfn_nvl(SBUxMethod.get("DESCRIPTION")),
             });
         }
     }
@@ -3367,7 +3815,7 @@
         }
 
         //사용자
-        SBUxMethod.set("EMP_CODE", gfnma_nvl(gfnma_multiSelectGet('#PAYEE_CODE')));
+        SBUxMethod.set("EMP_CODE", gfn_nvl(gfnma_multiSelectGet('#PAYEE_CODE')));
 
         if (p_isAccountManager || p_isAccountChief) {
             SBUxMethod.set("OPEN_TO_ALL_YN", "N");
@@ -3418,11 +3866,11 @@
         SBUxMethod.set("DIFF_ORIGIN", dorigin_dr_amt - dorigin_cr_amt);
         SBUxMethod.set("DIFF_FUNTION", dfunctional_dr_amt - dfunctional_cr_amt);
 
-        if (!bnew || bfocuschange)
+        if (!bnew)
             return;
 
         if (x > 0) {
-            let VAT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE'));
+            let VAT_TYPE = gfn_nvl(gfnma_multiSelectGet('#VAT_CODE'));
             if (VAT_TYPE == "A0" || VAT_TYPE == "A1" || VAT_TYPE == "A2" || VAT_TYPE == "A3") {
                 gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT"), exp_amt)
                 gvwWFItem.setCellData(x, gvwWFItem.getColRef("EXPORT_AMT_KRW"), exp_amt_krw)
@@ -3437,7 +3885,7 @@
     }
 
     const fn_create = async function () {
-        if (editType != "Q" && gfnma_nvl(SBUxMethod.get("DOC_NAME")) != "") {
+        if (editType != "Q" && gfn_nvl(SBUxMethod.get("DOC_NAME")) != "") {
             if (gfn_comConfirm("Q0000", "PROJECTBASE_003")) {
                 return;
             }
@@ -3571,10 +4019,930 @@
         bnew = true;
     }
 
+    const StringToRemoveMask = async function(dr) {
+        var removeMask =
+        [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ];
+
+        for (var index = 1; index <= 10; ++index) {
+            if (dr["DATA_TYPE" + index] != null && dr["ACC_ITEM_VALUE" + index] != null) {
+                switch (dr["DATA_TYPE" + index]) {
+                    case "TEXT":
+                    case "POPUP":
+                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index] + "|";
+                        continue;
+                    case "NUM":
+                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index].replaceAll(",", "") + "|";
+                        continue;
+                    case "YYYY":
+                    case "YYYYMM":
+                    case "YYYYMMDD":
+                        removeMask[index - 1] = dr["ACC_ITEM_VALUE" + index].replaceAll("-", "") + "|";
+                        continue;
+                    default:
+                        removeMask[index - 1] = "|";
+                        continue;
+                }
+            }
+            else
+                removeMask[index - 1] = "|";
+        }
+        return removeMask;
+    }
+
+    const fnSET_P_FIG3510_S = async function(strWorkType) {
+        try {
+            let bResult = false;
+
+            // 관리항목 필수 체크
+            for (var i = 0; i < jsonAccountLineList.length; i++) {
+                if (gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE"))) == "") {
+                    gfn_comAlert("E0000", "유형은 필수 입력입니다.");
+                    gvwWFItem.clickRow((i+1));
+                    return false;
+                }
+
+                if (gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DEBIT_CREDIT"))) == "") {
+                    gfn_comAlert("E0000", "차변/대변 구분은 필수 입력입니다.");
+                    gvwWFItem.clickRow((i+1));
+                    return false;
+                }
+
+                if (gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ACCOUNT_CODE"))) == "" || gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ACCOUNT_NAME"))) == "") {
+                    gfn_comAlert("E0000", "계정코드, 계정과목은 필수 입력입니다.");
+                    gvwWFItem.clickRow((i+1));
+                    return false;
+                }
+
+                if (gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("SITE_CODE"))) == "") {
+                    gfn_comAlert("E0000", "사업장은 필수 입력입니다.");
+                    gvwWFItem.clickRow((i+1));
+                    return false;
+                }
+
+                if (gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("DESCRIPTION"))) == "") {
+                    gfn_comAlert("E0000", "적요는 필수 입력입니다.");
+                    gvwWFItem.clickRow((i+1));
+                    return false;
+                }
+            }
+
+            if (jsonAccountLineList.length == 0)
+                return false;
+
+            if (gfn_nvl(SBUxMethod.get("PAY_TERM_CODE")) == "" || gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) == "") {
+                gfn_comAlert("E0000", "지급기일코드 나 지급요청일자를 입력해주십시오.");
+                return false;
+            }
+
+            let strRowStatus = "";
+
+            if (strWorkType == "") {
+                if (parseInt(gfn_nvl(SBUxMethod.get("DOC_ID")) == "" ? "0" : gfn_nvl(SBUxMethod.get("DOC_ID"))) == 0)
+                    strRowStatus = "N";
+                else
+                    strRowStatus = "U";
+            } else {
+                strRowStatus = strWorkType;
+            }
+
+            let stritem_id = "";
+            let stritem_seq = "";
+            let strfi_org_code = "";
+            let strline_type = "";
+            let straccount_code = "";
+            let strdebit_credit = "";
+            let strorigin_dr_amt = "";
+            let strorigin_cr_amt = "";
+            let strfunctional_dr_amt = "";
+            let strfunctional_cr_amt = "";
+            let strvat_type = "";
+            let stritem_code = "";
+            let struom = "";
+            let strtxn_qty = "";
+            let strdept_code = "";
+            let strcost_center_code = "";
+            let strproject_code = "";
+            let strdescription = "";
+            let stracc_item_code1 = "";
+            let stracc_item_value1 = "";
+            let stracc_item_code2 = "";
+            let stracc_item_value2 = "";
+            let stracc_item_code3 = "";
+            let stracc_item_value3 = "";
+            let stracc_item_code4 = "";
+            let stracc_item_value4 = "";
+            let stracc_item_code5 = "";
+            let stracc_item_value5 = "";
+            let stracc_item_code6 = "";
+            let stracc_item_value6 = "";
+            let stracc_item_code7 = "";
+            let stracc_item_value7 = "";
+            let stracc_item_code8 = "";
+            let stracc_item_value8 = "";
+            let stracc_item_code9 = "";
+            let stracc_item_value9 = "";
+            let stracc_item_code10 = "";
+            let stracc_item_value10 = "";
+            let stracc_value_name1 = "";
+            let stracc_value_name2 = "";
+            let stracc_value_name3 = "";
+            let stracc_value_name4 = "";
+            let stracc_value_name5 = "";
+            let stracc_value_name6 = "";
+            let stracc_value_name7 = "";
+            let stracc_value_name8 = "";
+            let stracc_value_name9 = "";
+            let stracc_value_name10 = "";
+            let stritem_source_type_d = "";
+            let stritem_source_id_d = "";
+            let strsource_record_count_d = "";
+            let strsum_acc_item1 = "";
+            let strsum_acc_value1 = "";
+            let strsum_acc_item2 = "";
+            let strsum_acc_value2 = "";
+            let strcs_code = "";
+            let strfce_gb = "";
+            let strcurrency_code = "";
+            let strexchange_type = "";
+            let strexchange_rate = "";
+            let strpay_method = "";
+            let strexpected_pay_date = "";
+            let strvoucher_type = "";
+            let strvoucher_no = "";
+            let strpayee_code = "";
+            let strcard_no = "";
+            let strvoucher_receipt_date = "";
+            let strpay_term_code = "";
+            let strwithhold_flag = "";
+            let strwithhold_tax_type = "";
+            let strwithhold_cs_code = "";
+            let strwithhold_tax_type2 = "";
+            let strwithhold_cs_code2 = "";
+            let strsite_code = "";
+            let strcredit_area = "";
+            let strsales_person = "";
+            let strpo_line_no = "";
+            let strsales_cs_code = "";
+            let strapply_complete_flag = "";
+            let strapply_complete_date = "";
+            let strhold_flag = "";
+            let strrelease_date = "";
+            let strrelease_user = "";
+            let strhold_date = "";
+            let strhold_user = "";
+            let strhold_reason = "";
+            let strpay_base_date = "";
+            let strbill_due_date = "";
+            let strbill_due_day = "";
+            let strbill_due_pay_date = "";
+            let strpay_term_orig = "";
+            let strprod_group = "";
+            let strbank_account_seq = "";
+            let stretax_type = "";
+            let strafter_due_date_yn = "";
+            let strdup_issue_bill_type = "";
+            let strexclude_revenue_amt_yn = "";
+            let strcard_use_type = "";
+            let strcard_num = "";
+            let strvat_not_deduction_type = "";
+            let strreport_omit_yn = "";
+            let strstandard_date = "";
+            let strvat_asset_type = "";
+            let strsupply_amt = "";
+            let strzero_report_yn = "";
+            let strlocal_credit_type = "";
+            let strdocument_name = "";
+            let strissue_name = "";
+            let strdocument_issue_date = "";
+            let strexport_license_no = "";
+            let strshipping_date = "";
+            let strexport_amt = "";
+            let strexport_amt_krw = "";
+            let strvat_export_amt = "";
+            let strvat_export_amt_krw = "";
+            let strforeign_amt = "";
+            let strwon_amt = "";
+            let strdocument_no = "";
+            let strzero_type = "";
+            let strvat_amt = "";
+
+            // 관리항목 필수 체크
+            let dSumdr_amt = 0;
+            let dSumCr_amt = 0;
+            let updatedData = gvwFile.getUpdateData(true, 'all');
+            for(let thisdr in updatedData) {
+                if (strRowStatus == "D" || thisdr == 'd')
+                    continue;
+
+                if (gfn_nvl(SBUxMethod.get("KEY_ID")) == gfn_nvl(thisdr["KEY_ID"])) {
+                    if (gfn_nvl(thisdr["LINE_TYPE"]) == "3") {
+                        //세금일경우
+                        if (gfn_nvl(thisdr["VAT_TYPE"]) == "") {
+                            gfn_comAlert("E0000", "세금 TYPE일 경우 부가세 유형은 필수 입력 항목입니다.");
+                            return false;
+                        }
+
+                        let supply_amt1 = gfn_nvl(thisdr["SUPPLY_AMT"]) == "" ? 0 : Number(gfn_nvl(thisdr["SUPPLY_AMT"]));
+
+                        if ((gfn_nvl(thisdr["VAT_TYPE"]) != "VZ"|| gfn_nvl(thisdr["VAT_TYPE"]) != "AZ") && supply_amt1 == 0) {
+                            gfn_comAlert("E0000", "기타매입(부가세 무관)이 아닐 경우 부가세 공급가액은 0 일 수 없습니다.");
+                            return false;
+                        }
+
+                        if (gfn_nvl(thisdr["ETAX_TYPE"]) != "" || gfn_nvl(thisdr["AFTER_DUE_DATE_YN"]) != "") {
+                            if (gfn_nvl(thisdr["CARD_USE_TYPE"]) != "" || gfn_nvl(thisdr["CARD_NUM"]) != "") {
+                                gfn_comAlert("E0000", "전자 발행일 경우 카드 용도를 입력하면 안됩니다.");
+                                return false;
+                            }
+                        }
+
+                        if (gfn_nvl(thisdr["CARD_NUM"]) != "" || gfn_nvl(thisdr["CARD_NUM"]) != "") {
+                            if (gfn_nvl(thisdr["ETAX_TYPE"]) != "" || gfn_nvl(thisdr["AFTER_DUE_DATE_YN"]) != "") {
+                                gfn_comAlert("E0000", "카드 용도일 경우 전자 발행 정보를 입력하면 안됩니다.");
+                                return false;
+                            }
+                        }
+
+                        if (gfn_nvl(thisdr["NONDED_YN"]) == "Y" && gfn_nvl(thisdr["VAT_NOT_DEDUCTION_TYPE"]) == "") {
+                            gfn_comAlert("E0000", "불공제부가세는 불공제유형이 필수 입력입니다.");
+                            return false;
+                        }
+
+                        let Dsupply_amt = 0;
+                        let Dsupply_amt_orig = 0;
+                        Dsupply_amt_orig = Number(gfn_nvl(thisdr["supply_amt"]) == "" ? "0" : gfn_nvl(thisdr["supply_amt"]));
+
+                        if (Dsupply_amt_orig < 0) {
+                            Dsupply_amt = Dsupply_amt_orig * -1;
+                        } else {
+                            Dsupply_amt = Dsupply_amt_orig;
+                        }
+
+                        if (Dsupply_amt != Math.round(Number(SBUxMethod.get("SUPPLY_AMT")) * Number(SBUxMethod.get("EXCHANGE_RATE")))) {
+                            gfn_comAlert("E0000", "전표헤더의 공급가액과 부가세탭의 공급가액이 다릅니다.");
+                            return false;
+                        }
+
+                        if (gfn_nvl(thisdr["VAT_TYPE_CODE"]) == "PB01" || gfn_nvl(thisdr["VAT_TYPE_CODE"]) == "PB02" || gfn_nvl(thisdr["VAT_TYPE_CODE"]) == "PB06") {
+                            if (gfn_nvl(thisdr["CARD_USE_TYPE"]) == "") {
+                                gfn_comAlert("E0000", "카드 용도는 필수 입력 항목입니다.");
+                                return false;
+                            }
+
+                            if (gfn_nvl(thisdr["CARD_NUM"]) == "") {
+                                gfn_comAlert("E0000", "카드 번호는 필수 입력 항목입니다.");
+                                return false;
+                            }
+
+                        }
+                    }
+
+                    if (gfn_nvl(thisdr["LINE_TYPE"]) != "3") //세금 아닌 경우만 체크{
+                        if (Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) == 0) {
+                            gfn_comAlert("E0000", "차대금액이 잘못 입력되었습니다. 금액을 확인해 주십시오");
+                            return false;
+                        }
+                    }
+
+                    if (gfn_nvl(thisdr["ACC_CATEGORY"]) == "D" || gfn_nvl(thisdr["ACC_CATEGORY"]) == "E") {
+                        if (gfn_nvl(thisdr["COST_CENTER_CODE"]) == "") {
+                            gfn_comAlert("E0000", "수익,비용인 경우 원가중심점이 필수 입니다.");
+                            return false;
+                        }
+
+                        if (gfn_nvl(thisdr["DEPT_CODE"]) == "") {
+                            gfn_comAlert("E0000", "수익,비용인 경우 부서코드는 필수입력사항입니다.");
+                            return false;
+                        }
+                    }
+
+                    if (gfn_nvl(thisdr["PROJECT_YN"]) == "Y") {
+                        if (gfn_nvl(thisdr["PROJECT_CODE"]) == "") {
+                            gfn_comAlert("E0000", "프로젝트 코드는 필수 입력 항목입니다.");
+                            return false;
+                        }
+
+                    }
+
+                    if (gfn_nvl(thisdr["COST_CLASS"]) == "1" || gfn_nvl(thisdr["COST_CLASS"]) == "2" || gfn_nvl(thisdr["COST_CLASS"]) == "8"|| gfn_nvl(thisdr["PROJECT_YN"]) == "Y") {
+                        if (gfn_nvl(thisdr["COST_CENTER_CODE"]) == "") {
+                            gfn_comAlert("E0000", "원가중심점은 필수 입력입니다.");
+                            return false;
+                        }
+                    }
+
+                    dSumdr_amt += gfn_nvl(thisdr["DEBIT_CREDIT"]) == "D" ? Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) : 0;
+                    dSumCr_amt += gfn_nvl(thisdr["DEBIT_CREDIT"]) == "C" ? Number(gfn_nvl(thisdr["ORIGINAL_AMT"])) : 0;
+
+                    for (var j = 1; j <= 10; j++){
+                        if (gfn_nvl(thisdr["ACC_ITEM_YN" + j]) == "Y" && decimal.Parse(gfn_nvl(thisdr["ORIGINAL_AMT"])) != 0) {
+                            if (gfn_nvl(thisdr["ACC_ITEM_CODE" + j]) != "") {
+                                if (gfn_nvl(thisdr["ACC_ITEM_VALUE" + j]) == "" || gfn_nvl(thisdr["ACC_ITEM_VALUE" + j]) == "0") {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    stritem_id += gfn_nvl(thisdr["ITEM_ID"]) + "|";
+                    stritem_seq += gfn_nvl(thisdr["ITEM_SEQ"]) + "|";
+                    strfi_org_code += p_fiOrgCode + "|";
+                    strline_type += gfn_nvl(thisdr["LINE_TYPE"]) + "|";
+                    straccount_code += gfn_nvl(thisdr["ACCOUNT_CODE"]) + "|";
+                    strdebit_credit += gfn_nvl(thisdr["DEBIT_CREDIT"]) + "|";
+
+                    strorigin_dr_amt += (gfn_nvl(thisdr["DEBIT_CREDIT"]) == "D" ? gfn_nvl(thisdr["ORIGINAL_AMT"]) : "0.00") + "|";
+                    strorigin_cr_amt += (gfn_nvl(thisdr["DEBIT_CREDIT"]) == "C" ? gfn_nvl(thisdr["ORIGINAL_AMT"]) : "0.00") + "|";
+                    strfunctional_dr_amt += (gfn_nvl(thisdr["DEBIT_CREDIT"]) == "D" ? gfn_nvl(thisdr["FUNCTIONAL_AMT"]) : "0") + "|";
+                    strfunctional_cr_amt += (gfn_nvl(thisdr["DEBIT_CREDIT"]) == "C" ? gfn_nvl(thisdr["FUNCTIONAL_AMT"]) : "0") + "|";
+
+                    strvat_type += gfn_nvl(thisdr["VAT_TYPE"]) + "|";
+
+                    stritem_code += gfn_nvl(thisdr["ITEM_CODE"]) + "|";
+                    struom += gfn_nvl(thisdr["UOM"]) + "|";
+                    strtxn_qty += gfn_nvl(thisdr["TXN_QTY"]) + "|";
+                    strdept_code += gfn_nvl(thisdr["DEPT_CODE"]) + "|";
+                    strcost_center_code += gfn_nvl(thisdr["COST_CENTER_CODE"]) + "|";
+                    strproject_code += gfn_nvl(thisdr["PROJECT_CODE"]) + "|";
+                    strdescription += gfn_nvl(thisdr["DESCRIPTION"]).replace("|", "_").replace("'", "`") + "|";
+
+                    stracc_item_code1 += gfn_nvl(thisdr["ACC_ITEM_CODE1"]) + "|";
+                    stracc_item_code2 += gfn_nvl(thisdr["ACC_ITEM_CODE2"]) + "|";
+                    stracc_item_code3 += gfn_nvl(thisdr["ACC_ITEM_CODE3"]) + "|";
+                    stracc_item_code4 += gfn_nvl(thisdr["ACC_ITEM_CODE4"]) + "|";
+                    stracc_item_code5 += gfn_nvl(thisdr["ACC_ITEM_CODE5"]) + "|";
+                    stracc_item_code6 += gfn_nvl(thisdr["ACC_ITEM_CODE6"]) + "|";
+                    stracc_item_code7 += gfn_nvl(thisdr["ACC_ITEM_CODE7"]) + "|";
+                    stracc_item_code8 += gfn_nvl(thisdr["ACC_ITEM_CODE8"]) + "|";
+                    stracc_item_code9 += gfn_nvl(thisdr["ACC_ITEM_CODE9"]) + "|";
+                    stracc_item_code10 += gfn_nvl(thisdr["ACC_ITEM_CODE10"]) + "|";
+
+                    let strItem = StringToRemoveMask(thisdr);
+
+                    stracc_item_value1 += strItem[0];
+                    stracc_item_value2 += strItem[1];
+                    stracc_item_value3 += strItem[2];
+                    stracc_item_value4 += strItem[3];
+                    stracc_item_value5 += strItem[4];
+                    stracc_item_value6 += strItem[5];
+                    stracc_item_value7 += strItem[6];
+                    stracc_item_value8 += strItem[7];
+                    stracc_item_value9 += strItem[8];
+                    stracc_item_value10 += strItem[9];
+
+                    stracc_value_name1 += gfn_nvl(thisdr["ACC_VALUE_NAME1"]) + "|";
+                    stracc_value_name2 += gfn_nvl(thisdr["ACC_VALUE_NAME2"]) + "|";
+                    stracc_value_name3 += gfn_nvl(thisdr["ACC_VALUE_NAME3"]) + "|";
+                    stracc_value_name4 += gfn_nvl(thisdr["ACC_VALUE_NAME4"]) + "|";
+                    stracc_value_name5 += gfn_nvl(thisdr["ACC_VALUE_NAME5"]) + "|";
+                    stracc_value_name6 += gfn_nvl(thisdr["ACC_VALUE_NAME6"]) + "|";
+                    stracc_value_name7 += gfn_nvl(thisdr["ACC_VALUE_NAME7"]) + "|";
+                    stracc_value_name8 += gfn_nvl(thisdr["ACC_VALUE_NAME8"]) + "|";
+                    stracc_value_name9 += gfn_nvl(thisdr["ACC_VALUE_NAME9"]) + "|";
+                    stracc_value_name10 += gfn_nvl(thisdr["ACC_VALUE_NAME10"]) + "|";
+
+                    stritem_source_type_d += gfn_nvl(thisdr["ITEM_SOURCE_TYPE"]) + "|";
+                    stritem_source_id_d += gfn_nvl(thisdr["ITEM_SOURCE_ID"]) + "|";
+                    strsource_record_count_d += gfn_nvl(thisdr["SOURCE_RECORD_COUNT"]) + "|";
+
+                    strexpected_pay_date += gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "|";
+                    strpay_term_code += gfn_nvl(SBUxMethod.get("PAY_TERM_CODE")) + "|";
+                    strpay_method += gfn_nvl(gfnma_multiSelectGet('#PAY_METHOD')) + "|";
+
+                    strcs_code += gfn_nvl(SBUxMethod.get("CS_CODE")) + "|";
+                    strfce_gb += "" + "|";
+                    strcurrency_code += gfn_nvl(thisdr["CURRENCY_CODE"]) + "|";
+                    strexchange_type += "" + "|";
+                    strexchange_rate += gfn_nvl(SBUxMethod.get("EXCHANGE_RATE")) + "|";
+
+                    strvoucher_type += gfn_nvl(SBUxMethod.get("VOUCHER_TYPE")) + "|";
+                    strvoucher_no += gfn_nvl(SBUxMethod.get("VOUCHER_NO")) + "|";
+                    strpayee_code += gfn_nvl(gfnma_multiSelectGet('#PAYEE_CODE')) + "|";
+                    strcard_no += gfn_nvl(thisdr["CARD_NUM"]) + "|";
+
+                    strvoucher_receipt_date += gfn_nvl(SBUxMethod.get("VOUCHER_RECEIPT_DATE")) + "|";
+
+                    strwithhold_flag += gfn_nvl(thisdr["WITHHOLD_FLAG"]) + "|";
+                    strwithhold_tax_type += gfn_nvl(thisdr["WITHHOLD_TAX_TYPE"]) + "|";
+                    strwithhold_cs_code += gfn_nvl(thisdr["WITHHOLD_CS_CODE"]) + "|";
+                    strwithhold_tax_type2 += gfn_nvl(thisdr["WITHHOLD_TAX_TYPE2"]) + "|";
+                    strwithhold_cs_code2 += gfn_nvl(thisdr["WITHHOLD_CS_CODE2"]) + "|";
+                    strsite_code += gfn_nvl(thisdr["SITE_CODE"]) + "|";
+                    strcredit_area += gfn_nvl(thisdr["CREDIT_AREA"]) + "|";
+                    strsales_person += gfn_nvl(thisdr["SALES_PERSON"]) + "|";
+                    strpo_line_no += gfn_nvl(thisdr["PO_LINE_NO"]) + "|";
+                    strsales_cs_code += gfn_nvl(thisdr["SALES_CS_CODE"]) + "|";
+                    strapply_complete_flag += gfn_nvl(thisdr["APPLY_COMPLETE_FLAG"]) + "|";
+                    strapply_complete_date += gfn_nvl(thisdr["APPLY_COMPLETE_DATE"]) + "|";
+
+                    strhold_flag += gfn_nvl(thisdr["HOLD_FLAG"]) + "|";
+                    strrelease_date += gfn_nvl(thisdr["RELEASE_DATE"]) + "|";
+                    strrelease_user += gfn_nvl(thisdr["RELEASE_USER"]) + "|";
+                    strhold_date += gfn_nvl(thisdr["HOLD_DATE"]) + "|";
+                    strhold_user += gfn_nvl(thisdr["HOLD_USER"]) + "|";
+                    strhold_reason += gfn_nvl(thisdr["HOLD_REASON"]) + "|";
+                    strpay_base_date += (gfn_nvl(thisdr["LINE_TYPE"]) == "1" ? gfn_nvl(SBUxMethod.get("PAY_BASE_DATE")) : "") + "|";
+                    strbill_due_date += (gfn_nvl(thisdr["LINE_TYPE"]) == "1" ? gfn_nvl(SBUxMethod.get("BILL_DUE_DATE")) : "") + "|";
+                    strbill_due_day += (gfn_nvl(thisdr["LINE_TYPE"]) == "1" ? gfn_nvl(SBUxMethod.get("BILL_DUE_DAY")) : "") + "|";
+                    strbill_due_pay_date += (gfn_nvl(thisdr["LINE_TYPE"]) == "1" ? gfn_nvl(SBUxMethod.get("BILL_DUE_PAY_DATE")) : "") + "|";
+                    strpay_term_orig += (gfn_nvl(thisdr["LINE_TYPE"]) == "1" ? gfn_nvl(SBUxMethod.get("PAY_TERM_CODE")) : "") + "|";
+                    strprod_group += gfn_nvl(thisdr["PROD_GROUP"]) + "|";
+                    strbank_account_seq += (gfn_nvl(thisdr["LINE_TYPE"]) == "1" ? gfn_nvl(gfnma_multiSelectGet('#BANK_ACCOUNT_SEQ')) : "") + "|";
+
+                    strsum_acc_item1 += "" + "|";
+                    strsum_acc_value1 += "" + "|";
+                    strsum_acc_item2 += "" + "|";
+                    strsum_acc_value2 += "" + "|";
+
+                    stretax_type += gfn_nvl(thisdr["ETAX_TYPE"]) + "|";
+                    strafter_due_date_yn += gfn_nvl(thisdr["AFTER_DUE_DATE_YN"]) + "|";
+                    strdup_issue_bill_type += gfn_nvl(thisdr["DUP_ISSUE_BILL_TYPE"]) + "|";
+                    strexclude_revenue_amt_yn += gfn_nvl(thisdr["EXCLUDE_REVENUE_AMT_YN"]) + "|";
+                    strcard_use_type += gfn_nvl(thisdr["CARD_USE_TYPE"]) + "|";
+                    strcard_num += gfn_nvl(thisdr["CARD_NUM"]) + "|";
+                    strvat_not_deduction_type += gfn_nvl(thisdr["VAT_NOT_DEDUCTION_TYPE"]) + "|";
+                    strreport_omit_yn += gfn_nvl(thisdr["REPORT_OMIT_YN"]) + "|";
+                    strstandard_date += gfn_nvl(thisdr["STANDARD_DATE"]) == "" ? "" + "|" : gfn_nvl(thisdr["STANDARD_DATE"]).substring(0, 8) + "|";
+                    strvat_asset_type += gfn_nvl(thisdr["VAT_ASSET_TYPE"]) + "|";
+                    strsupply_amt += gfn_nvl(thisdr["SUPPLY_AMT"]) + "|";
+
+                    strzero_report_yn += gfn_nvl(thisdr["ZERO_REPORT_YN"]) + "|";
+                    strlocal_credit_type += gfn_nvl(thisdr["LOCAL_CREDIT_TYPE"]) + "|";
+                    strdocument_name += gfn_nvl(thisdr["DOCUMENT_NAME"]) + "|";
+                    strissue_name += gfn_nvl(thisdr["ISSUE_NAME"]) + "|";
+                    strdocument_issue_date += gfn_nvl(thisdr["DOCUMENT_ISSUE_DATE"]) + "|";
+                    strexport_license_no += gfn_nvl(thisdr["EXPORT_LICENSE_NO"]) + "|";
+                    strshipping_date += gfn_nvl(thisdr["SHIPPING_DATE"]) + "|";
+
+                    strexport_amt += gfn_nvl(thisdr["EXPORT_AMT"]) + "|";
+                    strexport_amt_krw += gfn_nvl(thisdr["EXPORT_AMT_KRW"]) + "|";
+                    strvat_export_amt += gfn_nvl(thisdr["VAT_EXPORT_AMT"]) + "|";
+                    strvat_export_amt_krw += gfn_nvl(thisdr["VAT_EXPORT_AMT_KRW"]) + "|";
+                    strforeign_amt += gfn_nvl(thisdr["FOREIGN_AMT"]) + "|";
+                    strwon_amt += gfn_nvl(thisdr["WON_AMT"]) + "|";
+                    strdocument_no += gfn_nvl(thisdr["DOCUMENT_NO"]) + "|";
+                    strzero_type += gfn_nvl(thisdr["ZERO_TYPE"]) + "|";
+                    strvat_amt += gfn_nvl(thisdr["VAT_AMT"]) + "|";
+                }
+
+            if (dSumdr_amt != dSumCr_amt) {
+                gfn_comAlert("E0000", "차대금액이 맞지 않습니다. 금액을 확인해 주십시오.");
+                return false;
+            }
+
+            if (stritem_id != "") {
+                stritem_id = stritem_id.substring(0, stritem_id.length - 1);
+                stritem_seq = stritem_seq.substring(0, stritem_seq.length - 1);
+                strfi_org_code = strfi_org_code.substring(0, strfi_org_code.length - 1);
+                strline_type = strline_type.substring(0, strline_type.length - 1);
+                straccount_code = straccount_code.substring(0, straccount_code.length - 1);
+                strdebit_credit = strdebit_credit.substring(0, strdebit_credit.length - 1);
+                strorigin_dr_amt = strorigin_dr_amt.substring(0, strorigin_dr_amt.length - 1);
+                strorigin_cr_amt = strorigin_cr_amt.substring(0, strorigin_cr_amt.length - 1);
+                strfunctional_dr_amt = strfunctional_dr_amt.substring(0, strfunctional_dr_amt.length - 1);
+                strfunctional_cr_amt = strfunctional_cr_amt.substring(0, strfunctional_cr_amt.length - 1);
+                strvat_type = strvat_type.substring(0, strvat_type.length - 1);
+
+                stritem_code = stritem_code.substring(0, stritem_code.length - 1);
+                struom = struom.substring(0, struom.length - 1);
+                strtxn_qty = strtxn_qty.substring(0, strtxn_qty.length - 1);
+                strdept_code = strdept_code.substring(0, strdept_code.length - 1);
+                strcost_center_code = strcost_center_code.substring(0, strcost_center_code.length - 1);
+                strproject_code = strproject_code.substring(0, strproject_code.length - 1);
+                strdescription = strdescription.substring(0, strdescription.length - 1);
+
+                stracc_item_code1 = stracc_item_code1.substring(0, stracc_item_code1.length - 1);
+                stracc_item_value1 = stracc_item_value1.substring(0, stracc_item_value1.length - 1);
+                stracc_item_code2 = stracc_item_code2.substring(0, stracc_item_code2.length - 1);
+                stracc_item_value2 = stracc_item_value2.substring(0, stracc_item_value2.length - 1);
+                stracc_item_code3 = stracc_item_code3.substring(0, stracc_item_code3.length - 1);
+                stracc_item_value3 = stracc_item_value3.substring(0, stracc_item_value3.length - 1);
+                stracc_item_code4 = stracc_item_code4.substring(0, stracc_item_code4.length - 1);
+                stracc_item_value4 = stracc_item_value4.substring(0, stracc_item_value4.length - 1);
+                stracc_item_code5 = stracc_item_code5.substring(0, stracc_item_code5.length - 1);
+                stracc_item_value5 = stracc_item_value5.substring(0, stracc_item_value5.length - 1);
+                stracc_item_code6 = stracc_item_code6.substring(0, stracc_item_code6.length - 1);
+                stracc_item_value6 = stracc_item_value6.substring(0, stracc_item_value6.length - 1);
+                stracc_item_code7 = stracc_item_code7.substring(0, stracc_item_code7.length - 1);
+                stracc_item_value7 = stracc_item_value7.substring(0, stracc_item_value7.length - 1);
+                stracc_item_code8 = stracc_item_code8.substring(0, stracc_item_code8.length - 1);
+                stracc_item_value8 = stracc_item_value8.substring(0, stracc_item_value8.length - 1);
+
+                stracc_item_code9 = stracc_item_code9.substring(0, stracc_item_code9.length - 1);
+                stracc_item_value9 = stracc_item_value9.substring(0, stracc_item_value9.length - 1);
+                stracc_item_code10 = stracc_item_code10.substring(0, stracc_item_code10.length - 1);
+                stracc_item_value10 = stracc_item_value10.substring(0, stracc_item_value10.length - 1);
+
+                stracc_value_name1 = stracc_value_name1.substring(0, stracc_value_name1.length - 1);
+                stracc_value_name2 = stracc_value_name2.substring(0, stracc_value_name2.length - 1);
+                stracc_value_name3 = stracc_value_name3.substring(0, stracc_value_name3.length - 1);
+                stracc_value_name4 = stracc_value_name4.substring(0, stracc_value_name4.length - 1);
+                stracc_value_name5 = stracc_value_name5.substring(0, stracc_value_name5.length - 1);
+                stracc_value_name6 = stracc_value_name6.substring(0, stracc_value_name6.length - 1);
+                stracc_value_name7 = stracc_value_name7.substring(0, stracc_value_name7.length - 1);
+                stracc_value_name8 = stracc_value_name8.substring(0, stracc_value_name8.length - 1);
+                stracc_value_name9 = stracc_value_name9.substring(0, stracc_value_name9.length - 1);
+                stracc_value_name10 = stracc_value_name10.substring(0, stracc_value_name10.length - 1);
+
+                stritem_source_type_d = stritem_source_type_d.substring(0, stritem_source_type_d.length - 1);
+                stritem_source_id_d = stritem_source_id_d.substring(0, stritem_source_id_d.length - 1);
+                strsource_record_count_d = strsource_record_count_d.substring(0, strsource_record_count_d.length - 1);
+
+                strexpected_pay_date = strexpected_pay_date.substring(0, strexpected_pay_date.length - 1);
+                strpay_term_code = strpay_term_code.substring(0, strpay_term_code.length - 1);
+                strpay_method = strpay_method.substring(0, strpay_method.length - 1);
+                strcs_code = strcs_code.substring(0, strcs_code.length - 1);
+                strfce_gb = strfce_gb.substring(0, strfce_gb.length - 1);
+                strcurrency_code = strcurrency_code.substring(0, strcurrency_code.length - 1);
+                strexchange_type = strexchange_type.substring(0, strexchange_type.length - 1);
+                strexchange_rate = strexchange_rate.substring(0, strexchange_rate.length - 1);
+
+                strvoucher_type = strvoucher_type.substring(0, strvoucher_type.length - 1);
+                strvoucher_no = strvoucher_no.substring(0, strvoucher_no.length - 1);
+                strpayee_code = strpayee_code.substring(0, strpayee_code.length - 1);
+                strcard_no = strcard_no.substring(0, strcard_no.length - 1);
+                strvoucher_receipt_date = strvoucher_receipt_date.substring(0, strvoucher_receipt_date.length - 1);
+
+                strwithhold_flag = strwithhold_flag.substring(0, strwithhold_flag.length - 1);
+                strwithhold_tax_type = strwithhold_tax_type.substring(0, strwithhold_tax_type.length - 1);
+                strwithhold_cs_code = strwithhold_cs_code.substring(0, strwithhold_cs_code.length - 1);
+                strwithhold_tax_type2 = strwithhold_tax_type2.substring(0, strwithhold_tax_type2.length - 1);
+                strwithhold_cs_code2 = strwithhold_cs_code2.substring(0, strwithhold_cs_code2.length - 1);
+
+                strsite_code = strsite_code.substring(0, strsite_code.length - 1);
+                strcredit_area = strcredit_area.substring(0, strcredit_area.length - 1);
+                strsales_person = strsales_person.substring(0, strsales_person.length - 1);
+                strpo_line_no = strpo_line_no.substring(0, strpo_line_no.length - 1);
+                strsales_cs_code = strsales_cs_code.substring(0, strsales_cs_code.length - 1);
+                strapply_complete_flag = strapply_complete_flag.substring(0, strapply_complete_flag.length - 1);
+                strapply_complete_date = strapply_complete_date.substring(0, strapply_complete_date.length - 1);
+
+                strhold_flag = strhold_flag.substring(0, strhold_flag.length - 1);
+                strrelease_date = strrelease_date.substring(0, strrelease_date.length - 1);
+                strrelease_user = strrelease_user.substring(0, strrelease_user.length - 1);
+                strhold_date = strhold_date.substring(0, strhold_date.length - 1);
+                strhold_user = strhold_user.substring(0, strhold_user.length - 1);
+                strhold_reason = strhold_reason.substring(0, strhold_reason.length - 1);
+                strpay_base_date = strpay_base_date.substring(0, strpay_base_date.length - 1);
+                strbill_due_date = strbill_due_date.substring(0, strbill_due_date.length - 1);
+                strbill_due_day = strbill_due_day.substring(0, strbill_due_day.length - 1);
+                strbill_due_pay_date = strbill_due_pay_date.substring(0, strbill_due_pay_date.length - 1);
+                strpay_term_orig = strpay_term_orig.substring(0, strpay_term_orig.length - 1);
+                strprod_group = strprod_group.substring(0, strprod_group.length - 1);
+                strbank_account_seq = strbank_account_seq.substring(0, strbank_account_seq.length - 1);
+
+                strsum_acc_item1 = strsum_acc_item1.substring(0, strsum_acc_item1.length - 1);
+                strsum_acc_value1 = strsum_acc_value1.substring(0, strsum_acc_value1.length - 1);
+                strsum_acc_item2 = strsum_acc_item2.substring(0, strsum_acc_item2.length - 1);
+                strsum_acc_value2 = strsum_acc_value2.substring(0, strsum_acc_value2.length - 1);
+
+                stretax_type = stretax_type.substring(0, stretax_type.length - 1);
+                strafter_due_date_yn = strafter_due_date_yn.substring(0, strafter_due_date_yn.length - 1);
+                strdup_issue_bill_type = strdup_issue_bill_type.substring(0, strdup_issue_bill_type.length - 1);
+                strexclude_revenue_amt_yn = strexclude_revenue_amt_yn.substring(0, strexclude_revenue_amt_yn.length - 1);
+                strcard_use_type = strcard_use_type.substring(0, strcard_use_type.length - 1);
+                strcard_num = strcard_num.substring(0, strcard_num.length - 1);
+                strvat_not_deduction_type = strvat_not_deduction_type.substring(0, strvat_not_deduction_type.length - 1);
+                strreport_omit_yn = strreport_omit_yn.substring(0, strreport_omit_yn.length - 1);
+                strstandard_date = strstandard_date.substring(0, strstandard_date.length - 1);
+                strvat_asset_type = strvat_asset_type.substring(0, strvat_asset_type.length - 1);
+                strsupply_amt = strsupply_amt.substring(0, strsupply_amt.length - 1);
+                strzero_report_yn = strzero_report_yn.substring(0, strzero_report_yn.length - 1);
+                strlocal_credit_type = strlocal_credit_type.substring(0, strlocal_credit_type.length - 1);
+                strdocument_name = strdocument_name.substring(0, strdocument_name.length - 1);
+                strissue_name = strissue_name.substring(0, strissue_name.length - 1);
+                strdocument_issue_date = strdocument_issue_date.substring(0, strdocument_issue_date.length - 1);
+                strexport_license_no = strexport_license_no.substring(0, strexport_license_no.length - 1);
+                strshipping_date = strshipping_date.substring(0, strshipping_date.length - 1);
+                strexport_amt = strexport_amt.substring(0, strexport_amt.length - 1);
+                strexport_amt_krw = strexport_amt_krw.substring(0, strexport_amt_krw.length - 1);
+                strvat_export_amt = strvat_export_amt.substring(0, strvat_export_amt.length - 1);
+                strvat_export_amt_krw = strvat_export_amt_krw.substring(0, strvat_export_amt_krw.length - 1);
+                strforeign_amt = strforeign_amt.substring(0, strforeign_amt.length - 1);
+                strwon_amt = strwon_amt.substring(0, strwon_amt.length - 1);
+                strdocument_no = strdocument_no.substring(0, strdocument_no.length - 1);
+                strzero_type = strzero_type.substring(0, strzero_type.length - 1);
+                strvat_amt = strvat_amt.substring(0, strvat_amt.length - 1);
+            }
+
+            if (strRowStatus != "D") {
+                if (straccount_code == "") {
+                    gfn_comAlert("E0000", "전표내역을 입력해 주십시오.");
+                    return false;
+                }
+            }
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN: '',
+                V_P_LANG_ID: '',
+                V_P_COMP_CODE: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                V_P_ACCT_RULE_CODE : gfn_nvl(SBUxMethod.get("ACCT_RULE_CODE")),
+                IV_P_DOC_BATCH_NO : gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")),
+                V_P_KEY_ID_H : gfn_nvl(SBUxMethod.get("KEY_ID")),
+                V_P_DOC_ID_H : parseInt(gfn_nvl(SBUxMethod.get("DOC_ID")) == "" ? "0" : gfn_nvl(SBUxMethod.get("DOC_ID"))),
+                V_P_SOURCE_ID_H : 0,
+                V_P_FI_ORG_CODE_H : p_fiOrgCode,
+                V_P_DOC_DATE_H : gfn_nvl(SBUxMethod.get("DOC_DATE")),
+                V_P_WRITE_DATE_H : "",
+                V_P_APPROVE_DATE_H : "",
+                V_P_DOC_NUM_H : 0,
+                V_P_DOC_NAME_H : gfn_nvl(SBUxMethod.get("DOC_NAME")),
+                V_P_SITE_CODE_H : gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")),
+                V_P_DOC_TYPE_H : gfn_nvl(SBUxMethod.get("DOC_TYPE")),
+                V_P_DEPT_CODE_H : gfn_nvl(SBUxMethod.get("DEPT_CODE")),
+                V_P_ENTRY_PATH_H : strsourceType,
+                V_P_DOC_AMT_H : 0,
+                V_P_DOC_STATUS_H : gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')),
+                V_P_SOURCE_TYPE_H : strsourceType,
+                V_P_CURRENCY_CODE_H : gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')),
+                V_P_EXCHANGE_TYPE_H : gfn_nvl(SBUxMethod.get("EXCHANGE_TYPE")),
+                V_P_EXCHANGE_RATE_H : Number(gfn_nvl(SBUxMethod.get("EXCHANGE_RATE")) == "" ? "1" : gfn_nvl(SBUxMethod.get("EXCHANGE_RATE"))),
+                V_P_DESCRIPTION_H : gfn_nvl(SBUxMethod.get("DESCRIPTION")),
+                V_P_ACCT_OPINION_H : gfn_nvl(SBUxMethod.get("ACCT_OPINION")),
+                V_P_TR_OPINION_H : gfn_nvl(SBUxMethod.get("TR_OPINION")),
+                V_P_SOURCE_DOC_H : gfn_nvl(SBUxMethod.get("SOURCE_DOC")),
+                V_P_TAX_SITE_CODE_H : gfn_nvl(gfnma_multiSelectGet("#TAX_SITE_CODE")),
+                V_P_SUB_TAX_SITE_CODE_H : gfn_nvl(gfnma_multiSelectGet("#SUB_TAX_SITE_CODE")),
+                V_P_APPROVAL_NO_H : gfn_nvl(SBUxMethod.get("APPROVAL_NO")),
+                V_P_KEY_ID_D : "",
+                V_P_ITEM_ID_D : stritem_id,
+                V_P_ITEM_SEQ_D : stritem_seq,
+                V_P_FI_ORG_CODE_D : strfi_org_code,
+                V_P_LINE_TYPE_D : strline_type,
+                V_P_ACCOUNT_CODE_D : straccount_code,
+                V_P_DEBIT_CREDIT_D : strdebit_credit,
+                V_P_ORIGINAL_DR_AMT_D : strorigin_dr_amt,
+                V_P_ORIGINAL_CR_AMT_D : strorigin_cr_amt,
+                V_P_FUNCTIONAL_DR_AMT_D : strfunctional_dr_amt,
+                V_P_FUNCTIONAL_CR_AMT_D : strfunctional_cr_amt,
+                V_P_VAT_TYPE_D : strvat_type,
+                V_P_DEPT_CODE_D : strdept_code,
+                V_P_COST_CENTER_CODE_D : strcost_center_code,
+                V_P_PROJECT_CODE_D : strproject_code,
+                V_P_ITEM_CODE_D : stritem_code,
+                V_P_UOM_D : struom,
+                V_P_TXN_QTY_D : strtxn_qty,
+                V_P_DESCRIPTION_D : strdescription,
+                V_P_ACC_ITEM_CODE1_D : stracc_item_code1,
+                V_P_ACC_ITEM_VALUE1_D : stracc_item_value1,
+                V_P_ACC_ITEM_CODE2_D : stracc_item_code2,
+                V_P_ACC_ITEM_VALUE2_D : stracc_item_value2,
+                V_P_ACC_ITEM_CODE3_D : stracc_item_code3,
+                V_P_ACC_ITEM_VALUE3_D : stracc_item_value3,
+                V_P_ACC_ITEM_CODE4_D : stracc_item_code4,
+                V_P_ACC_ITEM_VALUE4_D : stracc_item_value4,
+                V_P_ACC_ITEM_CODE5_D : stracc_item_code5,
+                V_P_ACC_ITEM_VALUE5_D : stracc_item_value5,
+                V_P_ACC_ITEM_CODE6_D : stracc_item_code6,
+                V_P_ACC_ITEM_VALUE6_D : stracc_item_value6,
+                V_P_ACC_ITEM_CODE7_D : stracc_item_code7,
+                V_P_ACC_ITEM_VALUE7_D : stracc_item_value7,
+                V_P_ACC_ITEM_CODE8_D : stracc_item_code8,
+                V_P_ACC_ITEM_VALUE8_D : stracc_item_value8,
+                V_P_ACC_ITEM_CODE9_D : stracc_item_code9,
+                V_P_ACC_ITEM_VALUE9_D : stracc_item_value9,
+                V_P_ACC_ITEM_CODE10_D : stracc_item_code10,
+                V_P_ACC_ITEM_VALUE10_D : stracc_item_value10,
+                V_P_ACC_ITEM_VALUE_NAME1_D : stracc_value_name1,
+                V_P_ACC_ITEM_VALUE_NAME2_D : stracc_value_name2,
+                V_P_ACC_ITEM_VALUE_NAME3_D : stracc_value_name3,
+                V_P_ACC_ITEM_VALUE_NAME4_D : stracc_value_name4,
+                V_P_ACC_ITEM_VALUE_NAME5_D : stracc_value_name5,
+                V_P_ACC_ITEM_VALUE_NAME6_D : stracc_value_name6,
+                V_P_ACC_ITEM_VALUE_NAME7_D : stracc_value_name7,
+                V_P_ACC_ITEM_VALUE_NAME8_D : stracc_value_name8,
+                V_P_ACC_ITEM_VALUE_NAME9_D : stracc_value_name9,
+                V_P_ACC_ITEM_VALUE_NAME10_D : stracc_value_name10,
+                V_P_ITEM_SOURCE_TYPE_D : stritem_source_type_d,
+                V_P_ITEM_SOURCE_ID_D : stritem_source_id_d,
+                V_P_SOURCE_RECORD_COUNT_D : strsource_record_count_d,
+                V_P_EXPECTED_PAY_DATE_D : strexpected_pay_date,
+                V_P_PAY_TERM_CODE_D : strpay_term_code,
+                V_P_PAY_METHOD_D : strpay_method,
+                V_P_CS_CODE_D : strcs_code,
+                V_P_FCE_GB_D : strfce_gb,
+                V_P_CURRENCY_CODE_D : strcurrency_code,
+                V_P_EXCHANGE_TYPE_D : strexchange_type,
+                V_P_EXCHANGE_RATE_D : strexchange_rate,
+                V_P_EMP_CODE : p_empCd,
+                V_P_DEPT_CODE : p_deptCode,
+                V_P_VAT_AMT_D : strvat_amt,
+                V_P_ZERO_TYPE_D : strzero_type,
+                V_P_DOCUMENT_NO_D : strdocument_no,
+                V_P_WON_AMT_D : strwon_amt,
+                V_P_FOREIGN_AMT_D : strforeign_amt,
+                V_P_VAT_EXPORT_AMT_KRW_D : strvat_export_amt_krw,
+                V_P_VAT_EXPORT_AMT_D : strvat_export_amt,
+                V_P_EXPORT_AMT_KRW_D : strexport_amt_krw,
+                V_P_EXPORT_AMT_D : strexport_amt,
+                V_P_SHIPPING_DATE_D : strshipping_date,
+                V_P_EXPORT_LICENSE_NO_D : strexport_license_no,
+                V_P_DOCUMENT_ISSUE_DATE_D : strdocument_issue_date,
+                V_P_ISSUE_NAME_D : strissue_name,
+                V_P_DOCUMENT_NAME_D : strdocument_name,
+                V_P_LOCAL_CREDIT_TYPE_D : strlocal_credit_type,
+                V_P_ZERO_REPORT_YN_D : strzero_report_yn,
+                V_P_SUPPLY_AMT_D : strsupply_amt,
+                V_P_VAT_ASSET_TYPE_D : strvat_asset_type,
+                V_P_STANDARD_DATE_D : strstandard_date,
+                V_P_REPORT_OMIT_YN_D : strreport_omit_yn,
+                V_P_VAT_NOT_DEDUCTION_TYPE_D : strvat_not_deduction_type,
+                V_P_CARD_NUM_D : strcard_num,
+                V_P_CARD_USE_TYPE_D : strcard_use_type,
+                V_P_EXCLUDE_REVENUE_AMT_YN_D : strexclude_revenue_amt_yn,
+                V_P_DUP_ISSUE_BILL_TYPE_D : strdup_issue_bill_type,
+                V_P_AFTER_DUE_DATE_YN_D : strafter_due_date_yn,
+                V_P_ETAX_TYPE_D : stretax_type,
+                V_P_BANK_ACCOUNT_SEQ_D : strbank_account_seq,
+                V_P_PROD_GROUP_D : strprod_group,
+                V_P_PAY_TERM_ORIG_D : strpay_term_orig,
+                V_P_BILL_DUE_PAY_DATE_D : strbill_due_pay_date,
+                V_P_BILL_DUE_DAY_D : strbill_due_day,
+                V_P_BILL_DUE_DATE_D : strbill_due_date,
+                V_P_PAY_BASE_DATE_D : strpay_base_date,
+                V_P_HOLD_REASON_D : strhold_reason,
+                V_P_HOLD_USER_D : strhold_user,
+                V_P_HOLD_DATE_D : strhold_date,
+                V_P_RELEASE_USER_D : strrelease_user,
+                V_P_RELEASE_DATE_D : strrelease_date,
+                V_P_HOLD_FLAG_D : strhold_flag,
+                V_P_APPLY_COMPLETE_DATE_D : strapply_complete_date,
+                V_P_APPLY_COMPLETE_FLAG_D : strapply_complete_flag,
+                V_P_SALES_CS_CODE_D : strsales_cs_code,
+                V_P_PO_LINE_NO_D : strpo_line_no,
+                V_P_SALES_PERSON_D : strsales_person,
+                V_P_CREDIT_AREA_D : strcredit_area,
+                V_P_SITE_CODE_D : strsite_code,
+                V_P_WITHHOLD_CS_CODE2_D : strwithhold_cs_code2,
+                V_P_WITHHOLD_TAX_TYPE2_D : strwithhold_tax_type2,
+                V_P_WITHHOLD_CS_CODE_D : strwithhold_cs_code,
+                V_P_WITHHOLD_TAX_TYPE_D : strwithhold_tax_type,
+                V_P_WITHHOLD_FLAG_D : strwithhold_flag,
+                V_P_VOUCHER_RECEIPT_DATE_D : strvoucher_receipt_date,
+                V_P_CARD_NO_D : strcard_no,
+                V_P_PAYEE_CODE_D : strpayee_code,
+                V_P_VOUCHER_NO_D : strvoucher_no,
+                V_P_VOUCHER_TYPE_D : strvoucher_type,
+                V_P_FORM_ID: p_formId,
+                V_P_MENU_ID: p_menuId,
+                V_P_PROC_ID: '',
+                V_P_USERID: '',
+                V_P_PC: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3510List.do", {
+                getType: 'json',
+                workType: strWorkType,
+                cv_count: '0',
+                params: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+
+            bResult = false;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "")
+                        SBUxMethod.set("DOC_BATCH_NO", data.v_returnStr);
+
+                    bResult = true;
+                } else {
+                    var strreturn_string = data.v_returnStr.split('|');
+
+                    gfn_comAlert("E0002", "배치번호 : " + data.v_returnStr.replaceAll("|", ","));
+
+                    bResult = false;
+                }
+
+                return bResult;
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
+    }
+
     const fn_save = async function () {
+        if (gfn_nvl(SBUxMethod.get("BNKCNT")) == "Y") {
+            if (!gfn_comConfirm("Q0000", "해당 거래처의 등록계좌가 2개이상입니다.\r" +
+                "선택하신계좌는 " + gfn_nvl(SBUxMethod.getText("BANK_CODE"))
+                + " " +
+                gfn_nvl(SBUxMethod.get("BANK_ACCOUNT_NO")) + " 입니다"))
+                return;
+
+        }
+
+        if (gfn_nvl(SBUxMethod.get("TXN_STOP_YN")) == "Y") {
+            gfn_comAlert("E0000", "거래중지 업체입니다." + gfn_nvl(SBUxMethod.get("TXN_STOP_REASON")))
+            return;
+        }
+
+        if (parseInt(SBUxMethod.get("EXCHANGE_RATE")) == 0) {
+            gfn_comAlert("E0000", "환율정보 전송중입니다.10분후 작업하세요");
+            return;
+        }
+
+        for (var i = 0; i < jsonAccountLineList.length; i++){
+            if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "1") {
+                if (gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) != gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("VAT_TYPE"))) {
+                    gfn_comAlert("E0000", "부가세정보를 변경하면 라인생성을 다시해야합니다.");
+                    return;
+                }
+
+                if (Number(gfn_nvl(SBUxMethod.get("DOC_AMT"))) != Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")))) {
+                    gfn_comAlert("E0000", "총지급액과 전표라인정보를 확인하세요.");
+                    return;
+                }
+            } else if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("LINE_TYPE")) == "3" && gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("VAT_TYPE")) != "VE") {
+                if (Number(gfn_nvl(SBUxMethod.get("VAT_AMOUNT"))) != Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT")))) {
+                    gfn_comAlert("E0000", "부가세금액과 전표라인정보를 확인하세요.");
+                    return;
+                }
+            }
+
+            for (var j = 1; j <= 10; j++){
+                if (gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ACC_ITEM_YN" + j)) == "Y" && Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT"))) != 0) {
+                    if (gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ACC_ITEM_CODE" + j))) != "") {
+                        if (gfn_nvl(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ACC_ITEM_VALUE" + j))) == "") {
+                            gfn_comAlert("E0000", gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ACCOUNT_NAME")) + " 계정의 관리항목을 입력해야 합니다.");
+
+                            gvwWFItem.clickRow((i+1));
+
+                            if (gfn_nvl(SBUxMethod.get("ACC_ITEM_VALUE" + j)) != "") {
+                                SBUxMethod.focus("ACC_ITEM_VALUE" + j);
+                            }
+
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        //관리항목 체크 입력이 필수일때 값이 없으면 리턴
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFBottom'} ))
+            return;
+
+        if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ))
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) == "") {
+            if (!fnSET_P_FIG3510_S("GEN"))
+                return;
+        }
+
+        if (fnSET_P_FIG3510_S("")) {
+            SBUxMethod.set("APPROVAL_NO", "");
+            fn_search();
+        }
     }
 
     const fn_delete = async function () {
+        if (gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')) == "5" || gfn_nvl(gfnma_multiSelectGet('#DOC_STATUS')) == "6") {
+            gfn_comAlert("E0000", "일부 내역이 승인 또는 완료처리되어 행삭제가 불가능합니다.");
+            return;
+        }
+
+        if (gfn_nvl(SBUxMethod.get("REGISTER_YN")) == "Y") {
+            gfn_comAlert("E0000", "자금계획으로 등록된 내역이므로 삭제가 불가능합니다.");
+            return;
+        }
+
+        let strkey_id = gfn_nvl(SBUxMethod.get("KEY_ID"));
+
+        for (var j = jsonAccountLineList.length - 1; j >= 0; j--){
+            let strKeyIdItem = gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("KEY_ID"));
+
+            if (strkey_id == strKeyIdItem) {
+                gvwWFItem.deleteRow((j+1));
+            }
+        }
+
+        if (gfn_comConfirm("정말 삭제하시겠습니까? 삭제하시려면 예를 클릭하세요.")) {
+            if (fnSET_P_FIG3510_S("D")) {
+                fn_create();
+            }
+        }
     }
 
     const fn_search = async function () {
@@ -3582,7 +4950,7 @@
             return false;
         }*/
 
-        let DOC_BATCH_NO = gfnma_nvl(SBUxMethod.get("DOC_BATCH_NO"));
+        let DOC_BATCH_NO = gfn_nvl(SBUxMethod.get("DOC_BATCH_NO"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: '',
@@ -3619,83 +4987,81 @@
             if (_.isEqual("S", listData.resultStatus)) {
                 jsonAccountLineList.length = 0;
 
-                var formData = listData.cv_2[0];
+                var formData = listData.cv_1[0];
 
-                /* const msg = {
-                     KEY_ID : item.KEY_ID,
-                     ACCT_RULE_CODE : item.ACCT_RULE_CODE,
-                     FI_ORG_CODE : item.FI_ORG_CODE,
-                     SITE_CODE : item.SITE_CODE,
-                     DEPT_CODE : item.DEPT_CODE,
-                     DEPT_NAME : item.DEPT_NAME,
-                     DOC_ID : item.DOC_ID,
-                     DOC_TYPE : item.DOC_TYPE,
-                     DOC_DATE : item.DOC_DATE,
-                     CS_CODE : item.CS_CODE,
-                     CS_NAME : item.CS_NAME,
-                     BIZ_REGNO : item.BIZ_REGNO,
-                     DOC_NAME : item.DOC_NAME,
-                     DOC_NUM : item.DOC_NUM,
-                     CURRENCY_CODE : item.CURRENCY_CODE,
-                     EXCHANGE_RATE : item.EXCHANGE_RATE,
-                     BASE_SCALE : item.BASE_SCALE,
-                     VAT_CODE : item.VAT_CODE,
-                     DOC_AMT : item.DOC_AMT,
-                     PAY_METHOD : item.PAY_METHOD,
-                     PAY_TERM_CODE : item.PAY_TERM_CODE,
-                     PAY_TERM_NAME : item.PAY_TERM_NAME,
-                     VAT_AMOUNT : item.VAT_AMOUNT,
-                     STANDARD_DATE : item.STANDARD_DATE,
-                     SUPPLY_AMT : item.SUPPLY_AMT,
-                     DESCRIPTION : item.DESCRIPTION,
-                     PAY_BASE_DATE : item.PAY_BASE_DATE,
-                     EXPECTED_PAY_DATE : item.EXPECTED_PAY_DATE,
-                     BASIS_TYPE : item.BASIS_TYPE,
-                     DIFF_DAY : item.DIFF_DAY,
-                     BILL_DUE_DATE : item.BILL_DUE_DATE,
-                     BILL_DUE_DAY : item.BILL_DUE_DAY,
-                     BILL_DUE_PAY_DATE : item.BILL_DUE_PAY_DATE,
-                     VOUCHER_RECEIPT_DATE : item.VOUCHER_RECEIPT_DATE,
-                     VOUCHER_TYPE : item.VOUCHER_TYPE,
-                     VOUCHER_NO : item.VOUCHER_NO,
-                     PAYEE_CODE : item.PAYEE_CODE,
-                     PAYEE_NAME : item.PAYEE_NAME,
-                     APPROVE_DATE : item.APPROVE_DATE,
-                     FINAL_APPROVER : item.FINAL_APPROVER,
-                     DOC_STATUS : item.DOC_STATUS,
-                     ACCT_OPINION : item.ACCT_OPINION,
-                     TR_OPINION : item.TR_OPINION,
-                     POSTING_DATE : item.POSTING_DATE,
-                     POSTING_USER : item.POSTING_USER,
-                     UNPOSTING_DATE : item.UNPOSTING_DATE,
-                     UNPOSTING_USER : item.UNPOSTING_USER,
-                     REGISTER_YN : item.REGISTER_YN,
-                     APPR_COUNT : item.APPR_COUNT,
-                     APPR_ID : item.APPR_ID,
-                     INSERT_USERID : item.INSERT_USERID,
-                     CONFIRM_EMP_CODE : item.CONFIRM_EMP_CODE,
-                     PROXY_EMP_CODE : item.PROXY_EMP_CODE,
-                     TEMP_AREA : item.TEMP_AREA,
-                     BANK_ACCOUNT_SEQ : item.BANK_ACCOUNT_SEQ,
-                     BANK_CODE : item.BANK_CODE,
-                     BANK_ACCOUNT_NO : item.BANK_ACCOUNT_NO,
-                     BANK_ACCOUNT_DESCRIPTION : item.BANK_ACCOUNT_DESCRIPTION,
-                     TAX_SITE_CODE : item.TAX_SITE_CODE,
-                     SUB_TAX_SITE_CODE : item.SUB_TAX_SITE_CODE,
-                     APPLY_COMPLETE_FLAG : item.APPLY_COMPLETE_FLAG,
-                     REVERSE_FLAG : item.REVERSE_FLAG,
-                     REVERSE_DOC_NAME : item.REVERSE_DOC_NAME,
-                     REVERSE_DOC_ID : item.REVERSE_DOC_ID,
-                     ORIG_DOC_ID : item.ORIG_DOC_ID,
-                     HEADER_COST_CENTER : item.HEADER_COST_CENTER,
-                     REQUEST_EMP : item.REQUEST_EMP,
-                     REQUEST_EMP_CODE : item.REQUEST_EMP_CODE,
-                     BEFORE_APPR_EMP : item.BEFORE_APPR_EMP,
-                     BEFORE_APPR_EMP_CODE : item.BEFORE_APPR_EMP_CODE,
-                     BEFORE_PROXY_EMP_CODE : item.BEFORE_PROXY_EMP_CODE,
-                     NEXT_APPR_EMP : item.NEXT_APPR_EMP,
-                     BILL_NO : item.BILL_NO
-                 }*/
+                SBUxMethod.set('KEY_ID', formData.KEY_ID);
+                SBUxMethod.set('ACCT_RULE_CODE', formData.ACCT_RULE_CODE);
+                SBUxMethod.set('SRCH_DOC_H_FI_ORG_CODE', formData.FI_ORG_CODE);
+                SBUxMethod.set('SRCH_SITE_CODE', formData.SITE_CODE);
+                SBUxMethod.set('DEPT_CODE', formData.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME', formData.DEPT_NAME);
+                SBUxMethod.set('DOC_ID', formData.DOC_ID);
+                SBUxMethod.set('DOC_TYPE', formData.DOC_TYPE);
+                SBUxMethod.set('DOC_DATE', formData.DOC_DATE);
+                SBUxMethod.set('CS_CODE', formData.CS_CODE);
+                SBUxMethod.set('CS_NAME', formData.CS_NAME);
+                SBUxMethod.set('BIZ_REGNO', formData.BIZ_REGNO);
+                SBUxMethod.set('DOC_NAME', formData.DOC_NAME);
+                SBUxMethod.set('DOC_NUM', formData.DOC_NUM);
+                gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', gfn_nvl(formData.CURRENCY_CODE));
+                SBUxMethod.set('EXCHANGE_RATE', formData.EXCHANGE_RATE);
+                SBUxMethod.set('BASE_SCALE', formData.BASE_SCALE);
+                gfnma_multiSelectSet('#VAT_CODE', 'VAT_CODE', 'VAT_NAME', gfn_nvl(formData.VAT_CODE));
+                SBUxMethod.set('DOC_AMT', formData.DOC_AMT);
+                gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.PAY_METHOD));
+                SBUxMethod.set('PAY_TERM_CODE', formData.PAY_TERM_CODE);
+                SBUxMethod.set('PAY_TERM_NAME', formData.PAY_TERM_NAME);
+                SBUxMethod.set('VAT_AMOUNT', formData.VAT_AMOUNT);
+                SBUxMethod.set('STANDARD_DATE', formData.STANDARD_DATE);
+                SBUxMethod.set('SUPPLY_AMT', formData.SUPPLY_AMT);
+                SBUxMethod.set('DESCRIPTION', formData.DESCRIPTION);
+                SBUxMethod.set('PAY_BASE_DATE', formData.PAY_BASE_DATE);
+                SBUxMethod.set('EXPECTED_PAY_DATE', formData.EXPECTED_PAY_DATE);
+                SBUxMethod.set('BASIS_TYPE', formData.BASIS_TYPE);
+                SBUxMethod.set('DIFF_DAY', formData.DIFF_DAY);
+                SBUxMethod.set('BILL_DUE_DATE', formData.BILL_DUE_DATE);
+                SBUxMethod.set('BILL_DUE_DAY', formData.BILL_DUE_DAY);
+                SBUxMethod.set('BILL_DUE_PAY_DATE', formData.BILL_DUE_PAY_DATE);
+                SBUxMethod.set('VOUCHER_RECEIPT_DATE', formData.VOUCHER_RECEIPT_DATE);
+                SBUxMethod.set('VOUCHER_TYPE', formData.VOUCHER_TYPE);
+                SBUxMethod.set('VOUCHER_NO', formData.VOUCHER_NO);
+                gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', gfn_nvl(formData.PAYEE_CODE));
+                SBUxMethod.set('PAYEE_NAME', formData.PAYEE_NAME);
+                SBUxMethod.set('APPROVE_DATE', formData.APPROVE_DATE);
+                SBUxMethod.set('FINAL_APPROVER', formData.FINAL_APPROVER);
+                gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.DOC_STATUS));
+                SBUxMethod.set('ACCT_OPINION', formData.ACCT_OPINION);
+                SBUxMethod.set('TR_OPINION', formData.TR_OPINION);
+                SBUxMethod.set('POSTING_DATE', formData.POSTING_DATE);
+                SBUxMethod.set('POSTING_USER', formData.POSTING_USER);
+                SBUxMethod.set('UNPOSTING_DATE', formData.UNPOSTING_DATE);
+                SBUxMethod.set('UNPOSTING_USER', formData.UNPOSTING_USER);
+                SBUxMethod.set('REGISTER_YN', formData.REGISTER_YN);
+                SBUxMethod.set('APPR_COUNT', formData.APPR_COUNT);
+                SBUxMethod.set('APPR_ID', formData.APPR_ID);
+                SBUxMethod.set('INSERT_USERID', formData.INSERT_USERID);
+                SBUxMethod.set('CONFIRM_EMP_CODE', formData.CONFIRM_EMP_CODE);
+                SBUxMethod.set('PROXY_EMP_CODE', formData.PROXY_EMP_CODE);
+                SBUxMethod.set('TEMP_AREA', formData.TEMP_AREA);
+                gfnma_multiSelectSet('#BANK_ACCOUNT_SEQ', 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', gfn_nvl(formData.BANK_ACCOUNT_SEQ));
+                SBUxMethod.set('BANK_CODE', formData.BANK_CODE);
+                SBUxMethod.set('BANK_ACCOUNT_NO', formData.BANK_ACCOUNT_NO);
+                SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', formData.BANK_ACCOUNT_DESCRIPTION);
+                gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.TAX_SITE_CODE));
+                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.SUB_TAX_SITE_CODE));
+                SBUxMethod.set('APPLY_COMPLETE_FLAG', formData.APPLY_COMPLETE_FLAG);
+                SBUxMethod.set('REVERSE_FLAG', formData.REVERSE_FLAG);
+                SBUxMethod.set('REVERSE_DOC_NAME', formData.REVERSE_DOC_NAME);
+                SBUxMethod.set('REVERSE_DOC_ID', formData.REVERSE_DOC_ID);
+                SBUxMethod.set('ORIG_DOC_ID', formData.ORIG_DOC_ID);
+                SBUxMethod.set('HEADER_COST_CENTER', formData.HEADER_COST_CENTER);
+                SBUxMethod.set('REQUEST_EMP', formData.REQUEST_EMP);
+                SBUxMethod.set('REQUEST_EMP_CODE', formData.REQUEST_EMP_CODE);
+                SBUxMethod.set('BEFORE_APPR_EMP', formData.BEFORE_APPR_EMP);
+                SBUxMethod.set('BEFORE_APPR_EMP_CODE', formData.BEFORE_APPR_EMP_CODE);
+                SBUxMethod.set('BEFORE_PROXY_EMP_CODE', formData.BEFORE_PROXY_EMP_CODE);
+                SBUxMethod.set('NEXT_APPR_EMP', formData.NEXT_APPR_EMP);
+                SBUxMethod.set('BILL_NO', formData.BILL_NO);
 
                 listData.cv_2.forEach((item, index) => {
                     var msg = {
@@ -3879,7 +5245,8 @@
                     jsonAccountLineList.push(msg);
                 });
 
-                if (gfnma_nvl(SBUxMethod.get("DOC_NAME")) != "") {
+                if (gfn_nvl(SBUxMethod.get("DOC_NAME")) != "") {
+                    $("#main-btn-attach").attr("disabled", "false");
                     gvwWFItem.clickRow(1);
                     fn_summary();
                 } else {
@@ -3893,6 +5260,237 @@
                 $("#RULE_CODE").attr('disabled', 'true');
             } else {
                 alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_searchRule = async function () {
+        let RULE_CODE = gfn_nvl(gfnma_multiSelectGet('#RULE_CODE'))
+        let DOC_BATCH_NO = gfn_nvl(SBUxMethod.get("DOC_BATCH_NO"));
+
+        let strWorkType = "RULE";
+
+        if (RULE_CODE == "" && strWorkType =="RULE") {
+            strWorkType = "DEFAULTRULE";
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: '',
+            V_P_LANG_ID: '',
+            V_P_COMP_CODE: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+            IV_P_DOC_BATCH_NO: DOC_BATCH_NO,
+            V_P_DOC_NUM: 0,
+            V_P_DOC_ID: 0,
+            V_P_DOC_DATE: '',
+            V_P_CURRENCY_CODE: '',
+            V_P_PAY_METHOD: (strWorkType == "DEFAULTRULE") ? gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')) : "",
+            V_P_CS_CODE: (strWorkType == "DEFAULTRULE") ?  gfn_nvl(SBUxMethod.get('CS_CODE')) : "",
+            V_P_RULE_CODE: (strWorkType == "DEFAULTRULE") ? gfn_nvl(SBUxMethod.get('DOC_TYPE')) : RULE_CODE,
+            V_P_SOURCE_TYPE: strsourceType,
+            V_P_FORM_ID: p_formId,
+            V_P_MENU_ID: p_menuId,
+            V_P_PROC_ID: '',
+            V_P_USERID: '',
+            V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/far/rec/selectFig3510List.do", {
+            getType: 'json',
+            workType: strWorkType,
+            cv_count: '10',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                jsonAccountLineList.length = 0;
+
+                var formData = data.cv_9[0];
+
+                SBUxMethod.set('KEY_ID', formData.KEY_ID);
+                SBUxMethod.set('DOC_TYPE', formData.DOC_TYPE);
+                SBUxMethod.set('DOC_TYPE_NAME', formData.DOC_TYPE_NAME);
+                gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', gfn_nvl(formData.CURRENCY_CODE));
+                SBUxMethod.set('MEMO', formData.MEMO);
+                SBUxMethod.set('ACCT_RULE_CODE', formData.ACCT_RULE_CODE);
+                SBUxMethod.set('HEADER_COST_CENTER', formData.HEADER_COST_CENTER);
+
+                data.cv_10.forEach((item, index) => {
+                    var msg = {
+                        KEY_ID : item.KEY_ID,
+                        ITEM_SEQ : item.ITEM_SEQ,
+                        LINE_TYPE : item.LINE_TYPE,
+                        ACCOUNT_CODE : item.ACCOUNT_CODE,
+                        ACCOUNT_NAME : item.ACCOUNT_NAME,
+                        ORIGINAL_AMT : item.ORIGINAL_AMT,
+                        FUNCTIONAL_AMT : item.FUNCTIONAL_AMT,
+                        DEBIT_CREDIT : item.DEBIT_CREDIT,
+                        ACC_ITEM_CODE1 : item.ACC_ITEM_CODE1,
+                        ACC_ITEM_CODE2 : item.ACC_ITEM_CODE2,
+                        ACC_ITEM_CODE3 : item.ACC_ITEM_CODE3,
+                        ACC_ITEM_CODE4 : item.ACC_ITEM_CODE4,
+                        ACC_ITEM_CODE5 : item.ACC_ITEM_CODE5,
+                        ACC_ITEM_CODE6 : item.ACC_ITEM_CODE6,
+                        ACC_ITEM_CODE7 : item.ACC_ITEM_CODE7,
+                        ACC_ITEM_CODE8 : item.ACC_ITEM_CODE8,
+                        ACC_ITEM_CODE9 : item.ACC_ITEM_CODE9,
+                        ACC_ITEM_CODE10 : item.ACC_ITEM_CODE10,
+                        ACC_ITEM_NAME1 : item.ACC_ITEM_NAME1,
+                        ACC_ITEM_NAME2 : item.ACC_ITEM_NAME2,
+                        ACC_ITEM_NAME3 : item.ACC_ITEM_NAME3,
+                        ACC_ITEM_NAME4 : item.ACC_ITEM_NAME4,
+                        ACC_ITEM_NAME5 : item.ACC_ITEM_NAME5,
+                        ACC_ITEM_NAME6 : item.ACC_ITEM_NAME6,
+                        ACC_ITEM_NAME7 : item.ACC_ITEM_NAME7,
+                        ACC_ITEM_NAME8 : item.ACC_ITEM_NAME8,
+                        ACC_ITEM_NAME9 : item.ACC_ITEM_NAME9,
+                        ACC_ITEM_NAME10 : item.ACC_ITEM_NAME10,
+                        ACC_ITEM_YN1 : item.ACC_ITEM_YN1,
+                        ACC_ITEM_YN2 : item.ACC_ITEM_YN2,
+                        ACC_ITEM_YN3 : item.ACC_ITEM_YN3,
+                        ACC_ITEM_YN4 : item.ACC_ITEM_YN4,
+                        ACC_ITEM_YN5 : item.ACC_ITEM_YN5,
+                        ACC_ITEM_YN6 : item.ACC_ITEM_YN6,
+                        ACC_ITEM_YN7 : item.ACC_ITEM_YN7,
+                        ACC_ITEM_YN8 : item.ACC_ITEM_YN8,
+                        ACC_ITEM_YN9 : item.ACC_ITEM_YN9,
+                        ACC_ITEM_YN10 : item.ACC_ITEM_YN10,
+                        DATA_TYPE1 : item.DATA_TYPE1,
+                        DATA_TYPE2 : item.DATA_TYPE2,
+                        DATA_TYPE3 : item.DATA_TYPE3,
+                        DATA_TYPE4 : item.DATA_TYPE4,
+                        DATA_TYPE5 : item.DATA_TYPE5,
+                        DATA_TYPE6 : item.DATA_TYPE6,
+                        DATA_TYPE7 : item.DATA_TYPE7,
+                        DATA_TYPE8 : item.DATA_TYPE8,
+                        DATA_TYPE9 : item.DATA_TYPE9,
+                        DATA_TYPE10 : item.DATA_TYPE10,
+                        POPUP_ID1 : item.POPUP_ID1,
+                        POPUP_ID2 : item.POPUP_ID2,
+                        POPUP_ID3 : item.POPUP_ID3,
+                        POPUP_ID4 : item.POPUP_ID4,
+                        POPUP_ID5 : item.POPUP_ID5,
+                        POPUP_ID6 : item.POPUP_ID6,
+                        POPUP_ID7 : item.POPUP_ID7,
+                        POPUP_ID8 : item.POPUP_ID8,
+                        POPUP_ID9 : item.POPUP_ID9,
+                        POPUP_ID10 : item.POPUP_ID10,
+                        ACC_ITEM_VALUE1 : item.ACC_ITEM_VALUE1,
+                        ACC_ITEM_VALUE2 : item.ACC_ITEM_VALUE2,
+                        ACC_ITEM_VALUE3 : item.ACC_ITEM_VALUE3,
+                        ACC_ITEM_VALUE4 : item.ACC_ITEM_VALUE4,
+                        ACC_ITEM_VALUE5 : item.ACC_ITEM_VALUE5,
+                        ACC_ITEM_VALUE6 : item.ACC_ITEM_VALUE6,
+                        ACC_ITEM_VALUE7 : item.ACC_ITEM_VALUE7,
+                        ACC_ITEM_VALUE8 : item.ACC_ITEM_VALUE8,
+                        ACC_ITEM_VALUE9 : item.ACC_ITEM_VALUE9,
+                        ACC_ITEM_VALUE10 : item.ACC_ITEM_VALUE10,
+                        ACC_VALUE_NAME1 : item.ACC_VALUE_NAME1,
+                        ACC_VALUE_NAME2 : item.ACC_VALUE_NAME2,
+                        ACC_VALUE_NAME3 : item.ACC_VALUE_NAME3,
+                        ACC_VALUE_NAME4 : item.ACC_VALUE_NAME4,
+                        ACC_VALUE_NAME5 : item.ACC_VALUE_NAME5,
+                        ACC_VALUE_NAME6 : item.ACC_VALUE_NAME6,
+                        ACC_VALUE_NAME7 : item.ACC_VALUE_NAME7,
+                        ACC_VALUE_NAME8 : item.ACC_VALUE_NAME8,
+                        ACC_VALUE_NAME9 : item.ACC_VALUE_NAME9,
+                        ACC_VALUE_NAME10 : item.ACC_VALUE_NAME10,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        COST_CENTER_CODE : item.COST_CENTER_CODE,
+                        COST_CENTER_NAME : item.COST_CENTER_NAME,
+                        DESCRIPTION : item.DESCRIPTION,
+                        VAT_TYPE : item.VAT_TYPE,
+                        PROJECT_YN : item.PROJECT_YN,
+                        CURRENCY_CODE : item.CURRENCY_CODE,
+                        BASE_SCALE : item.BASE_SCALE,
+                        EXCHANGE_RATE : item.EXCHANGE_RATE,
+                        CS_CODE : item.CS_CODE,
+                        PO_LINE_NO : item.PO_LINE_NO,
+                        CREDIT_AREA : item.CREDIT_AREA,
+                        SALES_PERSON : item.SALES_PERSON,
+                        EXCHANGE_TYPE : item.EXCHANGE_TYPE,
+                        WITHHOLD_FLAG : item.WITHHOLD_FLAG,
+                        WITHHOLD_TAX_TYPE : item.WITHHOLD_TAX_TYPE,
+                        WITHHOLD_CS_CODE : item.WITHHOLD_CS_CODE,
+                        WITHHOLD_TAX_TYPE2 : item.WITHHOLD_TAX_TYPE2,
+                        WITHHOLD_CS_CODE2 : item.WITHHOLD_CS_CODE2,
+                        PAY_TERM_CODE : item.PAY_TERM_CODE,
+                        EXPECTED_PAY_DATE : item.EXPECTED_PAY_DATE,
+                        BASIS_TYPE : item.BASIS_TYPE,
+                        PAY_METHOD : item.PAY_METHOD,
+                        VOUCHER_TYPE : item.VOUCHER_TYPE,
+                        VOUCHER_NO : item.VOUCHER_NO,
+                        VOUCHER_NO1 : item.VOUCHER_NO1,
+                        VOUCHER_RECEIPT_DATE : item.VOUCHER_RECEIPT_DATE,
+                        FI_ORG_CODE : item.FI_ORG_CODE,
+                        SITE_CODE : item.SITE_CODE,
+                        APPLY_COMPLETE_DATE : item.APPLY_COMPLETE_DATE,
+                        APPLY_COMPLETE_FLAG : item.APPLY_COMPLETE_FLAG,
+                        SALES_CS_CODE : item.SALES_CS_CODE,
+                        ETAX_TYPE : item.ETAX_TYPE,
+                        AFTER_DUE_DATE_YN : item.AFTER_DUE_DATE_YN,
+                        DUP_ISSUE_BILL_TYPE : item.DUP_ISSUE_BILL_TYPE,
+                        EXCLUDE_REVENUE_AMT_YN : item.EXCLUDE_REVENUE_AMT_YN,
+                        CARD_USE_TYPE : item.CARD_USE_TYPE,
+                        CARD_NUM : item.CARD_NUM,
+                        VAT_NOT_DEDUCTION_TYPE : item.VAT_NOT_DEDUCTION_TYPE,
+                        REPORT_OMIT_YN : item.REPORT_OMIT_YN,
+                        VAT_ASSET_TYPE : item.VAT_ASSET_TYPE,
+                        STANDARD_DATE : item.STANDARD_DATE,
+                        SUPPLY_AMT : item.SUPPLY_AMT,
+                        ZERO_REPORT_YN : item.ZERO_REPORT_YN,
+                        LOCAL_CREDIT_TYPE : item.LOCAL_CREDIT_TYPE,
+                        DOCUMENT_NAME : item.DOCUMENT_NAME,
+                        ISSUE_NAME : item.ISSUE_NAME,
+                        DOCUMENT_ISSUE_DATE : item.DOCUMENT_ISSUE_DATE,
+                        EXPORT_LICENSE_NO : item.EXPORT_LICENSE_NO,
+                        SHIPPING_DATE : item.SHIPPING_DATE,
+                        EXPORT_AMT : item.EXPORT_AMT,
+                        EXPORT_AMT_KRW : item.EXPORT_AMT_KRW,
+                        VAT_EXPORT_AMT : item.VAT_EXPORT_AMT,
+                        VAT_EXPORT_AMT_KRW : item.VAT_EXPORT_AMT_KRW,
+                        FOREIGN_AMT : item.FOREIGN_AMT,
+                        WON_AMT : item.WON_AMT,
+                        DOCUMENT_NO : item.DOCUMENT_NO,
+                        ZERO_TYPE : item.ZERO_TYPE,
+                        HOLD_FLAG : item.HOLD_FLAG,
+                        RELEASE_DATE : item.RELEASE_DATE,
+                        RELEASE_USER : item.RELEASE_USER,
+                        HOLD_DATE : item.HOLD_DATE,
+                        HOLD_USER : item.HOLD_USER,
+                        HOLD_REASON : item.HOLD_REASON,
+                        PAY_BASE_DATE : item.PAY_BASE_DATE,
+                        BILL_DUE_DATE : item.BILL_DUE_DATE,
+                        BILL_DUE_DAY : item.BILL_DUE_DAY,
+                        BILL_DUE_PAY_DATE : item.BILL_DUE_PAY_DATE,
+                        PAY_TERM_ORIG : item.PAY_TERM_ORIG,
+                        PROD_GROUP : item.PROD_GROUP,
+                        BANK_ACCOUNT_SEQ : item.BANK_ACCOUNT_SEQ,
+                    }
+
+                    jsonAccountLineList.push(msg);
+                });
+
+                gvwWFItem.rebuild();
+
+                if (strWorkType == "DEFAULTRULE") {
+                    fn_defaultRuleSet(jsonAccountLineList);
+                } else {
+                    fn_ruleSet(jsonAccountLineList);
+                }
+            } else {
+                alert(data.resultMessage);
             }
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -3921,8 +5519,8 @@
 
     // 세금계산서발행
     const fn_createInvoice = async function () {
-        let ACCT_RULE_CODE = gfnma_nvl(SBUxMethod.get("ACCT_RULE_CODE"));
-        let DOC_ID = gfnma_nvl(SBUxMethod.get("DOC_ID"));
+        let ACCT_RULE_CODE = gfn_nvl(SBUxMethod.get("ACCT_RULE_CODE"));
+        let DOC_ID = gfn_nvl(SBUxMethod.get("DOC_ID"));
 
         if (DOC_ID == "")
             return;
@@ -3974,8 +5572,8 @@
 
     // 발행취소
     const fn_cancelInvoice = async function () {
-        let ACCT_RULE_CODE = gfnma_nvl(SBUxMethod.get("ACCT_RULE_CODE"));
-        let DOC_ID = gfnma_nvl(SBUxMethod.get("DOC_ID"));
+        let ACCT_RULE_CODE = gfn_nvl(SBUxMethod.get("ACCT_RULE_CODE"));
+        let DOC_ID = gfn_nvl(SBUxMethod.get("DOC_ID"));
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: '',
@@ -4138,7 +5736,7 @@
             SBUxMethod.attr("PAY_BASE_DATE", "readonly", "true");
         }
 
-        if (!bnew || bfocuschange)
+        if (!bnew)
             return;
 
         if (gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
@@ -4169,12 +5767,41 @@
         fn_setExpectedPayDateReadOnly();
     }
 
+    const fn_ruleSet = async function (rs) {
+        if (rs.length > 0 && Object.keys(rs[0]).length > 0) {
+            let strcurrent_date = gfn_dateToYmd(new Date());
+
+            fn_create();
+
+            SBUxMethod.set("ACCT_RULE_CODE", p_defaultAcctRule);
+
+            SBUxMethod.set("KEY_ID", gfn_nvl(rs[0]["KEY_ID"]));
+            SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
+            SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
+            gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', "1");
+            SBUxMethod.set("DOC_DATE", strcurrent_date);
+            SBUxMethod.set('DOC_NUM', "1");
+            gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', p_userId);
+            SBUxMethod.set('EXPECTED_PAY_DATE', strcurrent_date);
+            SBUxMethod.set('INSERT_USERID', p_userId);
+            SBUxMethod.set('DESCRIPTION', gfn_nvl(rs[0]["MEMO"]));
+            SBUxMethod.set('DEPT_CODE', p_deptCode);
+            SBUxMethod.set('DEPT_NAME', p_deptName);
+            SBUxMethod.set('DOC_TYPE', gfn_nvl(rs[0]["DOC_TYPE"]));
+            gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', gfn_nvl(rs[0]["CURRENCY_CODE"]));
+
+            gvwWFItem.clickRow(1);
+
+            $("#main-btn-save").attr('disabled', 'false')
+        }
+    }
+
     const fn_defaultRuleSet = async function (rs) {
         if (rs.length > 0 && Object.keys(rs[0]).length > 0) {
             for(var i = 0; i < rs.length; i++) {
-                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("CURRENCY_CODE"), gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')));
+                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("CURRENCY_CODE"), gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')));
                 gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("BASE_SCALE"), SBUxMethod.get("BASE_SCALE"));
-                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("SITE_CODE"), SBUxMethod.get("SITE_CODE"));
+                gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("SITE_CODE"), SBUxMethod.get("SRCH_SITE_CODE"));
                 gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("DEPT_CODE"), SBUxMethod.get("DEPT_CODE"));
                 gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("DEPT_NAME"), SBUxMethod.get("DEPT_NAME"));
             }
@@ -4187,7 +5814,7 @@
 
     const fn_exchageUpdate = async function () {
         for (var i = 0; i < jsonAccountLineList.length; i++) {
-            gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("CURRENCY_CODE"), gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')));
+            gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("CURRENCY_CODE"), gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE')));
             gvwWFItem.setCellData((i+1), gvwWFItem.getColRef("FUNCTIONAL_AMT"), Math.round(Number(gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("ORIGINAL_AMT"))) * Number(SBUxMethod.get("EXCHANGE_RATE")) / Number(SBUxMethod.get("BASE_SCALE")), p_currUnit));
 
             fn_summary();
@@ -4198,7 +5825,7 @@
         if (!SBUxMethod.validateRequired( {group_id: 'panWFTop'} ))
             return;
 
-        if (gfnma_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN")) != "Y" && gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE')) == "AG") {
+        if (gfn_nvl(SBUxMethod.get("STEEL_SCRAP_PAY_YN")) != "Y" && gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) == "AG") {
             gfn_comAlert("E0000", "철스크랩부가세는 철스크랩거래처만 가능합니다.");
             return;
         }
@@ -4220,7 +5847,7 @@
         dcmlimit_minus_amt = decimal.Parse(numsupply_amt.EditValue.ToString()) * (dcmvat_rate / 100) * (1 - (dcmlimit_minus_rate / 100));
 
         if (decimal.Parse(numvat_amount.EditValue.ToString()) > dcmlimit_plus_amt || decimal.Parse(numvat_amount.EditValue.ToString()) < dcmlimit_minus_amt) {
-            if (!gfn_comConfirm("Q0000", "FIG3510_024")) {
+            if (!gfn_comConfirm("Q0000", "부가세 상하한 비율을 벗어납니다. 계속 진행하겠습니까?")) {
                 return;
             }
         }
@@ -4228,20 +5855,20 @@
         jsonAccountLineList.length = 0;
         gvwWFItem.rebuild();
 
-        let DOC_ID = gfnma_nvl(SBUxMethod.get("KEY_ID"));
-        let DOC_TYPE = gfnma_nvl(SBUxMethod.get("DOC_TYPE"));
-        let CS_CODE = gfnma_nvl(SBUxMethod.get("CS_CODE"));
-        let CURRENCY_CODE = gfnma_nvl(gfnma_multiSelectGet('#CURRENCY_CODE'));
-        let EXCHANGE_RATE = gfnma_nvl(SBUxMethod.get("EXCHANGE_RATE"));
-        let DOC_AMT = gfnma_nvl(SBUxMethod.get("DOC_AMT"));
-        let SUPPLY_AMT = gfnma_nvl(SBUxMethod.get("SUPPLY_AMT"));
-        let VAT_AMOUNT = gfnma_nvl(SBUxMethod.get("VAT_AMOUNT"));
-        let VAT_TYPE = gfnma_nvl(gfnma_multiSelectGet('#VAT_CODE'));
-        let VOUCHER_TYPE = gfnma_nvl(SBUxMethod.get("VOUCHER_TYPE"));
-        let APPROVAL_NO = gfnma_nvl(SBUxMethod.get("APPROVAL_NO"));
-        let STANDARD_DATE = gfnma_nvl(SBUxMethod.get("STANDARD_DATE"));
-        let DESCRIPTION = gfnma_nvl(SBUxMethod.get("DESCRIPTION"));
-        let REVERSE_FLAG = gfnma_nvl(SBUxMethod.get("CLOSE_YN").CLOSE_YN);
+        let DOC_ID = gfn_nvl(SBUxMethod.get("KEY_ID"));
+        let DOC_TYPE = gfn_nvl(SBUxMethod.get("DOC_TYPE"));
+        let CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
+        let CURRENCY_CODE = gfn_nvl(gfnma_multiSelectGet('#CURRENCY_CODE'));
+        let EXCHANGE_RATE = gfn_nvl(SBUxMethod.get("EXCHANGE_RATE"));
+        let DOC_AMT = gfn_nvl(SBUxMethod.get("DOC_AMT"));
+        let SUPPLY_AMT = gfn_nvl(SBUxMethod.get("SUPPLY_AMT"));
+        let VAT_AMOUNT = gfn_nvl(SBUxMethod.get("VAT_AMOUNT"));
+        let VAT_TYPE = gfn_nvl(gfnma_multiSelectGet('#VAT_CODE'));
+        let VOUCHER_TYPE = gfn_nvl(SBUxMethod.get("VOUCHER_TYPE"));
+        let APPROVAL_NO = gfn_nvl(SBUxMethod.get("APPROVAL_NO"));
+        let STANDARD_DATE = gfn_nvl(SBUxMethod.get("STANDARD_DATE"));
+        let DESCRIPTION = gfn_nvl(SBUxMethod.get("DESCRIPTION"));
+        let REVERSE_FLAG = gfn_nvl(SBUxMethod.get("CLOSE_YN").CLOSE_YN);
 
 
         var paramObj = {
@@ -4444,4 +6071,100 @@
         }
     }
 
+    const fn_report = async function (type, formId) {
+        // TODO : Report 확인 필요
+        /*string strFinishYn = SessionInfo.FinishYn; // SessionInfo.EssReportHome;
+        string pcd = "";
+        if (cbovoucher_type.ControlValue.ToString() == "A" || cbovoucher_type.ControlValue.ToString() == "B") {
+            if (txtsource_type.ControlValue.ToString() == "AP")
+            {
+                pcd = "P_FIG3100_Q";
+            }
+            else if (txtsource_type.ControlValue.ToString() == "AR")
+            {
+                pcd = "P_FIG3300_Q";
+            }
+        } else if (cbovoucher_type.ControlValue.ToString() == "C") {
+            pcd = "P_FIG3180_Q";
+        }
+
+        string strUUID = fnP_JASPERREPORTCHECK_S();
+        //----------------------------------------------------------------------------------------------파라미터 스트럭쳐지정
+        csParamInfo _ParamInfo = WSParamInfo();
+        //----------------------------------------------------------------------------------------------파라미터 지정
+        _ParamInfo.ParamInfo.Rows.Add(new object[] { 1, "common", "procedure", pcd });
+        _ParamInfo.ParamInfo.Rows.Add(new object[] { 2, "common", "workType", strWorkType });
+        _ParamInfo.ParamInfo.Rows.Add(new object[] { 3, "common", "cv_count", "3" });
+        _ParamInfo.ParamInfo.Rows.Add(new object[] { 4, "common", "getType", SessionInfo.WebContentType });  // "HRI1700_REPORT_WORK"
+        _ParamInfo.ParamInfo.Rows.Add(new object[] { 5, "common", "jr_report", strReportType });  // "HRI1700_REPORT_WORK"
+        _ParamInfo.ParamInfo.Rows.Add(new object[] { 6, "common", "cm_key", strUUID });  // "cm_key"
+
+        if (strReportType.ToString() == "FIG3100_REPORT") {
+            _ParamInfo.ParamData.Rows.Add(new object[] { 1, "params", "v_p_comp_code", SessionInfo.CompCode });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 2, "params", "v_p_lang_id", SessionInfo.LanguageID });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 3, "params", "v_p_fi_org_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 4, "params", "v_p_date_fr", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 5, "params", "v_p_date_to", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 6, "params", "v_p_cs_biz_regno", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 7, "params", "v_p_approval_no", txtvoucher_no.ControlValue.ToString() });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 8, "params", "v_p_item_taxable_amt", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 9, "params", "v_p_cs_name", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 10, "params", "v_p_dept_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 11, "params", "v_p_emp_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 12, "params", "v_p_gubun", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 13, "params", "v_p_userid", SessionInfo.UserID });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 14, "params", "v_p_pc", GetClientPCName() + "/" + GetIPAddress() });
+        } else if (strReportType.ToString() == "FIG3300_REPORT") {
+            _ParamInfo.ParamData.Rows.Add(new object[] { 1, "params", "v_p_comp_code", SessionInfo.CompCode });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 2, "params", "v_p_lang_id", SessionInfo.LanguageID });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 3, "params", "v_p_fi_org_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 4, "params", "v_p_date_fr", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 5, "params", "v_p_date_to", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 6, "params", "v_p_cs_biz_regno", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 7, "params", "v_p_approval_no", txtvoucher_no.ControlValue.ToString() });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 8, "params", "v_p_item_taxable_amt", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 9, "params", "v_p_cs_name", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 10, "params", "v_p_emp_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 11, "params", "v_p_gubun", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 12, "params", "v_p_userid", SessionInfo.UserID });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 13, "params", "v_p_pc", GetClientPCName() + "/" + GetIPAddress() });
+        }
+
+        if (strReportType.ToString() == "FIG3180_REPORT") {
+            _ParamInfo.ParamData.Rows.Add(new object[] { 1, "params", "v_p_comp_code", SessionInfo.CompCode });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 2, "params", "v_p_lang_id", SessionInfo.LanguageID });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 3, "params", "v_p_fi_org_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 4, "params", "v_p_date_fr", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 5, "params", "v_p_date_to", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 6, "params", "v_p_cs_biz_regno", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 7, "params", "v_p_doc_name", txtdoc_name.ControlValue.ToString() });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 8, "params", "v_p_item_taxable_amt", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 9, "params", "v_p_cs_name", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 10, "params", "v_p_dept_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 11, "params", "v_p_emp_code", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 12, "params", "v_p_gubun", "" });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 13, "params", "v_p_userid", SessionInfo.UserID });
+            _ParamInfo.ParamData.Rows.Add(new object[] { 14, "params", "v_p_pc", GetClientPCName() + "/" + GetIPAddress() });
+        }
+
+        string strHtml = fnSetParamHtml(_ParamInfo);
+        pbStartWebBrowser(strHtml, strFinishYn);*/
+    }
+
+    const fn_taxView = async function () {
+        if (gfn_nvl(SBUxMethod.get("VOUCHER_TYPE")) == "A" || gfn_nvl(SBUxMethod.get("VOUCHER_TYPE")) == "B") {
+            if(gfn_nvl(SBUxMethod.get("VOUCHER_NO")).length > 0) {
+                if (gfn_nvl(SBUxMethod.get("SRCH_INVOCE_BATCH_NO")) == "AP") {
+                    fn_report("REPORT", "FIG3100_REPORT");
+                } else if (gfn_nvl(SBUxMethod.get("SRCH_INVOCE_BATCH_NO")) == "AR") {
+                    fn_report("REPORT", "FIG3300_REPORT");
+                }
+            } else {
+                gfn_comAlert("E0000", "증빙번호가 존재하지 않습니다.");
+            }
+        }
+        else if (gfn_nvl(SBUxMethod.get("VOUCHER_TYPE")) == "C") {
+            fn_report("REPORT", "FIG3180_REPORT");
+        }
+    }
 </script>
