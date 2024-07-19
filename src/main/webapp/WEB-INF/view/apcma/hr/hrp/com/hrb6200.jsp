@@ -945,7 +945,7 @@
             return;
         }
 
-        listData = [];
+        let listData = [];
         listData =  await getParamFormS1(updatedData);
 
         if (listData.length > 0) {
@@ -1049,7 +1049,7 @@
             return;
         }
 
-        listData = [];
+        let listData = [];
         listData =  await getParamFormS2(updatedData);
 
         if (listData.length > 0) {

@@ -1062,7 +1062,7 @@
     //급상여 회계처리 라인 그리드 저장,수정
     const fn_saveS3 = async function () {
 
-        listData = [];
+        let listData = [];
         listData =  await getParamFormS2();
 
         if (listData.length > 0) {
@@ -1186,7 +1186,7 @@
             return;
         }
 
-        listData = [];
+        let listData = [];
         listData = await getParamFormBatch('BATCH');
 
         if (listData.length > 0) {
@@ -1296,7 +1296,7 @@
             return;
         }*/
 
-        listData = [];
+        let listData = [];
         listData = await getParamFormBatch('CANCEL');
 
         if (listData.length > 0) {

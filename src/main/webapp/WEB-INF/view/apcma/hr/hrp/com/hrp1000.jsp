@@ -2042,7 +2042,7 @@
     //저장
     const fn_saveS1 = async function () {
 
-        listData = [];
+        let listData = [];
         listData =  await getParamFormS1('u');
 
         if (listData.length > 0) {
@@ -2075,7 +2075,7 @@
     //저장
     const fn_saveS2 = async function () {
 
-        listData = [];
+        let listData = [];
         listData =  await getParamFormS2('u');
 
         if (listData.length > 0) {
@@ -2111,7 +2111,7 @@
     //삭제
     const fn_deleteS1 = async function () {
 
-        listData = [];
+        let listData = [];
         listData =  await getParamFormS1('d');
 
         if (listData.length > 0) {
@@ -2147,7 +2147,7 @@
         //삭제
     const fn_deleteS2 = async function () {
 
-        listData = [];
+        let listData = [];
         listData =  await getParamFormS2('d');
 
         if (listData.length > 0) {
