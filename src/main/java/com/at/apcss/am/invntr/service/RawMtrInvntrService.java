@@ -215,4 +215,13 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
     public int rawMtrInvntrItemCdUpdate(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+	/**
+	 * 원물재고 재처리 입고번호취합 선택
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrInvntrVO selectRawMtrInvntrSumWrhsno(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	public HashMap<String, Object> updateInvntrRePrcs(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

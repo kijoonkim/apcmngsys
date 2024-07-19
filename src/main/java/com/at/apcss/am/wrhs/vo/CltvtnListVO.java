@@ -29,6 +29,7 @@ public class CltvtnListVO extends ComVO {
 
 	private PrdcrVO prdcrVO;
 	private CltvtnBscInfoVO cltvtnBscInfoVO;
+	private String atchflPath;
 	/*
 	 * 재배기본정보
 	 * */

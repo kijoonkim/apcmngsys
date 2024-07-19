@@ -579,34 +579,29 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', pt0.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
                 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
-    			, (SELECT FN_GET_STD_GRD_RAWMTR(pt0.APC_CD, pt0.WRHSNO, 'NM') FROM DUAL) AS STD_GRD
-    			, (SELECT FN_GET_STD_GRD_RAWMTR(pt0.APC_CD, pt0.WRHSNO, 'CD') FROM DUAL) AS STD_GRD_CD
-
     		  FROM (
 	    	SELECT
-				  RI.APC_CD         AS APC_CD
-				, RI.WRHSNO         AS WRHSNO
-				, RI.PLTNO          AS PLTNO
-				, RI.WRHS_YMD       AS WRHS_YMD
-				, RI.PRDCR_CD       AS PRDCR_CD
-				, RI.ITEM_CD        AS ITEM_CD
-				, RI.VRTY_CD        AS VRTY_CD
-				, RI.GDS_SE_CD      AS GDS_SE_CD
-				, RI.WRHS_SE_CD     AS WRHS_SE_CD
-				, RI.TRSPRT_SE_CD   AS TRSPRT_SE_CD
-				, RI.WAREHOUSE_SE_CD    AS WAREHOUSE_SE_CD
-				, RI.BX_KND         AS BX_KND
-				, RI.GRD_CD			AS GRD_CD
-				, RI.WRHS_QNTT      AS WRHS_QNTT
-				, RI.WRHS_WGHT      AS WRHS_WGHT
-				, RI.INPT_QNTT      AS INPT_QNTT
-				, RI.INPT_WGHT      AS INPT_WGHT
-				, RI.INVNTR_QNTT    AS INVNTR_QNTT
-				, RI.INVNTR_WGHT    AS INVNTR_WGHT
-				, RI.RMRK			AS RMRK
-				, RI.INPT_PRGRS_QNTT	AS INPT_PRGRS_QNTT
-				, RI.INPT_PRGRS_WGHT	AS INPT_PRGRS_WGHT
-
+				 RI.APC_CD                     	AS APC_CD
+				,AGGR_CONCAT(RI.WRHSNO, ' , ') 	AS WRHSNO
+				,MAX(RI.WRHS_YMD)               AS WRHS_YMD
+				,MAX(RI.PRDCR_CD)               AS PRDCR_CD
+				,MAX(RI.ITEM_CD)                AS ITEM_CD
+				,MAX(RI.VRTY_CD)                AS VRTY_CD
+				,MAX(RI.GDS_SE_CD)              AS GDS_SE_CD
+				,MAX(RI.WRHS_SE_CD)             AS WRHS_SE_CD
+				,MAX(RI.TRSPRT_SE_CD)           AS TRSPRT_SE_CD
+				,MAX(RI.WAREHOUSE_SE_CD)        AS WAREHOUSE_SE_CD
+				,MAX(RI.BX_KND)                 AS BX_KND
+				,MAX(RI.GRD_CD)                 AS GRD_CD
+				,SUM(RI.WRHS_QNTT)              AS WRHS_QNTT
+				,SUM(RI.WRHS_WGHT)              AS WRHS_WGHT
+				,SUM(RI.INPT_QNTT)              AS INPT_QNTT
+				,SUM(RI.INPT_WGHT)              AS INPT_WGHT
+				,SUM(RI.INVNTR_QNTT)            AS INVNTR_QNTT
+				,SUM(RI.INVNTR_WGHT)            AS INVNTR_WGHT
+				,MAX(RI.RMRK)                   AS RMRK
+				,MAX(RI.INPT_PRGRS_QNTT)        AS INPT_PRGRS_QNTT
+				,MAX(RI.INPT_PRGRS_WGHT)        AS INPT_PRGRS_WGHT
 			  FROM TB_RAW_MTR_INVNTR RI
 
 			 WHERE RI.DEL_YN = 'N'
@@ -657,7 +652,7 @@
 		</if>
 
 		<![CDATA[
-		 	 ORDER BY APC_CD, WRHS_YMD, WRHSNO
+		 	 GROUP BY APC_CD, PRDCR_CD, WRHS_YMD
     		  ) pt0
 		]]>
 
@@ -1517,5 +1512,48 @@
 		  AND WRHSNO = #{wrhsno}
 		]]>
 	</update>
+	<select id="selectRawMtrInvntrSumWrhsno" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+		<![CDATA[
+		SELECT
+			   RI.APC_CD				AS APC_CD
+			 , AGGR_CONCAT(RI.WRHSNO, ' , ') AS WRHSNO
+			 , AGGR_CONCAT(RI.PLTNO,',')				AS PLTNO
+			 , RI.WRHS_YMD			AS WRHS_YMD
+			 , MAX(RI.PRDCR_CD)			AS PRDCR_CD
+			 , MAX(RI.ITEM_CD)			AS ITEM_CD
+			 , MAX(RI.VRTY_CD)			AS VRTY_CD
+			 , MAX(RI.GDS_SE_CD)			AS GDS_SE_CD
+			 , MAX(RI.WRHS_SE_CD)			AS WRHS_SE_CD
+			 , MAX(RI.TRSPRT_SE_CD)		AS TRSPRT_SE_CD
+			 , MAX(RI.WAREHOUSE_SE_CD)	AS WAREHOUSE_SE_CD
+			 , MAX(RI.GRD_CD)				AS GRD_CD
+			 , MAX(RI.BX_KND)				AS BX_KND
+			 , SUM(RI.WRHS_QNTT)			AS WRHS_QNTT
+			 , SUM(RI.WRHS_WGHT)			AS WRHS_WGHT
+			 , SUM(RI.INPT_QNTT)			AS INPT_QNTT
+			 , SUM(RI.INPT_WGHT)			AS INPT_WGHT
+			 , SUM(RI.INPT_QNTT)			AS SORT_QNTT
+			 , SUM(RI.INPT_WGHT)			AS SORT_WGHT
+			 , SUM(RI.INVNTR_QNTT)		AS INVNTR_QNTT
+			 , SUM(RI.INVNTR_WGHT)		AS INVNTR_WGHT
+			 , SUM(RI.INPT_PRGRS_QNTT)	AS INPT_PRGRS_QNTT
+			 , SUM(RI.INPT_PRGRS_WGHT)	AS INPT_PRGRS_WGHT
+			 , SUM(RI.TRNSF_QNTT)			AS TRNSF_QNTT
+			 , SUM(RI.TRNSF_WGHT)			AS TRNSF_WGHT
+			 , SUM(RI.PRCS_QNTT)			AS PRCS_QNTT
+			 , SUM(RI.PRCS_WGHT)			AS PRCS_WGHT
+			 , MAX(RI.PRCS_NO)			AS PRCS_NO
+			 , MAX(RI.PRCS_TYPE)			AS PRCS_TYPE
+		FROM TB_RAW_MTR_INVNTR RI
+	 	LEFT JOIN TB_PRDCR_INFO PI
+	  		ON RI.APC_CD = PI.APC_CD
+		    AND RI.PRDCR_CD = PI.PRDCR_CD
+		WHERE RI.APC_CD = #{vo.apcCd}
+		  AND RI.WRHSNO IN]]>
+		 <foreach item="item" index="index" collection="wrhsno" open="(" separator="," close=")">
+			#{item}
+		 </foreach>
+		GROUP BY RI.APC_CD, RI.WRHS_YMD
+	</select>
 
 </mapper>

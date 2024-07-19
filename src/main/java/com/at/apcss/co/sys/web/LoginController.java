@@ -186,40 +186,109 @@ public class LoginController extends BaseController {
 						} else {
 							// 정상 로그인 진행
 
-							//----------------------------------------------------------------------------
-							//경영관리 쎄션정보 가져오기
-							Map<String, Object> gmap1 = new HashMap<String, Object>();
-							gmap1.put("procedure", 			"JPSESSIONINFO");
-							gmap1.put("getType", 			"json");
-							gmap1.put("cv_count", 			"1");
-							
-				    		String gmap2[][] = {
-								{"V_P_LANG_ID",			"KOR"},
-								{"V_P_USERID",			resultVO.getUserId()},
-								{"V_P_PARAM1",			""},
-								{"V_P_PARAM2",			""}
-				        	};
-							Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
-							
-							//쎄션에 저장
-							Map<String, Object> gmap4 = new HashMap<String, Object>();
-							List<Map<String, Object>> list2 = (ArrayList<Map<String,Object>>)gmap3.get("cv_1");
-							for (int i = 0; i < list2.size(); i++) {
-								if(list2.get(i).get("CLASSNAME").equals("SESSIONINFO")) {
-									gmap4.put(list2.get(i).get("KEYCODE").toString(), list2.get(i).get("KEYVALUE"));
+							if (!"prd".equals(getServerType())) {
+								//----------------------------------------------------------------------------
+								//경영관리 쎄션정보 가져오기
+								Map<String, Object> gmap1 = new HashMap<String, Object>();
+								gmap1.put("procedure", 			"JPSESSIONINFO");
+								gmap1.put("getType", 			"json");
+								gmap1.put("cv_count", 			"1");
+								
+					    		String gmap2[][] = {
+									{"V_P_LANG_ID",			"KOR"},
+									{"V_P_USERID",			resultVO.getUserId()},
+									{"V_P_PARAM1",			""},
+									{"V_P_PARAM2",			""}
+					        	};
+								Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+								
+								//쎄션에 저장
+								Map<String, Object> gmap4 = new HashMap<String, Object>();
+								List<Map<String, Object>> list2 = (ArrayList<Map<String,Object>>)gmap3.get("cv_1");
+								for (int i = 0; i < list2.size(); i++) {
+									if(list2.get(i).get("CLASSNAME").equals("SESSIONINFO")) {
+										gmap4.put(list2.get(i).get("KEYCODE").toString(), list2.get(i).get("KEYVALUE"));
+									}
 								}
+								request.getSession().setAttribute("maSessionInfo", gmap4);
+								logger.debug("=======>>>>>>>>>>>>>>>>>>>maSessionInfo" + gmap4);
+								
+								//경영관리 쎄션정보
+								resultVO.setMaBaseCurrCode(nvl(gmap4.get("BASECURRCODE")));
+								resultVO.setMaBaseLangID(nvl(gmap4.get("BASELANGID")));
+								resultVO.setMaBIZSTOPURL(nvl(gmap4.get("BIZ_STOP_NOTICE")));
+								resultVO.setMaCalApiUrl(nvl(gmap4.get("CAL_API_URL")));
+								resultVO.setMaCompCode(nvl(gmap4.get("COMPCODE")));
+								resultVO.setMaCompName(nvl(gmap4.get("COMPNAME")));
+								resultVO.setMaCurrCode(nvl(gmap4.get("CURRCODE")));
+								resultVO.setMaCurrName(nvl(gmap4.get("CURRNAME")));
+								resultVO.setMaCurrUnit(nvl(gmap4.get("CURRUNIT")));
+								resultVO.setMaDefaultAcctRule(nvl(gmap4.get("DEFAULTACCTRULE")));
+								resultVO.setMaDeptCode(nvl(gmap4.get("DEPTCODE")));
+								resultVO.setMaDeptName(nvl(gmap4.get("DEPTNAME")));
+								resultVO.setMaDeptRule(nvl(gmap4.get("DEPT_RULE")));
+								resultVO.setMaDutyCode(nvl(gmap4.get("DUTYCODE")));
+								resultVO.setMaEmpCode(nvl(gmap4.get("EMPCODE")));
+								resultVO.setMaEmpName(nvl(gmap4.get("EMPNAME")));
+								resultVO.setMaEmpNameEN(nvl(gmap4.get("EMPNAMENA")));				// X
+								resultVO.setMaEmpNameFOR(nvl(gmap4.get("EMPNAMEFOR")));			// X
+								resultVO.setMaEssHome(nvl(gmap4.get("ESS_HOME")));
+								resultVO.setMaEssReportHome(nvl(gmap4.get("ESS_REPORT_HOME")));
+								resultVO.setMaFBSBATCHID(nvl(gmap4.get("FBSBATCHID")));
+								resultVO.setMaFBSBATCHPW(nvl(gmap4.get("FBSBATCHPW")));
+								resultVO.setMaFBSBIP(nvl(gmap4.get("FBSBIP")));
+								resultVO.setMaFBSBPORT(nvl(gmap4.get("FBSBPORT")));
+								resultVO.setMaFBSCIP(nvl(gmap4.get("FBSCIP")));
+								resultVO.setMaFBSCPORT(nvl(gmap4.get("FBSCPORT")));
+								resultVO.setMaFBSFIP(nvl(gmap4.get("FBSFIP")));
+								resultVO.setMaFBSFPORT(nvl(gmap4.get("FBSFPORT")));
+								resultVO.setMaFBSRECEIVEPATH(nvl(gmap4.get("FBSRECEIVEPATH")));
+								resultVO.setMaFBSRIP(nvl(gmap4.get("FBSRIP")));
+								resultVO.setMaFBSRPORT(nvl(gmap4.get("FBSRPORT")));
+								resultVO.setMaFBSSENDPATH(nvl(gmap4.get("FBSSENDPATH")));
+								resultVO.setMaFBSSERVERTYPE(nvl(gmap4.get("FBSSERVERTYPE")));
+								resultVO.setMaFBSVAN(nvl(gmap4.get("FBSVAN")));
+								resultVO.setMaFBSVANCB(nvl(gmap4.get("FBSVANCB")));
+								resultVO.setMaFBSVANFC(nvl(gmap4.get("FBSVANFC")));
+								resultVO.setMaFI_DELETE_USER(nvl(gmap4.get("FI_DELETE_USER")));
+								resultVO.setMaFileServerHome(nvl(gmap4.get("FILE_SERVER_HOME")));
+								resultVO.setMaFIOrgCode(nvl(gmap4.get("FIORGCODE")));
+								resultVO.setMaGADeptCode(nvl(gmap4.get("GADEPTCODE")));					// X
+								resultVO.setMaGW_SITE(nvl(gmap4.get("GW_SITE")));
+								resultVO.setMaHRDeptCode(nvl(gmap4.get("HRDEPTCODE")));					// X
+								resultVO.setMaHREvaluateRole(nvl(gmap4.get("HREVALUATEROLE")));
+								resultVO.setMaHriReport(nvl(gmap4.get("HRIREPORT")));
+								resultVO.setMaIsAccountChief(nvl(gmap4.get("ISACCOUNTCHIEF")));
+								resultVO.setMaIsAccountManager(nvl(gmap4.get("ISACCOUNTMANAGER")));
+								resultVO.setMaIsGW(nvl(gmap4.get("ISGW")));								// X
+								resultVO.setMaIsHRManager(nvl(gmap4.get("ISHRMANAGER")));
+								resultVO.setMaIsHRPayManager(nvl(gmap4.get("ISHRPAYMANAGER")));
+								resultVO.setMaIsManager(nvl(gmap4.get("ISMANAGER")));					// X
+								resultVO.setMaIsPayResultAdjust(nvl(gmap4.get("ISPAYRESULTADJUST")));
+								resultVO.setMaIsPostingUser(nvl(gmap4.get("ISPOSTINGUSER")));			// X
+								resultVO.setMaIsSalesEmp(nvl(gmap4.get("ISSALESEMP")));
+								resultVO.setMaIsTrManager(nvl(gmap4.get("ISTRMANAGER")));
+								resultVO.setMaIsTrUser(nvl(gmap4.get("ISTRUSER")));
+								resultVO.setMaJobCode(nvl(gmap4.get("JOBCODE")));
+								resultVO.setMaJobFamilyCode(nvl(gmap4.get("JOBFAMILYCODE")));
+								resultVO.setMaJobRankCode(nvl(gmap4.get("JOBRANKCODE")));
+								resultVO.setMaLanguageID(nvl(gmap4.get("LANGUAGEID")));
+								resultVO.setMaNTSBIZURL(nvl(gmap4.get("NTSBIZURL")));
+								resultVO.setMaPositionCode(nvl(gmap4.get("POSITIONCODE")));
+								resultVO.setMaProxyEmpCode(nvl(gmap4.get("PROXYEMPCODE")));				// X
+								resultVO.setMaScmHome(nvl(gmap4.get("SCM_HOME")));
+								resultVO.setMaSiteCode(nvl(gmap4.get("SITECODE")));
+								resultVO.setMaSiteName(nvl(gmap4.get("SITENAME")));
+								resultVO.setMaSystemDeptCode(nvl(gmap4.get("SYSTEMDEPTCODE")));
+								resultVO.setMaSystemDeveloper(nvl(gmap4.get("SYSTEMDEVELOPER")));
+								resultVO.setMaTaxSiteCode(nvl(gmap4.get("TAXSITECODE")));
+								resultVO.setMaTaxSiteName(nvl(gmap4.get("TAXSITENAME")));
+								resultVO.setMaUserID(nvl(gmap4.get("USERID")));
+								resultVO.setMaUserName(nvl(gmap4.get("USERNAME")));
+								//----------------------------------------------------------------------------
+								
 							}
-							request.getSession().setAttribute("maSessionInfo", gmap4);
-							logger.debug("=======>>>>>>>>>>>>>>>>>>>maSessionInfo" + gmap4);
 							
-							//인사담당자
-							String isHrManager = (gmap4.get("ISHRMANAGER")==null) ? "N" : gmap4.get("ISHRMANAGER").toString();
-							resultVO.setIsHrManager(isHrManager);
-							
-							//인사담당자
-							String fiOrgCode = (gmap4.get("FIORGCODE")==null) ? "" : gmap4.get("FIORGCODE").toString();
-							resultVO.setFiOrgCode(fiOrgCode);
-							//----------------------------------------------------------------------------
 							
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.LOGIN_SUCCESS);
 							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
@@ -306,6 +375,7 @@ public class LoginController extends BaseController {
 			comLogService.insertMenuHstry(comLogVo);
 
 		} catch (Exception e) {
+			logger.debug("", e);
 			return getErrorResponseEntity(e);
 		}
 
@@ -681,4 +751,9 @@ public class LoginController extends BaseController {
 
 		return "redirect:/main.do";
 	}
+	
+	private static String nvl(Object obj) {
+		return (obj==null) ? "" : obj.toString();
+	}
+	
 }

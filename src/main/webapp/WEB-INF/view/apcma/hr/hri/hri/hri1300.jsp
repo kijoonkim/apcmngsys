@@ -406,7 +406,7 @@
 
 <!-- 팝업 Modal -->
 <div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
     <sbux-modal style="width:800px" id="modal-srchAppointNum" name="modal-srchAppointNum" uitype="middle" header-title="발령정보" body-html-id="body-modal-srchAppointNum" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
 </div>
 <div id="body-modal-srchAppointNum">

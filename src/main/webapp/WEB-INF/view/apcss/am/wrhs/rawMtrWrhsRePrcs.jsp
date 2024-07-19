@@ -67,13 +67,13 @@
 						<col style="width: 6%">
 					</colgroup>
 					<tbody>
-						<tr>
+						<tr style="border-top: hidden">
 						<th scope="row" class="th_bg"><span class="data_required" ></span>입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmdFrom" name="srch-dtp-wrhsYmdFrom" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(this)" callback-after-close="gfn_monthValidation('srch-dtp-wrhsYmdFrom','srch-dtp-wrhsYmdTo')"></sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"></sbux-datepicker>
+								<sbux-datepicker id="srch-dtp-wrhsYmdTo" name="srch-dtp-wrhsYmdTo" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm sbux-pik-group-apc input-sm-ast inpt_data_reqed" onchange="fn_dtpChange(this)" callback-after-close="gfn_monthValidation('srch-dtp-wrhsYmdTo','srch-dtp-wrhsYmdFrom')"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
@@ -220,17 +220,40 @@
 							</td>
 							<td style="border-right: hidden;">Kg</td>
 							-->
-							<td colspan="4" class="td_input" >
+							<td colspan="4" class="td_input" style="border-right: hidden">
 								<sbux-label
-									id="lbl-grdInptWght"
-									name="lbl-grdInptWght"
+										id="lbl-grdInptQnttHead"
+										name="lbl-grdInptQnttHead"
+										uitype="normal"
+										text="수량 : "
+										style="font-size:12px;font-weight:bold;"
+								></sbux-label>
+								<sbux-label
+										id="lbl-grdInptQntt"
+										name="lbl-grdInptQntt"
+										uitype="normal"
+										text="0"
+										style="font-size:12px;font-weight:bold;margin-right: 15px"
+										mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"
+								></sbux-label>
+								<sbux-label
+									id="lbl-grdInptWghtHead"
+									name="lbl-grdInptWghtHead"
 									uitype="normal"
-									text=""
+									text="중량 : "
 									style="font-size:12px;font-weight:bold;"
+								></sbux-label>
+								<sbux-label
+										id="lbl-grdInptWght"
+										name="lbl-grdInptWght"
+										uitype="normal"
+										text="0"
+										style="font-size:12px;font-weight:bold;"
+										mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' }"
 								></sbux-label>
 							</td>
 
-							<th scope="row" class="th_bg">투입 잔량</th>
+<%--							<th scope="row" class="th_bg">투입 잔량</th>--%>
 							<!--
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -258,15 +281,15 @@
 							</td>
 							<td style="border-right: hidden;">Kg</td>
 							 -->
-							<td colspan="4" class="td_input" >
-								<sbux-label
-									id="lbl-grdPrcsWght"
-									name="lbl-grdPrcsWght"
-									uitype="normal"
-									text=""
-									style="font-size:12px;font-weight:bold;"
-								></sbux-label>
-							</td>
+<%--							<td colspan="4" class="td_input" >--%>
+<%--								<sbux-label--%>
+<%--									id="lbl-grdPrcsWght"--%>
+<%--									name="lbl-grdPrcsWght"--%>
+<%--									uitype="normal"--%>
+<%--									text=""--%>
+<%--									style="font-size:12px;font-weight:bold;"--%>
+<%--								></sbux-label>--%>
+<%--							</td>--%>
 
 						</tr>
 					</tbody>
@@ -339,6 +362,8 @@
     /* SBGrid Data (JSON) */
 	var jsonRawMtrInvntr = [];
 	var jsonRawMtrRePrcs = [];
+
+	let qnttWghtAvg = 0;
 
 
 	const fn_initSBSelect = async function() {
@@ -425,24 +450,23 @@
 		SBGridProperties.columns = [
 			{
 				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
-				ref: 'checkedYn', type: 'checkbox',  width:'50px',
+				ref: 'checkedYn', type: 'checkbox',  width:'3%',
 				style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-        	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'120px', style: 'text-align:center',
+        	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'10%', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
-            {caption: ["팔레트번호","팔레트번호"], 	ref: 'pltno',     		type:'output',  width:'120px', style: 'text-align:center'},
-            {caption: ["생산자","생산자"],    	ref: 'prdcrNm',     	type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["품목","품목"],	    	ref: 'itemNm',   		type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'100px', style: 'text-align:center'},
-            {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'80px', style: 'text-align:center'},
-            {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'120px', style: 'text-align:center'},
-            {caption: ["원물재고","수량"],  		ref: 'invntrQntt',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
-            {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'80px', style: 'text-align:right', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
-            {caption: ["투입","수량"], 			ref: 'inptQntt',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["생산자","생산자"],    	ref: 'prdcrNm',     	type:'output',  width:'9%', style: 'text-align:center'},
+            {caption: ["품목","품목"],	    	ref: 'itemNm',   		type:'output',  width:'9%', style: 'text-align:center'},
+            {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'9%', style: 'text-align:center'},
+            {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'9%', style: 'text-align:center'},
+            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'9%', style: 'text-align:center'},
+            {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'9%', style: 'text-align:center'},
+            {caption: ["원물재고","톤백수량"],  		ref: 'invntrQntt',   	type:'output',  width:'9%', style: 'text-align:right', format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
+            {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'8%', style: 'text-align:right', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
+            {caption: ["투입","톤백수량"], 			ref: 'inptQntt',  		type:'input',  width:'8%', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -451,7 +475,7 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'80px', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'8%', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptWght"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -462,58 +486,58 @@
          	},
 		];
 
-		const columnsStdGrd = [];
-		gjsonStdGrdObjKnd.forEach((item, index) => {
-			if (_.isEqual(item.stdGrdType, "RT")) {
-	    		const grd = {
-    				caption: ["등급상세정보", item.grdKndNm + " (Kg)"],
-    				ref: "rt__" + item.grdKnd,
-    				type:'output',
-    				width:'80px',
-    				style: 'text-align:right;',
-    				userattr: {colNm: "stdGrdWght"},
-    				format : {type:'number', rule:'#,###'}
-    			}
-	    		columnsStdGrd.push(grd);
-	    	} else {
-				const grd = {
-					caption: ["등급상세정보", item.grdKndNm],
-					ref: "nm__" + item.grdKnd,
-    				type:'output',
-    				width:'80px',
-    				style: 'text-align:center;',
-    				userattr: {colNm: "stdGrdNm"},
-				}
-				columnsStdGrd.push(grd);
-	    	}
+		// const columnsStdGrd = [];
+		// gjsonStdGrdObjKnd.forEach((item, index) => {
+		// 	if (_.isEqual(item.stdGrdType, "RT")) {
+	    // 		const grd = {
+    	// 			caption: ["등급상세정보", item.grdKndNm + " (Kg)"],
+    	// 			ref: "rt__" + item.grdKnd,
+    	// 			type:'output',
+    	// 			width:'80px',
+    	// 			style: 'text-align:right;',
+    	// 			userattr: {colNm: "stdGrdWght"},
+    	// 			format : {type:'number', rule:'#,###'}
+    	// 		}
+	    // 		columnsStdGrd.push(grd);
+	    // 	} else {
+		// 		const grd = {
+		// 			caption: ["등급상세정보", item.grdKndNm],
+		// 			ref: "nm__" + item.grdKnd,
+    	// 			type:'output',
+    	// 			width:'80px',
+    	// 			style: 'text-align:center;',
+    	// 			userattr: {colNm: "stdGrdNm"},
+		// 		}
+		// 		columnsStdGrd.push(grd);
+	    // 	}
+        //
+		// });
+        //
+		// columnsStdGrd.forEach((item, index) => {
+		// 	SBGridProperties.columns.push(item);
+		// });
 
-		});
-
-		columnsStdGrd.forEach((item, index) => {
-			SBGridProperties.columns.push(item);
-		});
-
-		const columns2 = [
-         	//{caption: ["등급상세정보","등급상세정보"],	ref: 'stdGrd',	type:'output',  width:'200px', style: 'text-align:left;'},
-         	{caption: ["",""],		ref: '_',			type:'output',  width:'1px', style: 'text-align:left;'},
- 	        {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
-	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
-	        {caption: ["품종코드"],		ref: 'vrtyCd',   	type:'output',  hidden: true},
-	        {caption: ["상품구분코드"],	ref: 'gdsSeCd',   	type:'output',  hidden: true},
-	        {caption: ["입고구분코드"],	ref: 'wrhsSeCd',   	type:'output',  hidden: true},
-	        {caption: ["운송구분코드"],	ref: 'trsprtSeCd', 	type:'output',  hidden: true},
-	        {caption: ["창고구분코드"],	ref: 'warehouseSeCd', 	type:'output',	hidden: true},
-	        {caption: ["등급코드"],		ref: 'grdCd',   	type:'output',  hidden: true},
-	        {caption: ["박스종류코드"],	ref: 'bxKnd',   	type:'output',  hidden: true},
-	        {caption: ["입고번호"],		ref: 'wrhsno', 		type:'output',  hidden: true},
-	        {caption: ["입고구분명"],	ref: 'wrhsSeNm', 	type:'output',  hidden: true},
-	        {caption: ["운송구분명"],	ref: 'trsprtSeNm', 	type:'output',  hidden: true},
-	        {caption: ["박스종류명"],	ref: 'bxKndNm', 	type:'output',  hidden: true},
-    	];
-
-		columns2.forEach((item, index) => {
-			SBGridProperties.columns.push(item);
-		});
+		// const columns2 = [
+        //  	//{caption: ["등급상세정보","등급상세정보"],	ref: 'stdGrd',	type:'output',  width:'200px', style: 'text-align:left;'},
+        //  	{caption: ["",""],		ref: '_',			type:'output',  width:'1px', style: 'text-align:left;'},
+ 	   //      {caption: ["생산자코드"],	ref: 'prdcrCd',   	type:'output',  hidden: true},
+	    //     {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
+	    //     {caption: ["품종코드"],		ref: 'vrtyCd',   	type:'output',  hidden: true},
+	    //     {caption: ["상품구분코드"],	ref: 'gdsSeCd',   	type:'output',  hidden: true},
+	    //     {caption: ["입고구분코드"],	ref: 'wrhsSeCd',   	type:'output',  hidden: true},
+	    //     {caption: ["운송구분코드"],	ref: 'trsprtSeCd', 	type:'output',  hidden: true},
+	    //     {caption: ["창고구분코드"],	ref: 'warehouseSeCd', 	type:'output',	hidden: true},
+	    //     {caption: ["등급코드"],		ref: 'grdCd',   	type:'output',  hidden: true},
+	    //     {caption: ["박스종류코드"],	ref: 'bxKnd',   	type:'output',  hidden: true},
+	    //     {caption: ["입고번호"],		ref: 'wrhsno', 		type:'output',  hidden: true},
+	    //     {caption: ["입고구분명"],	ref: 'wrhsSeNm', 	type:'output',  hidden: true},
+	    //     {caption: ["운송구분명"],	ref: 'trsprtSeNm', 	type:'output',  hidden: true},
+	    //     {caption: ["박스종류명"],	ref: 'bxKndNm', 	type:'output',  hidden: true},
+    	// ];
+        //
+		// columns2.forEach((item, index) => {
+		// 	SBGridProperties.columns.push(item);
+		// });
 
 		grdRawMtrInvntr = _SBGrid.create(SBGridProperties);
 		grdRawMtrInvntr.bind('valuechanged' , fn_grdRawMtrInvntrValueChanged);
@@ -535,7 +559,7 @@
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.columns = [
-        	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'60px', style: 'text-align:center',
+        	{caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'5%', style: 'text-align:center',
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	            	if (gfn_isEmpty(strValue)){
 	            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(" + nRow + ", " + nCol + ")'>추가</button>";
@@ -543,14 +567,14 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
 					}
 		    }},
-            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'100px', style: 'text-align:center',
+            {caption: ["품목"], 		ref: 'itemCd',		type:'combo',  width:'6%', style: 'text-align:center',
             	typeinfo: {ref:'jsonApcItem', label:'label', value:'value', displayui : false}
             },
             {
             	caption: ["품종"], 		
             	ref: 'vrtyCd',		
             	type:'combo',  
-            	width:'100px', 
+            	width:'6%',
             	style: 'text-align:center',
             	typeinfo: {
             		ref:'jsonApcVrty', 
@@ -575,10 +599,10 @@
 			if (_.isEqual(item.stdGrdType, "RT")) {
 	    		cntRt++;
 	    		grd = {
-    				caption: [item.grdKndNm + " (Kg)"],
+    				caption: [item.grdKndNm + " (수량)"],
     				ref: gStdGrdObj.colPrfx + item.grdKnd,
     				type:'input',
-    				width:'80px',
+    				width: '7%',
     				style: 'text-align:right;background-color:#FFF8DC;',
     				userattr: {colNm: "stdGrdWght"},
     				typeinfo: {
@@ -607,7 +631,7 @@
 					caption: ["판정등급"],
 					ref: "jgmtGrdCd",
 					type:'combo',
-					width:'80px',
+					width:'6%',
 					style: 'text-align:center;',
 					userattr: {colNm: "jgmtGrd"},
 					typeinfo: {ref: gStdGrdObj.jgmtJsonId, label:'grdNm', value:'grdCd', displayui : false}
@@ -620,13 +644,12 @@
 		});
 
 		const columns2 = [
-			/*
 			{
 				caption: ["총 수량"],
 				ref: 'wrhsQntt',
 				datatype: 'number',
-				type:'input',
-				width:'80px',
+				type:'output',
+				width:'7%',
 				style: 'text-align:right',
 				userattr: {colNm: "wrhsQntt"},
 				typeinfo: {
@@ -636,12 +659,11 @@
                 },
                 format : {type:'number', rule:'#,###'}
 			},
-			*/
 			{
 				caption: ["총 중량 (Kg)"],
 				ref: 'wrhsWght',
-				type:'output',
-				width:'80px',
+				type:'input',
+				width:'7%',
 				style: 'text-align:right',
 				userattr: {colNm: "wrhsWght"},
 				format : {type:'number', rule:'#,### '},
@@ -664,14 +686,14 @@
                 format : {type:'number', rule:'#,###'}
 			},
 			 */
-            {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'100px', style: 'text-align:center;background-color:#FFF8DC;',
+            {caption: ["저장창고"],		ref: 'warehouseSeCd',    type:'combo',  width:'8%', style: 'text-align:center;background-color:#FFF8DC;',
            	 	typeinfo: {ref:'jsonComWarehouse', label:'cdVlNm', value:'cdVl', oneclickedit: true}
             },
             {
             	caption: ["컨테이너번호"],
             	ref: 'pltno',
             	type:'input',
-            	width:'150px',
+            	width:'11%',
             	style: 'text-align:center;background-color:#FFF8DC;',
             	typeinfo: {
 	                maxlength: 20,
@@ -679,9 +701,7 @@
 	                mask : {alias : '*', repeat : '*'}
                 }
             },
-            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'200px'},
-	        {caption: ["품목코드"],		ref: 'itemCd',   	type:'output',  hidden: true},
-	        //{caption: [" "],		ref: '_',			type:'output',  width:'1px'},
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'9%'},
 		];
 
 		columns2.forEach((item, index) => {
@@ -910,8 +930,16 @@
 			const vrtyCd = rowData.vrtyCd;
 			const warehouseSeCd = rowData.warehouseSeCd;
 			const pltno = rowData.pltno;
-			const wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
+			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
 			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
+			let avg = 0;
+			for(let key in rowData){
+				if(key.includes(gStdGrdObj.colPrfx)){
+					avg += parseInt(rowData[key]);
+				}
+			}
+			avg = wrhsWght/avg;
+
 
 			if (gfn_isEmpty(itemCd)) {
 				gfn_comAlert("W0005", "품목");		//	W0005	{0}이/가 없습니다.
@@ -950,9 +978,10 @@
 
  	    	let cntWt = 0;
  	    	let grdWghtSum = 0;
+			let grdQnttSum = 0;
 			const stdGrdList = [];
-
 			let cntGrdError = 0;
+
 			gjsonStdGrdObjKnd.forEach((knd, idx) => {
 
 				let colNm =  gStdGrdObj.colPrfx + knd.grdKnd;
@@ -965,17 +994,25 @@
 					itemCd: rowData.itemCd,
 					grdKnd: knd.grdKnd,
 					grdKndNm: knd.grdKndNm,
-					stdGrdType: stdGrdType
+					stdGrdType: stdGrdType,
+					grdCd: grdCd
 				}
 
 
 				if (_.isEqual(stdGrdType, "WT")) {
 					cntWt++;
-					stdGrd.grdWght = parseFloat(rowData[colNm]) || 0;
-					if (gfn_isEmpty(grdCd)) {
-						grdCd = "*";
-					}
-					grdWghtSum += stdGrd.grdWght;
+					/** 여기 중량을 수량으로 바꿔야함. 그리고 중량 위쪽 그리드 중량 땡겨와서 단량 측정후에
+					 * 일단은 수량대비 중량 보여준뒤에 수정가능하게 > 뒤쪽 validation 체크해야함. **/
+					// stdGrd.grdWght = parseFloat(rowData[colNm]) || 0;
+					stdGrd.grdQntt = parseFloat(rowData[colNm]) || 0;
+					stdGrd.grdWght = stdGrd.grdQntt * avg;
+					stdGrd.grdCd = "";
+
+
+					// if (gfn_isEmpty(grdCd)) {
+					// 	grdCd = "*";
+					// }
+					grdQnttSum += stdGrd.grdQntt;
 
 				} else {
 
@@ -993,13 +1030,15 @@
 				stdGrdList.push(stdGrd);
 			});
 
+			wrhsQntt += grdQnttSum;
+
 			if (cntGrdError > 0) {
 				gfn_comAlert("W0005", "등급");
 				return;
 			}
 
-			if (cntWt > 0 && grdWghtSum <= 0) {
-				gfn_comAlert("W0005", "등급중량");	//	W0005	{0}이/가 없습니다.
+			if (cntWt > 0 && grdQnttSum <= 0) {
+				gfn_comAlert("W0005", "등급수량");	//	W0005	{0}이/가 없습니다.
 			}
 
 	    	if (gfn_isEmpty(grdCd)) {
@@ -1035,15 +1074,15 @@
 			return;
 		}
 
-		if (invntrInptWght < totalWrhsWght) {
-			gfn_comAlert("W0008", "투입량", "처리량");		// W0008	{0} 보다 {1}이/가 큽니다.
+		if (invntrInptQntt < totalWrhsQntt) {
+			gfn_comAlert("W0008", "투입수량", "처리수량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			return;
 		}
 
 
 
 		// comConfirm
-		if (invntrInptWght > totalWrhsWght) {
+		if (invntrInptQntt > totalWrhsQntt) {
 			if (!gfn_comConfirm("Q0002", "투입잔량", "재처리 등록")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
 	    		return;
 	    	}
@@ -1082,7 +1121,7 @@
      * @description 입고일자 from to validation
      * @function
      */
-	const fn_dtpChange = function(){
+	const fn_dtpChange = function(_targetId){
  		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
  		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
  		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
@@ -1091,6 +1130,7 @@
  			SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
  			return;
  		}
+		 // gfn_monthValidation(_targetId);
  	}
 
 
@@ -1150,9 +1190,10 @@
 		SBUxMethod.set("dtl-inp-wrhsQntt", 0);
 		SBUxMethod.set("dtl-inp-wrhsWght", 0);
 		*/
-		SBUxMethod.set("lbl-grdInptWght", "");
+		SBUxMethod.set("lbl-grdInptWght", "0");
+		SBUxMethod.set("lbl-grdInptQntt", "0");
 		//SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
-		SBUxMethod.set("lbl-grdPrcsWght", "");
+		// SBUxMethod.set("lbl-grdPrcsWght", "");
  	}
 
 	/**
@@ -1281,13 +1322,9 @@
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
 			const rowData = grdRawMtrRePrcs.getRowData(nRow, false);	// deep copy
-
 			switch (usrAttr.colNm) {
 
 				case "wrhsQntt":
-				case "wrhsWght":
-					fn_setPrcsInfo();
-					break;
 				case "stdGrd":
 					if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 						const stdGrdInfo = [];
@@ -1310,20 +1347,46 @@
  					rowData.grdNvSum = grdNvSum;
  					grdRawMtrRePrcs.refresh();
  					break;
-
+				case "wrhsWght":
+					let wrhsWght = 0;
+					let wrhsQntt = 0;
+					jsonRawMtrRePrcs.forEach((item) => {
+						wrhsQntt += parseInt(item.wrhsQntt) || 0;
+						wrhsWght += parseInt(item.wrhsWght) || 0;
+					});
+					wrhsWght = parseInt(SBUxMethod.get("lbl-grdInptWght").replace(/,/g, '')) - wrhsWght;
+					wrhsQntt = parseInt(SBUxMethod.get("lbl-grdInptQntt").replace(/,/g, '')) - wrhsQntt;
+					SBUxMethod.set("lbl-grdInptQntt",""+wrhsQntt);
+					SBUxMethod.set("lbl-grdInptWght",""+wrhsWght);
+					break;
 				case "stdGrdWght":
 					let grdWghtSum = 0;
+					let grdQntt = 0;
  					gjsonStdGrdObjKnd.forEach((item, index) => {
 						if (_.isEqual(item.stdGrdType, "RT")) {
 							let colNm = gStdGrdObj.colPrfx + item.grdKnd;
-							grdWghtSum += parseFloat(rowData[colNm]) || 0;
+							grdWghtSum += parseInt(rowData[colNm]) * qnttWghtAvg || 0;
+							grdQntt += parseInt(rowData[colNm]) || 0;
 						}
 				  	});
- 					rowData.wrhsWght = grdWghtSum;
- 					grdRawMtrRePrcs.refresh();
- 					fn_setPrcsInfo();
- 					break;
+					fn_setPrcsInfo();
 
+					rowData.wrhsWght = grdWghtSum;
+					rowData.wrhsQntt = grdQntt;
+					grdRawMtrRePrcs.refresh();
+
+					let wght = 0;
+					let qntt = 0;
+					jsonRawMtrRePrcs.forEach((item) => {
+						qntt += parseInt(item.wrhsQntt) || 0;
+						wght += parseInt(item.wrhsWght) || 0;
+					});
+					wght = parseInt(SBUxMethod.get("lbl-grdInptWght").replace(/,/g, '')) - wght;
+					qntt = parseInt(SBUxMethod.get("lbl-grdInptQntt").replace(/,/g, '')) - qntt;
+
+					SBUxMethod.set("lbl-grdInptQntt",""+qntt);
+					SBUxMethod.set("lbl-grdInptWght",""+wght);
+ 					break;
 				default:
 					return;
 			}
@@ -1417,10 +1480,12 @@
 			prcsWghtInfo += std.grdKndNm + "  " + std.prcsWght + " Kg";
 			rmnWghtInfo += std.grdKndNm + "  " + std.rmnWght + " Kg";
 		});
-
-		SBUxMethod.set("lbl-grdInptWght", inptWghtInfo);
+			SBUxMethod.set("lbl-grdInptWght", totalInptWght);
+			SBUxMethod.set("lbl-grdInptQntt", totalInptQntt);
 		//SBUxMethod.set("lbl-grdPrcsWght", prcsWghtInfo);
-		SBUxMethod.set("lbl-grdPrcsWght", rmnWghtInfo);
+		// SBUxMethod.set("lbl-grdPrcsWght", totalInptWght);
+
+		qnttWghtAvg = parseInt(totalInptWght) / parseInt(totalInptQntt);
  	}
 
 	/*
@@ -1656,8 +1721,14 @@
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:none");
 
 		SBUxMethod.set("dtl-dtp-inptYmd",gfn_dateToYmd(new Date()));
-		SBUxMethod.set("lbl-grdInptWght","");
-		SBUxMethod.set("lbl-grdPrcsWght","");
+		SBUxMethod.set("lbl-grdInptWght", "0");
+		SBUxMethod.set("lbl-grdInptQntt", "0");
+		$("#cnt-rawMtrInvtr").html("0");
+		jsonRawMtrInvntr.length = 0;
+		jsonRawMtrRePrcs.length = 0;
+		grdRawMtrInvntr.rebuild();
+		$("#sb-area-grdRawMtrRePrcs").empty();
+		fn_createGridRawMtrRePrcs();
 	}
 
 	const objMenuList1 = {

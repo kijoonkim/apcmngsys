@@ -45,3 +45,13 @@ body {
   transition: background-color 0.3s;
 }
 
+.ma-btn1 {
+  background-color: #e0e0e0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+

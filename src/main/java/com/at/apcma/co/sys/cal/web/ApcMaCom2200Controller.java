@@ -63,7 +63,7 @@ public class ApcMaCom2200Controller extends BaseController {
 		}
 
 		logger.info("=============selectCom2200=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 기간 정보 삭제
@@ -89,7 +89,7 @@ public class ApcMaCom2200Controller extends BaseController {
 		}
 		
 		logger.info("=============deleteCom2200=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 기간 정보 - 정보 수정
@@ -114,7 +114,7 @@ public class ApcMaCom2200Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom2200=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 

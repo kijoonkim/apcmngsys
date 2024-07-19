@@ -62,7 +62,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		}
 
 		logger.info("=============selectCom3000List=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 공통코드 정보 삭제
@@ -87,7 +87,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		}
 		
 		logger.info("=============deleteCom3000=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 공통코드 정보 - 그룹코드 내역 신규
@@ -112,7 +112,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		}
 		
 		logger.info("=============insertCom3000=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 공통코드 정보 - 그룹코드 내역 수정
@@ -137,7 +137,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom3000=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 공통코드 정보 - 세부코드 정보 수정
@@ -162,7 +162,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		}
 		
 		logger.info("=============updateCom3000_S1=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 
 }

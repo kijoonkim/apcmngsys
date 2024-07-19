@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-				<table class="table table-bordered tbl_fixed">
+				<table id="apcSelectMa" class="table table-bordered tbl_fixed">
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
@@ -25,7 +25,7 @@
 	<script type="text/javascript">
 		var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 		var temp_jsonClientCode		= [];
-		gfnma_setComSelect(['gsb-slt-clntCd'], temp_jsonClientCode, 'L_CLIENT', '', '', 'CLIENT_CODE', 'CLIENT_NAME', 'Y', gv_ma_selectedClntCd);
+		gfnma_setComSelect(['gsb-slt-clntCd'], temp_jsonClientCode, 'L_CLIENT', '', '', '', 'CLIENT_CODE', 'CLIENT_NAME', 'Y', gv_ma_selectedClntCd);
 		
 		/**
 		 * @name

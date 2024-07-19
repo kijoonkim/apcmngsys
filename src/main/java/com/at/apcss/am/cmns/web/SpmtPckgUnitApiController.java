@@ -67,10 +67,10 @@ public class SpmtPckgUnitApiController extends BaseController{
 
 	@PostMapping(value = "/am/cmns/updateSpmtPckgUnitsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateSpmtPckgUnitsList(@RequestBody List<SpmtPckgUnitVO> spmtPckgUnitList, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			
+
 			for (SpmtPckgUnitVO spmtPckgUnitVO : spmtPckgUnitList) {
 				spmtPckgUnitVO.setSysLastChgPrgrmId(getPrgrmId());
 				spmtPckgUnitVO.setSysLastChgUserId(getUserId());
@@ -89,5 +89,28 @@ public class SpmtPckgUnitApiController extends BaseController{
 		}
 		return getSuccessResponseEntity(resultMap);
 
+	}
+
+	@PostMapping(value = "/api/mobile/am/cmns/spmtPckgUnits.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPckgUnitLists(@RequestBody SpmtPckgUnitVO spmtPckgUnitVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtPckgUnitVO> resultList = new ArrayList<>();
+		try {
+
+			resultList = spmtPckgUnitService.selectSpmtPckgUnitList(spmtPckgUnitVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
 	}
 }

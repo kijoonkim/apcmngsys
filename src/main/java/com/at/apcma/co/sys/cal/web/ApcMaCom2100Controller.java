@@ -63,7 +63,7 @@ public class ApcMaCom2100Controller extends BaseController {
 		}
 
 		logger.info("=============selectCom2100=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 회기 정보 저장
@@ -88,7 +88,7 @@ public class ApcMaCom2100Controller extends BaseController {
 		}
 		
 		logger.info("=============insertCom2100=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
 	// 회기 정보 삭제
@@ -113,7 +113,7 @@ public class ApcMaCom2100Controller extends BaseController {
 		}
 		
 		logger.info("=============deleteCom2100=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}	
 
 }

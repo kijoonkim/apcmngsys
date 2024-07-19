@@ -1,25 +1,28 @@
 package com.at.apcss.mobile.api;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.at.apcss.mobile.service.FcmService;
+import com.at.apcss.mobile.vo.FcmSendVO;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.TopicManagementResponse;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -89,6 +92,9 @@ public class MobileApiController extends BaseController{
 
 	@Resource(name = "comUserService")
 	private ComUserService comUserService;
+
+	@Resource(name = "fcmService")
+	private FcmService fcmService;
 
 	@Autowired
 	private ComLogService comLogService;
@@ -251,6 +257,7 @@ public class MobileApiController extends BaseController{
 			resultData.put("apcNm", resultVO.getApcNm());
 			resultData.put("userType", userType);
 			resultData.put("addr", resultVO.getAddr());
+			resultData.put("frmerSn", resultVO.getFrmerSn());
 
 			//로그인 이력
 			comLogVo.setUserType(userType);
@@ -439,4 +446,87 @@ public class MobileApiController extends BaseController{
 		return target.before(new Date(System.currentTimeMillis()));
 	}
 
+	@PostMapping("/subscribeNotice.do")
+	@ResponseBody
+	public JSONObject subscribeNotice(@RequestBody FcmSendVO fcmSendVO,
+									  Locale locale,
+									  HttpServletRequest request) throws IOException {
+		JSONObject resultJson = new JSONObject();
+		try {
+			fcmSendVO.setTopic("notice");
+			int result = fcmService.subscribeTopic(fcmSendVO);
+			if (result > 0) {
+				resultJson.put("success", true);
+				resultJson.put("message", "성공");
+				resultJson.put("data", result);
+			} else {
+				resultJson.put("success", false);
+				resultJson.put("code", "6666");
+				resultJson.put("message", "fail");
+			}
+		} catch (FirebaseMessagingException e) {
+			e.printStackTrace();
+			resultJson.put("success", false);
+			resultJson.put("code", "6666");
+			resultJson.put("message", "fail");
+		}
+		return resultJson;
+	}
+
+	@PostMapping("/sendNotice.do")
+	@ResponseBody
+	public JSONObject sendNotice(@RequestBody FcmSendVO fcmSendVO,
+								  Locale locale,
+								  HttpServletRequest request) throws IOException {
+		JSONObject resultJson = new JSONObject();
+		try {
+			fcmSendVO.setTopic("notice");
+			int result = fcmService.sendTopicMessage(fcmSendVO);
+
+			if (result > 0) {
+				resultJson.put("success", true);
+				resultJson.put("message", "성공");
+				resultJson.put("data", result);
+			} else {
+				resultJson.put("success", false);
+				resultJson.put("code", "6666");
+				resultJson.put("message", "fail");
+			}
+		} catch (FirebaseMessagingException e) {
+			e.printStackTrace();
+			resultJson.put("success", false);
+			resultJson.put("code", "6666");
+			resultJson.put("message", "fail");
+		}
+
+		return resultJson;
+	}
+
+	@PostMapping("/sendMessageTo.do")
+	@ResponseBody
+	public JSONObject sendMessageTo(@RequestBody FcmSendVO fcmSendVO,
+								 Locale locale,
+								 HttpServletRequest request) throws IOException {
+		JSONObject resultJson = new JSONObject();
+		try {
+			int result = fcmService.sendMessageTo(fcmSendVO);
+
+			if (result > 0) {
+				resultJson.put("success", true);
+				resultJson.put("message", "성공");
+				resultJson.put("data", result);
+			} else {
+				resultJson.put("success", false);
+				resultJson.put("code", "6666");
+				resultJson.put("message", "fail");
+			}
+		} catch (FirebaseMessagingException e) {
+			e.printStackTrace();
+			resultJson.put("success", false);
+			resultJson.put("code", "6666");
+			resultJson.put("message", "fail");
+		}
+
+		return resultJson;
+	}
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComAtchflMapper.xml                                   				-->
+<!-- DESC : 첨부파일 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.07.11  	김호        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.ComAtchflMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectGetComAtchflNo	-->
+	<!-- DESC : 첨부파일번호 발번.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.11  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectGetComAtchflNo" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO" resultType="string">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectGetComAtchflNo */
+    			   FN_GET_ID_COM_ATCHFL(#{prntsTblNo}, #{prntsTblSeCd}) AS ATCHFL_NO
+    	      FROM DUAL
+    	]]>
+    </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl			-->
+	<!-- DESC : 첨부파일번호 등록.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.11  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO">
+    	<![CDATA[
+    		INSERT /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl */
+    		  INTO TB_COM_ATCHFL
+    		  	 (
+    		  	   ATCHFL_NO
+				 , PRNTS_TBL_NO
+				 , PRNTS_TBL_SE_CD
+				 , ATCHFL_NM
+				 , ATCHFL_ORGN_NM
+				 , ATCHFL_SZ
+				 , ATCHFL_EXTN_TYPE
+				 , ATCHFL_PATH
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+    		  	 )
+    		VALUES
+    		     (
+    		  	   #{atchflNo}
+				 , #{prntsTblNo}
+				 , #{prntsTblSeCd}
+				 , #{atchflNm}
+				 , #{atchflOrgnNm}
+				 , #{atchflSz}
+				 , #{atchflExtnType}
+				 , #{atchflPath}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+    		  	 )
+    	]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectComAtchfl			-->
+	<!-- DESC : 첨부파일 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.11  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO" resultType="com.at.apcss.am.cmns.vo.ComAtchflVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectComAtchfl */
+			       CA.ATCHFL_NO             AS ATCHFL_NO
+			     , CA.PRNTS_TBL_NO          AS PRNTS_TBL_NO
+			     , CA.PRNTS_TBL_SE_CD       AS PRNTS_TBL_SE_CD
+			     , CA.ATCHFL_NM             AS ATCHFL_NM
+			     , CA.ATCHFL_ORGN_NM        AS ATCHFL_ORGN_NM
+			     , CA.ATCHFL_SZ             AS ATCHFL_SZ
+			     , CA.ATCHFL_EXTN_TYPE      AS ATCHFL_EXTN_TYPE
+			     , CA.ATCHFL_PATH           AS ATCHFL_PATH
+			  FROM TB_COM_ATCHFL CA
+			 WHERE CA.DEL_YN = 'N'
+			   AND CA.ATCHFL_NO 		= #{atchflNo}
+			   AND CA.PRNTS_TBL_NO 		= #{prntsTblNo}
+			   AND CA.PRNTS_TBL_SE_CD  	= #{prntsTblSeCd}
+    	]]>
+    </select>
+
+</mapper>

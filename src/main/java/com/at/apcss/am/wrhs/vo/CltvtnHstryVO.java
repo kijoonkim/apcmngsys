@@ -1,5 +1,6 @@
 package com.at.apcss.am.wrhs.vo;
 
+import com.at.apcss.am.cmns.vo.ComAtchflVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -69,4 +70,19 @@ public class CltvtnHstryVO extends ComVO {
 	 * 재배이력번호
 	 * */
 	private String cltvtnHstryNo;
+
+	/*
+	 * 첨부파일VO
+	 * */
+	private ComAtchflVO comAtchflVO;
+
+	/*
+	 * 첨부파일번호
+	 * */
+	private String atchflNo;
+	/*
+	 * 첨부파일 경로
+	 * */
+	private String filePath;
+
 }

@@ -153,3 +153,44 @@ const gfn_excelSerialDateToJSDate = function (_excelSerialDate) {
 
 	return new Date(Math.round((_excelSerialDate - daysBeforeUnixEpoch) * 24 * hour) + 12 * hour);
 }
+
+/**
+ * @name gfn_setDatePickerRange
+ * @description 검색 조건 datePicker n개월 제한
+ * datePicker ID는 반드시 카멜케이스로 할것.
+ * @function
+ * @returns
+ */
+const gfn_monthValidation = function(_current,_target,_month = 3){
+	let date = SBUxMethod.get(_current);
+	let flag = _current.endsWith("To");
+	changeMonths(date,_month,flag);
+
+	function changeMonths(_date, _months, _flag) {
+		let year = parseInt(_date.substring(0, 4), 10);
+		let month = parseInt(_date.substring(4, 6), 10) - 1;
+		let day = parseInt(_date.substring(6, 8), 10);
+		let result = new Date(year, month, day);
+		if(_flag){
+			result.setMonth(result.getMonth() - _months);
+			result = gfn_dateToYmd(result);
+			SBUxMethod.setDatepickerMinDate(_target,result);
+		}else{
+			result.setMonth(result.getMonth() + _months);
+			result = gfn_dateToYmd(result);
+			SBUxMethod.setDatepickerMaxDate(_target,result);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
