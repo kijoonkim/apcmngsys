@@ -1914,7 +1914,7 @@
         fn_createGvwWFItemGrid();
     }
 
-    function fn_createGvwWFItemGrid() {
+    async function fn_createGvwWFItemGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwWFItem';
         SBGridProperties.id = 'gvwWFItem';
@@ -3639,10 +3639,10 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', function (e) {
-        fn_initSBSelect();
-        fn_createGvwWFItemGrid();
-        fn_onload();
+    window.addEventListener('DOMContentLoaded', async function (e) {
+        await fn_initSBSelect();
+        await fn_createGvwWFItemGrid();
+        await fn_onload();
     });
 
     // 신규
@@ -4946,9 +4946,9 @@
     }
 
     const fn_search = async function () {
-/*        if (!SBUxMethod.validateRequired() && !validateRequired()) {
+        if (!SBUxMethod.validateRequired() && !validateRequired()) {
             return false;
-        }*/
+        }
 
         let DOC_BATCH_NO = gfn_nvl(SBUxMethod.get("DOC_BATCH_NO"));
 
