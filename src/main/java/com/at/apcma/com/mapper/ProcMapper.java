@@ -29,7 +29,7 @@ public interface ProcMapper {
 	 * @throws Exception
 	 */
 	public Map<String, Object> callProcTibero(Map<String, Object> param) throws Exception;
-
+	
 	/**
 	 * 내부에서 공통으로 수식을 확인하는 Service
 	 * @param param
@@ -37,5 +37,13 @@ public interface ProcMapper {
 	 * @throws Exception
 	 */
 	public String checkFormula(Map<String, Object> param) throws Exception;
+
+	/**
+	 * 쿼리문장을 가져와 확인하는 Service
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public String checkMultiple(Map<String, Object> param) throws Exception;
 
 }
