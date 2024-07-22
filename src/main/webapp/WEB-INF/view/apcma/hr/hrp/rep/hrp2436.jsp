@@ -39,8 +39,12 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="신규"
+                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
+            </div>
+            <div style="margin-left: auto;">
+                <sbux-button id="btnSendEmail" name="btnFile" uitype="normal" text="Email 발송"
+                             class="btn btn-sm btn-outline-danger" onclick="fn_btnSendEmail"></sbux-button>
             </div>
         </div>
 
@@ -747,8 +751,6 @@
             ,V_P_PC: ''
         };
 
-        console.log('-----------------------',paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2436List.do", {
             getType				: 'json',
             workType			: 'LIST',
@@ -757,7 +759,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -871,7 +873,6 @@
                 ,V_P_PC: ''
             };
 
-            console.log('-----------------------',paramObj);
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2436List.do", {
                 getType				: 'json',
@@ -881,18 +882,18 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
 
                     data.cv_4.forEach((item, index) => {
 
-                        SBUxMethod.set("EMAIL_SUBJECT", 	gfnma_nvl(item.EMAIL_SUBJECT),);
-                        SBUxMethod.set("EMAIL_BODY", 	gfnma_nvl(item.EMAIL_BODY),);
-                        SBUxMethod.set("NOTICE_MEMO", 	gfnma_nvl(item.NOTICE_MEMO),);
+                        SBUxMethod.set("EMAIL_SUBJECT", 	gfnma_nvl(item.EMAIL_SUBJECT));
+                        SBUxMethod.set("EMAIL_BODY", 	gfnma_nvl(item.EMAIL_BODY));
+                        SBUxMethod.set("NOTICE_MEMO", 	gfnma_nvl(item.NOTICE_MEMO));
                         /*SBUxMethod.set("NOTICE_MEMO2", 	gfnma_nvl(item.NOTICE_MEMO2),);*/
-                        SBUxMethod.set("PAY_CALCULATE_MEMO", 	gfnma_nvl(item.PAY_CALCULATE_MEMO),);
+                        SBUxMethod.set("PAY_CALCULATE_MEMO", 	gfnma_nvl(item.PAY_CALCULATE_MEMO));
 
                     });
 
@@ -1090,6 +1091,21 @@
 
         }
     }
+
+    /**
+     * 파일저장
+     */
+    const fn_btnFile = async function () {
+
+    }
+
+    /**
+     * Email 발송
+     */
+    const fn_btnSendEmail = async function () {
+
+    }
+
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

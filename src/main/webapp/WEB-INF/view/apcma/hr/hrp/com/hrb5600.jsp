@@ -915,7 +915,7 @@
     //저장
     const fn_saveS1 = async function () {
 
-        listData = [];
+        let listData = [];
         listData =  await getParamForm('u');
 
         if (listData.length > 0) {
@@ -1065,7 +1065,7 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            listData = [];
+            let listData = [];
             listData = await getParamForm('d');
 
             if (listData.length > 0) {

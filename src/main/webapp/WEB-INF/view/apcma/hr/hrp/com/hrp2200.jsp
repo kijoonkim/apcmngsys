@@ -1027,7 +1027,7 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            listData = [];
+            let listData = [];
             listData =  await getParamFormS1('u');
 
             if (listData.length > 0) {
@@ -1205,7 +1205,7 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            listData = [];
+            let listData = [];
             listData =  await getParamFormS1('d');
 
             if (listData.length > 0) {
