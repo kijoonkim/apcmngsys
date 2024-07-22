@@ -340,7 +340,7 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getWrhsQntt());
 		rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getWrhsQntt());
 		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getWrhsWght());
-		rawMtrInvntrVO.setPrcsType("RE");
+		rawMtrInvntrVO.setPrcsType("RR");
 
 		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
 		if (rtnObj != null) {

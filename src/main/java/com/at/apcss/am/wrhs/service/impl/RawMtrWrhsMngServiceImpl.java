@@ -276,7 +276,7 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 
 				/** 최종중량 직접입력가능  > 삭제컨펌 **/
 				if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+//					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 				}
 				/** sum된 재고정보 객체를 이용해 원물재고정보 객체에 세팅 **/
 				invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
