@@ -8,9 +8,9 @@ import java.io.IOException;
 
 public interface FcmService {
     //FCM 토픽 등록
-    int subscribeTopic(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
+    boolean subscribeTopic(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
     //FCM 토픽 메세지
-    int sendTopicMessage(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
+    boolean sendTopicMessage(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
     //FCM 메세지 to Token
-    int sendMessageTo(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
+    boolean sendMessageTo(FcmSendVO fcmSendVO) throws FirebaseMessagingException;
 }

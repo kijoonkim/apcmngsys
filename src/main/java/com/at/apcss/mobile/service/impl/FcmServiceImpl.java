@@ -1,11 +1,20 @@
 package com.at.apcss.mobile.service.impl;
 
 import com.at.apcss.mobile.service.FcmService;
+import com.at.apcss.mobile.vo.FcmResponseVO;
 import com.at.apcss.mobile.vo.FcmSendVO;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.messaging.*;
+import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -13,16 +22,36 @@ import java.util.List;
 
 @Service("fcmService")
 public class FcmServiceImpl implements FcmService{
+    @Autowired
+    private WebClient gatewayWebClient;
+
     @Override
-    public int subscribeTopic(FcmSendVO fcmSendVO) throws FirebaseMessagingException {
+    public boolean subscribeTopic(FcmSendVO fcmSendVO) throws FirebaseMessagingException {
+        /*
         TopicManagementResponse response = FirebaseMessaging.getInstance().subscribeToTopic(
                 Arrays.asList(fcmSendVO.getToken()), fcmSendVO.getTopic());
         System.out.println(response.getSuccessCount() + " tokens were subscribed successfully");
         return response.getSuccessCount();
+         */
+        //웹서버를 우회하여 FCM호출 변경. 2024.07.22 by joon
+        JSONObject json = new JSONObject();
+        json.put("topic", fcmSendVO.getTopic());
+        json.put("token", fcmSendVO.getToken());
+
+        FcmResponseVO res = gatewayWebClient.post()
+                .uri("/subscribe")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(json)
+                .retrieve()
+                .bodyToMono(FcmResponseVO.class)
+                .block();
+
+        return res.isSuccess();
     }
 
     @Override
-    public int sendTopicMessage(FcmSendVO fcmSendVO) throws FirebaseMessagingException {
+    public boolean sendTopicMessage(FcmSendVO fcmSendVO) throws FirebaseMessagingException {
+        /*
         List<Message> messages = Arrays.asList(
                 Message.builder()
                         //.setToken(fcmSendVO.getToken())
@@ -37,10 +66,27 @@ public class FcmServiceImpl implements FcmService{
         BatchResponse response = FirebaseMessaging.getInstance().sendAll(messages);
         System.out.println(response.getSuccessCount() + " messages were sent successfully");
         return response.getSuccessCount();
+         */
+        //웹서버를 우회하여 FCM호출 변경. 2024.07.22 by joon
+        JSONObject json = new JSONObject();
+        json.put("topic", fcmSendVO.getTopic());
+        json.put("title", fcmSendVO.getTitle());
+        json.put("body", fcmSendVO.getBody());
+
+        FcmResponseVO res = gatewayWebClient.post()
+                .uri("/send")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(json)
+                .retrieve()
+                .bodyToMono(FcmResponseVO.class)
+                .block();
+
+        return res.isSuccess();
     }
 
     @Override
-    public int sendMessageTo(FcmSendVO fcmSendVO) throws FirebaseMessagingException {
+    public boolean sendMessageTo(FcmSendVO fcmSendVO) throws FirebaseMessagingException {
+        /*
         List<Message> messages = Arrays.asList(
                 Message.builder()
                         .setToken(fcmSendVO.getToken())
@@ -52,8 +98,22 @@ public class FcmServiceImpl implements FcmService{
         );
 
         BatchResponse response = FirebaseMessaging.getInstance().sendAll(messages);
-        System.out.println(response.getSuccessCount() + " messages were sent successfully");
-        return response.getSuccessCount();
+         */
+        //웹서버를 우회하여 FCM호출 변경. 2024.07.22 by joon
+        JSONObject json = new JSONObject();
+        json.put("token", fcmSendVO.getToken());
+        json.put("title", fcmSendVO.getTitle());
+        json.put("body", fcmSendVO.getBody());
+
+        FcmResponseVO res = gatewayWebClient.post()
+                .uri("/send")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(json)
+                .retrieve()
+                .bodyToMono(FcmResponseVO.class)
+                .block();
+
+        return res.isSuccess();
     }
 
     /**

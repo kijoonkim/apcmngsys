@@ -28,6 +28,7 @@ import org.egovframe.rte.fdl.cryptography.EgovPasswordEncoder;
 import org.egovframe.rte.fdl.cryptography.impl.EgovARIACryptoServiceImpl;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationRenderer;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * @ClassName : EgovConfigAppCommon.java
@@ -204,5 +205,12 @@ public class EgovConfigAppCommon {
 		egovARIACryptoServiceImpl.setPasswordEncoder(egovPasswordEncoder());
 		egovARIACryptoServiceImpl.setBlockSize(1024);
 		return egovARIACryptoServiceImpl;
+	}
+
+	@Bean
+	public WebClient gatewayWebClient() {
+		return WebClient
+			//.create("http://172.16.10.10:8000");
+			.create("http://localhost:8000");
 	}
 }

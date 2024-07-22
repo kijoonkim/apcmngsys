@@ -446,16 +446,15 @@ public class MobileApiController extends BaseController{
 		return target.before(new Date(System.currentTimeMillis()));
 	}
 
-	@PostMapping("/subscribeNotice.do")
+	@PostMapping("/subscribeTopic.do")
 	@ResponseBody
-	public JSONObject subscribeNotice(@RequestBody FcmSendVO fcmSendVO,
+	public JSONObject subscribeTopic(@RequestBody FcmSendVO fcmSendVO,
 									  Locale locale,
 									  HttpServletRequest request) throws IOException {
 		JSONObject resultJson = new JSONObject();
 		try {
-			fcmSendVO.setTopic("notice");
-			int result = fcmService.subscribeTopic(fcmSendVO);
-			if (result > 0) {
+			boolean result = fcmService.subscribeTopic(fcmSendVO);
+			if (result) {
 				resultJson.put("success", true);
 				resultJson.put("message", "성공");
 				resultJson.put("data", result);
@@ -473,17 +472,16 @@ public class MobileApiController extends BaseController{
 		return resultJson;
 	}
 
-	@PostMapping("/sendNotice.do")
+	@PostMapping("/sendTopicMessage.do")
 	@ResponseBody
-	public JSONObject sendNotice(@RequestBody FcmSendVO fcmSendVO,
+	public JSONObject sendTopicMessage(@RequestBody FcmSendVO fcmSendVO,
 								  Locale locale,
 								  HttpServletRequest request) throws IOException {
 		JSONObject resultJson = new JSONObject();
 		try {
-			fcmSendVO.setTopic("notice");
-			int result = fcmService.sendTopicMessage(fcmSendVO);
+			boolean result = fcmService.sendTopicMessage(fcmSendVO);
 
-			if (result > 0) {
+			if (result) {
 				resultJson.put("success", true);
 				resultJson.put("message", "성공");
 				resultJson.put("data", result);
@@ -509,9 +507,9 @@ public class MobileApiController extends BaseController{
 								 HttpServletRequest request) throws IOException {
 		JSONObject resultJson = new JSONObject();
 		try {
-			int result = fcmService.sendMessageTo(fcmSendVO);
+			boolean result = fcmService.sendMessageTo(fcmSendVO);
 
-			if (result > 0) {
+			if (result) {
 				resultJson.put("success", true);
 				resultJson.put("message", "성공");
 				resultJson.put("data", result);
