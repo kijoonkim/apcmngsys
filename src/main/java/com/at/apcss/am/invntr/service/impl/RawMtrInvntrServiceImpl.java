@@ -119,6 +119,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		if (stdGrdList != null && !stdGrdList.isEmpty()) {
 
 			String apcCd = rawMtrInvntrVO.getApcCd();
+			String prcsType = rawMtrInvntrVO.getPrcsType();
 
 			int wrhsQntt = rawMtrInvntrVO.getWrhsQntt();
 			double wrhsWght = rawMtrInvntrVO.getWrhsWght();
@@ -248,12 +249,13 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 					}
 				}
 			} else if (cntWght > 0) {
-
-				if (sumGrdWght > wrhsWght) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_TGT_GREATER_THAN, "등급중량||합산중량");
-				} else if (sumGrdWght < wrhsWght) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LESS_THAN, "등급중량||합산중량");
-				} else {}
+				if(!"RE".equals(prcsType)) {
+					if (sumGrdWght > wrhsWght) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_TGT_GREATER_THAN, "등급중량||합산중량");
+					} else if (sumGrdWght < wrhsWght) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LESS_THAN, "등급중량||합산중량");
+					} else {}
+				}
 
 			} else {}
 
