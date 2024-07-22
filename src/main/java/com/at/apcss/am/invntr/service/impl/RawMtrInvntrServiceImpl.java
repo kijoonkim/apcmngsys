@@ -249,7 +249,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 					}
 				}
 			} else if (cntWght > 0) {
-				if(!"RE".equals(prcsType)) {
+				if(!"RR".equals(prcsType)) {
 					if (sumGrdWght > wrhsWght) {
 						return ComUtil.getResultMap(ComConstants.MSGCD_TGT_GREATER_THAN, "등급중량||합산중량");
 					} else if (sumGrdWght < wrhsWght) {
@@ -764,23 +764,32 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 //			double invntrWght = rawMtrInvntrVO.getInvntrWght() - invntrInfo.getInvntrWght();
 //			rawMtrInvntrVO.setInvntrQntt(invntrQntt);
 //			rawMtrInvntrVO.setInvntrWght(invntrWght);
-			if(prcsQntt >= invntrInfo.getInvntrQntt()) {
-				/** update할 info 객체에 셋팅 **/
-				invntrInfo.setInvntrQntt(0); //수량
-				invntrInfo.setInvntrWght(0); //중량
-				invntrInfo.setPrcsQntt(invntrInfo.getInvntrQntt()); //재처리수량
-				invntrInfo.setPrcsWght(invntrInfo.getInvntrWght()); //재처리중량
-				prcsQntt -= invntrInfo.getInvntrQntt();
-				prcsWght -= invntrInfo.getInvntrWght();
-			}else{
-				/** 남을때 **/
-				invntrInfo.setInvntrQntt(invntrInfo.getInvntrQntt()-prcsQntt); //수량
-				invntrInfo.setInvntrWght(invntrInfo.getInvntrWght()-prcsWght); //중량
-				invntrInfo.setPrcsQntt(invntrInfo.getInvntrQntt()); //재처리수량
-				invntrInfo.setPrcsWght(invntrInfo.getInvntrWght()); //재처리중량
-				prcsQntt -= invntrInfo.getInvntrQntt();
-				prcsWght -= invntrInfo.getInvntrWght();
-			}
+			/** 잔량무시  재고 0 처리 **/
+			/** update할 info 객체에 셋팅 **/
+			invntrInfo.setInvntrQntt(0); //수량
+			invntrInfo.setInvntrWght(0); //중량
+			invntrInfo.setPrcsQntt(invntrInfo.getInvntrQntt()); //재처리수량
+			invntrInfo.setPrcsWght(invntrInfo.getInvntrWght()); //재처리중량
+			invntrInfo.setPrcsType("RR"); //재처리 표시 이후 조회 조건
+			prcsQntt -= invntrInfo.getInvntrQntt();
+			prcsWght -= invntrInfo.getInvntrWght();
+//			if(prcsQntt >= invntrInfo.getInvntrQntt()) {
+//				/** update할 info 객체에 셋팅 **/
+//				invntrInfo.setInvntrQntt(0); //수량
+//				invntrInfo.setInvntrWght(0); //중량
+//				invntrInfo.setPrcsQntt(invntrInfo.getInvntrQntt()); //재처리수량
+//				invntrInfo.setPrcsWght(invntrInfo.getInvntrWght()); //재처리중량
+//				prcsQntt -= invntrInfo.getInvntrQntt();
+//				prcsWght -= invntrInfo.getInvntrWght();
+//			}else{
+//				/** 남을때 **/
+//				invntrInfo.setInvntrQntt(invntrInfo.getInvntrQntt()-prcsQntt); //수량
+//				invntrInfo.setInvntrWght(invntrInfo.getInvntrWght()-prcsWght); //중량
+//				invntrInfo.setPrcsQntt(invntrInfo.getInvntrQntt()); //재처리수량
+//				invntrInfo.setPrcsWght(invntrInfo.getInvntrWght()); //재처리중량
+//				prcsQntt -= invntrInfo.getInvntrQntt();
+//				prcsWght -= invntrInfo.getInvntrWght();
+//			}
 
 			// 재처리량
 			/** info에는 재처리량이 없음. 고로 그냥 info에 세팅을 해주면됨. 수량만큼**/

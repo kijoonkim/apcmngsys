@@ -1030,8 +1030,7 @@
 				stdGrdList.push(stdGrd);
 			});
 
-			wrhsQntt += grdQnttSum;
-
+			// wrhsQntt += grdQnttSum;
 			if (cntGrdError > 0) {
 				gfn_comAlert("W0005", "등급");
 				return;
@@ -1079,8 +1078,6 @@
 			return;
 		}
 
-
-
 		// comConfirm
 		if (invntrInptQntt > totalWrhsQntt) {
 			if (!gfn_comConfirm("Q0002", "투입잔량", "재처리 등록")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
@@ -1091,7 +1088,6 @@
 	    		return;
 	    	}
 		}
-
 
 		const wrhsMng = {
     		apcCd: gv_selectedApcCd,
@@ -1302,7 +1298,6 @@
 					fn_setPrcsInfo();
 
 					break;
-
 				default:
 					return;
 			}
@@ -1348,16 +1343,8 @@
  					grdRawMtrRePrcs.refresh();
  					break;
 				case "wrhsWght":
-					let wrhsWght = 0;
-					let wrhsQntt = 0;
-					jsonRawMtrRePrcs.forEach((item) => {
-						wrhsQntt += parseInt(item.wrhsQntt) || 0;
-						wrhsWght += parseInt(item.wrhsWght) || 0;
-					});
-					wrhsWght = parseInt(SBUxMethod.get("lbl-grdInptWght").replace(/,/g, '')) - wrhsWght;
-					wrhsQntt = parseInt(SBUxMethod.get("lbl-grdInptQntt").replace(/,/g, '')) - wrhsQntt;
-					SBUxMethod.set("lbl-grdInptQntt",""+wrhsQntt);
-					SBUxMethod.set("lbl-grdInptWght",""+wrhsWght);
+					let wrhsWght = rowData.wrhsWght;
+					SBUxMethod.set('lbl-grdInptWght',wrhsWght);
 					break;
 				case "stdGrdWght":
 					let grdWghtSum = 0;
