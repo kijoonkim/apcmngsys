@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: com3100.jsp
+ * @Class Name 		: fig5210.jsp
  * @Description 	: 합계잔액시산표조회 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.04.29

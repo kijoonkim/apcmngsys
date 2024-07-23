@@ -97,7 +97,7 @@
 	                            <span style="font-size:12px">(조회건수 <span id="listCount1">0</span>건)</span>
 	                        </li>
 	                    </ul>
-	                    <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
 	                    	<!-- 
 							<a href="#" id="btn-copy-clear" class="cu-btn-clear" >
 								<img src="../../../resource/images/clear.png" width="20px" /> 복사모드해제
@@ -122,7 +122,7 @@
 	                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
 	                        </li>
 	                    </ul>
-	                    <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
 	                    	<!-- 
 							<a href="#" id="btn-copy-clear" class="cu-btn-clear" >
 								<img src="../../../resource/images/clear.png" width="20px" /> 복사모드해제
@@ -1145,8 +1145,7 @@
 	 		} else {
 	 			alert(data.resultMessage);
 	 		}
-	 			cfn_search();
-
+ 			cfn_search();
 	 	} catch (e) {
 	 		if (!(e instanceof Error)) {
 	 			e = new Error(e);
