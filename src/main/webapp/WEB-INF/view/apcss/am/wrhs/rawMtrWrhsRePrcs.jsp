@@ -929,7 +929,7 @@
 			const itemCd = rowData.itemCd;
 			const vrtyCd = rowData.vrtyCd;
 			const warehouseSeCd = rowData.warehouseSeCd;
-			const pltno = rowData.pltno;
+			const pltno = rowData.pltno.toUpperCase();
 			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
 			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
 			let avg = 0;
@@ -1318,8 +1318,6 @@
 
 			const rowData = grdRawMtrRePrcs.getRowData(nRow, false);	// deep copy
 			switch (usrAttr.colNm) {
-
-				case "wrhsQntt":
 				case "stdGrd":
 					if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 						const stdGrdInfo = [];
@@ -1342,9 +1340,19 @@
  					rowData.grdNvSum = grdNvSum;
  					grdRawMtrRePrcs.refresh();
  					break;
+				case "wrhsQntt":
 				case "wrhsWght":
-					let wrhsWght = rowData.wrhsWght;
-					SBUxMethod.set('lbl-grdInptWght',wrhsWght);
+					fn_setPrcsInfo();
+					let orgWght = parseInt(SBUxMethod.get('lbl-grdInptWght').replace(/,/g, ''));
+					let wrhsWght = parseInt(rowData.wrhsWght);
+					let resultWght = orgWght - wrhsWght;
+					SBUxMethod.set('lbl-grdInptWght',String(resultWght));
+
+					let orgQntt = parseInt(SBUxMethod.get('lbl-grdInptQntt').replace(/,/g, ''));
+					let wrhsQntt = parseInt(rowData.wrhsQntt);
+					let resultQntt = orgQntt - wrhsQntt
+					SBUxMethod.set('lbl-grdInptQntt', String(resultQntt));
+
 					break;
 				case "stdGrdWght":
 					let grdWghtSum = 0;
