@@ -2068,7 +2068,7 @@
                                                 id="POSTING_STATUS"
                                                 name="POSTING_STATUS"
                                                 class="form-control input-sm"
-                                                jsondata-ref="jsonPayAreaType"
+                                                jsondata-ref="jsonPostingStatus"
                                         />
                                     </td>
                                     <td class="td_input" style="border-right:hidden; display: none">
@@ -2299,66 +2299,61 @@
     }
 
     var fn_compopup1 = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText 		= gfnma_nvl(SBUxMethod.get("BANK_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_ORG001'
+            ,bizcompId				: 'P_COM027'
             ,popupType				: 'B'
             ,whereClause			: ''
-            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 				searchText,		""]
+            ,searchCaptions			: ["코드", 		    "은행명"     ]
+            ,searchInputFields		: ["BANK_CODE", 	"BANK_NAME"	]
+            ,searchInputValues		: ["", 				 searchText ]
 
-            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+            ,searchInputTypes		: ["input", 		"input"     ]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
-            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
-            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,tableHeader			: ["코드",		"은행명"    ]
+            ,tableColumnNames		: ["SUB_CODE",	"CODE_NAME"]
+            ,tableColumnWidths		: ["100px", 		"150px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
-                SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+                SBUxMethod.set('BANK_NAME', data.CODE_NAME);
+                SBUxMethod.set('BANK_CODE', data.SUB_CODE);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
     const fn_compopup2 = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("CS_NAME"));
+        var replaceText0 	= "_CS_CODE_";
+        var replaceText1 	= "_CS_NAME_";
+        var replaceText2 	= "_BIZ_REGNO_";
+        var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
 
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-emp_name"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
-
-        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'P_HRI001'
-            , popupType: 'A'
-            , whereClause: strWhereClause
-            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
-            , height: '400px'
-            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
-            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
-            , itemSelectEvent: function (data) {
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_COM004'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사엄자번호" ]
+            ,searchInputFields		: ["CS_CODE"   , 	"CS_NAME",  "BIZ_REGNO"]
+            ,searchInputValues		: [""          , 	searchText, ""         ]
+            ,height					: '400px'
+            ,tableHeader			: ["거래처코드", "거래처명", "사업자번호" , "대표자"     ,"업태"          ,"종목"      ,"주소"    ,"전화"  ,"팩스"]
+            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
+            ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
+            ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-emp_name', data.EMP_NAME);
-                SBUxMethod.set('srch-emp_code', data.EMP_CODE);
+                SBUxMethod.set('CS_NAME', data.CS_NAME);
+                SBUxMethod.set('CS_CODE', data.CS_CODE);
             },
         });
-
     }
 
     var tabJsonData = [

@@ -39,7 +39,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
+                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="계산취소"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
             </div>
         </div>
