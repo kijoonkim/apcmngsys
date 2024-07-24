@@ -582,7 +582,7 @@
     		  FROM (
 	    	SELECT
 				 RI.APC_CD                     	AS APC_CD
-				,AGGR_CONCAT(RI.WRHSNO, ' , ') 	AS WRHSNO
+				,AGGR_CONCAT(RI.WRHSNO, ',') 	AS WRHSNO
 				,MAX(RI.WRHS_YMD)               AS WRHS_YMD
 				,MAX(RI.PRDCR_CD)               AS PRDCR_CD
 				,MAX(RI.ITEM_CD)                AS ITEM_CD
