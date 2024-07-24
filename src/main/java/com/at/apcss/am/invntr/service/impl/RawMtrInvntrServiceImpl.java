@@ -701,7 +701,7 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
 		}
 
-		if (rawMtrInvntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
+		if (rawMtrInvntrVO.getPrcsQntt() > invntrInfo.getInvntrQntt()) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 		}
 
