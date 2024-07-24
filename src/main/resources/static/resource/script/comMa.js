@@ -126,6 +126,22 @@ const gfnma_date4 = function (str) {
 }
 
 /**
+ * @name 		gfnma_date5
+ * @description 날짜를 yyyy-MM-dd 형식으로 반환
+ * @function
+ * @param 		{string} str1 : 날짜 
+ * @param 		{string} str2 : 구분자 
+ * @returns 	{string}
+ */
+const gfnma_date5 = function (str1, str2) {
+	if(!str1) return '';
+	var rstr 	= '';
+	var gubun	= (str2) ? str2 : '-';
+	rstr += str1.substr(0,4) + gubun + str1.substr(4,2) + gubun + str1.substr(6,2); 
+	return rstr;
+}
+
+/**
  * @name 		gfnma_nvl
  * @description undefined 를 '' 로 변환
  * @function

@@ -83,6 +83,7 @@ function compopup3(options) {
 	
 	var settings = {
 		height					: null
+		,separator				: null
 		,callbackEvent			: null
 		,cancelEvent			: null
 	};
@@ -179,7 +180,17 @@ function compopup3(options) {
 	$(modalId).find('.cu-btn-ok').off('click');
 	$(modalId).find('.cu-btn-ok').click(function(){
  		if(settings.callbackEvent){
- 			settings.callbackEvent(getList());
+ 			if(settings.separator){
+ 				var list 	= getList();
+ 				var str		= '';
+ 				for (var i = 0; i < list.length; i++) {
+					str += list[i] + settings.separator;
+				}
+ 				str = str.slice(0, -1);
+	 			settings.callbackEvent(str);
+ 			} else {
+	 			settings.callbackEvent(getList());
+ 			}
  		}
 	 	SBUxMethod.closeModal(modalDivId);
 	});
