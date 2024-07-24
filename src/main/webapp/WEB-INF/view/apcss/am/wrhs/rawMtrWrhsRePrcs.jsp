@@ -932,15 +932,9 @@
 			const pltno = rowData.pltno.toUpperCase();
 			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
 			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
-			let avg = 0;
-			for(let key in rowData){
-				if(key.includes(gStdGrdObj.colPrfx)){
-					avg += parseInt(rowData[key]);
-				}
-			}
-			avg = wrhsWght/avg;
-
-
+			
+			const avg = wrhsWght / wrhsQntt;
+						
 			if (gfn_isEmpty(itemCd)) {
 				gfn_comAlert("W0005", "품목");		//	W0005	{0}이/가 없습니다.
 				return;
@@ -982,6 +976,9 @@
 			const stdGrdList = [];
 			let cntGrdError = 0;
 
+			let rmnQntt = wrhsQntt;
+			let rmnWght = wrhsWght;
+			
 			gjsonStdGrdObjKnd.forEach((knd, idx) => {
 
 				let colNm =  gStdGrdObj.colPrfx + knd.grdKnd;
@@ -1005,13 +1002,23 @@
 					 * 일단은 수량대비 중량 보여준뒤에 수정가능하게 > 뒤쪽 validation 체크해야함. **/
 					// stdGrd.grdWght = parseFloat(rowData[colNm]) || 0;
 					stdGrd.grdQntt = parseFloat(rowData[colNm]) || 0;
-					stdGrd.grdWght = stdGrd.grdQntt * avg;
+
+					if (stdGrd.grdQntt < rmnQntt) {
+						stdGrd.grdWght =  gfn_apcEstmtWght(stdGrd.grdQntt * avg);
+					} else {
+						stdGrd.grdWght = rmnWght;
+					}
+					
+					rmnQntt -= stdGrd.grdQntt;
+					rmnWght -= stdGrd.grdWght;
+					
 					stdGrd.grdCd = "";
 
 
 					// if (gfn_isEmpty(grdCd)) {
 					// 	grdCd = "*";
 					// }
+					
 					grdQnttSum += stdGrd.grdQntt;
 
 				} else {

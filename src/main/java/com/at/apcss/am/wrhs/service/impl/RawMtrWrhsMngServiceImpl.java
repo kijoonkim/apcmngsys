@@ -74,13 +74,6 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "처리일자");
 		}
 
-		// 재처리 번호 발번 :
-		String rawMtrPrcsNo = rawMtrWrhsMngVO.getPrcsNo();
-
-		if (!StringUtils.hasText(rawMtrPrcsNo)) {
-			rawMtrPrcsNo = cmnsTaskNoService.selectWrhsPrcsNo(apcCd, wrhsYmd);
-		}
-
 		// 실적등록 대상재고 목록
 		List<RawMtrInvntrVO> invntrList = rawMtrWrhsMngVO.getRawMtrInvntrList();
 		// 실적등록 대상정보 목록
@@ -93,6 +86,12 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 		// 원물재고 투입대상
 		List<RawMtrInvntrVO> rawMtrInvntrVOList = new ArrayList<>();
 
+		int maxQntt = 0;
+		String rprsPrdcrCd = ComConstants.CON_BLANK;
+		String rprsGdsSeCd = ComConstants.CON_BLANK;
+		String rprsWrhsSeCd = ComConstants.CON_BLANK;
+		String rprsPrdctnYr = ComConstants.CON_BLANK;
+		
 		// 원물입고
 		if (invntrList == null || invntrList.isEmpty()) {
 
@@ -252,125 +251,146 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			}
 
 			// 재고 >> 선별실적 정보 set	// 재고배분
-			for ( RawMtrInvntrVO orgnInv : invntrList ) {
-
-				RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
-				BeanUtils.copyProperties(rawMtrWrhsMngVO, invntrVO);
-				BeanUtils.copyProperties(orgnInv, invntrVO,
-						ApcConstants.PROP_APC_CD,
-						ComConstants.PROP_SYS_FRST_INPT_DT,
-						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
-						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
-						ComConstants.PROP_SYS_LAST_CHG_DT,
-						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
-						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-
-				/** 상단그리드 재처리 전 재고에 대하여 레코드마다 처리
-				 *  그러나, 하나의 로우당 n개의 입고번호가 있을수 있음으로 아래와 같이 쿼리 변경 모두 Sum처리됨. **/
-//				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
-				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntrSumWrhsno(invntrVO);
-
-				if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+			inptLoop:
+				for ( RawMtrInvntrVO orgnInv : invntrList ) {
+	
+					String[] wrhsnos = orgnInv.getWrhsno().split(",");
+	
+					// 지정 투입수량, 투입중량
+					int inptQntt = orgnInv.getInptQntt();
+					double inptWght = orgnInv.getInptWght();
+					
+					if (inptQntt <= 0) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "투입수량"); 
+					}
+					
+					invntrLoop:
+						for ( String wrhsno : wrhsnos ) {
+							
+							RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+							BeanUtils.copyProperties(rawMtrWrhsMngVO, invntrVO);
+							BeanUtils.copyProperties(orgnInv, invntrVO,
+									ApcConstants.PROP_APC_CD,
+									ComConstants.PROP_SYS_FRST_INPT_DT,
+									ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+									ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+									ComConstants.PROP_SYS_LAST_CHG_DT,
+									ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+									ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+							invntrVO.setWrhsno(wrhsno);
+							
+							RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
+							
+							if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+								return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+							}
+							
+							int invntrQntt = invntrInfo.getInvntrQntt();
+							double invntrWght = invntrInfo.getInvntrWght();
+							
+							// 투입량 차감 - 수량기준
+							if (invntrQntt <= 0) {
+								continue invntrLoop;
+							}
+							
+							int tmpQntt = 0;
+							double tmpWght = 0;
+							
+							if (inptQntt > invntrQntt) {
+								tmpQntt = invntrQntt;
+								tmpWght = invntrWght;
+							} else {
+								tmpQntt = inptQntt;
+								tmpWght = inptWght;
+							}
+							
+							invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
+							invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
+							invntrVO.setWrhsSeCd(invntrInfo.getWrhsSeCd());
+							invntrVO.setInvntrQntt(tmpQntt);
+							invntrVO.setInvntrWght(tmpWght);
+							invntrVO.setPrcsQntt(tmpQntt);
+							invntrVO.setPrcsWght(tmpWght);
+							invntrVO.setPrdctnYr(invntrInfo.getPrdctnYr());
+							
+							inptQntt -= tmpQntt;
+							invntrWght -= tmpWght;
+							
+							if (tmpQntt > maxQntt) {
+								maxQntt = tmpQntt;
+								rprsPrdcrCd = invntrInfo.getPrdcrCd();
+								rprsGdsSeCd = invntrInfo.getGdsSeCd();
+								rprsWrhsSeCd = invntrInfo.getWrhsSeCd();
+								rprsPrdctnYr = invntrInfo.getPrdctnYr();
+							}
+							
+							invntrVO.setInptYmd(wrhsYmd);
+							invntrVO.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
+							
+							rawMtrInvntrVOList.add(invntrVO);
+							
+							if (inptQntt <= 0) {
+								break inptLoop;
+							}
+						}
+					
+					if (inptQntt > 0) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+					}
 				}
 
-				/** 최종중량 직접입력가능  > 삭제컨펌 **/
-				if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
-//					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
-				}
-				/** sum된 재고정보 객체를 이용해 원물재고정보 객체에 세팅 **/
-				invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
-				invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
-				invntrVO.setWrhsSeCd(invntrInfo.getWrhsSeCd());
-				invntrVO.setInvntrQntt(invntrInfo.getInvntrQntt());
-				invntrVO.setInvntrWght(invntrInfo.getInvntrWght());
-				invntrVO.setPrdctnYr(invntrInfo.getPrdctnYr());
-				/** 상단 그리드 원재고 데이터에 입고수량, 입고중량을 0으로 맞춤. **/
-				invntrVO.setWrhsQntt(0);
-				invntrVO.setWrhsWght(0);
-
-				rawMtrInvntrVOList.add(invntrVO);
-			}
+//			// 재고 >> 선별실적 정보 set	// 재고배분
+//			for ( RawMtrInvntrVO orgnInv : invntrList ) {
+//
+//				RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+//				BeanUtils.copyProperties(rawMtrWrhsMngVO, invntrVO);
+//				BeanUtils.copyProperties(orgnInv, invntrVO,
+//						ApcConstants.PROP_APC_CD,
+//						ComConstants.PROP_SYS_FRST_INPT_DT,
+//						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+//						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+//						ComConstants.PROP_SYS_LAST_CHG_DT,
+//						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+//						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+//
+//				/** 상단그리드 재처리 전 재고에 대하여 레코드마다 처리
+//				 *  그러나, 하나의 로우당 n개의 입고번호가 있을수 있음으로 아래와 같이 쿼리 변경 모두 Sum처리됨. **/
+////				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntr(invntrVO);
+//				RawMtrInvntrVO invntrInfo = rawMtrInvntrService.selectRawMtrInvntrSumWrhsno(invntrVO);
+//
+//				if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+//					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+//				}
+//
+//				/** 최종중량 직접입력가능  > 삭제컨펌 **/
+//				if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
+////					return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+//				}
+//				/** sum된 재고정보 객체를 이용해 원물재고정보 객체에 세팅 **/
+//				invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
+//				invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
+//				invntrVO.setWrhsSeCd(invntrInfo.getWrhsSeCd());
+//				invntrVO.setInvntrQntt(invntrInfo.getInvntrQntt());
+//				invntrVO.setInvntrWght(invntrInfo.getInvntrWght());
+//				invntrVO.setPrdctnYr(invntrInfo.getPrdctnYr());
+//				/** 상단 그리드 원재고 데이터에 입고수량, 입고중량을 0으로 맞춤. **/
+//				invntrVO.setWrhsQntt(0);
+//				invntrVO.setWrhsWght(0);
+//
+//				rawMtrInvntrVOList.add(invntrVO);
+//			}
 		}
 
-		/** 상단 재고그리드에 대한 재처리투입 실적 연산 ? 작업 start**/
-		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+		// 재처리 번호 발번 :
+		String rawMtrPrcsNo = rawMtrWrhsMngVO.getPrcsNo();
 
-			String wrhsno = inv.getWrhsno();
-			String prdcrCd = inv.getPrdcrCd();
-			String gdsSeCd = inv.getGdsSeCd();
-			String wrhsSeCd = inv.getWrhsSeCd();
-			String prdctnYr = inv.getPrdctnYr();
-
-			// 지정 투입수량, 투입중량
-			int inptQntt = inv.getInptQntt();
-			double inptWght = inv.getInptWght();
-
-			int wrhsQntt = inv.getWrhsQntt();
-			double wrhsWght = inv.getWrhsWght();
-
-			/** 재처리 내역 그리드 : rawMtrRePrcsList
-			 *  여기서 갑자기 재처리가 등장합니다.**/
-			for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
-				/** 재처리할 대상중에 입고번호가 존재하거나, 잔여중량이 0보다 작거나 같으면 다음 재처리 목록으로 넘김**/
-				if (StringUtils.hasText(rePrcs.getWrhsno()) && rePrcs.getRmnWght() <= 0) {
-					continue;
-				}
-
-				int applQntt = 0;
-				double applWght = 0;
-
-				/** 투입중량 - 입고중량 < 재처리할 잔여 중량
-				 *  위에서 이미 입고중량을 0으로 셋팅했기에 투입중량이 재처리할 잔여중량보다 크고작은지 판단.
-				 *  여기 재처리할 잔여 중량이 무슨 값으로 세팅되는지 확인 필요하고 //TODO:: 잔여중량이뭔디
-				 *  잔여중량이 더 크면 투입량이 가능한 수량 중량이됨 **/
-				if (inptWght - wrhsWght < rePrcs.getRmnWght()) {
-					applQntt = inptQntt - wrhsQntt;
-					applWght = inptWght - wrhsWght;
-				} else {
-					applQntt = rePrcs.getRmnQntt();
-					applWght = rePrcs.getRmnWght();
-				}
-				/** 여기서 분기점이 크게 뒤틀리는데 상단 재고 그리드 하나에 대해서 재처리할 내역을 순회하면서 참조하는데
-				 * 상단 재고 그리드도 사실상 n개의 입고실적을 가지고있기 때문에 wrhsno 가 다수일경우가 있음.**/
-				rePrcs.setWrhsno(wrhsno);
-				rePrcs.setPrdcrCd(prdcrCd);
-				rePrcs.setGdsSeCd(gdsSeCd);
-				rePrcs.setWrhsSeCd(wrhsSeCd);
-				rePrcs.setPrdctnYr(prdctnYr);
-				// 운송구분 기본값 적용
-				rePrcs.setTrsprtSeCd(AmConstants.CON_TRSPRT_SE_CD_ETC);
-				rePrcs.setPrdctnYr(prdctnYr);
-
-				wrhsQntt += applQntt;
-				wrhsWght += applWght;
-
-				rePrcs.setRmnQntt(rePrcs.getRmnQntt() - applQntt);
-				rePrcs.setRmnWght(rePrcs.getRmnWght() - applWght);
-			}
-			/** 여기서도 사실상 지금은 하나의 로우로 취급하고 inv이 처리가 되는데 사실 N개가 있을수 있음;; **/
-			inv.setInptYmd(wrhsYmd);
-			inv.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
-			inv.setPrcsQntt(inptQntt);
-			inv.setPrcsWght(inptWght);
+		if (!StringUtils.hasText(rawMtrPrcsNo)) {
+			rawMtrPrcsNo = cmnsTaskNoService.selectWrhsPrcsNo(apcCd, wrhsYmd);
 		}
-		/** end **/
-		/** 재처리 내역들이 상단 반복을 통해 재처리가능한지 여부와 잔여수량에 변동이 생겼기에
-		 *  1.셋팅이 됫는가[입고번호]
-		 *  2.잔여중량이 0보다 큰가를 체크함.  **/
-		for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
-			if (!StringUtils.hasText(rePrcs.getWrhsno())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
-			}
-			if (rePrcs.getRmnWght() > 0) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
-			}
-		}
-
+		
 		/** 입고실적(재처리) 등록
-		 *  실질적으로 재처리 그리드의 정보를 DB에 반영하는데 위에서 포맷이 잘못되었을 가능성 290000%
-		 *  그리고 여기서 wrhsno가 n개일때 여러번 등록하게되는데 이게 틀림. 여기서는 rawMtrRePrcsList의 로우만큼만 생성되야함.
-		 *  세팅이 잘되었다는 전제하에 아 여기선 심지어 wrhsNo 없이 넘겨도 알아서 채워주네;;**/
+		 *  컨테이너 입고 실적 + 재고등록
+		 **/
 		for ( RawMtrWrhsVO rePrcsInfo : rawMtrRePrcsList ) {
 			RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
 			BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
@@ -382,20 +402,27 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 					ComConstants.PROP_SYS_LAST_CHG_DT,
 					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
 					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
-
+			
+			wrhsVO.setPrdcrCd(rprsPrdcrCd);
+			wrhsVO.setGdsSeCd(rprsGdsSeCd);
+			wrhsVO.setWrhsSeCd(rprsWrhsSeCd);
+			wrhsVO.setPrdctnYr(rprsPrdctnYr);
+			wrhsVO.setTrsprtSeCd(AmConstants.CON_TRSPRT_SE_CD_ETC);
+			
 			wrhsVO.setWrhsYmd(wrhsYmd);
 			wrhsVO.setPrcsNo(rawMtrPrcsNo);
 			wrhsVO.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
 			wrhsVO.setStdGrdList(rePrcsInfo.getStdGrdList());
-
-			String[] wrhsnos = wrhsVO.getWrhsno().replace(" ","").split(",");
+			
 			rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(wrhsVO);
 			if (rtnObj != null) {
-				// error throw exception;
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-
+		
+		/**
+		 * 재처리투입실적 등록 + 재고차감
+		 */
 		int prcsSn = 0;
 		// 재처리실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
 		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
@@ -411,39 +438,171 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 
 			inptVO.setQntt(inv.getInptQntt());
 			inptVO.setWght(inv.getInptWght());
-
-			// 투입실적있을 경우 update 처리로 분기
-			/** 교통사고 지점 wrhsno 바꿔야함. **/
-			String[] wrhsnos = inptVO.getWrhsno().replace(" ","").split(",");
-			if(wrhsnos.length > 1){
-				for(int i = 0; i < wrhsnos.length; i++){
-					RawMtrWrhsVO updateWrhsVO = new RawMtrWrhsVO();
-					BeanUtils.copyProperties(inptVO,updateWrhsVO);
-					updateWrhsVO.setWrhsno(wrhsnos[i]);
-					rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(updateWrhsVO);
-				}
-			}else{
-				rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(inptVO);
-			}
-
+			
+			rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(inptVO);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
-
+			
 			// 원물재고정보 update
-			/** 이부분이 상단 그리드 되돌리는 곳. 0처리가 되어야함 ? 아니면 사용한만큼 빠져야함. **/
-			if(wrhsnos.length > 1){
-				rtnObj = rawMtrInvntrService.updateInvntrRePrcs(inv);
-			}else{
-				rtnObj = rawMtrInvntrService.updateInvntrPrcs(inv);
-			}
-
+			rtnObj = rawMtrInvntrService.updateInvntrPrcs(inv);
+			
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 		}
-
+		
 		return null;
+//		/** 상단 재고그리드에 대한 재처리투입 실적 연산 ? 작업 start**/
+//		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+//
+//			String wrhsno = inv.getWrhsno();
+//			String prdcrCd = inv.getPrdcrCd();
+//			String gdsSeCd = inv.getGdsSeCd();
+//			String wrhsSeCd = inv.getWrhsSeCd();
+//			String prdctnYr = inv.getPrdctnYr();
+//
+//			// 지정 투입수량, 투입중량
+//			int inptQntt = inv.getInptQntt();
+//			double inptWght = inv.getInptWght();
+//
+//			int wrhsQntt = inv.getWrhsQntt();
+//			double wrhsWght = inv.getWrhsWght();
+//
+//			/** 재처리 내역 그리드 : rawMtrRePrcsList
+//			 *  여기서 갑자기 재처리가 등장합니다.**/
+//			for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
+//				/** 재처리할 대상중에 입고번호가 존재하거나, 잔여중량이 0보다 작거나 같으면 다음 재처리 목록으로 넘김**/
+//				if (StringUtils.hasText(rePrcs.getWrhsno()) && rePrcs.getRmnWght() <= 0) {
+//					continue;
+//				}
+//
+//				int applQntt = 0;
+//				double applWght = 0;
+//
+//				/** 투입중량 - 입고중량 < 재처리할 잔여 중량
+//				 *  위에서 이미 입고중량을 0으로 셋팅했기에 투입중량이 재처리할 잔여중량보다 크고작은지 판단.
+//				 *  여기 재처리할 잔여 중량이 무슨 값으로 세팅되는지 확인 필요하고 //TODO:: 잔여중량이뭔디
+//				 *  잔여중량이 더 크면 투입량이 가능한 수량 중량이됨 **/
+//				if (inptWght - wrhsWght < rePrcs.getRmnWght()) {
+//					applQntt = inptQntt - wrhsQntt;
+//					applWght = inptWght - wrhsWght;
+//				} else {
+//					applQntt = rePrcs.getRmnQntt();
+//					applWght = rePrcs.getRmnWght();
+//				}
+//				/** 여기서 분기점이 크게 뒤틀리는데 상단 재고 그리드 하나에 대해서 재처리할 내역을 순회하면서 참조하는데
+//				 * 상단 재고 그리드도 사실상 n개의 입고실적을 가지고있기 때문에 wrhsno 가 다수일경우가 있음.**/
+//				rePrcs.setWrhsno(wrhsno);
+//				rePrcs.setPrdcrCd(prdcrCd);
+//				rePrcs.setGdsSeCd(gdsSeCd);
+//				rePrcs.setWrhsSeCd(wrhsSeCd);
+//				rePrcs.setPrdctnYr(prdctnYr);
+//				// 운송구분 기본값 적용
+//				rePrcs.setTrsprtSeCd(AmConstants.CON_TRSPRT_SE_CD_ETC);
+//				rePrcs.setPrdctnYr(prdctnYr);
+//
+//				wrhsQntt += applQntt;
+//				wrhsWght += applWght;
+//
+//				rePrcs.setRmnQntt(rePrcs.getRmnQntt() - applQntt);
+//				rePrcs.setRmnWght(rePrcs.getRmnWght() - applWght);
+//			}
+//			/** 여기서도 사실상 지금은 하나의 로우로 취급하고 inv이 처리가 되는데 사실 N개가 있을수 있음;; **/
+//			inv.setInptYmd(wrhsYmd);
+//			inv.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
+//			inv.setPrcsQntt(inptQntt);
+//			inv.setPrcsWght(inptWght);
+//		}
+//		/** end **/
+//		/** 재처리 내역들이 상단 반복을 통해 재처리가능한지 여부와 잔여수량에 변동이 생겼기에
+//		 *  1.셋팅이 됫는가[입고번호]
+//		 *  2.잔여중량이 0보다 큰가를 체크함.  **/
+//		for ( RawMtrWrhsVO rePrcs : rawMtrRePrcsList ) {
+//			if (!StringUtils.hasText(rePrcs.getWrhsno())) {
+//				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+//			}
+//			if (rePrcs.getRmnWght() > 0) {
+//				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
+//			}
+//		}
+//
+//		/** 입고실적(재처리) 등록
+//		 *  실질적으로 재처리 그리드의 정보를 DB에 반영하는데 위에서 포맷이 잘못되었을 가능성 290000%
+//		 *  그리고 여기서 wrhsno가 n개일때 여러번 등록하게되는데 이게 틀림. 여기서는 rawMtrRePrcsList의 로우만큼만 생성되야함.
+//		 *  세팅이 잘되었다는 전제하에 아 여기선 심지어 wrhsNo 없이 넘겨도 알아서 채워주네;;**/
+//		for ( RawMtrWrhsVO rePrcsInfo : rawMtrRePrcsList ) {
+//			RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
+//			BeanUtils.copyProperties(rawMtrWrhsMngVO, wrhsVO);
+//			BeanUtils.copyProperties(rePrcsInfo, wrhsVO,
+//					ApcConstants.PROP_APC_CD,
+//					ComConstants.PROP_SYS_FRST_INPT_DT,
+//					ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+//					ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+//					ComConstants.PROP_SYS_LAST_CHG_DT,
+//					ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+//					ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID);
+//
+//			wrhsVO.setWrhsYmd(wrhsYmd);
+//			wrhsVO.setPrcsNo(rawMtrPrcsNo);
+//			wrhsVO.setPrcsType(AmConstants.CON_PRCS_TYPE_RAW_MTR_REPRCS);
+//			wrhsVO.setStdGrdList(rePrcsInfo.getStdGrdList());
+//
+//			String[] wrhsnos = wrhsVO.getWrhsno().replace(" ","").split(",");
+//			rtnObj = rawMtrWrhsService.insertRawMtrRePrcs(wrhsVO);
+//			if (rtnObj != null) {
+//				// error throw exception;
+//				throw new EgovBizException(getMessageForMap(rtnObj));
+//			}
+//		}
+//
+//		int prcsSn = 0;
+//		// 재처리실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
+//		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+//
+//			prcsSn++;
+//
+//			RawMtrWrhsVO inptVO = new RawMtrWrhsVO();
+//			BeanUtils.copyProperties(inv, inptVO);
+//
+//			inptVO.setPrcsYmd(wrhsYmd);
+//			inptVO.setPrcsSn(prcsSn);
+//			inptVO.setPrcsNo(rawMtrPrcsNo);
+//
+//			inptVO.setQntt(inv.getInptQntt());
+//			inptVO.setWght(inv.getInptWght());
+//
+//			// 투입실적있을 경우 update 처리로 분기
+//			/** 교통사고 지점 wrhsno 바꿔야함. **/
+//			String[] wrhsnos = inptVO.getWrhsno().replace(" ","").split(",");
+//			if(wrhsnos.length > 1){
+//				for(int i = 0; i < wrhsnos.length; i++){
+//					RawMtrWrhsVO updateWrhsVO = new RawMtrWrhsVO();
+//					BeanUtils.copyProperties(inptVO,updateWrhsVO);
+//					updateWrhsVO.setWrhsno(wrhsnos[i]);
+//					rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(updateWrhsVO);
+//				}
+//			}else{
+//				rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(inptVO);
+//			}
+//
+//			if (rtnObj != null) {
+//				throw new EgovBizException(getMessageForMap(rtnObj));
+//			}
+//
+//			// 원물재고정보 update
+//			/** 이부분이 상단 그리드 되돌리는 곳. 0처리가 되어야함 ? 아니면 사용한만큼 빠져야함. **/
+//			if(wrhsnos.length > 1){
+//				rtnObj = rawMtrInvntrService.updateInvntrRePrcs(inv);
+//			}else{
+//				rtnObj = rawMtrInvntrService.updateInvntrPrcs(inv);
+//			}
+//
+//			if (rtnObj != null) {
+//				throw new EgovBizException(getMessageForMap(rtnObj));
+//			}
+//		}
+
 	}
 
 	@Override
