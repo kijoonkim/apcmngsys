@@ -307,14 +307,13 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 							invntrVO.setPrdcrCd(invntrInfo.getPrdcrCd());
 							invntrVO.setGdsSeCd(invntrInfo.getGdsSeCd());
 							invntrVO.setWrhsSeCd(invntrInfo.getWrhsSeCd());
-							invntrVO.setInvntrQntt(tmpQntt);
-							invntrVO.setInvntrWght(tmpWght);
+							
 							invntrVO.setPrcsQntt(tmpQntt);
 							invntrVO.setPrcsWght(tmpWght);
 							invntrVO.setPrdctnYr(invntrInfo.getPrdctnYr());
 							
 							inptQntt -= tmpQntt;
-							invntrWght -= tmpWght;
+							inptWght -= tmpWght;
 							
 							if (tmpQntt > maxQntt) {
 								maxQntt = tmpQntt;
@@ -436,8 +435,8 @@ public class RawMtrWrhsMngServiceImpl extends BaseServiceImpl implements RawMtrW
 			inptVO.setPrcsSn(prcsSn);
 			inptVO.setPrcsNo(rawMtrPrcsNo);
 
-			inptVO.setQntt(inv.getInptQntt());
-			inptVO.setWght(inv.getInptWght());
+			inptVO.setQntt(inv.getPrcsQntt());
+			inptVO.setWght(inv.getPrcsWght());
 			
 			rtnObj = rawMtrWrhsService.insertRawMtrPrcsInpt(inptVO);
 			if (rtnObj != null) {
