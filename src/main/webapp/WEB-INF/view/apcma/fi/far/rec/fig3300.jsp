@@ -308,6 +308,18 @@
 		SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
 		SBGridProperties.allowcopy = true; //복사
 		SBGridProperties.frozencols = 4;
+		SBGridProperties.frozenbottomrows = 1;
+		SBGridProperties.total = {
+			type 		: 'grand',
+			position	: 'bottom',
+			columns		: {
+				standard : [3],
+				sum : [23, 24, 25, 26, 27, 28],
+				count : [3]
+			},
+			datasorting	: true,
+			usedecimal : false,
+		};
 		SBGridProperties.extendlastcol 		= 'scroll';
 		SBGridProperties.columns = [
 			{caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'38px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
@@ -534,7 +546,7 @@
 		for(var i = 0; i < gvwListData.length; i++) {
 			let rowData = gvwList.getRowData(i+1);
 
-			if (gfn_nvl(rowData.ACCOUNT_EMP_CODE) == "") {
+			if (gfn_nvl(rowData.ACCOUNT_EMP_CODE) == "" && !rowData.grandtotal) {
 				gvwList.setRowStyle(i+1, 'data', 'background', '#FFC0CB');
 			}
 		}

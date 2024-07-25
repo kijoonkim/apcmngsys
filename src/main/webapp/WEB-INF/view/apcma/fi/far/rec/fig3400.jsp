@@ -528,6 +528,17 @@
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.frozencols = 10;
+        SBGridProperties.frozenbottomrows = 1;
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [2],
+                sum : [10, 11, 12, 13],
+            },
+            datasorting	: true,
+            usedecimal : false,
+        };
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
             {caption: ["전표ID"],         ref: 'DOC_ID',    type:'output',  	width:'116px',  style:'text-align:left', hidden: true},

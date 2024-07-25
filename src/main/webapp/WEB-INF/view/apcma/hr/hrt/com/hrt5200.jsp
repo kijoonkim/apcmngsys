@@ -213,31 +213,31 @@
                         <tr>
                             <th scope="row" class="th_bg">이월</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="CARRIED_DAY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                <sbux-input id="CARRIED_DAY" uitype="text" placeholder="" class="form-control input-sm" grid-id="gvwInfo" grid-ref="CARRIED_DAY" grid-direction="receive" readonly></sbux-input>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">총일수</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="TOT_DAY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                <sbux-input id="TOT_DAY" uitype="text" placeholder="" class="form-control input-sm" grid-id="gvwInfo" grid-ref="TOT_DAY" grid-direction="receive" readonly></sbux-input>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">사용일수</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="USE_DAY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                <sbux-input id="USE_DAY" uitype="text" placeholder="" class="form-control input-sm" grid-id="gvwInfo" grid-ref="USE_DAY" grid-direction="receive" readonly></sbux-input>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">보상일수</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="CHARGE_DAY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                <sbux-input id="CHARGE_DAY" uitype="text" placeholder="" class="form-control input-sm" grid-id="gvwInfo" grid-ref="CHARGE_DAY" grid-direction="receive" readonly></sbux-input>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">미사용 일수</th>
                             <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="BALANCE_DAY" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                <sbux-input id="BALANCE_DAY" uitype="text" placeholder="" class="form-control input-sm" grid-id="gvwInfo" grid-ref="BALANCE_DAY" grid-direction="receive" readonly></sbux-input>
                             </td>
                         </tr>
                         </tbody>
@@ -616,6 +616,7 @@
 
         gvwInfo = _SBGrid.create(SBGridProperties);
         gvwInfo.bind('click', 'fn_view');
+        gvwInfo.bind('valuechanged','fn_gvwInfoValueChanged');
     }
 
     function fn_createGvwDetailGrid() {
@@ -625,13 +626,23 @@
         SBGridProperties.jsonref 			= 'jsonDetailList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.frozenbottomrows = 1;
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [1],
+                sum : [2],
+            },
+            datasorting	: true,
+            usedecimal : false,
+        };
         SBGridProperties.columns = [
             {caption: ["사용일자"],       ref: 'YYYYMMDD', 		type:'datepicker',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["사용일수"],         ref: 'USE_DAY',    type:'output',  	width:'94px',  style:'text-align:left'},
             {caption: ["근태항목"], 		ref: 'TIME_ITEM_CODE',   	    type:'combo', style:'text-align:left' ,width: '136px',
                 typeinfo: {
                     ref			: 'jsonTimeItemCode',
@@ -641,6 +652,7 @@
                 }
                 , disabled: true
             },
+            {caption: ["사용일수"],         ref: 'USE_DAY',    type:'output',  	width:'94px',  style:'text-align:left'},
             {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'257px',  style:'text-align:left'},
         ];
 
@@ -709,6 +721,28 @@
         fn_save();
     }
 
+    const fn_gvwInfoValueChanged = async function() {
+        var nRow = gvwInfo.getRow();
+        var nCol = gvwInfo.getCol();
+
+        if (nCol == gvwInfo.getColRef("CARRIED_DAY") || nCol == gvwInfo.getColRef("ANNUAL_DAY") || nCol == gvwInfo.getColRef("ONEYEAR_DAY")) {
+            var carried_day = Number(gvwInfo.getCellData(nRow, gvwInfo.getColRef("CARRIED_DAY")));
+            var annual_day = Number(gvwInfo.getCellData(nRow, gvwInfo.getColRef("ANNUAL_DAY")));
+            var oneyear_day = Number(gvwInfo.getCellData(nRow, gvwInfo.getColRef("ONEYEAR_DAY")));
+
+            // 총 발생연차 = 전년이월 + 발생일수 + 1년미만 발생일수
+            gvwInfo.setCellData(nRow, gvwInfo.getColRef("TOT_DAY"), (carried_day + annual_day + oneyear_day));
+        }
+
+        if (nCol == gvwInfo.getColRef("TOT_DAY")) {
+            var tot_day = Number(gvwInfo.getCellData(nRow, gvwInfo.getColRef("TOT_DAY")));
+            var use_day = Number(gvwInfo.getCellData(nRow, gvwInfo.getColRef("USE_DAY")));
+
+            // 잔여연차 = 총 발생연차 - 사용연차
+            gvwInfo.setCellData(nRow, gvwInfo.getColRef("BALANCE_DAY"), (tot_day - use_day));
+        }
+    }
+
     const fn_view = async function() {
         var nCol = gvwInfo.getCol();
         //특정 열 부터 이벤트 적용
@@ -724,6 +758,14 @@
 
         if(!SBUxMethod.validateRequired()) {
             return false;
+        }
+
+        if (gvwInfo.getCellData(nRow, gvwInfo.getColRef("WORK_YEAR")) == "0") {
+            gvwInfo.setCellDisabled((i+1), gvwInfo.getColRef("ANNUAL_DAY"), (i+1), gvwInfo.getColRef("ANNUAL_DAY"), true);
+            gvwInfo.setCellDisabled((i+1), gvwInfo.getColRef("ONEYEAR_DAY"), (i+1), gvwInfo.getColRef("ONEYEAR_DAY"), false);
+        } else {
+            gvwInfo.setCellDisabled((i+1), gvwInfo.getColRef("ANNUAL_DAY"), (i+1), gvwInfo.getColRef("ANNUAL_DAY"), false);
+            gvwInfo.setCellDisabled((i+1), gvwInfo.getColRef("ONEYEAR_DAY"), (i+1), gvwInfo.getColRef("ONEYEAR_DAY"), true);
         }
 
         let YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YYYY"));
