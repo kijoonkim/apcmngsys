@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hra.adj.web;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -36,6 +37,9 @@ public class ApcMaHra1100Controller extends BaseController {
 
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
+
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
 
     // 연말정산기준등록 조회
     @PostMapping(value = "/hr/hra/adj/selectHra1100List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -87,6 +91,28 @@ public class ApcMaHra1100Controller extends BaseController {
         logger.info("=============insertHra1100=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
+    }
+
+    // 연말정산기준등록 ( 근로소득 공제 리스트 저장 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1100S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1100S1(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra1100S1=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1100_S1");
+
+            logger.info("=============insertHra1100S1=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
     }
 
 }
