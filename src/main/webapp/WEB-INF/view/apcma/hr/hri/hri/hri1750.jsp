@@ -25,10 +25,11 @@
     <title>title : 증명서발급</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
-    <div class="box box-solid">
+    <div class="box box-solid" style="border-radius:0px">
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
@@ -41,8 +42,8 @@
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
                 <sbux-button id="btnAdminApproval" name="btnAdminApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="관리자승인" onclick="fn_adminApproval"></sbux-button>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
-                <sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>
-                <sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>
+                <%--<sbux-button id="btnApproval" name="btnApproval" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재처리" onclick="fn_approval"></sbux-button>
+                <sbux-button id="btnApprovalList" name="btnApprovalList" uitype="normal" class="btn btn-sm btn-outline-danger" text="결재내역" onclick="fn_approvalList"></sbux-button>--%>
             </div>
         </div>
         <div class="box-body">
@@ -302,8 +303,14 @@
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
-    var isHrManager = '${loginVO.isHrManager}';
+    var isHrManager = '${loginVO.maIsHRManager}';
+    var p_empCode = '${loginVO.maEmpCode}';
+    var p_empName = '${loginVO.maEmpName}';
+    var p_deptCode = '${loginVO.maDeptCode}';
+    var p_deptName = '${loginVO.maDeptName}';
     //-----------------------------------------------------------
+
+    var sourceType = "CERTI";
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -639,6 +646,10 @@
     // 조회
     function cfn_search() {
         fn_search();
+    }
+
+    function cfn_appr() {
+        fn_approval();
     }
 
     /**
@@ -1194,11 +1205,49 @@
     }
 
     const fn_approval = async function() {
-        // TODO : 결재공통 추가시 개발
-    }
+        var nRow = bandgvwInfo.getRow();
 
-    const fn_approvalList = async function() {
-        // TODO : 결재공통 추가시 개발
+        if (nRow < 2) {
+            gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
+            return;
+        } else {
+            if (nRow < 2)
+                return;
+
+            if (bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("DOC_NUM")) == "") {
+                gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
+                return;
+            }
+
+            let strcurrentapprover = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("CURRENT_APPROVE_EMP_CODE"));
+            let strfinalapprover = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("FINAL_APPROVER"));
+            let intapprcount = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT")) == "" ? 0 : parseInt(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT")));
+
+            if ((intapprcount > 0) && (strcurrentapprover != p_empCode) && (strcurrentapprover != "")) {
+                gfn_comAlert("E0000", "결재권자가 아니므로 결재를 진행할 수 없습니다.");
+                return;
+            }
+
+            let apprId = Number(gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_ID"))));
+
+            compopappvmng({
+                workType		: apprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+                ,compCode		: gv_ma_selectedApcCd
+                ,compCodeNm		: gv_ma_selectedApcNm
+                ,clientCode		: gv_ma_selectedClntCd
+                ,apprId			: apprId
+                ,sourceNo		: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("DOC_NUM")))
+                ,sourceType		: sourceType
+                ,empCode		: p_empCode
+                ,formID			: p_formId
+                ,menuId			: p_menuId
+                ,callback       : function(data) {
+                    if(data && data.result == "Y") {
+                        fn_search();
+                    }
+                }
+            });
+        }
     }
 
 </script>

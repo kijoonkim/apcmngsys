@@ -229,7 +229,8 @@ function compopappvmng(options) {
 		,sourceType				: null
 		,empCode				: null
 		,formID					: null
-		,menuId					: null    		
+		,menuId					: null
+		,callback				: null
 	};
 	$.extend(settings, options);	
 	//console.log('settings:', settings);
@@ -239,6 +240,11 @@ function compopappvmng(options) {
 	
 	var fn_closeModal = function(){
 	 	SBUxMethod.closeModal(modalDivId);
+		if(settings.callback){
+			if(typeof settings.callback === 'function') {
+				settings.callback({result: 'Y'});
+			}
+		}
 	}
 	
 	//상단 조회 표시
