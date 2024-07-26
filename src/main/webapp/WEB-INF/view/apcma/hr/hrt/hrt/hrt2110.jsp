@@ -25,10 +25,11 @@
     <title>title : 근태계획등록(일반)</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
-    <div class="box box-solid">
+    <div class="box box-solid" style="border-radius:0px">
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
@@ -36,10 +37,8 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnResult2" name="btnResult2" uitype="normal" text="결과결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result2"></sbux-button>
-                <sbux-button id="btnSummit2" name="btnSummit2" uitype="normal" text="결과결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_summit2"></sbux-button>
-                <sbux-button id="btnResult" name="btnResult" uitype="normal" text="신청결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
-                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="신청결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>
+                <sbux-button id="btnSummit2" name="btnSummit2" uitype="normal" text="결과결재" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_summit2"></sbux-button>
+                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="신청결재" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>
                 <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_cancel"></sbux-button>
                 <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
                 <sbux-button id="btnApprCancel" name="btnApprCancel" uitype="normal" text="관리자승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_apprCancel"></sbux-button>
@@ -231,12 +230,16 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
-    var p_empCd = '${loginVO.maEmpCode}';
-    var p_userId = '${loginVO.maUserId}';
+    var p_userId = '${loginVO.maUserID}';
+    var p_empCode = '${loginVO.maEmpCode}';
+    var p_empName = '${loginVO.maEmpName}';
+    var p_deptCode = '${loginVO.maDeptCode}';
+    var p_deptName = '${loginVO.maDeptName}';
     //-----------------------------------------------------------
 
     var copyMode            = "clear";
     var bEventEnabled = true;
+    var sourceType;
 
     var jsonSiteCode = []; // 사업장
     var jsonJobGroup = []; // 직군
@@ -1530,11 +1533,11 @@
                 let strstatus_code1 = rowData.REQUEST_STATUS_CODE;
                 let intapprcount1 = rowData.APPR_COUNT1;
 
-                if (strstatus_code1 == "1" && strinsertempcode == p_empCd) {
+                if (strstatus_code1 == "1" && strinsertempcode == p_empCode) {
                     $("#btnApprove").attr("disabled", false);
-                } else if ((intapprcount1 > 0) && (strstatus_code1 == "3") && (strcurrentapprover1 == p_empCd) && (strcurrentapprover1 != "")) {
+                } else if ((intapprcount1 > 0) && (strstatus_code1 == "3") && (strcurrentapprover1 == p_empCode) && (strcurrentapprover1 != "")) {
                     $("#btnApprove").attr("disabled", false);
-                } else if ((intapprcount1 > 0) && (strstatus_code1 == "3") && (strproxyapprover1 == p_empCd) && (strproxyapprover1 != "")) {
+                } else if ((intapprcount1 > 0) && (strstatus_code1 == "3") && (strproxyapprover1 == p_empCode) && (strproxyapprover1 != "")) {
                     $("#btnApprove").attr("disabled", false);
                 } else {
                     $("#btnApprove").attr("disabled", true);
@@ -1548,11 +1551,11 @@
 
                 if (strstatus_code1 == "5")  //신청이 승인완료되어야만 결과처리가능
                 {
-                    if (strstatus_code2 == "1" && strinsertempcode == p_empCd) {
+                    if (strstatus_code2 == "1" && strinsertempcode == p_empCode) {
                         $("#btnSummit2").attr("disabled", false);
-                    } else if ((intapprcount2 > 0) && (strstatus_code2 == "3") && (strcurrentapprover2 == p_empCd) && (strcurrentapprover2 != "")) {
+                    } else if ((intapprcount2 > 0) && (strstatus_code2 == "3") && (strcurrentapprover2 == p_empCode) && (strcurrentapprover2 != "")) {
                         $("#btnSummit2").attr("disabled", false);
-                    } else if ((intapprcount2 > 0) && (strstatus_code2 == "3") && (strproxyapprover2 == p_empCd) && (strproxyapprover2 != "")) {
+                    } else if ((intapprcount2 > 0) && (strstatus_code2 == "3") && (strproxyapprover2 == p_empCode) && (strproxyapprover2 != "")) {
                         $("#btnSummit2").attr("disabled", false);
                     } else {
                         $("#btnSummit2").attr("disabled", true);
@@ -2145,19 +2148,111 @@
     }
 
     const fn_approve = async function() {
-        // TODO : 결재공통 추가시 개발
-    }
+        var nRow = bandgvwInfo.getRow();
 
-    const fn_result = async function() {
-        // TODO : 결재공통 추가시 개발
+        if (nRow < 2) {
+            gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
+            return;
+        } else {
+            if (nRow < 2)
+                return;
+
+            if (bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TXN_ID")) == "") {
+                gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
+                return;
+            }
+
+            let strcurrentapprover1 = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("CURRENT_APPROVE_EMP_CODE1"));
+            let strfinalapprover1 = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("FINAL_APPROVER1"));
+            let intapprcount1 = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT1")) == "" ? 0 : parseInt(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT1")));
+
+            if ((intapprcount1 > 0) && (strcurrentapprover1 != p_empCode) && (strcurrentapprover1 != "")) {
+                gfn_comAlert("E0000", "결재권자가 아니므로 결재를 진행할 수 없습니다.");
+                return;
+            }
+
+            if (bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "1091"|| bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "1092" || bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "1093"
+                ||bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "7051"|| bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "7052"|| bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "7053")
+            {
+                sourceType = "HOLI";
+            } else {
+                sourceType = "WORKPLAN";
+            }
+
+            let apprId = Number(gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_ID1"))));
+
+            compopappvmng({
+                workType		: apprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+                ,compCode		: gv_ma_selectedApcCd
+                ,compCodeNm		: gv_ma_selectedApcNm
+                ,clientCode		: gv_ma_selectedClntCd
+                ,apprId			: apprId
+                ,sourceNo		: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TXN_ID")))
+                ,sourceType		: sourceType
+                ,empCode		: p_empCode
+                ,formID			: p_formId
+                ,menuId			: p_menuId
+                ,callback       : function(data) {
+                    if(data && data.result == "Y") {
+                        fn_search();
+                    }
+                }
+            });
+        }
     }
 
     const fn_summit2 = async function() {
-        // TODO : 결재공통 추가시 개발
-    }
+        var nRow = bandgvwInfo.getRow();
 
-    const fn_result2 = async function() {
-        // TODO : 결재공통 추가시 개발
+        if (nRow < 2) {
+            gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
+            return;
+        } else {
+            if (nRow < 2)
+                return;
+
+            if (bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TXN_ID")) == "") {
+                gfn_comAlert("E0000", "결재신청할 건이 없습니다.");
+                return;
+            }
+
+            if (bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "1091" || bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "1092" || bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "1093"
+                || bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "7051" || bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "7052" || bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE")) == "7053")
+            {
+                sourceType = "HOLI_RE";
+            } else {
+                sourceType = "";
+            }
+
+            let strcurrentapprover2 = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("CURRENT_APPROVE_EMP_CODE2"));
+            let strfinalapprover2 = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("FINAL_APPROVER2"));
+            let intapprcount2 = bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT2")) == "" ? 0 : parseInt(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_COUNT2")));
+
+            if ((intapprcount2 > 0) && (strcurrentapprover2 != p_empCode) && (strcurrentapprover2 != "")) {
+                gfn_comAlert("E0000", "결재권자가 아니므로 결재를 진행할 수 없습니다.");
+                return;
+            }
+
+            let apprId = Number(gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("APPR_ID2"))));
+
+            compopappvmng({
+                workType		: apprId == 0 ? 'TEMPLATE' : 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+                ,compCode		: gv_ma_selectedApcCd
+                ,compCodeNm		: gv_ma_selectedApcNm
+                ,clientCode		: gv_ma_selectedClntCd
+                ,apprId			: apprId
+                ,sourceNo		: gfn_nvl(bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("TXN_ID")))
+                ,sourceType		: sourceType
+                ,empCode		: p_empCode
+                ,formID			: p_formId
+                ,menuId			: p_menuId
+                ,callback       : function(data) {
+                    if(data && data.result == "Y") {
+                        fn_search();
+                    }
+                }
+            });
+        }
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

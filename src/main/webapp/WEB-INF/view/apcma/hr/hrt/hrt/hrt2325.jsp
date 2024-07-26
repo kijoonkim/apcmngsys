@@ -1076,6 +1076,10 @@
         fn_search();
     }
 
+    function cfn_appr() {
+        fn_approval();
+    }
+
     const fn_save = async function () {
         let updatedData = bandgvwInfo.getUpdateData(true, 'all');
         let returnData = [];
@@ -2340,14 +2344,9 @@
         }
     }
 
-    const fn_approve = async function() {
-        // TODO : 결재공통 추가시 개발
+    const fn_approval = async function() {
+        // TODO : 원래 소스에서 기능구현 안되어있음
     }
-
-    const fn_result = async function() {
-        // TODO : 결재공통 추가시 개발
-    }
-
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
