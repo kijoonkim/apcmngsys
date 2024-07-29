@@ -549,6 +549,11 @@ async function gfnma_multiSelectInit(obj) {
 		}
 		$(tarId).closest('div').find('tbody').html(htm);
 		
+		//button clear
+		$(tarId).closest('div').find('button').find('font').text('선택');
+		$(tarId).closest('div').find('button').attr('cu-value', '');
+		$(tarId).closest('div').find('button').attr('cu-label', '');
+		
 		//tr click event
 		$(tarId).closest('div').find('.clickable-row').click(function(){
 			if($(this).hasClass('active')){
@@ -631,16 +636,29 @@ const gfnma_multiSelectSet = function (id, colValue, colLabel, findValue) {
  * @description 멀티 컬럼 select 에 선택된 값 가져오기 
  * @function
  * @param 		{string} id		: target
- * @param 		{string} type	: null: value 값 / object: object 값
+ * @param 		{string} type	: null: value 값 / true: object 값
  * @returns 	{object}
  */
 const gfnma_multiSelectGet = function (id, type) {
-	var obj = {
-		value	: gfnma_nvl($(id).attr('cu-value')),
-		label	: gfnma_nvl($(id).attr('cu-label'))
-	};
+	
+//	var obj = {
+//		value	: gfnma_nvl($(id).attr('cu-value')),
+//		label	: gfnma_nvl($(id).attr('cu-label'))
+//	};
+	var obj = {};
+	var chk = false;
+	$(id).closest('div').find('tbody').find('.active').find('td').each(function(){
+		var colName  = $(this).attr('cu-code');
+		var colValue = $(this).text();
+		obj[colName] = colValue;
+		chk = true;
+	});
 	if(type){
-		return obj;
+		if(chk){
+			return obj;
+		} else {
+			return null;
+		}
 	} else {
 		return gfnma_nvl($(id).attr('cu-value'));
 	}
