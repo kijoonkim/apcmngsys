@@ -259,7 +259,7 @@
         	uitype="middle" 
         	header-title="" 
         	body-html-id="body-com-popup1" 
-        	header-is-close-button="false" footer-is-close-button="false" style="width:1000px">
+        	header-is-close-button="true" footer-is-close-button="false" style="width:1000px">
         </sbux-modal>
     </div>
     <div id="body-com-popup1">
