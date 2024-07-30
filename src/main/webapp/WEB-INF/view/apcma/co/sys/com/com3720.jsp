@@ -283,7 +283,7 @@
     
 	<!-- 사용자 선택 Modal -->
     <div>
-        <sbux-modal id="com-popup1" name="com-popup1" uitype="middle" header-title="" body-html-id="body-com-popup1" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+        <sbux-modal id="com-popup1" name="com-popup1" uitype="middle" header-title="" body-html-id="body-com-popup1" header-is-close-button="true" footer-is-close-button="false" style="width:1000px"></sbux-modal>
     </div>
     <div id="body-com-popup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -857,7 +857,7 @@
          }
      }
      
-     /*셀복사 해제 (복사모드해제)*/
+     
      const fn_gridCopyClear = function (){ 
          $('#btnCopyClear').hide();
          $('#btnCopyLine').show();

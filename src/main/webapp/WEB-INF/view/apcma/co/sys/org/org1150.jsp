@@ -1,16 +1,15 @@
 <%
 /**
- * @Class Name 		: com3200.jsp
- * @Description 	: 통화 정보
+ * @Class Name 		: org1150.jsp
+ * @Description 	: 사업장 정보
  * @author 			: 인텔릭아이앤에스
- * @since 			: 2024.05.13
+ * @since 			: 2024.07.18
  * @version 		: 1.0
  * @Modification Information
  * @
  * @ 수정일       	수정자      수정내용
  * @ ----------		----------	---------------------------
- * @ 2024.05.13   	표주완		최초 생성
- * @ 2024.07.09   	천용진		화면 수정
+ * @ 2024.07.18   	천용진		화면 수정
  * @see
  *
  */
@@ -24,7 +23,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 통화 정보</title>
+	<title>title : 사업장 정보</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -58,19 +57,29 @@
                         <col style="width: 6%">
                         <col style="width: 6%">
                         <col style="width: 3%">
+                        
+                        <col style="width: 7%">
+                        <col style="width: 6%">
+                        <col style="width: 6%">
+                        <col style="width: 3%">
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">통화</th>
+                        	<th scope="row" class="th_bg">사업장코드</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_CURRENCY_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="SRCH_SITE_CODE" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>    
-                           <th scope="row" class="th_bg">통화명</th>
+                            <th scope="row" class="th_bg">사업장명</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="SRCH_CURRENCY_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="SRCH_SITE_NAME" uitype="text" style="width:100%" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>                                      
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>    
+
+                            <td style="border-right: hidden;">&nbsp;</td>
+                            <td style="border-right: hidden;">&nbsp;</td>    
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>    
                         </tr>
@@ -84,28 +93,9 @@
                                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                                 </li>
                             </ul>
-                            <sbux-button
-                                    id="btnDel"
-                                    name="btnDel"
-                                    uitype="normal"
-                                    text="행삭제"
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_delRow"
-                                    style="float: right;"
-                            >
-                            </sbux-button>
-                            <sbux-button
-                                    id="btnAdd"
-                                    name="btnAdd"
-                                    uitype="normal"
-                                    text="행추가"
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_addRow"
-                                    style="float: right;"
-                            ></sbux-button>
                         </div>                        
                         <div>
-                            <div id="sb-area-grdCom3200" style="height:600px; width:100%;"></div>
+                            <div id="sb-area-grdOrg1150" style="height:600px; width:100%;"></div>
                         </div>
                 </div>
             </div>
@@ -132,15 +122,17 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.id}';
 	//-----------------------------------------------------------
-	var jsonFiscalStatus	= [];	// 통화진행상태
 	
+	let jsonCompCode = []; //그리드 - 법인 	 [ L_ORG000 ]
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+            gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
 		]);
 	}	
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
+    	fn_initSBSelect();
     	fn_createGrid();
     	cfn_search();
     });
@@ -169,11 +161,10 @@
 
     var masterGrid; 			// 그리드를 담기위한 객체 선언
     var jsonMasterList 	= []; 	// 그리드의 참조 데이터 주소 선언
-
     function fn_createGrid() {
     	//코드목록 
         var SBGridProperties 				= {};
-	    SBGridProperties.parentid 			= 'sb-area-grdCom3200';
+	    SBGridProperties.parentid 			= 'sb-area-grdOrg1150';
 	    SBGridProperties.id 				= 'masterGrid';
 	    SBGridProperties.jsonref 			= 'jsonMasterList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
@@ -183,17 +174,22 @@
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.columns = [ 
-            {caption: ["통화코드"],			ref: 'CURRENCY_CODE', 		type:'input',  	width:'100px',  style:'text-align:center'},
-            {caption: ["통화명"],				ref: 'CURRENCY_NAME', 		type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ["통화명(한글)"],		ref: 'CURRENCY_NAME_CHN', 	type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ['사용여부'],     		ref: 'USE_YN',				type:'checkbox',width:'80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ['펌뱅킹 여부'],     	ref: 'FBS_YN',				type:'checkbox',width:'80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ["심볼"],				ref: 'CURR_SYMBOL',    		type:'input',  	width:'100px',  style:'text-align:center'},
-            {caption: ['소수점자리'],			ref: 'DECIMAL_LENGTH',      type:'input',   width:'100px',  style:'text-align:right', format : {type:'number', rule:'#,###'}, datatype : 'number'},
-            {caption: ['환산기준단위'],		ref: 'EXCHANGE_BASE_SCALE', type:'input',   width:'200px',  style:'text-align:right', format : {type:'number', rule:'#,###.00'}, datatype : 'decimal'},
-            {caption: ['정렬순서'],			ref: 'SORT_SEQ',      		type:'input',   width:'100px',  style:'text-align:right', format : {type:'number', rule:'#,###'}, datatype : 'number'},
-            {caption: ["비고"],				ref: 'MEMO',    			type:'input',  	width:'250px',  style:'text-align:left'}
+        SBGridProperties.columns = [
+            {caption : ["법인"], ref : 'COMP_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+                typeinfo : {
+                    ref : 'jsonCompCode',
+                    displayui : true,
+                    oneclickedit : true,
+                    label : 'label',
+                    value : 'value'
+                }
+            },
+            {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'200px',  style:'text-align:left'},
+            {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'200px',  style:'text-align:left'},
+            {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'700px',  style:'text-align:center'},
+            {caption: ['사용여부'],     	ref: 'USE_YN',		type:'checkbox',width:'80px', 	
+            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
+           	},
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
     }
@@ -201,7 +197,6 @@
     const fn_save = async function () {
         let updatedData = masterGrid.getUpdateData(true, 'all');
         let listData = [];
-
         updatedData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -209,32 +204,28 @@
                 rownum: item.rownum,
                 workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
                 params: gfnma_objectToString({
-                	   V_P_DEBUG_MODE_YN         : ''
-               		   ,V_P_LANG_ID              : ''
-               		   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
-               		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-               		   ,V_P_CURRENCY_CODE        : gfnma_nvl(item.data.CURRENCY_CODE)
-               		   ,V_P_CURRENCY_NAME        : gfnma_nvl(item.data.CURRENCY_NAME)
-               		   ,V_P_CURRENCY_NAME_CHN    : gfnma_nvl(item.data.CURRENCY_NAME_CHN)
-               		   ,V_P_CURR_SYMBOL          : gfnma_nvl(item.data.CURR_SYMBOL)
-               		   ,V_P_EXCHANGE_BASE_SCALE  : gfnma_nvl(item.data.EXCHANGE_BASE_SCALE) == "" ? 0 : gfnma_nvl(item.data.EXCHANGE_BASE_SCALE)
-               		   ,V_P_SORT_SEQ             : gfnma_nvl(item.data.SORT_SEQ) == "" ? 0 : gfnma_nvl(item.data.SORT_SEQ)
-               		   ,V_P_MEMO                 : gfnma_nvl(item.data.MEMO)
-               		   ,V_P_USE_YN               : gfnma_nvl(item.data.USE_YN)
-               		   ,V_P_FBS_YN               : gfnma_nvl(item.data.FBS_YN)
-               		   ,V_P_DECIMAL_LENGTH       : gfnma_nvl(item.data.DECIMAL_LENGTH) == "" ? 0 : gfnma_nvl(item.data.DECIMAL_LENGTH)
-               		   ,V_P_FORM_ID              : p_formId
-               		   ,V_P_MENU_ID              : p_menuId
-               		   ,V_P_PROC_ID              : ''
-               		   ,V_P_USERID               : p_userId
-               		   ,V_P_PC                   : ''
+                	   V_P_DEBUG_MODE_YN        : ""
+               		  ,V_P_LANG_ID              : ""
+               		  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+               		  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+               		  ,V_P_SITE_CODE            : gfnma_nvl(item.data.SITE_CODE)
+               		  ,V_P_SITE_NAME            : gfnma_nvl(item.data.SITE_NAME)
+               		  ,V_P_SITE_NAME_CHN        : gfnma_nvl(item.data.SITE_NAME_CHN)
+               		  ,V_P_HR_SITE_CODE         : gfnma_nvl(item.data.HR_SITE_CODE)
+               		  ,V_P_DESCR                : gfnma_nvl(item.data.DESCR)
+               		  ,V_P_USE_YN               : gfnma_nvl(item.data.USE_YN)
+               		  ,V_P_FORM_ID              : p_formId
+               		  ,V_P_MENU_ID              : p_menuId
+               		  ,V_P_PROC_ID              : ""
+               		  ,V_P_USERID               : p_userId
+               		  ,V_P_PC                   : ""
                 })
             }
             listData.push(param);
         });
 
         if(listData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/co/sys/cur/insertCom3200.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/co/sys/org/insertOrg1150.do", {listData: listData});
             const data = await postJsonPromise;
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -260,25 +251,24 @@
 
     	// 코드목록 그리드 초기화
     	fn_clearForm();
-    	
-    	let SRCH_CURRENCY_CODE = gfnma_nvl(SBUxMethod.get("SRCH_CURRENCY_CODE"));
-    	let SRCH_CURRENCY_NAME = gfnma_nvl(SBUxMethod.get("SRCH_CURRENCY_NAME"));
+    	let SRCH_SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
+    	let SRCH_SITE_NAME = gfnma_nvl(SBUxMethod.get("SRCH_SITE_NAME"));
     	
     	var paramObj = {
-	    	   V_P_DEBUG_MODE_YN         : ''
-	    	   ,V_P_LANG_ID              : ''
-	    	   ,V_P_COMP_CODE            : gv_ma_selectedApcCd
-	    	   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-	    	   ,V_P_CURRENCY_CODE        : SRCH_CURRENCY_CODE
-	    	   ,V_P_CURRENCY_NAME        : SRCH_CURRENCY_NAME
-	    	   ,V_P_FORM_ID              : p_formId
-	    	   ,V_P_MENU_ID              : p_menuId
-	    	   ,V_P_PROC_ID              : ''
-	    	   ,V_P_USERID               : p_userId
-	    	   ,V_P_PC                   : ''
+    			   V_P_DEBUG_MODE_YN        : ""
+   				  ,V_P_LANG_ID              : ""
+   				  ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+   				  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+   				  ,V_P_SITE_CODE            : SRCH_SITE_CODE
+   				  ,V_P_SITE_NAME            : SRCH_SITE_NAME
+   				  ,V_P_FORM_ID              : p_formId
+   				  ,V_P_MENU_ID              : p_formId
+   				  ,V_P_PROC_ID              : ""
+   				  ,V_P_USERID               : p_formId
+   				  ,V_P_PC                   : ""
 		};		
     	
-        const postJsonPromise = gfn_postJSON("/co/sys/cur/selectCom3200.do", {
+        const postJsonPromise = gfn_postJSON("/co/sys/org/selectOrg1150.do", {
         	getType				: 'json',
         	workType			: 'LIST',
         	cv_count			: '1',
@@ -288,35 +278,28 @@
         const data = await postJsonPromise;
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
   	    		masterGrid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  							CURRENCY_CODE			: item.CURRENCY_CODE,
-  							CURRENCY_NAME			: item.CURRENCY_NAME,
-  							CURR_SYMBOL				: item.CURR_SYMBOL,
-  							EXCHANGE_BASE_SCALE		: item.EXCHANGE_BASE_SCALE,
-  							SORT_SEQ				: item.SORT_SEQ,
-  							MEMO					: item.MEMO,
-  							USE_YN					: item.USE_YN,
-  							FBS_YN					: item.FBS_YN,
-  							CURRENCY_NAME_CHN		: item.CURRENCY_NAME_CHN,
-  							DECIMAL_LENGTH			: item.DECIMAL_LENGTH
+  							SITE_CODE		: item.SITE_CODE,
+  							SITE_NAME		: item.SITE_NAME,
+  							DESCR			: item.DESCR,
+  							COMP_CODE		: item.COMP_CODE,
+  							HR_SITE_CODE	: item.HR_SITE_CODE,
+  							USE_YN			: item.USE_YN,
+  							SITE_NAME_CHN	: item.SITE_NAME_CHN,
+  							CLIENT_CODE		: item.CLIENT_CODE
   					}
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
   				});
-
   	        	masterGrid.rebuild();
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
-
         	} else {
           		alert(data.resultMessage);
         	}
-
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -324,12 +307,13 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    	        
     }
+    
     const fn_clearForm = function() {
     	//코드목록
     	jsonMasterList = [];
     }
+    
     // 행 추가
     const fn_addRow = function () {
         let rowVal = masterGrid.getRow();

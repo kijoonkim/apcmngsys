@@ -355,6 +355,8 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			String source_code2 = "IMGTM";			//썸네일
 			String source_code3 = "SIGN";			//싸인
 			String source_code4 = "SIGNTM";			//싸인
+			String source_code5 = "LOGO";			//법인 로고
+			String source_code6 = "STAMP";			//직인
 			
 			String path1 		= "";
 			String path2 		= "";
@@ -362,9 +364,15 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			if(param.get("type").equals("1")) {
 				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code1);
 				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code2);
-			} else {
+			} else if(param.get("type").equals("2")) {
 				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code3);
 				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code4);
+			} else if(param.get("type").equals("3")) {
+				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code5);
+				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code5);
+			} else if(param.get("type").equals("4")) {
+				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code6);
+				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code6);
 			}
 		
 			//파일저장
@@ -376,8 +384,12 @@ public class ApMaComServiceImpl implements ApcMaComService {
 				rmap.put("resultStatus", 	"E");
 				if(param.get("type").equals("1")) {
 					rmap.put("resultMessage", 	"사진 이미지 저장 중에 오류가 발생하였습니다.");
-				} else {
+				} else if(param.get("type").equals("2")) {
 					rmap.put("resultMessage", 	"싸인 이미지 저장 중에 오류가 발생하였습니다.");
+				} else if(param.get("type").equals("3")) {
+					rmap.put("resultMessage", 	"법인 로고 이미지 저장 중에 오류가 발생하였습니다.");
+				} else if(param.get("type").equals("4")) {
+					rmap.put("resultMessage", 	"직인 이미지 저장 중에 오류가 발생하였습니다.");
 				}
 				return rmap;
 			}			
