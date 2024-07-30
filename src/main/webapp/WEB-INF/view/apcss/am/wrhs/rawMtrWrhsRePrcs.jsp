@@ -695,11 +695,11 @@
             	type:'input',
             	width:'11%',
             	style: 'text-align:center;background-color:#FFF8DC;',
-            	typeinfo: {
-	                maxlength: 20,
-	                oneclickedit: true,
-	                mask : {alias : '*', repeat : '*'}
-                }
+            	// typeinfo: {
+	            //     maxlength: 20,
+	            //     oneclickedit: true,
+	            //     mask : {alias : '*-'}//repeat : '*'
+                // }
             },
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'9%'},
 		];
