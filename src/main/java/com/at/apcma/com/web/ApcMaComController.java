@@ -566,6 +566,33 @@ public class ApcMaComController extends BaseController {
 		logger.info("=============comApprEmpCancel=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}		
+	
+	
+	//com5500 메일링 리스트 조회
+	@PostMapping(value = "/com/com5500tList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> com5500tList(
+    		@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+
+		logger.info("=============com5500tList=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			
+			param.put("procedure", 		"P_COM5500_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============com5500tList=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+	}		
     
     
 }
