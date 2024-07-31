@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.at.apcss.am.apc.service.ApcEvrmntStngService;
+import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
 import com.at.apcss.am.apc.vo.ApcLinkVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -123,4 +125,26 @@ public class ApcEvrmntStngApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// APC 환경설정 - 모바일 APC 정보 조회
+	@PostMapping(value = "/api/mobile/am/apc/selectApcEvrmntStng.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcEvrmntStngs(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		ApcEvrmntStngVO resultVO = new ApcEvrmntStngVO();
+		try {
+			resultVO = apcEvrmntStngService.selectApcEvrmntStng(apcEvrmntStngVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put("resultVO", resultVO);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
