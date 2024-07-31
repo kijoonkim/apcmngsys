@@ -919,8 +919,8 @@
 										item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
 										item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
 										item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
-										item["SELLER_ADDRESS"] = item.SELLER_ADDRESS.replaceAll("\,", "&#44;");
-										item["BUYER_ADDRESS"] = item.BUYER_ADDRESS.replaceAll("\,", "&#44;");
+										item["SELLER_ADDRESS"] = item.SELLER_ADDRESS
+										item["BUYER_ADDRESS"] = item.BUYER_ADDRESS
 
 										item["OTHER_DESC"] = "";
 										item["ACCOUNT_EMP_CODE"] = "";
@@ -1039,8 +1039,8 @@
 										item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
 										item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
 										item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
-										item["SELLER_ADDRESS"] = item.SELLER_ADDRESS.replaceAll("\,", "&#44;");
-										item["BUYER_ADDRESS"] = item.BUYER_ADDRESS.replaceAll("\,", "&#44;");
+										item["SELLER_ADDRESS"] = item.SELLER_ADDRESS
+										item["BUYER_ADDRESS"] = item.BUYER_ADDRESS
 
 										item["TOTAL_TAXABLE_AMT"] = '0';
 										item["OTHER_DESC"] = "";
