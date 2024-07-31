@@ -18,7 +18,7 @@ const gfnma_objectToString = function (obj, log) {
 	}
 	for(key in obj){
 		temp = obj[key] + '';
-		res += temp + ',';
+		res += temp.replaceAll("\,", "&#44;") + ',';
 		if(log){
 			logstr += key + ' : "' + obj[key] + '",\n';
 		}
