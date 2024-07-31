@@ -200,6 +200,13 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		
 		try {
 			
+			//프로시저에서 커서의 길이를 측정하지 못해서 에러로 오는경우 정상으로 리턴한다.
+			if(param.get("v_errorCode")!=null && param.get("v_errorCode").equals("MSG0006")) {
+		    	rmap.put("resultStatus", 	"S");
+		    	rmap.put("resultMessage", 	"");
+				return rmap;
+			}
+			
 			//프로시저에서 v_errorCode 값이 없고,  v_errorStr 에러메시지 만 있는경우..
 			if(Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("") && !Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("")) {
 				rmap.put("resultStatus", 	"E");
