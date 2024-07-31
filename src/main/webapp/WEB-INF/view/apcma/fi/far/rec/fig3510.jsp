@@ -340,7 +340,7 @@
                             <tr>
                                 <th scope="row" class="th_bg">총지급액</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" onchange="fn_changeDocAmt(DOC_AMT)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">세금코드</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
@@ -399,11 +399,11 @@
                             <tr>
                                 <th scope="row" class="th_bg">부가세</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" onchange="fn_changeVatAmount(VAT_AMOUNT)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeVatAmount(VAT_AMOUNT)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">공급가액</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">계좌정보</th>
@@ -525,19 +525,19 @@
                             <tr>
                                 <th scope="row" class="th_bg">차변합계</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="DR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">대변합계</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="CR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="CR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">차이(통화)</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DIFF_ORIGIN" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="DIFF_ORIGIN" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">차이(전표)</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DIFF_FUNTION" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="DIFF_FUNTION" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                             </tr>
                             </tbody>
