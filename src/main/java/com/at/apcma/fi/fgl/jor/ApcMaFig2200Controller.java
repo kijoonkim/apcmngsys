@@ -68,28 +68,129 @@ public class ApcMaFig2200Controller extends BaseController {
         return getSuccessResponseEntityMa(resultMap);
     }
     
-    // 전표전기 저장
-    @PostMapping(value = "/fi/fgl/jor/saveFig2200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> saveFig2200(
+    // 지급조건변경이력 조회
+    @PostMapping(value = "/fi/fgl/jor/selectFig2250List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFig2250List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectFig2250List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_FIG2250_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectFig2250List=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+    }   
+    
+    // 회계처리 조회
+    @PostMapping(value = "/fi/fgl/jor/selectFig2210List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFig2210List(
     		@RequestBody Map<String, Object> param
     		, Model model
     		, HttpSession session
     		, HttpServletRequest request) throws Exception{
     	
-    	logger.info("=============saveFig2200=====start========");
+    	logger.info("=============selectFig2210List=====start========");
     	HashMap<String,Object> resultMap = new HashMap<String,Object>();
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG2200_S");
+    		param.put("procedure", 		"P_FIG2210_ITEM_Q");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());
     		return getErrorResponseEntity(e);
     	}
     	
-    	logger.info("=============saveFig2200=====end========");
+    	logger.info("=============selectFig2210List=====end========");
     	return getSuccessResponseEntityMa(resultMap);
-    }    
+    }   
+    
+    // 결재이력 조회
+    @PostMapping(value = "/fi/fgl/jor/selectFim3420List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFim3420List(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============selectFim3420List=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		param.put("procedure", 		"P_FIM3420_Q");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============selectFim3420List=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }   
+    
+    // 전기처리, 전기취소, 전기+해제, 보류해제, 보류지정, 일괄삭제
+    @PostMapping(value = "/fi/fgl/jor/updateFig2200S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> updateFig2200S1(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============updateFig2200S1=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		param.put("procedure", 		"P_FIG2200_S1");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============updateFig2200S1=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }   
+    
+    // 일괄결재
+    @PostMapping(value = "/fi/fgl/jor/updateFig2200S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> updateFig2200S2(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============updateFig2200S2=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		param.put("procedure", 		"P_FIG2200_S2");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============updateFig2200S2=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }   
     
 }

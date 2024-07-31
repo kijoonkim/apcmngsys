@@ -36,8 +36,8 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
-                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>
+                <%--<sbux-button id="btnResult" name="btnResult" uitype="normal" text="결재내역" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_result"></sbux-button>
+                <sbux-button id="btnApprove" name="btnApprove" uitype="normal" text="결재처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_approve"></sbux-button>--%>
                 <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정/승인취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_cancel"></sbux-button>
                 <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정/승인처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
                 <sbux-button id="btnAllSave" name="btnAllSave" uitype="normal" text="일괄저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_allSave"></sbux-button>
@@ -2183,13 +2183,8 @@
     }
 
     const fn_approve = async function() {
-        // TODO : 결재공통 추가시 개발
+        // TODO : 원래 소스에서 기능구현 안되어있음
     }
-
-    const fn_result = async function() {
-        // TODO : 결재공통 추가시 개발
-    }
-
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

@@ -360,6 +360,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.frozencols = 7;
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.frozenbottomrows = 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',

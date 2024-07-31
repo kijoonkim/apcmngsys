@@ -238,6 +238,7 @@
         SBGridProperties.jsonref 			= 'jsonSummaryHistoryList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.frozencols = 11;
+        SBGridProperties.frozenbottomrows = 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -466,6 +467,7 @@
         SBGridProperties.jsonref 			= 'jsonDetailHistoryList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.frozencols = 11;
+        SBGridProperties.frozenbottomrows = 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',

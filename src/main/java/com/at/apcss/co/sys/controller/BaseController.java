@@ -3,6 +3,7 @@ package com.at.apcss.co.sys.controller;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -294,10 +295,15 @@ public abstract class BaseController {
 
 		if(resultMap.get("resultStatus").equals("S")) {
 			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	ComConstants.CON_BLANK);
-			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	"");
+			//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	"");
+			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	resultMap.get("resultMessage"));
 		} else {
 			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	resultMap.get("resultMessage"));
 		}
+		
+		logger.debug("===============>>>>>>>>>>>>>>>>>>", resultMap);
+		System.out.println(Arrays.asList(resultMap));
+		
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
