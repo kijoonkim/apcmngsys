@@ -889,3 +889,106 @@ const validateRequired = function () {
 	return allValid;
 }
 
+/**
+ * @name 		gfnma_multiSelectInit
+ * @description 멀티 컬럼 select
+ * @function
+ * @param 		{string} target
+ * @param 		{string} compCode
+ * @param 		{string} clientCode
+ * @param 		{string} bizcompId
+ * @param 		{string} whereClause
+ * @param 		{string} formId
+ * @param 		{string} menuId
+ * @param 		{string} selectValue
+ * @param 		{string} colValue
+ * @param 		{string} colLabel
+ * @param 		{string} columns
+ * @returns 	{void}
+ */
+async function gfnma_getComCode(obj, callbackFn) {
+
+	var _workType			= obj.workType;
+	var _groupCategory		= obj.groupCategory;
+	var _groupCode			= obj.groupCode;
+	var _groupName			= obj.groupName;
+	var _subCode			= obj.subCode;
+	var _extraField1		= obj.extraField1;
+	var _extraField2		= obj.extraField2;
+	var _extraField3		= obj.extraField3;
+	var _formId				= obj.formId;
+	var _menuId				= obj.menuId;
+
+    var paramObj = { 
+		V_P_DEBUG_MODE_YN	: ''
+		,V_P_LANG_ID		: ''
+		,V_P_COMP_CODE		: gv_ma_selectedApcCd
+		,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+		
+		,V_P_GROUP_CATEGORY	: _groupCategory
+		,V_P_GROUP_CODE		: _groupCode
+		,V_P_GROUP_NAME		: _groupName
+		,V_P_SUB_CODE		: _subCode
+		,V_P_EXTRA_FIELD1	: _extraField1
+		,V_P_EXTRA_FIELD2	: _extraField2
+		,V_P_EXTRA_FIELD3	: _extraField3
+		
+		,V_P_FORM_ID		: _formId
+		,V_P_MENU_ID		: _menuId
+		,V_P_PROC_ID		: ''
+		,V_P_USERID			: ''
+		,V_P_PC				: ''
+    };		
+
+    const postJsonPromise = gfn_postJSON("/co/sys/com/selectCom3000Q1List.do", {
+    	getType				: 'json',
+    	workType			: _workType,
+    	cv_count			: '4',
+    	params				: gfnma_objectToString(paramObj)
+	});
+
+	const data = await postJsonPromise;
+	console.log('gfnma_getComCode data (P_COM3000_Q1):', data);
+
+	var rlist = [];
+	try {
+		
+		if (_.isEqual("S", data.resultStatus)) {
+
+        	data.cv_1.forEach((item, index) => {
+				const msg = {
+					SUB_CODE				: gfnma_nvl(item.SUB_CODE),			
+					CODE_NAME				: gfnma_nvl(item.CODE_NAME),			
+					SYSTEM_YN				: gfnma_nvl(item.SYSTEM_YN),			
+					DESCR					: gfnma_nvl(item.DESCR),			
+					EXTRA_FIELD1			: gfnma_nvl(item.EXTRA_FIELD1),			
+					EXTRA_FIELD2			: gfnma_nvl(item.EXTRA_FIELD2),			
+					EXTRA_FIELD3			: gfnma_nvl(item.EXTRA_FIELD3),			
+					EXTRA_FIELD4			: gfnma_nvl(item.EXTRA_FIELD4),			
+					EXTRA_FIELD5			: gfnma_nvl(item.EXTRA_FIELD5),			
+					EXTRA_FIELD6			: gfnma_nvl(item.EXTRA_FIELD6),			
+					EXTRA_FIELD7			: gfnma_nvl(item.EXTRA_FIELD7),			
+					EXTRA_FIELD8			: gfnma_nvl(item.EXTRA_FIELD8),			
+					EXTRA_FIELD9			: gfnma_nvl(item.EXTRA_FIELD9),			
+					EXTRA_FIELD10			: gfnma_nvl(item.EXTRA_FIELD10),			
+					SORT_SEQ				: gfnma_nvl(item.SORT_SEQ),			
+					USE_YN					: gfnma_nvl(item.USE_YN),			
+					GROUP_CODE				: gfnma_nvl(item.GROUP_CODE),			
+					CLIENT_CODE				: gfnma_nvl(item.CLIENT_CODE),			
+					COMP_CODE				: gfnma_nvl(item.COMP_CODE),			
+				}
+				rlist.push(msg);
+			});
+			callbackFn(rlist);
+    	} else {
+      		alert(data.resultMessage);
+    	}
+		
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
+	}
+}

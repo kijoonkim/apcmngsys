@@ -1954,6 +1954,10 @@
 
     const fn_init = async function () {
 
+        let openDate = gfn_dateToYear(new Date());
+
+        SBUxMethod.set('srch-ye_tx_yyyy', openDate);
+
         fn_createGrid();
 
     }
@@ -1970,6 +1974,17 @@
 
             if (gfn_comConfirm("Q0001", "신규 등록")) {
                 fn_save('N');
+
+
+                let gridData = gvwDeductionGrid.getUpdateData(true, 'all');
+
+                if (_.isEmpty(gridData) == false){
+
+                    fn_saveS1(gridData);
+
+                }
+
+
             }
 
         }else if (_.isEqual(editType, 'E')){
@@ -1977,8 +1992,15 @@
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
                 fn_save('U');
-            }
 
+                let gridData = gvwDeductionGrid.getUpdateData(true, 'all');
+
+                if (_.isEmpty(gridData) == false){
+
+                    fn_saveS1(gridData);
+
+                }
+            }
         }
 
     }
@@ -2055,6 +2077,11 @@
     const fn_search = async function () {
 
         let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy")); //정산년도
+
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산년도");
+            return;
+        }
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -2309,10 +2336,90 @@
         }
     }
 
+    //근로소득 공제 리스트 저장
+    const fn_saveS1 = async function (updatedData) {
+
+        let listData = [];
+        listData =  await getParamForm(updatedData);
+
+        if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1100S1.do", {listData: listData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    }/*else{
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search();
+                    }*/
+
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const getParamForm = async function (updatedData) {
+
+        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));
+
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+
+            const param = {
+
+                cv_count: '0',
+                getType: 'json',
+                workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN: ''
+                    , V_P_LANG_ID: ''
+                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                    ,V_P_YE_TX_YYYY             : YE_TX_YYYY
+                    ,V_P_INC_FROM_AMT           : item.data.INC_FROM_AMT
+                    ,V_P_INC_TO_AMT             : item.data.INC_TO_AMT
+                    ,V_P_BASE_DEAMT             : item.data.BASE_DEAMT
+                    ,V_P_DEDUCTION_LIMIT_EAMT   : item.data.DEDUCTION_LIMIT_EAMT
+                    ,V_P_DER                    : item.data.DER
+                    ,V_P_MEMO                   : item.data.MEMO
+
+                    , V_P_FORM_ID: p_formId
+                    , V_P_MENU_ID: p_menuId
+                    , V_P_PROC_ID: ''
+                    , V_P_USERID: ''
+                    , V_P_PC: ''
+
+                })
+            }
+
+            returnData.push(param);
+
+        });
+
+        return returnData;
+    }
+
     //저장
     const fn_save = async function (type) {
 
         let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산년도");
+            return;
+        }
+
         let PERSONAL_DED_LIM = gfnma_nvl(SBUxMethod.get("PERSONAL_DED_LIM"));
         let WIFE_DED_LIM = gfnma_nvl(SBUxMethod.get("WIFE_DED_LIM"));
         let SUPPORT_DED_LIM = gfnma_nvl(SBUxMethod.get("SUPPORT_DED_LIM"));
@@ -2663,6 +2770,13 @@
         } else {
             gvwDeductionGrid.deleteRow(rowVal);
         }
+
+    }
+
+    //전년도 자료복사 버튼 클릭
+    const fn_btnCopy = async function () {
+
+        fn_save('COPY')
 
     }
 
