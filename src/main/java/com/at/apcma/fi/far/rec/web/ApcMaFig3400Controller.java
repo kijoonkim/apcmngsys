@@ -1,4 +1,4 @@
-package com.at.apcma.fi.far.rec;
+package com.at.apcma.fi.far.rec.web;
 
 import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;

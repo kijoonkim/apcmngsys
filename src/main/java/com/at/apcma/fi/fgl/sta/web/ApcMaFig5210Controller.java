@@ -1,4 +1,4 @@
-package com.at.apcma.fi.fgl.sta;
+package com.at.apcma.fi.fgl.sta.web;
 
 import java.util.HashMap;
 import java.util.Map;
