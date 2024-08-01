@@ -1004,13 +1004,14 @@
     }
 
     const fn_gvwListDblclick = async function () {
-        if (gvwList.FocusedRowHandle < 0)
+        // TODO FIG2210_99 개발 완료시 적용 필요
+        /*if (gvwList.FocusedRowHandle < 0)
             return;
 
         String[] sArrClickedCol = { "doc_name" };
         String[] sArrKeyCol = { "doc_id" };
 
-        fnGridDocDoubleClicked(sender, e, sArrClickedCol, sArrKeyCol);
+        fnGridDocDoubleClicked(sender, e, sArrClickedCol, sArrKeyCol);*/
     }
 
     const fn_gvwListValueChanged = async function () {
@@ -1024,34 +1025,31 @@
             return;
 
         if (nCol == gvwList.getColRef("PAY_TERM_CODE")) {
-            Hashtable ht = new Hashtable();
+            var ht = [];
             if (gvwList.getCellData(nRow, gvwList.getColRef("BASIS_TYPE")) != "5") {
-                ht = fn_getExpectedPayDate(gvwList.GetValue("pay_term_code").ToString(), gvwList.GetValue("doc_date").ToString());
+                ht = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE"))));
             }
 
-            if (ht.Count > 0) {
-                if (ht.hasOwnProperty("EXPECTED_PAY_DATE")) {
-                    if (!ht["EXPECTED_PAY_DATE"].ToString().Equals("X"))
-                    {
+            if (ht.length > 0) {
+                if (ht[0].hasOwnProperty("EXPECTED_PAY_DATE")) {
+                    if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "X") {
                         bEditEventEnabled = false;
 
-                        gvwList.SetValue("expected_pay_date", ht.ContainsKey("EXPECTED_PAY_DATE") ? !ht["EXPECTED_PAY_DATE"].ToString().Equals("") ? ht["EXPECTED_PAY_DATE"].ToString() : "" : "");
-                        gvwList.SetValue("pay_base_date", ht.ContainsKey("PAY_BASE_DATE") ? !ht["PAY_BASE_DATE"].ToString().Equals("") ? ht["PAY_BASE_DATE"].ToString() : "" : "");
-                        gvwList.SetValue("bill_due_day", ht.ContainsKey("BILL_DUE_DAY") ? !ht["BILL_DUE_DAY"].ToString().Equals("") ? ht["BILL_DUE_DAY"].ToString() : "" : "");
-                        gvwList.SetValue("bill_due_date", ht.ContainsKey("BILL_DUE_DATE") ? !ht["BILL_DUE_DATE"].ToString().Equals("") ? ht["BILL_DUE_DATE"].ToString() : "" : "");
-                        gvwList.SetValue("bill_due_pay_date", ht.ContainsKey("BILL_DUE_PAY_DATE") ? !ht["BILL_DUE_PAY_DATE"].ToString().Equals("") ? ht["BILL_DUE_PAY_DATE"].ToString() : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), ht[0].hasOwnProperty("EXPECTED_PAY_DATE") ? gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "" ? ht[0]["EXPECTED_PAY_DATE"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"), ht[0].hasOwnProperty("PAY_BASE_DATE") ? gfn_nvl(ht[0]["PAY_BASE_DATE"]) != "" ? ht[0]["PAY_BASE_DATE"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), ht[0].hasOwnProperty("BILL_DUE_DAY") ? gfn_nvl(ht[0]["BILL_DUE_DAY"]) != "" ? ht[0]["BILL_DUE_DAY"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), ht[0].hasOwnProperty("BILL_DUE_DATE") ? gfn_nvl(ht[0]["BILL_DUE_DATE"]) != "" ? ht[0]["BILL_DUE_DATE"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), ht[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? gfn_nvl(ht[0]["BILL_DUE_PAY_DATE"]) != "" ? ht[0]["BILL_DUE_PAY_DATE"] : "" : "");
 
                         bEditEventEnabled = true;
-                    }
-                    else if (ht["EXPECTED_PAY_DATE"].ToString().Equals("X"))
-                    {
+                    } else if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) == "X") {
                         bEditEventEnabled = false;
 
-                        gvwList.SetValue("expected_pay_date", gvwList.GetValue("doc_date"));
-                        gvwList.SetValue("pay_base_date", gvwList.GetValue("doc_date"));
-                        gvwList.SetValue("bill_due_day", "");
-                        gvwList.SetValue("bill_due_date", "");
-                        gvwList.SetValue("bill_due_pay_date", "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE")));
+                        gvwList.setCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE")));
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), "");
 
                         bEditEventEnabled = true;
                     }
@@ -1059,31 +1057,22 @@
             }
         }
 
-        if (nCol == gvwList.getColRef("EXPECTED_PAY_DATE"))
-        {
-            Hashtable ht = new Hashtable();
-            Hashtable ht2 = new Hashtable();
-            if(gvwList.GetValue("basis_type").ToString() != "5") {
-                ht = fnGetHtExpectedPayDate(gvwList.GetValue("pay_term_code").ToString(), gvwList.GetValue("doc_date").ToString());
-                ht2 = fnGetHtExpectedPayDate(gvwList.GetValue("pay_term_code").ToString(), gvwList.GetValue("expected_pay_date").ToString());
+        if (nCol == gvwList.getColRef("EXPECTED_PAY_DATE")) {
+            var ht = [];
+            var ht2 = [];
+            if(gvwList.getCellData(nRow, gvwList.getColRef("BASIS_TYPE")) != "5") {
+                ht = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE"))));
+                ht2 = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"))));
 
-
-                if (ht.Count > 0)
-                {
-                    if (ht.ContainsKey("EXPECTED_PAY_DATE"))
-                    {
-                        if (ht["EXPECTED_PAY_DATE"].ToString().Equals("X"))
-                        {
+                if (ht.length > 0) {
+                    if (ht[0].hasOwnProperty("EXPECTED_PAY_DATE")) {
+                        if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) == "X") {
                             bEditEventEnabled = false;
 
-                            //    gvwList.SetValue("expected_pay_date", gvwList.GetValue("doc_date"));
-                            gvwList.SetValue("pay_base_date", gvwList.GetValue("expected_pay_date"));
-                            // gvwList.SetValue("bill_due_day", "");
-                            // gvwList.SetValue("bill_due_date", "");
-                            // gvwList.SetValue("bill_due_pay_date", "");
-                            gvwList.SetValue("bill_due_day", ht2.ContainsKey("BILL_DUE_DAY") ? !ht2["BILL_DUE_DAY"].ToString().Equals("") ? ht2["BILL_DUE_DAY"].ToString() : "" : "");
-                            gvwList.SetValue("bill_due_date", ht2.ContainsKey("BILL_DUE_DATE") ? !ht2["BILL_DUE_DATE"].ToString().Equals("") ? ht2["BILL_DUE_DATE"].ToString() : "" : "");
-                            gvwList.SetValue("bill_due_pay_date", ht2.ContainsKey("BILL_DUE_PAY_DATE") ? !ht2["BILL_DUE_PAY_DATE"].ToString().Equals("") ? ht2["BILL_DUE_PAY_DATE"].ToString() : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE")));
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), ht2[0].hasOwnProperty("BILL_DUE_DAY") ? gfn_nvl(ht2[0]["BILL_DUE_DAY"]) != "" ? ht2[0]["BILL_DUE_DAY"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), ht2[0].hasOwnProperty("BILL_DUE_DATE") ? gfn_nvl(ht2[0]["BILL_DUE_DATE"]) != "" ? ht2[0]["BILL_DUE_DATE"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), ht2[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? gfn_nvl(ht2[0]["BILL_DUE_PAY_DATE"]) != "" ? ht2[0]["BILL_DUE_PAY_DATE"] : "" : "");
 
                             bEditEventEnabled = true;
                         }
@@ -1092,31 +1081,24 @@
             }
         }
 
-        if (nCol == gvwList.getColRef("PAY_BASE_DATE"))
-        {
-            Hashtable ht = new Hashtable();
+        if (nCol == gvwList.getColRef("PAY_BASE_DATE")) {
+            var ht = [];
 
-            if (gvwList.GetValue("basis_type").ToString() != "5")
-            {
-                ht = fnGetHtExpectedPayDate(gvwList.GetValue("pay_term_code").ToString(), gvwList.GetValue("pay_base_date").ToString(), "PAY_BASE_DATE");
+            if (gvwList.getCellData(nRow, gvwList.getColRef("BASIS_TYPE")) != "5") {
+                ht = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"))), "PAY_BASE_DATE");
 
-                if (ht.Count > 0)
-                {
-                    if (ht.ContainsKey("EXPECTED_PAY_DATE"))
-                    {
-                        if (!ht["EXPECTED_PAY_DATE"].ToString().Equals("X"))
-                        {
-                            gvwList.SetValue("expected_pay_date", ht.ContainsKey("EXPECTED_PAY_DATE") ? !ht["EXPECTED_PAY_DATE"].ToString().Equals("") ? ht["EXPECTED_PAY_DATE"].ToString() : "" : "");
-                            gvwList.SetValue("bill_due_day", ht.ContainsKey("BILL_DUE_DAY") ? !ht["BILL_DUE_DAY"].ToString().Equals("") ? ht["BILL_DUE_DAY"].ToString() : "" : "");
-                            gvwList.SetValue("bill_due_date", ht.ContainsKey("BILL_DUE_DATE") ? !ht["BILL_DUE_DATE"].ToString().Equals("") ? ht["BILL_DUE_DATE"].ToString() : "" : "");
-                            gvwList.SetValue("bill_due_pay_date", ht.ContainsKey("BILL_DUE_PAY_DATE") ? !ht["BILL_DUE_PAY_DATE"].ToString().Equals("") ? ht["BILL_DUE_PAY_DATE"].ToString() : "" : "");
-                        }
-                        else if (ht["EXPECTED_PAY_DATE"].ToString().Equals("X"))
-                        {
-                            gvwList.SetValue("expected_pay_date", gvwList.GetValue("pay_base_date"));
-                            gvwList.SetValue("bill_due_day", "");
-                            gvwList.SetValue("bill_due_date", "");
-                            gvwList.SetValue("bill_due_pay_date", "");
+                if (ht.length > 0) {
+                    if (ht[0].hasOwnProperty("EXPECTED_PAY_DATE")) {
+                        if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "X") {
+                            gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), ht[0].hasOwnProperty("EXPECTED_PAY_DATE") ? gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "" ? ht[0]["EXPECTED_PAY_DATE"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), ht[0].hasOwnProperty("BILL_DUE_DAY") ? gfn_nvl(ht[0]["BILL_DUE_DAY"]) != "" ? ht[0]["BILL_DUE_DAY"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), ht[0].hasOwnProperty("BILL_DUE_DATE") ? gfn_nvl(ht[0]["BILL_DUE_DATE"]) != "" ? ht[0]["BILL_DUE_DATE"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), ht[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? gfn_nvl(ht[0]["BILL_DUE_PAY_DATE"]) != "" ? ht[0]["BILL_DUE_PAY_DATE"] : "" : "");
+                        } else if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) == "X") {
+                            gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("PAY_BASE_DATE")));
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), "");
                         }
                     }
                 }
@@ -1126,7 +1108,7 @@
         SaveButton = true;
     }
 
-    const fn_getExpectedPayDate = async function (strpay_term_code, strtxn_date) {
+    const fn_getExpectedPayDate = async function (strpay_term_code, strtxn_date, strdate_type) {
         var retrunData = [];
 
         var paramObj = {
@@ -1137,7 +1119,7 @@
             V_P_PAY_TERM_CODE : strpay_term_code,
             V_P_TXN_DATE : strtxn_date,
             V_P_OUTPUT_TYPE : '',
-            V_P_BASE_CALC_TYPE : '',
+            V_P_BASE_CALC_TYPE : gfn_nvl(strdate_type) == "" ? '' : strdate_type,
             V_P_FORM_ID: p_formId,
             V_P_MENU_ID: p_menuId,
             V_P_PROC_ID: '',
