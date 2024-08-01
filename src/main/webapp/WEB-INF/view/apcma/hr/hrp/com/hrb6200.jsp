@@ -477,17 +477,15 @@
     const fn_addRow = function () {
         let rowVal = grdDetail.getRow();
 
-        console.log('rowValrowValrowValrowValrowValrowValrowValrowValrowValrowValrowVal       :', rowVal);
-
         if (rowVal == -1) { //데이터가 없고 행선택이 없을경우.
 
             /*grdDetail.addRow();*/
-            grdDetail.addRow(true, ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']);
+            grdDetail.addRow(true/*, ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']*/);
 
 
         } else {
 
-            grdDetail.insertRow(rowVal, 'above', ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']);
+            grdDetail.insertRow(rowVal/*, 'above', ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']*/);
             /* grdDetail.insertRow(rowVal);*/
         }
     }
@@ -556,11 +554,11 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            grdItemList.addRow(true, ['0','0','0','0','0','','']);
+            grdItemList.addRow(true/*, ['0','0','0','0','0','','']*/);
 
         }else{
 
-            grdItemList.insertRow(rowVal, 'above',['0','0','0','0','0','','']);
+            grdItemList.insertRow(rowVal/*, 'above',['0','0','0','0','0','','']*/);
         }
     }
 
@@ -652,7 +650,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -696,15 +694,12 @@
 
         let nRow = gvwMasterGrid.getRow();
 
-        console.log('-----------nRow------------',nRow);
 
         if (nRow < 1) {
             nRow = 1;
         }
 
         let rowData = gvwMasterGrid.getRowData(nRow);
-
-        console.log('-----------rowData------------',rowData);
 
         if (!_.isEmpty(rowData)) {
 
@@ -738,7 +733,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -1119,7 +1114,6 @@
             });
         }
 
-        console.log("---------returnData2--------- : ", returnData);
         return returnData;
     }
 
