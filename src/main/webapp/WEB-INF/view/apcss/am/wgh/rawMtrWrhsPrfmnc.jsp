@@ -1048,14 +1048,15 @@ async function cfn_search() {
 		})
 	})
 
+	/** main 레이아웃을 통해서 전달하고자 하는 탭에 선택한 row 정보를 전달함. **/
 	let cfn_reqTab = function(){
 		let idx = grdRawMtrWrhs.getRow();
 		let data = grdRawMtrWrhs.getRowData(idx);
-
+		/** 전달하고자하는 TAB의 아이디를 객체 필드에 담아서 전달 **/
 		data.target = 'AM_001_002'
 		let json = JSON.stringify(data);
-
-		window.parent.postMessage(json);
+		/** main에 선언되어있는 fn **/
+		window.parent.cfn_openTabSearch(json);
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
