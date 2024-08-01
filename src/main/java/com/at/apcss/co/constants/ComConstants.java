@@ -69,6 +69,7 @@ public class ComConstants {
 	public final static String PROP_RESULT_MESSAGE = "resultMessage";
 	public final static String PROP_RESULT_MAP = "resultMap";
 	public final static String PROP_RESULT_LIST = "resultList";
+	public final static String PROP_RESULT_JSON = "resultJson";
 
 	public final static String PROP_INSERTED_CNT = "insertedCnt";
 	public final static String PROP_UPDATED_CNT = "updatedCnt";
