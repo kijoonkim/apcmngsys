@@ -93,66 +93,6 @@ public class ApcMaFig3400Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/fi/far/rec/selectFig3400ListForAccount.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFig3400ListForAccount(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============selectFig3400ListForAccount=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            param.put("procedure", 		"P_FIG2210_ITEM_Q");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============selectFig3400ListForAccount=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
-    }
-
-    @PostMapping(value = "/fi/far/rec/selectFig3400ListForApprove.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFig3400ListForApprove(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============selectFig3400ListForApprove=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            param.put("procedure", 		"P_FIM3420_Q");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============selectFig3400ListForApprove=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
-    }
-
     @PostMapping(value = "/fi/far/rec/insertFig3400ForGetVoucherNo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertFig3400ForGetVoucherNo(
             @RequestBody Map<String, Object> param
@@ -194,6 +134,7 @@ public class ApcMaFig3400Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
+            // TODO 해당 프로시저 개발 완료시 전환 필요
             param.put("procedure", 		"P_FIG3500_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {

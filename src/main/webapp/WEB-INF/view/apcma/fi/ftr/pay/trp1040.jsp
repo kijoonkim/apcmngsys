@@ -838,6 +838,9 @@
         ];
 
         gvwList = _SBGrid.create(SBGridProperties);
+        gvwList.bind('valuechanged','fn_gvwListValueChanged');
+        gvwList.bind('click', 'fn_view');
+        gvwList.bind('dblclick', 'fn_gvwListDblclick');
     }
 
     function fn_createGvwDetailGrid() {
@@ -927,6 +930,238 @@
 
         _SBGrid.destroy('gvwList');
         fn_createGvwListGrid();
+    }
+
+    const fn_view = async function () {
+        var nRow = gvwList.getRow();
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_APPR_ID : gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("APPR_ID"))) == "" ? 0 : parseInt(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("APPR_ID")))),
+            V_P_SOURCE_NO : gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID"))),
+            V_P_SOURCE_TYPE : gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_TYPE"))),
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/tri/selectFim3420List.do", {
+            getType				: 'json',
+            workType			: 'LIST',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                jsonApprovalList.length = 0;
+
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        APPR_ID : item.APPR_ID,
+                        STEP_SEQ : item.STEP_SEQ,
+                        APPR_TYPE : item.APPR_TYPE,
+                        APPR_CATEGORY : item.APPR_CATEGORY,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        DUTY_CODE : item.DUTY_CODE,
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_NAME : item.EMP_NAME,
+                        APPR_STATUS : item.APPR_STATUS,
+                        APPR_DATE : item.APPR_DATE,
+                        APPR_OPINION : item.APPR_OPINION,
+                        UPDATE_USERID : item.UPDATE_USERID,
+                        UPDATE_EMP_NAME : item.UPDATE_EMP_NAME,
+                        UPDATE_TIME : item.UPDATE_TIME,
+                        UPDATE_PC : item.UPDATE_PC,
+                        DESCRIPTION : item.DESCRIPTION,
+                        PROXY_EMP_CODE : item.PROXY_EMP_CODE,
+                        PROXY_EMP_NAME : item.PROXY_EMP_NAME,
+                    }
+
+                    jsonApprovalList.push(msg);
+                });
+
+                gvwDetail.rebuild();
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_gvwListDblclick = async function () {
+        // TODO FIG2210_99 개발 완료시 적용 필요
+        /*if (gvwList.FocusedRowHandle < 0)
+            return;
+
+        String[] sArrClickedCol = { "doc_name" };
+        String[] sArrKeyCol = { "doc_id" };
+
+        fnGridDocDoubleClicked(sender, e, sArrClickedCol, sArrKeyCol);*/
+    }
+
+    const fn_gvwListValueChanged = async function () {
+        var nRow = gvwList.getRow();
+        var nCol = gvwList.getCol();
+
+        if (nRow < 0)
+            return;
+
+        if (!bEditEventEnabled)
+            return;
+
+        if (nCol == gvwList.getColRef("PAY_TERM_CODE")) {
+            var ht = [];
+            if (gvwList.getCellData(nRow, gvwList.getColRef("BASIS_TYPE")) != "5") {
+                ht = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE"))));
+            }
+
+            if (ht.length > 0) {
+                if (ht[0].hasOwnProperty("EXPECTED_PAY_DATE")) {
+                    if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "X") {
+                        bEditEventEnabled = false;
+
+                        gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), ht[0].hasOwnProperty("EXPECTED_PAY_DATE") ? gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "" ? ht[0]["EXPECTED_PAY_DATE"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"), ht[0].hasOwnProperty("PAY_BASE_DATE") ? gfn_nvl(ht[0]["PAY_BASE_DATE"]) != "" ? ht[0]["PAY_BASE_DATE"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), ht[0].hasOwnProperty("BILL_DUE_DAY") ? gfn_nvl(ht[0]["BILL_DUE_DAY"]) != "" ? ht[0]["BILL_DUE_DAY"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), ht[0].hasOwnProperty("BILL_DUE_DATE") ? gfn_nvl(ht[0]["BILL_DUE_DATE"]) != "" ? ht[0]["BILL_DUE_DATE"] : "" : "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), ht[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? gfn_nvl(ht[0]["BILL_DUE_PAY_DATE"]) != "" ? ht[0]["BILL_DUE_PAY_DATE"] : "" : "");
+
+                        bEditEventEnabled = true;
+                    } else if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) == "X") {
+                        bEditEventEnabled = false;
+
+                        gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE")));
+                        gvwList.setCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE")));
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), "");
+                        gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), "");
+
+                        bEditEventEnabled = true;
+                    }
+                }
+            }
+        }
+
+        if (nCol == gvwList.getColRef("EXPECTED_PAY_DATE")) {
+            var ht = [];
+            var ht2 = [];
+            if(gvwList.getCellData(nRow, gvwList.getColRef("BASIS_TYPE")) != "5") {
+                ht = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("DOC_DATE"))));
+                ht2 = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"))));
+
+                if (ht.length > 0) {
+                    if (ht[0].hasOwnProperty("EXPECTED_PAY_DATE")) {
+                        if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) == "X") {
+                            bEditEventEnabled = false;
+
+                            gvwList.setCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE")));
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), ht2[0].hasOwnProperty("BILL_DUE_DAY") ? gfn_nvl(ht2[0]["BILL_DUE_DAY"]) != "" ? ht2[0]["BILL_DUE_DAY"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), ht2[0].hasOwnProperty("BILL_DUE_DATE") ? gfn_nvl(ht2[0]["BILL_DUE_DATE"]) != "" ? ht2[0]["BILL_DUE_DATE"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), ht2[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? gfn_nvl(ht2[0]["BILL_DUE_PAY_DATE"]) != "" ? ht2[0]["BILL_DUE_PAY_DATE"] : "" : "");
+
+                            bEditEventEnabled = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (nCol == gvwList.getColRef("PAY_BASE_DATE")) {
+            var ht = [];
+
+            if (gvwList.getCellData(nRow, gvwList.getColRef("BASIS_TYPE")) != "5") {
+                ht = fn_getExpectedPayDate(gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_TERM_CODE"))), gfn_nvl(gvwList.getCellData(nRow, gvwList.getColRef("PAY_BASE_DATE"))), "PAY_BASE_DATE");
+
+                if (ht.length > 0) {
+                    if (ht[0].hasOwnProperty("EXPECTED_PAY_DATE")) {
+                        if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "X") {
+                            gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), ht[0].hasOwnProperty("EXPECTED_PAY_DATE") ? gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) != "" ? ht[0]["EXPECTED_PAY_DATE"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), ht[0].hasOwnProperty("BILL_DUE_DAY") ? gfn_nvl(ht[0]["BILL_DUE_DAY"]) != "" ? ht[0]["BILL_DUE_DAY"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), ht[0].hasOwnProperty("BILL_DUE_DATE") ? gfn_nvl(ht[0]["BILL_DUE_DATE"]) != "" ? ht[0]["BILL_DUE_DATE"] : "" : "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), ht[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? gfn_nvl(ht[0]["BILL_DUE_PAY_DATE"]) != "" ? ht[0]["BILL_DUE_PAY_DATE"] : "" : "");
+                        } else if (gfn_nvl(ht[0]["EXPECTED_PAY_DATE"]) == "X") {
+                            gvwList.setCellData(nRow, gvwList.getColRef("EXPECTED_PAY_DATE"), gvwList.getCellData(nRow, gvwList.getColRef("PAY_BASE_DATE")));
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DAY"), "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_DATE"), "");
+                            gvwList.setCellData(nRow, gvwList.getColRef("BILL_DUE_PAY_DATE"), "");
+                        }
+                    }
+                }
+            }
+        }
+
+        SaveButton = true;
+    }
+
+    const fn_getExpectedPayDate = async function (strpay_term_code, strtxn_date, strdate_type) {
+        var retrunData = [];
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: '',
+            V_P_LANG_ID: '',
+            V_P_COMP_CODE: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+            V_P_PAY_TERM_CODE : strpay_term_code,
+            V_P_TXN_DATE : strtxn_date,
+            V_P_OUTPUT_TYPE : '',
+            V_P_BASE_CALC_TYPE : gfn_nvl(strdate_type) == "" ? '' : strdate_type,
+            V_P_FORM_ID: p_formId,
+            V_P_MENU_ID: p_menuId,
+            V_P_PROC_ID: '',
+            V_P_USERID: '',
+            V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/far/rec/getExpectedPayDate.do", {
+            getType: 'json',
+            workType: 'Q2',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                data.cv_1.forEach((item, index) => {
+                    var msg = {
+                        EXPECTED_PAY_DATE : item.EXPECTED_PAY_DATE,
+                        PAY_BASE_DATE : item.PAY_BASE_DATE,
+                        BILL_DUE_DAY : item.BILL_DUE_DAY,
+                        BILL_DUE_DATE : item.BILL_DUE_DATE,
+                        BILL_DUE_PAY_DATE : item.BILL_DUE_PAY_DATE
+                    }
+
+                    retrunData.push(msg);
+                });
+
+                return retrunData;
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
     const fn_multiMSelect = function() {
