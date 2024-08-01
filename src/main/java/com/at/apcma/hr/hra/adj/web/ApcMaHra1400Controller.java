@@ -69,19 +69,19 @@ public class ApcMaHra1400Controller extends BaseController {
 
 
     // 정산자료(개인) 저장
-    @PostMapping(value = "/hr/hra/adj/insertHra1400.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHra1400(
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S1(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception {
 
-        logger.info("=============insertHra1400=====start========");
+        logger.info("=============insertHra1400S1=====start========");
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            param.put("procedure", "P_HRA1400_S");
+            param.put("procedure", "P_HRA1400_2023_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -89,31 +89,215 @@ public class ApcMaHra1400Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============insertHra1400=====end========");
+        logger.info("=============insertHra1400S1=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
     }
 
-    // 정산자료(개인) (  )
-    @PostMapping(value = "/hr/hra/adj/insertHra1400S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHra1400S1(
+    // 정산자료(개인) ( 인적공제 및 소득공제 명세 리스트 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHra1400S1=====start========");
+        logger.info("=============insertHra1400S=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_2023_S");
 
-            logger.info("=============insertHra1400S1=====end========");
+            logger.info("=============insertHra1400S=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
+    }
+
+    // 정산자료(개인) ( 인적공제 및 소득공제 명세 리스트 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S2(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra1400S2=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_2023_S2");
+
+            logger.info("=============insertHra1400S2=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    // 정산자료(개인) ( 월세액 등 소득공제명세 리스트 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S3.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S3(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra1400S3=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_2023_S3");
+
+            logger.info("=============insertHra1400S3=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    // 정산자료(개인) ( 의료비 지급명세서 리스트 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S4.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S4(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra1400S4=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_2023_S4");
+
+            logger.info("=============insertHra1400S4=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    // 정산자료(개인) ( 기부금 리스트 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S5.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S5(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra1400S5=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_2023_S5");
+
+            logger.info("=============insertHra1400S5=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    // 정산자료(개인) ( 전년도이월 기부금 관리 리스트 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S6.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S6(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra1400S6=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_2023_S6");
+
+            logger.info("=============insertHra1400S6=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    // 정산자료(개인) ( 보험료 리스트 )
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S7.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S7(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra1400S7=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1400_2023_S7");
+
+            logger.info("=============insertHra1400S7=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    //   정산자료등록(개인) 상태변경
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S8.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S8(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception {
+
+        logger.info("=============insertHra1400S8=====start========");
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+
+            param.put("procedure", "P_HRA1400_2023_S8");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHra1400S8=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+    //   정산자료등록(개인) 인사정보일괄적용
+    @PostMapping(value = "/hr/hra/adj/insertHra1400S1IM.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1400S1IM(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception {
+
+        logger.info("=============insertHra1400S1IM=====start========");
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+
+            param.put("procedure", "P_HRA1400_2023_S1_IMPORT");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHra1400S1IM=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
     }
 
 }
