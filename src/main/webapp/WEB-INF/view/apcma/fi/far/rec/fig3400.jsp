@@ -710,6 +710,7 @@
         ];
 
         gvwMaster = _SBGrid.create(SBGridProperties);
+        gvwMaster.bind('dblclick', 'fn_gvwMasterDblclick');
         gvwMaster.bind('click', 'fn_view');
     }
 
@@ -1572,13 +1573,45 @@
 
     const fn_view = async function () {
         var nRow = gvwMaster.getRow();
+        var nCol = gvwMaster.getCol();
         var rowData = gvwMaster.getRowData(nRow);
 
+        if(nCol == gvwMaster.getColRef("DOC_NAME")) return false;
         if(gfn_nvl(rowData) == "") return;
 
         fn_searchApplyTab(rowData)
         fn_searchAccountTab(rowData)
         fn_searchApproveTab(rowData)
+    }
+
+    const fn_gvwMasterDblclick = async function () {
+        var nRow = gvwMaster.getRow();
+        var nCol = gvwMaster.getCol();
+        var rowData = gvwMaster.getRowData(nRow);
+
+        if(gfn_nvl(rowData) == "") return;
+
+        if (nCol == gvwMaster.getColRef("DOC_NAME")) {
+            if (gvwMaster.getCellData(nRow, gvwMaster.getColRef("DOC_BATCH_NO")) != "") {
+                var ht = {};
+                ht["DOC_BATCH_NO"] = gfn_nvl(gvwMaster.getCellData(nRow, gvwMaster.getColRef("DOC_BATCH_NO")));
+                ht["SOURCE_TYPE"] = "AR";
+                ht["DOC_NUM"] = parseInt(gfn_nvl(gvwMaster.getCellData(nRow, gvwMaster.getColRef("DOC_NUM"))));
+                ht["COMP_CODE"] = gv_ma_selectedApcCd;
+                ht["FI_ORG_CODE"] = gfn_nvl(gvwMaster.getCellData(nRow, gvwMaster.getColRef("FI_ORG_CODE")));
+                ht["TXN_FROM_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM"));
+                ht["TXN_TO_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO"));
+                ht["ASAVE"] = "Y";
+                ht["APRINT"] = "Y";
+                ht["VOUCHER_TYPE"] = gfn_nvl(gvwMaster.getCellData(nRow, gvwMaster.getColRef("VOUCHER_TYPE")));
+                ht["VOUCHER_NO"] = gfn_nvl(gvwMaster.getCellData(nRow, gvwMaster.getColRef("VOUCHER_NO")));
+
+                ht["target"] = 'MA_A20_010_010_030';
+                let json = JSON.stringify(ht);
+
+                window.parent.cfn_openTabSearch(json);
+            }
+        }
     }
 
     const fn_findPayerName = function() {
@@ -1756,14 +1789,14 @@
         SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
     }
 
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGvwMasterGrid();
         fn_createGvwInfoGrid();
         fn_createGvwAccountGrid();
         fn_createGvwPaymentGrid();
         fn_createGvwApproveGrid();
-        fn_search();
+        await fn_search();
     });
 
     // 신규
@@ -1777,7 +1810,24 @@
     }
 
     const fn_create = async function () {
-        // TODO : 페이지 이동 공통 생성시 작업
+        var ht = {};
+
+        ht["DOC_BATCH_NO"] = "";
+        ht["SOURCE_TYPE"] = "AR";
+        ht["DOC_NUM"] = 0;
+        ht["COMP_CODE"] = gv_ma_selectedApcCd;
+        ht["FI_ORG_CODE"] = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+        ht["TXN_FROM_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM"));
+        ht["TXN_TO_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO"));
+        ht["ASAVE"] = "Y";
+        ht["APRINT"] = "Y";
+        ht["VOUCHER_TYPE"] = "";
+        ht["VOUCHER_NO"] = "";
+
+        ht["target"] = 'MA_A20_010_010_030';
+        let json = JSON.stringify(ht);
+
+        window.parent.postMessage(json);
     }
 
     const fn_search = async function () {

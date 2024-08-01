@@ -340,7 +340,7 @@
                             <tr>
                                 <th scope="row" class="th_bg">총지급액</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" onchange="fn_changeDocAmt(DOC_AMT)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">세금코드</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
@@ -399,11 +399,11 @@
                             <tr>
                                 <th scope="row" class="th_bg">부가세</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" onchange="fn_changeVatAmount(VAT_AMOUNT)" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeVatAmount(VAT_AMOUNT)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">공급가액</th>
                                 <td colspan="2" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" group-id="panWFTop"></sbux-input>
+                                    <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">계좌정보</th>
@@ -525,19 +525,19 @@
                             <tr>
                                 <th scope="row" class="th_bg">차변합계</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="DR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">대변합계</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="CR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="CR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">차이(통화)</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DIFF_ORIGIN" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="DIFF_ORIGIN" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">차이(전표)</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="DIFF_FUNTION" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                                    <sbux-input id="DIFF_FUNTION" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
                                 </td>
                             </tr>
                             </tbody>
@@ -3640,9 +3640,27 @@
     }
 
     window.addEventListener('DOMContentLoaded', async function (e) {
+        let initObject = localStorage.getItem("callMain");
         await fn_initSBSelect();
         await fn_createGvwWFItemGrid();
-        await fn_onload();
+
+        if(!gfn_isEmpty(initObject)){
+            initObject = JSON.parse(initObject);
+            localStorage.removeItem("callMain");
+
+            await fn_onload(initObject);
+        } else {
+            await fn_onload();
+        }
+    });
+
+    window.addEventListener('message', async function(event){
+        let obj = event.data;
+        if(!gfn_isEmpty(obj)){
+            await fn_onload(obj);
+        } else {
+            await fn_onload();
+        }
     });
 
     // 신규
@@ -3665,7 +3683,7 @@
         fn_search();
     }
 
-    const fn_onload = async function () {
+    const fn_onload = async function (parentParameter) {
         $("#btnClearMode").show();
         $("#btnLineCopyMode").hide();
         $("#btnCellCopyMode").hide();
@@ -3682,42 +3700,48 @@
         if (p_fiDeleteUser != null)
             strFI_DELETE_USER = p_fiDeleteUser;
 
-        // TODO : 추후 탭간 이동(파라미터포함) 기능 개발시 수정필요
-        let parentParameter = null
         if (parentParameter) {
-            if (parentParameter.has("DOC_BATCH_NO")) {
+            if (parentParameter.hasOwnProperty("DOC_BATCH_NO")) {
                 SBUxMethod.set("DOC_BATCH_NO", parentParameter["DOC_BATCH_NO"]);
             }
 
-            if (parentParameter.has("SOURCE_TYPE")) {
+            if (parentParameter.hasOwnProperty("SOURCE_TYPE")) {
                 strsourceType = parentParameter["SOURCE_TYPE"];
             }
 
             SBUxMethod.set("SRCH_INVOCE_BATCH_NO", strsourceType);
 
-            if (parentParameter.has("DOC_NUM")) {
+            if (parentParameter.hasOwnProperty("DOC_NUM")) {
                 SBUxMethod.set("DOC_NUM", parentParameter["DOC_NUM"]);
             }
 
-            if (parentParameter.has("TXN_FROM_DATE")) {
+            if (parentParameter.hasOwnProperty("TXN_FROM_DATE")) {
                 SBUxMethod.set("SRCH_FROM_DATE", parentParameter["TXN_FROM_DATE"]);
             }
-            if (parentParameter.has("TXN_TO_DATE")) {
+            if (parentParameter.hasOwnProperty("TXN_TO_DATE")) {
                 SBUxMethod.set("SRCH_TO_DATE", parentParameter["TXN_TO_DATE"]);
             }
 
-            if (parentParameter.has("FI_ORG_CODE")) {
+            if (parentParameter.hasOwnProperty("FI_ORG_CODE")) {
                 SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", parentParameter["FI_ORG_CODE"]);
             }
 
-            if (parentParameter.has("VOUCHER_TYPE")) {
+            if (parentParameter.hasOwnProperty("VOUCHER_TYPE")) {
                 SBUxMethod.set("VOUCHER_TYPE", parentParameter["VOUCHER_TYPE"]);
             }
 
             SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
 
-            if (parentParameter.has("VOUCHER_NO")) {
+            if (parentParameter.hasOwnProperty("VOUCHER_NO")) {
                 SBUxMethod.set("VOUCHER_NO", parentParameter["VOUCHER_NO"]);
+            }
+
+            if (parentParameter.hasOwnProperty("APRINT")) {
+                if (gfn_nvl(parentParameter["APRINT"]) != "Y") {
+                    bAllowPrint = false;
+                } else {
+                    bAllowPrint = true;
+                }
             }
 
             if (gfn_nvl(SBUxMethod.get("DOC_BATCH_NO")) != "") {
@@ -3790,13 +3814,6 @@
 
                 $("#SUB_TAX_SITE_CODE").attr("aria-required", "true");
                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
-            }
-            if (parentParameter.has("APRINT")) {
-                if (parentParameter["APRINT"].ToString() != "Y") {
-                    bAllowPrint = false;
-                } else {
-                    bAllowPrint = true;
-                }
             }
         } else {
             SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
@@ -4989,79 +5006,81 @@
 
                 var formData = listData.cv_1[0];
 
-                SBUxMethod.set('KEY_ID', formData.KEY_ID);
-                SBUxMethod.set('ACCT_RULE_CODE', formData.ACCT_RULE_CODE);
-                SBUxMethod.set('SRCH_DOC_H_FI_ORG_CODE', formData.FI_ORG_CODE);
-                SBUxMethod.set('SRCH_SITE_CODE', formData.SITE_CODE);
-                SBUxMethod.set('DEPT_CODE', formData.DEPT_CODE);
-                SBUxMethod.set('DEPT_NAME', formData.DEPT_NAME);
-                SBUxMethod.set('DOC_ID', formData.DOC_ID);
-                SBUxMethod.set('DOC_TYPE', formData.DOC_TYPE);
-                SBUxMethod.set('DOC_DATE', formData.DOC_DATE);
-                SBUxMethod.set('CS_CODE', formData.CS_CODE);
-                SBUxMethod.set('CS_NAME', formData.CS_NAME);
-                SBUxMethod.set('BIZ_REGNO', formData.BIZ_REGNO);
-                SBUxMethod.set('DOC_NAME', formData.DOC_NAME);
-                SBUxMethod.set('DOC_NUM', formData.DOC_NUM);
-                gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', gfn_nvl(formData.CURRENCY_CODE));
-                SBUxMethod.set('EXCHANGE_RATE', formData.EXCHANGE_RATE);
-                SBUxMethod.set('BASE_SCALE', formData.BASE_SCALE);
-                gfnma_multiSelectSet('#VAT_CODE', 'VAT_CODE', 'VAT_NAME', gfn_nvl(formData.VAT_CODE));
-                SBUxMethod.set('DOC_AMT', formData.DOC_AMT);
-                gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.PAY_METHOD));
-                SBUxMethod.set('PAY_TERM_CODE', formData.PAY_TERM_CODE);
-                SBUxMethod.set('PAY_TERM_NAME', formData.PAY_TERM_NAME);
-                SBUxMethod.set('VAT_AMOUNT', formData.VAT_AMOUNT);
-                SBUxMethod.set('STANDARD_DATE', formData.STANDARD_DATE);
-                SBUxMethod.set('SUPPLY_AMT', formData.SUPPLY_AMT);
-                SBUxMethod.set('DESCRIPTION', formData.DESCRIPTION);
-                SBUxMethod.set('PAY_BASE_DATE', formData.PAY_BASE_DATE);
-                SBUxMethod.set('EXPECTED_PAY_DATE', formData.EXPECTED_PAY_DATE);
-                SBUxMethod.set('BASIS_TYPE', formData.BASIS_TYPE);
-                SBUxMethod.set('DIFF_DAY', formData.DIFF_DAY);
-                SBUxMethod.set('BILL_DUE_DATE', formData.BILL_DUE_DATE);
-                SBUxMethod.set('BILL_DUE_DAY', formData.BILL_DUE_DAY);
-                SBUxMethod.set('BILL_DUE_PAY_DATE', formData.BILL_DUE_PAY_DATE);
-                SBUxMethod.set('VOUCHER_RECEIPT_DATE', formData.VOUCHER_RECEIPT_DATE);
-                SBUxMethod.set('VOUCHER_TYPE', formData.VOUCHER_TYPE);
-                SBUxMethod.set('VOUCHER_NO', formData.VOUCHER_NO);
-                gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', gfn_nvl(formData.PAYEE_CODE));
-                SBUxMethod.set('PAYEE_NAME', formData.PAYEE_NAME);
-                SBUxMethod.set('APPROVE_DATE', formData.APPROVE_DATE);
-                SBUxMethod.set('FINAL_APPROVER', formData.FINAL_APPROVER);
-                gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.DOC_STATUS));
-                SBUxMethod.set('ACCT_OPINION', formData.ACCT_OPINION);
-                SBUxMethod.set('TR_OPINION', formData.TR_OPINION);
-                SBUxMethod.set('POSTING_DATE', formData.POSTING_DATE);
-                SBUxMethod.set('POSTING_USER', formData.POSTING_USER);
-                SBUxMethod.set('UNPOSTING_DATE', formData.UNPOSTING_DATE);
-                SBUxMethod.set('UNPOSTING_USER', formData.UNPOSTING_USER);
-                SBUxMethod.set('REGISTER_YN', formData.REGISTER_YN);
-                SBUxMethod.set('APPR_COUNT', formData.APPR_COUNT);
-                SBUxMethod.set('APPR_ID', formData.APPR_ID);
-                SBUxMethod.set('INSERT_USERID', formData.INSERT_USERID);
-                SBUxMethod.set('CONFIRM_EMP_CODE', formData.CONFIRM_EMP_CODE);
-                SBUxMethod.set('PROXY_EMP_CODE', formData.PROXY_EMP_CODE);
-                SBUxMethod.set('TEMP_AREA', formData.TEMP_AREA);
-                gfnma_multiSelectSet('#BANK_ACCOUNT_SEQ', 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', gfn_nvl(formData.BANK_ACCOUNT_SEQ));
-                SBUxMethod.set('BANK_CODE', formData.BANK_CODE);
-                SBUxMethod.set('BANK_ACCOUNT_NO', formData.BANK_ACCOUNT_NO);
-                SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', formData.BANK_ACCOUNT_DESCRIPTION);
-                gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.TAX_SITE_CODE));
-                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.SUB_TAX_SITE_CODE));
-                SBUxMethod.set('APPLY_COMPLETE_FLAG', formData.APPLY_COMPLETE_FLAG);
-                SBUxMethod.set('REVERSE_FLAG', formData.REVERSE_FLAG);
-                SBUxMethod.set('REVERSE_DOC_NAME', formData.REVERSE_DOC_NAME);
-                SBUxMethod.set('REVERSE_DOC_ID', formData.REVERSE_DOC_ID);
-                SBUxMethod.set('ORIG_DOC_ID', formData.ORIG_DOC_ID);
-                SBUxMethod.set('HEADER_COST_CENTER', formData.HEADER_COST_CENTER);
-                SBUxMethod.set('REQUEST_EMP', formData.REQUEST_EMP);
-                SBUxMethod.set('REQUEST_EMP_CODE', formData.REQUEST_EMP_CODE);
-                SBUxMethod.set('BEFORE_APPR_EMP', formData.BEFORE_APPR_EMP);
-                SBUxMethod.set('BEFORE_APPR_EMP_CODE', formData.BEFORE_APPR_EMP_CODE);
-                SBUxMethod.set('BEFORE_PROXY_EMP_CODE', formData.BEFORE_PROXY_EMP_CODE);
-                SBUxMethod.set('NEXT_APPR_EMP', formData.NEXT_APPR_EMP);
-                SBUxMethod.set('BILL_NO', formData.BILL_NO);
+                if(formData) {
+                    SBUxMethod.set('KEY_ID', formData.KEY_ID);
+                    SBUxMethod.set('ACCT_RULE_CODE', formData.ACCT_RULE_CODE);
+                    SBUxMethod.set('SRCH_DOC_H_FI_ORG_CODE', formData.FI_ORG_CODE);
+                    SBUxMethod.set('SRCH_SITE_CODE', formData.SITE_CODE);
+                    SBUxMethod.set('DEPT_CODE', formData.DEPT_CODE);
+                    SBUxMethod.set('DEPT_NAME', formData.DEPT_NAME);
+                    SBUxMethod.set('DOC_ID', formData.DOC_ID);
+                    SBUxMethod.set('DOC_TYPE', formData.DOC_TYPE);
+                    SBUxMethod.set('DOC_DATE', formData.DOC_DATE);
+                    SBUxMethod.set('CS_CODE', formData.CS_CODE);
+                    SBUxMethod.set('CS_NAME', formData.CS_NAME);
+                    SBUxMethod.set('BIZ_REGNO', formData.BIZ_REGNO);
+                    SBUxMethod.set('DOC_NAME', formData.DOC_NAME);
+                    SBUxMethod.set('DOC_NUM', formData.DOC_NUM);
+                    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', gfn_nvl(formData.CURRENCY_CODE));
+                    SBUxMethod.set('EXCHANGE_RATE', formData.EXCHANGE_RATE);
+                    SBUxMethod.set('BASE_SCALE', formData.BASE_SCALE);
+                    gfnma_multiSelectSet('#VAT_CODE', 'VAT_CODE', 'VAT_NAME', gfn_nvl(formData.VAT_CODE));
+                    SBUxMethod.set('DOC_AMT', formData.DOC_AMT);
+                    gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.PAY_METHOD));
+                    SBUxMethod.set('PAY_TERM_CODE', formData.PAY_TERM_CODE);
+                    SBUxMethod.set('PAY_TERM_NAME', formData.PAY_TERM_NAME);
+                    SBUxMethod.set('VAT_AMOUNT', formData.VAT_AMOUNT);
+                    SBUxMethod.set('STANDARD_DATE', formData.STANDARD_DATE);
+                    SBUxMethod.set('SUPPLY_AMT', formData.SUPPLY_AMT);
+                    SBUxMethod.set('DESCRIPTION', formData.DESCRIPTION);
+                    SBUxMethod.set('PAY_BASE_DATE', formData.PAY_BASE_DATE);
+                    SBUxMethod.set('EXPECTED_PAY_DATE', formData.EXPECTED_PAY_DATE);
+                    SBUxMethod.set('BASIS_TYPE', formData.BASIS_TYPE);
+                    SBUxMethod.set('DIFF_DAY', formData.DIFF_DAY);
+                    SBUxMethod.set('BILL_DUE_DATE', formData.BILL_DUE_DATE);
+                    SBUxMethod.set('BILL_DUE_DAY', formData.BILL_DUE_DAY);
+                    SBUxMethod.set('BILL_DUE_PAY_DATE', formData.BILL_DUE_PAY_DATE);
+                    SBUxMethod.set('VOUCHER_RECEIPT_DATE', formData.VOUCHER_RECEIPT_DATE);
+                    SBUxMethod.set('VOUCHER_TYPE', formData.VOUCHER_TYPE);
+                    SBUxMethod.set('VOUCHER_NO', formData.VOUCHER_NO);
+                    gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', gfn_nvl(formData.PAYEE_CODE));
+                    SBUxMethod.set('PAYEE_NAME', formData.PAYEE_NAME);
+                    SBUxMethod.set('APPROVE_DATE', formData.APPROVE_DATE);
+                    SBUxMethod.set('FINAL_APPROVER', formData.FINAL_APPROVER);
+                    gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.DOC_STATUS));
+                    SBUxMethod.set('ACCT_OPINION', formData.ACCT_OPINION);
+                    SBUxMethod.set('TR_OPINION', formData.TR_OPINION);
+                    SBUxMethod.set('POSTING_DATE', formData.POSTING_DATE);
+                    SBUxMethod.set('POSTING_USER', formData.POSTING_USER);
+                    SBUxMethod.set('UNPOSTING_DATE', formData.UNPOSTING_DATE);
+                    SBUxMethod.set('UNPOSTING_USER', formData.UNPOSTING_USER);
+                    SBUxMethod.set('REGISTER_YN', formData.REGISTER_YN);
+                    SBUxMethod.set('APPR_COUNT', formData.APPR_COUNT);
+                    SBUxMethod.set('APPR_ID', formData.APPR_ID);
+                    SBUxMethod.set('INSERT_USERID', formData.INSERT_USERID);
+                    SBUxMethod.set('CONFIRM_EMP_CODE', formData.CONFIRM_EMP_CODE);
+                    SBUxMethod.set('PROXY_EMP_CODE', formData.PROXY_EMP_CODE);
+                    SBUxMethod.set('TEMP_AREA', formData.TEMP_AREA);
+                    gfnma_multiSelectSet('#BANK_ACCOUNT_SEQ', 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', gfn_nvl(formData.BANK_ACCOUNT_SEQ));
+                    SBUxMethod.set('BANK_CODE', formData.BANK_CODE);
+                    SBUxMethod.set('BANK_ACCOUNT_NO', formData.BANK_ACCOUNT_NO);
+                    SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', formData.BANK_ACCOUNT_DESCRIPTION);
+                    gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.TAX_SITE_CODE));
+                    gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.SUB_TAX_SITE_CODE));
+                    SBUxMethod.set('APPLY_COMPLETE_FLAG', formData.APPLY_COMPLETE_FLAG);
+                    SBUxMethod.set('REVERSE_FLAG', formData.REVERSE_FLAG);
+                    SBUxMethod.set('REVERSE_DOC_NAME', formData.REVERSE_DOC_NAME);
+                    SBUxMethod.set('REVERSE_DOC_ID', formData.REVERSE_DOC_ID);
+                    SBUxMethod.set('ORIG_DOC_ID', formData.ORIG_DOC_ID);
+                    SBUxMethod.set('HEADER_COST_CENTER', formData.HEADER_COST_CENTER);
+                    SBUxMethod.set('REQUEST_EMP', formData.REQUEST_EMP);
+                    SBUxMethod.set('REQUEST_EMP_CODE', formData.REQUEST_EMP_CODE);
+                    SBUxMethod.set('BEFORE_APPR_EMP', formData.BEFORE_APPR_EMP);
+                    SBUxMethod.set('BEFORE_APPR_EMP_CODE', formData.BEFORE_APPR_EMP_CODE);
+                    SBUxMethod.set('BEFORE_PROXY_EMP_CODE', formData.BEFORE_PROXY_EMP_CODE);
+                    SBUxMethod.set('NEXT_APPR_EMP', formData.NEXT_APPR_EMP);
+                    SBUxMethod.set('BILL_NO', formData.BILL_NO);
+                }
 
                 listData.cv_2.forEach((item, index) => {
                     var msg = {

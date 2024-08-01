@@ -100,4 +100,29 @@ public class CmnsSpcfctApiController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	
+	// 모바일 APC 규격 목록 조회
+	@PostMapping(value = "/api/mobile/am/cmns/apcSpcfcts.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcSpcfctLists(@RequestBody CmnsSpcfctVO cmnsSpcfctVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CmnsSpcfctVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = cmnsSpcfctService.selectApcSpcfctList(cmnsSpcfctVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

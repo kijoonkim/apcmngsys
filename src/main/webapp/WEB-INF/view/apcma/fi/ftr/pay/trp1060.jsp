@@ -884,11 +884,29 @@
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
+        let initObject = localStorage.getItem("callMain");
         await fn_initSBSelect();
         fn_createGvwListGrid();
         fn_createGvwWFItemGrid();
         fn_createGvwActGrid();
-        await fn_onload();
+
+        if(!gfn_isEmpty(initObject)){
+            initObject = JSON.parse(initObject);
+            localStorage.removeItem("callMain");
+
+            await fn_onload(initObject);
+        } else {
+            await fn_onload();
+        }
+    });
+
+    window.addEventListener('message', async function(event){
+        let obj = event.data;
+        if(!gfn_isEmpty(obj)){
+            await fn_onload(obj);
+        } else {
+            await fn_onload();
+        }
     });
 
     // 신규
@@ -911,9 +929,7 @@
         fn_search();
     }
 
-    const fn_onload = async function() {
-        // TODO : 추후 탭간 이동(파라미터포함) 기능 개발시 수정필요
-        let parentParameter = null
+    const fn_onload = async function(parentParameter) {
         if (parentParameter) {
             if (gfn_nvl(parentParameter["APRINT"]) != "Y") {
                 bPrint_YN = false;
