@@ -112,6 +112,7 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
+            // TODO 프로시저
             param.put("procedure", 		"P_EXCHANGE_RATE_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
@@ -142,6 +143,7 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
+            // TODO 프로시저
             param.put("procedure", 		"P_FIM5150_Q2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
