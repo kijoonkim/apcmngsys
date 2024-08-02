@@ -1,15 +1,15 @@
 <%
     /**
      * @Class Name 		: fit2140.jsp
-     * @Description 	: 신용카드수령명세서(매입) 화면
+     * @Description 	: 건물등감가상각자산취득명세서 화면
      * @author 			: 인텔릭아이앤에스
-     * @since 			: 2024.07.03
+     * @since 			: 2024.07.18
      * @version 		: 1.0
      * @Modification Information
      * @
      * @ 수정일       	수정자      수정내용
      * @ ----------		----------	---------------------------
-     * @ 2024.07.11   	이경한		최초 생성
+     * @ 2024.07.18   	이경한		최초 생성
      * @see
      *
      */
@@ -23,7 +23,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>Title</title><title>title : 신용카드수령명세서(매입)</title>
+    <title>Title</title><title>title : 건물등감가상각자산취득명세서</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
     <style>
@@ -52,18 +52,6 @@
         }
         #신용카드 > tbody > tr:nth-child(1) > td{
             font-size: 15px;
-        }
-        .resizer[data-direction="horizontal"] {
-            background-color: #cbd5e0;
-            cursor: ew-resize;
-            height: 100%;
-            width: 2px;
-        }
-        .resizer[data-direction="vertical"] {
-            background-color: #cbd5e0;
-            cursor: ns-resize;
-            height: 2px;
-            width: 100%;
         }
     </style>
 </head>
@@ -132,15 +120,53 @@
                     </div>
                     <div id="사업장리스트그리드" style="width: 100%"></div>
                 </div>
-                <div class="resizer" data-direction="horizontal"></div>
+                <div id="resizer"style="cursor:ew-resize;background-color: #cbd5e0;height: 100%; width: 2px;display: flex;align-items: center;justify-content: center">
+                    <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title/>
+                    <g data-name="Layer 2" id="Layer_2">
+                        <path d="M16,7a2,2,0,1,1,2-2A2,2,0,0,1,16,7Zm0-2h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Z" fill="#cbd5e066"/>
+                        <path d="M16,18a2,2,0,1,1,2-2A2,2,0,0,1,16,18Zm0-2h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Z" fill="#cbd5e066"/>
+                        <path d="M16,29a2,2,0,1,1,2-2A2,2,0,0,1,16,29Zm0-2h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Z" fill="#cbd5e066"/>
+                        <path d="M16,40a2,2,0,1,1,2-2A2,2,0,0,1,16,40Zm0-2h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Zm0,0h0Z" fill="#cbd5e066"/>
+                    </g><g id="frame"><rect class="cls-1" height="32" width="32"/></g></svg>
+                </div>
                 <div style="padding: 10px;flex: 1;display: flex;flex-direction: column">
-                    <div style="height: 50%">
+                    <div style="flex: 1">
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li><span>제출자 인적사항</span></li>
+                            </ul>
+                        </div>
+                        <table id="신용카드" style="width: 100%; height: auto">
+                            <colgroup>
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td>상호(법인명)</td>
+                                    <td><input type="text"/></td>
+                                    <td>사업자번호</td>
+                                    <td><input type="text"/></td>
+                                </tr>
+                                <tr>
+                                    <td>업태</td>
+                                    <td><input type="text"/></td>
+                                    <td>종목</td>
+                                    <td><input type="text"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="flex: 1">
+                        <div style="flex: 1">
                             <div class="ad_tbl_top">
                                 <ul class="ad_tbl_count">
-                                    <li><span>신용카드 등 매입명세 합계</span></li>
+                                    <li><span>감가상각자산 취득명세 합계</span></li>
                                 </ul>
                             </div>
-                            <table id="신용카드" style="width: 100%;>
+                            <table id="감가상각자산" style="width: 100%; height: auto">
                                 <colgroup>
                                     <col style="width: 25%">
                                     <col style="width: 25%">
@@ -149,37 +175,37 @@
                                 </colgroup>
                                 <tbody>
                                 <tr>
-                                    <td>구&emsp;&emsp;&emsp;&emsp;분</td>
-                                    <td>거래건수 합계</td>
-                                    <td>공급가액 합계</td>
-                                    <td>세액 합계</td>
+                                    <td>감가상각자산 종류</td>
+                                    <td>건&emsp;&emsp;수</td>
+                                    <td>공급가액</td>
+                                    <td>세&emsp;&emsp;액</td>
                                 </tr>
                                 <tr>
-                                    <td>⑤ 합&emsp;&emsp;&emsp;계</td>
-                                    <td><input type="number" value="0"/></td>
-                                    <td><input type="number" value="0"/></td>
-                                    <td><input type="number" value="0"/></td>
-                                </tr>
-                                <tr>
-                                    <td>⑥ 현금&emsp;영수증</td>
+                                    <td>합&emsp;&emsp;계</td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
                                 </tr>
                                 <tr>
-                                    <td>⑦ 복&emsp;지&emsp;카&emsp;드</td>
+                                    <td>건물, 구축물</td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
                                 </tr>
                                 <tr>
-                                    <td>⑧ 사업용&emsp;신용카드</td>
+                                    <td>기 계 장 치</td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
                                 </tr>
                                 <tr>
-                                    <td>⑨ 그 밖의&emsp;신용카드</td>
+                                    <td>차 량 운 반 구</td>
+                                    <td><input type="number" value="0"/></td>
+                                    <td><input type="number" value="0"/></td>
+                                    <td><input type="number" value="0"/></td>
+                                </tr>
+                                <tr>
+                                    <td>그 밖의 감가상각자산</td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
                                     <td><input type="number" value="0"/></td>
@@ -187,16 +213,47 @@
                                 </tbody>
                             </table>
                         </div>
-                    <div class="resizer" data-direction="vertical"></div>
-                    <div style="flex: 1; background-color: white">
-                        <div style="flex: 1">
-                            <div class="ad_tbl_top">
-                                <ul class="ad_tbl_count">
-                                    <li><span>그 밖의 신용,직불카드 및 기명식 선불카드 매출전표 수령금액 합계</span></li>
-                                </ul>
-                            </div>
-                            <div id="메인그리드" style="width: 100%;height: 100%"></div>
+                    </div>
+                    <div style="flex:1">
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li><span>수취구분별 합계</span></li>
+                            </ul>
                         </div>
+                        <table id="감가상각자산" style="width: 100%; height: auto">
+                            <colgroup>
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td>구분</td>
+                                <td>건&emsp;&emsp;수</td>
+                                <td>공급가액</td>
+                                <td>세&emsp;&emsp;액</td>
+                            </tr>
+                            <tr>
+                                <td>합&emsp;&emsp;계</td>
+                                <td><input type="number" value="0"/></td>
+                                <td><input type="number" value="0"/></td>
+                                <td><input type="number" value="0"/></td>
+                            </tr>
+                            <tr>
+                                <td>세금계산서 수취분</td>
+                                <td><input type="number" value="0"/></td>
+                                <td><input type="number" value="0"/></td>
+                                <td><input type="number" value="0"/></td>
+                            </tr>
+                            <tr>
+                                <td>신용카드매출전표 등<br>수취명세서 제출분</td>
+                                <td><input type="number" value="0"/></td>
+                                <td><input type="number" value="0"/></td>
+                                <td><input type="number" value="0"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -219,7 +276,7 @@
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = '사업장리스트그리드';
-        SBGridProperties.id = '사업장grid';
+        SBGridProperties.id = '사업장리스트그리드';
         SBGridProperties.jsonref = 'json사업장리스트';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
@@ -231,7 +288,7 @@
     const fn_createGrid2 = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = '메인그리드';
-        SBGridProperties.id = '메인grid';
+        SBGridProperties.id = '메인그리드';
         SBGridProperties.jsonref = 'json메인그리드';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
@@ -245,97 +302,56 @@
         ];
         메인grid = _SBGrid.create(SBGridProperties);
     }
-    const resizable = function (resizer) {
-        const direction = resizer.getAttribute("data-direction") || "horizontal";
-        const prevSibling = resizer.previousElementSibling;
-        const nextSibling = resizer.nextElementSibling;
+    const resizer = document.getElementById('resizer');
+    const leftSide = resizer.previousElementSibling;
+    const rightSide = resizer.nextElementSibling;
 
-        //  마우스의 위치값 저장을 위해 선언
-        let x = 0;
-        let y = 0;
-        let prevSiblingHeight = 0;
-        let prevSiblingWidth = 0;
+    let x = 0;
+    let y = 0;
 
-        // resizer에 마우스 이벤트가 발생하면 실행하는 Handler
-        const mouseDownHandler = function (e) {
-            // 마우스 위치값을 가져와 x, y에 할당
-            x = e.clientX;
-            y = e.clientY;
-            // 대상 Element에 위치 정보를 가져옴
-            const rect = prevSibling.getBoundingClientRect();
-            // 기존 높이와 너비를 각각 할당함
-            prevSiblingHeight = rect.height;
-            prevSiblingWidth = rect.width;
+    let leftWidth = 0;
 
-            // 마우스 이동과 해제 이벤트를 등록
-            document.addEventListener("mousemove", mouseMoveHandler);
-            document.addEventListener("mouseup", mouseUpHandler);
-        };
+    const mouseDownHandler = function (e) {
+        x = e.clientX;
+        y = e.clientY;
+        leftWidth = leftSide.getBoundingClientRect().width;
 
-        const mouseMoveHandler = function (e) {
-            // 마우스가 움직이면 기존 초기 마우스 위치에서 현재 위치값과의 차이를 계산
-            const dx = e.clientX - x;
-            const dy = e.clientY - y;
-
-            // 이동 방향에 따라서 별도 동작
-            // 기본 동작은 동일하게 기존 크기에 마우스 드래그 거리를 더한 뒤 상위요소(container)를 이용해 퍼센티지를 구함
-            // 계산 대상이 x 또는 y인지에 차이가 있음
-            switch (direction) {
-                case "vertical":
-                    const h =
-                        ((prevSiblingHeight + dy) * 100) /
-                        resizer.parentNode.getBoundingClientRect().height;
-                    prevSibling.style.height = `${'${h}'}%`;
-                    break;
-                case "horizontal":
-                default:
-                    const w =
-                        ((prevSiblingWidth + dx) * 100) /
-                        resizer.parentNode.getBoundingClientRect().width;
-                    prevSibling.style.width = `${'${w}'}%`;
-                    break;
-            }
-
-            // 크기 조절 중 마우스 커서를 변경함
-            // class="resizer"에 적용하면 위치가 변경되면서 커서가 해제되기 때문에 body에 적용
-            const cursor = direction === "horizontal" ? "col-resize" : "row-resize";
-            resizer.style.cursor = cursor;
-            document.body.style.cursor = cursor;
-
-            prevSibling.style.userSelect = "none";
-            prevSibling.style.pointerEvents = "none";
-
-            nextSibling.style.userSelect = "none";
-            nextSibling.style.pointerEvents = "none";
-
-            사업장grid.resize();
-            메인grid.resize();
-        };
-
-        const mouseUpHandler = function () {
-            // 모든 커서 관련 사항은 마우스 이동이 끝나면 제거됨
-            resizer.style.removeProperty("cursor");
-            document.body.style.removeProperty("cursor");
-
-            prevSibling.style.removeProperty("user-select");
-            prevSibling.style.removeProperty("pointer-events");
-
-            nextSibling.style.removeProperty("user-select");
-            nextSibling.style.removeProperty("pointer-events");
-
-            // 등록한 마우스 이벤트를 제거
-            document.removeEventListener("mousemove", mouseMoveHandler);
-            document.removeEventListener("mouseup", mouseUpHandler);
-        };
-
-        // 마우스 down 이벤트를 등록
-        resizer.addEventListener("mousedown", mouseDownHandler);
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
     };
 
-    // 모든 resizer에 만들어진 resizable을 적용
-    document.querySelectorAll(".resizer").forEach(function (ele) {
-        resizable(ele);
-    });
+    const mouseMoveHandler = function (e) {
+        const dx = e.clientX - x;
+        const dy = e.clientY - y;
+
+        document.body.style.cursor = 'col-resize';
+
+        leftSide.style.userSelect = 'none';
+        leftSide.style.pointerEvents = 'none';
+
+        rightSide.style.userSelect = 'none';
+        rightSide.style.pointerEvents = 'none';
+
+        const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
+        leftSide.style.width = `${'${newLeftWidth}'}%`;
+        사업장grid.resize();
+        메인grid.resize();
+    };
+
+    const mouseUpHandler = function () {
+        // resizer.style.removeProperty('cursor');
+        document.body.style.removeProperty('cursor');
+
+        leftSide.style.removeProperty('user-select');
+        leftSide.style.removeProperty('pointer-events');
+
+        rightSide.style.removeProperty('user-select');
+        rightSide.style.removeProperty('pointer-events');
+
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
+    };
+    resizer.addEventListener('mousedown', mouseDownHandler);
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

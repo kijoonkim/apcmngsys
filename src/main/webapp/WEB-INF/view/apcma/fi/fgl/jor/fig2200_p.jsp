@@ -162,7 +162,6 @@
 										uitype="text"
 										id="srch-txtcreated-dept-code"
 										class="form-control input-sm"
-										
 	   								></sbux-input>
 								</td>
 	                            <td class="td_input" >
@@ -420,8 +419,6 @@
 	var p_empCode 	= '${loginVO.maEmpCode}';
 	//-----------------------------------------------------------
 
-	var editType	= "N";
-
     var jsonCbofiOrgCode 		= []; // 사업단위
     var jsonCbositeCode 		= []; // 사업장
     var jsonCboholdFlag 		= []; // 보류여부
@@ -567,8 +564,6 @@
     //상세정보 보기
     function fn_viewFig2200GridEvent() {
     	
-    	editType = "E";    	
-
         var nRow = Fig2200Grid.getRow();
 		if (nRow < 1) {
             return;
@@ -1625,7 +1620,7 @@
 			,V_P_PC					: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2210List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2210ItemQList.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',

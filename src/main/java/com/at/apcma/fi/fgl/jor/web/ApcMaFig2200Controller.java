@@ -1,4 +1,4 @@
-package com.at.apcma.fi.fgl.jor;
+package com.at.apcma.fi.fgl.jor.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -91,31 +91,6 @@ public class ApcMaFig2200Controller extends BaseController {
 
         logger.info("=============selectFig2250List=====end========");
         return getSuccessResponseEntityMa(resultMap);
-    }   
-    
-    // 회계처리 조회
-    @PostMapping(value = "/fi/fgl/jor/selectFig2210List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFig2210List(
-    		@RequestBody Map<String, Object> param
-    		, Model model
-    		, HttpSession session
-    		, HttpServletRequest request) throws Exception{
-    	
-    	logger.info("=============selectFig2210List=====start========");
-    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
-    	
-    	try {
-    		
-    		param.put("procedure", 		"P_FIG2210_ITEM_Q");
-    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-    		
-    	} catch (Exception e) {
-    		logger.debug(e.getMessage());
-    		return getErrorResponseEntity(e);
-    	}
-    	
-    	logger.info("=============selectFig2210List=====end========");
-    	return getSuccessResponseEntityMa(resultMap);
     }   
     
     // 결재이력 조회
