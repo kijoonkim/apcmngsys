@@ -145,6 +145,31 @@
 								></sbux-button>
 							</td>
 						</tr>
+						<tr>
+							<th scope="row" class="th_bg">팔레트번호</th>
+							<td colspan= "2" class="td_input" style="border-right: hidden;">
+								<sbux-input
+										uitype="text"
+										id="srch-inp-pltno"
+										name="srch-inp-pltno"
+										class="form-control input-sm"
+										autocomplete="off"
+								/>
+							</td>
+							<td></td>
+							<th scope="row" class="th_bg">창고</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-select
+										unselected-text="선택"
+										uitype="single"
+										id="srch-slt-warehouseSeCd"
+										name="srch-slt-warehouseSeCd"
+										class="form-control input-sm input-sm-ast inpt_data_reqed"
+										jsondata-ref="jsonComWarehouse"
+								/>
+							</td>
+							<td colspan="5"></td>
+						</tr>
 					</tbody>
 				</table>
 				<!--[pp] //검색 -->
@@ -479,7 +504,8 @@
 		 	gfn_setPrdcrSBSelect('excel-slt-prdcr', 				jsonExeclComPrdcr, 			gv_selectedApcCd),						// 생산자(엑셀)
 		 	gfn_setApcVrtySBSelect('excel-slt-vrty', 				jsonExeclComVrty, 			gv_selectedApcCd),						// 품종(엑셀)
 		 	gfn_setApcSpcfctsSBSelect('excel-slt-spcfct', 			jsonExeclSpcfct, 			gv_selectedApcCd),						// 규격(엑셀)
-			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd),						// 포장구분(엑셀)		 	
+			gfn_setSpmtPckgUnitSBSelect('excel-slt-spmtPckgUnit', 	jsonExeclComSpmtPckgUnit, 	gv_selectedApcCd),						// 포장구분(엑셀)
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),					// 창고
 		 	fn_getWarehouse(),
 		 	fn_getApcSpcfct(),
 		 	fn_getSpmtPckgUnit()
@@ -558,7 +584,6 @@
 
 		fn_createGridRawMtrInvntr();
 		fn_createGridSortPrfmnc();
-
 		fn_clearForm();
 	}
 
@@ -615,6 +640,7 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.scrollbubbling = false;
 		SBGridProperties.frozencols = 2;
 		SBGridProperties.columns = [
@@ -953,6 +979,9 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");			// 생산자
   		let itemCd = SBUxMethod.get("srch-slt-itemCd");				// 품목
   		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");				// 품종
+		let pltno = SBUxMethod.get("srch-inp-pltno"); 				// 팔레트번호
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd"); // 창고번호
+
   		if (!gfn_isEmpty(vrtyCd)) {
   			vrtyCd = vrtyCd.substring(4);
   		}
@@ -969,7 +998,8 @@
   				prdcrCd: prdcrCd,
   				itemCd: itemCd,
   				vrtyCd: vrtyCd,
-
+				pltno: pltno,
+				warehouseSeCd: warehouseSeCd,
   				inptYmd: inptYmd
   	  		});
   	        const data = await postJsonPromise;

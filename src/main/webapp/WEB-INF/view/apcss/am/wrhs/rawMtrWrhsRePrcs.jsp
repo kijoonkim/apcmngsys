@@ -444,6 +444,7 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.frozencols = 2;
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
@@ -1743,11 +1744,7 @@
 	    };
 
 	function fn_excelDwnld1() {
-
-
 		grdRawMtrInvntr.exportLocalExcel("원물재고내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-
-
     }
 
 </script>
