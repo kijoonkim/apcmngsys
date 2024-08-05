@@ -197,15 +197,15 @@
                         <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_TIME_RAW" class="form-control input-sm"></sbux-input>
                         <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_ID" class="form-control input-sm"></sbux-input>
                         <sbux-input uitype="hidden" uitype="text" id="SRCH_BANK_CODE" class="form-control input-sm"></sbux-input>
-                        <sbux-input uitype="hidden" uitype="text" id="SRCH_INSERT_USERID" class="form-control input-sm"></sbux-input>
-                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_STATUS1" class="form-control input-sm"></sbux-input>
-                        <sbux-input uitype="hidden" uitype="text" id="SRCH_PROXY_EMP_CODE" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_INSERT_USERID" name="INSERT_USERID" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_STATUS1" name="TXN_STATUS" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_PROXY_EMP_CODE" name="PROXY_EMP_CODE" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
                         <sbux-input uitype="hidden" uitype="text" id="SRCH_PASSWORD" class="form-control input-sm"></sbux-input>
                         <sbux-input uitype="hidden" uitype="text" id="SRCH_FEE" class="form-control input-sm"></sbux-input>
-                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_DATE1" class="form-control input-sm"></sbux-input>
-                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_TIME1" class="form-control input-sm"></sbux-input>
-                        <sbux-input uitype="hidden" uitype="text" id="SRCH_APPR_ID" class="form-control input-sm"></sbux-input>
-                        <sbux-input uitype="hidden" uitype="text" id="SRCH_CONFIRM_EMP_CODE" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_DATE1" name="TXN_DATE" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_TIME1" name="TXN_TIME" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_APPR_ID" name="APPR_ID" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_CONFIRM_EMP_CODE" name="CONFIRM_EMP_CODE" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
                     </td>
                 </tr>
                 </tbody>
@@ -389,6 +389,11 @@
     var p_menuId = '${comMenuVO.menuId}';
     var p_fiOrgCode = "${loginVO.maFIOrgCode}";
     var p_siteCode = "${loginVO.maSiteCode}";
+    var p_userID = "${loginVO.maUserID}";
+    var p_isTrUser = "${loginVO.maIsTrUser}";
+    var p_empCode = "${loginVO.maEmpCode}";
+    var p_isTrManager = "${loginVO.maIsTrManager}";
+    var p_isAccountChief = "${loginVO.maIsAccountChief}";
     //-----------------------------------------------------------
 
     var dtFirmbanking;
@@ -399,6 +404,15 @@
     var strCode2List = "";
     var strCsCodeList = "";
     var strAccountCodeList = "";
+
+    var dtResult1 = null;
+    var dtResult2 = null;
+    var dtResult3 = null;
+    var dtResult4 = null;
+
+    var bPopUpFlag = false;
+    var bTransCountSelect = true;
+    var bDetailSelect = true;
 
     var jsonFbsService = []; // FBS서비스
     var jsonPayGubun = []; // 지급구분
@@ -670,6 +684,7 @@
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
+        gvwDetail.bind('click', 'fn_view');
     }
 
     function fn_createGvwActGrid() {
@@ -925,7 +940,7 @@
 
     const fn_onload = async function (parentParameter) {
         if (parentParameter) {
-            /*bPopUpFlag = true;*/
+            bPopUpFlag = true;
 
             if (parentParameter.hasOwnProperty("TYPE")) {
                 if (gfn_nvl(parentParameter["TYPE"]) == "Q1") {
@@ -1021,9 +1036,9 @@
                 }
             }
         } else {
-/*            bPopUpFlag = false;
+            bPopUpFlag = false;
 
-            btnNew.Visible = false;
+            /*btnNew.Visible = false;
             btnSave.Visible = false;
             btnDel.Visible = false;
 
@@ -1034,6 +1049,72 @@
             SBUxMethod.set("SRCH_TRANS_COUNT", "");
             SBUxMethod.set("SRCH_TXN_TIME", "");
             SBUxMethod.set("SRCH_PROCESS_YN", "A");
+        }
+    }
+
+    const fn_view = async function () {
+        if (bDetailSelect) {
+            if (gvwDetail.getRow() < 0)
+                return;
+
+            fnQRY_P_FBS2010_Q("DETAIL");
+            fnQRY_P_FBS2010_Q("DETAIL1");
+
+            if (gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS1")) == "1") {
+                SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+                SBUxMethod.attr("btnRetry", "disabled", "true");
+                SBUxMethod.attr("btnResultQuery", "disabled", "true");
+
+                // SessionInfo.IsTrUser 추가
+                if (gfn_nvl(SBUxMethod.get("SRCH_INSERT_USERID")) == p_userID || p_isTrUser == true || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode)
+                    $("#main-btn-appr").attr('disabled', 'false');
+                else
+                    $("#main-btn-appr").attr('disabled', 'true');
+
+                SBUxMethod.attr("btnAddRow", "disabled", "false");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+            } else if (gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS1")) == "3") {
+                SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+                SBUxMethod.attr("btnRetry", "disabled", "true");
+                SBUxMethod.attr("btnResultQuery", "disabled", "true");
+
+                // SessionInfo.IsTrManager 추가
+                if (gfn_nvl(SBUxMethod.get("SRCH_CONFIRM_EMP_CODE")) == p_empCode || p_isTrManager == true || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode) {
+                    $("#main-btn-appr").attr('disabled', 'false');
+                } else {
+                    $("#main-btn-appr").attr('disabled', 'true');
+                }
+
+                SBUxMethod.attr("btnAddRow", "disabled", "true");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "true");
+            } else if (gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS1")) == "5") {
+                //승인완료
+                $("#main-btn-appr").attr('disabled', 'true');
+                SBUxMethod.attr("btnRetry", "disabled", "false");
+                SBUxMethod.attr("btnResultQuery", "disabled", "false");
+
+                //회계팀장일때에만 활성화
+                if ( (p_isAccountChief)  || (p_isTrUser) )
+                    SBUxMethod.attr("btnTxnComplete", "disabled", "false");
+                else
+                    SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+
+                SBUxMethod.attr("btnAddRow", "disabled", "true");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+            } else {
+                $("#main-btn-appr").attr('disabled', 'false');
+                SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+                SBUxMethod.attr("btnRetry", "disabled", "true");
+                SBUxMethod.attr("btnResultQuery", "disabled", "true");
+
+                SBUxMethod.attr("btnAddRow", "disabled", "false");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+            }
+
+            if (parseInt(gfn_nvl(SBUxMethod.get("SRCH_APPR_ID")) == "" ? "0" : gfn_nvl(SBUxMethod.get("SRCH_APPR_ID"))) != 0)
+                $("#main-btn-appr").attr('disabled', 'false');
+            else
+                $("#main-btn-appr").attr('disabled', 'true');
         }
     }
 
