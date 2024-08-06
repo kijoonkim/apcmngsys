@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 연차발생조정</title>
+    <title>title : 전자세금계산서 관리(매입)</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -246,9 +246,9 @@
                     <sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger"
                                  onclick="fn_addRow" style="float: right; margin-right: 3px;; "></sbux-button>
                     <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="제외처리 취소" class="btn btn-sm btn-outline-danger"
-                                 onclick="fn_btnCancel" style="float: right; margin-right: 3px;"></sbux-button>
+                                 onclick="fn_btnExclusion('CANCEL')" style="float: right; margin-right: 3px;"></sbux-button>
                     <sbux-button id="btnExclusion" name="btnExclusion" uitype="normal" text="제외처리" class="btn btn-sm btn-outline-danger"
-                                 onclick="fn_btnExclusion" style="float: right; margin-right: 3px;"></sbux-button>
+                                 onclick="fn_btnExclusion('EXCEPT')" style="float: right; margin-right: 3px;"></sbux-button>
                     <sbux-input id="except_reason" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;"></sbux-input>
                     <div class="dropdown" style="float: right; margin-right: 5px;">
                         <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="cboexcept_code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -302,8 +302,10 @@
     var gvwItemGrid;
     var jsonItemList = [];
 
+    /******* C# 코드내용 그대로 처리 ******/
     let strIfType = '1';  //EXCEL FILE, 2: XML
     let newAddOn = false;
+    let strjob_name = '';
 
     var jsonSiteCode = []; //사업장 ( L_ORG001 )srch-site_code, 	SITE_CODE
     var jsonPayAreaType = []; //급여영역 ( L_HRP034 )srch-pay_area_type
@@ -599,14 +601,19 @@
 
                 if (_.isEmpty(listGridData) == false){
 
-                    fn_save(listGridData, 'N');
+                    if (fn_save(listGridData, 'N')){
+                        return;
+                    }
                 }
 
-                let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
+                //let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
+                let itemGridData = gvwItemGrid.getGridDataAll();
 
                 if (_.isEmpty(itemGridData) == false){
 
-                    fn_saveS1(itemGridData, 'U');
+                    if (fn_saveS1(itemGridData, 'N')){
+                        return;
+                    }
                 }
             }
             else
@@ -617,7 +624,9 @@
 
                     if (_.isEmpty(listGridData) == false){
 
-                        fn_save(listGridData, 'N');
+                        if (fn_save(listGridData, 'N')){
+                            return;
+                        }
                     }
                 }
                 else
@@ -627,17 +636,23 @@
 
                     if (_.isEmpty(listGridData) == false){
 
-                        fn_save(listGridData, 'U');
+                        if (fn_save(listGridData, 'U')){
+                            return;
+                        }
                     }
 
-                    let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
-
+                    //let itemGridData = gvwItemGrid.getUpdateData(true, 'all');
+                    let itemGridData = gvwItemGrid.getGridDataAll();
                     if (_.isEmpty(itemGridData) == false){
 
-                        fn_saveS1(itemGridData, 'U');
+                        if (fn_saveS1(itemGridData, 'U1')){
+                            return;
+                        }
                     }
                 }
             }
+
+            /*fn_search();*/
 
         }
     }
@@ -1246,48 +1261,48 @@
     // 세금계산서 항목 프로시저(조회결과) 저장
     const fn_save = async function (listGridData, type) {
 
-        // 수정 저장
-        if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            let listData = [];
-            listData =  await getParamForm(listGridData, type);
-            /* var paramObj = {
-                 P_HRP1170_S: await getParamForm('u')
-             }*/
+        let listData = [];
+        listData = await getParamForm(listGridData, type);
+        /* var paramObj = {
+             P_HRP1170_S: await getParamForm('u')
+         }*/
 
-            console.log('--------listData save--------', listData);
+        console.log('--------listData save--------', listData);
 
-            if (listData.length > 0) {
+        if (listData.length > 0) {
 
-                const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100.do", {listData: listData});
 
-                const data = await postJsonPromise;
+            const data = await postJsonPromise;
 
-                console.log('--------listData data--------', data);
+            console.log('--------listData data--------', data);
 
-                try {
-                    if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }else{
-                            alert(data.resultMessage);
-                           /* gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            fn_search();*/
-                        }
-
-
-                    } else {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
                         alert(data.resultMessage);
+                        return true;
+                    } else {
+
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        /*alert(data.resultMessage);*/
+                       return false;
                     }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+
+
+                } else {
+                    alert(data.resultMessage);
                 }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
+
 
     }
 
@@ -1333,44 +1348,44 @@
                                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                                     , V_P_FI_ORG_CODE: FI_ORG_CODE
-                                    , V_P_WRITE_DATE: gfnma_nvl(item.data.WRITE_DATE)
-                                    , V_P_APPROVAL_NO: gfnma_nvl(item.data.APPROVAL_NO)
-                                    , V_P_ISSUE_DATE: gfnma_nvl(item.data.ISSUE_DATE)
-                                    , V_P_SEND_DATE: gfnma_nvl(item.data.SEND_DATE)
-                                    , V_P_SELLER_REG_NO: gfnma_nvl(item.data.SELLER_REG_NO)
-                                    , V_P_SELLER_SUB_REG_NO: gfnma_nvl(item.data.SELLER_SUB_REG_NO)
-                                    , V_P_CS_CODE: gfnma_nvl(item.data.CS_CODE)
-                                    , V_P_SELLER_NAME: gfnma_nvl(item.data.SELLER_NAME)
-                                    , V_P_SELLER_OWNER: gfnma_nvl(item.data.SELLER_OWNER)
-                                    , V_P_SELLER_ADDRESS: gfnma_nvl(item.data.SELLER_ADDRESS)
-                                    , V_P_SELLER_BIZ_CATEGORY: gfnma_nvl(item.data.SELLER_BIZ_CATEGORY)
-                                    , V_P_SELLER_BIZ_ITEM: gfnma_nvl(item.data.SELLER_BIZ_ITEM)
-                                    , V_P_SELLER_BIZ_TYPE: gfnma_nvl(item.data.SELLER_BIZ_TYPE)
-                                    , V_P_BUYER_REG_NO: gfnma_nvl(item.data.BUYER_REG_NO)
-                                    , V_P_BUYER_SUB_REG_NO: gfnma_nvl(item.data.BUYER_SUB_REG_NO)
-                                    , V_P_BUYER_NAME: gfnma_nvl(item.data.BUYER_NAME)
-                                    , V_P_BUYER_OWNER: gfnma_nvl(item.data.BUYER_OWNER)
-                                    , V_P_BUYER_ADDRESS: gfnma_nvl(item.data.BUYER_ADDRESS)
-                                    , V_P_BUYER_BIZ_CATEGORY: gfnma_nvl(item.data.BUYER_BIZ_CATEGORY)
-                                    , V_P_BUYER_BIZ_ITEM: gfnma_nvl(item.data.BUYER_BIZ_ITEM)
-                                    , V_P_TOTAL_AMT: gfnma_nvl(item.data.TOTAL_AMT)
-                                    , V_P_TOTAL_TAXABLE_AMT: gfnma_nvl(item.data.TOTAL_TAXABLE_AMT)
-                                    , V_P_TOTAL_VAT_AMT: gfnma_nvl(item.data.TOTAL_VAT_AMT)
-                                    , V_P_EINVOICE_CATEGORY: gfnma_nvl(item.data.EINVOICE_CATEGORY)
-                                    , V_P_EINVOICE_TYPE: gfnma_nvl(item.data.EINVOICE_TYPE)
-                                    , V_P_MATCH_METHOD: gfnma_nvl(item.data.MATCH_METHOD)
-                                    , V_P_ISSUE_TYPE: gfnma_nvl(item.data.ISSUE_TYPE)
-                                    , V_P_NOTE1: gfnma_nvl(item.data.NOTE1)
-                                    , V_P_NOTE2: gfnma_nvl(item.data.NOTE2)
+                                    , V_P_WRITE_DATE:           gfnma_nvl(item.WRITE_DATE)
+                                    , V_P_APPROVAL_NO:          gfnma_nvl(item.APPROVAL_NO)
+                                    , V_P_ISSUE_DATE:           gfnma_nvl(item.ISSUE_DATE)
+                                    , V_P_SEND_DATE:            gfnma_nvl(item.SEND_DATE)
+                                    , V_P_SELLER_REG_NO:        gfnma_nvl(item.SELLER_REG_NO)
+                                    , V_P_SELLER_SUB_REG_NO:    gfnma_nvl(item.SELLER_SUB_REG_NO)
+                                    , V_P_CS_CODE:              gfnma_nvl(item.CS_CODE)
+                                    , V_P_SELLER_NAME:          gfnma_nvl(item.SELLER_NAME)
+                                    , V_P_SELLER_OWNER:         gfnma_nvl(item.SELLER_OWNER)
+                                    , V_P_SELLER_ADDRESS:       gfnma_nvl(item.SELLER_ADDRESS)
+                                    , V_P_SELLER_BIZ_CATEGORY:  gfnma_nvl(item.SELLER_BIZ_CATEGORY)
+                                    , V_P_SELLER_BIZ_ITEM:      gfnma_nvl(item.SELLER_BIZ_ITEM)
+                                    , V_P_SELLER_BIZ_TYPE:      gfnma_nvl(item.SELLER_BIZ_TYPE)
+                                    , V_P_BUYER_REG_NO:         gfnma_nvl(item.BUYER_REG_NO)
+                                    , V_P_BUYER_SUB_REG_NO:     gfnma_nvl(item.BUYER_SUB_REG_NO)
+                                    , V_P_BUYER_NAME:           gfnma_nvl(item.BUYER_NAME)
+                                    , V_P_BUYER_OWNER:          gfnma_nvl(item.BUYER_OWNER)
+                                    , V_P_BUYER_ADDRESS:        gfnma_nvl(item.BUYER_ADDRESS)
+                                    , V_P_BUYER_BIZ_CATEGORY:   gfnma_nvl(item.BUYER_BIZ_CATEGORY)
+                                    , V_P_BUYER_BIZ_ITEM:       gfnma_nvl(item.BUYER_BIZ_ITEM)
+                                    , V_P_TOTAL_AMT:            gfnma_nvl(item.TOTAL_AMT)
+                                    , V_P_TOTAL_TAXABLE_AMT:    gfnma_nvl(item.TOTAL_TAXABLE_AMT)
+                                    , V_P_TOTAL_VAT_AMT:        gfnma_nvl(item.TOTAL_VAT_AMT)
+                                    , V_P_EINVOICE_CATEGORY:    gfnma_nvl(item.EINVOICE_CATEGORY)
+                                    , V_P_EINVOICE_TYPE:        gfnma_nvl(item.EINVOICE_TYPE)
+                                    , V_P_MATCH_METHOD:         gfnma_nvl(item.MATCH_METHOD)
+                                    , V_P_ISSUE_TYPE:           gfnma_nvl(item.ISSUE_TYPE)
+                                    , V_P_NOTE1:                gfnma_nvl(item.NOTE1)
+                                    , V_P_NOTE2:                gfnma_nvl(item.NOTE2)
                                     //--,V_P_NOTE3             IN VARCHAR2
-                                    , V_P_RECEIPT_OR_BILL: gfnma_nvl(item.data.RECEIPT_OR_BILL)
-                                    , V_P_SELLER_EMAIL: gfnma_nvl(item.data.SELLER_EMAIL)
-                                    , IV_P_BUYER_EMAIL1: gfnma_nvl(item.data._BUYER_EMAIL1)
-                                    , V_P_BUYER_EMAIL2: gfnma_nvl(item.data.BUYER_EMAIL2)
-                                    , V_P_ACCOUNT_EMP_CODE: gfnma_nvl(item.data.ACCOUNT_EMP_CODE)
-                                    , V_P_TXN_DATE: gfnma_nvl(item.data.TXN_DATE)
+                                    , V_P_RECEIPT_OR_BILL:      gfnma_nvl(item.RECEIPT_OR_BILL)
+                                    , V_P_SELLER_EMAIL:         gfnma_nvl(item.SELLER_EMAIL)
+                                    , IV_P_BUYER_EMAIL1:        gfnma_nvl(item.BUYER_EMAIL1)
+                                    , V_P_BUYER_EMAIL2:         gfnma_nvl(item.BUYER_EMAIL2)
+                                    , V_P_ACCOUNT_EMP_CODE:     gfnma_nvl(item.ACCOUNT_EMP_CODE)
+                                    , V_P_TXN_DATE:             gfnma_nvl(item.TXN_DATE)
 
-                                    , V_P_DOC_ID: gfnma_nvl(item.data.DOC_ID)
+                                    , V_P_DOC_ID:               gfnma_nvl(item.DOC_ID)
                                     //--,V_P_DOC_BATCH_ID      IN VARCHAR2
 
                                     , V_P_FORM_ID: p_formId
@@ -1394,35 +1409,61 @@
 
             } else {
 
-                /***********필수값 체크 해야하는데 C# 그리드에서 필수값이 몬지 모르겠음 *************/
-                /*DataTable dtSource = BindingData(grdList, true, false);
+                /*********** 조회결과 리스트 필수값 체크 *************/
+                listGridData.forEach((item, index) => {
 
-                if (strIfType == "1")
-                {
-                    if (dtSource == null)   //필수값을 입력 안한 경우
-                    {
-                        if (gvwList.FocusedRowHandle < 0)
-                            return true;
-                        else
-                            return false;
+                    if (gfnma_nvl(item.data.WRITE_DATE) == ''){
+                        gfn_comAlert("W0002", "작성일자");
+                        return;
                     }
-                    else
-                    {
+                    if (gfnma_nvl(item.data.APPROVAL_NO) == ''){
+                        gfn_comAlert("W0002", "승인번호");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.ISSUE_DATE) == ''){
+                        gfn_comAlert("W0002", "발급일자");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.SEND_DATE) == ''){
+                        gfn_comAlert("W0002", "전송일자");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.SELLER_REG_NO) == ''){
+                        gfn_comAlert("W0002", "공급자사업자번호");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.BUYER_REG_NO) == ''){
+                        gfn_comAlert("W0002", "공급받는자사업자번호");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.EINVOICE_CATEGORY) == ''){
+                        gfn_comAlert("W0002", "전자세금계산서분류");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.RECEIPT_OR_BILL) == ''){
+                        gfn_comAlert("W0002", "영수/청구 구분");
+                        return;
+                    }
 
-                        if (dtSource.Rows.Count == 0)  //저장할게 없는 경우
-                        {
-                            return true;
-                        }
-                    }
-                }*/
+                });
+
 
 
                 listGridData.forEach((item, index) => {
+
+                    let workType = '';
+
+                    if (_.isEqual(type, 'U')){
+                        workType = 'U'
+                    }else{
+                        workType = item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D');
+                    }
+
                     const param = {
 
                         cv_count: '0',
                         getType: 'json',
-                        workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                        workType: workType,
                         params: gfnma_objectToString({
 
                             V_P_DEBUG_MODE_YN: ''
@@ -1430,45 +1471,45 @@
                             , V_P_COMP_CODE: gv_ma_selectedApcCd
                             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                            , V_P_FI_ORG_CODE: gfnma_nvl(item.data.FI_ORG_CODE)
-                            , V_P_WRITE_DATE: gfnma_nvl(item.data.WRITE_DATE)
-                            , V_P_APPROVAL_NO: gfnma_nvl(item.data.APPROVAL_NO)
-                            , V_P_ISSUE_DATE: gfnma_nvl(item.data.ISSUE_DATE)
-                            , V_P_SEND_DATE: gfnma_nvl(item.data.SEND_DATE)
-                            , V_P_SELLER_REG_NO: gfnma_nvl(item.data.SELLER_REG_NO)
-                            , V_P_SELLER_SUB_REG_NO: gfnma_nvl(item.data.SELLER_SUB_REG_NO)
-                            , V_P_CS_CODE: gfnma_nvl(item.data.CS_CODE)
-                            , V_P_SELLER_NAME: gfnma_nvl(item.data.SELLER_NAME)
-                            , V_P_SELLER_OWNER: gfnma_nvl(item.data.SELLER_OWNER)
-                            , V_P_SELLER_ADDRESS: gfnma_nvl(item.data.SELLER_ADDRESS)
-                            , V_P_SELLER_BIZ_CATEGORY: gfnma_nvl(item.data.SELLER_BIZ_CATEGORY)
-                            , V_P_SELLER_BIZ_ITEM: gfnma_nvl(item.data.SELLER_BIZ_ITEM)
-                            , V_P_SELLER_BIZ_TYPE: gfnma_nvl(item.data.SELLER_BIZ_TYPE)
-                            , V_P_BUYER_REG_NO: gfnma_nvl(item.data.BUYER_REG_NO)
-                            , V_P_BUYER_SUB_REG_NO: gfnma_nvl(item.data.BUYER_SUB_REG_NO)
-                            , V_P_BUYER_NAME: gfnma_nvl(item.data.BUYER_NAME)
-                            , V_P_BUYER_OWNER: gfnma_nvl(item.data.BUYER_OWNER)
-                            , V_P_BUYER_ADDRESS: gfnma_nvl(item.data.BUYER_ADDRESS)
-                            , V_P_BUYER_BIZ_CATEGORY: gfnma_nvl(item.data.BUYER_BIZ_CATEGORY)
-                            , V_P_BUYER_BIZ_ITEM: gfnma_nvl(item.data.BUYER_BIZ_ITEM)
-                            , V_P_TOTAL_AMT: gfnma_nvl(item.data.TOTAL_AMT)
-                            , V_P_TOTAL_TAXABLE_AMT: gfnma_nvl(item.data.TOTAL_TAXABLE_AMT)
-                            , V_P_TOTAL_VAT_AMT: gfnma_nvl(item.data.TOTAL_VAT_AMT)
-                            , V_P_EINVOICE_CATEGORY: gfnma_nvl(item.data.EINVOICE_CATEGORY)
-                            , V_P_EINVOICE_TYPE: gfnma_nvl(item.data.EINVOICE_TYPE)
-                            , V_P_MATCH_METHOD: gfnma_nvl(item.data.MATCH_METHOD)
-                            , V_P_ISSUE_TYPE: gfnma_nvl(item.data.ISSUE_TYPE)
-                            , V_P_NOTE1: gfnma_nvl(item.data.NOTE1)
-                            , V_P_NOTE2: gfnma_nvl(item.data.NOTE2)
+                            , V_P_FI_ORG_CODE:          gfnma_nvl(item.data.FI_ORG_CODE)
+                            , V_P_WRITE_DATE:           gfnma_nvl(item.data.WRITE_DATE)
+                            , V_P_APPROVAL_NO:          gfnma_nvl(item.data.APPROVAL_NO)
+                            , V_P_ISSUE_DATE:           gfnma_nvl(item.data.ISSUE_DATE)
+                            , V_P_SEND_DATE:            gfnma_nvl(item.data.SEND_DATE)
+                            , V_P_SELLER_REG_NO:        gfnma_nvl(item.data.SELLER_REG_NO)
+                            , V_P_SELLER_SUB_REG_NO:    gfnma_nvl(item.data.SELLER_SUB_REG_NO)
+                            , V_P_CS_CODE:              gfnma_nvl(item.data.CS_CODE)
+                            , V_P_SELLER_NAME:          gfnma_nvl(item.data.SELLER_NAME)
+                            , V_P_SELLER_OWNER:         gfnma_nvl(item.data.SELLER_OWNER)
+                            , V_P_SELLER_ADDRESS:       gfnma_nvl(item.data.SELLER_ADDRESS)
+                            , V_P_SELLER_BIZ_CATEGORY:  gfnma_nvl(item.data.SELLER_BIZ_CATEGORY)
+                            , V_P_SELLER_BIZ_ITEM:      gfnma_nvl(item.data.SELLER_BIZ_ITEM)
+                            , V_P_SELLER_BIZ_TYPE:      gfnma_nvl(item.data.SELLER_BIZ_TYPE)
+                            , V_P_BUYER_REG_NO:         gfnma_nvl(item.data.BUYER_REG_NO)
+                            , V_P_BUYER_SUB_REG_NO:     gfnma_nvl(item.data.BUYER_SUB_REG_NO)
+                            , V_P_BUYER_NAME:           gfnma_nvl(item.data.BUYER_NAME)
+                            , V_P_BUYER_OWNER:          gfnma_nvl(item.data.BUYER_OWNER)
+                            , V_P_BUYER_ADDRESS:        gfnma_nvl(item.data.BUYER_ADDRESS)
+                            , V_P_BUYER_BIZ_CATEGORY:   gfnma_nvl(item.data.BUYER_BIZ_CATEGORY)
+                            , V_P_BUYER_BIZ_ITEM:       gfnma_nvl(item.data.BUYER_BIZ_ITEM)
+                            , V_P_TOTAL_AMT:            gfnma_nvl(item.data.TOTAL_AMT)
+                            , V_P_TOTAL_TAXABLE_AMT:    gfnma_nvl(item.data.TOTAL_TAXABLE_AMT)
+                            , V_P_TOTAL_VAT_AMT:        gfnma_nvl(item.data.TOTAL_VAT_AMT)
+                            , V_P_EINVOICE_CATEGORY:    gfnma_nvl(item.data.EINVOICE_CATEGORY)
+                            , V_P_EINVOICE_TYPE:        gfnma_nvl(item.data.EINVOICE_TYPE)
+                            , V_P_MATCH_METHOD:         gfnma_nvl(item.data.MATCH_METHOD)
+                            , V_P_ISSUE_TYPE:           gfnma_nvl(item.data.ISSUE_TYPE)
+                            , V_P_NOTE1:                gfnma_nvl(item.data.NOTE1)
+                            , V_P_NOTE2:                gfnma_nvl(item.data.NOTE2)
                             //--,V_P_NOTE3             IN VARCHAR2
-                            , V_P_RECEIPT_OR_BILL: gfnma_nvl(item.data.RECEIPT_OR_BILL)
-                            , V_P_SELLER_EMAIL: gfnma_nvl(item.data.SELLER_EMAIL)
-                            , IV_P_BUYER_EMAIL1: gfnma_nvl(item.data._BUYER_EMAIL1)
-                            , V_P_BUYER_EMAIL2: gfnma_nvl(item.data.BUYER_EMAIL2)
-                            , V_P_ACCOUNT_EMP_CODE: gfnma_nvl(item.data.ACCOUNT_EMP_CODE)
-                            , V_P_TXN_DATE: gfnma_nvl(item.data.TXN_DATE)
+                            , V_P_RECEIPT_OR_BILL:      gfnma_nvl(item.data.RECEIPT_OR_BILL)
+                            , V_P_SELLER_EMAIL:         gfnma_nvl(item.data.SELLER_EMAIL)
+                            , IV_P_BUYER_EMAIL1:        gfnma_nvl(item.data.BUYER_EMAIL1)
+                            , V_P_BUYER_EMAIL2:         gfnma_nvl(item.data.BUYER_EMAIL2)
+                            , V_P_ACCOUNT_EMP_CODE:     gfnma_nvl(item.data.ACCOUNT_EMP_CODE)
+                            , V_P_TXN_DATE:             gfnma_nvl(item.data.TXN_DATE)
 
-                            , V_P_DOC_ID: gfnma_nvl(item.data.DOC_ID)
+                            , V_P_DOC_ID:               gfnma_nvl(item.data.DOC_ID)
                             //--,V_P_DOC_BATCH_ID      IN VARCHAR2
 
                             , V_P_FORM_ID: p_formId
@@ -1516,9 +1557,10 @@
                     if (_.isEqual("S", data.resultStatus)) {
                         if (data.resultMessage) {
                             alert(data.resultMessage);
+                            return true;
                         }else{
                             gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            fn_search();
+                            return false;
                         }
 
                     } else {
@@ -1549,7 +1591,7 @@
 
                         cv_count: '0',
                         getType: 'json',
-                        workType: 'N',/*item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),*/
+                        workType: type,/*item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),*/
                         params: gfnma_objectToString({
 
                             V_P_DEBUG_MODE_YN: ''
@@ -1557,19 +1599,19 @@
                             , V_P_COMP_CODE: gv_ma_selectedApcCd
                             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                            , V_P_APPROVAL_NO: gfnma_nvl(item.data.APPROVAL_NO)
-                            , V_P_SEQ: gfnma_nvl(item.data.SEQ)
-                            , V_P_ITEM_NAME: gfnma_nvl(item.data.ITEM_NAME)
-                            , V_P_ITEM_SPEC: gfnma_nvl(item.data.ITEM_SPEC)
-                            , V_P_ITEM_QTY: gfnma_nvl(item.data.ITEM_QTY)
-                            , V_P_ITEM_UNIT_PRICE: gfnma_nvl(item.data.ITEM_UNIT_PRICE)
-                            , V_P_ITEM_TAXABLE_AMT: gfnma_nvl(item.data.ITEM_TAXABLE_AMT)
-                            , V_P_ITEM_VAT_AMT: gfnma_nvl(item.data.ITEM_VAT_AMT)
-                            , V_P_ITEM_DESC: gfnma_nvl(item.data.ITEM_DESC)
-                            , V_P_COST_CENTER_CODE: gfnma_nvl(item.data.COST_CENTER_CODE)
-                            , V_P_DEPT_CODE: gfnma_nvl(item.data.DEPT_CODE)
-                            , V_P_PROJECT_CODE: gfnma_nvl(item.data.PROJECT_CODE)
-                            , V_P_ACCOUNT_CODE: gfnma_nvl(item.data.ACCOUNT_CODE)
+                            , V_P_APPROVAL_NO:      gfnma_nvl(item.APPROVAL_NO)
+                            , V_P_SEQ:              gfnma_nvl(item.SEQ)
+                            , V_P_ITEM_NAME:        gfnma_nvl(item.ITEM_NAME)
+                            , V_P_ITEM_SPEC:        gfnma_nvl(item.ITEM_SPEC)
+                            , V_P_ITEM_QTY:         gfnma_nvl(item.ITEM_QTY)
+                            , V_P_ITEM_UNIT_PRICE:  gfnma_nvl(item.ITEM_UNIT_PRICE)
+                            , V_P_ITEM_TAXABLE_AMT: gfnma_nvl(item.ITEM_TAXABLE_AMT)
+                            , V_P_ITEM_VAT_AMT:     gfnma_nvl(item.ITEM_VAT_AMT)
+                            , V_P_ITEM_DESC:        gfnma_nvl(item.ITEM_DESC)
+                            , V_P_COST_CENTER_CODE: gfnma_nvl(item.COST_CENTER_CODE)
+                            , V_P_DEPT_CODE:        gfnma_nvl(item.DEPT_CODE)
+                            , V_P_PROJECT_CODE:     gfnma_nvl(item.PROJECT_CODE)
+                            , V_P_ACCOUNT_CODE:     gfnma_nvl(item.ACCOUNT_CODE)
 
                             , V_P_FORM_ID: p_formId
                             , V_P_MENU_ID: p_menuId
@@ -1585,6 +1627,21 @@
                 });
             }else{
                 /*********필수값 체크************/
+                itemGridData.forEach((item, index) => {
+                    if (gfnma_nvl(item.data.APPROVAL_NO) == ''){
+                        gfn_comAlert("W0002", "승인번호");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.SEQ) == ''){
+                        gfn_comAlert("W0002", "품목순번");
+                        return;
+                    }
+                    if (gfnma_nvl(item.data.SEQ) == ''){
+                        gfn_comAlert("W0002", "품목순번");
+                        return;
+                    }
+
+                })
 
                 itemGridData.forEach((item, index) => {
                     const param = {
@@ -1599,19 +1656,19 @@
                             , V_P_COMP_CODE: gv_ma_selectedApcCd
                             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                            , V_P_APPROVAL_NO: gfnma_nvl(item.data.APPROVAL_NO)
-                            , V_P_SEQ: gfnma_nvl(item.data.SEQ)
-                            , V_P_ITEM_NAME: gfnma_nvl(item.data.ITEM_NAME)
-                            , V_P_ITEM_SPEC: gfnma_nvl(item.data.ITEM_SPEC)
-                            , V_P_ITEM_QTY: gfnma_nvl(item.data.ITEM_QTY)
-                            , V_P_ITEM_UNIT_PRICE: gfnma_nvl(item.data.ITEM_UNIT_PRICE)
-                            , V_P_ITEM_TAXABLE_AMT: gfnma_nvl(item.data.ITEM_TAXABLE_AMT)
-                            , V_P_ITEM_VAT_AMT: gfnma_nvl(item.data.ITEM_VAT_AMT)
-                            , V_P_ITEM_DESC: gfnma_nvl(item.data.ITEM_DESC)
-                            , V_P_COST_CENTER_CODE: gfnma_nvl(item.data.COST_CENTER_CODE)
-                            , V_P_DEPT_CODE: gfnma_nvl(item.data.DEPT_CODE)
-                            , V_P_PROJECT_CODE: gfnma_nvl(item.data.PROJECT_CODE)
-                            , V_P_ACCOUNT_CODE: gfnma_nvl(item.data.ACCOUNT_CODE)
+                            , V_P_APPROVAL_NO:      gfnma_nvl(item.APPROVAL_NO)
+                            , V_P_SEQ:              gfnma_nvl(item.SEQ)
+                            , V_P_ITEM_NAME:        gfnma_nvl(item.ITEM_NAME)
+                            , V_P_ITEM_SPEC:        gfnma_nvl(item.ITEM_SPEC)
+                            , V_P_ITEM_QTY:         gfnma_nvl(item.ITEM_QTY)
+                            , V_P_ITEM_UNIT_PRICE:  gfnma_nvl(item.ITEM_UNIT_PRICE)
+                            , V_P_ITEM_TAXABLE_AMT: gfnma_nvl(item.ITEM_TAXABLE_AMT)
+                            , V_P_ITEM_VAT_AMT:     gfnma_nvl(item.ITEM_VAT_AMT)
+                            , V_P_ITEM_DESC:        gfnma_nvl(item.ITEM_DESC)
+                            , V_P_COST_CENTER_CODE: gfnma_nvl(item.COST_CENTER_CODE)
+                            , V_P_DEPT_CODE:        gfnma_nvl(item.DEPT_CODE)
+                            , V_P_PROJECT_CODE:     gfnma_nvl(item.PROJECT_CODE)
+                            , V_P_ACCOUNT_CODE:     gfnma_nvl(item.ACCOUNT_CODE)
 
                             , V_P_FORM_ID: p_formId
                             , V_P_MENU_ID: p_menuId
@@ -1633,6 +1690,254 @@
         }
     }
 
+    //전표연결끊기
+    const fn_btndisconnection = async function () {
+
+        let nRow = gvwListGrid.getRow();
+
+        if (nRow == -1) {
+            gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
+            return;
+        }
+
+        let rowData = gvwListGrid.getRowData(nRow);
+
+        if (_.isEmpty(rowData)) {
+            gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
+            return;
+        }
+
+        /************** 포커스에 어떤 스타일을 바꿔야 하는지 확인******************/
+        /*gvwList.CustomRowCellEdit -= GvwList_CustomRowCellEdit;
+        gvwList.RowCellStyle -= gvwList_RowCellStyle;*/
+
+        gvwListGrid.setCellData(nRow, gvwListGrid.getColRef('DOC_ID'), "",true,true);
+        gvwListGrid.setCellData(nRow, gvwListGrid.getColRef('DOC_NAME'), "",true,true);
+        /*gvwList.SetRowCellValue(gvwList.FocusedRowHandle, "doc_id", "");
+        gvwList.SetRowCellValue(gvwList.FocusedRowHandle, "doc_name", "");*/
+
+        let listGridData = gvwListGrid.getUpdateData(true, 'all');
+
+        if (_.isEmpty(listGridData)){
+            gfn_comAlert("W0005", "생성할 건");		//	W0005	{0}이/가 없습니다.
+            return;
+        }
+
+
+        if (fn_save(listGridData,'U') == false){
+            fn_search();
+        }
+
+        /************** 포커스에 어떤 스타일을 바꿔야 하는지 확인******************/
+        /*gvwList.RowCellStyle += gvwList_RowCellStyle;
+        gvwList.CustomRowCellEdit += GvwList_CustomRowCellEdit;*/
+
+    }
+
+    //정보갱신
+    const fn_btnUpdate = async function () {
+
+        strjob_name = 'IF_EC_FI_011';
+
+        if (fn_set_p_common_job_run("RUN", strjob_name) == false){
+            return;
+        }
+
+        fn_search();
+    }
+
+    //불러오기
+    const fn_btnImport = async function () {
+
+        strjob_name = 'IF_EC_FI_001';
+
+        if (fn_set_p_common_job_run("RUN", strjob_name) == false){
+            return;
+        }
+
+        fn_search();
+    }
+
+    // 배치프로그램 실행  프로시저
+    const fn_set_p_common_job_run = async function (workType, jobName) {
+
+        let DATE_FR 			= gfnma_nvl(SBUxMethod.get("srch-date_fr"));
+        let DATE_TO 			= gfnma_nvl(SBUxMethod.get("srch-date_to"));
+
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	    : ''
+            ,V_P_LANG_ID		    : ''
+            ,V_P_COMP_CODE		    : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	    : gv_ma_selectedClntCd
+
+            ,V_P_DATE_FR            : DATE_FR
+            ,V_P_DATE_TO            : DATE_TO
+            ,V_P_JOB_NAME           : jobName
+            ,V_P_INTERFACE_RUN      : 'Y' //--Y 인터페이스 실행
+            ,V_P_SCHEDULENAME       : ''
+            ,V_P_COMMAND            : ''
+            ,V_P_ADD_TIME           : 0
+            ,V_P_FREQ_TYPE          : 0
+            ,V_P_FREQ_INTERVAL      : 0
+            ,V_P_STEP_NAME          : ''
+            ,V_P_SUBSYSTEM          : ''
+            ,V_P_DATABASE_NAME      : ''
+            ,V_P_RETRY_ATTEMPTS     : 0
+            ,V_P_RETRY_INTERVAL     : ''
+            ,V_P_INTERFACE_ID       : jobName
+
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+
+
+        };
+        const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100COM.do", {
+            getType: 'json',
+            workType: workType,
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                    return true;
+                }else {
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    return false;
+                    /*gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_view();*/
+                }
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+
+    //제외처리
+    const fn_btnExclusion = async function (workType) {
+
+
+        let listData = [];
+        listData = await getParamFormS2(workType);
+
+        console.log('--------fn_btnExclusion save--------', listData);
+
+        if (listData.length > 0) {
+
+            const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100S2.do", {listData: listData});
+
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                    } else {
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search();
+                    }
+
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+
+    }
+
+    const getParamFormS2 = async function (workType) {
+
+        let returnData = [];
+
+        let iCnt = 0;
+
+        let CBOEXCEPT_CODE = gfnma_multiSelectGet('#cboexcept_code');
+        let EXCEPT_REASON  = gfnma_nvl(SBUxMethod.get("except_reason"));
+
+        if (!CBOEXCEPT_CODE) {
+            gfn_comAlert("W0002", "제외사유");
+            return;
+        }
+
+        let listGridData = gvwListGrid.getGridDataAll();
+
+        listGridData.forEach((item, index) => {
+
+            if (_.isEqual(item.CHECK_YN, 'Y')) {
+                iCnt++;
+            }
+
+        });
+
+        if (iCnt == 0) {
+            gfn_comAlert("W0005", "처리대상");		//	W0005	{0}이/가 없습니다.
+            return false;
+            /*SetMessageBox("처리대상이 없습니다.");
+            return false;*/
+        } else {
+
+            listGridData.forEach((item, index) => {
+
+                if (_.isEqual(item.CHECK_YN, 'Y')) {
+
+                    const param = {
+
+                        cv_count: '0',
+                        getType: 'json',
+                        workType: workType,
+                        params: gfnma_objectToString({
+
+                            V_P_DEBUG_MODE_YN: ''
+                            , V_P_LANG_ID: ''
+                            , V_P_COMP_CODE: gv_ma_selectedApcCd
+                            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                            ,V_P_APPROVAL_NO     : item.APPROVAL_NO
+                            ,V_P_EXCEPT_CODE     : CBOEXCEPT_CODE
+                            ,V_P_EXCEPT_REASON   : EXCEPT_REASON
+                            ,V_P_EXCEPT_AMOUNT 	 : 0
+
+                            , V_P_FORM_ID: p_formId
+                            , V_P_MENU_ID: p_menuId
+                            , V_P_PROC_ID: ''
+                            , V_P_USERID: ''
+                            , V_P_PC: ''
+                        })
+                    }
+
+                    console.log("---------S2 param--------- : ", param);
+                    returnData.push(param);
+
+                }
+            });
+
+            console.log("---------S2 returnData--------- : ", returnData);
+            return returnData;
+
+        }
+    }
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
