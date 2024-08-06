@@ -82,7 +82,15 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 
 	@Override
 	public List<RawMtrInvntrVO> selectRawMtrInvntrListForRslt(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
-		
+		/** pltno 다중 검색조건 추가 **/
+		if(rawMtrInvntrVO.getPltno() != null){
+			String[] pltnos = rawMtrInvntrVO.getPltno().split(",");
+			if(pltnos.length > 1){
+				rawMtrInvntrVO.setPltno("");
+				rawMtrInvntrVO.setPltnos(pltnos);
+			}
+		}
+
 		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectRawMtrInvntrListForRslt(rawMtrInvntrVO);
 
 		return resultList;

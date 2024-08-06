@@ -342,6 +342,12 @@
 		<if test='pltno != null and pltno != ""'>
 			   AND RI.PLTNO = #{pltno}
 		</if>
+		<if test='pltnos != null and pltnos !=""'>
+		   	   AND RI.PLTNO IN
+			<foreach item="pltno" collection="pltnos" open="(" separator="," close=")">
+				#{pltno}
+			</foreach>
+		</if>
 		<if test='wrhsYmd != null and wrhsYmd != ""'>
 			   AND RI.WRHS_YMD = #{wrhsYmd}
 		</if>

@@ -451,7 +451,7 @@
 		SBGridProperties.columns = [
 			{
 				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAllRawMtrInvntr(grdRawMtrInvntr, this);'>"],
-				ref: 'checkedYn', type: 'checkbox',  width:'3%',
+				ref: 'checkedYn', type: 'checkbox',  width:'4%',
 				style: 'text-align:center',
 				userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
@@ -459,15 +459,15 @@
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type:'output',  width:'10%', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
-            {caption: ["생산자","생산자"],    	ref: 'prdcrNm',     	type:'output',  width:'9%', style: 'text-align:center'},
-            {caption: ["품목","품목"],	    	ref: 'itemNm',   		type:'output',  width:'9%', style: 'text-align:center'},
-            {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'9%', style: 'text-align:center'},
-            {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'9%', style: 'text-align:center'},
-            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'9%', style: 'text-align:center'},
-            {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'9%', style: 'text-align:center'},
-            {caption: ["원물재고","톤백수량"],  		ref: 'invntrQntt',   	type:'output',  width:'9%', style: 'text-align:right', format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
-            {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'8%', style: 'text-align:right', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
-            {caption: ["투입","톤백수량"], 			ref: 'inptQntt',  		type:'input',  width:'8%', style: 'text-align:right;background-color:#FFF8DC;',
+            {caption: ["생산자","생산자"],    	ref: 'prdcrNm',     	type:'output',  width:'10%', style: 'text-align:center'},
+            {caption: ["품목","품목"],	    	ref: 'itemNm',   		type:'output',  width:'10%', style: 'text-align:center'},
+            {caption: ["품종","품종"],	    	ref: 'vrtyNm',   		type:'output',  width:'10%', style: 'text-align:center'},
+            {caption: ["등급","등급"],	    	ref: 'grdNm',   		type:'output',  width:'10%', style: 'text-align:center'},
+            {caption: ["상품구분","상품구분"],		ref: 'gdsSeNm', 		type:'output',  width:'10%', style: 'text-align:center'},
+            {caption: ["창고","창고"],	    	ref: 'warehouseSeNm', 	type:'output',  width:'10%', style: 'text-align:center'},
+            {caption: ["톤백수량","원물재고"],  		ref: 'invntrQntt',   	type:'output',  width:'13%', style: 'text-align:right', format : {type:'number', rule:'#,###'}, typeinfo : {mask : {alias : 'numeric'}}},
+            // {caption: ["원물재고","중량 (Kg)"],  		ref: 'invntrWght',   	type:'output',  width:'8%', style: 'text-align:right', format : {type:'number', rule:'#,### '}, typeinfo : {mask : {alias : 'numeric'}}},
+            {caption: ["톤백수량","투입"], 			ref: 'inptQntt',  		type:'input',  width:'13%', style: 'text-align:right;background-color:#FFF8DC;',
             	userattr: {colNm: "inptQntt"},
             	typeinfo: {
             		mask : {alias : '#', repeat: '*', unmaskvalue : true},
@@ -476,15 +476,15 @@
 				},
 				format : {type:'number', rule:'#,###'}
             },
-            {caption: ["투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'8%', style: 'text-align:right;background-color:#FFF8DC;',
-            	userattr: {colNm: "inptWght"},
-            	typeinfo: {
-            		mask : {alias : '#', repeat: '*', unmaskvalue : true},
-            		maxlength: 6,
-            		oneclickedit: true
-				},
-				format : {type:'number', rule:'#,### '}
-         	},
+            // {caption: ["투입","중량 (Kg)"], 			ref: 'inptWght',  		type:'input',  width:'8%', style: 'text-align:right;background-color:#FFF8DC;',
+            // 	userattr: {colNm: "inptWght"},
+            // 	typeinfo: {
+            // 		mask : {alias : '#', repeat: '*', unmaskvalue : true},
+            // 		maxlength: 6,
+            // 		oneclickedit: true
+			// 	},
+			// 	format : {type:'number', rule:'#,### '}
+         	// },
 		];
 
 		// const columnsStdGrd = [];
@@ -660,16 +660,16 @@
                 },
                 format : {type:'number', rule:'#,###'}
 			},
-			{
-				caption: ["총 중량 (Kg)"],
-				ref: 'wrhsWght',
-				type:'input',
-				width:'7%',
-				style: 'text-align:right',
-				userattr: {colNm: "wrhsWght"},
-				format : {type:'number', rule:'#,### '},
-				typeinfo : {mask : {alias : 'numeric'}}
-			},
+			// {
+			// 	caption: ["총 중량 (Kg)"],
+			// 	ref: 'wrhsWght',
+			// 	type:'input',
+			// 	width:'7%',
+			// 	style: 'text-align:right',
+			// 	userattr: {colNm: "wrhsWght"},
+			// 	format : {type:'number', rule:'#,### '},
+			// 	typeinfo : {mask : {alias : 'numeric'}}
+			// },
 			/*
 			{
 				caption: ["총 중량 (Kg)"],
@@ -702,7 +702,7 @@
 	            //     mask : {alias : '*-'}//repeat : '*'
                 // }
             },
-            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'9%'},
+            {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'16%'},
 		];
 
 		columns2.forEach((item, index) => {
@@ -930,7 +930,7 @@
 			const itemCd = rowData.itemCd;
 			const vrtyCd = rowData.vrtyCd;
 			const warehouseSeCd = rowData.warehouseSeCd;
-			const pltno = rowData.pltno.toUpperCase();
+			const pltno = rowData.pltno;
 			let wrhsQntt = parseInt(rowData.wrhsQntt) || 0;
 			const wrhsWght = parseInt(rowData.wrhsWght) || 0;
 			
@@ -1058,7 +1058,7 @@
 			rawMtrRePrcs = {
 				itemCd: itemCd,
    				vrtyCd: subVrtyCd,	//vrtyCd,
-   				pltno: rowData.pltno,
+   				pltno: rowData.pltno.toUpperCase(),
    				warehouseSeCd: warehouseSeCd,
    				bxKnd: rowData.bxKnd,
    				bxQntt: wrhsQntt,
