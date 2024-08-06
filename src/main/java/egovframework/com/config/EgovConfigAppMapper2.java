@@ -68,7 +68,7 @@ public class EgovConfigAppMapper2 {
 
 		sqlSessionFactoryBean.setConfigLocation(
 			//pathMatchingResourcePatternResolver.getResource("classpath:/egovframework/mapper/config/mapper-config.xml"));
-			pathMatchingResourcePatternResolver.getResource("classpath:/mapper/config/mapper-config.xml"));
+			pathMatchingResourcePatternResolver.getResource("classpath:/mapper/config/mapper-config2.xml"));
 
 		try {
 			sqlSessionFactoryBean.setMapperLocations(
