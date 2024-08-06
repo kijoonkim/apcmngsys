@@ -112,6 +112,54 @@ public class ApcMaFig3100Controller extends BaseController {
         }
     }
 
+    // 전자세금계산서 관리(매입)  // 배치프로그램 실행  프로시저
+    @PostMapping(value = "/fi/fap/pay/insertFig3100COM.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFig3100COM(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFig3100COM=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "P_COMMON_JOB_RUN");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertFig3100COM=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+    // 전자세금계산서 관리(매입) (세금계산서 제외처리)
+    @PostMapping(value = "/fi/fap/pay/insertFig3100S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFig3100S2(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFig3100S2=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3100_S2");
+
+            logger.info("=============insertFig3100S2=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
 }
 
 
