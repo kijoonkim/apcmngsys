@@ -53,6 +53,11 @@ public class RawMtrInvntrVO extends ComVO {
 	private String pltno;
 
 	/**
+	 * 다중 팔레트번호
+	 */
+	private String[] pltnos;
+
+	/**
 	 * 입고일자
 	 */
 	private String wrhsYmd;

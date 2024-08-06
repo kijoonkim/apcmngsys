@@ -28,6 +28,349 @@
 </head>
 <body oncontextmenu="return false">
 <section>
+    <div class="box box-solid">
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
+            <div>
+                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+                </h3>
+            </div>
+            <div style="margin-left: auto;">
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
+                <sbux-button id="btnResultQuery" name="btnResultQuery" uitype="normal" text="이체결과조회" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_resultQuery"></sbux-button>
+                <sbux-button id="btnBankUniqueNo" name="btnBankUniqueNo" uitype="normal" text="부가세 고유번호" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_bankUniqueNo"></sbux-button>
+                <sbux-button id="btnTxnCancel" name="btnTxnCancel" uitype="normal" text="이체취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_txnCancel"></sbux-button>
+                <sbux-button id="btnTxnComplete" name="btnTxnComplete" uitype="normal" text="이체처리" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_txnComplete"></sbux-button>
+                <sbux-button id="btnRetry" name="btnRetry" uitype="normal" text="재전송" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_retry"></sbux-button>
+                <sbux-button id="btnName" name="btnName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_checkName"></sbux-button>
+                <sbux-button id="btnFbsNew" name="btnFbsNew" uitype="normal" text="FBS 일괄생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_fbsNew"></sbux-button>
+                <sbux-button id="btnMailingList" name="btnMailingList" uitype="normal" text="메일링 리스트" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_mailingList"></sbux-button>
+                <sbux-button id="btnFbsUser" name="btnFbsUser" uitype="normal" text="FBS담당자생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_fbsUser"></sbux-button>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <!--[pp] 검색 -->
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
+            <table class="table table-bordered tbl_fixed">
+                <caption>실시간 이체</caption>
+                <colgroup>
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 3%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row" class="th_bg">사업단위</th>
+                    <td class="td_input">
+                        <div class="dropdown">
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <font>선택</font>
+                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            </div>
+                        </div>
+                    </td>
+                    <th scope="row" class="th_bg">거래처</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_CUSTOMER_CS_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_CUSTOMER_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findCsCode"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg">
+                        <sbux-checkbox
+                                uitype="normal"
+                                id="SRCH_MULTI_CS_YN"
+                                name="SRCH_MULTI_CS_YN"
+                                uitype="normal"
+                                class="form-control input-sm"
+                                text="복수선택"
+                                true-value="Y" false-value="N"
+                        />
+                    </th>
+                    <td class="td_input">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="복수거래처" uitype="modal"
+                                target-id="modal-compopup3"
+                                onclick="fn_multiCsSelect"
+                        ></sbux-button>
+                        <sbux-select id="SRCH_DEPOSIT_CODE" uitype="single" jsondata-ref="jsonDepositCode" unselected-text="선택" class="form-control input-sm" style="display: none;"></sbux-select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">지급일자</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_TXN_DATE"
+                                name="SRCH_TXN_DATE"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                style="width:100%;"
+                        />
+                    </td>
+                    <th scope="row" class="th_bg">전송회차</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_TRANS_COUNT" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_TXN_TIME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="찾기" uitype="modal"
+                                target-id="modal-compopup1"
+                                onclick="fn_findPayCurrency"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg">전표번호</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-input id="SRCH_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                    </td>
+                    <th scope="row" class="th_bg">
+                        <sbux-checkbox
+                                uitype="normal"
+                                id="SRCH_MULTI_A_YN"
+                                name="SRCH_MULTI_A_YN"
+                                uitype="normal"
+                                class="form-control input-sm"
+                                text="복수선택"
+                                true-value="Y" false-value="N"
+                        />
+                    </th>
+                    <td class="td_input">
+                        <sbux-button
+                                class="btn btn-xs btn-outline-dark"
+                                text="복수선택" uitype="modal"
+                                target-id="modal-compopup3"
+                                onclick="fn_multiASelect"
+                        ></sbux-button>
+                    </td>
+                    <th scope="row" class="th_bg">입출유형</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-select id="SRCH_TRANSFER_TYPE" uitype="single" jsondata-ref="jsonTransferType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg">승인상태</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-select id="SRCH_TXN_STATUS" uitype="single" jsondata-ref="jsonStatusCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <th scope="row" class="th_bg">이체상태</th>
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                        <sbux-select id="SRCH_PROCESS_YN" uitype="single" jsondata-ref="jsonProcessYn" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <th scope="row" class="th_bg">FBS서비스</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-select id="SRCH_FBS_SERVICE" uitype="single" jsondata-ref="jsonFbsService" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <th scope="row" class="th_bg">지급구분</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-select id="SRCH_PAY_GUBUN" uitype="single" jsondata-ref="jsonPayGubun" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    </td>
+                    <th scope="row" class="th_bg">지급방법</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-select id="SRCH_PAY_METHOD" uitype="single" jsondata-ref="jsonPayMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_TIME_RAW" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_ID" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_BANK_CODE" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_INSERT_USERID" name="INSERT_USERID" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_STATUS1" name="TXN_STATUS" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_PROXY_EMP_CODE" name="PROXY_EMP_CODE" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_PASSWORD" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_FEE" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_DATE1" name="TXN_DATE" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_TXN_TIME1" name="TXN_TIME" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_APPR_ID" name="APPR_ID" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                        <sbux-input uitype="hidden" uitype="text" id="SRCH_CONFIRM_EMP_CODE" name="CONFIRM_EMP_CODE" grid-id="gvwDetail" class="form-control input-sm"></sbux-input>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>자금이체 상세</span>
+                        </li>
+                    </ul>
+                    <div class="ad_tbl_toplist">
+                        <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button>
+                        <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
+                    </div>
+                </div>
+                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
+                    <div id="sb-area-gvwDetail" style="height:300px;"></div>
+                </div>
+                <sbux-tabs id="idxTab" name="idxTab" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
+                </sbux-tabs>
+                    <div class="tab-content">
+                        <div id="tabPageEx1">
+                            <div class="ad_tbl_top2">
+                                <ul class="ad_tbl_count">
+                                    <li>
+                                        <span>자금계획 내역</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="table-responsive tbl_scroll_sm" style="margin-top: 0px;">
+                                <div id="sb-area-gvwAct" style="height:200px;"></div>
+                            </div>
+                        </div>
+                        <div id="tabPageEx2">
+                            <table class="table table-bordered tbl_fixed">
+                                <caption>외화상세내역</caption>
+                                <colgroup>
+                                    <col style="width: 12.5%">
+                                    <col style="width: 12.5%">
+                                    <col style="width: 12.5%">
+                                    <col style="width: 12.5%">
+                                    <col style="width: 12.5%">
+                                    <col style="width: 12.5%">
+                                    <col style="width: 12.5%">
+                                    <col style="width: 12.5%">
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th scope="row" class="th_bg">수취인명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CS_NAME" name="CS_NAME" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">수취인 주소</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CS_ADDRESS" name="CS_ADDRESS" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">SWIFT BIC</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PAYER_SWIFT_BIC" name="PAYER_SWIFT_BIC" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">입금은행명 및 주소</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PAYER_BANK_INFO" name="PAYER_BANK_INFO" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">지급사유코드</th>
+                                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                                        <sbux-select id="PAY_REASON" uitype="single" jsondata-ref="jsonReasonCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    </td>
+                                    <th scope="row" class="th_bg">송금사유코드</th>
+                                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                                        <sbux-select id="SEND_REASON" uitype="single" jsondata-ref="jsonReasonCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">수취인앞지시사항1</th>
+                                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ORDER1_TO_RECEIPT" name="ORDER1_TO_RECEIPT" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">수취인앞지시사항2</th>
+                                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ORDER2_TO_RECEIPT" name="ORDER2_TO_RECEIPT" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">수취인앞지시사항3</th>
+                                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ORDER3_TO_RECEIPT" name="ORDER3_TO_RECEIPT" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">수취인앞지시사항4</th>
+                                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ORDER4_TO_RECEIPT" name="ORDER4_TO_RECEIPT" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">송금경유은행1</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TRANS_BANK1" name="TRANS_BANK1" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">송금경유은행2</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TRANS_BANK2" name="TRANS_BANK2" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">송금경유은행3</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TRANS_BANK3" name="TRANS_BANK3" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">수수료부담자</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <p class="ad_input_row">
+                                            <sbux-radio id="FEE_CHARGER_1" name="FEE_CHARGER" uitype="normal" text="수취인" value="1"></sbux-radio>
+                                        </p>
+                                        <p class="ad_input_row">
+                                            <sbux-radio id="FEE_CHARGER_2" name="FEE_CHARGER" uitype="normal" text="송금인" value="2"></sbux-radio>
+                                        </p>
+                                    </td>
+                                    <th scope="row" class="th_bg">지급구분</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <p class="ad_input_row">
+                                            <sbux-radio id="FOREIGN_GB_1" name="FOREIGN_GB" uitype="normal" text="국내" value="2"></sbux-radio>
+                                        </p>
+                                        <p class="ad_input_row">
+                                            <sbux-radio id="FOREIGN_GB_2" name="FOREIGN_GB" uitype="normal" text="해외" value="1"></sbux-radio>
+                                        </p>
+                                    </td>
+                                    <th scope="row" class="th_bg">가격조건</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-select id="PRICE_CONDITION" uitype="single" jsondata-ref="jsonPriceCondition" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    </td>
+                                    <th scope="row" class="th_bg">수입용도코드</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-select id="IMPORT_TYPE" uitype="single" jsondata-ref="jsonImportType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">수입신고번호</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="IMPORT_DOC_NO" name="IMPORT_DOC_NO" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">H.S Code</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_CODE" name="HS_CODE" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">수수료 계좌</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CHARGE_ACCOUNT" name="CHARGE_ACCOUNT" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">비고</th>
+                                    <td colspan="5" class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="REMARK" name="IMPORT_DOC_NO" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
 </section>
 <!-- 팝업 Modal -->
 <div>
@@ -44,6 +387,986 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
+    var p_fiOrgCode = "${loginVO.maFIOrgCode}";
+    var p_siteCode = "${loginVO.maSiteCode}";
+    var p_userID = "${loginVO.maUserID}";
+    var p_isTrUser = "${loginVO.maIsTrUser}";
+    var p_empCode = "${loginVO.maEmpCode}";
+    var p_isTrManager = "${loginVO.maIsTrManager}";
+    var p_isAccountChief = "${loginVO.maIsAccountChief}";
     //-----------------------------------------------------------
+
+    var dtFirmbanking;
+    var dtTransCnt;
+    var dtCheck;
+
+    var strCode1List = "";
+    var strCode2List = "";
+    var strCsCodeList = "";
+    var strAccountCodeList = "";
+
+    var dtResult1 = null;
+    var dtResult2 = null;
+    var dtResult3 = null;
+    var dtResult4 = null;
+
+    var bPopUpFlag = false;
+    var bTransCountSelect = true;
+    var bDetailSelect = true;
+
+    var jsonFbsService = []; // FBS서비스
+    var jsonPayGubun = []; // 지급구분
+    var jsonPayMethod = []; // 지급방법
+    var jsonDepositCode = []; // 입금코드
+    var jsonSiteCode = []; // 사업장
+    var jsonStatusCode = []; // 승인상태
+    var jsonProcessYn = []; // 이체처리결과
+    var jsonBankCode = []; // 은행코드
+    var jsonTransferType = []; // 입출유형
+    var jsonErrorCode = []; // 조회결과
+    var jsonComType = []; // 기업분류
+    var jsonCurrencyCode = []; // 통화
+    var jsonUser = []; // 사용자
+    var jsonPayMethod = []; // 지급방법
+    var jsonReasonCode = []; // 사유코드
+    var jsonPriceCondition = []; // 가격조건
+    var jsonImportType = []; // 수입용도코드
+
+    // Tab Data
+    var jsonTabData = [
+        {"id": "0", "pid": "-1", "order": "1", "text": "자금계획", "targetid": "tabPageEx1", "targetvalue": "자금계획"},
+        {"id": "1", "pid": "-1", "order": "2", "text": "외화상세내역", "targetid": "tabPageEx2", "targetvalue": "외화상세내역"},
+    ];
+
+    //grid 초기화
+    var gvwDetail; 			// 그리드를 담기위한 객체 선언
+    var gvwAct;
+
+    var jsonFinancialTransferList = []; 	// 그리드의 참조 데이터 주소 선언
+    var jsonFinancialPlanList = [];
+
+    const fn_initSBSelect = async function() {
+        let rst = await Promise.all([
+            // 회계단위
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_FI_ORG_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_FIM022'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'FI_ORG_CODE'
+                ,colLabel		: 'FI_ORG_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'FI_ORG_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
+            // FBS서비스
+            gfnma_setComSelect(['SRCH_FBS_SERVICE'], jsonFbsService, 'L_FBS019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 지급구분
+            gfnma_setComSelect(['SRCH_PAY_GUBUN'], jsonPayGubun, 'L_FBS031', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 지급구분
+            gfnma_setComSelect(['SRCH_PAY_METHOD'], jsonPayMethod, 'L_FIM081_FBS', "AND EXTRA_FIELD11 = '" + "ECBANK" + "'", gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 지급구분
+            gfnma_setComSelect(['SRCH_DEPOSIT_CODE'], jsonDepositCode, 'L_DEPOSIT_LIST', "", gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPOSIT_CODE', 'DEPOSIT_NAME', 'Y', ''),
+            // 사업장
+            gfnma_setComSelect(['gvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            // 상태
+            gfnma_setComSelect(['SRCH_TXN_STATUS', 'gvwDetail'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 이체처리결과
+            gfnma_setComSelect(['gvwDetail'], jsonProcessYn, 'L_FIM080', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 은행코드
+            gfnma_setComSelect(['gvwDetail'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            // 입출유형
+            gfnma_setComSelect(['SRCH_TRANSFER_TYPE', 'gvwDetail'], jsonTransferType, 'L_FBS016', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 입출유형
+            gfnma_setComSelect(['gvwDetail'], jsonErrorCode, 'L_FBS012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 기업분류
+            gfnma_setComSelect(['gvwDetail'], jsonComType, 'L_COM030', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 통화
+            gfnma_setComSelect(['gvwAct'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            // 사용자
+            gfnma_setComSelect(['gvwAct'], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            // 지불방식
+            gfnma_setComSelect(['gvwAct'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_TERM_CODE', 'PAY_TERM_NAME', 'Y', ''),
+            // 지급사유코드
+            gfnma_setComSelect(['PAY_REASON'], jsonReasonCode, 'L_COM062', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 지급사유코드
+            gfnma_setComSelect(['PRICE_CONDITION'], jsonPriceCondition, 'L_COM065', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 수입용도코드
+            gfnma_setComSelect(['IMPORT_TYPE'], jsonImportType, 'L_COM065', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        ]);
+
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+        SBUxMethod.set("FEE_CHARGER", "1");
+        SBUxMethod.set("FOREIGN_GB", "2");
+        SBUxMethod.set("SRCH_MULTI_CS_YN", "N");
+        SBUxMethod.set("SRCH_MULTI_A_YN", "N");
+        SBUxMethod.set("SRCH_FBS_SERVICE", "ECBANK");
+        SBUxMethod.set("SRCH_PAY_GUBUN", "10");
+        SBUxMethod.set("SRCH_EXPECTED_PAY_DT", gfn_dateToYmd(new Date()));
+    }
+
+    function fn_createGvwDetailGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwDetail';
+        SBGridProperties.id 				= 'gvwDetail';
+        SBGridProperties.jsonref 			= 'jsonFinancialTransferList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '115px',
+                typeinfo: {
+                    ref			: 'jsonSiteCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["등록일"],       ref: 'TXN_DATE', 		type:'datepicker',  	width:'76px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["처리일"],       ref: 'PROCESS_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["등록시간"],       ref: 'TXN_TIME', 		type:'datepicker',  	width:'64px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["등록회차"],         ref: 'TRANS_COUNT',    type:'output',  	width:'64px',  style:'text-align:left'},
+            {caption: ["승인상태"], 		ref: 'TXN_STATUS',   	    type:'combo', style:'text-align:left' ,width: '85px',
+                typeinfo: {
+                    ref			: 'jsonStatusCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["전표상태"], 		ref: 'DOC_STATUS',   	    type:'combo', style:'text-align:left' ,width: '76px',
+                typeinfo: {
+                    ref			: 'jsonStatusCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["이체처리결과"], 		ref: 'PROCESS_YN',   	    type:'combo', style:'text-align:left' ,width: '90px',
+                typeinfo: {
+                    ref			: 'jsonProcessYn',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["에러메세지"],         ref: 'ERROR_MESSAGE',    type:'output',  	width:'99px',  style:'text-align:left'},
+            {caption: ["전문번호"],         ref: 'FIRM_NO',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["통화"],         ref: 'CURRENCY_CODE',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["지급전표번호"],         ref: 'DOC_NAME',    type:'output',  	width:'109px',  style:'text-align:left'},
+            {caption: ["전표 제목"],         ref: 'DOC_DESCRIPTION',    type:'output',  	width:'150px',  style:'text-align:left'},
+            {caption: ["거래처코드"],         ref: 'PAYER_ID',    type:'output',  	width:'70px',  style:'text-align:left'},
+            {caption: ["거래처명"],         ref: 'PAYER_NAME',    type:'output',  	width:'99px',  style:'text-align:left'},
+            {caption: ["예금주"],         ref: 'PAYER_BANK_ACCOUNT_OWNER',    type:'output',  	width:'101px',  style:'text-align:left'},
+            {caption: ["이체금액"],         ref: 'TXN_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["입금은행"], 		ref: 'PAYER_BANK_CODE',   	    type:'combo', style:'text-align:left' ,width: '90px',
+                typeinfo: {
+                    ref			: 'jsonBankCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["입금은행명"],         ref: 'PAYER_BANK_NAME',    type:'output',  	width:'87px',  style:'text-align:left'},
+            {caption: ["입금계좌"],         ref: 'PAYER_BANK_ACCOUNT',    type:'output',  	width:'130px',  style:'text-align:left'},
+            {caption: ["계좌코드"],         ref: 'DEPOSIT_CODE',    type:'output',  	width:'99px',  style:'text-align:left'},
+            {caption: ["출금은행"],         ref: 'BANK_CODE',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["출금은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'101px',  style:'text-align:left'},
+            {caption: ["출금계좌(회사)"],         ref: 'BANK_ACCOUNT_NO',    type:'output',  	width:'160px',  style:'text-align:left'},
+            {caption: ["부가세 고유번호"],         ref: 'BANK_UNIQUE_NO',    type:'output',  	width:'118px',  style:'text-align:left'},
+            {caption: ["순번"],         ref: 'TXN_SEQ',    type:'output',  	width:'49px',  style:'text-align:left'},
+            {caption: ["처리예정일"],         ref: 'PLANNED_PAY_DATE',    type:'output',  	width:'90px',  style:'text-align:left'},
+            {caption: ["입출유형"], 		ref: 'TRANSFER_TYPE',   	    type:'combo', style:'text-align:left' ,width: '97px',
+                typeinfo: {
+                    ref			: 'jsonTransferType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["예약여부"],         ref: 'RESERVE_YN',    type:'output',  	width:'66px',  style:'text-align:left'},
+            {caption: ["지급구분"],         ref: 'PAYROLL_FLAG',    type:'output',  	width:'60px',  style:'text-align:left'},
+            {caption: ["입금적요"],         ref: 'IN_PRINT',    type:'output',  	width:'118px',  style:'text-align:left'},
+            {caption: ["출금적요"],         ref: 'OUT_PRINT',    type:'output',  	width:'115px',  style:'text-align:left'},
+            {caption: ["출금계좌주"],         ref: 'BANK_OWNER',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["수수료"],         ref: 'FEE_AMT',    type:'output',  	width:'76px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["EB여부"],         ref: 'EB_USED',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["입력시간"],       ref: 'INSERT_TIME', 		type:'datepicker',  	width:'160px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["수정시간"],       ref: 'UPDATE_TIME', 		type:'datepicker',  	width:'160px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["거래ID"],         ref: 'TREASURY_ID',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["거래번호"],         ref: 'FBS_NO',    type:'output',  	width:'101px',  style:'text-align:left'},
+            {caption: ["수취인전문번호"],         ref: 'FIRM_PAYEE_TRF_NO',    type:'output',  	width:'115px',  style:'text-align:left'},
+            {caption: ["수취인전문일자"],       ref: 'FIRM_PAYEE_DATE', 		type:'datepicker',  	width:'106px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["수취인명"],         ref: 'FIRM_PAYEE_NAME',    type:'output',  	width:'99px',  style:'text-align:left'},
+            {caption: ["수취인조회결과"], 		ref: 'FIRM_PAYEE_ERROR_CODE',   	    type:'combo', style:'text-align:left' ,width: '99px',
+                typeinfo: {
+                    ref			: 'jsonErrorCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["승인자"],         ref: 'CONFIRM_EMP_CODE',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["작성자"],         ref: 'USER_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["전표상태"],         ref: 'DOC_H_DOC_STATUS',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["전표id"],         ref: 'DOC_ID',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["전표배치번호"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["SOURCE_TYPE"],         ref: 'SOURCE_TYPE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["APPR_COUNT"],         ref: 'APPR_COUNT',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["APPR_ID"],         ref: 'APPR_ID',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["ITEM_ID"],         ref: 'ITEM_ID',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["이체시간"],         ref: 'TXN_TIME_RAW',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["PROXY_EMP_CODE"],         ref: 'PROXY_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["CMS코드"],         ref: 'CMS_CODE',    type:'output',  	width:'111px',  style:'text-align:left'},
+            {caption: ["법인번호"],         ref: 'COMP_REGNO',    type:'output',  	width:'80px',  style:'text-align:left'},
+            {caption: ["사업자번호"],         ref: 'BIZ_REGNO',    type:'output',  	width:'99px',  style:'text-align:left'},
+            {caption: ["기업분류"], 		ref: 'COM_TYPE',   	    type:'combo', style:'text-align:left' ,width: '76px',
+                typeinfo: {
+                    ref			: 'jsonComType',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["대표자명"],         ref: 'CHIEF_NAME',    type:'output',  	width:'99px',  style:'text-align:left'},
+            {caption: ["이전승인권자"],         ref: 'BEFORE_APPR_EMP',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["다음승인권자"],         ref: 'NEXT_APPR_EMP',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["이전대행자"],         ref: 'BEFORE_PROXY_EMP',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["다음대행자"],         ref: 'NEXT_PROXY_EMP',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["청구자"],         ref: 'REQUEST_EMP',    type:'output',  	width:'75px',  style:'text-align:left'},
+        ];
+
+        gvwDetail = _SBGrid.create(SBGridProperties);
+        gvwDetail.bind('click', 'fn_view');
+    }
+
+    function fn_createGvwActGrid() {
+        var SBGridProperties 				= {};
+        SBGridProperties.parentid 			= 'sb-area-gvwAct';
+        SBGridProperties.id 				= 'gvwAct';
+        SBGridProperties.jsonref 			= 'jsonFinancialPlanList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["품의번호"],         ref: 'TREASURY_BATCH_NO',    type:'output',  	width:'76px',  style:'text-align:left'},
+            {caption: ["지급요청일"],       ref: 'PLANNED_PAY_DATE', 		type:'datepicker',  	width:'80px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["통화"], 		ref: 'CURRENCY_CODE',   	    type:'combo', style:'text-align:left' ,width: '69px',
+                typeinfo: {
+                    ref			: 'jsonCurrencyCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'76px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["품의금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'123px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["품의환산금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'129px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["작성자"], 		ref: 'INSERT_USERID',   	    type:'combo', style:'text-align:left' ,width: '90px',
+                typeinfo: {
+                    ref			: 'jsonUser',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["지급방법"], 		ref: 'PAY_METHOD',   	    type:'combo', style:'text-align:left' ,width: '76px',
+                typeinfo: {
+                    ref			: 'jsonPayMethod',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
+            {caption: ["집행금액"],         ref: 'ORIGINAL_AMOUNT2',    type:'output',  	width:'123px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["집행원화금액"],         ref: 'FUNCTIONAL_AMOUNT2',    type:'output',  	width:'125px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+            },
+            {caption: ["적요"],         ref: 'DESCRIPTION',    type:'output',  	width:'300px',  style:'text-align:left'},
+            {caption: ["TREASURY_ID"],         ref: 'TREASURY_ID',    type:'output',  	width:'76px',  style:'text-align:left', hidden: true},
+            {caption: ["TREASURY_LINE_NUM"],         ref: 'TREASURY_LINE_NUM',    type:'output',  	width:'76px',  style:'text-align:left', hidden: true},
+            {caption: ["DOC_BATCH_NO"],         ref: 'DOC_BATCH_NO',    type:'output',  	width:'76px',  style:'text-align:left', hidden: true},
+            {caption: ["DOC_ID"],         ref: 'DOC_ID',    type:'output',  	width:'76px',  style:'text-align:left', hidden: true},
+            {caption: ["DOC_STATUS"],         ref: 'DOC_STATUS',    type:'output',  	width:'76px',  style:'text-align:left', hidden: true},
+        ];
+
+        gvwAct = _SBGrid.create(SBGridProperties);
+    }
+
+    const fn_findCsCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_NAME"));
+        var replaceText0 	= "_CS_CODE_";
+        var replaceText1 	= "_CS_NAME_";
+        var replaceText2 	= "_BIZ_REGNO_";
+        var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_COM004'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사엄자번호" ]
+            ,searchInputFields		: ["CS_CODE"   , 	"CS_NAME",  "BIZ_REGNO"]
+            ,searchInputValues		: [""          , 	searchText, ""         ]
+            ,height					: '400px'
+            ,tableHeader			: ["거래처코드", "거래처명", "사업자번호" , "대표자"     ,"업태"          ,"종목"      ,"주소"    ,"전화"  ,"팩스"]
+            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
+            ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_CUSTOMER_CS_NAME', data.CS_NAME);
+                SBUxMethod.set('SRCH_CUSTOMER_CS_CODE', data.CS_CODE);
+            },
+        });
+    }
+
+    var fn_findPayCurrency = function () {
+        var TRANS_COUNT = gfn_nvl(SBUxMethod.get("SRCH_TRANS_COUNT"));
+        var replaceText0 = "_TRANS_COUNT_";
+        var replaceText1 = "_TXN_DATE_";
+        var strWhereClause = "AND AA.TRANS_COUNT LIKE '%" + replaceText0 + "%' AND A.TXN_DATE LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 (구매)');
+        compopup1({
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_CS_PURCHASE'
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions: ["거래처코드", "거래처명"]
+            , searchInputFields: ["TRANS_COUNT", "TXN_DATE"]
+            ,searchInputTypes: ["input", "datepicker"]
+            , searchInputValues: [TRANS_COUNT, gfn_dateToYmd(new Date())]
+            , height: '400px'
+            , tableHeader: ["거래처코드", "거래처명", "사업자번호", "거래중지여부"]
+            , tableColumnNames: ["TRANS_COUNT", "TXN_TIME", "TXN_TIME_RAW", "TXN_DATE"]
+            , tableColumnWidths: ["90px", "150px", "130px", "70px"]
+            , itemSelectEvent: function (data) {
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_TRANS_COUNT', data.TRANS_COUNT);
+                SBUxMethod.set('SRCH_TXN_TIME', data.TXN_TIME);
+            },
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        let initObject = localStorage.getItem("callMain");
+        await fn_initSBSelect();
+        fn_createGvwDetailGrid();
+        fn_createGvwActGrid();
+
+        if(!gfn_isEmpty(initObject)){
+            initObject = JSON.parse(initObject);
+            localStorage.removeItem("callMain");
+
+            await fn_onload(initObject);
+        } else {
+            await fn_onload();
+        }
+    });
+
+    const fn_multiCsSelect = function() {
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strCsCodeList = "";
+                data.forEach((item, index) => {
+                    strCsCodeList += item + "|";
+                });
+
+                if (strCsCodeList.length > 0)
+                    strCsCodeList = strCsCodeList.substring(0, strCsCodeList.length - 1);
+
+                if (strCsCodeList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_CS_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_CS_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+    }
+
+    const fn_multiASelect = function() {
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strAccountCodeList = "";
+                data.forEach((item, index) => {
+                    strAccountCodeList += item + "|";
+                });
+
+                if (strAccountCodeList.length > 0)
+                    strAccountCodeList = strAccountCodeList.substring(0, strAccountCodeList.length - 1);
+
+                if (strAccountCodeList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_A_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_A_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+    }
+
+    window.addEventListener('message', async function(event){
+        let obj = event.data;
+        if(!gfn_isEmpty(obj)){
+            await fn_onload(obj);
+        } else {
+            await fn_onload();
+        }
+    });
+
+    // 행추가
+    const fn_addRow = function () {
+        let rowVal = gvwDetail.getRow();
+        if (rowVal == -1){
+            gvwDetail.addRow(true);
+        }else{
+            gvwDetail.insertRow(rowVal);
+        }
+    }
+
+    // 행삭제
+    const fn_deleteRow = async function () {
+        let rowVal = gvwDetail.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwDetail.deleteRow(rowVal);
+        }
+    }
+
+    // 신규
+    function cfn_add() {
+        fn_create();
+    }
+
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+
+    // 삭제
+    function cfn_del() {
+        fn_delete();
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    // 결재처리
+    function cfn_appr() {
+        fn_approval();
+    }
+
+    const fn_onload = async function (parentParameter) {
+        if (parentParameter) {
+            bPopUpFlag = true;
+
+            if (parentParameter.hasOwnProperty("TYPE")) {
+                if (gfn_nvl(parentParameter["TYPE"]) == "Q1") {
+                    if (parentParameter.hasOwnProperty("TXN_DATE")) {
+                        SBUxMethod.set("SRCH_TXN_DATE", gfn_nvl(parentParameter["TXN_DATE"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("TXN_TIME")) {
+                        SBUxMethod.set("SRCH_TXN_TIME", gfn_nvl(parentParameter["TXN_TIME"]));
+                        SBUxMethod.set("SRCH_TXN_TIME_RAW", gfn_nvl(parentParameter["TXN_TIME"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("TRANS_COUNT")) {
+                        SBUxMethod.set("SRCH_TRANS_COUNT", gfn_nvl(parentParameter["TRANS_COUNT"]));
+                    }
+
+                    if (gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")) != "" && gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME")) != "") {
+                        let query = "SELECT min(aa.trans_count)  as  trans_count ";
+                        query += " FROM(SELECT ";
+                        query += " TO_CHAR(TO_DATE(a.txn_date, 'YYYYMMDD'), 'YYYY-MM-DD') as txn_date ";
+                        query += " , TO_CHAR(TO_DATE(a.txn_time, 'HH24:MI:SS'), 'HH24:MI:SS') as txn_time ";
+                        query += " , a.txn_time as txn_time_raw ";
+                        query += " , a.txn_date as txn_date_raw ";
+                        query += " , dense_rank() over(PARTITION BY a.txn_date order by a.txn_time) as trans_count";
+                        query += " FROM FBSBANKTXN a ";
+                        query += " where a.txn_date = '" + gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")) + "' ";
+                        query += " group by a.txn_date ";
+                        query += " , a.txn_time) aa ";
+                        query += " where aa.txn_date_raw = '" + gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")) + "' ";
+                        query += " and aa.txn_time_raw = '" + gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME")) + "'";
+
+                        var paramObj = {
+                            TRANS_COUNT: query
+                        }
+                        console.log(paramObj);
+                        const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbs2010TransCount.do", paramObj);
+
+                        const data = await postJsonPromise;
+
+                        try {
+                            if (_.isEqual("S", data.resultStatus)) {
+                                SBUxMethod.set("SRCH_TRANS_COUNT", Number(gfn_nvl(data.TRANS_COUNT)));
+                                SBUxMethod.set("SRCH_FBS_SERVICE", "ECBANK");
+                                fn_search();
+                            } else {
+                                alert(data.resultMessage);
+                            }
+                        } catch (e) {
+                            if (!(e instanceof Error)) {
+                                e = new Error(e);
+                            }
+                            console.error("failed", e.message);
+                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                        }
+                    }
+                } else if (parentParameter.hasOwnProperty("TYPE") && gfn_nvl(parentParameter["TYPE"]) != "N") {
+
+                    bTransCountSelect = false;
+
+                    if (parentParameter.hasOwnProperty("TXN_DATE")) {
+                        SBUxMethod.set("SRCH_TXN_DATE", gfn_nvl(parentParameter["TXN_DATE"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("TXN_TIME")) {
+                        SBUxMethod.set("SRCH_TXN_TIME", gfn_nvl(parentParameter["TXN_TIME"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("TXN_TIME_RAW")) {
+                        SBUxMethod.set("SRCH_TXN_TIME_RAW", gfn_nvl(parentParameter["TXN_TIME"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("TRANS_COUNT")) {
+                        SBUxMethod.set("SRCH_TRANS_COUNT", gfn_nvl(parentParameter["TRANS_COUNT"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("TXN_ID")) {
+                        var strTXN_ID = parentParameter["TXN_ID"].ToString();
+                    }
+
+                    if (parentParameter.hasOwnProperty("DEPOSIT_CODE")) {
+                        SBUxMethod.set("SRCH_DEPOSIT_CODE", gfn_nvl(parentParameter["DEPOSIT_CODE"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("BANK_CODE")) {
+                        SBUxMethod.set("SRCH_BANK_CODE", gfn_nvl(parentParameter["BANK_CODE"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("FI_ORG_CODE")) {
+                        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', gfn_nvl(parentParameter["FI_ORG_CODE"]));
+                    }
+
+                    bTransCountSelect = true;
+                }
+            }
+        } else {
+            bPopUpFlag = false;
+
+            /*btnNew.Visible = false;
+            btnSave.Visible = false;
+            btnDel.Visible = false;
+
+            SaveButton = true;*/
+
+            SBUxMethod.set("SRCH_TXN_DATE", gfn_dateToYmd(new Date())); // TODO : GetServerDateTime
+            SBUxMethod.set("SRCH_TXN_TIME_RAW", "");
+            SBUxMethod.set("SRCH_TRANS_COUNT", "");
+            SBUxMethod.set("SRCH_TXN_TIME", "");
+            SBUxMethod.set("SRCH_PROCESS_YN", "A");
+        }
+    }
+
+    const fn_view = async function () {
+        if (bDetailSelect) {
+            if (gvwDetail.getRow() < 0)
+                return;
+
+            fnQRY_P_FBS2010_Q("DETAIL");
+            fnQRY_P_FBS2010_Q("DETAIL1");
+
+            if (gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS1")) == "1") {
+                SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+                SBUxMethod.attr("btnRetry", "disabled", "true");
+                SBUxMethod.attr("btnResultQuery", "disabled", "true");
+
+                // SessionInfo.IsTrUser 추가
+                if (gfn_nvl(SBUxMethod.get("SRCH_INSERT_USERID")) == p_userID || p_isTrUser == true || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode)
+                    $("#main-btn-appr").attr('disabled', 'false');
+                else
+                    $("#main-btn-appr").attr('disabled', 'true');
+
+                SBUxMethod.attr("btnAddRow", "disabled", "false");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+            } else if (gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS1")) == "3") {
+                SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+                SBUxMethod.attr("btnRetry", "disabled", "true");
+                SBUxMethod.attr("btnResultQuery", "disabled", "true");
+
+                // SessionInfo.IsTrManager 추가
+                if (gfn_nvl(SBUxMethod.get("SRCH_CONFIRM_EMP_CODE")) == p_empCode || p_isTrManager == true || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode || gfn_nvl(SBUxMethod.get("SRCH_PROXY_EMP_CODE")) == p_empCode) {
+                    $("#main-btn-appr").attr('disabled', 'false');
+                } else {
+                    $("#main-btn-appr").attr('disabled', 'true');
+                }
+
+                SBUxMethod.attr("btnAddRow", "disabled", "true");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "true");
+            } else if (gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS1")) == "5") {
+                //승인완료
+                $("#main-btn-appr").attr('disabled', 'true');
+                SBUxMethod.attr("btnRetry", "disabled", "false");
+                SBUxMethod.attr("btnResultQuery", "disabled", "false");
+
+                //회계팀장일때에만 활성화
+                if ( (p_isAccountChief)  || (p_isTrUser) )
+                    SBUxMethod.attr("btnTxnComplete", "disabled", "false");
+                else
+                    SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+
+                SBUxMethod.attr("btnAddRow", "disabled", "true");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+            } else {
+                $("#main-btn-appr").attr('disabled', 'false');
+                SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+                SBUxMethod.attr("btnRetry", "disabled", "true");
+                SBUxMethod.attr("btnResultQuery", "disabled", "true");
+
+                SBUxMethod.attr("btnAddRow", "disabled", "false");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+            }
+
+            if (parseInt(gfn_nvl(SBUxMethod.get("SRCH_APPR_ID")) == "" ? "0" : gfn_nvl(SBUxMethod.get("SRCH_APPR_ID"))) != 0)
+                $("#main-btn-appr").attr('disabled', 'false');
+            else
+                $("#main-btn-appr").attr('disabled', 'true');
+        }
+    }
+
+    const fn_create = async function () {}
+
+    const fn_save = async function () {}
+
+    const fn_delete = async function () {}
+
+    const fn_search = async function () {
+        jsonFinancialPlanList.length = 0;
+        fnQRY_P_FBS2010_Q("Q");
+    }
+
+    const fn_approval = async function () {}
+
+    const fnQRY_P_FBS2010_Q = async function (strWorkType) {
+/*        if (strWorkType == "Q") {
+            if (!SBUxMethod.validateRequired('panHeader')) {
+                return false;
+            }
+        }*/
+
+        try {
+            let FBS_SERVICE = gfn_nvl(SBUxMethod.get("SRCH_FBS_SERVICE"));
+            let PAY_GUBUN = gfn_nvl(SBUxMethod.get("SRCH_PAY_GUBUN"));
+            let SITE_CODE = gfn_nvl(p_siteCode);
+            let TXN_DATE = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+            let TXN_TIME = gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME_RAW"));
+            let TREASURY_ID = gfn_nvl(gvwDetail.getCellData(gvwDetail.getRow(), gvwDetail.getColRef("TREASURY_ID"))) == "" ? 0 : parseInt(gfn_nvl(gvwDetail.getCellData(gvwDetail.getRow(), gvwDetail.getColRef("TREASURY_ID"))));
+            let FBS_NO = gfn_nvl(gvwDetail.getCellData(gvwDetail.getRow(), gvwDetail.getColRef("FBS_NO"))) == "" ? "" : gfn_nvl(gvwDetail.getCellData(gvwDetail.getRow(), gvwDetail.getColRef("FBS_NO")));
+            let PASS_WORD = gfn_nvl(SBUxMethod.get("SRCH_PASSWORD"));
+            let BANK_CODE = gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE"));
+            let TRANSFER_TYPE = gfn_nvl(SBUxMethod.get("SRCH_TRANSFER_TYPE"));
+            let PROCESS_YN = gfn_nvl(SBUxMethod.get("SRCH_PROCESS_YN"));
+            let PAY_METHOD = gfn_nvl(SBUxMethod.get("SRCH_PAY_METHOD"));
+            let CS_CODE_D = gfn_nvl(SBUxMethod.get("SRCH_MULTI_CS_YN")) == "N" ? gfn_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_CODE")) : strCsCodeList;
+            let DOC_NAME = gfn_nvl(SBUxMethod.get("SRCH_MULTI_A_YN")) == "N" ? gfn_nvl(SBUxMethod.get("SRCH_DOC_NAME")) : strAccountCodeList;
+            let TXN_STATUS = gfn_nvl(SBUxMethod.get("SRCH_TXN_STATUS"));
+
+            // 비즈니스 로직 정보
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_FBS_SERVICE : FBS_SERVICE,
+                V_P_PAY_GUBUN : PAY_GUBUN,
+                V_P_SITE_CODE : SITE_CODE,
+                V_P_TXN_DATE : TXN_DATE,
+                V_P_TXN_TIME : TXN_TIME,
+                V_P_TREASURY_ID : TREASURY_ID,
+                V_P_ARRFBS_NO : '',
+                V_P_FBS_NO : FBS_NO,
+                V_P_PASS_WORD : PASS_WORD,
+                V_P_BANK_CODE : BANK_CODE,
+                V_P_TRANSFER_TYPE : TRANSFER_TYPE,
+                V_P_PROCESS_YN : PROCESS_YN,
+                V_P_PAY_METHOD : PAY_METHOD,
+                V_P_CS_CODE_D : CS_CODE_D,
+                V_P_DOC_NAME : DOC_NAME,
+                V_P_TXN_STATUS : TXN_STATUS,
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: '',
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbs2010List.do", {
+                getType				: 'json',
+                workType			: strWorkType,
+                cv_count			: '3',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (strWorkType == "Q") {
+                        jsonFinancialTransferList.length = 0;
+                        data.cv_1.forEach((item, index) => {
+                            const msg = {
+                                CHECK_YN : item.CHECK_YN,
+                                FBS_NO : item.FBS_NO,
+                                SITE_CODE : item.SITE_CODE,
+                                SEQ : item.SEQ,
+                                TXN_DATE : item.TXN_DATE,
+                                TXN_TIME : item.TXN_TIME,
+                                TXN_TIME_RAW : item.TXN_TIME_RAW,
+                                TRANS_COUNT : item.TRANS_COUNT,
+                                TXN_SEQ : item.TXN_SEQ,
+                                TRANSFER_TYPE : item.TRANSFER_TYPE,
+                                RESERVE_YN : item.RESERVE_YN,
+                                DEPOSIT_CODE : item.DEPOSIT_CODE,
+                                BANK_CODE : item.BANK_CODE,
+                                BANK_NAME : item.BANK_NAME,
+                                BANK_ACCOUNT_NO : item.BANK_ACCOUNT_NO,
+                                PAYER_BANK_CODE : item.PAYER_BANK_CODE,
+                                PAYER_BANK_NAME : item.PAYER_BANK_NAME,
+                                PAYER_BANK_ACCOUNT : item.PAYER_BANK_ACCOUNT,
+                                CMS_CODE : item.CMS_CODE,
+                                TXN_AMT : item.TXN_AMT,
+                                PAYER_BANK_ACCOUNT_OWNER : item.PAYER_BANK_ACCOUNT_OWNER,
+                                PAYROLL_FLAG : item.PAYROLL_FLAG,
+                                IN_PRINT : item.IN_PRINT,
+                                OUT_PRINT : item.OUT_PRINT,
+                                BANK_OWNER : item.BANK_OWNER,
+                                FEE_AMT : item.FEE_AMT,
+                                PLANNED_PAY_DATE : item.PLANNED_PAY_DATE,
+                                PROCESS_YN : item.PROCESS_YN,
+                                PROCESS_DATE : item.PROCESS_DATE,
+                                ERROR_MESSAGE : item.ERROR_MESSAGE,
+                                EB_USED : item.EB_USED,
+                                INSERT_TIME : item.INSERT_TIME,
+                                UPDATE_TIME : item.UPDATE_TIME,
+                                TREASURY_ID : item.TREASURY_ID,
+                                FIRM_NO : item.FIRM_NO,
+                                FIRM_PAYEE_TRF_NO : item.FIRM_PAYEE_TRF_NO,
+                                FIRM_PAYEE_DATE : item.FIRM_PAYEE_DATE,
+                                FIRM_PAYEE_NAME : item.FIRM_PAYEE_NAME,
+                                FIRM_PAYEE_ERROR_CODE : item.FIRM_PAYEE_ERROR_CODE,
+                                TXN_STATUS : item.TXN_STATUS,
+                                INSERT_USERID : item.INSERT_USERID,
+                                PAYER_ID : item.PAYER_ID,
+                                PAYER_NAME : item.PAYER_NAME,
+                                DOC_ID : item.DOC_ID,
+                                DOC_NAME : item.DOC_NAME,
+                                ITEM_ID : item.ITEM_ID,
+                                DOC_BATCH_NO : item.DOC_BATCH_NO,
+                                DOC_H_DOC_STATUS : item.DOC_H_DOC_STATUS,
+                                DOC_DESCRIPTION : item.DOC_DESCRIPTION,
+                                SOURCE_TYPE : item.SOURCE_TYPE,
+                                APPR_COUNT : item.APPR_COUNT,
+                                APPR_ID : item.APPR_ID,
+                                COM_TYPE : item.COM_TYPE,
+                                CS_CATEGORY : item.CS_CATEGORY,
+                                BIZ_REGNO : item.BIZ_REGNO,
+                                COMP_REGNO : item.COMP_REGNO,
+                                CHIEF_NAME : item.CHIEF_NAME,
+                                CURRENCY_CODE : item.CURRENCY_CODE,
+                                CS_NAME : item.CS_NAME,
+                                CS_ADDRESS : item.CS_ADDRESS,
+                                PAYER_SWIFT_BIC : item.PAYER_SWIFT_BIC,
+                                PAYER_BANK_INFO : item.PAYER_BANK_INFO,
+                                PAY_REASON : item.PAY_REASON,
+                                SEND_REASON : item.SEND_REASON,
+                                FEE_CHARGER : item.FEE_CHARGER,
+                                FOREIGN_GB : item.FOREIGN_GB,
+                                ORDER1_TO_RECEIPT : item.ORDER1_TO_RECEIPT,
+                                ORDER2_TO_RECEIPT : item.ORDER2_TO_RECEIPT,
+                                ORDER3_TO_RECEIPT : item.ORDER3_TO_RECEIPT,
+                                ORDER4_TO_RECEIPT : item.ORDER4_TO_RECEIPT,
+                                TRANS_BANK1 : item.TRANS_BANK1,
+                                TRANS_BANK2 : item.TRANS_BANK2,
+                                TRANS_BANK3 : item.TRANS_BANK3,
+                                PRICE_CONDITION : item.PRICE_CONDITION,
+                                IMPORT_TYPE : item.IMPORT_TYPE,
+                                IMPORT_DOC_NO : item.IMPORT_DOC_NO,
+                                HS_CODE : item.HS_CODE,
+                                CHARGE_ACCOUNT : item.CHARGE_ACCOUNT,
+                                REMARK : item.REMARK,
+                                DOC_STATUS : item.DOC_STATUS,
+                                REQUEST_EMP : item.REQUEST_EMP,
+                                BEFORE_APPR_EMP : item.BEFORE_APPR_EMP,
+                                NEXT_APPR_EMP : item.NEXT_APPR_EMP,
+                                BEFORE_PROXY_EMP : item.BEFORE_PROXY_EMP,
+                                NEXT_PROXY_EMP : item.NEXT_PROXY_EMP,
+                                CONFIRM_EMP_CODE : item.CONFIRM_EMP_CODE,
+                                PROXY_EMP_CODE : item.PROXY_EMP_CODE,
+                                BANK_UNIQUE_NO : item.BANK_UNIQUE_NO,
+                            }
+                            jsonFinancialTransferList.push(msg);
+                        });
+
+                        gvwDetail.rebuild();
+
+                        if (jsonFinancialTransferList.length > 0) {
+                            gvwDetail.clickRow(1);
+                        } else {
+                            jsonFinancialPlanList.length = 0;
+                        }
+                    } else if (strWorkType == "DETAIL") {
+                        jsonFinancialPlanList.length = 0;
+                        data.cv_2.forEach((item, index) => {
+                            const msg = {
+                                TREASURY_BATCH_NO : item.TREASURY_BATCH_NO,
+                                TXN_ID : item.TXN_ID,
+                                TXN_SEQ : item.TXN_SEQ,
+                                PLANNED_PAY_DATE : item.PLANNED_PAY_DATE,
+                                CURRENCY_CODE : item.CURRENCY_CODE,
+                                ORIGINAL_AMOUNT2 : item.ORIGINAL_AMOUNT2,
+                                FUNCTIONAL_AMOUNT2 : item.FUNCTIONAL_AMOUNT2,
+                                EXCHANGE_RATE : item.EXCHANGE_RATE,
+                                DESCRIPTION : item.DESCRIPTION,
+                                ORIGINAL_AMOUNT : item.ORIGINAL_AMOUNT,
+                                FUNCTIONAL_AMOUNT : item.FUNCTIONAL_AMOUNT,
+                                INSERT_USERID : item.INSERT_USERID,
+                                PAY_METHOD : item.PAY_METHOD,
+                                DOC_BATCH_NO : item.DOC_BATCH_NO,
+                                DOC_ID : item.DOC_ID,
+                                DOC_STATUS : item.DOC_STATUS,
+                            }
+                            jsonFinancialPlanList.push(msg);
+                        });
+
+                        gvwAct.rebuild();
+                    } else if (strWorkType == "DETAIL1") {
+                        var returnData = data.cv_2[0];
+
+                        SBUxMethod.set("CS_NAME", gfn_nvl(returnData.CS_NAME));
+                        SBUxMethod.set("CS_ADDRESS", gfn_nvl(returnData.CS_ADDRESS));
+                        SBUxMethod.set("PAYER_SWIFT_BIC", gfn_nvl(returnData.PAYER_SWIFT_BIC));
+                        SBUxMethod.set("PAYER_BANK_INFO", gfn_nvl(returnData.PAYER_BANK_INFO));
+                        SBUxMethod.set("PAY_REASON", gfn_nvl(returnData.PAY_REASON));
+                        SBUxMethod.set("SEND_REASON", gfn_nvl(returnData.SEND_REASON));
+                        SBUxMethod.set("FEE_CHARGER", gfn_nvl(returnData.FEE_CHARGER));
+                        SBUxMethod.set("ORDER1_TO_RECEIPT", gfn_nvl(returnData.ORDER1_TO_RECEIPT));
+                        SBUxMethod.set("ORDER2_TO_RECEIPT", gfn_nvl(returnData.ORDER2_TO_RECEIPT));
+                        SBUxMethod.set("ORDER3_TO_RECEIPT", gfn_nvl(returnData.ORDER3_TO_RECEIPT));
+                        SBUxMethod.set("ORDER4_TO_RECEIPT", gfn_nvl(returnData.ORDER4_TO_RECEIPT));
+                        SBUxMethod.set("TRANS_BANK1", gfn_nvl(returnData.TRANS_BANK1));
+                        SBUxMethod.set("TRANS_BANK2", gfn_nvl(returnData.TRANS_BANK2));
+                        SBUxMethod.set("TRANS_BANK3", gfn_nvl(returnData.TRANS_BANK3));
+                        SBUxMethod.set("PRICE_CONDITION", gfn_nvl(returnData.PRICE_CONDITION));
+                        SBUxMethod.set("IMPORT_TYPE", gfn_nvl(returnData.IMPORT_TYPE));
+                        SBUxMethod.set("IMPORT_DOC_NO", gfn_nvl(returnData.IMPORT_DOC_NO));
+                        SBUxMethod.set("HS_CODE", gfn_nvl(returnData.HS_CODE));
+                        SBUxMethod.set("CHARGE_ACCOUNT", gfn_nvl(returnData.CHARGE_ACCOUNT));
+                        SBUxMethod.set("REMARK", gfn_nvl(returnData.REMARK));
+
+                    } else if (strWorkType == "TRANS_COUNT") {
+                        if (data.cv_3.length >= 1) {
+                            dtTransCnt = data.cv_3[0];
+                        }
+                    }
+                    return true;
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        } catch (e){
+            console.error(e);
+            return false;
+        }
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
