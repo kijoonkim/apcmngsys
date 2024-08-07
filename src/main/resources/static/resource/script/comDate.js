@@ -183,7 +183,26 @@ const gfn_monthValidation = function(_current,_target,_month = 3){
 	}
 }
 
+/**
+ * @name
+ * @description
+ * @param {Date} date
+ * @param {String} delimiter
+ * @function
+ * @returns
+ */
+const gfn_dateToTime = function(date, delimiter = ":") {
+	let hours = ('0' + date.getHours()).slice(-2);
+	let minutes = ('0' + date.getMinutes()).slice(-2);
+	let seconds = ('0' + date.getSeconds()).slice(-2);
 
+	let strTime = "";
+	strTime += hours;
+	strTime += delimiter + minutes;
+	strTime += delimiter + seconds;
+
+	return strTime;
+}
 
 
 
