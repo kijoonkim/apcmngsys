@@ -282,7 +282,7 @@
 </section>
 <!-- 팝업 Modal -->
 <div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -437,7 +437,7 @@
             ,bizcompId				: 'P_COM004'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사엄자번호" ]
+            ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사업자번호" ]
             ,searchInputFields		: ["CS_CODE"   , 	"CS_NAME",  "BIZ_REGNO"]
             ,searchInputValues		: [""          , 	searchText, ""         ]
             ,height					: '400px'

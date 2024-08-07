@@ -592,7 +592,31 @@ public class ApcMaComController extends BaseController {
 
 		logger.info("=============com5500tList=====end========");
 		return getSuccessResponseEntityMa(resultMap);
-	}		
-    
-    
+	}
+
+	//fbs2040 자금이체 내역정보
+	@PostMapping(value = "/com/fbs2040tList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> fbs2040tList(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+
+		logger.info("=============fbs2040tList=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+
+			param.put("procedure", 		"P_FBS2040_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============fbs2040tList=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+	}
 }
