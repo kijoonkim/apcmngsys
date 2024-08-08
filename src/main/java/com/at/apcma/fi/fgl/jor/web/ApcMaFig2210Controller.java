@@ -93,6 +93,31 @@ public class ApcMaFig2210Controller extends BaseController {
     	return getSuccessResponseEntityMa(resultMap);
     }   
     
+    // 전표등록 처리
+    @PostMapping(value = "/fi/fgl/jor/insertFig2210S.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFig2210S(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============insertFig2210S=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		param.put("procedure", 		"P_FIG2210_S");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============insertFig2210S=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }   
+    
     
 
     
