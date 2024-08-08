@@ -10,7 +10,7 @@
 	<section id="compopup1">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-				<div>
+				<div class="cu-search-div">
 					<table class="table table-bordered tbl_row tbl_fixed">
 						<colgroup>
 							<col style="width:auto">
@@ -21,10 +21,10 @@
 								<td class="td_input" >
 									<table class="table table-bordered tbl_row tbl_fixed">
 										<colgroup>
-											<col style="width: 24%">
-											<col style="width: 26%">
-											<col style="width: 24%">
-											<col style="width: 26%">
+											<col style="width: 22%">
+											<col style="width: 28%">
+											<col style="width: 22%">
+											<col style="width: 28%">
 										</colgroup>
 										<tbody class="cu-search-area">
 										</tbody>
@@ -88,6 +88,7 @@ function compopup1(options) {
 		,tableHeader			: null
 		,tableColumnNames		: null
 		,tableColumnWidths		: null
+		,tableColumnHiddenList	: null
 		,itemSelectEvent		: null
 		,returnDataFilter		: null
 	};
@@ -143,7 +144,12 @@ function compopup1(options) {
 				}
 			}
 		}	
-	    $(modalId).find('.cu-search-area').html(htma);
+		if(alen==0){
+			$(modalId).find('.cu-search-div').hide();
+		} else {
+			$(modalId).find('.cu-search-div').show();
+		    $(modalId).find('.cu-search-area').html(htma);
+		}
 		
 		//table column width
 		var ctot = 0; 
@@ -241,6 +247,10 @@ function compopup1(options) {
 			console.log('type B형 parameter:', pstr);			
 		}
 		
+		if(settings.popupType=='B'){
+			wstr = '';
+		}
+		
    		var paramObj = { 
    			V_P_DEBUG_MODE_YN	: ''
    			,V_P_LANG_ID		: ''
@@ -280,14 +290,22 @@ function compopup1(options) {
 				tmp += '<td cu-name="' + code + '">' + gfn_nvl(list[i][code]) + '</td>';
 			}
 			//비표시되는 컬럼
-			var obj = list[i];
+			var obj 	= list[i];
+			var chkcol  = true; 
+			var chkcode = '';
 			for(var key in obj){
+				chkcol = true;
+				chkcode = '';
 		   	 	for (var j= 0; j < settings.tableColumnNames.length; j++) {
-					var code = settings.tableColumnNames[j];
-					if(code!=key){
-						tmp += '<td style="display:none" cu-name="' + key + '">' + gfn_nvl(obj[key]) + '</td>';
+		   	 		chkcode = settings.tableColumnNames[j];
+					if(chkcode!=key){
+						chkcol = false;
+						break;
 					}
 				}
+		   	 	if(!chkcol){
+					tmp += '<td style="display:none" cu-name="' + key + '">' + gfn_nvl(obj[key]) + '</td>';
+		   	 	}
 			}
 			tmp += '</tr>'
 		}

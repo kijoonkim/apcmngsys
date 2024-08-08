@@ -293,13 +293,13 @@ public abstract class BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, 	resultMap.get("resultStatus"));
 		resultMap.put(ComConstants.PROP_RESULT_CODE, 	"");
 
-		if(resultMap.get("resultStatus").equals("S")) {
-			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	ComConstants.CON_BLANK);
-			//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	"");
-			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	resultMap.get("resultMessage"));
-		} else {
-			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	resultMap.get("resultMessage"));
-		}
+//		if(resultMap.get("resultStatus").equals("S")) {
+//			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	ComConstants.CON_BLANK);
+//			//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	"");
+//			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	resultMap.get("resultMessage"));
+//		} else {
+//			resultMap.put(ComConstants.PROP_RESULT_MESSAGE, 	resultMap.get("resultMessage"));
+//		}
 		
 		logger.debug("===============>>>>>>>>>>>>>>>>>>", resultMap);
 		System.out.println(Arrays.asList(resultMap));

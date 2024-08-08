@@ -676,7 +676,14 @@ const gfnma_uxDataSet = function (target, obj) {
 	
 	for(var key in obj){
 		if($(target).find('#'+key)){
-			SBUxMethod.set(key,	obj[key]);
+			var cls = $(target).find('#'+key).attr('class') + '';
+			var val = gfnma_nvl(obj[key]);
+			if(cls.indexOf('sbux-')>-1){
+				SBUxMethod.set(key,	val);
+			} else {
+				$(target).find('#'+key).val(val);
+				$(target).find('#'+key).text(val);
+			}
 		}
 	}
 }
@@ -692,7 +699,7 @@ const gfnma_uxDataClear = function (target) {
     var tar = typeof target == 'string' ? $(target) : target;
 	tar.find('input').val('');
 	tar.find('input').each(function(){
-		var id = $(this).attr('id');
+		var id 	= $(this).attr('id');		
 		SBUxMethod.set(id, '');
 	});
 	tar.find('input[type=checkbox]').prop('checked', false);
@@ -768,6 +775,31 @@ const gfnma_getNumber = function (str) {
 	var regex 	= /[^0-9]/g;
 	var result 	= str.replace(regex, "");
     return Number(result);
+}
+
+/**
+ * @name 		gfnma_getRound
+ * @description 반올림 한다.
+ * @function
+ * @param 		{Number} val : 값
+ * @param 		{Number} unit : 반올림자릿수
+ * @returns 	{Number}
+ */
+const gfnma_getRound = function (val, unit) {
+	
+	var rnum = 0;
+	if(val==0){
+		rnum = Math.floor(val);
+	} else {
+		var str = '';
+		for (var i = 0; i < unit; i++) {
+			str += '0';
+		}
+		str = '1' + str;
+		str = Number(str);
+		rnum = Math.floor(Math.round(val * str))/str;
+	}
+    return rnum;
 }
 
 /**
