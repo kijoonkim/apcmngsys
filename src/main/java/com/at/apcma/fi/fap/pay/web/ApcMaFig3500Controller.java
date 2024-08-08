@@ -42,7 +42,7 @@ public class ApcMaFig3500Controller extends BaseController {
     private ApcMaComService apcMaComService;
 
 
-    // 전자세금계산서 관리(매입) 조회
+    // 송장등록및조회(매입) 조회
     @PostMapping(value = "/fi/fap/pay/selectFig3500List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectFig3500List(
             @RequestBody Map<String, Object> param
@@ -67,5 +67,54 @@ public class ApcMaFig3500Controller extends BaseController {
         return getSuccessResponseEntityMa(resultMap);
 
     }
+
+    // 송장등록및조회(매입) 등록
+    @PostMapping(value = "/fi/fap/pay/insertFig3500.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFig3500(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFig3500=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3500_S");
+
+            logger.info("=============insertFig3500=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    // 송장등록및조회(매입) 일괄결재
+    @PostMapping(value = "/fi/fap/pay/insertFig3500S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFig3500S1(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFig3500S1=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "P_FIG3500_S1");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertFig3500S1=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
 
 }

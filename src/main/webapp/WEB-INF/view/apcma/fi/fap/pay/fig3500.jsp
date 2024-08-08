@@ -36,8 +36,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnXml" name="btnXml" uitype="normal" text="파일등록(XML)" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_btnXml"></sbux-button>
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -131,6 +130,7 @@
                                 datepicker-mode="month"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                onchange="fn_payDate"
                         />
                     </td>
                     <td style="border-right: hidden;"></td>
@@ -764,6 +764,28 @@
         await fn_search();
     });
 
+    /**
+     * 지급일자 조회
+     */
+    var fn_payDate = function() {
+
+        let NATION_CODE = gfnma_nvl(SBUxMethod.get("SRCH_PERIOD_YYYYMM"));
+
+        if (NATION_CODE == ''){
+
+            SBUxMethod.set("SRCH_TXN_DATE_FROM", 			'');
+            SBUxMethod.set("SRCH_TXN_DATE_TO", 			'');
+        }
+
+        SBUxMethod.set("SRCH_TXN_DATE_FROM", 			NATION_CODE + '01');
+
+        //월별로 말일 구하기
+        let lastDate = new Date(NATION_CODE.slice(0,4),NATION_CODE.slice(4,6),0);
+        let DATE_TO = gfn_dateToYmd(lastDate);
+        SBUxMethod.set("SRCH_TXN_DATE_TO", 			DATE_TO);
+
+    }
+
     function fn_createGvwMasterGrid() {
         var SBGridProperties 				= {};
         SBGridProperties.parentid 			= 'sb-area-gvwMaster';
@@ -953,8 +975,8 @@
         ];
 
         gvwMaster = _SBGrid.create(SBGridProperties);
-        /*gvwMaster.bind('dblclick', 'fn_gvwMasterDblclick');
-        gvwMaster.bind('click', 'fn_view');*/
+        //gvwMaster.bind('dblclick', 'fn_gvwMasterDblclick');
+        gvwMaster.bind('click', 'fn_view');
     }
 
     function fn_createGvwAccountGrid() {
@@ -1509,7 +1531,13 @@
 
     // 조회
     function cfn_search() {
-        fn_search();
+        let ACTIVE_MASTER_TAB = SBUxMethod.get('idxTabMaster');
+        fn_search(ACTIVE_MASTER_TAB == "tabPageEx1" ? "Q" : "Q2");
+    }
+
+    // 저장
+    function cfn_save() {
+        fn_save();
     }
 
     const fn_create = async function () {
@@ -1533,56 +1561,86 @@
         window.parent.postMessage(json);
     }
 
-    const fn_search = async function () {
-        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
-        let DOC_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_TYPE"));
-        let TXN_DATE_FROM = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM"));
-        let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO"));
-        let CS_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYER_CODE"));
-        let PAYEE_DEPT = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_CODE"));
-        let PAYEE_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_CODE"));
-        let DOC_STATUS = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_STATUS"));
-        let CREATED_DEPT = gfn_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_CODE"));
-        let CREATED_BY = gfn_nvl(SBUxMethod.get("SRCH_CREATED_BY_CODE"));
-        let REVERSE_FLAG = gfn_nvl(SBUxMethod.get("SRCH_REVERSE_FLAG").SRCH_REVERSE_FLAG);
-        let APPR_ONLY_FLAG = gfn_nvl(SBUxMethod.get("SRCH_APPR_ONLY_FLAG").SRCH_APPR_ONLY_FLAG);
-        let DOC_NAME = gfn_nvl(SBUxMethod.get("SRCH_DOC_NAME"));
-        let DOC_NAME_D = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == "Y" ? strDocNameList : "";
-        let DESC = gfn_nvl(SBUxMethod.get("SRCH_DESC"));
-        let ACTIVE_MASTER_TAB = SBUxMethod.get('idxTabMaster');
+    const fn_search = async function (ACTIVE_MASTER_TAB) {
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")); //사업단위
+        let DOC_STATUS = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_STATUS")); //자금상태
+        let HOLD_FLAG = gfn_nvl(gfnma_multiSelectGet("#SRCH_HOLD_FLAG")); //보류여부
+        let APPR_ONLY_FLAG = gfn_nvl(SBUxMethod.get("SRCH_APPR_ONLY_FLAG").SRCH_APPR_ONLY_FLAG); //결재건만
+        let PERIOD_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PERIOD_YYYYMM")); //년월
+        let PAYER_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYER_CODE")); //거래처
+        let CREATED_DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_CODE")); //작성부서
+        let PAYEE_DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_CODE")); //청구부서
+        let REVERSE_FLAG = gfn_nvl(SBUxMethod.get("SRCH_REVERSE_FLAG").SRCH_REVERSE_FLAG); //역분개제외여부
+        let TXN_DATE_FROM = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM")); //거래일자
+        let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO")); //거래일자
+        let DOC_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_TYPE")); //전표구분
+        let CREATED_BY_CODE = gfn_nvl(SBUxMethod.get("SRCH_CREATED_BY_CODE")); //작성자
+        let PAYEE_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_CODE")); //실사용자
+        let CARD_EXCEPT_FLAG = gfn_nvl(SBUxMethod.get("SRCH_CARD_EXCEPT_FLAG").SRCH_CARD_EXCEPT_FLAG); //ESS제외여부
+        let DOC_NAME = gfn_nvl(SBUxMethod.get("SRCH_DOC_NAME")); //전표번호
+        let DOC_NAME_D = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == "Y" ? strDocNameList : ""; //복수선택
+        let DESC = gfn_nvl(SBUxMethod.get("SRCH_DESC")); //제목
+
+        if (!TXN_DATE_FROM) {
+            gfn_comAlert("W0002", "거래일자");
+            return;
+        }
+        if (!TXN_DATE_TO) {
+            gfn_comAlert("W0002", "거래일자");
+            return;
+        }
+
+        let docId = 0;
+
+        if (_.isEqual(ACTIVE_MASTER_TAB, 'Q2')){
+
+            let nRow = gvwMaster.getRow();
+
+            if (nRow != -1){
+
+                let rowData = gvwMaster.getRowData(nRow);
+
+                docId = rowData.DOC_ID;
+
+            }
+        }
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_FI_ORG_CODE : FI_ORG_CODE,
-            V_P_DOC_TYPE : DOC_TYPE,
-            V_P_DOC_ID : '0',
-            V_P_TXN_DATE_FROM : TXN_DATE_FROM,
-            V_P_TXN_DATE_TO : TXN_DATE_TO,
-            V_P_CS_CODE : CS_CODE,
-            V_P_PAYEE_DEPT : PAYEE_DEPT,
-            V_P_PAYEE_CODE : PAYEE_CODE,
-            V_P_DOC_STATUS : DOC_STATUS,
-            V_P_CREATED_DEPT : CREATED_DEPT,
-            V_P_CREATED_BY : CREATED_BY,
-            V_P_REVERSE_FLAG : REVERSE_FLAG,
-            V_P_APPR_ONLY_FLAG : APPR_ONLY_FLAG,
-            V_P_DOC_NAME : DOC_NAME,
-            V_P_DOC_NAME_D : DOC_NAME_D,
-            V_P_DESC : DESC,
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: ''
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+
+            ,V_P_FI_ORG_CODE      : FI_ORG_CODE
+            ,V_P_DOC_TYPE         : DOC_TYPE
+            ,V_P_DOC_ID           : docId
+            ,V_P_TXN_DATE_FROM    : TXN_DATE_FROM
+            ,V_P_TXN_DATE_TO      : TXN_DATE_TO
+            ,V_P_CS_CODE          : PAYER_CODE
+            ,V_P_PAYEE_DEPT       : PAYEE_DEPT_CODE
+            ,V_P_PAYEE_CODE       : PAYEE_CODE
+            ,V_P_DOC_STATUS       : DOC_STATUS
+            ,V_P_CREATED_DEPT     : CREATED_DEPT_CODE
+            ,V_P_CREATED_BY       : CREATED_BY_CODE
+            ,V_P_REVERSE_FLAG 	  : REVERSE_FLAG
+            ,V_P_HOLD_FLAG        : HOLD_FLAG
+            ,V_P_CARD_EXCEPT_FLAG : CARD_EXCEPT_FLAG
+            ,V_P_APPR_ONLY_FLAG   : APPR_ONLY_FLAG
+            ,V_P_DOC_NAME         : DOC_NAME
+            ,V_P_DOC_NAME_D       : DOC_NAME_D
+            ,V_P_DESC             : DESC
+
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
+            ,V_P_PROC_ID		: ''
+            ,V_P_USERID			: ''
+            ,V_P_PC				: ''
         };
 
         const postJsonPromiseForList = gfn_postJSON("/fi/fap/pay/selectFig3500List.do", {
             getType				: 'json',
-            workType			: ACTIVE_MASTER_TAB == "tabPageEx1" ? "Q" : "Q2",
-            cv_count			: '1',
+            workType			: ACTIVE_MASTER_TAB,
+            cv_count			: '4',
             params				: gfnma_objectToString(paramObj)
         });
 
@@ -1591,74 +1649,78 @@
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
-                if(ACTIVE_MASTER_TAB == "tabPageEx1") {
+                if(ACTIVE_MASTER_TAB == "Q") {
                     jsonSalesInvoiceList.length = 0;
 
                     listData.cv_1.forEach((item, index) => {
                         const msg = {
-                            CHECK_YN: item.CHECK_YN,
-                            DOC_BATCH_NO: item.DOC_BATCH_NO,
-                            DOC_NUM: item.DOC_NUM,
-                            FI_ORG_CODE: item.FI_ORG_CODE,
-                            SITE_CODE: item.SITE_CODE,
-                            DOC_NAME: item.DOC_NAME,
-                            DOC_ID: item.DOC_ID,
-                            PAYER_ID: item.PAYER_ID,
-                            PAYER_NAME: item.PAYER_NAME,
-                            PAYER_BIZ_REGNO: item.PAYER_BIZ_REGNO,
-                            DOC_DATE: item.DOC_DATE,
-                            DOC_TYPE: item.DOC_TYPE,
-                            PAY_METHOD: item.PAY_METHOD,
-                            CURRENCY_CODE: item.CURRENCY_CODE,
-                            EXCHANGE_TYPE: item.EXCHANGE_TYPE,
-                            EXCHANGE_RATE: item.EXCHANGE_RATE,
-                            SUPPLY_AMOUNT: item.SUPPLY_AMOUNT,
-                            VAT_AMOUNT: item.VAT_AMOUNT,
-                            ORIGINAL_AMOUNT: item.ORIGINAL_AMOUNT,
-                            FUNCTIONAL_AMOUNT: item.FUNCTIONAL_AMOUNT,
-                            APPLIED_DOC_NAME: item.APPLIED_DOC_NAME,
-                            APPLIED_DOC_DATE: item.APPLIED_DOC_DATE,
-                            APPLIED_AMOUNT: item.APPLIED_AMOUNT,
-                            APPLY_COMPLETE_FLAG: item.APPLY_COMPLETE_FLAG,
-                            APPLY_COMPLETE_DATE: item.APPLY_COMPLETE_DATE,
-                            APPLIED_FLAG: item.APPLIED_FLAG,
-                            EXPECTED_PAY_DATE: item.EXPECTED_PAY_DATE,
-                            DOC_STATUS: item.DOC_STATUS,
-                            VOUCHER_TYPE: item.VOUCHER_TYPE,
-                            VOUCHER_NO: item.VOUCHER_NO,
-                            PAYEE_CODE: item.PAYEE_CODE,
-                            CREATED_BY: item.CREATED_BY,
-                            INSERT_TIME: item.INSERT_TIME,
-                            INSERT_DATE: item.INSERT_DATE,
-                            DESCRIPTION: item.DESCRIPTION,
-                            CARD_NO: item.CARD_NO,
-                            VOUCHER_RECEIPT_DATE: item.VOUCHER_RECEIPT_DATE,
-                            ACCT_OPINION: item.ACCT_OPINION,
-                            TR_OPINION: item.TR_OPINION,
-                            CONFIRM_EMP_CODE: item.CONFIRM_EMP_CODE,
-                            PROXY_EMP_CODE: item.PROXY_EMP_CODE,
-                            APPR_ID: item.APPR_ID,
-                            APPLY_DOC_NAME: item.APPLY_DOC_NAME,
-                            REVERSE_FLAG: item.REVERSE_FLAG,
-                            REVERSE_DOC_ID: item.REVERSE_DOC_ID,
-                            REVERSE_DOC_NAME: item.REVERSE_DOC_NAME,
-                            ORIG_DOC_ID: item.ORIG_DOC_ID,
-                            ORIG_DOC_NAME: item.ORIG_DOC_NAME,
-                            CREDIT_AREA: item.CREDIT_AREA,
-                            AP_DOC_YN: item.AP_DOC_YN,
-                            AR_DOC_YN: item.AR_DOC_YN,
-                            ESS_DOC_YN: item.ESS_DOC_YN,
-                            AP_DOC_VIEW_YN: item.AP_DOC_VIEW_YN,
-                            AP_DOC_WRITE_YN: item.AP_DOC_WRITE_YN,
-                            AR_DOC_WRITE_YN: item.AR_DOC_WRITE_YN,
-                            MANUAL_DOC_WRITE_YN: item.MANUAL_DOC_WRITE_YN,
-                            MULTI_AP_WRITE_YN: item.MULTI_AP_WRITE_YN,
-                            APPR_SOURCE_TYPE: item.APPR_SOURCE_TYPE,
-                            REQUEST_EMP: item.REQUEST_EMP,
-                            BEFORE_APPR_EMP: item.BEFORE_APPR_EMP,
-                            NEXT_APPR_EMP: item.NEXT_APPR_EMP,
-                            BEFORE_PROXY_EMP: item.BEFORE_PROXY_EMP,
-                            NEXT_PROXY_EMP: item.NEXT_PROXY_EMP
+                            CHECK_YN            : gfn_nvl(item.CHECK_YN),
+                            DOC_BATCH_NO        : gfn_nvl(item.DOC_BATCH_NO),
+                            DOC_NUM             : gfn_nvl(item.DOC_NUM),
+                            FI_ORG_CODE         : gfn_nvl(item.FI_ORG_CODE),
+                            SITE_CODE           : gfn_nvl(item.SITE_CODE),
+                            PAYER_ID            : gfn_nvl(item.PAYER_ID),
+                            PAYER_NAME          : gfn_nvl(item.PAYER_NAME),
+                            DEFER_REASON        : gfn_nvl(item.DEFER_REASON),
+                            PAYER_BIZ_REGNO     : gfn_nvl(item.PAYER_BIZ_REGNO),
+                            DOC_DATE            : gfn_nvl(item.DOC_DATE),
+                            DOC_TYPE            : gfn_nvl(item.DOC_TYPE),
+                            PAY_METHOD          : gfn_nvl(item.PAY_METHOD),
+                            DOC_NAME            : gfn_nvl(item.DOC_NAME),
+                            CURRENCY_CODE       : gfn_nvl(item.CURRENCY_CODE),
+                            EXCHANGE_TYPE       : gfn_nvl(item.EXCHANGE_TYPE),
+                            EXCHANGE_RATE       : gfn_nvl(item.EXCHANGE_RATE),
+                            ORIGINAL_AMOUNT     : gfn_nvl(item.ORIGINAL_AMOUNT),
+                            FUNCTIONAL_AMOUNT   : gfn_nvl(item.FUNCTIONAL_AMOUNT),
+                            EXPECTED_PAY_DATE   : gfn_nvl(item.EXPECTED_PAY_DATE),
+                            DOC_STATUS          : gfn_nvl(item.DOC_STATUS),
+                            VOUCHER_TYPE        : gfn_nvl(item.VOUCHER_TYPE),
+                            VOUCHER_NO          : gfn_nvl(item.VOUCHER_NO),
+                            PAYEE_CODE          : gfn_nvl(item.PAYEE_CODE),
+                            CREATED_BY          : gfn_nvl(item.CREATED_BY),
+                            INSERT_TIME         : gfn_nvl(item.INSERT_TIME),
+                            INSERT_DATE         : gfn_nvl(item.INSERT_DATE),
+                            CARD_NO             : gfn_nvl(item.CARD_NO),
+                            VOUCHER_RECEIPT_DATE: gfn_nvl(item.VOUCHER_RECEIPT_DATE),
+                            ACCT_OPINION        : gfn_nvl(item.ACCT_OPINION),
+                            TR_OPINION          : gfn_nvl(item.TR_OPINION),
+                            SUPPLY_AMT          : gfn_nvl(item.SUPPLY_AMT),
+                            VAT_AMT             : gfn_nvl(item.VAT_AMT),
+                            APPLIED_DOC_NAME    : gfn_nvl(item.APPLIED_DOC_NAME),
+                            APPLIED_DOC_DATE    : gfn_nvl(item.APPLIED_DOC_DATE),
+                            APPLIED_AMOUNT      : gfn_nvl(item.APPLIED_AMOUNT),
+                            APPLY_COMPLETE_DATE : gfn_nvl(item.APPLY_COMPLETE_DATE),
+                            FI_ORG_CODE         : gfn_nvl(item.FI_ORG_CODE),
+                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
+                            DOC_ID              : gfn_nvl(item.DOC_ID),
+                            CONFIRM_EMP_CODE    : gfn_nvl(item.CONFIRM_EMP_CODE),
+                            PROXY_EMP_CODE      : gfn_nvl(item.PROXY_EMP_CODE),
+                            APPR_ID             : gfn_nvl(item.APPR_ID),
+                            APPLY_DOC_NAME      : gfn_nvl(item.APPLY_DOC_NAME),
+                            APPLY_DOC_DATE      : gfn_nvl(item.APPLY_DOC_DATE),
+                            SIGN_YN             : gfn_nvl(item.SIGN_YN),
+                            REVERSE_FLAG        : gfn_nvl(item.REVERSE_FLAG),
+                            REVERSE_DOC_ID      : gfn_nvl(item.REVERSE_DOC_ID),
+                            REVERSE_DOC_NAME    : gfn_nvl(item.REVERSE_DOC_NAME),
+                            ORIG_DOC_ID         : gfn_nvl(item.ORIG_DOC_ID),
+                            ORIG_DOC_NAME       : gfn_nvl(item.ORIG_DOC_NAME),
+                            DESCRIPTION         : gfn_nvl(item.DESCRIPTION),
+                            CREDIT_AREA         : gfn_nvl(item.CREDIT_AREA),
+                            AP_DOC_YN           : gfn_nvl(item.AP_DOC_YN),
+                            AR_DOC_YN           : gfn_nvl(item.AR_DOC_YN),
+                            ESS_DOC_YN          : gfn_nvl(item.ESS_DOC_YN),
+                            AP_DOC_VIEW_YN      : gfn_nvl(item.AP_DOC_VIEW_YN),
+                            AP_DOC_WRITE_YN     : gfn_nvl(item.AP_DOC_WRITE_YN),
+                            AR_DOC_WRITE_YN     : gfn_nvl(item.AR_DOC_WRITE_YN),
+                            MANUAL_DOC_WRITE_YN : gfn_nvl(item.MANUAL_DOC_WRITE_YN),
+                            MULTI_AP_WRITE_YN   : gfn_nvl(item.MULTI_AP_WRITE_YN),
+                            APPR_SOURCE_TYPE    : gfn_nvl(item.APPR_SOURCE_TYPE),
+                            REQUEST_EMP         : gfn_nvl(item.REQUEST_EMP),
+                            BEFORE_APPR_EMP     : gfn_nvl(item.BEFORE_APPR_EMP),
+                            NEXT_APPR_EMP       : gfn_nvl(item.NEXT_APPR_EMP),
+                            BEFORE_PROXY_EMP    : gfn_nvl(item.BEFORE_PROXY_EMP),
+                            NEXT_PROXY_EMP      : gfn_nvl(item.NEXT_PROXY_EMP)
+
                         }
                         jsonSalesInvoiceList.push(msg);
                     });
@@ -1668,71 +1730,77 @@
                         gvwMaster.clickRow(1);
                     }
                 } else {
+                    jsonInfotList.length = 0;
+
                     listData.cv_1.forEach((item, index) => {
                         const msg = {
-                            CHECK_YN: item.CHECK_YN,
-                            DOC_BATCH_NO: item.DOC_BATCH_NO,
-                            DOC_NUM: item.DOC_NUM,
-                            FI_ORG_CODE: item.FI_ORG_CODE,
-                            SITE_CODE: item.SITE_CODE,
-                            DOC_NAME: item.DOC_NAME,
-                            DOC_ID: item.DOC_ID,
-                            PAYER_ID: item.PAYER_ID,
-                            PAYER_NAME: item.PAYER_NAME,
-                            PAYER_BIZ_REGNO: item.PAYER_BIZ_REGNO,
-                            DOC_DATE: item.DOC_DATE,
-                            DOC_TYPE: item.DOC_TYPE,
-                            PAY_METHOD: item.PAY_METHOD,
-                            CURRENCY_CODE: item.CURRENCY_CODE,
-                            EXCHANGE_TYPE: item.EXCHANGE_TYPE,
-                            EXCHANGE_RATE: item.EXCHANGE_RATE,
-                            SUPPLY_AMOUNT: item.SUPPLY_AMOUNT,
-                            VAT_AMOUNT: item.VAT_AMOUNT,
-                            ORIGINAL_AMOUNT: item.ORIGINAL_AMOUNT,
-                            FUNCTIONAL_AMOUNT: item.FUNCTIONAL_AMOUNT,
-                            APPLIED_DOC_NAME: item.APPLIED_DOC_NAME,
-                            APPLIED_DOC_DATE: item.APPLIED_DOC_DATE,
-                            APPLIED_AMOUNT: item.APPLIED_AMOUNT,
-                            APPLY_COMPLETE_FLAG: item.APPLY_COMPLETE_FLAG,
-                            APPLY_COMPLETE_DATE: item.APPLY_COMPLETE_DATE,
-                            APPLIED_FLAG: item.APPLIED_FLAG,
-                            EXPECTED_PAY_DATE: item.EXPECTED_PAY_DATE,
-                            DOC_STATUS: item.DOC_STATUS,
-                            VOUCHER_TYPE: item.VOUCHER_TYPE,
-                            VOUCHER_NO: item.VOUCHER_NO,
-                            PAYEE_CODE: item.PAYEE_CODE,
-                            CREATED_BY: item.CREATED_BY,
-                            INSERT_TIME: item.INSERT_TIME,
-                            INSERT_DATE: item.INSERT_DATE,
-                            DESCRIPTION: item.DESCRIPTION,
-                            CARD_NO: item.CARD_NO,
-                            VOUCHER_RECEIPT_DATE: item.VOUCHER_RECEIPT_DATE,
-                            ACCT_OPINION: item.ACCT_OPINION,
-                            TR_OPINION: item.TR_OPINION,
-                            CONFIRM_EMP_CODE: item.CONFIRM_EMP_CODE,
-                            PROXY_EMP_CODE: item.PROXY_EMP_CODE,
-                            APPR_ID: item.APPR_ID,
-                            APPLY_DOC_NAME: item.APPLY_DOC_NAME,
-                            REVERSE_FLAG: item.REVERSE_FLAG,
-                            REVERSE_DOC_ID: item.REVERSE_DOC_ID,
-                            REVERSE_DOC_NAME: item.REVERSE_DOC_NAME,
-                            ORIG_DOC_ID: item.ORIG_DOC_ID,
-                            ORIG_DOC_NAME: item.ORIG_DOC_NAME,
-                            CREDIT_AREA: item.CREDIT_AREA,
-                            AP_DOC_YN: item.AP_DOC_YN,
-                            AR_DOC_YN: item.AR_DOC_YN,
-                            ESS_DOC_YN: item.ESS_DOC_YN,
-                            AP_DOC_VIEW_YN: item.AP_DOC_VIEW_YN,
-                            AP_DOC_WRITE_YN: item.AP_DOC_WRITE_YN,
-                            AR_DOC_WRITE_YN: item.AR_DOC_WRITE_YN,
-                            MANUAL_DOC_WRITE_YN: item.MANUAL_DOC_WRITE_YN,
-                            MULTI_AP_WRITE_YN: item.MULTI_AP_WRITE_YN,
-                            APPR_SOURCE_TYPE: item.APPR_SOURCE_TYPE,
-                            REQUEST_EMP: item.REQUEST_EMP,
-                            BEFORE_APPR_EMP: item.BEFORE_APPR_EMP,
-                            NEXT_APPR_EMP: item.NEXT_APPR_EMP,
-                            BEFORE_PROXY_EMP: item.BEFORE_PROXY_EMP,
-                            NEXT_PROXY_EMP: item.NEXT_PROXY_EMP
+                            CHECK_YN            : gfn_nvl(item.CHECK_YN),
+                            DOC_BATCH_NO        : gfn_nvl(item.DOC_BATCH_NO),
+                            DOC_NUM             : gfn_nvl(item.DOC_NUM),
+                            FI_ORG_CODE         : gfn_nvl(item.FI_ORG_CODE),
+                            SITE_CODE           : gfn_nvl(item.SITE_CODE),
+                            PAYER_ID            : gfn_nvl(item.PAYER_ID),
+                            PAYER_NAME          : gfn_nvl(item.PAYER_NAME),
+                            DEFER_REASON        : gfn_nvl(item.DEFER_REASON),
+                            PAYER_BIZ_REGNO     : gfn_nvl(item.PAYER_BIZ_REGNO),
+                            DOC_DATE            : gfn_nvl(item.DOC_DATE),
+                            DOC_TYPE            : gfn_nvl(item.DOC_TYPE),
+                            PAY_METHOD          : gfn_nvl(item.PAY_METHOD),
+                            DOC_NAME            : gfn_nvl(item.DOC_NAME),
+                            CURRENCY_CODE       : gfn_nvl(item.CURRENCY_CODE),
+                            EXCHANGE_TYPE       : gfn_nvl(item.EXCHANGE_TYPE),
+                            EXCHANGE_RATE       : gfn_nvl(item.EXCHANGE_RATE),
+                            ORIGINAL_AMOUNT     : gfn_nvl(item.ORIGINAL_AMOUNT),
+                            FUNCTIONAL_AMOUNT   : gfn_nvl(item.FUNCTIONAL_AMOUNT),
+                            EXPECTED_PAY_DATE   : gfn_nvl(item.EXPECTED_PAY_DATE),
+                            DOC_STATUS          : gfn_nvl(item.DOC_STATUS),
+                            VOUCHER_TYPE        : gfn_nvl(item.VOUCHER_TYPE),
+                            VOUCHER_NO          : gfn_nvl(item.VOUCHER_NO),
+                            PAYEE_CODE          : gfn_nvl(item.PAYEE_CODE),
+                            CREATED_BY          : gfn_nvl(item.CREATED_BY),
+                            INSERT_TIME         : gfn_nvl(item.INSERT_TIME),
+                            INSERT_DATE         : gfn_nvl(item.INSERT_DATE),
+                            CARD_NO             : gfn_nvl(item.CARD_NO),
+                            VOUCHER_RECEIPT_DATE: gfn_nvl(item.VOUCHER_RECEIPT_DATE),
+                            ACCT_OPINION        : gfn_nvl(item.ACCT_OPINION),
+                            TR_OPINION          : gfn_nvl(item.TR_OPINION),
+                            SUPPLY_AMT          : gfn_nvl(item.SUPPLY_AMT),
+                            VAT_AMT             : gfn_nvl(item.VAT_AMT),
+                            APPLIED_DOC_NAME    : gfn_nvl(item.APPLIED_DOC_NAME),
+                            APPLIED_DOC_DATE    : gfn_nvl(item.APPLIED_DOC_DATE),
+                            APPLIED_AMOUNT      : gfn_nvl(item.APPLIED_AMOUNT),
+                            APPLY_COMPLETE_DATE : gfn_nvl(item.APPLY_COMPLETE_DATE),
+                            FI_ORG_CODE         : gfn_nvl(item.FI_ORG_CODE),
+                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
+                            DOC_ID              : gfn_nvl(item.DOC_ID),
+                            CONFIRM_EMP_CODE    : gfn_nvl(item.CONFIRM_EMP_CODE),
+                            PROXY_EMP_CODE      : gfn_nvl(item.PROXY_EMP_CODE),
+                            APPR_ID             : gfn_nvl(item.APPR_ID),
+                            APPLY_DOC_NAME      : gfn_nvl(item.APPLY_DOC_NAME),
+                            APPLY_DOC_DATE      : gfn_nvl(item.APPLY_DOC_DATE),
+                            SIGN_YN             : gfn_nvl(item.SIGN_YN),
+                            REVERSE_FLAG        : gfn_nvl(item.REVERSE_FLAG),
+                            REVERSE_DOC_ID      : gfn_nvl(item.REVERSE_DOC_ID),
+                            REVERSE_DOC_NAME    : gfn_nvl(item.REVERSE_DOC_NAME),
+                            ORIG_DOC_ID         : gfn_nvl(item.ORIG_DOC_ID),
+                            ORIG_DOC_NAME       : gfn_nvl(item.ORIG_DOC_NAME),
+                            DESCRIPTION         : gfn_nvl(item.DESCRIPTION),
+                            CREDIT_AREA         : gfn_nvl(item.CREDIT_AREA),
+                            AP_DOC_YN           : gfn_nvl(item.AP_DOC_YN),
+                            AR_DOC_YN           : gfn_nvl(item.AR_DOC_YN),
+                            ESS_DOC_YN          : gfn_nvl(item.ESS_DOC_YN),
+                            AP_DOC_VIEW_YN      : gfn_nvl(item.AP_DOC_VIEW_YN),
+                            AP_DOC_WRITE_YN     : gfn_nvl(item.AP_DOC_WRITE_YN),
+                            AR_DOC_WRITE_YN     : gfn_nvl(item.AR_DOC_WRITE_YN),
+                            MANUAL_DOC_WRITE_YN : gfn_nvl(item.MANUAL_DOC_WRITE_YN),
+                            MULTI_AP_WRITE_YN   : gfn_nvl(item.MULTI_AP_WRITE_YN),
+                            APPR_SOURCE_TYPE    : gfn_nvl(item.APPR_SOURCE_TYPE),
+                            REQUEST_EMP         : gfn_nvl(item.REQUEST_EMP),
+                            BEFORE_APPR_EMP     : gfn_nvl(item.BEFORE_APPR_EMP),
+                            NEXT_APPR_EMP       : gfn_nvl(item.NEXT_APPR_EMP),
+                            BEFORE_PROXY_EMP    : gfn_nvl(item.BEFORE_PROXY_EMP),
+                            NEXT_PROXY_EMP      : gfn_nvl(item.NEXT_PROXY_EMP)
+
                         }
                         jsonInfotList.push(msg);
                     });
@@ -1750,6 +1818,101 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+    //저장
+    const fn_save = async function () {
+
+        // 수정 저장
+        if (gfn_comConfirm("Q0001", "수정 저장")) {
+
+            let listData = [];
+            listData =  await getParamForm();
+            /* var paramObj = {
+                 P_HRP1170_S: await getParamForm('u')
+             }*/
+
+            console.log('--------listData save--------', listData);
+
+            if (listData.length > 0) {
+
+                const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3500.do", {listData: listData});
+
+                const data = await postJsonPromise;
+
+                try {
+                    if (_.isEqual("S", data.resultStatus)) {
+                        if (data.resultMessage) {
+                            alert(data.resultMessage);
+                        }else{
+                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                            fn_search();
+                        }
+
+                    } else {
+                        alert(data.resultMessage);
+                    }
+                } catch (e) {
+                    if (!(e instanceof Error)) {
+                        e = new Error(e);
+                    }
+                    console.error("failed", e.message);
+                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                }
+            }
+        }
+
+    }
+
+    const getParamForm = async function (typeData) {
+
+        let returnData = [];
+
+        let updateData = gvwInfo.getGridDataAll();
+
+        if (!_.isEmpty(updateData)) {
+
+            updateData.forEach((item, index) => {
+
+
+                if (_.isEqual(item.CHECK_YN, 'Y')) {
+
+                    const param = {
+
+                        cv_count: '0',
+                        getType: 'json',
+                        workType: 'U',/*item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),*/
+                        params: gfnma_objectToString({
+
+                            V_P_DEBUG_MODE_YN: ''
+                            , V_P_LANG_ID: ''
+                            , V_P_COMP_CODE: gv_ma_selectedApcCd
+                            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                            , V_P_DOC_ID: item.DOC_ID
+                            , V_P_VOUCHER_RECEIPT_DATE: item.VOUCHER_RECEIPT_DATE
+                            , V_P_VOUCHER_TYPE: item.VOUCHER_TYPE
+                            , IV_P_VOUCHER_NO: item.VOUCHER_NO   //--승인번호(변경하고자 하는 번호)
+
+                            , V_P_FORM_ID: p_formId
+                            , V_P_MENU_ID: p_menuId
+                            , V_P_PROC_ID: ''
+                            , V_P_USERID: ''
+                            , V_P_PC: ''
+                        })
+                    }
+
+                    console.log("---------param--------- : ", param);
+                    returnData.push(param);
+
+                }
+            });
+
+            console.log("---------returnData--------- : ", returnData);
+            return returnData;
+
+        }
+    }
+
 
     const fn_print = async function (strprinttype) {
         // TODO : 레포트 개발 필요
@@ -1785,6 +1948,507 @@
             param["DOC_BATCH_NO"] = strdoc_batch_no;
             gfn_popClipReport("", reportFilePath, param);
             //object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1000.dll", htparam, OpenType.Modal);
+        }
+    }
+
+    const fn_view = async function () {
+        var nRow = gvwMaster.getRow();
+        var nCol = gvwMaster.getCol();
+        var rowData = gvwMaster.getRowData(nRow);
+
+        if(nCol == gvwMaster.getColRef("DOC_NAME")) return false;
+        if(gfn_nvl(rowData) == "") return;
+
+        fn_searchApplyTab(rowData)
+        fn_searchAccountTab(rowData)
+        fn_searchApproveTab(rowData)
+    }
+
+    const fn_searchApplyTab = async function (rowData) {
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE")); //사업단위
+        let DOC_STATUS = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_STATUS")); //자금상태
+        let HOLD_FLAG = gfn_nvl(gfnma_multiSelectGet("#SRCH_HOLD_FLAG")); //보류여부
+        let APPR_ONLY_FLAG = gfn_nvl(SBUxMethod.get("SRCH_APPR_ONLY_FLAG").SRCH_APPR_ONLY_FLAG); //결재건만
+        let PERIOD_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PERIOD_YYYYMM")); //년월
+        let PAYER_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYER_CODE")); //거래처
+        let CREATED_DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_CODE")); //작성부서
+        let PAYEE_DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_DEPT_CODE")); //청구부서
+        let REVERSE_FLAG = gfn_nvl(SBUxMethod.get("SRCH_REVERSE_FLAG").SRCH_REVERSE_FLAG); //역분개제외여부
+        let TXN_DATE_FROM = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FROM")); //거래일자
+        let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO")); //거래일자
+        let DOC_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DOC_TYPE")); //전표구분
+        let CREATED_BY_CODE = gfn_nvl(SBUxMethod.get("SRCH_CREATED_BY_CODE")); //작성자
+        let PAYEE_CODE = gfn_nvl(SBUxMethod.get("SRCH_PAYEE_CODE")); //실사용자
+        let CARD_EXCEPT_FLAG = gfn_nvl(SBUxMethod.get("SRCH_CARD_EXCEPT_FLAG").SRCH_CARD_EXCEPT_FLAG); //ESS제외여부
+        let DOC_NAME = gfn_nvl(SBUxMethod.get("SRCH_DOC_NAME")); //전표번호
+        let DOC_NAME_D = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN) == "Y" ? strDocNameList : ""; //복수선택
+        let DESC = gfn_nvl(SBUxMethod.get("SRCH_DESC")); //제목
+
+        let DOC_ID = gfn_nvl(rowData.DOC_ID) == "" ? 0 : parseInt(rowData.DOC_ID);
+
+        if (!TXN_DATE_FROM) {
+            gfn_comAlert("W0002", "거래일자");
+            return;
+        }
+        if (!TXN_DATE_TO) {
+            gfn_comAlert("W0002", "거래일자");
+            return;
+        }
+
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+
+            ,V_P_FI_ORG_CODE      : FI_ORG_CODE
+            ,V_P_DOC_TYPE         : DOC_TYPE
+            ,V_P_DOC_ID           : DOC_ID
+            ,V_P_TXN_DATE_FROM    : TXN_DATE_FROM
+            ,V_P_TXN_DATE_TO      : TXN_DATE_TO
+            ,V_P_CS_CODE          : PAYER_CODE
+            ,V_P_PAYEE_DEPT       : PAYEE_DEPT_CODE
+            ,V_P_PAYEE_CODE       : PAYEE_CODE
+            ,V_P_DOC_STATUS       : DOC_STATUS
+            ,V_P_CREATED_DEPT     : CREATED_DEPT_CODE
+            ,V_P_CREATED_BY       : CREATED_BY_CODE
+            ,V_P_REVERSE_FLAG 	  : REVERSE_FLAG
+            ,V_P_HOLD_FLAG        : HOLD_FLAG
+            ,V_P_CARD_EXCEPT_FLAG : CARD_EXCEPT_FLAG
+            ,V_P_APPR_ONLY_FLAG   : APPR_ONLY_FLAG
+            ,V_P_DOC_NAME         : DOC_NAME
+            ,V_P_DOC_NAME_D       : DOC_NAME_D
+            ,V_P_DESC             : DESC
+
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
+            ,V_P_PROC_ID		: ''
+            ,V_P_USERID			: ''
+            ,V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/fap/pay/selectFig3500List.do", {
+            getType				: 'json',
+            workType			: 'PAYMENT',
+            cv_count			: '4',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('ApplyTab data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+
+                jsonPaymentList.length = 0;
+
+                    listData.cv_2.forEach((item, index) => {
+                        const msg = {
+                            TREASURY_BATCH_NO            : gfn_nvl(item.TREASURY_BATCH_NO),
+                            TREASURY_ID            : gfn_nvl(item.TREASURY_ID),
+                            TREASURY_LINE_NUM            : gfn_nvl(item.TREASURY_LINE_NUM),
+                            PLANNED_PAY_DATE            : gfn_nvl(item.PLANNED_PAY_DATE),
+                            PAY_DATE            : gfn_nvl(item.PAY_DATE),
+                            STATUS_CODE            : gfn_nvl(item.STATUS_CODE),
+                            PAY_METHOD            : gfn_nvl(item.PAY_METHOD),
+                            DOC_TYPE            : gfn_nvl(item.DOC_TYPE),
+                            DOC_NAME            : gfn_nvl(item.DOC_NAME),
+                            DOC_ID            : gfn_nvl(item.DOC_ID),
+                            DOC_STATUS            : gfn_nvl(item.DOC_STATUS),
+                            CURRENCY_CODE            : gfn_nvl(item.CURRENCY_CODE),
+                            ORIGINAL_AMOUNT            : gfn_nvl(item.ORIGINAL_AMOUNT),
+                            FUNCTIONAL_AMOUNT            : gfn_nvl(item.FUNCTIONAL_AMOUNT),
+
+                        }
+                        jsonPaymentList.push(msg);
+                    });
+                gvwPayment.rebuild();
+
+            } else {
+                alert(listData.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_searchAccountTab = async function (rowData) {
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+        let DOC_ID = gfn_nvl(rowData.DOC_ID) == "" ? 0 : parseInt(rowData.DOC_ID);
+        let EMP_CODE = gfn_nvl(p_empCd);
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_FI_ORG_CODE : FI_ORG_CODE,
+            V_P_DOC_ID : DOC_ID,
+            V_P_EMP_CODE : EMP_CODE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/fgl/jor/selectFig2210ItemQList.do", {
+            getType				: 'json',
+            workType			: 'ACCOUNT',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                jsonAccountList.length = 0;
+
+                listData.cv_1.forEach((item, index) => {
+                    const msg = {
+                        KEY_ID : item.KEY_ID,
+                        ITEM_ID : item.ITEM_ID,
+                        ITEM_SEQ : item.ITEM_SEQ,
+                        LINE_TYPE : item.LINE_TYPE,
+                        DEBIT_CREDIT : item.DEBIT_CREDIT,
+                        VAT_TYPE : item.VAT_TYPE,
+                        VAT_NAME : item.VAT_NAME,
+                        DEPT_CODE : item.DEPT_CODE,
+                        COST_CENTER_CODE : item.COST_CENTER_CODE,
+                        PROJECT_CODE : item.PROJECT_CODE,
+                        ORIGINAL_CR_AMT : item.ORIGINAL_CR_AMT,
+                        ORIGINAL_DR_AMT : item.ORIGINAL_DR_AMT,
+                        FUNCTIONAL_CR_AMT : item.FUNCTIONAL_CR_AMT,
+                        FUNCTIONAL_DR_AMT : item.FUNCTIONAL_DR_AMT,
+                        TXN_QTY : item.TXN_QTY,
+                        ACCOUNT_CODE : item.ACCOUNT_CODE,
+                        ACCOUNT_NAME : item.ACCOUNT_NAME,
+                        ACC_ITEM_CODE1 : item.ACC_ITEM_CODE1,
+                        ACC_ITEM_CODE2 : item.ACC_ITEM_CODE2,
+                        ACC_ITEM_CODE3 : item.ACC_ITEM_CODE3,
+                        ACC_ITEM_CODE4 : item.ACC_ITEM_CODE4,
+                        ACC_ITEM_CODE5 : item.ACC_ITEM_CODE5,
+                        ACC_ITEM_CODE6 : item.ACC_ITEM_CODE6,
+                        ACC_ITEM_CODE7 : item.ACC_ITEM_CODE7,
+                        ACC_ITEM_CODE8 : item.ACC_ITEM_CODE8,
+                        ACC_ITEM_CODE9 : item.ACC_ITEM_CODE9,
+                        ACC_ITEM_CODE10 : item.ACC_ITEM_CODE10,
+                        ACC_ITEM_NAME1 : item.ACC_ITEM_NAME1,
+                        ACC_ITEM_NAME2 : item.ACC_ITEM_NAME2,
+                        ACC_ITEM_NAME3 : item.ACC_ITEM_NAME3,
+                        ACC_ITEM_NAME4 : item.ACC_ITEM_NAME4,
+                        ACC_ITEM_NAME5 : item.ACC_ITEM_NAME5,
+                        ACC_ITEM_NAME6 : item.ACC_ITEM_NAME6,
+                        ACC_ITEM_NAME7 : item.ACC_ITEM_NAME7,
+                        ACC_ITEM_NAME8 : item.ACC_ITEM_NAME8,
+                        ACC_ITEM_NAME9 : item.ACC_ITEM_NAME9,
+                        ACC_ITEM_NAME10 : item.ACC_ITEM_NAME10,
+                        ACC_ITEM_YN1 : item.ACC_ITEM_YN1,
+                        ACC_ITEM_YN2 : item.ACC_ITEM_YN2,
+                        ACC_ITEM_YN3 : item.ACC_ITEM_YN3,
+                        ACC_ITEM_YN4 : item.ACC_ITEM_YN4,
+                        ACC_ITEM_YN5 : item.ACC_ITEM_YN5,
+                        ACC_ITEM_YN6 : item.ACC_ITEM_YN6,
+                        ACC_ITEM_YN7 : item.ACC_ITEM_YN7,
+                        ACC_ITEM_YN8 : item.ACC_ITEM_YN8,
+                        ACC_ITEM_YN9 : item.ACC_ITEM_YN9,
+                        ACC_ITEM_YN10 : item.ACC_ITEM_YN10,
+                        DATA_TYPE1 : item.DATA_TYPE1,
+                        DATA_TYPE2 : item.DATA_TYPE2,
+                        DATA_TYPE3 : item.DATA_TYPE3,
+                        DATA_TYPE4 : item.DATA_TYPE4,
+                        DATA_TYPE5 : item.DATA_TYPE5,
+                        DATA_TYPE6 : item.DATA_TYPE6,
+                        DATA_TYPE7 : item.DATA_TYPE7,
+                        DATA_TYPE8 : item.DATA_TYPE8,
+                        DATA_TYPE9 : item.DATA_TYPE9,
+                        DATA_TYPE10 : item.DATA_TYPE10,
+                        POPUP_ID1 : item.POPUP_ID1,
+                        POPUP_ID2 : item.POPUP_ID2,
+                        POPUP_ID3 : item.POPUP_ID3,
+                        POPUP_ID4 : item.POPUP_ID4,
+                        POPUP_ID5 : item.POPUP_ID5,
+                        POPUP_ID6 : item.POPUP_ID6,
+                        POPUP_ID7 : item.POPUP_ID7,
+                        POPUP_ID8 : item.POPUP_ID8,
+                        POPUP_ID9 : item.POPUP_ID9,
+                        POPUP_ID10 : item.POPUP_ID10,
+                        ACC_CHARACTER : item.ACC_CHARACTER,
+                        ACC_ITEM_VALUE1 : item.ACC_ITEM_VALUE1,
+                        ACC_ITEM_VALUE2 : item.ACC_ITEM_VALUE2,
+                        ACC_ITEM_VALUE3 : item.ACC_ITEM_VALUE3,
+                        ACC_ITEM_VALUE4 : item.ACC_ITEM_VALUE4,
+                        ACC_ITEM_VALUE5 : item.ACC_ITEM_VALUE5,
+                        ACC_ITEM_VALUE6 : item.ACC_ITEM_VALUE6,
+                        ACC_ITEM_VALUE7 : item.ACC_ITEM_VALUE7,
+                        ACC_ITEM_VALUE8 : item.ACC_ITEM_VALUE8,
+                        ACC_ITEM_VALUE9 : item.ACC_ITEM_VALUE9,
+                        ACC_ITEM_VALUE10 : item.ACC_ITEM_VALUE10,
+                        ACC_VALUE_NAME1 : item.ACC_VALUE_NAME1,
+                        ACC_VALUE_NAME2 : item.ACC_VALUE_NAME2,
+                        ACC_VALUE_NAME3 : item.ACC_VALUE_NAME3,
+                        ACC_VALUE_NAME4 : item.ACC_VALUE_NAME4,
+                        ACC_VALUE_NAME5 : item.ACC_VALUE_NAME5,
+                        ACC_VALUE_NAME6 : item.ACC_VALUE_NAME6,
+                        ACC_VALUE_NAME7 : item.ACC_VALUE_NAME7,
+                        ACC_VALUE_NAME8 : item.ACC_VALUE_NAME8,
+                        ACC_VALUE_NAME9 : item.ACC_VALUE_NAME9,
+                        ACC_VALUE_NAME10 : item.ACC_VALUE_NAME10,
+                        ITEM_CODE : item.ITEM_CODE,
+                        UOM : item.UOM,
+                        TXN_QTY : item.TXN_QTY,
+                        DEPT_NAME : item.DEPT_NAME,
+                        DESCRIPTION : item.DESCRIPTION,
+                        FI_ORG_CODE : item.FI_ORG_CODE,
+                        DOC_ID : item.DOC_ID,
+                        DOC_NAME : item.DOC_NAME,
+                        DOC_TYPE : item.DOC_TYPE,
+                        DOC_STATUS : item.DOC_STATUS
+                    }
+                    jsonAccountList.push(msg);
+                });
+                gvwAccount.rebuild();
+            } else {
+                alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_searchApproveTab = async function (rowData) {
+        let APPR_ID = gfn_nvl(rowData.APPR_ID) == "" ? 0 : parseInt(rowData.APPR_ID);
+        let SOURCE_NO = gfn_nvl(rowData.DOC_ID);
+        let SOURCE_TYPE = gfn_nvl(rowData.DOC_TYPE);
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_APPR_ID : APPR_ID,
+            V_P_SOURCE_NO : SOURCE_NO,
+            V_P_SOURCE_TYPE : SOURCE_TYPE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: ''
+        };
+
+        const postJsonPromiseForList = gfn_postJSON("/fi/ftr/tri/selectFim3420List.do", {
+            getType				: 'json',
+            workType			: 'LIST',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const listData = await postJsonPromiseForList;
+        console.log('data:', listData);
+
+        try {
+            if (_.isEqual("S", listData.resultStatus)) {
+                jsonDetailList.length = 0;
+
+                listData.cv_1.forEach((item, index) => {
+                    const msg = {
+                        APPR_ID : item.APPR_ID,
+                        STEP_SEQ : item.STEP_SEQ,
+                        APPR_TYPE : item.APPR_TYPE,
+                        APPR_CATEGORY : item.APPR_CATEGORY,
+                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        DUTY_CODE : item.DUTY_CODE,
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_NAME : item.EMP_NAME,
+                        APPR_STATUS : item.APPR_STATUS,
+                        APPR_DATE : item.APPR_DATE,
+                        APPR_OPINION : item.APPR_OPINION,
+                        UPDATE_USERID : item.UPDATE_USERID,
+                        UPDATE_EMP_NAME : item.UPDATE_EMP_NAME,
+                        UPDATE_TIME : item.UPDATE_TIME,
+                        UPDATE_PC : item.UPDATE_PC,
+                        DESCRIPTION : item.DESCRIPTION,
+                        PROXY_EMP_CODE : item.PROXY_EMP_CODE,
+                        PROXY_EMP_NAME : item.PROXY_EMP_NAME
+                    }
+                    jsonDetailList.push(msg);
+                });
+                gvwApprove.rebuild();
+            } else {
+                alert(listData.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_approve = async function () {
+        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwMaster.getColRef("CHECK_YN"), true);
+        if (gvwListCheckedList.length == 0)
+            return;
+
+        var strappr_id = "";
+        var strappr_opinion = "";
+
+        var intcount = 0;
+
+        gvwListCheckedList.forEach((item, index) => {
+
+            let data = gvwMaster.getRowData(item);
+
+            // 체크가 되어있는 것 중에 전표상태가 승인중인 건 중에서
+            if (_.isEqual(data.CHECK_YN, 'Y') && _.isEqual(data.DOC_STATUS, '3')) {
+
+                // 사용자가 이번 결재권자이거나 수임권자이면
+                if (data.CONFIRM_EMP_CODE == p_empCd || data.PROXY_EMP_CODE == p_empCd) {
+                    strappr_id += data.APPR_ID + "|";
+                    strappr_opinion += gfn_nvl(SBUxMethod.get("APPR_OPINION")) + "|";
+                    intcount += 1;
+                }
+            }
+        });
+
+        if (intcount == 0) {
+            gfn_comAlert("E0000", "결재 처리할 건이 없습니다.")
+            return;
+        } else {
+            strappr_id = strappr_id.substring(0, strappr_id.length - 1);
+            strappr_opinion = strappr_opinion.substring(0, strappr_opinion.length - 1);
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_APPR_ID : strappr_id,
+                V_P_APPR_OPINION : strappr_opinion,
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3500S1.do", {
+                getType				: 'json',
+                workType			: 'APPROVE',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const fn_reject = async function () {
+        let gvwListCheckedList = gvwMaster.getCheckedRows(gvwList.getColRef("CHECK_YN"), true);
+        let APPR_OPINION = gfn_nvl(SBUxMethod.get("APPR_OPINION"));
+        if (gvwListCheckedList.length == 0)
+            return;
+
+        if(APPR_OPINION == "") {
+            gfn_comAlert("E0000", "반려시 결재의견은 필수입니다.")
+            return;
+        }
+
+        var strappr_id = "";
+        var strappr_opinion = "";
+
+        var intcount = 0;
+
+        gvwListCheckedList.forEach((item, index) => {
+
+            let data = gvwMaster.getRowData(item);
+
+            // 체크가 되어있는 것 중에 전표상태가 승인중인 건 중에서
+            if (_.isEqual(data.CHECK_YN, 'Y') && _.isEqual(data.DOC_STATUS, '3')) {
+                // 사용자가 이번 결재권자이거나 수임권자이면
+                if (data.CONFIRM_EMP_CODE == p_empCd || data.PROXY_EMP_CODE == p_empCd) {
+                    strappr_id += data.APPR_ID + "|";
+                    strappr_opinion += gfn_nvl(SBUxMethod.get("APPR_OPINION")) + "|";
+                    intcount += 1;
+                }
+            }
+        });
+
+        if (intcount == 0) {
+            gfn_comAlert("E0000", "결재 처리할 건이 없습니다.")
+            return;
+        } else {
+            strappr_id = strappr_id.substring(0, strappr_id.length - 1);
+            strappr_opinion = strappr_opinion.substring(0, strappr_opinion.length - 1);
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_APPR_ID : strappr_id,
+                V_P_APPR_OPINION : strappr_opinion,
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3500S1.do", {
+                getType				: 'json',
+                workType			: 'REJECT',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
         }
     }
 

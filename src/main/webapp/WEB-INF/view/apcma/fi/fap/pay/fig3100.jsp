@@ -554,10 +554,14 @@
 
         let openDate = gfn_dateToYm(new Date());
         let openDateFR = gfn_dateToYmd(new Date());
-        let openDateTO = gfn_dateToYmd(new Date());
 
         SBUxMethod.set('srch-ymdperiod_yyyymm', openDate);
-        /*SBUxMethod.set('srch-pay_yyyymm_fr2', openDate);*/
+        SBUxMethod.set('srch-date_fr', openDate+'01');
+
+        //월별로 말일 구하기
+        let lastDate = new Date(openDateFR.slice(0,4),openDateFR.slice(4,6),0);
+        let DATE_TO = gfn_dateToYmd(lastDate);
+        SBUxMethod.set("srch-date_to", 			DATE_TO);
 
         fn_createGrid();
         fn_createItemGrid();
@@ -689,6 +693,8 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        //그리드 총계 하단 고정
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.total = {
             type 		: 'grand',
@@ -697,7 +703,7 @@
                 standard : [1],
                 sum : [29,30,31,32,33,34]
             },
-            subtotalrow : {
+            /*subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -710,12 +716,10 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },
-            datasorting	: false,
-            usedecimal : false,
+            },*/
+            datasorting	: true,
+            usedecimal : false
         };
-        //그리드 총계 하단 고정
-        SBGridProperties.frozenbottomrows 	= 6;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -838,6 +842,8 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        //그리드 총계 하단 고정
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -845,7 +851,7 @@
                 standard : [1],
                 sum : [6,7]
             },
-            subtotalrow : {
+           /* subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -858,12 +864,10 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },
-            datasorting	: false,
+            },*/
+            datasorting	: true,
             usedecimal : false,
         };
-        //그리드 총계 하단 고정
-        /*SBGridProperties.frozenbottomrows 	= 2;*/
         SBGridProperties.columns = [
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:left'
@@ -918,7 +922,7 @@
         ];
 
         gvwItemGrid = _SBGrid.create(SBGridProperties);
-        gvwItemGrid.bind('click', 'fn_view');
+        /*gvwItemGrid.bind('click', 'fn_view');*/
     }
 
     /**
