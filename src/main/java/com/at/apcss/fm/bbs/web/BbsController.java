@@ -297,7 +297,7 @@ public class BbsController extends BaseController {
 		 */
 		return "apcss/fm/bbs/xmlParshing";
 	}
-	/*
+
 	// 첨부파일 조회
 	@PostMapping(value = "/fm/bbs/selectBbsAttachesList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectFile(Model model, @RequestBody BbsVO bbsVO, HttpServletRequest request) throws Exception{
@@ -476,5 +476,4 @@ public class BbsController extends BaseController {
         os.close();
 
     }
-    */
 }
