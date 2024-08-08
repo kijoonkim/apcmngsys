@@ -4,6 +4,8 @@ import com.at.apcma.com.mapper.ProcMapper;
 import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaComUtil;
 import com.at.apcma.com.service.ApcMaCommDirectService;
+import com.at.apcss.co.sys.vo.LoginVO;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,14 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,6 +63,8 @@ public class ApMaComServiceImpl implements ApcMaComService {
 	private ApcMaCommDirectService apcMaCommDirectService;
 	
 	private ProcMapper procMapper;
+
+	private Socket socket;
 	
     @Autowired
     public void setProcMapper(ProcMapper mapper) {
@@ -589,4 +601,114 @@ public class ApMaComServiceImpl implements ApcMaComService {
 
 		return result;
     }
+
+	@Override
+	public HashMap<String, Object> sendFirmBanking(Map<String, Object> param) {
+		HashMap<String,Object> resultMap = new HashMap<>();
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		String fbsService = param.get("FBS_SERVICE").toString();
+		String sendData = param.get("SEND_DATA").toString();
+		Boolean bSync = (Boolean) param.get("bSync");
+
+		byte[] numArray1 = new byte[4096];
+		byte[] numArray2 = new byte[4096];
+		resultMap.put("code", "CTIM");
+		resultMap.put("message", "Connection timed out");
+		resultMap.put("resultStatus", "E");
+
+		String ipString;
+		String s;
+
+		if (fbsService.equals(loginVO.getMaFBSVAN())) {
+			ipString = loginVO.getMaFBSRIP();
+			s = loginVO.getMaFBSRPORT();
+		} else if (fbsService.equals(loginVO.getMaFBSVANCB())) {
+			ipString = loginVO.getMaFBSCIP();
+			s = loginVO.getMaFBSCPORT();
+		} else if (fbsService.equals(loginVO.getMaFBSVANFC())) {
+			ipString = loginVO.getMaFBSFIP();
+			s = loginVO.getMaFBSFPORT();
+		} else {
+			ipString = loginVO.getMaFBSRIP();
+			s = loginVO.getMaFBSRPORT();
+		}
+
+		try {
+			InetSocketAddress remoteEP = new InetSocketAddress(InetAddress.getByName(ipString), Integer.parseInt(s));
+			this.socket = new Socket();
+			this.socket.connect(remoteEP);
+			byte[] bytes = sendData.getBytes(Charset.forName("ks_c_5601-1987"));
+			OutputStream outputStream = this.socket.getOutputStream();
+			outputStream.write(bytes);
+
+			if (bSync) {
+				try {
+					InputStream inputStream = this.socket.getInputStream();
+					int bytesRead = inputStream.read(numArray1);
+
+					if (bytesRead == -1 || ByteBuffer.wrap(numArray1).getInt() == 0) {
+						resultMap.put("code", "VTIM");
+						resultMap.put("message", "TIMEOUT ERROR");
+						resultMap.put("resultStatus", "E");
+					} else {
+						int num2 = byteArrayDefrag(numArray1);
+						String inputString = new String(numArray1, 0, num2 + 1, Charset.forName("ks_c_5601-1987"));
+						resultMap.put("code", fnFirmSubString(inputString, 85, 4));
+						resultMap.put("message", inputString);
+						resultMap.put("resultStatus", "S");
+					}
+				} catch (Exception ex) {
+					resultMap.put("code", "VTIM");
+					resultMap.put("message", "TIMEOUT ERROR");
+					resultMap.put("resultStatus", "E");
+				} finally {
+					this.socket.close();
+				}
+			} else {
+				resultMap.put("code", "COMP");
+				resultMap.put("message", "Transfer completed");
+				resultMap.put("resultStatus", "S");
+			}
+		} catch (Exception ex) {
+			resultMap.put("code", "CTIM");
+			resultMap.put("message", "Connection timed out");
+			resultMap.put("resultStatus", "E");
+		} finally {
+			try {
+				if (this.socket != null && !this.socket.isClosed()) {
+					this.socket.close();
+				}
+			} catch (IOException e) {
+				logger.error(e.getMessage());
+			}
+		}
+
+		return resultMap;
+	}
+
+	private int byteArrayDefrag(byte[] array) {
+		int i = 0;
+		while (i < array.length && array[i] != 0) {
+			i++;
+		}
+		return i;
+	}
+
+	private static String fnFirmSubString(String inputString, int startIndex, int length) {
+		Charset encoding = Charset.forName("ks_c_5601-1987");
+
+		// 문자열을 바이트 배열로 변환
+		byte[] bytes = inputString.getBytes(encoding);
+
+		// 범위를 벗어나지 않도록 조정
+		if (bytes.length <= startIndex + length) {
+			return new String(bytes, encoding);
+		}
+
+		// 부분 문자열을 추출
+		byte[] subBytes = new byte[length];
+		System.arraycopy(bytes, startIndex, subBytes, 0, length);
+
+		return new String(subBytes, encoding);
+	}
 }
