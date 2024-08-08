@@ -204,7 +204,31 @@ const gfn_dateToTime = function(date, delimiter = ":") {
 	return strTime;
 }
 
+/**
+ * @name
+ * @description
+ * @function
+ * @returns
+ */
+const gfn_getDateTime = function() {
+	let date = new Date();
+	let year  = date.getFullYear();
+	let month = ('0' + (date.getMonth() + 1)).slice(-2);
+	let day   = ('0' + date.getDate()).slice(-2);
+	let hours = ('0' + date.getHours()).slice(-2);
+	let minutes = ('0' + date.getMinutes()).slice(-2);
+	let seconds = ('0' + date.getSeconds()).slice(-2);
 
+	let strDateTime = "";
+	strDateTime += year;
+	strDateTime += "-" + month;
+	strDateTime += "-" + day;
+	strDateTime += " " + hours;
+	strDateTime += ":" + minutes;
+	strDateTime += ":" + seconds;
+
+	return strDateTime;
+}
 
 
 

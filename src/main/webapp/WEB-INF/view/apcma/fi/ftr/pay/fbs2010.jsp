@@ -54,7 +54,7 @@
             <!--[APC] START -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
             <!--[APC] END -->
-            <table class="table table-bordered tbl_fixed">
+            <table id="panHeader" class="table table-bordered tbl_fixed">
                 <caption>실시간 이체</caption>
                 <colgroup>
                     <col style="width: 8%">
@@ -271,6 +271,19 @@
                 </div>
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
                     <div id="sb-area-gvwDetail" style="height:300px;"></div>
+                    <table class="table table-bordered tbl_fixed">
+                        <caption>로그</caption>
+                        <colgroup>
+                            <col style="width: 100%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="LOG" name="LOG" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <sbux-tabs id="idxTab" name="idxTab" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
                 </sbux-tabs>
@@ -288,7 +301,7 @@
                             </div>
                         </div>
                         <div id="tabPageEx2">
-                            <table class="table table-bordered tbl_fixed">
+                            <table id="" class="table table-bordered tbl_fixed">
                                 <caption>외화상세내역</caption>
                                 <colgroup>
                                     <col style="width: 12.5%">
@@ -508,6 +521,15 @@
     var p_empCode = "${loginVO.maEmpCode}";
     var p_isTrManager = "${loginVO.maIsTrManager}";
     var p_isAccountChief = "${loginVO.maIsAccountChief}";
+    var p_fbsvan = "${loginVO.maFBSVAN}";
+    var p_fbsvancb = "${loginVO.maFBSVANCB}";
+    var p_fbsvanfc = "${loginVO.maFBSVANFC}";
+    var p_fbsrip = "${loginVO.maFBSRIP}";
+    var p_fbsrport = "${loginVO.maFBSRPORT}";
+    var p_fbscip = "${loginVO.maFBSCIP}";
+    var p_fbscport = "${loginVO.maFBSCPORT}";
+    var p_fbsfip = "${loginVO.maFBSFIP}";
+    var p_fbsfport = "${loginVO.maFBSFPORT}";
     //-----------------------------------------------------------
 
     var dtFirmbanking;
@@ -527,6 +549,7 @@
     var bPopUpFlag = false;
     var bTransCountSelect = true;
     var bDetailSelect = true;
+    var isFBSAsync = true;
 
     var jsonPayMethod = []; // 지급방법
     var jsonDepositCode = []; // 입금코드
@@ -1381,13 +1404,6 @@
             }
         } else {
             bPopUpFlag = false;
-
-            /*btnNew.Visible = false;
-            btnSave.Visible = false;
-            btnDel.Visible = false;
-
-            SaveButton = true;*/
-
             SBUxMethod.set("SRCH_TXN_DATE", gfn_dateToYmd(new Date())); // TODO : GetServerDateTime
             SBUxMethod.set("SRCH_TXN_TIME_RAW", "");
             SBUxMethod.set("SRCH_TRANS_COUNT", "");
@@ -1462,7 +1478,75 @@
         }
     }
 
-    const fn_create = async function () {}
+    const fn_create = async function () {
+        if (jsonFinancialTransferList.length == 0) {
+            SBUxMethod.set("SRCH_TXN_DATE", "");
+            SBUxMethod.set("SRCH_TXN_TIME_RAW", "");
+            SBUxMethod.set("SRCH_TRANS_COUNT", "");
+            SBUxMethod.set("SRCH_TXN_TIME", "");
+
+            //gfnma_uxDataClear('#panHeader');
+            jsonFinancialTransferList.length = 0;
+            jsonFinancialPlanList.length = 0;
+            gvwDetail.rebuild();
+            gvwAct.rebuild();
+
+            $("#main-btn-appr").attr('disabled', 'true');
+            SBUxMethod.attr("btnAddRow", "disabled", "false");
+            SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+
+            SBUxMethod.set("SRCH_TXN_DATE", gfn_dateToYmd(new Date())); // TODO : GetServerDateTime
+            return;
+        }
+
+        let bNoCommitRow = false;
+        let updatedData = gvwDetail.getUpdateData(true, 'all');
+
+        if(updatedData.length > 0) {
+            bNoCommitRow = true;
+        }
+
+        //저장할 건이 없을시
+        if (!bNoCommitRow) {
+            //신규
+            SBUxMethod.set("SRCH_TXN_DATE", "");
+            SBUxMethod.set("SRCH_TXN_TIME_RAW", "");
+            SBUxMethod.set("SRCH_TRANS_COUNT", "");
+            SBUxMethod.set("SRCH_TXN_TIME", "");
+
+            //gfnma_uxDataClear('#panHeader');
+            jsonFinancialTransferList.length = 0;
+            jsonFinancialPlanList.length = 0;
+            gvwDetail.rebuild();
+            gvwAct.rebuild();
+
+            $("#main-btn-appr").attr('disabled', 'true');
+            SBUxMethod.attr("btnAddRow", "disabled", "false");
+            SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+
+            SBUxMethod.set("SRCH_TXN_DATE", gfn_dateToYmd(new Date())); // TODO : GetServerDateTime
+        } else {
+            if (gfn_comConfirm("Q0000", "저장하지 않은 데이터가 있습니다. 계속 진행 하시겠습니까?")) {
+                //신규
+                SBUxMethod.set("SRCH_TXN_DATE", "");
+                SBUxMethod.set("SRCH_TXN_TIME_RAW", "");
+                SBUxMethod.set("SRCH_TRANS_COUNT", "");
+                SBUxMethod.set("SRCH_TXN_TIME", "");
+
+                //gfnma_uxDataClear('#panHeader');
+                jsonFinancialTransferList.length = 0;
+                jsonFinancialPlanList.length = 0;
+                gvwDetail.rebuild();
+                gvwAct.rebuild();
+
+                $("#main-btn-appr").attr('disabled', 'true');
+                SBUxMethod.attr("btnAddRow", "disabled", "false");
+                SBUxMethod.attr("btnDeleteRow", "disabled", "false");
+
+                SBUxMethod.set("SRCH_TXN_DATE", gfn_dateToYmd(new Date())); // TODO : GetServerDateTime
+            }
+        }
+    }
 
     const fn_save = async function () {}
 
@@ -1713,22 +1797,978 @@
         }
     }
 
-    const fn_fbsUser = async function () {}
+    const fnQRY_P_FBSBANKTXN_Q = async function (strWorkType) {
+        try {
+            let arrfbs_no = "";
+            let strFBS_WORK_TYPE = "";
 
-    const fn_fbsNew = async function () {}
+            if (strWorkType == "BANKING" || strWorkType == "TAXING" || strWorkType == "TAXING_NO" || strWorkType == "RETRY" || strWorkType == "CANCEL") {
+                //이체
+                let gvwDetailCheckedList = gvwDetail.getCheckedRows(gvwDetail.getColRef("CHECK_YN"), true);
 
-    const fn_checkName = async function () {}
+                gvwDetailCheckedList.forEach((item, index) => {
+                    if (gvwDetail.getCellData(item, gvwDetail.getColRef("ERROR_MESSAGE")) != "VTIM") {
+                        //응답시간 초과 아닌건만
+                        if (arrfbs_no != "")
+                            arrfbs_no += "|";
 
-    const fn_retry = async function () {}
+                        arrfbs_no += gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("FBS_NO")));
+                    }
+                });
 
-    const fn_txnComplete = async function () {}
+                if (strWorkType == "BANKING") {
+                    strFBS_WORK_TYPE = "BANKTXN";
+                } else if (strWorkType == "TAXING") {
+                    strFBS_WORK_TYPE = "TAXTXN";
+                } else if (strWorkType == "TAXING_NO") {
+                    strFBS_WORK_TYPE = "TAXTXN_NO";
+                } else if (strWorkType == "CANCEL") {
+                    strFBS_WORK_TYPE = "BANKCANCEL";
+                } else {
+                    strFBS_WORK_TYPE = "BANKTXN";
+                }
+            }
 
-    const fn_txnCancel = async function () {}
+            // 비즈니스 로직 정보
+            let BANK_CODE = gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE"));
+            let FBS_SERVICE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE'));
+            let TXN_DATE = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+            let PASSWORD = gfn_nvl(SBUxMethod.get("SRCH_PASSWORD"));
+            let PROCESS_YN = gfn_nvl(gfnma_multiSelectGet('#SRCH_PROCESS_YN'));
 
-    const fn_bankUniqueNo = async function () {}
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_BANK_CODE : BANK_CODE,
+                V_P_FBS_SERVICE : FBS_SERVICE,
+                V_P_FBS_WORK_TYPE : strFBS_WORK_TYPE,
+                V_P_TXN_DATE : TXN_DATE,
+                V_P_PASSWORD : PASSWORD,
+                V_P_ARR_FBS_NO : arrfbs_no,
+                V_P_PROCESS_YN : PROCESS_YN,
+                V_P_INTERFACEID : "",
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: '',
+            };
 
-    const fn_resultQuery = async function () {}
+            const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbsbanktxnList.do", {
+                getType				: 'json',
+                workType			: strWorkType,
+                cv_count			: '1',
+                params				: gfnma_objectToString(paramObj)
+            });
+            const data = await postJsonPromise;
 
-    const fn_print = async function () {}
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (strWorkType == "BANKING" || strWorkType == "TAXING" || strWorkType == "TAXING_NO" || strWorkType == "RETRY" || strWorkType == "CANCEL") {
+                        if (data.cv_1.length >= 1) {
+                            dtFirmbanking = data.cv_1;
+                        }
+                    }
+                    return true;
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
+    }
+
+    const fnSET_P_FBS2010_S_FIRM = async function(strWorkType, strfbs_no, strtreasury_id, strbank_code, strplusminus,
+                                                  strbalance_amt, strfee_amt, strerror_code, strfirm_no, strfirm_payee_name,
+                                                  strfirm_payee_error_code) {
+        try {
+            // 비즈니스 로직 정보
+            var paramObj = {
+                V_P_DEBUG_MODE_YN	: '',
+                V_P_LANG_ID		: '',
+                V_P_COMP_CODE		: gv_ma_selectedApcCd,
+                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                V_P_FBS_NO : strfbs_no,
+                V_P_DOC_ID : "",
+                V_P_DOC_ITEM_ID : "",
+                IV_P_TREASURY_ID : parseInt(strtreasury_id.trim()),
+                V_P_BANK_CODE : strbank_code,
+                V_P_PLUS_MINUS : strplusminus,
+                V_P_BALANCE_AMT : Number(strbalance_amt.trim() == "" ? "0" : strbalance_amt.trim()),
+                V_P_FEE_AMT : Number(strfee_amt.trim() == "" ? "0" : strfee_amt.trim()),
+                V_P_FBS_TXN_TIME : "",
+                V_P_ERROR_MESSAGE : strerror_code,
+                V_P_FIRM_NO : strfirm_no,
+                V_P_FIRM_PAYEE_NAME : strfirm_payee_name,
+                V_P_FIRM_PAYEE_ERROR_CODE : strfirm_payee_error_code,
+                V_P_PAYER_BANK_CODE : "",
+                V_P_PAYER_BANK_ACCOUNT_NO : "",
+                V_P_BANK_ACCOUNT_NO : "",
+                V_P_TRANS_DATE : "",
+                V_P_FORM_ID		: p_formId,
+                V_P_MENU_ID		: p_menuId,
+                V_P_PROC_ID		: '',
+                V_P_USERID			: '',
+                V_P_PC				: '',
+            };
+
+            const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbsbanktxnList.do", {
+                getType				: 'json',
+                workType			: strWorkType,
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    return data.v_returnStr;
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        } catch (e){
+            console.error(e);
+            return false;
+        }
+    }
+
+    const fn_firmBankingSend = async function(fbs_service, send_data, bSync) {
+        var paramObj = {
+            FBS_SERVICE : fbs_service,
+            SEND_DATA : send_data,
+            bSync : bSync
+        };
+
+        const postJsonPromise = gfn_postJSON("/com/sendFirmBanking.do", paramObj);
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                return data;
+            } else {
+                alert(data.message);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    function fn_firmSubString(inputString, startIndex, length) {
+        const encoding = 'ks_c_5601-1987';
+
+        // 문자열을 바이트 배열로 변환
+        const bytes = iconv.encode(inputString, encoding);
+
+        // 범위를 벗어나지 않도록 조정
+        if (bytes.length <= startIndex + length) {
+            return iconv.decode(bytes, encoding);
+        }
+
+        // 부분 배열을 추출
+        const subBytes = bytes.slice(startIndex, startIndex + length);
+
+        return iconv.decode(subBytes, encoding);
+    }
+
+    const fn_addDataSet = async function (objResult) {
+        if (Array.isArray(objResult)) {
+            bDetailSelect = false;
+
+            if (gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")) == "") {
+                SBUxMethod.set("SRCH_TXN_DATE", gfn_dateToYmd(new Date()));
+            }
+
+            if (gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME_RAW")) == "") {
+                SBUxMethod.set("SRCH_TXN_TIME_RAW", gfn_dateToTime(new Date(), ""));
+            }
+
+            var iseq = 1;
+
+            if (jsonFinancialTransferList.length != 0) {
+                iseq = parseInt(gvwDetail.getCellData((jsonFinancialTransferList.length + 1), gvwDetail.getColRef("TXN_SEQ"))) + 1;
+            }
+
+            var bDataCheck = (jsonFinancialTransferList.length != 0);
+
+            for (const dr in objResult) {
+                if (bDataCheck) {
+                    var dr_temp = jsonFinancialTransferList.filter(data => data["TREASURY_ID"] == dr["TREASURY_ID"]);
+                    if (dr_temp != null && dr_temp.length > 0) {
+                        continue;
+                    }
+                }
+
+                if (gfn_nvl(dr["defer_yn"]) != "Y") {
+                    var ht = {};
+
+                    ht["FBS_NO"] =  "";
+                    ht["SITE_CODE"] =  dr["SITE_CODE"];
+                    ht["TREASURY_ID"] =  dr["TREASURY_ID"];
+                    ht["TXN_DATE"] =  "";
+                    ht["TXN_TIME"] =  "";
+                    ht["TXN_SEQ"] =  iseq++;
+
+                    ht["FIRM_PAYEE_ERROR_CODE"] = "";
+                    ht["FIRM_PAYEE_NAME"] = "";
+                    ht["ERROR_MESSAGE"] = "";
+
+                    ht["TRANSFER_TYPE"] = gfn_nvl(dr["TRANSFER_TYPE"]);
+                    ht["RESERVE_YN"] = gfn_nvl(dr["RESERVE_YN"]);
+                    ht["BANK_CODE"] = gfn_nvl(dr["BANK_CODE"]);
+                    ht["BANK_NAME"] = gfn_nvl(dr["BANK_NAME"]);
+                    ht["BANK_ACCOUNT_NO"] = gfn_nvl(dr["BANK_ACCOUNT_NO"]);
+                    ht["PAYER_BANK_CODE"] = gfn_nvl(dr["PAYER_BANK_CODE"]);
+                    ht["PAYER_BANK_NAME"] = gfn_nvl(dr["PAYER_BANK_NAME"]);
+                    ht["PAYER_BANK_ACCOUNT"] = gfn_nvl(dr["PAYER_BANK_ACCOUNT"]);
+                    ht["TXN_AMT"] = gfn_nvl(dr["TXN_AMT"]);
+                    ht["PAYER_BANK_ACCOUNT_OWNER"] = gfn_nvl(dr["PAYER_BANK_ACCOUNT_OWNER"]);
+                    ht["PAYROLL_FLAG"] = gfn_nvl(dr["PAYROLL_FLAG"]);
+                    ht["IN_PRINT"] = gfn_nvl(dr["IN_PRINT"]);
+                    ht["OUT_PRINT"] = gfn_nvl(dr["OUT_PRINT"]);
+                    ht["PROCESS_YN"] = gfn_nvl("A");
+                    ht["TXN_STATUS"] = gfn_nvl("1");
+                    ht["PLANNED_PAY_DATE"] = gfn_nvl(dr["PLANNED_PAY_DATE"]);
+                    ht["PAYER_ID"] = gfn_nvl(dr["PAYER_ID"]);
+                    ht["PAYER_NAME"] = gfn_nvl(dr["PAYER_NAME"]);
+                    ht["CURRENCY_CODE"] = gfn_nvl(dr["CURRENCY_CODE"]);
+                    ht["DOC_ID"] = gfn_nvl(dr["DOC_ID"]);
+                    ht["DOC_NAME"] = gfn_nvl(dr["DOC_NAME"]);
+                    ht["ITEM_ID"] = gfn_nvl(dr["ITEM_ID"]);
+                    ht["CMS_CODE"] = gfn_nvl(dr["CMS_CODE"]);
+
+                    SBUxMethod.set("SRCH_DEPOSIT_CODE", dr["DEPOSIT_CODE"]);
+                    SBUxMethod.set("SRCH_BANK_CODE", dr["BANK_CODE"]);
+
+                    gvwDetail.addRow(true, ht);
+
+                    SaveButton = true;
+                }
+            }
+
+            bDetailSelect = true;
+        }
+    }
+
+    const fn_fbsUser = async function () {
+        await fn_create();
+
+        let TXN_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+        let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+        let TRANSFER_TYPE = gfn_nvl(gfnma_multiSelectGet('#SRCH_TRANSFER_TYPE'));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_TXN_DATE_FR : TXN_DATE_FR,
+            V_P_TXN_DATE_TO : TXN_DATE_TO,
+            V_P_DEPOSIT_CODE : '',
+            V_P_TRANSFER_TYPE : TRANSFER_TYPE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbs5010List.do", {
+            getType				: 'json',
+            workType			: 'Q',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                var drs = data.cv_1.filter(data => data["CHECK_YN"] == "N");
+                fn_addDataSet(drs);
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        SaveButton = true;
+    }
+
+    const fn_fbsNew = async function () {
+        await fn_create();
+
+        let TXN_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+        let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+        let TRANSFER_TYPE = gfn_nvl(gfnma_multiSelectGet('#SRCH_TRANSFER_TYPE'));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_TXN_DATE_FR : TXN_DATE_FR,
+            V_P_TXN_DATE_TO : TXN_DATE_TO,
+            V_P_DEPOSIT_CODE : '',
+            V_P_TRANSFER_TYPE : TRANSFER_TYPE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbs2040List.do", {
+            getType				: 'json',
+            workType			: 'Q',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                var drs = data.cv_1.filter(data => data["CHECK_YN"] == "N");
+                fn_addDataSet(drs);
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        SaveButton = true;
+    }
+
+    const fn_checkName = async function () {
+        if (gvwDetail.getRow() < 0)
+            return;
+
+        let bresult = [];
+
+        let intmax_seq = 0;
+        let strpayer_bank_code = "";
+        let strpayer_bank_account = "";
+        let strsocial_num = "";
+        let strpayer_bank_account_owner = "";
+        let strcurrency_code = "";
+        let strfbs_no = "";
+
+        let gvwDetailCheckedList = gvwDetail.getCheckedRows(gvwDetail.getColRef("CHECK_YN"), true);
+        intmax_seq = gvwDetailCheckedList.length;
+
+        if (intmax_seq == 0) {
+            gfn_comAlert("E0000", "수취인확인 데이터가 없습니다.");
+            return;
+        }
+
+        let intprogram_seq = 1;
+
+        SBUxMethod.openProgress(gv_loadingOptions);
+
+        gvwDetailCheckedList.forEach((item, index) => {
+            if (intprogram_seq == 1) {
+                strpayer_bank_code = gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("PAYER_BANK_CODE")));
+                strpayer_bank_account = gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("PAYER_BANK_ACCOUNT")));
+                strpayer_bank_account_owner = gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("PAYER_BANK_ACCOUNT_OWNER")));
+                strcurrency_code = gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("CURRENCY_CODE")));
+                strfbs_no = "FBSBANKTXN." + gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("FBS_NO")));
+            } else {
+                strpayer_bank_code = strpayer_bank_code + "|" + gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("PAYER_BANK_CODE")));
+                strpayer_bank_account = strpayer_bank_account + "|" + gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("PAYER_BANK_ACCOUNT")));
+                strpayer_bank_account_owner = strpayer_bank_account_owner + "|" + gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("PAYER_BANK_ACCOUNT_OWNER")));
+                strcurrency_code = strcurrency_code + "|" + gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("CURRENCY_CODE")));
+                strfbs_no = strfbs_no + "|" + "FBSBANKTXN." + gfn_nvl(gvwDetail.getCellData(item, gvwDetail.getColRef("FBS_NO")));
+            }
+            intprogram_seq = intprogram_seq + 1;
+        });
+
+        let bSync = false;
+        let strArray1 = new Array("", "OPEN_ERROR");
+
+        let FBS_SERVICE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE'));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_BANK_CODE : "",
+            V_P_FBS_SERVICE : FBS_SERVICE,
+            V_P_FBS_WORK_TYPE : "NAME",
+            V_P_ACCOUNT_BANK : strpayer_bank_code,
+            V_P_ACCOUNT_NO : strpayer_bank_account.replaceAll("-", ""),
+            V_P_SOCIALNUM : strsocial_num,
+            V_P_ACCOUNT_OWNER : strpayer_bank_account_owner,
+            V_P_CURRENCY_CODE : strcurrency_code,
+            V_P_FBS_NO : strfbs_no,
+            V_P_INTERFACEID : "",
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbsName.do", {
+            getType				: 'json',
+            workType			: 'Q',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.cv_1.length >= 1) {
+                    let str = "";
+                    let num1 = 0;
+                    let num2 = 0;
+
+                    for (const row in data.cv_1) {
+                        var strArray2 =  fn_firmBankingSend(FBS_SERVICE, gfn_nvl(row["SEND_DATA"]), bSync);
+
+                        if (strArray2.code.trim() == "000" || strArray2.code.trim() == "0000" || strArray2.code.trim() == "COMP") {
+                            ++num2;
+                        } else {
+                            ++num1;
+                            str = strArray2.code;
+                        }
+                    }
+
+                    if (num1 > 0) {
+                        gfn_comAlert("E0000", "수취인확인 에러 [" + str + "]");
+                        strArray1[1] = str;
+                    }
+
+                    if (num2 > 0 && num1 == 0) {
+                        strArray1[1] = "OK";
+                    }
+                }
+            } else {
+                strArray1[1] = data.resultMessage;
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        SBUxMethod.closeProgress(gv_loadingOptions);
+    }
+
+    const fn_retry = async function () {
+        if (gvwDetail.getRow() < 0)
+            return;
+
+        let objResult = "";
+
+        SBUxMethod.set("LOG", "");
+        let strLog = "";
+
+        if (typeof objResult === 'string') {
+            SBUxMethod.openProgress(gv_loadingOptions);
+
+            SBUxMethod.set("SRCH_PASSWORD", objResult);
+
+            strLog = strLog + "-전문생성시작(" + gfn_getDateTime() + ")";
+
+            fnQRY_P_FBSBANKTXN_Q("RETRY");
+
+            strLog = strLog + "-전문생성끝(" + gfn_getDateTime() + ")";
+
+            if (dtFirmbanking == null || dtFirmbanking.length < 1) {
+                SBUxMethod.closeProgress(gv_loadingOptions);
+                return;
+            }
+
+            for(const dr in dtFirmbanking) {
+                //계좌성명조회
+                if (isFBSAsync) {
+                    await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), dr["SEND_DATA"], false);
+
+                    await fnSET_P_FBS2010_S_FIRM("SEND",
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        "",
+                        "",
+                        "",
+                        "",
+                        gfn_nvl(dr["FIRM_NO"]),
+                        "",
+                        ""
+                    );
+                } else {
+                    strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
+
+                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+
+                    strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
+
+                    let strReturnCode = result.code.trim();
+                    let strTxtMessage = result.message;
+                    let strWorkType = "";
+
+                    if (strReturnCode == "000" || strReturnCode == "0000") {
+                        // 성공시
+                        strWorkType = "U";
+                    } else {
+                        //에러시
+                        strWorkType = "N";
+                    }
+
+                    strLog = strLog + "-결과저장시작(" + gfn_getDateTime() + ")";
+
+                    await fnSET_P_FBS2010_S_FIRM(strWorkType,
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
+                        strReturnCode,
+                        gfn_nvl(dr["FIRM_NO"]),
+                        "",
+                        ""
+                    );
+
+                    strLog = strLog + "-결과저장끝(" + gfn_getDateTime() + ")";
+                }
+            }
+
+            SBUxMethod.set("LOG", strLog);
+
+            fn_search();
+
+            SBUxMethod.closeProgress(gv_loadingOptions);
+        }
+    }
+
+    const fn_txnComplete = async function () {
+        SBUxMethod.attr("btnTxnComplete", "disabled", "true");
+
+        if (gvwDetail.getRow() < 0)
+            return;
+
+        let objResult = "";
+        SBUxMethod.set("LOG", "");
+
+        let strLog = "";
+
+        if (typeof objResult === 'string') {
+            SBUxMethod.openProgress(gv_loadingOptions);
+
+            SBUxMethod.set("SRCH_PASSWORD", objResult);
+
+            strLog = strLog + "-전문생성시작(" + gfn_getDateTime() + ")";
+            if (gfn_nvl(gfnma_multiSelectGet('#SRCH_PAY_GUBUN')) == "10") {
+                fnQRY_P_FBSBANKTXN_Q("BANKING");
+            } else {
+                fnQRY_P_FBSBANKTXN_Q("TAXING");
+            }
+
+            strLog = strLog + "-전문생성끝(" + gfn_getDateTime() + ")";''
+
+            if (dtFirmbanking == null || dtFirmbanking.length < 1) {
+                SBUxMethod.closeProgress(gv_loadingOptions);
+                gfn_comAlert("E0000", "이체할 데이터가 없습니다.");
+                return;
+            }
+
+            for(const dr in dtFirmbanking) {
+                //계좌성명조회
+                if (isFBSAsync) {
+                    await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+
+                    await fnSET_P_FBS2010_S_FIRM("SEND",
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        "",
+                        "",
+                        "",
+                        "",
+                        gfn_nvl(dr["FIRM_NO"]),
+                        "",
+                        ""
+                    );
+                } else {
+                    strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
+
+                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+
+                    strLog = strLog + "-전문전송끝(" + gfn_getDateTime() + ")";
+
+                    let strReturnCode = result.code.trim();
+                    let strTxtMessage = result.message;
+                    let strWorkType = "";
+
+                    if (strReturnCode == "000" || strReturnCode == "0000") {
+                        // 성공시
+                        strWorkType = "U";
+                    } else {
+                        //에러시
+                        strWorkType = "N";
+                    }
+
+                    strLog = strLog + "-결과저장시작(" + gfn_getDateTime() + ")";
+
+                    await fnSET_P_FBS2010_S_FIRM(strWorkType,
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
+                        strReturnCode,
+                        gfn_nvl(dr["FIRM_NO"]),
+                        "",
+                        ""
+                    );
+                    strLog = strLog + "-결과저장끝(" + gfn_getDateTime() + ")";
+                }
+            }
+
+            SBUxMethod.set("LOG", strLog);
+
+            fn_search();
+
+            SBUxMethod.closeProgress(gv_loadingOptions);
+
+        }
+        SBUxMethod.attr("btnTxnComplete", "disabled", "false");
+    }
+
+    const fn_txnCancel = async function () {
+        if (gvwDetail.getRow() < 0)
+            return;
+
+        let objResult = "";
+        SBUxMethod.set("LOG", "");
+
+        let strLog = "";
+
+        if (typeof objResult === 'string') {
+            SBUxMethod.openProgress(gv_loadingOptions);
+
+            SBUxMethod.set("SRCH_PASSWORD", objResult);
+            strLog = strLog + "-전문생성시작(" + gfn_getDateTime() + ")";
+
+            fnQRY_P_FBSBANKTXN_Q("CANCEL");
+
+            strLog = strLog + "-전문생성끝(" + gfn_getDateTime() + ")";
+
+            if (dtFirmbanking == null || dtFirmbanking.length < 1) {
+                SBUxMethod.closeProgress(gv_loadingOptions);
+                gfn_comAlert("E0000", "이체할 데이터가 없습니다.");
+                return;
+            }
+
+            for(const dr in dtFirmbanking) {
+                if (isFBSAsync) {
+                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+
+                    let strReturnCode = result.code.trim();
+                    let strTxtMessage = result.message;
+
+                    await fnSET_P_FBS2010_S_FIRM("SEND",
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        "",
+                        "",
+                        "",
+                        strReturnCode == "CTIM" ? strTxtMessage : "",
+                        gfn_nvl(dr["FIRM_NO"]),
+                        "",
+                        ""
+                    );
+                } else {
+                    strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
+
+                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+
+                    strLog = strLog + "-전문전송끝(" + gfn_getDateTime() + ")";
+
+                    let strReturnCode = result.code.trim();
+                    let strTxtMessage = result.message;
+                    let strWorkType = "";
+
+                    if (strReturnCode == "000" || strReturnCode == "0000") {
+                        // 성공시
+                        strWorkType = "C";
+                    } else {
+                        //에러시
+                        strWorkType = "N";
+                    }
+
+                    strLog = strLog + "-결과저장시작(" + gfn_getDateTime() + ")";
+
+                    await fnSET_P_FBS2010_S_FIRM(strWorkType,
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
+                        strReturnCode,
+                        gfn_nvl(dr["FIRM_NO"]),
+                        "",
+                        ""
+                    );
+                    strLog = strLog + "-결과저장끝(" + gfn_getDateTime() + ")";
+                }
+            }
+
+            SBUxMethod.set("LOG", strLog);
+
+            fn_search();
+
+            SBUxMethod.closeProgress(gv_loadingOptions);
+        }
+    }
+
+    const fn_bankUniqueNo = async function () {
+        if (gvwDetail.getRow() < 0)
+            return;
+
+        let objResult = "";
+        SBUxMethod.set("LOG", "");
+
+        let strLog = "";
+
+        if (typeof objResult === 'string') {
+            SBUxMethod.openProgress(gv_loadingOptions);
+
+            SBUxMethod.set("SRCH_PASSWORD", objResult);
+
+            if (gfn_nvl(gfnma_multiSelectGet('#SRCH_PAY_GUBUN')) == "10") {
+                SBUxMethod.closeProgress(gv_loadingOptions);
+                gfn_comAlert("E0000", "실시간 이체는 처리할수 없습니다.");
+                return;
+            }
+
+            strLog = strLog + "-전문생성시작(" + gfn_getDateTime() + ")";
+
+            fnQRY_P_FBSBANKTXN_Q("TAXING_NO");
+
+            strLog = strLog + "-전문생성끝(" + gfn_getDateTime() + ")";
+
+            if (dtFirmbanking == null || dtFirmbanking.length < 1) {
+                SBUxMethod.closeProgress(gv_loadingOptions);
+                gfn_comAlert("E0000", "이체할 데이터가 없습니다.");
+                return;
+            }
+
+            for(const dr in dtFirmbanking){
+                //계좌성명조회
+                if (isFBSAsync) {
+                    await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+                } else {
+                    strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
+
+                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+
+                    strLog = strLog + "-전문전송끝(" + gfn_getDateTime() + ")";
+
+                    let strReturnCode = result.code.trim();
+                    let strTxtMessage = result.message;
+                    let strWorkType = "";
+
+                    if (strReturnCode == "000" || strReturnCode == "0000") {
+                        // 성공시
+                        strWorkType = "U";
+                    } else {
+                        //에러시
+                        strWorkType = "N";
+                    }
+
+                    strLog = strLog + "-결과저장시작(" + gfn_getDateTime() + ")";
+
+                    await fnSET_P_FBS2010_S_FIRM(strWorkType,
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
+                        strReturnCode,
+                        gfn_nvl(dr["FIRM_NO"]),
+                        "",
+                        ""
+                    );
+                    strLog = strLog + "-결과저장끝(" + gfn_getDateTime() + ")";
+                }
+            }
+
+            SBUxMethod.set("LOG", strLog);
+
+            fn_search();
+
+            SBUxMethod.closeProgress(gv_loadingOptions);
+
+        }
+    }
+
+    const fn_resultQuery = async function () {
+        if (gvwDetail.getRow() < 0)
+            return;
+
+        SBUxMethod.openProgress(gv_loadingOptions);
+
+        let arrfbs_no = "";
+        let strFBS_WORK_TYPE = "";
+
+        for (var i = 0; i < jsonFinancialTransferList.length; i++) {
+            if (gvwDetail.getCellData((i+1), gvwDetail.getColRef("ERROR_MESSAGE")) == "VTIM" || gvwDetail.getCellData((i+1), gvwDetail.getColRef("PROCESS_YN")) == "P") {
+                if (arrfbs_no != "")
+                    arrfbs_no += "|";
+
+                arrfbs_no += gvwDetail.getCellData((i+1), gvwDetail.getColRef("FBS_NO"));
+            }
+            strFBS_WORK_TYPE = "BANKTXNRESULT";
+        }
+
+        // 비즈니스 로직 정보
+        let BANK_CODE = gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE"));
+        let FBS_SERVICE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE'));
+        let TXN_DATE = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+        let PASSWORD = gfn_nvl(SBUxMethod.get("SRCH_PASSWORD"));
+        let PROCESS_YN = gfn_nvl(gfnma_multiSelectGet('#SRCH_PROCESS_YN'));
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_BANK_CODE : BANK_CODE,
+            V_P_FBS_SERVICE : FBS_SERVICE,
+            V_P_FBS_WORK_TYPE : strFBS_WORK_TYPE,
+            V_P_TXN_DATE : TXN_DATE,
+            V_P_PASSWORD : PASSWORD,
+            V_P_ARR_FBS_NO : arrfbs_no,
+            V_P_PROCESS_YN : PROCESS_YN,
+            V_P_INTERFACEID : "",
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbsbankResultList.do", {
+            getType				: 'json',
+            workType			: 'RESULT',
+            cv_count			: '1',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.cv_1.length >= 1) {
+                    dtFirmbanking = data.cv_1;
+                }
+
+                if (dtFirmbanking == null || dtFirmbanking.length < 1) {
+                    SBUxMethod.closeProgress(gv_loadingOptions);
+                    gfn_comAlert("E0000", "결과를 확인할 데이터가 없습니다.");
+                    return;
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        for(const dr in dtFirmbanking){
+            if (isFBSAsync) {
+                await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+            } else {
+                var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+
+                if (result.code.trim() == "000" || result.code.trim() == "0000") {
+                    await fnSET_P_FBS2010_S_FIRM("RE_Q",
+                        gfn_nvl(dr["FBS_NO"]),
+                        "0",
+                        gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+                        "",
+                        "0",
+                        fn_firmSubString(result.message, 187, 9) == "" ? "0" : fn_firmSubString(result.message, 187, 9),
+                        fn_firmSubString(result.message, 234, 4),
+                        "",
+                        "",
+                        "");
+                }
+            }
+        }
+
+        fn_search();
+
+        SBUxMethod.closeProgress(gv_loadingOptions);
+    }
+
+    const fn_print = async function () {
+        if (gfn_nvl(SBUxMethod.get("SRCH_TRANS_COUNT")) == "") {
+            gfn_comAlert("E0000", "전송회차가 선택되지 않았습니다.");
+            return;
+        }
+
+        if (gvwDetail.getRow() < 0)
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME_RAW")) == "") {
+            return;
+        }
+
+        var param = {};
+
+        param["WORK_TYPE"] = "FBS";
+        param["PRINT_TYPE"] = "PREVIEW";
+        param["TXN_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE"));
+        param["TXN_TIME"] = gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME_RAW"));
+
+        gfn_popClipReport("", reportFilePath, param);
+        // object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1010.dll", htparam, OpenType.Modal);
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

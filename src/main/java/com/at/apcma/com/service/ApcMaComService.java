@@ -80,4 +80,10 @@ public interface ApcMaComService {
 	 */
 	HashMap<String, Object> processForListData(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception;
 
+	/**
+	 * 실시간 이체 socket 호출
+	 * @param param
+	 * @return
+	 */
+    HashMap<String, Object> sendFirmBanking(Map<String, Object> param);
 }

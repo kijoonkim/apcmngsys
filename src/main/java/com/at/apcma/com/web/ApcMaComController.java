@@ -1,12 +1,12 @@
 package com.at.apcma.com.web;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.at.apcss.co.sys.vo.LoginVO;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -618,5 +620,26 @@ public class ApcMaComController extends BaseController {
 
 		logger.info("=============fbs2040tList=====end========");
 		return getSuccessResponseEntityMa(resultMap);
+	}
+
+	@PostMapping(value = "/com/sendFirmBanking.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> sendFirmBanking(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+
+		logger.info("=============sendFirmBanking=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			resultMap = apcMaComService.sendFirmBanking(param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============sendFirmBanking=====end========");
+		return getSuccessResponseEntity(resultMap);
 	}
 }
