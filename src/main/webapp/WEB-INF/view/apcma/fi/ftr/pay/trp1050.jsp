@@ -326,10 +326,10 @@
                             <span style="margin-right: 10px;">계좌번호</span>
                             <sbux-input id="BANK_CODE_P" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             <sbux-input id="BANK_NAME_P" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                            <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="normal" style="margin-right: 10px" onclick="fn_findBankCode"></sbux-button>
+                            <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" style="margin-right: 10px;" onclick="fn_findBankCode"></sbux-button>
                             <sbux-input id="DEPOSIT_CODE_P" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                             <sbux-input id="DEPOSIT_NAME_P" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                            <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="normal" style="margin-right: 10px" onclick="fn_findDepositCode"></sbux-button>
+                            <sbux-button class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-compopup1" style="margin-right: 10px;" onclick="fn_findDepositCode"></sbux-button>
                             <sbux-button class="btn btn-xs btn-outline-dark" text="계좌반영" uitype="normal" onclick="fn_batchAllInPrint"></sbux-button>
                         </div>
                         <table class="table table-bordered tbl_fixed" style="width: 45%">
@@ -345,11 +345,11 @@
                             <tr>
                                 <th scope="row" class="th_bg">지급(환산전)</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="LOG" name="LOG" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    <sbux-input id="TOT_PAY_FUNCTIONAL_AMOUNT" name="TOT_PAY_FUNCTIONAL_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
                                 <th scope="row" class="th_bg">지급(환산후)</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="LOG" name="LOG" grid-id="gvwDetail" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                    <sbux-input id="TOT_PAY_FUNCTIONAL_AMT_CONV" name="TOT_PAY_FUNCTIONAL_AMT_CONV" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-button id="btnSum" name="btnSum" uitype="normal" text="합계" class="btn btn-sm btn-outline-danger" onclick="fn_sum" style="float: right;"></sbux-button>
@@ -359,7 +359,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
+                <div class="table-responsive tbl_scroll_sm" style="margin-top: 20px;">
                     <div id="sb-area-gvwList" style="height:600px;"></div>
                 </div>
                 <div class="ad_tbl_top2">
@@ -828,7 +828,7 @@
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
         var replaceText0 	= "_CURRENCY_CODE_";
         var replaceText1 	= "_CURRENCY_NAME_";
-        var strWhereClause 	= "AND CURRENCY_CODE '%" + replaceText0 + "%' AND CURRENCY_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CURRENCY_CODE LIKE '%" + replaceText0 + "%' AND CURRENCY_NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '통화 정보');
         compopup1({
@@ -856,7 +856,7 @@
         var searchText 		= gfnma_nvl(SBUxMethod.get("BANK_NAME_P"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND CODE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
         compopup1({
@@ -884,7 +884,7 @@
         var searchText 		= gfnma_nvl(SBUxMethod.get("DEPOSIT_NAME_P"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND CODE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
@@ -906,6 +906,102 @@
                 SBUxMethod.set('DEPOSIT_CODE_P', data.CODE);
             },
         });
+    }
+
+    const fn_multiCsSelect = function() {
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strCsCodeList = "";
+                data.forEach((item, index) => {
+                    strCsCodeList += item + "|";
+                });
+
+                if (strCsCodeList.length > 0)
+                    strCsCodeList = strCsCodeList.substring(0, strCsCodeList.length - 1);
+
+                if (strCsCodeList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_CS_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_CS_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+    }
+
+    const fn_multiSelect = function() {
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strCsCodeList = "";
+                data.forEach((item, index) => {
+                    strCsCodeList += item + "|";
+                });
+
+                if (strCsCodeList.length > 0)
+                    strCsCodeList = strCsCodeList.substring(0, strCsCodeList.length - 1);
+
+                if (strCsCodeList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+    }
+
+    const fn_multiMSelect = function() {
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strCsCodeList = "";
+                data.forEach((item, index) => {
+                    strCsCodeList += item + "|";
+                });
+
+                if (strCsCodeList.length > 0)
+                    strCsCodeList = strCsCodeList.substring(0, strCsCodeList.length - 1);
+
+                if (strCsCodeList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_M_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_M_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+    }
+
+    const fn_multiASelect = function() {
+        SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-compopup3');
+
+        compopup3({
+            height			: '400px'
+            ,callbackEvent	: function (data){
+                strCsCodeList = "";
+                data.forEach((item, index) => {
+                    strCsCodeList += item + "|";
+                });
+
+                if (strCsCodeList.length > 0)
+                    strCsCodeList = strCsCodeList.substring(0, strCsCodeList.length - 1);
+
+                if (strCsCodeList.replaceAll("|", "") == "")
+                    SBUxMethod.set("SRCH_MULTI_A_YN", "N");
+                else
+                    SBUxMethod.set("SRCH_MULTI_A_YN", "Y");
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
