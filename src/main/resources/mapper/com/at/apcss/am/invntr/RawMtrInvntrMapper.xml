@@ -325,6 +325,7 @@
 				, RI.RMRK				AS RMRK
 				, RI.INPT_PRGRS_QNTT	AS INPT_PRGRS_QNTT
 				, RI.INPT_PRGRS_WGHT	AS INPT_PRGRS_WGHT
+	    	    , RI.PRCS_TYPE			AS PRCS_TYPE
 				, (SELECT MAX(X.SORT_CMNDNO) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS SORT_CMNDNO
 				, (SELECT MAX(X.FCLT_CD) KEEP (DENSE_RANK LAST ORDER BY X.SORT_CMNDNO, X.SORT_CMND_SN) FROM TB_SORT_CMND X WHERE X.APC_CD = RI.APC_CD AND X.PLTNO = RI.PLTNO AND X.DEL_YN = 'N') AS FCLT_CD
  
@@ -380,6 +381,9 @@
 		</if>
 		<if test='bxKnd != null and bxKnd != ""'>
 			   AND RI.BX_KND = #{bxKnd}
+		</if>
+		<if test='prcsType != null and prcsType != ""'>
+			   AND RI.PRCS_TYPE = #{prcsType}
 		</if>
 
 <!-- 		원물입고 내역 검색조건 -->

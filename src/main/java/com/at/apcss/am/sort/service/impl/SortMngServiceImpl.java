@@ -355,6 +355,10 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		// 실적등록 대상재고 목록
 		List<RawMtrInvntrVO> invntrList = sortMngVO.getRawMtrInvntrList();
 
+		/** 원물입고재처리 관련 선별실적 등록시 prcsType 체크
+		 *  모든 선별실적은 1개 이상의 원물재고 내역이 필요함. 재처리 경우 radio 단 1개만 존재 **/
+		String prcsType = invntrList.get(0).getPrcsType();
+
 		List<RawMtrInvntrVO> rawMtrInvntrVOList = new ArrayList<>();
 
 		for ( SortPrfmncVO sort : prfmncList ) {
@@ -445,7 +449,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 						return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "투입진행량||투입량");	// W0008	{0} 보다 {1}이/가 큽니다.
 					}
 				} else {
-					if (invntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
+					if (invntrVO.getInptWght() > invntrInfo.getInvntrWght() && !("RR".equals(prcsType))) {
 						return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 					}
 				}
@@ -521,9 +525,13 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 						sortQntt += applQntt;
 						sortWght += applWght;
-
-						sort.setRmnQntt(sort.getRmnQntt() - applQntt);
-						sort.setRmnWght(sort.getRmnWght() - applWght);
+						if("RR".equals(prcsType)){
+							sort.setRmnQntt(0);
+							sort.setRmnWght(0);
+						}else{
+							sort.setRmnQntt(sort.getRmnQntt() - applQntt);
+							sort.setRmnWght(sort.getRmnWght() - applWght);
+						}
 
 						if (!StringUtils.hasText(inptYmd)) {
 							inptYmd = sort.getInptYmd();
@@ -624,6 +632,11 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 
 			// 원물재고정보 update
 			for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
+				if("RR".equals(prcsType)){
+					/** 원물입고 재처리된 원물재고에 대해서 잔량체크없이 0처리 **/
+					inv.setQntt(0);
+					inv.setWght(0);
+				}
 				HashMap<String, Object> rtnMap = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
 				if (rtnMap != null) {
 					throw new EgovBizException(getMessageForMap(rtnObj));
