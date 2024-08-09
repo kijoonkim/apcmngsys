@@ -501,10 +501,10 @@
 		  AND SUBSTR(CM.MENU_ID, 1,2) = #{sysId}
 		]]>
 		<if test='menuId != null and menuId != ""'>
-		  AND CM.MENU_ID = #{menuId}
+			AND CM.MENU_ID LIKE '%' || #{menuId} || '%'
 		</if>
 		<if test='menuNm != null and menuNm != ""'>
-		  AND CM.MENU_NM = #{menuNm}
+			AND CM.MENU_NM LIKE '%' || #{menuNm} || '%'
 		</if>
 	</select>
 	
