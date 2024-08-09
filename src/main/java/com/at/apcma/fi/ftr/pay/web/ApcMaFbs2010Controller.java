@@ -260,6 +260,57 @@ public class ApcMaFbs2010Controller extends BaseController {
         }
     }
 
+    @PostMapping(value = "/fi/ftr/pay/insertFbs2010List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFbs2010List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFbs2010List=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FBS2010_S");
+
+            logger.info("=============insertFbs2010List=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    @PostMapping(value = "/fi/ftr/pay/insertFbs2010Sub.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFbs2010Sub(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFbs2010Sub=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"P_FBS2010_S1");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertFbs2010Sub=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
     @PostMapping(value = "/fi/ftr/pay/insertFbs2010Firm.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertFbs2010Firm(
             @RequestBody Map<String, Object> param
