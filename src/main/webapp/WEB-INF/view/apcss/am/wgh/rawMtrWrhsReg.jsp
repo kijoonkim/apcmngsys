@@ -52,6 +52,14 @@
 						text="초기화"
 					></sbux-button>
 					<sbux-button
+							id="btnCreate"
+							name="btnCreate"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							onclick="fn_create"
+							text="신규"
+					></sbux-button>
+					<sbux-button
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
@@ -77,7 +85,7 @@
 					></sbux-button>
 				</div>
 			</div>
-			<div class="box-body">
+			<div class="box-body" id="progArea">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
@@ -85,7 +93,7 @@
 				<sbux-input id="srch-inp-wrhsno" name="srch-inp-wrhsno" uitype="hidden"></sbux-input>
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 				<sbux-input id="srch-inp-prcsType" name="srch-inp-prcsType" uitype="hidden"></sbux-input>
-				<table class="table table-bordered tbl_fixed">
+				<table id="rawMtrWrhsTable" class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -446,6 +454,8 @@
 				<!-- 엑셀 시트별 데이터 영역 -->
 			</div>
 		</div>
+		<sbux-progress id="idxProg" name="progNm" uitype="loading" show-openlayer="true">
+		</sbux-progress>
 
 	</section>
 
@@ -610,8 +620,16 @@
 
 	// only document
 	window.addEventListener('DOMContentLoaded', async function(e) {
-		await fn_init();
-		await stdGrdSelect.init();
+		var options = {
+			modelNm : 'progNm', selector : '#sb-area-grdRawMtrWrhs', opacity : '0.2'
+		};
+			SBUxMethod.openProgress(options);//progArea
+		let result = await Promise.all([
+			fn_showSearchTable(),
+			fn_init(),
+			stdGrdSelect.init(),
+		]);
+			SBUxMethod.closeProgress(options);
 
 		/** main으로부터 호출되어 생성될때 localStorage통해 VO 즉시 검색 확인 **/
 		let initObject = localStorage.getItem("callMain");
@@ -764,6 +782,16 @@
      */
      const fn_reset = async function() {
 		fn_clearForm();
+		fn_showSearchTable();
+	}
+
+	/**
+	 * @name fn_create
+	 * @description 신규 버튼
+	 */
+	const fn_create = async function(){
+		fn_clearForm();
+		fn_showAllTable();
 	}
 
 	/**
@@ -1043,8 +1071,12 @@
 				grdJgmt: {grdCd: rowData.grdCd}
 			}
 
-		fn_setStdGdsSelect(rowData.itemCd, stdGrdObj, _.isEqual(rowData.prcsType, "RR"));
+		await fn_setStdGdsSelect(rowData.itemCd, stdGrdObj, _.isEqual(rowData.prcsType, "RR"));
 		//stdGrdSelect.setStdGrd(rowData.apcCd, _GRD_SE_CD_WRHS, rowData.itemCd, stdGrdObj);
+
+		//TODO: 저장버튼 > 수정으로 입력폼 다 나와야하고.
+		fn_showAllTable();
+		$("#btnSave span").text("수정");
     }
 
 	/**
@@ -1057,16 +1089,17 @@
     		gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
     		return;
     	}
-
-    	fn_clearInptForm();
+		fn_clearForm();
+    	// fn_clearInptForm();
+		fn_showSearchTable();
 
     	// grid clear
     	jsonRawMtrWrhs.length = 0;
     	fn_setGrdRawMtrWrhs();
 
-		SBUxMethod.set("lbl-wrhsno", "");
-		SBUxMethod.set("srch-inp-wrhsno", "");
-		SBUxMethod.set("srch-inp-prcsType", "");
+		// SBUxMethod.set("lbl-wrhsno", "");
+		// SBUxMethod.set("srch-inp-wrhsno", "");
+		// SBUxMethod.set("srch-inp-prcsType", "");
 	}
 
     /**
@@ -1077,7 +1110,6 @@
 
    		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
 		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
-
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsList.do", {
 			apcCd: gv_selectedApcCd,
 			wrhsYmd: wrhsYmd,
@@ -1194,6 +1226,7 @@
 		SBUxMethod.set("lbl-wrhsno", "");
 		SBUxMethod.set("srch-inp-wrhsno", "");
 		SBUxMethod.set("srch-inp-prcsType", "");
+		SBUxMethod.set("srch-inp-pltno", "");
 
  		// 입고구분
  		SBUxMethod.set("srch-rdo-wrhsSeCd", "3");
@@ -1215,6 +1248,7 @@
 		SBUxMethod.set("srch-inp-prdcrNm", "");
 		SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
+		SBUxMethod.refresh('btnSave');
 
  		fn_clearInptForm();
 
@@ -2714,7 +2748,29 @@
  					return;
  			}
  		}
+
  	}
+
+	 /** 20240890 신미네 개선요구사항 **/
+	 const fn_showAllTable = function(){
+		 const rows = document.querySelectorAll('#rawMtrWrhsTable tr');
+		 rows.forEach((row, index) => {
+				 row.style.display = '';
+		 });
+	 }
+
+	const fn_showSearchTable = function(){
+		const rows = document.querySelectorAll('#rawMtrWrhsTable tr');
+		rows.forEach((row, index) => {
+			if (index !== 0) {
+				row.style.display = 'none';
+			} else {
+				row.style.display = '';
+			}
+		});
+	}
+
+
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
