@@ -1089,8 +1089,8 @@
     		gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
     		return;
     	}
-		fn_clearForm();
-    	// fn_clearInptForm();
+		// fn_clearForm();
+    	fn_clearInptForm();
 		fn_showSearchTable();
 
     	// grid clear
