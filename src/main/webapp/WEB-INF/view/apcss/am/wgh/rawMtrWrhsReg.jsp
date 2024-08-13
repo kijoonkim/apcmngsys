@@ -23,6 +23,12 @@
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
+	<style>
+		.displayFlex > .sbux-pik-wrap {
+			display: flex;
+			gap: 10px;
+		}
+	</style>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -138,10 +144,19 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
-							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+							<td colspan="15" class="td_input" style="border-right: hidden;">
+								<div id="inp-area" style="display: none;">
+									<sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+								</div>
+								<div id="srch-area">
+									<sbux-datepicker uitype="range" id="search-dtp-wrhsYmd" name="search-dtp-wrhsYmd"
+													 date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+													 wrap-class="displayFlex" wrap-style="border:0"
+									/>
+								</div>
+
 							</td>
-							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
+<%--							<td colspan="9" style="border-right: hidden;">&nbsp;</td>--%>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>생산자</th>
 							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -366,15 +381,15 @@
 								/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg"><span class="data_required" ></span>생산연도</th>
-							<td colspan="6" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker
-									uitype="popup"
-									id="srch-dtp-prdctnYr"
-									name="srch-dtp-prdctnYr"
-									date-format="yyyy"
-									datepicker-mode="year"
-									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+
+							<th scope="row" class="th_bg">팔레트번호</th>
+							<td colspan= "6" class="td_input" style="border-right: hidden;">
+								<sbux-input
+										uitype="text"
+										id="srch-inp-pltno"
+										name="srch-inp-pltno"
+										class="form-control input-sm"
+										autocomplete="off"
 								/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
@@ -390,14 +405,15 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">팔레트번호</th>
-							<td colspan= "6" class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-pltno"
-									name="srch-inp-pltno"
-									class="form-control input-sm"
-									autocomplete="off"
+							<th scope="row" class="th_bg"><span class="data_required" ></span>생산연도</th>
+							<td colspan="6" class="td_input" style="border-right: hidden;">
+								<sbux-datepicker
+										uitype="popup"
+										id="srch-dtp-prdctnYr"
+										name="srch-dtp-prdctnYr"
+										date-format="yyyy"
+										datepicker-mode="year"
+										class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
 								/>
 							</td>
 							<td colspan="9" style="border-right: hidden;">&nbsp;</td>
@@ -416,16 +432,16 @@
 					<ul class="ad_tbl_count">
 						<li>
 							<span>원물입고 내역</span>
-							<span style="font-size:12px">(기준일자 :
-								<sbux-label
-									id="crtr-ymd"
-									name="crtr-ymd"
-									uitype="normal"
-									text=""
-									class="bold"
-									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-								></sbux-label> , 조회건수 <span id="cnt-wrhs">0</span>건)
-							</span>
+<%--							<span style="font-size:12px">(기준일자 :--%>
+<%--								<sbux-label--%>
+<%--									id="crtr-ymd"--%>
+<%--									name="crtr-ymd"--%>
+<%--									uitype="normal"--%>
+<%--									text=""--%>
+<%--									class="bold"--%>
+<%--									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"--%>
+<%--								></sbux-label> , 조회건수 <span id="cnt-wrhs">0</span>건)--%>
+<%--							</span>--%>
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
@@ -606,8 +622,14 @@
 	const fn_init = async function() {
 		fn_createGrid();
 
+		let nowDate = new Date();
+		let firstYmd = gfn_dateFirstYmd(nowDate);
+		let lastYmd = gfn_dateToYmd(nowDate);
+
+		SBUxMethod.set("search-dtp-wrhsYmd",firstYmd+","+lastYmd);
 		SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
 		SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
+
 
 		let result = await Promise.all([
 				fn_initSBSelect(),
@@ -662,11 +684,9 @@
 	    SBGridProperties.id = 'grdRawMtrWrhs';
 	    SBGridProperties.jsonref = 'jsonRawMtrWrhs';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'free';
-	    SBGridProperties.explorerbar = 'sortmove';
 	    SBGridProperties.extendlastcol = 'none';
+		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.allowcopy = true;
-		SBGridProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList;		// 우클릭 메뉴 리스트
 
@@ -676,24 +696,24 @@
 	        {caption: ["생산자"],		ref: 'prdcrNm',     type:'output',  width:'100px',    style:'text-align:center'},
 	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'80px',    style:'text-align:center'},
 	        {caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["상품구분"],		ref: 'gdsSeNm',     type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["입고구분"],		ref: 'wrhsSeNm',    type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["운송구분"],		ref: 'trsprtSeNm',  type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["등급"],		ref: 'grdNm',      	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'output',  width:'60px',    style:'text-align:right',
+	        {caption: ["상품구분"],		ref: 'gdsSeNm',     type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+	        {caption: ["입고구분"],		ref: 'wrhsSeNm',    type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+	        {caption: ["운송구분"],		ref: 'trsprtSeNm',  type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+	        {caption: ["등급"],		ref: 'grdNm',      	type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+	        {caption: ["차량번호"],		ref: 'vhclno',      type:'output',  width:'120px',    style:'text-align:center', sortable: false},
+	        {caption: ["박스수량"],		ref: 'bxQntt',      type:'output',  width:'60px',    style:'text-align:right', sortable: false,
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right',
+	        {caption: ["중량 (Kg)"],	ref: 'wrhsWght',    type:'output',  width:'60px',    style:'text-align:right', sortable: false,
 	        	format : {type:'number', rule:'#,###'}
 	        },
-	        {caption: ["박스종류"],		ref: 'bxKndNm',     type:'output',  width:'100px',    style:'text-align:center'},
+	        {caption: ["박스종류"],		ref: 'bxKndNm',     type:'output',  width:'100px',    style:'text-align:center', sortable: false},
 	        {caption: ["보관창고"],		ref: 'warehouseSeNm',	type:'output',  width:'100px',    style:'text-align:center'},
-	        {caption: ["계량번호"],		ref: 'wghno',      	type:'output',  width:'120px',    style:'text-align:center'},
-	        {caption: ["생산연도"],		ref: 'prdctnYr',    type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["처리구분"],		ref: 'prcsTypeNm',  type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["상세등급"],		ref: 'stdGrd',    	type:'output',  width:'200px',    style:'text-align:left'},
-	        {caption: ["비고"],		ref: 'rmrk',      	type:'output',  width:'200px',    style:'text-align:left'},
+	        {caption: ["계량번호"],		ref: 'wghno',      	type:'output',  width:'120px',    style:'text-align:center', sortable: false},
+	        {caption: ["생산연도"],		ref: 'prdctnYr',    type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+	        {caption: ["처리구분"],		ref: 'prcsTypeNm',  type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+	        {caption: ["상세등급"],		ref: 'stdGrd',    	type:'output',  width:'200px',    style:'text-align:left', sortable: false},
+	        {caption: ["비고"],		ref: 'rmrk',      	type:'output',  width:'200px',    style:'text-align:left', sortable: false},
 
 	        {caption: ["APC코드"],	ref: 'apcCd',     	type:'output',  hidden: true},
 	        {caption: ["입고번호"],		ref: 'wrhsno',     	type:'output',  hidden: true},
@@ -783,6 +803,12 @@
      const fn_reset = async function() {
 		fn_clearForm();
 		fn_showSearchTable();
+
+		let nowDate = new Date();
+		let firstYmd = gfn_dateFirstYmd(nowDate);
+		let lastYmd = gfn_dateToYmd(nowDate);
+
+		SBUxMethod.set("search-dtp-wrhsYmd",firstYmd+","+lastYmd);
 	}
 
 	/**
@@ -1045,7 +1071,7 @@
 		await fn_onChangeSrchVrtyCd({value: rowData.itemCd + rowData.vrtyCd});
 
  		if (!gfn_isEmpty(rowData.prdctnYr)) {
- 			SBUxMethod.set("srch-inp-prdctnYr", rowData.prdctnYr);	// 생산연도
+ 			SBUxMethod.set("srch-dtp-prdctnYr", rowData.prdctnYr);	// 생산연도
  		}
 
  		SBUxMethod.set("srch-inp-wrhsWght", rowData.wrhsWght);		// 중량
@@ -1085,12 +1111,21 @@
      */
     const fn_search = async function() {
 
-    	if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmd"))) {
-    		gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
-    		return;
-    	}
+    	// if (gfn_isEmpty(SBUxMethod.get("srch-dtp-wrhsYmd"))) {
+    	// 	gfn_comAlert("W0001", "입고일자");		//	W0001	{0}을/를 선택하세요.
+    	// 	return;
+    	// }
+
+		/** 검색과 생성조건을 분리함으로써 입력폼 클리어를 다른방법으로 대체함.**/
 		// fn_clearForm();
-    	fn_clearInptForm();
+    	// fn_clearInptForm();
+		let arr = document.querySelectorAll('[id^="srch-"]');
+		arr.forEach((item) => {
+			if(item.offsetParent === null){
+				SBUxMethod.set(item.id,"");
+			}
+		});
+
 		fn_showSearchTable();
 
     	// grid clear
@@ -1109,12 +1144,18 @@
 	const fn_setGrdRawMtrWrhs = async function() {
 
    		let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
+		let wrhsYmdFrom = SBUxMethod.get('search-dtp-wrhsYmd_from');
+		let wrhsYmdTo = SBUxMethod.get('search-dtp-wrhsYmd_to');
+
 		let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
+		let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd"); //창고구분
 		const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsList.do", {
 			apcCd: gv_selectedApcCd,
-			wrhsYmd: wrhsYmd,
+			wrhsYmdFrom: wrhsYmdFrom,
+			wrhsYmdTo: wrhsYmdTo,
+			// wrhsYmd: wrhsYmd,
 			pltno: pltno,
-
+			warehouseSeCd: warehouseSeCd,
           	// pagination
   	  		pagingYn : 'N',
   		});
@@ -1175,8 +1216,8 @@
           	totalRecordCount = jsonRawMtrWrhs.length;
           	grdRawMtrWrhs.refresh();
 
-          	document.querySelector('#cnt-wrhs').innerText = totalRecordCount;
-          	SBUxMethod.set("crtr-ymd", wrhsYmd);
+          	// document.querySelector('#cnt-wrhs').innerText = totalRecordCount;
+          	// SBUxMethod.set("crtr-ymd", wrhsYmd);
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -2753,19 +2794,36 @@
 
 	 /** 20240890 신미네 개선요구사항 **/
 	 const fn_showAllTable = function(){
+
+		 $("#srch-area").css("display","none");
+		 $("#inp-area").css("display","");
+
 		 const rows = document.querySelectorAll('#rawMtrWrhsTable tr');
 		 rows.forEach((row, index) => {
+			 if(index == 3){
+				 row.cells[6].style.display = 'table-cell'
+				 row.cells[7].style.display = 'table-cell'
+			 }
 				 row.style.display = '';
 		 });
 	 }
 
 	const fn_showSearchTable = function(){
+
+		$("#srch-area").css("display","");
+		$("#inp-area").css("display","none");
+
 		const rows = document.querySelectorAll('#rawMtrWrhsTable tr');
+
 		rows.forEach((row, index) => {
-			if (index !== 0) {
-				row.style.display = 'none';
-			} else {
+			if ((index == 0)) {
 				row.style.display = '';
+			} else if((index == 3)){
+				row.style.display = '';
+				row.cells[6].style.display = 'none';
+				row.cells[7].style.display = 'none';
+			}else {
+				row.style.display = 'none';
 			}
 		});
 	}
