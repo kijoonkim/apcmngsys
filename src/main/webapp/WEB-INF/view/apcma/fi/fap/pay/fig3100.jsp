@@ -348,7 +348,7 @@
             // 제외사유
             gfnma_setComSelect(['gvwList'], jsonExceptCode, 'L_FIM251', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CODE', 'NAME', 'Y', ''),
             gfnma_multiSelectInit({
-                target			: ['#EXCEPT_CODE']
+                target			: ['#cboexcept_code']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM251'
@@ -487,6 +487,34 @@
         });
     }
 
+    var fn_findEmpCodeForGvwList = function(row, col) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwList.setCellData(row, col, data.EMP_CODE);
+                gvwList.setCellData(row, (col+1), data.EMP_NAME);
+            },
+        });
+    }
+
     //품목 그리드 부서 팝업
     var fn_compopup4 = function(row, col) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
@@ -513,6 +541,34 @@
                 console.log('callback data:', data);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_NAME'), data['DEPT_NAME']);
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_CODE'), data['DEPT_CODE']);
+            },
+        });
+    }
+
+    var fn_findEmpCodeForGvwList = function(row, col) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwList.setCellData(row, col, data.EMP_CODE);
+                gvwList.setCellData(row, (col+1), data.EMP_NAME);
             },
         });
     }
@@ -1083,11 +1139,11 @@
             {caption: ["배치번호"], ref: 'DOC_BATCH_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["매입정산번호"], ref: 'PO_DOC_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급사코드"], ref: 'CS_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+           /* {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
-            },
+            },*/
             {caption: ["상호"], ref: 'SELLER_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["대표자명"], ref: 'SELLER_OWNER', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["공급자주소"], ref: 'SELLER_ADDRESS', type: 'output', width: '140px', style: 'text-align:left'},
@@ -1141,13 +1197,15 @@
             {caption: ["공급자이메일"], ref: 'SELLER_EMAIL', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자이메일1"], ref: 'BUYER_EMAIL1', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자이메일2"], ref: 'BUYER_EMAIL2', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption : ["전표담당자코드"], ref : 'ACCOUNT_EMP_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+           /* {caption : ["전표담당자코드"], ref : 'ACCOUNT_EMP_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
             },
             //고정
             {caption : ["전표담당자"], ref : 'ACCOUNT_EMP_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
-            },
+            },*/
+            {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left'},
@@ -1170,7 +1228,7 @@
         gvwListGrid = _SBGrid.create(SBGridProperties);
         gvwListGrid.bind('afterrebuild','fn_gvwListAfterRebuild');
         gvwListGrid.bind('afterrefresh','fn_gvwListAfterRebuild');
-        //gvwListGrid.bind('dblclick', 'fn_gvwListDblclick');
+        gvwListGrid.bind('dblclick', 'fn_gvwListDblclick');
         gvwListGrid.bind('click', 'fn_view');
     }
 
@@ -1486,6 +1544,11 @@
 
 
         let nRow = gvwListGrid.getRow();
+        let nCol = gvwListGrid.getCol();
+
+        if(nCol == 14 || nCol == 48 || nCol == 49) return;
+
+        console.log('------nCow-------',nCow);
 
         if (nRow < 1) {
             nRow = 1; //그리드 로우 첫번째값 셋팅
@@ -1891,43 +1954,39 @@
     // 세금계산서 항목 프로시저(품목) 저장
     const fn_saveS1 = async function (itemGridData, type) {
 
-        // 수정 저장
-        if (gfn_comConfirm("Q0001", "수정 저장")) {
+        let listData = [];
+        listData = await getParamFormS1(itemGridData, type);
+        /* var paramObj = {
+             P_HRP1170_S: await getParamForm('u')
+         }*/
 
-            let listData = [];
-            listData =  await getParamFormS1(itemGridData, type);
-            /* var paramObj = {
-                 P_HRP1170_S: await getParamForm('u')
-             }*/
+        console.log('--------listData save--------', listData);
 
-            console.log('--------listData save--------', listData);
+        if (listData.length > 0) {
 
-            if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
+            const data = await postJsonPromise;
 
-                const data = await postJsonPromise;
-
-                try {
-                    if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
-                            alert(data.resultMessage);
-                            return true;
-                        }else{
-                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            return false;
-                        }
-
-                    } else {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
                         alert(data.resultMessage);
+                        return true;
+                    } else {
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        return false;
                     }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+
+                } else {
+                    alert(data.resultMessage);
                 }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
 
@@ -2048,19 +2107,41 @@
     //전표연결끊기
     const fn_btndisconnection = async function () {
 
+        let chkList = gvwListGrid.getGridDataAll();
+
+        let chkVal = 'N'
+
+        chkList.forEach((item, index) =>{
+
+            if (item.CHECK_YN = 'Y'){
+                chkVal = 'Y'
+            }
+
+        });
+
         let nRow = gvwListGrid.getRow();
 
-        if (nRow == -1) {
-            gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
-            return;
+        if (chkVal == 'N') {
+            /*gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
+            return;*/
+
+            let rowData = gvwListGrid.getRowData(nRow);
+
+            if (_.isEmpty(rowData)) {
+                gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
+                return;
+            }
         }
+
+
+        /*let nRow = gvwListGrid.getRow();
 
         let rowData = gvwListGrid.getRowData(nRow);
 
         if (_.isEmpty(rowData)) {
             gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
             return;
-        }
+        }*/
 
         /************** 포커스에 어떤 스타일을 바꿔야 하는지 확인******************/
         /*gvwList.CustomRowCellEdit -= GvwList_CustomRowCellEdit;
@@ -2148,16 +2229,20 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
 
-
         };
+
+        console.log('------fn_set_p_common_job_run : paramObj-----' , paramObj);
+
         const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100COM.do", {
             getType: 'json',
             workType: workType,
-            cv_count: '0',
+            cv_count: '3',
             params: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
+
+        console.log('------fn_set_p_common_job_run : data-----' , data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -2343,6 +2428,24 @@
             gvwListGrid.deleteRow(rowVal);
         }
     }
+
+    const fn_gvwListDblclick = async function() {
+        var nRow = gvwListGrid.getRow();
+        var nCol = gvwListGrid.getCol();
+
+
+        console.log('-------------nCol----------------',nCol);
+
+        if(nCol == 14) { //공급사 코드
+
+            fn_compopup3(nRow, nCol);
+        }
+
+        if(nCol == 48 || nCol ==49) {
+            fn_findEmpCodeForGvwList(nRow, (nCol - 1));
+        }
+    }
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

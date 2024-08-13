@@ -634,11 +634,11 @@
     }
 
     //저장
-    const fn_save = async function () {
+    const fn_save = async function (type) {
 
 
             let listData = [];
-            listData =  await getParamForm();
+            listData =  await getParamForm(type);
             /* var paramObj = {
                  P_HRP1170_S: await getParamForm('u')
              }*/
@@ -651,12 +651,14 @@
 
                 const data = await postJsonPromise;
 
+                console.log('--------listData data--------', data);
+
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }else{
+                        if (_.isEqual(data.v_errorCode, 'MSG0001') || _.isEqual(data.v_errorCode, 'MSG0002')) {
                             return true;
+                        }else{
+                            alert(data.resultMessage);
                         }
 
                     } else {
@@ -669,6 +671,8 @@
                     console.error("failed", e.message);
                     gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
+            }else{
+                return false;
             }
 
     }
@@ -747,7 +751,7 @@
 
                                 cv_count: '0',
                                 getType: 'json',
-                                workType: 'PREWORK',
+                                workType: 'N',
                                 params: gfnma_objectToString({
 
                                     V_P_DEBUG_MODE_YN: ''
@@ -781,8 +785,10 @@
                 return returnData;
 
             } else {
-                SetMessageBox("선택한 데이터가 없습니다.");
+                gfn_comAlert("E0000", "선택한 데이터가 없습니다.");
                 return false;
+             /*   SetMessageBox("선택한 데이터가 없습니다.");
+                return false;*/
             }
 
         } else {
@@ -827,28 +833,128 @@
         }
     }
 
-    //세액계산표준세액 자동 계산
-    const fn_btnCalculation_Auto = async function () {
+    //저장
+    const fn_saveS1 = async function (type) {
+
+        let SITE_CODE = gfnma_multiSelectGet('#srch-site_code'); //사업장
+        let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
+        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy")); //정산연도
+        let YE_TX_TYPE = gfnma_multiSelectGet('#srch-ye_tx_type'); //정산구분
+        let CALC_DATE_TYPE = gfnma_nvl(SBUxMethod.get("CALC_DATE_TYPE")); //계산일
+        let CALC_DAT = gfnma_nvl(SBUxMethod.get("srch-calc_dat")); //계산일
+        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("srch-dept_code")); //부서
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원
+        let RETIRE_DATE_FR = gfnma_nvl(SBUxMethod.get("srch-retire_date_fr")); //퇴사일
+        let RETIRE_DATE_TO = gfnma_nvl(SBUxMethod.get("srch-retire_date_to")); //퇴사일
+
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산연도");
+            return;
+        }
+        if (!YE_TX_TYPE) {
+            gfn_comAlert("W0002", "정산구분");
+            return;
+        }
+        if (!CALC_DATE_TYPE) {
+            gfn_comAlert("W0002", "계산일");
+            return;
+        }
+
+
+        let stremp_code = '';
+        let strcalc_date = '';
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            , V_P_YE_TX_YYYY: YE_TX_YYYY
+            , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
+            , V_P_EMP_CODE: stremp_code
+            , V_P_CALC_DAT: strcalc_date
+
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+
+
+        };
+        if (_.isEqual(editType, "N")) {
+
+            const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1500S1.do", {
+                getType: 'json',
+                workType: type,
+                cv_count: '0',
+                params: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (_.isEqual(data.v_errorCode, 'MSG0001') || _.isEqual(data.v_errorCode, 'MSG0002')) {
+                        return true;
+                    } else {
+                        alert(data.resultMessage);
+                    }
+
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+
+        }
+    }
+
+    //세액계산
+    const fn_btnCalculation = async function () {
 
         if (fn_save('PREWORK'))
         {
             if (fn_save('CALC'))
             {
-                fn_save();
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                fn_search();
             }
         }
 
     }
 
-    //세액계산
-    const fn_btnCalculation = async function () {
+    //계산취소
+    const fn_btnCancel = async function () {
         if (fn_save('PREWORK'))
         {
             if (fn_save('CANCEL'))
             {
-                fn_save();
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                fn_search();
             }
         }
+    }
+
+    //세액계산표준세액 자동 계산
+    const fn_btnCalculation_Auto = async function () {
+
+        if (fn_save('PREWORK'))
+        {
+            //MessageBox.Show("세액계산표준세액 자동계산 시작!!");
+            if (fn_saveS1("AUTO"))
+            {
+                gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                fn_search();
+            }
+        }
+
     }
 
 
