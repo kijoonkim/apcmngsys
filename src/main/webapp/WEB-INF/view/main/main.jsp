@@ -1379,7 +1379,6 @@
     function cfn_openTabSearch (obj){
         try{
             let object = JSON.parse(obj);
-            console.log(object);
             if(!gfn_isEmpty(object)){
                 let target = object.target;
                 /** left Menu에서 넘어온 해당 Tab의 대한 정보로 필터링 **/
@@ -1391,23 +1390,10 @@
                     /** receive Tab이 열려 있는 상태에선 msg를 전달하여 VO 전달 **/
                     let iframe = "idxfrmJson_TAB_" + target;
                     let el = document.getElementById(iframe);
-                    if(el == null) {
-                        localStorage.setItem("callMain",JSON.stringify(object));
-                        /** 현재 receive Tab이 없는경우 새로 오픈하며 중간에 로직을 위해서
-                         * 직접 전달하지않고 localStorage를 사용하여 param 전달 **/
-                        fn_actionGoPage(
-                            data[0].url
-                            , 'LEFT'
-                            , data[0].id
-                            , data[0].text
-                            , data[0].pid
-                        );
-                    } else {
-                        /** 해당 Tab open **/
-                        SBUxMethod.set("tab_menu","TAB_"+target);
-                        /** main > receive 로 parameter 전달 **/
-                        el.contentWindow.postMessage(object);
-                    }
+                    /** 해당 Tab open **/
+                    SBUxMethod.set("tab_menu","TAB_"+target);
+                    /** main > receive 로 parameter 전달 **/
+                    el.contentWindow.postMessage(object);
                 }else{
                     localStorage.setItem("callMain",JSON.stringify(object));
                     /** 현재 receive Tab이 없는경우 새로 오픈하며 중간에 로직을 위해서
@@ -1421,10 +1407,12 @@
                     );
                 }
             }
-        }catch (e){
+      }catch (e){
             /** 전달인자가 비어있을경우 json parse exception **/
             console.error(e.toString());
         }
     }
+	
+	
 </script>
 </html>
