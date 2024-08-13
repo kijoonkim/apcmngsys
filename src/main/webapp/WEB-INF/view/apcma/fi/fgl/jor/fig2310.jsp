@@ -1,15 +1,15 @@
 <%
 /**
- * @Class Name 		: fig2210_99.jsp
- * @Description 	: 전표등록 화면
+ * @Class Name 		: fig2310_99.jsp
+ * @Description 	: 미결반제전표 화면
  * @author 			: 인텔릭아이앤에스
- * @since 			: 2024.07.29
+ * @since 			: 2024.08.09
  * @version 		: 1.0
  * @Modification Information
  * @
  * @ 수정일       	수정자      수정내용
  * @ ----------		----------	---------------------------
- * @ 2024.07.29   	장성주		최초 생성
+ * @ 2024.08.09   	장성주		최초 생성
  * @see
  *
  */
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 전표등록</title>
+	<title>title : 미결반제전표</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
@@ -38,7 +38,7 @@
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 전표등록 -->
+                    </h3><!-- 미결반제전표 -->
                 </div>
                 <div id="top_lable1" style="margin-left:auto">
                     <font style="top:5px">전표템플릿</font>
@@ -46,7 +46,7 @@
                 <div id="top_lable2" style="padding-left:10px;padding-right:10px">
 					<div class="dropdown">
 					    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-compopup1-rulecode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    	<font>원가마감전표</font>
+					    	<font>선택</font>
 					        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 					    </button>
 					    <div class="dropdown-menu" aria-labelledby="srch-compopup1-rulecode" style="width:600px;height:150px;padding-top:0px;overflow:auto">
@@ -54,17 +54,12 @@
 					</div> 
                 </div>
                 <div>
-        			<sbux-checkbox 
-        				id="srh-cost-class-check-yn" 
-        				uitype="normal" 
-        				text="원가유형제한" 
-        				true-value="Y" 
-        				false-value="N" 
-       				></sbux-checkbox>
                     <font style="margin-right:10px"></font>
-                    <sbux-button uitype="normal" text="SCM정보"  		id="sch-btn-scm" 			class="btn btn-sm btn-outline-danger" onclick="fn_btnScmInfo"></sbux-button>
-                    <sbux-button uitype="normal" text="파일첨부"  		id="sch-btn-attach" 		class="btn btn-sm btn-outline-danger" onclick="fn_fig2250pop"></sbux-button>
-                    <sbux-button uitype="normal" text="부서·적요수정"  	id="sch-btn-descUpdate" 	class="btn btn-sm btn-outline-danger" onclick="fn_fig2250pop"></sbux-button>
+                    <sbux-button uitype="normal" text="신규"  			id="sch-btn-new" 			class="btn btn-sm btn-outline-danger" onclick="fn_btnScmInfo"></sbux-button>
+                    <sbux-button uitype="normal" text="삭제"  			id="sch-btn-delete" 		class="btn btn-sm btn-outline-danger" onclick="fn_fig2250pop"></sbux-button>
+                    <sbux-button uitype="normal" text="저장"  			id="sch-btn-save" 			class="btn btn-sm btn-outline-danger" onclick="fn_fig2250pop"></sbux-button>
+                    <font style="margin-right:10px"></font>
+                    <sbux-button uitype="normal" text="미결반제전표 생성"  		id="sch-btn-addItem" 	class="btn btn-sm btn-outline-danger" onclick="fn_fig2320pop"></sbux-button>
                     <font style="margin-right:10px"></font>
                     <sbux-button uitype="normal" text="전표복사"  		id="sch-btn-copy" 			class="btn btn-sm btn-outline-danger" onclick=""></sbux-button>
                     <sbux-button uitype="normal" text="결재"  			id="sch-btn-submit" 		class="btn btn-sm btn-outline-danger" onclick="fn_docAppr"></sbux-button>
@@ -75,7 +70,6 @@
                     <sbux-button uitype="normal" text="보류해제"  		id="sch-btn-release" 		class="btn btn-sm btn-outline-danger" onclick="fn_docHoldExit"></sbux-button>
                     <sbux-button uitype="normal" text="보류지정"  		id="sch-btn-unrelease" 		class="btn btn-sm btn-outline-danger" onclick="fn_docHoldPoint"></sbux-button>
                     <font style="margin-right:10px"></font>
-                    <sbux-button uitype="normal" text="역분개취소"  	id="sch-btn-reverseCancel" 	class="btn btn-sm btn-outline-danger" onclick="fn_docDelAll"></sbux-button>
                     <sbux-button uitype="normal" text="출력"  			id="sch-btn-print" 			class="btn btn-sm btn-outline-danger" onclick="fn_docDelAll"></sbux-button>
                 </div>
             </div>
@@ -103,38 +97,22 @@
 	                        <col style="width: 6%">
 	                        <col style="width: 6%">
 	                        <col style="width: 3%">
-	
-	                        <col style="width: 7%">
-	                        <col style="width: 6%">
-	                        <col style="width: 6%">
-	                        <col style="width: 3%">
 	                    </colgroup>
 	                    <tbody>
 	                    
                            	<!-- hidden  -->
-  							<sbux-input  id="sch-txtsource-type2"  		name="sch-txtsource-type2" 		uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-txtinsert-userid"  	name="sch-txtinsert-userid" 	uitype="text" 	class="form-control input-sm" ></sbux-input>
-                       		<sbux-select id="sch-fi-org-code" 			name="sch-fi-org-code" 			uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                       		<sbux-select id="sch-site-code" 			name="sch-site-code" 			uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                       		<sbux-select id="sch-hold-flag" 			name="sch-hold-flag" 			uitype="single" jsondata-ref="jsonHoldFlag" unselected-text="선택" class="form-control input-sm"></sbux-select>
-  							<sbux-input  id="sch-base-scale"  			name="sch-base-scale" 			uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-txtopen-to-all-yn" 	name="sch-txtopen-to-all-yn" 	uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-txtopen-to-fcm-yn" 	name="sch-txtopen-to-fcm-yn" 	uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-acct-opinion" 			name="sch-acct-opinion" 		uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-tr-opinion" 			name="sch-tr-opinion" 			uitype="text" 	class="form-control input-sm" ></sbux-input>
                        		<!-- /hidden -->
                        		
 	                        <tr>
 	                            <th scope="row" class="th_bg">배치번호</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-doc-batch-no" class="form-control input-sm" ></sbux-input>
+	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+		   								<sbux-input id="sch-doc-batch-no" uitype="text" class="form-control input-sm"></sbux-input>
+					                    <font style="margin-right:10px">전표ID</font>
+		   								<sbux-input id="sch-doc-id" uitype="text" class="form-control input-sm"></sbux-input>
+	                            	</div>
 	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">회계기준</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="sch-acct-rule-code" name="sch-acct-rule-code" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                            
+
 	                            <th scope="row" class="th_bg">결의부서</th>
 	                            <td colspan="2" class="td_input" >
 	   								<sbux-input
@@ -158,58 +136,62 @@
 									></sbux-button>
 	                            </td>
 	                            
-	                            <td colspan="4" rowspan="7" class="td_input" >
-	                            	<div id="panAccountSum" style="width:100%">
-		                            	<font>계정과목별합계</font>
-	                            	</div>
+	                            <th scope="row" class="th_bg">회계기준</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="sch-acct-rule-code" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                        </tr>    
 	                        
 	                        <tr>
 	                            <th scope="row" class="th_bg">전표번호</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-doc-name" name="sch-doc-name" class="form-control input-sm" ></sbux-input>
+	   								<sbux-input id="sch-doc-name" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">전표ID</th>
+
+	                            <th scope="row" class="th_bg">회계검토의견</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-doc-id" name="sch-doc-id" class="form-control input-sm" ></sbux-input>
+	   								<sbux-input id="sch-acct-opinion" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">증빙번호</th>
-	                            <td colspan="2" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		                                <sbux-select style="width:100px" id="sch-voucher-type" name="sch-voucher-type" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-		   								<sbux-input uitype="text" id="sch-voucher-no" class="form-control input-sm" ></sbux-input>
-	                            	</div>
+
+	                            <th scope="row" class="th_bg">자금검토의건</th>
+	                            <td colspan="3" class="td_input" >
+	   								<sbux-input id="sch-tr-opinion" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
-	                            <td class="td_input" >
-									<sbux-button
-										id="btn-tax-view"
-										class="btn btn-xs btn-outline-dark"
-										text="확인" 
-										onclick=""
-									></sbux-button>
-	                            </td>
-	                            
 	                        </tr>    
 	                        
 	                        <tr>
 	                            <th scope="row" class="th_bg">신고사업장</th>
 	                            <td colspan="3" class="td_input" >
-		                        	<sbux-select id="sch-tax-site-code" name="sch-tax-site-code" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+			                            <sbux-select id="sch-tax-site-code" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+					                    <font style="margin-right:10px">&nbsp;/&nbsp;</font>
+			                            <sbux-select id="sch-sub-tax-site-code" uitype="single" jsondata-ref="jsonSubTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            	</div>
 	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">종사업장</th>
+
+	                            <th scope="row" class="th_bg">현업결재일</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="sch-sub-tax-site-code" name="sch-sub-tax-site-code" uitype="single" jsondata-ref="jsonSubTaxSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+								    <sbux-datepicker
+								            id="sch-approve-date"
+								            uitype="popup"
+								            date-format="yyyy-mm-dd"
+								            class="form-control input-sm input-sm-ast inpt_data_reqed">
+								    </sbux-datepicker>                          
 	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">매입송장번호</th>
+
+	                            <th scope="row" class="th_bg">회계승인일</th>
 	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-bill-no" class="form-control input-sm" ></sbux-input>
+	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+									    <sbux-datepicker
+									            id="sch-posting-date"
+									            uitype="popup"
+									            date-format="yyyy-mm-dd"
+									            class="form-control input-sm input-sm-ast inpt_data_reqed">
+									    </sbux-datepicker>                          
+					                    <font style="margin-right:10px"></font>
+	   									<sbux-input id="sch-tposting-user" uitype="text" class="form-control input-sm"></sbux-input>
+	                            	</div>
 	                            </td>
-	                            
 	                        </tr>    
 	                        
 	                        <tr>
@@ -220,81 +202,54 @@
 		                                <sbux-select id="sch-doc-status" name="sch-doc-status" uitype="single" jsondata-ref="jsonDocStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            	</div>
 	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">현업결재일</th>
-	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-approve-date" class="form-control input-sm" ></sbux-input>
-	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">회계승인일</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		   								<sbux-input uitype="text" id="sch-posting-date" class="form-control input-sm" ></sbux-input>
-		   								<sbux-input uitype="text" id="sch-posting-user" class="form-control input-sm" ></sbux-input>
-	                            	</div>
-	                            </td>
-	                            
-	                        </tr>    
-	                        
-	                        <tr>
+
 	                            <th scope="row" class="th_bg">전기일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-doc-date"
-								            name="sch-doc-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
 								            class="form-control input-sm input-sm-ast inpt_data_reqed">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            
+
+	                            <th scope="row" class="th_bg">승인취소일</th>
+	                            <td colspan="3" class="td_input" >
+	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+									    <sbux-datepicker
+									            id="sch-unposting-date"
+									            uitype="popup"
+									            date-format="yyyy-mm-dd"
+									            class="form-control input-sm input-sm-ast inpt_data_reqed">
+									    </sbux-datepicker>                          
+					                    <font style="margin-right:10px"></font>
+	   									<sbux-input id="sch-unposting-user" uitype="text" class="form-control input-sm"></sbux-input>
+	                            	</div>
+	                            </td>
+	                        </tr>    
+	                        
+	                        <tr>
 	                            <th scope="row" class="th_bg">증빙일자</th>
 	                            <td colspan="3" class="td_input" >
 								    <sbux-datepicker
 								            id="sch-voucher-receipt-date"
-								            name="sch-voucher-receipt-date"
 								            uitype="popup"
 								            date-format="yyyy-mm-dd"
 								            class="form-control input-sm input-sm-ast inpt_data_reqed">
 								    </sbux-datepicker>                          
 	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">승인취소일</th>
-	                            <td colspan="3" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		   								<sbux-input uitype="text" id="sch-unposting-date" class="form-control input-sm" ></sbux-input>
-		   								<sbux-input uitype="text" id="sch-unposting-user" class="form-control input-sm" ></sbux-input>
-	                            	</div>
-	                            </td>
-	                            
-	                        </tr>    
-	                        
-	                        <tr>
-	                            <th scope="row" class="th_bg">제목</th>
-	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-description" class="form-control input-sm" ></sbux-input>
-	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">역분개전표</th>
-	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-reverse-doc-name" class="form-control input-sm" ></sbux-input>
-	                            </td>
-	                            
-	                            <th scope="row" class="th_bg">원전표</th>
-	                            <td colspan="3" class="td_input" >
-	   								<sbux-input uitype="text" id="sch-orig-doc-name" class="form-control input-sm" ></sbux-input>
-	                            </td>
-	                            
-	                        </tr>    
 
-	                        <tr>
 	                            <th scope="row" class="th_bg">통화</th>
-	                            <td colspan="11" class="td_input" >
+	                            <td colspan="3" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		                                <sbux-select onchange="fn_currencyCodeChange(sch-currency-code)"  style="width:150px" id="sch-currency-code" name="sch-currency-code" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-		   								<sbux-input uitype="text" id="sch-exchange-type" class="form-control input-sm" ></sbux-input>
+		                                <sbux-select style="width:150px" id="sch-currency-code" name="sch-currency-code" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 		   								<sbux-input uitype="text" id="sch-exchange-rate" class="form-control input-sm" ></sbux-input>
 	                            	</div>
+	                            </td>
+
+	                            <th scope="row" class="th_bg">제목</th>
+	                            <td colspan="3" class="td_input" >
+	   								<sbux-input id="sch-description" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                        </tr>    
 								                            
@@ -308,7 +263,6 @@
 	                    <ul class="ad_tbl_count">
 	                        <li>
 	                            <span>회계전표</span>
-	                            <span id="sch-lblalert" style="font-size:12px;padding-left:20px;color:red">SCM전표 전기취소는 SCM에서만 가능합니다</span>
 	                        </li>
 	                    </ul>
 	                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
@@ -586,6 +540,14 @@
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
     </div>
     
+	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:1500px" id="modal-compopfig2320" name="modal-compopfig2320" uitype="middle" header-title="" body-html-id="body-modal-compopfig2320" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopfig2320">
+    	<jsp:include page="../../../com/popup/comPopFig2320.jsp"></jsp:include>
+    </div>
+    
 </body>
 
 <!-- inline scripts related to this page -->
@@ -598,140 +560,45 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	
-	var p_ss_issAccountChief	= '${loginVO.maIsAccountChief}';
-	var p_ss_isAccountManager	= '${loginVO.maIsAccountManager}';
-	var p_ss_fiDeleteUser 		= '${loginVO.maFI_DELETE_USER}';
-	var p_ss_defaultAcctRule	= '${loginVO.maDefaultAcctRule}';
-	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
-	var p_ss_siteCode			= '${loginVO.maSiteCode}';
-	var p_ss_deptCode			= '${loginVO.maDeptCode}';
-	var p_ss_deptName			= '${loginVO.maDeptName}';
-	var p_ss_currCode			= '${loginVO.maCurrCode}';
-	var p_ss_currUnit			= '${loginVO.maCurrUnit}';
+	var pg_state	= 'new';
 	
-	var pg_state				= 'new';
-	
-    var pg_source_type			= '';	//파라미터 <== 다른 메뉴에서..
-    var pg_fi_delete_user		= (p_ss_fiDeleteUser) ? p_ss_fiDeleteUser : '';
-    var pg_strdoc_type			= '99';
-    var pg_strdoc_status		= '1';
-    
-    var pg_vat_type_bizId		= '';	//그리드내(부가세유형) 팝업 bizId
-    
-    var pg_colcs_code_bizId		= '';	//그리드내(거래처) 팝업 bizId
-    var pg_colcs_code_title		= '';	//그리드내(거래처) 팝업 타이틀
-    var pg_colcs_code_field1	= '';	//그리드내(거래처) 컬럼명
-    var pg_colcs_code_field2	= '';	//그리드내(거래처) 컬럼명
-    
-    var pg_rule_code_bizId		= 'L_RULE';							//멀티셀렉트 'srch-compopup1-rulecode' bizId
-    var pg_rule_code_where		= "AND manual_doc_write_yn = 'Y'";	//멀티셀렉트 'srch-compopup1-rulecode' where
-
-    var pg_doc_type_bizId		= '';	//셀텍트 'sch-doc-type' bizId
-    var pg_doc_type_where		= '';	//셀텍트 'sch-doc-type' where
-    
-    var p_sel_row 	= '';
-    var p_sel_col 	= '';
-    
-    var p_menu_param	=	null;
-    
-    //grid Mast 초기화
-    var Fig2210Grid; 			// 그리드를 담기위한 객체 선언
-    var jsonFig2210 = []; 		// 그리드의 참조 데이터 주소 선언
-
-    //-----------------------------------------------------------
-
-    var jsonFiOrgCode 			= []; // 사업단위
-    var jsonSiteCode 			= []; 
-    var jsonHoldFlag 			= []; 
-    
     var jsonAcctRuleCode 		= []; // 회계기준
-    var jsonVoucherType 		= []; // 증빙번호
     var jsonTaxSiteCode 		= []; // 신고사업장
-    var jsonSubTaxSiteCode 		= []; // 총사업장
+    var jsonSubTaxSiteCode 		= []; // 신고사업장(sub)
     var jsonDocType 			= []; // 전표유형
     var jsonDocStatus 			= []; // 전표유형
     var jsonCurrencyCode 		= []; // 통화
 	
     var jsonLineType 			= []; // 라인유형
     var jsonDebitCredit 		= []; // 차/대
-    var jsonGridSiteCode		= []; // 사업장 
-    var jsonHoldReason			= []; // 보류사유 
-    var jsonCreditArea			= []; // 여신영역
     
-    var jsonEtaxType			= []; // 전자발행
-    var jsonCardUseType			= []; // 카드용도
-    var jsonLocalCreditType		= []; // 내국신용장구분
-    var jsonVatNotDedType		= []; // 불공제유형
-    var jsonReportOmitYn		= []; // 예정신고누락
-    var jsonDupIssList			= []; // 중복발행
-    var jsonVatAssetType		= []; // 감가상각자산유형
-    var jsonAfterDueDateYn		= []; // 11일외전송
-    var jsonZeroReportYn		= []; // 영세율첨부서류여부
-    var jsonExcludeAmtYn		= []; // 수입금액제외
-    var jsonZeroType			= []; // 영세율구분
-    
+	//-----------------------------------------------------------
+
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // 사업단위
-            gfnma_setComSelect(['sch-fi-org-code'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-site-code'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            
             // 회계기준
             gfnma_setComSelect(['sch-acct-rule-code'],			jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 증빙번호
-            gfnma_setComSelect(['sch-voucher-type'],			jsonVoucherType, 	'L_FIG005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 신고사업장
             gfnma_setComSelect(['sch-tax-site-code'],			jsonTaxSiteCode, 	'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
-            // 종사업장
             gfnma_setComSelect(['sch-sub-tax-site-code'],		jsonSubTaxSiteCode, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
             // 전표유형
-            gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		pg_doc_type_bizId, pg_doc_type_where, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		'L_FIM051', "AND manual_doc_write_yn = 'Y'", gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['sch-doc-status'],				jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 통화
             gfnma_setComSelect(['sch-currency-code'],			jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
-            
+			
             // 그리드내 라인유형
 			gfnma_setComSelect([], 								jsonLineType, 		'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 그리드내 차/대
 			gfnma_setComSelect([], 								jsonDebitCredit, 	'L_FIG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 그리드내 사업장
-			gfnma_setComSelect([], 								jsonGridSiteCode, 	'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            // 그리드내 보류사유
-			gfnma_setComSelect([], 								jsonHoldReason, 	'L_COM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 그리드내 여신영역
-			gfnma_setComSelect([], 								jsonCreditArea, 	'L_ORG020', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
-            // 전자발행
-            gfnma_setComSelect(['ETAX_TYPE'],					jsonEtaxType, 		'L_FIT005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 카드용도
-            gfnma_setComSelect(['CARD_USE_TYPE'],				jsonCardUseType, 	'L_FIT012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 내국신용장구분
-            gfnma_setComSelect(['LOCAL_CREDIT_TYPE'],			jsonLocalCreditType,'L_FIT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 불공제유형
-            gfnma_setComSelect(['VAT_NOT_DEDUCTION_TYPE'],		jsonVatNotDedType,	'L_FIT013', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 예정신고누락
-            gfnma_setComSelect(['REPORT_OMIT_YN'],				jsonReportOmitYn,	'L_FIT009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 중복발행
-            gfnma_setComSelect(['DUP_ISSUE_BILL_TYPE'],			jsonDupIssList,		'L_FIT007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 감가상각자산유형
-            gfnma_setComSelect(['VAT_ASSET_TYPE'],				jsonVatAssetType,	'L_FIT014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 11일외전송
-            gfnma_setComSelect(['AFTER_DUE_DATE_YN'],			jsonAfterDueDateYn,	'L_FIT006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 영세율첨부서류여부
-            gfnma_setComSelect(['ZERO_REPORT_YN'],				jsonZeroReportYn,	'L_FIT019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 수입금액제외
-            gfnma_setComSelect(['EXCLUDE_REVENUE_AMT_YN'],		jsonExcludeAmtYn,	'L_FIT008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 영세율구분
-            gfnma_setComSelect(['ZERO_TYPE'],					jsonZeroType,		'L_FIT010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			
+            
 			//전표템플릿
 			gfnma_multiSelectInit({
 				target			: ['#srch-compopup1-rulecode']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: pg_rule_code_bizId
-				,whereClause	: pg_rule_code_where
+				,bizcompId		: "L_RULE"
+				,whereClause	: "AND manual_doc_write_yn = 'Y'"
 				,formId			: p_formId
 				,menuId			: p_menuId
 				,selectValue	: ''
@@ -751,77 +618,24 @@
 	}	
 
 	async function fn_init(type) {
-
+		
 		if(pg_state=='new'){
-			pg_vat_type_bizId		= 'P_ACCOUNT_POPUP_LINE_Q';
-			
-    		pg_colcs_code_bizId 	= 'P_CS_ALL';
-    		pg_colcs_code_title 	= '거래처';
-    		pg_colcs_code_field1 	= 'CS_CODE';
-    		pg_colcs_code_field2 	= 'CS_NAME';
-    		
-    		pg_rule_code_bizId		= 'L_RULE';
-    		pg_rule_code_where		= "AND manual_doc_write_yn = 'Y'";
-    		
-    		pg_doc_type_bizId		= 'L_FIM051';
-    		pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
 		}
 		if(type){
 			//select init
-			console.log('fn_initSBSelect ====>>>>:');			
 	  		await fn_initSBSelect()
 		}
-		console.log('fn_createGrid2210 ====>>>>:');			
-    	fn_createGrid2210();	
-		
 		//화면셋팅
-    	fn_state(pg_state);
+    	//fn_state(pg_state);
 	}    
     
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
-    	p_menu_param = localStorage.getItem("callMain");
-    	if(p_menu_param){
-    		p_menu_param = JSON.parse(p_menu_param);
-    	}
-    	localStorage.removeItem("callMain");
-		if(p_menu_param){
-			pg_state = 'edit';			
-		} else {
-			pg_state = 'new';			
-		}
-		console.log('1 pg_state:', pg_state);			
-		console.log('1 p_menu_param:', p_menu_param);
-    	
     	fn_init(true);
+    	//fn_createGrid2310();	
 
-		$('#btn1-row-add').click(function(e){
-			e.preventDefault();
-			fn_gridRowAdd();
-		});
-		$('#btn1-row-del').click(function(e){
-			e.preventDefault();
-			fn_gridRowDel();
-		});    	
     });
 
-    //메뉴가 이미 열려있을때..
-    window.addEventListener('message', async function(e) {
-    	let obj = e.data;
-		if(obj){
-			if(obj['MENU_MOVE']){
-				pg_state 		= 'edit';			
-				p_menu_param 	= obj;
-			}
-		}
-		console.log('2 message pg_state:', pg_state);			
-		console.log('2 message obj:', obj);
-		console.log('2 p_menu_param:', p_menu_param);
-		e.stopPropagation();
-    	return;
-    });
-    
     /**
      * 화면 state 변경
      */
@@ -898,7 +712,7 @@
 					,groupCode		: 'SYS601'
 					,groupName		: ''
 					,subCode		: ''
-					,extraField1	: 'FIG2210'
+					,extraField1	: 'FIG2310'
 					,extraField2	: 'panAccountSum'
 					,extraField3	: 'N'
 					,extraField3	: 'N'
@@ -934,18 +748,10 @@
     			SBUxMethod.hide('btn-tax-view');
     		}
     		
-    		fn_setFig2210Grid('DEFAULTRULE');
+    		fn_setFig2310Grid('DEFAULTRULE');
     		
     	} else {
-    		//수정
     		//전표조회에서 오는 경우
-    		
-    		$('#sch-lblalert').show();
-    		SBUxMethod.set('sch-doc-id', 		p_menu_param['DOC_ID']);
-    		SBUxMethod.attr('sch-doc-type', 	'disabled', true);
-    		SBUxMethod.attr('sch-doc-status', 	'disabled', true);
-			
-    		//fn_setFig2210Grid('Q');
     		
     	}
     }
@@ -956,7 +762,7 @@
     var cfn_init = function() {
     	pg_state = 'new';
     	fn_init(false);
-    	fn_createGrid2210();	
+    	fn_createGrid2310();	
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
     	fn_gridTotal();
@@ -965,10 +771,10 @@
     /**
      * 신규
      */
-     var cfn_add = function() {
+    function cfn_add() {
     	pg_state = 'new';
     	fn_init(false);
-    	fn_createGrid2210();	
+    	fn_createGrid2310();	
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
     }
@@ -978,14 +784,14 @@
      */
     function cfn_save() {
 
-    	var len = jsonFig2210.length;
+    	var len = jsonFig2310.length;
     	if(len==0){
     		gfn_comAlert("E0000","회계전표를 등록하세요");
     		return;
     	}
     	var chk = false;
-    	for (var i = 0; i < jsonFig2210.length; i++) {
-			var obj = jsonFig2210[i];
+    	for (var i = 0; i < jsonFig2310.length; i++) {
+			var obj = jsonFig2310[i];
     		if(!obj['LINE_TYPE']){
         		gfn_comAlert("E0000","라인유형을 선택하세요");
         		chk = true;
@@ -1056,8 +862,8 @@
             		break;
     			}
     			if(obj['VAT_TYPE']=='VK' || obj['VAT_TYPE']=='VL' || obj['VAT_TYPE']=='VM'){
-    				jsonFig2210[i]['VOUCHER_TYPE'] 	= 'C';
-    				jsonFig2210[i]['VOUCHER_NO'] 	= SBUxMethod.get("ACC_ITEM_VALUE1");
+    				jsonFig2310[i]['VOUCHER_TYPE'] 	= 'C';
+    				jsonFig2310[i]['VOUCHER_NO'] 	= SBUxMethod.get("ACC_ITEM_VALUE1");
     			}
     		} else if(obj['ACC_CATEGORY'] == 'D' || obj['ACC_CATEGORY'] == 'E'){
     			if(!obj['COST_CENTER_CODE']){
@@ -1330,7 +1136,7 @@
     		return rstr;
     	}
     	
-		var list = Fig2210Grid.getGridDataAll();
+		var list = Fig2310Grid.getGridDataAll();
 		for (var i = 0; i < list.length; i++) {
 			stritem_id 				+=	gfnma_nvl(list[i]['ITEM_ID']) + "|";	
 			stritem_seq				+=	gfnma_nvl(list[i]['ITEM_SEQ']) + "|";	
@@ -1772,16 +1578,16 @@
 			,V_P_USERID					: ''
 			,V_P_PC						: '' 
 	    };		
-		console.log('P_FIG2210_S param:', paramObj);
+		console.log('P_FIG2310_S param:', paramObj);
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/insertFig2210S.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/insertFig2310S.do", {
         	getType				: 'json',
         	workType			: 'N',
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-		console.log('P_FIG2210_S data:', data);
+		console.log('P_FIG2310_S data:', data);
         
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -1840,12 +1646,15 @@
     	});
   	}   
     
-    function fn_createGrid2210() {
-    	
+    //grid Mast 초기화
+    var Fig2310Grid; 			// 그리드를 담기위한 객체 선언
+    var jsonFig2310 = []; 		// 그리드의 참조 데이터 주소 선언
+
+    function fn_createGrid2310() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTop';
-	    SBGridProperties.id 				= 'Fig2210Grid';
-	    SBGridProperties.jsonref 			= 'jsonFig2210';
+	    SBGridProperties.id 				= 'Fig2310Grid';
+	    SBGridProperties.jsonref 			= 'jsonFig2310';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.frozencols 		= 4;
@@ -1989,21 +1798,21 @@
             {caption: ["원천"], 					ref: 'ITEM_SOURCE_TYPE',		type:'input',		width:'100px',  	style:'text-align:left'},
         ];
 
-        Fig2210Grid = _SBGrid.create(SBGridProperties);
-        Fig2210Grid.bind('valuechanged', 	'fn_comboValFig2210GridEvent')
-        Fig2210Grid.bind('click', 			'fn_viewFig2210GridEvent');
+        Fig2310Grid = _SBGrid.create(SBGridProperties);
+        Fig2310Grid.bind('valuechanged', 	'fn_comboValFig2310GridEvent')
+        Fig2310Grid.bind('click', 			'fn_viewFig2310GridEvent');
     }
     
     //콤보, 인풋박스 이벤트
-    function fn_comboValFig2210GridEvent() {
-        let nRow = Fig2210Grid.getRow(); // 클릭한 Row Index 추출
-        let nCol = Fig2210Grid.getCol(); // 클릭한 Col Index 추출
+    function fn_comboValFig2310GridEvent() {
+        let nRow = Fig2310Grid.getRow(); // 클릭한 Row Index 추출
+        let nCol = Fig2310Grid.getCol(); // 클릭한 Col Index 추출
 
-        let rowData = Fig2210Grid.getRowData(nRow);
-		fn_getFig2210Grid(rowData);
+        let rowData = Fig2310Grid.getRowData(nRow);
+		fn_getFig2310Grid(rowData);
         
-        if (Fig2210Grid.getRefOfCol(nCol) == 'LINE_TYPE') {			// 컬럼이 curriculum 일 때 (Combo Col 검사)
-            let cellValue = Fig2210Grid.getCellData(nRow, nCol); 	// Combo Value 추출
+        if (Fig2310Grid.getRefOfCol(nCol) == 'LINE_TYPE') {			// 컬럼이 curriculum 일 때 (Combo Col 검사)
+            let cellValue = Fig2310Grid.getCellData(nRow, nCol); 	// Combo Value 추출
             let comboItem = jsonLineType.find(item => item.value === cellValue); // jsonLineType Json에서 ComboLabel과 일치하는 항목 추출
 
             if (comboItem) { 					// ComboItem 값이 있을 때
@@ -2016,12 +1825,12 @@
 					SBUxMethod.selectTab('tab_norm','tab2');
 				}
             }
-        } else if(Fig2210Grid.getRefOfCol(nCol) == 'ORIGINAL_AMT'){
-            let cellValue = Fig2210Grid.getCellData(nRow, nCol); 	
+        } else if(Fig2310Grid.getRefOfCol(nCol) == 'ORIGINAL_AMT'){
+            let cellValue = Fig2310Grid.getCellData(nRow, nCol); 	
         	console.log('ORIGINAL_AMT:', cellValue);
-            Fig2210Grid.setCellData(nRow, nCol+1, cellValue, true, true);
+            Fig2310Grid.setCellData(nRow, nCol+1, cellValue, true, true);
             fn_gridTotal();            
-        } else if(Fig2210Grid.getRefOfCol(nCol) == 'DEBIT_CREDIT'){
+        } else if(Fig2310Grid.getRefOfCol(nCol) == 'DEBIT_CREDIT'){
             fn_gridTotal();            
         }    	
     }
@@ -2033,8 +1842,8 @@
     	var ct	= 0;
     	var t1	= 0;
     	var t2	= 0;
-    	for (var i = 0; i < jsonFig2210.length; i++) {
-			var obj = jsonFig2210[i];
+    	for (var i = 0; i < jsonFig2310.length; i++) {
+			var obj = jsonFig2310[i];
 			if(obj['DEBIT_CREDIT']=='D'){
 				//차변
 				dt += Number(obj['ORIGINAL_AMT']);
@@ -2058,18 +1867,18 @@
     }
     
     //상세정보 보기
-    function fn_viewFig2210GridEvent() {
+    function fn_viewFig2310GridEvent() {
     	
-    	let nRow = Fig2210Grid.getRow();
-    	let nCol = Fig2210Grid.getCol();
+    	let nRow = Fig2310Grid.getRow();
+    	let nCol = Fig2310Grid.getCol();
 		if (nRow < 1) {
             return;
 		}
 		p_sel_row = nRow;
 		p_sel_col = nCol;
 		
-        let rowData = Fig2210Grid.getRowData(nRow);
-		fn_getFig2210Grid(rowData);
+        let rowData = Fig2310Grid.getRowData(nRow);
+		fn_getFig2310Grid(rowData);
 		
 		if(rowData['LINE_TYPE']=='3'){
 			//부가세
@@ -2080,8 +1889,8 @@
     }
     
     //그리드 값 가져오기
-    function fn_getFig2210Grid(rowData) {
-		//console.log('fn_getFig2210Grid:', rowData);        
+    function fn_getFig2310Grid(rowData) {
+		//console.log('fn_getFig2310Grid:', rowData);        
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
     	$('.cu-tab2-fom-area').text('');
@@ -2096,9 +1905,9 @@
 		console.log('id:', id);        
 		console.log('p_sel_row:', p_sel_row);        
 		if(p_sel_row>-1){
-			jsonFig2210[p_sel_row-1][id] = val;
+			jsonFig2310[p_sel_row-1][id] = val;
 		}
-		console.log(jsonFig2210);
+		console.log(jsonFig2310);
     }
     
     //통화 change event
@@ -2113,23 +1922,23 @@
 			,function(data){
 	    		SBUxMethod.set('sch-exchange-rate',  	Number(data.RATE));
 	    		SBUxMethod.set('sch-base-scale',  		Number(data.BASE_SCALE));
-	    		var list = Fig2210Grid.getGridDataAll();
+	    		var list = Fig2310Grid.getGridDataAll();
 	    		for (var i = 0; i < list.length; i++) {
 					if( (list[i]['CURRENCY_CODE']!='KRW' && val=='KRW' ) || (list[i]['CURRENCY_CODE']=='KRW' && val!='KRW')	){
-                        Fig2210Grid.setCellData((i+1), 8, "", true, true);	//CS_CODE
-                        Fig2210Grid.setCellData((i+1), 10, "", true, true);	//CS_NAME
-                        Fig2210Grid.setCellData((i+1), 11, "", true, true);	//ACCOUNT_CODE
-                        Fig2210Grid.setCellData((i+1), 13, "", true, true);	//ACCOUNT_NAME
+                        Fig2310Grid.setCellData((i+1), 8, "", true, true);	//CS_CODE
+                        Fig2310Grid.setCellData((i+1), 10, "", true, true);	//CS_NAME
+                        Fig2310Grid.setCellData((i+1), 11, "", true, true);	//ACCOUNT_CODE
+                        Fig2310Grid.setCellData((i+1), 13, "", true, true);	//ACCOUNT_NAME
 					}
-                    Fig2210Grid.setCellData((i+1), 32, Number(data.RATE), true, true);	//EXCHANGE_RATE
-					jsonFig2210[i]['CURRENCY_CODE'] = val;
-					jsonFig2210[i]['BASE_SCALE'] 	= Number(data.BASE_SCALE);
+                    Fig2310Grid.setCellData((i+1), 32, Number(data.RATE), true, true);	//EXCHANGE_RATE
+					jsonFig2310[i]['CURRENCY_CODE'] = val;
+					jsonFig2310[i]['BASE_SCALE'] 	= Number(data.BASE_SCALE);
 					
 					var calNum = Number(gfnma_getNumber(list[i]['ORIGINAL_AMT'])) * Number(data.RATE) / Number(data.BASE_SCALE);
 					if(p_ss_currUnit !='' && p_ss_currUnit != null && !isNaN(p_ss_currUnit)){
 						calNum = gfnma_getRound(calNum, Number(p_ss_currUnit));
 					} 
-                    Fig2210Grid.setCellData((i+1), 15, calNum, true, true);	//FUNCTIONAL_AMT
+                    Fig2310Grid.setCellData((i+1), 15, calNum, true, true);	//FUNCTIONAL_AMT
 				}
 	        	var p_doc_type = gfnma_nvl(SBUxMethod.get("sch-doc-type"));
 	    		if(p_doc_type=='92'){
@@ -2207,8 +2016,8 @@
      */
 	function fn_gridPopup1(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 5) 
-        let cellData2 = Fig2210Grid.getCellData(row, 7) 
+        let cellData1 = Fig2310Grid.getCellData(row, 5) 
+        let cellData2 = Fig2310Grid.getCellData(row, 7) 
     	fn_gridPopup1Show(row, col, cellData1, cellData2);
 	}
     
@@ -2239,9 +2048,9 @@
    			,tableColumnWidths		: ["100px", 		"200px",		"100px",			"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 5, 	data['VAT_CODE'], true, true);
-				Fig2210Grid.setCellData(row, 7, 	data['VAT_NAME'], true, true);
-				jsonFig2210[row-1]['NONDED_YN'] = data['NONDED_YN'];
+				Fig2310Grid.setCellData(row, 5, 	data['VAT_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 7, 	data['VAT_NAME'], true, true);
+				jsonFig2310[row-1]['NONDED_YN'] = data['NONDED_YN'];
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2252,8 +2061,8 @@
      */
 	function fn_gridPopup2(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 8) 
-        let cellData2 = Fig2210Grid.getCellData(row, 10) 
+        let cellData1 = Fig2310Grid.getCellData(row, 8) 
+        let cellData2 = Fig2310Grid.getCellData(row, 10) 
         if(!cellData1 && !cellData2){
         	gfn_comAlert("E0000","찾고자 하는 거래처 코드 혹은 거래처명을 2글자 이상 입력하세요");
         	return;	
@@ -2289,9 +2098,9 @@
    			,tableColumnWidths		: ["80px", 			"200px",		"100px",			"100px",			"200px",		"70px",			"70px",		"70px",				"150px",			"70px",			"120px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 8, 	data['CS_CODE'], true, true);
-				Fig2210Grid.setCellData(row, 10, 	data['CS_NAME'], true, true);
-				jsonFig2210[row-1]['TXN_STOP_YN'] = data['TXN_STOP_YN'];
+				Fig2310Grid.setCellData(row, 8, 	data['CS_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 10, 	data['CS_NAME'], true, true);
+				jsonFig2310[row-1]['TXN_STOP_YN'] = data['TXN_STOP_YN'];
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2302,8 +2111,8 @@
      */
 	function fn_gridPopup3(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 11) 
-        let cellData2 = Fig2210Grid.getCellData(row, 13) 
+        let cellData1 = Fig2310Grid.getCellData(row, 11) 
+        let cellData2 = Fig2310Grid.getCellData(row, 13) 
     	fn_gridPopup3Show(row, col, cellData1, cellData2);
 	}
     
@@ -2312,8 +2121,8 @@
      */
     var fn_gridPopup3Show = function(row, col, cellData1, cellData2) {
     	
-        var nRow 			= Fig2210Grid.getRow();
-        var rowData 		= Fig2210Grid.getRowData(nRow);
+        var nRow 			= Fig2310Grid.getRow();
+        var rowData 		= Fig2310Grid.getRowData(nRow);
     	var pp_open_to_all	= "'" + gfnma_nvl(SBUxMethod.get("sch-txtopen-to-all-yn")) + "'"; 
     	var pp_line_type	= "'" + rowData['LINE_TYPE'] + "'"; 
     	var pp_open_to_fcm	= "'" + gfnma_nvl(SBUxMethod.get("sch-txtopen-to-fcm-yn")) + "'"; 
@@ -2340,69 +2149,69 @@
    			,tableColumnWidths		: ["100px", 		"250px",		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 11, 	data['ACCOUNT_CODE'], true, true);
-				Fig2210Grid.setCellData(row, 13, 	data['ACCOUNT_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 11, 	data['ACCOUNT_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 13, 	data['ACCOUNT_NAME'], true, true);
 				
-				jsonFig2210[row-1]['ACC_ITEM_CODE1'] = data['ACC_ITEM_CODE1'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE2'] = data['ACC_ITEM_CODE2'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE3'] = data['ACC_ITEM_CODE3'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE4'] = data['ACC_ITEM_CODE4'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE5'] = data['ACC_ITEM_CODE5'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE6'] = data['ACC_ITEM_CODE6'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE7'] = data['ACC_ITEM_CODE7'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE8'] = data['ACC_ITEM_CODE8'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE9'] = data['ACC_ITEM_CODE9'];
-				jsonFig2210[row-1]['ACC_ITEM_CODE10'] = data['ACC_ITEM_CODE10'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE1'] = data['ACC_ITEM_CODE1'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE2'] = data['ACC_ITEM_CODE2'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE3'] = data['ACC_ITEM_CODE3'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE4'] = data['ACC_ITEM_CODE4'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE5'] = data['ACC_ITEM_CODE5'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE6'] = data['ACC_ITEM_CODE6'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE7'] = data['ACC_ITEM_CODE7'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE8'] = data['ACC_ITEM_CODE8'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE9'] = data['ACC_ITEM_CODE9'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE10'] = data['ACC_ITEM_CODE10'];
 				
-				jsonFig2210[row-1]['ACC_ITEM_NAME1'] = data['ACC_ITEM_NAME1'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME2'] = data['ACC_ITEM_NAME2'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME3'] = data['ACC_ITEM_NAME3'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME4'] = data['ACC_ITEM_NAME4'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME5'] = data['ACC_ITEM_NAME5'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME6'] = data['ACC_ITEM_NAME6'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME7'] = data['ACC_ITEM_NAME7'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME8'] = data['ACC_ITEM_NAME8'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME9'] = data['ACC_ITEM_NAME9'];
-				jsonFig2210[row-1]['ACC_ITEM_NAME10'] = data['ACC_ITEM_NAME10'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME1'] = data['ACC_ITEM_NAME1'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME2'] = data['ACC_ITEM_NAME2'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME3'] = data['ACC_ITEM_NAME3'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME4'] = data['ACC_ITEM_NAME4'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME5'] = data['ACC_ITEM_NAME5'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME6'] = data['ACC_ITEM_NAME6'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME7'] = data['ACC_ITEM_NAME7'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME8'] = data['ACC_ITEM_NAME8'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME9'] = data['ACC_ITEM_NAME9'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME10'] = data['ACC_ITEM_NAME10'];
 				
-				jsonFig2210[row-1]['DATA_TYPE1'] = data['DATA_TYPE1'];
-				jsonFig2210[row-1]['DATA_TYPE2'] = data['DATA_TYPE2'];
-				jsonFig2210[row-1]['DATA_TYPE3'] = data['DATA_TYPE3'];
-				jsonFig2210[row-1]['DATA_TYPE4'] = data['DATA_TYPE4'];
-				jsonFig2210[row-1]['DATA_TYPE5'] = data['DATA_TYPE5'];
-				jsonFig2210[row-1]['DATA_TYPE6'] = data['DATA_TYPE6'];
-				jsonFig2210[row-1]['DATA_TYPE7'] = data['DATA_TYPE7'];
-				jsonFig2210[row-1]['DATA_TYPE8'] = data['DATA_TYPE8'];
-				jsonFig2210[row-1]['DATA_TYPE9'] = data['DATA_TYPE9'];
-				jsonFig2210[row-1]['DATA_TYPE10'] = data['DATA_TYPE10'];
+				jsonFig2310[row-1]['DATA_TYPE1'] = data['DATA_TYPE1'];
+				jsonFig2310[row-1]['DATA_TYPE2'] = data['DATA_TYPE2'];
+				jsonFig2310[row-1]['DATA_TYPE3'] = data['DATA_TYPE3'];
+				jsonFig2310[row-1]['DATA_TYPE4'] = data['DATA_TYPE4'];
+				jsonFig2310[row-1]['DATA_TYPE5'] = data['DATA_TYPE5'];
+				jsonFig2310[row-1]['DATA_TYPE6'] = data['DATA_TYPE6'];
+				jsonFig2310[row-1]['DATA_TYPE7'] = data['DATA_TYPE7'];
+				jsonFig2310[row-1]['DATA_TYPE8'] = data['DATA_TYPE8'];
+				jsonFig2310[row-1]['DATA_TYPE9'] = data['DATA_TYPE9'];
+				jsonFig2310[row-1]['DATA_TYPE10'] = data['DATA_TYPE10'];
 				
-				jsonFig2210[row-1]['POPUP_ID1'] = data['POPUP_ID1'];
-				jsonFig2210[row-1]['POPUP_ID2'] = data['POPUP_ID2'];
-				jsonFig2210[row-1]['POPUP_ID3'] = data['POPUP_ID3'];
-				jsonFig2210[row-1]['POPUP_ID4'] = data['POPUP_ID4'];
-				jsonFig2210[row-1]['POPUP_ID5'] = data['POPUP_ID5'];
-				jsonFig2210[row-1]['POPUP_ID6'] = data['POPUP_ID6'];
-				jsonFig2210[row-1]['POPUP_ID7'] = data['POPUP_ID7'];
-				jsonFig2210[row-1]['POPUP_ID8'] = data['POPUP_ID8'];
-				jsonFig2210[row-1]['POPUP_ID9'] = data['POPUP_ID9'];
-				jsonFig2210[row-1]['POPUP_ID10'] = data['POPUP_ID10'];
+				jsonFig2310[row-1]['POPUP_ID1'] = data['POPUP_ID1'];
+				jsonFig2310[row-1]['POPUP_ID2'] = data['POPUP_ID2'];
+				jsonFig2310[row-1]['POPUP_ID3'] = data['POPUP_ID3'];
+				jsonFig2310[row-1]['POPUP_ID4'] = data['POPUP_ID4'];
+				jsonFig2310[row-1]['POPUP_ID5'] = data['POPUP_ID5'];
+				jsonFig2310[row-1]['POPUP_ID6'] = data['POPUP_ID6'];
+				jsonFig2310[row-1]['POPUP_ID7'] = data['POPUP_ID7'];
+				jsonFig2310[row-1]['POPUP_ID8'] = data['POPUP_ID8'];
+				jsonFig2310[row-1]['POPUP_ID9'] = data['POPUP_ID9'];
+				jsonFig2310[row-1]['POPUP_ID10'] = data['POPUP_ID10'];
 				
-				jsonFig2210[row-1]['ACC_ITEM_YN1'] = data['ACC_ITEM_YN1'];
-				jsonFig2210[row-1]['ACC_ITEM_YN2'] = data['ACC_ITEM_YN2'];
-				jsonFig2210[row-1]['ACC_ITEM_YN3'] = data['ACC_ITEM_YN3'];
-				jsonFig2210[row-1]['ACC_ITEM_YN4'] = data['ACC_ITEM_YN4'];
-				jsonFig2210[row-1]['ACC_ITEM_YN5'] = data['ACC_ITEM_YN5'];
-				jsonFig2210[row-1]['ACC_ITEM_YN6'] = data['ACC_ITEM_YN6'];
-				jsonFig2210[row-1]['ACC_ITEM_YN7'] = data['ACC_ITEM_YN7'];
-				jsonFig2210[row-1]['ACC_ITEM_YN8'] = data['ACC_ITEM_YN8'];
-				jsonFig2210[row-1]['ACC_ITEM_YN9'] = data['ACC_ITEM_YN9'];
-				jsonFig2210[row-1]['ACC_ITEM_YN10'] = data['ACC_ITEM_YN10'];
+				jsonFig2310[row-1]['ACC_ITEM_YN1'] = data['ACC_ITEM_YN1'];
+				jsonFig2310[row-1]['ACC_ITEM_YN2'] = data['ACC_ITEM_YN2'];
+				jsonFig2310[row-1]['ACC_ITEM_YN3'] = data['ACC_ITEM_YN3'];
+				jsonFig2310[row-1]['ACC_ITEM_YN4'] = data['ACC_ITEM_YN4'];
+				jsonFig2310[row-1]['ACC_ITEM_YN5'] = data['ACC_ITEM_YN5'];
+				jsonFig2310[row-1]['ACC_ITEM_YN6'] = data['ACC_ITEM_YN6'];
+				jsonFig2310[row-1]['ACC_ITEM_YN7'] = data['ACC_ITEM_YN7'];
+				jsonFig2310[row-1]['ACC_ITEM_YN8'] = data['ACC_ITEM_YN8'];
+				jsonFig2310[row-1]['ACC_ITEM_YN9'] = data['ACC_ITEM_YN9'];
+				jsonFig2310[row-1]['ACC_ITEM_YN10'] = data['ACC_ITEM_YN10'];
 				
-				jsonFig2210[row-1]['ACC_CATEGORY'] 	= data['ACC_CATEGORY'];
-				jsonFig2210[row-1]['PROJECT_YN'] 	= data['PROJECT_YN'];
-				jsonFig2210[row-1]['COST_CLASS'] 	= data['COST_CLASS'];
+				jsonFig2310[row-1]['ACC_CATEGORY'] 	= data['ACC_CATEGORY'];
+				jsonFig2310[row-1]['PROJECT_YN'] 	= data['PROJECT_YN'];
+				jsonFig2310[row-1]['COST_CLASS'] 	= data['COST_CLASS'];
 				
-				fn_getFig2210Grid(jsonFig2210[row-1]);				
+				fn_getFig2310Grid(jsonFig2310[row-1]);				
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2413,7 +2222,7 @@
      */
 	function fn_gridPopup4(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 17) 
+        let cellData1 = Fig2310Grid.getCellData(row, 17) 
     	fn_gridPopup4Show(row, col, cellData1);
 	}
     
@@ -2444,8 +2253,8 @@
    			,tableColumnWidths		: ["100px", 		"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 17, 	data['DEPT_NAME'], true, true);
-				Fig2210Grid.setCellData(row, 19, 	data['DEPT_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 17, 	data['DEPT_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 19, 	data['DEPT_CODE'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2456,8 +2265,8 @@
      */
 	function fn_gridPopup5(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 20) 
-        let cellData2 = Fig2210Grid.getCellData(row, 22) 
+        let cellData1 = Fig2310Grid.getCellData(row, 20) 
+        let cellData2 = Fig2310Grid.getCellData(row, 22) 
     	fn_gridPopup5Show(row, col, cellData1, cellData2);
 	}
     
@@ -2488,8 +2297,8 @@
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 20, 	data['COST_CENTER_CODE'], true, true);
-				Fig2210Grid.setCellData(row, 22, 	data['COST_CENTER_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 20, 	data['COST_CENTER_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 22, 	data['COST_CENTER_NAME'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2500,8 +2309,8 @@
      */
 	function fn_gridPopup6(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 24) 
-        let cellData2 = Fig2210Grid.getCellData(row, 26) 
+        let cellData1 = Fig2310Grid.getCellData(row, 24) 
+        let cellData2 = Fig2310Grid.getCellData(row, 26) 
     	fn_gridPopup6Show(row, col, cellData1, cellData2);
 	}
     
@@ -2533,8 +2342,8 @@
 			,tableColumnWidths		: ["100px", 			"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 24, 	data['PROJECT_CODE'], true, true);
-				Fig2210Grid.setCellData(row, 26, 	data['PROJECT_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 24, 	data['PROJECT_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 26, 	data['PROJECT_NAME'], true, true);
 			},
 		});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2571,9 +2380,9 @@
    			,tableColumnWidths		: ["100px", 			"250px",			"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 27, 	data['PAY_TERM_CODE'], true, true);
-				Fig2210Grid.setCellData(row, 29, 	data['PAY_TERM_NAME'], true, true);
-				Fig2210Grid.setCellData(row, 30, 	data['PAY_METHOD_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 27, 	data['PAY_TERM_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 29, 	data['PAY_TERM_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 30, 	data['PAY_METHOD_NAME'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2584,8 +2393,8 @@
      */
 	function fn_gridPopup8(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 8)		//거래처 
-        let cellData2 = Fig2210Grid.getCellData(row, 31) 	//지급기일
+        let cellData1 = Fig2310Grid.getCellData(row, 8)		//거래처 
+        let cellData2 = Fig2310Grid.getCellData(row, 31) 	//지급기일
         if(!cellData1 || !cellData2){
         	gfn_comAlert("E0000","거래처 및 지급기일을 입력하세요");
         	return;	
@@ -2622,15 +2431,15 @@
    			,tableColumnWidths		: ["50px", 				"80px",			"80px",				"150px",			"150px",			"200px",		"200px",				"100px",			"80px",					"80px",				"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 34, 	data['BANK_ACCOUNT_SEQ'], true, true);
-				Fig2210Grid.setCellData(row, 36, 	data['BANK_NAME'], true, true);
-				Fig2210Grid.setCellData(row, 37, 	data['BANK_ACCOUNT_NO'], true, true);
+				Fig2310Grid.setCellData(row, 34, 	data['BANK_ACCOUNT_SEQ'], true, true);
+				Fig2310Grid.setCellData(row, 36, 	data['BANK_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 37, 	data['BANK_ACCOUNT_NO'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
     }      
     
-	const fn_setFig2210Grid = async function (wtype){
+	const fn_setFig2310Grid = async function (wtype){
 
 		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
 		let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("sch-acct-rule-code"));
@@ -2673,7 +2482,7 @@
   				,V_P_PC						: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2210QList.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2310QList.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '5',
@@ -2684,16 +2493,8 @@
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
-        		jsonFig2210.length = 0;
-        		
-        		var list = [];
-        		if(wtype=='DEFAULTRULE'){
-        			list = data.cv_5;
-        		} else if(wtype=='Q'){
-        			list = data.cv_3;
-        		}
-        		
-        		list.forEach((item, index) => {
+        		jsonFig2310.length = 0;
+  	        	data.cv_5.forEach((item, index) => {
   					const msg = {
   						CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
   						ITEM_SEQ				: gfnma_nvl(item.ITEM_SEQ),			
@@ -2879,9 +2680,9 @@
   						TXN_STOP_YN				: '',
   							
   					}
-  					jsonFig2210.push(msg);
+  					jsonFig2310.push(msg);
   				});        		
-  	        	Fig2210Grid.rebuild();
+  	        	Fig2310Grid.rebuild();
         		
         	} else {
           		alert(data.resultMessage);
@@ -2899,30 +2700,56 @@
      * 행추가
      */
     var fn_gridRowAdd = function() {
-        var idx = Fig2210Grid.getRows();
+        var idx = Fig2310Grid.getRows();
         if(idx==-1){
         	idx = 0;
         }
-        Fig2210Grid.insertRow(idx-1, 'below');
-        Fig2210Grid.setCellData(idx, 2, idx, true, true);
-        Fig2210Grid.setCellData(idx, 14, 0, true, true);
-        Fig2210Grid.setCellData(idx, 15, 0, true, true);
-        Fig2210Grid.setCellData(idx, 32, 1, true, true);
+        Fig2310Grid.insertRow(idx-1, 'below');
+        Fig2310Grid.setCellData(idx, 2, idx, true, true);
+        Fig2310Grid.setCellData(idx, 14, 0, true, true);
+        Fig2310Grid.setCellData(idx, 15, 0, true, true);
+        Fig2310Grid.setCellData(idx, 32, 1, true, true);
     }
     
     /**
      * 행삭제
      */
     var fn_gridRowDel = function() {
-    	Fig2210Grid.deleteRow(Fig2210Grid.getRow());
+    	Fig2310Grid.deleteRow(Fig2310Grid.getRow());
     	fn_gridTotal();
     } 
     
     /**
-     * SCM정보
+     * 미결반제전표 생성
      */
-    var fn_btnScmInfo = function() {
-    } 
+    var fn_fig2320pop = function() {
+    	
+// 		var p_cbofi_org_code = gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"))
+// 		if(!p_cbofi_org_code){
+//  			gfn_comAlert("E0000","사업단위를 선택하세요");
+// 			return;
+// 		}
+
+//         var nRow = Fig2200Grid.getRow();
+// 		if (nRow < 1) {
+//  			gfn_comAlert("E0000","회계전표내역을 선택해야 조회할 수 있습니다.");
+//             return;
+// 		}
+//         let rowData = Fig2200Grid.getRowData(nRow);
+    	
+     	SBUxMethod.attr('modal-compopfig2320', 'header-title', '미결반제전표');
+		compopfig2320({
+    		width			: '1600px'
+    		,height			: '600px'
+    		,param			: {
+    			test	: ''
+    		}
+   			,callbackEvent	: function (data){
+   				console.log('callback data:', data);
+   			},
+    	});
+ 		SBUxMethod.openModal('modal-compopfig2320');
+  	}    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
