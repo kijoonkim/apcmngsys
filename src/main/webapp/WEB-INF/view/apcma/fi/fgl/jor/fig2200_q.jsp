@@ -1,7 +1,7 @@
 <%
 /**
- * @Class Name 		: fig2200_p.jsp
- * @Description 	: 전표전기 화면
+ * @Class Name 		: fig2200_q.jsp
+ * @Description 	: 전표조회 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.15
  * @version 		: 1.0
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 전표전기</title>
+	<title>title : 전표조회</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
@@ -38,7 +38,7 @@
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 전표전기 -->
+                    </h3><!-- 전표조회 -->
                 </div>
                 <div style="margin-left: auto;">
                     <sbux-button uitype="normal" text="지급변경이력"  	class="btn btn-sm btn-outline-danger" onclick="fn_btnPayLog"></sbux-button>
@@ -512,6 +512,14 @@
 		SBUxMethod.set('srch-chkmulti-doc-yn', 'N');
     	//결재건만
 		SBUxMethod.set('srch-chkappr-only-flag', 'N');
+    	
+		SBUxMethod.hide('sch-btnEnd');
+		SBUxMethod.hide('sch-btnCancel');
+		SBUxMethod.hide('sch-btnAllComplete');
+		SBUxMethod.hide('sch-btnRelease');
+		SBUxMethod.hide('sch-btnUnRelease');
+		SBUxMethod.hide('sch-btnDelete');
+    	
     	//전기담당자 여부
     	if(!p_ss_isPostingUser){
     		SBUxMethod.hide('sch-btnEnd');
@@ -599,10 +607,10 @@
                 position	: 'bottom',
                 columns		: {
                     standard : [0],
-                    sum : [10,11,12]
+                    sum : [11,12,13]
                 },
                 grandtotalrow : {
-                    titlecol 		: 9,
+                    titlecol 		: 10,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -621,7 +629,16 @@
             {caption: ["역발행승인"],    			ref: 'SIGN_YN', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전기일자"],    				ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["전표구분"],    				ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'80px',  		style:'text-align:left'},
+            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'30px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+            		if(objRowData['DOC_STATUS']=='3'){
+    	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            		} else {
+            			return "";
+            		}
+            	}	
+            },
             {caption: ["적요"], 	   				ref: 'DESCRIPTION', 			type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["금액"], 	   				ref: 'DOC_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: ["공급가액"],	   				ref: 'SUPPLY_AMT', 				type:'output',  	width:'100px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -863,6 +880,7 @@
   				});
 
         		Fig2200Grid.rebuild();
+        		fn_setFig2200Style();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
   	        	//deatil grid 첫번째 행 선택
@@ -881,6 +899,39 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+    
+    /**
+     * 그리드 행 칼라
+     */
+    var fn_setFig2200Style = function() {
+    	
+    	for (var i = 0; i < jsonFig2200.length; i++) {
+			var obj = jsonFig2200[i];
+			if(obj['DOC_STATUS']=='3'){
+				//승인중
+		        Fig2200Grid.setRowStyle((i+1), 'data', 'background', '#efeeb8');
+			}
+		}
+        Fig2200Grid.clearSelection();    	
+    }
+    
+    /**
+     * 그리드내 전표번호 조회
+     */
+	function fn_gridPopup1(event, row, col) {
+		event.stopPropagation();	
+        let rowData = Fig2200Grid.getRowData(row);
+        console.log('rowData:', rowData);
+        
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'DOC_ID' 		: rowData['DOC_ID']
+        	,'WORK_TYPE'	: 'VIEW'
+        	,'target'		: 'MA_A20_030_020_150'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}
     
     /**
      * 작성부서 팝업
