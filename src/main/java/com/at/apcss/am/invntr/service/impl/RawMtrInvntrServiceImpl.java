@@ -418,15 +418,20 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 			rawMtrInvntrMapper.updateInvntrSortInptRslt(rawMtrInvntrVO);
 		} else {
 			
-			if (rawMtrInvntrVO.getInptWght() > invntrInfo.getInvntrWght()) {
+			if (rawMtrInvntrVO.getInptWght() > invntrInfo.getInvntrWght() && !("RR".equals(rawMtrInvntrVO.getPrcsType()))) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_GREATER_THAN, "재고량||투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
 			}
 
 			// 재고량
 			int invntrQntt = invntrInfo.getInvntrQntt() - rawMtrInvntrVO.getInptQntt();
 			double invntrWght = invntrInfo.getInvntrWght() - rawMtrInvntrVO.getInptWght();
-			rawMtrInvntrVO.setInvntrQntt(invntrQntt);
-			rawMtrInvntrVO.setInvntrWght(invntrWght);
+			if("RR".equals(rawMtrInvntrVO.getPrcsType())){
+				rawMtrInvntrVO.setInvntrQntt(0);
+				rawMtrInvntrVO.setInvntrWght(0);
+			}else{
+				rawMtrInvntrVO.setInvntrQntt(invntrQntt);
+				rawMtrInvntrVO.setInvntrWght(invntrWght);
+			}
 
 			// 투입량
 			int inptQntt = invntrInfo.getInptQntt() + rawMtrInvntrVO.getInptQntt();

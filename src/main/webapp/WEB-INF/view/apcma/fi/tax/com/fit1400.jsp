@@ -29,7 +29,7 @@
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
-<section>
+<section class="content container-fluid">
     <div class="box box-solid">
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
@@ -70,11 +70,11 @@
                     <td class="td_input" style="border-right: hidden;">
 <%--                        <sbux-select id="신고구분명" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>--%>
     <div class="dropdown">
-        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <font>선택</font>
             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
         </button>
-        <div class="dropdown-menu" aria-labelledby="CURRENCY_CODE" style="width:750px;height:150px;padding-top:0px;overflow:auto">
+        <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
         </div>
     </div>
                     </td>
@@ -91,7 +91,7 @@
                             <li><span>◎ 신고 기준정보 리스트</span></li>
                         </ul>
                     </div>
-                    <div id="sb-area-stdInfoList"></div>
+                    <div id="sb-area-rptStdGrid"></div>
                 </div>
                 <div style="flex: 1;">
                     <div class="ad_tbl_top">
@@ -200,7 +200,7 @@
                                     <li><span>◎ 신고사업장 정보 리스트</span></li>
                                 </ul>
                             </div>
-                            <div id="sb-area-신고사업장"></div>
+                            <div id="sb-area-rptSiteGrid"></div>
                         </div>
                         <div style="width: 50%">
                             <div class="ad_tbl_top">
@@ -208,7 +208,7 @@
                                     <li><span>◎ 부가세 부속서류 첨부 리스트</span></li>
                                 </ul>
                             </div>
-                            <div id="sb-area-부가세"></div>
+                            <div id="sb-area-attVatDom"></div>
                         </div>
 
                     </div>
@@ -239,9 +239,9 @@
 
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
-       fn_create부가세();
-       fn_create기준정보();
-       fn_create신고사업장();
+        fn_createRptStdGrid();
+        fn_createRptSiteGrid();
+        fn_createAttVatDom();
 
        fn_init();
     });
@@ -257,7 +257,7 @@
 
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
-            target			: ['#CURRENCY_CODE']
+            target			: ['#src-btn-currencyCode']
             ,compCode		: gv_ma_selectedApcCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
@@ -267,15 +267,16 @@
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
             ,dropAlign		: 'right' 	// left, right
-            ,colValue		: 'CURRENCY_CODE'
-            ,colLabel		: 'CURRENCY_NAME'
+            ,colValue		: 'SEQ'
+            ,colLabel		: 'VAT_TYPE_NAME'
             ,columns		:[
                 {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
-                {caption: "신고기준시작월", 		ref: 'STANDARD_MONTH_FR',    		width:'150px',  	style:'text-align:left'},
-                {caption: "신고기준종료월", 		ref: 'STANDARD_MONTH_TO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "총괄납부사업장번호", 		ref: 'ENT',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'PAY_ORGSITE_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'DEL_YN',    		width:'150px',  	style:'text-align:left'}
+                {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
+                {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
         })
 
@@ -291,28 +292,29 @@
         jsonCboRfType = await gfnma_getComSelectList('L_FIT023','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
         SBUxMethod.refresh("reg-slt-cboRfType");
 
-
-
-
-
     }
+
     /** 기준정보 리스트 **/
-    let stdInfoList;
-    var jsonstdInfoList = [];
+    let rptStdGrid;
+    var jsonRptStdGrid = [];
 
     /** 신고사업장 리스트**/
-    let 신고사업장;
-    let 부가세;
+    let rptSiteGrid;
+    var jsonRptSiteGrid = [];
+
+    /** 부가세 부속서류 첨부 리스트**/
+    let vatGrid;
+    var jsonVatGrid = [];
 
 
     var jsonCorpNm =[];
 
     /** 기준정보 GRID **/
-    function fn_create기준정보(){
+    function fn_createRptStdGrid(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-stdInfoList';
-        SBGridProperties.id = 'stdInfoList';
-        SBGridProperties.jsonref = 'json기준정보';
+        SBGridProperties.parentid = 'sb-area-rptStdGrid';
+        SBGridProperties.id = 'rptStdGrid';
+        SBGridProperties.jsonref = 'jsonRptStdGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns =[
             {caption: ['기준연도'], 			ref: 'brndNm', 		width: '7%',	type: 'output',	style:'text-align: center'},
@@ -329,37 +331,86 @@
             {caption: ['환급구분'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
             {caption: ['환급취소여부'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
         ]
-        stdInfoList = _SBGrid.create(SBGridProperties);
+        rptStdGrid = _SBGrid.create(SBGridProperties);
     }
 
     /** 신고사업장 정보 GRID **/
-    function fn_create신고사업장(){
+    function fn_createRptSiteGrid(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-신고사업장';
-        SBGridProperties.id = '신고사업장';
-        SBGridProperties.jsonref = 'json신고사업장';
+        SBGridProperties.parentid = 'sb-area-rptSiteGrid';
+        SBGridProperties.id = 'rptSiteGrid';
+        SBGridProperties.jsonref = 'jsonRptSiteGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns =[
             {caption: ['신고사업장명'], 			ref: 'brndNm', 		width: '50%',	type: 'output',	style:'text-align: center'},
             {caption: ['사업자번호'], 			ref: 'cnptNm', 		width: '30%',	type: 'output',	style:'text-align: center'},
             {caption: ['신고여부'],				ref: 'vrtyNm', 		width: '20%',	type: 'output',	style:'text-align: center'},
         ]
-        신고사업장 = _SBGrid.create(SBGridProperties);
+        rptSiteGrid = _SBGrid.create(SBGridProperties);
     }
 
-    /** 신고사업장 정보 GRID **/
-    function fn_create부가세(){
+    /** 부가세 첨부서류 GRID **/
+    function fn_createAttVatDom(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-부가세';
-        SBGridProperties.id = '부가세';
-        SBGridProperties.jsonref = 'json부가세';
+        SBGridProperties.parentid = 'sb-area-attVatDom';
+        SBGridProperties.id = 'vatGrid';
+        SBGridProperties.jsonref = 'jsonVatGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns =[
             {caption: ['순번'], 			ref: 'brndNm', 		width: '20%',	type: 'output',	style:'text-align: center'},
             {caption: ['서식명'], 			ref: 'cnptNm', 		width: '50%',	type: 'output',	style:'text-align: center'},
             {caption: ['작성대상'],				ref: 'vrtyNm', 		width: '30%',	type: 'output',	style:'text-align: center'},
         ]
-        부가세 = _SBGrid.create(SBGridProperties);
+        vatGrid = _SBGrid.create(SBGridProperties);
+    }
+
+    /** 공통 버튼 **/
+    function cfn_search(){
+        fn_search();
+    }
+    const fn_search = async function(){
+        /** 조회 결과 초기화 **/
+        rptStdGrid.length = 0;
+        rptStdGrid.rebuild();
+        let V_P_YYYY = gfnma_nvl(SBUxMethod.get("srch-dtp-yyyy"));
+        let V_P_SEQ = gfnma_multiSelectGet("#src-btn-currencyCode");
+
+        var paramObj = {
+             V_P_DEBUG_MODE_YN        : ""
+            ,V_P_LANG_ID              : ""
+            ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+            ,V_P_YYYY                 : V_P_YYYY
+            ,V_P_SEQ                  : V_P_SEQ
+            ,V_P_TAX_SITE_CODE        : ""
+            ,V_P_FORM_ID              : p_formId
+            ,V_P_MENU_ID              : p_formId
+            ,V_P_PROC_ID              : ""
+            ,V_P_USERID               : p_formId
+            ,V_P_PC                   : ""
+        };
+
+        const postJsonPromise = gfn_postJSON("/co/sys/fit/selectFit1400.do", {
+            getType				: 'json',
+            workType			: 'Q',
+            cv_count			: '5',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+        try{
+            if (_.isEqual("S", data.resultStatus)) {
+                console.log(data,"조회결과");
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+
     }
 
 
