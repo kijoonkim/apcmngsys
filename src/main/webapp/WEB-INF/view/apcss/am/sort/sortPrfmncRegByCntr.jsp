@@ -649,16 +649,14 @@
 		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.scrollbubbling = false;
 		SBGridProperties.frozencols = 2;
-		SBGridProperties.radioimage = true;
 		SBGridProperties.columns = [
-			// {
-			// 	caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdRawMtrInvntr, this);'>"],
-			// 	ref: 'checkedYn', type: 'checkbox',  width:'50px',
-			// 	style: 'text-align:center',
-			// 	userattr: {colNm: "checkedYn"},
-            //     typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
-            // },
-			{caption : [],	ref : 'checkedYn',	width : '20px',	style : 'text-align:center',type : 'radio',userattr: {colNm: "checkedYn"},typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+			{
+				caption : ["전체","<input type='checkbox' id='allCheckBox' onchange='fn_checkAll(grdRawMtrInvntr, this);'>"],
+				ref: 'checkedYn', type: 'checkbox',  width:'50px',sortable: false,
+				style: 'text-align:center',
+				userattr: {colNm: "checkedYn"},
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
         	{caption: ["입고일자","입고일자"],		ref: 'wrhsYmd',			type: 'output',  width:'120px', style: 'text-align:center',
             	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
@@ -1539,7 +1537,7 @@
 						}
 					} else {
 						rowData.inptQntt = invntrQntt;
-						rowData.inptWght = 17300;
+						rowData.inptWght = invntrWght;
 					}
 				}
 			}
@@ -1672,24 +1670,33 @@
  		const allData = grdRawMtrInvntr.getGridDataAll();
 		let inptQntt = 0;
 		let inptWght = 0;
+		let checkedCnt = 0;
 
 		allData.forEach((item, index) => {
+			/** 상단 입고 내역중 선택된 row의 투입 중량 수량 가산 **/
 			if (item.checkedYn === "Y") {
     			let qntt = parseInt(item.inptQntt) || 0;
     			let wght = parseInt(item.inptWght) || 0;
+				checkedCnt++;
 
     			inptQntt += qntt;
     			inptWght += wght;
     		}
 		});
-			SBUxMethod.set("dtl-inp-inptWght", inptWght);
+		/** 이부분 상단 총중량이 17300 **/
+			SBUxMethod.set("dtl-inp-inptWght", 17300);
 
-
+		/** display 세팅 구간 **/
 		let sortRdcdRt = parseFloat(SBUxMethod.get("srch-inp-sortRdcdRt")) || 0;
 		let actlWght = gfn_apcEstmtWght(inptWght * (1 - sortRdcdRt / 100), gv_selectedApcCd);
 		let sortWght = parseInt(SBUxMethod.get("dtl-inp-sortWght")) || 0;
-		SBUxMethod.set("dtl-inp-lossWght", actlWght - sortWght);
+		// SBUxMethod.set("dtl-inp-lossWght", actlWght - sortWght);
 		// SBUxMethod.set("dtl-inp-actlWght", actlWght);
+
+		/** 수동 ALL CHECK 표현 **/
+		if(allData.length == checkedCnt){
+			$("#allCheckBox").prop("checked",true);
+		}
  	}
 
  	/**

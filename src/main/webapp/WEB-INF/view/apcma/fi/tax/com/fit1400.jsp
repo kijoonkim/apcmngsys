@@ -317,19 +317,19 @@
         SBGridProperties.jsonref = 'jsonRptStdGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns =[
-            {caption: ['기준연도'], 			ref: 'brndNm', 		width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['부가세기간구분'], 			ref: 'cnptNm', 		width: '7%',	type: 'inputcombo',	style:'text-align: center'},
-            {caption: ['신고구분'],				ref: 'itemNm', 		width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['부가세 서식명'],				ref: 'vrtyNm', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고기준시작월'], 				ref: 'spcfctNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고기준종료월'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고사업장수'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고일'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['비고'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['총괄납부(단위과세)관리번호'], 				ref: 'gdsGrdNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['조기환급신고여부'], 				ref: 'gdsGrdNm', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['환급구분'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['환급취소여부'], 				ref: 'gdsGrdNm', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['기준연도'], 			ref: 'yyyy', 		width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['부가세기간구분'], 			ref: 'taxTerm', 		width: '7%',	type: 'inputcombo',	style:'text-align: center'},
+            {caption: ['신고구분'],				ref: 'vatRepDetailType', 		width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['부가세 서식명'],				ref: 'vatTypeName', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고기준시작월'], 				ref: 'standardMonthFr', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고기준종료월'], 				ref: 'standardMonthTo', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고사업장수'], 				ref: 'cnt', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고일'], 				ref: 'reportDate', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['비고'], 				ref: 'memo', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['총괄납부(단위과세)관리번호'], 				ref: 'payOrgsiteNo', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['조기환급신고여부'], 				ref: 'refundYn', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['환급구분'], 				ref: 'refundType', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['환급취소여부'], 				ref: 'refundCancelYn', 	width: '7%',	type: 'output',	style:'text-align: center'},
         ]
         rptStdGrid = _SBGrid.create(SBGridProperties);
     }
@@ -397,9 +397,28 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+
+        function toCamelCase(snakeStr) {
+            return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+        }
+
+        function convertArrayToCamelCase(array) {
+            return array.map(obj => {
+                return Object.keys(obj).reduce((acc, key) => {
+                    const camelKey = toCamelCase(key);
+                    acc[camelKey] = obj[key];
+                    return acc;
+                }, {});
+            });
+        }
         try{
             if (_.isEqual("S", data.resultStatus)) {
-                console.log(data,"조회결과");
+                if(!gfn_isEmpty(data.cv_1)){
+                    const camelCasedArray = convertArrayToCamelCase(data.cv_1);
+                    console.log(camelCasedArray);
+                    jsonRptStdGrid = camelCasedArray;
+                    rptStdGrid.rebuild();
+                }
             }
 
         } catch (e) {
