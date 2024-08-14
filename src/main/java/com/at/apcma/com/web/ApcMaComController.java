@@ -622,6 +622,7 @@ public class ApcMaComController extends BaseController {
 		return getSuccessResponseEntityMa(resultMap);
 	}
 
+	// 펌뱅킹 소캣 통신
 	@PostMapping(value = "/com/sendFirmBanking.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> sendFirmBanking(
 			@RequestBody Map<String, Object> param
@@ -641,5 +642,31 @@ public class ApcMaComController extends BaseController {
 
 		logger.info("=============sendFirmBanking=====end========");
 		return getSuccessResponseEntity(resultMap);
+	}
+
+	//fbs2040 자금이체 내역정보
+	@PostMapping(value = "/com/selectExchangeAvgRate.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectExchangeAvgRate(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+
+		logger.info("=============selectExchangeAvgRate=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+
+			param.put("procedure", 		"P_EXCHANGE_AVG_RATE_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============selectExchangeAvgRate=====end========");
+		return getSuccessResponseEntityMa(resultMap);
 	}
 }
