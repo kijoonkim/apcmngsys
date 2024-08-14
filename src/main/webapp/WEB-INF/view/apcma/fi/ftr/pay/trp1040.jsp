@@ -1005,13 +1005,20 @@
 
     const fn_gvwListDblclick = async function () {
         // TODO FIG2210_99 개발 완료시 적용 필요
-        /*if (gvwList.FocusedRowHandle < 0)
+        var nRow = gvwList.getRow();
+        if (nRow < 0)
             return;
 
-        String[] sArrClickedCol = { "doc_name" };
-        String[] sArrKeyCol = { "doc_id" };
+        if(nRow == gvwList.getColRef("DOC_NAME")) {
+            var param = {
+                WORK_TYPE : "VIEW",
+                DOC_ID : gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID")),
+                target : "MA_A20_030_020_150"
+            };
 
-        fnGridDocDoubleClicked(sender, e, sArrClickedCol, sArrKeyCol);*/
+            let json = JSON.stringify(param);
+            window.parent.cfn_openTabSearch(json);
+        }
     }
 
     const fn_gvwListValueChanged = async function () {
