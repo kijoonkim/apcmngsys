@@ -592,6 +592,8 @@
     	if (gfn_isEmpty()) {
     		fn_clearPrvTabInfo();
     	}
+        let tabs = SBUxMethod.getTabsChangedOrderData('tab_menu');
+        tabJsonData = tabs.data;
     	
         if (SBUxMethod.getTabsCount('tab_menu') == 1) {
             $('.tab-content').hide();
