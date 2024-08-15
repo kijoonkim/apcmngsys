@@ -1370,7 +1370,7 @@
             V_P_PC				: ''
         };
 
-        const postJsonPromiseForList = gfn_postJSON("/fi/fgl/jor/selectFig2210List.do", {
+        const postJsonPromiseForList = gfn_postJSON("/fi/fgl/jor/selectFig2210ItemQList.do", {
             getType				: 'json',
             workType			: 'ACCOUNT',
             cv_count			: '1',

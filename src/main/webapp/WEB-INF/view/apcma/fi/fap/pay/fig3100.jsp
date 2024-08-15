@@ -36,18 +36,16 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnXml" name="btnXml" uitype="normal" text="파일등록(XML)" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_btnXml"></sbux-button>
+                <sbux-button id="btnXml" name="btnXml" uitype="normal" class="btn btn-sm btn-outline-danger" text="파일등록(XML)" onclick="$('#xmlFile').click()"></sbux-button>
                 <sbux-button id="btndisconnection" name="btndisconnection" uitype="normal" text="전표연결끊기" class="btn btn-sm btn-outline-danger"
                              onclick="fn_btndisconnection"></sbux-button>
                 <sbux-button id="btnUpdate" name="btnUpdate" uitype="normal" text="정보갱신" class="btn btn-sm btn-outline-danger"
                              onclick="fn_btnUpdate"></sbux-button>
                 <sbux-button id="btnImport" name="btnImport" uitype="normal" text="불러오기" class="btn btn-sm btn-outline-danger"
                              onclick="fn_btnImport"></sbux-button>
-                <sbux-button id="btnExcelUpload" name="btnExcelUpload" uitype="normal" text="전자세금계산서" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_btnExcelUpload"></sbux-button>
-                <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" text="전자계산서" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_btnUpload2"></sbux-button>
+                <sbux-button id="btnExcelUpload" name="btnExcelUpload" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자세금계산서" onclick="$('#excelFile').click()"></sbux-button>
+                <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="전자계산서" onclick="$('#excelFile2').click()"></sbux-button>
+
             </div>
         </div>
         <div class="box-body">
@@ -88,14 +86,14 @@
                         ></sbux-datepicker>
                     </td>
                     <td colspan="3" style="border-right: hidden;"></td>
-                    <th scope="row" class="th_bg">회계단위</th>
+                    <th scope="row" class="th_bg">사업단위</th>
                     <td class="td_input" style="border-right: hidden;">
                         <div class="dropdown">
-                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="srch-fi_org_code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="srch-fi_org_code" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                            <div class="dropdown-menu" aria-labelledby="SRCH_FI_ORG_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                             </div>
                         </div>
                     </td>
@@ -276,7 +274,9 @@
             <div>
                 <div id="sb-area-gvwItem" style="height:200px; width:100%;"></div>
             </div>
-
+            <input type="file" name="file" id="xmlFile" accept="text/xml" style="display: none;" multiple>
+            <input type="file" name="file" id="excelFile" accept=".xls,.xlsx" style="display: none;">
+            <input type="file" name="file" id="excelFile2" accept=".xls,.xlsx" style="display: none;">
         </div>
     </div>
 </section>
@@ -294,6 +294,7 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
+    var p_fiOrgCode = "${loginVO.maFIOrgCode}";
     //-----------------------------------------------------------
 
     //grid 초기화
@@ -310,14 +311,24 @@
     var jsonSiteCode = []; //사업장 ( L_ORG001 )srch-site_code, 	SITE_CODE
     var jsonPayAreaType = []; //급여영역 ( L_HRP034 )srch-pay_area_type
 
+    var jsonExceptCode = []; // 제외코드
+    var jsonEinvoiceCategory = []; // 전자세금계산서분류
+    var jsonEinvoiceType = []; // 전자세금계산서종류
+    var jsonMatchMethod = []; // 정발행/역발행
+    var jsonReceiptOrBill = []; // 영수/청구 구분
+    var jsonCostCenterCode = []; // 원가중심점코드
+    var jsonEmpState = []; // 재직구분
+    var jsonDeptCode = []; // 부서코드= DEPT_CODE
+    var jsonProjectCode = []; // 프로젝트= PROJECT_CODE
+    var jsonAccount = []; // 계정과목= ACCOUNT_CODE
+
     const fn_initSBSelect = async function() {
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+
         let rst = await Promise.all([
-
-            gfnma_setComSelect(['srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
-            //회계단위
+            // 사업단위
             gfnma_multiSelectInit({
-                target			: ['#srch-fi_org_code']
+                target			: ['#SRCH_FI_ORG_CODE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIM022'
@@ -331,11 +342,11 @@
                 ,colLabel		: 'FI_ORG_NAME'
                 ,columns		:[
                     {caption: "코드",		ref: 'FI_ORG_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
-
-            //제외사유
+            // 제외사유
+            gfnma_setComSelect(['gvwList'], jsonExceptCode, 'L_FIM251', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CODE', 'NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#cboexcept_code']
                 ,compCode		: gv_ma_selectedApcCd
@@ -350,13 +361,31 @@
                 ,colValue		: 'CODE'
                 ,colLabel		: 'NAME'
                 ,columns		:[
-                    {caption: "코드",		ref: 'CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "제외사유",		ref: 'CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "제외내용", 		ref: 'NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
-
+            // 전자세금계산서분류
+            gfnma_setComSelect(['gvwListGrid'], jsonEinvoiceCategory, 'L_FIG3100', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 전자세금계산서종류
+            gfnma_setComSelect(['gvwListGrid'], jsonEinvoiceType, 'L_FIG3100_TYPE', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 정발행/역발행
+            gfnma_setComSelect(['gvwListGrid'], jsonMatchMethod, 'L_FIT005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 영수/청구 구분
+            gfnma_setComSelect(['gvwListGrid'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 원가중심점코드
+            gfnma_setComSelect(['gvwItemGrid'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
+            // 재직구분
+            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'P_HRI001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            //부서코드
+            gfnma_setComSelect(['gvwItemGrid'], jsonDeptCode, 'P_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            //프로젝트코드
+            gfnma_setComSelect(['gvwItemGrid'], jsonProjectCode, 'P_COM028', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PROJECT_CODE', 'PROJECT_NAME', 'Y', ''),
+            //계정과목
+            gfnma_setComSelect(['gvwItemGrid'], jsonAccount, 'P_FIM045', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'ACCOUNT_CODE', 'ACCOUNT_NAME', 'Y', ''),
         ]);
     }
+
     var fn_compopup1 = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
 
@@ -424,13 +453,17 @@
      * 공급사코드 오픈
      */
     const fn_compopup3 = function(row, col) {
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
+        SBUxMethod.openModal('modal-compopup1');
+
+
         var searchText 		= "";
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
         var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -446,16 +479,102 @@
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                NationInGrid.setCellData(row, gvwListGrid.getColRef('CS_CODE'), data['CS_CODE']);
-                NationInGrid.setCellData(row, gvwListGrid.getColRef('SELLER_NAME'), data['CS_NAME']);
-                NationInGrid.setCellData(row, gvwListGrid.getColRef('SELLER_OWNER'), data['CHIEF_NAME']);
-                NationInGrid.setCellData(row, gvwListGrid.getColRef('SELLER_ADDRESS'), data['ADDRESS']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('CS_CODE'), data['CS_CODE']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_NAME'), data['CS_NAME']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_OWNER'), data['CHIEF_NAME']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_ADDRESS'), data['ADDRESS']);
             }
+        });
+    }
+
+    var fn_findEmpCodeForGvwList = function(row, col) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwList.setCellData(row, col, data.EMP_CODE);
+                gvwList.setCellData(row, (col+1), data.EMP_NAME);
+            },
         });
     }
 
     //품목 그리드 부서 팝업
     var fn_compopup4 = function(row, col) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_NAME'), data['DEPT_NAME']);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_CODE'), data['DEPT_CODE']);
+            },
+        });
+    }
+
+    var fn_findEmpCodeForGvwList = function(row, col) {
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= '';
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchText,		""]
+            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
+            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                gvwList.setCellData(row, col, data.EMP_CODE);
+                gvwList.setCellData(row, (col+1), data.EMP_NAME);
+            },
+        });
+    }
+
+    //품목 그리드 부서 팝업
+    /*var fn_compopup4 = function(row, col) {
         var searchText 		= "";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
@@ -480,8 +599,8 @@
                 NationInGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_CODE'), data['DEPT_CODE']);
             },
         });
-        /*SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})*/
-    }
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }*/
 
     var fn_compopup5 = function(row, col) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
@@ -507,8 +626,8 @@
             ,tableColumnWidths		: ["150px", "250px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwList.setCellData(row, gvwItemGrid.getColRef('PROJECT_CODE'), data.PROJECT_CODE);
-                gvwList.setCellData(row, gvwItemGrid.getColRef('PROJECT_NAME'), data.PROJECT_NAME);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_CODE'), data.PROJECT_CODE);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_NAME'), data.PROJECT_NAME);
             },
         });
     }
@@ -535,8 +654,8 @@
             ,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwItem.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_CODE'), data.ACCOUNT_CODE);
-                gvwItem.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_NAME'), data.ACCOUNT_NAME);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_CODE'), data.ACCOUNT_CODE);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_NAME'), data.ACCOUNT_NAME);
             },
         });
     }
@@ -548,16 +667,293 @@
         fn_initSBSelect();
         fn_init();
 
+        document.getElementById('xmlFile').addEventListener('change', function(event) {
+            if(!window.FileReader) return;
+
+            var files = event.target.files;
+            var promises = Array.from(files).map(file => {
+                return new Promise((resolve, reject) => {
+                    var reader = new FileReader();
+
+                    reader.addEventListener("load", () => {
+                        fn_uploadXml(reader.result);
+                        resolve();
+                    }, false);
+
+                    reader.addEventListener("error", reject, false);
+
+                    reader.readAsText(file);
+                });
+            });
+
+            Promise.all(promises).then(() => {
+                fn_insertXmlData();
+            }).catch(error => {
+                console.error("Error processing files:", error);
+            });
+        });
+
+        document.getElementById('excelFile').addEventListener('change', function(event) {
+            if(!window.FileReader) return;
+
+            if (event.target.files[0].name.substring(0, 9) != "매입전자세금계산서") {
+                gfn_comAlert("E0000", "매입전자세금계산서만 가능합니다. 파일명은 '매입전자세금계산서..' 로 시작해야합니다. 파일명을 확인해주세요")
+                return;
+            }
+
+            var reader = new FileReader();
+            let strmindate = gfnma_nvl(SBUxMethod.get("srch-date_fr"));
+            let strmaxdate = gfnma_nvl(SBUxMethod.get("srch-date_to"));
+            let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+
+            reader.addEventListener(
+                "load",
+                () => {
+                    let workBook = XLSX.read(reader.result, { type: 'binary' });
+                    workBook.SheetNames.forEach(function (sheetName) {
+                        if(sheetName == "세금계산서") {
+                            let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 6, header: [
+                                    "WRITE_DATE",
+                                    "APPROVAL_NO",
+                                    "ISSUE_DATE",
+                                    "SEND_DATE",
+                                    "SELLER_REG_NO",
+                                    "SELLER_SUB_REG_NO",
+                                    "SELLER_NAME",
+                                    "SELLER_OWNER",
+                                    "SELLER_ADDRESS",
+                                    "BUYER_REG_NO",
+                                    "BUYER_SUB_REG_NO",
+                                    "BUYER_NAME",
+                                    "BUYER_OWNER",
+                                    "BUYER_ADDRESS",
+                                    "TOTAL_AMT",
+                                    "TOTAL_VAT_AMT",
+                                    "TOTAL_TAXABLE_AMT",
+                                    "EINVOICE_CATEGORY",
+                                    "EINVOICE_TYPE",
+                                    "ISSUE_TYPE",
+                                    "DESCRIPTION",
+                                    "RECEIPT_OR_BILL",
+                                    "SELLER_EMAIL",
+                                    "BUYER_EMAIL1",
+                                    "BUYER_EMAIL2",
+                                    "TXN_DATE",
+                                    "ITEM_NAME",
+                                    "ITEM_SPEC",
+                                    "ITEM_QTY",
+                                    "ITEM_UNIT_PRICE",
+                                    "ITEM_VAT_AMT",
+                                    "ITEM_TAXABLE_AMT",
+                                    "ITEM_DESC"
+                                ]});
+
+
+                            list.forEach((item, index) => {
+                                if(gfn_nvl(item.APPROVAL_NO) != "") {
+                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) < parseInt(strmindate)) {
+                                        strmindate = item.ISSUE_DATE.replaceAll("-", "");
+                                    }
+
+                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) > parseInt(strmaxdate)) {
+                                        strmaxdate = item.ISSUE_DATE.replaceAll("-", "");
+                                    }
+
+                                    item["WRITE_DATE"] = item.WRITE_DATE.replaceAll("-", "");
+                                    item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
+                                    item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
+                                    item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
+                                    item["SELLER_ADDRESS"] = item.SELLER_ADDRESS
+                                    item["BUYER_ADDRESS"] = item.BUYER_ADDRESS
+
+                                    item["OTHER_DESC"] = "";
+                                    item["ACCOUNT_EMP_CODE"] = "";
+                                    item["FI_ORG_CODE"] = FI_ORG_CODE;
+                                    item["MATCH_METHOD"] = "";
+                                    item["SELLER_BIZ_CATEGORY"] = "";
+                                    item["SELLER_BIZ_ITEM"] = "";
+                                    item["BUYER_BIZ_CATEGORY"] = "";
+                                    item["BUYER_BIZ_ITEM"] = "";
+                                    item["BUYER_BIZ_TYPE"] = "";
+                                    item["DOC_ID"] = "";
+
+                                    gvwList.addRow(true, item);
+                                }
+                            });
+                        }
+
+                        if(sheetName == "품목") {
+                            let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 5, header: [
+                                    "APPROVAL_NO",
+                                    "SEQ",
+                                    "SELLER_REG_NO",
+                                    "BUYER_REG_NO",
+                                    "WRITE_DATE",
+                                    "ITEM_NAME",
+                                    "ITEM_SPEC",
+                                    "ITEM_QTY",
+                                    "ITEM_UNIT_PRICE",
+                                    "ITEM_TAXABLE_AMT",
+                                    "ITEM_VAT_AMT",
+                                    "ITEM_DESC"
+                                ]});
+
+                            rows.forEach((item, index) => {
+                                item["COST_CENTER_CODE"] = "";
+                                item["ACCOUNT_CODE"] = "";
+                                item["DEPT_CODE"] = "";
+                                item["PROJECT_CODE"] = "";
+
+                                gvwItem.addRow(true, item);
+                            });
+                        }
+                    })
+                    fn_excelUpload();
+                },
+                false,
+            );
+            reader.readAsBinaryString(event.target.files[0]);
+        });
+
+        document.getElementById('excelFile2').addEventListener('change', function(event) {
+            if(!window.FileReader) return;
+
+            if (event.target.files[0].name.substring(0, 7) != "매입전자계산서") {
+                gfn_comAlert("E0000", "매입전자계산서만 가능합니다. 파일명은 '매입전자계산서..' 로 시작해야합니다. 파일명을 확인해주세요")
+                return;
+            }
+
+            var reader = new FileReader();
+            let strmindate = gfnma_nvl(SBUxMethod.get("srch-date_fr"));
+            let strmaxdate = gfnma_nvl(SBUxMethod.get("srch-date_to"));
+            let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+
+            reader.addEventListener(
+                "load",
+                () => {
+                    let workBook = XLSX.read(reader.result, { type: 'binary' });
+                    workBook.SheetNames.forEach(function (sheetName) {
+                        if(sheetName == "세금계산서") {
+                            let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 6, header: [
+                                    "WRITE_DATE",
+                                    "APPROVAL_NO",
+                                    "ISSUE_DATE",
+                                    "SEND_DATE",
+                                    "SELLER_REG_NO",
+                                    "SELLER_SUB_REG_NO",
+                                    "SELLER_NAME",
+                                    "SELLER_OWNER",
+                                    "SELLER_ADDRESS",
+                                    "BUYER_REG_NO",
+                                    "BUYER_SUB_REG_NO",
+                                    "BUYER_NAME",
+                                    "BUYER_OWNER",
+                                    "BUYER_ADDRESS",
+                                    "TOTAL_AMT",
+                                    "TOTAL_VAT_AMT",
+                                    "EINVOICE_CATEGORY",
+                                    "EINVOICE_TYPE",
+                                    "ISSUE_TYPE",
+                                    "DESCRIPTION",
+                                    "RECEIPT_OR_BILL",
+                                    "SELLER_EMAIL",
+                                    "BUYER_EMAIL1",
+                                    "BUYER_EMAIL2",
+                                    "TXN_DATE",
+                                    "ITEM_NAME",
+                                    "ITEM_SPEC",
+                                    "ITEM_QTY",
+                                    "ITEM_UNIT_PRICE",
+                                    "ITEM_TAXABLE_AMT",
+                                    "ITEM_VAT_AMT",
+                                    "ITEM_DESC"
+                                ]});
+
+                            list.forEach((item, index) => {
+                                if(gfn_nvl(item.APPROVAL_NO) != "") {
+                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) < parseInt(strmindate)) {
+                                        strmindate = item.ISSUE_DATE.replaceAll("-", "");
+                                    }
+
+                                    if (parseInt(item.ISSUE_DATE.replaceAll("-", "")) > parseInt(strmaxdate)) {
+                                        strmaxdate = item.ISSUE_DATE.replaceAll("-", "");
+                                    }
+
+                                    item["WRITE_DATE"] = item.WRITE_DATE.replaceAll("-", "");
+                                    item["ISSUE_DATE"] = item.ISSUE_DATE.replaceAll("-", "");
+                                    item["SEND_DATE"] = item.SEND_DATE.replaceAll("-", "");
+                                    item["TXN_DATE"] = item.TXN_DATE.replaceAll("-", "");
+                                    item["SELLER_ADDRESS"] = item.SELLER_ADDRESS
+                                    item["BUYER_ADDRESS"] = item.BUYER_ADDRESS
+
+                                    item["TOTAL_TAXABLE_AMT"] = '0';
+                                    item["OTHER_DESC"] = "";
+                                    item["ACCOUNT_EMP_CODE"] = "";
+                                    item["FI_ORG_CODE"] = FI_ORG_CODE;
+                                    item["MATCH_METHOD"] = "";
+                                    item["SELLER_BIZ_CATEGORY"] = "";
+                                    item["SELLER_BIZ_ITEM"] = "";
+                                    item["BUYER_BIZ_CATEGORY"] = "";
+                                    item["BUYER_BIZ_ITEM"] = "";
+                                    item["BUYER_BIZ_TYPE"] = "";
+                                    item["DOC_ID"] = "";
+
+                                    gvwList.addRow(true, item);
+                                }
+                            });
+                        }
+
+                        if(sheetName == "품목") {
+                            let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 5, header: [
+                                    "APPROVAL_NO",
+                                    "SEQ",
+                                    "SELLER_REG_NO",
+                                    "BUYER_REG_NO",
+                                    "WRITE_DATE",
+                                    "ITEM_NAME",
+                                    "ITEM_SPEC",
+                                    "ITEM_QTY",
+                                    "ITEM_UNIT_PRICE",
+                                    "ITEM_TAXABLE_AMT",
+                                    "ITEM_VAT_AMT",
+                                    "ITEM_DESC"
+                                ]});
+
+                            rows.forEach((item, index) => {
+                                item["ITEM_QTY"] = gfn_nvl(item.ITEM_QTY) == "" ? '0' : item.ITEM_QTY;
+                                item["ITEM_UNIT_PRICE"] = gfn_nvl(item.ITEM_UNIT_PRICE) == "" ? '0' : item.ITEM_UNIT_PRICE;
+                                item["ITEM_TAXABLE_AMT"] = gfn_nvl(item.ITEM_TAXABLE_AMT) == "" ? '0' : item.ITEM_TAXABLE_AMT;
+
+                                item["ITEM_VAT_AMT"] = '0';
+                                item["COST_CENTER_CODE"] = "";
+                                item["ACCOUNT_CODE"] = "";
+                                item["DEPT_CODE"] = "";
+                                item["PROJECT_CODE"] = "";
+
+                                gvwItem.addRow(true, item);
+                            });
+                        }
+                    })
+                    fn_excelUpload()
+                },
+                false,
+            );
+            reader.readAsBinaryString(event.target.files[0]);
+        });
     });
 
     const fn_init = async function () {
 
         let openDate = gfn_dateToYm(new Date());
         let openDateFR = gfn_dateToYmd(new Date());
-        let openDateTO = gfn_dateToYmd(new Date());
 
         SBUxMethod.set('srch-ymdperiod_yyyymm', openDate);
-        /*SBUxMethod.set('srch-pay_yyyymm_fr2', openDate);*/
+        SBUxMethod.set('srch-date_fr', openDate+'01');
+
+        //월별로 말일 구하기
+        let lastDate = new Date(openDateFR.slice(0,4),openDateFR.slice(4,6),0);
+        let DATE_TO = gfn_dateToYmd(lastDate);
+        SBUxMethod.set("srch-date_to", 			DATE_TO);
 
         fn_createGrid();
         fn_createItemGrid();
@@ -689,6 +1085,8 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        //그리드 총계 하단 고정
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.total = {
             type 		: 'grand',
@@ -697,7 +1095,7 @@
                 standard : [1],
                 sum : [29,30,31,32,33,34]
             },
-            subtotalrow : {
+            /*subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -710,19 +1108,24 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },
-            datasorting	: false,
-            usedecimal : false,
+            },*/
+            datasorting	: true,
+            usedecimal : false
         };
-        //그리드 총계 하단 고정
-        SBGridProperties.frozenbottomrows 	= 6;
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["전표작성"], ref: 'INTERFACED_FLAG', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["전표작성"],			    ref: 'INTERFACED_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
@@ -736,11 +1139,11 @@
             {caption: ["배치번호"], ref: 'DOC_BATCH_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["매입정산번호"], ref: 'PO_DOC_NO', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급사코드"], ref: 'CS_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
+           /* {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
-            },
+            },*/
             {caption: ["상호"], ref: 'SELLER_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["대표자명"], ref: 'SELLER_OWNER', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["공급자주소"], ref: 'SELLER_ADDRESS', type: 'output', width: '140px', style: 'text-align:left'},
@@ -773,34 +1176,36 @@
                 }
             },
             {caption : ["제외코드"], ref : 'EXCEPT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonExceptCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["제외사유"], ref: 'EXCEPT_REASON', type: 'input', width: '140px', style: 'text-align:left'},
             {caption : ["전자세금계산서분류"], ref : 'EINVOICE_CATEGORY', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonEinvoiceCategory', displayui : true, label : 'label', value : 'value'}
             },
             {caption : ["전자세금계산서종류"], ref : 'EINVOICE_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonEinvoiceType', displayui : true, label : 'label', value : 'value'}
             },
             {caption : ["정발행/역발행"], ref : 'MATCH_METHOD', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonMatchMethod', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["발급유형"], ref: 'ISSUE_TYPE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'NOTE1', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["other_desc"], ref: 'note2', type: 'input', width: '140px', style: 'text-align:left', hidden: true},
             {caption : ["영수/청구 구분"], ref : 'RECEIPT_OR_BILL', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonReceiptOrBill', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["공급자이메일"], ref: 'SELLER_EMAIL', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자이메일1"], ref: 'BUYER_EMAIL1', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자이메일2"], ref: 'BUYER_EMAIL2', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption : ["전표담당자코드"], ref : 'ACCOUNT_EMP_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+           /* {caption : ["전표담당자코드"], ref : 'ACCOUNT_EMP_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
             },
             //고정
             {caption : ["전표담당자"], ref : 'ACCOUNT_EMP_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
-            },
+                typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
+            },*/
+            {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ['품목일자'], ref: 'TXN_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left'},
@@ -821,6 +1226,9 @@
         ];
 
         gvwListGrid = _SBGrid.create(SBGridProperties);
+        gvwListGrid.bind('afterrebuild','fn_gvwListAfterRebuild');
+        gvwListGrid.bind('afterrefresh','fn_gvwListAfterRebuild');
+        gvwListGrid.bind('dblclick', 'fn_gvwListDblclick');
         gvwListGrid.bind('click', 'fn_view');
     }
 
@@ -838,6 +1246,8 @@
         /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
+        //그리드 총계 하단 고정
+        SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -845,7 +1255,7 @@
                 standard : [1],
                 sum : [6,7]
             },
-            subtotalrow : {
+           /* subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -858,12 +1268,10 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },
-            datasorting	: false,
+            },*/
+            datasorting	: true,
             usedecimal : false,
         };
-        //그리드 총계 하단 고정
-        /*SBGridProperties.frozenbottomrows 	= 2;*/
         SBGridProperties.columns = [
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:left'
@@ -879,35 +1287,40 @@
             {caption: ["품목세액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
             {caption: ["비고"], ref: 'ITEM_DESC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption : ["원가중심점코드"], ref : 'COST_CENTER_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+            {caption : ["원가중심점코드"], ref : 'COST_CENTER_CODE', width : '140px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonCostCenterCode', displayui : true, label : 'label', value : 'value'}
             },
-            {caption : ["부서코드"], ref : 'DEPT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}, hidden : true
-            },
-            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            /*{caption : ["부서코드"], ref : 'DEPT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonDeptCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+            },*/
+            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
+            {caption: ["부서"], ref: 'DEPT_NAME', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["부서 조회"], ref: 'DEPT_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridDepPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
-            {caption : ["프로젝트코드"], ref : 'PROJECT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}, hidden : true
+            /*{caption : ["프로젝트코드"], ref : 'PROJECT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonProjectCode', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["프로젝트"], ref : 'PROJECT_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
-            },
+                typeinfo : {ref : 'jsonProjectCode', displayui : true, label : 'label', value : 'value'}
+            },*/
+            {caption: ["프로젝트코드"], ref: 'PROJECT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
+            {caption: ["프로젝트"], ref: 'PROJECT_NAME', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["프로젝트 조회"], ref: 'PROJECT_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridProPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
-            {caption : ["계정과목코드"], ref : 'ACCOUNT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}, hidden : true
+            /*{caption : ["계정과목코드"], ref : 'ACCOUNT_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonAccount', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["계정과목"], ref : 'ACCOUNT_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
-            },
+                typeinfo : {ref : 'jsonAccount', displayui : true, label : 'label', value : 'value'}
+            },*/
+            {caption: ["계정과목코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
+            {caption: ["계정과목"], ref: 'ACCOUNT_NAME', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["계정과목 조회"], ref: 'ACCOUNT_POP_BTN',    type:'button',  	width:'40px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
@@ -918,7 +1331,7 @@
         ];
 
         gvwItemGrid = _SBGrid.create(SBGridProperties);
-        gvwItemGrid.bind('click', 'fn_view');
+        /*gvwItemGrid.bind('click', 'fn_view');*/
     }
 
     /**
@@ -964,7 +1377,7 @@
 
        /* let YMDPERIOD_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-ymdperiod_yyyymm")); //년월*/
         //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
-        let FI_ORG_CODE = gfnma_multiSelectGet('#srch-fi_org_code');//회계단위
+        let FI_ORG_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
         let RIDGUBUN = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
         let DATE_FR = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
         let DATE_TO = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
@@ -1131,6 +1544,11 @@
 
 
         let nRow = gvwListGrid.getRow();
+        let nCol = gvwListGrid.getCol();
+
+        if(nCol == 14 || nCol == 48 || nCol == 49) return;
+
+        console.log('------nCow-------',nCow);
 
         if (nRow < 1) {
             nRow = 1; //그리드 로우 첫번째값 셋팅
@@ -1141,7 +1559,7 @@
         if (!_.isEmpty(rowData)) {
 
             //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
-            let FI_ORG_CODE = gfnma_multiSelectGet('#srch-fi_org_code');//회계단위
+            let FI_ORG_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
             let RIDGUBUN = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
             let DATE_FR = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
             let DATE_TO = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
@@ -1310,7 +1728,7 @@
 
         let returnData = [];
 
-        let FI_ORG_CODE = gfnma_multiSelectGet('#srch-fi_org_code');//회계단위
+        let FI_ORG_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
 
         if (!FI_ORG_CODE) {
             gfn_comAlert("W0002", "회계단위");
@@ -1536,43 +1954,39 @@
     // 세금계산서 항목 프로시저(품목) 저장
     const fn_saveS1 = async function (itemGridData, type) {
 
-        // 수정 저장
-        if (gfn_comConfirm("Q0001", "수정 저장")) {
+        let listData = [];
+        listData = await getParamFormS1(itemGridData, type);
+        /* var paramObj = {
+             P_HRP1170_S: await getParamForm('u')
+         }*/
 
-            let listData = [];
-            listData =  await getParamFormS1(itemGridData, type);
-            /* var paramObj = {
-                 P_HRP1170_S: await getParamForm('u')
-             }*/
+        console.log('--------listData save--------', listData);
 
-            console.log('--------listData save--------', listData);
+        if (listData.length > 0) {
 
-            if (listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
+            const data = await postJsonPromise;
 
-                const data = await postJsonPromise;
-
-                try {
-                    if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
-                            alert(data.resultMessage);
-                            return true;
-                        }else{
-                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            return false;
-                        }
-
-                    } else {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
                         alert(data.resultMessage);
+                        return true;
+                    } else {
+                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        return false;
                     }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+
+                } else {
+                    alert(data.resultMessage);
                 }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
 
@@ -1693,19 +2107,41 @@
     //전표연결끊기
     const fn_btndisconnection = async function () {
 
+        let chkList = gvwListGrid.getGridDataAll();
+
+        let chkVal = 'N'
+
+        chkList.forEach((item, index) =>{
+
+            if (item.CHECK_YN = 'Y'){
+                chkVal = 'Y'
+            }
+
+        });
+
         let nRow = gvwListGrid.getRow();
 
-        if (nRow == -1) {
-            gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
-            return;
+        if (chkVal == 'N') {
+            /*gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
+            return;*/
+
+            let rowData = gvwListGrid.getRowData(nRow);
+
+            if (_.isEmpty(rowData)) {
+                gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
+                return;
+            }
         }
+
+
+        /*let nRow = gvwListGrid.getRow();
 
         let rowData = gvwListGrid.getRowData(nRow);
 
         if (_.isEmpty(rowData)) {
             gfn_comAlert("W0005", "선택된 데이터");		//	W0005	{0}이/가 없습니다.
             return;
-        }
+        }*/
 
         /************** 포커스에 어떤 스타일을 바꿔야 하는지 확인******************/
         /*gvwList.CustomRowCellEdit -= GvwList_CustomRowCellEdit;
@@ -1793,16 +2229,20 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
 
-
         };
+
+        console.log('------fn_set_p_common_job_run : paramObj-----' , paramObj);
+
         const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100COM.do", {
             getType: 'json',
             workType: workType,
-            cv_count: '0',
+            cv_count: '3',
             params: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
+
+        console.log('------fn_set_p_common_job_run : data-----' , data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1936,6 +2376,73 @@
             console.log("---------S2 returnData--------- : ", returnData);
             return returnData;
 
+        }
+    }
+
+    const fn_gvwListAfterRebuild = async function() {
+        let gvwListData = gvwListGrid.getGridDataAll();
+
+        for(var i = 0; i < gvwListData.length; i++) {
+            let rowData = gvwListGrid.getRowData(i+1);
+
+            if (rowData.CS_CODE_ORG == "")
+            {
+                if(rowData.CS_CODE == "")
+                {
+                    gvwListGrid.setRowStyle(i+1, 'data', 'background', '#9fbfdf');  //LightGreen
+                }
+                else
+                {
+                    gvwListGrid.setRowStyle(i+1, 'data', 'background', '#c2d6d6'); //Green
+                }
+            }
+
+
+            if (gfn_nvl(rowData.ACCOUNT_EMP_CODE) == "" && !rowData.grandtotal) {
+                gvwListGrid.setRowStyle(i+1, 'data', 'background', '#FFC0CB'); //Pink
+            }
+        }
+    }
+    // 행 추가
+    const fn_addRow = function() {
+        let rowVal = gvwListGrid.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            gvwListGrid.addRow(true);
+        }else{
+            gvwListGrid.insertRow(rowVal);
+        }
+    }
+
+    // 행삭제
+    const fn_delRow = async function () {
+
+        let rowVal = gvwListGrid.getRow();
+
+        if (rowVal == -1) {
+
+            gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+
+        } else {
+            gvwListGrid.deleteRow(rowVal);
+        }
+    }
+
+    const fn_gvwListDblclick = async function() {
+        var nRow = gvwListGrid.getRow();
+        var nCol = gvwListGrid.getCol();
+
+
+        console.log('-------------nCol----------------',nCol);
+
+        if(nCol == 14) { //공급사 코드
+
+            fn_compopup3(nRow, nCol);
+        }
+
+        if(nCol == 48 || nCol ==49) {
+            fn_findEmpCodeForGvwList(nRow, (nCol - 1));
         }
     }
 
