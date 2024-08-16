@@ -155,12 +155,14 @@
 					unselect: {label: '', value: ''},
 					displayui : false,
 					itemcount: 10,
+					/*
 					filtering: {
 	            		usemode: true,
 	            		uppercol: 'cnptType',
 	            		attrname: 'cdChrVl',
-	            		listall: false
+	            		listall: true
 	            	}
+					*/
 				},
             },
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 1000}},
@@ -173,7 +175,7 @@
 		]);
 
         jsonWhlsMrktCorp = await gfn_getComCdDtls('WHLSL_MRKT_CORP_CD')
-
+		
         /*
         jsonWhlsMrktCorp.forEach((item) => {
         	item.value = "10";
@@ -242,7 +244,6 @@
   	        	grdCnpt.rebuild();
   	        	grdCnpt.addRow();
   	        	grdCnpt.setCellDisabled(grdCnpt.getRows() -1, 0, grdCnpt.getRows() -1, grdCnpt.getCols() -1, true);
-
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         	}
