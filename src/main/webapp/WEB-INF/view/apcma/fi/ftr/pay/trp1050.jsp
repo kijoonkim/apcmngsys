@@ -1306,10 +1306,10 @@
                 SBUxMethod.set("SRCH_TREASURY_BATCH_NO", gfn_nvl(parentParameter["TREASURY_BATCH_NO"]));
             }
 
-            if (gfn_nvl(parentParameter["APRINT"]) == "Y")
+/*            if (gfn_nvl(parentParameter["APRINT"]) == "Y")
                 gvwList.ContextMenuStyle.EnableExportData = true;
             else
-                gvwList.ContextMenuStyle.EnableExportData = false;
+                gvwList.ContextMenuStyle.EnableExportData = false;*/
 
             SBUxMethod.set("SRCH_FROM_DATE", gfn_dateToYmd(new Date())); // TODO GetServerDateTime()
         } else {
@@ -1586,9 +1586,7 @@
 
         let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHECK_YN"), true);
 
-        gvwListCheckedList.forEach((item, index) => {
-            iCnt++;
-        });
+        iCnt = gvwListCheckedList.length;
 
         if (iCnt == 0) {
             gfn_comAlert("E0000", "변경하고자 하는 대상을 선택 후 변경적용을 하십시오.");
