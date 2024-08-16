@@ -287,7 +287,7 @@
         SBGridProperties.frozencols = 12;
         SBGridProperties.columns = [
             {caption: ["KEY_ID"],         ref: 'KEY_ID',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["품의번호"],         ref: 'TREASURY_ID',    type:'output',  	width:'117px',  style:'text-align:left', hidden: true},
             {caption: ["상태"], 		ref: 'STATUS_CODE',   	    type:'combo', style:'text-align:left' ,width: '60px',
                 typeinfo: {

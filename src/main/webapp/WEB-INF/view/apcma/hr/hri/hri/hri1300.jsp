@@ -1183,7 +1183,7 @@
                 type: 'checkbox',
                 width: '45px',
                 style: 'text-align:center',
-                typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'},
+                typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true},
                 disabled: disableOption
             },
             {caption: ["인원정보","사원번호"], ref: 'EMP_CODE', type: 'input', width: '80px', style: 'text-align:left', disabled: disableOption},
