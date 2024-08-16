@@ -322,7 +322,7 @@
 		};
 		SBGridProperties.extendlastcol 		= 'scroll';
 		SBGridProperties.columns = [
-			{caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'38px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+			{caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'38px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
 			{caption: ["전표작성"],			    ref: 'INTERFACED_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
 				typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 			},

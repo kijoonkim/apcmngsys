@@ -317,7 +317,7 @@
             // 사업장
             gfnma_setComSelect(['gvwList'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             // 통화코드
-            gfnma_setComSelect(['gvwList'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 출금방법
             gfnma_setComSelect(['gvwList'], jsonPayMethodDeposit, 'L_FIM073_DEPOSIT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 환율유형
@@ -372,7 +372,7 @@
             usedecimal : false,
         };*/
         SBGridProperties.columns = [
-            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'92px',  style:'text-align:left', hidden: true},
             {caption: ["회계단위"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '161px',
                 typeinfo: {
@@ -1243,7 +1243,7 @@
                     gvwList.rebuild();
 
                     if (jsonDepositTransactionList.length > 0) {
-                        gvwMaster.clickRow(1);
+                        gvwList.clickRow(1);
                     }
                 } else if(strWorkType == "DETAIL") {
                     jsonFundList.length = 0;
@@ -1510,7 +1510,7 @@
 
     const fn_interface = async function () {
         let updatedData = gvwList.getUpdateData(true, 'all');
-
+        console.log(updatedData);
         if (updatedData.length > 0) {
             if (!gfn_comConfirm("Q0000", "저장되지 않은 데이터가 있습니다. 저장하지 않고 진행하시겠습니까?"))
                 return;
@@ -1576,8 +1576,6 @@
         let listData = [];
 
         updatedData.forEach((item, index) => {
-            strLastWorkType = dr["RowStatus"].ToString();
-
             if (gfn_nvl(item.data.TXN_ID) == "") {
                 strTxn_id = "0";
             } else{
@@ -1647,6 +1645,8 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
+                    jsonDepositTransactionList.length = 0;
+                    gvwList.rebuild();
                     fn_search();
                 } else {
                     alert(data.resultMessage);

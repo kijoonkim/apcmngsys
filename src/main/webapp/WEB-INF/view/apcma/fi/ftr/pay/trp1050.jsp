@@ -560,7 +560,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.frozencols = 14;
         SBGridProperties.columns = [
-            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
+            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["계좌"],         ref: 'DEPOSIT_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["입출계좌"],         ref: 'DEPOSIT_NAME',    type:'output',  	width:'155px',  style:'text-align:left'}, // TODO : P_DEPOSIT_OUT
             {caption: ["그룹"],         ref: 'GROUP_ID',    type:'output',  	width:'50px',  style:'text-align:left'},
