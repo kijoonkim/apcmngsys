@@ -100,7 +100,7 @@
                         </ul>
                     </div>
                     <div>
-                        <table class="table table-bordered tbl_fixed">
+                        <table id="middleTable" class="table table-bordered tbl_fixed">
                             <caption>검색 조건 설정</caption>
                             <colgroup>
                                 <col style="width: 10%">
@@ -292,6 +292,7 @@
         jsonCboRfType = await gfnma_getComSelectList('L_FIT023','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
         SBUxMethod.refresh("reg-slt-cboRfType");
 
+        fn_search();
     }
 
     /** 기준정보 리스트 **/
@@ -332,6 +333,7 @@
             {caption: ['환급취소여부'], 				ref: 'refundCancelYn', 	width: '7%',	type: 'output',	style:'text-align: center'},
         ]
         rptStdGrid = _SBGrid.create(SBGridProperties);
+        rptStdGrid.bind('click','fn_setMdGrid');
     }
 
     /** 신고사업장 정보 GRID **/
@@ -397,6 +399,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+        console.log(data,"아몰랑");
 
         function toCamelCase(snakeStr) {
             return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
@@ -428,8 +431,21 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
 
-
+    const fn_setMdGrid = async function(){
+        let idx = rptStdGrid.getRow();
+        let data = rptStdGrid.getRowData(idx);
+        console.log(data,"data");
+        let table = document.getElementById("middleTable");
+        let regs = table.querySelectorAll(`[id^="reg-"]`);
+        for (const item of regs) {
+           let wordIdx = item.id.lastIndexOf('-') + 1;
+           let key = item.id.substring(wordIdx);
+           console.log(key,"key");
+           console.log(item.id,"요소 아이디");
+           await SBUxMethod.set(item.id,data[key]);
+        }
     }
 
 
