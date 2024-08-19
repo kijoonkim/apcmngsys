@@ -1,0 +1,1569 @@
+<%
+    /**
+     * @Class Name        : hrp1000.jsp
+     * @Description       : 개인별 연말정산 결과조회 정보 화면
+     * @author            : 인텔릭아이앤에스
+     * @since             : 2024.08.24
+     * @version           : 1.0
+     * @Modification Information
+     * @
+     * @ 수정일       	수정자      수정내용
+     * @ ----------		----------	---------------------------
+     * @ 2024.08.24   	표주완		최초 생성
+     * @see
+     *
+     */
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>title : 개인별 연말정산 결과조회</title>
+    <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+
+    <title>Calculator</title>
+    <link rel="stylesheet" href="/resource/css/ma_custom.css">
+</head>
+<body oncontextmenu="return false">
+<section>
+    <div class="box box-solid">
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
+            <div>
+                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+                </h3>
+            </div>
+            <div style="margin-left: auto;">
+                <sbux-button
+                        id="btnFile" name="btnFile" uitype="normal" text="인쇄"
+                        class="btn btn-sm btn-outline-danger" onclick="fn_btnFile" style="float: right;"
+                ></sbux-button>
+            </div>
+        </div>
+
+        <!--[pp] 검색 -->
+        <!--[APC] START -->
+        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+        <table id="dataArea1" class="table table-bordered tbl_fixed">
+            <caption>검색 조건 설정</caption>
+            <colgroup>
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
+
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
+
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th scope="row" class="th_bg">정산연도</th>
+                <td class="td_input" style="border-right: hidden;">
+                    <sbux-datepicker
+                            id="SRCH_YE_TX_YYYY"
+                            name="SRCH_YE_TX_YYYY"
+                            uitype="popup"
+                            datepicker-mode="year"
+                            date-format="yyyy"
+                            class="form-control input-sm input-sm-ast inpt_data_reqed"
+                            required>
+                        <%--onchange="fn_payDate"--%>
+                    </sbux-datepicker>
+                </td>
+                <td colspan="2" style="border-right: hidden;"></td>
+                <th scope="row" class="th_bg">정산구분</th>
+                <td class="td_input" style="border-right: hidden;">
+                    <div class="dropdown">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="SRCH_YE_TX_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2" style="border-right: hidden;"></td>
+                <th scope="row" class="th_bg">사업장</th>
+                <td class="td_input" style="border-right: hidden;">
+                    <div class="dropdown">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <font>선택</font>
+                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2" style="border-right: hidden;"></td>
+            </tr>
+            <tr>
+                <th scope="row" class="th_bg">부서</th>
+                <td class="td_input" style="border-right: hidden;">
+                    <sbux-input
+                            uitype="text"
+                            id="SRCH_DEPT_CODE"
+                            class="form-control input-sm"
+                    ></sbux-input>
+                </td>
+                <td class="td_input" style="border-right: hidden;">
+                    <sbux-input
+                    <%-- uitype="hidden"--%>
+                            uitype="text"
+                            id="SRCH_DEPT_NAME"
+                            class="form-control input-sm"
+                    ></sbux-input>
+                </td>
+                <td <%--colspan="2"--%> class="td_input" >
+                    <sbux-button
+                            class="btn btn-xs btn-outline-dark"
+                            text="찾기" uitype="modal"
+                            target-id="modal-compopup1"
+                            onclick="fn_compopup1"
+                    ></sbux-button>
+                </td>
+                <th scope="row" class="th_bg">사원</th>
+                <td class="td_input" style="border-right: hidden;">
+                    <sbux-input
+                            uitype="text"
+                            id="SRCH_EMP_CODE"
+                            class="form-control input-sm"
+                    ></sbux-input>
+                </td>
+                <td class="td_input" style="border-right: hidden;">
+                    <sbux-input
+                    <%-- uitype="hidden"--%>
+                            uitype="text"
+                            id="SRCH_EMP_NAME"
+                            class="form-control input-sm"
+                    ></sbux-input>
+                </td>
+                <td class="td_input" >
+                    <sbux-button
+                            class="btn btn-xs btn-outline-dark"
+                            text="찾기" uitype="modal"
+                            target-id="modal-compopup1"
+                            onclick="fn_compopup2"
+                    ></sbux-button>
+                </td>
+                <th scope="row" class="th_bg">급여영역</th>
+                <td class="td_input">
+                    <sbux-select
+                            id="SRCH_PAY_AREA_TYPE"
+                            uitype="single"
+                            jsondata-ref="jsonPayAreaType"
+                            unselected-text="선택"
+                            class="form-control input-sm"
+                    <%--onchange="fn_payType"--%>>
+                    </sbux-select>
+                </td>
+                <td colspan="2" style="border-right: hidden;"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>사원리스트</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div id="sb-area-gvwList" style="height:800px; width:100%;"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li><span>사원정보</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <table id="dataArea2" class="table table-bordered tbl_fixed">
+                        <colgroup>
+                            <col style="width:5%">
+                            <col style="width:5%">
+                            <col style="width:5%">
+                            <col style="width:2%">
+
+                            <col style="width:5%">
+                            <col style="width:5%">
+                            <col style="width:5%">
+                            <col style="width:2%">
+
+                        </colgroup>
+                        <tr>
+                            <th scope="row" class="th_bg">사업장</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="SITE_CODE"
+                                        uitype="single"
+                                        jsondata-ref="jsonSiteCode"
+                                        unselected-text="선택"
+                                        class="form-control input-sm"
+                                        readonly>
+                                </sbux-select>
+                            </td>
+                            <td colspan="6" style="border-right: hidden;"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">부서</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                        uitype="text"
+                                        id="DEPT_CODE"
+                                        class="form-control input-sm"
+                                        readonly
+                                ></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                <%-- uitype="hidden"--%>
+                                        uitype="text"
+                                        id="DEPT_NAME"
+                                        class="form-control input-sm"
+                                        readonly
+                                ></sbux-input>
+                            </td>
+                            <td <%--colspan="2"--%> class="td_input" >
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="찾기" uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_compopup1"
+                                        readonly
+                                ></sbux-button>
+                            </td>
+                            <th scope="row" class="th_bg">사원</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                        uitype="text"
+                                        id="EMP_CODE"
+                                        class="form-control input-sm"
+                                        readonly
+                                ></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                <%-- uitype="hidden"--%>
+                                        uitype="text"
+                                        id="EMP_NAME"
+                                        class="form-control input-sm"
+                                        readonly
+                                ></sbux-input>
+                            </td>
+                            <td class="td_input" >
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="찾기" uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_compopup2"
+                                        readonly
+                                ></sbux-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">급여반영여부</th>
+                            <td class="td_input">
+                                <sbux-select
+                                        id="PAY_APPLY_YN"
+                                        uitype="single"
+                                        jsondata-ref="jsonPayApplyYn"
+                                        unselected-text="선택"
+                                        class="form-control input-sm"
+                                        readonly>
+                                </sbux-select>
+                            </td>
+                            <td colspan="2" style="border-right: hidden;"></td>
+                            <th scope="row" class="th_bg">급여반영월</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-datepicker
+                                        id="PAY_APPLY_MM"
+                                        name="PAY_APPLY_MM"
+                                        uitype="popup"
+                                        datepicker-mode="month"
+                                        date-format="yyyymm"
+                                        class="form-control input-sm input-sm-ast"
+                                        readonly>
+                                    <%--onchange="fn_payDate"--%>
+                                </sbux-datepicker>
+                            </td>
+                            <td colspan="2" style="border-right: hidden;"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>연말정산내역</span>
+                        </li>
+                    </ul>
+                </div>
+                <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
+                </sbux-tabs>
+                <div class="tab-content">
+                    <div id="tabInfo1" >
+                        <div>
+                            <div id="sb-area-gvwIncome" style="height:380px; width:100%;"></div>
+                        </div>
+                    </div>
+                    <div id="tabInfo2" >
+                        <div>
+                            <table id="dataArea6" class="table table-bordered tbl_fixed">
+                                <colgroup>
+                                    <col style="width:10%">
+
+                                    <col style="width:7%">
+
+                                    <col style="width:3%">
+                                    <col style="width:3%">
+                                    <col style="width:3%">
+
+                                    <col style="width:1%">
+                                    <col style="width:2%">
+                                    <col style="width:1%">
+
+                                    <col style="width:6%">
+
+                                    <col style="width:15%">
+
+                                </colgroup>
+                                <tr>
+                                    <th colspan="8" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소득총액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PAY_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">비과세총액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TXFREE_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">총급여액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="8" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득금액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tabInfo3" >
+                        <div>
+                            <table id="dataArea3" class="table table-bordered tbl_fixed">
+                                <colgroup>
+                                    <col style="width:7%">
+
+                                    <col style="width:10%">
+
+                                    <col style="width:2%">
+                                    <col style="width:3%">
+                                    <col style="width:2%">
+
+                                    <col style="width:7%">
+
+                                    <col style="width:15%">
+
+                                </colgroup>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소득총액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PAY_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">비과세총액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TXFREE_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">총급여액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득금액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기본공제</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">본인</th>
+                                    <td colspan="3" style="border-right: hidden;"></td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PERSONAL_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">배우자</th>
+                                    <td colspan="3" style="border-right: hidden;"></td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="WIFE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">부양가족</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SUPPORT_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SUPPORT_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="6" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">추가공제</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">경로우대</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SENIOR_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SENIOR_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장애인</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HDCP_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HDCP_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">부녀자</th>
+                                    <td colspan="3" style="border-right: hidden;"></td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="WOMAN_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">6세 이하</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="BRING_CHILD_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="BRING_CHILD_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">출생ㆍ입양</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CHILDBIRTH_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CHILDBIRTH_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">한부모</th>
+                                    <td colspan="3" style="border-right: hidden;"></td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SINGLE_PARENT_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">다자녀추가공제</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="MANY_CHILD_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="MANY_CHILD_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table id="dataArea4" class="table table-bordered tbl_fixed">
+                                <colgroup>
+                                    <col style="width:7%">
+
+                                    <col style="width:4%">
+
+                                    <col style="width:3%">
+                                    <col style="width:3%">
+                                    <col style="width:7%">
+
+                                    <col style="width:7%">
+
+                                    <col style="width:15%">
+
+                                </colgroup>
+                                <tr>
+                                    <th rowspan="8" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">연금보험료공제</th>
+                                    <th rowspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">공적연금보험료</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">국민연금보험료</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td rowspan="8" style="border-right: hidden;"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">공무원연금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="OFFICIAL_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">군인연금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="MILITARY_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">사립학교 교직원연금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SCHOOL_PENS_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">별정우체국연금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="POST_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">연금계좌</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">과학기술인공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SCNT_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로자퇴직급여보장법</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="RET_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">연금저축계좌</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PENS_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="27" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">특별공제</th>
+                                    <th rowspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">보험료</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">국민건강보험(노양장기요양보험 포함)</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HEALTH_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td rowspan="27" style="border-right: hidden;"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">고용보험</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="EMP_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">일반보장성보험</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="GENERAL_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장애인전용보장성보험</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HDCP_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TOTAL_INSURE_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">의료비</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장애인 의료비</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HDCP_MED_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기타 의료비</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ETC_MED_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TOTAL_MED_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">교육비</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장애인 교육비</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HANDICAP_EDU_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기타 교육비</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ETC_EDU_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TOTAL_EDU_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="9" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">주택자금</th>
+                                    <th rowspan="2" colspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">주택임차차입금</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">대출기관차입</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HSRENT_PRIN_DED_ORG_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">거주자차입</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HSRENT_PRIN_DED_PERS_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">월세액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_MM_RENT_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장기주택 저당차입금</th>
+                                    <th rowspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">2011년 이전 차입분</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">15년 미만</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_INT_DEAMT1" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">15년~29년</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_INT_DEAMT2" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">30년 이상</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_INT_DEAMT3" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">2012년 이후 차입분(15년 이상)</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">고정금리ㆍ비거치 상환대출</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_INT_DEAMT4" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기타대출</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_INT_DEAMT5" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TOTAL_HOUSE_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기부금</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">정치자금기부금(세액공제분 제외)</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DON_POL_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">법정기부금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DON_LGL_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">우리사주조합 기부금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DON_EMP_STOCK_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">지정기부금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DON_DSIN_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TOTAL_DONATION_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">특별공제 계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SPEC_DED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">표준공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="STD_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="12" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">그 밖의 소득공제</th>
+                                    <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">개인연금저축(2000년 이전 가입)</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="PRIV_PENS_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">주택마련저축</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">청약저축</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_SUBS_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로자주택마련저축</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_EMP_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">주택청약종합저축</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HS_TOT_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TOTAL_HOUSE_SAVING_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">신용카드 등 사용금액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CD_USE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기타 공제</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소기업ㆍ소상공인 공제부금 소득공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SM_COM_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">투자조합 출자공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INVEST_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">우리사주출연금 소득공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="EMP_STOCK_GIVE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">고용유지 중소기업 근로자 소득공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SALARY_DECREASE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">목돈 안드는 전세 이자상환액 소득공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="LEASE_INT_RDM_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">그 밖의 소득공제 계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ETC_DED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">특별공제 종합한도 초과액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SPEC_DED_TOT_OVER_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">종합소득과세표준</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TOT_INC_TX_STD_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">산출세액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CALCULATE_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="11" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">세액감면 및 세액공제</th>
+                                    <th rowspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">세액감면</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소득세법</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_TX_LAW_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">조세특례제한법</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TX_SPEC_LAW_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">조세특례제한법(제30조)</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TX_SPEC_LAW_30_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">조세조약</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TX_TREATY_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">감면세액 계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TX_RED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="6" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">세액공제</th>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득세액공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_TX_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">납세조합공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TX_UNION_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">주택자금차입금이자세액공제</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="HSRENT_INT_RDM_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기부정치자금</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DON_POL_TX_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">외국납부</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="FOREI_PAY_TX_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">세액공제 계</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TX_DED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table id="dataArea5" class="table table-bordered tbl_fixed">
+                                <colgroup>
+                                    <col style="width:6%">
+
+                                    <col style="width:6%">
+
+                                    <col style="width:6%">
+
+                                    <col style="width:6%">
+
+                                    <col style="width:7%">
+
+                                    <col style="width:15%">
+
+                                </colgroup>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;"></th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소득세</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">지방소득세</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">농어촌특별세</th>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">합계</th>
+                                    <td rowspan="4" style="border-right: hidden;"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">결정세액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CALC_INC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CALC_LOCAL_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CALC_SPEC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CALC_TX_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기납부세액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="NOW_INC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="NOW_LOCAL_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="NOW_SPEC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="NOW_TX_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">차감징수세액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="INC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="LOCAL_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="SPEC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="TX_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
+                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    readonly></sbux-input>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title=""
+                body-html-id="body-modal-compopup1" header-is-close-button="false"
+                footer-is-close-button="false"></sbux-modal>
+</div>
+<div id="body-modal-compopup1">
+    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+</div>
+
+</body>
+<script type="text/javascript">
+
+    // common ---------------------------------------------------
+    var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
+    var p_menuId = '${comMenuVO.menuId}';
+    var p_userId = '${loginVO.id}';
+    //-----------------------------------------------------------
+
+
+    //grid 초기화
+    var gvwInfoGrid; 			// 그리드를 담기위한 객체 선언
+    var jsonInfoList = []; 	// 그리드의 참조 데이터 주소 선언
+    var gvwIncomeGrid;
+    var jsonIncomeList = [];
+
+
+    var jsonYeTxType = []; //출력구분 ( L_HRA029 )SRCH_YE_TX_TYPE
+    var jsonPayAreaType = []; //급여영역 ( L_HRP034 )SRCH_PAY_AREA_TYPE
+    var jsonSiteCode = []; //사업장 ( L_ORG001 )SRCH_SITE_CODE
+    var jsonPayApplyYn = []; //급여반영여부 ( L_HRM003 )PAY_APPLY_YN
+
+    const fn_initSBSelect = async function() {
+        let rst = await Promise.all([
+
+            gfnma_setComSelect(['gvwInfoGrid','SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_APPLY_YN','gvwInfoGrid'], jsonPayApplyYn, 'L_HRM003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+
+
+            //사업장
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SITE_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SITE_CODE'
+                ,colLabel		: 'SITE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
+
+            //정산구분
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_YE_TX_TYPE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_HRA029'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
+
+
+        ]);
+    }
+
+    var fn_compopup1 = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ORG001'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: ["", 				searchText,		""]
+
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+
+            ,height					: '400px'
+            ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    const fn_compopup2 = function() {
+
+        var searchText = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var replaceText0 = "_EMP_CODE_";
+        var replaceText1 = "_EMP_NAME_";
+        var replaceText2 = "_DEPT_CODE_";
+        var replaceText3 = "_DEPT_NAME_";
+        var replaceText4 = "_EMP_STATE_";
+        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
+        compopup1({
+            compCode: gv_ma_selectedApcCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'P_HRI001'
+            , popupType: 'A'
+            , whereClause: strWhereClause
+            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
+            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
+            , height: '400px'
+            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
+            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
+            , itemSelectEvent: function (data) {
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+            },
+        });
+
+    }
+
+    var tabJsonData = [
+        { "id" : "0", "pid" : "-1", "order" : "1", "text" : "소득명세",     "targetid" : "tabInfo1" ,     "targetvalue" : "소득명세"},
+        { "id" : "1", "pid" : "-1", "order" : "2", "text" : "정산명세_2014", "targetid" : "tabInfo2" ,     "targetvalue" : "정산명세_2014"},
+        { "id" : "2", "pid" : "-1", "order" : "3", "text" : "정산명세",     "targetid" : "tabInfo3" ,     "targetvalue" : "정산명세"}
+    ];
+
+    // only document
+    window.addEventListener('DOMContentLoaded', function (e) {
+
+        fn_initSBSelect();
+        fn_init();
+
+    });
+
+    const fn_init = async function () {
+
+        fn_createGrid();
+        fn_createIncomeGrid();
+
+        let openDate = gfn_dateToYear(new Date());
+        SBUxMethod.set('SRCH_YE_TX_YYYY', openDate);
+
+    }
+
+
+
+    function cfn_save() {
+
+        // 수정 저장
+        if (gfn_comConfirm("Q0001", "수정 저장")) {
+
+            fn_save();
+
+        }
+    }
+
+    function cfn_search() {
+
+        fn_search();
+
+
+    }
+
+    /* function cfn_add(){
+
+     }
+     function cfn_del(){
+     }*/
+
+    /**
+     * 초기화
+     */
+    var cfn_init = function() {
+        gfnma_uxDataClear('#dataArea1');
+    }
+
+    //사원 리스트
+    function fn_createGrid() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-gvwInfo';
+        SBGridProperties.id = 'gvwInfoGrid';
+        SBGridProperties.jsonref = 'jsonInfoList';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.filtering = true; //필터링
+        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
+        SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, hidden : true
+            },
+            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
+            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption : ["급여반영여부"], ref : 'PAY_APPLY_YN', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayApplyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
+            },
+            {caption: ['급여반영월'], ref: 'PAY_APPLY_MM', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true, hidden : true}
+
+        ];
+
+        gvwInfoGrid = _SBGrid.create(SBGridProperties);
+        /*   gvwInfoGrid.bind('click', 'fn_view');*/
+    }
+
+    //소득명세 리스트
+    function fn_createIncomeGrid() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-gvwIncome';
+        SBGridProperties.id = 'gvwIncomeGrid';
+        SBGridProperties.jsonref = 'jsonIncomeList';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.filtering = true; //필터링
+        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
+        SBGridProperties.explorerbar = 'sortmove';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["회사명"], ref: 'COMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["급여"], ref: 'PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["상여"], ref: 'BONUS_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["인정상여"], ref: 'ADD_BONUS_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["주식매수선택권 행사이익"], ref: 'STOCK_PROFIT_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["우리사주조합인출금"], ref: 'EMP_STOCK_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["임원 퇴직소득금액 한도초과액"], ref: 'EXEC_RET_LIM_OVER', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+            {caption: ["합계"], ref: 'TOTAL_AMT', type: 'output', width: '120px', style: 'text-align:left'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+        ];
+
+        gvwIncomeGrid = _SBGrid.create(SBGridProperties);
+        /*   gvwInfoGrid.bind('click', 'fn_view');*/
+    }
+
+    /**
+     * 목록 조회
+     */
+    const fn_search = async function (strWorkType, emp_code) {
+
+        let stremp_code = '';
+
+        let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
+        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let EMP_STATE           = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
+
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산연도");
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_YE_TX_YYYY     : YE_TX_YYYY
+            ,V_P_SITE_CODE      : SITE_CODE
+            ,V_P_DEPT_CODE      : DEPT_CODE
+            ,V_P_EMP_CODE       : EMP_CODE
+            ,V_P_EMP_STATE      : EMP_STATE
+            ,V_P_EMP_CODE_LIST  : stremp_code
+            ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE
+
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
+        console.log('paramObj:', paramObj);
+
+        const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1800List.do", {
+            getType				: 'json',
+            workType			: strWorkType,
+            cv_count			: '7',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+
+                /** @type {number} **/
+                let totalRecordCount = 0;
+
+                jsonInfoList.length = 0;
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        CHK_YN 			                : gfnma_nvl(item.CHK_YN)
+                        , SITE_CODE 			        : gfnma_nvl(item.SITE_CODE)
+                        , EMP_STATE 			        : gfnma_nvl(item.EMP_STATE)
+                        , DEPT_CODE 			        : gfnma_nvl(item.DEPT_CODE)
+                        , DEPT_NAME 			        : gfnma_nvl(item.DEPT_NAME)
+                        , EMP_CODE 			            : gfnma_nvl(item.EMP_CODE)
+                        , EMP_NAME 			            : gfnma_nvl(item.EMP_NAME)
+
+                    }
+                    jsonInfoList.push(msg);
+                    totalRecordCount ++;
+                });
+
+                gvwInfoGrid.rebuild();
+                document.querySelector('#listCount').innerText = totalRecordCount;
+
+            } else {
+                alert(data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+
+
+
+
+</script>
+<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
+</html>
+
