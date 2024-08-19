@@ -131,10 +131,10 @@
                     </sbux-datepicker>
                 </td>
                 <td colspan="2" style="border-right: hidden;"></td>
-                <th scope="row" class="th_bg">사업장</th>
+                <th scope="row" class="th_bg">정산구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_YE_TX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
@@ -150,7 +150,7 @@
                             uitype="single"
                             jsondata-ref="jsonPrintType"
                             unselected-text="선택"
-                            class="form-control input-sm"
+                            class="form-control input-sm inpt_data_reqed"
                     <%--onchange="fn_payType"--%>>
                     </sbux-select>
                 </td>
@@ -298,9 +298,9 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">근무종료일</th>
+                    <th scope="row" class="th_bg">메일제목</th>
                     <td colspan="2" class="td_input" >
-                        <sbux-textarea id="EMAIL_SUBJECT" name="EMAIL_SUBJECT" rows="1"  uitype="normal" wrap-style="width:100%">
+                        <sbux-textarea id="EMAIL_SUBJECT" name="EMAIL_SUBJECT" rows="1"  uitype="normal" wrap-style="width:100%" class="inpt_data_reqed">
                         </sbux-textarea>
                     </td>
                     <td colspan="3" class="td_input" style="text-align: left;">※ 저장된 내용이 발송되므로 편집 후 반드시 저장하세요.</td>
@@ -309,7 +309,7 @@
                 <tr>
                     <th scope="row" class="th_bg">메일내용</th>
                     <td colspan="2" class="td_input" >
-                        <sbux-textarea id="EMAIL_BODY" name="EMAIL_BODY"  uitype="normal" rows="5" wrap-style="width:100%">
+                        <sbux-textarea id="EMAIL_BODY" name="EMAIL_BODY"  uitype="normal" rows="5" wrap-style="width:100%" class="inpt_data_reqed">
                         </sbux-textarea>
                     </td>
                     <th scope="row" class="th_bg">공지사항</th>
@@ -515,7 +515,7 @@
         fn_createGrid();
 
         let openDate = gfn_dateToYear(new Date());
-        SBUxMethod.set('srch-ye_tx_yyyy', openDate);
+        SBUxMethod.set('SRCH_YE_TX_YYYY', openDate);
 
     }
 
@@ -653,7 +653,7 @@
             return;
         }
         if (!PRINT_TYPE) {
-            gfn_comAlert("W0002", "계산일");
+            gfn_comAlert("W0002", "출력구분");
             return;
         }
 
@@ -749,6 +749,23 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
+                /*****-- 2. 환결설정의 명세서전송EMAIL*****/
+                /* data.cv_2.forEach((item, index) => {
+                     SBUxMethod.set("PAY_SEND_EMAIL", 			item.PAY_SEND_EMAIL);//몬지 모르겠음
+
+                 });*/
+
+                //메일정보 테이블 초기화
+                gfnma_uxDataClear('#dataArea2');
+                /*********  -- 3. 메일 정보**********/
+                data.cv_3.forEach((item, index) => {
+                    SBUxMethod.set("EMAIL_SUBJECT", 			item.EMAIL_SUBJECT);
+                    SBUxMethod.set("EMAIL_BODY", 			item.EMAIL_BODY);
+                    SBUxMethod.set("NOTICE_MEMO", 			item.NOTICE_MEMO);
+
+                });
+
+               /* fn_view();*/
 
             } else {
                 alert(data.resultMessage);
@@ -761,6 +778,276 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+    //상세정보 보기
+   /* async function fn_view() {
+
+        let nRow = gvwInfoGrid.getRow();
+
+        if (nRow == -1) {
+            nRow = 1;
+        }
+
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
+        if (_.isEmpty(rowData) == false) {
+
+
+            let SITE_CODE = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
+            let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+            let CHKENCRYPTION_YN = gfnma_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
+            let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+            let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+            let PRINT_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+            let DEPT_CODE = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+            let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+            let MULTI_YN = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
+            let RETIRE_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
+            let RETIRE_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
+
+            if (!YE_TX_YYYY) {
+                gfn_comAlert("W0002", "정산연도");
+                return;
+            }
+            if (!YE_TX_TYPE) {
+                gfn_comAlert("W0002", "정산구분");
+                return;
+            }
+            if (!PRINT_TYPE) {
+                gfn_comAlert("W0002", "출력구분");
+                return;
+            }
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN: ''
+                , V_P_LANG_ID: ''
+                , V_P_COMP_CODE: gv_ma_selectedApcCd
+                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                , V_P_YE_TX_YYYY: YE_TX_YYYY
+                , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
+                , V_P_SITE_CODE: SITE_CODE
+                , V_P_DEPT_CODE: DEPT_CODE
+                , V_P_EMP_CODE: rowData.EMP_CODE
+                , V_P_PRINT_TYPE: PRINT_TYPE
+                , V_P_PRINT_TYPE1: ''
+                , V_P_WORK_END_DAT_FR: RETIRE_DATE_FR
+                , V_P_WORK_END_DAT_TO: RETIRE_DATE_TO
+                , V_P_EMP_CODE_LIST: rowData.EMP_CODE
+                , V_P_PAY_AREA_TYPE: PAY_AREA_TYPE
+                , V_P_CONFIRM_PRINT_YN: ''
+
+
+                , V_P_FORM_ID: p_formId
+                , V_P_MENU_ID: p_menuId
+                , V_P_PROC_ID: ''
+                , V_P_USERID: ''
+                , V_P_PC: ''
+            };
+            console.log('paramObj:', paramObj);
+
+            const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1600List.do", {
+                getType: 'json',
+                workType: 'LIST',
+                cv_count: '8',
+                params: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    /!*****-- 2. 환결설정의 명세서전송EMAIL*****!/
+                    /!* data.cv_2.forEach((item, index) => {
+                         SBUxMethod.set("PAY_SEND_EMAIL", 			item.PAY_SEND_EMAIL);//몬지 모르겠음
+
+                     });*!/
+
+                    //메일정보 테이블 초기화
+                    gfnma_uxDataClear('#dataArea2');
+                    /!*********  -- 3. 메일 정보**********!/
+                    data.cv_3.forEach((item, index) => {
+                        SBUxMethod.set("EMAIL_SUBJECT", item.EMAIL_SUBJECT);
+                        SBUxMethod.set("EMAIL_BODY", item.EMAIL_BODY);
+                        SBUxMethod.set("NOTICE_MEMO", item.NOTICE_MEMO);
+
+                    });
+
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+
+
+        }
+
+    }*/
+
+
+    //저장
+    const fn_save = async function () {
+
+        let emp_code = '';
+
+        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+        let PRINT_TYPE          = gfnma_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산연도");
+            return;
+        }
+        if (!YE_TX_TYPE) {
+            gfn_comAlert("W0002", "정산구분");
+            return;
+        }
+        if (!PRINT_TYPE) {
+            gfn_comAlert("W0002", "출력구분");
+            return;
+        }
+
+        let EMAIL_SUBJECT      = gfnma_nvl(SBUxMethod.get("EMAIL_SUBJECT")); //메일제목
+        let EMAIL_BODY      = gfnma_nvl(SBUxMethod.get("EMAIL_BODY")); //메일내용
+        let NOTICE_MEMO      = gfnma_nvl(SBUxMethod.get("NOTICE_MEMO")); //공지사항
+
+        if (!EMAIL_SUBJECT) {
+            gfn_comAlert("W0002", "메일제목");
+            return;
+        }
+        if (!EMAIL_BODY) {
+            gfn_comAlert("W0002", "메일내용");
+            return;
+        }
+
+        let nRow = gvwInfoGrid.getRow();
+
+        if (nRow == -1){
+            gfn_comAlert("E0000", "원천징수영수증을 선택 해주세요.")
+            return;
+        }
+
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
+        if (_.isEmpty(rowData) == false){
+
+            emp_code = rowData.EMP_CODE;
+        }
+
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: 'N'
+            , V_P_LANG_ID: 'KOR'
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            ,V_P_YE_TX_YYYY       : YE_TX_YYYY
+            ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
+            ,V_P_EMP_CODE         : emp_code              //v_p_emp_code
+            ,V_P_PRINTABLE_YN     : ''              //v_p_printable_yn
+            ,V_P_EMAIL_SUBJECT    : EMAIL_SUBJECT
+            ,V_P_EMAIL_BODY       : EMAIL_BODY
+            ,V_P_NOTICE_MEMO      : NOTICE_MEMO
+
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+        };
+
+        const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1600.do", {
+            getType: 'json',
+            workType: 'N',
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }else{
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    cfn_search()
+                }
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    /**
+     * 파일저장
+     */
+    const fn_btnFile = async function () {
+
+    }
+
+    /**
+     * Email 발송
+     */
+    const fn_btnSendEmail = async function () {
+
+        let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
+        let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let CHKENCRYPTION_YN    = gfnma_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
+        let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+        let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+        let PRINT_TYPE          = gfnma_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+        let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+        let MULTI_YN            = gfnma_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
+        let RETIRE_DATE_FR      = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
+        let RETIRE_DATE_TO      = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
+
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산연도");
+            return;
+        }
+        if (!YE_TX_TYPE) {
+            gfn_comAlert("W0002", "정산구분");
+            return;
+        }
+        if (!PRINT_TYPE) {
+            gfn_comAlert("W0002", "출력구분");
+            return;
+        }
+
+        let EMAIL_SUBJECT      = gfnma_nvl(SBUxMethod.get("EMAIL_SUBJECT")); //메일제목
+        let EMAIL_BODY      = gfnma_nvl(SBUxMethod.get("EMAIL_BODY")); //메일내용
+        let NOTICE_MEMO      = gfnma_nvl(SBUxMethod.get("NOTICE_MEMO")); //공지사항
+
+        if (!EMAIL_SUBJECT) {
+            gfn_comAlert("W0002", "메일제목");
+            return;
+        }
+        if (!EMAIL_BODY) {
+            gfn_comAlert("W0002", "메일내용");
+            return;
+        }
+
+
+
+
     }
 
 </script>
