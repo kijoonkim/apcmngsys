@@ -583,6 +583,9 @@
         }
     }
 
+	function fn_selectTabMenu(_selectId, _selectJson) {
+		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
+	}
 
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
@@ -712,6 +715,7 @@
                         jsondata-ref="tabJsonData"
                         storage-data="text"
                         onclick="fn_setMenuInfo(tab_menu)"
+                        callback-after-select="fn_selectTabMenu"
                         callback-after-close="fn_chkTabList"
                     ></sbux-tabs>
                     <div class="tab-content">
