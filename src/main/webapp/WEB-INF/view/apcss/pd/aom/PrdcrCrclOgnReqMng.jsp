@@ -37,8 +37,10 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					 -->
+					<!--
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="통합조직 등록정보 출력" onclick="fn_report2"></sbux-button>
+					 -->
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="하위출자출하조직 등록정보 출력" onclick="fn_report3"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
@@ -2658,7 +2660,7 @@
 			{caption: ["전문/육성 구분"],			ref: 'sttgUpbrItemNm',		type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["품목명"],					ref: 'itemNm',				type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["시도"],					ref: 'ctpv',				type:'output',  width:'90px',	style:'text-align:center'},
-			{caption: ["시군"],					ref: 'sgg',					type:'output',  width:'90px',	style:'text-align:center'},
+			{caption: ["시군구"],					ref: 'sgg',					type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["우편번호"],					ref: 'zip',					type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["주소"],					ref: 'addr',				type:'output',  width:'330px',	style:'text-align:center'},
 			{caption: ["통합조직여부(승인형, 육성형)"],	ref: 'aprv',				type:'output',  width:'70px',	style:'text-align:center'},
