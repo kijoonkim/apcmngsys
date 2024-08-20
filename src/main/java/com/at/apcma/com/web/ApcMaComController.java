@@ -669,4 +669,31 @@ public class ApcMaComController extends BaseController {
 		logger.info("=============selectExchangeAvgRate=====end========");
 		return getSuccessResponseEntityMa(resultMap);
 	}
+	
+	//fim3420 승인결과조회
+	@PostMapping(value = "/com/fim3420List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> fim3420List(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============fim3420List=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"P_FIM3420_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============fim3420List=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+	}	
+	
 }

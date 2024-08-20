@@ -784,7 +784,7 @@
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+	    
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2200List.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -919,9 +919,9 @@
      * 그리드내 전표번호 조회
      */
 	function fn_gridPopup1(event, row, col) {
-		event.stopPropagation();	
+		event.preventDefault();	
         let rowData = Fig2200Grid.getRowData(row);
-        console.log('rowData:', rowData);
+        console.log('fn_gridPopup1 rowData:', rowData);
         
         var obj = {
         	'MENU_MOVE'		: 'Y'	

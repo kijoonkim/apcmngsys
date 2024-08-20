@@ -1211,7 +1211,6 @@
      */
     var fn_docCancelPop = function(p_strdoc_id) {
     	
-    	console.log('fn_docCancelPop this');
     	SBUxMethod.attr('modal-compopup4', 'header-title', '전표전기취소');
     	compopup4({
     		param					: {}

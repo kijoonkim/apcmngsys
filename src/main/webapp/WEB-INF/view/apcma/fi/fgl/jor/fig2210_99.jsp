@@ -64,13 +64,13 @@
                     <font style="margin-right:10px"></font>
                     <sbux-button uitype="normal" text="SCM정보"  		id="sch-btn-scm" 			class="btn btn-sm btn-outline-danger" onclick="fn_btnScmInfo"></sbux-button>
                     <sbux-button uitype="normal" text="파일첨부"  		id="sch-btn-attach" 		class="btn btn-sm btn-outline-danger" onclick="fn_fig2250pop"></sbux-button>
-                    <sbux-button uitype="normal" text="부서·적요수정"  	id="sch-btn-descUpdate" 	class="btn btn-sm btn-outline-danger" onclick="fn_fig2250pop"></sbux-button>
+                    <sbux-button uitype="normal" text="부서·적요수정"  	id="sch-btn-descUpdate" 	class="btn btn-sm btn-outline-danger" onclick="fn_descUpdate"></sbux-button>
                     <font style="margin-right:10px"></font>
-                    <sbux-button uitype="normal" text="전표복사"  		id="sch-btn-copy" 			class="btn btn-sm btn-outline-danger" onclick=""></sbux-button>
+                    <sbux-button uitype="normal" text="전표복사"  		id="sch-btn-copy" 			class="btn btn-sm btn-outline-danger" onclick="fn_docCopy"></sbux-button>
                     <sbux-button uitype="normal" text="결재"  			id="sch-btn-submit" 		class="btn btn-sm btn-outline-danger" onclick="fn_docAppr"></sbux-button>
-                    <sbux-button uitype="normal" text="결재이력"  		id="sch-btn-confirmHist" 	class="btn btn-sm btn-outline-danger" onclick="fn_docDetail"></sbux-button>
+                    <sbux-button uitype="normal" text="결재이력"  		id="sch-btn-confirmHist" 	class="btn btn-sm btn-outline-danger" onclick="fn_confimHist"></sbux-button>
                     <font style="margin-right:10px"></font>
-                    <sbux-button uitype="normal" text="전기처리"  		id="sch-btn-end" 			class="btn btn-sm btn-outline-danger" onclick="fn_docProcess"></sbux-button>
+                    <sbux-button uitype="normal" text="전기처리"  		id="sch-btn-end" 			class="btn btn-sm btn-outline-danger" onclick="fn_docEnd"></sbux-button>
                     <sbux-button uitype="normal" text="전기취소"  		id="sch-btn-cancel" 		class="btn btn-sm btn-outline-danger" onclick="fn_docCancel"></sbux-button>
                     <sbux-button uitype="normal" text="보류해제"  		id="sch-btn-release" 		class="btn btn-sm btn-outline-danger" onclick="fn_docHoldExit"></sbux-button>
                     <sbux-button uitype="normal" text="보류지정"  		id="sch-btn-unrelease" 		class="btn btn-sm btn-outline-danger" onclick="fn_docHoldPoint"></sbux-button>
@@ -112,16 +112,35 @@
 	                    <tbody>
 	                    
                            	<!-- hidden  -->
-  							<sbux-input  id="sch-txtsource-type2"  		name="sch-txtsource-type2" 		uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-txtinsert-userid"  	name="sch-txtinsert-userid" 	uitype="text" 	class="form-control input-sm" ></sbux-input>
-                       		<sbux-select id="sch-fi-org-code" 			name="sch-fi-org-code" 			uitype="single" jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                       		<sbux-select id="sch-site-code" 			name="sch-site-code" 			uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                       		<sbux-select id="sch-hold-flag" 			name="sch-hold-flag" 			uitype="single" jsondata-ref="jsonHoldFlag" unselected-text="선택" class="form-control input-sm"></sbux-select>
-  							<sbux-input  id="sch-base-scale"  			name="sch-base-scale" 			uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-txtopen-to-all-yn" 	name="sch-txtopen-to-all-yn" 	uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-txtopen-to-fcm-yn" 	name="sch-txtopen-to-fcm-yn" 	uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-acct-opinion" 			name="sch-acct-opinion" 		uitype="text" 	class="form-control input-sm" ></sbux-input>
-  							<sbux-input  id="sch-tr-opinion" 			name="sch-tr-opinion" 			uitype="text" 	class="form-control input-sm" ></sbux-input>
+                       		<sbux-select id="sch-hold-flag" 			name="sch-hold-flag" 				style="display:none;" uitype="single" 	jsondata-ref="jsonHoldFlag" unselected-text="선택" class="form-control input-sm"></sbux-select>
+  							<sbux-input  id="sch-release-date"  		name="sch-release-date" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-insert-userid"  		name="sch-insert-userid" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-reverse-flag"  		name="sch-reverse-flag" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtopen-to-fcm-yn" 	name="sch-txtopen-to-fcm-yn" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-confirm-emp-code" 		name="sch-confirm-emp-code" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-temp-doc-num" 			name="sch-temp-doc-num" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							
+  							<sbux-input  id="sch-hold-date" 			name="sch-hold-date" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-release-user" 			name="sch-release-user" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-hold-user" 			name="sch-hold-user" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+                       		<sbux-select id="sch-hold-reason" 			name="sch-hold-reason" 				style="display:none;" uitype="single" 	jsondata-ref="jsonHoldReason" unselected-text="선택" class="form-control input-sm"></sbux-select>
+  							<sbux-input  id="sch-proxy-emp-code" 		name="sch-proxy-emp-code" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-source-type" 			name="sch-source-type" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-appr-id" 				name="sch-appr-id" 					style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtsource-type2"  		name="sch-txtsource-type2" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-entry-path"  			name="sch-entry-path" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-source-id"  			name="sch-source-id" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-appr-acount"  			name="sch-appr-acount" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+                       		<sbux-select id="sch-fi-org-code" 			name="sch-fi-org-code" 				style="display:none;" uitype="single" 	jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+  							<sbux-input  id="sch-base-scale"  			name="sch-base-scale" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-request-emp-code"  	name="sch-request-emp-code" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-before-appr-emp-code"  name="sch-before-appr-emp-code" 	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-before-proxy-emp-code" name="sch-before-proxy-emp-code" 	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-next-appr-emp-code" 	name="sch-next-appr-emp-code" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							
+                       		<sbux-select id="sch-site-code" 			name="sch-site-code" 				style="display:none;" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+  							<sbux-input  id="sch-acct-opinion" 			name="sch-acct-opinion" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-tr-opinion" 			name="sch-tr-opinion" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
                        		<!-- /hidden -->
                        		
 	                        <tr>
@@ -159,9 +178,8 @@
 	                            </td>
 	                            
 	                            <td colspan="4" rowspan="7" class="td_input" >
-	                            	<div id="panAccountSum" style="width:100%">
-		                            	<font>계정과목별합계</font>
-	                            	</div>
+				                    <div id="sb-area-grdSum" style="height:250px; width:100%;">
+				                    </div>
 	                            </td>
 	                        </tr>    
 	                        
@@ -586,6 +604,22 @@
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
     </div>
     
+	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopfim3420">
+    	<jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
+    </div>
+
+	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:500px" id="modal-compopup4" name="modal-compopup4" uitype="middle" header-title="" body-html-id="body-modal-compopup4" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopup4">
+    	<jsp:include page="../../../com/popup/comPopup4.jsp"></jsp:include>
+    </div>
+    
 </body>
 
 <!-- inline scripts related to this page -->
@@ -608,10 +642,15 @@
 	var p_ss_deptName			= '${loginVO.maDeptName}';
 	var p_ss_currCode			= '${loginVO.maCurrCode}';
 	var p_ss_currUnit			= '${loginVO.maCurrUnit}';
+	var p_ss_empCode			= '${loginVO.maEmpCode}';
+	var p_ss_isPostingUser		= '${loginVO.maIsPostingUser}';
 	
 	var pg_state				= 'new';
 	
-    var pg_source_type			= '';	//파라미터 <== 다른 메뉴에서..
+	var p_header_dataStatus		= '';
+	
+    var pg_doc_name				= '';	
+    var pg_source_type			= '';	
     var pg_fi_delete_user		= (p_ss_fiDeleteUser) ? p_ss_fiDeleteUser : '';
     var pg_strdoc_type			= '99';
     var pg_strdoc_status		= '1';
@@ -623,8 +662,8 @@
     var pg_colcs_code_field1	= '';	//그리드내(거래처) 컬럼명
     var pg_colcs_code_field2	= '';	//그리드내(거래처) 컬럼명
     
-    var pg_rule_code_bizId		= 'L_RULE';							//멀티셀렉트 'srch-compopup1-rulecode' bizId
-    var pg_rule_code_where		= "AND manual_doc_write_yn = 'Y'";	//멀티셀렉트 'srch-compopup1-rulecode' where
+    var pg_rule_code_bizId		= '';	//멀티셀렉트 'srch-compopup1-rulecode' bizId
+    var pg_rule_code_where		= "";	//멀티셀렉트 'srch-compopup1-rulecode' where
 
     var pg_doc_type_bizId		= '';	//셀텍트 'sch-doc-type' bizId
     var pg_doc_type_where		= '';	//셀텍트 'sch-doc-type' where
@@ -632,12 +671,17 @@
     var p_sel_row 	= '';
     var p_sel_col 	= '';
     
-    var p_menu_param	=	null;
+    var p_summit_yn 	= true;		// c# fnsummit_yn();
     
-    //grid Mast 초기화
+    var p_menu_param	= null;
+	var p_open_menu		= false;
+    
+    //grid 초기화
     var Fig2210Grid; 			// 그리드를 담기위한 객체 선언
     var jsonFig2210 = []; 		// 그리드의 참조 데이터 주소 선언
 
+    var FigGridSum; 			// 그리드를 담기위한 객체 선언
+    var jsonGridSum = []; 		// 그리드의 참조 데이터 주소 선언
     //-----------------------------------------------------------
 
     var jsonFiOrgCode 			= []; // 사업단위
@@ -672,10 +716,10 @@
     
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 사업단위
             gfnma_setComSelect(['sch-fi-org-code'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             gfnma_setComSelect(['sch-site-code'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 회계기준
             gfnma_setComSelect(['sch-acct-rule-code'],			jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -765,15 +809,31 @@
     		
     		pg_doc_type_bizId		= 'L_FIM051';
     		pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
+		} else {
+			pg_vat_type_bizId		= 'P_ACCOUNT_POPUP_LINE_Q';
+			
+    		pg_colcs_code_bizId 	= 'P_CS_ALL';
+    		pg_colcs_code_title 	= '거래처';
+    		pg_colcs_code_field1 	= 'CS_CODE';
+    		pg_colcs_code_field2 	= 'CS_NAME';
+    		
+    		pg_rule_code_bizId		= 'L_RULE';
+    		pg_rule_code_where		= "AND manual_doc_write_yn = 'Y'";
+    		
+    		pg_doc_type_bizId		= 'L_FIM051';
+    		pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
+			
 		}
+		
 		if(type){
 			//select init
-			console.log('fn_initSBSelect ====>>>>:');			
 	  		await fn_initSBSelect()
 		}
-		console.log('fn_createGrid2210 ====>>>>:');			
-    	fn_createGrid2210();	
 		
+		//그리드 셋팅
+    	fn_createGrid2210();	
+    	fn_createGridSum();
+    	
 		//화면셋팅
     	fn_state(pg_state);
 	}    
@@ -791,6 +851,7 @@
 		} else {
 			pg_state = 'new';			
 		}
+		p_open_menu = true;
 		console.log('1 pg_state:', pg_state);			
 		console.log('1 p_menu_param:', p_menu_param);
     	
@@ -808,6 +869,10 @@
 
     //메뉴가 이미 열려있을때..
     window.addEventListener('message', async function(e) {
+		if(p_open_menu){
+	    	return;
+		}
+		
     	let obj = e.data;
 		if(obj){
 			if(obj['MENU_MOVE']){
@@ -818,8 +883,9 @@
 		console.log('2 message pg_state:', pg_state);			
 		console.log('2 message obj:', obj);
 		console.log('2 p_menu_param:', p_menu_param);
-		e.stopPropagation();
-    	return;
+		
+		p_menu_param = obj;
+    	fn_init(true);
     });
     
     /**
@@ -827,18 +893,6 @@
      */
     function fn_state(type) {
     	
-    	//참고용 콤포넌트 숨기기
-		SBUxMethod.hide('sch-txtsource-type2');
-		SBUxMethod.hide('sch-txtinsert-userid');
-		SBUxMethod.hide('sch-fi-org-code');
-		SBUxMethod.hide('sch-site-code');
-		SBUxMethod.hide('sch-hold-flag');
-		SBUxMethod.hide('sch-base-scale');
-		SBUxMethod.hide('sch-txtopen-to-all-yn');
-		SBUxMethod.hide('sch-txtopen-to-fcm-yn');
-		SBUxMethod.hide('sch-acct-opinion');
-		SBUxMethod.hide('sch-tr-opinion');
-		//...................................................
 		
     	if(type=='new'){
     		
@@ -850,7 +904,7 @@
         		pg_source_type = 'MANUAL';
         	}
     		SBUxMethod.set('sch-txtsource-type2', 		pg_source_type);
-    		SBUxMethod.set('sch-txtinsert-userid', 		p_userId);
+    		SBUxMethod.set('sch-insert-userid', 		p_userId);
     		SBUxMethod.set('sch-acct-rule-code', 		p_ss_defaultAcctRule);
     		SBUxMethod.set('sch-doc-type', 				pg_strdoc_type);
     		SBUxMethod.set('sch-doc-status', 			pg_strdoc_status);
@@ -869,14 +923,17 @@
     		$('#top_lable2').show();
     		
     		//button display state
-    		SBUxMethod.attr('sch-btn-scm', 				'disabled', true);
     		SBUxMethod.attr('sch-btn-attach', 			'disabled', true);
     		SBUxMethod.hide('sch-btn-descUpdate');
-    		SBUxMethod.hide('sch-btn-copy');
+    		//SBUxMethod.hide('sch-btn-copy');
     		SBUxMethod.attr('sch-btn-submit', 			'disabled', true);
-    		SBUxMethod.attr('sch-btn-confirmHist', 		'disabled', true);
-    		SBUxMethod.attr('sch-btn-confirmHist', 		'disabled', true);
+    		SBUxMethod.attr('sch-btn-confirmHist', 		'disabled', true);    		
     		SBUxMethod.attr('sch-btn-end', 				'disabled', true);
+    		SBUxMethod.attr('sch-btn-scm', 				'disabled', true);
+    		
+    		SBUxMethod.attr('btn1-row-add', 			'disabled', false);
+    		SBUxMethod.attr('btn1-row-del', 			'disabled', false);
+    		
     		SBUxMethod.attr('sch-btn-cancel', 			'disabled', true);
     		SBUxMethod.attr('sch-btn-release', 			'disabled', true);
     		SBUxMethod.attr('sch-btn-unrelease', 		'disabled', true);
@@ -916,12 +973,12 @@
     		//원가유형제한
     		if(p_ss_isAccountManager || p_ss_issAccountChief){
     			SBUxMethod.show('srh-cost-class-check-yn');
-        		SBUxMethod.set('sch-txtopen-to-all-yn', 	"N");
+        		SBUxMethod.set('sch-reverse-flag', 			"N");
         		SBUxMethod.set('sch-txtopen-to-fcm-yn', 	"N");
     			SBUxMethod.hide('sch-btn-copy');
     		} else {
     			SBUxMethod.hide('srh-cost-class-check-yn');
-        		SBUxMethod.set('sch-txtopen-to-all-yn', 	"Y");
+        		SBUxMethod.set('sch-reverse-flag', 			"Y");
         		SBUxMethod.set('sch-txtopen-to-fcm-yn', 	"Y");
     			SBUxMethod.hide('sch-btn-copy');
     		}
@@ -945,9 +1002,335 @@
     		SBUxMethod.attr('sch-doc-type', 	'disabled', true);
     		SBUxMethod.attr('sch-doc-status', 	'disabled', true);
 			
-    		//fn_setFig2210Grid('Q');
-    		
+    		fn_setFig2210Grid('Q',function(data){
+    			console.log('this===>>>:', data)
+    			
+    			//조회부분
+    			SBUxMethod.set('sch-doc-batch-no', 			data.cv_2[0]['DOC_BATCH_NO']);
+    			SBUxMethod.set('sch-acct-rule-code', 		data.cv_2[0]['ACCT_RULE_CODE']);
+    			SBUxMethod.set('sch-dept-name', 			data.cv_2[0]['DEPT_NAME']);
+    			SBUxMethod.set('sch-dept-code', 			data.cv_2[0]['DEPT_CODE']);
+    			SBUxMethod.set('sch-doc-name', 				data.cv_2[0]['DOC_NAME']);
+    			SBUxMethod.set('sch-doc-id', 				data.cv_2[0]['DOC_ID']);
+    			SBUxMethod.set('sch-voucher-type', 			data.cv_2[0]['VOUCHER_TYPE']);
+    			SBUxMethod.set('sch-voucher-no', 			data.cv_2[0]['VOUCHER_NO']);
+    			SBUxMethod.set('sch-tax-site-code', 		data.cv_2[0]['TAX_SITE_CODE']);
+    			SBUxMethod.set('sch-sub-tax-site-code', 	data.cv_2[0]['SUB_TAX_SITE_CODE']);
+    			SBUxMethod.set('sch-bill-no', 				data.cv_2[0]['BILL_NO']);
+    			SBUxMethod.set('sch-doc-type', 				data.cv_2[0]['DOC_TYPE']);
+    			SBUxMethod.set('sch-doc-status', 			data.cv_2[0]['DOC_STATUS']);
+    			SBUxMethod.set('sch-approve-date', 			data.cv_2[0]['APPROVE_DATE']);
+    			SBUxMethod.set('sch-doc-date', 				data.cv_2[0]['DOC_DATE']);
+    			SBUxMethod.set('sch-voucher-receipt-date', 	data.cv_2[0]['VOUCHER_RECEIPT_DATE']);
+    			SBUxMethod.set('sch-posting-date', 			data.cv_2[0]['POSTING_DATE']);
+    			SBUxMethod.set('sch-posting-user', 			data.cv_2[0]['POSTING_USER']);
+    			SBUxMethod.set('sch-currency-code', 		data.cv_2[0]['CURRENCY_CODE']);
+    			SBUxMethod.set('sch-exchange-type', 		data.cv_2[0]['EXCHANGE_TYPE']);
+    			SBUxMethod.set('sch-exchange-rate', 		data.cv_2[0]['EXCHANGE_RATE']);
+    			SBUxMethod.set('sch-unposting-date', 		data.cv_2[0]['UNPOSTING_DATE']);
+    			SBUxMethod.set('sch-unposting-user', 		data.cv_2[0]['UNPOSTING_USER']);
+    			SBUxMethod.set('sch-description', 			data.cv_2[0]['DESCRIPTION']);
+    			SBUxMethod.set('sch-reverse-doc-name', 		data.cv_2[0]['REVERSE_DOC_NAME']);
+    			SBUxMethod.set('sch-orig-doc-name', 		data.cv_2[0]['ORIG_DOC_ID']);
+    			
+    			SBUxMethod.set('sch-hold-flag', 			data.cv_2[0]['HOLD_FLAG']);
+    			SBUxMethod.set('sch-release-date', 			data.cv_2[0]['RELEASE_DATE']);
+    			SBUxMethod.set('sch-insert-userid', 		data.cv_2[0]['INSERT_USERID']);
+    			SBUxMethod.set('sch-reverse-flag', 			data.cv_2[0]['REVERSE_FLAG']);
+    			SBUxMethod.set('sch-confirm-emp-code', 		data.cv_2[0]['CONFIRM_EMP_CODE']);
+    			SBUxMethod.set('sch-temp-doc-num', 			data.cv_2[0]['DOC_NUM']);
+    			SBUxMethod.set('sch-hold-date', 			data.cv_2[0]['HOLD_DATE']);
+    			SBUxMethod.set('sch-release-user', 			data.cv_2[0]['RELEASE_USER']);
+    			SBUxMethod.set('sch-hold-user', 			data.cv_2[0]['HOLD_USER']);
+    			SBUxMethod.set('sch-hold-reason', 			data.cv_2[0]['HOLD_REASON']);
+    			SBUxMethod.set('sch-proxy-emp-code', 		data.cv_2[0]['PROXY_EMP_CODE']);
+    			SBUxMethod.set('sch-source-type', 			data.cv_2[0]['SOURCE_TYPE']);
+    			SBUxMethod.set('sch-appr-id', 				data.cv_2[0]['APPR_ID']);
+    			SBUxMethod.set('sch-entry-path', 			data.cv_2[0]['ENTRY_PATH']);
+    			SBUxMethod.set('sch-source-id', 			data.cv_2[0]['SOURCE_ID']);
+    			SBUxMethod.set('sch-appr-acount', 			data.cv_2[0]['APPR_COUNT']);
+    			SBUxMethod.set('sch-fi-org-code', 			data.cv_2[0]['FI_ORG_CODE']);
+    			SBUxMethod.set('sch-base-scale', 			data.cv_2[0]['BASE_SCALE']);
+    			SBUxMethod.set('sch-request-emp-code', 		data.cv_2[0]['REQUEST_EMP_CODE']);
+    			SBUxMethod.set('sch-before-appr-emp-code', 		data.cv_2[0]['BEFORE_APPR_EMP_CODE']);
+    			SBUxMethod.set('sch-before-proxy-emp-code', 	data.cv_2[0]['BEFORE_PROXY_EMP_CODE']);
+    			SBUxMethod.set('sch-next-appr-emp-code', 		data.cv_2[0]['NEXT_APPR_EMP_CODE']);
+    			SBUxMethod.set('sch-site-code', 				data.cv_2[0]['SITE_CODE']);
+
+    			//그리드합계
+				jsonGridSum = [];
+   	        	data.cv_4.forEach((item, index) => {
+   					const msg = {
+						ACCOUNT_CODE	: gfnma_nvl(item.ACCOUNT_CODE),			
+						ACCOUNT_NAME	: gfnma_nvl(item.ACCOUNT_NAME),			
+						ORIGINAL_AMT	: gfnma_nvl(item.ORIGINAL_AMT),			
+						FUNCTIONAL_AMT	: gfnma_nvl(item.FUNCTIONAL_AMT),			
+     					ETC				: ''		
+   					}
+   					jsonGridSum.push(msg);
+   	        	});	
+				jsonGridSum = data.cv_4;
+				FigGridSum.rebuild();
+    			
+                //합계표시 보여주기 결정
+    			gfnma_getComCode({
+    					workType		: 'DETAIL_01'
+    					,groupCategory	: ''
+    					,groupCode		: 'SYS601'
+    					,groupName		: ''
+    					,subCode		: ''
+    					,extraField1	: 'FIG2210'
+    					,extraField2	: 'panAccountSum'
+    					,extraField3	: 'N'
+    					,extraField3	: 'N'
+    					,extraField3	: 'N'
+    					,formId			: p_formId
+    					,menuId			: p_menuId					
+    				}
+    				,function(data){
+    					if(data.length>0){
+    			            $('#panAccountSum').hide();
+    					}
+    				}
+    			);
+                
+    			pg_source_type 	= SBUxMethod.get('sch-doc-type');
+    			pg_doc_name		= SBUxMethod.get('sch-doc-name');
+    			if(pg_doc_name){
+    	    		SBUxMethod.attr('sch-btn-attach', 	'disabled', false);
+    			}
+    			
+    			let strinvoice_status_code = SBUxMethod.get('sch-doc-status');
+    			fn_enableSet(strinvoice_status_code);
+    			
+        		SBUxMethod.attr('sch-acct-rule-code', 	'disabled', true);
+        		SBUxMethod.attr('sch-fi-org-code', 		'disabled', true);
+        		SBUxMethod.attr('sch-site-code', 		'disabled', true);
+                
+        		SBUxMethod.set('sch-txtsource-type2', SBUxMethod.get('sch-source-type'));
+        		
+        		let entry_path  	= SBUxMethod.get('sch-entry-path');
+        		let reverse_flag 	= SBUxMethod.get('sch-reverse-flag');
+        		if(entry_path == 'REVERSE' && reverse_flag == 'Y' && p_ss_isAccountManager){
+        			SBUxMethod.show('sch-btn-reverseCancel');
+        		} else {
+        			SBUxMethod.hide('sch-btn-reverseCancel');
+        		}
+        		
+        		let doc_id 		= SBUxMethod.get('sch-doc-id');
+        		let doc_status 	= SBUxMethod.get('sch-doc-status');
+        		if(doc_id != '0'){
+        			if(doc_status == '1'){
+        				$('#main-btn-del', parent.document).attr('disabled', false);
+        				$('#top_lable1').hide();
+        				$('#top_lable2').hide();
+        			}
+        		}
+        		
+        		
+        		//원가유형제한
+        		if(p_ss_isAccountManager || p_ss_issAccountChief){
+        			SBUxMethod.show('srh-cost-class-check-yn');
+            		SBUxMethod.set('sch-reverse-flag', 			"N");
+            		SBUxMethod.set('sch-txtopen-to-fcm-yn', 	"N");
+        			//SBUxMethod.hide('sch-btn-copy');
+        		} else {
+        			SBUxMethod.hide('srh-cost-class-check-yn');
+            		SBUxMethod.set('sch-reverse-flag', 			"Y");
+            		SBUxMethod.set('sch-txtopen-to-fcm-yn', 	"Y");
+        			//SBUxMethod.hide('sch-btn-copy');
+        		}
+    			SBUxMethod.set('srh-cost-class-check-yn', 'Y');
+        		
+        		let p_sch_voucher_type = SBUxMethod.get('sch-voucher-type');
+        		if(p_sch_voucher_type=='A' || p_sch_voucher_type=='B' || p_sch_voucher_type=='C'){
+        			SBUxMethod.show('btn-tax-view');
+        		} else {
+        			SBUxMethod.hide('btn-tax-view');
+        		}    			
+    		});
     	}
+    }
+    
+    /**
+     * 콤포넌트 할성화
+     */
+    var fn_enableSet = function(code) {
+    	
+    	if(code=='0'){
+    		
+			$('#main-btn-save', parent.document).attr('disabled', false);
+			$('#main-btn-del', 	parent.document).attr('disabled', true);
+			
+    		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+    		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+    		SBUxMethod.attr('sch-btn-end', 			'disabled', true);
+    		SBUxMethod.attr('sch-btn-scm', 			'disabled', true);
+    		
+    		$('#btn1-row-add').attr('disabled', 	false);
+    		$('#btn1-row-del').attr('disabled', 	false);
+    		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+    		
+    		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+    		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+    	
+    	} else {
+    		
+    		if(code=='1'){
+    			
+        		//미승인
+    			$('#main-btn-save', parent.document).attr('disabled', true);
+    			$('#main-btn-del', 	parent.document).attr('disabled', true);
+    			
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
+        		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+        		SBUxMethod.attr('sch-btn-end', 			'disabled', true);
+        		
+        		$('#btn1-row-add').attr('disabled', 	false);
+        		$('#btn1-row-del').attr('disabled', 	false);
+        		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+
+        		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+        		
+        		let insert_userid = SBUxMethod.get('sch-insert-userid');
+        		if(insert_userid != p_userId || !p_summit_yn){
+        			$('#main-btn-save', parent.document).attr('disabled', true);
+        			$('#main-btn-del', parent.document).attr('disabled', true);
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+            		$('#btn1-row-add').attr('disabled', 	true);
+            		$('#btn1-row-del').attr('disabled', 	true);
+        		}
+        	} else if(code=='3'){
+        		
+        		//승인중
+    			$('#main-btn-save', parent.document).attr('disabled', true);
+    			$('#main-btn-del', parent.document).attr('disabled', true);
+        		
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
+        		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
+        		SBUxMethod.attr('sch-btn-end', 			'disabled', true);
+        		
+        		$('#btn1-row-add').attr('disabled', 	false);
+        		$('#btn1-row-del').attr('disabled', 	false);
+        		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+        		
+        		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+        		
+        		let confirm_emp_code 		= SBUxMethod.get('sch-confirm-emp-code');
+        		let proxy_emp_code 			= SBUxMethod.get('sch-proxy-emp-code');
+        		let next_appr_emp_code		= SBUxMethod.get('sch-next-appr-emp-code');
+        		let before_appr_emp_code	= SBUxMethod.get('sch-before-appr-emp-code');
+        		let insert_userid			= SBUxMethod.get('sch-insert-userid');
+        		let appr_id					= SBUxMethod.get('sch-appr-id');
+        		
+        		if( confirm_emp_code != p_ss_empCode && proxy_emp_code != p_ss_empCode && next_appr_emp_code != p_ss_empCode && before_appr_emp_code != p_ss_empCode ){
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+        		}
+        		if( insert_userid == p_userId || before_appr_emp_code == p_userId || !p_summit_yn || p_ss_isAccountManager ){
+        			$('#main-btn-save', parent.document).attr('disabled', 	false);
+        			$('#main-btn-del', parent.document).attr('disabled', 	false);
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', 	false);
+        		}
+        		if(p_ss_fiDeleteUser == p_userId){
+        			$('#main-btn-del', parent.document).attr('disabled', 	false);
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', 	false);
+        		}
+        		if(appr_id == ''){
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', 	true);
+        		}
+        	
+        	} else if(code=='5'){
+        		
+        		//승인완료
+    			$('#main-btn-save', parent.document).attr('disabled', true);
+    			$('#main-btn-del', parent.document).attr('disabled', true);
+        		
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+    			
+        		if(p_ss_isPostingUser){
+            		SBUxMethod.attr('sch-btn-end', 		'disabled', false);
+        		} else {
+            		SBUxMethod.attr('sch-btn-end', 		'disabled', true);
+        		}
+        		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+        		$('#btn1-row-add').attr('disabled', 	true);
+        		$('#btn1-row-del').attr('disabled', 	true);
+        		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+    			
+        		let insert_userid		= SBUxMethod.get('sch-insert-userid');
+        		if(insert_userid == p_userId || !p_summit_yn){
+        			$('#main-btn-save', parent.document).attr('disabled', false);
+        			$('#main-btn-del', parent.document).attr('disabled', false);
+            		$('#btn1-row-add').attr('disabled', 	false);
+            		$('#btn1-row-del').attr('disabled', 	false);
+        		}
+        		if(p_ss_isAccountManager){
+        			$('#main-btn-save', parent.document).attr('disabled', false);
+        			$('#main-btn-del', parent.document).attr('disabled', false);
+        		}
+        		let appr_acount			= SBUxMethod.get('sch-appr-acount');
+        		appr_acount = (appr_acount=="") ? '0' : appr_acount;
+        		if(insert_userid == p_userId && appr_acount == "1" ){
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
+        			$('#main-btn-del', parent.document).attr('disabled', false);
+        		}
+        		if(appr_acount != "0" ){
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
+        		}
+        	} else {
+        		
+    			$('#main-btn-save', parent.document).attr('disabled', true);
+    			$('#main-btn-del', parent.document).attr('disabled', true);
+        		
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+        		let appr_id 			= SBUxMethod.get('sch-appr-id');
+        		if(appr_id == ""){
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+        		} else {
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
+        		}
+        		SBUxMethod.attr('sch-btn-end', 		'disabled', true);
+    			
+        		let posting_date	= SBUxMethod.get('sch-posting-date');
+        		let reverse_flag 	= SBUxMethod.get('sch-reverse-flag');
+        		if(posting_date != "" && reverse_flag != "Y" && p_ss_isPostingUser){
+        			$('#main-btn-cancel', parent.document).attr('disabled', false);
+        		} else {
+        			$('#main-btn-cancel', parent.document).attr('disabled', true);
+        		}
+        		$('#btn1-row-add').attr('disabled', 	true);
+        		$('#btn1-row-del').attr('disabled', 	true);
+        		if(p_ss_isAccountManager){
+            		SBUxMethod.attr('sch-btn-release', 		'disabled', false);
+            		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', false);
+            		//this
+                    //colhold_flag.OptionsColumn.ReadOnly = false;
+                    //colhold_reason.OptionsColumn.ReadOnly = false;
+        		}
+        	}
+    		
+    		let insert_userid		= SBUxMethod.get('sch-insert-userid');
+    		if(p_ss_isAccountManager || insert_userid == p_userId || code=='1'){
+                //panHeader.ActionMode = ActionMode.Save;
+                //gvwInfo.ActionMode = ActionMode.Save;
+    		} else {
+                //panHeader.ActionMode = ActionMode.View;
+                //gvwInfo.ActionMode = ActionMode.View;
+    		}
+    		if(p_ss_issAccountChief || p_ss_isAccountManager){
+    			SBUxMethod.show('sch-btn-descUpdate');
+        		let doc_type = SBUxMethod.get('sch-doc-type');
+    			if( doc_type == '31' || doc_type == '15' || doc_type == '11' ){
+            		SBUxMethod.attr('sch-btn-scm', 		'disabled', false);
+    			}
+    		}
+    		
+    	}    		
+    	
     }
     
     /**
@@ -1886,7 +2269,7 @@
 	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
             	}	
             },
-            {caption: ["부가세유형명"], 			ref: 'VAT_TYPE_NAME', 			type:'input',		width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세유형명"], 			ref: 'VAT_NAME', 			type:'input',		width:'100px',  	style:'text-align:left'},
             
             {caption: ["거래처"], 					ref: pg_colcs_code_field1,    	type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn2',    				type:'button',  	width:'40px',  		style:'text-align:center', 
@@ -2219,7 +2602,7 @@
     	
         var searchText1 	= cellData1;
         var searchText2 	= cellData2;
-    	var addParams = ['NULL', 'NULL'];	
+    	var addParams = [gfnma_date6(), 'NULL'];	
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부가세유형');
     	compopup1({
@@ -2314,7 +2697,7 @@
     	
         var nRow 			= Fig2210Grid.getRow();
         var rowData 		= Fig2210Grid.getRowData(nRow);
-    	var pp_open_to_all	= "'" + gfnma_nvl(SBUxMethod.get("sch-txtopen-to-all-yn")) + "'"; 
+    	var pp_open_to_all	= "'" + gfnma_nvl(SBUxMethod.get("sch-reverse-flag")) + "'"; 
     	var pp_line_type	= "'" + rowData['LINE_TYPE'] + "'"; 
     	var pp_open_to_fcm	= "'" + gfnma_nvl(SBUxMethod.get("sch-txtopen-to-fcm-yn")) + "'"; 
         
@@ -2545,13 +2928,19 @@
      */
 	function fn_gridPopup7(event, row, col) {
 		event.stopPropagation();	
-    	fn_gridPopup7Show(row, col);
+        let cellData1 = Fig2210Grid.getCellData(row, 27) 
+        let cellData2 = Fig2210Grid.getCellData(row, 29) 
+    	fn_gridPopup7Show(row, col, cellData1, cellData2);
 	}
     
     /**
      * 그리드내 공통팝업(지급기준) 오픈
      */
-    var fn_gridPopup7Show = function(row, col) {
+    var fn_gridPopup7Show = function(row, col, cellData1, cellData2) {
+    	
+        var replaceText0 	= "_PAY_TERM_CODE_";
+        var replaceText1 	= "_PAY_TERM_NAME_"; 
+        var strWhereClause 	= "AND PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND PAY_TERM_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
     	compopup1({
@@ -2559,10 +2948,10 @@
     		,clientCode				: gv_ma_selectedClntCd
     		,bizcompId				: 'P_PAY_DATE'
        		,popupType				: 'A'
-       		,whereClause			: ''
+       		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["BANK_ACCOUNT_SEQ", 	"PAY_TERM_NAME"]
-   			,searchInputValues		: ['', 					'']
+   			,searchInputFields		: ["PAY_TERM_CODE", 	"PAY_TERM_NAME"]
+   			,searchInputValues		: [cellData1, 			cellData2]
    			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '500px'
@@ -2630,7 +3019,7 @@
 		SBUxMethod.openModal('modal-compopup1');
     }      
     
-	const fn_setFig2210Grid = async function (wtype){
+	const fn_setFig2210Grid = async function (wtype, callbackFn){
 
 		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
 		let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("sch-acct-rule-code"));
@@ -2696,6 +3085,19 @@
         		list.forEach((item, index) => {
   					const msg = {
   						CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
+  						
+  						ITEM_ID					: gfnma_nvl(item.ITEM_ID),			
+  						DOC_ID					: gfnma_nvl(item.DOC_ID),			
+  						TMP_ACCOUNT_CODE		: gfnma_nvl(item.TMP_ACCOUNT_CODE),			
+  						TMP_ACCOUNT_NAME		: gfnma_nvl(item.TMP_ACCOUNT_NAME),			
+  						FUNCTIONAL_AMT_HIST		: gfnma_nvl(item.FUNCTIONAL_AMT_HIST),			
+  						VAT_TYPE_CODE			: gfnma_nvl(item.VAT_TYPE_CODE),			
+  						ITEM_CODE				: gfnma_nvl(item.ITEM_CODE),			
+  						UOM						: gfnma_nvl(item.UOM),			
+  						TXN_QTY					: gfnma_nvl(item.TXN_QTY),			
+  						BALANCE_SIDE			: gfnma_nvl(item.BALANCE_SIDE),			
+  						TXT_STOP_YN				: gfnma_nvl(item.TXT_STOP_YN),			
+  						
   						ITEM_SEQ				: gfnma_nvl(item.ITEM_SEQ),			
   						LINE_TYPE				: gfnma_nvl(item.LINE_TYPE),			
   						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),			
@@ -2798,7 +3200,7 @@
   						BASE_SCALE				: gfnma_nvl(item.BASE_SCALE),
   						EXCHANGE_TYPE			: gfnma_nvl(item.EXCHANGE_TYPE),
   						PAY_METHOD				: gfnma_nvl(item.PAY_METHOD),
-  						EXPECTED_PAY_DATE		: gfnma_nvl(item.EXPECTED_PAY_DATE),
+  						EXPECTED_PAY_DATE		: gfnma_date5(gfnma_nvl(item.EXPECTED_PAY_DATE)),
   						PAY_TERM_CODE			: gfnma_nvl(item.PAY_TERM_CODE),
   						PAY_TERM_NAME			: gfnma_nvl(item.PAY_TERM_NAME),
   						BASIS_TYPE				: gfnma_nvl(item.BASIS_TYPE),
@@ -2826,10 +3228,10 @@
   						HOLD_DATE				: gfnma_nvl(item.HOLD_DATE),
   						HOLD_USER				: gfnma_nvl(item.HOLD_USER),
   						HOLD_REASON				: gfnma_nvl(item.HOLD_REASON),
-  						PAY_BASE_DATE			: gfnma_nvl(item.PAY_BASE_DATE),
+  						PAY_BASE_DATE			: gfnma_date5(gfnma_nvl(item.PAY_BASE_DATE)),
   						BILL_DUE_DATE			: gfnma_nvl(item.BILL_DUE_DATE),
   						BILL_DUE_DAY			: gfnma_nvl(item.BILL_DUE_DAY),
-  						BILL_DUE_DAY_DATE		: gfnma_nvl(item.BILL_DUE_DAY_DATE),
+  						BILL_DUE_PAY_DATE		: gfnma_nvl(item.BILL_DUE_PAY_DATE),
   						PAY_TERM_ORIG			: gfnma_nvl(item.PAY_TERM_ORIG),
   						PROD_GROUP				: gfnma_nvl(item.PROD_GROUP),
   						BANK_ACCOUNT_SEQ		: gfnma_nvl(item.BANK_ACCOUNT_SEQ),
@@ -2868,23 +3270,32 @@
   						NONDED_YN				: gfnma_nvl(item.NONDED_YN),
   						WITHHOLD_TAX_YN			: gfnma_nvl(item.WITHHOLD_TAX_YN),
   						
-  						VAT_TYPE_NAME			: '',
-  						ORIGINAL_AMT			: '0',
-  						FUNCTIONAL_AMT			: '0',
-  						PROJECT_CODE			: '',
-  						PROJECT_NAME			: '',
-  						BANK_NAME				: '',
-  						BANK_ACCOUNT_NO			: '',
-  						REGNO					: '',
-  						TXN_STOP_YN				: '',
+  						VAT_NAME				: gfnma_nvl(item.VAT_NAME),
+  						ORIGINAL_AMT			: (gfnma_nvl(item.ORIGINAL_AMT)) ? gfnma_nvl(item.ORIGINAL_AMT) : '0',
+  						FUNCTIONAL_AMT			: (gfnma_nvl(item.FUNCTIONAL_AMT)) ? gfnma_nvl(item.FUNCTIONAL_AMT) : '0',
+  						PROJECT_CODE			: gfnma_nvl(item.PROJECT_CODE),
+  						PROJECT_NAME			: gfnma_nvl(item.PROJECT_NAME),
+  						BANK_NAME				: gfnma_nvl(item.BANK_NAME),
+  						BANK_ACCOUNT_NO			: gfnma_nvl(item.BANK_ACCOUNT_NO),
+  						REGNO					: gfnma_nvl(item.REGNO),
+  						TXN_STOP_YN				: gfnma_nvl(item.TXN_STOP_YN),
+  						
+  						ITEM_SOURCE_ID_ORIG		: gfnma_nvl(item.ITEM_SOURCE_ID_ORIG),
+  						ITEM_SOURCE_TYPE_ORIG	: gfnma_nvl(item.ITEM_SOURCE_TYPE_ORIG),
   							
   					}
   					jsonFig2210.push(msg);
   				});        		
   	        	Fig2210Grid.rebuild();
-        		
+        		if(pg_state=='edit'){
+        			fn_gridTotal();
+        		}
+  	        	
         	} else {
           		alert(data.resultMessage);
+        	}
+        	if(callbackFn){
+        		callbackFn(data);
         	}
         } catch (e) {
     		if (!(e instanceof Error)) {
@@ -2919,10 +3330,372 @@
     } 
     
     /**
+     * 계정과목별합계
+     */
+    function fn_createGridSum() {
+    	
+        var SBGridProperties 				= {};
+	    SBGridProperties.parentid 			= 'sb-area-grdSum';
+	    SBGridProperties.id 				= 'FigGridSum';
+	    SBGridProperties.jsonref 			= 'jsonGridSum';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.frozencols 		= 1;
+	    SBGridProperties.allowcopy 			= true; //복사	    
+	    SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
+            {caption: ["계정코드"],					ref: 'ACCOUNT_CODE', 			type:'output', 		width:'80px',  		style:'text-align:left'},
+            {caption: ["계정과목명"],				ref: 'ACCOUNT_NAME', 			type:'output', 		width:'200px',  	style:'text-align:left'},
+            {caption: ["통화금액(차-대)"], 			ref: 'ORIGINAL_AMT', 			type:'output',		width:'100px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
+            {caption: ["전표금액(차-대)"], 			ref: 'FUNCTIONAL_AMT', 			type:'output',		width:'100px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
+            {caption: ["비고"], 					ref: 'ETC', 					type:'output',		width:'100px',  	style:'text-align:left'},
+        ];
+
+        FigGridSum = _SBGrid.create(SBGridProperties);
+    }    
+    
+    /**
      * SCM정보
      */
     var fn_btnScmInfo = function() {
     } 
+    
+    /**
+     * 부서·적요수정
+     */
+    var fn_descUpdate = function() {
+    	
+		if(gfn_comConfirm("Q0001", "부서·적요수정")){
+			fn_subDescUpdate('DESC_UPDATE');
+		} 
+    } 
+    
+    /**
+     * 부서·적요수정 - 실행
+     */   
+    const fn_subDescUpdate = async function (wType){    
+    	
+    	var p_fi_org_code			= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
+    	var p_doc_id				= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
+    	var p_description			= gfnma_nvl(SBUxMethod.get("sch-description"));
+    	
+    	var stritem_id_d 			= "";
+    	var strdept_d 				= "";
+    	var strproject_d 			= "";
+    	var strdescription_d 		= "";
+    	
+//     	let allDatas = Fig2210Grid.getGridDataAll();
+// 		console.log('allDatas===>>>', allDatas);
+    	
+		var list = Fig2210Grid.getUpdateData(true)
+		if(list.length==0){
+    		gfn_comAlert("E0000","부서·적요수정 할 내용이 없습니다.");
+    		return;
+			
+		}
+		//console.log('list===>>>', list);
+		
+		for (var i = 0; i < list.length; i++) {
+			stritem_id_d		+=	gfnma_nvl(list[i]['data']['ITEM_ID']) + "|";	
+			strdept_d 			+=	gfnma_nvl(list[i]['data']['DEPT_CODE']) + "|";	
+			strproject_d 		+=	gfnma_nvl(list[i]['data']['PROJECT_CODE']) + "|";	
+			strdescription_d 	+=	gfnma_nvl(list[i]['data']['DESCRIPTION']) + "|";	
+		}
+		if(list.length > 0){
+			stritem_id_d		= stritem_id_d.slice(0, -1);
+            strdept_d			= strdept_d.slice(0, -1);
+            strproject_d		= strproject_d.slice(0, -1);
+            strdescription_d	= strdescription_d.slice(0, -1);
+		}
+		
+ 	    var paramObj = { 
+			V_P_DEBUG_MODE_YN			: ''
+			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+			
+			,V_P_FI_ORG_CODE			: p_fi_org_code
+			,V_P_DOC_ID					: p_doc_id
+			,V_P_DESCRIPTION            : p_description 
+			,V_P_ITEM_ID    			: stritem_id_d           
+			,V_P_DEPT_CODE_D			: strdept_d
+			,V_P_DESCRIPTION_D          : strdescription_d 
+			
+			,V_P_FORM_ID				: p_formId
+			,V_P_MENU_ID				: p_menuId
+			,V_P_PROC_ID				: ''
+			,V_P_USERID					: ''
+			,V_P_PC						: '' 
+	    };		
+		console.log('P_FIG2210_S2 param:', paramObj);
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2210S2.do", {
+        	getType				: 'json',
+        	workType			: wType,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+		console.log('P_FIG2210_S2 data:', data);
+        
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		}
+        		fn_state(pg_state);        		
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }  		
+		
+    }
+    
+    /**
+     * 전표복사
+     */
+    var fn_docCopy = function() {
+    	
+    	p_header_dataStatus = 'N';
+    	
+		$('#btn1-row-add').attr('disabled', 	false);
+		$('#btn1-row-del').attr('disabled', 	false);
+    	
+		SBUxMethod.attr('sch-btn-attach', 		'disabled', true);
+		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+		SBUxMethod.set('sch-doc-batch-no', 		'');
+		SBUxMethod.set('sch-doc-name', 			'');
+		SBUxMethod.set('sch-posting-date', 		'');
+		SBUxMethod.set('sch-unposting-date', 	'');
+		SBUxMethod.set('sch-approve-date', 		'');
+		SBUxMethod.set('sch-posting-user', 		'');
+		SBUxMethod.set('sch-unposting-user', 	'');
+		SBUxMethod.set('sch-doc-id', 			'0');
+		SBUxMethod.set('sch-doc-status', 		'1');
+		SBUxMethod.set('sch-reverse-flag', 		'N');
+		SBUxMethod.set('sch-reverse-doc-name', 	'');
+		SBUxMethod.attr('sch-doc-date', 		'disabled', false);
+    	
+		$('#main-btn-save', parent.document).attr('disabled', false);
+		$('#main-btn-del', 	parent.document).attr('disabled', false);
+		
+		SBUxMethod.set('sch-doc-date', 					gfnma_date4());
+		SBUxMethod.set('sch-voucher-receipt-date', 		gfnma_date4());
+    	
+		let allDatas = jsonFig2210.getOrgGridDataAll()
+		if(allDatas.length > 0){
+			for (var i = 0; i < allDatas.length; i++) {
+				allDatas[i]['APPLY_COMPLETE_FLAG'] 		= 'N';
+				allDatas[i]['APPLY_COMPLETE_DATE'] 		= '';
+				allDatas[i]['EXPECTED_PAY_DATE'] 		= '';
+				allDatas[i]['BILL_DUE_DATE'] 			= '';
+				allDatas[i]['BILL_DUE_DAY'] 			= '';
+				allDatas[i]['BILL_DUE_PAY_DATE'] 		= '';
+				allDatas[i]['VOUCHER_TYPE'] 			= '';
+				allDatas[i]['VOUCHER_NO'] 				= '';
+				allDatas[i]['VOUCHER_NO1'] 				= '';
+				allDatas[i]['VOUCHER_RECEIPT_DATE'] 	= '';
+				allDatas[i]['ITEM_SOURCE_ID_ORIG'] 		= '';
+				allDatas[i]['ITEM_SOURCE_TYPE_ORIG'] 	= '';
+				allDatas[i]['ITEM_SOURCE_ID'] 			= '';
+				allDatas[i]['ITEM_SOURCE_TYPE'] 		= '';
+				allDatas[i]['ITEM_ID'] 					= '';
+				allDatas[i]['DOC_ID'] 					= '';
+				allDatas[i]['CARD_NO'] 					= '';
+				allDatas[i]['HOLD_FLAG'] 				= '';
+			}
+			Fig2210Grid.refresh();
+		}
+    } 
+    
+    /**
+     * 결재이력
+     */
+    var fn_confimHist = function() {
+    	
+		var p_appr_id = gfnma_nvl(SBUxMethod.get("sch-appr-id"));
+		if(p_appr_id=='' || p_appr_id=='0'){
+ 			gfn_comAlert("E0000","결재정보 생성 후 조회가 가능합니다.");
+			return;
+		}
+
+		var p_doc_id 	= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
+		var p_doc_type	= gfnma_nvl(SBUxMethod.get("sch-doc-type"));
+    	
+    	SBUxMethod.attr('modal-compopfim3420', 'header-title', '승인결과조회');
+		SBUxMethod.openModal('modal-compopfim3420');
+		
+		compopfim3420({
+    		height			: '600px'
+    		,param			: {
+    			p_appr_id	: p_appr_id		//'23'
+    			,p_doc_id	: p_doc_id		//'584'
+    			,p_doc_type	: p_doc_type	//'AP'
+    		}
+   			,callbackEvent	: function (data){
+   				console.log('callback data:', data);
+   			},
+    	});
+  	}     
+    
+    /**
+     * 전기처리
+     */
+    var fn_docEnd = function() {
+    	
+    	var bNoCommitRow = false; 
+    	if(p_header_dataStatus != 'Q'){
+    		bNoCommitRow = true;
+    	}
+        if(bNoCommitRow){
+    		gfn_comAlert("E0000","저장되지 않은 DATA 가 있습니다. 저장 후 작업해주세요.");
+    		return;
+        }
+        
+        fn_subDocProcess('END');
+  	}     
+    
+    /**
+     * 전기처리 - 실행
+     */
+    const fn_subDocProcess = async function (wtype){
+
+		let p_fi_org_code	= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
+		let p_strdoc_id		= gfnma_nvl(SBUxMethod.get("sch-doc-ide"));
+		
+        if(!p_strdoc_id){
+    		gfn_comAlert("E0000","전기처리 할 전표를 선택하세요");
+    		return;
+        }
+		
+  	    var paramObj = { 
+ 			V_P_DEBUG_MODE_YN			: ''
+ 			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+			
+ 			,V_P_FI_ORG_CODE			: p_fi_org_code
+ 			,V_P_ACCT_RULE_CODE			: p_ss_defaultAcctRule
+ 			,V_P_DOC_ID     			: p_strdoc_id
+ 			,V_P_HOLD_REASON			: ''
+ 			,V_P_UNPOSTING_TYPE			: ''
+ 			,V_P_UNPOSTING_DATE			: ''
+ 				
+ 			,V_P_FORM_ID				: p_formId
+ 			,V_P_MENU_ID				: p_menuId
+ 			,V_P_PROC_ID				: ''
+ 			,V_P_USERID					: p_userId
+ 			,V_P_PC						: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2200S1.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		}
+	    		fn_state('edit');        		
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }  
+    }         
+    
+    /**
+     * 전기취소
+     */
+    var fn_docCancel = function() {
+    	
+		let p_strdoc_id		= gfnma_nvl(SBUxMethod.get("sch-doc-ide"));
+    	
+    	SBUxMethod.attr('modal-compopup4', 'header-title', '전표전기취소');
+    	compopup4({
+    		param					: {}
+			,callbackEvent			: function (data){
+				console.log('callback data:', data);
+				if(gfn_comConfirm("Q0001", "전기취소")){
+			      	fn_subDocCancel(data['workType'], p_strdoc_id, data['code'], data['date']);
+				}       	
+			},
+    	});
+		SBUxMethod.openModal('modal-compopup4');
+  	}     
+
+    /**
+     * 전기취소 - 실행
+     */
+    const fn_subDocCancel = async function (wtype, p_strdoc_id, p_type, p_date){
+
+		let p_fi_org_code	= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
+        if(!p_strdoc_id){
+    		gfn_comAlert("E0000","전기취소 할 전표를 선택하세요");
+    		return;
+        }
+		
+  	    var paramObj = { 
+ 			V_P_DEBUG_MODE_YN			: ''
+ 			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+			
+ 			,V_P_FI_ORG_CODE			: p_fi_org_code
+ 			,V_P_ACCT_RULE_CODE			: p_ss_defaultAcctRule
+ 			,V_P_DOC_ID     			: p_strdoc_id
+ 			,V_P_HOLD_REASON			: ''
+ 			,V_P_UNPOSTING_TYPE			: p_type
+ 			,V_P_UNPOSTING_DATE			: p_date
+ 				
+ 			,V_P_FORM_ID				: p_formId
+ 			,V_P_MENU_ID				: p_menuId
+ 			,V_P_PROC_ID				: ''
+ 			,V_P_USERID					: p_userId
+ 			,V_P_PC						: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2200S1.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		}
+	    		fn_state('edit');        		
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }  
+    }       
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

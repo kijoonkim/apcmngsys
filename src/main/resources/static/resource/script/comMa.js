@@ -137,7 +137,23 @@ const gfnma_date5 = function (str1, str2) {
 	if(!str1) return '';
 	var rstr 	= '';
 	var gubun	= (str2) ? str2 : '-';
+	var regex 	= /[^0-9]/g;
+	str1 		= str1.replace(regex, "");
 	rstr += str1.substr(0,4) + gubun + str1.substr(4,2) + gubun + str1.substr(6,2); 
+	return rstr;
+}
+
+/**
+ * @name 		gfnma_date6
+ * @description 오늘날짜를 yyyyMMdd 혹은 yyyy-MM-dd 형식으로 반환
+ * @function
+ * @param 		{string} str : 구분자 
+ * @returns 	{string}
+ */
+const gfnma_date6 = function (str) {
+	var rstr 	= '';
+	var gubun	= (str) ? str : '';
+	rstr += gfnma_date().substr(0,4) + gubun + gfnma_date().substr(4,2) + gubun + gfnma_date().substr(6,2); 
 	return rstr;
 }
 
