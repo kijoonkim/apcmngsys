@@ -10,9 +10,9 @@ import lombok.Setter;
 public class FcltOgnzItemPrfmncVO extends ComVO{
 
 	private String trgtYr;
-	private String apcCd;
-	private String apcNm;
-	private int sn;
+	//private String apcCd;
+	//private String apcNm;
+	//private int sn;
 	private String fcltOgnzItemCd;
 	private int fcltOgnzTrmtAmt;
 	private int fcltOgnzTrmtVlm;
@@ -27,7 +27,14 @@ public class FcltOgnzItemPrfmncVO extends ComVO{
 	private String fcltOgnzTrmtVlm3;
 	private String fcltOgnzTrmtVlm4;
 
-
+	private String crtrYr;
+	private String apcCd;
+	private String apcNm;
+	private String itemCd;
+	private String itemNm;
+	private String apcOperAmt;
+	private String apcOperVlm;
+	private String sn;
 
 }
 

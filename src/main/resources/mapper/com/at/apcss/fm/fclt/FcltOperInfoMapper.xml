@@ -20,46 +20,51 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo */
-					  FCLT.TRGT_YR                  AS  TRGT_YR
-					, FCLT.APC_CD                   AS  APC_CD
-					, FCLT.OPER_OGNZ_ADDR1          AS  OPER_OGNZ_ADDR1
-					, FCLT.OPER_OGNZ_ADDR2          AS  OPER_OGNZ_ADDR2
-					, FCLT.APC_BRNO                 AS  APC_BRNO
-					, FCLT.APC_RGN_CD               AS  APC_RGN_CD
-					, FCLT.APC_NM                   AS  APC_NM
-					, FCLT.APC_ADDR                 AS  APC_ADDR
-					, FCLT.PSN_OGNZ_NM              AS  PSN_OGNZ_NM
-					, FCLT.PSN_OGNZ_BRNO            AS  PSN_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_CD             AS  OPER_OGNZ_CD
-					, FCLT.OPER_OGNZ_NM             AS  OPER_OGNZ_NM
-					, FCLT.OPER_OGNZ_BRNO           AS  OPER_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_DEPT_CD        AS  OPER_OGNZ_DEPT_CD
-					, FCLT.OPER_OGNZ_DEPT_NM        AS  OPER_OGNZ_DEPT_NM
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN   AS  OPER_OGNZ_TRMT_ITEM_CN
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN2  AS  OPER_OGNZ_TRMT_ITEM_CN2
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN3  AS  OPER_OGNZ_TRMT_ITEM_CN3
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN4  AS  OPER_OGNZ_TRMT_ITEM_CN4
-					, FCLT.OPER_OGNZ_PIC   			AS  OPER_OGNZ_PIC
-					, FCLT.APC_TRMT_ITEM_CN         AS  APC_TRMT_ITEM_CN
-					, FCLT.APC_TRMT_ITEM_CN2        AS  APC_TRMT_ITEM_CN2
-					, FCLT.APC_TRMT_ITEM_CN3        AS  APC_TRMT_ITEM_CN3
-					, FCLT.APC_TRMT_ITEM_CN4        AS  APC_TRMT_ITEM_CN4
-				FROM   TB_FCLT_OPER_INFO FCLT
-				WHERE 1=1
-				  AND DEL_YN != 'Y'
-				  AND APC_CD IS NOT NULL
+	<select id="selectFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo */
+			  AOPO.OPER_OGNZ_NM
+			, AOPO.CRTR_YR
+			, AOPO.OPER_OGNZ_BRNO
+			, AOPO.OPER_OGNZ_CRNO
 
-    	]]>
-    		<if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
-		   </if>
-    </select>
+			, AOPO.APC_CD
+			, AOPO.APC_NM
+			, AOPO.APC_BRNO
+			, AOPO.APC_CRNO
+
+			, AOPO.RPRSV
+
+			, AOPO.LOCTN
+			, AOPO.OPER_OGNZ_BMNO
+			, AOPO.OPER_OGNZ_SLNO
+			, AOPO.OPER_OGNZ_ROAD_NM_CD
+			, AOPO.OPER_OGNZ_ADM_CD
+			, AOPO.OPER_OGNZ_ZIP
+
+			, AOPO.APC_LOCTN
+			, AOPO.APC_BMNO
+			, AOPO.APC_SLNO
+			, AOPO.APC_ROAD_NM_CD
+			, AOPO.APC_ADM_CD
+			, AOPO.APC_ZIP
+
+			, AOPO.CTPV_CD
+			, AOPO.SIGUN_CD
+
+			, AOPO.OGNZ_TYPE_CD
+
+		FROM TB_TE_APC_OPER_PRSN_OTLN AOPO
+		WHERE 1=1
+		  AND AOPO.DEL_YN = 'N'
+		  AND AOPO.APC_CD IS NOT NULL
+		<if test='crtrYr != null and !crtrYr.equals("")'>
+		  AND  AOPO.CRTR_YR = #{crtrYr}
+		</if>
+		<if test='apcCd != null and !apcCd.equals("")'>
+		  AND  AOPO.APC_CD = #{apcCd}
+		</if>
+
+	</select>
 
 
 	<!-- ==========================================================================	-->
@@ -70,244 +75,178 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltOperInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-    	<![CDATA[
+	<select id="selectFcltOperInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList */
-					  FCLT.TRGT_YR                  AS  TRGT_YR
-					, FCLT.APC_CD                   AS  APC_CD
-					, FCLT.OPER_OGNZ_ADDR1          AS  OPER_OGNZ_ADDR1
-					, FCLT.OPER_OGNZ_ADDR2          AS  OPER_OGNZ_ADDR2
-					, FCLT.APC_BRNO                 AS  APC_BRNO
-					, FCLT.APC_RGN_CD               AS  APC_RGN_CD
-					, FCLT.APC_NM                   AS  APC_NM
-					, FCLT.APC_ADDR                 AS  APC_ADDR
-					, FCLT.PSN_OGNZ_NM              AS  PSN_OGNZ_NM
-					, FCLT.PSN_OGNZ_BRNO            AS  PSN_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_CD             AS  OPER_OGNZ_CD
-					, FCLT.OPER_OGNZ_NM             AS  OPER_OGNZ_NM
-					, FCLT.OPER_OGNZ_BRNO           AS  OPER_OGNZ_BRNO
-					, FCLT.OPER_OGNZ_DEPT_CD        AS  OPER_OGNZ_DEPT_CD
-					, FCLT.OPER_OGNZ_DEPT_NM        AS  OPER_OGNZ_DEPT_NM
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN   AS  OPER_OGNZ_TRMT_ITEM_CN
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN2  AS  OPER_OGNZ_TRMT_ITEM_CN2
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN3  AS  OPER_OGNZ_TRMT_ITEM_CN3
-					, FCLT.OPER_OGNZ_TRMT_ITEM_CN4  AS  OPER_OGNZ_TRMT_ITEM_CN4
-					, FCLT.OPER_OGNZ_PIC   			AS  OPER_OGNZ_PIC
-					, FCLT.APC_TRMT_ITEM_CN         AS  APC_TRMT_ITEM_CN
-					, FCLT.APC_TRMT_ITEM_CN2        AS  APC_TRMT_ITEM_CN2
-					, FCLT.APC_TRMT_ITEM_CN3        AS  APC_TRMT_ITEM_CN3
-					, FCLT.APC_TRMT_ITEM_CN4        AS  APC_TRMT_ITEM_CN4
-				FROM   TB_FCLT_OPER_INFO FCLT
-			   WHERE 1=1
-			     AND DEL_YN != 'Y'
-			     AND APC_CD IS NOT NULL
-  ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
-		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
-			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
-			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
+					  AOPO.OPER_OGNZ_NM
+					, AOPO.CRTR_YR
+					, AOPO.OPER_OGNZ_BRNO
+					, AOPO.OPER_OGNZ_CRNO
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertFcltOperInfo				-->
-	<!-- DESC : 운영자개요 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-    <insert id="insertFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertFcltOperInfo */
-	    	  INTO TB_FCLT_OPER_INFO FCLT
-	    		(
-				  TRGT_YR
-				, APC_CD
-		     	, OPER_OGNZ_ADDR1
-		     	, OPER_OGNZ_ADDR2
-		     	, APC_BRNO
-		     	, APC_NM
-		     	, APC_ADDR
-		     	, PSN_OGNZ_NM
-		     	, PSN_OGNZ_BRNO
-		     	, OPER_OGNZ_NM
-		     	, OPER_OGNZ_BRNO
-		     	, OPER_OGNZ_DEPT_CD
-		     	, OPER_OGNZ_PIC
-		     	, OPER_OGNZ_TRMT_ITEM_CN
-		     	, OPER_OGNZ_TRMT_ITEM_CN2
-		     	, OPER_OGNZ_TRMT_ITEM_CN3
-		     	, OPER_OGNZ_TRMT_ITEM_CN4
-		   		, APC_TRMT_ITEM_CN
-		     	, APC_TRMT_ITEM_CN2
-		     	, APC_TRMT_ITEM_CN3
-		     	, APC_TRMT_ITEM_CN4
-		     	, SYS_FRST_INPT_DT
-		     	, SYS_FRST_INPT_USER_ID
-		     	, SYS_FRST_INPT_PRGRM_ID
-		     	, SYS_LAST_CHG_DT
-		     	, SYS_LAST_CHG_USER_ID
-		     	, SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-				, #{apcCd}
-	   			, #{operOgnzAddr1}
-	   			, #{operOgnzAddr2}
-		     	, #{apcBrno}
-		     	, #{apcNm}
-		     	, #{apcAddr}
-		     	, #{psnOgnzNm}
-		     	, #{psnOgnzBrno}
-		     	, #{operOgnzNm}
-		     	, #{operOgnzBrno}
-		     	, #{operOgnzDeptCd}
-		     	, #{operOgnzPic}
-		     	, #{operOgnzTrmtItemCn}
-		     	, #{operOgnzTrmtItemCn2}
-		     	, #{operOgnzTrmtItemCn3}
-		     	, #{operOgnzTrmtItemCn4}
-		     	, #{apcTrmtItemCn}
-		     	, #{apcTrmtItemCn2}
-		     	, #{apcTrmtItemCn3}
-		     	, #{apcTrmtItemCn4}
-		     	,  SYSDATE
-		     	, #{sysFrstInptUserId}
-		     	, #{sysFrstInptPrgrmId}
-		     	,  SYSDATE
-		     	, #{sysLastChgUserId}
-		     	, #{sysLastChgPrgrmId}
-		     	)
-    	]]>
-    </insert>
-     -->
+					, AOPO.APC_CD
+					, AOPO.APC_NM
+					, AOPO.APC_BRNO
+					, AOPO.APC_CRNO
 
-     <update id="insertFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-     	MERGE INTO TB_FCLT_OPER_INFO FCLT
+					, AOPO.RPRSV
+
+					, AOPO.LOCTN
+					, AOPO.OPER_OGNZ_BMNO
+					, AOPO.OPER_OGNZ_SLNO
+					, AOPO.OPER_OGNZ_ROAD_NM_CD
+					, AOPO.OPER_OGNZ_ADM_CD
+					, AOPO.OPER_OGNZ_ZIP
+
+					, AOPO.APC_LOCTN
+					, AOPO.APC_BMNO
+					, AOPO.APC_SLNO
+					, AOPO.APC_ROAD_NM_CD
+					, AOPO.APC_ADM_CD
+					, AOPO.APC_ZIP
+
+					, AOPO.CTPV_CD
+					, AOPO.SIGUN_CD
+
+					, AOPO.OGNZ_TYPE_CD
+
+			FROM TB_TE_APC_OPER_PRSN_OTLN AOPO
+			WHERE 1=1
+			  AND AOPO.DEL_YN = 'N'
+			  AND AOPO.APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  AOPO.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  AOPO.APC_CD = #{apcCd}
+			</if>
+
+	</select>
+
+
+
+	<update id="insertFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		MERGE INTO TB_TE_APC_OPER_PRSN_OTLN AOPO
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			AOPO.CRTR_YR = #{crtrYr}
+			AND AOPO.APC_CD = #{apcCd}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-		    	OPER_OGNZ_ADDR1             =  #{operOgnzAddr1}
-				, OPER_OGNZ_ADDR2             =  #{operOgnzAddr2}
-				, APC_BRNO                 	  =  #{apcBrno}
-				, APC_RGN_CD               	  =  #{apcRgnCd}
-				, APC_NM                   	  =  #{apcNm}
-				, APC_ADDR                 	  =  #{apcAddr}
-				, PSN_OGNZ_NM              	  =  #{psnOgnzNm}
-				, PSN_OGNZ_BRNO            	  =  #{psnOgnzBrno}
-				, OPER_OGNZ_CD             	  =  #{operOgnzCd}
-				, OPER_OGNZ_NM             	  =  #{operOgnzNm}
-				, OPER_OGNZ_BRNO           	  =  #{operOgnzBrno}
-				, OPER_OGNZ_PIC           	  =  #{operOgnzPic}
-				, OPER_OGNZ_DEPT_CD        	  =  #{operOgnzDeptCd}
-				, OPER_OGNZ_DEPT_NM        	  =  #{operOgnzDeptNm}
-				, OPER_OGNZ_TRMT_ITEM_CN   	  =  #{operOgnzTrmtItemCn}
-				, OPER_OGNZ_TRMT_ITEM_CN2     =  #{operOgnzTrmtItemCn2}
-				, OPER_OGNZ_TRMT_ITEM_CN3     =  #{operOgnzTrmtItemCn3}
-				, OPER_OGNZ_TRMT_ITEM_CN4     =  #{operOgnzTrmtItemCn4}
-				, APC_TRMT_ITEM_CN			  =  #{apcTrmtItemCn}
-				, APC_TRMT_ITEM_CN2			  =  #{apcTrmtItemCn2}
-				, APC_TRMT_ITEM_CN3			  =  #{apcTrmtItemCn3}
-				, APC_TRMT_ITEM_CN4			  =  #{apcTrmtItemCn4}
-				, OPER_OGNZ_TRMT_ITEM_CD   	  =  #{operOgnzTrmtItemCd}
-				, OPER_OGNZ_TRMT_ITEM_CD2     =  #{operOgnzTrmtItemCd2}
-				, OPER_OGNZ_TRMT_ITEM_CD3     =  #{operOgnzTrmtItemCd3}
-				, APC_TRMT_ITEM_CD			  =  #{apcTrmtItemCd}
-				, APC_TRMT_ITEM_CD2			  =  #{apcTrmtItemCd2}
-				, APC_TRMT_ITEM_CD3			  =  #{apcTrmtItemCd3}
-				, SYS_LAST_CHG_DT			  =  SYSDATE
-	    		, SYS_LAST_CHG_USER_ID		  =  #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID		  =  #{sysLastChgPrgrmId}
+				OPER_OGNZ_NM			=  #{operOgnzNm}
+				, OPER_OGNZ_BRNO		=  #{operOgnzBrno}
+				, OPER_OGNZ_CRNO		=  #{operOgnzCrno}
+				, APC_NM				=  #{apcNm}
+				, APC_BRNO				=  #{apcBrno}
+				, APC_CRNO				=  #{apcCrno}
+
+				, RPRSV					=  #{rprsv}
+				, LOCTN					=  #{loctn}
+
+				, OPER_OGNZ_BMNO		=  #{operOgnzBmno}
+				, OPER_OGNZ_SLNO		=  #{operOgnzSlno}
+				, OPER_OGNZ_ROAD_NM_CD	=  #{operOgnzRoadNmCd}
+				, OPER_OGNZ_ADM_CD		=  #{operOgnzAdmCd}
+				, OPER_OGNZ_ZIP			=  #{operOgnzZip}
+
+				, APC_LOCTN				=  #{apcLoctn}
+				, APC_BMNO				=  #{apcBmno}
+				, APC_SLNO				=  #{apcSlno}
+				, APC_ROAD_NM_CD		=  #{apcRoadNmCd}
+				, APC_ADM_CD			=  #{apcAdmCd}
+				, APC_ZIP				=  #{apcZip}
+
+				, CTPV_CD				=  #{ctpvCd}
+				, SIGUN_CD				=  #{sigunCd}
+				, OGNZ_TYPE_CD			=  #{ognzTypeCd}
+
+				, TMPR_STRG_YN			=  #{tmprStrgYn}
+
+				, SYS_LAST_CHG_DT		=  SYSDATE
+				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+
+				WHERE 1=1
+				  AND AOPO.CRTR_YR = #{crtrYr}
+				  AND AOPO.APC_CD = #{apcCd}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
-				, APC_CD
-		     	, OPER_OGNZ_ADDR1
-		     	, OPER_OGNZ_ADDR2
-		     	, APC_BRNO
-		     	, APC_NM
-		     	, APC_ADDR
-		     	, PSN_OGNZ_NM
-		     	, PSN_OGNZ_BRNO
-		     	, OPER_OGNZ_NM
-		     	, OPER_OGNZ_BRNO
-		     	, OPER_OGNZ_DEPT_CD
-		     	, OPER_OGNZ_PIC
-		     	, OPER_OGNZ_TRMT_ITEM_CN
-		     	, OPER_OGNZ_TRMT_ITEM_CN2
-		     	, OPER_OGNZ_TRMT_ITEM_CN3
-		     	, OPER_OGNZ_TRMT_ITEM_CN4
-		   		, APC_TRMT_ITEM_CN
-		     	, APC_TRMT_ITEM_CN2
-		     	, APC_TRMT_ITEM_CN3
-		     	, APC_TRMT_ITEM_CN4
-		     	, OPER_OGNZ_TRMT_ITEM_CD
-		     	, OPER_OGNZ_TRMT_ITEM_CD2
-		     	, OPER_OGNZ_TRMT_ITEM_CD3
-		   		, APC_TRMT_ITEM_CD
-		     	, APC_TRMT_ITEM_CD2
-		     	, APC_TRMT_ITEM_CD3
-		     	, SYS_FRST_INPT_DT
-		     	, SYS_FRST_INPT_USER_ID
-		     	, SYS_FRST_INPT_PRGRM_ID
-		     	, SYS_LAST_CHG_DT
-		     	, SYS_LAST_CHG_USER_ID
-		     	, SYS_LAST_CHG_PRGRM_ID
-		     	, DEL_YN
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-				, #{apcCd}
-	   			, #{operOgnzAddr1}
-	   			, #{operOgnzAddr2}
-		     	, #{apcBrno}
-		     	, #{apcNm}
-		     	, #{apcAddr}
-		     	, #{psnOgnzNm}
-		     	, #{psnOgnzBrno}
-		     	, #{operOgnzNm}
-		     	, #{operOgnzBrno}
-		     	, #{operOgnzDeptCd}
-		     	, #{operOgnzPic}
-		     	, #{operOgnzTrmtItemCn}
-		     	, #{operOgnzTrmtItemCn2}
-		     	, #{operOgnzTrmtItemCn3}
-		     	, #{operOgnzTrmtItemCn4}
-		     	, #{apcTrmtItemCn}
-		     	, #{apcTrmtItemCn2}
-		     	, #{apcTrmtItemCn3}
-		     	, #{apcTrmtItemCn4}
-		     	, #{operOgnzTrmtItemCd}
-		     	, #{operOgnzTrmtItemCd2}
-		     	, #{operOgnzTrmtItemCd3}
-		     	, #{apcTrmtItemCd}
-		     	, #{apcTrmtItemCd2}
-		     	, #{apcTrmtItemCd3}
-		     	,  SYSDATE
-		     	, #{sysFrstInptUserId}
-		     	, #{sysFrstInptPrgrmId}
-		     	,  SYSDATE
-		     	, #{sysLastChgUserId}
-		     	, #{sysLastChgPrgrmId}
-		     	, 'N'
-		     	)
-     </update>
+				  CRTR_YR
+				  , OPER_OGNZ_NM
+				  , OPER_OGNZ_BRNO
+				  , OPER_OGNZ_CRNO
+				  , APC_CD
+				  , APC_NM
+				  , APC_BRNO
+				  , APC_CRNO
+				  , RPRSV
+				  , LOCTN
+				  , OPER_OGNZ_BMNO
+				  , OPER_OGNZ_SLNO
+				  , OPER_OGNZ_ROAD_NM_CD
+				  , OPER_OGNZ_ADM_CD
+				  , OPER_OGNZ_ZIP
+				  , APC_LOCTN
+				  , APC_BMNO
+				  , APC_SLNO
+				  , APC_ROAD_NM_CD
+				  , APC_ADM_CD
+				  , APC_ZIP
+				  , CTPV_CD
+				  , SIGUN_CD
+				  , OGNZ_TYPE_CD
+
+				  , TMPR_STRG_YN
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{operOgnzNm}
+				  , #{operOgnzBrno}
+				  , #{operOgnzCrno}
+
+				  , #{apcCd}
+				  , #{apcNm}
+				  , #{apcBrno}
+				  , #{apcCrno}
+
+				  , #{rprsv}
+				  , #{loctn}
+				  , #{operOgnzBmno}
+				  , #{operOgnzSlno}
+				  , #{operOgnzRoadNmCd}
+				  , #{operOgnzAdmCd}
+				  , #{operOgnzZip}
+
+				  , #{apcLoctn}
+				  , #{apcBmno}
+				  , #{apcSlno}
+				  , #{apcRoadNmCd}
+				  , #{apcAdmCd}
+				  , #{apcZip}
+
+				  , #{ctpvCd}
+				  , #{sigunCd}
+				  , #{ognzTypeCd}
+
+				  , #{tmprStrgYn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo				-->
@@ -317,53 +256,55 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo */
-	    		TB_FCLT_OPER_INFO FCLT
+	<update id="updateFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo */
+				TB_TE_APC_OPER_PRSN_OTLN AOPO
 
-			   SET
-				OPER_OGNZ_ADDR1             =  #{operOgnzAddr1}
-				, OPER_OGNZ_ADDR2             =  #{operOgnzAddr2}
-				, APC_BRNO                 	  =  #{apcBrno}
-				, APC_RGN_CD               	  =  #{apcRgnCd}
-				, APC_NM                   	  =  #{apcNm}
-				, APC_ADDR                 	  =  #{apcAddr}
-				, PSN_OGNZ_NM              	  =  #{psnOgnzNm}
-				, PSN_OGNZ_BRNO            	  =  #{psnOgnzBrno}
-				, OPER_OGNZ_CD             	  =  #{operOgnzCd}
-				, OPER_OGNZ_NM             	  =  #{operOgnzNm}
-				, OPER_OGNZ_BRNO           	  =  #{operOgnzBrno}
-				, OPER_OGNZ_PIC           	  =  #{operOgnzPic}
-				, OPER_OGNZ_DEPT_CD        	  =  #{operOgnzDeptCd}
-				, OPER_OGNZ_DEPT_NM        	  =  #{operOgnzDeptNm}
-				, OPER_OGNZ_TRMT_ITEM_CN   	  =  #{operOgnzTrmtItemCn}
-				, OPER_OGNZ_TRMT_ITEM_CN2     =  #{operOgnzTrmtItemCn2}
-				, OPER_OGNZ_TRMT_ITEM_CN3     =  #{operOgnzTrmtItemCn3}
-				, OPER_OGNZ_TRMT_ITEM_CN4     =  #{operOgnzTrmtItemCn4}
-				, APC_TRMT_ITEM_CN			  =  #{apcTrmtItemCn}
-				, APC_TRMT_ITEM_CN2			  =  #{apcTrmtItemCn2}
-				, APC_TRMT_ITEM_CN3			  =  #{apcTrmtItemCn3}
-				, APC_TRMT_ITEM_CN4			  =  #{apcTrmtItemCn4}
-				, OPER_OGNZ_TRMT_ITEM_CD   	  =  #{operOgnzTrmtItemCd}
-				, OPER_OGNZ_TRMT_ITEM_CD2     =  #{operOgnzTrmtItemCd2}
-				, OPER_OGNZ_TRMT_ITEM_CD3     =  #{operOgnzTrmtItemCd3}
-				, APC_TRMT_ITEM_CD			  =  #{apcTrmtItemCd}
-				, APC_TRMT_ITEM_CD2			  =  #{apcTrmtItemCd2}
-				, APC_TRMT_ITEM_CD3			  =  #{apcTrmtItemCd3}
+			  SET
+				OPER_OGNZ_NM			=  #{operOgnzNm}
+				, OPER_OGNZ_BRNO		=  #{operOgnzBrno}
+				, OPER_OGNZ_CRNO		=  #{operOgnzCrno}
+				, APC_CD				=  #{apcCd}
+				, APC_NM				=  #{apcNm}
+				, APC_BRNO				=  #{apcBrno}
+				, APC_CRNO				=  #{apcCrno}
+
+				, RPRSV					=  #{rprsv}
+				, LOCTN					=  #{loctn}
+
+				, OPER_OGNZ_BMNO		=  #{operOgnzBmno}
+				, OPER_OGNZ_SLNO		=  #{operOgnzSlno}
+				, OPER_OGNZ_ROAD_NM_CD	=  #{operOgnzRoadNmCd}
+				, OPER_OGNZ_ADM_CD		=  #{operOgnzAdmCd}
+				, OPER_OGNZ_ZIP			=  #{operOgnzZip}
+
+				, APC_LOCTN				=  #{apcLoctn}
+				, APC_BMNO				=  #{apcBmno}
+				, APC_SLNO				=  #{apcSlno}
+				, APC_ROAD_NM_CD		=  #{apcRoadNmCd}
+				, APC_ADM_CD			=  #{apcAdmCd}
+				, APC_ZIP				=  #{apcZip}
+
+				, CTPV_CD				=  #{ctpvCd}
+				, SIGUN_CD				=  #{sigunCd}
+				, OGNZ_TYPE_CD			=  #{ognzTypeCd}
+
+				, TMPR_STRG_YN			=  #{tmprStrgYn}
+
 			]]>
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
-		    </if>
-    	<![CDATA[
+			</if>
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-			 WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE 1=1
+			  AND CRTR_YR = #{crtrYr}
+			  AND APC_CD  = #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo	-->
@@ -374,25 +315,201 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
-	    		TB_FCLT_OPER_INFO FCLT
-			   SET
-	    		  DEL_YN 	= 'Y'
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
+				TB_TE_APC_OPER_PRSN_OTLN AOPO
+			  SET
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+			  AND TRGT_YR = #{trgtYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</update>
 	<!--
-    <delete id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
-	    		  TB_FCLT_OPER_INFO FCLT
+	<delete id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
+				  TB_FCLT_OPER_INFO FCLT
 			WHERE 1=1
 		      AND TRGT_YR = #{trgtYr}
 		      AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
+		]]>
+	</delete>
 	 -->
+
+	<!-- 품목리스트 -->
+	<select id="selectFcltOperInfoItemList" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoItemList */
+			AOTI.APC_CD
+			, AOTI.CRTR_YR
+			, AOTI.SN
+			, AOTI.ITEM_CD
+			, AOTI.ITEM_NM
+			, AOTI.OGNZ_SE_CD
+			, AOTI.ETC_CTGRY_CD
+
+		FROM TB_TE_APC_OPER_TRMT_ITEM AOTI
+		WHERE 1=1
+		  AND AOTI.DEL_YN = 'N'
+		  AND AOTI.APC_CD IS NOT NULL
+		<if test='crtrYr != null and !crtrYr.equals("")'>
+		  AND  AOTI.CRTR_YR = #{crtrYr}
+		</if>
+		<if test='apcCd != null and !apcCd.equals("")'>
+		  AND  AOTI.APC_CD = #{apcCd}
+		</if>
+	</select>
+	<!-- 품목등록 -->
+	<update id="insertFcltOperInfoItem" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		MERGE INTO TB_TE_APC_OPER_TRMT_ITEM AOTI
+		USING DUAL
+		ON (
+			AOTI.CRTR_YR 		= #{crtrYr}
+			AND AOTI.APC_CD 	= #{apcCd}
+			AND AOTI.SN 		= #{sn}
+			AND AOTI.OGNZ_SE_CD = #{ognzSeCd}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				ITEM_CD			=  #{itemCd}
+				, ITEM_NM		=  #{itemNm}
+				, ETC_CTGRY_CD	=  #{etcCtgryCd}
+
+				, SYS_LAST_CHG_DT		=  SYSDATE
+				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+
+				WHERE 1=1
+				  AND AOTI.CRTR_YR 		= #{crtrYr}
+				  AND AOTI.APC_CD 		= #{apcCd}
+				  AND AOTI.SN 			= #{sn}
+				  AND AOTI.OGNZ_SE_CD 	= #{ognzSeCd}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  CRTR_YR
+				  , SN
+				  , APC_CD
+				  , ITEM_CD
+				  , ITEM_NM
+				  , OGNZ_SE_CD
+				  , ETC_CTGRY_CD
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{sn}
+				  , #{apcCd}
+				  , #{itemCd}
+				  , #{itemNm}
+				  , #{ognzSeCd}
+				  , #{etcCtgryCd}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
+	<!-- 품목삭제 -->
+	<update id="deleteFcltOperInfoItem" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfoItem */
+				TB_TE_APC_OPER_TRMT_ITEM AOTI
+			  SET
+				  DEL_YN 	= 'Y'
+			WHERE 1=1
+			  AND AOTI.CRTR_YR 		= #{crtrYr}
+			  AND AOTI.APC_CD 		= #{apcCd}
+			  AND AOTI.SN 			= #{sn}
+			  AND AOTI.OGNZ_SE_CD 	= #{ognzSeCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltOperInfoItem" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfoItem */
+				  TB_TE_APC_OPER_TRMT_ITEM AOTI
+			WHERE 1=1
+		      AND AOTI.CRTR_YR 		= #{crtrYr}
+			  AND AOTI.APC_CD 		= #{apcCd}
+			  AND AOTI.SN 			= #{sn}
+			  AND AOTI.OGNZ_SE_CD 	= #{ognzSeCd}
+		]]>
+	</delete>
+	 -->
+	<select id="selectApcList" parameterType="com.at.apcss.fm.fclt.vo.FcltApcVO" resultType="com.at.apcss.fm.fclt.vo.FcltApcVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcList */
+			  AOPO.CRTR_YR
+			, AOPO.APC_CD
+			, AOPO.APC_NM
+
+			, AOPO.CTPV_CD
+			, AOPO.CTPV_NM
+			, AOPO.SIGUN_CD
+			, AOPO.SIGUN_NM
+
+			,(SELECT ITEM_CD FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '1' AND OGNZ_SE_CD ='1'
+			) AS ITEM_CD_1
+			,(SELECT ITEM_CD FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '2' AND OGNZ_SE_CD ='1'
+			) AS ITEM_CD_2
+			,(SELECT ITEM_CD FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '3' AND OGNZ_SE_CD ='1'
+			) AS ITEM_CD_3
+
+			,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '1' AND OGNZ_SE_CD ='1'
+			) AS ITEM_NM_1
+			,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '2' AND OGNZ_SE_CD ='1'
+			) AS ITEM_NM_2
+			,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '3' AND OGNZ_SE_CD ='1'
+			) AS ITEM_NM_3
+
+		FROM TB_TE_APC_OPER_PRSN_OTLN AOPO
+		WHERE 1=1
+		  AND AOPO.DEL_YN = 'N'
+		  AND AOPO.APC_CD IS NOT NULL
+		]]>
+		<if test='crtrYr != null and !crtrYr.equals("")'>
+		  AND  AOPO.CRTR_YR = #{crtrYr}
+		</if>
+		<if test='apcCd != null and !apcCd.equals("")'>
+		  AND  AOPO.APC_CD = #{apcCd}
+		</if>
+		<if test='ctpvCd != null and !ctpvCd.equals("")'>
+		  AND  AOPO.CTPV_CD = #{ctpvCd}
+		</if>
+		<if test='sigunCd != null and !sigunCd.equals("")'>
+		  AND  AOPO.SIGUN_CD = #{sigunCd}
+		</if>
+
+		<if test='apcNm != null and !apcNm.equals("")'>
+		  AND  AOPO.APC_NM LIKE '%' || #{apcNm} || '%'
+		</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+		<!-- End 페이징 -->
+	</select>
 </mapper>

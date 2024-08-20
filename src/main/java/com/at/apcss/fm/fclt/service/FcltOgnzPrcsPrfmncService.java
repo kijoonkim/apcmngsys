@@ -1,7 +1,6 @@
 package com.at.apcss.fm.fclt.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO;
 
@@ -46,6 +45,14 @@ public interface FcltOgnzPrcsPrfmncService {
 	 */
 	public List<FcltOgnzPrcsPrfmncVO> selectFcltOgnzPrcsPrfmncList(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception;
 
+
+	/**
+	 * 유통조직처리실적정보를 등록한다.
+	 * @param fcltOgnzPrcsPrfmncVOList
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveFcltOgnzPrcsPrfmnc(List<FcltOgnzPrcsPrfmncVO> fcltOgnzPrcsPrfmncVOList) throws Exception;
 
 	/**
 	 * 유통조직처리실적정보를 등록한다.

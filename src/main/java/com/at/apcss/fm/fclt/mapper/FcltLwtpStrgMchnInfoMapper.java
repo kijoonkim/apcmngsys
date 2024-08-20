@@ -58,4 +58,12 @@ public interface FcltLwtpStrgMchnInfoMapper {
 	 * @return
 	 */
 	public int deleteFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
+
+	/**
+	 * 저온저장고 운영정보를 등록한다.
+	 * @param fcltLwtpStrgMchnInfoVO
+	 * @return
+	 */
+	public int insertFcltLwtpStrgMchnInfoPeriod(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
+
 }

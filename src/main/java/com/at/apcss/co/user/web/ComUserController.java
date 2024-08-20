@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
 
@@ -79,6 +80,39 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/co/user/selectUntyUserAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUntyUserAprvList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzId = getUntyOgnzId();
+		
+		comUserVO.setSuperUserYn(null);
+		
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+			comUserVO.setUntyOgnzId(untyOgnzId);
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		try {
+			resultList = comUserService.selectUntyUserAprvList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	@PostMapping(value = "/co/user/insertUserAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertUserAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
 

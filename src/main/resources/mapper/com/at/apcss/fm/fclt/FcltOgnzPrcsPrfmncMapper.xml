@@ -20,29 +20,33 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-    	<![CDATA[
+	<select id="selectFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc */
-				  FCLT.TRGT_YR                 AS TRGT_YR
-				, FCLT.APC_CD                  AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.FCLT_OGNZ_TRMT_AMT      AS FCLT_OGNZ_TRMT_AMT
-				, FCLT.FCLT_OGNZ_TRMT2_AMT     AS  FCLT_OGNZ_TRMT2_AMT
-				, FCLT.FCLT_OGNZ_TRMT3_AMT     AS  FCLT_OGNZ_TRMT3_AMT
-				, FCLT.FCLT_OGNZ_TRMT4_AMT     AS  FCLT_OGNZ_TRMT4_AMT
+				OPD.APC_CD
+				, OPD.CRTR_YR
+				, OPD.SN
+				, OPD.RTL_OGNZ_TOT_TRMT_AMT
+				, OPD.RTL_OGNZ_TOT_TRMT_VLM
+				, OPD.RTL_OGNZ_GNRL_SUM
+				, OPD.RTL_OGNZ_GNRL_SMPL_TRST
+				, OPD.RTL_OGNZ_GNRL_SMPL_EMSPAP
+				, OPD.RTL_OGNZ_OGNZ_SUM
+				, OPD.RTL_OGNZ_OGNZ_CPRTN_SORT_TRST
+				, OPD.RTL_OGNZ_OGNZ_CTRT_EMSPAP
 
-			 FROM TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND APC_CD IS NOT NULL
-		     		]]>
-        		<if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
-		   </if>
-    </select>
+			FROM TB_TE_APC_OPER_PRFMNC_DTL OPD
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+					]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND APC_CD = #{apcCd}
+			</if>
+	</select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList			-->
@@ -52,138 +56,132 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltOgnzPrcsPrfmncList" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList */
-				  FCLT.TRGT_YR                 AS TRGT_YR
-				, FCLT.APC_CD                  AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.FCLT_OGNZ_TRMT_AMT      AS FCLT_OGNZ_TRMT_AMT
-				, FCLT.FCLT_OGNZ_TRMT2_AMT     AS  FCLT_OGNZ_TRMT2_AMT
-				, FCLT.FCLT_OGNZ_TRMT3_AMT     AS  FCLT_OGNZ_TRMT3_AMT
-				, FCLT.FCLT_OGNZ_TRMT4_AMT     AS  FCLT_OGNZ_TRMT4_AMT
-			 FROM TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-  ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+	<select id="selectFcltOgnzPrcsPrfmncList" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc */
+				OPD.APC_CD
+				, OPD.CRTR_YR
+				, OPD.SN
+				, OPD.RTL_OGNZ_TOT_TRMT_AMT
+				, OPD.RTL_OGNZ_TOT_TRMT_VLM
+				, OPD.RTL_OGNZ_GNRL_SUM
+				, OPD.RTL_OGNZ_GNRL_SMPL_TRST
+				, OPD.RTL_OGNZ_GNRL_SMPL_EMSPAP
+				, OPD.RTL_OGNZ_OGNZ_SUM
+				, OPD.RTL_OGNZ_OGNZ_CPRTN_SORT_TRST
+				, OPD.RTL_OGNZ_OGNZ_CTRT_EMSPAP
+
+			FROM TB_TE_APC_OPER_PRFMNC_DTL OPD
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+					]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc				-->
-	<!-- DESC : 유통조직처리실적 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
-    <insert id="insertFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc */
-	    	  INTO TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
-	    		(
-	    			TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_OGNZ_TRMT_AMT
-	    		  , FCLT_OGNZ_TRMT2_AMT
-	    		  , FCLT_OGNZ_TRMT3_AMT
-	    		  , FCLT_OGNZ_TRMT4_AMT
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltOgnzTrmtAmt}
-	   			  , #{fcltOgnzTrmt2Amt}
-	   			  , #{fcltOgnzTrmt3Amt}
-	   			  , #{fcltOgnzTrmt4Amt}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-     -->
-
-     <update id="insertFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-     	MERGE INTO TB_FCLT_OGNZ_PRCS_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc */
+	<update id="insertFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+		MERGE INTO TB_TE_APC_OPER_PRFMNC_DTL OPD /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			OPD.CRTR_YR = #{crtrYr}
+			AND OPD.APC_CD = #{apcCd}
+			AND OPD.SN = #{sn}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  FCLT_OGNZ_TRMT_AMT = #{fcltOgnzTrmtAmt}
-				, FCLT_OGNZ_TRMT2_AMT =  #{fcltOgnzTrmt2Amt}
-				, FCLT_OGNZ_TRMT3_AMT =  #{fcltOgnzTrmt3Amt}
-				, FCLT_OGNZ_TRMT4_AMT =  #{fcltOgnzTrmt4Amt}
-				  , SYS_LAST_CHG_DT		= SYSDATE
-	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				  RTL_OGNZ_TOT_TRMT_AMT				= #{rtlOgnzTotTrmtAmt}
+				  , RTL_OGNZ_TOT_TRMT_VLM			= #{rtlOgnzTotTrmtVlm}
+				  , RTL_OGNZ_GNRL_SUM				= #{rtlOgnzGnrlSum}
+				  , RTL_OGNZ_GNRL_SMPL_TRST			= #{rtlOgnzGnrlSmplTrst}
+				  , RTL_OGNZ_GNRL_SMPL_EMSPAP		= #{rtlOgnzGnrlSmplEmspap}
+				  , RTL_OGNZ_OGNZ_SUM				= #{rtlOgnzOGnzSum}}
+				  , RTL_OGNZ_OGNZ_CPRTN_SORT_TRST	= #{rtlOgnzOgnzCprtnSortTrst}
+				  , RTL_OGNZ_OGNZ_CTRT_EMSPAP		= #{rtlOgnzOgnzCtrtEmspap}
+
+				  , TMPR_STRG_YN			= #{tmprStrgYn}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_OGNZ_TRMT_AMT
-	    		  , FCLT_OGNZ_TRMT2_AMT
-	    		  , FCLT_OGNZ_TRMT3_AMT
-	    		  , FCLT_OGNZ_TRMT4_AMT
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltOgnzTrmtAmt}
-	   			  , #{fcltOgnzTrmt2Amt}
-	   			  , #{fcltOgnzTrmt3Amt}
-	   			  , #{fcltOgnzTrmt4Amt}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				  CRTR_YR
+				  , APC_CD
+				  , SN
+
+				  , ITEM_CD
+				  , ITEM_NM
+
+				  , RTL_OGNZ_TOT_TRMT_AMT
+				  , RTL_OGNZ_TOT_TRMT_VLM
+				  , RTL_OGNZ_GNRL_SUM
+				  , RTL_OGNZ_GNRL_SMPL_TRST
+				  , RTL_OGNZ_GNRL_SMPL_EMSPAP
+				  , RTL_OGNZ_OGNZ_SUM
+				  , RTL_OGNZ_OGNZ_CPRTN_SORT_TRST
+				  , RTL_OGNZ_OGNZ_CTRT_EMSPAP
+
+				  , TMPR_STRG_YN
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+			    (
+				  #{crtrYr}
+				  , #{apcCd}
+				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
+				  , #{sn}
+
+				  ,(SELECT ITEM_CD FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr} AND SN = #{sn} AND OGNZ_SE_CD = '2')
+				  ,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr} AND SN = #{sn} AND OGNZ_SE_CD = '2')
+
+				  , #{rtlOgnzTotTrmtAmt}
+				  , #{rtlOgnzTotTrmtVlm}
+				  , #{rtlOgnzGnrlSum}
+				  , #{rtlOgnzGnrlSmplTrst}
+				  , #{rtlOgnzGnrlSmplEmspap}
+				  , #{rtlOgnzOGnzSum}
+				  , #{rtlOgnzOgnzCprtnSortTrst}
+				  , #{rtlOgnzOgnzCtrtEmspap}
+
+				  , #{tmprStrgYn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc				-->
@@ -193,30 +191,37 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc */
-	    		TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
+	<update id="updateFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc */
+				TB_TE_APC_OPER_PRFMNC_DTL OPD
 			   SET
-			 	FCLT_OGNZ_TRMT_AMT = #{fcltOgnzTrmtAmt}
-				, FCLT_OGNZ_TRMT2_AMT =  #{fcltOgnzTrmt2Amt}
-				, FCLT_OGNZ_TRMT3_AMT =  #{fcltOgnzTrmt3Amt}
-				, FCLT_OGNZ_TRMT4_AMT =  #{fcltOgnzTrmt4Amt}
+			 	RTL_OGNZ_TOT_TRMT_AMT			= #{rtlOgnzTotTrmtAmt}
+				, RTL_OGNZ_TOT_TRMT_VLM			= #{rtlOgnzTotTrmtVlm}
+				, RTL_OGNZ_GNRL_SUM				= #{rtlOgnzGnrlSum}
+				, RTL_OGNZ_GNRL_SMPL_TRST		= #{rtlOgnzGnrlSmplTrst}
+				, RTL_OGNZ_GNRL_SMPL_EMSPAP	 	= #{rtlOgnzGnrlSmplEmspap}
+				, RTL_OGNZ_OGNZ_SUM				= #{rtlOgnzOGnzSum}}
+				, RTL_OGNZ_OGNZ_CPRTN_SORT_TRST	= #{rtlOgnzOgnzCprtnSortTrst}
+				, RTL_OGNZ_OGNZ_CTRT_EMSPAP		= #{rtlOgnzOgnzCtrtEmspap}
 
-    	]]>
+				, TMPR_STRG_YN					= #{tmprStrgYn}
+
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+			  AND TRGT_YR 	= #{crtrYr}
+			  AND APC_CD 	= #{apcCd}
+			  AND SN 		= #{sn}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc				-->
@@ -227,25 +232,25 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
-	    		TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
+				TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
 			   SET
-	    		  DEL_YN 	= 'Y'
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
-	    		TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
+			  AND TRGT_YR = #{trgtYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
+				TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
- -->
+			  AND TRGT_YR = #{trgtYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</delete>
+-->
 </mapper>

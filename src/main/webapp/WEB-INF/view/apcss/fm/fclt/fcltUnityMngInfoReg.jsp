@@ -15,16 +15,16 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -36,7 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 통합관리시스템 활용현황 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -44,10 +44,17 @@
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
+					<col style="width: 11%">
+					<col style="width: 22%">
+					<col style="width: 50px">
+					<col style="width: 11%">
+					<col style="width: 22%">
+					<col style="width: 187px">
+					<col style="width: 100px">
 				<tbody>
 					<tr>
 						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td colspan= "3" class="td_input" style="border-right:hidden;">
+						<td class="td_input" style="border-right:hidden;">
 							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
@@ -56,90 +63,96 @@
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-spinner
+									id="srch-inp-crtrYr"
+									name="srch-inp-crtrYr"
+									uitype="normal"
+									step-value="1"
+								></sbux-spinner>
 						</td>
-						<td colspan="5"></td>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectUniMnIfList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
 			</div>
-			<!--[pp] //검색 -->
-			<!--[pp] 검색결과 -->
+
 			<br>
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:0px;"></div>
-				</div>
-								<br>
+			<!-- 진척도 추가 -->
+			<%@ include file="prgrs/apcPrgrs.jsp" %>
+			<br>
+
 			<div><label>통합관리시스템활용 상세내역</label></div>
 			<div><label style="font-size: x-small;">- 활용하신다면 어떤 작업단계까지 활용하고 계십니까? 해당하는 곳에 체크해 주십시오</label></div>
 
-
 			<div>
-				<table class="table table-bordered tbl_row tbl_fixed">
+				<table class="table table-bordered tbl_row tbl_fixed" style="width: 800px">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 14%">
-						<col style="width: 14%">
-						<col style="width: 14%">
-						<col style="width: 14%">
-						<col style="width: 14%">
-						<col style="width: 15%">
-						<col style="width: 15%">
+						<col style="width: 20%">
+						<col style="width: 5%">
+						<col style="width: 20%">
+						<col style="width: 5%">
+						<col style="width: 20%">
+						<col style="width: 5%">
+						<col style="width: 20%">
+						<col style="width: 5%">
 					</colgroup>
 						<tbody>
 							<tr>
 								<th>생산정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsPrdctnInfo" name="dtl-inp-umsPrdctnInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsPrdctnInfo" ></label>
+									</p>
+								</td>
 								<th>입고정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsWrhsInfo" name="dtl-inp-umsWrhsInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsWrhsInfo" ></label>
+									</p>
+								</td>
 								<th>선별정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsSortInfo" name="dtl-inp-umsSortInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsSortInfo" ></label>
+									</p>
+								</td>
 								<th>저장정보</th>
-								<th>포장정보</th>
-								<th>출고정보</th>
-								<th>정산정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsStrgInfo" name="dtl-inp-umsStrgInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsStrgInfo" ></label>
+									</p>
+								</td>
 							</tr>
 							<tr>
+								<th>포장정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera1" name="srch-inp-opera1" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
-										<label class="check_label" for="check_default" ></label>
+										<sbux-checkbox id="dtl-inp-umsPckgInfo" name="dtl-inp-umsPckgInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsPckgInfo" ></label>
 									</p>
 								</td>
+								<th>출고정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera2" name="srch-inp-opera2" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
-										<label class="check_label" for="check_default" ></label>
+										<sbux-checkbox id="dtl-inp-umsSpmtInfo" name="dtl-inp-umsSpmtInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsSpmtInfo" ></label>
 									</p>
 								</td>
+								<th>정산정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera3" name="srch-inp-opera3" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
-										<label class="check_label" for="check_default" ></label>
+										<sbux-checkbox id="dtl-inp-umsClclnInfo" name="dtl-inp-umsClclnInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
-								<td>
-									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera4" name="srch-inp-opera4" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
-										<label class="check_label" for="check_default" ></label>
-									</p>
-								</td>
-								<td>
-									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera5" name="srch-inp-opera5" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
-										<label class="check_label" for="check_default" ></label>
-									</p>
-								</td>
-								<td>
-									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera6" name="srch-inp-opera6" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
-										<label class="check_label" for="check_default" ></label>
-									</p>
-								</td>
-								<td>
-									<p class="ad_input_row">
-										<sbux-checkbox id="srch-inp-opera7" name="srch-inp-opera7" uitype="normal"   true-value = "1" false-value = "0"></sbux-checkbox>
-										<label class="check_label" for="check_default" ></label>
-									</p>
-								</td>
-
 							</tr>
 						</tbody>
 					</table>
@@ -150,12 +163,12 @@
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+	<div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
 
 </body>
 <script type="text/javascript">
@@ -163,109 +176,137 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
 		let year  = date.getFullYear();
-		SBUxMethod.set("srch-inp-trgtYr", year);
+		SBUxMethod.set("srch-inp-crtrYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", '0122');
-			//SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
+			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
-		fn_selectUniMnIfList();
-	})
 
-	/**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_selectUniMnIfList = async function(pageSize, pageNo) {
-    	 console.log("******************fn_pagingUniMnIfList**********************************");
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0122';
+		let crtrYr = '2023';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		fn_init();
+
+	});
+
+	/* 초기세팅 */
+	const fn_init = async function() {
+		await fn_selectUniMnIfList();
+		//진척도
+		await cfn_selectPrgrs();
+		//최종제출 여부
+		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
+		if(prgrsLast  == 'Y'){
+			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
+		} else {
+			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+		}
+	}
+
+	const fn_selectUniMnIfList = async function(copy_chk) {
+		 console.log("******************fn_pagingUniMnIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		//전년도 데이터
+		if(!gfn_isEmpty(copy_chk)){
+			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltUnityMngInfoList.do", {
 			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
+			crtrYr: crtrYr,
 
-        const data = await postJsonPromise;
+			// pagination
+			pagingYn : 'N',
+			currentPageNo : pageNo,
+ 			recordCountPerPage : pageSize
+		});
+
+		const data = await postJsonPromise;
 		//await 오류시 확인
 		//예외처리
-        try {
+		try {
 
-        	data.resultList.forEach((item, index) => {
-        		SBUxMethod.set('srch-inp-opera1',item.fcltSysHldYn);
-        		SBUxMethod.set('srch-inp-opera2',item.fcltSysHldYn2);
-        		SBUxMethod.set('srch-inp-opera3',item.fcltSysHldYn3);
-        		SBUxMethod.set('srch-inp-opera4',item.fcltSysHldYn4);
-        		SBUxMethod.set('srch-inp-opera5',item.fcltSysHldYn5);
-        		SBUxMethod.set('srch-inp-opera6',item.fcltSysHldYn6);
-        		SBUxMethod.set('srch-inp-opera7',item.fcltSysHldYn7);
+			data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
+				SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
+				SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
+				SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
+				SBUxMethod.set('dtl-inp-umsPckgInfo',item.umsPckgInfo);
+				SBUxMethod.set('dtl-inp-umsSpmtInfo',item.umsSpmtInfo);
+				SBUxMethod.set('dtl-inp-umsClclnInfo',item.umsClclnInfo);
 			});
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
-    }
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
+	}
 
 	//등록
 	const fn_save = async function() {
-    	console.log("******************fn_save**********************************");
+		console.log("******************fn_save**********************************");
 
-    	let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
-    		alert("apc를 선택해주세요");
-            return;
-        }
-		if (gfn_isEmpty(trgtYr)) {
-    		alert("대상연도를 작성해주세요");
-            return;
-        }
+			alert("apc를 선택해주세요");
+			return;
+		}
+		if (gfn_isEmpty(crtrYr)) {
+			alert("대상연도를 작성해주세요");
+			return;
+		}
 
-    	fn_subInsert(confirm("등록 하시겠습니까?"));
-    }
+		fn_subInsert(confirm("등록 하시겠습니까?"));
+	}
 
-    //신규등록
-    const fn_subInsert = async function (isConfirmed){
-    	 console.log("******************fn_subInsert**********************************");
-    	 if (!isConfirmed) return;
-		 console.log(SBUxMethod.get('srch-inp-trgtYr'));
-    	 const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltUnityMngInfo.do", {
-    		trgtYr : SBUxMethod.get('srch-inp-trgtYr')
-    		,apcCd : SBUxMethod.get('srch-inp-apcCd')
-    		,fcltSysHldYn : $('#srch-inp-opera1').val()
-    		,fcltSysHldYn2 : $('#srch-inp-opera2').val()
-    		,fcltSysHldYn3 : $('#srch-inp-opera3').val()
-    		,fcltSysHldYn4 : $('#srch-inp-opera4').val()
-    		,fcltSysHldYn5 : $('#srch-inp-opera5').val()
-    		,fcltSysHldYn6 : $('#srch-inp-opera6').val()
-    		,fcltSysHldYn7 : $('#srch-inp-opera7').val()
+	//신규등록
+	const fn_subInsert = async function (isConfirmed){
+		console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
+		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
+		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltUnityMngInfo.do", {
+			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
+			,apcCd : SBUxMethod.get('srch-inp-apcCd')
+			, prgrsYn : 'Y' //진척도 갱신 여부
 
+			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
+			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()
+			,umsSortInfo : $('#dtl-inp-umsSortInfo').val()
+			,umsStrgInfo : $('#dtl-inp-umsStrgInfo').val()
+			,umsPckgInfo : $('#dtl-inp-umsPckgInfo').val()
+			,umsSpmtInfo : $('#dtl-inp-umsSpmtInfo').val()
+			,umsClclnInfo : $('#dtl-inp-umsClclnInfo').val()
 		});
 
-        const data = await postJsonPromise;
+		const data = await postJsonPromise;
 
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		//fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
-    }
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				//fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+		}
+		// 결과 확인 후 재조회
+		console.log("insert result", data);
+	}
 
- 	// apc 선택 팝업 호출
+	// apc 선택 팝업 호출
 	const fn_modalApcSelect = function() {
 		popApcSelect.init(fn_setApc);
 	}
@@ -276,5 +317,15 @@
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
 	}
+	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
+	window.addEventListener('message',function(event){
+		console.log('1. 탭호출');
+		console.log(event);
+		let chkVal = event.data.chkVal;
+		if(chkVal == "selTab"){
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
+	});
 </script>
 </html>

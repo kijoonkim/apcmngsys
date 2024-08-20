@@ -188,12 +188,18 @@ public class ComConstants {
 	public final static String CON_AUTHRT_TYPE_ADMIN = "20";
 	public final static String CON_AUTHRT_TYPE_USER = "21";
 
+	public final static String CON_UNTY_AUTHRT_TYPE_SYS = "00";
+	public final static String CON_UNTY_AUTHRT_TYPE_AT = "10";
+	public final static String CON_UNTY_AUTHRT_TYPE_ADMIN = "20";
+	
 	/* 사용자 유형 */
 	public final static String CON_USER_TYPE_SYS = "00";
 	public final static String CON_USER_TYPE_AT = "01";
 	public final static String CON_USER_TYPE_ADMIN = "10";
 	public final static String CON_USER_TYPE_USER = "11";
 
+	
+	
 	/* 사용자 상태 */
 	public final static String CON_USER_STTS_STANDBY = "00";
 	public final static String CON_USER_STTS_VALID = "01";

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltOperHfInfoService;
 import com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
@@ -30,6 +32,9 @@ public class FcltOperHfInfoServiceImpl extends BaseServiceImpl implements FcltOp
 
 	@Autowired
 	private FcltOperHfInfoMapper fcltOperHfInfoMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltOperHfInfoVO selectFcltOperHfInfo(FcltOperHfInfoVO fcltOperHfInfoVO) throws Exception {
@@ -68,6 +73,27 @@ public class FcltOperHfInfoServiceImpl extends BaseServiceImpl implements FcltOp
 
 		int insertedCnt = fcltOperHfInfoMapper.insertFcltOperHfInfo(fcltOperHfInfoVO);
 
+		String prgrsYn = fcltOperHfInfoVO.getPrgrsYn();
+
+		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
+			//진척도 변경
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltOperHfInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltOperHfInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltOperHfInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltOperHfInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltOperHfInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltOperHfInfoVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltOperHfInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs8("T");
+			}else {
+				fcltPrgrsVO.setPrgrs8("Y");
+			}
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
 		return insertedCnt;
 	}
 

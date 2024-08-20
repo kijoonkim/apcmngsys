@@ -13,7 +13,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnOperInfoVO;
 /**
  * @Class Name : FcltLwtpStrgMchnOperInfoServiceImpl.java
  * @Description : 저온저장고운영기간의 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -22,7 +22,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnOperInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Service("fcltLwtpStrgMchnOperInfoService")

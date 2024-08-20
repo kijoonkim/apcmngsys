@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : FcltUnityMngInfoMapper.xml                                    				-->
-<!-- DESC : 통합관리시스템활용 정보 mapper                                             			-->
+<!-- NAME : FcltUnityMngInfoMapper.xml                                    		-->
+<!-- DESC : 통합관리시스템활용 정보 mapper                                             	-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
@@ -13,38 +13,41 @@
 <mapper namespace="com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo				-->
-	<!-- DESC : 통합관리시스템활용 테이블 단건조회.                                             		-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo	-->
+	<!-- DESC : 통합관리시스템활용 테이블 단건조회.                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo */
-				  FCLT.TRGT_YR                 AS TRGT_YR
-				, FCLT.APC_CD                  AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
-			    , FCLT.FCLT_SYS_HLD_YN2        AS FCLT_SYS_HLD_YN2
-			    , FCLT.FCLT_SYS_HLD_YN3        AS FCLT_SYS_HLD_YN3
-			    , FCLT.FCLT_SYS_HLD_YN4        AS FCLT_SYS_HLD_YN4
-			    , FCLT.FCLT_SYS_HLD_YN5        AS FCLT_SYS_HLD_YN5
-			    , FCLT.FCLT_SYS_HLD_YN6        AS FCLT_SYS_HLD_YN6
-			    , FCLT.FCLT_SYS_HLD_YN7        AS FCLT_SYS_HLD_YN7
-			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
+	<select id="selectFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
+				  ASPS.CRTR_YR
+				, ASPS.APC_CD
+				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = ASPS.APC_CD AND CRTR_YR = ASPS.CRTR_YR
+				) AS APC_NM
+
+				, UMS_PRDCTN_INFO
+				, UMS_WRHS_INFO
+				, UMS_SORT_INFO
+				, UMS_STRG_INFO
+				, UMS_PCKG_INFO
+				, UMS_SPMT_INFO
+				, UMS_CLCLN_INFO
+
+			FROM TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			WHERE 1=1
-			AND DEL_YN != 'Y'
-			AND APC_CD IS NOT NULL
-		]]>
-        <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
-    </select>
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND ASPS.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND ASPS.APC_CD = #{apcCd}
+			</if>
+	</select>
 
 
 	<!-- ==========================================================================	-->
@@ -55,157 +58,116 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltUnityMngInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfoList */
-				  FCLT.TRGT_YR                 AS TRGT_YR
-				, FCLT.APC_CD                  AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.FCLT_SYS_HLD_YN         AS FCLT_SYS_HLD_YN
-			    , FCLT.FCLT_SYS_HLD_YN2       AS  FCLT_SYS_HLD_YN2
-			    , FCLT.FCLT_SYS_HLD_YN3       AS  FCLT_SYS_HLD_YN3
-			    , FCLT.FCLT_SYS_HLD_YN4       AS  FCLT_SYS_HLD_YN4
-			    , FCLT.FCLT_SYS_HLD_YN5       AS  FCLT_SYS_HLD_YN5
-			    , FCLT.FCLT_SYS_HLD_YN6       AS  FCLT_SYS_HLD_YN6
-			    , FCLT.FCLT_SYS_HLD_YN7       AS  FCLT_SYS_HLD_YN7
-			 FROM TB_FCLT_UNTY_MNG_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-	  		]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+	<select id="selectFcltUnityMngInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
+				  ASPS.CRTR_YR
+				, ASPS.APC_CD
+				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = ASPS.APC_CD AND CRTR_YR = ASPS.CRTR_YR
+				) AS APC_NM
+
+				, UMS_PRDCTN_INFO
+				, UMS_WRHS_INFO
+				, UMS_SORT_INFO
+				, UMS_STRG_INFO
+				, UMS_PCKG_INFO
+				, UMS_SPMT_INFO
+				, UMS_CLCLN_INFO
+
+			FROM TB_TE_APC_SMART_PRPLSN_STTN ASPS
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND ASPS.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND ASPS.APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.insertFcltUnityMngInfo				-->
-	<!-- DESC : 통합관리시스템활용 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-
-    <insert id="insertFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.insertFcltUnityMngInfo */
-	    	  INTO TB_FCLT_UNTY_MNG_INFO FCLT
-	    		(
-	    			TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_SYS_HLD_YN
-	    		  , FCLT_SYS_HLD_YN2
-	    		  , FCLT_SYS_HLD_YN3
-	    		  , FCLT_SYS_HLD_YN4
-	    		  , FCLT_SYS_HLD_YN5
-	    		  , FCLT_SYS_HLD_YN6
-	    		  , FCLT_SYS_HLD_YN7
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltSysHldYn}
-				  , #{fcltSysHldYn2}
-	   			  , #{fcltSysHldYn3}
-	   			  , #{fcltSysHldYn4}
-	   			  , #{fcltSysHldYn5}
-	   			  , #{fcltSysHldYn6}
-	   			  , #{fcltSysHldYn7}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   		      , #{sysLastChgUserId}
-	   		      , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-     -->
-
-     <update id="insertFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-     	MERGE INTO TB_FCLT_UNTY_MNG_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.insertFcltUnityMngInfo */
+	<update id="insertFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+		MERGE INTO TB_TE_APC_SMART_PRPLSN_STTN ASPS /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.insertFcltUnityMngInfo */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			ASPS.CRTR_YR = #{crtrYr}
+			AND ASPS.APC_CD = #{apcCd}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  FCLT_SYS_HLD_YN   = #{fcltSysHldYn}
-				, FCLT_SYS_HLD_YN2 	= #{fcltSysHldYn2}
-				, FCLT_SYS_HLD_YN3  = #{fcltSysHldYn3}
-				, FCLT_SYS_HLD_YN4  = #{fcltSysHldYn4}
-				, FCLT_SYS_HLD_YN5  = #{fcltSysHldYn5}
-				, FCLT_SYS_HLD_YN6  = #{fcltSysHldYn6}
-				, FCLT_SYS_HLD_YN7  = #{fcltSysHldYn7}
-				  , SYS_LAST_CHG_DT		= SYSDATE
-	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				  UMS_PRDCTN_INFO = #{umsPrdctnInfo}
+				  , UMS_WRHS_INFO = #{umsWrhsInfo}
+				  , UMS_SORT_INFO = #{umsSortInfo}
+				  , UMS_STRG_INFO = #{umsStrgInfo}
+				  , UMS_PCKG_INFO = #{umsPckgInfo}
+				  , UMS_SPMT_INFO = #{umsSpmtInfo}
+				  , UMS_CLCLN_INFO = #{umsClclnInfo}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_SYS_HLD_YN
-	    		  , FCLT_SYS_HLD_YN2
-	    		  , FCLT_SYS_HLD_YN3
-	    		  , FCLT_SYS_HLD_YN4
-	    		  , FCLT_SYS_HLD_YN5
-	    		  , FCLT_SYS_HLD_YN6
-	    		  , FCLT_SYS_HLD_YN7
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltSysHldYn}
-				  , #{fcltSysHldYn2}
-	   			  , #{fcltSysHldYn3}
-	   			  , #{fcltSysHldYn4}
-	   			  , #{fcltSysHldYn5}
-	   			  , #{fcltSysHldYn6}
-	   			  , #{fcltSysHldYn7}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   		      , #{sysLastChgUserId}
-	   		      , #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				  CRTR_YR
+				  , APC_CD
+				  , APC_NM
+
+				  , UMS_PRDCTN_INFO
+				  , UMS_WRHS_INFO
+				  , UMS_SORT_INFO
+				  , UMS_STRG_INFO
+				  , UMS_PCKG_INFO
+				  , UMS_SPMT_INFO
+				  , UMS_CLCLN_INFO
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
+
+				  , #{umsPrdctnInfo}
+				  , #{umsWrhsInfo}
+				  , #{umsSortInfo}
+				  , #{umsStrgInfo}
+				  , #{umsPckgInfo}
+				  , #{umsSpmtInfo}
+				  , #{umsClclnInfo}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo				-->
@@ -215,33 +177,33 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo */
-	    		TB_FCLT_UNTY_MNG_INFO FCLT
+	<update id="updateFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo */
+				TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			   SET
-			 	FCLT_SYS_HLD_YN   = #{fcltSysHldYn}
-				, FCLT_SYS_HLD_YN2 	= #{fcltSysHldYn2}
-				, FCLT_SYS_HLD_YN3  = #{fcltSysHldYn3}
-				, FCLT_SYS_HLD_YN4  = #{fcltSysHldYn4}
-				, FCLT_SYS_HLD_YN5  = #{fcltSysHldYn5}
-				, FCLT_SYS_HLD_YN6  = #{fcltSysHldYn6}
-				, FCLT_SYS_HLD_YN7  = #{fcltSysHldYn7}
+				  UMS_PRDCTN_INFO = #{umsPrdctnInfo}
+				  , UMS_WRHS_INFO = #{umsWrhsInfo}
+				  , UMS_SORT_INFO = #{umsSortInfo}
+				  , UMS_STRG_INFO = #{umsStrgInfo}
+				  , UMS_PCKG_INFO = #{umsPckgInfo}
+				  , UMS_SPMT_INFO = #{umsSpmtInfo}
+				  , UMS_CLCLN_INFO = #{umsClclnInfo}
 
-    	]]>
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+			WHERE 1=1
+			  AND ASPS.CRTR_YR = #{crtrYr}
+			  AND ASPS.APC_CD = #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo				-->
@@ -252,25 +214,26 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
-	    		TB_FCLT_UNTY_MNG_INFO FCLT
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
+				TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			   SET
-	    		  DEL_YN 	= 'Y'
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
-	    		TB_FCLT_UNTY_MNG_INFO FCLT
+			  AND ASPS.CRTR_YR = #{crtrYr}
+			  AND ASPS.APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
+				TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
- -->
+			  AND ASPS.CRTR_YR = #{crtrYr}
+			  AND ASPS.APC_CD = #{apcCd}
+		]]>
+	</delete>
+	-->
+
 </mapper>

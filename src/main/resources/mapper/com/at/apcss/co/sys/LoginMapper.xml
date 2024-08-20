@@ -38,6 +38,12 @@
 		<result property="hrmEvlRole" column="HRM_EVL_ROLE" />
 		<result property="hrmPayMngrYn" column="HRM_PAY_MNGR_YN" />
 		<result property="acntgMngrYn" column="ACNTG_MNGR_YN" />
+		
+		<result property="untyOgnzId" column="UNTY_OGNZ_ID" />
+		<result property="untyOgnzType" column="UNTY_OGNZ_TYPE" />
+		<result property="untyAuthrtType" column="UNTY_AUTHRT_TYPE" />
+		<result property="untyAuthrtMngYn" column="UNTY_AUTHRT_MNG_YN" />
+
 	</resultMap>
 
 
@@ -70,6 +76,12 @@
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN
 				, CU.LCK_YN			AS LCK_YN
+				
+				, CU.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
+				, CU.UNTY_OGNZ_TYPE		AS UNTY_OGNZ_TYPE
+				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
+				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
+				
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
     	]]>
@@ -120,6 +132,11 @@
 				, CU.HRM_EVL_ROLE       AS HRM_EVL_ROLE
 				, CU.HRM_PAY_MNGR_YN	AS HRM_PAY_MNGR_YN
 				, CU.ACNTG_MNGR_YN      AS ACNTG_MNGR_YN
+				
+				, CU.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
+				, CU.UNTY_OGNZ_TYPE		AS UNTY_OGNZ_TYPE
+				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
+				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
 				
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
@@ -173,6 +190,11 @@
 				, CU.HRM_EVL_ROLE       AS HRM_EVL_ROLE
 				, CU.HRM_PAY_MNGR_YN	AS HRM_PAY_MNGR_YN
 				, CU.ACNTG_MNGR_YN      AS ACNTG_MNGR_YN
+				
+				, CU.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
+				, CU.UNTY_OGNZ_TYPE		AS UNTY_OGNZ_TYPE
+				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
+				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
 				
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}

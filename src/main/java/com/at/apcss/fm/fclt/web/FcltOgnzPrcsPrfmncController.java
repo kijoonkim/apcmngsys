@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -75,6 +74,33 @@ public class FcltOgnzPrcsPrfmncController extends BaseController {
 		logger.info("=============select=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 유통조직처리실적 변경
+	@PostMapping(value = "/fm/fclt/multiSaveFcltOgnzPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveFcltOgnzPrcsPrfmnc(@RequestBody List<FcltOgnzPrcsPrfmncVO> fcltOgnzPrcsPrfmncVOList, HttpServletRequest requset) throws Exception{
+		logger.info("=============multiSaveFcltOgnzPrcsPrfmnc=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+
+		try {
+			for (FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO : fcltOgnzPrcsPrfmncVOList) {
+				// audit 항목
+				fcltOgnzPrcsPrfmncVO.setSysFrstInptUserId(getUserId());
+				fcltOgnzPrcsPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				fcltOgnzPrcsPrfmncVO.setSysLastChgUserId(getUserId());
+				fcltOgnzPrcsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			savedCnt = fcltOgnzPrcsPrfmncService.multiSaveFcltOgnzPrcsPrfmnc(fcltOgnzPrcsPrfmncVOList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	// 유통조직처리실적 등록
 	@PostMapping(value = "/fm/fclt/insertFcltOgnzPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltOgnzPrcsPrfmnc(@RequestBody FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO, HttpServletRequest requset) throws Exception{

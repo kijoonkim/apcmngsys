@@ -30,7 +30,15 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public List<ComUserVO> selectComUserApcList(ComUserVO comUserVO);
+	
+	/**
+	 * 통합사용자승인등록 목록 조회
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public List<ComUserVO> selectUntyUserAprvList(ComUserVO comUserVO);
 
+	
 	/**
 	 * 사용자 승인상태 변경
 	 * @param comUserVO

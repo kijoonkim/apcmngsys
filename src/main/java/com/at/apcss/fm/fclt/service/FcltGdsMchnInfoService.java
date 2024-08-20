@@ -1,7 +1,6 @@
 package com.at.apcss.fm.fclt.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO;
 
@@ -62,6 +61,14 @@ public interface FcltGdsMchnInfoService {
 	 * @throws Exception
 	 */
 	public int updateFcltGdsMchnInfo(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception;
+
+	/**
+	 * 상품화설비현황정보를 등록한다.
+	 * @param fcltGdsMchnInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveFcltGdsMchnInfo(List<FcltGdsMchnInfoVO> fcltGdsMchnInfoVOList) throws Exception;
 
 	/**
 	 * 상품화설비현황정보를 삭제한다.

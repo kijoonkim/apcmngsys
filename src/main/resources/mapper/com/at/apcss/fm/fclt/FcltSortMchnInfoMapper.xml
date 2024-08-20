@@ -20,48 +20,40 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
-				 FCLT.TRGT_YR                AS TRGT_YR
-				,FCLT.APC_CD                 AS APC_CD
-				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				,FCLT.SORT_MCHN_HLD_YN1      AS SORT_MCHN_HLD_YN1
-				,FCLT.SORT_MCHN_HLD_YN2      AS SORT_MCHN_HLD_YN2
-				,FCLT.SORT_MCHN_HLD_YN3      AS SORT_MCHN_HLD_YN3
-				,FCLT.SORT_MCHN_HLD_YN4      AS SORT_MCHN_HLD_YN4
-				,FCLT.PRC_CAP1               AS PRC_CAP1
-				,FCLT.PRC_CAP2               AS PRC_CAP2
-				,FCLT.PRC_CAP3               AS PRC_CAP3
-				,FCLT.PRC_CAP4               AS PRC_CAP4
-				,FCLT.PRC_VOL1               AS PRC_VOL1
-				,FCLT.PRC_VOL2               AS PRC_VOL2
-				,FCLT.PRC_VOL3               AS PRC_VOL3
-				,FCLT.PRC_VOL4               AS PRC_VOL4
-				,FCLT.ANN_OPER_TIME1         AS ANN_OPER_TIME1
-				,FCLT.ANN_OPER_TIME2         AS ANN_OPER_TIME2
-				,FCLT.ANN_OPER_TIME3         AS ANN_OPER_TIME3
-				,FCLT.ANN_OPER_TIME4         AS ANN_OPER_TIME4
-				,AVG_OPER_DAY1               AS AVG_OPER_DAY1
-                ,AVG_OPER_DAY2               AS AVG_OPER_DAY2
-                ,AVG_OPER_DAY3               AS AVG_OPER_DAY3
-                ,AVG_OPER_DAY4               AS AVG_OPER_DAY4
+	<select id="selectFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+		<![CDATA[
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfo */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				, OTI.APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+				, OASM.SORT_ITEM_CD
+				, OASM.SORT_ITEM_NM
+				, OASM.SORT_PRCS_ABLT
+				, OASM.SORT_PRCS_PRFMNC
+				, OASM.SORT_OPRTNG_HR
+				, OASM.SORT_AVG_OPRTNG_DCNT
+				, OASM.SORT_MCHN_HOLD_YN
 
-
-
-			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_OPER_ABLT_SORT_MCHN OASM
+			WHERE 1=1
+			  AND OTI.APC_CD = OASM.APC_CD(+)
+			  AND OTI.CRTR_YR = OASM.CRTR_YR(+)
+			  AND OTI.SN = OASM.SN(+)
+			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.APC_CD IS NOT NULL
+			  AND OASM.DEL_YN != 'Y'
 		]]>
-
-        <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
-    </select>
+		<if test='crtrYr != null and !crtrYr.equals("")'>
+		  AND OASM.CRTR_YR = #{crtrYr}
+		</if>
+		<if test='apcCd != null and !apcCd.equals("")'>
+		  AND OASM.APC_CD = #{apcCd}
+		</if>
+	</select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoList			-->
@@ -71,234 +63,123 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltSortMchnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoList */
-				 FCLT.TRGT_YR                AS TRGT_YR
-				,FCLT.APC_CD                 AS APC_CD
-				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				,FCLT.SORT_MCHN_HLD_YN1      AS SORT_MCHN_HLD_YN1
-				,FCLT.SORT_MCHN_HLD_YN2      AS SORT_MCHN_HLD_YN2
-				,FCLT.SORT_MCHN_HLD_YN3      AS SORT_MCHN_HLD_YN3
-				,FCLT.SORT_MCHN_HLD_YN4      AS SORT_MCHN_HLD_YN4
-				,FCLT.PRC_CAP1               AS PRC_CAP1
-				,FCLT.PRC_CAP2               AS PRC_CAP2
-				,FCLT.PRC_CAP3               AS PRC_CAP3
-				,FCLT.PRC_CAP4               AS PRC_CAP4
-				,FCLT.PRC_VOL1               AS PRC_VOL1
-				,FCLT.PRC_VOL2               AS PRC_VOL2
-				,FCLT.PRC_VOL3               AS PRC_VOL3
-				,FCLT.PRC_VOL4               AS PRC_VOL4
-				,FCLT.ANN_OPER_TIME1         AS ANN_OPER_TIME1
-				,FCLT.ANN_OPER_TIME2         AS ANN_OPER_TIME2
-				,FCLT.ANN_OPER_TIME3         AS ANN_OPER_TIME3
-				,FCLT.ANN_OPER_TIME4         AS ANN_OPER_TIME4
-				,AVG_OPER_DAY1               AS AVG_OPER_DAY1
-                ,AVG_OPER_DAY2               AS AVG_OPER_DAY2
-                ,AVG_OPER_DAY3               AS AVG_OPER_DAY3
-                ,AVG_OPER_DAY4               AS AVG_OPER_DAY4
-			  FROM TB_FCLT_SORT_MCHN_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-  		]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+	<select id="selectFcltSortMchnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				 ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoList */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				, OTI.APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+				, OASM.SORT_ITEM_CD
+				, OASM.SORT_ITEM_NM
+				, OASM.SORT_PRCS_ABLT
+				, OASM.SORT_PRCS_PRFMNC
+				, OASM.SORT_OPRTNG_HR
+				, OASM.SORT_AVG_OPRTNG_DCNT
+				, OASM.SORT_MCHN_HOLD_YN
+
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_OPER_ABLT_SORT_MCHN OASM
+			WHERE 1=1
+			  AND OTI.APC_CD = OASM.APC_CD(+)
+			  AND OTI.CRTR_YR = OASM.CRTR_YR(+)
+			  AND OTI.SN = OASM.SN(+)
+			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.APC_CD IS NOT NULL
+			  AND OASM.DEL_YN != 'Y'
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND OASM.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND OASM.APC_CD = #{apcCd}
+			</if>
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo				-->
-	<!-- DESC : 선별기운영 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-    <insert id="insertFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo */
-	    	  INTO TB_FCLT_SORT_MCHN_INFO FCLT
-	    		(
-				     TRGT_YR
-				   , APC_CD
-				   , SORT_MCHN_HLD_YN1
-				   , SORT_MCHN_HLD_YN2
-				   , SORT_MCHN_HLD_YN3
-				   , SORT_MCHN_HLD_YN4
-                   , PRC_CAP1
-                   , PRC_CAP2
-                   , PRC_CAP3
-                   , PRC_CAP4
-                   , PRC_VOL1
-                   , PRC_VOL2
-                   , PRC_VOL3
-                   , PRC_VOL4
-                   , ANN_OPER_TIME1
-                   , ANN_OPER_TIME2
-                   , ANN_OPER_TIME3
-                   , ANN_OPER_TIME4
-                   , AVG_OPER_DAY1
-                   , AVG_OPER_DAY2
-                   , AVG_OPER_DAY3
-                   , AVG_OPER_DAY4
-				   , SYS_FRST_INPT_DT
-				   , SYS_FRST_INPT_USER_ID
-	    		   , SYS_FRST_INPT_PRGRM_ID
-	    		   , SYS_LAST_CHG_DT
-	    		   , SYS_LAST_CHG_USER_ID
-	    		   , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   			VALUES
-	   			(
 
-					 #{trgtYr}
-					, #{apcCd}
-					, #{sortMchnHldYn1}
-					, #{sortMchnHldYn2}
-					, #{sortMchnHldYn3}
-					, #{sortMchnHldYn4}
-                    , #{prcCap1}
-                    , #{prcCap2}
-                    , #{prcCap3}
-                    , #{prcCap4}
-                    , #{prcVol1}
-                    , #{prcVol2}
-                    , #{prcVol3}
-                    , #{prcVol4}
-                    , #{annOperTime1}
-                    , #{annOperTime2}
-                    , #{annOperTime3}
-                    , #{annOperTime4}
-                    , #{avgOperDay1}
-                    , #{avgOperDay2}
-                    , #{avgOperDay3}
-                    , #{avgOperDay4}
-					, SYSDATE
-					, #{sysFrstInptUserId}
-					, #{sysFrstInptPrgrmId}
-					, SYSDATE
-					, #{sysLastChgUserId}
-					, #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-     -->
 	<update id="insertFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
-     	MERGE INTO TB_FCLT_SORT_MCHN_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo */
+		MERGE INTO TB_TE_APC_OPER_ABLT_SORT_MCHN OASM /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.insertFcltSortMchnInfo */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			OASM.CRTR_YR = #{crtrYr}
+			AND OASM.APC_CD = #{apcCd}
+			AND OASM.SN = #{sn}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  SORT_MCHN_HLD_YN1       =  #{sortMchnHldYn1}
-                  , SORT_MCHN_HLD_YN2       =  #{sortMchnHldYn2}
-                  , SORT_MCHN_HLD_YN3       =  #{sortMchnHldYn3}
-                  , SORT_MCHN_HLD_YN4       =  #{sortMchnHldYn4}
-				  , PRC_CAP1             =  #{prcCap1}
-				  , PRC_CAP2             =  #{prcCap2}
-				  , PRC_CAP3             =  #{prcCap3}
-				  , PRC_CAP4             =  #{prcCap4}
-				  , PRC_VOL1             =  #{prcVol1}
-				  , PRC_VOL2             =  #{prcVol2}
-				  , PRC_VOL3             =  #{prcVol3}
-				  , PRC_VOL4             =  #{prcVol4}
-				  , ANN_OPER_TIME1       =  #{annOperTime1}
-				  , ANN_OPER_TIME2       =  #{annOperTime2}
-				  , ANN_OPER_TIME3       =  #{annOperTime3}
-				  , ANN_OPER_TIME4       =  #{annOperTime4}
-				  , AVG_OPER_DAY1        =  #{avgOperDay1}
-				  , AVG_OPER_DAY2        =  #{avgOperDay2}
-				  , AVG_OPER_DAY3        =  #{avgOperDay3}
-				  , AVG_OPER_DAY4        =  #{avgOperDay4}
-				  , SYS_LAST_CHG_DT		= SYSDATE
-	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				  , SORT_PRCS_ABLT			= #{sortPrcsAblt}
+				  , SORT_PRCS_PRFMNC		= #{sortPrcsPrfmnc}
+				  , SORT_OPRTNG_HR			= #{sortOprtngHr}
+				  , SORT_AVG_OPRTNG_DCNT	= #{sortAvgOprtngDcnt}
+
+				  , TMPR_STRG_YN			= #{tmprStrgYn}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
+				  CRTR_YR
 				   , APC_CD
-				   , SORT_MCHN_HLD_YN1
-				   , SORT_MCHN_HLD_YN2
-				   , SORT_MCHN_HLD_YN3
-				   , SORT_MCHN_HLD_YN4
-                   , PRC_CAP1
-                   , PRC_CAP2
-                   , PRC_CAP3
-                   , PRC_CAP4
-                   , PRC_VOL1
-                   , PRC_VOL2
-                   , PRC_VOL3
-                   , PRC_VOL4
-                   , ANN_OPER_TIME1
-                   , ANN_OPER_TIME2
-                   , ANN_OPER_TIME3
-                   , ANN_OPER_TIME4
-                   , AVG_OPER_DAY1
-                   , AVG_OPER_DAY2
-                   , AVG_OPER_DAY3
-                   , AVG_OPER_DAY4
+				   , SN
+				   , SORT_ITEM_CD
+				   , SORT_ITEM_NM
+
+				   , SORT_PRCS_ABLT
+				   , SORT_PRCS_PRFMNC
+				   , SORT_OPRTNG_HR
+				   , SORT_AVG_OPRTNG_DCNT
+
+				   , TMPR_STRG_YN
+
 				   , SYS_FRST_INPT_DT
 				   , SYS_FRST_INPT_USER_ID
-	    		   , SYS_FRST_INPT_PRGRM_ID
-	    		   , SYS_LAST_CHG_DT
-	    		   , SYS_LAST_CHG_USER_ID
-	    		   , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
+				   , SYS_FRST_INPT_PRGRM_ID
+				   , SYS_LAST_CHG_DT
+				   , SYS_LAST_CHG_USER_ID
+				   , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+					#{crtrYr}
 					, #{apcCd}
-					, #{sortMchnHldYn1}
-					, #{sortMchnHldYn2}
-					, #{sortMchnHldYn3}
-					, #{sortMchnHldYn4}
-                    , #{prcCap1}
-                    , #{prcCap2}
-                    , #{prcCap3}
-                    , #{prcCap4}
-                    , #{prcVol1}
-                    , #{prcVol2}
-                    , #{prcVol3}
-                    , #{prcVol4}
-                    , #{annOperTime1}
-                    , #{annOperTime2}
-                    , #{annOperTime3}
-                    , #{annOperTime4}
-                    , #{avgOperDay1}
-                    , #{avgOperDay2}
-                    , #{avgOperDay3}
-                    , #{avgOperDay4}
+					, #{sn}
+					,(SELECT ITEM_CD FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr} AND SN = #{sn} AND OGNZ_SE_CD = '2')
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr} AND SN = #{sn} AND OGNZ_SE_CD = '2')
+
+					, #{sortPrcsAblt}
+					, #{sortPrcsPrfmnc}
+					, #{sortOprtngHr}
+					, #{sortAvgOprtngDcnt}
+
+					, #{tmprStrgYn}
+
 					, SYSDATE
 					, #{sysFrstInptUserId}
 					, #{sysFrstInptPrgrmId}
 					, SYSDATE
 					, #{sysLastChgUserId}
 					, #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo				-->
@@ -308,46 +189,32 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo */
-	    		TB_FCLT_SORT_MCHN_INFO FCLT
-			   SET
-                  SORT_MCHN_HLD_YN1       =  #{sortMchnHldYn1}
-                  , SORT_MCHN_HLD_YN2       =  #{sortMchnHldYn2}
-                  , SORT_MCHN_HLD_YN3       =  #{sortMchnHldYn3}
-                  , SORT_MCHN_HLD_YN4       =  #{sortMchnHldYn4}
-				  , PRC_CAP1             =  #{prcCap1}
-				  , PRC_CAP2             =  #{prcCap2}
-				  , PRC_CAP3             =  #{prcCap3}
-				  , PRC_CAP4             =  #{prcCap4}
-				  , PRC_VOL1             =  #{prcVol1}
-				  , PRC_VOL2             =  #{prcVol2}
-				  , PRC_VOL3             =  #{prcVol3}
-				  , PRC_VOL4             =  #{prcVol4}
-				  , ANN_OPER_TIME1       =  #{annOperTime1}
-				  , ANN_OPER_TIME2       =  #{annOperTime2}
-				  , ANN_OPER_TIME3       =  #{annOperTime3}
-				  , ANN_OPER_TIME4       =  #{annOperTime4}
-				  , AVG_OPER_DAY1        =  #{avgOperDay1}
-				  , AVG_OPER_DAY2        =  #{avgOperDay2}
-				  , AVG_OPER_DAY3        =  #{avgOperDay3}
-				  , AVG_OPER_DAY4        =  #{avgOperDay4}
+	<update id="updateFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+		<![CDATA[
+		UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.updateFcltSortMchnInfo */
+			TB_TE_APC_OPER_ABLT_SORT_MCHN OASM
+		   SET
+				SORT_PRCS_ABLT			= #{sortPrcsAblt}
+			  , SORT_PRCS_PRFMNC		= #{sortPrcsPrfmnc}
+			  , SORT_OPRTNG_HR			= #{sortOprtngHr}
+			  , SORT_AVG_OPRTNG_DCNT	= #{sortAvgOprtngDcnt}
 
-    	]]>
+			  , TMPR_STRG_YN			= #{tmprStrgYn}
+
+		]]>
 		<if test='delYn != null and delYn != ""'>
-				, DEL_YN 	= #{delYn}
+			, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
-				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		<![CDATA[
+			, SYS_LAST_CHG_DT		= SYSDATE
+			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+		WHERE 1=1
+		  AND CRTR_YR = #{crtrYr}
+		  AND  APC_CD = #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo				-->
@@ -358,25 +225,26 @@
 	<!-- 2023.06.09  	jeongyd        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo */
-	    		TB_FCLT_SORT_MCHN_INFO FCLT
-			   SET
-	    		  DEL_YN 	= 'Y'
-			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo */
-	    		TB_FCLT_SORT_MCHN_INFO FCLT
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
+		<![CDATA[
+		UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo */
+			TB_TE_APC_OPER_ABLT_SORT_MCHN OASM
+		  SET
+			DEL_YN 	= 'Y'
+		WHERE 1=1
+		  AND CRTR_YR = #{crtrYr}
+		  AND  APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltSortMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO">
+		<![CDATA[
+		DELETE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.deleteFcltSortMchnInfo */
+			TB_FCLT_SORT_MCHN_INFO FCLT
+		WHERE 1=1
+		  AND CRTR_YR = #{crtrYr}
+		  AND  APC_CD = #{apcCd}
+		]]>
+	</delete>
  -->
+
 </mapper>

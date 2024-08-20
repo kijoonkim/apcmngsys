@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -75,6 +74,31 @@ public class FcltSortMchnOperInfoController extends BaseController {
 		logger.info("=============selectMenuList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
+	// 선별기운영기간 변경
+	@PostMapping(value = "/fm/fclt/multiSaveFcltSortMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveFcltSortMchnOperInfo(@RequestBody List<FcltSortMchnOperInfoVO> fcltSortMchnOperInfoVOList, HttpServletRequest requset) throws Exception{
+		logger.info("=============multiSaveFcltSortMchnInfo=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+
+		try {
+			for (FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO : fcltSortMchnOperInfoVOList) {
+				// audit 항목
+				fcltSortMchnOperInfoVO.setSysFrstInptUserId(getUserId());
+				fcltSortMchnOperInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+				fcltSortMchnOperInfoVO.setSysLastChgUserId(getUserId());
+				fcltSortMchnOperInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			savedCnt = fcltSortMchnOperInfoService.multiSaveFcltSortMchnOperInfo(fcltSortMchnOperInfoVOList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	// 선별기운영기간 등록
 	@PostMapping(value = "/fm/fclt/insertFcltSortMchnOperInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
@@ -84,7 +108,6 @@ public class FcltSortMchnOperInfoController extends BaseController {
 
 		// validation check
 
-		// audit 항목
 		fcltSortMchnOperInfoVO.setSysFrstInptUserId(getUserId());
 		fcltSortMchnOperInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
 		fcltSortMchnOperInfoVO.setSysLastChgUserId(getUserId());

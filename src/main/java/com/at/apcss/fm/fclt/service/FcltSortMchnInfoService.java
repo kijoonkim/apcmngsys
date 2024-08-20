@@ -1,7 +1,6 @@
 package com.at.apcss.fm.fclt.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.at.apcss.fm.fclt.vo.FcltSortMchnInfoVO;
 
@@ -54,6 +53,14 @@ public interface FcltSortMchnInfoService {
 	 * @throws Exception
 	 */
 	public int insertFcltSortMchnInfo(FcltSortMchnInfoVO fcltSortMchnInfoVO) throws Exception;
+
+	/**
+	 * 선별기현황정보를 등록한다.
+	 * @param fcltSortMchnInfoVOList
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveFcltSortMchnInfo(List<FcltSortMchnInfoVO> fcltSortMchnInfoVOList) throws Exception;
 
 	/**
 	 * 선별기현황정보를 변경한다.

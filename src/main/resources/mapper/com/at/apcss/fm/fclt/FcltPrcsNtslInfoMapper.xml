@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : FcltPrcsNtslInfoMapper.xml                                    				-->
-<!-- DESC : 산지유통판매처 정보 mapper                                             			-->
+<!-- NAME : FcltPrcsNtslInfoMapper.xml                                    		-->
+<!-- DESC : 산지유통판매처 정보 mapper                                             		-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
@@ -14,41 +14,63 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo				-->
-	<!-- DESC : 산지유통판매처 테이블 단건조회.                                             		-->
+	<!-- DESC : 산지유통판매처 테이블 단건조회.                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
-    	<![CDATA[
+	<select id="selectFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo */
-				  FCLT.TRGT_YR                AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				, FCLT.FCLT_STR_CD            AS FCLT_STR_CD
-				, FCLT.FCLT_NTSL_CD           AS FCLT_NTSL_CD
-                , FCLT.FCLT_NTSL_CD2          AS FCLT_NTSL_CD2
-				, FCLT.FCLT_NTSL_CD3          AS FCLT_NTSL_CD3
-				, FCLT.FCLT_NTSL_CD4          AS FCLT_NTSL_CD4
-				, FCLT.FCLT_NTSL_CD5          AS FCLT_NTSL_CD5
-				, FCLT.FCLT_NTSL_CD6          AS FCLT_NTSL_CD6
-				, FCLT.FCLT_NTSL_CD7          AS FCLT_NTSL_CD7
-				, FCLT.FCLT_NTSL_CD8          AS FCLT_NTSL_CD8
-				, FCLT.FCLT_NTSL_CD9          AS FCLT_NTSL_CD9
+				AOP.CRTR_YR
+				, AOP.APC_CD
+				, AOP.APC_NM
+				, AOP.APC_NTSL_AMT_LGSZ_RTL
+				, AOP.APC_NTSL_AMT_FOOD_MTRL
+				, AOP.APC_NTSL_AMT_WHLSL_MRKT
+				, AOP.APC_NTSL_AMT_BZENTY
+				, AOP.APC_NTSL_AMT_EXPRT
+				, AOP.APC_NTSL_AMT_HMSP
+				, AOP.APC_NTSL_AMT_ONLN_B2B
+				, AOP.APC_NTSL_AMT_ONLN_B2C
+				, AOP.APC_NTSL_AMT_ETC
+				, AOP.APC_NTSL_AMT_ONLN_WHLSL_MRKT
 
-			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-		]]>
-        <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
-    </select>
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '1'
+				) AS APC_TRMT_AMT_1
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '2'
+				) AS APC_TRMT_AMT_2
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '3'
+				) AS APC_TRMT_AMT_3
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '4'
+				) AS APC_TRMT_AMT_4
+				,(SELECT SUM(APC_TRMT_AMT) FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD GROUP BY APC_TRMT_AMT
+				) AS APC_TRMT_AMT_TOT
+
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '1'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_1
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '2'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_2
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '3'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_3
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '4'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_4
+				,(SELECT SUM(RTL_OGNZ_TOT_TRMT_AMT) FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD GROUP BY RTL_OGNZ_TOT_TRMT_AMT
+				) AS RTL_OGNZ_TOT_TRMT_AMT_TOT
+
+			FROM TB_TE_APC_OPER_PRFMNC AOP
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  AOP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  AOP.APC_CD = #{apcCd}
+			</if>
+	</select>
 
 
 	<!-- ==========================================================================	-->
@@ -59,174 +81,146 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltPrcsNtslInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfoList */
-				  FCLT.TRGT_YR                AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				, FCLT.FCLT_STR_CD            AS FCLT_STR_CD
-				, FCLT.FCLT_NTSL_CD           AS FCLT_NTSL_CD
-                , FCLT.FCLT_NTSL_CD2          AS FCLT_NTSL_CD2
-				, FCLT.FCLT_NTSL_CD3          AS FCLT_NTSL_CD3
-				, FCLT.FCLT_NTSL_CD4          AS FCLT_NTSL_CD4
-				, FCLT.FCLT_NTSL_CD5          AS FCLT_NTSL_CD5
-				, FCLT.FCLT_NTSL_CD6          AS FCLT_NTSL_CD6
-				, FCLT.FCLT_NTSL_CD7          AS FCLT_NTSL_CD7
-				, FCLT.FCLT_NTSL_CD8          AS FCLT_NTSL_CD8
-				, FCLT.FCLT_NTSL_CD9          AS FCLT_NTSL_CD9
-			 FROM TB_FCLT_PRCS_NTSL_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-  ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+	<select id="selectFcltPrcsNtslInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo */
+				AOP.CRTR_YR
+				, AOP.APC_CD
+				, AOP.APC_NM
+				, AOP.APC_NTSL_AMT_LGSZ_RTL
+				, AOP.APC_NTSL_AMT_FOOD_MTRL
+				, AOP.APC_NTSL_AMT_WHLSL_MRKT
+				, AOP.APC_NTSL_AMT_BZENTY
+				, AOP.APC_NTSL_AMT_EXPRT
+				, AOP.APC_NTSL_AMT_HMSP
+				, AOP.APC_NTSL_AMT_ONLN_B2B
+				, AOP.APC_NTSL_AMT_ONLN_B2C
+				, AOP.APC_NTSL_AMT_ETC
+				, AOP.APC_NTSL_AMT_ONLN_WHLSL_MRKT
+
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '1'
+				) AS APC_TRMT_AMT_1
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '2'
+				) AS APC_TRMT_AMT_2
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '3'
+				) AS APC_TRMT_AMT_3
+				,(SELECT APC_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '4'
+				) AS APC_TRMT_AMT_4
+
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '1'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_1
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '2'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_2
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '3'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_3
+				,(SELECT RTL_OGNZ_TOT_TRMT_AMT FROM TB_TE_APC_OPER_PRFMNC_DTL WHERE CRTR_YR = AOP.CRTR_YR AND APC_CD = AOP.APC_CD AND SN = '4'
+				) AS RTL_OGNZ_TOT_TRMT_AMT_4
+
+			FROM TB_TE_APC_OPER_PRFMNC AOP
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  AOP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  AOP.APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.insertFcltPrcsNtslInfo				-->
-	<!-- DESC : 산지유통판매처 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-    <insert id="insertFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.insertFcltPrcsNtslInfo */
-	    	  INTO TB_FCLT_PRCS_NTSL_INFO FCLT
-	    		(
-	    			TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_STR_CD
-	    		  , FCLT_NTSL_CD
-	    		  , FCLT_NTSL_CD2
-				  , FCLT_NTSL_CD3
-				  , FCLT_NTSL_CD4
-				  , FCLT_NTSL_CD5
-				  , FCLT_NTSL_CD6
-				  , FCLT_NTSL_CD7
-				  , FCLT_NTSL_CD8
-				  , FCLT_NTSL_CD9
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltStrCd}
-	   			  , #{fcltNtslCd}
-	   			  , #{fcltNtslCd2}
-	   			  , #{fcltNtslCd3}
-	   			  , #{fcltNtslCd4}
-	   			  , #{fcltNtslCd5}
-	   			  , #{fcltNtslCd6}
-	   			  , #{fcltNtslCd7}
-	   			  , #{fcltNtslCd8}
-	   			  , #{fcltNtslCd9}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-     -->
 
-     <update id="insertFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
-     	MERGE INTO TB_FCLT_PRCS_NTSL_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.insertFcltPrcsNtslInfo */
+	<update id="insertFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
+		MERGE INTO TB_TE_APC_OPER_PRFMNC AOP /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.insertFcltPrcsNtslInfo */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			AOP.CRTR_YR = #{crtrYr}
+			AND AOP.APC_CD = #{apcCd}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  FCLT_STR_CD    = #{fcltStrCd}
-    	        , FCLT_NTSL_CD   = #{fcltNtslCd}
-    			, FCLT_NTSL_CD2	 = #{fcltNtslCd2}
-    	        , FCLT_NTSL_CD3  = #{fcltNtslCd3}
-    	        , FCLT_NTSL_CD4  = #{fcltNtslCd4}
-    	        , FCLT_NTSL_CD5  = #{fcltNtslCd5}
-    	        , FCLT_NTSL_CD6  = #{fcltNtslCd6}
-    	        , FCLT_NTSL_CD7  = #{fcltNtslCd7}
-    	        , FCLT_NTSL_CD8  = #{fcltNtslCd8}
-    	        , FCLT_NTSL_CD9  = #{fcltNtslCd9}
-				  , SYS_LAST_CHG_DT		= SYSDATE
-	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				  APC_NTSL_AMT_LGSZ_RTL				= #{apcNtslAmtLgszRtl}
+				  , APC_NTSL_AMT_FOOD_MTRL			= #{apcNtslAmtFoodMtrl}
+				  , APC_NTSL_AMT_WHLSL_MRKT			= #{apcNtslAmtWhlslMrkt}
+				  , APC_NTSL_AMT_BZENTY				= #{apcNtslAmtBzenty}
+				  , APC_NTSL_AMT_EXPRT				= #{apcNtslAmtExprt}
+				  , APC_NTSL_AMT_HMSP				= #{apcNtslAmtHmsp}
+				  , APC_NTSL_AMT_ONLN_B2B			= #{apcNtslAmtOnlnB2b}
+				  , APC_NTSL_AMT_ONLN_B2C			= #{apcNtslAmtOnlnB2c}
+				  , APC_NTSL_AMT_ETC				= #{apcNtslAmtEtc}
+				  , APC_NTSL_AMT_ONLN_WHLSL_MRKT	= #{apcNtslAmtOnlnWhlslMrkt}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_STR_CD
-	    		  , FCLT_NTSL_CD
-	    		  , FCLT_NTSL_CD2
-				  , FCLT_NTSL_CD3
-				  , FCLT_NTSL_CD4
-				  , FCLT_NTSL_CD5
-				  , FCLT_NTSL_CD6
-				  , FCLT_NTSL_CD7
-				  , FCLT_NTSL_CD8
-				  , FCLT_NTSL_CD9
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltStrCd}
-	   			  , #{fcltNtslCd}
-	   			  , #{fcltNtslCd2}
-	   			  , #{fcltNtslCd3}
-	   			  , #{fcltNtslCd4}
-	   			  , #{fcltNtslCd5}
-	   			  , #{fcltNtslCd6}
-	   			  , #{fcltNtslCd7}
-	   			  , #{fcltNtslCd8}
-	   			  , #{fcltNtslCd9}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				  CRTR_YR
+				  , APC_CD
+				  , APC_NM
+
+				  , APC_NTSL_AMT_LGSZ_RTL
+				  , APC_NTSL_AMT_FOOD_MTRL
+				  , APC_NTSL_AMT_WHLSL_MRKT
+				  , APC_NTSL_AMT_BZENTY
+				  , APC_NTSL_AMT_EXPRT
+				  , APC_NTSL_AMT_HMSP
+				  , APC_NTSL_AMT_ONLN_B2B
+				  , APC_NTSL_AMT_ONLN_B2C
+				  , APC_NTSL_AMT_ETC
+				  , APC_NTSL_AMT_ONLN_WHLSL_MRKT
+
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
+
+				  , #{apcNtslAmtLgszRtl}
+				  , #{apcNtslAmtFoodMtrl}
+				  , #{apcNtslAmtWhlslMrkt}
+				  , #{apcNtslAmtBzenty}
+				  , #{apcNtslAmtExprt}
+				  , #{apcNtslAmtHmsp}
+				  , #{apcNtslAmtOnlnB2b}
+				  , #{apcNtslAmtOnlnB2c}
+				  , #{apcNtslAmtEtc}
+				  , #{apcNtslAmtOnlnWhlslMrkt}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 
 
 	<!-- ==========================================================================	-->
@@ -237,35 +231,35 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo */
-	    		TB_FCLT_PRCS_NTSL_INFO FCLTT
-	    	SET
-			 	  FCLT_STR_CD    = #{fcltStrCd}
-    	        , FCLT_NTSL_CD   = #{fcltNtslCd}
-    			, FCLT_NTSL_CD2	 = #{fcltNtslCd2}
-    	        , FCLT_NTSL_CD3  = #{fcltNtslCd3}
-    	        , FCLT_NTSL_CD4  = #{fcltNtslCd4}
-    	        , FCLT_NTSL_CD5  = #{fcltNtslCd5}
-    	        , FCLT_NTSL_CD6  = #{fcltNtslCd6}
-    	        , FCLT_NTSL_CD7  = #{fcltNtslCd7}
-    	        , FCLT_NTSL_CD8  = #{fcltNtslCd8}
-    	        , FCLT_NTSL_CD9  = #{fcltNtslCd9}
-    	]]>
+	<update id="updateFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo */
+				TB_TE_APC_OPER_PRFMNC AOP
+			SET
+				  APC_NTSL_AMT_LGSZ_RTL				= #{apcNtslAmtLgszRtl}
+				  , APC_NTSL_AMT_FOOD_MTRL			= #{apcNtslAmtFoodMtrl}
+				  , APC_NTSL_AMT_WHLSL_MRKT			= #{apcNtslAmtWhlslMrkt}
+				  , APC_NTSL_AMT_BZENTY				= #{apcNtslAmtBzenty}
+				  , APC_NTSL_AMT_EXPRT				= #{apcNtslAmtExprt}
+				  , APC_NTSL_AMT_HMSP				= #{apcNtslAmtHmsp}
+				  , APC_NTSL_AMT_ONLN_B2B			= #{apcNtslAmtOnlnB2b}
+				  , APC_NTSL_AMT_ONLN_B2C			= #{apcNtslAmtOnlnB2c}
+				  , APC_NTSL_AMT_ETC				= #{apcNtslAmtEtc}
+				  , APC_NTSL_AMT_ONLN_WHLSL_MRKT	= #{apcNtslAmtOnlnWhlslMrkt}
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+			WHERE 1=1
+			  AND AOP.CRTR_YR = #{crtrYr}
+			  AND AOP.APC_CD = #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo				-->
@@ -276,25 +270,25 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo */
-	    		TB_FCLT_PRCS_NTSL_INFO FCLT
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo */
+				TB_TE_APC_OPER_PRFMNC AOP
 			   SET
-	    		  DEL_YN 	= 'Y'
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo */
-	    		TB_FCLT_PRCS_NTSL_INFO FCLT
+			  AND AOP.CRTR_YR = #{crtrYr}
+			  AND AOP.APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltPrcsNtslInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsNtslInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo */
+				TB_TE_APC_OPER_PRFMNC AOP
 			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
+			  AND AOP.CRTR_YR = #{crtrYr}
+			  AND AOP.APC_CD = #{apcCd}
+		]]>
+	</delete>
  -->
 </mapper>

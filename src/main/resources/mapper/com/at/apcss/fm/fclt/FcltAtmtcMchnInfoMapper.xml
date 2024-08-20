@@ -20,38 +20,40 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
-    	<![CDATA[
+	<select id="selectFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfo */
-				  FCLT.TRGT_YR				  AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.SPECS				  AS SPECS
-				, FCLT.FCLT_HLD_YN            AS FCLT_HLD_YN
-			    , FCLT.FCLT_HLD_YN2           AS FCLT_HLD_YN2
-			    , FCLT.FCLT_HLD_YN3           AS FCLT_HLD_YN3
-			    , FCLT.FCLT_HLD_YN4           AS FCLT_HLD_YN4
-			    , FCLT.FCLT_HLD_YN5           AS FCLT_HLD_YN5
-			    , FCLT.FCLT_HLD_YN6           AS FCLT_HLD_YN6
-			    , FCLT.FCLT_HLD_YN7           AS FCLT_HLD_YN7
-			    , FCLT.FCLT_HLD_YN8           AS FCLT_HLD_YN8
-			    , FCLT.FCLT_HLD_YN9           AS FCLT_HLD_YN9
-			    , FCLT.FCLT_HLD_YN10          AS FCLT_HLD_YN10
-			    , FCLT.FCLT_HLD_YN11          AS FCLT_HLD_YN11
-			    , FCLT.OTHER_FCLT             AS OTHER_FCLT
+				  SPSD.CRTR_YR
+				, SPSD.APC_CD
+				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = SPSD.APC_CD AND CRTR_YR = SPSD.CRTR_YR
+				) AS APC_NM
+				, SPSD.SN
+				, SPSD.RPRS_ITEM_SPCFCT
+				, SPSD.DPTZ
+				, SPSD.APM
+				, SPSD.ELCTRN_WGHT_SORT_MCHN
+				, SPSD.NDST_BRCK_SORT_MCHN
+				, SPSD.GRD_RAW_MTR_ATMTC_TRNSF_MCHN
+				, SPSD.EMPT_BX_ATMTC_EXHST_MCHN
+				, SPSD.ATMTC_BX_PCKG_MCHN
+				, SPSD.ATMTC_SS_MCHN
+				, SPSD.ATMTC_WRAP_MCHN
+				, SPSD.ATMTC_WGHT_CHCK_MCHN
+				, SPSD.PTZ
+				, SPSD.ETC_MNFC_MCHN
 
-			  FROM TB_FCLT_ATMTC_MCHN_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
+			FROM TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
 		]]>
-        <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
-    </select>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND SPSD.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND SPSD.APC_CD = #{apcCd}
+			</if>
+	</select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfoList			-->
@@ -61,193 +63,162 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltAtmtcMchnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfoList */
-				  FCLT.TRGT_YR				  AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.SPECS				  AS SPECS
-				, FCLT.FCLT_HLD_YN            AS FCLT_HLD_YN
-			    , FCLT.FCLT_HLD_YN2           AS FCLT_HLD_YN2
-			    , FCLT.FCLT_HLD_YN3           AS FCLT_HLD_YN3
-			    , FCLT.FCLT_HLD_YN4           AS FCLT_HLD_YN4
-			    , FCLT.FCLT_HLD_YN5           AS FCLT_HLD_YN5
-			    , FCLT.FCLT_HLD_YN6           AS FCLT_HLD_YN6
-			    , FCLT.FCLT_HLD_YN7           AS FCLT_HLD_YN7
-			    , FCLT.FCLT_HLD_YN8           AS FCLT_HLD_YN8
-			    , FCLT.FCLT_HLD_YN9           AS FCLT_HLD_YN9
-			    , FCLT.FCLT_HLD_YN10          AS FCLT_HLD_YN10
-			    , FCLT.FCLT_HLD_YN11          AS FCLT_HLD_YN11
-			    , FCLT.OTHER_FCLT             AS OTHER_FCLT
-			  FROM TB_FCLT_ATMTC_MCHN_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-		   ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+	<select id="selectFcltAtmtcMchnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+			<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfo */
+				  SPSD.CRTR_YR
+				, SPSD.APC_CD
+				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = SPSD.APC_CD AND CRTR_YR = SPSD.CRTR_YR
+				) AS APC_NM
+				, SPSD.SN
+				, SPSD.RPRS_ITEM_SPCFCT
+				, SPSD.DPTZ
+				, SPSD.APM
+				, SPSD.ELCTRN_WGHT_SORT_MCHN
+				, SPSD.NDST_BRCK_SORT_MCHN
+				, SPSD.GRD_RAW_MTR_ATMTC_TRNSF_MCHN
+				, SPSD.EMPT_BX_ATMTC_EXHST_MCHN
+				, SPSD.ATMTC_BX_PCKG_MCHN
+				, SPSD.ATMTC_SS_MCHN
+				, SPSD.ATMTC_WRAP_MCHN
+				, SPSD.ATMTC_WGHT_CHCK_MCHN
+				, SPSD.PTZ
+				, SPSD.ETC_MNFC_MCHN
+
+			FROM TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND SPSD.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND SPSD.APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo				-->
-	<!-- DESC : 스마트자동화 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-    <insert id="insertFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo */
-	    	  INTO TB_FCLT_ATMTC_MCHN_INFO FCLT
-	    		(
-	    		   TRGT_YR
-	    		  , APC_CD
-	    		  , SPECS
-	    		  , FCLT_HLD_YN
-	    		  , FCLT_HLD_YN2
-	    		  , FCLT_HLD_YN3
-	    		  , FCLT_HLD_YN4
-	    		  , FCLT_HLD_YN5
-	    		  , FCLT_HLD_YN6
-	    		  , FCLT_HLD_YN7
-	    		  , FCLT_HLD_YN8
-	    		  , FCLT_HLD_YN9
-	    		  , FCLT_HLD_YN10
-	    		  , FCLT_HLD_YN11
-	    		  , OTHER_FCLT
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{specs}
-	   			  , #{fcltHldYn}
-	   			  , #{fcltHldYn2}
-	   			  , #{fcltHldYn3}
-	   			  , #{fcltHldYn4}
-	   			  , #{fcltHldYn5}
-	   			  , #{fcltHldYn6}
-	   			  , #{fcltHldYn7}
-	   			  , #{fcltHldYn8}
-	   			  , #{fcltHldYn9}
-	   			  , #{fcltHldYn10}
-	   			  , #{fcltHldYn11}
-	   			  , #{otherFclt}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-     -->
-
-     <update id="insertFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
-     	MERGE INTO TB_FCLT_ATMTC_MCHN_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo */
+	<update id="insertFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
+		MERGE INTO TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			SPSD.CRTR_YR = #{crtrYr}
+			AND SPSD.APC_CD = #{apcCd}
+			AND SPSD.SN = #{sn}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  SPECS				= #{specs}
-    	        , FCLT_HLD_YN		= #{fcltHldYn}
-				, FCLT_HLD_YN2		= #{fcltHldYn2}
-				, FCLT_HLD_YN3		= #{fcltHldYn3}
-				, FCLT_HLD_YN4		= #{fcltHldYn4}
-				, FCLT_HLD_YN5		= #{fcltHldYn5}
-				, FCLT_HLD_YN6		= #{fcltHldYn6}
-				, FCLT_HLD_YN7		= #{fcltHldYn7}
-				, FCLT_HLD_YN8		= #{fcltHldYn8}
-				, FCLT_HLD_YN9		= #{fcltHldYn9}
-				, FCLT_HLD_YN10		= #{fcltHldYn10}
-				, FCLT_HLD_YN11		= #{fcltHldYn11}
-				, OTHER_FCLT		= #{otherFclt}
-				  , SYS_LAST_CHG_DT		= SYSDATE
-	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				  RPRS_ITEM_SPCFCT				= #{rprsItemSpcfct}
+				  , DPTZ						= #{dptz}
+				  , APM							= #{apm}
+				  , ELCTRN_WGHT_SORT_MCHN		= #{elctrnWghtSortMchn}
+				  , NDST_BRCK_SORT_MCHN			= #{ndstBrckSortMchn}
+				  , GRD_RAW_MTR_ATMTC_TRNSF_MCHN= #{grdRawMtrAtmtcTrnsfMchn}
+				  , EMPT_BX_ATMTC_EXHST_MCHN	= #{emptBxAtmtcExhstMchn}
+				  , ATMTC_BX_PCKG_MCHN			= #{atmtcBxPckgMchn}
+				  , ATMTC_SS_MCHN				= #{atmtcSsMchn}
+				  , ATMTC_WRAP_MCHN				= #{atmtcWrapMchn}
+				  , ATMTC_WGHT_CHCK_MCHN		= #{atmtcWghtChckMchn}
+				  , PTZ							= #{ptz}
+				  , ETC_MNFC_MCHN				= #{etcMnfcMchn}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
-	    		  , APC_CD
-	    		  , SPECS
-	    		  , FCLT_HLD_YN
-	    		  , FCLT_HLD_YN2
-	    		  , FCLT_HLD_YN3
-	    		  , FCLT_HLD_YN4
-	    		  , FCLT_HLD_YN5
-	    		  , FCLT_HLD_YN6
-	    		  , FCLT_HLD_YN7
-	    		  , FCLT_HLD_YN8
-	    		  , FCLT_HLD_YN9
-	    		  , FCLT_HLD_YN10
-	    		  , FCLT_HLD_YN11
-	    		  , OTHER_FCLT
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{specs}
-	   			  , #{fcltHldYn}
-	   			  , #{fcltHldYn2}
-	   			  , #{fcltHldYn3}
-	   			  , #{fcltHldYn4}
-	   			  , #{fcltHldYn5}
-	   			  , #{fcltHldYn6}
-	   			  , #{fcltHldYn7}
-	   			  , #{fcltHldYn8}
-	   			  , #{fcltHldYn9}
-	   			  , #{fcltHldYn10}
-	   			  , #{fcltHldYn11}
-	   			  , #{otherFclt}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				  CRTR_YR
+				  , APC_CD
+				  , APC_NM
+				  , SN
+				  , ITEM_CD
+				  , ITEM_NM
+
+				  , RPRS_ITEM_SPCFCT
+				  , DPTZ
+				  , APM
+				  , ELCTRN_WGHT_SORT_MCHN
+				  , NDST_BRCK_SORT_MCHN
+				  , GRD_RAW_MTR_ATMTC_TRNSF_MCHN
+				  , EMPT_BX_ATMTC_EXHST_MCHN
+				  , ATMTC_BX_PCKG_MCHN
+				  , ATMTC_SS_MCHN
+				  , ATMTC_WRAP_MCHN
+				  , ATMTC_WGHT_CHCK_MCHN
+				  , PTZ
+				  , ETC_MNFC_MCHN
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
+				  , #{sn}
+				  , (SELECT
+				  			ITEM_CD
+				  		FROM  TB_TE_APC_OPER_TRMT_ITEM
+				  		WHERE 1=1
+				  		  AND APC_CD = #{apcCd}
+				  		  AND CRTR_YR = #{crtrYr}
+				  		  AND SN = #{sn}
+				  	)
+				  , (SELECT
+				  			ITEM_NM
+				  		FROM  TB_TE_APC_OPER_TRMT_ITEM
+				  		WHERE 1=1
+				  		  AND APC_CD = #{apcCd}
+				  		  AND CRTR_YR = #{crtrYr}
+				  		  AND SN = #{sn}
+				  	)
+
+				  , #{rprsItemSpcfct}
+				  , #{dptz}
+				  , #{apm}
+				  , #{elctrnWghtSortMchn}
+				  , #{ndstBrckSortMchn}
+				  , #{grdRawMtrAtmtcTrnsfMchn}
+				  , #{emptBxAtmtcExhstMchn}
+				  , #{atmtcBxPckgMchn}
+				  , #{atmtcSsMchn}
+				  , #{atmtcWrapMchn}
+				  , #{atmtcWghtChckMchn}
+				  , #{ptz}
+				  , #{etcMnfcMchn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.updateFcltAtmtcMchnInfo				-->
@@ -257,38 +228,39 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.updateFcltAtmtcMchnInfo */
-	    		TB_FCLT_ATMTC_MCHN_INFO FCLT
+	<update id="updateFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.updateFcltAtmtcMchnInfo */
+				TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
 			   SET
-				SPECS				= #{specs}
-    	        , FCLT_HLD_YN		= #{fcltHldYn}
-				, FCLT_HLD_YN2		= #{fcltHldYn2}
-				, FCLT_HLD_YN3		= #{fcltHldYn3}
-				, FCLT_HLD_YN4		= #{fcltHldYn4}
-				, FCLT_HLD_YN5		= #{fcltHldYn5}
-				, FCLT_HLD_YN6		= #{fcltHldYn6}
-				, FCLT_HLD_YN7		= #{fcltHldYn7}
-				, FCLT_HLD_YN8		= #{fcltHldYn8}
-				, FCLT_HLD_YN9		= #{fcltHldYn9}
-				, FCLT_HLD_YN10		= #{fcltHldYn10}
-				, FCLT_HLD_YN11		= #{fcltHldYn11}
-				, OTHER_FCLT		= #{otherFclt}
+				  RPRS_ITEM_SPCFCT				= #{rprsItemSpcfct}
+				  , DPTZ						= #{dptz}
+				  , APM							= #{apm}
+				  , ELCTRN_WGHT_SORT_MCHN		= #{elctrnWghtSortMchn}
+				  , NDST_BRCK_SORT_MCHN			= #{ndstBrckSortMchn}
+				  , GRD_RAW_MTR_ATMTC_TRNSF_MCHN= #{grdRawMtrAtmtcTrnsfMchn}
+				  , EMPT_BX_ATMTC_EXHST_MCHN	= #{emptBxAtmtcExhstMchn}
+				  , ATMTC_BX_PCKG_MCHN			= #{atmtcBxPckgMchn}
+				  , ATMTC_SS_MCHN				= #{atmtcSsMchn}
+				  , ATMTC_WRAP_MCHN				= #{atmtcWrapMchn}
+				  , ATMTC_WGHT_CHCK_MCHN		= #{atmtcWghtChckMchn}
+				  , PTZ							= #{ptz}
+				  , ETC_MNFC_MCHN				= #{etcMnfcMchn}
 
-    	]]>
-		<if test='delYn != null and delYn != ""'>
+			]]>
+			<if test='delYn != null and delYn != ""'>
 				, DEL_YN			= #{delYn}
-		</if>
-    	<![CDATA[
+			</if>
+			<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-			 WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND APC_CD = #{apcCd}
-    	]]>
-    </update>
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE 1=1
+			  AND SPSD.CRTR_YR = #{crtrYr}
+			  AND SPSD.APC_CD = #{apcCd}
+			  AND SPSD.SN = #{sn}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.deleteFcltAtmtcMchnInfo				-->
@@ -299,25 +271,28 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.deleteFcltAtmtcMchnInfo */
-	    		TB_FCLT_ATMTC_MCHN_INFO FCLT
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.deleteFcltAtmtcMchnInfo */
+				TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
 			   SET
-	    		  DEL_YN 	= 'Y'
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+			  AND SPSD.CRTR_YR = #{crtrYr}
+			  AND SPSD.APC_CD = #{apcCd}
+			  AND SPSD.SN = #{sn}
+		]]>
+	</update>
 	<!--
-    <delete id="deleteFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.deleteFcltAtmtcMchnInfo */
-	    		TB_FCLT_ATMTC_MCHN_INFO FCLT
-			 WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND APC_CD = #{apcCd}
-    	]]>
-    </delete>
- -->
+	<delete id="deleteFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.deleteFcltAtmtcMchnInfo */
+				TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
+			WHERE 1=1
+			  AND SPSD.CRTR_YR = #{crtrYr}
+			  AND SPSD.APC_CD = #{apcCd}
+			  AND SPSD.SN = #{sn}
+		]]>
+	</delete>
+	-->
+
 </mapper>

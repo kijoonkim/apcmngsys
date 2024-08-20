@@ -14,22 +14,22 @@
     <c:set scope="request" var="serverType" value="${serverType}"></c:set>
     <c:choose>
         <c:when test="${serverType eq 'prd'}">
-            <!-- Google tag (gtag.js) 36 APC정보지원시스템 2024.4. UA connected-->     
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-L64PQ48CK5"></script> 
-            <script> 
-              window.dataLayer = window.dataLayer || []; 
-              function gtag(){dataLayer.push(arguments);} 
-              gtag('js', new Date()); 
-              gtag('config', 'G-L64PQ48CK5'); 
-              gtag('config', 'G-1C6GSRP5Z8', {'content_group': 'APC정보지원시스템'}); 
+            <!-- Google tag (gtag.js) 36 APC정보지원시스템 2024.4. UA connected-->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-L64PQ48CK5"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-L64PQ48CK5');
+              gtag('config', 'G-1C6GSRP5Z8', {'content_group': 'APC정보지원시스템'});
             </script>
         </c:when>
         <c:otherwise>
         </c:otherwise>
     </c:choose>
-    
-	
- 
+
+
+
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
@@ -46,7 +46,7 @@
             display: flex; align-items: center; justify-content: center; font-size: 16px;
             background:rgb(42, 48, 65); height:0px; padding:10px; box-sizing: border-box;  color:#dddddd;
         }
-        
+
 
 .button {
   background-color: #04AA6D; /* Green */
@@ -76,8 +76,8 @@
 }
 
 .button-green:hover {
-  background-color: white; 
-  color: black; 
+  background-color: white;
+  color: black;
 }
 
 .button-blue {
@@ -87,18 +87,18 @@
 }
 
 .button-blue:hover {
-  background-color: white; 
-  color: black; 
+  background-color: white;
+  color: black;
 }
 
-.button-red { 
+.button-red {
   background-color: #f44336;
   color: white;
   border: 1px solid #f44336;
 }
 
 .button-red:hover {
-  background-color: white; 
+  background-color: white;
   color: black;
 }
 
@@ -144,8 +144,8 @@
     color: black;
 }
 
-        
-        
+
+
     </style>
 </head>
 <body id="mainBody" oncontextmenu="return false;">
@@ -154,13 +154,13 @@
 
     const lv_tabPrefix = "idxfrmJson_TAB_";
     let lv_frmId = "";
-    let prvTabMenuId = "";    
+    let prvTabMenuId = "";
 
-    
+
     const jsonTabPage = [];
-    
+
     const jsonCommonBtn = [];
-    
+
     var menuJson = ${topMenuList};
 
     //SBUx sidemenu 컴포넌트의 json 데이터
@@ -222,11 +222,11 @@
             		text : "공지사항",
             		prslType: "M1"
             }
-            
+
             insertComLog(data);
 
             //await fn_afterAddTab(menuNo);
-            
+
     	} else {
     		if(data.id == "PD" || data.id == "FM"){
            		SBUxMethod.showTab('tab_menu','TAB_PD_009');
@@ -306,7 +306,8 @@
                 );
             }
             if(gv_userType === "00" || gv_userType ==="01"){
-            	document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+            	//document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+            	document.querySelector("#idxSide_menu div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
             }
 
         } catch (e) {
@@ -330,7 +331,7 @@
         if (_target === "TOP" && gfn_isEmpty(data.pid)) {
             return;
         }
-        
+
         var url = data.customData == undefined ? "" : data.customData.url;
         if (url == undefined) {
             return;
@@ -351,7 +352,7 @@
         }
 
     }
-    
+
     //로그
     function insertComLog(data){
     	var userName = "${loginVO.name}";
@@ -383,13 +384,13 @@
         if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);
         } else if (_menuGubun === "LEFT") {
-        	
+
             //Set 브레드크럼 내비게이션
             fn_setBreadcrumbs(_menuNo, _menuNm);
 
             //메뉴탭 생성 및 화면 요청
             var tabName = "TAB_" + _menuNo;
-            
+
             if ( $('#' + tabName).length == 0 ) {
                 if (SBUxMethod.getTabsCount('tab_menu') == maxTebMenuCnt+1) {
                     alert("메뉴탭 최대 허용 개수(" + maxTebMenuCnt.toString() + "개)를 초과하였습니다.");
@@ -405,7 +406,7 @@
                     , 'link': '/co/menu/openPage.do/' + _menuNo	// _url
                     , 'closeicon': true
                 };
-                
+
                 SBUxMethod.addTab('tab_menu', jsonTabSelect);
             } else {
                 SBUxMethod.selectTab(tabName);
@@ -419,17 +420,17 @@
     async function fn_afterAddTab(_menuId) {
 
         prvTabMenuId = _menuId;
-        
+
         if (gfn_isEmpty(_menuId)) {
         	lv_frmId = "";
         } else {
-        	lv_frmId = lv_tabPrefix + _menuId;	
+        	lv_frmId = lv_tabPrefix + _menuId;
         }
-        
+
 
         // 공통버튼 설정
         await fn_setTabInfo(_menuId);
-        
+
         fetch("/sys/actionNewTab.do", {
             method: "POST",
             headers: {
@@ -457,16 +458,16 @@
         if (gfn_isEmpty(_menuId)) {
         	lv_frmId = "";
         } else {
-        	lv_frmId = lv_tabPrefix + _menuId;	
+        	lv_frmId = lv_tabPrefix + _menuId;
         }
-        
-        
+
+
         // TODO
         // set page info and common button 설정
-        
+
         // 공통버튼 설정
         await fn_setTabInfo(_menuId);
-        
+
         fetch("/sys/actionOldTab.do", {
             method: "POST",
             headers: {
@@ -486,7 +487,7 @@
 
     //Set breadcrumbs
     function fn_setBreadcrumbs(menuNo, menuNm) {
-    	
+
         menuJsonB.length = 0;
         menuJsonB.push(
             {"order": 10, "id": "id_1", "pid": "", "text": "홈"}
@@ -502,7 +503,7 @@
             menuJsonB.push(
                 {"order": 20, "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text, "url": topMenuInfo.url}
             );
-            
+
         }
         menuJsonB.push(
             {"order": 30, "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text, "url": upMenuInfo.url}
@@ -581,20 +582,36 @@
             $(".sbt-A-wrap .left").css({width:200});
         }
     }
-    
-    function fn_selectTabMenu(_selectId, _selectJson) {
-        fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
-    }
+
+	function fn_selectTabMenu(_selectId, _selectJson) {
+		//fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
+
+		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
+
+		let iframe = "idxfrmJson_" + _selectId;
+
+		//열린 탭으로 이동시 Message 전송
+		/** 현재 열려있는 탭으로 이동 확인용 **/
+		let openFlag = tabJsonData.some((item) => item.targetid == _selectId);
+		if(openFlag){
+			let el = document.getElementById(iframe);
+			/** main > receive 로 parameter 전달 **/
+			let data = {
+				chkVal : 'selTab'
+			}
+			el.contentWindow.postMessage(data);
+		}
+	}
 
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
-    	
+
     	if (gfn_isEmpty()) {
     		fn_clearPrvTabInfo();
     	}
         let tabs = SBUxMethod.getTabsChangedOrderData('tab_menu');
         tabJsonData = tabs.data;
-    	
+
         if (SBUxMethod.getTabsCount('tab_menu') == 1) {
             $('.tab-content').hide();
             //side menu init
@@ -639,14 +656,14 @@
 				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
                     <li style="background-color:#149FFF;">
-                        <sbux-button 
-                            id="btnPrfrmImprvDmnd" 
-                            name="btnPrfrmImprvDmnd" 
-                            uitype="normal" 
-                            text="개선요청" 
-                            style="width:64px; 
-                            text-align:center; 
-                            display:inline-block; 
+                        <sbux-button
+                            id="btnPrfrmImprvDmnd"
+                            name="btnPrfrmImprvDmnd"
+                            uitype="normal"
+                            text="개선요청"
+                            style="width:64px;
+                            text-align:center;
+                            display:inline-block;
                             font-size:12px;" onclick="fn_modalPopup"
                         ></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>
@@ -658,9 +675,9 @@
         <!--left (sidemenu) -->
         <div class="left">
             <div class="sbt-all-left">
-                <sbux-sidemenu 
-                	id="idxSide_menu" 
-                	name="side_menu" 
+                <sbux-sidemenu
+                	id="idxSide_menu"
+                	name="side_menu"
                 	uitype="normal"
                     jsondata-ref="sideJsonData"
                     show-filter-box="true"
@@ -707,9 +724,9 @@
                 <!--탭 입력 영역-->
                 <div class="sbt-input-tab">
                     <!--탭 영역-->
-                    <sbux-tabs 
-                    	id="tab_menu" 
-                    	name="tab_menu" 
+                    <sbux-tabs
+                    	id="tab_menu"
+                    	name="tab_menu"
                     	uitype="normal"
                         jsondata-ref="tabJsonData"
                         storage-data="text"
@@ -778,10 +795,10 @@
 
 	        if (	_.isEqual("S", data.resultStatus)
 	        		&& data.hasOwnProperty('resultMap')) {
-	        	if (	!gfn_isEmpty(data.resultMap) 
+	        	if (	!gfn_isEmpty(data.resultMap)
 	        			&& data.resultMap.hasOwnProperty('sessUpdtUseYn')
 	        			&& _.isEqual("Y", data.resultMap.sessUpdtUseYn)) {
-	        		
+
 	        		lv_sessUpdtUseYn = "Y";
 	        		document.querySelector("#lbl-autoRefresh").style.display = "";
 
@@ -822,9 +839,9 @@
         initMain();
         var iframe = document.getElementById('idxfrmJson');
         iframe.scrolling = 'auto';
-        
+
         mfn_displayButton();
-        
+
     });
     /** 각각 탭끼리 소통 관제탑 메인
      *  send Tab > main > receive Tab **/
@@ -998,99 +1015,99 @@
     function lfn_redirect(_url) {
     	window.location.href = _url;
     }
-    
+
     const mfn_search = function() {
 
     	if (gfn_isEmpty(lv_frmId)) {
     		return;
     	}
-    	
+
     	try {
     		const tabContent = document.getElementById(lv_frmId).contentWindow;
-    		
+
         	if (typeof tabContent !== 'object') {
         		return;
         	}
-        	
+
         	tabContent.cfn_search();
-        	
+
     	} catch (e) {
     		console.log(e.message);
     	}
     }
-    
-    
+
+
 	const mfn_init = function() {
-		
+
 		if (gfn_isEmpty(lv_frmId)) {
     		return;
     	}
-    	
+
     	try {
-    		const tabContent = document.getElementById(lv_frmId).contentWindow;        	
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
         	if (typeof tabContent !== 'object') {
         		return;
         	}
-        	
+
         	tabContent.cfn_init();
 
     	} catch (e) {
     		console.log(e.message);
     	}
     }
-    
+
 	const mfn_add = function() {
-		
+
     	if (gfn_isEmpty(lv_frmId)) {
     		return;
     	}
-    	
+
     	try {
-    		const tabContent = document.getElementById(lv_frmId).contentWindow;        	
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
         	if (typeof tabContent !== 'object') {
         		return;
         	}
-        	
+
         	tabContent.cfn_add();
 
     	} catch (e) {
     		console.log(e.message);
     	}
     }
-	
+
 	const mfn_save = function() {
 
     	if (gfn_isEmpty(lv_frmId)) {
     		return;
     	}
-    	
+
     	try {
     		const tabContent = document.getElementById(lv_frmId).contentWindow;
         	if (typeof tabContent !== 'object') {
         		return;
         	}
-        	
+
         	tabContent.cfn_save();
-        	
+
     	} catch (e) {
     		console.log(e.message);
     	}
     }
-	
+
 	const mfn_del = function() {
 
     	if (gfn_isEmpty(lv_frmId)) {
     		return;
     	}
-    	
+
     	try {
-    		const tabContent = document.getElementById(lv_frmId).contentWindow;        	
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
         	if (typeof tabContent !== 'object') {
         		return;
         	}
-        	
+
         	tabContent.cfn_del();
-        	
+
     	} catch (e) {
     		console.log(e.message);
     	}
@@ -1130,10 +1147,10 @@
         }
     }
 
-	
+
 	const mfn_displayButton = function (_uiInfo) {
 
-		
+
 		const btnInit = document.getElementById("main-btn-init");
 		const btnAdd = document.getElementById("main-btn-add");
 		const btnSave = document.getElementById("main-btn-save");
@@ -1149,7 +1166,7 @@
 		btnSearch.disabled = true;
         btnAttach.disable = true;
         btnAppr.disable = true;
-		
+
 		btnInit.style.display = "none";
 		btnAdd.style.display = "none";
 		btnDel.style.display = "none";
@@ -1157,7 +1174,7 @@
 		btnSearch.style.display = "none";
         btnAttach.style.display = "none";
         btnAppr.style.display = "none";
-		
+
     	if (gfn_isEmpty(_uiInfo)) {
     		return;
     	}
@@ -1212,36 +1229,36 @@
                     btnAppr.style.display = _uiInfo.cmnsAppr['visible'] ? "" : "none";
                 }
             }
-    		
+
     	} catch (e) {
     		console.log(e.message);
     	}
     }
 
 	const fn_clearPrvTabInfo = function() {
-		
+
 		if (gfn_isEmpty(prvTabMenuId)) {
-			return; 
+			return;
 		}
-		
+
 		mfn_displayButton(null);
-		
+
 		const idx = jsonTabPage.findIndex(function(item) {return item.menuId === prvTabMenuId});
 		if (idx >= 0) {
 			jsonTabPage.splice(idx, 1);
 		}
 	}
-	
+
 	const fn_setTabInfo = async function(_menuId) {
-		
+
 		let uiInfo;
-		
+
 		const idx = jsonTabPage.findIndex(function(item) {return item.menuId === _menuId});
-		
+
 		if (idx >= 0) {
 			uiInfo = jsonTabPage[idx];
 		} else {
-			
+
 			uiInfo = {
 				menuId: _menuId,
         		cmnsInit: {
@@ -1280,22 +1297,22 @@
                     visible: false,
                 }
 			}
-			
+
 			let _userId;
        		<c:set scope="request" var="userId" value="${loginVO.id}"></c:set>
        		_userId = '<c:out value='${userId}'></c:out>';
 
            	if (!gfn_isEmpty(_userId)) {
            		const postJsonPromise = gfn_postJSON(
-						"/co/authrt/selectUserAuthrtCmnsBtnList.do", 
-						{menuId: _menuId, userId: _userId}, 
-						"main", 
+						"/co/authrt/selectUserAuthrtCmnsBtnList.do",
+						{menuId: _menuId, userId: _userId},
+						"main",
 						true
 					);
 		        const data = await postJsonPromise;
 		        try {
 		        	data.resultList.forEach((item, index) => {
-		        		
+
 		                const hasButton = _.isEqual(item.delYn, 'N');
 		        		const disabled = _.isEqual(item.accessUseYn, 'Y') && _.isEqual(item.accessYn, 'N');
 		        		const visible = !(_.isEqual(item.indctUseYn, 'Y') && _.isEqual(item.indctYn, 'N'));
@@ -1338,9 +1355,9 @@
                                 break;
 		                }
 		            });
-		        	
+
 		        	jsonTabPage.push(uiInfo);
-		        	
+
 		        } catch (e) {
 		            if (!(e instanceof Error)) {
 		                e = new Error(e);
@@ -1348,11 +1365,11 @@
 		            console.error("failed", e.message);
 		        }
 			}
-			
+
 		}
-		
+
 		mfn_displayButton(uiInfo);
-		
+
 	}
     const fn_fullScreen = function(){
             let el = $(".tab-content > div.active").children().attr('id');
@@ -1409,12 +1426,12 @@
                     );
                 }
             }
-      }catch (e){
+        }catch (e){
             /** 전달인자가 비어있을경우 json parse exception **/
             console.error(e.toString());
         }
     }
-	
-	
+
+
 </script>
 </html>

@@ -23,34 +23,52 @@
     <select id="selectFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfo */
-				  FCLT.TRGT_YR                AS  TRGT_YR
-				, FCLT.APC_CD                 AS  APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.SN                     AS  SN
-				, FCLT.FCLT_CD                AS  FCLT_CD
-				, FCLT.FCLT_HLD_YN            AS  FCLT_HLD_YN
-				, FCLT.FCLT_PRCS_CD           AS  FCLT_PRCS_CD
-				, FCLT.FCLT_PRCS_HR           AS  FCLT_PRCS_HR
-				, FCLT.STOR_CAP               AS  STOR_CAP
-				, FCLT.ST_STOR_PERFM          AS  ST_STOR_PERFM
-				, FCLT.LT_STOR_PERFM          AS  LT_STOR_PERFM
-				, FCLT.STOR_OP_RATE           AS  STOR_OP_RATE
+				OASP.CRTR_YR
+				, OASP.APC_CD
+				, OASP.APC_NM
+				, OASP.STRG_PLC_ITEM_CD
+				, OASP.STRG_PLC_ITEM_NM
+				, OASP.LWTP_STRG_PLC_HLD_MTHD
+				, OASP.STRG_PLC_STRG_ABLT
+				, OASP.STRG_PLC_STRM_STRG_ABLT
+				, OASP.STRG_PLC_LTRM_STRG_ABLT
+				, OASP.STRG_PLC_OPRTNG_RT
 
+				, MOP.OPER_YN
+				, MOP.OPER_PERIOD_YN_1
+				, MOP.OPER_PERIOD_YN_2
+				, MOP.OPER_PERIOD_YN_3
+				, MOP.OPER_PERIOD_YN_4
+				, MOP.OPER_PERIOD_YN_5
+				, MOP.OPER_PERIOD_YN_6
+				, MOP.OPER_PERIOD_YN_7
+				, MOP.OPER_PERIOD_YN_8
+				, MOP.OPER_PERIOD_YN_9
+				, MOP.OPER_PERIOD_YN_10
+				, MOP.OPER_PERIOD_YN_11
+				, MOP.OPER_PERIOD_YN_12
 
-
-			  FROM TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND APC_CD IS NOT NULL
-		     		]]>
-        		<if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
-		   </if>
-    </select>
-    <!-- ==========================================================================	-->
+			FROM TB_TE_APC_OPER_ABLT_STRG_PLC OASP
+				,(SELECT *
+					FROM TB_TE_APC_MCHN_OPER_PERIOD
+					WHERE 1=1
+					  AND SN = 0
+					  AND MCHN_SE_CD = '2'
+				) MOP
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			  AND OASP.APC_CD = MOP.APC_CD(+)
+			  AND OASP.CRTR_YR = MOP.CRTR_YR(+)
+					]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND APC_CD = #{apcCd}
+			</if>
+	</select>
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfoList			-->
 	<!-- DESC : 저온저장고운영 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
@@ -58,155 +76,138 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltLwtpStrgMchnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfoList */
-				  FCLT.TRGT_YR                AS  TRGT_YR
-				, FCLT.APC_CD                 AS  APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.FCLT_CD                AS  FCLT_CD
-				, FCLT.FCLT_HLD_YN            AS  FCLT_HLD_YN
-				, FCLT.FCLT_PRCS_CD           AS  FCLT_PRCS_CD
-				, FCLT.FCLT_PRCS_HR           AS  FCLT_PRCS_HR
-				, FCLT.STOR_CAP               AS  STOR_CAP
-				, FCLT.ST_STOR_PERFM          AS  ST_STOR_PERFM
-				, FCLT.LT_STOR_PERFM          AS  LT_STOR_PERFM
-				, FCLT.STOR_OP_RATE           AS  STOR_OP_RATE
-			  FROM TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND APC_CD IS NOT NULL
-  ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+	<select id="selectFcltLwtpStrgMchnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfoList */
+				OASP.CRTR_YR
+				, OASP.APC_CD
+				, OASP.APC_NM
+				, OASP.STRG_PLC_ITEM_CD
+				, OASP.STRG_PLC_ITEM_NM
+				, OASP.LWTP_STRG_PLC_HLD_MTHD
+				, OASP.STRG_PLC_STRG_ABLT
+				, OASP.STRG_PLC_STRM_STRG_ABLT
+				, OASP.STRG_PLC_LTRM_STRG_ABLT
+				, OASP.STRG_PLC_OPRTNG_RT
+
+				, MOP.OPER_YN
+				, MOP.OPER_PERIOD_YN_1
+				, MOP.OPER_PERIOD_YN_2
+				, MOP.OPER_PERIOD_YN_3
+				, MOP.OPER_PERIOD_YN_4
+				, MOP.OPER_PERIOD_YN_5
+				, MOP.OPER_PERIOD_YN_6
+				, MOP.OPER_PERIOD_YN_7
+				, MOP.OPER_PERIOD_YN_8
+				, MOP.OPER_PERIOD_YN_9
+				, MOP.OPER_PERIOD_YN_10
+				, MOP.OPER_PERIOD_YN_11
+				, MOP.OPER_PERIOD_YN_12
+
+			FROM TB_TE_APC_OPER_ABLT_STRG_PLC OASP
+				,(SELECT *
+					FROM TB_TE_APC_MCHN_OPER_PERIOD
+					WHERE 1=1
+					  AND SN = 0
+					  AND MCHN_SE_CD = '2'
+				) MOP
+			WHERE 1=1
+			  AND OASP.DEL_YN != 'Y'
+			  AND OASP.APC_CD IS NOT NULL
+			  AND OASP.APC_CD = MOP.APC_CD(+)
+			  AND OASP.CRTR_YR = MOP.CRTR_YR(+)
+					]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND OASP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND OASP.APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo				-->
-	<!-- DESC : 저온저장고운영 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-    <insert id="insertFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo */
-	    	  INTO TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
-	    		(
-	    			TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_CD
-	    		  , FCLT_HLD_YN
-	    		  , STOR_CAP
-	    		  , ST_STOR_PERFM
-	    		  , LT_STOR_PERFM
-	    		  , STOR_OP_RATE
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
-
-	    		)
-	   		VALUES
-	   			(
-	   			    #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltCd}
-	   			  , #{fcltHldYn}
-	   			  , #{storCap}
-	   			  , #{stStorPerfm}
-	   			  , #{ltStorPerfm}
-	   			  , #{storOpRate}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   	          , #{sysFrstInptPrgrmId}
-	   	          , SYSDATE
-	   	          , #{sysLastChgUserId}
-	   	          , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-	-->
-
-     <update id="insertFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
-     	MERGE INTO TB_FCLT_LWTP_STRG_MCHN_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo */
+	<update id="insertFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+		MERGE INTO TB_TE_APC_OPER_ABLT_STRG_PLC OASP /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			OASP.CRTR_YR = #{crtrYr}
+			AND OASP.APC_CD = #{apcCd}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  FCLT_CD      = #{fcltCd}
-    	          , FCLT_HLD_YN  = #{fcltHldYn}
-    	          , FCLT_PRCS_CD = #{fcltPrcsCd}
-    	          , FCLT_PRCS_HR = #{fcltPrcsHr}
- 				  , STOR_CAP      =  #{storCap}
-	    		  , ST_STOR_PERFM =  #{stStorPerfm}
-	    		  , LT_STOR_PERFM =  #{ltStorPerfm}
-	    		  , STOR_OP_RATE  =  #{storOpRate}
-				  , SYS_LAST_CHG_DT		= SYSDATE
-	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				  FCLT_CD					= #{fcltCd}
+				  , FCLT_HLD_YN				= #{fcltHldYn}
+				  , FCLT_PRCS_CD			= #{fcltPrcsCd}
+				  , FCLT_PRCS_HR			= #{fcltPrcsHr}
+				  , STOR_CAP				= #{storCap}
+				  , ST_STOR_PERFM			= #{stStorPerfm}
+				  , LT_STOR_PERFM			= #{ltStorPerfm}
+				  , STOR_OP_RATE			= #{storOpRate}
+
+				  , TMPR_STRG_YN			= #{tmprStrgYn}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_CD
-	    		  , FCLT_HLD_YN
-	    		  , STOR_CAP
-	    		  , ST_STOR_PERFM
-	    		  , LT_STOR_PERFM
-	    		  , STOR_OP_RATE
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltCd}
-	   			  , #{fcltHldYn}
-	   			  , #{storCap}
-	   			  , #{stStorPerfm}
-	   			  , #{ltStorPerfm}
-	   			  , #{storOpRate}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   	          , #{sysFrstInptPrgrmId}
-	   	          , SYSDATE
-	   	          , #{sysLastChgUserId}
-	   	          , #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				  CRTR_YR
+				  , APC_CD
+				  , APC_NM
+				  , LWTP_STRG_PLC_HLD_MTHD
+				  , STRG_PLC_STRG_ABLT
+				  , STRG_PLC_STRM_STRG_ABLT
+				  , STRG_PLC_LTRM_STRG_ABLT
+				  , STRG_PLC_OPRTNG_RT
+
+				  , TMPR_STRG_YN
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
+
+				  , #{lwtpStrgPlcHldMthd}
+				  , #{strgPlcStrgAblt}
+				  , #{strgPlcStrmStrgAblt}
+				  , #{strgPlcLtrmStrgAblt}
+				  , #{strgPlcOprtngRt}
+
+				  , #{tmprStrgYn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.updateFcltLwtpStrgMchnInfo				-->
@@ -216,34 +217,36 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.updateFcltLwtpStrgMchnInfo */
-	    		TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
+	<update id="updateFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.updateFcltLwtpStrgMchnInfo */
+				TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
 			   SET
-    	          FCLT_CD      = #{fcltCd}
-    	          , FCLT_HLD_YN  = #{fcltHldYn}
-    	          , FCLT_PRCS_CD = #{fcltPrcsCd}
-    	          , FCLT_PRCS_HR = #{fcltPrcsHr}
- 				  , STOR_CAP      =  #{storCap}
-	    		  , ST_STOR_PERFM =  #{stStorPerfm}
-	    		  , LT_STOR_PERFM =  #{ltStorPerfm}
-	    		  , STOR_OP_RATE  =  #{storOpRate}
+				  FCLT_CD			= #{fcltCd}
+				  , FCLT_HLD_YN		= #{fcltHldYn}
+				  , FCLT_PRCS_CD	= #{fcltPrcsCd}
+				  , FCLT_PRCS_HR	= #{fcltPrcsHr}
+				  , STOR_CAP		= #{storCap}
+				  , ST_STOR_PERFM	= #{stStorPerfm}
+				  , LT_STOR_PERFM	= #{ltStorPerfm}
+				  , STOR_OP_RATE	= #{storOpRate}
 
-    	]]>
+				  , TMPR_STRG_YN	= #{tmprStrgYn}
+
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND APC_CD = #{apcCd}
-    	]]>
-    </update>
+			WHERE 1=1
+			  AND TRGT_YR = #{trgtYr}
+			  AND APC_CD = #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo				-->
@@ -254,25 +257,116 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
-	    		TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
+				TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
 			   SET
-	    		  DEL_YN 	= 'Y'
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
-	    		TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
+			  AND TRGT_YR = #{trgtYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
+				TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND APC_CD = #{apcCd}
-    	]]>
-    </delete>
- -->
+			  AND TRGT_YR = #{trgtYr}
+			  AND APC_CD = #{apcCd}
+		]]>
+	</delete>
+-->
+
+	<!-- 저온저장고 운영기간 -->
+	<update id="insertFcltLwtpStrgMchnInfoPeriod" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+		MERGE INTO TB_TE_APC_MCHN_OPER_PERIOD AMOP /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfoPeriod */
+		USING DUAL
+		ON (
+			AMOP.CRTR_YR = #{crtrYr}
+			AND AMOP.APC_CD = #{apcCd}
+			AND AMOP.SN = '0'
+			AND AMOP.MCHN_SE_CD = '2'
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  OPER_YN				= #{operYn}
+				  , OPER_PERIOD_YN_1	= #{operPeriodYn1}
+				  , OPER_PERIOD_YN_2	= #{operPeriodYn2}
+				  , OPER_PERIOD_YN_3	= #{operPeriodYn3}
+				  , OPER_PERIOD_YN_4	= #{operPeriodYn4}
+				  , OPER_PERIOD_YN_5	= #{operPeriodYn5}
+				  , OPER_PERIOD_YN_6	= #{operPeriodYn6}
+				  , OPER_PERIOD_YN_7	= #{operPeriodYn7}
+				  , OPER_PERIOD_YN_8	= #{operPeriodYn8}
+				  , OPER_PERIOD_YN_9	= #{operPeriodYn9}
+				  , OPER_PERIOD_YN_10	= #{operPeriodYn10}
+				  , OPER_PERIOD_YN_11	= #{operPeriodYn11}
+				  , OPER_PERIOD_YN_12	= #{operPeriodYn12}
+
+				  , TMPR_STRG_YN		= #{tmprStrgYn}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				CRTR_YR
+				, APC_CD
+				, SN
+				, MCHN_SE_CD
+				, OPER_YN
+				, OPER_PERIOD_YN_1
+				, OPER_PERIOD_YN_2
+				, OPER_PERIOD_YN_3
+				, OPER_PERIOD_YN_4
+				, OPER_PERIOD_YN_5
+				, OPER_PERIOD_YN_6
+				, OPER_PERIOD_YN_7
+				, OPER_PERIOD_YN_8
+				, OPER_PERIOD_YN_9
+				, OPER_PERIOD_YN_10
+				, OPER_PERIOD_YN_11
+				, OPER_PERIOD_YN_12
+
+				, TMPR_STRG_YN
+
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , '0'
+				  , '2'
+				  , #{operYn}
+				  , #{operPeriodYn1}
+				  , #{operPeriodYn2}
+				  , #{operPeriodYn3}
+				  , #{operPeriodYn4}
+				  , #{operPeriodYn5}
+				  , #{operPeriodYn6}
+				  , #{operPeriodYn7}
+				  , #{operPeriodYn8}
+				  , #{operPeriodYn9}
+				  , #{operPeriodYn10}
+				  , #{operPeriodYn11}
+				  , #{operPeriodYn12}
+
+				  , #{tmprStrgYn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 </mapper>

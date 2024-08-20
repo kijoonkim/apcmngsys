@@ -1,5 +1,11 @@
 package com.at.apcss.am.ordr.service.impl;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +13,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,6 +27,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.NumberUtils;
@@ -34,6 +47,7 @@ import com.at.apcss.am.ordr.vo.OrdrRcvVO;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComRSACrypto;
 import com.at.apcss.co.sys.util.ComUtil;
 
 /**
@@ -287,9 +301,6 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		if (AmConstants.CON_LGSZ_MRKT_CD_EMART.equals(lgszMrktCd)) {
 			//return insertHomplusOrdr(ordrRcvVO);
 		} else if (AmConstants.CON_LGSZ_MRKT_CD_HOMEPLUS.equals(lgszMrktCd)) {
-
-			ordrRcvVO.setCrtrYmdType("1");
-
 			return insertHomplusOrdr(ordrRcvVO);
 			
 		} else if (AmConstants.CON_LGSZ_MRKT_CD_LOTTEMART.equals(lgszMrktCd)) {
@@ -333,9 +344,9 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		String pUserPw = lgszMrktVO.getPswd();
 		String jsessionId = "";
 
-
+		
 		Connection.Response welcomeResponse = Jsoup.connect(welcomeUrl)
-                .timeout(3000)
+                .timeout(30000)
                 .header("Origin", originUrl)
                 .header("Referer", welcomeUrl)
                 .header("Connection", "keep-alive")
@@ -347,6 +358,11 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .execute();
 		jsessionId = welcomeResponse.cookie("JSESSIONID");
 
+		Document welcomeDoc = Jsoup.parse(welcomeResponse.body());
+		logger.debug("@@@welcomeDoc");
+		logger.debug(welcomeDoc.toString());
+		
+		
 		//login 처리 후 진행
 		Map<String, String> params = new HashMap<>();
 		params.put("USER_TYPE", pUserType);
@@ -369,7 +385,9 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .method(Connection.Method.POST)
 		                                                .execute();
 		
-
+		Document loginDoc = Jsoup.parse(loginPageResponse.body());
+		logger.debug("@@@loginDoc");
+		logger.debug(loginDoc.toString());
 		
 		Object obj = jsonParser.parse(loginPageResponse.body());
 		JSONObject jsonObj = (JSONObject) obj;
@@ -1036,24 +1054,22 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	public HashMap<String, Object> insertGSRetailOrdr(OrdrRcvVO ordrRcvVO) throws Exception {
 
 		// GS리테일
-
+		// http://gs.escm21.net/escm21/home/index.jsp
 		JSONParser jsonParser = new JSONParser();
 
 		String originUrl = "http://gs.escm21.net/";
-		String welcomeUrl = originUrl + "home/index.jsp";
-		String indexUrl = originUrl + "home/index.jsp";
-
-		String userType = "S";	// 공급자
-		String userId = "";
-		String userPw = "";
-		String grDate = "20231016";
-		String qryId = "po.itemOrderSql";
+		String indexUrl = originUrl + "escm21/home/index.jsp";
+		String userId = "mnohy01";
+		String password = "2222";
+		
+		String uid = userId.toUpperCase();
+		String empid = "ADMIN";
 		String jsessionId = "";
-
-		Connection.Response welcomeResponse = Jsoup.connect(welcomeUrl)
+		
+		Connection.Response indexResponse = Jsoup.connect(indexUrl)
                 .timeout(3000)
                 .header("Origin", originUrl)
-                .header("Referer", welcomeUrl)
+                .header("Referer", indexUrl)
                 .header("Connection", "keep-alive")
                 .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
                 .header("Content-Type", "application/x-www-form-urlencoded")
@@ -1061,190 +1077,293 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
                 .method(Connection.Method.GET)
                 .execute();
-		jsessionId = welcomeResponse.cookie("JSESSIONID");
-
-		Document welcomeDoc = Jsoup.parse(welcomeResponse.body());
-
-		Element elKeyModulus = welcomeDoc.getElementById("rsaPublicKeyModulus");
-		Element elKeyExponent = welcomeDoc.getElementById("rsaPublicKeyExponent");
+		
+		jsessionId = indexResponse.cookie("JSESSIONID");
+		logger.debug("jsessionId {}", jsessionId);
+		
+		Document indexDoc = Jsoup.parse(indexResponse.body());
+		Element elKeyModulus = indexDoc.getElementById("rsaPublicKeyModulus");
+		Element elKeyExponent = indexDoc.getElementById("rsaPublicKeyExponent");
 		String rsaPublicKeyModulus = elKeyModulus.val();
 		String rsaPublicKeyExponent = elKeyExponent.val();
-
-		String uid = userId.toUpperCase();
-		String empid = "ADMIN";
-		/*
-		ComRSACrypto encrypt
-
-	    rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
-	    // 사용자ID와 비밀번호를 RSA로 암호화한다.
-	    var securedUsername = rsa.encrypt(username);
-	    var securedEmpid = rsa.encrypt(empid);
-	    var securedPassword = rsa.encrypt(password);
-		*/
-		//login 처리 후 진행
-		Map<String, String> params = new HashMap<>();
-		params.put("USER_TYPE", userType);
-		params.put("USER_ID", userId);
-		params.put("PASSWORD", userPw);
-
+		logger.debug("rsaPublicKeyModulus {}", rsaPublicKeyModulus);
+		logger.debug("rsaPublicKeyExponent {}", rsaPublicKeyExponent);
+		
+		
+		String securedUid = ComRSACrypto.encryptRSA(uid, rsaPublicKeyModulus, rsaPublicKeyExponent);
+		String securedEmpid = ComRSACrypto.encryptRSA(empid, rsaPublicKeyModulus, rsaPublicKeyExponent);
+		String securedBmbh = ComRSACrypto.encryptRSA(password, rsaPublicKeyModulus, rsaPublicKeyExponent);		
+		
+		Map<String, String> loginParam = new HashMap<>();
+		loginParam.put("securedUid", securedUid);
+		loginParam.put("securedEmpid", securedEmpid);
+		loginParam.put("securedBmbh", securedBmbh);
+		
 		// 로그인 페이지 접속
-		String loginUrl = originUrl + "Homeplus/login/checkUserIdPw.do;jsessionid=" + jsessionId;
-		Connection.Response loginPageResponse = Jsoup.connect(loginUrl)
+		String loginUrl = originUrl + "escm21/usr/login.do?method=login";
+		Connection.Response loginResponse = Jsoup.connect(loginUrl)
 		                                                .timeout(3000)
 		                                                .header("Origin", originUrl)
-		                                                .header("Referer", loginUrl)
+		                                                .header("Referer", indexUrl)
 		                                                .header("Connection", "keep-alive")
 		                                                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
 		                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
 		                                                .header("Accept-Encoding", "gzip, deflate, br")
 		                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
 		                                                .cookie("JSESSIONID", jsessionId)
-		                                                .data(params)
+		                                                .data(loginParam)
 		                                                .method(Connection.Method.POST)
 		                                                .execute();
 
-		Object obj = jsonParser.parse(loginPageResponse.body());
+		Document loginDoc = Jsoup.parse(loginResponse.body());
+		logger.debug("@@@loginDoc");
+		logger.debug(loginDoc.toString());
+		
 
-
-
-		JSONObject jsonObj = (JSONObject) obj;
-
-		Connection.Response indexResponse = Jsoup.connect(welcomeUrl)
-                .timeout(3000)
-                .header("Origin", originUrl)
-                .header("Referer", welcomeUrl)
-                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .header("Accept-Encoding", "gzip, deflate, br")
-                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
-                .cookie("JSESSIONID", jsessionId)
-                //.cookie("isLogined", "true")
-                .method(Connection.Method.GET)
-                .execute();
-
-		// 로그인 성공 시 진행
-		// 상품별 발주정보 조회
-		//login 처리 후 진행
-		Map<String, String> gdsParams = new HashMap<>();
-		gdsParams.put("mode", "search");
-		gdsParams.put("HOUSE_CODE", "100");
-		gdsParams.put("COMPANY_CODE", "100");
-		gdsParams.put("WAREHOUSE_CODE", "");
-		gdsParams.put("USER_ID", userId);
-		gdsParams.put("GR_DATE", grDate);
-		gdsParams.put("GR_TYPE", "");
-		gdsParams.put("IbatisSelQryID", qryId);
-		gdsParams.put("USE_MAP_YN", "Y");
-
-		String gdsOrdrUrl = originUrl + "Homeplus/cmmn/command.do;jsessionid=" + jsessionId;
-		Connection.Response gdsOrdrResponse = Jsoup.connect(gdsOrdrUrl)
-	                                                .timeout(10000)
-	                                                .header("Origin", originUrl)
-	                                                .header("Referer", indexUrl)
-	                                                .header("Accept", "application/json, text/javascript, */*; q=0.01")
-	                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-	                                                .header("Accept-Encoding", "gzip, deflate, br")
-	                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
-	                                                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
-	                                                .cookie("JSESSIONID", jsessionId)
-	                                                //.cookie("isLogined", "true")
-	                                                .data(gdsParams)
-	                                                .method(Connection.Method.POST)
-	                                                .execute();
-
-		Object objGds = jsonParser.parse(gdsOrdrResponse.body());
-		JSONObject jsonObjGds = (JSONObject) objGds;
-
-		JSONArray items = (JSONArray)jsonObjGds.get("items");
-
-		if (items != null && !items.isEmpty()) {
-			for ( int i = 0; i < items.size(); i++ ){
-				JSONObject item = (JSONObject)items.get(i);
-
-				String companyCode = (String)item.get("COMPANY_CODE");
-				String houseCode = (String)item.get("HOUSE_CODE");
-				String grType = (String)item.get("GR_TYPE");
-				String grTypeNm = (String)item.get("GR_TYPE_NM");
-				String itemCode = (String)item.get("ITEM_CODE");
-				String itemNm = (String)item.get("ITEM_NM");
-				String styleNo = (String)item.get("STYLE_NO");
-				String diamondItem = (String)item.get("DIAMOND_ITEM");
-				int poQty = Integer.parseInt(String.valueOf(item.get("PO_QTY")));
-				String poUnit = (String)item.get("PO_UNIT");
-				int poEaQty = Integer.parseInt(String.valueOf(item.get("PO_EA_QTY")));
-				double poAmt = Double.parseDouble(String.valueOf(item.get("PO_AMT")));
-				double poPrice = Double.parseDouble(String.valueOf(item.get("PO_PRICE")));
-				int ibsuQty = Integer.parseInt(String.valueOf(item.get("IBSU_QTY")));
-				int freeQty = Integer.parseInt(String.valueOf(item.get("FREE_QTY")));
-				double priceTax = Double.parseDouble(String.valueOf(item.get("PRICE_TAX")));
-
-				logger.debug("## line {}", i+1);
-				logger.debug("companyCode: {}", companyCode);
-				logger.debug("houseCode: {}", houseCode);
-				logger.debug("grType: {}", grType);
-				logger.debug("grTypeNm: {}", grTypeNm);
-				logger.debug("itemCode: {}", itemCode);
-				logger.debug("itemNm: {}", itemNm);
-				logger.debug("styleNo: {}", styleNo);
-				logger.debug("diamondItem: {}", diamondItem);
-				logger.debug("poQty: {}", poQty);
-				logger.debug("poUnit: {}", poUnit);
-				logger.debug("poEaQty: {}", poEaQty);
-				logger.debug("poAmt: {}", poAmt);
-				logger.debug("poPrice: {}", poPrice);
-				logger.debug("ibsuQty: {}", ibsuQty);
-				logger.debug("freeQty: {}", freeQty);
-				logger.debug("priceTax: {}", priceTax);
-			}
-		}
-
-		// 상품별 발주정보 저장
-
-		// 저장 후 로그아웃 처리
-		//login 처리 후 진행
-		Map<String, String> logoutParam = new HashMap<>();
-		logoutParam.put("logout", "TRUE");
-
+		//http://gs.escm21.net/escm21/ord/pod.do?method=list
+		Map<String, String> listParam = new HashMap<>();
+		listParam.put("send_flag", "RCV");
+		listParam.put("linePerPage", "1000");
+		listParam.put("i_curPage", "1");
+		listParam.put("sortkey", "dlv_tm");
+		listParam.put("descasc", "desc");
+		listParam.put("radio_sendflag", "RCV");
+		listParam.put("doc_name", "ALL");
+		listParam.put("rslt", "ALL");
+		listParam.put("balju_type", "ALL");
+		listParam.put("buy_id", "UGSSM01");
+		listParam.put("ipgo_code", "ALL");
+		listParam.put("balju_num", "ALL");
+		listParam.put("time_gb", "dlv_tm");
+		listParam.put("from_date", "20240206");
+		listParam.put("to_date", "20240207");
+		
 		// 로그인 페이지 접속
-		String logoutUrl = originUrl + "Homeplus/logout.do";
-		Connection.Response logoutResponse = Jsoup.connect(logoutUrl)
+		String ordUrl = originUrl + "escm21/ord/pod.do";
+		String ordSearchUrl = ordUrl + "?method=search";
+		String ordListUrl = ordUrl + "?method=list";
+		
+		//jsessionId = "CED32DFBF114302AC6A3AE4CBEE7BBE2.gs2";
+		Connection.Response ordListResponse = Jsoup.connect(ordListUrl)
 		                                                .timeout(3000)
 		                                                .header("Origin", originUrl)
-		                                                .header("Referer", indexUrl)
+		                                                .header("Referer", ordSearchUrl)
+		                                                .header("Connection", "keep-alive")
 		                                                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
 		                                                .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
 		                                                .header("Accept-Encoding", "gzip, deflate, br")
 		                                                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
 		                                                .cookie("JSESSIONID", jsessionId)
-		                                                .cookie("isLogined", "true")
-		                                                .data(logoutParam)
-		                                                .method(Connection.Method.POST)
+		                                                .data(listParam)
+		                                                .method(Connection.Method.GET)
 		                                                .execute();
 
+		Document ordListDoc = Jsoup.parse(ordListResponse.body());
+		logger.debug("@@@@@@@@@@@@@ordListDoc");
+		logger.debug(ordListDoc.toString());
+
+
+		Elements mtsidEls = ordListDoc.select("[name='mtsid']");
+		Elements docCountEls = ordListDoc.select("[name='doc_count']");
+		Elements tmpRcptEls = ordListDoc.select("[name='tmp_rcpt']");
+		Elements tmpOrgtEls = ordListDoc.select("[name='tmp_orgt']");
+		Elements sndSizeEls = ordListDoc.select("[name='sndsize']");
+		Elements rcvSizeEls = ordListDoc.select("[name='rcvsize']");
+		Elements rsltEls = ordListDoc.select("[name='rslt']");
+		Elements docNameEls = ordListDoc.select("[name='docname']");
+		
+		logger.debug("mtsidEls size: {}", mtsidEls.size());
+		logger.debug("docCountEls size: {}", docCountEls.size());
+		logger.debug("tmpRcptEls size: {}", tmpRcptEls.size());
+		logger.debug("tmpOrgtEls size: {}", tmpOrgtEls.size());
+		logger.debug("sndSizeEls size: {}", sndSizeEls.size());
+		logger.debug("rcvSizeEls size: {}", rcvSizeEls.size());
+		logger.debug("rsltEls size: {}", rsltEls.size());
+		logger.debug("docNameEls size: {}", docNameEls.size());
+		
+		
+		Elements elements = ordListDoc.select("[name='mtsid']");
+		for( Element element : elements ) {
+			//logger.debug("mtsid: {}", element.val());
+		} // for end
+		
+		
+		logger.debug("@@@@@@@@@@@@@ordExcel");
+//		
+//		// 주문목록 excel download
+//		//http://gs.escm21.net/escm21/ord/pod.do?method=list&job=exc
+//		Map<String, String> ordExcelParam = new HashMap<>();
+//		ordExcelParam.put("send_flag", "RCV");
+//		ordExcelParam.put("linePerPage", "1000");
+//		ordExcelParam.put("i_curPage", "1");
+//		ordExcelParam.put("sortkey", "dlv_tm");
+//		ordExcelParam.put("descasc", "desc");
+//		ordExcelParam.put("radio_sendflag", "RCV");
+//		ordExcelParam.put("doc_name", "ALL");
+//		ordExcelParam.put("rslt", "ALL");
+//		ordExcelParam.put("balju_type", "ALL");
+//		ordExcelParam.put("buy_id", "UGSSM01");
+//		ordExcelParam.put("ipgo_code", "ALL");
+//		ordExcelParam.put("balju_num", "ALL");
+//		ordExcelParam.put("time_gb", "dlv_tm");
+//		ordExcelParam.put("from_date", "20240206");
+//		ordExcelParam.put("to_date", "20240207");
+//		
+//		
+//		
+//		String ordExcelUrl = ordUrl + "?method=list&job=exc";
+//		
+//		URL url = new URL(ordExcelUrl);
+//		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+//		
+//		conn.setDoInput(true);
+//		conn.setDoOutput(true);
+//		conn.setUseCaches(false);
+//		conn.setRequestMethod("POST");
+//		conn.setConnectTimeout(10000);
+//		conn.setAllowUserInteraction(true);
+//		//https://lonelycat.tistory.com/314
+//		
+//		
+//		int responseCode = conn.getResponseCode();
+//		
+//		Connection.Response ordExcelResponse = Jsoup.connect(ordExcelUrl)
+//				.timeout(3000)
+//                .header("Origin", originUrl)
+//                .header("Referer", ordSearchUrl)
+//                .header("Connection", "keep-alive")
+//                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+//                .header("Content-Type", "application/x-www-form-urlencoded")
+//                .header("Accept-Encoding", "gzip, deflate, br")
+//                .header("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4")
+//                .cookie("JSESSIONID", jsessionId)
+//                .data(ordExcelParam)
+//                .method(Connection.Method.POST)
+//                .followRedirects(true)
+//                .ignoreContentType(true)
+//                .execute();
+//		
+//		logger.debug("@@@@@@@@@@@@@ordExcelResponse");
+//		//File tempFile = File.createTempFile("tempfile", "html");
+//        //tempFile.deleteOnExit();
+//		File file = new File("C:\\DATA\\apcss\\", "test.html");
+//        BufferedInputStream inputStream = ordExcelResponse.bodyStream();
+//        FileOutputStream fos = new FileOutputStream(file);
+//        fos.write(ordExcelResponse.bodyAsBytes());
+//        fos.close();
+//        
+//        byte[] buffer = new byte[1024];
+//        int len;
+//        while ((len = inputStream.read(buffer)) != -1) {
+//            fos.write(buffer, 0, len);
+//        }
+//        inputStream.close();
+//        fos.close();
+//		
+		
+		
+		//Document ordExcelDoc = ordExcelResponse.parse();
+		
+		//logger.debug(ordExcelDoc.toString());
 		/*
-	    "resultCd": true,
-	    "resultMsg": "조회가 완료되었습니다.",
-	    "mode": "search"
-    	"items": [
-    	          {
-    	              "PO_EA_QTY": "20",          // 낱개수량
-    	              "PRICE_TAX": "0",           // 세액
-    	              "IBSU_QTY": "20",           // 입수
-    	              "GR_TYPE": "2",             // 입고유형
-    	              "HOUSE_CODE": "100",        // 창고코드
-    	              "DIAMOND_ITEM": null,
-    	              "PO_AMT": "540000",         // 발주금액
-    	              "FREE_QTY": "0",
-    	              "ITEM_CODE": "050536563",   // 상품코드
-    	              "ITEM_NM": "안면도농협_태양초_고춧가루_500g(봉)",   // 상품명
-    	              "PO_QTY": "1",              // 발주수량
-    	              "PO_UNIT": "EA",            // 발주단위
-    	              "COMPANY_CODE": "100",      // 업체코드
-    	              "STYLE_NO": "158083717",    // TPND
-    	              "PO_PRICE": "540000",       // 발주가격
-    	              "GR_TYPE_NM": "HYPER_FLOW"  // 입고유형 명칭
-    	          },
-	    	*/
+		BufferedInputStream is = ordExcelResponse.bodyStream();
+		
+		FileOutputStream os = null;
+		os = new FileOutputStream(new File("C:\\DATA\\apcss\\", "test.html"));
+		
+		final int BUFFER_SIZE = 4096;
+        int bytesRead;
+        byte[] buffer = new byte[BUFFER_SIZE];
+        
+        while((bytesRead = is.read(buffer)) != -1){
+        	os.write(buffer, 0, bytesRead);
+        }
+		
+        os.close();
+        is.close();
+		*/
+		/*
+		Workbook workbook = null;
+		
+
+        try {
+            
+			workbook = new HSSFWorkbook(buffer);
+			
+			 // 엑셀파일에서 첫번째 시트 불러오기
+	        Sheet worksheet = workbook.getSheetAt(0);
+	        
+	        // getPhysicalNumberOfRow 는 행의 갯수를 불러오는 매소드
+	        for (int i = 3; i < worksheet.getPhysicalNumberOfRows(); i++) {
+	            
+	            // i번째 행 정보 가져오기
+	            Row row = worksheet.getRow(i);	            
+	            // 날짜포맷
+	            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+	            if (row != null) {
+	            	// 12
+	                for (int j = 1; j <= 12; j++) {
+	                	
+	                	if (j != 12) {
+	                		continue;
+	                	}
+	                	
+	                    // i번째 행의 j번째 셀 정보 가져오기
+	                	Cell cell = row.getCell(j);
+	                    String value = "";
+	                    
+	                    if (cell == null) {
+	                        continue;
+	                    } else {
+	                        // 타입별로 내용 읽기
+	                        switch (cell.getCellType()) {
+	                           case Cell.CELL_TYPE_FORMULA:
+	                              value = cell.getCellFormula();
+	                              break;
+	                           case Cell.CELL_TYPE_NUMERIC:
+	                              if (HSSFDateUtil.isCellDateFormatted(cell)) { // 숫자- 날짜 타입이다.
+	                                   value = formatter.format(cell.getDateCellValue());
+	                              } else {
+	                                   double numericCellValue = cell.getNumericCellValue();
+	                                   value = String.valueOf(numericCellValue);
+	                                   if (numericCellValue == Math.rint(numericCellValue)) {
+	                                       value = String.valueOf((int) numericCellValue);
+	                                   } else {
+	                                       value = String.valueOf(numericCellValue);
+	                                   }
+	                              }
+	                              break;
+	                           case Cell.CELL_TYPE_STRING:
+	                              value = cell.getStringCellValue() + "";
+	                              break;
+	                           case Cell.CELL_TYPE_BLANK:
+	                              value = cell.getBooleanCellValue() + "";
+	                              break;
+	                           case Cell.CELL_TYPE_ERROR:
+	                              value = cell.getErrorCellValue() + "";
+	                              break;
+	                           default:
+	                              value = cell.getStringCellValue();
+	                              break;
+	                        }                                  
+	                    }
+	                    
+	                    if (value != null) {
+	                    	logger.debug("@@@[GSRetail] {} 행 - 발주번호 {})", i, value); 
+	                    }
+	                }
+	            }
+	        }
+	        
+	        workbook.close();
+	        
+    	} catch (Exception e) {
+    		logger.error("error : {}", e.getMessage());
+    		HashMap<String, Object> rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "주문서수신");	// E0003 {0} 시 오류가 발생하였습니다.    		
+    		throw new EgovBizException(getMessageForMap(rtnObj));
+    	}
+    	*/
 		return null;
 	}
 

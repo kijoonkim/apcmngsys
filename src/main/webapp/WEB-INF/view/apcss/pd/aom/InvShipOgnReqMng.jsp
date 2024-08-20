@@ -34,8 +34,8 @@
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</c:if>
 
-					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					<!--
+					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchFcltList"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					-->
@@ -815,7 +815,6 @@
 			//gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE') //신청대상구분
 
 			gfn_setComCdSBSelect('grdInvShipOgnReqMng01', 	jsonGrdCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
-			jsonGrdCorpDtlSeCd
 
 		]);
 		console.log("============fn_initSBSelect=====1=======");
@@ -1469,22 +1468,22 @@
     	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
 			brno : brno
 		});
-        let data = await postJsonPromise;
-        try{
-        	comUoBrno = [];
-        	data.resultList.forEach((item, index) => {
-        		let uoListVO = {
+		let data = await postJsonPromise;
+		try{
+			comUoBrno = [];
+			data.resultList.forEach((item, index) => {
+				let uoListVO = {
 						'text'		: item.uoCorpNm
 						, 'label'	: item.uoCorpNm
 						, 'value'	: item.uoBrno
 						, 'uoApoCd' : item.uoApoCd
 
 				}
-        		comUoBrno.push(uoListVO);
+				comUoBrno.push(uoListVO);
 			});
-        	SBUxMethod.refresh('dtl-input-selUoBrno');
-        	//console.log(comUoBrno);
-        	if(comUoBrno.length == 1){
+			SBUxMethod.refresh('dtl-input-selUoBrno');
+			//console.log(comUoBrno);
+			if(comUoBrno.length == 1){
 
         	}
         }catch (e) {

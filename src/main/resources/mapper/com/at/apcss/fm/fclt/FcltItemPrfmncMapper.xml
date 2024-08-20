@@ -20,44 +20,22 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
-    	<![CDATA[
+	<select id="selectFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmnc */
-				  FCLT.TRGT_YR                 AS TRGT_YR
-				, FCLT.APC_CD                  AS APC_CD
-				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				, FCLT.FCLT_ITEM_CD            AS FCLT_ITEM_CD
-				, FCLT.FCLT_ITEM_TRMT_AMT      AS FCLT_ITEM_TRMT_AMT
-				, FCLT.FCLT_ITEM_SPMT_RT       AS FCLT_ITEM_SPMT_RT
 
-				, FCLT.FCLT_ITEM_SPMT_AMT      AS FCLT_ITEM_SPMT_AMT
-				, FCLT.FCLT_ITEM_SPMT_AMT2     AS FCLT_ITEM_SPMT_AMT2
-				, FCLT.FCLT_ITEM_SPMT_AMT3     AS FCLT_ITEM_SPMT_AMT3
-				, FCLT.FCLT_ITEM_SPMT_AMT4     AS FCLT_ITEM_SPMT_AMT4
-				, FCLT.FCLT_ITEM_SPMT_AMT5     AS FCLT_ITEM_SPMT_AMT5
 
-				, FCLT.FCLT_ITEM_TRMT_VLM      AS FCLT_ITEM_TRMT_VLM
-				, FCLT.FCLT_ITEM_TRMT_VLM2     AS FCLT_ITEM_TRMT_VLM2
-				, FCLT.FCLT_ITEM_TRMT_VLM3     AS FCLT_ITEM_TRMT_VLM3
-				, FCLT.FCLT_ITEM_TRMT_VLM4     AS FCLT_ITEM_TRMT_VLM4
-				, FCLT.FCLT_ITEM_TRMT_VLM5     AS FCLT_ITEM_TRMT_VLM5
-
-				, FCLT.FCLT_ITEM_MRKT_AMT      AS FCLT_ITEM_MRKT_AMT
-				, FCLT.FCLT_ITEM_MRKT_AMT2     AS FCLT_ITEM_MRKT_AMT2
-				, FCLT.FCLT_ITEM_MRKT_AMT3     AS FCLT_ITEM_MRKT_AMT3
-				, FCLT.FCLT_ITEM_MRKT_AMT4     AS FCLT_ITEM_MRKT_AMT4
-				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
-			 FROM TB_FCLT_ITEM_PRFMNC FCLT
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND APC_CD IS NOT NULL
-		     ]]>
-        		<if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
-		   </if>
+			FROM TB_TE_APC_OPER_PRFMNC_DTL AOPD
+ 			WHERE 1=1
+ 			  AND DEL_YN != 'Y'
+ 			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='trgtYr != null and !trgtYr.equals("")'>
+			  AND  TRGT_YR = #{trgtYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  APC_CD = #{apcCd}
+			</if>
     </select>
 
 
@@ -69,17 +47,17 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltItemPrfmncList" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
+	<select id="selectFcltItemPrfmncList" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmncList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
@@ -106,109 +84,29 @@
 				, FCLT.FCLT_ITEM_MRKT_AMT4     AS FCLT_ITEM_MRKT_AMT4
 				, FCLT.FCLT_ITEM_MRKT_AMT5     AS FCLT_ITEM_MRKT_AMT5
 			 FROM TB_FCLT_ITEM_PRFMNC FCLT
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND APC_CD IS NOT NULL
- 		 ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
+			 WHERE 1=1
+			 AND DEL_YN != 'Y'
+			 AND APC_CD IS NOT NULL
+		 ]]>
+		<if test='trgtYr != null and !trgtYr.equals("")'>
 		     AND  FCLT.TRGT_YR = #{trgtYr}
 		   </if>
 		   <if test='apcCd != null and !apcCd.equals("")'>
 		     AND  FCLT.APC_CD = #{apcCd}
 		   </if>
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc				-->
-	<!-- DESC : 산지유통시설품목처리실적 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
 
-    <insert id="insertFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc */
-	    	  INTO TB_FCLT_ITEM_PRFMNC FCLT
-	    		(
-	    			TRGT_YR
-	    		  , APC_CD
-	    		  , FCLT_ITEM_CD
-	    		  , FCLT_ITEM_TRMT_AMT
-	    		  , FCLT_ITEM_SPMT_RT
 
-	    		  , FCLT_ITEM_SPMT_AMT
-			      , FCLT_ITEM_SPMT_AMT2
-				  , FCLT_ITEM_SPMT_AMT3
-				  , FCLT_ITEM_SPMT_AMT4
-				  , FCLT_ITEM_SPMT_AMT5
-
-	    		  , FCLT_ITEM_TRMT_VLM
-				  , FCLT_ITEM_TRMT_VLM2
-				  , FCLT_ITEM_TRMT_VLM3
-				  , FCLT_ITEM_TRMT_VLM4
-				  , FCLT_ITEM_TRMT_VLM5
-
-				  , FCLT_ITEM_MRKT_AMT
-				  , FCLT_ITEM_MRKT_AMT2
-				  , FCLT_ITEM_MRKT_AMT3
-				  , FCLT_ITEM_MRKT_AMT4
-				  , FCLT_ITEM_MRKT_AMT5
-
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    		  , SYS_LAST_CHG_DT
-	    		  , SYS_LAST_CHG_USER_ID
-	    		  , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{fcltItemCd}
-	   			  , #{fcltItemSpmtRt}
-	   			  , #{fcltItemTrmtAmt}
-
-	   			  , #{fcltItemSpmtAmt}
-	   			  , #{fcltItemSpmtAmt2}
-			   	  , #{fcltItemSpmtAmt3}
-			   	  , #{fcltItemSpmtAmt4}
-			   	  , #{fcltItemSpmtAmt5}
-
-	   			  , #{fcltItemTrmtVlm}
-			   	  , #{fcltItemTrmtVlm2}
-			   	  , #{fcltItemTrmtVlm3}
-			   	  , #{fcltItemTrmtVlm4}
-			   	  , #{fcltItemTrmtVlm5}
-
-			   	  , #{fcltItemMrktAmt}
-			   	  , #{fcltItemMrktAmt2}
-			   	  , #{fcltItemMrktAmt3}
-			   	  , #{fcltItemMrktAmt4}
-			   	  , #{fcltItemMrktAmt5}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-	   			  , #{sysLastChgUserId}
-	   			  , #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-     -->
-
-     <update id="insertFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
-     	MERGE INTO TB_FCLT_ITEM_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc */
+	<update id="insertFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+		MERGE INTO TB_FCLT_ITEM_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc */
 		USING DUAL
 		ON (
 			FCLT.TRGT_YR = #{trgtYr}

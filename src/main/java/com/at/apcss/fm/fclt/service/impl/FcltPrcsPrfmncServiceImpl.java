@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltPrcsPrfmncService;
+import com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO;
 import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
@@ -30,6 +33,9 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 
 	@Autowired
 	private FcltPrcsPrfmncMapper fcltPrcsPrfmncMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltPrcsPrfmncVO selectFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
@@ -60,6 +66,37 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 		return resultList;
 	}
 
+	@Override
+	public int multiSaveFcltPrcsPrfmnc(List<FcltPrcsPrfmncVO> fcltPrcsPrfmncVOList) throws Exception {
+		int saveCnt = 0;
+		String prgrsYn = "";
+		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+		for (FcltPrcsPrfmncVO fcltPrcsPrfmncVO : fcltPrcsPrfmncVOList) {
+			saveCnt += fcltPrcsPrfmncMapper.insertFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
+			prgrsYn = fcltPrcsPrfmncVO.getPrgrsYn();
+			//진척도 변경
+			fcltPrgrsVO.setApcCd(fcltPrcsPrfmncVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltPrcsPrfmncVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltPrcsPrfmncVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltPrcsPrfmncVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltPrcsPrfmncVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltPrcsPrfmncVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltPrcsPrfmncVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs13("T");
+			}else {
+				fcltPrgrsVO.setPrgrs13("Y");
+			}
+		}
+
+		if(saveCnt == fcltPrcsPrfmncVOList.size() && prgrsYn.equals("Y")) {
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
+
+		return saveCnt;
+	}
 
 	@Override
 	public int insertFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {

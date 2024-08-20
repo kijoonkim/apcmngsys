@@ -1,8 +1,9 @@
 package com.at.apcss.fm.fclt.service;
 
 import java.util.List;
-import java.util.Map;
 
+import com.at.apcss.fm.fclt.vo.FcltApcVO;
+import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 
 
@@ -78,5 +79,21 @@ public interface FcltOperInfoService {
 	 * @throws Exception
 	 */
 	public int deleteFcltOperInfoList(List<FcltOperInfoVO> fcltOperInfoList) throws Exception;
+
+	/**
+	 * 운영자개요 품목목록을 조회한다.
+	 * @param fcltOperInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltItemVO> selectFcltOperInfoItemList(FcltItemVO fcltItemVO) throws Exception;
+
+	/**
+	 * APC 목록을 조회한다.
+	 * @param fcltApcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltApcVO> selectApcList(FcltApcVO fcltApcVO) throws Exception;
 
 }
