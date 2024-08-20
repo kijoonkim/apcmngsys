@@ -229,7 +229,7 @@
 												jsondata-ref="jsonComCtpv" 
 												jsondata-value="cdVl"
 												jsondata-text="cdVlNm"
-												onChange="" 
+												onChange="fn_onChangeSrchCtpv(this)" 
 												unselected-text="선택" 
 												class="form-control input-sm"
 											></sbux-select>
@@ -246,6 +246,8 @@
 												onChange="" 
 												unselected-text="선택" 
 												class="form-control input-sm"
+												filter-source-name="dtl-slt-ctpv"
+												jsondata-filter="upCdVl"
 											></sbux-select>
 										</td>
 									</tr>
@@ -264,7 +266,20 @@
 									</tr>
 								</thead>
 							</table>
+							
+							<div class="ad_tbl_top2">
+								<ul class="ad_tbl_count">
+									<li>
+										<span>관리 APC 목록</span>
+									</li>
+								</ul>
+							</div>
+							<div class="table-responsive tbl_scroll_sm">
+								<div id="sb-area-grdUntyOgnzApc" style="height:282px;"></div>
+							</div>
+							
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -302,6 +317,9 @@
     var grdUntyOgnzTree;
     var jsonUntyOgnzTree = [];
     
+    var grdUntyOgnzApc;
+    var jsonUntyOgnzApc = [];
+    
 	// only document
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
@@ -312,9 +330,9 @@
      * @description 화면로드 시 초기 설정
      * @function
      */
-	const fn_init = function() {
-		fn_createGrid();
+	const fn_init = async function() {
 		fn_initSBSelect();
+		fn_createGrid();
 	}
 	
     /**
@@ -324,9 +342,14 @@
      */
     const fn_initSBSelect = async function() {
 
-    	jsonComUntyOgnzType = await gfn_getComCdDtls("UNTY_OGNZ_TYPE");
-    	jsonComCtpv = await gfn_getComCdDtls("CTPV");
-    	jsonComSgg = await gfn_getComCdDtls("SGG");
+    	let result = await Promise.all([
+    			gfn_getComCdDtls("UNTY_OGNZ_TYPE"),
+    			gfn_getComCdDtls("UNTY_CTPV"),
+    			gfn_getComCdDtls("UNTY_SGG"),
+    		]);
+    	jsonComUntyOgnzType = result[0];
+    	jsonComCtpv = result[1];
+    	jsonComSgg = result[2];
     	
     	SBUxMethod.refresh("srch-slt-untyOgnzType");
     	SBUxMethod.refresh("dtl-slt-untyOgnzType");
@@ -341,6 +364,17 @@
      * @function
      */
     function fn_createGrid() {
+        fn_createGridUntyOgnzTree();
+        fn_createGridUntyOgnzApc();
+    }
+
+    
+    /**
+     * @name fn_createGridUntyOgnzTree
+     * @description 그리드 초기화
+     * @function
+     */
+    function fn_createGridUntyOgnzTree() {
         var SBGridProperties = {};
 	    SBGridProperties.parentid = 'sb-area-grdUntyOgnzTree';
 	    SBGridProperties.id = 'grdUntyOgnzTree';
@@ -366,6 +400,65 @@
         grdUntyOgnzTree.bind('click', 'fn_view');
     }
 
+    /**
+     * @name fn_createGridUntyOgnzApc
+     * @description 관리APC 그리드 생성
+     * @function
+     */
+    function fn_createGridUntyOgnzApc() {
+        var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdUntyOgnzApc';
+	    SBGridProperties.id = 'grdUntyOgnzApc';
+	    SBGridProperties.jsonref = 'jsonUntyOgnzApc';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.allowcopy = true;
+		SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.columns = [
+        	{
+            	caption: ['조직명'],
+            	ref: 'untyOgnzNm',
+            	type: 'output',
+                width: '120px',
+                style: 'text-align:left',
+            },
+            {
+            	caption: ['APC코드'],
+            	ref: 'apcCd',
+            	type: 'output',
+                width: '80px',
+                style: 'text-align:center',
+            },
+            {
+            	caption: ['APC명'],
+            	ref: 'apcNm',
+            	type: 'output',
+                width: '140px',
+                style: 'text-align:left',
+            },
+            {
+            	caption: ['사업자번호'],
+            	ref: 'brno',
+            	type: 'output',
+                width: '180px',
+                style: 'text-align:center',
+                format : {
+                	type:'string',
+                	rule:'000-00-00000'
+                }
+            },
+            {
+            	caption: ['주소'],
+            	ref: 'addr',
+            	type: 'output',
+                width: '180px',
+                style: 'text-align:left',
+            },
+            
+        ];
+        grdUntyOgnzApc = _SBGrid.create(SBGridProperties);
+    }
+    
     /**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
      * @type {object}
@@ -475,9 +568,11 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-    	fn_setUntyOgnzTree();
+    	fn_clearUntyOgnzApc();
+ 		fn_setUntyOgnzTree();
     }
 
+ 	
     /**
      * @name fn_setUntyOgnzTree
      * @description 통합조직트리 조회
@@ -528,6 +623,64 @@
   				});
 
   	        	grdUntyOgnzTree.rebuild();
+  	        	//document.querySelector('#listCount').innerText = totalRecordCount;
+
+        	} else {
+        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+    
+    const fn_clearUntyOgnzApc = function() {
+    	jsonUntyOgnzApc.length = 0;
+    	grdUntyOgnzApc.refresh();
+    }
+    
+    /**
+     * @name fn_setUntyOgnzApc
+     * @description 통합조직 관리APC 조회
+     */
+    const fn_setUntyOgnzApc = async function() {
+
+    	const untyOgnzId = SBUxMethod.get("dtl-inp-untyOgnzId");
+    	const upUntyOgnzId = SBUxMethod.get("dtl-inp-upUntyOgnzId");
+
+    	if (gfn_isEmpty(untyOgnzId)) {
+    		jsonUntyOgnzApc.length = 0;
+    		grdUntyOgnzApc.rebuild();
+    		return;
+    	}
+    	
+        const postJsonPromise = gfn_postJSON("/co/ognz/selectUntyOgnzApcList.do", {
+        	untyOgnzId: untyOgnzId,
+        	upUntyOgnzId: upUntyOgnzId,
+        	// pagination
+	  		pagingYn : 'N',
+			currentPageNo : 0,
+ 		  	recordCountPerPage : 0
+		});
+
+        const data = await postJsonPromise;
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
+
+  	    		jsonUntyOgnzApc.length = 0;
+  	        	data.resultList.forEach((item, index) => {
+  					jsonUntyOgnzApc.push(item);
+  					totalRecordCount = jsonUntyOgnzApc.length;
+  				});
+
+  	        	grdUntyOgnzApc.rebuild();
   	        	//document.querySelector('#listCount').innerText = totalRecordCount;
 
         	} else {
@@ -697,9 +850,20 @@
         SBUxMethod.set("dtl-inp-untyOgnzNm", rowData.untyOgnzNm);
         SBUxMethod.set("dtl-inp-untyOgnzLinkCd", gfn_nvl(rowData.untyOgnzLinkCd));
         SBUxMethod.set("dtl-inp-indctSeq", gfn_nvl(rowData.indctSeq));
-        SBUxMethod.set("dtl-slt-ctpv", rowData.ctpv);
-        SBUxMethod.set("dtl-slt-sgg", rowData.sgg);
         
+        SBUxMethod.set("dtl-slt-ctpv", rowData.ctpv);
+        
+        SBUxMethod.refresh("dtl-slt-sgg");
+        
+        let chkSgg = _.find(jsonComSgg, {cdVl: rowData.sgg});
+
+		if (gfn_isEmpty(chkSgg)) {
+			SBUxMethod.set("dtl-slt-sgg", "");
+		} else {
+			SBUxMethod.set("dtl-slt-sgg", rowData.sgg);
+		}
+		
+		fn_setUntyOgnzApc();
     }
 
     /**
@@ -719,7 +883,16 @@
         SBUxMethod.set("srch-inp-temp", "");
     }
 
-
+	/**
+	 * @name fn_onChangeSrchCtpv
+	 * @description 시/도선택 변경 event
+	 */
+    const fn_onChangeSrchCtpv = function(obj) {
+    	SBUxMethod.refresh("dtl-slt-sgg");
+		SBUxMethod.set("dtl-slt-sgg", ""); 
+	}
+	
+	
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

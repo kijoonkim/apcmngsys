@@ -43,7 +43,16 @@ public interface UntyOgnzService {
 	 * @return
 	 * @throws Exception
 	 */
+	public List<UntyOgnzVO> selectUntyOgnzApcList(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 통합조직 트리 목록 조회
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
 	public List<UntyOgnzVO> selectUntyOgnzTreeList(UntyOgnzVO untyOgnzVO) throws Exception;
+	
 	
 	/**
 	 * 통합조직 등록

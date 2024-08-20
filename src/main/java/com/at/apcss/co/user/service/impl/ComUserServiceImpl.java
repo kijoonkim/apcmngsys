@@ -86,6 +86,15 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return resultList;
 	}
 
+
+	@Override
+	public List<ComUserVO> selectUntyUserAprvList(ComUserVO comUserVO) throws Exception {
+		
+		List<ComUserVO> resultList = comUserMapper.selectUntyUserAprvList(comUserVO);
+		return resultList;
+	}
+	
+	
 	@Override
 	public HashMap<String, Object> updateUserSttsList(List<ComUserVO> comUserList) throws Exception {
 		HashMap<String, Object> rtnObj = new HashMap<>();
@@ -101,13 +110,6 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return null;
 	}
 
-//	//기능
-//	@Override
-//	public HashMap<String, Object> updateUserTypeList(ComUserVO comUserVO) throws Exception {
-//
-//
-//		return null;
-//	}
 	@Override
 	public int updateUserType(ComUserVO comUserVO) throws Exception {
 		return comUserMapper.updateUserType(comUserVO);
@@ -140,8 +142,9 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		}
 
 		return null;
-//		return comUserMapper.updateComUser(comUserVO);
 	}
+	
+	
 	@Override
 	public HashMap<String, Object> updateComUser(ComUserVO comUserVO) throws Exception {
 
@@ -300,8 +303,6 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	 * @throws Exception
 	 */
 	public int insertLgnPlcy(ComUserVO comUserVO) throws Exception{
-		HashMap<String, Object> rtnObj = new HashMap<>();
-
 		return comUserMapper.insertLgnPlcy(comUserVO);
 	};
 	/**
@@ -426,5 +427,6 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		int rtnObj = comUserMapper.delComUserAprv(comUserVO);
 		return rtnObj;
 	}
+
 
 }
