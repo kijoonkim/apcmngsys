@@ -18,4 +18,9 @@ public class UntyOgnzVO extends ComVO {
 	private String sgg;
 	private int indctSeq;
 	private int untyOgnzLvl;
+	
+	private String apcCd;
+	private String apcNm;
+	private String brno;
+	private String addr;
 }

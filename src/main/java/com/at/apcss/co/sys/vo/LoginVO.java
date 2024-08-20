@@ -65,7 +65,7 @@ public class LoginVO implements Serializable{
 	private String endLgnDt;
 	private String endLgnIp;
 	private String brno;
-
+	
 	private String lgnRslt;
 	private String delYn;
 
@@ -95,6 +95,44 @@ public class LoginVO implements Serializable{
 	/** 농업인 일련번호 */
 	private String frmerSn;
 
+	/** 통합조직ID **/
+	private String untyOgnzId;
+	
+	/** 통합조직유형 */
+	private String untyOgnzType;
+	
+	/** 통합권한유형 */
+	private String untyAuthrtType;
+	
+	/** 통합권한관리여부 */
+	private String untyAuthrtMngYn;
+	
+	public String getUntyOgnzId() {
+		return untyOgnzId;
+	}
+	public void setUntyOgnzId(String untyOgnzId) {
+		this.untyOgnzId = untyOgnzId;
+	}
+	public String getUntyOgnzType() {
+		return untyOgnzType;
+	}
+	public void setUntyOgnzType(String untyOgnzType) {
+		this.untyOgnzType = untyOgnzType;
+	}
+	public String getUntyAuthrtType() {
+		return untyAuthrtType;
+	}
+	public void setUntyAuthrtType(String untyAuthrtType) {
+		this.untyAuthrtType = untyAuthrtType;
+	}	
+	public String getUntyAuthrtMngYn() {
+		return untyAuthrtMngYn;
+	}
+	public void setUntyAuthrtMngYn(String untyAuthrtMngYn) {
+		this.untyAuthrtMngYn = untyAuthrtMngYn;
+	}
+
+	
 	public String getFrmerSn() {
 		return frmerSn;
 	}
@@ -987,8 +1025,7 @@ public class LoginVO implements Serializable{
 	}
 	public void setMaUserName(String maUserName) {
 		this.maUserName = maUserName;
-	}	
-	
+	}
 	//------------------------------------------------------
 
 

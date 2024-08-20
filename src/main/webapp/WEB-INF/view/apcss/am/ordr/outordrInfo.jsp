@@ -1225,7 +1225,8 @@
 		const rcptOutordr = {
 				apcCd: gv_selectedApcCd,
 				lgszMrktCd: lgszMrktCd,
-				crtrYmd: crtrYmd
+				crtrYmd: crtrYmd,
+				crtrYmdType: "3"
 			}
 
         try {

@@ -31,6 +31,15 @@ public interface ComUserService {
 	public List<ComUserVO> selectComUserApcList(ComUserVO comUserVO) throws Exception;
 
 	/**
+	 * 통합사용자승인등록 목록조회
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComUserVO> selectUntyUserAprvList(ComUserVO comUserVO) throws Exception;
+	
+	
+	/**
 	 * 사용자 정보를 변경한다.
 	 * @param comUserList
 	 * @return

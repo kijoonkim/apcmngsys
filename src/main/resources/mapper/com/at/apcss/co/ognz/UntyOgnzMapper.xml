@@ -108,6 +108,7 @@
 				, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
 				, UO.UP_UNTY_OGNZ_ID    AS UP_UNTY_OGNZ_ID
 				, UUO.UNTY_OGNZ_NM		AS UP_UNTY_OGNZ_NM
+				, UUO.UNTY_OGNZ_TYPE	AS UP_UNTY_OGNZ_TYPE
 				, UO.UNTY_OGNZ_LINK_CD  AS UNTY_OGNZ_LINK_CD
 				, UO.INDCT_SEQ          AS INDCT_SEQ
 				, UO.CTPV               AS CTPV
@@ -124,27 +125,90 @@
 					, UO.INDCT_SEQ          AS INDCT_SEQ
 					, UO.CTPV               AS CTPV
 					, UO.SGG                AS SGG	
-				  FROM TB_UNTY_OGNZ UO
+				  FROM VW_COM_UNTY_OGNZ UO
 				 WHERE UO.DEL_YN = 'N'
 
-				START WITH UO.UP_UNTY_OGNZ_ID IS NULL
+				START WITH UO.UP_UNTY_OGNZ_ID = '*'
     	]]>
-			<if test='untyOgnzType != null and untyOgnzType != ""'>
-				   AND UO.UNTY_OGNZ_TYPE = #{untyOgnzType}
-			</if>
-			<if test='untyOgnzNm != null and untyOgnzNm != ""'>
-				   AND UO.UNTY_OGNZ_NM LIKE '%' || #{untyOgnzNm} || '%'
-			</if>
 
     	<![CDATA[
 			    CONNECT BY PRIOR UO.UNTY_OGNZ_ID = UO.UP_UNTY_OGNZ_ID
 			     ORDER SIBLINGS BY UO.INDCT_SEQ, UO.UNTY_OGNZ_ID
 			  	) UO
-			  	, TB_UNTY_OGNZ UUO
+			  	, VW_COM_UNTY_OGNZ UUO
 			 WHERE UO.UP_UNTY_OGNZ_ID = UUO.UNTY_OGNZ_ID(+)
 			   AND UUO.DEL_YN(+) = 'N'
     	]]>
+			<if test='untyOgnzType != null and untyOgnzType != ""'>
+				   AND (
+					   	UO.UNTY_OGNZ_TYPE = #{untyOgnzType}
+					   	OR
+					   	UUO.UNTY_OGNZ_TYPE = #{untyOgnzType}
+					)
+			</if>
+			<if test='untyOgnzNm != null and untyOgnzNm != ""'>
+				   AND (
+					   	UO.UNTY_OGNZ_NM LIKE '%' || #{untyOgnzNm} || '%'
+					   	OR
+					   	UUO.UNTY_OGNZ_NM LIKE '%' || #{untyOgnzNm} || '%'
+					)
+			</if>
+    </select>
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzApcList	-->
+	<!-- DESC : 통합조직 APC 목록조회.                                       		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectUntyOgnzApcList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzApcList */
+				  UO.UNTY_OGNZ_LVL		AS UNTY_OGNZ_LVL
+				, UO.SEQ				AS UNTY_OGNZ_SEQ
+				, UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
+				, UO.UNTY_OGNZ_TYPE     AS UNTY_OGNZ_TYPE
+				, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
+				, UO.UNTY_OGNZ_LINK_CD  AS UNTY_OGNZ_LINK_CD
+				, UO.CTPV               AS CTPV
+				, UO.SGG                AS SGG
+				, OA.APC_CD				AS APC_CD
+				, APC.APC_NM			AS APC_NM
+				, APC.BRNO				AS BRNO
+				, APC.ADDR				AS ADDR
+				, OA.INDCT_SEQ			AS INDCT_SEQ
+			  FROM (
+				SELECT
+					  LEVEL			AS UNTY_OGNZ_LVL
+					, ROWNUM		AS SEQ
+					, UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
+					, UO.UNTY_OGNZ_TYPE     AS UNTY_OGNZ_TYPE
+					, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
+					, UO.UP_UNTY_OGNZ_ID    AS UP_UNTY_OGNZ_ID
+					, UO.UNTY_OGNZ_LINK_CD  AS UNTY_OGNZ_LINK_CD
+					, UO.INDCT_SEQ          AS INDCT_SEQ
+					, UO.CTPV               AS CTPV
+					, UO.SGG                AS SGG	
+				  FROM VW_COM_UNTY_OGNZ UO
+				 WHERE UO.DEL_YN = 'N'
+				START WITH UO.UP_UNTY_OGNZ_ID = #{upUntyOgnzId} AND UO.UNTY_OGNZ_ID = #{untyOgnzId}
+    	]]>
+
+    	<![CDATA[
+			    CONNECT BY PRIOR UO.UNTY_OGNZ_ID = UO.UP_UNTY_OGNZ_ID
+			     ORDER SIBLINGS BY UO.INDCT_SEQ, UO.UNTY_OGNZ_ID
+			  	) UO
+			  	, TB_UNTY_OGNZ_APC OA
+			  	, TB_APC_INFO APC
+			 WHERE UO.UNTY_OGNZ_ID = OA.UNTY_OGNZ_ID
+			   AND OA.DEL_YN = 'N'
+			   AND OA.APC_CD = APC.APC_CD(+)
+			   AND APC.DEL_YN(+) = 'N'
+			ORDER BY UO.SEQ, OA.INDCT_SEQ
+    	]]>
     </select>
 
 	<!-- ==========================================================================	-->

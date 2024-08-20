@@ -61,6 +61,15 @@ public class UntyOgnzServiceImpl extends BaseServiceImpl implements UntyOgnzServ
 	}
 
 	@Override
+	public List<UntyOgnzVO> selectUntyOgnzApcList(UntyOgnzVO untyOgnzVO) throws Exception {
+
+		List<UntyOgnzVO> resultTreeList = untyOgnzMapper.selectUntyOgnzApcList(untyOgnzVO);
+		
+		return resultTreeList;
+	}
+
+	
+	@Override
 	public HashMap<String, Object> insertUntyOgnz(UntyOgnzVO untyOgnzVO) throws Exception {
 		
 		UntyOgnzVO newUntyOgnz = untyOgnzMapper.selectNewUntyOgnzId(untyOgnzVO);
@@ -88,5 +97,6 @@ public class UntyOgnzServiceImpl extends BaseServiceImpl implements UntyOgnzServ
 		untyOgnzMapper.deleteUntyOgnz(untyOgnzVO);
 		return null;
 	}
+
 
 }

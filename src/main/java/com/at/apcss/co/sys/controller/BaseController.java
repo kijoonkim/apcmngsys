@@ -211,6 +211,43 @@ public abstract class BaseController {
 		return null;
 	}
 
+
+	protected String getUntyOgnzId() {
+
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if (loginVO != null) {
+			return loginVO.getUntyOgnzId();
+		}
+
+		return null;
+	}
+	
+	protected String getUntyOgnzType() {
+
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if (loginVO != null) {
+			return loginVO.getUntyOgnzType();
+		}
+
+		return null;
+	}
+	
+	protected String getUntyAuthrtType() {
+
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if (loginVO != null) {
+			return loginVO.getUntyAuthrtType();
+		}
+
+		return null;
+	}
+	
+	
+	
+	
 	protected String getPrgrmId() {
 
 		String prgrmId = (String) RequestContextHolder.currentRequestAttributes().getAttribute(ComConstants.PROP_SYS_PRGRM_ID, RequestAttributes.SCOPE_SESSION);
