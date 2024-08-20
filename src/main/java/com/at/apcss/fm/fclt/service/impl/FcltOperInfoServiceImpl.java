@@ -6,8 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltOperInfoService;
+import com.at.apcss.fm.fclt.vo.FcltApcVO;
+import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
@@ -31,6 +35,9 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 	@Autowired
 	private FcltOperInfoMapper fcltOperInfoMapper;
 
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
+
 	@Override
 	public FcltOperInfoVO selectFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
 
@@ -47,6 +54,7 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 
 		FcltOperInfoVO resultVO = fcltOperInfoMapper.selectFcltOperInfo(fcltOperInfoVO);
 
+
 		return resultVO;
 	}
 
@@ -54,10 +62,11 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 	public List<FcltOperInfoVO> selectFcltOperInfoList(FcltOperInfoVO fcltOperInfoVO) throws Exception {
 
 		List<FcltOperInfoVO> resultList = fcltOperInfoMapper.selectFcltOperInfoList(fcltOperInfoVO);
-		System.out.println("$$$$$$$ resultList " + resultList.get(0));
-		for (FcltOperInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
+		for (FcltOperInfoVO vo : resultList ) {
+			FcltItemVO fcltItemVO = new FcltItemVO();
+			fcltItemVO.setApcCd(fcltOperInfoVO.getApcCd());
+			fcltItemVO.setCrtrYr(fcltOperInfoVO.getCrtrYr());
+			vo.setItemList(fcltOperInfoMapper.selectFcltOperInfoItemList(fcltItemVO));
 		}
 		return resultList;
 	}
@@ -67,7 +76,40 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 	public int insertFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
 
 		int insertedCnt = fcltOperInfoMapper.insertFcltOperInfo(fcltOperInfoVO);
+		int itemInsertCnt = 0;
+		//품목리스트 등록
+		for (FcltItemVO fcltItemVO : fcltOperInfoVO.getItemList()) {
+			fcltItemVO.setCrtrYr(fcltOperInfoVO.getCrtrYr());
+			fcltItemVO.setApcCd(fcltOperInfoVO.getApcCd());
+			fcltItemVO.setSysFrstInptUserId(fcltOperInfoVO.getSysFrstInptUserId());
+			fcltItemVO.setSysFrstInptPrgrmId(fcltOperInfoVO.getSysFrstInptPrgrmId());
+			fcltItemVO.setSysLastChgUserId(fcltOperInfoVO.getSysLastChgUserId());
+			fcltItemVO.setSysLastChgPrgrmId(fcltOperInfoVO.getSysLastChgPrgrmId());
 
+			itemInsertCnt += fcltOperInfoMapper.insertFcltOperInfoItem (fcltItemVO);
+		}
+
+		String prgrsYn = fcltOperInfoVO.getPrgrsYn();
+		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
+			//진척도 변경
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltOperInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltOperInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltOperInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltOperInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltOperInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltOperInfoVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltOperInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs1("T");
+			}else {
+				fcltPrgrsVO.setPrgrs1("Y");
+			}
+
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
 		return insertedCnt;
 	}
 
@@ -99,4 +141,18 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 		return deletedCnt;
 	}
 
+	@Override
+	public List<FcltItemVO> selectFcltOperInfoItemList(FcltItemVO fcltItemVO) throws Exception {
+
+		List<FcltItemVO> resultList = fcltOperInfoMapper.selectFcltOperInfoItemList(fcltItemVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<FcltApcVO> selectApcList(FcltApcVO fcltApcVO) throws Exception {
+
+		List<FcltApcVO> resultList = fcltOperInfoMapper.selectApcList(fcltApcVO);
+		return resultList;
+	}
 }

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltOgnzPrcsPrfmncService;
 import com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
@@ -30,6 +32,9 @@ public class FcltOgnzPrcsPrfmncServiceImpl extends BaseServiceImpl implements Fc
 
 	@Autowired
 	private FcltOgnzPrcsPrfmncMapper fcltOgnzPrcsPrfmncMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltOgnzPrcsPrfmncVO selectFcltOgnzPrcsPrfmnc(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception {
@@ -62,6 +67,37 @@ public class FcltOgnzPrcsPrfmncServiceImpl extends BaseServiceImpl implements Fc
 		return resultList;
 	}
 
+	@Override
+	public int multiSaveFcltOgnzPrcsPrfmnc(List<FcltOgnzPrcsPrfmncVO> fcltOgnzPrcsPrfmncVOList) throws Exception {
+		int saveCnt = 0;
+		String prgrsYn = "";
+		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+		for (FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO : fcltOgnzPrcsPrfmncVOList) {
+			saveCnt += fcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc(fcltOgnzPrcsPrfmncVO);
+			prgrsYn = fcltOgnzPrcsPrfmncVO.getPrgrsYn();
+			//진척도 변경
+			fcltPrgrsVO.setApcCd(fcltOgnzPrcsPrfmncVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltOgnzPrcsPrfmncVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltOgnzPrcsPrfmncVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltOgnzPrcsPrfmncVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltOgnzPrcsPrfmncVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltOgnzPrcsPrfmncVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltOgnzPrcsPrfmncVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs12("T");
+			}else {
+				fcltPrgrsVO.setPrgrs12("Y");
+			}
+		}
+
+		if(saveCnt == fcltOgnzPrcsPrfmncVOList.size() && prgrsYn.equals("Y")) {
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
+
+		return saveCnt;
+	}
 
 	@Override
 	public int insertFcltOgnzPrcsPrfmnc(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception {

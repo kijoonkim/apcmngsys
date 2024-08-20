@@ -20,89 +20,155 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfo */
+	<select id="selectFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList */
+				AFIS.SN
+				, AFIS.BIZ_YR
+				, AFIS.APC_CD
+				, AFIS.APC_NM
+				, AFIS.SPRT_BIZ
+				, AFIS.BIZ_CN
+				, AFIS.NE
+				, AFIS.LCLT_EXPND
+				, AFIS.SLF_BRDN
+				, AFIS.BIZ_NM
+				, AFIS.BIZ_CD
+				, AFIS.LCLT_EXPND_CTPV
+				, AFIS.LCLT_EXPND_SGG
 
-					FCLT.TRGT_YR                   AS 	TRGT_YR
-				,	FCLT.APC_CD                    AS 	APC_CD
-				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				,	FCLT.SN                    	   AS 	SN
-				,	FCLT.BIZ_YR                    AS 	BIZ_YR
-				,	FCLT.BIZ_SPRT_CD               AS 	BIZ_SPRT_CD
-				,	FCLT.BIZ_CN                    AS 	BIZ_CN
-				,	FCLT.BIZ_AMT                   AS 	BIZ_AMT
-				,	FCLT.BIZ_AMT2                  AS 	BIZ_AMT2
-				,	FCLT.BIZ_AMT3                  AS 	BIZ_AMT3
-				,	BIZ_AMT+BIZ_AMT2+BIZ_AMT3      AS 	BIZ_AMT4
-
-			FROM  TB_FCLT_INSTL_INFO FCLT
-
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND BIZ_YR IS NOT NULL
-		     		]]>
-        	<if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
-		   </if>
-		   ORDER BY FCLT.SN
-    </select>
+			FROM TB_TE_APC_FCLT_INSTL_SPLMNT AFIS
+			WHERE 1=1
+			  AND AFIS.DEL_YN = 'N'
+			 ]]>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND AFIS.APC_CD = #{apcCd}
+			</if>
+			ORDER BY AFIS.SN
+	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList			-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList	-->
 	<!-- DESC : 시설설치보완 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltInstlInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList */
-					FCLT.TRGT_YR                   AS 	TRGT_YR
-				,	FCLT.APC_CD                    AS 	APC_CD
-				,  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				,	FCLT.SN                    	   AS 	SN
-				,	FCLT.BIZ_YR                    AS 	BIZ_YR
-				,	FCLT.BIZ_SPRT_CD               AS 	BIZ_SPRT_CD
-				,	FCLT.BIZ_CN                    AS 	BIZ_CN
-				,	FCLT.BIZ_AMT                   AS 	BIZ_AMT
-				,	FCLT.BIZ_AMT2                  AS 	BIZ_AMT2
-				,	FCLT.BIZ_AMT3                  AS 	BIZ_AMT3
-				,	BIZ_AMT+BIZ_AMT2+BIZ_AMT3      AS 	BIZ_AMT4
-
-		   FROM  TB_FCLT_INSTL_INFO FCLT
-
- 		   WHERE 1=1
- 		   AND DEL_YN != 'Y'
- 		   AND BIZ_YR IS NOT NULL
- 			 ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
-		   ORDER BY FCLT.SN
+	<select id="selectFcltInstlInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoList */
+				AFIS.SN
+				, AFIS.BIZ_YR
+				, AFIS.APC_CD
+				, AFIS.APC_NM
+				, AFIS.SPRT_BIZ
+				, AFIS.BIZ_CN
+				, AFIS.NE
+				, AFIS.LCLT_EXPND
+				, AFIS.SLF_BRDN
+				, AFIS.BIZ_NM
+				, AFIS.BIZ_CD
+				, AFIS.LCLT_EXPND_CTPV
+				, AFIS.LCLT_EXPND_SGG
+
+			FROM TB_TE_APC_FCLT_INSTL_SPLMNT AFIS
+			WHERE 1=1
+			  AND AFIS.DEL_YN = 'N'
+			  AND AFIS.BIZ_YR IS NOT NULL
+			 ]]>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND AFIS.APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
+		</if>
+		<!-- End 페이징 -->
+	</select>
+
+	<insert id="insertFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+		MERGE INTO TB_TE_APC_FCLT_INSTL_SPLMNT AFIS /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.insertFcltInstlInfo */
+		USING DUAL
+		ON (
+			AFIS.APC_CD = #{apcCd}
+			AND AFIS = #{sn}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				BIZ_YR					= #{bizYr}
+				, SPRT_BIZ				= #{sprtBiz}
+				, BIZ_CN				= #{bizCn}
+				, BIZ_NM				= #{bizNm}
+				, BIZ_CD				= #{bizCd}
+				, NE					= #{ne}
+				, LCLT_EXPND			= #{lcltExpnd}
+				, SLF_BRDN				= #{slfBrdn}
+				, LCLT_EXPND_CTPV		= #{lcltExpndCtpv}
+				, LCLT_EXPND_SGG		= #{lcltExpndSgg}
+
+				, SYS_LAST_CHG_DT		=  SYSDATE
+				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+					SN
+					, BIZ_YR
+					, APC_CD
+					, APC_NM
+					, SPRT_BIZ
+					, BIZ_CN
+					, BIZ_NM
+					, BIZ_CD
+					, NE
+					, LCLT_EXPND
+					, SLF_BRDN
+					, LCLT_EXPND_CTPV
+					, LCLT_EXPND_SGG
+
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+				  )
+			VALUES
+				(
+					(SELECT MAX(SN) FROM TB_TE_APC_FCLT_INSTL_SPLMNT WHERE APC_CD = #{apcCd})
+					, #{bizYr}
+					, #{apcCd}
+					, #{apcNm}
+					, #{sprtBiz}
+					, #{bizCn}
+					, #{bizNm}
+					, #{bizCd}
+					, #{ne}
+					, #{lcltExpnd}
+					, #{slfBrdn}
+					, #{lcltExpndCtpv}
+					, #{lcltExpndSgg}
+
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+	</insert>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.insertFcltInstlInfo				-->
@@ -112,49 +178,59 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.insertFcltInstlInfo */
-	    	  INTO TB_FCLT_INSTL_INFO FCLT
-	    		(
-						  TRGT_YR
-						, APC_CD
-						, SN
-						, BIZ_YR
-						, BIZ_SPRT_CD
-						, BIZ_CN
+	<!--
+	<insert id="insertFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.insertFcltInstlInfo */
+			  INTO TB_TE_APC_FCLT_INSTL_SPLMNT
+				(
+					SN
+					, BIZ_YR
+					, APC_CD
+					, APC_NM
+					, SPRT_BIZ
+					, BIZ_CN
+					, BIZ_NM
+					, BIZ_CD
+					, NE
+					, LCLT_EXPND
+					, SLF_BRDN
+					, LCLT_EXPND_CTPV
+					, LCLT_EXPND_SGG
 
-						, BIZ_AMT
-						, BIZ_AMT2
-						, BIZ_AMT3
-
-						, SYS_FRST_INPT_DT
-						, SYS_FRST_INPT_USER_ID
-		                , SYS_FRST_INPT_PRGRM_ID
-		                , SYS_LAST_CHG_DT
-		                , SYS_LAST_CHG_USER_ID
-		                , SYS_LAST_CHG_PRGRM_ID
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
 				  )
-	   		VALUES
-	   			(
-						#{trgtYr}
-					,	#{apcCd}
-					,	(SELECT COUNT(*) FROM TB_FCLT_INSTL_INFO WHERE TRGT_YR = #{trgtYr} AND APC_CD = #{apcCd})
-					,	#{bizYr}
-					,	#{bizSprtCd}
-					,	#{bizCn}
-					,	#{bizAmt}
-					,	#{bizAmt2}
-					,	#{bizAmt3}
-					,	SYSDATE
-					,	#{sysFrstInptUserId}
-					,	#{sysFrstInptPrgrmId}
-					,	SYSDATE
-					,	#{sysLastChgUserId}
-					,	#{sysLastChgPrgrmId}
-	    		    )
-     ]]>
-    </insert>
+			VALUES
+				(
+					(SELECT MAX(SN) FROM TB_TE_APC_FCLT_INSTL_SPLMNT WHERE APC_CD = #{apcCd})
+					, #{bizYr}
+					, #{apcCd}
+					, #{apcNm}
+					, #{sprtBiz}
+					, #{bizCn}
+					, #{bizNm}
+					, #{bizCd}
+					, #{ne}
+					, #{lcltExpnd}
+					, #{slfBrdn}
+					, #{lcltExpndCtpv}
+					, #{lcltExpndSgg}
+
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+		]]>
+	</insert>
+	-->
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.updateFcltInstlInfo				-->
@@ -164,34 +240,35 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.updateFcltInstlInfo */
-	    		TB_FCLT_INSTL_INFO FCLT
+	<update id="updateFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.updateFcltInstlInfo */
+				TB_TE_APC_FCLT_INSTL_SPLMNT AFIS
 			   SET
-			 	 BIZ_YR           = 	#{bizYr}
-			 	, BIZ_SPRT_CD     = 	#{bizSprtCd}
-			 	, BIZ_CN          = 	#{bizCn}
-                , BIZ_AMT         =     #{bizAmt}
-                , BIZ_AMT2        =     #{bizAmt2}
-                , BIZ_AMT3        =     #{bizAmt3}
+				 BIZ_YR				= #{bizYr}
+				, SPRT_BIZ			= #{sprtBiz}
+				, BIZ_CN			= #{bizCn}
+				, BIZ_NM			= #{bizNm}
+				, BIZ_CD			= #{bizCd}
+				, NE				= #{ne}
+				, LCLT_EXPND		= #{lcltExpnd}
+				, SLF_BRDN			= #{slfBrdn}
+				, LCLT_EXPND_CTPV	= #{lcltExpndCtpv}
+				, LCLT_EXPND_SGG	= #{lcltExpndSgg}
 
-
-
-	]]>
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-			 WHERE 1=1
-			 AND SN 	= #{sn}
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE 1=1
+			  AND AFIS.SN 		= #{sn}
+			  AND AFIS.APC_CD 	= #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo				-->
@@ -202,28 +279,27 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo */
-	    		TB_FCLT_INSTL_INFO FCLT
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo */
+				TB_TE_APC_FCLT_INSTL_SPLMNT FCLT
 			   SET
-	    		  DEL_YN 	= 'Y'
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-			  AND SN 	= #{sn}
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo */
-	    		TB_FCLT_INSTL_INFO FCLT
+			  AND SN 	 = #{sn}
+			  AND APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltInstlInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.deleteFcltInstlInfo */
+				TB_FCLT_INSTL_INFO FCLT
 			 WHERE 1=1
 			 AND SN 	= #{sn}
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
-     -->
+			  AND TRGT_YR = #{trgtYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</delete>
+	-->
 
 </mapper>

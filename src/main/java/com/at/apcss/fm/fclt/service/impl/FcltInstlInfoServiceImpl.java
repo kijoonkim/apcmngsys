@@ -1,19 +1,24 @@
 package com.at.apcss.fm.fclt.service.impl;
 
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltInstlInfoService;
 import com.at.apcss.fm.fclt.vo.FcltInstlInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
+
+import egovframework.let.utl.fcc.service.EgovDateUtil;
 
 
 /**
  * @Class Name : FcltInstlInfoServiceImpl.java
  * @Description : 시설설치보완 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -30,6 +35,9 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 
 	@Autowired
 	private FcltInstlInfoMapper fcltInstlInfoMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltInstlInfoVO selectFcltInstlInfo(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
@@ -67,6 +75,30 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 	public int insertFcltInstlInfo(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
 
 		int insertedCnt = fcltInstlInfoMapper.insertFcltInstlInfo(fcltInstlInfoVO);
+
+		String prgrsYn = fcltInstlInfoVO.getPrgrsYn();
+		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
+			//진척도 변경
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltInstlInfoVO.getApcCd());
+			//현재년도 구하기 진척도 조회를 위해 추가
+			Calendar aCalendar = Calendar.getInstance();
+			int year = aCalendar.get(Calendar.YEAR);
+			fcltPrgrsVO.setCrtrYr(Integer.toString(year));
+			fcltPrgrsVO.setSysFrstInptUserId(fcltInstlInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltInstlInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltInstlInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltInstlInfoVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltInstlInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs2("T");
+			}else {
+				fcltPrgrsVO.setPrgrs2("Y");
+			}
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
 
 		return insertedCnt;
 	}

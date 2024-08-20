@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : FcltPrgrsMapper.xml                                    				-->
+<!-- DESC : 운영자개요 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrs				-->
+	<!-- DESC : 진척도 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.23  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrgrs" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrs */
+				AP.CRTR_YR
+				, AP.APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AP.APC_CD) AS APC_NM
+				, AP.PRGRS_SE_CD
+				, AP.PRGRS_1
+				, AP.PRGRS_2
+				, AP.PRGRS_3
+				, AP.PRGRS_4
+				, AP.PRGRS_5
+				, AP.PRGRS_6
+				, AP.PRGRS_7
+				, AP.PRGRS_8
+				, AP.PRGRS_9
+				, AP.PRGRS_10
+				, AP.PRGRS_11
+				, AP.PRGRS_12
+				, AP.PRGRS_13
+				, AP.PRGRS_14
+				, AP.PRGRS_LAST
+				, (SELECT  COUNT(VAL) FROM TB_TE_APC_PRGRS
+					UNPIVOT (VAL FOR INFO IN (PRGRS_1, PRGRS_2, PRGRS_3, PRGRS_4, PRGRS_5, PRGRS_6, PRGRS_7, PRGRS_8, PRGRS_9, PRGRS_10, PRGRS_11, PRGRS_12, PRGRS_13, PRGRS_14))
+					WHERE VAL = 'Y') AS CNT
+			FROM TB_TE_APC_PRGRS AP
+			WHERE 1=1
+			  AND AP.DEL_YN = 'N'
+			  AND AP.APC_CD IS NOT NULL
+			  AND AP.PRGRS_SE_CD = 'FCLT'
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  AP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  AP.APC_CD = #{apcCd}
+			</if>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsList			-->
+	<!-- DESC : 진척도 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.23  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrgrsList" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsList */
+				AP.CRTR_YR
+				, AP.APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AP.APC_CD) AS APC_NM
+				, AP.PRGRS_SE_CD
+				, AP.PRGRS_1
+				, AP.PRGRS_2
+				, AP.PRGRS_3
+				, AP.PRGRS_4
+				, AP.PRGRS_5
+				, AP.PRGRS_6
+				, AP.PRGRS_7
+				, AP.PRGRS_8
+				, AP.PRGRS_9
+				, AP.PRGRS_10
+				, AP.PRGRS_11
+				, AP.PRGRS_12
+				, AP.PRGRS_13
+				, AP.PRGRS_14
+				, AP.PRGRS_LAST
+
+			FROM TB_TE_APC_PRGRS AP
+			WHERE 1=1
+			  AND AP.DEL_YN = 'N'
+			  AND AP.APC_CD IS NOT NULL
+			  AND AP.PRGRS_SE_CD = 'FCLT'
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  AP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  AP.APC_CD = #{apcCd}
+			</if>
+	</select>
+
+	<!-- 진척도 갱신 -->
+	<update id="insertFcltPrgrs" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+		MERGE INTO TB_TE_APC_PRGRS AP	/* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.insertFcltPrgrs */
+		USING DUAL
+		ON (
+			AP.CRTR_YR 		= #{crtrYr}
+			AND AP.APC_CD 	= #{apcCd}
+			AND AP.PRGRS_SE_CD = 'FCLT'
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				SYS_LAST_CHG_DT		=  SYSDATE
+				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+				<if test='prgrs1 != null and !prgrs1.equals("")'>
+				, PRGRS_1			= #{prgrs1}
+				</if>
+				<if test='prgrs2 != null and !prgrs2.equals("")'>
+				, PRGRS_2			= #{prgrs2}
+				</if>
+				<if test='prgrs3 != null and !prgrs3.equals("")'>
+				, PRGRS_3			= #{prgrs3}
+				</if>
+				<if test='prgrs4 != null and !prgrs4.equals("")'>
+				, PRGRS_4			= #{prgrs4}
+				</if>
+				<if test='prgrs5 != null and !prgrs5.equals("")'>
+				, PRGRS_5			= #{prgrs5}
+				</if>
+				<if test='prgrs6 != null and !prgrs6.equals("")'>
+				, PRGRS_6			= #{prgrs6}
+				</if>
+				<if test='prgrs7 != null and !prgrs7.equals("")'>
+				, PRGRS_7			= #{prgrs7}
+				</if>
+				<if test='prgrs8 != null and !prgrs8.equals("")'>
+				, PRGRS_8			= #{prgrs8}
+				</if>
+				<if test='prgrs9 != null and !prgrs9.equals("")'>
+				, PRGRS_9			= #{prgrs9}
+				</if>
+				<if test='prgrs10 != null and !prgrs10.equals("")'>
+				, PRGRS_10			= #{prgrs10}
+				</if>
+				<if test='prgrs11 != null and !prgrs11.equals("")'>
+				, PRGRS_11			= #{prgrs11}
+				</if>
+				<if test='prgrs12 != null and !prgrs12.equals("")'>
+				, PRGRS_12			= #{prgrs12}
+				</if>
+				<if test='prgrs13 != null and !prgrs13.equals("")'>
+				, PRGRS_13			= #{prgrs13}
+				</if>
+				<if test='prgrs14 != null and !prgrs14.equals("")'>
+				, PRGRS_14			= #{prgrs14}
+				</if>
+				<if test='prgrsLast != null and !prgrsLast.equals("")'>
+				, PRGRS_LAST		= #{prgrsLast}
+				</if>
+
+				WHERE 1=1
+				  AND AP.CRTR_YR 		= #{crtrYr}
+				  AND AP.APC_CD 		= #{apcCd}
+				  AND AP.PRGRS_SE_CD 	= 'FCLT'
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  CRTR_YR
+				  , APC_CD
+				  , PRGRS_SE_CD
+
+				<if test='prgrs1 != null and !prgrs1.equals("")'>
+				  , PRGRS_1
+				</if>
+				<if test='prgrs2 != null and !prgrs2.equals("")'>
+				  , PRGRS_2
+				</if>
+				<if test='prgrs3 != null and !prgrs3.equals("")'>
+				  , PRGRS_3
+				</if>
+				<if test='prgrs4 != null and !prgrs4.equals("")'>
+				  , PRGRS_4
+				</if>
+				<if test='prgrs5 != null and !prgrs5.equals("")'>
+				  , PRGRS_5
+				</if>
+				<if test='prgrs6 != null and !prgrs6.equals("")'>
+				  , PRGRS_6
+				</if>
+				<if test='prgrs7 != null and !prgrs7.equals("")'>
+				  , PRGRS_7
+				</if>
+				<if test='prgrs8 != null and !prgrs8.equals("")'>
+				  , PRGRS_8
+				</if>
+				<if test='prgrs9 != null and !prgrs9.equals("")'>
+				  , PRGRS_9
+				</if>
+				<if test='prgrs10 != null and !prgrs10.equals("")'>
+				  , PRGRS_10
+				</if>
+				<if test='prgrs11 != null and !prgrs11.equals("")'>
+				  , PRGRS_11
+				</if>
+				<if test='prgrs12 != null and !prgrs12.equals("")'>
+				  , PRGRS_12
+				</if>
+				<if test='prgrs13 != null and !prgrs13.equals("")'>
+				  , PRGRS_13
+				</if>
+				<if test='prgrs14 != null and !prgrs14.equals("")'>
+				  , PRGRS_14
+				</if>
+				<if test='prgrsLast != null and !prgrsLast.equals("")'>
+				  , PRGRS_LAST
+				</if>
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , 'FCLT'
+
+				<if test='prgrs1 != null and !prgrs1.equals("")'>
+				 , #{prgrs1}
+				</if>
+				<if test='prgrs2 != null and !prgrs2.equals("")'>
+				 , #{prgrs2}
+				</if>
+				<if test='prgrs3 != null and !prgrs3.equals("")'>
+				 , #{prgrs3}
+				</if>
+				<if test='prgrs4 != null and !prgrs4.equals("")'>
+				 , #{prgrs4}
+				</if>
+				<if test='prgrs5 != null and !prgrs5.equals("")'>
+				 , #{prgrs5}
+				</if>
+				<if test='prgrs6 != null and !prgrs6.equals("")'>
+				 , #{prgrs6}
+				</if>
+				<if test='prgrs7 != null and !prgrs7.equals("")'>
+				 , #{prgrs7}
+				</if>
+				<if test='prgrs8 != null and !prgrs8.equals("")'>
+				 , #{prgrs8}
+				</if>
+				<if test='prgrs9 != null and !prgrs9.equals("")'>
+				 , #{prgrs9}
+				</if>
+				<if test='prgrs10 != null and !prgrs10.equals("")'>
+				 , #{prgrs10}
+				</if>
+				<if test='prgrs11 != null and !prgrs11.equals("")'>
+				 , #{prgrs11}
+				</if>
+				<if test='prgrs12 != null and !prgrs12.equals("")'>
+				 , #{prgrs12}
+				</if>
+				<if test='prgrs13 != null and !prgrs13.equals("")'>
+				 , #{prgrs13}
+				</if>
+				<if test='prgrs14 != null and !prgrs14.equals("")'>
+				 , #{prgrs14}
+				</if>
+				<if test='prgrsLast != null and !prgrsLast.equals("")'>
+				 , #{prgrsLast}
+				</if>
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
+</mapper>

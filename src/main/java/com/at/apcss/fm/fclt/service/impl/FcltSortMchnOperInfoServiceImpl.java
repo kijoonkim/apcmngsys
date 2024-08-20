@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper;
 import com.at.apcss.fm.fclt.service.FcltSortMchnOperInfoService;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 
 
@@ -30,6 +32,9 @@ public class FcltSortMchnOperInfoServiceImpl extends BaseServiceImpl implements 
 
 	@Autowired
 	private FcltSortMchnOperInfoMapper fcltSortMchnOperInfoMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltSortMchnOperInfoVO selectFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception {
@@ -62,6 +67,37 @@ public class FcltSortMchnOperInfoServiceImpl extends BaseServiceImpl implements 
 		return resultList;
 	}
 
+	@Override
+	public int multiSaveFcltSortMchnOperInfo(List<FcltSortMchnOperInfoVO> fcltSortMchnOperInfoVOList) throws Exception {
+		int saveCnt = 0;
+		String prgrsYn = "";
+		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+		for (FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO : fcltSortMchnOperInfoVOList) {
+			saveCnt += fcltSortMchnOperInfoMapper.insertFcltSortMchnOperInfo(fcltSortMchnOperInfoVO);
+			prgrsYn = fcltSortMchnOperInfoVO.getPrgrsYn();
+			//진척도 변경
+			fcltPrgrsVO.setApcCd(fcltSortMchnOperInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltSortMchnOperInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltSortMchnOperInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltSortMchnOperInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltSortMchnOperInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltSortMchnOperInfoVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltSortMchnOperInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs6("T");
+			}else {
+				fcltPrgrsVO.setPrgrs6("Y");
+			}
+		}
+
+		if(saveCnt == fcltSortMchnOperInfoVOList.size() && prgrsYn.equals("Y")) {
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
+
+		return saveCnt;
+	}
 
 	@Override
 	public int insertFcltSortMchnOperInfo(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception {

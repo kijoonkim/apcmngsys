@@ -20,10 +20,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -31,419 +31,237 @@
 	<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
-				<h3 class="box-title" style="line-height: 30px;"> ▶ 시설설치보완</h3>
+				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				<!--
+				<sbux-button id="btnPop2" name="btnPop2" uitype="modal" target-id="modal-biz" onclick="fn_openMaodalBiz" text="지원사업관리" class="btn btn-sm btn-primary"></sbux-button>
+				<sbux-button id="btnPop3" name="btnPop3" uitype="modal" target-id="modal-bizSrch" onclick="fn_openMaodalBizSrch" text="지원사업검색" class="btn btn-sm btn-primary"></sbux-button>
+				 -->
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
+						<col style="width: 11%">
+						<col style="width: 22%">
+						<col style="width: 50px">
+						<col style="width: 11%">
+						<col style="width: 22%">
 					<tbody>
 						<tr>
-							<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-							<td colspan= "3" class="td_input" style="border-right:hidden;">
+							<th scope="row" style="border-bottom:1px solid white">APC명</th>
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
 							<td>
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
+							<!--
 							<th scope="row">대상연도</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+								<sbux-spinner
+									id="srch-inp-crtrYr"
+									name="srch-inp-crtrYr"
+									uitype="normal"
+									step-value="1"
+								></sbux-spinner>
 							</td>
-							<td colspan="5"></td>
+							 -->
+							 <td></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-spmtDsctn" style="height:0px;"></div>
-			</div>
 			<br>
-			<table class="table table-bordered tbl_row tbl_fixed">
-					<caption>2.시설 설치·보완</caption>
-					<tbody><tr>
-                        <th rowspan="2">사업연도</th>
-                        <th rowspan="2">지원유형</th>
-                        <th rowspan="2">사업내용</th>
-                        <th colspan="4">투자 사업비(백만원)</th>
-                    </tr>
-                    <tr>
-                        <th>계</th>
-                        <th>국고</th>
-                        <th>지자체</th>
-                        <th>자부담</th>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_11" data-year="0" maxlength="4" onkeyup="extractNumbers(this.name)" placeholder="예) 2015"></td>
-                        <td>
-                            <sbux-select name="q2_12" id="q2_12">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_13" placeholder="(APC 지원사업) 신축, 집출하, 선별기, 저온저장 등"></td>
-                        <td><sbux-input type="text" name="q2_14" placeholder="자동" data-idx="1" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_15" placeholder="금액" onkeyup="sum('q2_15',1)"></td>
-                        <td><sbux-input type="text" name="q2_16" placeholder="금액" onkeyup="sum('q2_16',1)"></td>
-                        <td><sbux-input type="text" name="q2_17" placeholder="금액" onkeyup="sum('q2_17',1)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_21" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_22" id="q2_22">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_23"></td>
-                        <td><sbux-input type="text" name="q2_24" placeholder="자동" data-idx="2" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_25" onkeyup="sum('q2_25',2)"></td>
-                        <td><sbux-input type="text" name="q2_26" onkeyup="sum('q2_26',2)"></td>
-                        <td><sbux-input type="text" name="q2_27" onkeyup="sum('q2_27',2)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_31" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_32" id="q2_32">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_33"></td>
-                        <td><sbux-input type="text" name="q2_34" placeholder="자동" data-idx="3" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_35" onkeyup="sum('q2_35',3)"></td>
-                        <td><sbux-input type="text" name="q2_36" onkeyup="sum('q2_36',3)"></td>
-                        <td><sbux-input type="text" name="q2_37" onkeyup="sum('q2_37',3)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_41" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_42" id="q2_42">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_43"></td>
-                        <td><sbux-input type="text" name="q2_44" placeholder="자동" data-idx="4" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_45" onkeyup="sum('q2_45',4)"></td>
-                        <td><sbux-input type="text" name="q2_46" onkeyup="sum('q2_46',4)"></td>
-                        <td><sbux-input type="text" name="q2_47" onkeyup="sum('q2_47',4)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_51" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_52" id="q2_52">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_53"></td>
-                        <td><sbux-input type="text" name="q2_54" placeholder="자동" data-idx="5" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_55" onkeyup="sum('q2_55',5)"></td>
-                        <td><sbux-input type="text" name="q2_56" onkeyup="sum('q2_56',5)"></td>
-                        <td><sbux-input type="text" name="q2_57" onkeyup="sum('q2_57',5)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_61" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_62" id="q2_62">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_63"></td>
-                        <td><sbux-input type="text" name="q2_64" placeholder="자동" data-idx="6" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_65" onkeyup="sum('q2_65',6)"></td>
-                        <td><sbux-input type="text" name="q2_66" onkeyup="sum('q2_66',6)"></td>
-                        <td><sbux-input type="text" name="q2_67" onkeyup="sum('q2_67',6)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_71" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_72" id="q2_72">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_73"></td>
-                        <td><sbux-input type="text" name="q2_74" placeholder="자동" data-idx="7" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_75" onkeyup="sum('q2_75',7)"></td>
-                        <td><sbux-input type="text" name="q2_76" onkeyup="sum('q2_76',7)"></td>
-                        <td><sbux-input type="text" name="q2_77" onkeyup="sum('q2_77',7)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_81" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_82" id="q2_82">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_83"></td>
-                        <td><sbux-input type="text" name="q2_84" placeholder="자동" data-idx="8" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_85" onkeyup="sum('q2_85',8)"></td>
-                        <td><sbux-input type="text" name="q2_86" onkeyup="sum('q2_86',8)"></td>
-                        <td><sbux-input type="text" name="q2_87" onkeyup="sum('q2_87',8)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_91" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_92" id="q2_92">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_93"></td>
-                        <td><sbux-input type="text" name="q2_94" placeholder="자동" data-idx="9" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_95" onkeyup="sum('q2_95',9)"></td>
-                        <td><sbux-input type="text" name="q2_96" onkeyup="sum('q2_96',9)"></td>
-                        <td><sbux-input type="text" name="q2_97" onkeyup="sum('q2_97',9)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_101" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_102" id="q2_102">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_103"></td>
-                        <td><sbux-input type="text" name="q2_104" placeholder="자동" data-idx="10" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_105" onkeyup="sum('q2_105',10)"></td>
-                        <td><sbux-input type="text" name="q2_106" onkeyup="sum('q2_106',10)"></td>
-                        <td><sbux-input type="text" name="q2_107" onkeyup="sum('q2_107',10)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_111" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_112" id="q2_112">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_113"></td>
-                        <td><sbux-input type="text" name="q2_114" placeholder="자동" data-idx="11" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_115" onkeyup="sum('q2_115',11)"></td>
-                        <td><sbux-input type="text" name="q2_116" onkeyup="sum('q2_116',11)"></td>
-                        <td><sbux-input type="text" name="q2_117" onkeyup="sum('q2_117',11)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_121" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_122" id="q2_122">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_123"></td>
-                        <td><sbux-input type="text" name="q2_124" placeholder="자동" data-idx="12" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_125" onkeyup="sum('q2_125',12)"></td>
-                        <td><sbux-input type="text" name="q2_126" onkeyup="sum('q2_126',12)"></td>
-                        <td><sbux-input type="text" name="q2_127" onkeyup="sum('q2_127',12)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_131" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_132" id="q2_132">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_133"></td>
-                        <td><sbux-input type="text" name="q2_134" placeholder="자동" data-idx="13" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_135" onkeyup="sum('q2_135',13)"></td>
-                        <td><sbux-input type="text" name="q2_136" onkeyup="sum('q2_136',13)"></td>
-                        <td><sbux-input type="text" name="q2_137" onkeyup="sum('q2_137',13)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_141" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_142" id="q2_142">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_143"></td>
-                        <td><sbux-input type="text" name="q2_144" placeholder="자동" data-idx="14" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_145" onkeyup="sum('q2_145',14)"></td>
-                        <td><sbux-input type="text" name="q2_146" onkeyup="sum('q2_146',14)"></td>
-                        <td><sbux-input type="text" name="q2_147" onkeyup="sum('q2_147',14)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_151" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_152" id="q2_152">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_153"></td>
-                        <td><sbux-input type="text" name="q2_154" placeholder="자동" data-idx="15" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_155" onkeyup="sum('q2_155',15)"></td>
-                        <td><sbux-input type="text" name="q2_156" onkeyup="sum('q2_156',15)"></td>
-                        <td><sbux-input type="text" name="q2_157" onkeyup="sum('q2_157',15)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_161" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_162" id="q2_162">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_163"></td>
-                        <td><sbux-input type="text" name="q2_164" placeholder="자동" data-idx="16" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_165" onkeyup="sum('q2_165',16)"></td>
-                        <td><sbux-input type="text" name="q2_166" onkeyup="sum('q2_166',16)"></td>
-                        <td><sbux-input type="text" name="q2_167" onkeyup="sum('q2_167',16)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_171" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_172" id="q2_172">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_173"></td>
-                        <td><sbux-input type="text" name="q2_174" placeholder="자동" data-idx="17" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_175" onkeyup="sum('q2_175',17)"></td>
-                        <td><sbux-input type="text" name="q2_176" onkeyup="sum('q2_176',17)"></td>
-                        <td><sbux-input type="text" name="q2_177" onkeyup="sum('q2_177',17)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_181" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_182" id="q2_182">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_183"></td>
-                        <td><sbux-input type="text" name="q2_184" placeholder="자동" data-idx="18" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_185" onkeyup="sum('q2_185',18)"></td>
-                        <td><sbux-input type="text" name="q2_186" onkeyup="sum('q2_186',18)"></td>
-                        <td><sbux-input type="text" name="q2_187" onkeyup="sum('q2_187',18)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_191" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_192" id="q2_192">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_193"></td>
-                        <td><sbux-input type="text" name="q2_194" placeholder="자동" data-idx="19" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_195" onkeyup="sum('q2_195',19)"></td>
-                        <td><sbux-input type="text" name="q2_196" onkeyup="sum('q2_196',19)"></td>
-                        <td><sbux-input type="text" name="q2_197" onkeyup="sum('q2_197',19)"></td>
-                    </tr>
-                    <tr>
-                        <td><sbux-input type="text" name="q2_201" maxlength="4" data-year="0" onkeyup="extractNumbers(this.name)"></td>
-                        <td>
-                            <sbux-select name="q2_202" id="q2_202">
-                                <option value="0">(선택)</option>
-                                <option value="1">정부사업</option>
-                                <option value="2">시도사업</option>
-                                <option value="3">시군사업</option>
-                                <option value="4">자부담</option>
-                            </sbux-select>
-                        </td>
-                        <td><sbux-input type="text" name="q2_203"></td>
-                        <td><sbux-input type="text" name="q2_204" placeholder="자동" data-idx="20" readonly=""></td>
-                        <td><sbux-input type="text" name="q2_205" onkeyup="sum('q2_205',20)"></td>
-                        <td><sbux-input type="text" name="q2_206" onkeyup="sum('q2_206',20)"></td>
-                        <td><sbux-input type="text" name="q2_207" onkeyup="sum('q2_207',20)"></td>
-                    </tr>
-                </tbody>
-			</table>
+			<!-- 진척도 추가 -->
+			<%@ include file="prgrs/apcPrgrs.jsp" %>
+
+			<div>
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">▶검색리스트</span>
+							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+						</li>
+					</ul>
+					<div class="ad_tbl_toplist">
+						<sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-xs btn-outline-danger" onclick="fn_addRow"></sbux-button>
+						&nbsp;
+						<sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-xs btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
+					</div>
+				</div>
+				<!-- SBGrid를 호출합니다. -->
+				<div id="sb-area-grdFcltInstlInfo" style="height:450px; width: 100%;"></div>
+			</div>
 		</div>
 	</section>
 		<!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+	<div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
+
+	<!-- 사업리스트 검색 -->
+	<div>
+		<sbux-modal
+			id="modal-bizSrch"
+			name="modal-bizSrch"
+			uitype="middle"
+			header-title="지원사업 목록"
+			body-html-id="body-modal-bizSrch"
+			footer-is-close-button="false"
+			style="width:800px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-bizSrch">
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/bizSrchPopup.jsp"></jsp:include>
+	</div>
+
+	<!-- 사업리스트 관리-->
+	<div>
+		<sbux-modal
+			id="modal-biz"
+			name="modal-biz"
+			uitype="middle"
+			header-title="지원사업 목록"
+			body-html-id="body-modal-biz"
+			footer-is-close-button="false"
+			style="width:800px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-biz">
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/bizPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		let date = new Date();
-		let year  = date.getFullYear();
-		SBUxMethod.set("srch-inp-trgtYr", year);
+		//let date = new Date();
+		//let year  = date.getFullYear();
+		//SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
-		fn_selectFcltInstlInfoList();
+
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0122';
+		let crtrYr = '2023';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		fn_init();
 	});
+
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+		await fn_initSBSelect();
+		await fn_fcltInstlInfoCreateGrid();
+		await fn_selectFcltInstlInfoList();
+		//진척도
+		await cfn_selectPrgrs();
+
+		//최종제출 여부
+		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
+		if(prgrsLast  == 'Y'){
+			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
+		} else {
+			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+		}
+	}
+
+	var jsonGrdComBizSprtCd = [];	//지원유형
+
+	let test = [];
+
+	/**
+	 * combo 설정
+	 */
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+			//검색조건
+			gfn_setComCdSBSelect('grdFcltInstlInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD') 	//지원 유형
+			//gfn_setComCdSBSelect('grdFcltInstlInfo', 	test , 	'BIZ_SPRT_CD') 	//지원 유형
+		]);
+	}
+
+
+	var jsonFcltInstlInfo = []; // 그리드의 참조 데이터 주소 선언
+	var grdFcltInstlInfo;
+
+
+	const objMenuList01 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld01,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld01() {
+		grdFcltInstlInfo.exportLocalExcel("시설설치보완", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+	/* Grid 화면 그리기 기능*/
+	//농가 리스트
+	const fn_fcltInstlInfoCreateGrid = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdFcltInstlInfo';
+		SBGridProperties.id = 'grdFcltInstlInfo';
+		SBGridProperties.jsonref = 'jsonFcltInstlInfo';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		//SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
+			{caption: ["사업연도","사업연도"],				ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["지원유형","지원유형"],				ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
+			{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
+					,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
+			{caption: ["사업명","사업명"],				ref: 'bizNm',		type:'input',  width:'400px',    style:'text-align:center'},
+			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["투자 사업비(백만원)","지자체(시도)"],		ref: 'lcltExpndCtpv',	type:'input',  width:'100px',    style:'text-align:right'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["투자 사업비(백만원)","지자체(시군구)"],		ref: 'lcltExpndSgg',	type:'input',  width:'100px',    style:'text-align:right'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["투자 사업비(백만원)","자부담"],		ref: 'slfBrdn',		type:'input',  width:'100px',    style:'text-align:right'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: [" "," "],	hidden : true ,	ref: 'rmrk',		type:'output',  width:'400px',    style:'text-align:center'},
+
+			{caption: ["seq"],		ref: 'sn',		hidden : true},
+			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
+			{caption: ["행추가여부"],	ref: 'addYn',	hidden : true},
+			{caption: ["사업코드"],		ref: 'bizCd',	hidden : true},
+		];
+
+		grdFcltInstlInfo = _SBGrid.create(SBGridProperties);
+
+	}
 
 	/**
      * @param {number} pageSize
@@ -453,47 +271,70 @@
 		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
-
+		//let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInstlInfoList.do", {
 			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
+			//trgtYr: crtrYr,
+
+			// pagination
+			pagingYn : 'N',
 			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
-        const data = await postJsonPromise;
+			recordCountPerPage : pageSize
+		});
+		const data = await postJsonPromise;
 		//await 오류시 확인
 
 		//예외처리
-        try {
-
-        	data.resultList.forEach((item, index) => {
+		try {
+			jsonFcltInstlInfo.length = 0;
+			let totalRecordCount = 0;
+			data.resultList.forEach((item, index) => {
 				console.log(item);
-				SBUxMethod.set('q2_'+item.sn+'1',item.bizYr);
-				SBUxMethod.set('q2_'+item.sn+'2',item.bizSprtCd);
-				SBUxMethod.set('q2_'+item.sn+'3',item.bizCn);
-				SBUxMethod.set('q2_'+item.sn+'5',item.bizAmt);
-				SBUxMethod.set('q2_'+item.sn+'6',item.bizAmt2);
-				SBUxMethod.set('q2_'+item.sn+'7',item.bizAmt3);
-				sum('q2_'+item.sn+'5',item.sn);
+				let itemVO = {
+						sn				:item.sn
+						,bizYr			:item.bizYr
+						,apcCd			:item.apcCd
+						,apcNm			:item.apcNm
+						,sprtBiz		:item.sprtBiz
+						,bizNm			:item.bizNm
+						,bizCd			:item.bizCd
+						,ne				:item.ne
+						,lcltExpndCtpv	:item.lcltExpndCtpv
+						,lcltExpndCtpv	:item.lcltExpndSgg
+						,slfBrdn		:item.slfBrdn
+						,addYn			:'N'
+				}
+				jsonFcltInstlInfo.push(itemVO);
 			});
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
-    }
+			if (jsonFcltInstlInfo.length > 0) {
+
+				if(grdFcltInstlInfo.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdFcltInstlInfo.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdFcltInstlInfo.rebuild();
+				}else{
+					grdFcltInstlInfo.refresh()
+				}
+			} else {
+				grdFcltInstlInfo.setPageTotalCount(totalRecordCount);
+				grdFcltInstlInfo.rebuild();
+			}
+			document.querySelector('#listCount').innerText = totalRecordCount;
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
+	}
 
 
 
 	//등록
 	const fn_save = async function() {
-    	console.log("******************fn_save**********************************");
+		console.log("******************fn_save**********************************");
 
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
@@ -504,101 +345,55 @@
 			}
 		});
 		//alert('준비중');
-    	fn_subInsert(confirm("등록 하시겠습니까?"));
-    }
+		fn_subInsert(confirm("등록 하시겠습니까?"));
+	}
 
 
 	//신규 등록
-    const fn_subInsert = async function (isConfirmed){
-    	 console.log("******************fn_subInsert**********************************");
-    	 if (!isConfirmed) return;
+	const fn_subInsert = async function (isConfirmed){
+		console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
 
-    	 const arraySize = 20;
+		let gridData = grdFcltInstlInfo.getGridDataAll();
+		let saveList = [];
 
-    	 // 크기가 20인 배열을 생성하고 초기값은 모두 null로 설정
-    	 const myArray = new Array(arraySize).fill(null);
+		for(var i=1; i<=gridData.length; i++ ){
+			let rowData = grdFcltInstlInfo.getRowData(i);
+			let rowSts = grdFcltInstlInfo.getRowStatus(i);
 
-    	 // 7개의 인풋 값을 배열에 넣는 반복문
-    	 for (let i = 0; i < myArray.length; i++) {
-    	 	let inputValues = {
-    	 		trgtYr : SBUxMethod.get('srch-inp-trgtYr')
-    	    	,apcCd : SBUxMethod.get('srch-inp-apcCd')
-    	 		,bizYr : SBUxMethod.get('q2_'+(i+1)+'1')
-    	 		,bizSprtCd : SBUxMethod.get('q2_'+(i+1)+'2')
-    	    	,bizCn : SBUxMethod.get('q2_'+(i+1)+'3')
-    	    	,bizAmt : SBUxMethod.get('q2_'+(i+1)+'5')
-    	    	,bizAmt2 : SBUxMethod.get('q2_'+(i+1)+'6')
-    	    	,bizAmt3 : SBUxMethod.get('q2_'+(i+1)+'7')
-      	 	}; // 7개의 인풋 값
-    	 	myArray[i]=inputValues;
-    	 };
+			rowData.prgrsYn = 'Y';//진척도 갱신 유무
 
-		console.log(JSON.stringify(myArray));
-
-    	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInstlInfoList.do", myArray);
-
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		//fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
-    }
-
-
-	//국고 지자체 자부담 합계
-    function sum(name, idx){
-    	//console.log("=======sum==========");
-    	extractNumbers2('q2_'+idx+'5');
-    	extractNumbers2('q2_'+idx+'6');
-    	extractNumbers2('q2_'+idx+'7');
-    	let sum = convertToNumberOrZero(SBUxMethod.get('q2_'+idx+'5'))
-    				+convertToNumberOrZero(SBUxMethod.get('q2_'+idx+'6'))
-    				+convertToNumberOrZero(SBUxMethod.get('q2_'+idx+'7'));
-    	//console.log(sum);
-    	SBUxMethod.set('q2_'+idx+'4',sum);
-    }
-
-	// 숫자(소숫점 가능)만 입력
-	function extractNumbers2(input) {
-		//console.log("=======extractNumbers2==========");
-		let inputValue = SBUxMethod.get(input);
-		if(!inputValue === null || !inputValue === undefined || !inputValue === ''){
-			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
-		}
-	}
-    // 숫자만 입력
-	function extractNumbers(input) {
-		//console.log("=======extractNumbers==========");
-		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
-		let inputValue = SBUxMethod.get(input);
-		SBUxMethod.set(input,inputValue.replace(/\D/g, ""));
-	}
-
-	//값이 없는 경우 0 있는 경우 숫자로 반환
-	function convertToNumberOrZero(value) {
-		//console.log("=======convertToNumberOrZeroA==========");
-		// 값이 없는 경우 0으로 설정
-		//console.log(value);
-		if (value === undefined || value === null || value === '' || value === NaN) {
-		  return 0;
+			if (rowSts === 1){
+				rowData.rowSts = "I";
+				saveList.push(rowData);
+			} else if (rowSts === 2){
+				rowData.rowSts = "U";
+				saveList.push(rowData);
+			} else if (rowSts === 3){
+				rowData.rowSts = "I";
+				saveList.push(rowData);
+			} else {
+				continue;
+			}
 		}
 
-		// 값이 있는 경우 숫자로 변환하고 반환
-		const numericValue = Number(value);
-		if (isNaN(numericValue)) {
-		  return 0; // 변환 실패 시 0 반환
-		} else {
-		  return numericValue;
+		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInstlInfoList.do", saveList);
+
+		const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				//fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
 		}
+		// 결과 확인 후 재조회
+		console.log("insert result", data);
 	}
+
 
 	// apc 선택 팝업 호출
 	const fn_modalApcSelect = function() {
@@ -614,5 +409,91 @@
 		}
 		//console.log("======fn_setApc====end===");
 	}
+
+	//지원사업 관리 팝업 버튼
+	function fn_openMaodalBiz(){
+		popBiz.init();
+		SBUxMethod.openModal('modal-biz');
+	}
+
+	//지원사업 검색 팝업 버튼
+	function fn_openMaodalBizSrch(){
+		popBizSrch.init();
+		SBUxMethod.openModal('modal-bizSrch');
+	}
+
+	function fn_addRow(){
+		grdFcltInstlInfo.addRow(true, {addYn:'Y'});
+	}
+	function fn_deleteRow(){
+		let delList = [];
+		let delCnt = 0;
+		let gridList = grdFcltInstlInfo.getGridDataAll();
+		for (let i=gridList.length-1; i>-1; i--) {
+			if (gridList[i].checked === "true") {
+				if (gridList[i].addYn == 'N') {
+					gridList[i].rowNum = i+1;
+					delList.push(gridList[i]);
+					delCnt++;
+				}else{
+					grdBizPop.deleteRow(i+1);
+					delCnt++;
+				}
+			}
+		}
+		if(delList.length > 0){
+			let rowStr = "";
+			for (var i = 0; i < delList.length; i++) {
+				rowStr += delList[i].rowNum;
+				if(!delList.length == i+1){
+					rowStr += ", ";
+				}
+			}
+			let delMsg = rowStr + " 행은 기존 데이터 입니다. 삭제 하시겠습니까?";
+			if(confirm(delMsg)){
+				fn_deleteRsrc(delList);
+				for (var i = 0; i < delList.length; i++) {
+					grdBizPop.deleteRow(delList[i].rowNum);
+				}
+			}
+			return;
+		}
+
+		if (delCnt < 1) {
+			gfn_comAlert("W0003", "삭제");	// W0003	{0}할 대상이 없습니다.
+			return;
+		}
+	}
+
+	async function fn_deleteRsrc(delList){
+		console.log(delList);
+		return;
+		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUo.do", delList);
+		let data = await postJsonPromise;
+		try{
+			if(data.result > 0){
+				alert("삭제 되었습니다.");
+			}else{
+				alert("삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
+	window.addEventListener('message',function(event){
+		console.log('1. 탭호출');
+		console.log(event);
+		let chkVal = event.data.chkVal;
+		if(chkVal == "selTab"){
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
+	});
+
 </script>
 </html>

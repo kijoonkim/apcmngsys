@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : FcltBizInfoMapper.xml                                    				-->
+<!-- DESC : 지원사업 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.selectFcltBizInfo				-->
+	<!-- DESC : 지원사업 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectFcltBizInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltBizInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltBizInfoVO">
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.selectFcltBizInfo */
+			  ASB.SN
+			  ,ASB.BIZ_NM
+			  ,ASB.BIZ_CD
+			  ,ASB.BIZ_CN
+			  ,ASB.BIZ_SPRT_CD
+
+		FROM TB_TE_APC_SPRT_BIZ ASB
+		WHERE 1=1
+		<if test='bizNm != null and !bizNm.equals("")'>
+		  AND  ASB.BIZ_NM LIKE '%' || #{bizNm} || '%'
+		</if>
+		<if test='bizCd != null and !bizCd.equals("")'>
+		  AND  ASB.BIZ_CD = #{bizCd}
+		</if>
+	</select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.selectFcltBizInfoList	-->
+	<!-- DESC : 지원사업 테이블 목록 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectFcltBizInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltBizInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltBizInfoVO">
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.selectFcltBizInfo */
+			  ASB.SN
+			  ,ASB.BIZ_NM
+			  ,ASB.BIZ_CD
+			  ,ASB.BIZ_CN
+			  ,ASB.BIZ_SPRT_CD
+
+		FROM TB_TE_APC_SPRT_BIZ ASB
+		WHERE 1=1
+		<if test='bizNm != null and !bizNm.equals("")'>
+		  AND  ASB.BIZ_NM LIKE '%' || #{bizNm} || '%'
+		</if>
+		<if test='bizCd != null and !bizCd.equals("")'>
+		  AND  ASB.BIZ_CD = #{bizCd}
+		</if>
+	</select>
+
+
+
+	<update id="insertFcltBizInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltBizInfoVO">
+		MERGE INTO TB_TE_APC_SPRT_BIZ ASB
+		USING DUAL
+		ON (
+			ASB.SN = #{sn}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				BIZ_NM					=  #{bizNm}
+				, BIZ_CD				=  #{bizCd}
+				, BIZ_CN				=  #{bizCn}
+				, BIZ_SPRT_CD			=  #{bizSprtCd}
+
+				, SYS_LAST_CHG_DT		=  SYSDATE
+				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  BIZ_NM
+				  ,BIZ_CD
+				  ,BIZ_CN
+				  ,BIZ_SPRT_CD
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{bizNm}
+				  , #{bizCd}
+				  , #{bizCn}
+				  , #{bizSprtCd}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.updateFcltBizInfo				-->
+	<!-- DESC : 지원사업 변경                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateFcltBizInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltBizInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.updateFcltBizInfo */
+				TB_TE_APC_SPRT_BIZ ASB
+
+			  SET
+				BIZ_NM					=  #{bizNm}
+				, BIZ_CD				=  #{bizCd}
+				, BIZ_CN				=  #{bizCn}
+				, BIZ_SPRT_CD			=  #{bizSprtCd}
+
+			]]>
+			<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+			</if>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE 1=1
+			  AND CRTR_YR = #{crtrYr}
+			  AND APC_CD  = #{apcCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.deleteFcltBizInfo	-->
+	<!-- DESC : 지원사업 삭제                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="deleteFcltBizInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltBizInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltBizInfoMapper.deleteFcltBizInfo */
+				TB_TE_APC_SPRT_BIZ ASB
+			  SET
+				  DEL_YN 				= 'Y'
+				  , SYS_LAST_CHG_DT		=  SYSDATE
+				  , SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+			WHERE 1=1
+			  AND TRGT_YR = #{trgtYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</update>
+
+</mapper>

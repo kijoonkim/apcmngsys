@@ -15,16 +15,16 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+		<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -36,843 +36,596 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 상품화설비현황 -->
 			</div>
 			<div style="margin-left: auto;">
-				<!--
-				<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-			 	-->
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
 			<!--[pp] 검색 -->
-			<table class="table table-bordered tbl_row tbl_fixed">
+			<table class="table table-bordered tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
+					<col style="width: 7%">
 					<col style="width: 6%">
-					<col style="width: 10%">
+					<col style="width: 2%">
+					<col style="width: 5%">
+					<col style="width: 2%">
+
+					<col style="width: 7%">
+					<col style="width: 4%">
+					<col style="width: 2%">
+					<col style="width: 3%">
+					<col style="width: 3%">
+					<col style="width: 3%">
+
+					<col style="width: 7%">
 					<col style="width: 6%">
-					<col style="width: 10%">
-					<col style="width: 10%">
-					<col style="width: 58%">
+					<col style="width: 3%">
+					<col style="width: 3%">
+					<col style="width: 3%">
 				</colgroup>
 				<tbody>
 					<tr>
-						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input"   style="border-right: hidden;">
-							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+						<th scope="row" class="th_bg">년도</th>
+						<td colspan="2" class="td_input" style="border-right:hidden;">
+							<sbux-spinner
+									id="srch-inp-crtrYr"
+									name="srch-inp-crtrYr"
+									uitype="normal"
+									step-value="1"
+								></sbux-spinner>
 						</td>
-						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">시도</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-select
+								id="srch-inp-ctpv"
+								name="srch-inp-ctpv"
+								uitype="single"
+								jsondata-ref="jsonComCtpv"
+								unselected-text="전체"
+								class="form-control input-sm"
+								onchange="fn_ctpvChange"
+							></sbux-select>
 						</td>
-						<td style="border-right:hidden;">
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
 						</td>
-						<td></td>
+						<th scope="row" class="th_bg">시군구</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-sgg"
+								name="srch-inp-sgg"
+								uitype="single"
+								jsondata-ref="jsonComSgg"
+								unselected-text="전체"
+								class="form-control input-sm"
+								filter-source-name="srch-inp-ctpv"
+								jsondata-filter="mastervalue"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="th_bg">APC명</th>
+						<td colspan="2" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-apcNm"
+								name="srch-inp-apcNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
 					</tr>
 				</tbody>
 			</table>
-			<br>
 			<!--[pp] //검색 -->
-			<!--[pp] 검색결과 -->
-			<br>
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-spmtDsctn" style="height:150px;"></div>
+			<div class="ad_section_top">
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">▶검색리스트</span>
+							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+						</li>
+					</ul>
+				</div>
+				<!-- SBGrid를 호출합니다. -->
+				<div id="sb-area-grdFcltApcInfo" style="height:350px; width: 100%;"></div>
 			</div>
-			<br>
-				<div><label>상품화설비현황 상세내역</label></div>
+		</div>
+		<div class="box-body">
+			<sbux-input uitype="hidden" id="dtl-inp-apcCd" name="dtl-inp-apcCd"></sbux-input>
+			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
+			<!--[pp] 검색 -->
+			<div>
+				<label>상품화설비현황 상세내역</label>
+			</div>
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 14%">
-					<col style="width: 15%">
-					<col style="width: 15%">
+					<col style="width: 10%">
+					<col style="width: 85px">
+					<col style="width: 25%">
+					<col style="width: 25%">
+					<col style="width: 70px">
+					<col style="width: 85px">
+					<col style="width: 85px">
+					<col style="width: 25%">
 				</colgroup>
 				<tbody>
 					<tr>
-						<th class="th_bg">선별기</th>
-						<th class="th_bg">보유현황</th>
-						<th class="th_bg">규격</th>
-						<th class="th_bg">당도기</th>
-						<th class="th_bg">색택선별(O/X)</th>
-						<th class="th_bg">형상선별</th>
-						<th class="th_bg">가공설비</th>
+						<th class="text-center">선별기</th>
+						<th class="text-center">보유여부</th>
+						<th class="text-center">규격</th>
+						<th class="text-center">제조사</th>
+						<th class="text-center">당도기</th>
+						<th class="text-center">색택선별</th>
+						<th class="text-center">형상선별</th>
+						<th class="text-center">가공설비</th>
 					</tr>
 					<tr>
-						<th class="th_bg">품목1</th>
-						<td class="td_input">
-						<!--
-							<sbux-input id="dtl-input-sortMchnHldYn11" name="dtl-input-sortMchnHldYn11" uitype="text" class="form-control input-sm" placeholder="(o/x)" ></sbux-input>
-						 -->
-							<sbux-select id="dtl-input-sortMchnHldYn11" name="dtl-input-sortMchnHldYn11"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<th class="text-center">
+							<span id="itemNm1">품목1</span>
+						</th>
+						<td class="text-center">
+							<sbux-input id="dtl-inp-itemChk1" name="dtl-inp-itemChk1" uitype="hidden"></sbux-input>
+							<sbux-checkbox
+									id="dtl-inp-sortMchnHoldYn1"
+									name="dtl-inp-sortMchnHoldYn1"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									class="check"
+									onchange ="fn_selectOnchange(this,'group1')"
+									></sbux-checkbox>
 						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnSpcfct1" name="dtl-input-sortMchnSpcfct1" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
+						<td>
+							<sbux-input id="dtl-inp-sortMchnSpcect1" name="dtl-inp-sortMchnSpcect1" uitype="text" class="form-control input-sm" group-id="group1" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn12" name="dtl-input-sortMchnHldYn12"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<td>
+							<sbux-input id="dtl-inp-mkrNm1" name="dtl-inp-mkrNm1" uitype="text" class="form-control input-sm" group-id="group1" placeholder="" ></sbux-input>
 						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn13" name="dtl-input-sortMchnHldYn13"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-sortBrckMvhn1"
+									name="dtl-inp-sortBrckMvhn1"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group1"
+									></sbux-checkbox>
 						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn14" name="dtl-input-sortMchnHldYn14"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-colorSort1"
+									name="dtl-inp-colorSort1"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group1"
+									></sbux-checkbox>
 						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnHldYn15" name="dtl-input-sortMchnHldYn15" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-shapSort1"
+									name="dtl-inp-shapSort1"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group1"
+									></sbux-checkbox>
 						</td>
-					</tr>
-					<tr>
-						<th class="th_bg">품목2</th>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn21" name="dtl-input-sortMchnHldYn21"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnSpcfct2" name="dtl-input-sortMchnSpcfct2" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
-						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn22" name="dtl-input-sortMchnHldYn22"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn23" name="dtl-input-sortMchnHldYn23"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn24" name="dtl-input-sortMchnHldYn24"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnHldYn25" name="dtl-input-sortMchnHldYn25" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
+						<td>
+							<sbux-input id="dtl-inp-mnfcMchn1" name="dtl-inp-mnfcMchn1" uitype="text" class="form-control input-sm" group-id="group1" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
-						<th class="th_bg">품목3</th>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn31" name="dtl-input-sortMchnHldYn31"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<th class="text-center">
+							<span id="itemNm2">품목2</span>
+						</th>
+						<td class="text-center">
+							<sbux-input id="dtl-inp-itemChk2" name="dtl-inp-itemChk2" uitype="hidden"></sbux-input>
+							<sbux-checkbox
+									id="dtl-inp-sortMchnHoldYn2"
+									name="dtl-inp-sortMchnHoldYn2"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									onchange ="fn_selectOnchange(this,'group2')"
+									></sbux-checkbox>
 						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnSpcfct3" name="dtl-input-sortMchnSpcfct3" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
+						<td>
+							<sbux-input id="dtl-inp-sortMchnSpcect2" name="dtl-inp-sortMchnSpcect2" uitype="text" class="form-control input-sm" group-id="group2" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn32" name="dtl-input-sortMchnHldYn32"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<td>
+							<sbux-input id="dtl-inp-mkrNm2" name="dtl-inp-mkrNm2" uitype="text" class="form-control input-sm" group-id="group2" placeholder="" ></sbux-input>
 						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn33" name="dtl-input-sortMchnHldYn33"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-sortBrckMvhn2"
+									name="dtl-inp-sortBrckMvhn2"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group2"
+									></sbux-checkbox>
 						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn34" name="dtl-input-sortMchnHldYn34"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-colorSort2"
+									name="dtl-inp-colorSort2"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group2"
+									></sbux-checkbox>
 						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnHldYn35" name="dtl-input-sortMchnHldYn35" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-shapSort2"
+									name="dtl-inp-shapSort2"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group2"
+									></sbux-checkbox>
 						</td>
-					</tr>
-					<tr>
-						<th class="th_bg">기타</th>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn41" name="dtl-input-sortMchnHldYn41"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnSpcfct4" name="dtl-input-sortMchnSpcfct4" uitype="text" class="form-control input-sm" placeholder="2대x1조 32등급" ></sbux-input>
-						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn42" name="dtl-input-sortMchnHldYn42"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn43" name="dtl-input-sortMchnHldYn43"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-select id="dtl-input-sortMchnHldYn44" name="dtl-input-sortMchnHldYn34"
-								uitype="single"
-								filtering="true"
-								jsondata-ref="selectYnData"
-								unselected-text="선택" class="form-control input-sm"></sbux-select>
-						</td>
-						<td class="td_input">
-							<sbux-input id="dtl-input-sortMchnHldYn45" name="dtl-input-sortMchnHldYn45" uitype="text" class="form-control input-sm" placeholder="착즙기, 커팅기 등" ></sbux-input>
+						<td>
+							<sbux-input id="dtl-inp-mnfcMchn2" name="dtl-inp-mnfcMchn2" uitype="text" class="form-control input-sm" group-id="group2" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
-						<th class="th_bg">대상연도</th>
-						<td class="td_input">
-							<sbux-input  id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						<th class="text-center">
+							<span id="itemNm3">품목3</span>
+						</th>
+						<td class="text-center">
+							<sbux-input id="dtl-inp-itemChk3" name="dtl-inp-itemChk3" uitype="hidden"></sbux-input>
+							<sbux-checkbox
+									id="dtl-inp-sortMchnHoldYn3"
+									name="dtl-inp-sortMchnHoldYn3"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									onchange ="fn_selectOnchange(this,'group3')"
+									></sbux-checkbox>
 						</td>
-						<td colspan="5">
+						<td>
+							<sbux-input id="dtl-inp-sortMchnSpcect3" name="dtl-inp-sortMchnSpcect3" uitype="text" class="form-control input-sm" group-id="group3" placeholder="2대x1조 32등급" ></sbux-input>
+						</td>
+						<td>
+							<sbux-input id="dtl-inp-mkrNm3" name="dtl-inp-mkrNm3" uitype="text" class="form-control input-sm" group-id="group3" placeholder="" ></sbux-input>
+						</td>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-sortBrckMvhn3"
+									name="dtl-inp-sortBrckMvhn3"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group3"
+									></sbux-checkbox>
+						</td>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-colorSort3"
+									name="dtl-inp-colorSort3"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group3"
+									></sbux-checkbox>
+						</td>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-shapSort3"
+									name="dtl-inp-shapSort3"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group3"
+									></sbux-checkbox>
+						</td>
+						<td>
+							<sbux-input id="dtl-inp-mnfcMchn3" name="dtl-inp-mnfcMchn3" uitype="text" class="form-control input-sm" group-id="group3" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
-						<th class="th_bg">apc명</th>
-						<td class="td_input" style="border-right:hidden;">
-							<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						<th class="text-center">
+							<span id="itemNm4">기타</span>
+						</th>
+						<td class="text-center">
+							<sbux-input id="dtl-inp-itemChk4" name="dtl-inp-itemChk4" uitype="hidden"></sbux-input>
+							<sbux-checkbox
+									id="dtl-inp-sortMchnHoldYn4"
+									name="dtl-inp-sortMchnHoldYn4"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									onchange ="fn_selectOnchange(this,'group4')"
+									></sbux-checkbox>
 						</td>
-						<td colspan="5">
+						<td>
+							<sbux-input id="dtl-inp-sortMchnSpcect4" name="dtl-inp-sortMchnSpcect4" uitype="text" class="form-control input-sm" group-id="group4" placeholder="2대x1조 32등급" ></sbux-input>
+						</td>
+						<td>
+							<sbux-input id="dtl-inp-mkrNm4" name="dtl-inp-mkrNm4" uitype="text" class="form-control input-sm" group-id="group4" placeholder="" ></sbux-input>
+						</td>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-sortBrckMvhn4"
+									name="dtl-inp-sortBrckMvhn4"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group4"
+									></sbux-checkbox>
+						</td>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-colorSort4"
+									name="dtl-inp-colorSort4"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group4"
+									></sbux-checkbox>
+						</td>
+						<td class="text-center">
+							<sbux-checkbox
+									id="dtl-inp-shapSort4"
+									name="dtl-inp-shapSort4"
+									uitype="normal"
+									text=""
+									true-value="Y"
+									false-value="N"
+									group-id="group4"
+									></sbux-checkbox>
+						</td>
+						<td>
+							<sbux-input id="dtl-inp-mnfcMchn4" name="dtl-inp-mnfcMchn4" uitype="text" class="form-control input-sm" group-id="group4" placeholder="착즙기, 커팅기 등" ></sbux-input>
 						</td>
 					</tr>
 
 				</tbody>
 			</table>
 			</div>
-			<div><label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label></div>
-		</div>
+				<div><label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label></div>
+			</div>
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-	<!-- 거래처 선택 Modal -->
-<%--     <div>
-        <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-cnpt">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
-    </div>
-        <!-- 품종 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-vrtyCrtr" name="modal-vrtyCrtr" uitype="middle" header-title="품종 선택" body-html-id="body-modal-vrtyCrtr" footer-is-close-button="false" style="width:650px"></sbux-modal>
-    </div>
-    <div id="body-modal-vrtyCrtr">
-    	<jsp:include page="/WEB-INF/view/apcss/am/popup/vrtyCrtrPopup.jsp"></jsp:include>
-    </div> --%>
-    <!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+	<!-- apc 선택 Modal -->
+	<div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
-	let date = new Date();
-	let year  = date.getFullYear();
+	window.addEventListener('DOMContentLoaded', function(e) {
+		let date = new Date();
+		let year  = date.getFullYear();
+		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
 
+		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
+			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		};
 
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0122';
+		let crtrYr = '2023';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
 
-    //화면 초기 로딩
-    window.addEventListener('DOMContentLoaded', function(e) {
-    	SBUxMethod.set("srch-input-trgtYr", year);
-    	fn_createGrid();//그리드 생성 설정 함수
+		fn_init();
 
-    });
+	});
 
-    //grid 초기화
-    var grdGdsMcList; // 그리드를 담기위한 객체 선언
-    var jsonGdsMcList = []; // 그리드의 참조 데이터 주소 선언
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+		await fn_initSBSelect();
 
-	var selectYnData = [
-		{'text': 'Y','label': 'Y', 'value': '1'},
-		{'text': 'N','label': 'N', 'value': '0'}
-	]
-	var comboYnData = [
-		{'label': 'Y', 'value': '1'},
-		{'label': 'N', 'value': '0'}
-	]
+		await fn_fcltApcInfoCreateGrid();
 
-    //그리드 생성 설정
-    function fn_createGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-spmtDsctn';
-	    SBGridProperties.id = 'grdGdsMcList';
-	    SBGridProperties.jsonref = 'jsonGdsMcList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
-        SBGridProperties.rowheader = 'seq';
-		SBGridProperties.rowheadercaption = {seq: 'sn'};
-        SBGridProperties.rowheaderwidth = {seq: '60'};
-	    SBGridProperties.extendlastcol = 'scroll';
+		await fn_search();
 
-        SBGridProperties.columns = [
-            {caption: ["APCNM"],		ref: 'apcNm',            		type:'output',  width:'10%',    style:'text-align:center'},
-            {caption: ["품목1 보유여부"],  	ref: 'sortMchnHldYn11',     	type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
-            {caption: ["품목1 규격"],  		ref: 'sortMchnSpcfct1',     	type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["품목1 당도기"],  	ref: 'sortMchnHldYn12',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목1 색택선별"],  	ref: 'sortMchnHldYn13',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목1 형상선별"],  	ref: 'sortMchnHldYn14',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목1 가공설비"],  	ref: 'sortMchnHldYn15',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+	}
 
-            {caption: ["품목2 보유여부"],	    ref: 'sortMchnHldYn21',    		type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
-            {caption: ["품목2 규격"],  		ref: 'sortMchnSpcfct2',     	type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["품목2 당도기"],  	ref: 'sortMchnHldYn22',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목2 색택선별"],  	ref: 'sortMchnHldYn23',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목2 형상선별"],  	ref: 'sortMchnHldYn24',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목2 가공설비"],  	ref: 'sortMchnHldYn25',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+	var jsonComCtpv = [];//시도
+	var jsonComSgg = [];//시군구
 
-            {caption: ["품목3 보유여부"],		ref: 'sortMchnHldYn31',         type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
-            {caption: ["품목3 규격"],  		ref: 'sortMchnSpcfct3',     	type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["품목3 당도기"],  	ref: 'sortMchnHldYn32',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목3 색택선별"],  	ref: 'sortMchnHldYn33',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목3 형상선별"],  	ref: 'sortMchnHldYn34',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["품목3 가공설비"],  	ref: 'sortMchnHldYn35',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+	/**
+	 * combo 설정
+	 */
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+			//검색조건
+			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
+			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
+		]);
+	}
 
-            {caption: ["기타 보유여부"],   	ref: 'sortMchnHldYn41', 	 	type:'combo',  width:'15%',    style:'text-align:center'
-            	,typeinfo : {ref:'comboYnData', label:'label', value:'value' ,displayui : true}, disabled: true},
-            {caption: ["기타 규격"],  		ref: 'sortMchnSpcfct4',     	type:'output',  width:'15%',    style:'text-align:center'},
-            {caption: ["기타 당도기"],  		ref: 'sortMchnHldYn42',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["기타 색택선별"],  	ref: 'sortMchnHldYn43',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["기타 형상선별"],  	ref: 'sortMchnHldYn44',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
-            {caption: ["기타 가공설비"],  	ref: 'sortMchnHldYn45',     	type:'output',  width:'15%',    style:'text-align:center',  hidden: true},
+	//전체 데이터 초기화 및 비활성화
+	function fn_clear() {
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			SBUxMethod.clearGroupData('group'+i);
+			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
+			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
+		}
+	}
 
-            {caption: ["APCCD"],		ref: 'apcCd',            		type:'output',  hidden: true},
-            {caption: ["대상연도"],			ref: 'trgtYr',      		    type:'output',  hidden: true}
-
-        ];
-
-        grdGdsMcList = _SBGrid.create(SBGridProperties);
-        grdGdsMcList.bind('click', 'fn_view');
-        grdGdsMcList.bind('beforepagechanged', 'fn_pagingGdsMcList');
-    }
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-     	console.log("******************fn_search**********************************");
-    	// set pagination
-    	let pageSize = grdGdsMcList.getPageSize(); //페이지 사이즈를 가져오는 함수
-    	let pageNo = 1;
-    	console.log("******************pageNo**********************************"+pageNo);
-    	console.log("******************pageNo**********************************"+pageSize);
-    	console.log("******************pageNo**********************************"+grdGdsMcList.getPageSize());
-    	fn_setGrdGdsMcList(pageSize, pageNo);
-    }
-    /**
-     *
-     */
-    const fn_pagingGdsMcList = async function() {
-    	console.log("******************fn_pagingGdsMcList**********************************");
-    	let recordCountPerPage = grdGdsMcList.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdGdsMcList.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_setGrdGdsMcList(recordCountPerPage, currentPageNo);
-    }
-
-    /**
+	/**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-    const fn_setGrdGdsMcList = async function(pageSize, pageNo) {
-    	 console.log("******************fn_setGrdGdsMcList**********************************");
-    	// form clear
-    	fn_clearForm();
+	const fn_setGrdGdsMcList = async function(copy_chk) {
+		//console.log("******************fn_setGrdGdsMcList**********************************");
 
-		grdGdsMcList.clearStatus();
+		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
+		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
 
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
+		//전년도 데이터
+		if(!gfn_isEmpty(copy_chk)){
+			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltGdsMchnInfoList.do", {
 			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
+			crtrYr: crtrYr
+		});
 
-        const data = await postJsonPromise;
+		const data = await postJsonPromise;
 		//await 오류시 확인
 
 		//예외처리
-        try {
-
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
-
-        	jsonGdsMcList.length = 0;
-        	//"Index 0 out of bounds for length 0"
-        	//data.resultCode = E0000
-        	//data.resultStatus E , S
-        	if(data.resultCode != "E0000"){
-        		data.resultList.forEach((item, index) => {
-    				const msg = {
-    			  	trgtYr: item.trgtYr	 	//대상연도
-    		   		,	apcCd: item.apcCd  //APC
-    		   		,	apcNm: item.apcNm  //APC명
-    				,	sortMchnHldYn11: item.sortMchnHldYn11  //품목1 보유여부
-    			    , 	sortMchnSpcfct1: item.sortMchnSpcfct1 //품목1 규격
-    			    ,	sortMchnHldYn12: item.sortMchnHldYn12  //품목1 당도기
-    			    ,	sortMchnHldYn13: item.sortMchnHldYn13  //품목1 색택선별
-    			    ,	sortMchnHldYn14: item.sortMchnHldYn14  //품목1 형상선별
-    			    ,	sortMchnHldYn15: item.sortMchnHldYn15  //품목1 가공설비
-
-    			    ,	sortMchnHldYn21: item.sortMchnHldYn21  //품목2 보유여부
-    			    , 	sortMchnSpcfct2: item.sortMchnSpcfct2 //품목2 규격
-    			    ,	sortMchnHldYn22: item.sortMchnHldYn22  //품목2 당도기
-    			    ,	sortMchnHldYn23: item.sortMchnHldYn23  //품목2 색택선별
-    			    ,	sortMchnHldYn24: item.sortMchnHldYn24  //품목2 형상선별
-    			    ,	sortMchnHldYn25: item.sortMchnHldYn25  //품목2 가공설비
-
-    			    ,	sortMchnHldYn31: item.sortMchnHldYn31  //품목3 보유여부
-    			    , 	sortMchnSpcfct3: item.sortMchnSpcfct3 //품목3 규격
-    			    ,	sortMchnHldYn32: item.sortMchnHldYn32  //품목3 당도기
-    			    ,	sortMchnHldYn33: item.sortMchnHldYn33  //품목3 색택선별
-    			    ,	sortMchnHldYn34: item.sortMchnHldYn34  //품목3 형상선별
-    			    ,	sortMchnHldYn35: item.sortMchnHldYn35  //품목3 가공설비
-
-    			    ,	sortMchnHldYn41: item.sortMchnHldYn41  //기타 보유여부
-    			    , 	sortMchnSpcfct4: item.sortMchnSpcfct4 //기타 규격
-    			    ,	sortMchnHldYn42: item.sortMchnHldYn42  //기타 당도기
-    			    ,	sortMchnHldYn43: item.sortMchnHldYn43  //기타 색택선별
-    			    ,	sortMchnHldYn44: item.sortMchnHldYn44  //기타 형상선별
-    			    ,	sortMchnHldYn45: item.sortMchnHldYn45  //기타 가공설비
-
-    				}
-
-    				jsonGdsMcList.push(msg);
-
-    				if (index === 0) {
-    					totalRecordCount = item.totalRecordCount;
-    				}
-    			});
-        	}
-
-
-        	if (jsonGdsMcList.length > 0) {
-
-        		if(grdGdsMcList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdGdsMcList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdGdsMcList.rebuild();
-				}else{
-					grdGdsMcList.refresh()
+		try {
+			//console.log(data);
+			data.resultList.forEach((item, index) => {
+				//품목 번호 item.sn 1~4
+				//itemChk 품목 존재 여부
+				SBUxMethod.set('dtl-inp-itemChk'+item.sn ,'Y');
+				console.log(item.sn);
+				switch (item.sn) {
+				case '1': case '2': case '3':
+					$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
+					break;
 				}
-        	} else {
-        		grdGdsMcList.setPageTotalCount(totalRecordCount);
-        		grdGdsMcList.rebuild();
-        	}
 
-        	document.querySelector('#listCount').innerText = totalRecordCount;
+				let sortMchnHoldYn = item.sortMchnHoldYn;
+				//품목이 없는경우 해당 행자체가 존재 하지 않아 조회가 안되므로 여기서 활성화
+				SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+item.sn,'disabled','false');
+				SBUxMethod.set('dtl-inp-sortMchnHoldYn'+item.sn ,sortMchnHoldYn);
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
-    }
+				if(sortMchnHoldYn == 'Y'){
+					SBUxMethod.changeGroupAttr('group'+item.sn,'disabled','false');//선별기보유 할경우 해당 그룹 활성화
+					SBUxMethod.set("dtl-inp-sortMchnSpcect"+item.sn, item.sortMchnSpcect);
+					SBUxMethod.set("dtl-inp-sortBrckMvhn"+item.sn, item.sortBrckMvhn);
+					SBUxMethod.set("dtl-inp-colorSort"+item.sn, item.colorSort);
+					SBUxMethod.set("dtl-inp-shapSort"+item.sn, item.shapSort);
+					SBUxMethod.set("dtl-inp-mnfcMchn"+item.sn, item.mnfcMchn);
+					//제조사 추가
+					SBUxMethod.set("dtl-inp-mkrNm"+item.sn, item.mkrNm);
+				}
+			});
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
+	}
 
 
-    //신규 작성 dtl 내부의 값을 null로
-    function fn_create() {
-    	console.log("******************fn_create**********************************");
-    	SBUxMethod.set('dtl-input-trgtYr', null);            //  대상연도
-        SBUxMethod.set('dtl-input-apcCd', null); 			//apc코드
-        SBUxMethod.set('dtl-input-apcNm', null); 			//apc명
-	    SBUxMethod.set("dtl-input-sortMchnHldYn11", null);  //품목1 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct1", null); //품목1 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn12", null);  //품목1 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn13", null);  //품목1 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn14", null);  //품목1 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn15", null);  //품목1 가공설비
-
-	    SBUxMethod.set("dtl-input-sortMchnHldYn21", null);  //품목2 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct2", null); //품목2 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn22", null);  //품목2 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn23", null);  //품목2 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn24", null);  //품목2 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn25", null);  //품목2 가공설비
-
-	    SBUxMethod.set("dtl-input-sortMchnHldYn31", null);  //품목3 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct3", null); //품목3 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn32", null);  //품목3 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn33", null);  //품목3 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn34", null);  //품목3 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn35", null);  //품목3 가공설비
-
-	    SBUxMethod.set("dtl-input-sortMchnHldYn41", null);  //기타 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct4", null); //기타 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn42", null);  //기타 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn43", null);  //기타 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn44", null);  //기타 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn45", null);  //기타 가공설비
-    }
-
-     const fn_clearForm = function() {
-		console.log("******************fn_clearForm**********************************");
-		SBUxMethod.set('dtl-input-trgtYr', null);            //  대상연도
-        SBUxMethod.set('dtl-input-apcCd', null); 			//apc코드
-        SBUxMethod.set('dtl-input-apcNm', null); 			//apc명
-	    SBUxMethod.set("dtl-input-sortMchnHldYn11", null);  //품목1 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct1", null); //품목1 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn12", null);  //품목1 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn13", null);  //품목1 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn14", null);  //품목1 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn15", null);  //품목1 가공설비
-
-	    SBUxMethod.set("dtl-input-sortMchnHldYn21", null);  //품목2 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct2", null); //품목2 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn22", null);  //품목2 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn23", null);  //품목2 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn24", null);  //품목2 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn25", null);  //품목2 가공설비
-
-	    SBUxMethod.set("dtl-input-sortMchnHldYn31", null);  //품목3 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct3", null); //품목3 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn32", null);  //품목3 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn33", null);  //품목3 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn34", null);  //품목3 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn35", null);  //품목3 가공설비
-
-	    SBUxMethod.set("dtl-input-sortMchnHldYn41", null);  //기타 보유여부
-	    SBUxMethod.set("dtl-input-sortMchnSpcfct4", null); //기타 규격
-	    SBUxMethod.set("dtl-input-sortMchnHldYn42", null);  //기타 당도기
-	    SBUxMethod.set("dtl-input-sortMchnHldYn43", null);  //기타 색택선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn44", null);  //기타 형상선별
-	    SBUxMethod.set("dtl-input-sortMchnHldYn45", null);  //기타 가공설비
-     }
-    //저장
-    const fn_save = async function() {
-    	console.log("******************fn_save**********************************");
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
+	//등록
+	const fn_save = async function() {
+		//console.log("******************fn_save**********************************");
 		/*
-
-    	if (!SBUxMethod.get("srch-inp-apcCd")) {
-            alert("조회 항목의 APC 코드를 선택하세요.");
-            return;
-        }
-
-    	if (!SBUxMethod.get("srch-input-trgtYr")) {
-            alert("조회 항목의 대상년도를 선택하세요.");
-            return;
-        }
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		if (gfn_isEmpty(apcCd)) {
+			alert("apc를 선택해주세요");
+			return;
+		}
+		if (gfn_isEmpty(crtrYr)) {
+			alert("대상연도를 작성해주세요");
+			return;
+		}
 		*/
 
+		fn_subInsert(confirm("등록 하시겠습니까?"));
+	}
 
-
-    	if (gfn_isEmpty(trgtYr)) {
-    		// 신규 등록
-			fn_subInsert(confirm("등록 하시겠습니까?"));
-    	} else {
-    		// 변경 저장
-    		fn_subUpdate(confirm("저장 하시겠습니까?"));
-    	}
-
-    }
-
-
-
-
-    /**
-     * @param {boolean} isConfirmed
-     * 신규 등록
-     */
-    const fn_subInsert = async function (isConfirmed){
-    	 console.log("******************fn_subInsert**********************************");
-    	 if (!isConfirmed) return;
-
-    	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltGdsMchnInfo.do", {
-    			trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
-            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
-        	,	sortMchnHldYn11: SBUxMethod.get("dtl-input-sortMchnHldYn11")  //품목1 보유여부
-		    , 	sortMchnSpcfct1: SBUxMethod.get("dtl-input-sortMchnSpcfct1") //품목1 규격
-		    ,	sortMchnHldYn12: SBUxMethod.get("dtl-input-sortMchnHldYn12")  //품목1 당도기
-		    ,	sortMchnHldYn13: SBUxMethod.get("dtl-input-sortMchnHldYn13")  //품목1 색택선별
-		    ,	sortMchnHldYn14: SBUxMethod.get("dtl-input-sortMchnHldYn14")  //품목1 형상선별
-		    ,	sortMchnHldYn15: SBUxMethod.get("dtl-input-sortMchnHldYn15")  //품목1 가공설비
-
-		    ,	sortMchnHldYn21: SBUxMethod.get("dtl-input-sortMchnHldYn21")  //품목2 보유여부
-		    , 	sortMchnSpcfct2: SBUxMethod.get("dtl-input-sortMchnSpcfct2") //품목2 규격
-		    ,	sortMchnHldYn22: SBUxMethod.get("dtl-input-sortMchnHldYn22")  //품목2 당도기
-		    ,	sortMchnHldYn23: SBUxMethod.get("dtl-input-sortMchnHldYn23")  //품목2 색택선별
-		    ,	sortMchnHldYn24: SBUxMethod.get("dtl-input-sortMchnHldYn24")  //품목2 형상선별
-		    ,	sortMchnHldYn25: SBUxMethod.get("dtl-input-sortMchnHldYn25")  //품목2 가공설비
-
-		    ,	sortMchnHldYn31: SBUxMethod.get("dtl-input-sortMchnHldYn31")  //품목3 보유여부
-		    , 	sortMchnSpcfct3: SBUxMethod.get("dtl-input-sortMchnSpcfct3") //품목3 규격
-		    ,	sortMchnHldYn32: SBUxMethod.get("dtl-input-sortMchnHldYn32")  //품목3 당도기
-		    ,	sortMchnHldYn33: SBUxMethod.get("dtl-input-sortMchnHldYn33")  //품목3 색택선별
-		    ,	sortMchnHldYn34: SBUxMethod.get("dtl-input-sortMchnHldYn34")  //품목3 형상선별
-		    ,	sortMchnHldYn35: SBUxMethod.get("dtl-input-sortMchnHldYn35")  //품목3 가공설비
-
-		    ,	sortMchnHldYn41: SBUxMethod.get("dtl-input-sortMchnHldYn41")  //기타 보유여부
-		    , 	sortMchnSpcfct4: SBUxMethod.get("dtl-input-sortMchnSpcfct4") //기타 규격
-		    ,	sortMchnHldYn42: SBUxMethod.get("dtl-input-sortMchnHldYn42")  //기타 당도기
-		    ,	sortMchnHldYn43: SBUxMethod.get("dtl-input-sortMchnHldYn43")  //기타 색택선별
-		    ,	sortMchnHldYn44: SBUxMethod.get("dtl-input-sortMchnHldYn44")  //기타 형상선별
-		    ,	sortMchnHldYn45: SBUxMethod.get("dtl-input-sortMchnHldYn45")  //기타 가공설비
-
-			,	daddr:1
-
-		});
-
-	console.log(postVal);
-	console.log("----------------------------");
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
-    }
-	/**
-     * @param {boolean} isConfirmed
-     */
-	const fn_subUpdate = async function (isConfirmed){
-    	 console.log("******************fn_subUpdate**********************************");
+	//신규등록
+	const fn_subInsert = async function (isConfirmed){
+		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
-    	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltGdsMchnInfo.do", {
-    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
-	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
+		let saveList = [];
 
-		    ,	sortMchnHldYn11: SBUxMethod.get("dtl-input-sortMchnHldYn11")  //품목1 보유여부
-		    , 	sortMchnSpcfct1: SBUxMethod.get("dtl-input-sortMchnSpcfct1") //품목1 규격
-		    ,	sortMchnHldYn12: SBUxMethod.get("dtl-input-sortMchnHldYn12")  //품목1 당도기
-		    ,	sortMchnHldYn13: SBUxMethod.get("dtl-input-sortMchnHldYn13")  //품목1 색택선별
-		    ,	sortMchnHldYn14: SBUxMethod.get("dtl-input-sortMchnHldYn14")  //품목1 형상선별
-		    ,	sortMchnHldYn15: SBUxMethod.get("dtl-input-sortMchnHldYn15")  //품목1 가공설비
+		for (var i = 1; i <= 4; i++) {
 
-		    ,	sortMchnHldYn21: SBUxMethod.get("dtl-input-sortMchnHldYn21")  //품목2 보유여부
-		    , 	sortMchnSpcfct2: SBUxMethod.get("dtl-input-sortMchnSpcfct2") //품목2 규격
-		    ,	sortMchnHldYn22: SBUxMethod.get("dtl-input-sortMchnHldYn22")  //품목2 당도기
-		    ,	sortMchnHldYn23: SBUxMethod.get("dtl-input-sortMchnHldYn23")  //품목2 색택선별
-		    ,	sortMchnHldYn24: SBUxMethod.get("dtl-input-sortMchnHldYn24")  //품목2 형상선별
-		    ,	sortMchnHldYn25: SBUxMethod.get("dtl-input-sortMchnHldYn25")  //품목2 가공설비
+			let itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
 
-		    ,	sortMchnHldYn31: SBUxMethod.get("dtl-input-sortMchnHldYn31")  //품목3 보유여부
-		    , 	sortMchnSpcfct3: SBUxMethod.get("dtl-input-sortMchnSpcfct3") //품목3 규격
-		    ,	sortMchnHldYn32: SBUxMethod.get("dtl-input-sortMchnHldYn32")  //품목3 당도기
-		    ,	sortMchnHldYn33: SBUxMethod.get("dtl-input-sortMchnHldYn33")  //품목3 색택선별
-		    ,	sortMchnHldYn34: SBUxMethod.get("dtl-input-sortMchnHldYn34")  //품목3 형상선별
-		    ,	sortMchnHldYn35: SBUxMethod.get("dtl-input-sortMchnHldYn35")  //품목3 가공설비
-
-		    ,	sortMchnHldYn41: SBUxMethod.get("dtl-input-sortMchnHldYn41")  //기타 보유여부
-		    , 	sortMchnSpcfct4: SBUxMethod.get("dtl-input-sortMchnSpcfct4") //기타 규격
-		    ,	sortMchnHldYn42: SBUxMethod.get("dtl-input-sortMchnHldYn42")  //기타 당도기
-		    ,	sortMchnHldYn43: SBUxMethod.get("dtl-input-sortMchnHldYn43")  //기타 색택선별
-		    ,	sortMchnHldYn44: SBUxMethod.get("dtl-input-sortMchnHldYn44")  //기타 형상선별
-		    ,	sortMchnHldYn45: SBUxMethod.get("dtl-input-sortMchnHldYn45")  //기타 가공설비
-    	});
-        const data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-
-        // 결과 확인 후 재조회
-        console.log("update result", data);
-    }
-
-
-    //선택 삭제
-    function fn_delete() {
-    	console.log("******************fn_delete**********************************");
-    	/**
-         * @type {any[]}
-         */
-        let list = [];
-
-        /**
-         * @type {any[]}
-         */
-         /*
-        const rows = grdGdsMcList.getGridDataAll();
-        rows.forEach((row) => {
-        	if (_.isEqual("Y", row.checked)) {
-        		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
-        	}
-        });
-        */
-
-        console.log(grdGdsMcList.getSelectedRows());
-		const rows = grdGdsMcList.getSelectedRows();
-        if (rows.length == 0) {
-        	alert("삭제할 대상이 없습니다.");
-        	return;
-        }
-
-        fn_subDelete(confirm("삭제 하시겠습니까?"), list);
-
-        /*
-        for ( let i = 0; i < gridList.length; i++) {
-            if (gridList[i].checked === "Y") {
-                delList.push(gridList[i].msgKey);
-            }
-        }
-        if (delList.length == 0) {
-            alert("삭제 할 대상이 없습니다.");
-            return;
-        }
-        var delMsg;
-        if (delList.length == 1) {
-            delMsg = delList[0];
-        }
-        else {
-            delMsg = delList.length + "건";
-        }
-        delMsg += "을 삭제 하시겠습니까?";
-        if (confirm(delMsg)) {
-            var params = "delKey=" + delList.join(",");
-            console.log("data ::::: " + params);
-        }
-        */
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
-     	console.log("******************fn_subDelete**********************************");
- 		if (!isConfirmed) return;
-
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltGdsMchnInfo.do", {
-    	 	trgtYr: SBUxMethod.get('dtl-input-trgtYr')                           //  대상연도
-	        ,	apcCd: SBUxMethod.get('dtl-input-apcCd')                             //  APC코드
-     	});
-
-         const data = await postJsonPromise;
-		//예외처리
-         try {
-         	if (_.isEqual("S", data.resultStatus)) {
-         		alert("처리 되었습니다.");
-         		fn_search();
-         	} else {
-         		alert(data.resultMessage);
-         	}
-         } catch(e) {
-         }
-
-         // 결과 확인 후 재조회
-         console.log("update result", data);
-    }
-
-    //상세정보 보기 클릭이벤트
-    function fn_view() {
-    	console.log("******************fn_view**********************************");
-    	var nCol = grdGdsMcList.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-        var nRow = grdGdsMcList.getRow();
-		if (nRow < 1) {
-            return;
+			//품목이 존재하는경우만 저장
+			if(itemChk == 'Y'){
+				let sortMchnHoldYn = SBUxMethod.get('dtl-inp-sortMchnHoldYn'+i);
+				let itemVo = {
+						sn : i
+						,crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
+						,apcCd : SBUxMethod.get('dtl-inp-apcCd')
+						,sortMchnHoldYn : sortMchnHoldYn
+						, prgrsYn : 'Y' //진척도 갱신 여부
+				}
+				if(sortMchnHoldYn == 'Y'){
+					itemVo.sortMchnSpcect = SBUxMethod.get('dtl-inp-sortMchnSpcect'+i);
+					itemVo.sortBrckMvhn = $('#dtl-inp-sortBrckMvhn'+i).val();
+					itemVo.colorSort = $('#dtl-inp-colorSort'+i).val();
+					itemVo.shapSort = $('#dtl-inp-shapSort'+i).val();
+					itemVo.mnfcMchn = SBUxMethod.get('dtl-inp-mnfcMchn'+i);
+					itemVo.mkrNm = SBUxMethod.get('dtl-inp-mkrNm'+i);
+				}
+				saveList.push(itemVo);
+			}
 		}
-			//서치폼에서 클릭시 디테일폼에 데이터출력
-        let rowData = grdGdsMcList.getRowData(nRow);
-        rowData = fn_emptyString(rowData);
-    	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);                 //대상연도
-		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);                   //apc코드
-		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);                   //apc명
-		SBUxMethod.set("dtl-input-sortMchnHldYn11", rowData.sortMchnHldYn11);  //품목1 보유여부
-		SBUxMethod.set("dtl-input-sortMchnSpcfct1", rowData.sortMchnSpcfct1); //품목1 규격
-		SBUxMethod.set("dtl-input-sortMchnHldYn12", rowData.sortMchnHldYn12);  //품목1 당도기
-		SBUxMethod.set("dtl-input-sortMchnHldYn13", rowData.sortMchnHldYn13);  //품목1 색택선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn14", rowData.sortMchnHldYn14);  //품목1 형상선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn15", rowData.sortMchnHldYn15);  //품목1 가공설비
 
-		SBUxMethod.set("dtl-input-sortMchnHldYn21", rowData.sortMchnHldYn21);  //품목2 보유여부
-		SBUxMethod.set("dtl-input-sortMchnSpcfct2", rowData.sortMchnSpcfct2); //품목2 규격
-		SBUxMethod.set("dtl-input-sortMchnHldYn22", rowData.sortMchnHldYn22);  //품목2 당도기
-		SBUxMethod.set("dtl-input-sortMchnHldYn23", rowData.sortMchnHldYn23);  //품목2 색택선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn24", rowData.sortMchnHldYn24);  //품목2 형상선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn25", rowData.sortMchnHldYn25);  //품목2 가공설비
+		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltGdsMchnInfo.do",saveList);
 
-		SBUxMethod.set("dtl-input-sortMchnHldYn31", rowData.sortMchnHldYn31);  //품목3 보유여부
-		SBUxMethod.set("dtl-input-sortMchnSpcfct3", rowData.sortMchnSpcfct3); //품목3 규격
-		SBUxMethod.set("dtl-input-sortMchnHldYn32", rowData.sortMchnHldYn32);  //품목3 당도기
-		SBUxMethod.set("dtl-input-sortMchnHldYn33", rowData.sortMchnHldYn33);  //품목3 색택선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn34", rowData.sortMchnHldYn34);  //품목3 형상선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn35", rowData.sortMchnHldYn35);  //품목3 가공설비
+		const data = await postJsonPromise;
 
-		SBUxMethod.set("dtl-input-sortMchnHldYn41", rowData.sortMchnHldYn41);  //기타 보유여부
-		SBUxMethod.set("dtl-input-sortMchnSpcfct4", rowData.sortMchnSpcfct4); //기타 규격
-		SBUxMethod.set("dtl-input-sortMchnHldYn42", rowData.sortMchnHldYn42);  //기타 당도기
-		SBUxMethod.set("dtl-input-sortMchnHldYn43", rowData.sortMchnHldYn43);  //기타 색택선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn44", rowData.sortMchnHldYn44);  //기타 형상선별
-		SBUxMethod.set("dtl-input-sortMchnHldYn45", rowData.sortMchnHldYn45);  //기타 가공설비
-    }
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				//fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+		}
+		// 결과 확인 후 재조회
+		console.log("insert result", data);
+	}
 
+	//품종 유무 선택시 작성가능 아닐시 데이테 리셋
+	function fn_selectOnchange(e,groupId){
+		//console.log("============fn_selectOnchange==============");
 
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(obj){
-    	console.log("******************fn_checkAll**********************************");
-        var gridList = grdGdsMcList.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<gridList.length; i++ ){
-        	grdGdsMcList.setCellData(i+1, 1, checkedYn, true, false);
-        }
-    }
+		if($(e).val() == 'Y'){
+			SBUxMethod.changeGroupAttr(groupId,'disabled','false');
+		}else{
+			SBUxMethod.changeGroupAttr(groupId,'disabled','true');
+			SBUxMethod.clearGroupData(groupId);
+		}
+	}
 
- 	// apc 선택 팝업 호출
+	// apc 선택 팝업 호출
 	const fn_modalApcSelect = function() {
 		popApcSelect.init(fn_setApc);
 	}
@@ -884,27 +637,217 @@
 		}
 	}
 
-	// "null" 로 들어가는 경우 방지
-	function fn_emptyString(obj) {
-		console.log("==========fn_emptyString=============");
-	    if (Array.isArray(obj)) {
-	        // 배열의 경우
-	        for (var i = 0; i < obj.length; i++) {
-	        	if (data[i] === "null" || data[i] === null) {
-	                obj[i] = "";
-	            }
-	        }
-	    } else if (typeof obj === "object") {
-	        // 객체의 경우
-	        for (var key in obj) {
-	        	if (obj[key] === "null" || obj[key] === null) {
-	                obj[key] = "";
-	            }
-	        }
-	    }
-	    return obj;
+	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
+	window.addEventListener('message',function(event){
+		console.log('1. 탭호출');
+		console.log(event);
+		let chkVal = event.data.chkVal;
+		if(chkVal == "selTab"){
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
+	});
+
+	/*
+	 * APC 리스트 추가
+	 */
+
+	var jsonFcltApcInfo = []; // 그리드의 참조 데이터 주소 선언
+	var grdFcltApcInfo;
+
+
+	const objMenuList01 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld01,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld01() {
+		grdFcltApcInfo.exportLocalExcel("시설설치보완", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
 	}
+
+	/* Grid 화면 그리기 기능*/
+	//apc 리스트
+	const fn_fcltApcInfoCreateGrid = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdFcltApcInfo';
+		SBGridProperties.id = 'grdFcltApcInfo';
+		SBGridProperties.jsonref = 'jsonFcltApcInfo';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		//SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.paging = {
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+			};
+		SBGridProperties.columns = [
+			{caption: ["APC명"],		ref: 'apcNm',		type:'input',  width:'200px',    style:'text-align:center'},
+			{caption: ["대표품목1"],	ref: 'itemNm1',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["대표품목2"],	ref: 'itemNm2',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["대표품목3"],	ref: 'itemNm3',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
+			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},
+
+			{caption: ["대표품목1"],		ref: 'itemCd1',		hidden : true},
+			{caption: ["대표품목2"],		ref: 'itemCd2',		hidden : true},
+			{caption: ["대표품목3"],		ref: 'itemCd3',		hidden : true},
+
+			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
+			{caption: ["crtrYr"],	ref: 'crtrYr',	hidden : true},
+		];
+
+		grdFcltApcInfo = _SBGrid.create(SBGridProperties);
+
+		//클릭 이벤트 바인드
+		grdFcltApcInfo.bind('click','fn_view');
+		grdFcltApcInfo.bind('beforepagechanged', 'fn_pagingBbsList');
+
+	}
+
+	const fn_pagingBbsList = async function() {
+		let recordCountPerPage = grdFcltApcInfo.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdFcltApcInfo.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_searchApcList(recordCountPerPage, currentPageNo);
+	}
+
+	/**
+     * 목록 조회
+     */
+	const fn_search = async function() {
+		//console.log("fn_search");
+		// set pagination
+		let pageSize = grdFcltApcInfo.getPageSize();
+		let pageNo = 1;
+		//입력폼 초기화
+		//fn_clearForm();
+
+		fn_searchApcList(pageSize, pageNo);
+	}
+
+	const fn_searchApcList = async function(pageSize, pageNo) {
+		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
+
+		//let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let apcNm = SBUxMethod.get("srch-inp-apcNm");//
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
+		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcList.do", {
+			//apcCd: apcCd,
+			apcNm: apcNm,
+			crtrYr: crtrYr,
+			ctpvCd: ctpvCd,
+			sigunCd: sigunCd,
+
+			// pagination
+			pagingYn : 'Y',
+			currentPageNo : pageNo,
+			recordCountPerPage : pageSize
+		});
+		const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+		try {
+			jsonFcltApcInfo.length = 0;
+			let totalRecordCount = 0;
+			data.resultList.forEach((item, index) => {
+				//console.log(item);
+				let itemVO = {
+						apcCd			:item.apcCd
+						,apcNm			:item.apcNm
+						,crtrYr			:item.crtrYr
+
+						,itemCd1		:item.itemCd1
+						,itemNm1		:item.itemNm1
+						,itemCd2		:item.itemCd2
+						,itemNm2		:item.itemNm2
+						,itemCd3		:item.itemCd3
+						,itemNm3		:item.itemNm3
+
+						,ctpvCd			:item.ctpvCd
+						,ctpvNm			:item.ctpvNm
+						,sigunCd		:item.sigunCd
+						,sigunNm		:item.sigunNm
+				}
+				jsonFcltApcInfo.push(itemVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
+			});
+
+			if (jsonFcltApcInfo.length > 0) {
+
+				if(grdFcltApcInfo.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdFcltApcInfo.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdFcltApcInfo.rebuild();
+				}else{
+					grdFcltApcInfo.refresh()
+				}
+			} else {
+				grdFcltApcInfo.setPageTotalCount(totalRecordCount);
+				grdFcltApcInfo.rebuild();
+			}
+			document.querySelector('#listApcCount').innerText = totalRecordCount;
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
+	}
+
+	//그리드 클릭시 상세보기 이벤트
+	const fn_view = async function (){
+		console.log("******************fn_view**********************************");
+		//fn_clearForm();
+		//데이터가 존재하는 그리드 범위 확인
+		var nCol = grdFcltApcInfo.getCol();
+		if (nCol < 1) {
+			return;
+		}
+		var nRow = grdFcltApcInfo.getRow();
+		if (nRow < 1) {
+			return;
+		}
+		if(nRow == null){
+			nRow = 1;
+		}
+
+		//서치폼에서 클릭시 디테일폼에 데이터출력
+		let rowData = grdFcltApcInfo.getRowData(nRow);
+
+		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
+		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
+		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
+		console.log(SBUxMethod.get('dtl-inp-apcCd'));
+		console.log(SBUxMethod.get('dtl-inp-crtrYr'));
+
+		fn_setGrdGdsMcList();
+	}
+
+	//시도 변경 이벤트
+	const fn_ctpvChange = async function(){
+		SBUxMethod.set("srch-inp-sgg", "");
+	}
+
 </script>
 </html>
-
-

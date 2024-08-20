@@ -15,16 +15,16 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -36,7 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 시설고용인력 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 		<div class="box-body">
@@ -44,10 +44,17 @@
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
+					<col style="width: 11%">
+					<col style="width: 22%">
+					<col style="width: 50px">
+					<col style="width: 11%">
+					<col style="width: 22%">
+					<col style="width: 187px">
+					<col style="width: 100px">
 				<tbody>
 					<tr>
 						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td colspan= "3" class="td_input" style="border-right:hidden;">
+						<td class="td_input" style="border-right:hidden;">
 							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
@@ -56,67 +63,209 @@
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-spinner
+									id="srch-inp-crtrYr"
+									name="srch-inp-crtrYr"
+									uitype="normal"
+									step-value="1"
+								></sbux-spinner>
 						</td>
-						<td colspan="5"></td>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectGrdHireInfoList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
 			</div>
-			<!--[pp] //검색 -->
-			<!--[pp] 검색결과 -->
+
 			<br>
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:0px;"></div>
-				</div>
-				<br>
-			<div><label>시설고용 상세내역</label></div>
+			<!-- 진척도 추가 -->
+			<%@ include file="prgrs/apcPrgrs.jsp" %>
+			<br>
+			<div><label>내국인 상세내역</label></div>
 			<div>
-			<table class="table table-bordered tbl_row tbl_fixed">
-				<caption>검색 조건 설정</caption>
-				<colgroup>
-					<col style="width: 24%">
-					<col style="width: 38%">
-					<col style="width: 38%">
-				</colgroup>
-				<tbody>
-					<tr>
-						<th></th>
-						<th class="th_bg" class="th_bg">내국인(명)</th>
-						<th class="th_bg" class="th_bg">외국인(명)</th>
-					</tr>
-					<tr>
-						<td>정규직</td>
-						<td class="td_input">
-							<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
-						</td>
-						<td class="td_input">
-							<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="1" ></sbux-input>
-						</td>
-					</tr>
-					<tr>
-						<td>일용직(연간평균)</td>
-						<td class="td_input">
-							<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm" placeholder="5" ></sbux-input>
-						</td>
-						<td class="td_input">
-							<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="10" ></sbux-input>
-						</td>
-					</tr>
-				</tbody>
+				<table class="table table-bordered tbl_row tbl_fixed">
+					<caption>내국인 상세</caption>
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 30px">
+						<col style="width: 15%">
+						<col style="width: 30px">
+						<col style="width: 20%">
+						<col style="width: 50px">
+						<col style="width: 20%">
+						<col style="width: 50px">
+						<col style="width: 15%">
+						<col style="width: 30px">
+						<col style="width: 15%">
+						<col style="width: 30px">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="4" >정규직</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="8" >일용직</th>
+						</tr>
+						<tr>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">사무실</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">현장</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">연간 임금총계</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">평균임금(1인/1일)</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">비수기 일일 인원수<br>(MIN)</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">성수기 일일 인원수<br>(MAX)</th>
+						</tr>
+						<tr>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireRgllbrCtzn"
+									name="dtl-inp-hireRgllbrCtzn"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="10"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>명</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireRgllbrFrgnr"
+									name="dtl-inp-hireRgllbrFrgnr"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="1"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>명</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireTmprWgTotSum"
+									name="dtl-inp-hireTmprWgTotSum"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="1"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>(천원)</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireTmprAvgWg"
+									name="dtl-inp-hireTmprAvgWg"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="1"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>(천원)</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireTmprMin"
+									name="dtl-inp-hireTmprMin"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="10"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>명</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireTmprMax"
+									name="dtl-inp-hireTmprMax"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="10"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>명</td>
+						</tr>
+					</tbody>
 				</table>
-				</div>
 			</div>
-			<!--[pp] //검색결과 -->
+			<br>
+			<div><label>외국인 상세내역</label></div>
+			<!-- 외국인 근로자 -->
+			<div>
+				<table class="table table-bordered tbl_row tbl_fixed">
+					<caption>외국인 상세</caption>
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 30px">
+						<col style="width: 15%">
+						<col style="width: 30px">
+						<col style="width: 15%">
+						<col style="width: 30px">
+						<col style="width: 55%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">비수기</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">성수기</th>
+							<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">평균</th>
+							<th class="text-center" style="border-right: 1px solid white !important;">주요업무내용</th>
+						</tr>
+						<tr>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireFrgnrMin"
+									name="dtl-inp-hireFrgnrMin"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="10"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>명</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireFrgnrMax"
+									name="dtl-inp-hireFrgnrMax"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="10"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>명</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireFrgnrAvg"
+									name="dtl-inp-hireFrgnrAvg"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="10"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+							<td>명</td>
+							<td class="td_input">
+								<sbux-input
+									id="dtl-inp-hireFrgnrTaskCn"
+									name="dtl-inp-hireFrgnrTaskCn"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="10"
+									style="text-align: right"
+								></sbux-input>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!--[pp] //검색결과 -->
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+	<div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
 
 </body>
 <script type="text/javascript">
@@ -124,102 +273,148 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
 		let year  = date.getFullYear();
-		SBUxMethod.set("srch-inp-trgtYr", year);
+		SBUxMethod.set("srch-inp-crtrYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
-		fn_selectGrdHireInfoList();
+
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0122';
+		let crtrYr = '2023';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		fn_init();
 	});
-    /**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_selectGrdHireInfoList = async function(pageSize, pageNo) {
-    	 console.log("******************fn_setGrdHireInfoList**********************************");
+
+	/* 초기세팅 */
+	const fn_init = async function() {
+		await fn_selectGrdHireInfoList();
+		//진척도
+		await cfn_selectPrgrs();
+		//최종제출 여부
+		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
+		if(prgrsLast  == 'Y'){
+			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
+		} else {
+			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+		}
+	}
+
+	const fn_selectGrdHireInfoList = async function(copy_chk) {
+		 console.log("******************fn_setGrdHireInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		//전년도 데이터
+		if(!gfn_isEmpty(copy_chk)){
+			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperHfInfoList.do", {
 			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
+			crtrYr: crtrYr,
 
-        const data = await postJsonPromise;
+			// pagination
+			//pagingYn : 'N',
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
+		});
+
+		const data = await postJsonPromise;
 		//await 오류시 확인
 
 		//예외처리
-        try {
+		try {
 
-        	data.resultList.forEach((item, index) => {
-        		SBUxMethod.set('srch-inp-opera1',item.hireNope);
-        		SBUxMethod.set('srch-inp-opera2',item.hireNope2);
-        		SBUxMethod.set('srch-inp-opera3',item.hireNope3);
-        		SBUxMethod.set('srch-inp-opera4',item.hireNope4);
+			data.resultList.forEach((item, index) => {
+
+				SBUxMethod.set('dtl-inp-hireRgllbrCtzn',item.hireRgllbrCtzn);
+				SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',item.hireRgllbrFrgnr);
+
+				SBUxMethod.set('dtl-inp-hireTmprWgTotSum',item.hireTmprWgTotSum);
+				SBUxMethod.set('dtl-inp-hireTmprAvgWg',item.hireTmprAvgWg);
+
+				SBUxMethod.set('dtl-inp-hireTmprMin',item.hireTmprMin);
+				SBUxMethod.set('dtl-inp-hireTmprMax',item.hireTmprMax);
+
+				SBUxMethod.set('dtl-inp-hireFrgnrMin',item.hireFrgnrMin);
+				SBUxMethod.set('dtl-inp-hireFrgnrMax',item.hireFrgnrMax);
+				SBUxMethod.set('dtl-inp-hireFrgnrAvg',item.hireFrgnrAvg);
+				SBUxMethod.set('dtl-inp-hireFrgnrTaskCn',item.hireFrgnrTaskCn);
 			});
 
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
-    }
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
+	}
 
 	//등록
 	const fn_save = async function() {
-    	console.log("******************fn_save**********************************");
+		console.log("******************fn_save**********************************");
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
-    		alert("apc를 선택해주세요");
-            return;
-        }
-		if (gfn_isEmpty(trgtYr)) {
-    		alert("대상연도를 작성해주세요");
-            return;
-        }
+			alert("apc를 선택해주세요");
+			return;
+		}
+		if (gfn_isEmpty(crtrYr)) {
+			alert("대상연도를 작성해주세요");
+			return;
+		}
 
-    	fn_subInsert(confirm("등록 하시겠습니까?"));
-    }
+		fn_subInsert(confirm("등록 하시겠습니까?"));
+	}
 
-    //신규등록
-    const fn_subInsert = async function (isConfirmed){
-    	 console.log("******************fn_subInsert**********************************");
-    	 if (!isConfirmed) return;
+	//신규등록
+	const fn_subInsert = async function (isConfirmed){
+		console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
 
-    	 const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperHfInfo.do", {
-    			trgtYr : SBUxMethod.get('srch-inp-trgtYr')
-    			,apcCd : SBUxMethod.get('srch-inp-apcCd')
-    			,hireNope : SBUxMethod.get('srch-inp-opera1')
-    			,hireNope2 : SBUxMethod.get('srch-inp-opera2')
-    			,hireNope3 : SBUxMethod.get('srch-inp-opera3')
-    			,hireNope4 : SBUxMethod.get('srch-inp-opera4')
+		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperHfInfo.do", {
+			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
+			,apcCd : SBUxMethod.get('srch-inp-apcCd')
+			, prgrsYn : 'Y' //진척도 갱신 여부
+			,hireRgllbrCtzn : SBUxMethod.get('dtl-inp-hireRgllbrCtzn')
+			,hireRgllbrFrgnr : SBUxMethod.get('dtl-inp-hireRgllbrFrgnr')
 
+			,hireTmprWgTotSum : SBUxMethod.get('dtl-inp-hireTmprWgTotSum')
+			,hireTmprAvgWg : SBUxMethod.get('dtl-inp-hireTmprAvgWg')
+
+			,hireTmprMin : SBUxMethod.get('dtl-inp-hireTmprMin')
+			,hireTmprMax : SBUxMethod.get('dtl-inp-hireTmprMax')
+
+			,hireFrgnrMin : SBUxMethod.get('dtl-inp-hireFrgnrMin')
+			,hireFrgnrMax : SBUxMethod.get('dtl-inp-hireFrgnrMax')
+			,hireFrgnrAvg : SBUxMethod.get('dtl-inp-hireFrgnrAvg')
+			,hireFrgnrTaskCn : SBUxMethod.get('dtl-inp-hireFrgnrTaskCn')
 		});
 
 
-         const data = await postJsonPromise;
+		const data = await postJsonPromise;
 
-         try {
-         	if (_.isEqual("S", data.resultStatus)) {
-         		alert("처리 되었습니다.");
-         		//fn_search();
-         	} else {
-         		alert(data.resultMessage);
-         	}
-         } catch(e) {
-         }
-         // 결과 확인 후 재조회
-         console.log("insert result", data);
-    }
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				//fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+		}
+		// 결과 확인 후 재조회
+		console.log("insert result", data);
+	}
 
 	// apc 선택 팝업 호출
 	const fn_modalApcSelect = function() {
@@ -233,5 +428,15 @@
 		}
 	}
 
+	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
+	window.addEventListener('message',function(event){
+		console.log('1. 탭호출');
+		console.log(event);
+		let chkVal = event.data.chkVal;
+		if(chkVal == "selTab"){
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
+	});
 </script>
 </html>

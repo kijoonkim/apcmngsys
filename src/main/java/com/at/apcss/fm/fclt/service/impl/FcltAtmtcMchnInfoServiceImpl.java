@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltAtmtcMchnInfoService;
 import com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
+import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 
 
 /**
@@ -30,6 +33,9 @@ public class FcltAtmtcMchnInfoServiceImpl extends BaseServiceImpl implements Fcl
 
 	@Autowired
 	private FcltAtmtcMchnInfoMapper fcltAtmtcMchnInfoMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltAtmtcMchnInfoVO selectFcltAtmtcMchnInfo(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO) throws Exception {
@@ -60,6 +66,36 @@ public class FcltAtmtcMchnInfoServiceImpl extends BaseServiceImpl implements Fcl
 			System.out.println();
 		}
 		return resultList;
+	}
+
+	@Override
+	public int multiSaveFcltAtmtcMchnInfo(List<FcltAtmtcMchnInfoVO> fcltAtmtcMchnInfoVOList) throws Exception {
+		int saveCnt = 0;
+		String prgrsYn = "";
+		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+		for (FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO : fcltAtmtcMchnInfoVOList) {
+			saveCnt += fcltAtmtcMchnInfoMapper.insertFcltAtmtcMchnInfo(fcltAtmtcMchnInfoVO);
+			prgrsYn = fcltAtmtcMchnInfoVO.getPrgrsYn();
+			//진척도 변경
+			fcltPrgrsVO.setApcCd(fcltAtmtcMchnInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltAtmtcMchnInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltAtmtcMchnInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltAtmtcMchnInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltAtmtcMchnInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltAtmtcMchnInfoVO.getSysLastChgPrgrmId());
+			String tmprStrgYn = fcltAtmtcMchnInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs9("T");
+			}else {
+				fcltPrgrsVO.setPrgrs9("Y");
+			}
+		}
+
+		if(saveCnt == fcltAtmtcMchnInfoVOList.size() && prgrsYn.equals("Y")) {
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
+
+		return saveCnt;
 	}
 
 

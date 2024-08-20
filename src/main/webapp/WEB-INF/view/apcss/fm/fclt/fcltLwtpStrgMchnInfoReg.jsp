@@ -15,16 +15,16 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -36,7 +36,8 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+
 			</div>
 		</div>
 		<div class="box-body">
@@ -44,10 +45,17 @@
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
+					<col style="width: 11%">
+					<col style="width: 22%">
+					<col style="width: 50px">
+					<col style="width: 11%">
+					<col style="width: 22%">
+					<col style="width: 187px">
+					<col style="width: 100px">
 				<tbody>
 					<tr>
 						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td colspan= "3" class="td_input" style="border-right:hidden;">
+						<td class="td_input" style="border-right:hidden;">
 							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 						</td>
@@ -56,64 +64,135 @@
 						</td>
 						<th scope="row">대상연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+							<sbux-spinner
+									id="srch-inp-crtrYr"
+									name="srch-inp-crtrYr"
+									uitype="normal"
+									step-value="1"
+								></sbux-spinner>
 						</td>
-						<td colspan="5"></td>
+						<td class="td_input" style="border-right: hidden;">
+							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_setGrdLtMcIfList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
 			</div>
-			<!--[pp] //검색 -->
-			<!--[pp] 검색결과 -->
+
 			<br>
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:0px;"></div>
-				</div>
-				<br>
+			<!-- 진척도 추가 -->
+			<%@ include file="prgrs/apcPrgrs.jsp" %>
+			<br>
+
 			<div><label>저온저장고운영 상세내역</label></div>
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 8%">
-					<col style="width: 8%">
+					<col style="width: 10%">
+					<col style="width: 125px">
 					<col style="width: 21%">
+					<col style="width: 28px">
 					<col style="width: 21%">
+					<col style="width: 28px">
 					<col style="width: 21%">
+					<col style="width: 28px">
 					<col style="width: 21%">
+					<col style="width: 28px">
 				</colgroup>
 				<tbody>
 					<tr>
 						<th></th>
-						<th>보유현황</th>
-						<th>저장능력(톤)<br>
+						<th class="text-center" style="border-right: 1px solid white !important;">보유여부</th>
+						<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">
+							저장능력(톤)<br>
 							*최대저장<br>
 						</th>
-						<th>단기저장실적(톤)<br>
+						<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">
+							단기저장실적(톤)<br>
 							*단순 출하대기<br>
 						</th>
-						<th>
+						<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">
 							장기저장실적(톤)<br>
 							*1개월 이상<br>
 						</th>
-						<th>
+						<th class="text-center" style="border-right: 1px solid white !important;" colspan="2">
 							저장가동률(%)<br>
 							*(단기+장기실적)/능력*100<br>
 						</th>
 					</tr>
 					<tr>
-						<td style="text-align: center;"><p>저온저장고</p></td>
-						<td>
-							<sbux-select name="srch-inp-opera1" id="srch-inp-opera1">
-                                <option value="0">(선택)</option>
-                                <option value="1">O</option>
-                                <option value="2">X</option>
-                            </sbux-select>
+						<th style="text-align: center;"><p>저온저장고</p></th>
+						<td class="text-center">
+							<p class="ad_input_row">
+								<sbux-radio id="dtl-rdo-itemChk1" name="dtl-rdo-itemChk" uitype="normal" value="Y" class="radio_label" onchange ="fn_selectOnchange(this)"></sbux-radio>
+								<label class="radio_label" for="dtl-rdo-itemChk1">보유</label>
+							</p>
+							<p class="ad_input_row">
+								<sbux-radio id="dtl-rdo-itemChk2" name="dtl-rdo-itemChk" uitype="normal" value="N" class="radio_label" onchange ="fn_selectOnchange(this)"></sbux-radio>
+								<label class="radio_label" for="dtl-rdo-itemChk2">미보유</label>
+							</p>
+							<sbux-checkbox
+								id="dtl-inp-itemChk"
+								name="dtl-inp-itemChk"
+								uitype="hidden"
+								text=""
+								true-value="Y"
+								false-value="N"
+								class="check"
+								onchange ="fn_selectOnchange(this)"
+							></sbux-checkbox>
 						</td>
-						<td><sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="1,000" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm" placeholder="100" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" placeholder="2,000" ></sbux-input></td>
-						<td><sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text" class="form-control input-sm" placeholder="210" ></sbux-input></td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcStrgAblt"
+								name="dtl-inp-strgPlcStrgAblt"
+								uitype="text"
+								class="form-control input-sm"
+								group-id="group1"
+								placeholder="1,000"
+								onchange="fn_strgPlcOprtngRt"
+							></sbux-input>
+						</td>
+						<td>톤</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcStrmStrgAblt"
+								name="dtl-inp-strgPlcStrmStrgAblt"
+								uitype="text"
+								class="form-control input-sm"
+								group-id="group1"
+								placeholder="100"
+								onchange="fn_strgPlcOprtngRt"
+							></sbux-input>
+						</td>
+						<td>톤</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcLtrmStrgAblt"
+								name="dtl-inp-strgPlcLtrmStrgAblt"
+								uitype="text"
+								class="form-control input-sm"
+								group-id="group1"
+								placeholder="2,000"
+								onchange="fn_strgPlcOprtngRt"
+							></sbux-input>
+						</td>
+						<td>톤</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcOprtngRt"
+								name="dtl-inp-strgPlcOprtngRt"
+								uitype="text"
+								class="form-control input-sm"
+								group-id="group1"
+								placeholder="210"
+								readonly
+							></sbux-input>
+						</td>
+						<td>%</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
@@ -124,6 +203,7 @@
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 22%">
+						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -144,7 +224,8 @@
 					<tbody>
 						<tr>
 							<th></th>
-							<th class="text-center">없음</th>
+							<th class="text-center">운영안함</th>
+							<th class="text-center">전체선택</th>
 							<th class="text-center">1월</th>
 							<th class="text-center">2월</th>
 							<th class="text-center">3월</th>
@@ -159,83 +240,89 @@
 							<th class="text-center">12월</th>
 						</tr>
 						<tr>
-							<th>저온저장고<br>비수기기간
+							<th>저온저장고<br>운영기간
 							</th>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_1" name="warehouseSeCd-chk-mon_1_1"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_non" name="warehouseSeCd_chk_mon_2_non" uitype="normal" true-value = "Y" false-value = "N" group-id="group1" onchange="fn_checkSelectNon(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_2" name="warehouseSeCd-chk-mon_1_2" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_1" name="warehouseSeCd_chk_mon_2_1" uitype="normal" true-value = "Y" false-value = "N" group-id="group1" onchange="fn_checkSelectAll(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_3" name="warehouseSeCd-chk-mon_1_3" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_2" name="warehouseSeCd_chk_mon_2_2" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_4" name="warehouseSeCd-chk-mon_1_4" uitype="normal" true-value = "1" false-value = "0" ></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_3" name="warehouseSeCd_chk_mon_2_3" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_5" name="warehouseSeCd-chk-mon_1_5" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_4" name="warehouseSeCd_chk_mon_2_4" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_6" name="warehouseSeCd-chk-mon_1_6" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_5" name="warehouseSeCd_chk_mon_2_5" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_7" name="warehouseSeCd-chk-mon_1_7" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_6" name="warehouseSeCd_chk_mon_2_6" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_8" name="warehouseSeCd-chk-mon_1_8" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_7" name="warehouseSeCd_chk_mon_2_7" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_9" name="warehouseSeCd-chk-mon_1_9" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_8" name="warehouseSeCd_chk_mon_2_8" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_10" name="warehouseSeCd-chk-mon_1_10" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_9" name="warehouseSeCd_chk_mon_2_9" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_11" name="warehouseSeCd-chk-mon_1_11" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_10" name="warehouseSeCd_chk_mon_2_10" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_12" name="warehouseSeCd-chk-mon_1_12" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_11" name="warehouseSeCd_chk_mon_2_11" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
 							<td class="text-center">
 								<p class="ad_input_row">
-									<sbux-checkbox id="warehouseSeCd-chk-mon_1_13" name="warehouseSeCd-chk-mon_1_13" uitype="normal"  true-value = "1" false-value = "0"></sbux-checkbox>
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_12" name="warehouseSeCd_chk_mon_2_12" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
+									<label class="check_label" for="check_default" ></label>
+								</p>
+							</td>
+							<td class="text-center">
+								<p class="ad_input_row">
+									<sbux-checkbox id="warehouseSeCd_chk_mon_2_13" name="warehouseSeCd_chk_mon_2_13" uitype="normal" true-value = "Y" false-value = "N" group-id="group2" onchange="fn_checkSelect(this,2)"></sbux-checkbox>
 									<label class="check_label" for="check_default" ></label>
 								</p>
 							</td>
@@ -249,180 +336,253 @@
 	</section>
 	<!-- apc 선택 Modal -->
     <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
 		let year  = date.getFullYear();
-		SBUxMethod.set("srch-inp-trgtYr", year);
+		SBUxMethod.set("srch-inp-crtrYr", year);
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
-		fn_setGrdLtMcIfList();
+
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0122';
+		let crtrYr = '2023';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
 	})
 
-	/**
-     * @param {number} pageSize
-     * @param {number} pageNo
-     */
-    const fn_setGrdLtMcIfList = async function(pageSize, pageNo) {
-    	 console.log("******************fn_setGrdLtMcIfList**********************************");
+	const fn_init = async function() {
+		await SBUxMethod.changeGroupAttr('group1','disabled','true');
+		await SBUxMethod.changeGroupAttr('group2','disabled','true');
+
+		await fn_setGrdLtMcIfList();//데이터 조회
+
+		await cfn_selectPrgrs();//진척도
+
+		//최종제출 여부
+		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
+		if(prgrsLast  == 'Y'){
+			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
+		} else {
+			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+		}
+	}
+
+	const fn_setGrdLtMcIfList = async function(copy_chk) {
+		 console.log("******************fn_setGrdLtMcIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");/
+
+		//전년도 데이터
+		if(!gfn_isEmpty(copy_chk)){
+			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltLwtpStrgMchnInfoList.do", {
 			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
+			crtrYr: crtrYr
+		});
 
-        const data = await postJsonPromise;
+		const data = await postJsonPromise;
 		//await 오류시 확인
 
 		//예외처리
-        try {
+		try {
 
-        	data.resultList.forEach((item, index) => {
-        		SBUxMethod.set('srch-inp-opera1',item.fcltHldYn);
-        		SBUxMethod.set('srch-inp-opera2',item.storCap);
-        		SBUxMethod.set('srch-inp-opera3',item.stStorPerfm);
-        		SBUxMethod.set('srch-inp-opera4',item.ltStorPerfm);
-        		SBUxMethod.set('srch-inp-opera5',item.storOpRate);
+			data.resultList.forEach((item, index) => {
+				let lwtpStrgPlcHldMthd = item.lwtpStrgPlcHldMthd;//보유현황
+				if(lwtpStrgPlcHldMthd == '0'){
+					SBUxMethod.changeGroupAttr('group1','disabled','true');
+					SBUxMethod.changeGroupAttr('group2','disabled','true');
+					SBUxMethod.set('dtl-rdo-itemChk','N');
+				}else if(lwtpStrgPlcHldMthd == '1'){
+					SBUxMethod.changeGroupAttr('group1','disabled','false');
+					SBUxMethod.changeGroupAttr('group2','disabled','false');
+					SBUxMethod.set('dtl-rdo-itemChk','Y');
+					SBUxMethod.set('dtl-inp-strgPlcStrgAblt',item.strgPlcStrgAblt);
+					SBUxMethod.set('dtl-inp-strgPlcStrmStrgAblt',item.strgPlcStrmStrgAblt);
+					SBUxMethod.set('dtl-inp-strgPlcLtrmStrgAblt',item.strgPlcLtrmStrgAblt);
+					SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
+
+					SBUxMethod.set('warehouseSeCd_chk_mon_2_non',item.operYn);
+					//SBUxMethod.set('warehouseSeCd_chk_mon_2_1',item.operPeriodYn);
+					if(item.operYn == 'Y'){
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_2',item.operPeriodYn1);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_3',item.operPeriodYn2);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_4',item.operPeriodYn3);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_5',item.operPeriodYn4);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_6',item.operPeriodYn5);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_7',item.operPeriodYn6);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_8',item.operPeriodYn7);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_9',item.operPeriodYn8);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_10',item.operPeriodYn9);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_11',item.operPeriodYn10);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_12',item.operPeriodYn11);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_13',item.operPeriodYn12);
+						fn_checkSelect(null,2);
+					}
+				}
 			});
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
 
-
-		const postJsonPromise1 = gfn_postJSON("/fm/fclt/selectFcltLwtpStrgMchnOperInfoList.do", {
-			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
-
-        const data1 = await postJsonPromise1;
-		//await 오류시 확인
-
-		//예외처리
-        try {
-        	data1.resultList.forEach((item, index) => {
-        		SBUxMethod.set('srch-inp-opera1',item.fcltHldYn);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_1',item.fcltOperYn);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_2',item.fcltOperYn1);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_3',item.fcltOperYn2);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_4',item.fcltOperYn3);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_5',item.fcltOperYn4);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_6',item.fcltOperYn5);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_7',item.fcltOperYn6);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_8',item.fcltOperYn7);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_9',item.fcltOperYn8);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_10',item.fcltOperYn9);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_11',item.fcltOperYn10);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_12',item.fcltOperYn11);
-        		SBUxMethod.set('warehouseSeCd-chk-mon_1_13',item.fcltOperYn12);
-			});
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
-    }
+	}
 
 	//등록
 	const fn_save = async function() {
-    	console.log("******************fn_save**********************************");
+		console.log("******************fn_save**********************************");
 
-    	let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
-    		alert("apc를 선택해주세요");
-            return;
-        }
-		if (gfn_isEmpty(trgtYr)) {
-    		alert("대상연도를 작성해주세요");
-            return;
-        }
+			alert("apc를 선택해주세요");
+			return;
+		}
+		if (gfn_isEmpty(crtrYr)) {
+			alert("대상연도를 작성해주세요");
+			return;
+		}
 
-    	fn_subInsert(confirm("등록 하시겠습니까?"));
-    };
+		fn_subInsert(confirm("등록 하시겠습니까?"));
+	};
 
 
 
-    //신규등록
-    const fn_subInsert = async function (isConfirmed){
-    	 console.log("******************fn_subInsert**********************************");
-    	 if (!isConfirmed) return;
+	//신규등록
+	const fn_subInsert = async function (isConfirmed){
+		console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
 
-    	 const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltLwtpStrgMchnInfo.do", {
-    			trgtYr : SBUxMethod.get('srch-inp-trgtYr')
-    			,apcCd : SBUxMethod.get('srch-inp-apcCd')
-    			,fcltHldYn: SBUxMethod.get('srch-inp-opera1')
-    			,storCap: SBUxMethod.get('srch-inp-opera2')
-    			,stStorPerfm: SBUxMethod.get('srch-inp-opera3')
-    			,ltStorPerfm: SBUxMethod.get('srch-inp-opera4')
-    			,storOpRate: SBUxMethod.get('srch-inp-opera5')
-		});
+		let itemChk = SBUxMethod.get('dtl-rdo-itemChk');
 
-        const data = await postJsonPromise;
+		let saveList = {
+				crtrYr : SBUxMethod.get('srch-inp-crtrYr')
+				,apcCd : SBUxMethod.get('srch-inp-apcCd')
+				, prgrsYn : 'Y' //진척도 갱신 여부
+				,lwtpStrgPlcHldYn: itemChk
+				,storCap: SBUxMethod.get('srch-inp-opera2')
+				,stStorPerfm: SBUxMethod.get('srch-inp-opera3')
+				,ltStorPerfm: SBUxMethod.get('srch-inp-opera4')
+				,storOpRate: SBUxMethod.get('srch-inp-opera5')
+		};
 
-   	 	const postJsonPromise1 = gfn_postJSON("/fm/fclt/insertFcltLwtpStrgMchnOperInfo.do", {
-			trgtYr : SBUxMethod.get('srch-inp-trgtYr')
-			,apcCd : SBUxMethod.get('srch-inp-apcCd')
-			,fcltHldYn: SBUxMethod.get('srch-inp-opera1')
-			,fcltOperYn : $('#warehouseSeCd-chk-mon_1_1').val()
-	 		,fcltOperYn1 : $('#warehouseSeCd-chk-mon_1_2').val()
-	 		,fcltOperYn2 : $('#warehouseSeCd-chk-mon_1_3').val()
-	 		,fcltOperYn3 : $('#warehouseSeCd-chk-mon_1_4').val()
-	 		,fcltOperYn4 : $('#warehouseSeCd-chk-mon_1_5').val()
-	 		,fcltOperYn5 : $('#warehouseSeCd-chk-mon_1_6').val()
-	 		,fcltOperYn6 : $('#warehouseSeCd-chk-mon_1_7').val()
-	 		,fcltOperYn7 : $('#warehouseSeCd-chk-mon_1_8').val()
-	 		,fcltOperYn8 : $('#warehouseSeCd-chk-mon_1_9').val()
-	 		,fcltOperYn9 : $('#warehouseSeCd-chk-mon_1_10').val()
-	 		,fcltOperYn10 : $('#warehouseSeCd-chk-mon_1_11').val()
-	 		,fcltOperYn11 : $('#warehouseSeCd-chk-mon_1_12').val()
-	 		,fcltOperYn12 : $('#warehouseSeCd-chk-mon_1_13').val()
-		});
+		if(itemChk == 'Y'){
+			let operYn = $('#warehouseSeCd_chk_mon_2_non').val();//운영안함 여부
+			saveList.operYn = operYn;
+			if(operYn == 'N'){
+				//saveList.operPeriodYn = $('#warehouseSeCd_chk_mon_2_1').val();//전체선택
+				saveList.operPeriodYn1 = $('#warehouseSeCd_chk_mon_2_2').val();
+				saveList.operPeriodYn2 = $('#warehouseSeCd_chk_mon_2_3').val();
+				saveList.operPeriodYn3 = $('#warehouseSeCd_chk_mon_2_4').val();
+				saveList.operPeriodYn4 = $('#warehouseSeCd_chk_mon_2_5').val();
+				saveList.operPeriodYn5 = $('#warehouseSeCd_chk_mon_2_6').val();
+				saveList.operPeriodYn6 = $('#warehouseSeCd_chk_mon_2_7').val();
+				saveList.operPeriodYn7 = $('#warehouseSeCd_chk_mon_2_8').val();
+				saveList.operPeriodYn8 = $('#warehouseSeCd_chk_mon_2_9').val();
+				saveList.operPeriodYn9 = $('#warehouseSeCd_chk_mon_2_10').val();
+				saveList.operPeriodYn10 = $('#warehouseSeCd_chk_mon_2_11').val();
+				saveList.operPeriodYn11 = $('#warehouseSeCd_chk_mon_2_12').val();
+				saveList.operPeriodYn12 = $('#warehouseSeCd_chk_mon_2_13').val();
+			}
+		}
 
-   	 	const data1 = await postJsonPromise1;
+		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltLwtpStrgMchnInfo.do", saveList);
 
-        try {
-        	if (_.isEqual("S", data.resultStatus) && _.isEqual("S", data1.resultStatus) ) {
-        		alert("처리 되었습니다.");
-        		//fn_search();
-        	} else {
-        		if(!_.isEqual("S", data.resultStatus)){
-	        		alert(data.resultMessage);
-        		}else if(!_.isEqual("S", data1.resultStatus)){
-        			alert(data1.resultMessage);
-        		}
-        	}
-        } catch(e) {
-        }
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
-    }
+		const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				//fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+		}
+		// 결과 확인 후 재조회
+		console.log("insert result", data);
+	}
+
+	function fn_selectOnchange(e){
+		console.log(e);
+		if($(e).val() == 'Y'){
+			SBUxMethod.changeGroupAttr("group1",'disabled','false');
+			SBUxMethod.changeGroupAttr("group2",'disabled','false');
+		}else{
+			SBUxMethod.changeGroupAttr("group1",'disabled','true');
+			SBUxMethod.changeGroupAttr("group2",'disabled','true');
+			SBUxMethod.clearGroupData("group1");
+			SBUxMethod.clearGroupData("group2");
+		}
+	}
+
+	// 전체선택 체크박스
+	const fn_checkSelectAll = function(e,num) {
+		//let targetVal = SBUxMethod.get(e.name).e.name;
+		let targetVal = $('#'+e.name).val();
+		if(targetVal == 'Y'){
+			SBUxMethod.set('warehouseSeCd_chk_mon_'+num+'_non','N');
+		}
+
+		//sbux-checkbox id에 '-' 빼기 기호 사용시 문제가 생김 '_' 언더바 사용
+		for (var i = 1; i < 14; i++) {
+			SBUxMethod.set('warehouseSeCd_chk_mon_'+num+'_'+i,targetVal);
+		}
+	}
+
+	// 운영안함 체크박스
+	const fn_checkSelectNon = function(e,num) {
+		//let targetVal = SBUxMethod.get(e.name).e.name;
+		let targetVal = $('#'+e.name).val();
+		if(targetVal == 'Y'){
+			//sbux-checkbox id에 '-' 빼기 기호 사용시 문제가 생김 '_' 언더바 사용
+			for (var i = 1; i < 14; i++) {
+				SBUxMethod.set('warehouseSeCd_chk_mon_'+num+'_'+i,'N');
+			}
+		}
+	}
+
+
+	// 체크박스 선택시 전체선택 변경
+	const fn_checkSelect = function(e,num) {
+
+		let targetVal = $('#'+e.name).val();
+		if(targetVal == 'Y'){
+			SBUxMethod.set('warehouseSeCd_chk_mon_'+num+'_non','N');
+		}
+
+		//group 길이 랑 'Y' 값 갯수 비교
+		let group = SBUxMethod.getGroupData('group'+num);
+		let trueCnt = 0;
+		for (var i = 0; i < group.length; i++) {
+			let chkVal = Object.values(group[i].component_value);
+			if(chkVal[0] == 'Y'){
+				trueCnt++;
+			}
+		}
+		//let allChkVal = ;
+		SBUxMethod.set('warehouseSeCd_chk_mon_'+num+'_1',group.length == trueCnt ? 'Y' : 'N');
+	}
 
 	// apc 선택 팝업 호출
 	const fn_modalApcSelect = function() {
@@ -436,5 +596,24 @@
 		}
 	}
 
+	const fn_strgPlcOprtngRt = async function() {
+		let strgPlcStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrgAblt'));
+		let strgPlcStrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt'));
+		let strgPlcLtrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt'));
+
+		let result = ( strgPlcStrmStrgAblt + strgPlcLtrmStrgAblt ) / strgPlcStrgAblt ;
+		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result);
+	}
+
+	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
+	window.addEventListener('message',function(event){
+		console.log('1. 탭호출');
+		console.log(event);
+		let chkVal = event.data.chkVal;
+		if(chkVal == "selTab"){
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
+	});
 </script>
 </html>

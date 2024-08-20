@@ -21,10 +21,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -33,11 +33,10 @@
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 시설현황 -->
-
+				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 시설 장비 인력 현황 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
 
@@ -45,10 +44,17 @@
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
+						<col style="width: 11%">
+						<col style="width: 22%">
+						<col style="width: 50px">
+						<col style="width: 11%">
+						<col style="width: 22%">
+						<col style="width: 187px">
+						<col style="width: 100px">
 					<tbody>
 						<tr>
 							<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-							<td colspan= "3" class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden;">
 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
@@ -57,13 +63,24 @@
 							</td>
 							<th scope="row">대상연도</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-input id="srch-inp-trgtYr" name="srch-inp-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+								<sbux-spinner
+									id="srch-inp-crtrYr"
+									name="srch-inp-crtrYr"
+									uitype="normal"
+									step-value="1"
+								></sbux-spinner>
 							</td>
-							<td colspan="5"></td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectFcltInfoList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			<br>
+			<!-- 진척도 추가 -->
+			<%@ include file="prgrs/apcPrgrs.jsp" %>
 
 			<div class="table-responsive tbl_scroll_sm">
 				<div id="sb-area-spmtDsctn" style="height:0px;"></div>
@@ -72,115 +89,340 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>시설현황</caption>
 				<colgroup>
-					<col style="width: 30%">
-					<col style="width: 35%">
-					<col style="width: 35%">
+					<col style="width: 15%">
+					<col style="width: 15%">
+					<col style="width: 28px">
+					<col style="width: 15%">
+					<col style="width: 28px">
 				</colgroup>
 				<tbody>
 					<tr>
-						<th>구분</th>
-						<th>면적(㎡)</th>
-						<th>비고</th>
+						<th style="border-right: 1px solid white !important; text-align: center;">구분</th>
+						<th colspan="2" style="border-right: 1px solid white !important; text-align: center;">면적(㎡)</th>
+						<th colspan="2" style="border-right: 1px solid white !important; text-align: center;">평(평)</th>
+						<th style="border-right: 1px solid white !important; text-align: center;">비고</th>
 					</tr>
 					<tr>
 						<th>총 건축면적</th>
-						<td>
-							<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="자동" data-info="total" readonly ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspTotArea"
+								name="dtl-inp-cspTotArea"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								data-info="total"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+								readonly
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspTotAreaPy"
+								name="dtl-inp-cspTotAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								data-info="total"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text" class="form-control input-sm" placeholder="예) 1개 동" ></sbux-input>
+							<sbux-input id="dtl-inp-cspTotRmrk" name="dtl-inp-cspTotRmrk" uitype="text" class="form-control input-sm" placeholder="예) 1개 동" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>집하선별포장장</th>
-						<td>
-							<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text" class="form-control input-sm sum"onkeyup="sumNumbers(this)" ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspCfppArea"
+								name="dtl-inp-cspCfppArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspCfppAreaPy"
+								name="dtl-inp-cspCfppAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text" class="form-control input-sm" ></sbux-input>
+							<sbux-input id="dtl-inp-cspCfppRmrk" name="dtl-inp-cspCfppRmrk" uitype="text" class="form-control input-sm" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>세척․가공 등 처리</th>
-						<td>
-							<sbux-input id="srch-inp-opera5" name="srch-inp-opera5" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)"  ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspClnOprtngPrcsArea"
+								name="dtl-inp-cspClnOprtngPrcsArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspClnOprtngPrcsAreaPy"
+								name="dtl-inp-cspClnOprtngPrcsAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera6" name="srch-inp-opera6" uitype="text" class="form-control input-sm" ></sbux-input>
+							<sbux-input id="dtl-inp-cspClnOprtngPrcsRmrk" name="dtl-inp-cspClnOprtngPrcsRmrk" uitype="text" class="form-control input-sm" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>비상품화시설</th>
-						<td>
-							<sbux-input id="srch-inp-opera7" name="srch-inp-opera7" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)"  ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspNgdsFcltArea"
+								name="dtl-inp-cspNgdsFcltArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspNgdsFcltAreaPy"
+								name="dtl-inp-cspNgdsFcltAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera8" name="srch-inp-opera8" uitype="text" class="form-control input-sm"placeholder="사무실, 회의실, 화장실 등"></sbux-input>
+							<sbux-input id="dtl-inp-cspNgdsFcltRmrk" name="dtl-inp-cspNgdsFcltRmrk" uitype="text" class="form-control input-sm"placeholder="사무실, 회의실, 화장실 등"></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>폐기물 처리</th>
-						<td>
-							<sbux-input id="srch-inp-opera9" name="srch-inp-opera9" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)"  ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspDtpArea"
+								name="dtl-inp-cspDtpArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-cspDtpAreaPy"
+								name="dtl-inp-cspDtpAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera10" name="srch-inp-opera10" uitype="text" class="form-control input-sm" ></sbux-input>
+							<sbux-input id="dtl-inp-cspDtpRmrk" name="dtl-inp-cspDtpRmrk" uitype="text" class="form-control input-sm" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>예냉고</th>
-						<td>
-							<sbux-input id="srch-inp-opera11" name="srch-inp-opera11" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)" ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcPrcPlcArea"
+								name="dtl-inp-strgPlcPrcPlcArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcPrcPlcAreaPy"
+								name="dtl-inp-strgPlcPrcPlcAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera12" name="srch-inp-opera12" uitype="text" class="form-control input-sm" placeholder="예시) 3칸 ✕ 100m²"></sbux-input>
+							<sbux-input id="dtl-inp-strgPlcPrcPlcRmrk" name="dtl-inp-strgPlcPrcPlcRmrk" uitype="text" class="form-control input-sm" placeholder="예시) 3칸 ✕ 100m²"></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>저온저장</th>
-						<td>
-							<sbux-input id="srch-inp-opera13" name="srch-inp-opera13" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)" ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcLwtpStrgArea"
+								name="dtl-inp-strgPlcLwtpStrgArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcLwtpStrgAreaPy"
+								name="dtl-inp-strgPlcLwtpStrgAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera14" name="srch-inp-opera14" uitype="text" class="form-control input-sm"
+							<sbux-input id="dtl-inp-strgPlcLwtpStrgRmrk" name="dtl-inp-strgPlcLwtpStrgRmrk" uitype="text" class="form-control input-sm"
 							" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>CA저장고</th>
-						<td>
-							<sbux-input id="srch-inp-opera15" name="srch-inp-opera15" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)" ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcCaStrgPlcArea"
+								name="dtl-inp-strgPlcCaStrgPlcArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcCaStrgPlcAreaPy"
+								name="dtl-inp-strgPlcCaStrgPlcAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera16" name="srch-inp-opera16" uitype="text" class="form-control input-sm" ></sbux-input>
+							<sbux-input id="dtl-inp-strgPlcCaStrgPlcRmrk" name="dtl-inp-strgPlcCaStrgPlcRmrk" uitype="text" class="form-control input-sm" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>큐어링</th>
-						<td>
-							<sbux-input id="srch-inp-opera17" name="srch-inp-opera17" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)" ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcCurnArea"
+								name="dtl-inp-strgPlcCurnArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcCurnAreaPy"
+								name="dtl-inp-strgPlcCurnAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera18" name="srch-inp-opera18" uitype="text" class="form-control input-sm" ></sbux-input>
+							<sbux-input id="dtl-inp-strgPlcCurnRmrk" name="dtl-inp-strgPlcCurnRmrk" uitype="text" class="form-control input-sm" ></sbux-input>
 						</td>
 					</tr>
 					<tr>
 						<th>일반저장</th>
-						<td>
-							<sbux-input id="srch-inp-opera19" name="srch-inp-opera19" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)" ></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcGnrlStrgArea"
+								name="dtl-inp-strgPlcGnrlStrgArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcGnrlStrgAreaPy"
+								name="dtl-inp-strgPlcGnrlStrgAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera20" name="srch-inp-opera20" uitype="text" class="form-control input-sm" ></sbux-input>
+							<sbux-input id="dtl-inp-strgPlcGnrlStrgRmrk" name="dtl-inp-strgPlcGnrlStrgRmrk" uitype="text" class="form-control input-sm" ></sbux-input>
 						</td>
 					</tr>
-
 					<tr>
 						<th>기타사항</th>
-						<td>
-							<sbux-input id="srch-inp-opera21" name="srch-inp-opera21" uitype="text" class="form-control input-sm sum" onkeyup="sumNumbers(this)"></sbux-input>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcEtcArea"
+								name="dtl-inp-strgPlcEtcArea"
+								uitype="text"
+								class="form-control input-sm sum"
+								onkeyup="fn_sumNumbers(this)"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+							></sbux-input>
 						</td>
+						<td>㎡</td>
+						<td style="border-right:hidden; padding-right: 0px !important;">
+							<sbux-input
+								id="dtl-inp-strgPlcEtcAreaPy"
+								name="dtl-inp-strgPlcEtcAreaPy"
+								uitype="text"
+								class="form-control input-sm"
+								placeholder="자동계산"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
+								readonly
+							></sbux-input>
+						</td>
+						<td>평</td>
 						<td>
-							<sbux-input id="srch-inp-opera22" name="srch-inp-opera22" uitype="text" class="form-control input-sm" ></sbux-input>
+							<sbux-input id="dtl-inp-strgPlcEtcRmrk" name="dtl-inp-strgPlcEtcRmrk" uitype="text" class="form-control input-sm" ></sbux-input>
 						</td>
 					</tr>
 				</tbody>
@@ -192,103 +434,137 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-    <!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+	<!-- apc 선택 Modal -->
+	<div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
 		let year  = date.getFullYear();
-		SBUxMethod.set("srch-inp-trgtYr", year);
+		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			//SBUxMethod.set("srch-inp-apcCd", '0122');
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
-		fn_selectFcltInfoList();
+
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0122';
+		let crtrYr = '2023';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
 	});
 
-    /**
+	/* 초기화면 로딩 기능*/
+	const fn_init = async function() {
+		await fn_selectFcltInfoList();
+		//진척도
+		cfn_selectPrgrs();
+
+		//최종제출 여부
+		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
+		if(prgrsLast  == 'Y'){
+			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
+		} else {
+			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+		}
+	}
+
+	/**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-    const fn_selectFcltInfoList = async function(pageSize, pageNo) {
-    	 console.log("******************fn_pagingFcltInfoList**********************************");
+	const fn_selectFcltInfoList = async function(copy_chk) {
+		//console.log("******************fn_pagingFcltInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
+		let crtrYr = SBUxMethod.get("srch-input-crtrYr");
 
-        //비동기 포스트타입 url 데이터연결 페이징처리 글로벌
-        //gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
+		/*테스트*/
+		apcCd = '0122';
+		crtrYr = '2023';
+
+		//전년도 데이터
+		if(!gfn_isEmpty(copy_chk)){
+			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		}
+
+		//비동기 포스트타입 url 데이터연결 페이징처리 글로벌
+		//gfn_postJSON 는 ajax고 post통신의 데이터를 json 타입으로 보내는것이다
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInfoList.do", {
 			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
+			crtrYr: crtrYr
+		});
 
-        const data = await postJsonPromise;
+		const data = await postJsonPromise;
 		//await 오류시 확인
 		//예외처리
-        try {
-			console.log(data);
-        	data.resultList.forEach((item, index) => {
-        		SBUxMethod.set('srch-inp-opera1',item.fcltAreaTot);
-        		SBUxMethod.set('srch-inp-opera2',item.fcltRmrkTot);
-        		SBUxMethod.set('srch-inp-opera3',item.fcltArea01);
-        		SBUxMethod.set('srch-inp-opera4',item.fcltRmrk01);
-        		SBUxMethod.set('srch-inp-opera5',item.fcltArea02);
-        		SBUxMethod.set('srch-inp-opera6',item.fcltRmrk02);
-        		SBUxMethod.set('srch-inp-opera7',item.fcltArea03);
-        		SBUxMethod.set('srch-inp-opera8',item.fcltRmrk03);
-        		SBUxMethod.set('srch-inp-opera9',item.fcltArea04);
-        		SBUxMethod.set('srch-inp-opera10',item.fcltRmrk04);
-        		SBUxMethod.set('srch-inp-opera11',item.fcltArea05);
-        		SBUxMethod.set('srch-inp-opera12',item.fcltRmrk05);
-        		SBUxMethod.set('srch-inp-opera13',item.fcltArea06);
-        		SBUxMethod.set('srch-inp-opera14',item.fcltRmrk06);
-        		SBUxMethod.set('srch-inp-opera15',item.fcltArea07);
-        		SBUxMethod.set('srch-inp-opera16',item.fcltRmrk07);
-        		SBUxMethod.set('srch-inp-opera17',item.fcltArea08);
-        		SBUxMethod.set('srch-inp-opera18',item.fcltRmrk08);
-        		SBUxMethod.set('srch-inp-opera19',item.fcltArea09);
-        		SBUxMethod.set('srch-inp-opera20',item.fcltRmrk09);
-        		SBUxMethod.set('srch-inp-opera21',item.fcltArea10);
-        		SBUxMethod.set('srch-inp-opera22',item.fcltRmrk10);
+		try {
+			//console.log(data);
+			data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-inp-cspTotArea',gfn_nvl(item.cspTotArea));
+				SBUxMethod.set('dtl-inp-cspTotRmrk',gfn_nvl(item.cspTotRmrk));
+				SBUxMethod.set('dtl-inp-cspCfppArea',gfn_nvl(item.cspCfppArea));
+				SBUxMethod.set('dtl-inp-cspCfppRmrk',gfn_nvl(item.cspCfppRmrk));
+				SBUxMethod.set('dtl-inp-cspClnOprtngPrcsArea',gfn_nvl(item.cspClnOprtngPrcsArea));
+				SBUxMethod.set('dtl-inp-cspClnOprtngPrcsRmrk',gfn_nvl(item.cspClnOprtngPrcsRmrk));
+				SBUxMethod.set('dtl-inp-cspDtpArea',gfn_nvl(item.cspDtpArea));
+				SBUxMethod.set('dtl-inp-cspDtpRmrk',gfn_nvl(item.cspDtpRmrk));
+				SBUxMethod.set('dtl-inp-cspNgdsFcltArea',gfn_nvl(item.cspNgdsFcltArea));
+				SBUxMethod.set('dtl-inp-cspNgdsFcltRmrk',gfn_nvl(item.cspNgdsFcltRmrk));
+				SBUxMethod.set('dtl-inp-strgPlcPrcPlcArea',gfn_nvl(item.strgPlcPrcPlcArea));
+				SBUxMethod.set('dtl-inp-strgPlcPrcPlcRmrk',gfn_nvl(item.strgPlcPrcPlcRmrk));
+				SBUxMethod.set('dtl-inp-strgPlcLwtpStrgArea',gfn_nvl(item.strgPlcLwtpStrgArea));
+				SBUxMethod.set('dtl-inp-strgPlcLwtpStrgRmrk',gfn_nvl(item.strgPlcLwtpStrgRmrk));
+				SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcArea',gfn_nvl(item.strgPlcCaStrgPlcArea));
+				SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcRmrk',gfn_nvl(item.strgPlcCaStrgPlcRmrk));
+				SBUxMethod.set('dtl-inp-strgPlcCurnArea',gfn_nvl(item.strgPlcCurnArea));
+				SBUxMethod.set('dtl-inp-strgPlcCurnRmrk',gfn_nvl(item.strgPlcCurnRmrk));
+				SBUxMethod.set('dtl-inp-strgPlcGnrlStrgArea',gfn_nvl(item.strgPlcGnrlStrgArea));
+				SBUxMethod.set('dtl-inp-strgPlcGnrlStrgRmrk',gfn_nvl(item.strgPlcGnrlStrgRmrk));
+				SBUxMethod.set('dtl-inp-strgPlcEtcArea',gfn_nvl(item.strgPlcEtcArea));
+				SBUxMethod.set('dtl-inp-strgPlcEtcRmrk',gfn_nvl(item.strgPlcEtcRmrk));
 			});
 
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
-    }
+			fn_sumAll();//자동계산 부분 처리
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
+	}
 
 	//등록
 	const fn_save = async function() {
-    	console.log("******************fn_save**********************************");
+		//console.log("******************fn_save**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-inp-trgtYr");
-		if (gfn_isEmpty(apcCd)) {
-    		alert("apc를 선택해주세요");
-            return;
-        }
-		if (gfn_isEmpty(trgtYr)) {
-    		alert("대상연도를 작성해주세요");
-            return;
-        }
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
+		/*테스트*/
+		apcCd = '0122';
+		crtrYr = '2023';
+
+		if (gfn_isEmpty(apcCd)) {
+			alert("apc를 선택해주세요");
+			return;
+		}
+		if (gfn_isEmpty(crtrYr)) {
+			alert("대상연도를 작성해주세요");
+			return;
+		}
+		/*
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
 			if(e.value != "" && e.value.length != 4){
@@ -297,80 +573,134 @@
 				return e.focus();
 			}
 		});
+		*/
+		fn_subInsert(confirm("등록 하시겠습니까?"));
+	}
 
 
-    	fn_subInsert(confirm("등록 하시겠습니까?"));
-    }
 
 
+	//신규등록
+	const fn_subInsert = async function (isConfirmed){
+		//console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
 
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
-    //신규등록
-    const fn_subInsert = async function (isConfirmed){
-    	 console.log("******************fn_subInsert**********************************");
-    	 if (!isConfirmed) return;
+		/*테스트*/
+		apcCd = '0122';
+		crtrYr = '2023';
 
-    	 const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
-	    	trgtYr: SBUxMethod.get("srch-inp-trgtYr")  // 상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
-		 ,	apcCd: SBUxMethod.get("srch-inp-apcCd") // 상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
-         ,	fcltAreaTot: SBUxMethod.get('srch-inp-opera1')
-         ,	fcltRmrkTot: SBUxMethod.get('srch-inp-opera2')
-         ,	fcltArea01: SBUxMethod.get('srch-inp-opera3')
-         ,	fcltRmrk01: SBUxMethod.get('srch-inp-opera4')
-         ,	fcltArea02: SBUxMethod.get('srch-inp-opera5')
-         ,	fcltRmrk02: SBUxMethod.get('srch-inp-opera6')
-         ,	fcltArea03: SBUxMethod.get('srch-inp-opera7')
-         ,	fcltRmrk03: SBUxMethod.get('srch-inp-opera8')
-         ,	fcltArea04: SBUxMethod.get('srch-inp-opera9')
-         ,	fcltRmrk04: SBUxMethod.get('srch-inp-opera10')
-         ,	fcltArea05: SBUxMethod.get('srch-inp-opera11')
-         ,	fcltRmrk05: SBUxMethod.get('srch-inp-opera12')
-         ,	fcltArea06: SBUxMethod.get('srch-inp-opera13')
-         ,	fcltRmrk06: SBUxMethod.get('srch-inp-opera14')
-         ,	fcltArea07: SBUxMethod.get('srch-inp-opera15')
-         ,	fcltRmrk07: SBUxMethod.get('srch-inp-opera16')
-         ,	fcltArea08: SBUxMethod.get('srch-inp-opera17')
-         ,	fcltRmrk08: SBUxMethod.get('srch-inp-opera18')
-         ,	fcltArea09: SBUxMethod.get('srch-inp-opera19')
-         ,	fcltRmrk09: SBUxMethod.get('srch-inp-opera20')
-         ,	fcltArea10: SBUxMethod.get('srch-inp-opera21')
-         ,	fcltRmrk10: SBUxMethod.get('srch-inp-opera22')
+		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
+			crtrYr: crtrYr
+			, apcCd: apcCd
+			, prgrsYn : 'Y' //진척도 갱신 여부
+			, cspTotArea: SBUxMethod.get('dtl-inp-cspTotArea')
+			, cspTotRmrk: SBUxMethod.get('dtl-inp-cspTotRmrk')
+			, cspCfppArea: SBUxMethod.get('dtl-inp-cspCfppArea')
+			, cspCfppRmrk: SBUxMethod.get('dtl-inp-cspCfppRmrk')
+			, cspClnOprtngPrcsArea: SBUxMethod.get('dtl-inp-cspClnOprtngPrcsArea')
+			, cspClnOprtngPrcsRmrk: SBUxMethod.get('dtl-inp-cspClnOprtngPrcsRmrk')
+			, cspDtpArea: SBUxMethod.get('dtl-inp-cspDtpArea')
+			, cspDtpRmrk: SBUxMethod.get('dtl-inp-cspDtpRmrk')
+			, cspNgdsFcltArea: SBUxMethod.get('dtl-inp-cspNgdsFcltArea')
+			, cspNgdsFcltRmrk: SBUxMethod.get('dtl-inp-cspNgdsFcltRmrk')
+			, strgPlcPrcPlcArea: SBUxMethod.get('dtl-inp-strgPlcPrcPlcArea')
+			, strgPlcPrcPlcRmrk: SBUxMethod.get('dtl-inp-strgPlcPrcPlcRmrk')
+			, strgPlcLwtpStrgArea: SBUxMethod.get('dtl-inp-strgPlcLwtpStrgArea')
+			, strgPlcLwtpStrgRmrk: SBUxMethod.get('dtl-inp-strgPlcLwtpStrgRmrk')
+			, strgPlcCaStrgPlcArea: SBUxMethod.get('dtl-inp-strgPlcCaStrgPlcArea')
+			, strgPlcCaStrgPlcRmrk: SBUxMethod.get('dtl-inp-strgPlcCaStrgPlcRmrk')
+			, strgPlcCurnArea: SBUxMethod.get('dtl-inp-strgPlcCurnArea')
+			, strgPlcCurnRmrk: SBUxMethod.get('dtl-inp-strgPlcCurnRmrk')
+			, strgPlcGnrlStrgArea: SBUxMethod.get('dtl-inp-strgPlcGnrlStrgArea')
+			, strgPlcGnrlStrgRmrk: SBUxMethod.get('dtl-inp-strgPlcGnrlStrgRmrk')
+			, strgPlcEtcArea: SBUxMethod.get('dtl-inp-strgPlcEtcArea')
+			, strgPlcEtcRmrk: SBUxMethod.get('dtl-inp-strgPlcEtcRmrk')
 		});
 
-        const data = await postJsonPromise;
+		const data = await postJsonPromise;
 
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		//fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
-    }
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				//fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+		}
+		// 결과 확인 후 재조회
+		//console.log("insert result", data);
+	}
 
-    //면적 합산
-	function sumNumbers(e) {
-        extractNumbers2(e);
+	//면적 합산
+	function fn_sumNumbers(e) {
+		//extractNumbers2(e);
+		//console.log(e);
+		fn_pyCal(e);
+		let sum = 0;
+		let sumStr = "";
+		document.querySelectorAll(".sum").forEach(e =>{
+			// , 마스킹 제거 후 숫자 타입 변환
+			let eVal = parseFloat(e.value.replaceAll(',',''));
+			if(!isNaN(eVal)){
+				sumStr += eVal+" , "
+				sum += eVal;
+			}
+		});
+		//console.log(sumStr);
+		let pyVal = sum*0.3025;
+		//console.log(sum.toFixed(1));
+		//$("sbux-input[data-info='total']").val(sum.toFixed(1));
+		SBUxMethod.set("dtl-inp-cspTotArea", sum.toFixed(1));
+		SBUxMethod.set("dtl-inp-cspTotAreaPy", pyVal.toFixed(2));
+		//data-info="total"
+	}
 
-        let sum = 0;
+	//조회 후 전체 평계산,합산
+	function fn_sumAll() {
 
-        document.querySelectorAll("input.sum").forEach(e =>{
-        	sum += e.value/1;
-        });
-        console.log(sum.toFixed(1));
-        //$("sbux-input[data-info='total']").val(sum.toFixed(1));
-        SBUxMethod.set("srch-inp-opera1", sum.toFixed(1));
-        //data-info="total"
-    }
+		let sumArr = $('.sum');
+		for (var i = 0; i < sumArr.length; i++) {
+			fn_pyCal(sumArr[i]);
+		}
+
+		let sum = 0;
+		let sumStr = "";
+		document.querySelectorAll(".sum").forEach(e =>{
+			// , 마스킹 제거 후 숫자 타입 변환
+			let eVal = parseFloat(e.value.replaceAll(',',''));
+			if(!isNaN(eVal)){
+				sumStr += eVal+" , "
+				sum += eVal;
+			}
+		});
+
+		let pyVal = sum*0.3025;
+		//console.log(sum.toFixed(1));
+		//$("sbux-input[data-info='total']").val(sum.toFixed(1));
+		SBUxMethod.set("dtl-inp-cspTotArea", sum.toFixed(1));
+		SBUxMethod.set("dtl-inp-cspTotAreaPy", pyVal.toFixed(2));
+	}
 
 	// 숫자(소숫점 가능)만 입력
 	function extractNumbers2(e) {
 		let chkVal = $(e).val().replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 		$(e).val(chkVal);
+	}
+	//평계산
+	function fn_pyCal(e){
+		//1제곱미터 = 약 0.3025 평
+		let target = SBUxMethod.get(e.name);
+		if(gfn_isEmpty(target)){
+			SBUxMethod.set(e.name+"Py","");
+			return;
+		}
+
+		let resultVal = parseFloat(target) * 0.3025;
+		SBUxMethod.set(e.name+"Py",resultVal);
 	}
 
 	// apc 선택 팝업 호출
@@ -384,5 +714,15 @@
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
 	}
+	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
+	window.addEventListener('message',function(event){
+		console.log('1. 탭호출');
+		console.log(event);
+		let chkVal = event.data.chkVal;
+		if(chkVal == "selTab"){
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
+	});
 </script>
 </html>
