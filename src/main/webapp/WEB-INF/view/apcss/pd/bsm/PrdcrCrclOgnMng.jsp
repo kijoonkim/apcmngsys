@@ -98,7 +98,7 @@
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" >
 							</td>
-							<th scope="row" class="th_bg">시군</th>
+							<th scope="row" class="th_bg">시군구</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-input-sgg"
@@ -474,7 +474,7 @@
 						</tr>
 						<tr>
 							<th colspan="2" rowspan="2" scope="row" class="th_bg">
-								<span class="data_required" ></span>주소<br>
+								<span class="data_required" ></span>사무실 주소<br>
 								<sbux-button id="srch-btn-addr" name="srch-btn-addr" uitype="modal" target-id="" onclick="fn_goPopup" text="주소찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</th>
 							<td class="td_input" style="border-right:hidden;">[지번 주소]</td>
@@ -1302,13 +1302,13 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		fn_clearForm();
 
 		fn_setGrdFcltList(pageSize, pageNo);
-    }
+	}
 
 	const fn_pagingBbsList = async function() {
 		let recordCountPerPage = grdPrdcrCrclOgnMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 		let currentPageNo = grdPrdcrCrclOgnMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
-    }
+	}
 
 	const fn_report = async function() {
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
