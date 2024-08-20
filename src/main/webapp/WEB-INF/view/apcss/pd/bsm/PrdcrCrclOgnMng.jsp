@@ -458,7 +458,7 @@
 									onchange="fn_ctpvDtlChange"
 								></sbux-select>
 							</td>
-							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시군</th>
+							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>시군구</th>
 							<td  colspan="3" class="td_input" >
 								<sbux-select
 									id="dtl-input-sgg"
