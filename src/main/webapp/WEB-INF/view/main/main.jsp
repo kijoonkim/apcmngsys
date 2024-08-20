@@ -583,25 +583,6 @@
         }
     }
 
-	function fn_selectTabMenu(_selectId, _selectJson) {
-		//fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
-
-		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
-
-		let iframe = "idxfrmJson_" + _selectId;
-
-		//열린 탭으로 이동시 Message 전송
-		/** 현재 열려있는 탭으로 이동 확인용 **/
-		let openFlag = tabJsonData.some((item) => item.targetid == _selectId);
-		if(openFlag){
-			let el = document.getElementById(iframe);
-			/** main > receive 로 parameter 전달 **/
-			let data = {
-				chkVal : 'selTab'
-			}
-			el.contentWindow.postMessage(data);
-		}
-	}
 
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
@@ -731,7 +712,6 @@
                         jsondata-ref="tabJsonData"
                         storage-data="text"
                         onclick="fn_setMenuInfo(tab_menu)"
-                        callback-after-select="fn_selectTabMenu"
                         callback-after-close="fn_chkTabList"
                     ></sbux-tabs>
                     <div class="tab-content">

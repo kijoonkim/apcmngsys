@@ -100,7 +100,7 @@
                         </ul>
                     </div>
                     <div>
-                        <table class="table table-bordered tbl_fixed">
+                        <table id="middleTable" class="table table-bordered tbl_fixed">
                             <caption>검색 조건 설정</caption>
                             <colgroup>
                                 <col style="width: 10%">
@@ -123,34 +123,34 @@
                                 <td></td>
                                 <th scope="row" class="th_bg"><span ></span>부가세기간구분</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-select id="reg-slt-cbotaxTerm" name="reg-slt-cbotaxTerm" uitype="single" jsondata-ref="jsonCbotaxTerm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="reg-slt-taxTerm" name="reg-slt-taxTerm" uitype="single" jsondata-ref="jsonCbotaxTerm" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg"><span ></span>신고구분</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-select id="reg-slt-cbotaxRepDtlType" name="reg-slt-cbotaxRepDtlType" uitype="single" jsondata-ref="jsonCbotaxRepDtlType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="reg-slt-vatRepDetailType" name="reg-slt-vatRepDetailType" uitype="single" jsondata-ref="jsonCbotaxRepDtlType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg"><span ></span>부가세 서식명</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-input id="reg-inp-vatTypeNm" name="reg-inp-vatTypeNm" uitype="text"></sbux-input>
+                                    <sbux-input id="reg-inp-vatTypeName" name="reg-inp-vatTypeName" uitype="text"></sbux-input>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg"><span ></span>신고기준월</th>
                                 <td class="td_input" style="border-right: hidden" colspan="2">
                                     <div style="display: flex; gap: 10px">
-                                        <sbux-datepicker id="reg-dtp-stdMoFrom" name="reg-dtp-stdMoFrom" uitype="popup" datepicker-mode="month" date-format="yyyy-mm"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
+                                        <sbux-datepicker id="reg-dtp-standardMonthFr" name="reg-dtp-standardMonthFr" uitype="popup" datepicker-mode="month" date-format="yyyy-mm"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
                                         </sbux-datepicker>
-                                        <sbux-datepicker id="reg-dtp-stdMoTo" name="reg-dtp-stdMoTo" uitype="popup" datepicker-mode="month" date-format="yyyy-mm"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
+                                        <sbux-datepicker id="reg-dtp-standardMonthTo" name="reg-dtp-standardMonthTo" uitype="popup" datepicker-mode="month" date-format="yyyy-mm"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
                                         </sbux-datepicker>
                                     </div>
                                 </td>
 
                                 <th scope="row" class="th_bg"><span ></span>신고일</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-datepicker id="reg-dtp-rptDt" name="reg-dtp-rptDt" uitype="popup" class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
+                                    <sbux-datepicker id="reg-dtp-reportDate" name="reg-dtp-reportDate" uitype="popup" class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
                                     </sbux-datepicker>
                                 </td>
                                 <td></td>
@@ -158,18 +158,18 @@
                             <tr>
                                 <th scope="row" class="th_bg"><span ></span>조기환급 신고여부</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-checkbox id="reg-chk-rfYn" name="reg-chk-rfYn" uitype="normal" text="조기환급신고">
+                                    <sbux-checkbox id="reg-chk-refundYn" name="reg-chk-refundYn" uitype="normal" text="조기환급신고" false-value="N" true-value="Y">
                                     </sbux-checkbox>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg"><span ></span>환급구분</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-select id="reg-slt-cboRfType" name="reg-slt-cboRfType" uitype="single" jsondata-ref="jsonCboRfType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="reg-slt-refundType" name="reg-slt-refundType" uitype="single" jsondata-ref="jsonCboRfType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg"><span ></span>조기환급취소여부</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-checkbox id="reg-chk-rfCxlYn" name="reg-chk-rfCxlYn" uitype="normal" text="조기환급취소여부">
+                                    <sbux-checkbox id="reg-chk-refundCancelYn" name="reg-chk-refundCancelYn" uitype="normal" text="조기환급취소여부" false-value="N" true-value="Y">
                                     </sbux-checkbox>
                                 </td>
                                 <td></td>
@@ -177,14 +177,14 @@
                             <tr>
                                 <th scope="row" class="th_bg"><span ></span>총괄(단위과세)번호</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-input id="reg-inp-payOrgNo" name="reg-inp-payOrgNo" uitype="text"></sbux-input>
+                                    <sbux-input id="reg-inp-payOrgsiteNo" name="reg-inp-payOrgsiteNo" uitype="text"></sbux-input>
                                 </td>
                                 <td colspan="7"></td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg"><span ></span>비고</th>
                                 <td class="td_input" colspan="8">
-                                    <sbux-textarea id="reg-txa-rmrk" name="reg-txa-rmrk"  uitype="normal" rows="2" wrap-style="width:100%">
+                                    <sbux-textarea id="reg-txa-memo" name="reg-txa-memo"  uitype="normal" rows="2" wrap-style="width:100%">
                                     </sbux-textarea>
                                 </td>
                             </tr>
@@ -282,16 +282,17 @@
 
         /** 등록조건_부가세기준정보 select **/
         jsonCbotaxTerm = await gfnma_getComSelectList('L_FIT002','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
-        SBUxMethod.refresh("reg-slt-cbotaxTerm");
+        SBUxMethod.refresh("reg-slt-taxTerm");
 
         /** 등록조건_신고구분 select **/
         jsonCbotaxRepDtlType = await gfnma_getComSelectList('L_FIT035','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
-        SBUxMethod.refresh("reg-slt-cbotaxRepDtlType");
+        SBUxMethod.refresh("reg-slt-vatRepDetailType");
 
         /** 등록조건_환급구분 select **/
         jsonCboRfType = await gfnma_getComSelectList('L_FIT023','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'SUB_CODE',"CODE_NAME");
-        SBUxMethod.refresh("reg-slt-cboRfType");
+        SBUxMethod.refresh("reg-slt-refundType");
 
+        fn_search();
     }
 
     /** 기준정보 리스트 **/
@@ -332,6 +333,7 @@
             {caption: ['환급취소여부'], 				ref: 'refundCancelYn', 	width: '7%',	type: 'output',	style:'text-align: center'},
         ]
         rptStdGrid = _SBGrid.create(SBGridProperties);
+        rptStdGrid.bind('click','fn_setMdGrid');
     }
 
     /** 신고사업장 정보 GRID **/
@@ -342,9 +344,9 @@
         SBGridProperties.jsonref = 'jsonRptSiteGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns =[
-            {caption: ['신고사업장명'], 			ref: 'brndNm', 		width: '50%',	type: 'output',	style:'text-align: center'},
-            {caption: ['사업자번호'], 			ref: 'cnptNm', 		width: '30%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고여부'],				ref: 'vrtyNm', 		width: '20%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고사업장명'], 			ref: 'taxSiteName', 		width: '50%',	type: 'output',	style:'text-align: center'},
+            {caption: ['사업자번호'], 			ref: 'bizRegno', 		width: '30%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고여부'],				ref: 'chkYn', 		width: '20%',   style:'text-align: center', type : 'checkbox', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
         ]
         rptSiteGrid = _SBGrid.create(SBGridProperties);
     }
@@ -357,18 +359,64 @@
         SBGridProperties.jsonref = 'jsonVatGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns =[
-            {caption: ['순번'], 			ref: 'brndNm', 		width: '20%',	type: 'output',	style:'text-align: center'},
-            {caption: ['서식명'], 			ref: 'cnptNm', 		width: '50%',	type: 'output',	style:'text-align: center'},
-            {caption: ['작성대상'],				ref: 'vrtyNm', 		width: '30%',	type: 'output',	style:'text-align: center'},
+            {caption: ['순번'], 			ref: 'reportSeq', 		width: '20%',	type: 'output',	style:'text-align: center'},
+            {caption: ['서식명'], 			ref: 'vatReportName', 		width: '50%',	type: 'output',	style:'text-align: center'},
+            {caption: ['작성대상'],				ref: 'useYn', 		width: '30%',	style:'text-align: center', type : 'checkbox', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
         ]
         vatGrid = _SBGrid.create(SBGridProperties);
+    }
+    /** camelCase FN **/
+    function toCamelCase(snakeStr) {
+        return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    function convertArrayToCamelCase(array) {
+        return array.map(obj => {
+            return Object.keys(obj).reduce((acc, key) => {
+                const camelKey = toCamelCase(key);
+                acc[camelKey] = obj[key];
+                return acc;
+            }, {});
+        });
     }
 
     /** 공통 버튼 **/
     function cfn_search(){
         fn_search();
     }
+    function cfn_save(){
+        console.log("save하게[ㅆ습니다");
+
+        console.log(vatGrid.getColStatus(3));
+    }
+
+
     const fn_search = async function(){
+       let rst = await Promise.all([
+           fn_searchStdRep(),
+           fn_searchRepSite(),
+           fn_searchVatDom()
+       ]);
+
+    }
+
+    /** grid click event mdTable 셋팅 **/
+    const fn_setMdGrid = async function(){
+        let idx = rptStdGrid.getRow();
+        let data = rptStdGrid.getRowData(idx);
+        console.log(data,"data");
+        let table = document.getElementById("middleTable");
+        let regs = table.querySelectorAll(`[id^="reg-"]`);
+        for (const item of regs) {
+           let wordIdx = item.id.lastIndexOf('-') + 1;
+           let key = item.id.substring(wordIdx);
+           console.log(key,"key");
+           console.log(item.id,"요소 아이디");
+           await SBUxMethod.set(item.id,data[key]);
+        }
+    }
+    /** 신고 기준정보 리스트 조회 **/
+    const fn_searchStdRep = async function(){
         /** 조회 결과 초기화 **/
         rptStdGrid.length = 0;
         rptStdGrid.rebuild();
@@ -376,7 +424,7 @@
         let V_P_SEQ = gfnma_multiSelectGet("#src-btn-currencyCode");
 
         var paramObj = {
-             V_P_DEBUG_MODE_YN        : ""
+            V_P_DEBUG_MODE_YN        : ""
             ,V_P_LANG_ID              : ""
             ,V_P_COMP_CODE            : gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
@@ -398,26 +446,15 @@
         });
         const data = await postJsonPromise;
 
-        function toCamelCase(snakeStr) {
-            return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
-        }
-
-        function convertArrayToCamelCase(array) {
-            return array.map(obj => {
-                return Object.keys(obj).reduce((acc, key) => {
-                    const camelKey = toCamelCase(key);
-                    acc[camelKey] = obj[key];
-                    return acc;
-                }, {});
-            });
-        }
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_1)){
                     const camelCasedArray = convertArrayToCamelCase(data.cv_1);
-                    console.log(camelCasedArray);
                     jsonRptStdGrid = camelCasedArray;
                     rptStdGrid.rebuild();
+                    if(jsonRptStdGrid.length > 0){
+                        rptStdGrid.clickRow(0);
+                    }
                 }
             }
 
@@ -428,8 +465,103 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
 
+    /** 신고사업장 목록 조회 **/
+    const fn_searchRepSite = async function(){
 
+        jsonRptSiteGrid.length = 0;
+        rptSiteGrid.rebuild();
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN        : ""
+            ,V_P_LANG_ID              : ""
+            ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+            ,V_P_YYYY                 : ""
+            ,V_P_SEQ                  : ""
+            ,V_P_TAX_SITE_CODE        : ""
+            ,V_P_FORM_ID              : p_formId
+            ,V_P_MENU_ID              : p_formId
+            ,V_P_PROC_ID              : ""
+            ,V_P_USERID               : p_formId
+            ,V_P_PC                   : ""
+        };
+
+        const postJsonPromise = gfn_postJSON("/co/sys/fit/selectFit1400.do", {
+            getType				: 'json',
+            workType			: 'NEW',
+            cv_count			: '5',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        try{
+            if (_.isEqual("S", data.resultStatus)) {
+                if(!gfn_isEmpty(data.cv_4)){
+                    const camelCasedArray = convertArrayToCamelCase(data.cv_4);
+                    jsonRptSiteGrid = camelCasedArray;
+                    rptSiteGrid.rebuild();
+                }
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    /** 부가세 부속서류 리스트 조회 **/
+    const fn_searchVatDom = async function(){
+
+        /** 조회 결과 초기화 **/
+        jsonVatGrid.length = 0;
+        vatGrid.rebuild();
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN        : ""
+            ,V_P_LANG_ID              : ""
+            ,V_P_COMP_CODE            : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+            ,V_P_YYYY                 : ""
+            ,V_P_SEQ                  : ""
+            ,V_P_TAX_SITE_CODE        : ""
+            ,V_P_FORM_ID              : p_formId
+            ,V_P_MENU_ID              : p_formId
+            ,V_P_PROC_ID              : ""
+            ,V_P_USERID               : p_formId
+            ,V_P_PC                   : ""
+        };
+
+        const postJsonPromise = gfn_postJSON("/co/sys/fit/selectFit1400.do", {
+            getType				: 'json',
+            workType			: 'NEW_Q2',
+            cv_count			: '5',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        try{
+            if (_.isEqual("S", data.resultStatus)) {
+                if(!gfn_isEmpty(data.cv_5)){
+                    const camelCasedArray = convertArrayToCamelCase(data.cv_5);
+                    console.log(camelCasedArray);
+                    jsonVatGrid = camelCasedArray;
+                    vatGrid.rebuild();
+                }
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
 
