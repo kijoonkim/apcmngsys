@@ -590,7 +590,7 @@
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '은행 정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -618,20 +618,20 @@
         var replaceText1 	= "_BANK_NAME_";
         var strWhereClause 	= "AND BANK_CODE LIKE '%" + replaceText0 + "%' AND BANK_NAME LIKE '%" + replaceText1 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_BANK_ACCOUNT'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["코드", "명"]
+            ,searchCaptions			: ["코드", "명칭"]
             ,searchInputFields		: ["BANK_CODE", "BANK_NAME"]
             ,searchInputValues		: ["", searchText]
             ,height					: '400px'
-            ,tableHeader			: ["코드", "명칭", "은행코드", "은행명", "계정코드", "계정명", "계좌번호", "통화코드"]
-            ,tableColumnNames		: ["CODE" , "NAME", "BANK_CODE", "BANK_NAME", "ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NUM", "CURRENCY_CODE"]
-            ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px"]
+            ,tableHeader			: ["계좌번호", "명칭", "은행명", "통화"]
+            ,tableColumnNames		: ["CODE" , "NAME", "BANK_NAME", "CURRENCY_CODE"]
+            ,tableColumnWidths		: ["110px", "210px", "130px", "80px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('SRCH_BANK_ACCOUNT_NAME', data.NAME);
