@@ -1,19 +1,22 @@
 package com.at.apcss.fm.fclt.service.impl;
 
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltInfoService;
 import com.at.apcss.fm.fclt.vo.FcltInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
  * @Class Name : FcltInfoServiceImpl.java
  * @Description : 시설현황 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -30,6 +33,8 @@ public class FcltInfoServiceImpl extends BaseServiceImpl implements FcltInfoServ
 
 	@Autowired
 	private FcltInfoMapper fcltInfoMapper;
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltInfoVO selectFcltInfo(FcltInfoVO fcltInfoVO) throws Exception {
@@ -67,6 +72,27 @@ public class FcltInfoServiceImpl extends BaseServiceImpl implements FcltInfoServ
 	public int insertFcltInfo(FcltInfoVO fcltInfoVO) throws Exception {
 
 		int insertedCnt = fcltInfoMapper.insertFcltInfo(fcltInfoVO);
+
+		String prgrsYn = fcltInfoVO.getPrgrsYn();
+		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
+			//진척도 변경
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltInfoVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs3("T");
+			}else {
+				fcltPrgrsVO.setPrgrs3("Y");
+			}
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
 
 		return insertedCnt;
 	}

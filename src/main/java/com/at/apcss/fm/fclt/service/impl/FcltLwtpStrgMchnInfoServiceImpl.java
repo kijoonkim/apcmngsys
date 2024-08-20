@@ -6,14 +6,16 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltLwtpStrgMchnInfoService;
 import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
  * @Class Name : FcltLwtpStrgMchnInfoServiceImpl.java
  * @Description : 저온저장고운영 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 신정철
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -30,6 +32,9 @@ public class FcltLwtpStrgMchnInfoServiceImpl extends BaseServiceImpl implements 
 
 	@Autowired
 	private FcltLwtpStrgMchnInfoMapper fcltLwtpStrgMchnInfoMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltLwtpStrgMchnInfoVO selectFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception {
@@ -68,6 +73,27 @@ public class FcltLwtpStrgMchnInfoServiceImpl extends BaseServiceImpl implements 
 
 		int insertedCnt = fcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo(fcltLwtpStrgMchnInfoVO);
 
+		String prgrsYn = fcltLwtpStrgMchnInfoVO.getPrgrsYn();
+
+		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
+			//진척도 변경
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltLwtpStrgMchnInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltLwtpStrgMchnInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltLwtpStrgMchnInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltLwtpStrgMchnInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltLwtpStrgMchnInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltLwtpStrgMchnInfoVO.getSysLastChgPrgrmId());
+
+			//임시저장
+			String tmprStrgYn = fcltLwtpStrgMchnInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs7("T");
+			}else {
+				fcltPrgrsVO.setPrgrs7("Y");
+			}
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
 		return insertedCnt;
 	}
 

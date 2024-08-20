@@ -10,8 +10,8 @@ import lombok.Setter;
 public class FcltUnityMngInfoVO extends ComVO{
 
 	private String trgtYr;
-	private String apcCd;
-	private String apcNm;
+	//private String apcCd;
+	//private String apcNm;
 	private int sn;
 	private String fcltSysInstlCd;
 	private String fcltSysHldYn;
@@ -27,10 +27,19 @@ public class FcltUnityMngInfoVO extends ComVO{
 	private String fcltSysHldYn6;
 	private String fcltSysHldYn7;
 
-
-
-
-
+	/* 테이블 변경으로 추가 */
+	private String prgrsYn;//진척도 갱신 여부
+	private String tmprStrgYn;//임시저장 여부
+	private String crtrYr;
+	private String apcCd;
+	private String apcNm;
+	private String umsPrdctnInfo;
+	private String umsWrhsInfo;
+	private String umsSortInfo;
+	private String umsStrgInfo;
+	private String umsPckgInfo;
+	private String umsSpmtInfo;
+	private String umsClclnInfo;
 
 }
 

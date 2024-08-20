@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltDtaMngInfoService;
 import com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
@@ -30,6 +32,9 @@ public class FcltDtaMngInfoServiceImpl extends BaseServiceImpl implements FcltDt
 
 	@Autowired
 	private FcltDtaMngInfoMapper fcltDtaMngInfoMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltDtaMngInfoVO selectFcltDtaMngInfo(FcltDtaMngInfoVO fcltDtaMngInfoVO) throws Exception {
@@ -68,6 +73,26 @@ public class FcltDtaMngInfoServiceImpl extends BaseServiceImpl implements FcltDt
 
 		int insertedCnt = fcltDtaMngInfoMapper.insertFcltDtaMngInfo(fcltDtaMngInfoVO);
 
+		String prgrsYn = fcltDtaMngInfoVO.getPrgrsYn();
+
+		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
+			//진척도 변경
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltDtaMngInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltDtaMngInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltDtaMngInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltDtaMngInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltDtaMngInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltDtaMngInfoVO.getSysLastChgPrgrmId());
+			//임시저장
+			String tmprStrgYn = fcltDtaMngInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs10("T");
+			}else {
+				fcltPrgrsVO.setPrgrs10("Y");
+			}
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
 		return insertedCnt;
 	}
 

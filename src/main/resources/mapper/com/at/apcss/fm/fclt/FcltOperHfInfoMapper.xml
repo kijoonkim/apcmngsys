@@ -20,28 +20,35 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-    	<![CDATA[
+	<select id="selectFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo */
-				  FCLT.TRGT_YR                AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.HIRE_NOPE              AS HIRE_NOPE
-				, FCLT.HIRE_NOPE2              AS HIRE_NOPE2
-				, FCLT.HIRE_NOPE3              AS HIRE_NOPE3
-				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
-			 FROM TB_FCLT_OPER_HF_INFO FCLT
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND APC_CD IS NOT NULL
-		     		]]>
-        		<if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
-		   </if>
-    </select>
+				APC_CD
+				,APC_NM
+				,CRTR_YR
+				,HIRE_RGLLBR_OFC
+				,HIRE_RGLLBR_SPT
+				,HIRE_TMPR_WG_TOT_SUM
+				,HIRE_TMPR_AVG_WG
+				,HIRE_TMPR_YR_NOP
+				,HIRE_FRGNR
+				,HIRE_INSRNC_BPLC_MNGNO
+				,HIRE_RGLLBR_CTZN
+				,HIRE_RGLLBR_FRGNR
+				,HIRE_TMPR_JOB_CTZN
+				,HIRE_TMPR_JOB_FRGNR
+			FROM TB_TE_APC_OPER_ABLT AOA
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+					]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  APC_CD = #{apcCd}
+			</if>
+	</select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoList			-->
@@ -50,137 +57,139 @@
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <select id="selectFcltOperHfInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-    	<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		SELECT
-    			  ROWNUM AS ROW_SEQ
-    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
-    			, pt0.*
-    		  FROM (
-    	</if>
-    	<!-- End 페이징 -->
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo */
-				  FCLT.TRGT_YR                AS TRGT_YR
-				, FCLT.APC_CD                 AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.HIRE_NOPE              AS HIRE_NOPE
-				, FCLT.HIRE_NOPE2              AS HIRE_NOPE2
-				, FCLT.HIRE_NOPE3              AS HIRE_NOPE3
-				, FCLT.HIRE_NOPE4              AS HIRE_NOPE4
-			 FROM TB_FCLT_OPER_HF_INFO FCLT
- 			 WHERE 1=1
- 			 AND DEL_YN != 'Y'
- 			 AND APC_CD IS NOT NULL
-  ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+		<!-- ==========================================================================	-->
+	<select id="selectFcltOperHfInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+			<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoList */
+				APC_CD
+				,APC_NM
+				,CRTR_YR
+				,HIRE_RGLLBR_CTZN
+				,HIRE_RGLLBR_FRGNR
+
+				,HIRE_TMPR_WG_TOT_SUM
+				,HIRE_TMPR_AVG_WG
+				,HIRE_TMPR_MIN
+				,HIRE_TMPR_MAX
+
+				,HIRE_FRGNR_MIN
+				,HIRE_FRGNR_MAX
+				,HIRE_FRGNR_AVG
+				,HIRE_FRGNR_TASK_CN
+
+			FROM TB_TE_APC_OPER_ABLT AOA
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo				-->
-	<!-- DESC : 시설고용인력 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-    <insert id="insertFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo */
-	    	  INTO TB_FCLT_OPER_HF_INFO FCLT
-	    		(
-	    			TRGT_YR
-	    		  , APC_CD
-	    		  , HIRE_NOPE
-	    		  , HIRE_NOPE2
-	    		  , HIRE_NOPE3
-	    		  , HIRE_NOPE4
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    	      , SYS_LAST_CHG_DT
-	    	      , SYS_LAST_CHG_USER_ID
-	    	      , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	   			    #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{hireNope}
-	   			  , #{hireNope2}
-	   			  , #{hireNope3}
-	   			  , #{hireNope4}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-    	          , #{sysLastChgUserId}
-    	          , #{sysLastChgPrgrmId}
-    			)
-    	]]>
-    </insert>
-     -->
+		</if>
+		<!-- End 페이징 -->
+	</select>
+
 	<update id="insertFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-     	MERGE INTO TB_FCLT_OPER_HF_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo */
+		MERGE INTO TB_TE_APC_OPER_ABLT AOA /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			AOA.CRTR_YR = #{crtrYr}
+			AND AOA.APC_CD = #{apcCd}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  HIRE_NOPE        = #{hireNope}
-			 	, HIRE_NOPE2        = #{hireNope2}
-			 	, HIRE_NOPE3        = #{hireNope3}
-			 	, HIRE_NOPE4        = #{hireNope4}
-				  , SYS_LAST_CHG_DT		= SYSDATE
-	    		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				  HIRE_RGLLBR_CTZN			= #{hireTmprJobCtzn}
+				  , HIRE_RGLLBR_FRGNR		= #{hireTmprJobFrgnr}
+
+				  , HIRE_TMPR_WG_TOT_SUM	= #{hireTmprWgTotSum}
+				  , HIRE_TMPR_AVG_WG		= #{hireTmprAvgWg}
+				  , HIRE_TMPR_MIN			= #{hireTmprMin}
+				  , HIRE_TMPR_MAX			= #{hireTmprMax}
+
+				  , HIRE_FRGNR_MIN			= #{hireFrgnrMin}
+				  , HIRE_FRGNR_MAX			= #{hireFrgnrMax}
+				  , HIRE_FRGNR_AVG			= #{hireFrgnrAvg}
+				  , HIRE_FRGNR_TASK_CN		= #{hireFrgnrTaskCn}
+
+				  , TMPR_STRG_YN			= #{tmprStrgYn}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				  TRGT_YR
-	    		  , APC_CD
-	    		  , HIRE_NOPE
-	    		  , HIRE_NOPE2
-	    		  , HIRE_NOPE3
-	    		  , HIRE_NOPE4
-	    		  , SYS_FRST_INPT_DT
-	    		  , SYS_FRST_INPT_USER_ID
-	    		  , SYS_FRST_INPT_PRGRM_ID
-	    	      , SYS_LAST_CHG_DT
-	    	      , SYS_LAST_CHG_USER_ID
-	    	      , SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			  #{trgtYr}
-	   			  , #{apcCd}
-	   			  , #{hireNope}
-	   			  , #{hireNope2}
-	   			  , #{hireNope3}
-	   			  , #{hireNope4}
-	   			  , SYSDATE
-	   			  , #{sysFrstInptUserId}
-	   			  , #{sysFrstInptPrgrmId}
-	   			  , SYSDATE
-    	          , #{sysLastChgUserId}
-    	          , #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				  CRTR_YR
+				  , APC_CD
+				  , APC_NM
+				  , HIRE_RGLLBR_CTZN
+				  , HIRE_RGLLBR_FRGNR
+
+				  , HIRE_TMPR_WG_TOT_SUM
+				  , HIRE_TMPR_AVG_WG
+				  , HIRE_TMPR_MIN
+				  , HIRE_TMPR_MAX
+
+				  , HIRE_FRGNR_MIN
+				  , HIRE_FRGNR_MAX
+				  , HIRE_FRGNR_AVG
+				  , HIRE_FRGNR_TASK_CN
+
+				  , TMPR_STRG_YN
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
+				  , #{hireTmprJobCtzn}
+				  , #{hireTmprJobFrgnr}
+
+				  , #{hireTmprWgTotSum}
+				  , #{hireTmprAvgWg}
+				  , #{hireTmprMin}
+				  , #{hireTmprMax}
+
+				  , #{hireFrgnrMin}
+				  , #{hireFrgnrMax}
+				  , #{hireFrgnrAvg}
+				  , #{hireFrgnrTaskCn}
+
+				  , #{tmprStrgYn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo				-->
@@ -190,29 +199,39 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo */
-	    		TB_FCLT_OPER_HF_INFO FCLT
-			   SET
-			 	HIRE_NOPE        = #{hireNope}
-			 	, HIRE_NOPE2        = #{hireNope2}
-			 	, HIRE_NOPE3        = #{hireNope3}
-			 	, HIRE_NOPE4        = #{hireNope4}
-    	]]>
+	<update id="updateFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo */
+				TB_TE_APC_OPER_ABLT AOA
+			  SET
+				HIRE_RGLLBR_CTZN		= #{hireTmprJobCtzn}
+				, HIRE_RGLLBR_FRGNR		= #{hireTmprJobFrgnr}
+
+				, HIRE_TMPR_WG_TOT_SUM	= #{hireTmprWgTotSum}
+				, HIRE_TMPR_AVG_WG		= #{hireTmprAvgWg}
+				, HIRE_TMPR_MIN			= #{hireTmprMin}
+				, HIRE_TMPR_MAX			= #{hireTmprMax}
+
+				, HIRE_FRGNR_MIN		= #{hireFrgnrMin}
+				, HIRE_FRGNR_MAX		= #{hireFrgnrMax}
+				, HIRE_FRGNR_AVG		= #{hireFrgnrAvg}
+				, HIRE_FRGNR_TASK_CN	= #{hireFrgnrTaskCn}
+
+				, TMPR_STRG_YN			= #{tmprStrgYn}
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+			WHERE 1=1
+			  AND CRTR_YR = #{trgtYr}
+			  AND APC_CD = #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo				-->
@@ -223,25 +242,25 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
-	    		TB_FCLT_OPER_HF_INFO FCLT
-			   SET
-	    		  DEL_YN 	= 'Y'
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
+				TB_TE_APC_OPER_ABLT AOA
+			  SET
+				  DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
-	    		TB_FCLT_OPER_HF_INFO FCLT
+			  AND CRTR_YR = #{crtrYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
+				TB_TE_APC_OPER_ABLT AOA
 			WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
- -->
+			  AND CRTR_YR = #{crtrYr}
+			  AND  APC_CD = #{apcCd}
+		]]>
+	</delete>
+-->
 </mapper>

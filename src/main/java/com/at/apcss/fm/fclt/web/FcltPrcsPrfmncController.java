@@ -14,11 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.fclt.service.FcltPrcsPrfmncService;
+import com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO;
 import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
 
 
@@ -74,6 +74,32 @@ public class FcltPrcsPrfmncController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		logger.info("=============select=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 산지유통처리실적 변경
+	@PostMapping(value = "/fm/fclt/multiSaveFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveFcltPrcsPrfmnc(@RequestBody List<FcltPrcsPrfmncVO> fcltPrcsPrfmncVOList, HttpServletRequest requset) throws Exception{
+		logger.info("=============multiSaveFcltPrcsPrfmnc=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+
+		try {
+			for (FcltPrcsPrfmncVO fcltPrcsPrfmncVO : fcltPrcsPrfmncVOList) {
+				// audit 항목
+				fcltPrcsPrfmncVO.setSysFrstInptUserId(getUserId());
+				fcltPrcsPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				fcltPrcsPrfmncVO.setSysLastChgUserId(getUserId());
+				fcltPrcsPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			savedCnt = fcltPrcsPrfmncService.multiSaveFcltPrcsPrfmnc(fcltPrcsPrfmncVOList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 

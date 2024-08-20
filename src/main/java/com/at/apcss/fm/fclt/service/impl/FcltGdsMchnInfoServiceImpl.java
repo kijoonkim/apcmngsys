@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltGdsMchnInfoService;
 import com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
 /**
@@ -30,6 +32,8 @@ public class FcltGdsMchnInfoServiceImpl extends BaseServiceImpl implements FcltG
 
 	@Autowired
 	private FcltGdsMchnInfoMapper fcltGdsMchnInfoMapper;
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltGdsMchnInfoVO selectFcltGdsMchnInfo(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception {
@@ -77,6 +81,36 @@ public class FcltGdsMchnInfoServiceImpl extends BaseServiceImpl implements FcltG
 		int updatedCnt = fcltGdsMchnInfoMapper.updateFcltGdsMchnInfo(fcltGdsMchnInfoVO);
 
 		return updatedCnt;
+	}
+
+	@Override
+	public int multiSaveFcltGdsMchnInfo(List<FcltGdsMchnInfoVO> fcltGdsMchnInfoVOList) throws Exception {
+		int saveCnt = 0;
+		String prgrsYn = "";
+		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+		for (FcltGdsMchnInfoVO fcltGdsMchnInfoVO : fcltGdsMchnInfoVOList) {
+			saveCnt = fcltGdsMchnInfoMapper.insertFcltGdsMchnInfo(fcltGdsMchnInfoVO);
+			prgrsYn = fcltGdsMchnInfoVO.getPrgrsYn();
+			//진척도 변경
+			fcltPrgrsVO.setApcCd(fcltGdsMchnInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltGdsMchnInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltGdsMchnInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltGdsMchnInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltGdsMchnInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltGdsMchnInfoVO.getSysLastChgPrgrmId());
+			//임시저장
+			String tmprStrgYn = fcltGdsMchnInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrs4("T");
+			}else {
+				fcltPrgrsVO.setPrgrs4("Y");
+			}
+		}
+
+		if(saveCnt == fcltGdsMchnInfoVOList.size() && prgrsYn.equals("Y")) {
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
+		return saveCnt;
 	}
 
 	@Override

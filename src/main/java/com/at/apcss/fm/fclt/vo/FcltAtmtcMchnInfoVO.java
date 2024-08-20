@@ -10,9 +10,9 @@ import lombok.Setter;
 public class FcltAtmtcMchnInfoVO extends ComVO{
 
 	private String trgtYr;
-	private String apcCd;
-	private String apcNm;
-	private int sn;
+	//private String apcCd;
+	//private String apcNm;
+	//private int sn;
 	private String fcltInstlCd;
 	private String fcltHldYn;
 	private String specs;
@@ -32,6 +32,29 @@ public class FcltAtmtcMchnInfoVO extends ComVO{
 	private String fcltHldYn10;
 	private String fcltHldYn11;
 	private String otherFclt;
+
+	/* 테이블 변경으로 추가 */
+	private String crtrYr;
+	private String prgrsYn;//진척도 갱신 여부
+	private String tmprStrgYn;//임시저장 여부
+	private String apcCd;
+	private String apcNm;
+	private String sn;
+
+	private String rprsItemSpcfct;
+	private String dptz;
+	private String apm;
+	private String elctrnWghtSortMchn;
+	private String ndstBrckSortMchn;
+	private String grdRawMtrAtmtcTrnsfMchn;
+	private String emptBxAtmtcExhstMchn;
+	private String atmtcBxPckgMchn;
+	private String atmtcSsMchn;
+	private String atmtcWrapMchn;
+	private String atmtcWghtChckMchn;
+	private String ptz;
+	private String etcMnfcMchn;
+
 }
 
 

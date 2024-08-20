@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.fm.fclt.vo.FcltApcVO;
+import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 
 /**
@@ -58,6 +60,35 @@ public interface FcltOperInfoMapper {
 	 * @return
 	 */
 	public int deleteFcltOperInfo(FcltOperInfoVO fcltOperInfoVO);
+
+	/**
+	 * 운영자개요 품목목록을 조회한다.
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public List<FcltItemVO> selectFcltOperInfoItemList(FcltItemVO fcltItemVO);
+
+	/**
+	 * 운영자개요 품목정보를 등록한다.
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public int insertFcltOperInfoItem(FcltItemVO fcltItemVO);
+
+	/**
+	 * 운영자개요 품목정보를 삭제한다.
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public int deleteFcltOperInfoItem (FcltItemVO fcltItemVO);
+
+	/**
+	 * APC 목록을 조회한다.
+	 * @param fcltApcVO
+	 * @return
+	 */
+	public List<FcltApcVO> selectApcList(FcltApcVO fcltApcVO);
+
 }
 
 

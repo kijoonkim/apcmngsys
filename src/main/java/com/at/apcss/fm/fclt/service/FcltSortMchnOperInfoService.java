@@ -1,7 +1,6 @@
 package com.at.apcss.fm.fclt.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 
@@ -46,6 +45,14 @@ public interface FcltSortMchnOperInfoService {
 	 */
 	public List<FcltSortMchnOperInfoVO> selectFcltSortMchnOperInfoList(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception;
 
+
+	/**
+	 * 선별기운영기간정보 리스트를 등록한다.
+	 * @param fcltSortMchnOperInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int multiSaveFcltSortMchnOperInfo(List<FcltSortMchnOperInfoVO> fcltSortMchnOperInfoVOList) throws Exception;
 
 	/**
 	 * 선별기운영기간정보를 등록한다.

@@ -64,7 +64,7 @@
 			            THEN '33'
 			            WHEN pt0.CTPV_CD = '44'
 			            THEN '34'
-			            WHEN pt0.CTPV_CD = '45'
+			            WHEN pt0.CTPV_CD = '52'/*45 -> 52 전라북도특별시*/
 			            THEN '35'
 			            WHEN pt0.CTPV_CD = '46'
 			            THEN '36'

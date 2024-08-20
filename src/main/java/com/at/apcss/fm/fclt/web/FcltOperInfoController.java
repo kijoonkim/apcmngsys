@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.fclt.service.FcltOperInfoService;
+import com.at.apcss.fm.fclt.vo.FcltApcVO;
+import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 
 
@@ -58,12 +60,7 @@ public class FcltOperInfoController extends BaseController {
 		List<FcltOperInfoVO> resultList = new ArrayList<>();
 
 		try {
-			 resultList = fcltOperInfoService.selectFcltOperInfoList(fcltOperInfoVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltOperInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
+			resultList = fcltOperInfoService.selectFcltOperInfoList(fcltOperInfoVO);
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -178,6 +175,24 @@ public class FcltOperInfoController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 품목 조회
+	@PostMapping(value = "/fm/fclt/selectFcltOperInfoItemList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltOperInfoItemList(Model model, @RequestBody FcltItemVO fcltItemVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltItemVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = fcltOperInfoService.selectFcltOperInfoItemList(fcltItemVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	/*
 	 * 주소 팝업
@@ -198,5 +213,24 @@ public class FcltOperInfoController extends BaseController {
 	@RequestMapping("/fm/popup/jusoPopup.do")
 	public String jusoPopup(Model model, HttpServletRequest request) {
 		return "apcss/fm/popup/jusoPopup";
+	}
+
+
+	// APC목록 조회
+	@PostMapping(value = "/fm/fclt/selectApcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectApcList(Model model, @RequestBody FcltApcVO fcltApcVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltApcVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = fcltOperInfoService.selectApcList(fcltApcVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
 	}
 }

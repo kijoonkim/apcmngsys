@@ -10,9 +10,9 @@ import lombok.Setter;
 public class FcltGdsMchnInfoVO extends ComVO{
 
 	private String trgtYr;
-	private String apcCd;
-	private String apcNm;
-	private int sn;
+	//private String apcCd;
+	//private String apcNm;
+	//private int sn;
 	private String sortMchnItemCd;
 	private String sortMchnCd;
 	private String sortMchnHldYn;
@@ -50,6 +50,24 @@ public class FcltGdsMchnInfoVO extends ComVO{
 	private String sortMchnHldYn44;
 	private String sortMchnHldYn45;
 
+
+	/* 테이블 변경으로 추가 */
+	private String prgrsYn;//진척도 갱신 여부
+	private String tmprStrgYn;//임시저장 여부
+	private String apcCd;
+	private String apcNm;
+	private int sn;
+	private String itemCd;
+	private String itemNm;
+	private String crtrYr;
+	private String itemChk;
+	private String sortMchnSpcect;
+	private String sortBrckMvhn;
+	private String colorSort;
+	private String shapSort;
+	private String mnfcMchn;
+	private String mkrNm;//제조사명 추가
+	private String sortMchnHoldYn;//선별기 보유여부
 }
 
 

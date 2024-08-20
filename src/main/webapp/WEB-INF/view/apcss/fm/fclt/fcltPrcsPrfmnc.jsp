@@ -15,16 +15,16 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -36,55 +36,110 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 산지유통처리실적 -->
 			</div>
 			<div style="margin-left: auto;">
-				<!--
-				<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
-				 -->
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="등록" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
-				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
-		<br>
-		<br>
+		<!-- apc리스트 -->
 		<div class="box-body">
 			<!--[pp] 검색 -->
-			<table class="table table-bordered tbl_row tbl_fixed">
+			<table class="table table-bordered tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
+					<col style="width: 7%">
 					<col style="width: 6%">
-					<col style="width: 10%">
+					<col style="width: 2%">
+					<col style="width: 5%">
+					<col style="width: 2%">
+
+					<col style="width: 7%">
+					<col style="width: 4%">
+					<col style="width: 2%">
+					<col style="width: 3%">
+					<col style="width: 3%">
+					<col style="width: 3%">
+
+					<col style="width: 7%">
 					<col style="width: 6%">
-					<col style="width: 10%">
-					<col style="width: 10%">
-					<col style="width: 58%">
+					<col style="width: 3%">
+					<col style="width: 3%">
+					<col style="width: 3%">
 				</colgroup>
 				<tbody>
 					<tr>
-						<th class="th_bg" scope="row">대상연도</th>
-						<td class="td_input"   style="border-right: hidden;">
-							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
+						<th scope="row" class="th_bg">년도</th>
+						<td colspan="2" class="td_input" style="border-right:hidden;">
+							<sbux-spinner
+									id="srch-inp-crtrYr"
+									name="srch-inp-crtrYr"
+									uitype="normal"
+									step-value="1"
+								></sbux-spinner>
 						</td>
-						<th scope="row" style="border-bottom:1px solid white " >APC명</th>
-						<td class="td_input" style="border-right:hidden;">
-							<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-							<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">시도</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-select
+								id="srch-inp-ctpv"
+								name="srch-inp-ctpv"
+								uitype="single"
+								jsondata-ref="jsonComCtpv"
+								unselected-text="전체"
+								class="form-control input-sm"
+								onchange="fn_ctpvChange"
+							></sbux-select>
 						</td>
-						<td style="border-right:hidden;">
-							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
 						</td>
-						<td></td>
+						<th scope="row" class="th_bg">시군구</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-sgg"
+								name="srch-inp-sgg"
+								uitype="single"
+								jsondata-ref="jsonComSgg"
+								unselected-text="전체"
+								class="form-control input-sm"
+								filter-source-name="srch-inp-ctpv"
+								jsondata-filter="mastervalue"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="th_bg">APC명</th>
+						<td colspan="2" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-apcNm"
+								name="srch-inp-apcNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
 					</tr>
 				</tbody>
 			</table>
-			<br>
 			<!--[pp] //검색 -->
-			<!--[pp] 검색결과 -->
-
-				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtDsctn" style="height:150px;"></div>
+			<div class="ad_section_top">
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">▶검색리스트</span>
+							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+						</li>
+					</ul>
 				</div>
-
-							<br>
+				<!-- SBGrid를 호출합니다. -->
+				<div id="sb-area-grdFcltApcInfo" style="height:350px; width: 100%;"></div>
+			</div>
+		</div>
+		<div class="box-body">
+			<sbux-input uitype="hidden" id="dtl-inp-apcCd" name="dtl-inp-apcCd"></sbux-input>
+			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
+			<!--[pp] 검색 -->
 			<div><label>산지유통처리실적상세 상세내역 </label></div>
 			<div>
 				<label style="font-size: x-small; font-weight: bold;">◦ (산지유통시설 처리실적) </label>
@@ -102,58 +157,472 @@
 				<table class="table table-bordered table-hover tbl_col tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 12%">
-						<col style="width: 22%">
-						<col style="width: 22%">
-						<col style="width: 22%">
-						<col style="width: 22%">
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 58px">
+						<col style="width: 10%">
+						<col style="width: 58px">
+						<col style="width: 10%">
+						<col style="width: 58px">
+						<col style="width: 10%">
+						<col style="width: 58px">
+
+						<col style="width: 7%">
+						<col style="width: 28px">
+						<col style="width: 10%">
+						<col style="width: 58px">
+						<col style="width: 7%">
+						<col style="width: 28px">
 					</colgroup>
 						<thead>
 							<tr>
-								<th rowspan="2">구분</th>
-								<th rowspan="2">APC 취급액</th>
-								<th rowspan="2">APC 일반취급<br>(단순 매취 등)</th>
-								<th colspan="2">APC 조직화취급</th>
+								<th class="text-center" rowspan="2">구분</th>
+								<th class="text-center" rowspan="2" colspan="2">APC 일반취급<br>(단순 매취 등)</th>
+								<th class="text-center" colspan="4">APC 조직화취급</th>
+								<th class="text-center" rowspan="2" colspan="2">APC 취급액(A)</th>
+								<th class="text-center" rowspan="2" colspan="2">APC 취급물량</th>
+								<th class="text-center" rowspan="2" colspan="2">APC 취급액 중<br>산지유통통합조직 출하액(B)</th>
+								<th class="text-center" rowspan="2" colspan="2">전속출하 비율(B/A*100)</th>
 							</tr>
 							<tr>
-								<th>공선수탁</th>
-								<th>계약매취</th>
+								<th style="text-align: center;" colspan="2">공선수탁</th>
+								<th style="text-align: center;" colspan="2">계약매취</th>
 							</tr>
 							<tr>
-								<td>금액(백만원)</td>
-								<td>
-									<sbux-input id="srch-inp-opera1" name="srch-inp-opera1" uitype="text" class="form-control input-sm" placeholder="자동계산" readonly></sbux-input>
+								<th class="text-center">품목1</th>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcGnrlTrmtAmt1"
+										name="dtl-inp-apcGnrlTrmtAmt1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
 								</td>
-								<td>
-									<sbux-input id="srch-inp-opera2" name="srch-inp-opera2" uitype="text"
-									onblur="extractNumbers2('srch-inp-opera2')"
-									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera2',1)"></sbux-input>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcOgnzCprtnSortTrst1"
+										name="dtl-inp-apcOgnzCprtnSortTrst1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
 								</td>
-								<td>
-									<sbux-input id="srch-inp-opera3" name="srch-inp-opera3" uitype="text"
-									onblur="extractNumbers2('srch-inp-opera3')"
-									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera3',1)"></sbux-input>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcCtrtEmspap1"
+										name="dtl-inp-apcCtrtEmspap1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
 								</td>
-								<td>
-									<sbux-input id="srch-inp-opera4" name="srch-inp-opera4" uitype="text"
-									onblur="extractNumbers2('srch-inp-opera4')"
-									class="form-control input-sm" placeholder="단위: 백만원" onkeyup="fn_sum('srch-inp-opera4',1)"></sbux-input>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtAmt1"
+										name="dtl-inp-apcTrmtAmt1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
 								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtVlm1"
+										name="dtl-inp-apcTrmtVlm1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>톤</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtAmt1"
+										name="dtl-inp-apcTmSpmtAmt1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtRt1"
+										name="dtl-inp-apcTmSpmtRt1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>%</td>
 							</tr>
 							<tr>
-								<th class="th_bg">대상연도</th>
-								<td class="td_input" colspan="1">
-									<sbux-input  id="dtl-input-trgtYr" name="dtl-input-trgtYr" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<th class="text-center">품목2</th>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcGnrlTrmtAmt2"
+										name="dtl-inp-apcGnrlTrmtAmt2"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
 								</td>
-								<td colspan="4" style="border-left: hidden;"></td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcOgnzCprtnSortTrst2"
+										name="dtl-inp-apcOgnzCprtnSortTrst2"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcCtrtEmspap2"
+										name="dtl-inp-apcCtrtEmspap2"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtAmt2"
+										name="dtl-inp-apcTrmtAmt2"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtVlm2"
+										name="dtl-inp-apcTrmtVlm2"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>톤</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtAmt2"
+										name="dtl-inp-apcTmSpmtAmt2"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtRt2"
+										name="dtl-inp-apcTmSpmtRt2"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>%</td>
 							</tr>
 							<tr>
-								<th class="th_bg">apc명</th>
-								<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="dtl-input-apcCd" name="dtl-input-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
-									<sbux-input id="dtl-input-apcNm" name="dtl-input-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
+								<th class="text-center">품목3</th>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcGnrlTrmtAmt3"
+										name="dtl-inp-apcGnrlTrmtAmt3"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
 								</td>
-								<td colspan="4"  style="border-left: hidden;"></td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcOgnzCprtnSortTrst3"
+										name="dtl-inp-apcOgnzCprtnSortTrst3"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcCtrtEmspap3"
+										name="dtl-inp-apcCtrtEmspap3"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtAmt3"
+										name="dtl-inp-apcTrmtAmt3"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtVlm3"
+										name="dtl-inp-apcTrmtVlm3"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>톤</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtAmt3"
+										name="dtl-inp-apcTmSpmtAmt3"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtRt3"
+										name="dtl-inp-apcTmSpmtRt3"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>%</td>
+							</tr>
+							<tr>
+								<th class="text-center">기타</th>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcGnrlTrmtAmt4"
+										name="dtl-inp-apcGnrlTrmtAmt4"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcOgnzCprtnSortTrst4"
+										name="dtl-inp-apcOgnzCprtnSortTrst4"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcCtrtEmspap4"
+										name="dtl-inp-apcCtrtEmspap4"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtAmt4"
+										name="dtl-inp-apcTrmtAmt4"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtVlm4"
+										name="dtl-inp-apcTrmtVlm4"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>톤</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtAmt4"
+										name="dtl-inp-apcTmSpmtAmt4"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onkeyup="fn_cal(this)"
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtRt4"
+										name="dtl-inp-apcTmSpmtRt4"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>%</td>
+							</tr>
+							<tr>
+								<th class="text-center">계</th>
+
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcGnrlTrmtAmtTot"
+										name="dtl-inp-apcGnrlTrmtAmtTot"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcOgnzCprtnSortTrstTot"
+										name="dtl-inp-apcOgnzCprtnSortTrstTot"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcCtrtEmspapTot"
+										name="dtl-inp-apcCtrtEmspapTot"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtAmtTot"
+										name="dtl-inp-apcTrmtAmtTot"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTrmtVlmTot"
+										name="dtl-inp-apcTrmtVlmTot"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>톤</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtAmtTot"
+										name="dtl-inp-apcTmSpmtAmtTot"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtRtTot"
+										name="dtl-inp-apcTmSpmtRtTot"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
+									></sbux-input>
+								</td>
+								<td>%</td>
 							</tr>
 						</thead>
 					</table>
@@ -162,441 +631,226 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
-    <!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+	<!-- apc 선택 Modal -->
+	<div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
+
 </body>
-  <script type="text/javascript">
+<script type="text/javascript">
 
-	let date = new Date();
-	let year  = date.getFullYear();
-    //화면 초기 로딩
-    window.addEventListener('DOMContentLoaded', function(e) {
-    	SBUxMethod.set("srch-input-trgtYr", year);
-    	fn_createGrid();//그리드 생성 설정 함수
+	window.addEventListener('DOMContentLoaded', function(e) {
+		let date = new Date();
+		let year  = date.getFullYear();
+		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
+		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
+			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
+			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
+		};
 
-    });
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0122';
+		let crtrYr = '2023';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
 
-    //grid 초기화
-    var grdAtMcIfList; // 그리드를 담기위한 객체 선언
-    var jsonAtMcIfList = []; // 그리드의 참조 데이터 주소 선언
+		fn_init();
 
+	});
 
-    //그리드 생성 설정
-    function fn_createGrid() {
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-spmtDsctn';
-	    SBGridProperties.id = 'grdAtMcIfList';
-	    SBGridProperties.jsonref = 'jsonAtMcIfList';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.explorerbar = 'sortmove';
-        SBGridProperties.rowheader = 'seq';
-		SBGridProperties.rowheadercaption = {seq: 'No'};
-        SBGridProperties.rowheaderwidth = {seq: '60'};
-	    SBGridProperties.extendlastcol = 'scroll';
+	/* 초기세팅 */
+	const fn_init = async function() {
+		await fn_initSBSelect();
+		await fn_fcltApcInfoCreateGrid();
 
-        SBGridProperties.columns = [
-            {caption: ["APC명","APC명"],		ref: 'apcNm',       		type:'output',  	width:'20%',    style:'text-align:center'},
-            {caption: ["APC취급액","APC취급액"],  			ref: 'fcltPrcsTrmtAmt',  		type:'output',  	width:'20%',    style:'text-align:center' ,calc : 'fn_CalcSum1'},
-            {caption: ["APC일반취급","APC일반취급"],  ref: 'fcltPrcsTrmtAmt2',  		type:'output',  	width:'20%',    style:'text-align:center'},
-            {caption: ["APC조직화취급","공선수탁"],	ref: 'fcltPrcsTrmtAmt3',  		type:'output',  	width:'20%',    style:'text-align:center'},
-            {caption: ["APC조직화취급","계약매취"],	ref: 'fcltPrcsTrmtAmt4',  		type:'output',  	width:'20%',    style:'text-align:center'},
-            {caption: ["APCCD"],		ref: 'apcCd',       		type:'output',  	hidden: true},
-            {caption: ["대상연도"],			ref: 'trgtYr',          	type:'output',  	hidden: true}
-        ];
-        grdAtMcIfList = _SBGrid.create(SBGridProperties);
-        grdAtMcIfList.bind('click', 'fn_view');
-        grdAtMcIfList.bind('beforepagechanged', 'fn_pagingAtMcIfList');
-    }
+		await fn_search();
 
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-     	console.log("******************fn_search**********************************");
-    	// set pagination
-    	let pageSize = grdAtMcIfList.getPageSize(); //페이지 사이즈를 가져오는 함수
-    	let pageNo = 1;
-    	console.log("******************pageNo**********************************"+pageNo);
-    	console.log("******************pageNo**********************************"+pageSize);
-    	console.log("******************pageNo**********************************"+grdAtMcIfList.getPageSize());
-    	fn_pagingAtMcIfList(pageSize, pageNo);
-    }
+	}
 
+	var jsonComCtpv = [];//시도
+	var jsonComSgg = [];//시군구
 
+	/**
+	 * combo 설정
+	 */
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+			//검색조건
+			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
+			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
+		]);
+	}
 
-    /**
+	/**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-    const fn_pagingAtMcIfList = async function(pageSize, pageNo) {
-    	 console.log("******************fn_pagingAtMcIfList**********************************");
-    	// form clear
-    	fn_clearForm();
+	const fn_selectAtMcIfList = async function(pageSize, pageNo) {
+		 console.log("******************fn_pagingAtMcIfList**********************************");
 
-		grdAtMcIfList.clearStatus();
-
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let trgtYr = SBUxMethod.get("srch-input-trgtYr");
+		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
+		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltPrcsPrfmncList.do", {
 			apcCd: apcCd,
-        	trgtYr: trgtYr,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
-        });
+			crtrYr: crtrYr,
 
-        const data = await postJsonPromise;
+			// pagination
+			pagingYn : 'N',
+			currentPageNo : pageNo,
+			recordCountPerPage : pageSize
+		});
+
+		const data = await postJsonPromise;
 		//await 오류시 확인
 
 		//예외처리
-        try {
+		try {
+			data.resultList.forEach((item, index) => {
+				let sn = item.sn;
+				//SBUxMethod.set('srch-inp-apcTrmtAmt'+sn,item.apcTrmtAmt);
+				SBUxMethod.set('srch-inp-apcTrmtVlm'+sn,item.apcTrmtAmt);
+				SBUxMethod.set('srch-inp-apcGnrlTrmtAmt'+sn,item.apcGnrlTrmtAmt);
+				SBUxMethod.set('srch-inp-apcOgnzCprtnSortTrst'+sn,item.apcOgnzCprtnSortTrst);
+				SBUxMethod.set('srch-inp-apcCtrtEmspap'+sn,item.apcCtrtEmspap);
+				SBUxMethod.set('srch-inp-apcTmSpmtAmt'+sn,item.tmSpmtAmt);
 
-        	/** @type {number} **/
-    		let totalRecordCount = 0;
-
-        	jsonAtMcIfList.length = 0;
-        	//"Index 0 out of bounds for length 0"
-        	//data.resultCode = E0000
-        	//data.resultStatus E , S
-        	if(data.resultCode != "E0000"){
-        		data.resultList.forEach((item, index) => {
-    				const msg = {
-    					trgtYr: item.trgtYr,						 	    //대상연도
-    					apcCd: item.apcCd, 	 		 						//apc코드
-    					apcNm: item.apcNm, 	 		 						//apc명
-    					fcltPrcsTrmtAmt: item.fcltPrcsTrmtAmt,
-    					fcltPrcsTrmtAmt2: item.fcltPrcsTrmtAmt2,
-    					fcltPrcsTrmtAmt3: item.fcltPrcsTrmtAmt3,
-    					fcltPrcsTrmtAmt4: item.fcltPrcsTrmtAmt4
-    				}
-
-
-
-    				jsonAtMcIfList.push(msg);
-
-    				if (index === 0) {
-    					totalRecordCount = item.totalRecordCount;
-    				}
-    			});
-        	}
-
-
-        	if (jsonAtMcIfList.length > 0) {
-
-        		if(grdAtMcIfList.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdAtMcIfList.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdAtMcIfList.rebuild();
-				}else{
-					grdAtMcIfList.refresh()
-				}
-        	} else {
-        		grdAtMcIfList.setPageTotalCount(totalRecordCount);
-        		grdAtMcIfList.rebuild();
-        	}
-
-        	document.querySelector('#listCount').innerText = totalRecordCount;
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		//console.error("failed", e.message);
-        }
-    }
-
-
-    //신규 작성 dtl 내부의 값을 null로
-    function fn_create() {
-    	console.log("******************fn_create**********************************");
-    	SBUxMethod.set("dtl-input-trgtYr", null);                    //  대상연도
-		SBUxMethod.set("dtl-input-apcCd", null);                     //  APC코드
-
-
-    }
-
-     const fn_clearForm = function() {
-    	 console.log("******************fn_clearForm**********************************");
-
-    }
-    //저장
-    const fn_save = async function() {
-    	console.log("******************fn_save**********************************");
-
-		let apcCd = SBUxMethod.get("dtl-input-apcCd");
-		let trgtYr = SBUxMethod.get("dtl-input-trgtYr");
-		/*
-    	if (!SBUxMethod.get("gsb-slt-apcCd")) {
-            alert("조회 항목의 APC 코드를 선택하세요.");
-            return;
-        }
-
-    	if (!SBUxMethod.get("srch-input-trgtYr")) {
-            alert("조회 항목의 대상년도를 선택하세요.");
-            return;
-        }
-		*/
-
-
-    	if (gfn_isEmpty(trgtYr)) {
-    		// 신규 등록
-			fn_subInsert(confirm("등록 하시겠습니까?"));
-    	} else {
-    		// 변경 저장
-    		fn_subUpdate(confirm("저장 하시겠습니까?"));
-    	}
-
-    }
-
-    /**
-     * @param {boolean} isConfirmed
-     * 신규 등록
-     */
-    const fn_subInsert = async function (isConfirmed){
-    	 console.log("******************fn_subInsert**********************************");
-    	 if (!isConfirmed) return;
-
-    	const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltPrcsPrfmnc.do", {
-        		trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
-            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
-            ,	fcltPrcsTrmtAmt: SBUxMethod.get('srch-inp-opera1')
-            ,	fcltPrcsTrmtAmt2: SBUxMethod.get('srch-inp-opera2')
-            ,	fcltPrcsTrmtAmt3: SBUxMethod.get('srch-inp-opera3')
-            ,	fcltPrcsTrmtAmt4: SBUxMethod.get('srch-inp-opera4')
-		});
-
-
-        const data = await postJsonPromise;
-
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-        // 결과 확인 후 재조회
-        console.log("insert result", data);
-    }
-	/**
-     * @param {boolean} isConfirmed
-     */
-	const fn_subUpdate = async function (isConfirmed){
-    	 console.log("******************fn_subUpdate**********************************");
-		if (!isConfirmed) return;
-
-    	const postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltPrcsPrfmnc.do", {
-	    		trgtYr: SBUxMethod.get('dtl-input-trgtYr')   	                     //  상단 조회 조건의 대상연도 SBUxMethod.get("srch-input-trgtYr")
-	            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')     	                     //  상단 조회 조건의 APC코드 SBUxMethod.get("gsb-slt-apcCd")
-	            ,	fcltPrcsTrmtAmt: SBUxMethod.get('srch-inp-opera1')
-	            ,	fcltPrcsTrmtAmt2: SBUxMethod.get('srch-inp-opera2')
-	            ,	fcltPrcsTrmtAmt3: SBUxMethod.get('srch-inp-opera3')
-	            ,	fcltPrcsTrmtAmt4: SBUxMethod.get('srch-inp-opera4')
-    		});
-
-
-
-
-        const data = await postJsonPromise;
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		alert("처리 되었습니다.");
-        		fn_search();
-        	} else {
-        		alert(data.resultMessage);
-        	}
-        } catch(e) {
-        }
-
-        // 결과 확인 후 재조회
-        console.log("update result", data);
-    }
-
-    //선택 삭제
-    function fn_delete() {
-    	console.log("******************fn_delete**********************************");
-    	/**
-         * @type {any[]}
-         */
-        let list = [];
-
-        /**
-         * @type {any[]}
-         */
-         /*
-        const rows = grdAtMcIfList.getGridDataAll();
-        rows.forEach((row) => {
-        	if (_.isEqual("Y", row.checked)) {
-        		list.push({trgtYr: row.trgtYr , apcCd: row.apcCd});
-        	}
-        });
-        */
-
-      //console.log(grdAtMcIfList.getSelectedRows());
-		const rows = grdAtMcIfList.getSelectedRows();
-        if (rows.length == 0) {
-        	alert("삭제할 대상이 없습니다.");
-        	return;
-        }
-
-        fn_subDelete(confirm("삭제 하시겠습니까?"), list);
-
-        /*
-        for ( let i = 0; i < gridList.length; i++) {
-            if (gridList[i].checked === "Y") {
-                delList.push(gridList[i].msgKey);
-            }
-        }
-        if (delList.length == 0) {
-            alert("삭제 할 대상이 없습니다.");
-            return;
-        }
-        var delMsg;
-        if (delList.length == 1) {
-            delMsg = delList[0];
-        }
-        else {
-            delMsg = delList.length + "건";
-        }
-        delMsg += "을 삭제 하시겠습니까?";
-        if (confirm(delMsg)) {
-            var params = "delKey=" + delList.join(",");
-            console.log("data ::::: " + params);
-        }
-        */
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
-     	console.log("******************fn_subDelete**********************************");
- 		if (!isConfirmed) return;
-
-     	const postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltPrcsPrfmnc.do", {
-    		trgtYr: SBUxMethod.get('dtl-input-trgtYr')
-            ,	apcCd: SBUxMethod.get('dtl-input-apcCd')
-     	});
-
-         const data = await postJsonPromise;
-		//예외처리
-         try {
-         	if (_.isEqual("S", data.resultStatus)) {
-         		alert("처리 되었습니다.");
-         		fn_search();
-         	} else {
-         		alert(data.resultMessage);
-         	}
-         } catch(e) {
-         }
-
-         // 결과 확인 후 재조회
-         console.log("update result", data);
-    }
-
-    //상세정보 보기 클릭이벤트
-    function fn_view() {
-    	console.log("******************fn_view**********************************");
-    	var nCol = grdAtMcIfList.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-        var nRow = grdAtMcIfList.getRow();
-		if (nRow < 1) {
-            return;
-		}
-			//서치폼에서 클릭시 디테일폼에 데이터출력
-        let rowData = grdAtMcIfList.getRowData(nRow);
-
-    	SBUxMethod.set("dtl-input-trgtYr", rowData.trgtYr);       //대상연도
-		SBUxMethod.set("dtl-input-apcCd", rowData.apcCd);         //apc코드
-		SBUxMethod.set("dtl-input-apcNm", rowData.apcNm);         //apc명
-		SBUxMethod.set("srch-inp-opera", rowData.fcltPrcsTrmtAmt);
-		SBUxMethod.set("srch-inp-opera2", rowData.fcltPrcsTrmtAmt2);
-		SBUxMethod.set("srch-inp-opera3", rowData.fcltPrcsTrmtAmt3);
-		SBUxMethod.set("srch-inp-opera4", rowData.fcltPrcsTrmtAmt4);
-
-		fn_sum('srch-inp-opera2',1);
-    }
-
-
-
-    //그리드 체크박스 전체 선택
-    function fn_checkAll(obj){
-    	console.log("******************fn_checkAll**********************************");
-        var gridList = grdAtMcIfList.getGridDataAll();
-        var checkedYn = obj.checked ? "Y" : "N";
-        for (var i=0; i<gridList.length; i++ ){
-        	grdAtMcIfList.setCellData(i+1, 1, checkedYn, true, false);
-        }
-    }
-
- 	// apc 선택 팝업 호출
-	const fn_modalApcSelect = function() {
-		popApcSelect.init(fn_setApc);
-	}
-	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
-		if (!gfn_isEmpty(apc)) {
-			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
-			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+			});
+			fn_cal('dtl-inp-apcOgnzCprtnSortTrst1');
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
 		}
 	}
 
-	// "null" 로 들어가는 경우 방지
-	function fn_emptyString(obj) {
-		console.log("==========fn_emptyString=============");
-	    if (Array.isArray(obj)) {
-	        // 배열의 경우
-	        for (var i = 0; i < obj.length; i++) {
-	        	if (data[i] === "null" || data[i] === null) {
-	                obj[i] = "";
-	            }
-	        }
-	    } else if (typeof obj === "object") {
-	        // 객체의 경우
-	        for (var key in obj) {
-	        	if (obj[key] === "null" || obj[key] === null) {
-	                obj[key] = "";
-	            }
-	        }
-	    }
-	    return obj;
+	//등록
+	const fn_save = async function() {
+		console.log("******************fn_save**********************************");
+
+		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
+		let trgtYr = SBUxMethod.get("dtl-inp-crtrYr");
+		if (gfn_isEmpty(apcCd)) {
+			alert("apc를 선택해주세요");
+			return;
+		}
+		if (gfn_isEmpty(crtrYr)) {
+			alert("대상연도를 작성해주세요");
+			return;
+		}
+
+		fn_subInsert(confirm("등록 하시겠습니까?"));
 	}
 
-	//국고 지자체 자부담 합계
-    function fn_sum(name, idx){
-    	extractNumbers2(name);
-    	let value1 = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera2'));
-    	let value2 = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera3'));
-    	let value3 = convertToNumberOrZero(SBUxMethod.get('srch-inp-opera4'));
 
-    	let sum = fn_add(value1,value2,value3);
-    	SBUxMethod.set('srch-inp-opera1',sum);
-    }
-	//소숫점 정확하게 더하기
-    function fn_add(a, b , c) {
-        const precision = Math.max(
-            (a.toString().split('.')[1] || '').length,
-            (b.toString().split('.')[1] || '').length,
-            (c.toString().split('.')[1] || '').length
-        );
+	//신규 등록
+	const fn_subInsert = async function (isConfirmed){
+		 console.log("******************fn_subInsert**********************************");
+		 if (!isConfirmed) return;
+		 let crtrYr = SBUxMethod.get('dtl-inp-crtrYr');
+		 let apcCd = SBUxMethod.get('dtl-inp-apcCd');
+		 let saveList = [];
 
-        return (Math.round(a * 10 ** precision) + Math.round(b * 10 ** precision) + Math.round(c * 10 ** precision)) / (10 ** precision);
-    }
+		 for (var i = 1; i < 5; i++) {
+			let itemVo = {
+					crtrYr : crtrYr
+					,apcCd : apcCd
+					,sn  : i
+					, prgrsYn : 'Y' //진척도 갱신 여부
+					,apcGnrlTrmtAmt : SBUxMethod.get('dtl-inp-apcGnrlTrmtAmt'+i)
+					,apcOgnzCprtnSortTrst : SBUxMethod.get('dtl-inp-apcOgnzCprtnSortTrst'+i)
+					,apcCtrtEmspap : SBUxMethod.get('dtl-inp-apcCtrtEmspap'+i)
+
+					,apcTrmtAmt : SBUxMethod.get('dtl-inp-apcTrmtAmt'+i)//apc취급액
+					,apcTrmtVlm : SBUxMethod.get('dtl-inp-apcTrmtVlm'+i)//apc물량
+					,tmSpmtAmt : SBUxMethod.get('dtl-inp-apcTmSpmtAmt'+i)//APC 취급액 중 산지유통통합조직 출하액
+					,tmSpmtRt : SBUxMethod.get('dtl-inp-apcTmSpmtRt'+i)//전속출하 비율
+			}
+			saveList.push(itemVo);
+		}
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltPrcsPrfmnc.do", saveList);
+
+		const data = await postJsonPromise;
+
+		try {
+		if (_.isEqual("S", data.resultStatus)) {
+				alert("처리 되었습니다.");
+				//fn_search();
+			} else {
+				alert(data.resultMessage);
+			}
+		} catch(e) {
+		}
+		// 결과 확인 후 재조회
+		console.log("insert result", data);
+	}
 
 
+	//자동계산
+	function fn_cal(e){
+		//extractNumbers2(e.name);
+
+		let apcGnrlTrmtAmtArr = [];
+		let apcOgnzCprtnSortTrstArr = [];
+		let apcCtrtEmspapArr = [];
+
+		let apcTrmtVlmArr = [];
+		let apcTmSpmtAmtArr = [];
+
+		for (var i = 0; i < 4; i++) {
+			apcGnrlTrmtAmtArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcGnrlTrmtAmt'+(i+1)));
+			apcOgnzCprtnSortTrstArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcOgnzCprtnSortTrst'+(i+1)));
+			apcCtrtEmspapArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcCtrtEmspap'+(i+1)));
+
+			apcTrmtVlmArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcTrmtVlm'+(i+1)));
+			apcTmSpmtAmtArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcTmSpmtAmt'+(i+1)));
+		}
+
+
+		SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtTot',apcGnrlTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0));
+		SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstTot',apcOgnzCprtnSortTrstArr.reduce((acc, cur) => {return acc + cur;}, 0));
+		SBUxMethod.set('dtl-inp-apcCtrtEmspapTot',apcCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0));
+		SBUxMethod.set('dtl-inp-apcTrmtVlmTot',apcTrmtVlmArr.reduce((acc, cur) => {return acc + cur;}, 0));
+
+		let apcTrmtAmtArr = [];
+
+		for (var i = 0; i < 4; i++) {
+			let sum1 = apcGnrlTrmtAmtArr[i] + apcOgnzCprtnSortTrstArr[i] + apcCtrtEmspapArr[i];
+			let rt1;
+			if(sum1 === 0){
+				rt1 = 0;
+			}else{
+				rt1 = apcTmSpmtAmtArr[i] / sum1 * 100;
+			}
+			apcTrmtAmtArr[i] = sum1;
+
+			SBUxMethod.set('dtl-inp-apcTrmtAmt'+(i+1),sum1);
+			SBUxMethod.set('dtl-inp-apcTmSpmtRt'+(i+1),rt1.toFixed(0));
+		}
+		let apcTrmtAmtTot = apcTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
+
+		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',apcTrmtAmtTot );
+		let apcTmSpmtAmtTot = apcTmSpmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
+		SBUxMethod.set('dtl-inp-apcTmSpmtAmtTot',apcTmSpmtAmtTot);
+
+		let totRt;
+		if(apcTrmtAmtTot === 0){
+			totRt = 0;
+		}else{
+			totRt = apcTmSpmtAmtTot / apcTrmtAmtTot * 100 ;
+		}
+		SBUxMethod.set('dtl-inp-apcTmSpmtRtTot',totRt.toFixed(0));
+	}
 
 	// 숫자(소숫점 가능)만 입력
 	function extractNumbers2(input) {
@@ -605,7 +859,7 @@
 			SBUxMethod.set(input,inputValue.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
 		}
 	}
-    // 숫자만 입력
+	// 숫자만 입력
 	function extractNumbers(input) {
 		//document.querySelector("sbux-input[name='"+input+"']").value = document.querySelector("sbux-input[name='"+input+"']").value.replace(/\D/g, "");
 		let inputValue = SBUxMethod.get(input);
@@ -616,26 +870,243 @@
 
 	//값이 없는 경우 0 있는 경우 숫자로 반환
 	function convertToNumberOrZero(value) {
-	  // 값이 없는 경우 0으로 설정
-	  if (value === undefined || value === null) {
-	    return 0;
-	  }
+		// 값이 없는 경우 0으로 설정
+		if (value === undefined || value === null) {
+			return 0;
+		}
 
-	  // 값이 있는 경우 숫자로 변환하고 반환
-	  const numericValue = Number(value);
-	  if (isNaN(numericValue)) {
-	    return 0; // 변환 실패 시 0 반환
-	  } else {
-	    return numericValue;
-	  }
+	// 값이 있는 경우 숫자로 변환하고 반환
+	const numericValue = Number(value);
+		if (isNaN(numericValue)) {
+			return 0; // 변환 실패 시 0 반환
+		} else {
+			return numericValue;
+		}
 	}
 
-	function fn_CalcSum1(objGrid, nRow, nCol) {
-	    let value1 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('fcltPrcsTrmtAmt2')));
-	    let value2 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('fcltPrcsTrmtAmt3')));
-	    let value3 = Number(objGrid.getData(Number(nRow), objGrid.getColRef('fcltPrcsTrmtAmt4')));
-	    let sum1 = value1 + value2 + value2;
-	    return sum1.toString();
+	// apc 선택 팝업 호출
+	const fn_modalApcSelect = function() {
+		popApcSelect.init(fn_setApc);
+	}
+	// apc 선택 팝업 콜백 함수
+	const fn_setApc = function(apc) {
+		if (!gfn_isEmpty(apc)) {
+			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
+			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+	}
+	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
+	/*
+	window.addEventListener('message',function(event){
+		console.log('1. 탭호출');
+		console.log(event);
+		let chkVal = event.data.chkVal;
+		if(chkVal == "selTab"){
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
+	});
+	*/
+
+	/*
+	 * APC 리스트 추가
+	 */
+
+	var jsonFcltApcInfo = []; // 그리드의 참조 데이터 주소 선언
+	var grdFcltApcInfo;
+
+
+	const objMenuList01 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld01,			//콜백함수명
+			}
+		};
+
+
+	function fn_excelDwnld01() {
+		grdFcltApcInfo.exportLocalExcel("시설설치보완", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
+
+	/* Grid 화면 그리기 기능*/
+	//apc 리스트
+	const fn_fcltApcInfoCreateGrid = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdFcltApcInfo';
+		SBGridProperties.id = 'grdFcltApcInfo';
+		SBGridProperties.jsonref = 'jsonFcltApcInfo';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		//SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.paging = {
+				'type' : 'page',
+			  	'count' : 5,
+			  	'size' : 20,
+			  	'sorttype' : 'page',
+			  	'showgoalpageui' : true
+			};
+		SBGridProperties.columns = [
+			{caption: ["APC명"],		ref: 'apcNm',		type:'input',  width:'200px',    style:'text-align:center'},
+			{caption: ["대표품목1"],	ref: 'itemNm1',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["대표품목2"],	ref: 'itemNm2',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["대표품목3"],	ref: 'itemNm3',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
+			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},
+
+			{caption: ["대표품목1"],		ref: 'itemCd1',		hidden : true},
+			{caption: ["대표품목2"],		ref: 'itemCd2',		hidden : true},
+			{caption: ["대표품목3"],		ref: 'itemCd3',		hidden : true},
+
+			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
+			{caption: ["crtrYr"],	ref: 'crtrYr',	hidden : true},
+		];
+
+		grdFcltApcInfo = _SBGrid.create(SBGridProperties);
+
+		//클릭 이벤트 바인드
+		grdFcltApcInfo.bind('click','fn_view');
+		grdFcltApcInfo.bind('beforepagechanged', 'fn_pagingBbsList');
+
+	}
+
+	const fn_pagingBbsList = async function() {
+		let recordCountPerPage = grdFcltApcInfo.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdFcltApcInfo.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_searchApcList(recordCountPerPage, currentPageNo);
+	}
+
+	/**
+     * 목록 조회
+     */
+	const fn_search = async function() {
+		//console.log("fn_search");
+		// set pagination
+		let pageSize = grdFcltApcInfo.getPageSize();
+		let pageNo = 1;
+		//입력폼 초기화
+		//fn_clearForm();
+
+		fn_searchApcList(pageSize, pageNo);
+	}
+
+	const fn_searchApcList = async function(pageSize, pageNo) {
+		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
+
+		//let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let apcNm = SBUxMethod.get("srch-inp-apcNm");//
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
+		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcList.do", {
+			//apcCd: apcCd,
+			apcNm: apcNm,
+			crtrYr: crtrYr,
+			ctpvCd: ctpvCd,
+			sigunCd: sigunCd,
+
+			// pagination
+			pagingYn : 'Y',
+			currentPageNo : pageNo,
+			recordCountPerPage : pageSize
+		});
+		const data = await postJsonPromise;
+		//await 오류시 확인
+
+		//예외처리
+		try {
+			jsonFcltApcInfo.length = 0;
+			let totalRecordCount = 0;
+			data.resultList.forEach((item, index) => {
+				//console.log(item);
+				let itemVO = {
+						apcCd			:item.apcCd
+						,apcNm			:item.apcNm
+						,crtrYr			:item.crtrYr
+
+						,itemCd1		:item.itemCd1
+						,itemNm1		:item.itemNm1
+						,itemCd2		:item.itemCd2
+						,itemNm2		:item.itemNm2
+						,itemCd3		:item.itemCd3
+						,itemNm3		:item.itemNm3
+
+						,ctpvCd			:item.ctpvCd
+						,ctpvNm			:item.ctpvNm
+						,sigunCd		:item.sigunCd
+						,sigunNm		:item.sigunNm
+				}
+				jsonFcltApcInfo.push(itemVO);
+				if (index === 0) {
+					totalRecordCount = item.totalRecordCount;
+				}
+			});
+
+			if (jsonFcltApcInfo.length > 0) {
+
+				if(grdFcltApcInfo.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdFcltApcInfo.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdFcltApcInfo.rebuild();
+				}else{
+					grdFcltApcInfo.refresh()
+				}
+			} else {
+				grdFcltApcInfo.setPageTotalCount(totalRecordCount);
+				grdFcltApcInfo.rebuild();
+			}
+			document.querySelector('#listApcCount').innerText = totalRecordCount;
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			//console.error("failed", e.message);
+		}
+	}
+
+	//그리드 클릭시 상세보기 이벤트
+	const fn_view = async function (){
+		console.log("******************fn_view**********************************");
+		//fn_clearForm();
+		//데이터가 존재하는 그리드 범위 확인
+		var nCol = grdFcltApcInfo.getCol();
+		if (nCol < 1) {
+			return;
+		}
+		var nRow = grdFcltApcInfo.getRow();
+		if (nRow < 1) {
+			return;
+		}
+		if(nRow == null){
+			nRow = 1;
+		}
+
+		//서치폼에서 클릭시 디테일폼에 데이터출력
+		let rowData = grdFcltApcInfo.getRowData(nRow);
+
+		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
+		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
+		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
+		console.log(SBUxMethod.get('dtl-inp-apcCd'));
+		console.log(SBUxMethod.get('dtl-inp-crtrYr'));
+
+		fn_selectAtMcIfList();
+	}
+
+	//시도 변경 이벤트
+	const fn_ctpvChange = async function(){
+		SBUxMethod.set("srch-inp-sgg", "");
 	}
 
 </script>

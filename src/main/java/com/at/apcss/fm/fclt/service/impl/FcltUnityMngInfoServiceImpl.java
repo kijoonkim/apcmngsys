@@ -5,15 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper;
 import com.at.apcss.fm.fclt.service.FcltUnityMngInfoService;
+import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 import com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO;
 
 
 /**
  * @Class Name : FcltUnityMngInfoServiceImpl.java
  * @Description : 통합관리시스템 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -30,6 +32,9 @@ public class FcltUnityMngInfoServiceImpl extends BaseServiceImpl implements Fclt
 
 	@Autowired
 	private FcltUnityMngInfoMapper fcltUnityMngInfoMapper;
+
+	@Autowired
+	private FcltPrgrsMapper fcltPrgrsMapper;
 
 	@Override
 	public FcltUnityMngInfoVO selectFcltUnityMngInfo(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception {

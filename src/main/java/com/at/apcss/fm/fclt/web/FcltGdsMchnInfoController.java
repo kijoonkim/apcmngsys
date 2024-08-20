@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -126,6 +125,32 @@ public class FcltGdsMchnInfoController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 		logger.info("=============updateFcltInfo=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 상품화설비현황 변경
+	@PostMapping(value = "/fm/fclt/multiSaveFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveFcltGdsMchnInfo(@RequestBody List<FcltGdsMchnInfoVO> fcltGdsMchnInfoVOList, HttpServletRequest requset) throws Exception{
+		logger.info("=============multiSaveFcltGdsMchnInfo=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+
+		try {
+			for (FcltGdsMchnInfoVO fcltGdsMchnInfoVO : fcltGdsMchnInfoVOList) {
+				// audit 항목
+				fcltGdsMchnInfoVO.setSysFrstInptUserId(getUserId());
+				fcltGdsMchnInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+				fcltGdsMchnInfoVO.setSysLastChgUserId(getUserId());
+				fcltGdsMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			savedCnt = fcltGdsMchnInfoService.multiSaveFcltGdsMchnInfo(fcltGdsMchnInfoVOList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 

@@ -24,48 +24,47 @@
 
 
 
-    <select id="selectFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-    	<![CDATA[
+	<select id="selectFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
-	             FCLT.TRGT_YR                  		AS TRGT_YR
-				, FCLT.APC_CD               		AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.FCLT_CD                		AS FCLT_CD
-				, FCLT.FCLT_NM                 		AS FCLT_NM
-				, FCLT.FCLT_AREA_TOT				AS FCLT_AREA_TOT
-				, FCLT.FCLT_AREA01					AS FCLT_AREA01
-				, FCLT.FCLT_AREA02					AS FCLT_AREA02
-				, FCLT.FCLT_AREA03					AS FCLT_AREA03
-				, FCLT.FCLT_AREA04					AS FCLT_AREA04
-				, FCLT.FCLT_AREA05					AS FCLT_AREA05
-				, FCLT.FCLT_AREA06					AS FCLT_AREA06
-				, FCLT.FCLT_AREA07					AS FCLT_AREA07
-				, FCLT.FCLT_AREA08					AS FCLT_AREA08
-				, FCLT.FCLT_AREA09					AS FCLT_AREA09
-				, FCLT.FCLT_AREA10					AS FCLT_AREA10
+				AFS.CRTR_YR
+				, AFS.APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AFS.APC_CD) AS APC_NM
 
-				, FCLT.FCLT_RMRK_TOT				AS FCLT_RMRK_TOT
-				, FCLT.FCLT_RMRK01					AS FCLT_RMRK01
-				, FCLT.FCLT_RMRK02					AS FCLT_RMRK02
-				, FCLT.FCLT_RMRK03					AS FCLT_RMRK03
-				, FCLT.FCLT_RMRK04					AS FCLT_RMRK04
-				, FCLT.FCLT_RMRK05					AS FCLT_RMRK05
-				, FCLT.FCLT_RMRK06					AS FCLT_RMRK06
-				, FCLT.FCLT_RMRK07					AS FCLT_RMRK07
-				, FCLT.FCLT_RMRK08					AS FCLT_RMRK08
-				, FCLT.FCLT_RMRK09					AS FCLT_RMRK09
-				, FCLT.FCLT_RMRK10					AS FCLT_RMRK10
-			 FROM TB_FCLT_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-    	]]>
-        		<if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  APC_CD = #{apcCd}
-		   </if>
+				, AFS.CSP_CFPP_AREA
+				, AFS.CSP_CFPP_RMRK
+				, AFS.CSP_CLN_OPRTNG_PRCS_AREA
+				, AFS.CSP_CLN_OPRTNG_PRCS_RMRK
+				, AFS.CSP_DTP_AREA
+				, AFS.CSP_DTP_RMRK
+				, AFS.CSP_NGDS_FCLT_AREA
+				, AFS.CSP_NGDS_FCLT_RMRK
+				, AFS.CSP_TOT_AREA
+				, AFS.CSP_TOT_RMRK
+				, AFS.STRG_PLC_PRC_PLC_AREA
+				, AFS.STRG_PLC_PRC_PLC_RMRK
+				, AFS.STRG_PLC_LWTP_STRG_AREA
+				, AFS.STRG_PLC_LWTP_STRG_RMRK
+				, AFS.STRG_PLC_CA_STRG_PLC_AREA
+				, AFS.STRG_PLC_CA_STRG_PLC_RMRK
+				, AFS.STRG_PLC_CURN_AREA
+				, AFS.STRG_PLC_CURN_RMRK
+				, AFS.STRG_PLC_GNRL_STRG_AREA
+				, AFS.STRG_PLC_GNRL_STRG_RMRK
+				, AFS.STRG_PLC_ETC_AREA
+				, AFS.STRG_PLC_ETC_RMRK
+
+			FROM TB_TE_APC_FCLT_STTS AFS
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  APC_CD = #{apcCd}
+			</if>
     </select>
 
 
@@ -77,240 +76,179 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-
-    	<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList */
-	             FCLT.TRGT_YR                  		AS TRGT_YR
-				, FCLT.APC_CD               		AS APC_CD
-				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS APC_NM
-				, FCLT.FCLT_CD                		AS FCLT_CD
-				, FCLT.FCLT_NM                 		AS FCLT_NM
-				, FCLT.FCLT_AREA_TOT				AS FCLT_AREA_TOT
-				, FCLT.FCLT_AREA01					AS FCLT_AREA01
-				, FCLT.FCLT_AREA02					AS FCLT_AREA02
-				, FCLT.FCLT_AREA03					AS FCLT_AREA03
-				, FCLT.FCLT_AREA04					AS FCLT_AREA04
-				, FCLT.FCLT_AREA05					AS FCLT_AREA05
-				, FCLT.FCLT_AREA06					AS FCLT_AREA06
-				, FCLT.FCLT_AREA07					AS FCLT_AREA07
-				, FCLT.FCLT_AREA08					AS FCLT_AREA08
-				, FCLT.FCLT_AREA09					AS FCLT_AREA09
-				, FCLT.FCLT_AREA10					AS FCLT_AREA10
-				, FCLT.FCLT_RMRK_TOT				AS FCLT_RMRK_TOT
-				, FCLT.FCLT_RMRK01					AS FCLT_RMRK01
-				, FCLT.FCLT_RMRK02					AS FCLT_RMRK02
-				, FCLT.FCLT_RMRK03					AS FCLT_RMRK03
-				, FCLT.FCLT_RMRK04					AS FCLT_RMRK04
-				, FCLT.FCLT_RMRK05					AS FCLT_RMRK05
-				, FCLT.FCLT_RMRK06					AS FCLT_RMRK06
-				, FCLT.FCLT_RMRK07					AS FCLT_RMRK07
-				, FCLT.FCLT_RMRK08					AS FCLT_RMRK08
-				, FCLT.FCLT_RMRK09					AS FCLT_RMRK09
-				, FCLT.FCLT_RMRK10					AS FCLT_RMRK10
-			 FROM TB_FCLT_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
-  ]]>
-          <if test='trgtYr != null and !trgtYr.equals("")'>
-		     AND  FCLT.TRGT_YR = #{trgtYr}
-		   </if>
-		   <if test='apcCd != null and !apcCd.equals("")'>
-		     AND  FCLT.APC_CD = #{apcCd}
-		   </if>
+	<select id="selectFcltInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
 		<!-- Start 페이징 -->
-    	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		  ) pt0
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
+				AFS.CRTR_YR
+				, AFS.APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AFS.APC_CD) AS APC_NM
+
+				, AFS.CSP_CFPP_AREA
+				, AFS.CSP_CFPP_RMRK
+				, AFS.CSP_CLN_OPRTNG_PRCS_AREA
+				, AFS.CSP_CLN_OPRTNG_PRCS_RMRK
+				, AFS.CSP_DTP_AREA
+				, AFS.CSP_DTP_RMRK
+				, AFS.CSP_NGDS_FCLT_AREA
+				, AFS.CSP_NGDS_FCLT_RMRK
+				, AFS.CSP_TOT_AREA
+				, AFS.CSP_TOT_RMRK
+				, AFS.STRG_PLC_PRC_PLC_AREA
+				, AFS.STRG_PLC_PRC_PLC_RMRK
+				, AFS.STRG_PLC_LWTP_STRG_AREA
+				, AFS.STRG_PLC_LWTP_STRG_RMRK
+				, AFS.STRG_PLC_CA_STRG_PLC_AREA
+				, AFS.STRG_PLC_CA_STRG_PLC_RMRK
+				, AFS.STRG_PLC_CURN_AREA
+				, AFS.STRG_PLC_CURN_RMRK
+				, AFS.STRG_PLC_GNRL_STRG_AREA
+				, AFS.STRG_PLC_GNRL_STRG_RMRK
+				, AFS.STRG_PLC_ETC_AREA
+				, AFS.STRG_PLC_ETC_RMRK
+
+			FROM TB_TE_APC_FCLT_STTS AFS
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and !apcCd.equals("")'>
+			  AND  APC_CD = #{apcCd}
+			</if>
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    	</if>
-    	<!-- End 페이징 -->
-    </select>
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo				-->
-	<!-- DESC : 시설현황 등록                                             				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<!--
-    <insert id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-    	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
-	    	  INTO TB_FCLT_INFO FCLT
-	    		(
-	              TRGT_YR
-				, APC_CD
-				, FCLT_AREA_TOT
-				, FCLT_RMRK_TOT
-				, FCLT_AREA01
-				, FCLT_RMRK01
-				, FCLT_AREA02
-				, FCLT_RMRK02
-				, FCLT_AREA03
-				, FCLT_RMRK03
-				, FCLT_AREA04
-				, FCLT_RMRK04
-				, FCLT_AREA05
-				, FCLT_RMRK05
-				, FCLT_AREA06
-				, FCLT_RMRK06
-				, FCLT_AREA07
-				, FCLT_RMRK07
-				, FCLT_AREA08
-				, FCLT_RMRK08
-				, FCLT_AREA09
-				, FCLT_RMRK09
-				, FCLT_AREA10
-				, FCLT_RMRK10
-				, SYS_FRST_INPT_DT
-				, SYS_FRST_INPT_USER_ID
-				, SYS_FRST_INPT_PRGRM_ID
-				, SYS_LAST_CHG_DT
-				, SYS_LAST_CHG_USER_ID
-				, SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   		VALUES
-	   			(
-	              #{trgtYr}
-				, #{apcCd}
-				, #{fcltAreaTot}
-				, #{fcltRmrkTot}
-				, #{fcltArea01}
-				, #{fcltRmrk01}
-				, #{fcltArea02}
-				, #{fcltRmrk02}
-				, #{fcltArea03}
-				, #{fcltRmrk03}
-				, #{fcltArea04}
-				, #{fcltRmrk04}
-				, #{fcltArea05}
-				, #{fcltRmrk05}
-				, #{fcltArea06}
-				, #{fcltRmrk06}
-				, #{fcltArea07}
-				, #{fcltRmrk07}
-				, #{fcltArea08}
-				, #{fcltRmrk08}
-				, #{fcltArea09}
-				, #{fcltRmrk09}
-				, #{fcltArea10}
-				, #{fcltRmrk10}
-				, SYSDATE
-				, #{sysFrstInptUserId}
-				, #{sysFrstInptPrgrmId}
-				, SYSDATE
-				, #{sysLastChgUserId}
-				, #{sysLastChgPrgrmId}
-	   			)
-    	]]>
-    </insert>
-    -->
+		</if>
+		<!-- End 페이징 -->
+	</select>
 
-
-     <update id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-     	MERGE INTO TB_FCLT_INFO FCLT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
+	<update id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+		MERGE INTO TB_TE_APC_FCLT_STTS AFS /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
 		USING DUAL
 		ON (
-			FCLT.TRGT_YR = #{trgtYr}
-			AND FCLT.APC_CD = #{apcCd}
+			AFS.CRTR_YR = #{crtrYr}
+			AND AFS.APC_CD = #{apcCd}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				FCLT_AREA_TOT   =  #{fcltAreaTot}
-			 	, FCLT_AREA01   =  #{fcltArea01}
-			 	, FCLT_AREA02  =  #{fcltArea02}
-			 	, FCLT_AREA03  =  #{fcltArea03}
-			 	, FCLT_AREA04  =  #{fcltArea04}
-			 	, FCLT_AREA05  =  #{fcltArea05}
-			 	, FCLT_AREA06  =  #{fcltArea06}
-			 	, FCLT_AREA07  =  #{fcltArea07}
-			 	, FCLT_AREA08  =  #{fcltArea08}
-			 	, FCLT_AREA09  =  #{fcltArea09}
-			 	, FCLT_AREA10  =  #{fcltArea10}
-			 	, FCLT_RMRK_TOT  =  #{fcltRmrkTot}
-			 	, FCLT_RMRK01  =  #{fcltRmrk01}
-			 	, FCLT_RMRK02  =  #{fcltRmrk02}
-			 	, FCLT_RMRK03  =  #{fcltRmrk03}
-			 	, FCLT_RMRK04  =  #{fcltRmrk04}
-			 	, FCLT_RMRK05  =  #{fcltRmrk05}
-			 	, FCLT_RMRK06  =  #{fcltRmrk06}
-			 	, FCLT_RMRK07  =  #{fcltRmrk07}
-			 	, FCLT_RMRK08  =  #{fcltRmrk08}
-			 	, FCLT_RMRK09  =  #{fcltRmrk09}
-			 	, FCLT_RMRK10  =  #{fcltRmrk10}
-				, SYS_LAST_CHG_DT		= SYSDATE
-				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				CSP_TOT_AREA				= #{cspTotArea}
+				, CSP_TOT_RMRK				= #{cspTotRmrk}
+				, CSP_CFPP_AREA				= #{cspCfppArea}
+				, CSP_CFPP_RMRK				= #{cspCfppRmrk}
+				, CSP_CLN_OPRTNG_PRCS_AREA	= #{cspClnOprtngPrcsArea}
+				, CSP_CLN_OPRTNG_PRCS_RMRK	= #{cspClnOprtngPrcsRmrk}
+				, CSP_DTP_AREA				= #{cspDtpArea}
+				, CSP_DTP_RMRK				= #{cspDtpRmrk}
+				, CSP_NGDS_FCLT_AREA		= #{cspNgdsFcltArea}
+				, CSP_NGDS_FCLT_RMRK		= #{cspNgdsFcltRmrk}
+				, STRG_PLC_PRC_PLC_AREA		= #{strgPlcPrcPlcArea}
+				, STRG_PLC_PRC_PLC_RMRK		= #{strgPlcPrcPlcRmrk}
+				, STRG_PLC_LWTP_STRG_AREA	= #{strgPlcLwtpStrgArea}
+				, STRG_PLC_LWTP_STRG_RMRK	= #{strgPlcLwtpStrgRmrk}
+				, STRG_PLC_CA_STRG_PLC_AREA	= #{strgPlcCaStrgPlcArea}
+				, STRG_PLC_CA_STRG_PLC_RMRK	= #{strgPlcCaStrgPlcRmrk}
+				, STRG_PLC_CURN_AREA		= #{strgPlcCurnArea}
+				, STRG_PLC_CURN_RMRK		= #{strgPlcCurnRmrk}
+				, STRG_PLC_GNRL_STRG_AREA	= #{strgPlcGnrlStrgArea}
+				, STRG_PLC_GNRL_STRG_RMRK	= #{strgPlcGnrlStrgRmrk}
+				, STRG_PLC_ETC_AREA			= #{strgPlcEtcArea}
+				, STRG_PLC_ETC_RMRK			= #{strgPlcEtcRmrk}
+
+				, TMPR_STRG_YN				= #{tmprStrgYn}
+
+				, SYS_LAST_CHG_DT			= SYSDATE
+				, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
 		  INSERT (
-				TRGT_YR
+				CRTR_YR
 				, APC_CD
-				, FCLT_AREA_TOT
-				, FCLT_RMRK_TOT
-				, FCLT_AREA01
-				, FCLT_RMRK01
-				, FCLT_AREA02
-				, FCLT_RMRK02
-				, FCLT_AREA03
-				, FCLT_RMRK03
-				, FCLT_AREA04
-				, FCLT_RMRK04
-				, FCLT_AREA05
-				, FCLT_RMRK05
-				, FCLT_AREA06
-				, FCLT_RMRK06
-				, FCLT_AREA07
-				, FCLT_RMRK07
-				, FCLT_AREA08
-				, FCLT_RMRK08
-				, FCLT_AREA09
-				, FCLT_RMRK09
-				, FCLT_AREA10
-				, FCLT_RMRK10
+
+				, CSP_TOT_AREA
+				, CSP_TOT_RMRK
+				, CSP_CFPP_AREA
+				, CSP_CFPP_RMRK
+				, CSP_CLN_OPRTNG_PRCS_AREA
+				, CSP_CLN_OPRTNG_PRCS_RMRK
+				, CSP_DTP_AREA
+				, CSP_DTP_RMRK
+				, CSP_NGDS_FCLT_AREA
+				, CSP_NGDS_FCLT_RMRK
+				, STRG_PLC_PRC_PLC_AREA
+				, STRG_PLC_PRC_PLC_RMRK
+				, STRG_PLC_LWTP_STRG_AREA
+				, STRG_PLC_LWTP_STRG_RMRK
+				, STRG_PLC_CA_STRG_PLC_AREA
+				, STRG_PLC_CA_STRG_PLC_RMRK
+				, STRG_PLC_CURN_AREA
+				, STRG_PLC_CURN_RMRK
+				, STRG_PLC_GNRL_STRG_AREA
+				, STRG_PLC_GNRL_STRG_RMRK
+				, STRG_PLC_ETC_AREA
+				, STRG_PLC_ETC_RMRK
+
+				, TMPR_STRG_YN
+
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_USER_ID
 				, SYS_FRST_INPT_PRGRM_ID
 				, SYS_LAST_CHG_DT
 				, SYS_LAST_CHG_USER_ID
 				, SYS_LAST_CHG_PRGRM_ID
-	    		)
-	   	VALUES
-	   		    (
-	   			#{trgtYr}
+				)
+		VALUES
+				(
+				#{crtrYr}
 				, #{apcCd}
-				, #{fcltAreaTot}
-				, #{fcltRmrkTot}
-				, #{fcltArea01}
-				, #{fcltRmrk01}
-				, #{fcltArea02}
-				, #{fcltRmrk02}
-				, #{fcltArea03}
-				, #{fcltRmrk03}
-				, #{fcltArea04}
-				, #{fcltRmrk04}
-				, #{fcltArea05}
-				, #{fcltRmrk05}
-				, #{fcltArea06}
-				, #{fcltRmrk06}
-				, #{fcltArea07}
-				, #{fcltRmrk07}
-				, #{fcltArea08}
-				, #{fcltRmrk08}
-				, #{fcltArea09}
-				, #{fcltRmrk09}
-				, #{fcltArea10}
-				, #{fcltRmrk10}
+
+				, #{cspTotArea}
+				, #{cspTotRmrk}
+				, #{cspCfppArea}
+				, #{cspCfppRmrk}
+				, #{cspClnOprtngPrcsArea}
+				, #{cspClnOprtngPrcsRmrk}
+				, #{cspDtpArea}
+				, #{cspDtpRmrk}
+				, #{cspNgdsFcltArea}
+				, #{cspNgdsFcltRmrk}
+				, #{strgPlcPrcPlcArea}
+				, #{strgPlcPrcPlcRmrk}
+				, #{strgPlcLwtpStrgArea}
+				, #{strgPlcLwtpStrgRmrk}
+				, #{strgPlcCaStrgPlcArea}
+				, #{strgPlcCaStrgPlcRmrk}
+				, #{strgPlcCurnArea}
+				, #{strgPlcCurnRmrk}
+				, #{strgPlcGnrlStrgArea}
+				, #{strgPlcGnrlStrgRmrk}
+				, #{strgPlcEtcArea}
+				, #{strgPlcEtcRmrk}
+
+				, #{tmprStrgYn}
+
 				, SYSDATE
 				, #{sysFrstInptUserId}
 				, #{sysFrstInptPrgrmId}
 				, SYSDATE
 				, #{sysLastChgUserId}
 				, #{sysLastChgPrgrmId}
-		     	)
-     </update>
+				)
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo				-->
@@ -320,47 +258,49 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
-	    		TB_FCLT_INFO FCLT
-			   SET
-				   FCLT_AREA_TOT   =  #{fcltAreaTot}
-			 	   , FCLT_AREA01   =  #{fcltArea01}
-			 	   , FCLT_AREA02  =  #{fcltArea02}
-			 	   , FCLT_AREA03  =  #{fcltArea03}
-			 	   , FCLT_AREA04  =  #{fcltArea04}
-			 	   , FCLT_AREA05  =  #{fcltArea05}
-			 	   , FCLT_AREA06  =  #{fcltArea06}
-			 	   , FCLT_AREA07  =  #{fcltArea07}
-			 	   , FCLT_AREA08  =  #{fcltArea08}
-			 	   , FCLT_AREA09  =  #{fcltArea09}
-			 	   , FCLT_AREA10  =  #{fcltArea10}
-			 	   , FCLT_RMRK_TOT  =  #{fcltRmrkTot}
-			 	   , FCLT_RMRK01  =  #{fcltRmrk01}
-			 	   , FCLT_RMRK02  =  #{fcltRmrk02}
-			 	   , FCLT_RMRK03  =  #{fcltRmrk03}
-			 	   , FCLT_RMRK04  =  #{fcltRmrk04}
-			 	   , FCLT_RMRK05  =  #{fcltRmrk05}
-			 	   , FCLT_RMRK06  =  #{fcltRmrk06}
-			 	   , FCLT_RMRK07  =  #{fcltRmrk07}
-			 	   , FCLT_RMRK08  =  #{fcltRmrk08}
-			 	   , FCLT_RMRK09  =  #{fcltRmrk09}
-			 	   , FCLT_RMRK10  =  #{fcltRmrk10}
-    	]]>
+	<update id="updateFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
+				TB_TE_APC_FCLT_STTS AFS
+			  SET
+				CSP_TOT_AREA				= #{cspTotArea}
+				, CSP_TOT_RMRK				= #{cspTotRmrk}
+				, CSP_CFPP_AREA				= #{cspCfppArea}
+				, CSP_CFPP_RMRK				= #{cspCfppRmrk}
+				, CSP_CLN_OPRTNG_PRCS_AREA	= #{cspClnOprtngPrcsArea}
+				, CSP_CLN_OPRTNG_PRCS_RMRK	= #{cspClnOprtngPrcsRmrk}
+				, CSP_DTP_AREA				= #{cspDtpArea}
+				, CSP_DTP_RMRK				= #{cspDtpRmrk}
+				, CSP_NGDS_FCLT_AREA		= #{cspNgdsFcltArea}
+				, CSP_NGDS_FCLT_RMRK		= #{cspNgdsFcltRmrk}
+				, STRG_PLC_PRC_PLC_AREA		= #{strgPlcPrcPlcArea}
+				, STRG_PLC_PRC_PLC_RMRK		= #{strgPlcPrcPlcRmrk}
+				, STRG_PLC_LWTP_STRG_AREA	= #{strgPlcLwtpStrgArea}
+				, STRG_PLC_LWTP_STRG_RMRK	= #{strgPlcLwtpStrgRmrk}
+				, STRG_PLC_CA_STRG_PLC_AREA	= #{strgPlcCaStrgPlcArea}
+				, STRG_PLC_CA_STRG_PLC_RMRK	= #{strgPlcCaStrgPlcRmrk}
+				, STRG_PLC_CURN_AREA		= #{strgPlcCurnArea}
+				, STRG_PLC_CURN_RMRK		= #{strgPlcCurnRmrk}
+				, STRG_PLC_GNRL_STRG_AREA	= #{strgPlcGnrlStrgArea}
+				, STRG_PLC_GNRL_STRG_RMRK	= #{strgPlcGnrlStrgRmrk}
+				, STRG_PLC_ETC_AREA			= #{strgPlcEtcArea}
+				, STRG_PLC_ETC_RMRK			= #{strgPlcEtcRmrk}
+
+				, TMPR_STRG_YN				= #{tmprStrgYn}
+		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
 		</if>
-    	<![CDATA[
+		<![CDATA[
 				, SYS_LAST_CHG_DT		= SYSDATE
-	    		, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    		, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
+			WHERE 1=1
+			  AND CRTR_YR = #{crtrYr}
+			  AND APC_CD = #{apcCd}
+		]]>
+	</update>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo				-->
@@ -371,25 +311,26 @@
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
-	    		TB_FCLT_INFO FCLT
-			   SET
-	    		  DEL_YN 	= 'Y'
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
+				TB_TE_APC_FCLT_STTS AFS
+			  SET
+				DEL_YN 	= 'Y'
 			WHERE 1=1
-		      AND TRGT_YR = #{trgtYr}
-		      AND  APC_CD = #{apcCd}
-    	]]>
-    </update>
-    <!--
-    <delete id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-    	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
-	    		TB_FCLT_INFO FCLT
-			 WHERE 1=1
-		     AND TRGT_YR = #{trgtYr}
-		     AND  APC_CD = #{apcCd}
-    	]]>
-    </delete>
- -->
+			  AND CRTR_YR = #{crtrYr}
+			  AND APC_CD = #{apcCd}
+		]]>
+	</update>
+	<!--
+	<delete id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
+				TB_FCLT_INFO FCLT
+			WHERE 1=1
+			AND TRGT_YR = #{trgtYr}
+			AND  APC_CD = #{apcCd}
+		]]>
+	</delete>
+	-->
+
 </mapper>
