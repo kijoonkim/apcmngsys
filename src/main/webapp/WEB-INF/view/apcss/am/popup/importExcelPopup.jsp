@@ -65,10 +65,13 @@
 		</div>
 	</section>
 </body>
+<script src="https://cdn.sheetjs.com/xlsx-0.17.0/package/dist/xlsx.full.min.js"></script>
 <script type="text/javascript">
 
 	var grdImpPop = null;
 	var jsonImpPop = [];
+	/**신미네 엑셀 서식 변경 enum **/
+	var excelObj = [{"팔레트번호":"pltno"}];
 
 	const popImp = {
 			prgrmId: 'impPopup',
@@ -96,13 +99,54 @@
 					popImp.mappingFnc(grdImpPop);
 				}
 			},
-			afterUpload: async function(_file) {
+		// async function(_file) {
+			afterUpload:async function handleFile(event) {
+				const file = event.target.files[0];
+				const reader = new FileReader();
+				let desFlag = false;
+				jsonImpPop.length = 0;
+				await popImp.createGrid();
+
 				SBUxMethod.openModal(popImp.modalId);
 
-				jsonImpPop.length = 0;
-				// create grid
-				popImp.createGrid();
-				grdImpPop.importExcelData(_file);
+				let gridJson = grdImpPop.getColumns();
+
+				const arrayBuffer = await new Promise((resolve, reject) => {
+					reader.onload = function(e) {
+						resolve(new Uint8Array(e.target.result));
+					};
+					reader.onerror = function(e) {
+						reject(new Error("File read failed"));
+					};
+					reader.readAsArrayBuffer(file);
+				});
+
+				const workbook = XLSX.read(arrayBuffer, {type: 'array'});
+				const firstSheetName = workbook.SheetNames[0];
+				const worksheet = workbook.Sheets[firstSheetName];
+				const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+				const headers = jsonData[0];
+
+				for (const item of headers) {
+					const idx = headers.indexOf(item);
+					if (item !== gridJson[idx].caption[0]) {
+						desFlag = true;
+						excelObj.forEach(obj => {
+							Object.keys(obj).forEach(key => {
+								if (item == key) {
+									popImp.objSBGridProp.columns[idx].caption[0] = key;
+									popImp.objSBGridProp.columns[idx].ref = obj[key];
+									delete popImp.objSBGridProp.columns[idx].format;
+								}
+							});
+						});
+					}
+				}
+
+				grdImpPop = _SBGrid.create(popImp.objSBGridProp);
+				grdImpPop.bind("afterimportexcel", popImp.afterImport);
+				grdImpPop.bind('valuechanged', popImp.valuechanged);
+				grdImpPop.importExcelData(event);
 			},
 			importExcel: async function(
 						_title, 
