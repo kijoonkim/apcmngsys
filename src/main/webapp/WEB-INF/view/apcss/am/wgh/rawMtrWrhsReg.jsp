@@ -151,7 +151,7 @@
 								<div id="srch-area">
 									<sbux-datepicker uitype="range" id="search-dtp-wrhsYmd" name="search-dtp-wrhsYmd"
 													 date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
-													 wrap-class="displayFlex" wrap-style="border:0"
+													 wrap-class="displayFlex" wrap-style="border:0;padding:0;"
 									/>
 								</div>
 
@@ -639,12 +639,12 @@
 
 		fn_clearForm();
 	}
+	var options = {
+		modelNm : 'progNm',opacity : '0.2'
+	};
 
 	// only document
 	window.addEventListener('DOMContentLoaded', async function(e) {
-		var options = {
-			modelNm : 'progNm', selector : '#sb-area-grdRawMtrWrhs', opacity : '0.2'
-		};
 			SBUxMethod.openProgress(options);//progArea
 		let result = await Promise.all([
 			fn_showSearchTable(),
@@ -1371,10 +1371,12 @@
 		if(gfn_isEmpty(itemCd)) {
 			SBUxMethod.set("srch-inp-wghtAvg", "");
 		}
+		SBUxMethod.openProgress(options);
 		let result = await Promise.all([
 			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),
 			fn_setStdGdsSelect(itemCd)
 		]);
+		SBUxMethod.closeProgress(options);
 	}
 
 	/**
@@ -1805,8 +1807,8 @@
 					ref:'jsonExpSltTrsprtSeCd',
 					displayui : false,
 					itemcount: 10,
-					label:'label',
-					value:'value'
+					label:'cdVlNm',
+					value:'cdVl'
 				}
 			},
 	        {
@@ -1922,7 +1924,7 @@
 	    		ref: 'grdNvSum',
 	    		type:'output',
 	    		width:'80px',
-	    		style:'text-align:center;color:blue;',
+	    		style:'text-align:center;',
 	    		format: {type: 'string', rule: '@" %"'}
 	    	});
 	    }
@@ -2269,6 +2271,8 @@
 		if (impData.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 		}
+		/** pltno로 엑셀 업로드 **/
+		let grdNvSumFlag = gfn_isEmpty(impData[0].pltno);
 
  		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 
@@ -2350,6 +2354,7 @@
  	    	const stdGrdList = [];
 
  	    	let hasError = false;
+
 			// 상세등급
 			gjsonStdGrdObjKnd.forEach((item, index) => {
 				let colNm = gStdGrdObj.colPrfx + item.grdKnd;
@@ -2371,7 +2376,14 @@
 
 				if (_.isEqual(item.stdGrdType, "RT")) {
 					cntRt++;
-					grd.grdNv = rowData[colNm];
+					if(grdNvSumFlag){
+						grd.grdNv = rowData[colNm];
+					}else{
+						let unit = parseInt(rowData.wrhsWght / rowData.bxQntt);
+						let unitWght = parseInt(unit * rowData[colNm]);
+						grd.grdNv = parseInt((rowData.wrhsWght / unitWght) * 100 );
+					}
+
 					if (gfn_isEmpty(grdCd)) {
 						grdCd = "*";
 					}
@@ -2389,7 +2401,6 @@
 			if (hasError) {
 				return;
 			}
-
 			if (cntRt > 0) {
 				if (grdNvSum > 100) {
 					gfn_comAlert("W0014", "비율합산", "100%");	//	W0014	{0}이/가 {1} 보다 큽니다.
@@ -2427,7 +2438,7 @@
  	   			grdCd: grdCd,
  	   			wghno: null,
  	   			prdctnYr: rowData.prdctnYr,
- 	   			stdGrdList: stdGrdList
+ 	   			stdGrdList: stdGrdList,
  	    	}
 
  	    	rawMtrWrhsList.push(rawMtrWrhs);
@@ -2471,7 +2482,7 @@
      const fn_setDataAfterImport = function(_grdImp) {
  		let impData = _grdImp.getGridDataAll();
  		const today = gfn_dateToYmd(new Date());
- 		
+
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 			const rowData = _grdImp.getRowData(iRow, false);	// deep copy
 
@@ -2687,7 +2698,10 @@
 				if (_.isEqual(item.stdGrdType, "RT")) {
 					// 값을 그대로 사용
 					cntRt++;
-					grdNvSum += parseFloat(rowData[colNm]) || 0;
+					let grdNv = parseFloat(rowData[colNm]) || 0;
+					grdNvSum += grdNv
+					/** 빈값 들어올경우 0 세팅 **/
+					rowData[colNm] = grdNv;
 				} else {
 					const id = gStdGrdObj.idList[index];
 					let jsonObj = gStdGrdObj.getGrdJson(id);
@@ -2717,9 +2731,12 @@
 
 				grdList.push(rowData[colNm]);
 			});
-
-			if (cntRt > 0) {
-				rowData.grdNvSum = grdNvSum;
+			if (cntRt > 0 ){
+				if(gfn_isEmpty(rowData.pltno)){
+					rowData.grdNvSum = grdNvSum;
+				}else{
+					rowData.bxQntt = grdNvSum;
+				}
 			}
 
 			// 판정등급

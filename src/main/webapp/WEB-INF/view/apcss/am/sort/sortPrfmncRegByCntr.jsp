@@ -591,6 +591,11 @@
 		fn_createGridRawMtrInvntr();
 		fn_createGridSortPrfmnc();
 		fn_clearForm();
+
+		/** 설비 목록이 단일일경우 **/
+		if(jsonComFclt.length === 1){
+			SBUxMethod.set('dtl-slt-fcltCd',jsonComFclt[0].value);
+		}
 	}
 
 
@@ -1366,7 +1371,7 @@
             //return;
         }
 
-        if (invntrInptWght < sortInptWght) {
+        if (17300 < sortInptWght) {
             if (!gfn_comConfirm("Q0001", "중량이 초과됩니다 그래도 등록")) {
                 return;
             }
