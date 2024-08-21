@@ -62,21 +62,25 @@
         				false-value="N" 
        				></sbux-checkbox>
                     <font style="margin-right:10px"></font>
+                    <!-- 
                     <sbux-button uitype="normal" text="SCM정보"  		id="sch-btn-scm" 			class="btn btn-sm btn-outline-danger" onclick="fn_btnScmInfo"></sbux-button>
-                    <sbux-button uitype="normal" text="파일첨부"  		id="sch-btn-attach" 		class="btn btn-sm btn-outline-danger" onclick="fn_fig2250pop"></sbux-button>
+                    <sbux-button uitype="normal" text="파일첨부"  		id="sch-btn-attach" 		class="btn btn-sm btn-outline-danger" onclick="fn_attach"></sbux-button>
+                     -->
                     <sbux-button uitype="normal" text="부서·적요수정"  	id="sch-btn-descUpdate" 	class="btn btn-sm btn-outline-danger" onclick="fn_descUpdate"></sbux-button>
                     <font style="margin-right:10px"></font>
                     <sbux-button uitype="normal" text="전표복사"  		id="sch-btn-copy" 			class="btn btn-sm btn-outline-danger" onclick="fn_docCopy"></sbux-button>
-                    <sbux-button uitype="normal" text="결재"  			id="sch-btn-submit" 		class="btn btn-sm btn-outline-danger" onclick="fn_docAppr"></sbux-button>
+                    <!-- 
+                    <sbux-button uitype="normal" text="결재"  			id="sch-btn-submit" 		class="btn btn-sm btn-outline-danger" onclick="fn_submit"></sbux-button>
+                     -->
                     <sbux-button uitype="normal" text="결재이력"  		id="sch-btn-confirmHist" 	class="btn btn-sm btn-outline-danger" onclick="fn_confimHist"></sbux-button>
                     <font style="margin-right:10px"></font>
                     <sbux-button uitype="normal" text="전기처리"  		id="sch-btn-end" 			class="btn btn-sm btn-outline-danger" onclick="fn_docEnd"></sbux-button>
                     <sbux-button uitype="normal" text="전기취소"  		id="sch-btn-cancel" 		class="btn btn-sm btn-outline-danger" onclick="fn_docCancel"></sbux-button>
-                    <sbux-button uitype="normal" text="보류해제"  		id="sch-btn-release" 		class="btn btn-sm btn-outline-danger" onclick="fn_docHoldExit"></sbux-button>
-                    <sbux-button uitype="normal" text="보류지정"  		id="sch-btn-unrelease" 		class="btn btn-sm btn-outline-danger" onclick="fn_docHoldPoint"></sbux-button>
+                    <sbux-button uitype="normal" text="보류해제"  		id="sch-btn-release" 		class="btn btn-sm btn-outline-danger" onclick="fn_docRelease"></sbux-button>
+                    <sbux-button uitype="normal" text="보류지정"  		id="sch-btn-unrelease" 		class="btn btn-sm btn-outline-danger" onclick="fn_docUnRelease"></sbux-button>
                     <font style="margin-right:10px"></font>
-                    <sbux-button uitype="normal" text="역분개취소"  	id="sch-btn-reverseCancel" 	class="btn btn-sm btn-outline-danger" onclick="fn_docDelAll"></sbux-button>
-                    <sbux-button uitype="normal" text="출력"  			id="sch-btn-print" 			class="btn btn-sm btn-outline-danger" onclick="fn_docDelAll"></sbux-button>
+                    <sbux-button uitype="normal" text="역분개취소"  	id="sch-btn-reverseCancel" 	class="btn btn-sm btn-outline-danger" onclick="fn_docReverseCancel"></sbux-button>
+                    <sbux-button uitype="normal" text="출력"  			id="sch-btn-print" 			class="btn btn-sm btn-outline-danger" onclick="fn_docPrint"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -643,6 +647,7 @@
 	var p_ss_currCode			= '${loginVO.maCurrCode}';
 	var p_ss_currUnit			= '${loginVO.maCurrUnit}';
 	var p_ss_empCode			= '${loginVO.maEmpCode}';
+	var p_ss_empName			= '${loginVO.maEmpName}';
 	var p_ss_isPostingUser		= '${loginVO.maIsPostingUser}';
 	
 	var pg_state				= 'new';
@@ -668,8 +673,11 @@
     var pg_doc_type_bizId		= '';	//셀텍트 'sch-doc-type' bizId
     var pg_doc_type_where		= '';	//셀텍트 'sch-doc-type' where
     
-    var p_sel_row 	= '';
-    var p_sel_col 	= '';
+    var p_sel_row 				= '';
+    var p_sel_col 				= '';
+    
+  	var p_unposting_type		= '';
+  	var p_unposting_date		= '';
     
     var p_summit_yn 	= true;		// c# fnsummit_yn();
     
@@ -852,8 +860,8 @@
 			pg_state = 'new';			
 		}
 		p_open_menu = true;
-		console.log('1 pg_state:', pg_state);			
-		console.log('1 p_menu_param:', p_menu_param);
+// 		console.log('1 pg_state:', pg_state);			
+// 		console.log('1 p_menu_param:', p_menu_param);
     	
     	fn_init(true);
 
@@ -869,23 +877,16 @@
 
     //메뉴가 이미 열려있을때..
     window.addEventListener('message', async function(e) {
-		if(p_open_menu){
-	    	return;
-		}
-		
     	let obj = e.data;
 		if(obj){
 			if(obj['MENU_MOVE']){
+				//console.log('2 message pg_state:', pg_state);			
+				//console.log('2 message obj:', obj);
 				pg_state 		= 'edit';			
 				p_menu_param 	= obj;
+		     	fn_init(false);
 			}
 		}
-		console.log('2 message pg_state:', pg_state);			
-		console.log('2 message obj:', obj);
-		console.log('2 p_menu_param:', p_menu_param);
-		
-		p_menu_param = obj;
-    	fn_init(true);
     });
     
     /**
@@ -3696,6 +3697,310 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }  
     }       
+    
+    /**
+     * 보류해제
+     */
+    var fn_docRelease = function() {
+    	
+      	var p_strdoc_id		= '';
+		var p_item_id_d 	= "";
+        var p_hold_reason_d = "";
+      	var p_numhold_count	= 0;
+      	
+      	var allList = Fig2200Grid.getGridDataAll()
+		for (var i = 0; i < allList.length; i++) {
+			var obj = allList[i].data;
+			if(obj['CHECK_YN']=='Y'){
+				if(obj['HOLD_FLAG']=='Y'){
+					p_numhold_count ++;
+				}
+			}
+			p_strdoc_id 	+= obj['DOC_ID'] + '|';
+			p_item_id_d 	+= obj['ITEM_ID'] + '|';
+			p_hold_reason_d += obj['HOLD_REASON'] + '|';
+		}
+      	if(p_numhold_count == 0){
+      		gfn_comAlert("E0000","보류해체 할 전표가 없습니다.");
+			return;      		 
+      	}
+      	p_strdoc_id 		= p_strdoc_id.slice(0, -1);
+      	p_item_id_d 		= p_item_id_d.slice(0, -1);
+      	p_hold_reason_d 	= p_hold_reason_d.slice(0, -1);
+      	
+		if(gfn_comConfirm("Q0001", "보류해체")){
+			fn_subAllRelease('RELEASE', p_strdoc_id, p_item_id_d, p_hold_reason_d);
+		}       	
+  	}     
+    
+    /**
+     * 보류지정
+     */
+    var fn_docUnRelease = function() {
+    	
+      	var p_strdoc_id		= '';
+		var p_item_id_d 	= "";
+        var p_hold_reason_d = "";
+      	var p_numnoreason_count	= 0;
+      	
+      	var allList = Fig2200Grid.getGridDataAll()
+		for (var i = 0; i < allList.length; i++) {
+			var obj = allList[i].data;
+			if(obj['CHECK_YN']=='Y'){
+				if(obj['HOLD_REASON']==''){
+					p_numnoreason_count ++;
+				}
+			}
+			p_strdoc_id 	+= obj['DOC_ID'] + '|';
+			p_item_id_d 	+= obj['ITEM_ID'] + '|';
+			p_hold_reason_d += obj['HOLD_REASON'] + '|';
+		}
+      	if(p_numhold_count > 0){
+      		gfn_comAlert("E0000","보류지정 사유는 필수 입니다.");
+			return;      		 
+      	}
+      	p_strdoc_id 		= p_strdoc_id.slice(0, -1);
+      	p_item_id_d 		= p_item_id_d.slice(0, -1);
+      	p_hold_reason_d 	= p_hold_reason_d.slice(0, -1);
+      	
+		if(gfn_comConfirm("Q0001", "보류지정")){
+			fn_subAllRelease('UNRELEASE', p_strdoc_id, p_item_id_d, p_hold_reason_d);
+		}       	
+  	}     
+    
+    /**
+     * 보류해제, 보류지정
+     */
+    const fn_subAllRelease = async function (wtype, p_strdoc_id, p_item_id_d, p_hold_reason_d){
+
+		let p_fi_org_code	= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
+		let p_doc_date		= gfnma_date6(gfnma_nvl(SBUxMethod.get("sch-doc-date")));
+      	if(!p_doc_date){
+      		gfn_comAlert("E0000","전기일자가 없습니다.");
+			return;      		 
+      	}
+		
+  	    var paramObj = { 
+ 			V_P_DEBUG_MODE_YN			: ''
+ 			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+			
+ 			,V_P_FI_ORG_CODE			: p_fi_org_code
+ 			,V_P_DOC_DATE				: p_doc_date
+ 			,V_P_DOC_ID     			: p_strdoc_id
+ 			,V_P_ITEM_ID     			: p_item_id_d
+ 			,V_P_HOLD_REASON			: p_hold_reason_d
+ 				
+ 			,V_P_FORM_ID				: p_formId
+ 			,V_P_MENU_ID				: p_menuId
+ 			,V_P_PROC_ID				: ''
+ 			,V_P_USERID					: p_userId
+ 			,V_P_PC						: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2210S1.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		}
+	    		fn_state('edit');        		
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }  
+    }     
+    
+    /**
+     * 역분개취소
+     */
+    var fn_docReverseCancel = function() {
+    	
+		if(gfn_comConfirm("Q0001", "역분개 취소를 하시겠습니까?")){
+			fn_subReverseCancel('REVERSE_CANCEL');
+		}       	
+  	}     
+    
+    /**
+     * 역분개취소 - 실행
+     */
+    const fn_subReverseCancel = async function (wtype){
+
+		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
+		let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("sch-acct-rule-code"));
+		let p_doc_id			= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
+		let p_hold_reason		= gfnma_nvl(SBUxMethod.get("sch-hold-reason"));
+		
+      	if(!p_acct_rule_code){
+      		gfn_comAlert("E0000","회계기준이 선택되지 않았습니다.");
+			return;      		 
+      	}
+      	if(!p_doc_id){
+      		gfn_comAlert("E0000","전표ID가 없습니다.");
+			return;      		 
+      	}
+		
+  	    var paramObj = { 
+ 			V_P_DEBUG_MODE_YN			: ''
+ 			,V_P_LANG_ID				: ''
+			,V_P_COMP_CODE				: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+			
+ 			,V_P_FI_ORG_CODE			: p_fi_org_code
+ 			,V_P_ACCT_RULE_CODE			: p_doc_date
+ 			,V_P_DOC_ID     			: p_strdoc_id
+ 			,V_P_HOLD_REASON			: p_hold_reason_d
+ 			,V_P_UNPOSTING_TYPE			: p_unposting_type
+ 			,V_P_UNPOSTING_DATE			: p_unposting_date
+ 				
+ 			,V_P_FORM_ID				: p_formId
+ 			,V_P_MENU_ID				: p_menuId
+ 			,V_P_PROC_ID				: ''
+ 			,V_P_USERID					: p_userId
+ 			,V_P_PC						: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2200S1.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '0',
+        	params				: gfnma_objectToString(paramObj)
+		});    	 
+        const data = await postJsonPromise;
+
+        try {
+        	if (_.isEqual("S", data.resultStatus)) {
+        		if(data.resultMessage){
+	          		alert(data.resultMessage);
+        		}
+        		cfn_add();
+        	} else {
+          		alert(data.resultMessage);
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }  
+    }       
+    
+    /**
+     * 파일첨부시 필요 변수
+     */
+	var lgv_sourceType = 'FIGDOCHEADER';    	// 화면(업무)마다 소스타입이 다르다.
+	var lgv_sourceCode = '';     				// 소스코드는 신규 저장후 리턴되는 값을 지정하여야 한다.
+	
+    /**
+     * 파일첨부
+     */
+    var cfn_attach = function() {
+    	
+    	var p_doc_id	= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
+        if (p_doc_id == ""|| p_doc_id == "0")
+        {
+    		gfn_comAlert("E0000","전표저장후 첨부파일 등록가능합니다.");
+            return;
+        }
+        lgv_sourceCode = p_doc_id;
+        
+    	if( (lgv_sourceType) && (lgv_sourceCode) ){
+			compopfilemng({
+	    		compCode		: gv_ma_selectedApcCd
+	    		,clientCode		: gv_ma_selectedClntCd
+	    		,sourceType		: lgv_sourceType
+	    		,sourceCode		: lgv_sourceCode
+	   			,formID			: p_formId
+	   			,menuId			: p_menuId    		
+			});
+    	}
+    }
+	
+    /**
+     * 결재처리 필요 변수
+     */
+	var lgv_apv_apprId		= gfnma_nvl(SBUxMethod.get("sch-appr-id"));  // 상신시:0, 승인(반려): 부모에서 온 값
+	var lgv_apv_sourceNo	= gfnma_nvl(SBUxMethod.get("sch-doc-id"));   
+	var lgv_apv_sourceType 	= gfnma_nvl(SBUxMethod.get("sch-doc-type"));     			
+	var lgv_appr_status 	= gfnma_nvl(SBUxMethod.get("sch-doc-status"));
+	var lgv_emp_code		= p_ss_empCode;
+	var lgv_emp_name		= p_ss_empName;
+	var lgv_dept_code		= p_ss_deptCode;
+	var lgv_dept_name		= p_ss_deptName;
+	var lgv_cost_center_code = '';
+	
+    /**
+     * 결재처리
+     */
+    var cfn_appr = function() {
+    	
+		console.log('cfn_appr');    	
+    	
+    	//본인이 상신하는 경우
+    	compopappvmng({
+    		workType		: 'TEMPLATE'	// 상신:TEMPLATE , 승인(반려):APPR
+    		,compCode		: gv_ma_selectedApcCd
+    		,compCodeNm		: gv_ma_selectedApcNm
+    		,clientCode		: gv_ma_selectedClntCd
+    		,apprId			: lgv_apv_apprId
+    		,sourceNo		: lgv_apv_sourceNo
+    		,sourceType		: lgv_apv_sourceType
+    		,apprStatus		: lgv_appr_status
+   			,empCode		: lgv_emp_code
+   			,empName		: lgv_emp_name
+   			,deptCode		: lgv_dept_code
+   			,deptName		: lgv_dept_name
+   			,costCenterCode	: lgv_cost_center_code
+   			,isPostingUser	: p_ss_isPostingUser
+   			,formID			: p_formId
+   			,menuId			: p_menuId    		
+		});
+    	
+    	//본인이 상신한 것을 조회하는 경우
+//     	compopappvmng({
+//     		workType		: 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+//      	,compCode		: gv_ma_selectedApcCd
+//        	,compCodeNm		: gv_ma_selectedApcNm
+//        	,clientCode		: gv_ma_selectedClntCd
+//        	,apprId			: '18'		
+//        	,sourceNo		: lgv_apv_sourceNo
+//        	,sourceType		: lgv_apv_sourceType
+//    		,empCode		: p_empCd
+//    		,formID			: p_formId
+//    		,menuId			: p_menuId    		
+// 		});
+    	
+    	//상위 결재권자가 조회 및 승인 할때
+//     	compopappvmng({
+//     		workType		: 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
+//     		,compCode		: gv_ma_selectedApcCd
+//     		,compCodeNm		: gv_ma_selectedApcNm
+//     		,clientCode		: gv_ma_selectedClntCd
+//     		,apprId			: '18'		// 부모화면에서 결재자가 가지고 있는 값
+//        	,sourceNo		: lgv_apv_sourceNo
+//        	,sourceType		: lgv_apv_sourceType
+//    		,empCode		: '26223075'	//p_empCd
+//    		,formID			: p_formId
+//    		,menuId			: p_menuId    		
+// 		});
+    	
+    }
+    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

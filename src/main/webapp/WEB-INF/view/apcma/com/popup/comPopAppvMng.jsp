@@ -219,6 +219,8 @@ function compopappvmng(options) {
 	var modalId  		= '#compopappvmng';
 	var modalDivId 		= 'modal-comPopAppvMng';
 	
+	var pp_sel_index	= 0;
+	
 	var settings = {
 		workType				: null
 		,compCode				: null
@@ -227,7 +229,13 @@ function compopappvmng(options) {
 		,apprId					: null
 		,sourceNo				: null
 		,sourceType				: null
+		,apprStatus				: null
 		,empCode				: null
+		,empName				: null
+		,deptCode				: null
+		,deptName				: null
+		,costCenterCode			: null
+		,isPostingUser			: null
 		,formID					: null
 		,menuId					: null
 		,callback				: null
@@ -265,6 +273,10 @@ function compopappvmng(options) {
 		$(modalId).find('.cu-btn-rowdel').hide();
 		$(modalId).find('.cu-btn-up').hide();
 		$(modalId).find('.cu-btn-down').hide();
+	}
+	
+	if(!settings.isPostingUser){
+		$(modalId).find('.cu-btn-delete').hide();
 	}
 	
 	//승인경로
@@ -533,7 +545,7 @@ function compopappvmng(options) {
 	}
 	
 	//결재경로 가져오기
-    var fn_basicSearch = async function() {
+    var fn_basicSearch = async function(callbackFn) {
 
     	var paramObj = {
 			 V_P_DEBUG_MODE_YN       : ''
@@ -584,70 +596,78 @@ function compopappvmng(options) {
 	    		if(settings.workType=='TEMPLATE'){
 		    	   	data.cv_3.forEach((item, index) => {
 			    		const msg = {
-			    				APPR_CATEGORY		: item.APPR_CATEGORY,
-			    				APPR_CATEGORY_NAME	: item.APPR_CATEGORY_NAME,
-			    				APPR_TYPE			: item.APPR_TYPE,
-			    				APPR_TYPE_NAME		: item.APPR_TYPE_NAME,
-			    				DEPT_CODE			: item.DEPT_CODE,
-			    				DEPT_NAME			: item.DEPT_NAME,
-			    				DUTY_CODE			: item.DUTY_CODE,
-			    				DUTY_NAME			: item.DUTY_NAME,
-			    				EMP_CODE			: item.EMP_CODE,
-			    				EMP_NAME			: item.EMP_NAME,
-			    				STEP_SEQ			: item.STEP_SEQ,
-			    				PROXY_EMP_NAME		: item.PROXY_EMP_NAME,
-			    				APPR_STATUS			: item.APPR_STATUS,
-			    				APPR_STATUS_NAME	: item.APPR_STATUS_NAME,
-			    				APPR_DATE			: item.APPR_DATE,
-			    				APPR_OPINION		: item.APPR_OPINION,
-			    				DESCRIPTION			: item.DESCRIPTION,
-			    				INSERT_USERID		: item.INSERT_USERID,
-			    				INSERT_TIME			: item.INSERT_TIME,
-			    				INSERT_PC			: item.INSERT_PC,
-			    				UPDATE_USERID		: item.UPDATE_USERID,
-			    				UPDATE_TIME			: item.UPDATE_TIME,
-			    				UPDATE_PC			: item.UPDATE_PC
+			    				APPR_CATEGORY		: gfnma_nvl(item.APPR_CATEGORY),
+			    				APPR_CATEGORY_NAME	: gfnma_nvl(item.APPR_CATEGORY_NAME),
+			    				APPR_TYPE			: gfnma_nvl(item.APPR_TYPE),
+			    				APPR_TYPE_NAME		: gfnma_nvl(item.APPR_TYPE_NAME),
+			    				DEPT_CODE			: gfnma_nvl(item.DEPT_CODE),
+			    				DEPT_NAME			: gfnma_nvl(item.DEPT_NAME),
+			    				DUTY_CODE			: gfnma_nvl(item.DUTY_CODE),
+			    				DUTY_NAME			: gfnma_nvl(item.DUTY_NAME),
+			    				EMP_CODE			: gfnma_nvl(item.EMP_CODE),
+			    				EMP_NAME			: gfnma_nvl(item.EMP_NAME),
+			    				STEP_SEQ			: gfnma_nvl(item.STEP_SEQ),
+			    				PROXY_EMP_CODE		: gfnma_nvl(item.PROXY_EMP_CODE),
+			    				PROXY_EMP_NAME		: gfnma_nvl(item.PROXY_EMP_NAME),
+			    				APPR_STATUS			: gfnma_nvl(item.APPR_STATUS),
+			    				APPR_STATUS_NAME	: gfnma_nvl(item.APPR_STATUS_NAME),
+			    				APPR_DATE			: gfnma_nvl(item.APPR_DATE),
+			    				APPR_OPINION		: gfnma_nvl(item.APPR_OPINION),
+			    				DESCRIPTION			: gfnma_nvl(item.DESCRIPTION),
+			    				INSERT_USERID		: gfnma_nvl(item.INSERT_USERID),
+			    				INSERT_TIME			: gfnma_nvl(item.INSERT_TIME),
+			    				INSERT_PC			: gfnma_nvl(item.INSERT_PC),
+			    				UPDATE_USERID		: gfnma_nvl(item.UPDATE_USERID),
+			    				UPDATE_TIME			: gfnma_nvl(item.UPDATE_TIME),
+			    				UPDATE_PC			: gfnma_nvl(item.UPDATE_PC)
 			    		}
 			    		dlist.push(msg);
+			    		if(item.EMP_CODE == settings.empCode || item.PROXY_EMP_CODE == settings.empCode ){
+			    			pp_sel_index = index;
+			    		}
 			    		totalRecordCount ++;
 			    	});
 	    		} else {
 		    	   	data.cv_2.forEach((item, index) => {
 			    		const msg = {
-			    				APPR_CATEGORY		: item.APPR_CATEGORY,
-			    				APPR_CATEGORY_NAME	: item.APPR_CATEGORY_NAME,
-			    				APPR_TYPE			: item.APPR_TYPE,
-			    				APPR_TYPE_NAME		: item.APPR_TYPE_NAME,
-			    				DEPT_CODE			: item.DEPT_CODE,
-			    				DEPT_NAME			: item.DEPT_NAME,
-			    				DUTY_CODE			: item.DUTY_CODE,
-			    				DUTY_NAME			: item.DUTY_NAME,
-			    				EMP_CODE			: item.EMP_CODE,
-			    				EMP_NAME			: item.EMP_NAME,
-			    				STEP_SEQ			: item.STEP_SEQ,
-			    				PROXY_EMP_NAME		: item.PROXY_EMP_NAME,
-			    				APPR_STATUS			: item.APPR_STATUS,
-			    				APPR_STATUS_NAME	: item.APPR_STATUS_NAME,
-			    				APPR_DATE			: item.APPR_DATE,
-			    				APPR_OPINION		: item.APPR_OPINION,
-			    				DESCRIPTION			: item.DESCRIPTION,
-			    				INSERT_USERID		: item.INSERT_USERID,
-			    				INSERT_TIME			: item.INSERT_TIME,
-			    				INSERT_PC			: item.INSERT_PC,
-			    				UPDATE_USERID		: item.UPDATE_USERID,
-			    				UPDATE_TIME			: item.UPDATE_TIME,
-			    				UPDATE_PC			: item.UPDATE_PC
+			    				APPR_CATEGORY		: gfnma_nvl(item.APPR_CATEGORY),
+			    				APPR_CATEGORY_NAME	: gfnma_nvl(item.APPR_CATEGORY_NAME),
+			    				APPR_TYPE			: gfnma_nvl(item.APPR_TYPE),
+			    				APPR_TYPE_NAME		: gfnma_nvl(item.APPR_TYPE_NAME),
+			    				DEPT_CODE			: gfnma_nvl(item.DEPT_CODE),
+			    				DEPT_NAME			: gfnma_nvl(item.DEPT_NAME),
+			    				DUTY_CODE			: gfnma_nvl(item.DUTY_CODE),
+			    				DUTY_NAME			: gfnma_nvl(item.DUTY_NAME),
+			    				EMP_CODE			: gfnma_nvl(item.EMP_CODE),
+			    				EMP_NAME			: gfnma_nvl(item.EMP_NAME),
+			    				STEP_SEQ			: gfnma_nvl(item.STEP_SEQ),
+			    				PROXY_EMP_CODE		: gfnma_nvl(item.PROXY_EMP_CODE),
+			    				PROXY_EMP_NAME		: gfnma_nvl(item.PROXY_EMP_NAME),
+			    				APPR_STATUS			: gfnma_nvl(item.APPR_STATUS),
+			    				APPR_STATUS_NAME	: gfnma_nvl(item.APPR_STATUS_NAME),
+			    				APPR_DATE			: gfnma_nvl(item.APPR_DATE),
+			    				APPR_OPINION		: gfnma_nvl(item.APPR_OPINION),
+			    				DESCRIPTION			: gfnma_nvl(item.DESCRIPTION),
+			    				INSERT_USERID		: gfnma_nvl(item.INSERT_USERID),
+			    				INSERT_TIME			: gfnma_nvl(item.INSERT_TIME),
+			    				INSERT_PC			: gfnma_nvl(item.INSERT_PC),
+			    				UPDATE_USERID		: gfnma_nvl(item.UPDATE_USERID),
+			    				UPDATE_TIME			: gfnma_nvl(item.UPDATE_TIME),
+			    				UPDATE_PC			: gfnma_nvl(item.UPDATE_PC)
 			    		}
 			    		dlist.push(msg);
+			    		if(item.EMP_CODE == settings.empCode || item.PROXY_EMP_CODE == settings.empCode ){
+			    			pp_sel_index = index;
+			    		}
 			    		totalRecordCount ++;
 			    	});
 	    		}
-	        	console.log('dlist :', dlist);
-	        	fn_createBasicGrid(dlist);	        	
-	    		} else {
-	    	  		alert(data.resultMessage);
-	    		}
-
+        	console.log('dlist :', dlist);
+        	fn_createBasicGrid(dlist);	        	
+    		} else {
+    	  		alert(data.resultMessage);
+    		}
+	    	callbackFn();
     	} catch (e) {
     	if (!(e instanceof Error)) {
     		e = new Error(e);
@@ -656,7 +676,16 @@ function compopappvmng(options) {
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     }    
-    fn_basicSearch();	
+    fn_basicSearch(function(){
+    	var len = $('#compopappvmng').find('.cu-basic-table').find('tbody').find('tr').length;
+    	var cnt = len - (pp_sel_index + 1);
+        if (cnt > 0) {
+    		$(modalId).find('.cu-btn-collect').hide();
+        } else {
+    		$(modalId).find('.cu-btn-collect').show();
+        };
+    });	
+    
 	//[end ] / 결재 경로 관련 ---------------------------------------------------------
 	
 	//사원 추가하기
