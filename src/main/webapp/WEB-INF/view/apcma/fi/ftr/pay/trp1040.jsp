@@ -36,9 +36,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnUnconfirm" name="btnUnconfirm" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_unconfirm"></sbux-button>
-                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confirm"></sbux-button>
-                <sbux-button id="btnApply" name="btnApply" uitype="normal" text="교대조 정보 생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_apply"></sbux-button>
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
             </div>
         </div>
         <div class="box-body">

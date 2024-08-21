@@ -2347,7 +2347,7 @@
 
         if (bPopUpFlag) {
             this.FormResult = strtreasury_batch_no;
-            this.Close();
+            SBUxMethod.closeModal('modal-comPopFbs2040');
         } else {
             if (!strtreasury_batch_no == "") {
                 var param = {

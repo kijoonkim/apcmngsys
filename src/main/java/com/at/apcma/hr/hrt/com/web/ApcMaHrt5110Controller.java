@@ -38,7 +38,7 @@ public class ApcMaHrt5110Controller extends BaseController {
     private ApcMaCommDirectService apcMaCommDirectService;
 
     @PostMapping(value = "/hr/hrt/com/selectHrt5110List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHrt1510List(
+    public ResponseEntity<HashMap<String, Object>> selectHrt5110List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session

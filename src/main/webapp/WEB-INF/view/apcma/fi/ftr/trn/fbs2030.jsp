@@ -36,7 +36,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="이체확인증" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
             </div>
         </div>
         <div class="box-body">
