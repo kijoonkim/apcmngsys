@@ -365,5 +365,21 @@
 				,prgrsLast : 'Y'//최종 제출
 			});
 		}
-
+		//열려있는 탭 중 apc전수조사인 경우 진척도 갱신
+		const cfn_allTabPrgrsRefrash = async function(){
+			let targetTab = 'TAB_CS_005';
+			for (var i = 0; i < parent.length; i++) {
+				let tabNm = parent[i].window.name.substring(8,18);
+				if(tabNm == targetTab){
+					if(typeof parent[i].window.cfn_prgrsRefrash === 'function'){
+						parent[i].window.cfn_prgrsRefrash();
+					}
+				}
+			}
+		}
+		//진척도 갱신
+		function cfn_prgrsRefrash() {
+			//진척도 조회
+			cfn_selectPrgrs();
+		}
 	</script>

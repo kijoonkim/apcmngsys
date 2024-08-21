@@ -55,6 +55,17 @@ public class FcltAtmtcMchnInfoVO extends ComVO{
 	private String ptz;
 	private String etcMnfcMchn;
 
+	//20240820 추가
+	private String spcfctCnt;
+	private String spcfctGrp;
+	private String spcfctGrd;
+	private String wbg;
+	private String wrhsBrQr;
+	private String kskTblt;
+	private String dshbrd;
+	private String spmtBrQr;
+	private String thAc;
+
 }
 
 

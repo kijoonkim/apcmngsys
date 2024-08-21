@@ -443,18 +443,5 @@
 		//console.log("======fn_setApc====end===");
 	}
 
-
-	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
-	/*
-	window.addEventListener('message',function(event){
-		//console.log('1. 탭호출');
-		//console.log(event);
-		let chkVal = event.data.chkVal;
-		if(chkVal == "selTab"){
-			//진척도 조회
-			cfn_selectPrgrs();
-		}
-	});
-	*/
 </script>
 </html>
