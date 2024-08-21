@@ -40,7 +40,7 @@ public class ApcMaHrt2520Controller extends BaseController {
     private ApcMaComService apcMaComService;
 
     @PostMapping(value = "/hr/hrt/hrt/selectHrt2520List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHrt2310List(
+    public ResponseEntity<HashMap<String, Object>> selectHrt2520List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
@@ -71,7 +71,7 @@ public class ApcMaHrt2520Controller extends BaseController {
 
 
     @PostMapping(value = "/hr/hrt/hrt/insertHrt2520.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHrt2310(
+    public ResponseEntity<HashMap<String, Object>> insertHrt2520(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
@@ -101,7 +101,7 @@ public class ApcMaHrt2520Controller extends BaseController {
     }
 
     @PostMapping(value = "/hr/hrt/hrt/insertHrt2520List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHrt2310List(
+    public ResponseEntity<HashMap<String, Object>> insertHrt2520List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session

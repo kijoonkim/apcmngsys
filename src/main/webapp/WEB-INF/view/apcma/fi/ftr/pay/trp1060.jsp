@@ -2018,5 +2018,87 @@
         }
         return removeMask;
     }
+
+    const fn_confirm = async function() {
+        if (gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")) == "" || gvwList.getRow() < 0)
+            return;
+
+        if (fnSET_P_TRP1060_S1("CONFIRM")) {
+            Allcheck1 = "N";
+            fn_search();
+        }
+    }
+
+    const fn_unconfirm = async function() {
+        if (gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")) == "" || gvwList.getRow() < 0)
+            return;
+
+        if (fnSET_P_TRP1060_S1("CANCEL")) {
+            Allcheck1 = "N";
+            fn_search();
+        }
+    }
+
+    const fn_end = async function() {
+        if (gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")) == "" || gvwList.getRow() < 0)
+            return;
+
+        if (fnSET_P_TRP1060_S1("END")) {
+            Allcheck1 = "N";
+            fn_search();
+        }
+    }
+
+    const fn_endCancel = async function() {
+        if (gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")) == "" || gvwList.getRow() < 0)
+            return;
+
+        if (fnSET_P_TRP1060_S1("ENDCANCEL")) {
+            Allcheck1 = "N";
+            fn_search();
+        }
+    }
+
+    const fn_print = async function() {
+        // TODO : 레포트 개발 필요
+        if (gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")) == "")
+            return;
+
+        var param = {};
+
+        param["WORK_TYPE"] = "TREASURY";
+        param["PRINT_TYPE"] = "PREVIEW";
+        param["TREASURY_BATCH_NO"] = gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO"));
+
+        gfn_popClipReport("", reportFilePath, param);
+        //object objResult = OpenChildForm("\\FIG\\App.erp.FIG.FIG1000.dll", htparam, OpenType.Modal);
+    }
+
+    const fn_addInvoiceItem = async function() {
+        // TODO 확인필요 TRP1070가 개발 목록에 없음
+        var param = {};
+
+        param["FROM_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_FROM_DATE"));
+        param["TO_DATE"] = gfn_nvl(SBUxMethod.get("SRCH_TO_DATE"));
+        param["COMP_CODE"] = gv_ma_selectedApcCd;
+        param["FI_ORG_CODE"] = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');
+        param["APRINT"] = bPrint_YN ? "Y" : "N";
+
+        //object objResult = OpenChildForm("\\TRP\\App.erp.TRP.TRP1070.dll", htparam, OpenType.Modal);
+        SBUxMethod.attr('modal-trp1050', 'header-title', '복수코드');
+        SBUxMethod.openModal('modal-trp1050');
+
+        if (typeof objResult === 'string') {
+            var strtreasury_batch_no = objResult;
+
+            if (!strtreasury_batch_no.Equals("")) {
+                SBUxMethod.set("SRCH_TREASURY_BATCH_NO", strtreasury_batch_no);
+
+                fn_search();
+            } else {
+                return;
+            }
+        }
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

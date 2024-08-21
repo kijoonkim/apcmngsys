@@ -72,7 +72,7 @@ public class ApcMaTrp1040Controller extends BaseController {
     }
 
     @PostMapping(value = "/fi/ftr/pay/updateTrp1040List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertTrp1040List(
+    public ResponseEntity<HashMap<String, Object>> updateTrp1040List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session

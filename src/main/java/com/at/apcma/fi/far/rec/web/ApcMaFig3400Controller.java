@@ -71,28 +71,6 @@ public class ApcMaFig3400Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/fi/far/rec/insertFig3400List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertFig3400List(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============insertFig3400List=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3400_S");
-
-            logger.info("=============insertFig3400List=====end========");
-            return getSuccessResponseEntityMa(resultMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-    }
-
     @PostMapping(value = "/fi/far/rec/insertFig3400ForGetVoucherNo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertFig3400ForGetVoucherNo(
             @RequestBody Map<String, Object> param

@@ -2144,7 +2144,7 @@
                 V_P_PC				: '',
             };
 
-            const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbsbanktxnList.do", {
+            const postJsonPromise = gfn_postJSON("/fi/ftr/pay/insertFbs2010Firm.do", {
                 getType				: 'json',
                 workType			: strWorkType,
                 cv_count			: '0',

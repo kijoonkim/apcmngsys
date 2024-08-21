@@ -231,7 +231,7 @@ public class ApcMaFbs2010Controller extends BaseController {
     }
 
     @PostMapping(value = "/fi/ftr/pay/selectFbsName.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFbsNameList(
+    public ResponseEntity<HashMap<String, Object>> selectFbsName(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
