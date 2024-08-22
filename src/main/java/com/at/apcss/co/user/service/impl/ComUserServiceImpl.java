@@ -428,5 +428,20 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return rtnObj;
 	}
 
+	@Override
+	public HashMap<String, Object> insertUntyAprvList(List<ComUserVO> comUserList) throws Exception {
+		
+		for ( ComUserVO user : comUserList ) {
+			
+			comUserMapper.insertSpUntyAuthAprv(user);
+			if (StringUtils.hasText(user.getRtnCd())) {
+				HashMap<String, Object> rtnObj = ComUtil.getResultMap(user.getRtnCd(), user.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+
 
 }

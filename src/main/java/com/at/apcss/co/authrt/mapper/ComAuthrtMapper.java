@@ -25,6 +25,13 @@ public interface ComAuthrtMapper {
 	 * @return
 	 */
 	public int insertComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
+	
+	/**
+	 * 통합권한정보 등록
+	 * @param comAuthVO
+	 * @return
+	 */
+	public int insertUntyAuthrt(ComAuthrtVO comAuthVO) throws Exception;
 
 	/**
 	 * 권한정보 변경
@@ -62,6 +69,14 @@ public interface ComAuthrtMapper {
 	 */
 	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthVO) throws Exception;
 
+	/**
+	 * 통합권한정보 목록 조회
+	 * @param comAuthVO
+	 * @return List<>
+	 */
+	public List<ComAuthrtVO> selectUntyAuthrtList(ComAuthrtVO comAuthVO) throws Exception;
+
+	
 	/**
 	 * 권한메뉴 단건 조회
 	 * @param comAuthrtMenuVO
@@ -144,6 +159,13 @@ public interface ComAuthrtMapper {
 	 * @return
 	 */
 	public List<ComAuthrtMenuVO> selectComAuthrtMenuTreeList(ComAuthrtMenuVO comAuthMenuVO) throws Exception;
+
+	/**
+	 * 통합권한 메뉴트리 목록 조회
+	 * @param comAuthMenuVO
+	 * @return
+	 */
+	public List<ComAuthrtMenuVO> selectUntyAuthrtMenuTreeList(ComAuthrtMenuVO comAuthMenuVO) throws Exception;
 
 	/**
 	 * 권한별 메뉴정보를 등록한다.

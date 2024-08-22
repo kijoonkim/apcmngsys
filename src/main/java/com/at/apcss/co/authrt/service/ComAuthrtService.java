@@ -25,13 +25,29 @@ public interface ComAuthrtService {
 	 * @return
 	 */
 	public List<ComAuthrtVO> selectComAuthrtList(ComAuthrtVO comAuthrtVO) throws Exception;
-
+	
+	/**
+	 * 통합권한 정보 목록 조회
+	 * @param comAuthVO
+	 * @return
+	 */
+	public List<ComAuthrtVO> selectUntyAuthrtList(ComAuthrtVO comAuthrtVO) throws Exception;
+	
+	
+	
 	/**
 	 * 권한정보 등록
 	 * @param comAuthVO
 	 * @return
 	 */
 	public int insertComAuthrt(ComAuthrtVO comAuthVO) throws Exception;
+	
+	/**
+	 * 통합권한정보 등록
+	 * @param comAuthVO
+	 * @return
+	 */
+	public int insertUntyAuthrt(ComAuthrtVO comAuthVO) throws Exception;
 
 	/**
 	 * 권한정보 변경
@@ -75,6 +91,13 @@ public interface ComAuthrtService {
 	 * @return
 	 */
 	public List<ComAuthrtMenuVO> selectComAuthrtMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
+
+	/**
+	 * 통합권한 메뉴트리 목록 조회
+	 * @param ComAuthrtMenuVO
+	 * @return
+	 */
+	public List<ComAuthrtMenuVO> selectUntyAuthrtMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception;
 
 	/**
 	 * 권한 메뉴 목록 등록

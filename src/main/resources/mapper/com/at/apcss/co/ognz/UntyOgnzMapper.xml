@@ -72,7 +72,9 @@
 				, UO.UNTY_OGNZ_LINK_CD  AS UNTY_OGNZ_LINK_CD
 				, UO.INDCT_SEQ          AS INDCT_SEQ
 				, UO.CTPV               AS CTPV
-				, UO.SGG                AS SGG			
+				, UO.SGG                AS SGG	
+				, UO.CRNO				AS CRNO
+				, UO.BRNO				AS BRNO
 			  FROM TB_UNTY_OGNZ UO
 			 WHERE UO.DEL_YN = 'N'
     	]]>
@@ -89,6 +91,47 @@
     	]]>
 		
     </select>
+    
+    
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzList			-->
+	<!-- DESC : 조직 목록조회.                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectOgnzList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzList */
+				  UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
+				, UO.UNTY_OGNZ_TYPE     AS UNTY_OGNZ_TYPE
+				, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
+				, UO.UP_UNTY_OGNZ_ID    AS UP_UNTY_OGNZ_ID
+				, UO.UNTY_OGNZ_LINK_CD  AS UNTY_OGNZ_LINK_CD
+				, UO.INDCT_SEQ          AS INDCT_SEQ
+				, UO.CTPV               AS CTPV
+				, UO.SGG                AS SGG	
+				, UO.CRNO				AS CRNO
+				, UO.BRNO				AS BRNO
+				, UO.FILTER_KEY			AS FILTER_KEY	
+			  FROM VW_COM_UNTY_OGNZ UO
+			 WHERE UO.DEL_YN = 'N'
+    	]]>
+    	
+		<if test='untyOgnzType != null and untyOgnzType != ""'>
+			   AND UO.UNTY_OGNZ_TYPE = #{untyOgnzType}
+		</if>
+		<if test='untyOgnzNm != null and untyOgnzNm != ""'>
+			   AND UO.UNTY_OGNZ_NM LIKE '%' || #{untyOgnzNm} || '%'
+		</if>
+		
+    	<![CDATA[
+    		 ORDER BY UNTY_OGNZ_NM, INDCT_SEQ, UNTY_OGNZ_ID
+    	]]>
+		
+    </select>
+    
     
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzTreeList	-->
@@ -113,6 +156,8 @@
 				, UO.INDCT_SEQ          AS INDCT_SEQ
 				, UO.CTPV               AS CTPV
 				, UO.SGG                AS SGG
+				, UO.CRNO				AS CRNO
+				, UO.BRNO				AS BRNO
 			  FROM (
 				SELECT
 					  LEVEL			AS UNTY_OGNZ_LVL
@@ -124,7 +169,9 @@
 					, UO.UNTY_OGNZ_LINK_CD  AS UNTY_OGNZ_LINK_CD
 					, UO.INDCT_SEQ          AS INDCT_SEQ
 					, UO.CTPV               AS CTPV
-					, UO.SGG                AS SGG	
+					, UO.SGG                AS SGG
+					, UO.CRNO				AS CRNO
+					, UO.BRNO				AS BRNO
 				  FROM VW_COM_UNTY_OGNZ UO
 				 WHERE UO.DEL_YN = 'N'
 
@@ -153,6 +200,23 @@
 					   	UUO.UNTY_OGNZ_NM LIKE '%' || #{untyOgnzNm} || '%'
 					)
 			</if>
+			<if test='untyOgnzId != null and untyOgnzId != ""'>
+				   AND UO.UNTY_OGNZ_ID = #{untyOgnzId}
+			</if>
+			<if test='ctpv != null and ctpv != ""'>
+				   AND UO.CTPV = #{ctpv}
+			</if>
+			<if test='sgg != null and sgg != ""'>
+				   AND UO.SGG = #{sgg}
+			</if>
+			<if test='brno != null and brno != ""'>
+				   AND UO.BRNO = #{brno}
+			</if>
+			
+			
+    	<![CDATA[
+    		 ORDER BY SUBSTR(UNTY_OGNZ_TYPE, 1, 1), UNTY_OGNZ_SEQ
+    	]]>
     </select>
 
 

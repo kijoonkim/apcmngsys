@@ -22,5 +22,13 @@ public class UntyOgnzVO extends ComVO {
 	private String apcCd;
 	private String apcNm;
 	private String brno;
+	private String crno;
 	private String addr;
+	
+	private String ognzCd;
+	private String ognzNm;
+	private String ognzSeCd;
+	
+	private String filterKey;
+	
 }

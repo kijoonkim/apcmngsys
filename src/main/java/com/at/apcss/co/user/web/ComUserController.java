@@ -87,7 +87,9 @@ public class ComUserController extends BaseController {
 		List<ComUserVO> resultList = new ArrayList<>();
 		
 		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzType = getUntyOgnzType();
 		String untyOgnzId = getUntyOgnzId();
+		String untyAuthrtMngYn = getUntyAuthrtMngYn();
 		
 		comUserVO.setSuperUserYn(null);
 		
@@ -97,6 +99,8 @@ public class ComUserController extends BaseController {
 			comUserVO.setSuperUserYn(ComConstants.CON_YES);
 		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
 			comUserVO.setUntyOgnzId(untyOgnzId);
+			comUserVO.setUntyOgnzType(untyOgnzType);
+			comUserVO.setUntyAuthrtMngYn(untyAuthrtMngYn);
 		} else {
 			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
 		}
@@ -447,6 +451,37 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/co/user/insertUntyAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertUntyAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( ComUserVO user : comUserList ) {
+				user.setSysFrstInptUserId(getUserId());
+				user.setSysFrstInptPrgrmId(getPrgrmId());
+				user.setSysLastChgUserId(getUserId());
+				user.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = comUserService.insertUntyAprvList(comUserList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 
 }

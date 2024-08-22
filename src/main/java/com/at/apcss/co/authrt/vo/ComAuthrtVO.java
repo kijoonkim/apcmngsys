@@ -26,6 +26,13 @@ public class ComAuthrtVO extends ComVO {
 	private String menuId;
 	private String flfmtTaskSeCd;
 
+	
+	private String untyOgnzId;
+    private String untyOgnzNm;
+    private String untyAuthrtType;
+    private String superUserYn;
+    
+	
 	/**
 	 * case id : CASE1 ~ CASE10
 	 */

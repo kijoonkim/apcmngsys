@@ -57,6 +57,24 @@ public class UntyOgnzController extends BaseController {
 		
 	}	
 	
+	// 조직 목록 조회
+	@PostMapping(value = "/co/ognz/selectOgnzList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectOgnzList(@RequestBody UntyOgnzVO untyOgnzVO, HttpServletRequest request) throws Exception{
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		List<UntyOgnzVO> resultList = new ArrayList<UntyOgnzVO>();
+		try {
+			 resultList = untyOgnzService.selectOgnzList(untyOgnzVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+		
+	}	
+	
 	// 통합조직 관리APC 목록 조회
 	@PostMapping(value = "/co/ognz/selectUntyOgnzApcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectUntyOgnzApcList(@RequestBody UntyOgnzVO untyOgnzVO, HttpServletRequest request) throws Exception{

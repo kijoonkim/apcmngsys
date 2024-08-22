@@ -39,18 +39,32 @@ public class ComUserVO extends ComVO {
 	private String delYn;
 	private String reverseYn;
 	private String crno;
+	private String brno;
 	private String brdt;
 	private String mblTelno;
 	private String odSbmsnYn;
 	private String aplyDocSbmsnYn;
 	
 	private String untyOgnzId;
+	private String untyOgnzNm;
 	private String untyOgnzType;
+	private String untyOgnzCd;
 	private String untyAuthrtType;
 	private String untyAuthrtMngYn;
 	private String untyAuthrtMngUserId;
+	private String untyAuthrtId;
+
+	private String ctpv;
+	private String sgg;
+	
+	private String ctpvNm;
+	private String sggNm;
+	
 	private int untyAuthrtMngUserCnt;
 	
 	private String superUserYn;
+	
+	private String rtnCd;
+	private String rtnMsg;
 	
 }
