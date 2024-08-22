@@ -130,6 +130,8 @@ public interface ComUserMapper {
 
     public HashMap<String,Object> selectUserAprv(HashMap<String,Object> comUser);
     public int delComUserAprv(HashMap<String,Object> comUser);
+    
+    public void insertSpUntyAuthAprv(ComUserVO comUserVO) throws Exception;
 }
 
 

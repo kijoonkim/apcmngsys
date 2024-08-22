@@ -98,6 +98,73 @@
     	</if>
     	<!-- End 페이징 -->
     </select>
+    
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectUntyAuthrtList	-->
+	<!-- DESC : 통합권한 목록 조회.                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectUntyAuthrtList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectUntyAuthrtList */
+				  CA.AUTHRT_ID      AS AUTHRT_ID
+		        , CA.AUTHRT_NM      AS AUTHRT_NM
+				, CA.AUTHRT_TYPE    AS AUTHRT_TYPE
+				, CA.AUTHRT_EXPLN   AS AUTHRT_EXPLN
+				, CA.APC_CD			AS APC_CD
+				, CA.UNTY_OGNZ_ID	AS UNTY_OGNZ_ID
+				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_AUTHRT_TYPE', CA.AUTHRT_TYPE) FROM DUAL) AS AUTHRT_TYPE_NM
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CA.APC_CD) AS APC_NM
+				, (SELECT MAX(X.UNTY_OGNZ_NM) FROM VW_COM_UNTY_OGNZ X WHERE X.UNTY_OGNZ_ID = CA.UNTY_OGNZ_ID)	AS UNTY_OGNZ_NM
+    	]]>
+		<if test='sysId != null and sysId != ""'>
+				, #{sysId}			AS SYS_ID
+		</if>
+    	<![CDATA[
+			  FROM TB_COM_AUTH CA
+			 WHERE CA.DEL_YN = 'N'
+    	]]>
+		<if test='authrtId != null and authrtId != ""'>
+			   AND CA.AUTHRT_ID = #{authrtId}
+		</if>
+		<if test='authrtNm != null and authrtNm != ""'>
+			   AND CA.AUTHRT_NM LIKE '%' || #{authrtNm} || '%'
+		</if>
+		<if test='authrtType != null and authrtType != ""'>
+			   AND CA.AUTHRT_TYPE = #{authrtType}
+		</if>
+		<if test='authrtExpln != null and authrtExpln != ""'>
+			   AND CA.AUTHRT_EXPLN LIKE '%' || #{authrtExpln} || '%'
+		</if>
+		<if test='apcCd != null and apcCd != ""'>
+			   AND CA.APC_CD = #{apcCd}
+		</if>
+		<if test='untyOgnzId != null and untyOgnzId != ""'>
+			   AND CA.UNTY_OGNZ_ID = #{untyOgnzId}
+		</if>
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+    
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertComAuthrt		-->
@@ -128,6 +195,48 @@
 					, #{authrtType}
 					, #{authrtExpln}
 					, #{apcCd}
+					, SYSDATE
+	   			  	, #{sysFrstInptUserId}
+	   			  	, #{sysFrstInptPrgrmId}
+	   			  	, SYSDATE
+	   			  	, #{sysLastChgUserId}
+	   			  	, #{sysLastChgPrgrmId}
+				)
+    	]]>
+    </insert>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertUntyAuthrt		-->
+	<!-- DESC : 통합권한 등록.                                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertUntyAuthrt" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+    	<![CDATA[
+			INSERT /* com.at.apcss.co.authrt.mapper.ComAuthrtMapper.insertUntyAuthrt */
+				INTO TB_COM_AUTH (
+					  AUTHRT_ID
+					, AUTHRT_NM
+					, AUTHRT_TYPE
+					, AUTHRT_EXPLN
+					, APC_CD
+					, UNTY_OGNZ_ID
+	    		  	, SYS_FRST_INPT_DT
+	    		  	, SYS_FRST_INPT_USER_ID
+	    		  	, SYS_FRST_INPT_PRGRM_ID
+	    		  	, SYS_LAST_CHG_DT
+	    		  	, SYS_LAST_CHG_USER_ID
+	    		  	, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  FN_GET_ID_COM_AUTH(#{apcCd})
+					, #{authrtNm}
+					, #{authrtType}
+					, #{authrtExpln}
+					, #{apcCd}
+					, #{untyOgnzId}
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
 	   			  	, #{sysFrstInptPrgrmId}
@@ -425,6 +534,89 @@
     		</when>
     		<when test='authrtType != null and authrtType == "55"'>
 				   AND MN.AUTHRT_TYPE IN ('55')
+    		</when>
+    	</choose>
+    	<![CDATA[
+				 START WITH MN.MENU_ID = #{sysId}
+			    CONNECT BY PRIOR MN.MENU_ID = MN.UP_MENU_ID
+			     ORDER SIBLINGS BY MN.INDCT_SEQ, MN.MENU_ID
+			  	) MN
+
+			  	LEFT JOIN TB_COM_MENU UM
+			  	  ON UM.MENU_ID = MN.UP_MENU_ID
+			  	 AND UM.DEL_YN = 'N'
+
+			  	LEFT JOIN TB_COM_AUTH CA
+			  	  ON CA.AUTHRT_ID = #{authrtId}
+			  	 AND CA.DEL_YN = 'N'
+
+			  	LEFT JOIN TB_COM_AUTH_MENU AM
+			  	  ON AM.MENU_ID = MN.MENU_ID
+			  	 AND AM.AUTHRT_ID = CA.AUTHRT_ID
+
+			 WHERE 1=1
+			ORDER BY MENU_SEQ
+    	]]>
+    </select>
+
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComAuthrtMenuTreeList	-->
+	<!-- DESC : 권한 메뉴트리 목록 조회.                                             			-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2023.05.30  	jcshin        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <select id="selectUntyAuthrtMenuTreeList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtMenuVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.authrt.mapper.ComAuthMapper.selectUntyAuthrtMenuTreeList */
+				  MN.LVL			AS MENU_LVL
+				, MN.SEQ			AS MENU_SEQ
+				, MN.SYS_ID			AS SYS_ID
+				, MN.UP_MENU_ID		AS UP_MENU_ID
+				, UM.MENU_NM		AS UP_MENU_NM
+				, MN.MENU_ID		AS MENU_ID
+				, MN.MENU_NM		AS MENU_NM
+				, MN.MENU_TYPE  	AS MENU_TYPE
+				, MN.USER_TYPE		AS USER_TYPE
+				, MN.PAGE_URL		AS PAGE_URL
+				, MN.APC_CD			AS APC_CD
+				, MN.INDCT_SEQ		AS INDCT_SEQ
+				, AM.AUTHRT_ID		AS AUTHRT_ID
+				, CA.AUTHRT_NM		AS AUTHRT_NM
+				, CA.AUTHRT_TYPE	AS AUTHRT_TYPE
+				, NVL2(AM.MENU_ID, 'Y', 'N') AS USE_YN
+				, NULL				AS ENTY_LIST
+			  FROM (
+				SELECT
+					  LEVEL		AS LVL
+					, ROWNUM 	AS SEQ
+					, SUBSTR(MN.MENU_ID, 1, 2) AS SYS_ID
+					, MN.UP_MENU_ID	AS UP_MENU_ID
+					, MN.MENU_ID	AS MENU_ID
+					, MN.MENU_NM	AS MENU_NM
+					, MN.MENU_TYPE  AS MENU_TYPE
+					, MN.USER_TYPE	AS USER_TYPE
+					, MN.PAGE_URL	AS PAGE_URL
+					, MN.APC_CD		AS APC_CD
+					, MN.INDCT_SEQ	AS INDCT_SEQ
+					, MN.AUTHRT_TYPE AS AUTHRT_TYPE
+				  FROM TB_COM_MENU MN
+				 WHERE MN.DEL_YN = 'N'
+    	]]>
+    	<choose>
+    		<when test='authrtType != null and authrtType == "00"'>
+				   AND MN.AUTHRT_TYPE IN ('00', '10', '20', '21', '30', '40', '55', '60')
+    		</when>
+    		<when test='authrtType != null and authrtType == "10"'>
+				   AND MN.AUTHRT_TYPE IN ('10', '20', '21', '30', '40', '55', '60')
+    		</when>
+    		<when test='authrtType != null and authrtType == "20"'>
+				   AND MN.AUTHRT_TYPE IN ('20', '21', '30', '40')
+    		</when>
+    		<when test='authrtType != null and authrtType == "30"'>
+				   AND MN.AUTHRT_TYPE IN ('21', '30', '40')
     		</when>
     	</choose>
     	<![CDATA[

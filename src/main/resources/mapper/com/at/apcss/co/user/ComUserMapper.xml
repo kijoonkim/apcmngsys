@@ -249,7 +249,6 @@
 			SELECT
 			      CU.USER_ID            	AS USER_ID
 				, CU.USER_NM            	AS USER_NM
-				--, CU.PSWD					AS PSWD
 				, CU.USER_TYPE				AS USER_TYPE
 				, (SELECT FN_GET_COM_CD_VL_NM('USER_TYPE', CU.USER_TYPE) FROM DUAL) AS USER_TYPE_NM
 				, CU.USER_STTS          	AS USER_STTS
@@ -273,10 +272,36 @@
 				, CU.OD_SBMSN_YN			AS OD_SBMSN_YN
 				, CU.APLY_DOC_SBMSN_YN		AS APLY_DOC_SBMSN_YN
 				
+				, CU.CRNO					AS CRNO
+				, CU.BRNO					AS BRNO
 				, CU.UNTY_OGNZ_ID			AS UNTY_OGNZ_ID
-				, CU.UNTY_OGNZ_TYPE			AS UNTY_OGNZ_TYPE
+				, (
+					SELECT X.UNTY_OGNZ_NM
+					  FROM VW_COM_UNTY_OGNZ X
+					 WHERE X.UNTY_OGNZ_TYPE = CU.UNTY_OGNZ_TYPE
+					   AND X.UNTY_OGNZ_ID = CU.UNTY_OGNZ_ID
+				)							AS UNTY_OGNZ_NM
+				--, CU.UNTY_OGNZ_TYPE			AS UNTY_OGNZ_TYPE
+				, NVL(
+					CU.UNTY_OGNZ_TYPE
+					, CASE
+						WHEN CU.USER_TYPE = '21' THEN 'C10'						
+						WHEN CU.USER_TYPE = '22' THEN 'C20'
+						WHEN CU.USER_TYPE = '24' THEN 'C30'
+						WHEN CU.USER_TYPE = '27' THEN 'G20'
+						WHEN CU.USER_TYPE = '28' THEN 'G30'
+						ELSE NULL
+					  END
+				)							AS UNTY_OGNZ_TYPE
+						
+				, CU.UNTY_OGNZ_CD			AS UNTY_OGNZ_CD
 				, CU.UNTY_AUTHRT_TYPE		AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN		AS UNTY_AUTHRT_MNG_YN
+				
+				, CU.CTPV	AS CTPV
+				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', CU.CTPV) FROM DUAL) AS CTPV_NM
+				, CU.SGG	AS SGG
+				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_SGG', CU.SGG) FROM DUAL) AS SGG_NM
 				
 				, (
 					SELECT MAX(X.USER_ID)	AS USER_ID
@@ -294,7 +319,7 @@
 				
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
-			   AND CU.USER_TYPE IN ('21', '22', '23', '24', '30')
+			   AND CU.USER_TYPE IN ('21', '22', '23', '24', '27', '28', '30')
     	]]>
 		<if test='userId != null and userId != ""'>
 			   AND CU.USER_ID LIKE '%' || #{userId} || '%'
@@ -312,22 +337,77 @@
 			   AND CU.UNTY_AUTHRT_TYPE = #{untyAuthrtType}
 		</if>
 		
+		<if test='ctpv != null and ctpv != ""'>
+			   AND CU.CTPV = #{ctpv}
+		</if>
+		
+		<if test='sgg != null and sgg != ""'>
+			   AND CU.SGG = #{sgg}
+		</if>
+		
 		<choose>
     		<when test='superUserYn != null and pagingYn.equals("Y")'>
 				
     		</when>
     		<when test='untyOgnzId != null and untyOgnzId != ""'>
-				AND CU.UNTY_OGNZ_ID IN (
-					SELECT
-						#{untyOgnzId}		AS UNTY_OGNZ_ID
-					  FROM DUAL
-					UNION ALL
-					SELECT
-						UO.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
-					  FROM VW_COM_UNTY_OGNZ UO
-					 WHERE UO.DEL_YN = 'N'
-					   AND UO.UP_UNTY_OGNZ_ID = #{untyOgnzId}
-			   	)
+    			AND #{untyAuthrtMngYn} = 'Y'
+				AND (
+						(	
+							CU.UNTY_OGNZ_ID IN (
+								SELECT
+									#{untyOgnzId}		AS UNTY_OGNZ_ID
+								  FROM DUAL
+								UNION ALL
+								SELECT
+									UO.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
+								  FROM VW_COM_UNTY_OGNZ UO
+								 WHERE UO.DEL_YN = 'N'
+								   AND UO.UP_UNTY_OGNZ_ID = #{untyOgnzId}
+						   		)
+					   	)
+					   	OR
+					   	(
+					   		(
+						   		#{untyOgnzType} IN ('C10', 'C20', 'C30')
+						   		AND
+						   		CU.BRNO IN (
+						   			SELECT
+										UO.BRNO		AS BRNO
+									  FROM VW_COM_UNTY_OGNZ UO
+									 WHERE UO.DEL_YN = 'N'
+									   AND (
+									   		UO.UNTY_OGNZ_ID = #{untyOgnzId}
+									   		OR
+									   		UO.UP_UNTY_OGNZ_ID = #{untyOgnzId}
+									   )
+						   		)
+						   	)
+						   	OR
+						   	(
+						   		#{untyOgnzType} IN ('G20')
+						   		AND
+						   		CU.CTPV = (
+						   			SELECT 
+										UO.UNTY_OGNZ_LINK_CD AS UNTY_OGNZ_LINK_CD
+									  FROM VW_COM_UNTY_OGNZ UO
+									 WHERE UO.DEL_YN = 'N'
+									   AND UO.UNTY_OGNZ_ID = #{untyOgnzId}
+						   		)
+						   	)
+						   	OR
+						   	(
+						   		#{untyOgnzType} IN ('G30')
+						   		AND
+						   		CU.SGG = (
+						   			SELECT 
+										UO.UNTY_OGNZ_LINK_CD AS UNTY_OGNZ_LINK_CD
+									  FROM VW_COM_UNTY_OGNZ UO
+									 WHERE UO.DEL_YN = 'N'
+									   AND UO.UNTY_OGNZ_ID = #{untyOgnzId}
+						   		)
+						   	)
+					   	)
+					)
 			</when>
     		<otherwise>
 			   
@@ -909,4 +989,33 @@
 
 		]]>
     </delete>
+    
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.insertSpUntyAuthAprv             -->
+	<!-- DESC : 통합사용자 권한승인처리.                                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.05.25  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSpUntyAuthAprv" statementType="CALLABLE" parameterType="com.at.apcss.co.user.vo.ComUserVO">
+		<![CDATA[
+			{call /* com.at.apcss.co.user.ComUserMapper.insertSpUntyAuthAprv */
+                SP_UNTY_AUTH_APRV (
+                    #{sysLastChgUserId}
+                  , #{sysLastChgPrgrmId}
+                  , #{userId}
+                  , #{untyOgnzId}
+                  , #{untyAuthrtType}
+                  , #{untyOgnzType}
+                  , #{untyAuthrtMngYn}
+                  , #{untyAuthrtId}
+                  , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                  , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+                )
+            }
+		]]>
+	</insert>
+    
+    
 </mapper>

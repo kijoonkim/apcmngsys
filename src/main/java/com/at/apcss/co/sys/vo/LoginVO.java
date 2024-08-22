@@ -107,6 +107,12 @@ public class LoginVO implements Serializable{
 	/** 통합권한관리여부 */
 	private String untyAuthrtMngYn;
 	
+	/** 시도 */
+	private String ctpv;
+	/** 시군구 */
+	private String sgg;
+	
+	
 	public String getUntyOgnzId() {
 		return untyOgnzId;
 	}
@@ -1027,6 +1033,18 @@ public class LoginVO implements Serializable{
 		this.maUserName = maUserName;
 	}
 	//------------------------------------------------------
+	public String getCtpv() {
+		return ctpv;
+	}
+	public void setCtpv(String ctpv) {
+		this.ctpv = ctpv;
+	}
+	public String getSgg() {
+		return sgg;
+	}
+	public void setSgg(String sgg) {
+		this.sgg = sgg;
+	}
 
 
 }

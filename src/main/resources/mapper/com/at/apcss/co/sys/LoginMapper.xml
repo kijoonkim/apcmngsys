@@ -196,6 +196,9 @@
 				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
 				
+				, CU.CTPV				AS CTPV
+				, CU.SGG				AS SGG
+				
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
 			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용

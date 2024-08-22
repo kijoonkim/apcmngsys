@@ -34,13 +34,14 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-						id="btnInsert" 
-						name="btnInsert" 
+						id="btn-untyAprv" 
+						name="btn-untyAprv" 
 						uitype="normal" 
 						text="승인" 
 						class="btn btn-sm btn-outline-danger" 
-						onclick="fn_userAprv"
+						onclick="fn_untyAprv"
 					></sbux-button>
+					<!-- 
 					<sbux-button 
 						id="btnSave" 
 						name="btnSave" 
@@ -49,6 +50,7 @@
 						class="btn btn-sm btn-outline-danger" 
 						onclick="fn_save"
 					></sbux-button>
+					 -->
 					<sbux-button 
 						id="btnSearch" 
 						name="btnSearch" 
@@ -160,6 +162,44 @@
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
+						<tr>
+							<th scope="row">시/도</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-untyCtpv"
+									name="srch-slt-untyCtpv"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonUntyCtpv"
+						            jsondata-value="cdVl"
+						            jsondata-text="cdVlNm"
+									unselected-text="전체"
+									onchange="fn_search"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<th scope="row">시/군/구</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-untySgg"
+									name="srch-slt-untySgg"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonUntySgg"
+									jsondata-value="cdVl"
+									jsondata-text="cdVlNm"
+									unselected-text="전체"
+									filter-source-name="srch-slt-untyCtpv"
+            						jsondata-filter="upCdVl"
+									onchange="fn_search"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<th scope="row"></th>
+							<td class="td_input" style="border-right: hidden;">
+							</td>
+							<td colspan="2" class="td_input"></td>
+						</tr>
 					</tbody>
 				</table>
 					<div class="ad_tbl_top2">
@@ -176,7 +216,7 @@
 									<col style="width: auto">
 									<col style="width: 110px">
 									<col style="width: 100px">
-									<col style="width: 80px">
+									<!--<col style="width: 80px">-->
 								</colgroup>
 								<tbody>
 									<tr>
@@ -194,6 +234,7 @@
 												onchange="setPageSize"
 											></sbux-select>
 										</td>
+										<!--
 										<td class="td_input" style="border-right:hidden;">
 											<sbux-button
 												id="btnAllSave" 
@@ -204,6 +245,7 @@
 												onclick="fn_allUserAprv()" 
 											></sbux-button>
 										</td>
+										-->
 									</tr>
 								</tbody>
 							</table>
@@ -213,6 +255,24 @@
 				</div>
 			</div>
 	</section>
+	
+    <!-- 생산자 선택 Modal -->
+    <div>
+        <sbux-modal 
+        	id="modal-untyOgnz" 
+        	name="modal-untyOgnz" 
+        	uitype="middle" 
+        	header-title="통합조직 선택" 
+        	body-html-id="body-modal-untyOgnz" 
+        	footer-is-close-button="false" 
+        	header-is-close-button="false" 
+        	style="width:1000px"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-untyOgnz">
+    	<jsp:include page="../../co/popup/comUntyOgnzPopup.jsp"></jsp:include>
+    </div>
+	
 </body>
 
 <script type="text/javascript">
@@ -251,6 +311,12 @@
 	];
 	var jsonUntyAuthrtType = [];
 	
+	var jsonUntyOgnz = [];
+
+    var jsonUntyCtpv = [];
+    var jsonUntySgg = [];
+	
+	
 	var grdUserAprv;
 	var jsonUserAprv = [];
 
@@ -274,14 +340,53 @@
 		let result = await Promise.all([
 			gfn_getComCdDtls("USER_TYPE"),
 			gfn_getComCdDtls("UNTY_AUTHRT_TYPE"),
+			gfn_getComCdDtls("UNTY_CTPV"),
+			gfn_getComCdDtls("UNTY_SGG"),
+			//fn_getApcOgnz()
 		]);
 		
 		jsonComUserType = result[0];
 		jsonUntyAuthrtType = result[1];
+        jsonUntyCtpv = result[2];
+        jsonUntySgg = result[3];
 		
 		SBUxMethod.refresh("srch-slt-userType");
 		SBUxMethod.refresh("srch-slt-untyAuthrtType");
+		SBUxMethod.refresh("srch-slt-untyCtpv");
+		SBUxMethod.refresh("srch-slt-untySgg");
 	}
+	
+	const fn_getApcOgnz = async function() {
+		
+		jsonUntyOgnz.length = 0;
+		
+		const postJsonPromise = gfn_postJSON("/co/ognz/selectOgnzList.do", {
+          	// pagination
+  	  		pagingYn : 'N',
+  		});
+
+        const data = await postJsonPromise;
+		
+		try {
+  			
+  			if (!_.isEqual("S", data.resultStatus)) {
+  	      		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+  	      		return;
+	      	}
+  			
+  			jsonApcOgnz = data.resultList;
+  			
+		} catch (e) {
+	   		if (!(e instanceof Error)) {
+	   			e = new Error(e);
+	   		}
+	   		console.error("failed", e.message);
+	       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+		
+		console.log("jsonApcOgnz", jsonApcOgnz);
+	}
+	
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
@@ -397,13 +502,13 @@
         	    userattr: {colNm: "untyAuthrtType"},
         	},
         	{
-        		caption: ["조직관리자"], 	 
-	        	ref: 'odSbmsnYnA', 
+        		caption: ["권한관리자"], 	 
+	        	ref: 'untyAuthrtMngYn', 
 	        	type: 'checkbox',  
 	        	width:'100px', 
 	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: ''},
-                userattr: {colNm: "yn"},
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
+                userattr: {colNm: "untyAuthrtMngYn"},
         	},
 	        {
             	caption: ['사업자번호'],
@@ -418,19 +523,47 @@
 	        },
 	        {
 	        	caption: ["통합조직"],		
-	        	ref: 'untyOgnzNm',   	
-	        	type:'output',  	
-	        	width:'200px', 
-	        	style:'text-align:left',
+	        	ref: 'untyOgnzNm',
+	        	type:'output', 		
+        	    width:'200px', 
+        	    style:'text-align:left',
 	        	userattr: {
-	        		colNm: "apoNm"
+	        		colNm: "untyOgnzId"
 	        	},
+	        },
+        	{
+	        	caption: [" "],
+        		ref: 'untyOgnzId',
+        		type:'button',
+        		width:'40px',
+        		style: 'text-align:center',
+	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	            	if (gfn_isEmpty(strValue)){
+	            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_choiceUntyOgnz(" + nRow + ")'>🔍</button>";
+	            	} else {
+	            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_clearUntyOgnz(" + nRow + ")'>❌</button>";
+					}
+		    	}
 	        },
 	        {
 	        	caption: ["APC명"],		
 	        	ref: 'apcNm',   	
 	        	type:'output',  	
 	        	width:'200px', 
+	        	style:'text-align:left'
+	        },
+	        {
+	        	caption: ["시/도"],		
+	        	ref: 'ctpvNm',   	
+	        	type:'output',  	
+	        	width:'100px', 
+	        	style:'text-align:left'
+	        },
+	        {
+	        	caption: ["시/군/구"],		
+	        	ref: 'sggNm',   	
+	        	type:'output',  	
+	        	width:'100px', 
 	        	style:'text-align:left'
 	        },
 	        {
@@ -509,12 +642,17 @@
 		const userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
 		const userId = SBUxMethod.get("srch-inp-userId");     // 	사용자ID
 
+		const ctpv = SBUxMethod.get("srch-slt-untyCtpv");
+		const sgg = SBUxMethod.get("srch-slt-untySgg");
+		
 		const postJsonPromise = gfn_postJSON("/co/user/selectUntyUserAprvList.do", {
 			userStts: userStts,
 			userType: userType,
 			untyAuthrtType: untyAuthrtType,
 			userNm: userNm,
 			userId: userId,
+			ctpv: ctpv,
+			sgg: sgg,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : currentPageNo,
@@ -556,7 +694,14 @@
   						untyOgnzId:	item.untyOgnzId,
   						untyOgnzType:	item.untyOgnzType,
   						untyAuthrtType:	item.untyAuthrtType,
-  						brno:		item.brno,
+  						untyAuthrtMngYn:	item.untyAuthrtMngYn,
+  						untyAuthrtMngUserId:	item.untyAuthrtMngUserId,
+  						untyAuthrtMngUserCnt:	item.untyAuthrtMngUserCnt,
+  						brno:	item.brno,
+  						ctpv:	item.ctpv,
+  						sgg:	item.sgg,
+  						ctpvNm:	item.ctpvNm,
+  						sggNm:	item.sggNm,
   				}
           		
           		jsonUserAprv.push(userAprv);
@@ -592,6 +737,52 @@
           }
 	}
 
+	/**
+	 * 통합조직 선택
+	 **/
+	const fn_choiceUntyOgnz = async function(nRow) {
+		
+		SBUxMethod.openModal('modal-untyOgnz');
+		const rowData = grdUserAprv.getRowData(nRow);
+		
+		const initParam = {
+			untyOgnzType: rowData.untyOgnzType,
+			untyOgnzNm: rowData.untyOgnzNm,
+			untyOgnzId: rowData.untyOgnzId,
+			untyCtpv: rowData.ctpv,
+			untySgg: rowData.sgg,
+			brno: rowData.brno
+		}
+		
+		popUntyOgnz.init(initParam, fn_setUntyOgnz);
+	}
+	
+	const fn_clearUntyOgnz = async function(nRow) {
+		const rowData = grdUserAprv.getRowData(nRow, false);
+		rowData.untyOgnzType = "";
+		rowData.untyOgnzNm = "";
+		rowData.untyOgnzId = "";
+		
+		grdUserAprv.refresh({"focus":false});
+	}
+	
+	/**
+	 * @name fn_setUntyOgnz
+	 * @description 생산자 선택 popup callback 처리
+	 */
+	const fn_setUntyOgnz = async function(untyOgnz) {
+		
+		if (!gfn_isEmpty(untyOgnz)) {
+			const nRow = grdUserAprv.getRow();
+			const rowData = grdUserAprv.getRowData(nRow, false);
+			rowData.untyOgnzType = untyOgnz.untyOgnzType;
+			rowData.untyOgnzNm = untyOgnz.untyOgnzNm;
+			rowData.untyOgnzId = untyOgnz.untyOgnzId;
+			
+			grdUserAprv.refresh({"focus":false});			
+		}
+	}
+	     
   	// 페이징
 	const fn_pagingUserAprv = async function (){
      	let recordCountPerPage = grdUserAprv.getPageSize();   		// 몇개의 데이터를 가져올지 설정
@@ -599,40 +790,42 @@
      	fn_setGrdUserAprv(recordCountPerPage, currentPageNo);
     }
   	
-	const fn_userAprv = async function() {
+	const fn_untyAprv = async function() {
 
-		const userAprvList = [];
+		const untyAprvList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
 		
 		for ( let i=0; i<allUserData.length; i++) {
 			
 			const item = allUserData[i];
-			
 			if (item.checkedYn === "Y") {
+				/*
 				if (!_.isEqual(item.userStts, "00")){
 					gfn_comAlert("W0010", "승인", "사용자");		//	W0010  이미 {0}된 {1} 입니다.	
 					return;
 				}
+				*/
 				
-				if (item.userType == "10"){
-					userAprvList.push({
-						  userStts : "01"
-						, userType : item.userType
-	    				, userId: item.userId
-	    				, apcCd: item.apcCd
-	    			});
-				} else{
-					userAprvList.push({
-						  userStts : "01"
-						, userType : "10"
-						, userId   : item.userId
-						, apcCd: item.apcCd
-					});
+				if (gfn_isEmpty(item.untyAuthrtType)) {
+					gfn_comAlert("W0001", "권한유형");		//	W0001	{0}을/를 선택하세요.
+					return;
 				}
+				if (gfn_isEmpty(item.untyOgnzId)) {
+					gfn_comAlert("W0005", "통합조직");		//	W0005	{0}이/가 없습니다.
+					return;
+				}
+				
+				untyAprvList.push({
+						userId: item.userId,
+					  	untyOgnzId : item.untyOgnzId,
+	    				untyAuthrtType: item.untyAuthrtType,
+	    				untyOgnzType: item.untyOgnzType,
+	    				untyAuthrtMngYn: item.untyAuthrtMngYn
+	    			});
     		}
 		}
 
-		if (userAprvList.length == 0) {
+		if (untyAprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
@@ -640,7 +833,8 @@
 		if (!gfn_comConfirm("Q0001", "승인")) {
 			return;
 		}
-    	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
+		
+    	const postJsonPromise = gfn_postJSON("/co/user/insertUntyAprvList.do", untyAprvList);
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -686,7 +880,7 @@
 		if (!gfn_comConfirm("Q0001", "승인")) {
 			return;
 		}
-		console.log('userAprvList', userAprvList);
+
     	const postJsonPromise = gfn_postJSON("/co/user/insertUserAprvList.do", userAprvList);
 		const data = await postJsonPromise;
         try {
@@ -706,7 +900,7 @@
 	}
 
 	const fn_save = async function() {
-		const userTypeChgList = [];
+		const userAuthrtList = [];
 		const allUserData = grdUserAprv.getGridDataAll();
 
 		allUserData.forEach((item, index) => {

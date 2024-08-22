@@ -68,6 +68,13 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		return rtnList;
 	}
 
+	@Override
+	public List<ComAuthrtVO> selectUntyAuthrtList(ComAuthrtVO comAuthrtVO) throws Exception {
+
+		List<ComAuthrtVO> rtnList = comAuthrtMapper.selectUntyAuthrtList(comAuthrtVO);
+		
+		return rtnList;
+	}
 
 	@Override
 	public int insertComAuthrt(ComAuthrtVO comAuthVO) throws Exception {
@@ -77,6 +84,16 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		return insertedCnt;
 	}
 
+	@Override
+	public int insertUntyAuthrt(ComAuthrtVO comAuthVO) throws Exception {
+		
+		int insertedCnt = comAuthrtMapper.insertUntyAuthrt(comAuthVO);
+
+		return insertedCnt;
+	}
+
+
+	
 	@Override
 	public int updateComAuthrt(ComAuthrtVO comAuthVO) throws Exception {
 
@@ -130,6 +147,15 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		return rtnList;
 	}
 
+
+	@Override
+	public List<ComAuthrtMenuVO> selectUntyAuthrtMenuTreeList(ComAuthrtMenuVO comAuthrtMenuVO) throws Exception {
+		
+		List<ComAuthrtMenuVO> rtnList = comAuthrtMapper.selectUntyAuthrtMenuTreeList(comAuthrtMenuVO);
+
+		return rtnList;
+	}
+	
 	@Override
 	public List<ComAuthrtUserVO> selectComAuthrtUserList(ComAuthrtUserVO comAuthrtUserVO) throws Exception {
 
@@ -1526,6 +1552,7 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		
 		return null;
 	}
+
 
 
 }

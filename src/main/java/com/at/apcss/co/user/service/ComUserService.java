@@ -233,4 +233,15 @@ public interface ComUserService {
      * @throws Exception
      */
     public int delComUserAprv(HashMap<String,Object> comUserVO) throws Exception;
+    
+    
+    
+	/**
+	 * 통합사용자 목록 승인등록
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String,Object> insertUntyAprvList(List<ComUserVO> comUserList) throws Exception;
+
+    
 }
