@@ -3726,7 +3726,7 @@
 
             console.log('--------------------paramObjparamObj-----------------------',paramObj);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150.do", {
                 getType: 'json',
                 workType: 'U',
                 cv_count: '0',
@@ -3770,7 +3770,7 @@
 
         if (listData.length > 0) {
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150S1.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150S1.do", {listData: listData});
 
             const data = await postJsonPromise;
 
@@ -3861,7 +3861,7 @@
 
         if (listData.length > 0) {
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150S2.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150S2.do", {listData: listData});
 
             const data = await postJsonPromise;
 
@@ -3948,7 +3948,7 @@
 
         if (listData.length > 0) {
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150S3.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150S3.do", {listData: listData});
 
             const data = await postJsonPromise;
 
@@ -4385,7 +4385,7 @@
 
             console.log('--------------------CONFIRMparamObj-----------------------',paramObj);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150BAT.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150BAT.do", {
                 getType: 'json',
                 workType: type,
                 cv_count: '0',
@@ -4501,7 +4501,7 @@
 
             console.log('--------------------CANCELparamObj-----------------------',paramObj);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150BAT.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150BAT.do", {
                 getType: 'json',
                 workType: 'CANCEL',
                 cv_count: '0',
@@ -4685,7 +4685,7 @@
 
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150S3.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150S3.do", {
             getType: 'json',
             workType: type,
             cv_count: '0',
@@ -4765,7 +4765,7 @@
 
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5150S4.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150S4.do", {
             getType: 'json',
             workType: type,
             cv_count: '0',

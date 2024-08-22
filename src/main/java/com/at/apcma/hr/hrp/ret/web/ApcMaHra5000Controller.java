@@ -68,14 +68,14 @@ public class ApcMaHra5000Controller extends BaseController {
     }
 
     // 퇴직정산기준 등록 저장
-    @PostMapping(value = "/hr/hrp/ret/insert5000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insert5000(
+    @PostMapping(value = "/hr/hrp/ret/insertHra5000.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra5000(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insert5000=====start========");
+        logger.info("=============insertHra5000=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
@@ -88,26 +88,26 @@ public class ApcMaHra5000Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============insert5000=====end========");
+        logger.info("=============insertHra5000=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
     }
 
     // 퇴직정산기준(근속연수 공제) 저장
-    @PostMapping(value = "/hr/hrp/ret/insert5000S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insert5000S1(
+    @PostMapping(value = "/hr/hrp/ret/insertHra5000S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra5000S1(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insert5000S1=====start========");
+        logger.info("=============insertHra5000S1=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
             resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA5000_S1");
 
-            logger.info("=============insert5000S1=====end========");
+            logger.info("=============insertHra5000S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -116,20 +116,20 @@ public class ApcMaHra5000Controller extends BaseController {
     }
 
     // 퇴직정산기준(누진일수) 저장
-    @PostMapping(value = "/hr/hrp/ret/insert5000S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insert5000S2(
+    @PostMapping(value = "/hr/hrp/ret/insertHra5000S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra5000S2(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insert5000S2=====start========");
+        logger.info("=============insertHra5000S2=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
             resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA5000_S2");
 
-            logger.info("=============insert5000S2=====end========");
+            logger.info("=============insertHra5000S2=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -138,20 +138,20 @@ public class ApcMaHra5000Controller extends BaseController {
     }
 
     // 퇴직정산기준(환산급여) 저장
-    @PostMapping(value = "/hr/hrp/ret/insert5000S3.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insert5000S3(
+    @PostMapping(value = "/hr/hrp/ret/insertHra5000S3.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra5000S3(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insert5000S3=====start========");
+        logger.info("=============insertHra5000S3=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
             resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA5000_S3");
 
-            logger.info("=============insert5000S3=====end========");
+            logger.info("=============insertHra5000S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());

@@ -929,7 +929,7 @@
                 , V_P_PC: ''
             };
 
-            const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3200HisList.do", {
+            const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3200List.do", {
                 getType: 'json',
                 workType: 'HISTORY',
                 cv_count: '2',
@@ -1642,7 +1642,7 @@
         };
 
 
-        const postJsonPromise = gfn_postJSON("/co/sys/sys/insert3200Sample.do", {
+        const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3200Sample.do", {
             getType: 'json',
             workType: 'VIEWSAMPLE',
             cv_count: '0',

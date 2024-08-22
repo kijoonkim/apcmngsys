@@ -16,14 +16,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 급여명세서 메일발송 컨트롤러 클래스
+ * 개인 기간별 조회 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
  * @since 		2024.07.08
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 급여명세서 메일발송 (Modification Information) >>
+ * << 개인 기간별 조회 (Modification Information) >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
@@ -37,7 +37,7 @@ public class ApcMaHrp2510Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
-    // 급여명세서 메일발송 조회
+    // 개인 기간별 조회 조회
     @PostMapping(value = "/hr/hrp/rep/selectHrp2510List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrp2510List(
             @RequestBody Map<String, Object> param
