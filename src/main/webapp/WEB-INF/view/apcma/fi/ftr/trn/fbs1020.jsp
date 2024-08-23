@@ -194,6 +194,24 @@
         gvwDetail = _SBGrid.create(SBGridProperties);
     }
 
+    // 행 추가
+    const fn_addRow = function () {
+        gvwDetail.addRow(true, '', true);
+    }
+
+    // 행 삭제
+    const fn_delRow = async function () {
+
+        let rowVal = gvwDetail.getRow();
+
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwDetail.deleteRow(rowVal);
+        }
+    }
+
     window.addEventListener('DOMContentLoaded', async function(e) {
         await fn_initSBSelect();
         fn_createGvwDetailGrid();
