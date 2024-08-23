@@ -155,6 +155,10 @@
                             <span>이체 리스트</span>
                         </li>
                     </ul>
+                    <div class="ad_tbl_toplist">
+                        <sbux-input id="PAY_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" style="float: right; margin-right: 5px;" readonly></sbux-input>
+                        <label style="float: right; padding-top: 7px;">이체금액합계</label>
+                    </div>
                 </div>
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
                     <div id="sb-area-gvwList" style="height:650px;"></div>
