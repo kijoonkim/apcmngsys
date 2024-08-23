@@ -212,6 +212,7 @@
     //-----------------------------------------------------------
 
     var copyMode = "clear";
+    var isFBSAsync = true;
 
     var jsonBankCode = []; // 은행코드
     var jsonReceiptType = []; // 수금유형
@@ -1130,7 +1131,7 @@
         }
     }
 
-    const fn_FbsBalanceGet = async function (strBank_Code, strFbs_Service, strFbs_Work_Type, straccount_no, bIsAsync) {
+    const fn_fbsBalanceGet = async function (strBank_Code, strFbs_Service, strFbs_Work_Type, straccount_no, bIsAsync) {
         var strArray1 = ["", "", "", ""];
 
         var paramObj = {
@@ -1238,7 +1239,7 @@
                     let strBank_code = gfn_nvl(gvwList.getCellData((i+1), gvwList.getColRef("BANK_CODE")));
                     let strAccount_num = gfn_nvl(gvwList.getCellData((i+1), gvwList.getColRef("ACCOUNT_NUM")));
 
-                    strResult = fn_FbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num, isFBSAsync);
+                    strResult = fn_fbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num, isFBSAsync);
 
                     gvwList.setCellData((i+1), gvwList.getColRef("FBS_STATUS"), gfn_nvl(strResult[0]));
                 }
@@ -1252,7 +1253,7 @@
                     let strBank_code = gfn_nvl(gvwList.getCellData((i+1), gvwList.getColRef("BANK_CODE")));
                     let strAccount_num = gfn_nvl(gvwList.getCellData((i+1), gvwList.getColRef("ACCOUNT_NUM")));
 
-                    strResult = fn_FbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num);
+                    strResult = fn_fbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num);
 
                     gvwList.setCellData((i+1), gvwList.getColRef("QUERY_TIME"), gfn_nvl(strResult[3]));
                     gvwList.setCellData((i+1), gvwList.getColRef("BALANCE_AMT_NOW"), gfn_nvl(strResult[1]));
@@ -1299,11 +1300,11 @@
                 let strDepositCode = gfn_nvl(gvwList.getCellData(item, gvwList.getColRef("DEPOSIT_CODE")));
 
                 if (isFBSAsync) {
-                    strResult = fn_FbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num, isFBSAsync);
+                    strResult = fn_fbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num, isFBSAsync);
 
                     gvwList.setCellData(item, gvwList.getColRef("FBS_STATUS"), gfn_nvl(strResult[0]));
                 } else {
-                    strResult = fn_FbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num);
+                    strResult = fn_fbsBalanceGet(strBank_code, gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), "BANKBALANCE", strAccount_num);
 
                     let strBalance_amt_now = gfn_nvl(strResult[1]);
                     let strUsable_balance_amt_now = gfn_nvl(strResult[2]);
