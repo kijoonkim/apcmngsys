@@ -2419,7 +2419,7 @@
 
             for(const dr in dtFirmbanking) {
                 if (isFBSAsync) {
-                    await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+                    await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
 
                     await fnSET_P_FBS2010_S_FIRM("SEND",
                         gfn_nvl(dr["FBS_NO"]),
@@ -2436,7 +2436,7 @@
                 } else {
                     strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
 
-                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+                    var result = await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
 
                     strLog = strLog + "-전문전송끝(" + gfn_getDateTime() + ")";
 
@@ -2458,8 +2458,8 @@
                         gfn_nvl(dr["FBS_NO"]),
                         "0",
                         gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 165, 13),
                         gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
                         strReturnCode,
                         gfn_nvl(dr["FIRM_NO"]),
@@ -2479,48 +2479,6 @@
         }
 
         SBUxMethod.attr("btnTxnComplete", "disabled", "false");
-    }
-
-    const fn_firmBankingSend = async function(fbs_service, send_data, bSync) {
-        var paramObj = {
-            FBS_SERVICE : fbs_service,
-            SEND_DATA : send_data,
-            bSync : bSync
-        };
-
-        const postJsonPromise = gfn_postJSON("/com/sendFirmBanking.do", paramObj);
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                return data;
-            } else {
-                alert(data.message);
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    function fn_firmSubString(inputString, startIndex, length) {
-        const encoding = 'ks_c_5601-1987';
-
-        // 문자열을 바이트 배열로 변환
-        const bytes = iconv.encode(inputString, encoding);
-
-        // 범위를 벗어나지 않도록 조정
-        if (bytes.length <= startIndex + length) {
-            return iconv.decode(bytes, encoding);
-        }
-
-        // 부분 배열을 추출
-        const subBytes = bytes.slice(startIndex, startIndex + length);
-
-        return iconv.decode(subBytes, encoding);
     }
 
     const fn_addDataSet = async function (objResult) {
@@ -2788,7 +2746,7 @@
                     let num2 = 0;
 
                     for (const row in data.cv_1) {
-                        var strArray2 =  fn_firmBankingSend(FBS_SERVICE, gfn_nvl(row["SEND_DATA"]), bSync);
+                        var strArray2 =  gfnma_firmBankingSend(FBS_SERVICE, gfn_nvl(row["SEND_DATA"]), bSync);
 
                         if (strArray2.code.trim() == "000" || strArray2.code.trim() == "0000" || strArray2.code.trim() == "COMP") {
                             ++num2;
@@ -2850,7 +2808,7 @@
             for(const dr in dtFirmbanking) {
                 //계좌성명조회
                 if (isFBSAsync) {
-                    await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), dr["SEND_DATA"], false);
+                    await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), dr["SEND_DATA"], false);
 
                     await fnSET_P_FBS2010_S_FIRM("SEND",
                         gfn_nvl(dr["FBS_NO"]),
@@ -2867,7 +2825,7 @@
                 } else {
                     strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
 
-                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+                    var result = await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
 
                     strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
 
@@ -2889,8 +2847,8 @@
                         gfn_nvl(dr["FBS_NO"]),
                         "0",
                         gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 165, 13),
                         gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
                         strReturnCode,
                         gfn_nvl(dr["FIRM_NO"]),
@@ -2944,7 +2902,7 @@
             for(const dr in dtFirmbanking) {
                 //계좌성명조회
                 if (isFBSAsync) {
-                    await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+                    await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
 
                     await fnSET_P_FBS2010_S_FIRM("SEND",
                         gfn_nvl(dr["FBS_NO"]),
@@ -2961,7 +2919,7 @@
                 } else {
                     strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
 
-                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+                    var result = await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
 
                     strLog = strLog + "-전문전송끝(" + gfn_getDateTime() + ")";
 
@@ -2983,8 +2941,8 @@
                         gfn_nvl(dr["FBS_NO"]),
                         "0",
                         gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 165, 13),
                         gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
                         strReturnCode,
                         gfn_nvl(dr["FIRM_NO"]),
@@ -3032,7 +2990,7 @@
 
             for(const dr in dtFirmbanking) {
                 if (isFBSAsync) {
-                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+                    var result = await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
 
                     let strReturnCode = result.code.trim();
                     let strTxtMessage = result.message;
@@ -3052,7 +3010,7 @@
                 } else {
                     strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
 
-                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+                    var result = await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
 
                     strLog = strLog + "-전문전송끝(" + gfn_getDateTime() + ")";
 
@@ -3074,8 +3032,8 @@
                         gfn_nvl(dr["FBS_NO"]),
                         "0",
                         gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 165, 13),
                         gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
                         strReturnCode,
                         gfn_nvl(dr["FIRM_NO"]),
@@ -3129,11 +3087,11 @@
             for(const dr in dtFirmbanking){
                 //계좌성명조회
                 if (isFBSAsync) {
-                    await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+                    await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
                 } else {
                     strLog = strLog + "-전문전송시작(" + gfn_getDateTime() + ")";
 
-                    var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+                    var result = await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
 
                     strLog = strLog + "-전문전송끝(" + gfn_getDateTime() + ")";
 
@@ -3155,8 +3113,8 @@
                         gfn_nvl(dr["FBS_NO"]),
                         "0",
                         gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 164, 1),
-                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : fn_firmSubString(strTxtMessage, 165, 13),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 164, 1),
+                        gfn_nvl(strTxtMessage) != "VTIM" ? "" : gfnma_firmSubString(strTxtMessage, 165, 13),
                         gfn_nvl(strTxtMessage) != "VTIM" ? "" : strTxtMessage.substring(195, 9),
                         strReturnCode,
                         gfn_nvl(dr["FIRM_NO"]),
@@ -3254,9 +3212,9 @@
 
         for(const dr in dtFirmbanking){
             if (isFBSAsync) {
-                await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
+                await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]), false);
             } else {
-                var result = await fn_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
+                var result = await gfnma_firmBankingSend(gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE')), gfn_nvl(dr["SEND_DATA"]));
 
                 if (result.code.trim() == "000" || result.code.trim() == "0000") {
                     await fnSET_P_FBS2010_S_FIRM("RE_Q",
@@ -3265,8 +3223,8 @@
                         gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
                         "",
                         "0",
-                        fn_firmSubString(result.message, 187, 9) == "" ? "0" : fn_firmSubString(result.message, 187, 9),
-                        fn_firmSubString(result.message, 234, 4),
+                        gfnma_firmSubString(result.message, 187, 9) == "" ? "0" : gfnma_firmSubString(result.message, 187, 9),
+                        gfnma_firmSubString(result.message, 234, 4),
                         "",
                         "",
                         "");
