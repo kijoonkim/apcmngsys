@@ -66,40 +66,15 @@ public class ApcMaCom2100Controller extends BaseController {
 		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
-	// 회기 정보 저장
-	@PostMapping(value = "/co/sys/cal/insertCom2100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertCom2100(
-			@RequestBody Map<String, Object> param
-			,Model model
-			,HttpSession session
-			,HttpServletRequest request) throws Exception{
-		
-		logger.info("=============insertCom2100=====start========");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
-		try {
-			
-			param.put("procedure", 		"P_COM2100_S");
-			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-			
-		} catch (Exception e) {
-			logger.debug(e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-		
-		logger.info("=============insertCom2100=====end========");
-		return getSuccessResponseEntityMa(resultMap);
-	}	
-	
 	// 회기 정보 삭제
-	@PostMapping(value = "/co/sys/cal/deleteCom2100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteCom2100(
+	@PostMapping(value = "/co/sys/cal/updateCom2100.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateCom2100(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============deleteCom2100=====start========");
+		logger.info("=============updateCom2100=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
@@ -112,7 +87,7 @@ public class ApcMaCom2100Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 		
-		logger.info("=============deleteCom2100=====end========");
+		logger.info("=============updateCom2100=====end========");
 		return getSuccessResponseEntityMa(resultMap);
 	}	
 
