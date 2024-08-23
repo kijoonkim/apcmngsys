@@ -225,7 +225,7 @@
         });
 
         if(listData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/co/sys/org/insertOrg1150.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/co/sys/org/updateOrg1150.do", {listData: listData});
             const data = await postJsonPromise;
             try {
                 if (_.isEqual("S", data.resultStatus)) {

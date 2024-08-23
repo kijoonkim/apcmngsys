@@ -66,20 +66,20 @@ public class ApcMaOrg1150Controller extends BaseController {
 	}	
 	
 	// 사업장 정보 저장
-	@PostMapping(value = "/co/sys/org/insertOrg1150.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertOrg1150(
+	@PostMapping(value = "/co/sys/org/updateOrg1150.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateOrg1150(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============insertOrg1150=====start========");
+		logger.info("=============updateOrg1150=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			resultMap = apcMaComService.processForListData(param, session, request, "", "P_ORG1150_S");
 					
-			logger.info("=============insertOrg1150=====end========");
+			logger.info("=============updateOrg1150=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

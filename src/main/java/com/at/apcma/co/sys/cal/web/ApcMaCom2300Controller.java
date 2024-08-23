@@ -91,21 +91,21 @@ public class ApcMaCom2300Controller extends BaseController {
 		return getSuccessResponseEntityMa(resultMap);
 	}	
 	
-	// 달력 정보 저장 - 서브 그리드
-	@PostMapping(value = "/co/sys/cal/insertCom2300_S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertCom2300_S1(
+	// 달력 정보 저장, 수정, 삭제 - 서브 그리드
+	@PostMapping(value = "/co/sys/cal/updateCom2300_S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateCom2300_S1(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 		
-		logger.info("=============insertCom2300_S1=====start========");
+		logger.info("=============updateCom2300_S1=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
 			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM2300_S1");
 			
-            logger.info("=============insertCom2300_S1=====end========");
+            logger.info("=============updateCom2300_S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

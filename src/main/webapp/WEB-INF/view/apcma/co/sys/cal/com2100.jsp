@@ -297,7 +297,7 @@
 	    						,V_P_PC                : ''
 	    		    };		
 	    			
-	    	        const postJsonPromise = gfn_postJSON("/co/sys/cal/deleteCom2100.do", {
+	    	        const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {
 	    	        	getType				: 'json',
 	    	        	workType			: workType,
 	    	        	cv_count			: '0',
