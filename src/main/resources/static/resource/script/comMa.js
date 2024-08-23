@@ -1040,3 +1040,63 @@ async function gfnma_getComCode(obj, callbackFn) {
 		console.error("failed", e.message);
 	}
 }
+
+/**
+ * @name 		gfnma_firmBankingSend
+ * @description 펌뱅킹 호출
+ * @function
+ * @param 		{string} fbs_service
+ * @param 		{string} send_data
+ * @param 		{string} bSync
+ * @returns 	{void}
+ */
+async function gfnma_firmBankingSend(fbs_service, send_data, bSync) {
+	var paramObj = {
+		FBS_SERVICE : fbs_service,
+		SEND_DATA : send_data,
+		bSync : bSync
+	};
+
+	const postJsonPromise = gfn_postJSON("/com/sendFirmBanking.do", paramObj);
+	const data = await postJsonPromise;
+
+	try {
+		if (_.isEqual("S", data.resultStatus)) {
+			return data;
+		} else {
+			alert(data.message);
+		}
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	}
+}
+
+/**
+ * @name 		gfnma_firmBankingSend
+ * @description 펌뱅킹 리턴메시지 추출
+ * @function
+ * @param 		{string} inputString
+ * @param 		{string} startIndex
+ * @param 		{string} length
+ * @returns 	{void}
+ */
+function gfnma_firmSubString(inputString, startIndex, length) {
+	const encoding = 'ks_c_5601-1987';
+
+	// 문자열을 바이트 배열로 변환
+	const bytes = iconv.encode(inputString, encoding);
+
+	// 범위를 벗어나지 않도록 조정
+	if (bytes.length <= startIndex + length) {
+		return iconv.decode(bytes, encoding);
+	}
+
+	// 부분 배열을 추출
+	const subBytes = bytes.slice(startIndex, startIndex + length);
+
+	return iconv.decode(subBytes, encoding);
+}
