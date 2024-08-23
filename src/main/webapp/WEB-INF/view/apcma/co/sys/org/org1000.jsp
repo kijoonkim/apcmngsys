@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3630.jsp
+ * @Class Name 		: Org1000.jsp
  * @Description 	: 법인정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.23
@@ -125,9 +125,7 @@
 		                            </td>
 		                            <td class="td_input"  style="border-right:hidden;">
 		                            </td>		                            
-		                            <td class="td_input"  style="border-right:hidden;font-size: 13px;font-weight:bold;">법인 로고</td>
-		                            <td class="td_input"  style="border-right:hidden;">
-		                            </td>		                            
+		                            <th scope="row" class="th_bg" colspan="2" style="text-align:left !important">법인 로고</th>
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인명</th>
@@ -158,9 +156,7 @@
 		                            </td>		                        
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
 		                            </td>
-		                            <td class="td_input"  style="border-right:hidden;font-size: 13px;font-weight:bold;">직인</td>
-		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                            </td>
+		                            <th scope="row" class="th_bg" colspan="2" style="text-align:left !important">직인</th>
 		                        </tr>
 		                        <tr>
 			                        <th scope="row" class="th_bg">법인설립일</th>
@@ -485,7 +481,6 @@
 	            ]
 	        })
         });
-        
 	    fn_initSBSelect();
 	    fn_createGrid();
 	    cfn_search();

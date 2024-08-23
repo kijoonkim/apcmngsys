@@ -63,7 +63,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 	private ApcMaCommDirectService apcMaCommDirectService;
 	
 	private ProcMapper procMapper;
-
+	
 	private Socket socket;
 	
     @Autowired
@@ -369,6 +369,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			String source_code4 = "SIGNTM";			//싸인
 			String source_code5 = "LOGO";			//법인 로고
 			String source_code6 = "STAMP";			//직인
+			String source_code7 = "SITE_STAMP";		//사용인감
 			
 			String path1 		= "";
 			String path2 		= "";
@@ -385,6 +386,9 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			} else if(param.get("type").equals("4")) {
 				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code6);
 				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code6);
+			} else if(param.get("type").equals("5")) {
+				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code7);
+				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code7);
 			}
 		
 			//파일저장
@@ -402,6 +406,8 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					rmap.put("resultMessage", 	"법인 로고 이미지 저장 중에 오류가 발생하였습니다.");
 				} else if(param.get("type").equals("4")) {
 					rmap.put("resultMessage", 	"직인 이미지 저장 중에 오류가 발생하였습니다.");
+				} else if(param.get("type").equals("5")) {
+					rmap.put("resultMessage", 	"사용인감 저장 중에 오류가 발생하였습니다.");
 				}
 				return rmap;
 			}			
@@ -710,5 +716,5 @@ public class ApMaComServiceImpl implements ApcMaComService {
 		System.arraycopy(bytes, startIndex, subBytes, 0, length);
 
 		return new String(subBytes, encoding);
-	}
+    }
 }
