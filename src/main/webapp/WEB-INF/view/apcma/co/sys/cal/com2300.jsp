@@ -702,7 +702,7 @@
 						listData.push(param);
 					});	
 						
-					const postJsonPromise = gfn_postJSON("/co/sys/cal/insertCom2300_S1.do", {listData: listData});
+					const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2300_S1.do", {listData: listData});
 					const subData = await postJsonPromise;
 					try {
 						if (_.isEqual("S", subData.resultStatus)) {
