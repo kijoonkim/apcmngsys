@@ -463,13 +463,14 @@
 		SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
+		//fn_init();
 	});
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		await fn_selectFcltInfoList();
 		//진척도
-		cfn_selectPrgrs();
+		await cfn_selectPrgrs();
 
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
@@ -626,6 +627,8 @@
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
 				//fn_search();
+				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
+				cfn_allTabPrgrsRefrash();
 			} else {
 				alert(data.resultMessage);
 			}
@@ -714,15 +717,6 @@
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
 	}
-	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
-	window.addEventListener('message',function(event){
-		//console.log('1. 탭호출');
-		//console.log(event);
-		let chkVal = event.data.chkVal;
-		if(chkVal == "selTab"){
-			//진척도 조회
-			cfn_selectPrgrs();
-		}
-	});
+
 </script>
 </html>

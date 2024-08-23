@@ -40,6 +40,7 @@
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+					<sbux-button id="btntest" name="btntest" uitype="normal" text="iframe test" class="btn btn-sm btn-primary" onclick="test"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -773,7 +774,8 @@
 				alert("처리 되었습니다.");
 				selectFcltOperInfo();
 				//fn_search();
-
+				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
+				cfn_allTabPrgrsRefrash();
 			} else {
 				alert(data.resultMessage);
 			}
@@ -947,16 +949,10 @@
 			SBUxMethod.set("dtl-inp-apcSlno", buldSlno);//APC 건물부번
 		}
 	}
-	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
-	window.addEventListener('message',function(event){
-		//console.log('1. 탭호출');
-		//console.log(event);
-		let chkVal = event.data.chkVal;
-		if(chkVal == "selTab"){
-			//진척도 조회
-			cfn_selectPrgrs();
-		}
-	});
+
+	function test() {
+		cfn_allTabPrgrsRefrash();
+	}
 
 </script>
 </html>

@@ -297,6 +297,8 @@
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
 				//fn_search();
+				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
+				cfn_allTabPrgrsRefrash();
 			} else {
 				alert(data.resultMessage);
 			}
@@ -317,15 +319,6 @@
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
 	}
-	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
-	window.addEventListener('message',function(event){
-		//console.log('1. 탭호출');
-		//console.log(event);
-		let chkVal = event.data.chkVal;
-		if(chkVal == "selTab"){
-			//진척도 조회
-			cfn_selectPrgrs();
-		}
-	});
+
 </script>
 </html>

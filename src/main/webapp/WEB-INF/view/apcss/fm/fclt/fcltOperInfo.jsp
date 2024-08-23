@@ -490,9 +490,6 @@
 			gfn_setComCdSBSelect('dtl-inp-operOgnzEtcCtgryCd', 		jsonComEtcCtgryCd, 	'ETC_CLS'), 	//운영조직 기타 부류
 			gfn_setComCdSBSelect('dtl-inp-apcEtcCtgryCd', 	jsonComApcEtcCtgryCd, 	'ETC_CLS'), 	//APC 기타 부류
 		]);
-
-		console.log(jsonComCtpv);
-		console.log(jsonComSgg);
 	}
 
 	const fn_init = async function() {
@@ -1085,18 +1082,6 @@
 			SBUxMethod.set("dtl-inp-apcSlno", buldSlno);//APC 건물부번
 		}
 	}
-	//탭열린 상태에서 해당 페이지 다시 왔을떄 이벤트
-	/*
-	window.addEventListener('message',function(event){
-		//console.log('1. 탭호출');
-		//console.log(event);
-		let chkVal = event.data.chkVal;
-		if(chkVal == "selTab"){
-			//진척도 조회
-			//cfn_selectPrgrs();
-		}
-	});
-	*/
 
 	//시도 변경 이벤트
 	const fn_ctpvChange = async function(){

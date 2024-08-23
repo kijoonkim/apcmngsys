@@ -28,7 +28,7 @@
 				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = SPSD.APC_CD AND CRTR_YR = SPSD.CRTR_YR
 				) AS APC_NM
 				, SPSD.SN
-				, SPSD.RPRS_ITEM_SPCFCT
+				--, SPSD.RPRS_ITEM_SPCFCT
 				, SPSD.DPTZ
 				, SPSD.APM
 				, SPSD.ELCTRN_WGHT_SORT_MCHN
@@ -40,7 +40,16 @@
 				, SPSD.ATMTC_WRAP_MCHN
 				, SPSD.ATMTC_WGHT_CHCK_MCHN
 				, SPSD.PTZ
-				, SPSD.ETC_MNFC_MCHN
+				--, SPSD.ETC_MNFC_MCHN
+				, SPSD.SPCFCT_CNT
+				, SPSD.SPCFCT_GRP
+				, SPSD.SPCFCT_GRD
+				, SPSD.WBG
+				, SPSD.WRHS_BR_QR
+				, SPSD.KSK_TBLT
+				, SPSD.DSHBRD
+				, SPSD.SPMT_BR_QR
+				, SPSD.TH_AC
 
 			FROM TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
 			WHERE 1=1
@@ -81,7 +90,7 @@
 				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = SPSD.APC_CD AND CRTR_YR = SPSD.CRTR_YR
 				) AS APC_NM
 				, SPSD.SN
-				, SPSD.RPRS_ITEM_SPCFCT
+				--, SPSD.RPRS_ITEM_SPCFCT
 				, SPSD.DPTZ
 				, SPSD.APM
 				, SPSD.ELCTRN_WGHT_SORT_MCHN
@@ -93,7 +102,16 @@
 				, SPSD.ATMTC_WRAP_MCHN
 				, SPSD.ATMTC_WGHT_CHCK_MCHN
 				, SPSD.PTZ
-				, SPSD.ETC_MNFC_MCHN
+				--, SPSD.ETC_MNFC_MCHN
+				, SPSD.SPCFCT_CNT
+				, SPSD.SPCFCT_GRP
+				, SPSD.SPCFCT_GRD
+				, SPSD.WBG
+				, SPSD.WRHS_BR_QR
+				, SPSD.KSK_TBLT
+				, SPSD.DSHBRD
+				, SPSD.SPMT_BR_QR
+				, SPSD.TH_AC
 
 			FROM TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
 			WHERE 1=1
@@ -127,8 +145,7 @@
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  RPRS_ITEM_SPCFCT				= #{rprsItemSpcfct}
-				  , DPTZ						= #{dptz}
+				  DPTZ							= #{dptz}
 				  , APM							= #{apm}
 				  , ELCTRN_WGHT_SORT_MCHN		= #{elctrnWghtSortMchn}
 				  , NDST_BRCK_SORT_MCHN			= #{ndstBrckSortMchn}
@@ -139,7 +156,16 @@
 				  , ATMTC_WRAP_MCHN				= #{atmtcWrapMchn}
 				  , ATMTC_WGHT_CHCK_MCHN		= #{atmtcWghtChckMchn}
 				  , PTZ							= #{ptz}
-				  , ETC_MNFC_MCHN				= #{etcMnfcMchn}
+
+				  , SPCFCT_CNT	= #{spcfctCnt}
+				  , SPCFCT_GRP	= #{spcfctGrp}
+				  , SPCFCT_GRD	= #{spcfctGrd}
+				  , WBG			= #{wbg}
+				  , WRHS_BR_QR	= #{wrhsBrQr}
+				  , KSK_TBLT	= #{kskTblt}
+				  , DSHBRD		= #{dshbrd}
+				  , SPMT_BR_QR	= #{spmtBrQr}
+				  , TH_AC		= #{thAc}
 
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -153,7 +179,6 @@
 				  , ITEM_CD
 				  , ITEM_NM
 
-				  , RPRS_ITEM_SPCFCT
 				  , DPTZ
 				  , APM
 				  , ELCTRN_WGHT_SORT_MCHN
@@ -165,7 +190,16 @@
 				  , ATMTC_WRAP_MCHN
 				  , ATMTC_WGHT_CHCK_MCHN
 				  , PTZ
-				  , ETC_MNFC_MCHN
+
+				  , SPCFCT_CNT
+				  , SPCFCT_GRP
+				  , SPCFCT_GRD
+				  , WBG
+				  , WRHS_BR_QR
+				  , KSK_TBLT
+				  , DSHBRD
+				  , SPMT_BR_QR
+				  , TH_AC
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -197,7 +231,6 @@
 				  		  AND SN = #{sn}
 				  	)
 
-				  , #{rprsItemSpcfct}
 				  , #{dptz}
 				  , #{apm}
 				  , #{elctrnWghtSortMchn}
@@ -209,7 +242,16 @@
 				  , #{atmtcWrapMchn}
 				  , #{atmtcWghtChckMchn}
 				  , #{ptz}
-				  , #{etcMnfcMchn}
+
+				  , #{spcfctCnt}
+				  , #{spcfctGrp}
+				  , #{spcfctGrd}
+				  , #{wbg}
+				  , #{wrhsBrQr}
+				  , #{kskTblt}
+				  , #{dshbrd}
+				  , #{spmtBrQr}
+				  , #{thAc}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -233,8 +275,7 @@
 			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.updateFcltAtmtcMchnInfo */
 				TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
 			   SET
-				  RPRS_ITEM_SPCFCT				= #{rprsItemSpcfct}
-				  , DPTZ						= #{dptz}
+				  DPTZ							= #{dptz}
 				  , APM							= #{apm}
 				  , ELCTRN_WGHT_SORT_MCHN		= #{elctrnWghtSortMchn}
 				  , NDST_BRCK_SORT_MCHN			= #{ndstBrckSortMchn}
@@ -245,8 +286,16 @@
 				  , ATMTC_WRAP_MCHN				= #{atmtcWrapMchn}
 				  , ATMTC_WGHT_CHCK_MCHN		= #{atmtcWghtChckMchn}
 				  , PTZ							= #{ptz}
-				  , ETC_MNFC_MCHN				= #{etcMnfcMchn}
 
+				  , SPCFCT_CNT	= #{spcfctCnt}
+				  , SPCFCT_GRP	= #{spcfctGrp}
+				  , SPCFCT_GRD	= #{spcfctGrd}
+				  , WBG			= #{wbg}
+				  , WRHS_BR_QR	= #{wrhsBrQr}
+				  , KSK_TBLT	= #{kskTblt}
+				  , DSHBRD		= #{dshbrd}
+				  , SPMT_BR_QR	= #{spmtBrQr}
+				  , TH_AC		= #{thAc}
 			]]>
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN			= #{delYn}
