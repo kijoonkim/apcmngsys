@@ -14,12 +14,14 @@ import com.at.apcss.am.cmns.vo.ComAtchflVO;
 import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.wrhs.mapper.FrmerInfoMapper;
 import com.at.apcss.am.wrhs.service.FrmerInfoService;
+import com.at.apcss.am.wrhs.service.PrdcrLandInfoService;
 import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.CltvtnListVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
 import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
+import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -40,7 +42,7 @@ import com.at.apcss.co.sys.util.ComUtil;
  * </pre>
  */
 @Service("frmerInfoService")
-public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements FrmerInfoService {
+public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoService {
 
 	@Resource(name="comAtchflService")
 	private ComAtchflService comAtchflService;
@@ -50,6 +52,9 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 
 	@Resource(name="prdcrService")
 	private PrdcrService prdcrService;
+
+	@Resource(name="prdcrLandInfoService")
+	private PrdcrLandInfoService prdcrLandInfoService;
 
 	/**
 	 * 재배기준정보 조회
@@ -142,6 +147,7 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 		PrdcrVO	prdcrVO	= cltvtnListVO.getPrdcrVO();
 		CltvtnBscInfoVO cltvtnBscInfoVO = cltvtnListVO.getCltvtnBscInfoVO();
 		List<CltvtnHstryVO> cltvtnHstryList = cltvtnListVO.getCltvtnHstryList();
+		List<PrdcrLandInfoVO> prdcrLandInfoVOList = cltvtnListVO.getPrdcrLandInfoList();
 
 		String prgrmId  = cltvtnListVO.getSysLastChgPrgrmId();
 		String userId  = cltvtnListVO.getSysLastChgUserId();
@@ -203,6 +209,45 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 			}
 		}
 
+
+		if (prdcrLandInfoVOList != null) {
+			for (PrdcrLandInfoVO prdcrLandInfoVO : prdcrLandInfoVOList) {
+				// 필수 값 체크
+				if (prdcrLandInfoVO.getApcCd().isEmpty()) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드"); // W0005	{0}이/가 없습니다.
+				}
+
+				if (prdcrLandInfoVO.getPrdcrCd().isEmpty()) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "생산자"); // W0005	{0}이/가 없습니다.
+				}
+
+				prdcrLandInfoVO.setSysLastChgPrgrmId(prgrmId);
+				prdcrLandInfoVO.setSysLastChgUserId(userId);
+
+
+				if (ComConstants.ROW_STS_INSERT.equals(prdcrLandInfoVO.getRowSts())) {
+
+					String prdcrLandInfoNo = prdcrLandInfoService.selectGetPrdcrLandInfoNo(prdcrLandInfoVO);
+
+					prdcrLandInfoVO.setPrdcrLandInfoNo(prdcrLandInfoNo);
+					prdcrLandInfoVO.setSysFrstInptPrgrmId(prgrmId);
+					prdcrLandInfoVO.setSysFrstInptUserId(userId);
+
+					if (0 == prdcrLandInfoService.insertPrdcrLandInfo(prdcrLandInfoVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				}
+
+				if (ComConstants.ROW_STS_UPDATE.equals(prdcrLandInfoVO.getRowSts())) {
+
+					if (0 == prdcrLandInfoService.updatePrdcrLandInfo(prdcrLandInfoVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				}
+			}
+		}
+
+
 		if (cltvtnHstryList != null) {
 			for (CltvtnHstryVO cltvtnHstryVO : cltvtnHstryList) {
 
@@ -215,12 +260,8 @@ public class FrmerInfoServiceServiceImpl extends BaseServiceImpl implements Frme
 					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "생산자"); // W0005	{0}이/가 없습니다.
 				}
 
-				if (cltvtnHstryVO.getMngmstRegno().isEmpty()) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "경영체등록번호"); // W0005	{0}이/가 없습니다.
-				}
-
-				if (cltvtnHstryVO.getFarmLandSn().isEmpty()) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "경영체등록순번"); // W0005	{0}이/가 없습니다.
+				if (cltvtnHstryVO.getPrdcrLandInfoNo().isEmpty()) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "생산자농지정보번호"); // W0005	{0}이/가 없습니다.
 				}
 
 				cltvtnHstryVO.setSysLastChgPrgrmId(prgrmId);

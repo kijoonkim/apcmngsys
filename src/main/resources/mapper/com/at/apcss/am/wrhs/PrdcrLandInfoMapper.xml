@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrdcrLandInfoMapper.xml                                   			-->
+<!-- DESC : 영농관리 - 생산자농지정보 mapper                                    -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.07.31  	김  호        		Initial Creation                        -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper">
+
+
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.selectGetPrdcrLandInfoNo	-->
+	<!-- DESC : 영농관리 - 생산자농지정보번호 발번.                    						-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2024.07.31  	김  호        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<select id="selectGetPrdcrLandInfoNo" parameterType="com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO" resultType="string">
+		<![CDATA[
+			SELECT FN_GET_ID_PRDCR_LAND_INFO(#{apcCd}, #{prdcrCd}) AS PRDCR_LAND_INFO_NO FROM DUAL
+		]]>
+	</select>
+
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.selectPrdcrLandInfoList		-->
+	<!-- DESC : 영농관리 - 생산자농지정보 목록 조회.                    					-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2024.07.31  	김  호        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<select id="selectPrdcrLandInfoList" parameterType="com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO" resultType="com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.selectPrdcrLandInfoList */
+			       PLI.APC_CD               AS APC_CD
+			     , PLI.PRDCR_CD             AS PRDCR_CD
+			     , PLI.PRDCR_LAND_INFO_NO   AS PRDCR_LAND_INFO_NO
+			     , PLI.FRLN_ADDR            AS FRLN_ADDR
+			     , PLI.STDG_CD              AS STDG_CD
+			     , PLI.FRLN_MNO             AS FRLN_MNO
+			     , PLI.FRLN_SNO             AS FRLN_SNO
+			     , PLI.MNGMST_REGNO         AS MNGMST_REGNO
+			     , PLI.FRMERNO              AS FRMERNO
+			     , PLI.DEL_YN               AS DEL_YN
+			  FROM TB_PRDCR_LAND_INFO PLI
+			 WHERE PLI.APC_CD 	= #{apcCd}
+			   AND PLI.PRDCR_CD = #{prdcrCd}
+		]]>
+	</select>
+
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.insertPrdcrLandInfo			-->
+	<!-- DESC : 영농관리 - 생산자농지정보 등록.                    							-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2024.07.31  	김  호        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<insert id="insertPrdcrLandInfo" parameterType="com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.insertPrdcrLandInfo */
+			  INTO TB_PRDCR_LAND_INFO
+			  		(
+					  APC_CD
+					, PRDCR_CD
+					, PRDCR_LAND_INFO_NO
+					, FRLN_ADDR
+					, STDG_CD
+					, FRLN_MNO
+					, FRLN_SNO
+					, MNGMST_REGNO
+					, FRMERNO
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+					)
+			VALUES
+					(
+					  #{apcCd}
+					, #{prdcrCd}
+					, #{prdcrLandInfoNo}
+					, #{frlnAddr}
+					, #{stdgCd}
+					, #{frlnMno}
+					, #{frlnSno}
+					, #{mngmstRegno}
+					, #{frmerno}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+					)
+
+		]]>
+	</insert>
+
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.updatePrdcrLandInfo			-->
+	<!-- DESC : 영농관리 - 생산자농지정보 삭제.                    							-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2024.07.31  	김  호        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<update id="updatePrdcrLandInfo" parameterType="com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.updatePrdcrLandInfo */
+				   TB_PRDCR_LAND_INFO
+			   SET FRLN_ADDR				= #{frlnAddr}
+				 , STDG_CD          		= #{stdgCd}
+				 , FRLN_MNO         		= #{frlnMno}
+				 , FRLN_SNO         		= #{frlnSno}
+				 , MNGMST_REGNO     		= #{mngmstRegno}
+				 , FRMERNO          		= #{frmerno}
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD					= #{apcCd}
+			   AND PRDCR_CD             	= #{prdcr_cd}
+			   AND PRDCR_LAND_INFO_NO   	= #{prdcrLandInfoNo}
+		]]>
+	</update>
+
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.deletePrdcrLandInfo			-->
+	<!-- DESC : 영농관리 - 생산자농지정보 삭제.                    							-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2024.07.31  	김  호        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<update id="deletePrdcrLandInfo" parameterType="com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.deletePrdcrLandInfo */
+				   TB_PRDCR_LAND_INFO
+			   SET DEL_YN					= 'Y'
+				 , SYS_LAST_CHG_DT          = SYSDATE
+				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
+			 WHERE APC_CD					= #{apcCd}
+			   AND PRDCR_CD             	= #{prdcr_cd}
+			   AND PRDCR_LAND_INFO_NO   	= #{prdcrLandInfoNo}
+		]]>
+	</update>
+
+</mapper>

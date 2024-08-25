@@ -37,7 +37,7 @@
 	<!-- ==============================================================================	-->
 	<select id="selectGetCltvtnHstryNo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="string">
 		<![CDATA[
-			SELECT FN_GET_ID_CLTVTN_HSTRY(#{apcCd} , #{prdcrCd}, #{mngmstRegno}, #{farmLandSn}) AS CLTVTN_HSTRY_NO FROM DUAL
+			SELECT FN_GET_ID_CLTVTN_HSTRY(#{apcCd} , #{prdcrCd}, #{prdcrLandInfoNo}) AS CLTVTN_HSTRY_NO FROM DUAL
 		]]>
 	</select>
 
@@ -229,53 +229,22 @@
 	<!-- ==============================================================================	-->
     <select id="selectCltvtnHstryList" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
     	<![CDATA[
-	    	SELECT pt0.*
-			  FROM (SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList */
-			               X.APC_CD
-			             , X.PRDCR_CD
-			             , Y.MNGMST_REGNO
-			             , Y.FARM_LAND_SN
-			             , Y.CLTVTN_HSTRY_NO
-			             , Y.CN
-			             , Y.RMRK
-			             , Y.DEL_YN
-			             , (SELECT MAX(ATCHFL_NO) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = Y.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_NO
-			             , Z.FRLN_ADDR
-			             , Z.STDG_CD
-			             , Z.FRLN_MNO
-			             , Z.FRLN_SNO
-			          FROM TB_PRDCR_INFO X
-			             , TB_CLTVTN_HSTRY Y
-			             , TB_AX_FARM_LAND_INFO Z
-			         WHERE X.APC_CD = Y.APC_CD
-			           AND X.PRDCR_CD = Y.PRDCR_CD
-			           AND Y.MNGMST_REGNO = Z.MNGMST_REGNO
-			           AND Y.FARM_LAND_SN = Z.SN
-			           AND X.APC_CD    = #{apcCd}
-			           AND X.PRDCR_CD  = #{prdcrCd}
-			           AND X.DEL_YN = 'N'
-			           AND Y.DEL_YN = 'N'
-			           AND Z.DEL_YN = 'N'
+			SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList */
+				   CH.APC_CD            AS APC_CD
+			     , CH.PRDCR_CD          AS PRDCR_CD
+			     , CH.PRDCR_LAND_INFO_NO AS PRDCR_LAND_INFO_NO
+			     , CH.CLTVTN_HSTRY_NO   AS CLTVTN_HSTRY_NO
+			     , CH.CN                AS CN
+			     , CH.RMRK              AS RMRK
+			     , CH.DEL_YN            AS DEL_YN
+			     , (SELECT MAX(ATCHFL_NO) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_NO
+			  FROM TB_CLTVTN_HSTRY CH
+			 WHERE CH.DEL_YN = 'N'
+			   AND CH.APC_CD = #{apcCd}
+			   AND CH.PRDCR_CD = #{prdcrCd}
+			   AND CH.PRDCR_LAND_INFO_NO = #{prdcrLandInfoNo}
+			 ORDER BY CH.CLTVTN_HSTRY_NO
 
-			        UNION ALL
-			        SELECT
-			               #{apcCd}
-			             , #{prdcrCd}
-			             , #{mngmstRegno}
-			             , X.SN
-			             , ''
-			             , ''
-			             , ''
-			             , ''
-			             , ''
-			             , X.FRLN_ADDR
-			             , X.STDG_CD
-			             , X.FRLN_MNO
-			             , X.FRLN_SNO
-			          FROM TB_AX_FARM_LAND_INFO X
-			         WHERE X.MNGMST_REGNO = #{mngmstRegno}
-			      ) pt0
-			ORDER BY FARM_LAND_SN
 		]]>
     </select>
 
@@ -294,8 +263,7 @@
 			     (
 				   APC_CD
 				 , PRDCR_CD
-				 , MNGMST_REGNO
-				 , FARM_LAND_SN
+				 , PRDCR_LAND_INFO_NO
 				 , CLTVTN_HSTRY_NO
 				 , CN
 				 , RMRK
@@ -310,8 +278,7 @@
 				(
 				   #{apcCd}
 				 , #{prdcrCd}
-				 , #{mngmstRegno}
-				 , #{farmLandSn}
+				 , #{prdcrLandInfoNo}
 				 , #{cltvtnHstryNo}
 				 , #{cn}
 				 , #{rmrk}
@@ -343,8 +310,7 @@
 				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
 			 WHERE APC_CD 					= #{apcCd}
 			   AND PRDCR_CD                 = #{prdcrCd}
-			   AND MNGMST_REGNO             = #{mngmstRegno}
-			   AND FARM_LAND_SN             = #{farmLandSn}
+			   AND PRDCR_LAND_INFO_NO       = #{prdcrLandInfoNo}
 			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
 		]]>
 	</update>
@@ -367,8 +333,7 @@
 				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
 			 WHERE APC_CD 					= #{apcCd}
 			   AND PRDCR_CD                 = #{prdcrCd}
-			   AND MNGMST_REGNO             = #{mngmstRegno}
-			   AND FARM_LAND_SN             = #{farmLandSn}
+			   AND PRDCR_LAND_INFO_NO       = #{prdcrLandInfoNo}
 			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
 		]]>
 	</update>
