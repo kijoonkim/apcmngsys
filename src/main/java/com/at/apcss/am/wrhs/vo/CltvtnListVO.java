@@ -38,6 +38,10 @@ public class CltvtnListVO extends ComVO {
 	 * 재배이력
 	 * */
 	private List<CltvtnHstryVO> cltvtnHstryList;
+	/*
+	 * 농가농지정보
+	 * */
+	private List<PrdcrLandInfoVO> prdcrLandInfoList;
 
 
 	public List<CltvtnBscInfoVO> getCltvtnBscInfoList() {
@@ -54,5 +58,13 @@ public class CltvtnListVO extends ComVO {
 
 	public void setCltvtnHstryList(List<CltvtnHstryVO> cltvtnHstryList) {
 		this.cltvtnHstryList = cltvtnHstryList == null ? null : cltvtnHstryList.stream().collect(Collectors.toList());
+	}
+
+	public List<PrdcrLandInfoVO> getPrdcrLandInfoList() {
+		return this.prdcrLandInfoList == null ? null : prdcrLandInfoList.stream().collect(Collectors.toList());
+	}
+
+	public void setPrdcrLandInfoList(List<PrdcrLandInfoVO> prdcrLandInfoList) {
+		this.prdcrLandInfoList = prdcrLandInfoList == null ? null : prdcrLandInfoList.stream().collect(Collectors.toList());
 	}
 }
