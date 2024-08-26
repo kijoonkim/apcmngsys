@@ -2694,6 +2694,7 @@ div.sbux-ddl-spbtn-down-wrap {
 .sbux-ddl-spbtn-down ul.sbux-ddl-menu li,
 .sbux-ddl-spbtn-up ul.sbux-ddl-menu li {
   position: relative;
+  user-select: none;
 }
 .sbux-ddl-nor-down ul.sbux-ddl-menu li.sbux-ddl-sub-item-chl-wrap,
 .sbux-ddl-nor-up ul.sbux-ddl-menu li.sbux-ddl-sub-item-chl-wrap,
@@ -2939,6 +2940,86 @@ div.sbux-ddl-spbtn-down-wrap {
 .sbux-ddl-spbtn-up ul.sbux-ddl-sub-item-chl-wrap > ul.sbux-ddl-menu {
   top: 0;
   left: 100%;
+}
+.sbux-ddl-up-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 20px;
+  border: 2px solid transparent;
+  background: #f1f1f1;
+  text-align: center;
+  color: #333;
+  font-size: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sbux-ddl-up-btn:hover {
+  background: #f8f8f8;
+  color: #307ea5;
+  transition: all 0.2s;
+}
+.sbux-ddl-up-btn:after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8px;
+  height: 8px;
+  margin: 0 auto;
+  border-top: 2px solid;
+  border-right: 2px solid;
+  box-sizing: border-box;
+  transform: rotate(-45deg);
+}
+.sbux-ddl-up-btn.disabled,
+.sbux-ddl-up-btn[disabled],
+.sbux-ddl-down-btn.disabled,
+.sbux-ddl-down-btn[disabled] {
+  background: #e2e2e2;
+  color: #adadad;
+  border-color: transparent !important;
+}
+.sbux-ddl-down-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 20px;
+  border: 2px solid transparent;
+  background: #f1f1f1;
+  text-align: center;
+  color: #333;
+  font-size: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sbux-ddl-down-btn:hover {
+  background: #f8f8f8;
+  color: #307ea5;
+  transition: all 0.2s;
+}
+.sbux-ddl-down-btn:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8px;
+  height: 8px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  transform: rotate(45deg);
 }
 .sbux-ddl-btn-up > ul.sbux-ddl-menu,
 .sbux-ddl-nor-up > ul.sbux-ddl-menu,
@@ -9110,8 +9191,8 @@ span.sbux-chk-wrap input .sbux-rdo-wrap label.checked .glyphicon:before {
   position: absolute;
   top: 0px;
   left: 4px;
-  width: 6px;
-  height: 10px;
+  width: 4px;
+  height: 9px;
   border: solid #307ea5;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -9152,8 +9233,8 @@ span.sbux-chk-wrap input.disabled:checked + label .glyphicon:before {
   position: absolute;
   top: 0px;
   left: 4px;
-  width: 6px;
-  height: 10px;
+  width: 4px;
+  height: 9px;
   border: solid #999;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
