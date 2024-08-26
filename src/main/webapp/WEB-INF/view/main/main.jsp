@@ -153,8 +153,8 @@
 margin-bottom : 20px;}
 .layerPopup:before {display:block; content:""; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:9000}
 .layerPopup .layerBox {    z-index:10000;   
-position:fixed; left:85%; top:48%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }
-.layerPopup .layerBox .title {margin-bottom:10px; padding-bottom:10px; font-weight:600; border-bottom:1px solid #d9d9d9;}
+position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }
+.layerPopup .layerBox .title {margin-bottom:10px; font-weight:600;}
 .layerPopup .layerBox .btnTodayHide {
 font-size:14px; font-weight:600; color:black; 
 float: left;text-decoration:none;width: 150px; 
@@ -174,8 +174,8 @@ height : 30px;line-height:30px;border:black solid 1px; text-align : center;text-
 font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: right; line-height:30px; text-align : center;text-decoration:underline;
 }
 .layerPopup a{
-	text-decoration : none;
-	color : black;width: 50px;height : 40px;
+    text-decoration-line: none;
+    color: #3c8dbc;
 }
 
 </style>
