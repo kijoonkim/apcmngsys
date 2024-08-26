@@ -278,6 +278,29 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 					if (0 == frmerInfoMapper.insertCltvtnHstry(cltvtnHstryVO)) {
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 					}
+
+					ComAtchflVO comAtchflVO = cltvtnHstryVO.getComAtchflVO();
+
+					if (comAtchflVO != null) {
+
+						comAtchflVO.setPrntsTblNo(cltvtnHstryNo);
+						comAtchflVO.setAtchflPath(cltvtnListVO.getAtchflPath());
+
+						HashMap<String, Object> rtnOjb = comAtchflService.fileUpload(comAtchflVO);
+
+						if (rtnOjb != null) {
+							return rtnOjb;
+						}
+
+						comAtchflVO.setSysFrstInptPrgrmId(prgrmId);
+						comAtchflVO.setSysFrstInptUserId(userId);
+						comAtchflVO.setSysLastChgPrgrmId(prgrmId);
+						comAtchflVO.setSysLastChgUserId(userId);
+
+						if (0 == comAtchflService.insertComAtchfl(comAtchflVO)) {
+							throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+						}
+					}
 				}
 
 				if (ComConstants.ROW_STS_UPDATE.equals(cltvtnHstryVO.getRowSts())) {

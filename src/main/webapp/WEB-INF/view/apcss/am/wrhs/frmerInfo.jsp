@@ -536,20 +536,21 @@
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_imagePop("+ nRow +")'>지도</button>";
 	        	}
         	}},
-        	{caption : ['사진첨부'], ref: 'cltvtnHstryNo',	type: 'button', 	width: '60px', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if (strValue== null || strValue == "") {
-	        		return "";
-	        	} else {
-	        		let rowData = grdCltvtnHstry.getRowData(nRow);
-	        		let atchflNo = rowData.atchflNo;
-	        		if (!gfn_isEmpty(atchflNo)) {
-	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>변경</button>"
-		        		+ "<input type='file' id='inp-file-" + nRow + "' style='display:none' onchange='fn_fileSelect(event)' accept='.jpg, .jpeg, .png'></input>";
-	        		} else {
-	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>등록</button>"
-		        		+ "<input type='file' id='inp-file-" + nRow + "' style='display:none' onchange='fn_fileSelect(event)' accept='.jpg, .jpeg, .png'></input>";
-	        		}
-	        	}
+        	{caption : ['사진첨부'], ref: 'inputFlag',	type: 'button', 	width: '60px', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+        		let rowData = grdCltvtnHstry.getRowData(nRow);
+        		let atchflNo = rowData.atchflNo;
+        		let inputFlag = rowData.inputFlag
+        		if (!gfn_isEmpty(atchflNo)) {
+        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>변경</button>"
+	        		+ "<input type='file' id='inp-file-" + nRow + "' style='display:none' onchange='fn_fileSelect(event)' accept='.jpg, .jpeg, .png'></input>";
+        		}
+        		if (inputFlag) {
+        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>등록</button>"
+	        		+ "<input type='file' id='inp-file-" + nRow + "' style='display:none' onchange='fn_fileSelect(event)' accept='.jpg, .jpeg, .png'></input>";
+        		} else {
+        			"";
+        		}
+
         	}},
         	{caption : ['사진명'], 		ref: 'fileName', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
         	{caption : ['쓰기여부'], 	ref: 'inputFlag', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
@@ -1333,7 +1334,7 @@
     		let rowData = grdCltvtnHstry.getRowData(nRow);
     		grdCltvtnHstry.setCellData(nRow, nCol, "N", true);
     		grdCltvtnHstry.setCellData(nRow, grdCltvtnHstry.getColRef("inputFlag"), true, true);
-
+    		grdCltvtnHstry.rebuild();
     		grdCltvtnHstry.addRow(true);
     		grdCltvtnHstry.setCellDisabled(0, 0, grdCltvtnHstry.getRows() -1, grdCltvtnHstry.getCols() -1, false);
     		grdCltvtnHstry.setCellDisabled(grdCltvtnHstry.getRows() -1, 0, grdCltvtnHstry.getRows() -1, grdCltvtnHstry.getCols() -1, true);
@@ -1596,35 +1597,61 @@
 			let delYn = rowData.delYn;
 
 			if (!gfn_isEmpty(delYn)) {
-				if (rowSts === 3) {
-					rowData.rowSts = "I";
-					rowData.apcCd = gv_selectedApcCd;
-					rowData.prdcrCd = prdcrCd;
-					rowData.prdcrLandInfoNo = choicePrdcrLandInfoNo;
-					cltvtnHstryList.push(rowData);
-				}
 
-				if (rowSts === 2) {
-					rowData.rowSts = "U";
+				console.log("rowSts", rowSts)
 
-					if (!gfn_isEmpty(fileName)) {
-						let fileId = 'inp-file-' + (i);
-				    	let fileInput = document.getElementById(fileId);
-						let file = fileInput.files[0];
-						const base64File = await fileToBase64(file);
+				if (gfn_isEmpty(cltvtnHstryNo)) {
 
-						const comAtchflVO = {
-								prntsTblNo		: cltvtnHstryNo
-							  , prntsTblSeCd	: '01'
-							  , atchflOrgnNm	: file.name
-							  , atchflSz		: file.size
-							  , atchflExtnType	: file.type
-							  , base64File		: base64File
-						};
+					if (rowSts === 2 ) {
+						rowData.rowSts = "I";
+						rowData.apcCd = gv_selectedApcCd;
+						rowData.prdcrCd = prdcrCd;
+						rowData.prdcrLandInfoNo = choicePrdcrLandInfoNo;
 
-				    	rowData.comAtchflVO = comAtchflVO;
+						if (!gfn_isEmpty(fileName)) {
+							let fileId = 'inp-file-' + (i);
+					    	let fileInput = document.getElementById(fileId);
+							let file = fileInput.files[0];
+							const base64File = await fileToBase64(file);
+
+							const comAtchflVO = {
+									prntsTblSeCd	: '01'
+								  , atchflOrgnNm	: file.name
+								  , atchflSz		: file.size
+								  , atchflExtnType	: file.type
+								  , base64File		: base64File
+							};
+
+					    	rowData.comAtchflVO = comAtchflVO;
+						}
+
+						cltvtnHstryList.push(rowData);
 					}
-					cltvtnHstryList.push(rowData);
+				} else {
+
+					if (rowSts === 2) {
+						rowData.rowSts = "U";
+
+						if (!gfn_isEmpty(fileName)) {
+							let fileId = 'inp-file-' + (i);
+					    	let fileInput = document.getElementById(fileId);
+							let file = fileInput.files[0];
+							const base64File = await fileToBase64(file);
+
+							const comAtchflVO = {
+									prntsTblNo		: cltvtnHstryNo
+								  , prntsTblSeCd	: '01'
+								  , atchflOrgnNm	: file.name
+								  , atchflSz		: file.size
+								  , atchflExtnType	: file.type
+								  , base64File		: base64File
+							};
+
+					    	rowData.comAtchflVO = comAtchflVO;
+						}
+
+						cltvtnHstryList.push(rowData);
+					}
 				}
 			}
 
@@ -1643,9 +1670,11 @@
 			return;
 		}
 
-		const postJsonPromise = gfn_postJSON("/am/wrhs/multiFrmerInfoList.do", cltvtnListVO);
-    	const data = await postJsonPromise;
+		console.log("cltvtnListVO", cltvtnListVO)
     	if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
+
+			const postJsonPromise = gfn_postJSON("/am/wrhs/multiFrmerInfoList.do", cltvtnListVO);
+    		const data = await postJsonPromise;
     		try{
         		if (_.isEqual("S", data.resultStatus)) {
         			fn_search();
