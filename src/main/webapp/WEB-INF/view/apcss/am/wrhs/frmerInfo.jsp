@@ -102,11 +102,21 @@
 									onclick="fn_choicePrdcr"
 								></sbux-button>
 							</td>
+							<th class="ta_r th_bg">연도</th>
+							<td colspan="3"  class="td_input">
+								<sbux-datepicker
+									id="srch-dtp-yr"
+									name="srch-dtp-yr"
+									uitype="popup"
+									datepicker-mode="year"
+									class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"
+								></sbux-datepicker>
+							</td>
 							<th class="ta_r th_bg">품목</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-itemCd" name="srch-slt-itemCd" uitype="single" jsondata-ref="jsonApcItem" unselected-text="전체" class="form-control input-sm" onchange="fn_onChangeSrchItemCd(this)" ></sbux-select>
 							</td>
-							<td colspan="3">&nbsp;</td>
+
 						</tr>
 					</tbody>
 				</table>
@@ -127,11 +137,17 @@
 								<table class="table table-bordered tbl_fixed">
 									<caption>일반현황</caption>
 									<colgroup>
+										<col style="width:10%">
+										<col style="width:10%">
+										<col style="width:10%">
+										<col style="width:10%">
 										<col style="width:20%">
-										<col style="width:15%">
-										<col style="width:15%">
-										<col style="width:20%">
-										<col style="width:30%">
+										<col style="width:5%">
+										<col style="width:5%">
+										<col style="width:8%">
+										<col style="width:5%">
+										<col style="width:5%">
+										<col style="width:8%">
 									</colgroup>
 									<tbody>
 										<tr>
@@ -168,10 +184,8 @@
 												<sbux-input id="dtl-inp-frmerno" name="dtl-inp-frmerno" class="form-control input-sm" uitype="text" readonly></sbux-input>
 												<sbux-input id="dtl-inp-prdcrLinkCd" name="dtl-inp-prdcrLinkCd" class="form-control input-sm" uitype="hidden"></sbux-input>
 											</td>
-										</tr>
-										<tr>
-											<th scope="row" class="th_bg" >연락처</th>
-											<td colspan="2">
+											<th colspan="2" scope="row" class="th_bg" >연락처</th>
+											<td colspan="4">
 												<sbux-input
 													id="dtl-inp-frmhsTelno"
 													name="dtl-inp-frmhsTelno"
@@ -180,25 +194,23 @@
 													mask = "{ 'mask': '999-9999-9999', 'clearIncomplete': true, 'autoUnmask': true }"
 												></sbux-input>
 											</td>
-											<th scope="row" class="th_bg" >지역</th>
-											<td>
-												<sbux-select
-													id="dtl-slt-ctpv"
-													name="dtl-slt-frmhsCtpv"
-													uitype="single"
-													jsondata-ref="jsonCtpv"
-													unselected-text="선택"
-													class="form-control input-sm"
-												></sbux-select>
-											</td>
 										</tr>
 										<tr>
-											<th scope="row" class="th_bg" >상세주소</th>
+											<th scope="row" class="th_bg" >지역</th>
 											<td colspan="2">
+												<sbux-input
+													uitype="text"
+													id="dtl-inp-frmhsCtpv"
+													name="dtl-inp-frmhsCtpv"
+													class="form-control input-sm"
+				   								></sbux-input>
+											</td>
+											<th scope="row" class="th_bg" >상세주소</th>
+											<td >
 												<sbux-input id="dtl-inp-frmhsAddr" name="dtl-inp-frmhsAddr" class="form-control input-sm" uitype="text" ></sbux-input>
 											</td>
-											<th scope="row" class="th_bg" >계약면적(평)</th>
-											<td>
+											<th colspan="2" scope="row" class="th_bg" >계약면적(평)</th>
+											<td colspan="4">
 												<sbux-input
 													id="dtl-inp-plntngArea"
 													name="dtl-inp-plntngArea"
@@ -230,10 +242,8 @@
 													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
 												></sbux-input>
 											</td>
-										</tr>
-										<tr>
-											<th scope="row" class="th_bg" >수매량(망)</th>
-											<td colspan="2">
+											<th colspan="2" scope="row" class="th_bg" >수매량(망)</th>
+											<td >
 												<sbux-input
 													id="dtl-inp-prchsQntt"
 													name="dtl-inp-prchsQntt"
@@ -242,7 +252,7 @@
 													mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												></sbux-input>
 											</td>
-											<th scope="row" class="th_bg" >수매금액(원)</th>
+											<th colspan="2" scope="row" class="th_bg" >수매금액(원)</th>
 											<td>
 												<sbux-input
 													id="dtl-inp-prchsAmt"
@@ -263,7 +273,7 @@
 									</li>
 								</ul>
 							</div>
-							<div id="sb-area-cltvtnBscInfo" style="height:90px;"></div>
+							<div id="sb-area-cltvtnFrmhsQltPrdcr" style="height:90px;"></div>
 							<div class="row">
 								<div class="col-sm-6">
 									<div class="ad_tbl_top"  style="width: 98%;">
@@ -274,7 +284,7 @@
 										</ul>
 									</div>
 									<div>
-										<div id="sb-area-prdcrLandInfo" style="height:114px;"></div>
+										<div id="sb-area-prdcrLandInfo" style="height:208px;"></div>
 									</div>
 								</div>
 								<div class="col-sm-6">
@@ -286,7 +296,7 @@
 										</ul>
 									</div>
 									<div>
-										<div id="sb-area-cltvtnHstry" style="height:114px;"></div>
+										<div id="sb-area-cltvtnHstry" style="height:208px;"></div>
 									</div>
 								</div>
 							</div>
@@ -383,7 +393,7 @@
 	const fn_init = async function() {
 
     	fn_getPrdcrs();
-    	fn_createCltvtnBscInfo();
+    	fn_createCltvtnFrmhsQltPrdcr();
     	fn_createPrdcrLandInfo();
     	fn_createCltvtnHstry();
     	fn_createCltvtnFrmhsQlt();
@@ -391,7 +401,6 @@
 
 		let rst = await Promise.all([
 			gfn_setApcItemSBSelect('srch-slt-itemCd', 	jsonApcItem, 				gv_selectedApcCd),		// 품목
-			gfn_setComCdSBSelect('dtl-slt-frmhsCtpv', 	jsonCtpv,  					'CTPV'),				// 지역
 			gfn_setPrdcrSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPrdcr, 				gv_selectedApcCd),		// Grid 생산자
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdSdngStts,  			'SDNG_STTS_CD'),		// 파종상태
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPlntngStts, 			'PLNTNG_STTS_CD'),		// 정식상태
@@ -409,6 +418,10 @@
     		SBUxMethod.set("srch-slt-itemCd", itemCd);
     	}
 
+		console.log("gfn_dateToYear(new Date())", gfn_dateToYear(new Date()))
+
+		SBUxMethod.set("srch-dtp-yr", gfn_dateToYear(new Date()))
+
 	}
 
 	var tabJsonData = [
@@ -417,23 +430,23 @@
 		{ "id" : "2", "pid" : "-1", "order" : "3", "text" : "농가예상입고", "targetid" : "frmhsExpctWrhsTab", 	"targetvalue" : "농가예상입고" }
 	];
 
-	var grdCltvtnBscInfo;
+	var grdCltvtnFrmhsQltPrdcr;
 	var grdCltvtnHstry;
 	var grdPrdcrLandInfo;
 	var grdCltvtnFrmhsQlt;
 	var grdFrmhsExpctWrhs;
-	var jsonCltvtnBscInfo 	= [];
-	var jsonCltvtnHstry 	= [];
-	var jsonPrdcrLandInfo 	= [];
-	var jsonCltvtnFrmhsQlt 	= [];
-	var jsonFrmhsExpctWrhs 	= [];
+	var jsonCltvtnFrmhsQltPrdcr = [];
+	var jsonCltvtnHstry 		= [];
+	var jsonPrdcrLandInfo 		= [];
+	var jsonCltvtnFrmhsQlt 		= [];
+	var jsonFrmhsExpctWrhs 		= [];
 
 
-	const fn_createCltvtnBscInfo = function () {
+	const fn_createCltvtnFrmhsQltPrdcr = function () {
 		var SBGridProperties = {};
-	    SBGridProperties.parentid = "sb-area-cltvtnBscInfo";
-	    SBGridProperties.id = "grdCltvtnBscInfo";
-	    SBGridProperties.jsonref = "jsonCltvtnBscInfo";
+	    SBGridProperties.parentid = "sb-area-cltvtnFrmhsQltPrdcr";
+	    SBGridProperties.id = "grdCltvtnFrmhsQltPrdcr";
+	    SBGridProperties.jsonref = "jsonCltvtnFrmhsQltPrdcr";
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.explorerbar = 'move';
@@ -452,7 +465,7 @@
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		    {caption : ['품종(캔)', 	"찬스볼"], 		ref: 'sdQntt5', 	type: 'input', 	width: '100px', style:'text-align: right',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['밑비료', 		"밑비료"], 		ref: 'lwptFrtlzr', 		type: 'input', 	width: '100px', style: 'text-align:center'},
+		    {caption : ['밑비료', 		"밑비료"], 		ref: 'cmpt', 		type: 'input', 	width: '100px', style: 'text-align:center'},
 		    {caption : ['파종일자', 	"파종일자"], 	ref: 'sdngYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center',
 		    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
 		    {caption : ['정식일자', 	"정식일자"], 	ref: 'clclnYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center',
@@ -465,7 +478,7 @@
 	            typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
         	{caption : ['비고', '비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:center'},
 	    ];
-	    grdCltvtnBscInfo = _SBGrid.create(SBGridProperties);
+	    grdCltvtnFrmhsQltPrdcr = _SBGrid.create(SBGridProperties);
 	}
 
 	const fn_createPrdcrLandInfo = function () {
@@ -580,10 +593,10 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowQlt(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-		    {caption: ['농가명', 	'농가명'], 		ref: 'prdcrCd', 	type: 'inputcombo', 	width: '200px', style: 'text-align:center', sortable: false,
+		    {caption: ['농가명', 	'농가명'], 		ref: 'prdcrCd', 	type: 'inputcombo', 	width: '120px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonGrdPrdcr', 		label:'label', value:'value', itemcount: 10}},
-		    {caption : ['지역', 	'지역'], 		ref: 'frmhsCtpvNm', type: 'output', 	width: '100px', style: 'text-align:center'},
-		    {caption : ['상세주소', '상세주소'], 	ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:center'},
+		    {caption : ['지역', 	'지역'], 		ref: 'frmhsCtpv', type: 'output', 	width: '80px', style: 'text-align:center'},
+		    {caption : ['상세주소', '상세주소'], 	ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:rigth'},
 		    {caption : ['연락처', 	'연락처'], 		ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
 		    	format : {type:'string', rule:'000-0000-0000'}},
 		    {caption : ['품종(캔)', '뉴마르스'], 	ref: 'sdQntt1', 	type: 'input', 		width: '80px', 	style:'text-align: right',
@@ -617,6 +630,8 @@
 			{caption : ['품질평가', '품질평가'], 	ref: 'qltEvl', 		type: 'input', 		width: '100px', style: 'text-align:center'},
 			{caption : ['작년<br>평균망', '작년<br>평균망'], ref: 'lastYrEvl', 	type: 'input', 	width: '100px', style:'text-align: right',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
+            {caption : ['저장결과<br>(부패율)', "저장결과<br>(부패율)"], 	ref: 'strgRslt', 	type: 'input', 	width: '80px', style:'text-align: right',
+    	        typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
 			{caption : ['변동갭', '변동갭'], 		ref: 'flctnDfrnc', 	type: 'input', 		width: '100px', style: 'text-align:center'},
 			{caption : ['무선별', '무선별'], 		ref: 'emptSort', 	type: 'input', 		width: '100px', style: 'text-align:center'},
 			{caption : ['망사구분', '망사구분'], 	ref: 'meshSeCd', 	type: 'combo', 	width: '100px', style: 'text-align:center', sortable: false,
@@ -638,6 +653,7 @@
 			{caption : ['담당자', 	'담당자'], 		ref: 'pic', 		type: 'input', 		width: '100px', style: 'text-align:center'},
         	{caption : ['생육 특이사항', '생육 특이사항'], 	ref: 'grdpExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:center'},
         	{caption : ['저장 특이사항', '저장 특이사항'], 	ref: 'strgExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:center'},
+        	{caption : ['비고', '비고'], 	ref: 'rmrk', 	type: 'input', 	width: '200px', style: 'text-align:center'},
 	    ];
 	    grdCltvtnFrmhsQlt = _SBGrid.create(SBGridProperties);
 	    grdCltvtnFrmhsQlt.bind('valuechanged', 'fn_grdValueChanged');
@@ -665,10 +681,10 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowExpct(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-		    {caption: ['농가명'], 			ref: 'prdcrCd', 	type: 'inputcombo', 	width: '200px', style: 'text-align:center', sortable: false,
+		    {caption: ['농가명'], 			ref: 'prdcrCd', 	type: 'inputcombo', 	width: '120px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonGrdPrdcr', 	label:'label', value:'value', itemcount: 10}},
-		    {caption : ['지역'], 			ref: 'frmhsCtpvNm', type: 'output', 	width: '100px', style: 'text-align:center'},
-		    {caption : ['상세주소'], 		ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:center'},
+		    {caption : ['지역'], 			ref: 'frmhsCtpv', 	type: 'output', 	width: '80px', style: 'text-align:center'},
+		    {caption : ['상세주소'], 		ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:rigth'},
 		    {caption : ['연락처'], 			ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
 		    	format : {type:'string', rule:'000-0000-0000'}},
 		    {caption : ['본사/외부구분'], 	ref: 'hdofcExtrnlSeCd', 	type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
@@ -962,7 +978,7 @@
 		let prdcrCdDtl = SBUxMethod.get("dtl-inp-prdcrCd");
 
 		if (!gfn_isEmpty(prdcrCdDtl)) {
-			await fn_setClvtnBsclnfo(prdcrCdDtl);
+			await fn_setCltvtnFrmhsQltPrdcr(prdcrCdDtl);
 			await fn_setPrdcrLandInfo(prdcrCdDtl);
 		}
 
@@ -980,16 +996,16 @@
      * @description 재배 기본정보 조회
      * @param {String} prdcrCdDtl
      */
-	const fn_setClvtnBsclnfo = async function(prdcrCdDtl) {
+	const fn_setCltvtnFrmhsQltPrdcr = async function(prdcrCdDtl) {
 
 		const param = {
 			apcCd: gv_selectedApcCd,
 			prdcrCd: prdcrCdDtl,
 		}
-		jsonCltvtnBscInfo.length = 0;
+		jsonCltvtnFrmhsQltPrdcr.length = 0;
 		try {
 			const postJsonPromise = gfn_postJSON(
-						"/am/wrhs/selectCltvtnBscInfoList.do",
+						"/am/wrhs/selectCltvtnFrmhsQltList.do",
 						param,
 						null,
 						false
@@ -997,34 +1013,13 @@
 	        const data = await postJsonPromise;
 	        data.resultList.forEach((item, index) => {
 
-	        	const cltvtnBscInfoVO = {
-	        			apcCd 			: item.apcCd
-	        		  , prdcrCd 		: item.prdcrCd
-	        		  , cltvtnBscInfoNo : item.cltvtnBscInfoNo
-	        		  , sdCd1 			: item.sdCd1
-	        		  , sdCd2 			: item.sdCd2
-	        		  , sdCd3 			: item.sdCd3
-	        		  , sdCd4 			: item.sdCd4
-	        		  , sdCd5 			: item.sdCd5
-	        		  , sdQntt1 		: item.sdQntt1
-	        		  , sdQntt2 		: item.sdQntt2
-	        		  , sdQntt3 		: item.sdQntt3
-	        		  , sdQntt4 		: item.sdQntt4
-	        		  , sdQntt5 		: item.sdQntt5
-	        		  , lwptFrtlzr 		: item.lwptFrtlzr
-	        		  , sdngYmd 		: item.sdngYmd
-	        		  , clclnYmd 		: item.clclnYmd
-	        		  , cmptYmdCycl1 	: item.cmptYmdCycl1
-	        		  , cmptYmdCycl2 	: item.cmptYmdCycl2
-	        		  , strgRslt 		: item.strgRslt
-	        		  , rmrk 			: item.rmrk
-	        	}
-	        	jsonCltvtnBscInfo.push(cltvtnBscInfoVO);
+	        	const cltvtnFrmhsQltVO = item;
+	        	jsonCltvtnFrmhsQltPrdcr.push(cltvtnFrmhsQltVO);
 	        });
 
-	        grdCltvtnBscInfo.rebuild();
-	        if (jsonCltvtnBscInfo.length == 0) {
-	        	grdCltvtnBscInfo.addRow();
+	        grdCltvtnFrmhsQltPrdcr.rebuild();
+	        if (jsonCltvtnFrmhsQltPrdcr.length == 0) {
+	        	grdCltvtnFrmhsQltPrdcr.addRow();
 	        }
 
 		} catch (e) {
@@ -1190,54 +1185,12 @@
  						false
  					);
  	        const data = await postJsonPromise;
+
+ 	        console.log("data",data)
+
  	        data.resultList.forEach((item, index) => {
 
- 	        	const cltvtnFrmhsQltVO = {
- 	        			apcCd 			: item.apcCd
- 	        		  , prdcrCd 		: item.prdcrCd
- 	        		  , prdcrNm			: item.prdcrNm
- 	        		  , frmhsCtpv       : item.frmhsCtpv
- 	        		  , frmhsCtpvNm     : item.frmhsCtpvNm
- 	        		  , frmhsAddr       : item.frmhsAddr
- 	        		  , frmhsTelno      : item.frmhsTelno
- 	        		  , cltvtnFrmhsQltNo   : item.cltvtnFrmhsQltNo
- 	        		  , sdQntt1         : item.sdQntt1
- 	        		  , sdQntt2         : item.sdQntt2
- 	        		  , sdQntt3         : item.sdQntt3
- 	        		  , sdQntt4         : item.sdQntt4
- 	        		  , sdQntt5         : item.sdQntt5
- 	        		  , ctrtPrcl        : item.ctrtPrcl
- 	        		  , plntngPrcl      : item.plntngPrcl
- 	        		  , sdngYmd         : item.sdngYmd
- 	        		  , sdngSttsCd      : item.sdngSttsCd
- 	        		  , plntngYmd       : item.plntngYmd
- 	        		  , plntngSttsCd    : item.plntngSttsCd
- 	        		  , cmptYmdCycl1    : item.cmptYmdCycl1
- 	        		  , cmptYmdCycl2    : item.cmptYmdCycl2
- 	        		  , expctNet        : item.expctNet
- 	        		  , qltEvl          : item.qltEvl
- 	        		  , lastYrEvl       : item.lastYrEvl
- 	        		  , flctnDfrnc      : item.flctnDfrnc
- 	        		  , emptSort        : item.emptSort
- 	        		  , meshSeCd        : item.meshSeCd
- 	        		  , strm            : item.strm
- 	        		  , tmidlTerm       : item.tmidlTerm
- 	        		  , ltrm            : item.ltrm
- 	        		  , dfrnc           : item.dfrnc
- 	        		  , soil            : item.soil
- 	        		  , cmpt            : item.cmpt
- 	        		  , etc             : item.etc
- 	        		  , pestCd1         : item.pestCd1
- 	        		  , pestCd2         : item.pestCd2
- 	        		  , pestCd3         : item.pestCd3
- 	        		  , pestYn1         : item.pestYn1
- 	        		  , pestYn2         : item.pestYn2
- 	        		  , pestYn3         : item.pestYn3
- 	        		  , pic             : item.pic
- 	        		  , grdpExcptnMttr  : item.grdpExcptnMttr
- 	        		  , strgExcptnMttr  : item.strgExcptnMttr
- 	        		  , delYn			: item.delYn
- 	        	}
+ 	        	const cltvtnFrmhsQltVO = item;
  	        	jsonCltvtnFrmhsQlt.push(cltvtnFrmhsQltVO);
  	        });
 
@@ -1482,10 +1435,10 @@
 		let prdcrChgYn = false;
 
 		let prdcrVO = null;
-		let cltvtnBscInfoVO = null;
+		let cltvtnFrmhsQltVO = null;
 
 		let frmhsAddr = SBUxMethod.get("dtl-inp-frmhsAddr");
-		let frmhsCtpv = SBUxMethod.get("dtl-slt-frmhsCtpv");
+		let frmhsCtpv = SBUxMethod.get("dtl-inp-frmhsCtpv");
 		let frmhsTelno = SBUxMethod.get("dtl-inp-frmhsTelno");
 		let plntngArea = SBUxMethod.get("dtl-inp-plntngArea");
 		let prchsQntt = SBUxMethod.get("dtl-inp-prchsQntt");
@@ -1520,29 +1473,29 @@
 			prdcrChgYn = true;
 		}
 
-		let rowSts = grdCltvtnBscInfo.getRowStatus(2);
+		let rowSts = grdCltvtnFrmhsQltPrdcr.getRowStatus(2);
 		if (rowSts == 2 || rowSts == 3) {
-			cltvtnBscInfoVO = grdCltvtnBscInfo.getRowData(2);
-			if (gfn_isEmpty(cltvtnBscInfoVO.cltvtnBscInfoNo)) {
-				cltvtnBscInfoVO.apcCd  = gv_selectedApcCd;
-				cltvtnBscInfoVO.prdcrCd = prdcrCd;
-				cltvtnBscInfoVO.rowSts = "I";
+			cltvtnFrmhsQltVO = grdCltvtnFrmhsQltPrdcr.getRowData(2);
+			if (gfn_isEmpty(cltvtnFrmhsQltVO.cltvtnFrmhsQltNo)) {
+				cltvtnFrmhsQltVO.apcCd  = gv_selectedApcCd;
+				cltvtnFrmhsQltVO.prdcrCd = prdcrCd;
+				cltvtnFrmhsQltVO.rowSts = "I";
 			} else {
-				cltvtnBscInfoVO.rowSts = "U";
+				cltvtnFrmhsQltVO.rowSts = "U";
 			}
 		}
 
 
-		if (cltvtnBscInfoVO != null) {
+
+		if (cltvtnFrmhsQltVO != null) {
 
 			if (cltvtnListVO == null) {
-				cltvtnListVO = {'cltvtnBscInfoVO' : cltvtnBscInfoVO}
+				cltvtnListVO = {'cltvtnFrmhsQltVO' : cltvtnFrmhsQltVO}
 			} else {
-				cltvtnListVO.cltvtnBscInfoVO = cltvtnBscInfoVO;
+				cltvtnListVO.cltvtnFrmhsQltVO = cltvtnFrmhsQltVO;
 			}
 
 		}
-
 
 		let grdLandData = grdPrdcrLandInfo.getGridDataAll();
 
@@ -2082,7 +2035,7 @@
 		SBUxMethod.set("dtl-inp-frmerno", "");
 		SBUxMethod.set("dtl-inp-prdcrLinkCd", "");
 		SBUxMethod.set("dtl-inp-frmhsTelno", "");
-		SBUxMethod.set("dtl-slt-frmhsCtpv", "");
+		SBUxMethod.set("dtl-inp-frmhsCtpv", "");
 		SBUxMethod.set("dtl-inp-frmhsAddr", "");
 		SBUxMethod.set("dtl-inp-crtrArea", "");
 		SBUxMethod.set("dtl-inp-plntngArea", "");
@@ -2112,7 +2065,7 @@
 			SBUxMethod.set("dtl-inp-prdcrCd", jsonPrdcrDtl.prdcrCd);
 			SBUxMethod.set("dtl-inp-prdcrLinkCd", jsonPrdcrDtl.prdcrLinkCd);
 			SBUxMethod.set("dtl-inp-frmhsTelno", jsonPrdcrDtl.frmhsTelno);
-			SBUxMethod.set("dtl-slt-frmhsCtpv", jsonPrdcrDtl.frmhsCtpv);
+			SBUxMethod.set("dtl-inp-frmhsCtpv", jsonPrdcrDtl.frmhsCtpv);
 			SBUxMethod.set("dtl-inp-frmhsAddr", jsonPrdcrDtl.frmhsAddr);
 			SBUxMethod.set("dtl-inp-crtrArea", jsonPrdcrDtl.crtrArea);
 			SBUxMethod.set("dtl-inp-plntngArea", jsonPrdcrDtl.plntngArea);
@@ -2139,7 +2092,7 @@
 
 			SBUxMethod.set("dtl-inp-frmhsTelno", prdcrDtl.frmhsTelno);
 			SBUxMethod.set("dtl-inp-prdcrLinkCd", prdcrDtl.prdcrLinkCd);
-			SBUxMethod.set("dtl-slt-frmhsCtpv", prdcrDtl.frmhsCtpv);
+			SBUxMethod.set("dtl-inp-frmhsCtpv", prdcrDtl.frmhsCtpv);
 			SBUxMethod.set("dtl-inp-frmhsAddr", prdcrDtl.frmhsAddr);
 			SBUxMethod.set("dtl-inp-crtrArea", prdcrDtl.crtrArea);
 			SBUxMethod.set("dtl-inp-plntngArea", prdcrDtl.plntngArea);
@@ -2155,7 +2108,7 @@
 			SBUxMethod.set("dtl-inp-frmerno", "");
 			SBUxMethod.set("dtl-inp-prdcrLinkCd", "");
 			SBUxMethod.set("dtl-inp-frmhsTelno", "");
-			SBUxMethod.set("dtl-slt-frmhsCtpv", "");
+			SBUxMethod.set("dtl-inp-frmhsCtpv", "");
 			SBUxMethod.set("dtl-inp-frmhsAddr", "");
 			SBUxMethod.set("dtl-inp-crtrArea", "");
 			SBUxMethod.set("dtl-inp-plntngArea", "");

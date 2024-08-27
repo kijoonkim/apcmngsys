@@ -145,7 +145,7 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 	public HashMap<String, Object> multiFrmerInfoList(CltvtnListVO cltvtnListVO) throws Exception {
 
 		PrdcrVO	prdcrVO	= cltvtnListVO.getPrdcrVO();
-		CltvtnBscInfoVO cltvtnBscInfoVO = cltvtnListVO.getCltvtnBscInfoVO();
+		CltvtnFrmhsQltVO cltvtnFrmhsQltVO = cltvtnListVO.getCltvtnFrmhsQltVO();
 		List<CltvtnHstryVO> cltvtnHstryList = cltvtnListVO.getCltvtnHstryList();
 		List<PrdcrLandInfoVO> prdcrLandInfoVOList = cltvtnListVO.getPrdcrLandInfoList();
 
@@ -170,40 +170,41 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 			}
 		}
 
-		if (cltvtnBscInfoVO != null) {
+		if (cltvtnFrmhsQltVO != null) {
 
 			// 필수 값 체크
-			if (cltvtnBscInfoVO.getApcCd().isEmpty()) {
+			if (cltvtnFrmhsQltVO.getApcCd().isEmpty()) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드"); // W0005	{0}이/가 없습니다.
 			}
 
-			if (cltvtnBscInfoVO.getPrdcrCd().isEmpty()) {
+			if (cltvtnFrmhsQltVO.getPrdcrCd().isEmpty()) {
 				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "생산자"); // W0005	{0}이/가 없습니다.
 			}
 
-			cltvtnBscInfoVO.setSysLastChgPrgrmId(prgrmId);
-			cltvtnBscInfoVO.setSysLastChgUserId(userId);
+			cltvtnFrmhsQltVO.setSysLastChgPrgrmId(prgrmId);
+			cltvtnFrmhsQltVO.setSysLastChgUserId(userId);
 
-			if (ComConstants.ROW_STS_INSERT.equals(cltvtnBscInfoVO.getRowSts())) {
-				// 재배기본정보번호 발번
-				String cltvtnBscInfoNo = frmerInfoMapper.selectGetCltvtnBscInfoNo(cltvtnBscInfoVO);
+			if (ComConstants.ROW_STS_INSERT.equals(cltvtnFrmhsQltVO.getRowSts())) {
+				// 재배농가품질번호 발번
+				String cltvtnFrmhsQltNo = frmerInfoMapper.selectGetCltvtnFrmhsQltNo(cltvtnFrmhsQltVO);
+				cltvtnFrmhsQltVO.setCltvtnFrmhsQltNo(cltvtnFrmhsQltNo);
+				cltvtnFrmhsQltVO.setSysFrstInptPrgrmId(prgrmId);
+				cltvtnFrmhsQltVO.setSysFrstInptUserId(userId);
 
-				cltvtnBscInfoVO.setCltvtnBscInfoNo(cltvtnBscInfoNo);
-				cltvtnBscInfoVO.setSysFrstInptPrgrmId(prgrmId);
-				cltvtnBscInfoVO.setSysFrstInptUserId(userId);
 
-				if (0 == frmerInfoMapper.insertCltvtnBscInfo(cltvtnBscInfoVO)) {
+
+				if (0 == insertCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 				}
 			}
 
-			if (ComConstants.ROW_STS_UPDATE.equals(cltvtnBscInfoVO.getRowSts())) {
+			if (ComConstants.ROW_STS_UPDATE.equals(cltvtnFrmhsQltVO.getRowSts())) {
 
-				if (cltvtnBscInfoVO.getCltvtnBscInfoNo().isEmpty()) {
-					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재배기본정보번호"); // W0005	{0}이/가 없습니다.
+				if (cltvtnFrmhsQltVO.getCltvtnFrmhsQltNo().isEmpty()) {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "재배농가품질번호"); // W0005	{0}이/가 없습니다.
 				}
 
-				if (0 == frmerInfoMapper.updateCltvtnBscInfo(cltvtnBscInfoVO)) {
+				if (0 == updateCltvtnFrmhsQlt(cltvtnFrmhsQltVO)) {
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
 				}
 			}

@@ -28,7 +28,7 @@ import lombok.Setter;
 public class CltvtnListVO extends ComVO {
 
 	private PrdcrVO prdcrVO;
-	private CltvtnBscInfoVO cltvtnBscInfoVO;
+	private CltvtnFrmhsQltVO cltvtnFrmhsQltVO;
 	private String atchflPath;
 	/*
 	 * 재배기본정보
