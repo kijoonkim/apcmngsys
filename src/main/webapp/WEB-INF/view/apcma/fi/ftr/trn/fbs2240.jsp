@@ -44,6 +44,7 @@
                 <sbux-button id="btnDownload" name="btnDownload" uitype="normal" text="급여이체파일 저장" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_download"></sbux-button>
                 <sbux-button id="btnName" name="btnName" uitype="normal" text="수취인확인" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_name"></sbux-button>
                 <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="생성" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_create"></sbux-button>
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_print"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -161,7 +162,7 @@
                     </div>
                 </div>
                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                    <div id="sb-area-gvwList" style="height:650px;"></div>
+                    <div id="sb-area-gvwInfo" style="height:650px;"></div>
                 </div>
             </div>
         </div>
@@ -182,7 +183,18 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
+    var p_fbsServerType = '${loginVO.maFBSSERVERTYPE}';
+    var p_empCode = '${loginVO.maEmpCode}';
     //-----------------------------------------------------------
+
+    var ds;
+    var dtFirmbanking;
+    var bReaderEnabled = false;
+
+    var strConfrimStatus = "1";
+    var strEmpCodeList = "";
+    var numApprId = 0;
+
 
     var jsonPayType = []; // 급여구분
     var jsonPayDate = []; // 귀속일자
@@ -192,14 +204,14 @@
     var jsonUser = []; // 사용자
 
     //grid 초기화
-    var gvwList; 			// 그리드를 담기위한 객체 선언
+    var gvwInfo; 			// 그리드를 담기위한 객체 선언
 
     var jsonTransferDetailList = []; 	// 그리드의 참조 데이터 주소 선언
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             //사업장
-            gfnma_setComSelect(['gvwList'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedApcCd
@@ -276,22 +288,22 @@
                 ]
             }),
             // 급여영역
-            gfnma_setComSelect(['SRCH_PAY_TYPE', 'gvwList'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE', 'gvwInfo'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 귀속일자
             gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
             // 지급구분
-            gfnma_setComSelect(['gvwList'], jsonPayGubun, 'L_HRP054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonPayGubun, 'L_HRP054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 계좌조회결과
-            gfnma_setComSelect(['gvwList'], jsonFirmbankNameCode, 'L_FIF019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonFirmbankNameCode, 'L_FIF019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 사용자
-            gfnma_setComSelect(['gvwList'], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
         ]);
     }
 
-    function fn_createGvwListGrid() {
+    function fn_createGvwInfoGrid() {
         var SBGridProperties 				= {};
-        SBGridProperties.parentid 			= 'sb-area-gvwList';
-        SBGridProperties.id 				= 'gvwList';
+        SBGridProperties.parentid 			= 'sb-area-gvwInfo';
+        SBGridProperties.id 				= 'gvwInfo';
         SBGridProperties.jsonref 			= 'jsonTransferDetailList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
@@ -413,13 +425,214 @@
             {caption: ["결재ID"],         ref: 'APPR_ID',    type:'output',  	width:'75px',  style:'text-align:left'},
         ];
 
-        gvwList = _SBGrid.create(SBGridProperties);
-        gvwList.bind('click', 'fn_view');
+        gvwInfo = _SBGrid.create(SBGridProperties);
+        gvwInfo.bind('click', 'fn_view');
+    }
+
+    const fn_view = async function () {
+        var nRow = gvwInfo.getRow();
+
+        strConfrimStatus = gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("FIRMBANK_CONFIRM_STATUS")));
+        numApprId = gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("APPR_ID"))) == "" ? 0 : parseInt(gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("APPR_ID"))));
+        var strstatus = gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("FIRMBANK_CONFIRM_STATUS")));
+        var strconfirmemp_code = gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("CONFIRM_EMP_CODE")));
+        var strtran_yn = gfn_nvl(gvwInfo.getCellData(nRow, gvwInfo.getColRef("TRAN_YN")));
+
+        strPayType = gvwInfo.getCellData(nRow, gvwInfo.getColRef("PAY_TYPE"));
+
+        if (strstatus == "1") {  //미승인
+            $("#btnSummit").attr('disabled', 'false');
+            $("#btnConfirm").attr('disabled', 'true');
+            $("#btnReject").attr('disabled', 'true');
+            $("#btnTrans").attr('disabled', 'true');
+            $("#btnResult").attr('disabled', 'true');
+        } else if (strstatus == "3") { //승인중
+            $("#btnSummit").attr('disabled', 'true');
+            $("#btnConfirm").attr('disabled', 'true');
+            $("#btnReject").attr('disabled', 'true');
+            $("#btnTrans").attr('disabled', 'true');
+            $("#btnResult").attr('disabled', 'true');
+
+            if (strconfirmemp_code == p_empCode) {
+                $("#btnSummit").attr('disabled', 'false');
+                $("#btnConfirm").attr('disabled', 'false');
+                $("#btnReject").attr('disabled', 'false');
+            }
+        }
+        else if (strstatus == "5") { //승인완료
+            $("#btnSummit").attr('disabled', 'true');
+            $("#btnConfirm").attr('disabled', 'true');
+            $("#btnReject").attr('disabled', 'true');
+            $("#btnTrans").attr('disabled', 'false');
+            $("#btnResult").attr('disabled', 'false');
+        } else {
+            $("#btnSummit").attr('disabled', 'true');
+            $("#btnConfirm").attr('disabled', 'true');
+            $("#btnReject").attr('disabled', 'true');
+            $("#btnTrans").attr('disabled', 'true');
+            $("#btnResult").attr('disabled', 'true');
+        }
+
+        if (strtran_yn == "Y")
+            $("#btnTrans").attr('disabled', 'false');
+        else
+            $("#btnTrans").attr('disabled', 'true');
+    }
+
+    const fn_onload = async function (parentParameter) {
+        SBUxMethod.set("SRCH_PAY_YYYYMM", gfn_dateToYm(new Date()));
+
+        if (p_fbsServerType == "DEV") {
+            gfnma_multiSelectSet('#SRCH_DEPOSIT_CODE', 'DEPOSIT_CODE', 'DEPOSIT_NAME', "0201825KRW12");
+        } else {
+            gfnma_multiSelectSet('#SRCH_DEPOSIT_CODE', 'DEPOSIT_CODE', 'DEPOSIT_NAME', "0110000KRW01");
+        }
+
+        if (parentParameter){
+            if (parentParameter.hasOwnProperty("TYPE")) {
+                if (gfn_nvl(parentParameter["TYPE"]) == "Q1") {
+                    if (parentParameter.hasOwnProperty("PAY_YYYYMM")) {
+                        SBUxMethod.set("SRCH_PAY_YYYYMM", gfn_nvl(parentParameter["PAY_YYYYMM"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("PAY_GUBUN")) {
+                        SBUxMethod.set("SRCH_PAY_TYPE", gfn_nvl(parentParameter["PAY_GUBUN"]));
+                    }
+
+                    if (parentParameter.hasOwnProperty("PAY_DATE")) {
+                        SBUxMethod.set("SRCH_PAY_DATE", gfn_nvl(parentParameter["PAY_DATE"]));
+                    }
+
+                    if (gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")) != "" && gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")) != "" && gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")) != "") {
+                        gfnma_multiSelectSet('#SRCH_FBS_SERVICE', 'SUB_CODE', 'CODE_NAME', "ECBANK");
+                        fn_search();
+                    }
+                }
+            }
+        }
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
         await fn_initSBSelect();
-        fn_createGvwListGrid();
+        fn_createGvwInfoGrid();
+        await fn_onload();
     });
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    const fn_search = async function () {
+        /*if (!SBUxMethod.validateRequired('panHeader')) {
+             return false;
+         }*/
+
+        // 비즈니스 로직 정보
+        let PAY_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
+        let PAY_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
+        let PAY_DATE = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE"));
+        let PASS_WORD = gfn_nvl(SBUxMethod.get("SRCH_PASSWORD"));
+        let DEPOSIT_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DEPOSIT_CODE"));
+        let ACTUAL_PAY_DATE = gfn_nvl(SBUxMethod.get("SRCH_ACTUAL_PAY_DATE"));
+
+        // 비즈니스 로직 정보
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_PAY_YYYYMM : PAY_YYYYMM,
+            V_P_PAY_TYPE : PAY_TYPE,
+            V_P_PAY_DATE : PAY_DATE,
+            V_P_PASS_WORD : PASS_WORD,
+            V_P_DEPOSIT_CODE : DEPOSIT_CODE,
+            V_P_ACTUAL_PAY_DATE : ACTUAL_PAY_DATE,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/trn/selectFbs2240List.do", {
+            getType				: 'json',
+            workType			: 'LIST',
+            cv_count			: '3',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                jsonTransferDetailList.legnth = 0;
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        CHECK_YN : item.CHECK_YN,
+                        TXN_ID : item.TXN_ID,
+                        PAY_TYPE : item.PAY_TYPE,
+                        SITE_CODE : item.SITE_CODE,
+                        DEPT_NAME : item.DEPT_NAME,
+                        EMP_CODE : item.EMP_CODE,
+                        EMP_FULL_NAME : item.EMP_FULL_NAME,
+                        BANK_CODE : item.BANK_CODE,
+                        BANK_NAME : item.BANK_NAME,
+                        BANK_ACCOUNT : item.BANK_ACCOUNT,
+                        BANK_ACCOUNT_REAL : item.BANK_ACCOUNT_REAL,
+                        BANK_DEPOSITOR : item.BANK_DEPOSITOR,
+                        SOCIAL_NUM : item.SOCIAL_NUM,
+                        SOCIAL_NUM_REAL : item.SOCIAL_NUM_REAL,
+                        PAY_NET_AMT : item.PAY_NET_AMT,
+                        FIRMBANK_CODE : item.FIRMBANK_CODE,
+                        FIRMBANK_NAME_CODE : item.FIRMBANK_NAME_CODE,
+                        FIRMBANK_NAME : item.FIRMBANK_NAME,
+                        FIRMBANK_ERROR_CODE : item.FIRMBANK_ERROR_CODE,
+                        FIRMBANK_ERROR_MESSAGE : item.FIRMBANK_ERROR_MESSAGE,
+                        FIRMBANK_NO : item.FIRMBANK_NO,
+                        FIRMBANK_FEE_AMT : item.FIRMBANK_FEE_AMT,
+                        FIRMBANK_CONFIRM_STATUS : item.FIRMBANK_CONFIRM_STATUS,
+                        FIRMBANK_DATE : item.FIRMBANK_DATE,
+                        TRAN_YN : item.TRAN_YN,
+                        PAY_GUBUN : item.PAY_GUBUN,
+                        FIRMBANK_SEND_YN : item.FIRMBANK_SEND_YN,
+                        FIRMBANK_SEND_DATE : item.FIRMBANK_SEND_DATE,
+                        FIRMBANK_RECEIVE_DATE : item.FIRMBANK_RECEIVE_DATE,
+                        FIRMBANK_SEND_USERID : item.FIRMBANK_SEND_USERID,
+                        BANK_ACCOUNT_HRP : item.BANK_ACCOUNT_HRP,
+                        BANK_ACCOUNT_REAL_HRP : item.BANK_ACCOUNT_REAL_HRP,
+                        PAY_NET_AMT_HRP : item.PAY_NET_AMT_HRP,
+                        PAY_MEMO : item.PAY_MEMO,
+                        PAY_SEQ : item.PAY_SEQ,
+                        APPR_ID : item.APPR_ID,
+                        REQUEST_EMP : item.REQUEST_EMP,
+                        BEFORE_APPR_EMP : item.BEFORE_APPR_EMP,
+                        NEXT_APPR_EMP : item.NEXT_APPR_EMP,
+                        BEFORE_PROXY_EMP : item.BEFORE_PROXY_EMP,
+                        NEXT_PROXY_EMP : item.NEXT_PROXY_EMP,
+                        CONFIRM_EMP_CODE : item.CONFIRM_EMP_CODE,
+                        PROXY_EMP_CODE : item.PROXY_EMP_CODE,
+                    }
+                    jsonTransferDetailList.push(msg);
+                });
+                gvwInfo.rebuild();
+
+                if (jsonTransferDetailList.length > 0) {
+                    gvwInfo.clickRow(1);
+                }
+
+                $("#btnSend").attr('disabled', 'false');
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

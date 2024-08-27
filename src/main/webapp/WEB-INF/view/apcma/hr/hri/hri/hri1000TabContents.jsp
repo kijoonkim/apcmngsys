@@ -74,7 +74,7 @@
                     <sbux-input id="FAMILY_REGISTER_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip1" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                    <sbux-button id="btnZip1" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('FAMILY_REGISTER')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="FAMILY_REGISTER_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -97,7 +97,7 @@
                     <sbux-input id="REGISTER_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip2" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                    <sbux-button id="btnZip2" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('REGISTER')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="REGISTER_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -124,7 +124,7 @@
                     <sbux-input id="EMERGENCY_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip3" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                    <sbux-button id="btnZip3" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('EMERGENCY')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="EMERGENCY_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -140,7 +140,7 @@
                     <sbux-input id="RESIDENCE_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger"></sbux-button>
+                    <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="검색" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('RESIDENCE')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="RESIDENCE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" required></sbux-input>
@@ -1560,6 +1560,8 @@
 </div>
 
 <script>
+    var addressLocation = ""
+
     function clearTabContents() {
         // 기본인적
         SBUxMethod.set("NATION_CODE", "");
@@ -4440,5 +4442,39 @@
             SBUxMethod.set("GUARANTOR2_ZIP_CODE", data.GUARANTOR2_ZIP_CODE);
             SBUxMethod.set("GUARANTOR2_ADDRESS", data.GUARANTOR2_ADDRESS);
         }
+    }
+
+    var fn_findAddress = function(id){
+        addressLocation = id;
+        w = 520;
+        h = 620;
+        LeftPosition = (screen.width) ? (screen.width - w) / 2 : 0;
+        TopPosition = (screen.height) ? (screen.height - h) / 2 : 0;
+
+        settings = "height=" + h
+            + ",width=" + w
+            + ",top=" + TopPosition
+            + ",left=" + LeftPosition
+            + ",scrollbars=yes, resizable=yes";
+        window.open( "/fm/popup/jusoPopup.do", "zipCodeSearchWin", settings );
+    }
+
+    var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
+        /*
+            roadFullAddr 전체 도로명주소
+            roadAddrPart1 도로명주소(참고항목 제외)
+            roadAddrPart2 도로명주소 참고항목
+            addrDetail 상세주소
+            engAddr 도로명 주소 영문
+            jibunAddr 지번 정보
+            zipNo 우편번호
+        */
+        if(addrDetail.length>30){
+            alert('상세주소가 너무 길어 다시 입력해야 합니다.');
+            return;
+        }
+
+        SBUxMethod.set(addressLocation+"_ZIP_CODE", zipNo);//우편번호
+        SBUxMethod.set(addressLocation+"_ADDRESS", roadFullAddr + " " + addrDetail);//도로명주소
     }
 </script>
