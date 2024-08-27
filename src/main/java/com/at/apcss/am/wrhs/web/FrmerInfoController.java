@@ -173,8 +173,8 @@ public class FrmerInfoController extends BaseController{
 	}
 
 	/**
-	 * 영농관리 - 재배농가품질 삭제
-	 * @param CltvtnFrmhsQltVO
+	 * 영농관리 - 재배이력 삭제
+	 * @param cltvtnHstryVO
 	 * @param request
 	 * @return HashMap<String, Object>
 	 * @throws Exception
@@ -190,6 +190,40 @@ public class FrmerInfoController extends BaseController{
 			cltvtnHstryVO.setSysLastChgUserId(getUserId());
 
 			HashMap<String, Object> rtnObj = frmerInfoService.deleteCltvtnHstry(cltvtnHstryVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 영농관리 - 재배농가품질 삭제
+	 * @param cltvtnFrmhsQltVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/deleteCltvtnFrmhsQlt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteCltvtnFrmhsQlt(@RequestBody CltvtnFrmhsQltVO cltvtnFrmhsQltVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			cltvtnFrmhsQltVO.setSysFrstInptPrgrmId(getPrgrmId());
+			cltvtnFrmhsQltVO.setSysFrstInptUserId(getUserId());
+			cltvtnFrmhsQltVO.setSysLastChgPrgrmId(getPrgrmId());
+			cltvtnFrmhsQltVO.setSysLastChgUserId(getUserId());
+
+			HashMap<String, Object> rtnObj = frmerInfoService.deleteCltvtnFrmhsQlt(cltvtnFrmhsQltVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
