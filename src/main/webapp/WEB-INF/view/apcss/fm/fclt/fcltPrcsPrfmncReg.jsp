@@ -625,8 +625,8 @@
 
 			// pagination
 			pagingYn : 'N',
-			currentPageNo : pageNo,
-			recordCountPerPage : pageSize
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
 		});
 
 		const data = await postJsonPromise;

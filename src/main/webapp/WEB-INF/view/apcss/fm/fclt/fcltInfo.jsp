@@ -653,10 +653,6 @@
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
 
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
-
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
 			crtrYr: crtrYr
 			, apcCd: apcCd

@@ -491,10 +491,6 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-input-crtrYr");
 
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
-
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
 			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
@@ -553,10 +549,6 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
-
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
@@ -588,10 +580,6 @@
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
-
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
 			crtrYr: crtrYr

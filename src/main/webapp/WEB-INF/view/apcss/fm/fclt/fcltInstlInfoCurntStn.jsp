@@ -296,11 +296,11 @@
 
 		var chk = {
 				trgtYr: trgtYr,
-	        	apcCd: apcCd,
-	        	// pagination
-		  		pagingYn : 'N',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+				apcCd: apcCd,
+				// pagination
+				//pagingYn : 'N',
+				//currentPageNo : pageNo,
+	 			//recordCountPerPage : pageSize
 
 		}
 		console.log('=============chk==================');
@@ -312,9 +312,9 @@
 			apcCd: apcCd,
         	trgtYr: trgtYr,
         	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
+	  		//pagingYn : 'N',
+			//currentPageNo : pageNo,
+ 		  	//recordCountPerPage : pageSize
         });
 		console.log("a11111111111111");
         const data = await postJsonPromise;

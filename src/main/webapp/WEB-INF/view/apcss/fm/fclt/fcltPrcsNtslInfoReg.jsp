@@ -487,10 +487,6 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
-
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
 			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);

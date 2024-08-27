@@ -40,7 +40,6 @@
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
-					<sbux-button id="btntest" name="btntest" uitype="normal" text="iframe test" class="btn btn-sm btn-primary" onclick="test"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -948,10 +947,6 @@
 			SBUxMethod.set("dtl-inp-apcBmno", buldMnnm);//APC 건물본번
 			SBUxMethod.set("dtl-inp-apcSlno", buldSlno);//APC 건물부번
 		}
-	}
-
-	function test() {
-		cfn_allTabPrgrsRefrash();
 	}
 
 </script>
