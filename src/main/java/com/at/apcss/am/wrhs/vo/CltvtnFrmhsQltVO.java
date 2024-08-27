@@ -52,7 +52,7 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 재배농가품질NO
 	 * */
-	private String cltvtnFrmhsQltNo ;
+	private String cltvtnFrmhsQltNo;
 	/*
 	 * 종자1수량
 	 * */
@@ -118,11 +118,11 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 작년평균망
 	 * */
-	private String lastYrEvl;
+	private int lastYrEvl;
 	/*
 	 * 변동갭
 	 * */
-	private String flctnDfrnc;
+	private int flctnDfrnc;
 	/*
 	 * 무선별
 	 * */
@@ -135,7 +135,7 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 단기
 	 * */
-	private String strm;
+	private int strm;
 	/*
 	 * 중기
 	 * */
@@ -196,5 +196,19 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	 * 저장특이사항
 	 * */
 	private String strgExcptnMttr;
+	/*
+	 * 연도
+	 * */
+	private String yr;
+	/*
+	 * 비고
+	 * */
+	private String rmrk;
+	/*
+	 * 부패율
+	 * */
+	private double strgRslt;
+
+
 
 }

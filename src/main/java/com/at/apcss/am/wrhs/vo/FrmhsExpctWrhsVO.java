@@ -99,6 +99,10 @@ public class FrmhsExpctWrhsVO extends ComVO {
      * */
     private String prchsCmptnYn;
     /*
+     * 연도
+     * */
+    private String yr;
+    /*
      * 비고
      * */
     private String rmrk;
