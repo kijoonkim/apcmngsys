@@ -56,23 +56,23 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 종자1수량
 	 * */
-	private int sdQntt1;
+	private String sdQntt1;
 	/*
 	 * 종자2수량
 	 * */
-	private int sdQntt2;
+	private String sdQntt2;
 	/*
 	 * 종자3수량
 	 * */
-	private int sdQntt3;
+	private String sdQntt3;
 	/*
 	 * 종자4수량
 	 * */
-	private int sdQntt4;
+	private String sdQntt4;
 	/*
 	 * 종자5수량
 	 * */
-	private int sdQntt5;
+	private String sdQntt5;
 	/*
 	 * 계약필지
 	 * */
@@ -208,6 +208,14 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	 * 부패율
 	 * */
 	private double strgRslt;
+	/*
+	 * 수매량
+	 * */
+	private int prchsQntt;
+	/*
+	 * 수매금액
+	 * */
+	private int prchsAmt;
 
 
 

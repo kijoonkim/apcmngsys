@@ -123,6 +123,7 @@
 		jsonId: 'jsonPrdcrPop',
 		areaId: "sb-area-grdPrdcrPop",
 		prvApcCd: "",
+		prvYr : "",
 		objGrid: null,
 		gridJson: [],
 		objMenuListPrdcrPop : {
@@ -133,9 +134,13 @@
 			}
 		},
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm, _latesFlag = false) {
+		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm, _latesFlag = false, _yr) {
 
 			excelYn = "N";
+
+			if (!gfn_isEmpty(_yr)) {
+				prvYr = _yr
+			}
 
 			// set param
 			SBUxMethod.set("prdcr-inp-apcCd", _apcCd);
@@ -453,7 +458,8 @@
 
 	        const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", {
 	        	apcCd: apcCd,
-	        	prdcrNm: prdcrNm
+	        	prdcrNm: prdcrNm,
+	        	yr : prvYr
 			});
 
 	        const data = await postJsonPromise;
@@ -484,8 +490,8 @@
 					    frmerno			: item.frmerno,
 					    admstOwnrRgdtAddr : item.admstOwnrRgdtAddr,
 					    mblTelno		: item.mblTelno,
-					    crtrArea		: item.crtrArea,
-					    plntngArea		: item.plntngArea,
+					    ctrtPrcl		: item.ctrtPrcl,
+					    plntngPrcl		: item.plntngPrcl,
 					    prchsQntt 		: item.prchsQntt,
 					    prchsAmt 		: item.prchsAmt,
 					    frmhsAddr		: item.frmhsAddr,

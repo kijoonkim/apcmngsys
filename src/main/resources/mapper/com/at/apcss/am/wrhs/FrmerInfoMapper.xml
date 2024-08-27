@@ -401,6 +401,10 @@
 			             , CQ.STRG_EXCPTN_MTTR  AS STRG_EXCPTN_MTTR
 			             , CQ.DEL_YN 			AS DEL_YN
 			             , CQ.RMRK				AS RMRK
+			             , CQ.STRG_RSLT         AS STRG_RSLT
+			             , CQ.RMRK              AS RMRK
+			             , CQ.PRCHS_QNTT        AS PRCHS_QNTT
+			             , CQ.PRCHS_AMT         AS PRCHS_AMT
 			          FROM TB_CLTVTN_FRMHS_QLT CQ
 			             , TB_PRDCR_INFO PI
 			         WHERE CQ.APC_CD = PI.APC_CD
@@ -475,6 +479,11 @@
 				 , PIC
 				 , GRDP_EXCPTN_MTTR
 				 , STRG_EXCPTN_MTTR
+				 , YR
+				 , STRG_RSLT
+				 , RMRK
+				 , PRCHS_QNTT
+				 , PRCHS_AMT
 				 , SYS_FRST_INPT_DT
 				 , SYS_FRST_INPT_USER_ID
 				 , SYS_FRST_INPT_PRGRM_ID
@@ -521,6 +530,11 @@
 				 , #{pic}
 				 , #{grdpExcptnMttr}
 				 , #{strgExcptnMttr}
+				 , TO_CHAR(SYSDATE, 'YYYY')
+				 , #{strgRslt}
+				 , #{rmrk}
+				 , #{prchsQntt}
+				 , #{prchsAmt}
 				 , SYSDATE
 				 , #{sysFrstInptUserId}
 				 , #{sysFrstInptPrgrmId}
@@ -579,6 +593,10 @@
 				 , PIC                      = #{pic}
 				 , GRDP_EXCPTN_MTTR         = #{grdpExcptnMttr}
 				 , STRG_EXCPTN_MTTR         = #{strgExcptnMttr}
+				 , STRG_RSLT				= #{strgRslt}
+				 , RMRK                     = #{rmrk}
+				 , PRCHS_QNTT               = #{prchsQntt}
+				 , PRCHS_AMT                = #{prchsAmt}
 				 , SYS_LAST_CHG_DT			= SYSDATE
 				 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 				 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -733,12 +751,12 @@
 					  FROM TB_PRDCR_INFO PI
 					     , TB_FRMHS_EXPCT_WRHS FW
 					     , TB_FRMHS_EXPCT_WRHS_DTL FWD
-					 WHERE PI.APC_CD = FW.APC_CD
-					   AND PI.PRDCR_CD = FW.PRDCR_CD
+					 WHERE PI.APC_CD(+) = FW.APC_CD
+					   AND PI.PRDCR_CD(+) = FW.PRDCR_CD
 					   AND FW.APC_CD = FWD.APC_CD
 					   AND FW.PRDCR_CD = FWD.PRDCR_CD
 					   AND FW.FRMHS_EXPCT_WRHS_NO = FWD.FRMHS_EXPCT_WRHS_NO
-					   AND PI.DEL_YN = 'N'
+					   AND PI.DEL_YN(+) = 'N'
 					   AND FW.DEL_YN = 'N'
 					   AND FWD.DEL_YN = 'N'
 		]]>

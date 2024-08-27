@@ -271,6 +271,10 @@ public class PrdcrVO extends ComVO {
 	private int prchsQntt;
 	private int prchsAmt;
 
+	private int ctrtPrcl;
+	private int plntngPrcl;
+	private String yr;
+
 	private List<PrdcrVO> prdcrList;
 
 	public List<PrdcrVO> getPrdcrList() {
@@ -280,4 +284,6 @@ public class PrdcrVO extends ComVO {
 	public void setPrdcrList(List<PrdcrVO> prdcrVO) {
 		this.prdcrList = prdcrList == null ? null : prdcrList.stream().collect(Collectors.toList());
 	}
+
+
 }

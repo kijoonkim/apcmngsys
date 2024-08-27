@@ -1060,10 +1060,11 @@ try{
  * @description  APC별 생산자 목록 가져오기
  * @function
  * @param {string} _apcCd		APC코드
+ * @param {string} _yr			연도
  * @returns {any[]}
  */
-const gfn_getPrdcrs = async function(_apcCd) {
-	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
+const gfn_getPrdcrs = async function(_apcCd, _yr) {
+	const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: _apcCd, yr: _yr, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 	const sourceJson = [];
 	data.resultList.forEach((item) => {
@@ -1086,8 +1087,8 @@ const gfn_getPrdcrs = async function(_apcCd) {
 				frmhsTelno:item.frmhsTelno,
 				frmhsCtpv:item.frmhsCtpv,
 				frmhsAddr:item.frmhsAddr,
-				crtrArea:item.crtrArea,
-				plntngArea:item.plntngArea,
+				ctrtPrcl:item.ctrtPrcl,
+				plntngPrcl:item.plntngPrcl,
 				prchsQntt:item.prchsQntt,
 				prchsAmt:item.prchsAmt,
 				frmerno:item.frmerno,

@@ -172,6 +172,38 @@
 			     , (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', PR.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', PR.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', PR.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+		]]>
+		<if test='yr != null and yr != ""'>
+				 , (SELECT CTRT_PRCL
+                      FROM TB_CLTVTN_FRMHS_QLT X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
+                       AND YR = #{yr}
+                   ) AS CTRT_PRCL
+                 , (SELECT PLNTNG_PRCL
+                      FROM TB_CLTVTN_FRMHS_QLT X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
+                       AND YR = #{yr}
+                   ) AS PLNTNG_PRCL
+                 , (SELECT PRCHS_QNTT
+                      FROM TB_CLTVTN_FRMHS_QLT X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
+                       AND YR = #{yr}
+                   ) AS PRCHS_QNTT
+                 , (SELECT PRCHS_AMT
+                      FROM TB_CLTVTN_FRMHS_QLT X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
+                       AND YR = #{yr}
+                   ) AS PRCHS_AMT
+		</if>
+		<![CDATA[
                  , PR.CRTR_AREA         AS CRTR_AREA
                  , PR.PLNTNG_AREA       AS PLNTNG_AREA
                  , PR.PRCHS_QNTT        AS PRCHS_QNTT
@@ -674,10 +706,6 @@
 				 , FRMHS_TELNO			= #{frmhsTelno}
 				 , FRMHS_CTPV           = #{frmhsCtpv}
 				 , FRMHS_ADDR           = #{frmhsAddr}
-				 , CRTR_AREA            = #{crtrArea}
-				 , PLNTNG_AREA          = #{plntngArea}
-				 , PRCHS_QNTT           = #{prchsQntt}
-				 , PRCHS_AMT            = #{prchsAmt}
 			 WHERE APC_CD 				= #{apcCd}
 			   AND PRDCR_CD 			= #{prdcrCd}
     	]]>
