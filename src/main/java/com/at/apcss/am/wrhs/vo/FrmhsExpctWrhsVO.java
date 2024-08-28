@@ -33,6 +33,7 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	 * 생산자코드
 	 * */
 	private String prdcrCd;
+	private String prdcrNm;
 	/*
 	 * 대표품목코드
 	 * */
@@ -57,7 +58,7 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	/*
 	 * 농가계약면적
 	 * */
-	private int plntngArea;
+	private int plntngPrcl;
 	/*
 	 * 농가예상입고번호
 	 * */

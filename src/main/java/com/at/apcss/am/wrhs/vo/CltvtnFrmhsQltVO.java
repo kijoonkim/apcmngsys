@@ -56,31 +56,31 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 종자1수량
 	 * */
-	private String sdQntt1;
+	private int sdQntt1;
 	/*
 	 * 종자2수량
 	 * */
-	private String sdQntt2;
+	private int sdQntt2;
 	/*
 	 * 종자3수량
 	 * */
-	private String sdQntt3;
+	private int sdQntt3;
 	/*
 	 * 종자4수량
 	 * */
-	private String sdQntt4;
+	private int sdQntt4;
 	/*
 	 * 종자5수량
 	 * */
-	private String sdQntt5;
+	private int sdQntt5;
 	/*
 	 * 계약필지
 	 * */
-	private String ctrtPrcl;
+	private int ctrtPrcl;
 	/*
 	 * 정식필지
 	 * */
-	private String plntngPrcl;
+	private int plntngPrcl;
 	/*
 	 * 파종일자
 	 * */
@@ -139,15 +139,15 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 중기
 	 * */
-	private String tmidlTerm;
+	private int tmidlTerm;
 	/*
 	 * 장기
 	 * */
-	private String ltrm;
+	private int ltrm;
 	/*
 	 * 차이
 	 * */
-	private String dfrnc;
+	private int dfrnc;
 	/*
 	 * 토양
 	 * */
