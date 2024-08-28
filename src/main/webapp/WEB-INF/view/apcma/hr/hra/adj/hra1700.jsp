@@ -184,7 +184,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div id="sb-area-gvwList" style="height:800px; width:100%;"></div>
+                    <div id="sb-area-gvwInfo" style="height:800px; width:100%;"></div>
                 </div>
             </div>
 
@@ -2240,7 +2240,7 @@
 
     function cfn_search() {
 
-        fn_search();
+        fn_search('LIST');
 
 
     }
@@ -2329,11 +2329,12 @@
     /**
      * 목록 조회
      */
-    const fn_search = async function (strWorkType, emp_code) {
+    const fn_search = async function (strWorkType) {
 
         let stremp_code = '';
 
         let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
+        let YE_TX_TYPE           = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
         let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
         let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
         let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
@@ -2351,13 +2352,22 @@
             ,V_P_COMP_CODE: gv_ma_selectedApcCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            ,V_P_YE_TX_YYYY     : YE_TX_YYYY
+          /*  ,V_P_YE_TX_YYYY     : YE_TX_YYYY
+            ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
             ,V_P_SITE_CODE      : SITE_CODE
             ,V_P_DEPT_CODE      : DEPT_CODE
             ,V_P_EMP_CODE       : EMP_CODE
             ,V_P_EMP_STATE      : EMP_STATE
             ,V_P_EMP_CODE_LIST  : stremp_code
-            ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE
+            ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE*/
+
+            ,V_P_YE_TX_YYYY       : YE_TX_YYYY
+            ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
+            ,V_P_SITE_CODE        : SITE_CODE
+            ,V_P_DEPT_CODE        : DEPT_CODE
+            ,V_P_EMP_CODE         : EMP_CODE
+            ,V_P_PAY_AREA_TYPE    : PAY_AREA_TYPE
+
 
             ,V_P_FORM_ID: p_formId
             ,V_P_MENU_ID: p_menuId
@@ -2367,10 +2377,10 @@
         };
         console.log('paramObj:', paramObj);
 
-        const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1700List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hra/adj/selecthra1900List.do", {
             getType				: 'json',
             workType			: strWorkType,
-            cv_count			: '7',
+            cv_count			: '3',
             params				: gfnma_objectToString(paramObj)
         });
 
@@ -2386,13 +2396,13 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHK_YN 			                : gfnma_nvl(item.CHK_YN)
-                        , SITE_CODE 			        : gfnma_nvl(item.SITE_CODE)
-                        , EMP_STATE 			        : gfnma_nvl(item.EMP_STATE)
-                        , DEPT_CODE 			        : gfnma_nvl(item.DEPT_CODE)
-                        , DEPT_NAME 			        : gfnma_nvl(item.DEPT_NAME)
-                        , EMP_CODE 			            : gfnma_nvl(item.EMP_CODE)
-                        , EMP_NAME 			            : gfnma_nvl(item.EMP_NAME)
+                        EMP_CODE 			                : gfnma_nvl(item.EMP_CODE)
+                        ,EMP_NAME 			                : gfnma_nvl(item.EMP_NAME)
+                        ,SITE_CODE 			                : gfnma_nvl(item.SITE_CODE)
+                        ,DEPT_CODE 			                : gfnma_nvl(item.DEPT_CODE)
+                        ,DEPT_NAME 			                : gfnma_nvl(item.DEPT_NAME)
+                        ,PAY_APPLY_YN 			                : gfnma_nvl(item.PAY_APPLY_YN)
+                        ,PAY_APPLY_MM 			                : gfnma_nvl(item.PAY_APPLY_MM)
 
                     }
                     jsonInfoList.push(msg);
