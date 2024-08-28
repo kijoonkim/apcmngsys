@@ -1032,7 +1032,7 @@
 
             if (listData.length > 0) {
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", {listData: listData});
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200.do", {listData: listData});
                 const data = await postJsonPromise;
 
                 try {
@@ -1210,7 +1210,7 @@
 
             if (listData.length > 0) {
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", {listData: listData});
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200.do", {listData: listData});
                 const data = await postJsonPromise;
 
                 try {

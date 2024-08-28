@@ -38,7 +38,7 @@ public class ApcMaHrp2310Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
-    // 간이세액조건표 정보 조회
+    // 급상여 조정 정보 조회
     @PostMapping(value = "/hr/hrp/pay/selectHrp2310List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrp2310List(
             @RequestBody Map<String, Object> param
@@ -64,7 +64,7 @@ public class ApcMaHrp2310Controller extends BaseController {
 
     }
 
-    // 퇴직자 정산세액 반영
+    // 급상여 조정 정보
     @PostMapping(value = "/hr/hrp/pay/insertHrp2310.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrp2310(
             @RequestBody Map<String, Object> param

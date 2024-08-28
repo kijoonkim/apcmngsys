@@ -68,7 +68,7 @@ public class ApcMaSys3200Controller extends BaseController {
     }
 
     // 관리번호 채번 정보 (History) 조회
-    @PostMapping(value = "/co/sys/sys/selectSys3200HisList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+   /* @PostMapping(value = "/co/sys/sys/selectSys3200HisList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectSys3200HisList(
             @RequestBody Map<String, Object> param
             , Model model
@@ -90,7 +90,7 @@ public class ApcMaSys3200Controller extends BaseController {
 
         logger.info("=============selectSys3200HisList=====end========");
         return getSuccessResponseEntityMa(resultMap);
-    }
+    }*/
 
     // 관리번호 채번 정보 저장
     @PostMapping(value = "/co/sys/sys/insertSys3200.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
@@ -142,14 +142,14 @@ public class ApcMaSys3200Controller extends BaseController {
 
 
     // 관리번호 채번 정보 신규 등록
-    @PostMapping(value = "/co/sys/sys/insert3200Sample.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insert3200Sample(
+    @PostMapping(value = "/co/sys/sys/insertSys3200Sample.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertSys3200Sample(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception {
 
-        logger.info("=============insert3200Sample=====start========");
+        logger.info("=============insertSys3200Sample=====start========");
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
@@ -161,7 +161,7 @@ public class ApcMaSys3200Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============insert3200Sample=====end========");
+        logger.info("=============insertSys3200Sample=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
     }

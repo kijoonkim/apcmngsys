@@ -890,7 +890,7 @@
 
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5000.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5000.do", {
             getType: 'json',
             workType: workType,
             cv_count: '0',
@@ -929,7 +929,7 @@
         listData =  await getParamFormS1(updateData);
 
         if (listData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5000S1.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5000S1.do", {listData: listData});
 
             const data = await postJsonPromise;
 
@@ -1004,7 +1004,7 @@
         listData =  await getParamFormS2(updateData);
 
         if (listData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5000S2.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5000S2.do", {listData: listData});
 
             const data = await postJsonPromise;
 
@@ -1078,7 +1078,7 @@
         listData =  await getParamFormS3(updateData);
 
         if (listData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5000S3.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5000S3.do", {listData: listData});
 
             const data = await postJsonPromise;
 
@@ -1184,7 +1184,7 @@
 
             };
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5000.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5000.do", {
                 getType: 'json',
                 workType: 'D',
                 cv_count: '0',
@@ -1278,7 +1278,7 @@
             };
 
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insert5000.do", {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5000.do", {
                 getType: 'json',
                 workType: 'BEFORE',
                 cv_count: '0',

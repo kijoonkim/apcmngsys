@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
-     * @Description       :  급여대장( 급여명세서 일괄출력 ) 정보 화면
+     * @Class Name        : hrp2510.jsp
+     * @Description       :  개인 기간별 조회 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.08
      * @version           : 1.0
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 급여대장</title>
+    <title>title : 개인 기간별 조회</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
 

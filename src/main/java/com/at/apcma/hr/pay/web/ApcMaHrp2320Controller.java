@@ -65,4 +65,108 @@ public class ApcMaHrp2320Controller extends BaseController {
 
     }
 
+    //급여계산취소버튼을 실행
+    @PostMapping(value = "/hr/hrp/pay/insertHrp2320BAT.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp2320BAT(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrp2320BAT=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "P_HRP2320_BAT");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrp2320BAT=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+    //급여계산버튼을 실행
+    @PostMapping(value = "/hr/hrp/pay/insertHrp2320CHK.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp2320CHK(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrp2320CHK=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "P_HRP2320_CHECK");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrp2320CHK=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+    //퇴직자정산 일괄실행, 일괄취소
+    @PostMapping(value = "/hr/hrp/pay/insertHrp2320RETI.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp2320RETI(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrp2320RETI=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "P_HRP2320_RETI_BAT");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrp2320RETI=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+    //소급반영 소급취소 실행
+    @PostMapping(value = "/hr/hrp/pay/insertHrp2320CRE.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp2320CRE(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrp2320CRE=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", "P_HRP2320_CHANGE_CREATE");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrp2320CRE=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
 }
