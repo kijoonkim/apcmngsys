@@ -117,7 +117,32 @@
 								autocomplete="off"
 							></sbux-input>
 						</td>
-						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -408,6 +433,11 @@
 			</table>
 			</div>
 				<div><label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label></div>
+				<div class="" style="display:flex; justify-content: flex-start;" >
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				</div>
+			</div>
 			</div>
 			<!--[pp] //검색결과 -->
 		</div>
