@@ -33,15 +33,27 @@
 						<col style="width: 22%">
 						<col style="width: 11%">
 						<col style="width: 22%">
-						<col style="width: auto">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">품목명</th>
-							<th colspan="2">
+							<td>
 								<sbux-input id="item-inp-itemNm" name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_itemSelectEnterKey"></sbux-input>
-							</th>
-							<th colspan="2"></th>
+							</td>
+							<!--
+							<th colspan="1"></th>
+							-->
+							<th scope="row">부류</th>
+							<td>
+								<sbux-select
+									id="item-inp-srchLclsfCd"
+									name="item-inp-srchLclsfCd"
+									uitype="single"
+									jsondata-ref="jsonComItemSrchLclsfCd"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -72,10 +84,13 @@
 
 	var grdItemPop = null;
 	var jsonItemPop = [];
+	var jsonComItemSrchLclsfCd = [];
 	var itemSn;
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
+
+
 	const popItemSelect = {
 		prgrmId: 'itemPopup',
 		modalId: 'modal-itemSelect',
@@ -88,6 +103,12 @@
 		callbackFnc: function() {},
 		init: async function(_itemSn,_callbackFnc) {
 			console.log("========init===========");
+
+			if (grdItemPop == null) {
+				//부류
+				await gfn_setComCdSBSelect('item-inp-srchLclsfCd', jsonComItemSrchLclsfCd, 'SRCH_LCLSF_CD');
+			}
+
 			itemSn = _itemSn;
 			SBUxMethod.hide('btnEditItem');
 			SBUxMethod.hide('btnCancelItem');
