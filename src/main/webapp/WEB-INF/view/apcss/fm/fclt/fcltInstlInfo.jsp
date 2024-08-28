@@ -41,7 +41,11 @@
 				<!--
 				<sbux-button id="btnPop2" name="btnPop2" uitype="modal" target-id="modal-biz" onclick="fn_openMaodalBiz" text="지원사업관리" class="btn btn-sm btn-primary"></sbux-button>
 				<sbux-button id="btnPop3" name="btnPop3" uitype="modal" target-id="modal-bizSrch" onclick="fn_openMaodalBizSrch" text="지원사업검색" class="btn btn-sm btn-primary"></sbux-button>
-				 -->
+				-->
+				<!--
+				<sbux-button id="btnDown" name="btnDown" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-primary" onclick="fn_down"></sbux-button>
+				<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="엑셀업로드" class="btn btn-sm btn-primary" onclick="fn_upload"></sbux-button>
+				-->
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
@@ -123,7 +127,32 @@
 								autocomplete="off"
 							></sbux-input>
 						</td>
-						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -154,6 +183,10 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
+						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="엑셀다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_down"></sbux-button>
+						&nbsp;
+						<sbux-button id="btn_upload" name="btn_upload" uitype="normal" text="엑셀업로드" class="btn btn-xs btn-outline-danger" onclick="fn_upload"></sbux-button>
+						&nbsp;
 						<sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-xs btn-outline-danger" onclick="fn_addRow"></sbux-button>
 						&nbsp;
 						<sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-xs btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
@@ -296,8 +329,9 @@
 			{caption: ["지원유형","지원유형"],				ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
 				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 			{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
-					,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
-			{caption: ["사업명","사업명"],				ref: 'bizNm',		type:'input',  width:'400px',    style:'text-align:center'},
+				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
+			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
+				ref: 'bizNm',		type:'input',  width:'435px',    style:'text-align:center'},
 			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'

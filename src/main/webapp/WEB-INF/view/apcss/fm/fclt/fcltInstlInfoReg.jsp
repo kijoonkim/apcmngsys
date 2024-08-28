@@ -91,6 +91,10 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
+						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="엑셀다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_down"></sbux-button>
+						&nbsp;
+						<sbux-button id="btn_upload" name="btn_upload" uitype="normal" text="엑셀업로드" class="btn btn-xs btn-outline-danger" onclick="fn_upload"></sbux-button>
+						&nbsp;
 						<sbux-button id="btn_add" name="btn_add" uitype="normal" text="행추가" class="btn btn-xs btn-outline-danger" onclick="fn_addRow"></sbux-button>
 						&nbsp;
 						<sbux-button id="btn_del" name="btn_del" uitype="normal" text="행삭제" class="btn btn-xs btn-outline-danger" onclick="fn_deleteRow"></sbux-button>
@@ -239,8 +243,9 @@
 			{caption: ["지원유형","지원유형"],				ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
 				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 			{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
-					,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
-			{caption: ["사업명","사업명"],				ref: 'bizNm',		type:'input',  width:'400px',    style:'text-align:center'},
+				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
+			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
+				ref: 'bizNm',		type:'input',  width:'435px',    style:'text-align:center'},
 			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'
