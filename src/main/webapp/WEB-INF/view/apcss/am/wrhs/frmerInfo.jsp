@@ -592,16 +592,8 @@
 		SBGridProperties.contextmenulist = objMenuListFrmhsQlt;	// 우클릭 메뉴 리스트
 	    SBGridProperties.columns = [
 
-	    	{caption : ["처리", "처리"], 	ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowQlt(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowQlt(\"DEL\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
-		    {caption: ['농가명', 	'농가명'], 		ref: 'prdcrCd', 	type: 'inputcombo', 	width: '120px', style: 'text-align:center', sortable: false,
-				typeinfo: {ref:'jsonGrdPrdcr', 		label:'label', value:'value', itemcount: 10}},
-		    {caption : ['지역', 	'지역'], 		ref: 'frmhsCtpv', type: 'output', 	width: '80px', style: 'text-align:center'},
+		    {caption : ['농가명', 	'농가명'], 		ref: 'prdcrNm', 	type: 'output', 	width: '120px', style: 'text-align:center'},
+		    {caption : ['지역', 	'지역'], 		ref: 'frmhsCtpv', 	type: 'output', 	width: '80px', 	style: 'text-align:center'},
 		    {caption : ['상세주소', '상세주소'], 	ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:rigth'},
 		    {caption : ['연락처', 	'연락처'], 		ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
 		    	format : {type:'string', rule:'000-0000-0000'}},
@@ -661,12 +653,11 @@
 			{caption : ['병충해', 	'균핵병'], 		ref: 'pestYn2', 	type: 'input', 		width: '100px', style: 'text-align:center'},
 			{caption : ['병충해', 	'습해'], 		ref: 'pestYn3', 	type: 'input', 		width: '100px', style: 'text-align:center'},
 			{caption : ['담당자', 	'담당자'], 		ref: 'pic', 		type: 'input', 		width: '100px', style: 'text-align:center'},
-        	{caption : ['생육 특이사항', '생육 특이사항'], 	ref: 'grdpExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:center'},
-        	{caption : ['저장 특이사항', '저장 특이사항'], 	ref: 'strgExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:center'},
+        	{caption : ['생육 특이사항', '생육 특이사항'], 	ref: 'grdpExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:left'},
+        	{caption : ['저장 특이사항', '저장 특이사항'], 	ref: 'strgExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:left'},
         	{caption : ['비고', '비고'], 	ref: 'rmrk', 	type: 'input', 	width: '200px', style: 'text-align:left', typeinfo : {maxlength : 300}},
 	    ];
 	    grdCltvtnFrmhsQlt = _SBGrid.create(SBGridProperties);
-	    grdCltvtnFrmhsQlt.bind('valuechanged', 'fn_grdValueChanged');
 	}
 
 	const fn_frmhsExpctWrhs = function () {
@@ -687,16 +678,8 @@
 		SBGridProperties.contextmenulist = objMenuListExpctWrhs;	// 우클릭 메뉴 리스트
 
 	    const columns = [
-	    	{caption : ['처리'], 			ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(strValue== null || strValue == ""){
-	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowExpct(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
-	        	}else{
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowExpct(\"DEL\", " + nRow + ")'>삭제</button>";
-	        	}
-		    }},
-		    {caption: ['농가명'], 			ref: 'prdcrCd', 	type: 'inputcombo', 	width: '120px', style: 'text-align:center', sortable: false,
-				typeinfo: {ref:'jsonGrdPrdcr', 	label:'label', value:'value', itemcount: 10}},
-		    {caption : ['지역'], 			ref: 'frmhsCtpv', 	type: 'output', 	width: '80px', style: 'text-align:center'},
+		    {caption : ['농가명'], 			ref: 'prdcrNm', 	type: 'output', 	width: '120px', style: 'text-align:center'},
+		    {caption : ['지역'], 			ref: 'frmhsCtpv', 	type: 'output', 	width: '80px', 	style: 'text-align:center'},
 		    {caption : ['상세주소'], 		ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:rigth'},
 		    {caption : ['연락처'], 			ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
 		    	format : {type:'string', rule:'000-0000-0000'}},
@@ -704,13 +687,12 @@
 				typeinfo: {ref:'jsonGrdHdofcExtrnlSe', 	label:'label', value:'value', itemcount: 10}},
 		    {caption : ['외부창고명'], 		ref: 'extrnlWarehouseSeCd', type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonGrdExtrnlWarehouseSe', 	label:'label', value:'value', itemcount: 10}},
-			{caption : ['수확일자'], 		ref: 'hrvstYmd', 	type: 'input', 		width: '80px', style:'text-align: right',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['정식면적(평)'], 	ref: 'plntngArea', 	type: 'output', 	width: '80px', style:'text-align: right',
+			{caption : ['수확일자'], 		ref: 'hrvstYmd', 	type : 'input', 	width: '100px', style:'text-align:center'},
+			{caption : ['정식면적(평)'], 	ref: 'plntngPrcl', 	type: 'output', 	width: '80px', style:'text-align: right',
 				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 			{caption : ['예상량(망)'], 		ref: 'expctNet', 	type: 'input', 		width: '80px', style:'text-align: right',
 				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['일자합계'], 		ref: 'tot', 		type: 'input', 		width: '80px', style:'text-align: right',
+			{caption : ['일자합계'], 		ref: 'tot', 		type: 'output', 	width: '80px', style:'text-align: right',
 				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 			{caption : ['기준연월'], 		ref: 'crtrYm', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {calendartype: 'yearmonth', gotoCurrentClick: true, clearbutton: true}},
@@ -745,7 +727,6 @@
 
 	    SBGridProperties.columns = columns;
 	    grdFrmhsExpctWrhs = _SBGrid.create(SBGridProperties);
-	    grdFrmhsExpctWrhs.bind('valuechanged', 'fn_grdValueChanged');
 
 	}
 
@@ -761,7 +742,7 @@
         },
     };
 
-    // 엑셀 다운로드
+    // 엑셀 다운로드 (재배농가품질)
     function fn_excelDwnldFrmhsQlt() {
 
     	if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")){
@@ -784,7 +765,7 @@
         },
     };
 
-    // 엑셀 다운로드
+    // 엑셀 다운로드(농가예상입고)
     function fn_excelDwnldExpctWrhs() {
 
     	if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")){
@@ -811,6 +792,12 @@
 
 	}
 
+	/**
+     * @name frmidMapPopup
+     * @description 그리드 팝맵 팝업 띄우기
+     * @param event
+     * @return (String)
+     */
 	const frmidMapPopup = async function(item){
 		if (gfn_isEmpty(item.delYn)) {
 			gfn_comAlert("E0000", "추가 후 사용해 주세요." ) // E0000 {0}
@@ -820,6 +807,12 @@
 		popFramldMap.init(gv_selectedApcCd, item.stdgCd, item.frlnMno, item.frlnSno);
 	}
 
+	/**
+     * @name fn_imagePop
+     * @description 그리드 사진 팝업 띄우기
+     * @param (String)
+     * @return
+     */
 	const fn_imagePop = function (nRow) {
 
 		let rowData = grdCltvtnHstry.getRowData(nRow);
@@ -831,6 +824,12 @@
 
 	}
 
+	/**
+     * @name fn_fileSelect
+     * @description 그리드 파일 업로드 검사 및 정보 셋팅
+     * @param event
+     * @return
+     */
 	const fn_fileSelect = function (event) {
 
 		// event.target을 사용하여 파일 선택 input 요소를 참조합니다.
@@ -884,6 +883,12 @@
 
 	}
 
+	/**
+     * @name fn_fileUpload
+     * @description 그리드 파일 업로드 이벤트
+     * @param {String}
+     * @return (String)
+     */
 	const fn_fileUpload = function (nRow) {
 
 		let fileId = 'inp-file-' + nRow;
@@ -1074,6 +1079,11 @@
 
     	let yr = SBUxMethod.get("srch-dtp-yr");
 
+    	if (gfn_isEmpty(yr)) {
+  			gfn_comAlert("W0001", "연도");				//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+
 		const param = {
 			apcCd: gv_selectedApcCd,
 			prdcrCd: prdcrCdDtl,
@@ -1091,7 +1101,60 @@
 
 	        data.resultList.forEach((item, index) => {
 
-	        	const cltvtnFrmhsQltVO = item;
+	        	const cltvtnFrmhsQltVO = {
+	        			apcCd				: item.apcCd
+	   	        	  , prdcrCd             : item.prdcrCd
+	   	        	  , prdcrNm             : item.prdcrNm
+	   	        	  , frmhsCtpv           : item.frmhsCtpv
+	   	        	  , frmhsAddr           : item.frmhsAddr
+	   	        	  , strgRslt            : item.strgRslt
+	   	        	  , yr                  : item.yr
+	   	        	  , frmhsTelno          : item.frmhsTelno
+	   	        	  , cltvtnFrmhsQltNo    : item.cltvtnFrmhsQltNo
+	   	        	  , sdQntt1             : fn_zero(item.sdQntt1)
+	   	        	  , sdQntt2             : fn_zero(item.sdQntt2)
+	   	        	  , sdQntt3             : fn_zero(item.sdQntt3)
+	   	        	  , sdQntt4             : fn_zero(item.sdQntt4)
+	   	        	  , sdQntt5             : fn_zero(item.sdQntt5)
+	   	        	  , ctrtPrcl            : fn_zero(item.ctrtPrcl)
+	   	        	  , plntngPrcl          : fn_zero(item.plntngPrcl)
+	   	        	  , sdngYmd             : item.sdngYmd
+	   	        	  , sdngSttsCd          : item.sdngSttsCd
+	   	        	  , plntngYmd           : item.plntngYmd
+	   	        	  , plntngSttsCd        : item.plntngSttsCd
+	   	        	  , cmptYmdCycl1        : item.cmptYmdCycl1
+	   	        	  , cmptYmdCycl2        : item.cmptYmdCycl2
+	   	        	  , expctNet            : item.expctNet
+	   	        	  , qltEvl              : item.qltEvl
+	   	        	  , lastYrEvl           : fn_zero(item.lastYrEvl)
+	   	        	  , flctnDfrnc          : fn_zero(item.flctnDfrnc)
+	   	        	  , emptSort            : item.emptSort
+	   	        	  , meshSeCd            : item.meshSeCd
+	   	        	  , strm                : fn_zero(item.strm)
+	   	        	  , tmidlTerm           : fn_zero(item.tmidlTerm)
+	   	        	  , ltrm                : fn_zero(item.ltrm)
+	   	        	  , dfrnc               : fn_zero(item.dfrnc)
+	   	        	  , soil                : item.soil
+	   	        	  , cmpt                : item.cmpt
+	   	        	  , etc                 : item.etc
+	   	        	  , pestCd1             : item.pestCd1
+	   	        	  , pestCd2             : item.pestCd2
+	   	        	  , pestCd3             : item.pestCd3
+	   	        	  , pestYn1             : item.pestYn1
+	   	        	  , pestYn2             : item.pestYn2
+	   	        	  , pestYn3             : item.pestYn3
+	   	        	  , pic                 : item.pic
+	   	        	  , grdpExcptnMttr      : item.grdpExcptnMttr
+	   	        	  , strgExcptnMttr      : item.strgExcptnMttr
+	   	        	  , delYn               : item.delYn
+	   	        	  , rmrk                : item.rmrk
+	   	        	  , strgRslt            : fn_zero(item.strgRslt)
+	   	        	  , prchsQntt           : fn_zero(item.prchsQntt)
+	   	        	  , prchsAmt            : fn_zero(item.prchsAmt)
+	   	        	  , plntngSttsNm        : item.plntngSttsNm
+	   	        	  , sdngSttsNm          : item.sdngSttsNm
+	   	        	  , meshSeNm            : item.meshSeNm
+	        	}
 	        	jsonCltvtnFrmhsQltPrdcr.push(cltvtnFrmhsQltVO);
 	        });
 
@@ -1249,6 +1312,12 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
     	let itemCd = SBUxMethod.get("srch-slt-itemCd");
     	let yr = SBUxMethod.get("srch-dtp-yr");
+
+    	if (gfn_isEmpty(yr)) {
+  			gfn_comAlert("W0001", "연도");				//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
+
  		const param = {
  			apcCd		: gv_selectedApcCd
  		  , prdcrCd		: prdcrCd
@@ -1267,18 +1336,66 @@
 
  	        data.resultList.forEach((item, index) => {
 
- 	        	const cltvtnFrmhsQltVO = item;
+ 	        	const cltvtnFrmhsQltVO = {
+
+ 	        		apcCd				: item.apcCd
+ 	        	  , prdcrCd             : item.prdcrCd
+ 	        	  , prdcrNm             : item.prdcrNm
+ 	        	  , frmhsCtpv           : item.frmhsCtpv
+ 	        	  , frmhsAddr           : item.frmhsAddr
+ 	        	  , strgRslt            : item.strgRslt
+ 	        	  , yr                  : item.yr
+ 	        	  , frmhsTelno          : item.frmhsTelno
+ 	        	  , cltvtnFrmhsQltNo    : item.cltvtnFrmhsQltNo
+ 	        	  , sdQntt1             : fn_zero(item.sdQntt1)
+ 	        	  , sdQntt2             : fn_zero(item.sdQntt2)
+ 	        	  , sdQntt3             : fn_zero(item.sdQntt3)
+ 	        	  , sdQntt4             : fn_zero(item.sdQntt4)
+ 	        	  , sdQntt5             : fn_zero(item.sdQntt5)
+ 	        	  , ctrtPrcl            : fn_zero(item.ctrtPrcl)
+ 	        	  , plntngPrcl          : fn_zero(item.plntngPrcl)
+ 	        	  , sdngYmd             : item.sdngYmd
+ 	        	  , sdngSttsCd          : item.sdngSttsCd
+ 	        	  , plntngYmd           : item.plntngYmd
+ 	        	  , plntngSttsCd        : item.plntngSttsCd
+ 	        	  , cmptYmdCycl1        : item.cmptYmdCycl1
+ 	        	  , cmptYmdCycl2        : item.cmptYmdCycl2
+ 	        	  , expctNet            : item.expctNet
+ 	        	  , qltEvl              : item.qltEvl
+ 	        	  , lastYrEvl           : fn_zero(item.lastYrEvl)
+ 	        	  , flctnDfrnc          : fn_zero(item.flctnDfrnc)
+ 	        	  , emptSort            : item.emptSort
+ 	        	  , meshSeCd            : item.meshSeCd
+ 	        	  , strm                : fn_zero(item.strm)
+ 	        	  , tmidlTerm           : fn_zero(item.tmidlTerm)
+ 	        	  , ltrm                : fn_zero(item.ltrm)
+ 	        	  , dfrnc               : fn_zero(item.dfrnc)
+ 	        	  , soil                : item.soil
+ 	        	  , cmpt                : item.cmpt
+ 	        	  , etc                 : item.etc
+ 	        	  , pestCd1             : item.pestCd1
+ 	        	  , pestCd2             : item.pestCd2
+ 	        	  , pestCd3             : item.pestCd3
+ 	        	  , pestYn1             : item.pestYn1
+ 	        	  , pestYn2             : item.pestYn2
+ 	        	  , pestYn3             : item.pestYn3
+ 	        	  , pic                 : item.pic
+ 	        	  , grdpExcptnMttr      : item.grdpExcptnMttr
+ 	        	  , strgExcptnMttr      : item.strgExcptnMttr
+ 	        	  , delYn               : item.delYn
+ 	        	  , rmrk                : item.rmrk
+ 	        	  , strgRslt            : fn_zero(item.strgRslt)
+ 	        	  , prchsQntt           : fn_zero(item.prchsQntt)
+ 	        	  , prchsAmt            : fn_zero(item.prchsAmt)
+ 	        	  , plntngSttsNm        : item.plntngSttsNm
+ 	        	  , sdngSttsNm          : item.sdngSttsNm
+ 	        	  , meshSeNm            : item.meshSeNm
+
+ 	        	}
  	        	jsonCltvtnFrmhsQlt.push(cltvtnFrmhsQltVO);
  	        });
 
  	        grdCltvtnFrmhsQlt.rebuild();
-
-			grdCltvtnFrmhsQlt.addRow(true);
-
-			grdCltvtnFrmhsQlt.setCellDisabled(0, 0, grdCltvtnFrmhsQlt.getRows() -1, grdCltvtnFrmhsQlt.getCols() -1, false);
-			grdCltvtnFrmhsQlt.setCellDisabled(grdCltvtnFrmhsQlt.getRows() -1, 0, grdCltvtnFrmhsQlt.getRows() -1, grdCltvtnFrmhsQlt.getCols() -1, true);
-
-			grdCltvtnFrmhsQlt.setCellDisabled(0, 0, grdCltvtnFrmhsQlt.getRows() -1, 1, true);
 
  		} catch (e) {
  			if (!(e instanceof Error)) {
@@ -1292,6 +1409,11 @@
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
     	let itemCd = SBUxMethod.get("srch-slt-itemCd");
     	let yr = SBUxMethod.get("srch-dtp-yr");
+
+    	if (gfn_isEmpty(yr)) {
+  			gfn_comAlert("W0001", "연도");				//	W0002	{0}을/를 선택하세요.
+            return;
+  		}
 
  		const param = {
  			apcCd		: gv_selectedApcCd
@@ -1308,26 +1430,28 @@
  						false
  					);
  	        const data = await postJsonPromise;
+
  	        data.resultList.forEach((item, index) => {
 
  	        	const frmhsExpctWrhsVO = {
  	        			apcCd 				: item.apcCd
  	        		  , prdcrCd 			: item.prdcrCd
+ 	        		  , prdcrNm				: item.prdcrNm
  	        		  , crtrYm	            : item.crtrYm
  	        		  , rprsItemCd	        : item.rprsItemCd
  	        		  , rprsVrtyCd	        : item.rprsVrtyCd
  	        		  , frmhsAddr	        : item.frmhsAddr
  	        		  , frmhsCtpv	        : item.frmhsCtpv
  	        		  , frmhsTelno          : item.frmhsTelno
- 	        		  , plntngArea          : item.plntngArea
+ 	        		  , plntngPrcl          : fn_zero(item.plntngPrcl)
  	        		  , frmhsExpctWrhsNo    : item.frmhsExpctWrhsNo
  	        		  , hdofcExtrnlSeCd     : item.hdofcExtrnlSeCd
  	        		  , extrnlWarehouseCd   : item.extrnlWarehouseCd
  	        		  , hrvstYmd            : item.hrvstYmd
- 	        		  , expctNet            : item.expctNet
+ 	        		  , expctNet            : fn_zero(item.expctNet)
  	        		  , lastStrgSeCd        : item.lastStrgSeCd
  	        		  , pic                 : item.pic
- 	        		  , expctVlmVrss        : item.expctVlmVrss
+ 	        		  , expctVlmVrss        : fn_zero(item.expctVlmVrss)
  	        		  , prchsCmptnYn        : item.prchsCmptnYn
  	        		  , rmrk                : item.rmrk
  	        		  , delYn               : item.delYn
@@ -1340,48 +1464,35 @@
  	        		  , ymd7Qntt            : fn_zero(item.ymd7Qntt)
  	        		  , ymd8Qntt            : fn_zero(item.ymd8Qntt)
  	        		  , ymd9Qntt            : fn_zero(item.ymd9Qntt)
- 	        		  , ymd10Qntt           : fn_zero(item.ymd1Qntt)
- 	        		  , ymd11Qntt           : fn_zero(item.ymd10Qntt)
- 	        		  , ymd12Qntt           : fn_zero(item.ymd11Qntt)
- 	        		  , ymd13Qntt           : fn_zero(item.ymd12Qntt)
- 	        		  , ymd14Qntt           : fn_zero(item.ymd13Qntt)
- 	        		  , ymd15Qntt           : fn_zero(item.ymd14Qntt)
- 	        		  , ymd16Qntt           : fn_zero(item.ymd15Qntt)
- 	        		  , ymd17Qntt           : fn_zero(item.ymd16Qntt)
- 	        		  , ymd18Qntt           : fn_zero(item.ymd17Qntt)
- 	        		  , ymd19Qntt           : fn_zero(item.ymd18Qntt)
- 	        		  , ymd20Qntt           : fn_zero(item.ymd19Qntt)
- 	        		  , ymd21Qntt           : fn_zero(item.ymd20Qntt)
- 	        		  , ymd22Qntt           : fn_zero(item.ymd21Qntt)
- 	        		  , ymd23Qntt           : fn_zero(item.ymd22Qntt)
- 	        		  , ymd24Qntt           : fn_zero(item.ymd23Qntt)
- 	        		  , ymd25Qntt           : fn_zero(item.ymd24Qntt)
- 	        		  , ymd26Qntt           : fn_zero(item.ymd25Qntt)
- 	        		  , ymd27Qntt           : fn_zero(item.ymd26Qntt)
- 	        		  , ymd28Qntt           : fn_zero(item.ymd27Qntt)
- 	        		  , ymd29Qntt           : fn_zero(item.ymd28Qntt)
- 	        		  , ymd30Qntt           : fn_zero(item.ymd29Qntt)
+ 	        		  , ymd10Qntt           : fn_zero(item.ymd10Qntt)
+ 	        		  , ymd11Qntt           : fn_zero(item.ymd11Qntt)
+ 	        		  , ymd12Qntt           : fn_zero(item.ymd12Qntt)
+ 	        		  , ymd13Qntt           : fn_zero(item.ymd13Qntt)
+ 	        		  , ymd14Qntt           : fn_zero(item.ymd14Qntt)
+ 	        		  , ymd15Qntt           : fn_zero(item.ymd15Qntt)
+ 	        		  , ymd16Qntt           : fn_zero(item.ymd16Qntt)
+ 	        		  , ymd17Qntt           : fn_zero(item.ymd17Qntt)
+ 	        		  , ymd18Qntt           : fn_zero(item.ymd18Qntt)
+ 	        		  , ymd19Qntt           : fn_zero(item.ymd19Qntt)
+ 	        		  , ymd20Qntt           : fn_zero(item.ymd20Qntt)
+ 	        		  , ymd21Qntt           : fn_zero(item.ymd21Qntt)
+ 	        		  , ymd22Qntt           : fn_zero(item.ymd22Qntt)
+ 	        		  , ymd23Qntt           : fn_zero(item.ymd23Qntt)
+ 	        		  , ymd24Qntt           : fn_zero(item.ymd24Qntt)
+ 	        		  , ymd25Qntt           : fn_zero(item.ymd25Qntt)
+ 	        		  , ymd26Qntt           : fn_zero(item.ymd26Qntt)
+ 	        		  , ymd27Qntt           : fn_zero(item.ymd27Qntt)
+ 	        		  , ymd28Qntt           : fn_zero(item.ymd28Qntt)
+ 	        		  , ymd29Qntt           : fn_zero(item.ymd29Qntt)
+ 	        		  , ymd30Qntt           : fn_zero(item.ymd30Qntt)
  	        		  , ymd31Qntt           : fn_zero(item.ymd31Qntt)
- 	        		  , tot                 : item.tot
+ 	        		  , tot                 : fn_zero(item.tot)
  	        	}
 
  	        	jsonFrmhsExpctWrhs.push(frmhsExpctWrhsVO);
  	        });
 
 			grdFrmhsExpctWrhs.rebuild();
-
- 	      	grdFrmhsExpctWrhs.addRow(true);
-
- 	      	grdFrmhsExpctWrhs.setCellDisabled(0, 0, grdFrmhsExpctWrhs.getRows() -1, grdFrmhsExpctWrhs.getCols() -1, false);
- 	      	grdFrmhsExpctWrhs.setCellDisabled(grdFrmhsExpctWrhs.getRows() -1, 0, grdFrmhsExpctWrhs.getRows() -1, grdFrmhsExpctWrhs.getCols() -1, true);
-
- 	      	let prdcrCdCol = grdFrmhsExpctWrhs.getColRef("prdcrCd");
-			let crtrYmCol = grdFrmhsExpctWrhs.getColRef("crtrYm");
-
- 	      	grdFrmhsExpctWrhs.setCellDisabled(0, prdcrCdCol, grdFrmhsExpctWrhs.getRows() -1, prdcrCdCol, true);
- 	      	grdFrmhsExpctWrhs.setCellDisabled(0, crtrYmCol, grdFrmhsExpctWrhs.getRows() -1, crtrYmCol, true);
-
- 	      	fn_ymdCellDisabled();
 
  		} catch (e) {
  			if (!(e instanceof Error)) {
@@ -1872,20 +1983,17 @@
 			let rowData = grdCltvtnFrmhsQlt.getRowData(i+2);
 			let rowSts = grdCltvtnFrmhsQlt.getRowStatus(i+2);
 			let delYn = rowData.delYn;
-			if (!gfn_isEmpty(delYn)) {
+			let cltvtnFrmhsQltNo = rowData.cltvtnFrmhsQltNo
 
-				let prdcrCd = rowData.prdcrCd;
-
-				if (gfn_isEmpty(prdcrCd)) {
-		  			gfn_comAlert("W0001", "농가명");		//	W0001	{0}을/를 선택하세요.
-		            return;
-		  		}
-
-				if (rowSts === 3){
+			if (gfn_isEmpty(cltvtnFrmhsQltNo)) {
+			 	if (rowSts === 2){
 					rowData.rowSts = "I";
-					rowData.apcCd = gv_selectedApcCd;
 					cltvtnFrmhsQltList.push(rowData);
-				} else if (rowSts === 2){
+				} else {
+					continue;
+				}
+			} else {
+				if (rowSts === 2){
 					rowData.rowSts = "U";
 					cltvtnFrmhsQltList.push(rowData);
 				} else {
@@ -1931,19 +2039,13 @@
 			let rowData = grdFrmhsExpctWrhs.getRowData(i+1);
 			let rowSts = grdFrmhsExpctWrhs.getRowStatus(i+1);
 			let delYn = rowData.delYn;
-			if (!gfn_isEmpty(delYn)) {
+			let frmhsExpctWrhsNo = rowData.frmhsExpctWrhsNo
 
-				let prdcrCd = rowData.prdcrCd;
 
-				if (gfn_isEmpty(prdcrCd)) {
-		  			gfn_comAlert("W0001", "농가명");		//	W0001	{0}을/를 선택하세요.
-		            return;
-		  		}
 
-				if (rowSts === 3){
+			if (gfn_isEmpty(frmhsExpctWrhsNo)) {
+			 	if (rowSts === 2){
 					rowData.rowSts = "I";
-					rowData.apcCd = gv_selectedApcCd;
-
 					let frmhsExpctWrhsDtlList = [];
 
 					for (var j=1; j<=31; j++) {
@@ -1972,9 +2074,12 @@
 					}
 
 					frmhsExpctWrhsList.push(rowData);
-				} else if (rowSts === 2){
+				} else {
+					continue;
+				}
+			} else {
+				if (rowSts === 2){
 					rowData.rowSts = "U";
-
 					let frmhsExpctWrhsDtlList = [];
 
 					for (var j=1; j<=31; j++) {
