@@ -149,51 +149,51 @@
 /**
  * notics popup
  */
-.layerPopup img{
-margin-bottom : 20px;}
-.layerPopup:before {display:block; content:""; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:9000}
-.layerPopup .layerBox {    z-index:10000;   
-position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }
-.layerPopup .layerBox .title {margin-bottom:10px; font-weight:600;}
-.layerPopup .layerBox .btnTodayHide {
-font-size:14px; font-weight:600; color:black; 
-float: left;text-decoration:none;width: 150px; 
-height : 30px;line-height:30px;border:black solid 1px; text-align : center;text-decoration:none;
-}
-.layerPopup div{
-	display : inline;
-}
-.layerPopup form{
-	margin-top : 5px;
-	font-size:16px; font-weight:600;
-	weight: 100%;
-	height : 30px;
-	line-height:30px
-}
-.layerPopup #close {
-font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: right; line-height:30px; text-align : center;text-decoration:underline;
-}
-.layerPopup a{
-    text-decoration-line: none;
-    color: #3c8dbc;
-}
+/*.layerPopup img{*/
+/*margin-bottom : 20px;}*/
+/*.layerPopup:before {display:block; content:""; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:9000}*/
+/*.layerPopup .layerBox {    z-index:10000;   */
+/*position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }*/
+/*.layerPopup .layerBox .title {margin-bottom:10px; font-weight:600;}*/
+/*.layerPopup .layerBox .btnTodayHide {*/
+/*font-size:14px; font-weight:600; color:black; */
+/*float: left;text-decoration:none;width: 150px; */
+/*height : 30px;line-height:30px;border:black solid 1px; text-align : center;text-decoration:none;*/
+/*}*/
+/*.layerPopup div{*/
+/*	display : inline;*/
+/*}*/
+/*.layerPopup form{*/
+/*	margin-top : 5px;*/
+/*	font-size:16px; font-weight:600;*/
+/*	weight: 100%;*/
+/*	height : 30px;*/
+/*	line-height:30px*/
+/*}*/
+/*.layerPopup #close {*/
+/*font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: right; line-height:30px; text-align : center;text-decoration:underline;*/
+/*}*/
+/*.layerPopup a{*/
+/*    text-decoration-line: none;*/
+/*    color: #3c8dbc;*/
+/*}*/
 
 </style>
     
-<script language="JavaScript">
-	//head 태그 안에 스크립트 선언
-    function setCookie( name, value, expiredays ) {
-        var todayDate = new Date();
-        todayDate.setDate( todayDate.getDate() + expiredays ); 
-        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
-    }
-    function closePop() {
-        if ( document.pop_form.chkbox.checked ){
-            setCookie( "maindiv", "done" , 1 );
-        }
-        document.all['layer_popup'].style.visibility = "hidden";
-    }
-</script>
+<%--<script language="JavaScript">--%>
+<%--	//head 태그 안에 스크립트 선언--%>
+<%--    function setCookie( name, value, expiredays ) {--%>
+<%--        var todayDate = new Date();--%>
+<%--        todayDate.setDate( todayDate.getDate() + expiredays ); --%>
+<%--        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"--%>
+<%--    }--%>
+<%--    function closePop() {--%>
+<%--        if ( document.pop_form.chkbox.checked ){--%>
+<%--            setCookie( "maindiv", "done" , 1 );--%>
+<%--        }--%>
+<%--        document.all['layer_popup'].style.visibility = "hidden";--%>
+<%--    }--%>
+<%--</script>--%>
     
 </head>
 <body id="mainBody" oncontextmenu="return false;">
@@ -785,7 +785,7 @@ font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: 
     <jsp:include page="../apcss/co/dmnd/prfrmImprvDmndPopup.jsp"></jsp:include>
 </div>
 
-<jsp:include page="./noticePopup.jsp"/>
+<%--<jsp:include page="./noticePopup.jsp"/>--%>
 
 </body>
 <script type="text/javascript">
