@@ -40,8 +40,12 @@
             </div>
             <div style="margin-left: auto;">
                 <sbux-button
-                        id="btnFile" name="btnFile" uitype="normal" text="인쇄"
-                        class="btn btn-sm btn-outline-danger" onclick="fn_btnFile" style="float: right;"
+                        id="btnCancel" name="btnCancel" uitype="normal" text="계산취소"
+                        class="btn btn-sm btn-outline-danger" onclick="fn_btnCalculation('CANCEL')" style="float: right;"
+                ></sbux-button>
+                <sbux-button
+                        id="btnCalculation" name="btnCalculation" uitype="normal" text="세액계산"
+                        class="btn btn-sm btn-outline-danger" onclick="fn_btnCalculation('AUTO')" style="float: right;"
                 ></sbux-button>
             </div>
         </div>
@@ -421,7 +425,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th rowspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">추가공제</th>
+                                    <th rowspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">추가공제</th>
                                     <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">경로우대</th>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
                                     <td class="td_input" style="border-right:hidden;">
@@ -1245,7 +1249,8 @@
                             </table>
                         </div>
                     </div>
-                    <div id="tabInfo3" >
+                    <%--/********************정산명세 이전버전************************/--%>
+                    <%--<div id="tabInfo3" >
                         <div>
                             <table id="dataArea3" class="table table-bordered tbl_fixed">
                                 <colgroup>
@@ -1266,7 +1271,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소득총액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="PAY_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1274,7 +1279,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">비과세총액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TXFREE_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1282,7 +1287,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">총급여액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="INC_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1290,7 +1295,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="INC_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1298,7 +1303,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득금액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="INC_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1308,7 +1313,7 @@
                                     <td colspan="3" style="border-right: hidden;"></td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="PERSONAL_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1317,7 +1322,7 @@
                                     <td colspan="3" style="border-right: hidden;"></td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="WIFE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1326,13 +1331,13 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SUPPORT_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SUPPORT_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1342,13 +1347,13 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SENIOR_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SENIOR_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1357,13 +1362,13 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HDCP_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HDCP_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1372,7 +1377,7 @@
                                     <td colspan="3" style="border-right: hidden;"></td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="WOMAN_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1381,13 +1386,13 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="BRING_CHILD_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="BRING_CHILD_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1396,13 +1401,13 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CHILDBIRTH_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CHILDBIRTH_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1411,7 +1416,7 @@
                                     <td colspan="3" style="border-right: hidden;"></td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SINGLE_PARENT_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1420,13 +1425,13 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">( </th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="MANY_CHILD_DED_COUNT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">)명</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="MANY_CHILD_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1452,7 +1457,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">국민연금보험료</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td rowspan="8" style="border-right: hidden;"></td>
@@ -1461,7 +1466,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">공무원연금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="OFFICIAL_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1469,7 +1474,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">군인연금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="MILITARY_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1477,7 +1482,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">사립학교 교직원연금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SCHOOL_PENS_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1485,7 +1490,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">별정우체국연금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="POST_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1494,7 +1499,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">과학기술인공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SCNT_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1502,7 +1507,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로자퇴직급여보장법</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="RET_PENS_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1510,7 +1515,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">연금저축계좌</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="PENS_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1520,7 +1525,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">국민건강보험(노양장기요양보험 포함)</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HEALTH_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td rowspan="27" style="border-right: hidden;"></td>
@@ -1529,7 +1534,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">고용보험</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="EMP_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1537,7 +1542,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">일반보장성보험</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="GENERAL_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1545,7 +1550,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장애인전용보장성보험</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HDCP_INSURE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1553,7 +1558,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOTAL_INSURE_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1562,7 +1567,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장애인 의료비</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HDCP_MED_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1570,7 +1575,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기타 의료비</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="ETC_MED_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1578,7 +1583,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOTAL_MED_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1587,7 +1592,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">장애인 교육비</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HANDICAP_EDU_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1595,7 +1600,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기타 교육비</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="ETC_EDU_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1603,7 +1608,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOTAL_EDU_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1613,7 +1618,7 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">대출기관차입</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HSRENT_PRIN_DED_ORG_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1621,7 +1626,7 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">거주자차입</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HSRENT_PRIN_DED_PERS_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1629,7 +1634,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">월세액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_MM_RENT_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1639,7 +1644,7 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">15년 미만</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_INT_DEAMT1" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1647,7 +1652,7 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">15년~29년</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_INT_DEAMT2" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1655,7 +1660,7 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">30년 이상</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_INT_DEAMT3" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1664,7 +1669,7 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">고정금리ㆍ비거치 상환대출</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_INT_DEAMT4" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1672,7 +1677,7 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기타대출</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_INT_DEAMT5" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1680,7 +1685,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOTAL_HOUSE_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1689,7 +1694,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">정치자금기부금(세액공제분 제외)</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DON_POL_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1697,7 +1702,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">법정기부금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DON_LGL_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1705,7 +1710,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">우리사주조합 기부금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DON_EMP_STOCK_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1713,7 +1718,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">지정기부금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DON_DSIN_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1721,7 +1726,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOTAL_DONATION_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1729,7 +1734,7 @@
                                     <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">특별공제 계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SPEC_DED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1737,7 +1742,7 @@
                                     <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">표준공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="STD_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1746,7 +1751,7 @@
                                     <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">개인연금저축(2000년 이전 가입)</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="PRIV_PENS_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1755,7 +1760,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">청약저축</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_SUBS_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1763,7 +1768,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로자주택마련저축</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_EMP_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1771,7 +1776,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">주택청약종합저축</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HS_TOT_SV_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1779,7 +1784,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOTAL_HOUSE_SAVING_DED_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1787,7 +1792,7 @@
                                     <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">신용카드 등 사용금액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CD_USE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1796,7 +1801,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소기업ㆍ소상공인 공제부금 소득공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SM_COM_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1804,7 +1809,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">투자조합 출자공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="INVEST_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1812,7 +1817,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">우리사주출연금 소득공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="EMP_STOCK_GIVE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1820,7 +1825,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">고용유지 중소기업 근로자 소득공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SALARY_DECREASE_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1828,7 +1833,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">목돈 안드는 전세 이자상환액 소득공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="LEASE_INT_RDM_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1836,7 +1841,7 @@
                                     <th colspan="4" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">그 밖의 소득공제 계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="ETC_DED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1844,7 +1849,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">특별공제 종합한도 초과액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SPEC_DED_TOT_OVER_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1852,7 +1857,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">종합소득과세표준</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOT_INC_TX_STD_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1860,7 +1865,7 @@
                                     <th colspan="5" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">산출세액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CALCULATE_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1870,7 +1875,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">소득세법</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="INC_TX_LAW_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1878,7 +1883,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">조세특례제한법</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TX_SPEC_LAW_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1886,7 +1891,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">조세특례제한법(제30조)</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TX_SPEC_LAW_30_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1894,7 +1899,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">조세조약</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TX_TREATY_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1902,7 +1907,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">감면세액 계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TX_RED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1911,7 +1916,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">근로소득세액공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="INC_TX_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1919,7 +1924,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">납세조합공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TX_UNION_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1927,7 +1932,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">주택자금차입금이자세액공제</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="HSRENT_INT_RDM_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1935,7 +1940,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기부정치자금</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DON_POL_TX_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1943,7 +1948,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">외국납부</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="FOREI_PAY_TX_DEAMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1951,7 +1956,7 @@
                                     <th colspan="3" scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">세액공제 계</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TX_DED_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -1983,22 +1988,22 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">결정세액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CALC_INC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CALC_LOCAL_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CALC_SPEC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="CALC_TX_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -2006,22 +2011,22 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">기납부세액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="NOW_INC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="NOW_LOCAL_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="NOW_SPEC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="NOW_TX_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
@@ -2029,28 +2034,28 @@
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1; text-align: center;">차감징수세액</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="INC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="LOCAL_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="SPEC_TX_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TX_TOT_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
-                                                    class="form-control input-sm" <%--mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"--%>
+                                                    class="form-control input-sm" &lt;%&ndash;mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"&ndash;%&gt;
                                                     readonly></sbux-input>
                                     </td>
                                 </tr>
                             </table>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
             </div>
         </div>
@@ -2204,8 +2209,8 @@
 
     var tabJsonData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "소득명세",     "targetid" : "tabInfo1" ,     "targetvalue" : "소득명세"},
-        { "id" : "1", "pid" : "-1", "order" : "2", "text" : "정산명세_2014", "targetid" : "tabInfo2" ,     "targetvalue" : "정산명세_2014"},
-        { "id" : "2", "pid" : "-1", "order" : "3", "text" : "정산명세",     "targetid" : "tabInfo3" ,     "targetvalue" : "정산명세"}
+        { "id" : "1", "pid" : "-1", "order" : "2", "text" : "정산명세", "targetid" : "tabInfo2" ,     "targetvalue" : "정산명세"},
+        /*{ "id" : "2", "pid" : "-1", "order" : "3", "text" : "정산명세",     "targetid" : "tabInfo3" ,     "targetvalue" : "정산명세"} = 정산명세 이전버전*/
     ];
 
     // only document
@@ -2228,7 +2233,7 @@
 
 
 
-    function cfn_save() {
+   /* function cfn_save() {
 
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
@@ -2236,7 +2241,7 @@
             fn_save();
 
         }
-    }
+    }*/
 
     function cfn_search() {
 
@@ -2288,7 +2293,7 @@
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
-        /*   gvwInfoGrid.bind('click', 'fn_view');*/
+        gvwInfoGrid.bind('click', 'fn_view');
     }
 
     //소득명세 리스트
@@ -2345,6 +2350,10 @@
             gfn_comAlert("W0002", "정산연도");
             return;
         }
+        if (!YE_TX_TYPE) {
+            gfn_comAlert("W0002", "정산구분");
+            return;
+        }
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -2377,7 +2386,7 @@
         };
         console.log('paramObj:', paramObj);
 
-        const postJsonPromise = gfn_postJSON("/hr/hra/adj/selecthra1900List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1700List.do", {
             getType				: 'json',
             workType			: strWorkType,
             cv_count			: '3',
@@ -2412,6 +2421,8 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
+                fn_view();
+
             } else {
                 alert(data.resultMessage);
             }
@@ -2425,8 +2436,374 @@
         }
     }
 
+    //상세정보 보기
+    async function fn_view() {
+        let nRow = gvwInfoGrid.getRow();
+
+        if (nRow < 1) {
+            nRow = 1; //그리드 로우 첫번째값 셋팅
+        }
+
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
+        if (!_.isEmpty(rowData)) {
+
+            let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
+            let YE_TX_TYPE           = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+            let YE_TX_YYYY          = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+            let PAY_AREA_TYPE       = gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+            let DEPT_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+            let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+            let EMP_STATE           = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE")); //재직구분
+
+            if (!YE_TX_YYYY) {
+                gfn_comAlert("W0002", "정산연도");
+                return;
+            }
+            if (!YE_TX_TYPE) {
+                gfn_comAlert("W0002", "정산구분");
+                return;
+            }
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN: ''
+                ,V_P_LANG_ID: ''
+                ,V_P_COMP_CODE: gv_ma_selectedApcCd
+                ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                /*  ,V_P_YE_TX_YYYY     : YE_TX_YYYY
+                  ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
+                  ,V_P_SITE_CODE      : SITE_CODE
+                  ,V_P_DEPT_CODE      : DEPT_CODE
+                  ,V_P_EMP_CODE       : EMP_CODE
+                  ,V_P_EMP_STATE      : EMP_STATE
+                  ,V_P_EMP_CODE_LIST  : stremp_code
+                  ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE*/
+
+                ,V_P_YE_TX_YYYY       : YE_TX_YYYY
+                ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
+                ,V_P_SITE_CODE        : SITE_CODE
+                ,V_P_DEPT_CODE        : DEPT_CODE
+                ,V_P_EMP_CODE         : EMP_CODE
+                ,V_P_PAY_AREA_TYPE    : PAY_AREA_TYPE
 
 
+                ,V_P_FORM_ID: p_formId
+                ,V_P_MENU_ID: p_menuId
+                ,V_P_PROC_ID: ''
+                ,V_P_USERID: ''
+                ,V_P_PC: ''
+            };
+            console.log('paramObj:', paramObj);
+
+            const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1700List.do", {
+                getType				: 'json',
+                workType			: 'RESULT',
+                cv_count			: '3',
+                params				: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+
+                    //-- 소득명세
+                    jsonIncomeList.length = 0;
+                    data.cv_2.forEach((item, index) => {
+                        const msg = {
+                            COMP_NAME 			                : gfnma_nvl(item.COMP_NAME)
+                            ,PAY_AMT 			                : gfnma_nvl(item.PAY_AMT)
+                            ,BONUS_AMT 			                : gfnma_nvl(item.BONUS_AMT)
+                            ,ADD_BONUS_AMT 			            : gfnma_nvl(item.ADD_BONUS_AMT)
+                            ,STOCK_PROFIT_AMT 			        : gfnma_nvl(item.STOCK_PROFIT_AMT)
+                            ,EMP_STOCK_AMT 			            : gfnma_nvl(item.EMP_STOCK_AMT)
+                            ,EXEC_RET_LIM_OVER 			        : gfnma_nvl(item.EXEC_RET_LIM_OVER)
+                            ,TOTAL_AMT 			                : gfnma_nvl(item.TOTAL_AMT)
+
+                        }
+                        jsonIncomeList.push(msg);
+
+                    });
+
+                    gvwIncomeGrid.rebuild();
+
+                    // -- 정산명세
+                    data.cv_3.forEach((item, index) => {
+                        SBUxMethod.set("PAY_TOT_AMT", 		item.PAY_TOT_AMT);
+                        SBUxMethod.set("TXFREE_TOT_AMT",    item.TXFREE_TOT_AMT);
+                        SBUxMethod.set("INC_TOT_AMT", 		item.INC_TOT_AMT);
+                        SBUxMethod.set("INC_DEAMT", 		item.INC_DEAMT);
+                        SBUxMethod.set("INC_AMT", 		    item.INC_AMT);
+
+                        //-- 기본공제
+                        SBUxMethod.set("PERSONAL_DEAMT", 		item.PERSONAL_DEAMT);
+                        SBUxMethod.set("WIFE_DEAMT", 		    item.WIFE_DEAMT);
+                        SBUxMethod.set("SUPPORT_DED_COUNT", 	item.SUPPORT_DED_COUNT);
+                        SBUxMethod.set("SUPPORT_DEAMT", 		item.SUPPORT_DEAMT);
+
+                        // -- 추가공제
+                        SBUxMethod.set("SENIOR_DED_COUNT", 		    item.SENIOR_DED_COUNT);
+                        SBUxMethod.set("SENIOR_DEAMT", 		        item.SENIOR_DEAMT);
+                        SBUxMethod.set("HDCP_DED_COUNT", 		    item.HDCP_DED_COUNT);
+                        SBUxMethod.set("HDCP_DEAMT", 		        item.HDCP_DEAMT);
+                        SBUxMethod.set("WOMAN_DEAMT", 		        item.WOMAN_DEAMT);
+                        SBUxMethod.set("BRING_CHILD_DED_COUNT", 	item.BRING_CHILD_DED_COUNT);
+                        SBUxMethod.set("BRING_CHILD_DEAMT", 		item.BRING_CHILD_DEAMT);
+                        SBUxMethod.set("CHILDBIRTH_DED_COUNT", 		item.CHILDBIRTH_DED_COUNT);
+                        SBUxMethod.set("CHILDBIRTH_DEAMT", 		    item.CHILDBIRTH_DEAMT);
+                        SBUxMethod.set("SINGLE_PARENT_DEAMT", 		item.SINGLE_PARENT_DEAMT);
+
+                        //-- 다자녀추가공제
+                        SBUxMethod.set("MANY_CHILD_DED_COUNT", 	item.MANY_CHILD_DED_COUNT);
+                        SBUxMethod.set("MANY_CHILD_DEAMT", 		item.MANY_CHILD_DEAMT);
+
+                        //-- 연금보험료공제
+                        SBUxMethod.set("PENS_DEAMT", 		    item.PENS_DEAMT);
+                        SBUxMethod.set("OFFICIAL_PENS_DEAMT", 	item.OFFICIAL_PENS_DEAMT);
+                        SBUxMethod.set("MILITARY_PENS_DEAMT", 	item.MILITARY_PENS_DEAMT);
+                        SBUxMethod.set("SCHOOL_PENS_DEAMT", 	item.SCHOOL_PENS_DEAMT);
+                        SBUxMethod.set("POST_PENS_DEAMT", 		item.POST_PENS_DEAMT);
+                        SBUxMethod.set("SCNT_PENS_DEAMT", 		item.SCNT_PENS_DEAMT);
+                        SBUxMethod.set("RET_PENS_DEAMT", 		item.RET_PENS_DEAMT);
+                        SBUxMethod.set("PENS_SV_DEAMT", 		item.PENS_SV_DEAMT);
+
+                        //-- 특별공제
+                        //-- 보험료
+                        SBUxMethod.set("HEALTH_INSURE_DEAMT", 		item.HEALTH_INSURE_DEAMT);
+                        SBUxMethod.set("EMP_INSURE_DEAMT", 		    item.EMP_INSURE_DEAMT);
+                        SBUxMethod.set("GENERAL_INSURE_DEAMT", 		item.GENERAL_INSURE_DEAMT);
+                        SBUxMethod.set("HDCP_INSURE_DEAMT", 		item.HDCP_INSURE_DEAMT);
+                        SBUxMethod.set("TOTAL_INSURE_DED_AMT", 		item.TOTAL_INSURE_DED_AMT);
+
+                        //-- 의료비
+                        SBUxMethod.set("HDCP_MED_DEAMT", 		item.HDCP_MED_DEAMT);
+                        SBUxMethod.set("ETC_MED_DEAMT", 		item.ETC_MED_DEAMT);
+                        SBUxMethod.set("TOTAL_MED_DED_AMT", 	item.TOTAL_MED_DED_AMT);
+
+                        //-- 교육비
+                        SBUxMethod.set("HDCP_EDU_DEAMT", 		item.HDCP_EDU_DEAMT);
+                        SBUxMethod.set("ETC_EDU_DEAMT", 		item.ETC_EDU_DEAMT);
+                        SBUxMethod.set("TOTAL_EDU_DED_AMT", 	item.TOTAL_EDU_DED_AMT);
+
+                        //-- 주택자금
+                        SBUxMethod.set("HSRENT_PRIN_DED_ORG_AMT", 	item.HSRENT_PRIN_DED_ORG_AMT);
+                        SBUxMethod.set("HSRENT_PRIN_DED_PERS_AMT", 	item.HSRENT_PRIN_DED_PERS_AMT);
+                        SBUxMethod.set("HS_MM_RENT_DEAMT", 		    item.HS_MM_RENT_DEAMT);
+                        SBUxMethod.set("HS_INT_DEAMT1", 		    item.HS_INT_DEAMT1);
+                        SBUxMethod.set("HS_INT_DEAMT2", 		    item.HS_INT_DEAMT2);
+                        SBUxMethod.set("HS_INT_DEAMT3", 		    item.HS_INT_DEAMT3);
+                        SBUxMethod.set("HS_INT_DEAMT4", 		    item.HS_INT_DEAMT4);
+                        SBUxMethod.set("HS_INT_DEAMT5", 		    item.HS_INT_DEAMT5);
+                        SBUxMethod.set("HS_INT_DEAMT6", 		    item.HS_INT_DEAMT6);
+                        SBUxMethod.set("HS_INT_DEAMT7", 		    item.HS_INT_DEAMT7);
+                        SBUxMethod.set("HS_INT_DEAMT8", 		    item.HS_INT_DEAMT8);
+                        SBUxMethod.set("HS_INT_DEAMT9", 		    item.HS_INT_DEAMT9);
+                        SBUxMethod.set("TOTAL_HOUSE_DED_AMT", 		item.TOTAL_HOUSE_DED_AMT);
+
+                        //-- 기부금
+                        SBUxMethod.set("DON_POL_DEAMT", 		    item.DON_POL_DEAMT);
+                        SBUxMethod.set("DON_LGL_DEAMT", 		    item.DON_LGL_DEAMT);
+                        SBUxMethod.set("DON_EMP_STOCK_DEAMT", 		item.DON_EMP_STOCK_DEAMT);
+                        SBUxMethod.set("DON_DSIN_DEAMT", 		    item.DON_DSIN_DEAMT);
+                        SBUxMethod.set("TOTAL_DONATION_DED_AMT", 	item.TOTAL_DONATION_DED_AMT);
+
+                        //-- 특별공제 계
+                        SBUxMethod.set("SPEC_DED_TOT_AMT", 		    item.SPEC_DED_TOT_AMT);
+
+                        //-- 표준공제
+                        SBUxMethod.set("STD_DEAMT", 		        item.STD_DEAMT);
+
+                        //-- 차감소득금액
+                        SBUxMethod.set("DED_INC_AMT", 		        item.DED_INC_AMT);
+
+                        //-- 그밖의 소득공제
+                        SBUxMethod.set("PRIV_PENS_SV_DEAMT", 		        item.PRIV_PENS_SV_DEAMT);
+                        SBUxMethod.set("HS_SUBS_SV_DEAMT", 		            item.HS_SUBS_SV_DEAMT);
+                        SBUxMethod.set("HS_EMP_SV_DEAMT", 		            item.HS_EMP_SV_DEAMT);
+                        SBUxMethod.set("HS_TOT_SV_DEAMT", 		            item.HS_TOT_SV_DEAMT);
+                        SBUxMethod.set("TOTAL_HOUSE_SAVING_DED_AMT", 	    item.TOTAL_HOUSE_SAVING_DED_AMT);
+                        SBUxMethod.set("CD_USE_DEAMT", 		                item.CD_USE_DEAMT);
+                        SBUxMethod.set("SM_COM_DEAMT", 		                item.SM_COM_DEAMT);
+                        SBUxMethod.set("INVEST_DEAMT", 		                item.INVEST_DEAMT);
+                        SBUxMethod.set("EMP_STOCK_GIVE_DEAMT", 		        item.EMP_STOCK_GIVE_DEAMT);
+                        SBUxMethod.set("SALARY_DECREASE_DEAMT", 		    item.SALARY_DECREASE_DEAMT);
+                        SBUxMethod.set("LEASE_INT_RDM_DEAMT", 		        item.LEASE_INT_RDM_DEAMT);
+                        SBUxMethod.set("LONG_INVEST_STOCK_SAVE_DED_AMT", 	item.LONG_INVEST_STOCK_SAVE_DED_AMT);
+                        SBUxMethod.set("LT_COL_INV_SV_DEAMT", 		        item.LT_COL_INV_SV_DEAMT);
+                        SBUxMethod.set("ETC_DED_TOT_AMT", 		            item.ETC_DED_TOT_AMT);
+
+                        //-- 특별공제 종합한도 초과액
+                        SBUxMethod.set("SPEC_DED_TOT_OVER_AMT", 	item.SPEC_DED_TOT_OVER_AMT);
+
+                        //-- 종합소득과세표준
+                        SBUxMethod.set("TOT_INC_TX_STD_AMT", 		item.TOT_INC_TX_STD_AMT);
+
+                        //-- 산출세액
+                        SBUxMethod.set("CALCULATE_TX_AMT", 		    item.CALCULATE_TX_AMT);
+
+                        //-- 세액감면 및 세액공제
+                        SBUxMethod.set("INC_TX_LAW_DEAMT", 		    item.INC_TX_LAW_DEAMT);
+                        SBUxMethod.set("TX_SPEC_LAW_DEAMT", 		item.TX_SPEC_LAW_DEAMT);
+                        SBUxMethod.set("TX_SPEC_LAW_30_DEAMT", 		item.TX_SPEC_LAW_30_DEAMT);
+                        SBUxMethod.set("TX_TREATY_DEAMT", 		    item.TX_TREATY_DEAMT);
+                        SBUxMethod.set("TX_RED_TOT_AMT", 		    item.TX_RED_TOT_AMT);
+                        SBUxMethod.set("INC_TX_DEAMT", 		        item.INC_TX_DEAMT);
+                        SBUxMethod.set("CHILD_TX_DED_COUNT", 		item.CHILD_TX_DED_COUNT);
+                        SBUxMethod.set("CHILD_TX_DEAMT", 		    item.CHILD_TX_DEAMT);
+                        SBUxMethod.set("BRING_CHILD_TX_DED_COUNT", 	item.BRING_CHILD_TX_DED_COUNT);
+                        SBUxMethod.set("BRING_CHILD_TX_DEAMT", 		item.BRING_CHILD_TX_DEAMT);
+                        SBUxMethod.set("CHILDBIRTH_TX_DED_COUNT", 	item.CHILDBIRTH_TX_DED_COUNT);
+                        SBUxMethod.set("CHILDBIRTH_TX_DEAMT", 		item.CHILDBIRTH_TX_DEAMT);
+                        SBUxMethod.set("SCNT_PENS_DED_TGT_AMT", 	item.SCNT_PENS_DED_TGT_AMT);
+                        SBUxMethod.set("SCNT_PENS_TX_DEAMT", 		item.SCNT_PENS_TX_DEAMT);
+                        SBUxMethod.set("RET_PENS_DED_TGT_AMT", 		item.RET_PENS_DED_TGT_AMT);
+                        SBUxMethod.set("RET_PENS_TX_DEAMT", 		item.RET_PENS_TX_DEAMT);
+                        SBUxMethod.set("PENS_SV_DED_TGT_AMT", 		item.PENS_SV_DED_TGT_AMT);
+                        SBUxMethod.set("PENS_SV_TX_DEAMT", 		    item.PENS_SV_TX_DEAMT);
+                        SBUxMethod.set("PENS_ISA_TX_DEAMT", 		item.PENS_ISA_TX_DEAMT);
+                        SBUxMethod.set("PENS_ISA_DED_TGT_AMT", 		item.PENS_ISA_DED_TGT_AMT);
+                        SBUxMethod.set("INSURE_DED_TGT_AMT", 		item.INSURE_DED_TGT_AMT);
+                        SBUxMethod.set("INSURE_TX_DEAMT", 		    item.INSURE_TX_DEAMT);
+                        SBUxMethod.set("HDCP_INSURE_DED_TGT_AMT", 	item.HDCP_INSURE_DED_TGT_AMT);
+                        SBUxMethod.set("HDCP_INSURE_TX_DEAMT", 		item.HDCP_INSURE_TX_DEAMT);
+                        SBUxMethod.set("MED_DED_TGT_AMT", 		    item.MED_DED_TGT_AMT);
+                        SBUxMethod.set("MED_TX_DEAMT", 		        item.MED_TX_DEAMT);
+                        SBUxMethod.set("EDU_DED_TGT_AMT", 		    item.EDU_DED_TGT_AMT);
+                        SBUxMethod.set("EDU_TX_DEAMT", 		        item.EDU_TX_DEAMT);
+                        SBUxMethod.set("DON_POL_DED_TGT_AMT", 		item.DON_POL_DED_TGT_AMT);
+                        SBUxMethod.set("DON_POL_TX_DEAMT", 		    item.DON_POL_TX_DEAMT);
+                        SBUxMethod.set("DON_POL_EXCS_DED_TGT_AMT", 	item.DON_POL_EXCS_DED_TGT_AMT);
+                        SBUxMethod.set("DON_POL_EXCS_TX_DEAMT", 	item.DON_POL_EXCS_TX_DEAMT);
+
+                        //--2023년 귀속
+                        SBUxMethod.set("DON_HLE_DED_TGT_AMT", 		item.DON_HLE_DED_TGT_AMT);
+                        SBUxMethod.set("DON_HLE_TX_DEAMT", 		    item.DON_HLE_TX_DEAMT);
+                        SBUxMethod.set("DON_HLE_EXCS_DED_TGT_AMT", 	item.DON_HLE_EXCS_DED_TGT_AMT);
+                        SBUxMethod.set("DON_HLE_EXCS_TX_DEAMT", 	item.DON_HLE_EXCS_TX_DEAMT);
+
+                        SBUxMethod.set("DON_LGL_DED_TGT_AMT", 		item.DON_LGL_DED_TGT_AMT);
+                        SBUxMethod.set("DON_LGL_TX_DEAMT", 		    item.DON_LGL_TX_DEAMT);
+                        SBUxMethod.set("DON_EMP_STOCK_DED_TGT_AMT", item.DON_EMP_STOCK_DED_TGT_AMT);
+                        SBUxMethod.set("DON_EMP_STOCK_TX_DEAMT", 	item.DON_EMP_STOCK_TX_DEAMT);
+                        SBUxMethod.set("DON_DSIN_DED_TGT_AMT", 		item.DON_DSIN_DED_TGT_AMT);
+                        SBUxMethod.set("DON_DSIN_TX_DEAMT", 		item.DON_DSIN_TX_DEAMT);
+                        SBUxMethod.set("DON_DSIN_REL_DED_TGT_AMT", 	item.DON_DSIN_REL_DED_TGT_AMT);
+                        SBUxMethod.set("DON_DSIN_REL_TX_DEAMT", 	item.DON_DSIN_REL_TX_DEAMT);
+                        SBUxMethod.set("SPEC_TX_DED_TOT_AMT", 		item.SPEC_TX_DED_TOT_AMT);
+                        SBUxMethod.set("STD_TX_DEAMT", 		        item.STD_TX_DEAMT);
+                        SBUxMethod.set("TX_UNION_DEAMT", 		    item.TX_UNION_DEAMT);
+                        SBUxMethod.set("HSRENT_INT_RDM_DEAMT", 		item.HSRENT_INT_RDM_DEAMT);
+
+                        SBUxMethod.set("FOREI_PAY_TX_DEAMT", 		item.FOREI_PAY_TX_DEAMT);
+                        SBUxMethod.set("HS_MM_RENT_DED_TGT_AMT", 	item.HS_MM_RENT_DED_TGT_AMT);
+                        SBUxMethod.set("HS_MM_RENT_TX_DEAMT", 		item.HS_MM_RENT_TX_DEAMT);
+                        SBUxMethod.set("TX_DED_TOT_AMT", 		    item.TX_DED_TOT_AMT);
+                        SBUxMethod.set("CALC_INC_TX_AMT", 		    item.CALC_INC_TX_AMT);
+                        SBUxMethod.set("CALC_LOCAL_TX_AMT", 		item.CALC_LOCAL_TX_AMT);
+                        SBUxMethod.set("CALC_SPEC_TX_AMT", 		    item.CALC_SPEC_TX_AMT);
+                        SBUxMethod.set("CALC_TX_TOT_AMT", 		    item.CALC_TX_TOT_AMT);
+                        SBUxMethod.set("NOW_INC_TX_AMT", 		    item.NOW_INC_TX_AMT);
+                        SBUxMethod.set("NOW_LOCAL_TX_AMT", 		    item.NOW_LOCAL_TX_AMT);
+                        SBUxMethod.set("NOW_SPEC_TX_AMT", 		    item.NOW_SPEC_TX_AMT);
+                        SBUxMethod.set("NOW_TX_TOT_AMT", 		    item.NOW_TX_TOT_AMT);
+
+                        //-- 전 근무지 값이 감안된 값임
+                        SBUxMethod.set("INC_TX_AMT", 		item.INC_TX_AMT);
+                        SBUxMethod.set("LOCAL_TX_AMT", 		item.LOCAL_TX_AMT);
+                        SBUxMethod.set("SPEC_TX_AMT", 		item.SPEC_TX_AMT);
+                        SBUxMethod.set("TX_TOT_AMT", 		item.TX_TOT_AMT);
+
+
+                    });
+
+
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+
+        }
+    }
+
+    //세액계산, 세액계산 취소
+    const fn_btnCalculation = async function (type) {
+
+        let stremp_code = '';
+        let strcalc_date = '';
+
+
+        let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+        let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+
+        if (!YE_TX_YYYY) {
+            gfn_comAlert("W0002", "정산연도");
+            return;
+        }
+        if (!YE_TX_TYPE) {
+            gfn_comAlert("W0002", "정산구분");
+            return;
+        }
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            , V_P_LANG_ID: ''
+            , V_P_COMP_CODE: gv_ma_selectedApcCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+            , V_P_YE_TX_YYYY: YE_TX_YYYY
+            , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
+            , V_P_EMP_CODE: stremp_code
+            , V_P_CALC_DAT: strcalc_date
+
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: ''
+            , V_P_PC: ''
+
+
+        }
+
+
+        const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1700S1.do", {
+            getType: 'json',
+            workType: type,
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+
+        console.log('-------------세액계산 data--------------', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (_.isEqual(data.v_errorCode, 'MSG0001') || _.isEqual(data.v_errorCode, 'MSG0002')) {
+                    fn_search('LIST');
+                } else {
+                    alert(data.resultMessage);
+                }
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+
+    }
 
 
 </script>

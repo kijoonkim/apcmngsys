@@ -647,7 +647,7 @@
 
             if (listData.length > 0) {
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
+                const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1500.do", {listData: listData});
 
                 const data = await postJsonPromise;
 
@@ -678,6 +678,8 @@
     }
 
     const getParamForm = async function (type) {
+
+        let returnData = [];
 
         let SITE_CODE       = gfnma_multiSelectGet('#srch-site_code'); //사업장
         let PAY_AREA_TYPE   = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
@@ -751,7 +753,7 @@
 
                                 cv_count: '0',
                                 getType: 'json',
-                                workType: 'N',
+                                workType: type,
                                 params: gfnma_objectToString({
 
                                     V_P_DEBUG_MODE_YN: ''
@@ -764,6 +766,7 @@
                                     , V_P_EMP_CODE: stremp_code
                                     , V_P_CALC_DAT: strcalc_date
                                     , V_P_STD_TX_DED_YN: strstandard_tax_ded_yn
+
 
                                     , V_P_FORM_ID: p_formId
                                     , V_P_MENU_ID: p_menuId
@@ -793,40 +796,37 @@
 
         } else {
 
-            infoGridData.forEach((item, index) => {
+
+            const param = {
+
+                cv_count: '0',
+                getType: 'json',
+                workType: type,
+                params: gfnma_objectToString({
+
+                    V_P_DEBUG_MODE_YN: ''
+                    , V_P_LANG_ID: ''
+                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                    , V_P_YE_TX_YYYY: YE_TX_YYYY
+                    , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
+                    , V_P_EMP_CODE: stremp_code
+                    , V_P_CALC_DAT: strcalc_date
+                    , V_P_STD_TX_DED_YN: strstandard_tax_ded_yn
+
+                    , V_P_FORM_ID: p_formId
+                    , V_P_MENU_ID: p_menuId
+                    , V_P_PROC_ID: ''
+                    , V_P_USERID: ''
+                    , V_P_PC: ''
+                })
+            }
+
+            console.log("---------param--------- : ", param);
+            returnData.push(param);
 
 
-                const param = {
-
-                    cv_count: '0',
-                    getType: 'json',
-                    workType: type,
-                    params: gfnma_objectToString({
-
-                        V_P_DEBUG_MODE_YN: ''
-                        , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
-                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-                        , V_P_YE_TX_YYYY: YE_TX_YYYY
-                        , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
-                        , V_P_EMP_CODE: stremp_code
-                        , V_P_CALC_DAT: strcalc_date
-                        , V_P_STD_TX_DED_YN: strstandard_tax_ded_yn
-
-                        , V_P_FORM_ID: p_formId
-                        , V_P_MENU_ID: p_menuId
-                        , V_P_PROC_ID: ''
-                        , V_P_USERID: ''
-                        , V_P_PC: ''
-                    })
-                }
-
-                console.log("---------param--------- : ", param);
-                returnData.push(param);
-
-
-            });
             console.log("---------returnData--------- : ", returnData);
             return returnData;
 
@@ -883,45 +883,44 @@
 
 
         };
-        if (_.isEqual(editType, "N")) {
 
-            const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1500S1.do", {
-                getType: 'json',
-                workType: type,
-                cv_count: '0',
-                params: gfnma_objectToString(paramObj)
-            });
+        const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1500S1.do", {
+            getType: 'json',
+            workType: type,
+            cv_count: '0',
+            params: gfnma_objectToString(paramObj)
+        });
 
-            const data = await postJsonPromise;
+        const data = await postJsonPromise;
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    if (_.isEqual(data.v_errorCode, 'MSG0001') || _.isEqual(data.v_errorCode, 'MSG0002')) {
-                        return true;
-                    } else {
-                        alert(data.resultMessage);
-                    }
-
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (_.isEqual(data.v_errorCode, 'MSG0001') || _.isEqual(data.v_errorCode, 'MSG0002')) {
+                    return true;
                 } else {
                     alert(data.resultMessage);
                 }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
 
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+
+
     }
 
     //세액계산
     const fn_btnCalculation = async function () {
 
-        if (fn_save('PREWORK'))
+        if (await fn_save('PREWORK'))
         {
-            if (fn_save('CALC'))
+            if (await fn_save('CALC'))
             {
                 gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                 fn_search();
@@ -932,9 +931,9 @@
 
     //계산취소
     const fn_btnCancel = async function () {
-        if (fn_save('PREWORK'))
+        if (await fn_save('PREWORK'))
         {
-            if (fn_save('CANCEL'))
+            if (await fn_save('CANCEL'))
             {
                 gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                 fn_search();
@@ -945,15 +944,15 @@
     //세액계산표준세액 자동 계산
     const fn_btnCalculation_Auto = async function () {
 
-        if (fn_save('PREWORK'))
-        {
+       /* if (await fn_save('PREWORK'))
+        {*/
             //MessageBox.Show("세액계산표준세액 자동계산 시작!!");
-            if (fn_saveS1("AUTO"))
+            if (await fn_saveS1("AUTO"))
             {
                 gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                 fn_search();
             }
-        }
+        //}
 
     }
 
