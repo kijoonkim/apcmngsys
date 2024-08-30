@@ -121,7 +121,7 @@
 							</div>
 						</div>
 						<div style="overflow:auto;border:1px solid #d1cece;height:350px">
-							<table class="table table-bordered table-hover cu-basic-table" style="min-width:1720px">
+							<table class="table table-bordered table-hover cu-basic-table" style="min-width:1920px">
 						        <colgroup>
 			                        <col style="width: 50px">
 			                        <col style="width: 80px">
@@ -139,7 +139,7 @@
 			                        <col style="width: 100px">
 			                        <col style="width: 100px">
 			                        <col style="width: 150px">
-			                        <col style="width: 100px">
+			                        <col style="width: 300px">
 						        </colgroup>
 								<thead class="thead-light" style="text-align:left;background-color:#f5fbff;position:sticky;top:0;z-index:3">
 									<tr>
@@ -241,7 +241,7 @@ function compopappvmng(options) {
 		,callback				: null
 	};
 	$.extend(settings, options);	
-	//console.log('settings:', settings);
+	console.log('settings:', settings);
 	
 	//open modal
 	SBUxMethod.openModal(modalDivId);
@@ -547,6 +547,13 @@ function compopappvmng(options) {
 	//결재경로 가져오기
     var fn_basicSearch = async function(callbackFn) {
 
+		var wType = '';
+		if(settings.apprId == '' || settings.apprId == '0'){
+			wType = 'TEMPLATE';
+		} else {
+			wType = 'APPR';
+		}
+		
     	var paramObj = {
 			 V_P_DEBUG_MODE_YN       : ''
 			,V_P_LANG_ID             : ''
@@ -555,11 +562,11 @@ function compopappvmng(options) {
 			,V_P_APPR_ID             : settings.apprId
 			,V_P_SOURCE_NO           : settings.sourceNo
 			,V_P_SOURCE_TYPE         : settings.sourceType
-			,V_P_DEPT_CODE           : ''
-			,V_P_DEPT_NAME           : ''
-			,V_P_COST_CENTER_CODE    : ''
+			,V_P_DEPT_CODE           : settings.deptCode
+			,V_P_DEPT_NAME           : settings.deptName
+			,V_P_COST_CENTER_CODE    : settings.costCenterCode
 			,V_P_EMP_CODE            : settings.empCode
-			,V_P_EMP_NAME            : ''
+			,V_P_EMP_NAME            : settings.empName
 			,V_P_DOC_TYPE            : ''
 			,V_P_SEQ                 : '0'
 			,V_P_SOURCE_SYS          : 'FCM'
@@ -576,10 +583,11 @@ function compopappvmng(options) {
 			,V_P_USERID              : ''
 			,V_P_PC                  : ''
 	    };
+    	console.log('popup paramObj:', paramObj);
     	
 		const postJsonPromise = gfn_postJSON("/com/comApprEmpList.do", {
 			getType				: 'json',
-			workType			: settings.workType,
+			workType			: wType,
 			cv_count			: '3',
 			params				: gfnma_objectToString(paramObj)
 		});
@@ -632,28 +640,32 @@ function compopappvmng(options) {
 			    		const msg = {
 			    				APPR_CATEGORY		: gfnma_nvl(item.APPR_CATEGORY),
 			    				APPR_CATEGORY_NAME	: gfnma_nvl(item.APPR_CATEGORY_NAME),
+			    				APPR_DATE			: gfnma_nvl(item.APPR_DATE),
+			    				APPR_ID				: gfnma_nvl(item.APPR_ID),
+			    				APPR_OPINION		: gfnma_nvl(item.APPR_OPINION),
+			    				APPR_PROCESS		: gfnma_nvl(item.APPR_PROCESS),
+			    				APPR_STATUS			: gfnma_nvl(item.APPR_STATUS),
+			    				APPR_STATUS_NAME	: gfnma_nvl(item.APPR_STATUS_NAME),
 			    				APPR_TYPE			: gfnma_nvl(item.APPR_TYPE),
 			    				APPR_TYPE_NAME		: gfnma_nvl(item.APPR_TYPE_NAME),
 			    				DEPT_CODE			: gfnma_nvl(item.DEPT_CODE),
 			    				DEPT_NAME			: gfnma_nvl(item.DEPT_NAME),
+			    				DESCRIPTION			: gfnma_nvl(item.DESCRIPTION),
 			    				DUTY_CODE			: gfnma_nvl(item.DUTY_CODE),
 			    				DUTY_NAME			: gfnma_nvl(item.DUTY_NAME),
 			    				EMP_CODE			: gfnma_nvl(item.EMP_CODE),
 			    				EMP_NAME			: gfnma_nvl(item.EMP_NAME),
-			    				STEP_SEQ			: gfnma_nvl(item.STEP_SEQ),
+			    				INSERT_PC			: gfnma_nvl(item.INSERT_PC),
+			    				INSERT_TIME			: gfnma_nvl(item.INSERT_TIME),
+			    				INSERT_USERID		: gfnma_nvl(item.INSERT_USERID),
 			    				PROXY_EMP_CODE		: gfnma_nvl(item.PROXY_EMP_CODE),
 			    				PROXY_EMP_NAME		: gfnma_nvl(item.PROXY_EMP_NAME),
-			    				APPR_STATUS			: gfnma_nvl(item.APPR_STATUS),
-			    				APPR_STATUS_NAME	: gfnma_nvl(item.APPR_STATUS_NAME),
-			    				APPR_DATE			: gfnma_nvl(item.APPR_DATE),
-			    				APPR_OPINION		: gfnma_nvl(item.APPR_OPINION),
-			    				DESCRIPTION			: gfnma_nvl(item.DESCRIPTION),
-			    				INSERT_USERID		: gfnma_nvl(item.INSERT_USERID),
-			    				INSERT_TIME			: gfnma_nvl(item.INSERT_TIME),
-			    				INSERT_PC			: gfnma_nvl(item.INSERT_PC),
-			    				UPDATE_USERID		: gfnma_nvl(item.UPDATE_USERID),
+			    				SOURCE_NO			: gfnma_nvl(item.SOURCE_NO),
+			    				SOURCE_TYPE			: gfnma_nvl(item.SOURCE_TYPE),
+			    				STEP_SEQ			: gfnma_nvl(item.STEP_SEQ),
+			    				UPDATE_PC			: gfnma_nvl(item.UPDATE_PC),
 			    				UPDATE_TIME			: gfnma_nvl(item.UPDATE_TIME),
-			    				UPDATE_PC			: gfnma_nvl(item.UPDATE_PC)
+			    				UPDATE_USERID		: gfnma_nvl(item.UPDATE_USERID),
 			    		}
 			    		dlist.push(msg);
 			    		if(item.EMP_CODE == settings.empCode || item.PROXY_EMP_CODE == settings.empCode ){
