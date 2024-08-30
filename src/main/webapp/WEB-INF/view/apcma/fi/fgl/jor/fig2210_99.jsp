@@ -3932,73 +3932,28 @@
     }
 	
     /**
-     * 결재처리 필요 변수
-     */
-	var lgv_apv_apprId		= gfnma_nvl(SBUxMethod.get("sch-appr-id"));  // 상신시:0, 승인(반려): 부모에서 온 값
-	var lgv_apv_sourceNo	= gfnma_nvl(SBUxMethod.get("sch-doc-id"));   
-	var lgv_apv_sourceType 	= gfnma_nvl(SBUxMethod.get("sch-doc-type"));     			
-	var lgv_appr_status 	= gfnma_nvl(SBUxMethod.get("sch-doc-status"));
-	var lgv_emp_code		= p_ss_empCode;
-	var lgv_emp_name		= p_ss_empName;
-	var lgv_dept_code		= p_ss_deptCode;
-	var lgv_dept_name		= p_ss_deptName;
-	var lgv_cost_center_code = '';
-	
-    /**
      * 결재처리
      */
     var cfn_appr = function() {
     	
-		console.log('cfn_appr');    	
-    	
     	//본인이 상신하는 경우
     	compopappvmng({
-    		workType		: 'TEMPLATE'	// 상신:TEMPLATE , 승인(반려):APPR
-    		,compCode		: gv_ma_selectedApcCd
+    		compCode		: gv_ma_selectedApcCd
     		,compCodeNm		: gv_ma_selectedApcNm
     		,clientCode		: gv_ma_selectedClntCd
-    		,apprId			: lgv_apv_apprId
-    		,sourceNo		: lgv_apv_sourceNo
-    		,sourceType		: lgv_apv_sourceType
-    		,apprStatus		: lgv_appr_status
-   			,empCode		: lgv_emp_code
-   			,empName		: lgv_emp_name
-   			,deptCode		: lgv_dept_code
-   			,deptName		: lgv_dept_name
-   			,costCenterCode	: lgv_cost_center_code
+    		,apprId			: gfnma_nvl(SBUxMethod.get("sch-appr-id"))  
+    		,sourceNo		: gfnma_nvl(SBUxMethod.get("sch-doc-id"))  
+    		,sourceType		: gfnma_nvl(SBUxMethod.get("sch-doc-type"))   
+    		,apprStatus		: gfnma_nvl(SBUxMethod.get("sch-doc-status"))
+   			,empCode		: p_ss_empCode
+   			,empName		: p_ss_empName
+   			,deptCode		: p_ss_deptCode
+   			,deptName		: p_ss_deptName
+   			,costCenterCode	: ''
    			,isPostingUser	: p_ss_isPostingUser
    			,formID			: p_formId
    			,menuId			: p_menuId    		
 		});
-    	
-    	//본인이 상신한 것을 조회하는 경우
-//     	compopappvmng({
-//     		workType		: 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
-//      	,compCode		: gv_ma_selectedApcCd
-//        	,compCodeNm		: gv_ma_selectedApcNm
-//        	,clientCode		: gv_ma_selectedClntCd
-//        	,apprId			: '18'		
-//        	,sourceNo		: lgv_apv_sourceNo
-//        	,sourceType		: lgv_apv_sourceType
-//    		,empCode		: p_empCd
-//    		,formID			: p_formId
-//    		,menuId			: p_menuId    		
-// 		});
-    	
-    	//상위 결재권자가 조회 및 승인 할때
-//     	compopappvmng({
-//     		workType		: 'APPR'	// 상신:TEMPLATE , 승인(반려):APPR
-//     		,compCode		: gv_ma_selectedApcCd
-//     		,compCodeNm		: gv_ma_selectedApcNm
-//     		,clientCode		: gv_ma_selectedClntCd
-//     		,apprId			: '18'		// 부모화면에서 결재자가 가지고 있는 값
-//        	,sourceNo		: lgv_apv_sourceNo
-//        	,sourceType		: lgv_apv_sourceType
-//    		,empCode		: '26223075'	//p_empCd
-//    		,formID			: p_formId
-//    		,menuId			: p_menuId    		
-// 		});
-    	
     }
     
     

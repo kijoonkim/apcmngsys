@@ -1100,3 +1100,40 @@ function gfnma_firmSubString(inputString, startIndex, length) {
 
 	return iconv.decode(subBytes, encoding);
 }
+
+/**
+ * @name 		gfnma_getExchangeRateQ
+ * @description 환율
+ * @function
+ * @param 		{string} fbs_service
+ * @param 		{string} send_data
+ * @param 		{string} bSync
+ * @returns 	{void}
+ */
+async function gfnma_getExchangeRateQ(paramObj, workType, callbackFn) {
+	
+    const postJsonPromise = gfn_postJSON("/fi/far/rec/getExchangeRate.do", {
+    	getType				: 'json',
+    	workType			: workType,
+    	cv_count			: '1',
+    	params				: gfnma_objectToString(paramObj)
+	});    	 
+	const data = await postJsonPromise;
+	console.log('gfnma_getExchangeRateQ data:', data);
+
+	try {
+		if (_.isEqual("S", data.resultStatus)) {
+			if(callbackFn){
+				callbackFn(data.cv_1);
+			}
+		} else {
+			alert(data.message);
+		}
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	}
+}
