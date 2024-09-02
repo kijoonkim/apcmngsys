@@ -1589,7 +1589,7 @@
     			grdPrdcrLandInfo.deleteRow(nRow);
     		} else {
     			if (gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
-        			//fn_del(rowData, nRow);
+        			fn_deletePrdcrLandInfo(rowData, nRow)
         		}
     		}
     	}
@@ -1969,6 +1969,26 @@
 	    		console.error("failed", e.message);
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
+		}
+	}
+
+	const fn_deletePrdcrLandInfo = async function(deleteVO, nRow) {
+
+		const postJsonPromise = gfn_postJSON("/am/wrhs/deletePrdcrLandInfo.do", deleteVO);
+    	const data = await postJsonPromise;
+
+    	try{
+    		if (_.isEqual("S", data.resultStatus)) {
+    			grdPrdcrLandInfo.deleteRow(nRow);
+        	} else {
+	    		gfn_comAlert(data.resultCode, data.resultMessage);
+	    	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 

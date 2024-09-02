@@ -1,5 +1,6 @@
 package com.at.apcss.am.wrhs.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
@@ -58,6 +59,6 @@ public interface PrdcrLandInfoService {
 	 * @return Integer
 	 * @throws Exception
 	 */
-	public int deletePrdcrLandInfo(PrdcrLandInfoVO prdcrLandInfoVO) throws Exception;
+	public HashMap<String, Object> deletePrdcrLandInfo(PrdcrLandInfoVO prdcrLandInfoVO) throws Exception;
 
 }
