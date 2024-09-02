@@ -127,7 +127,7 @@
 				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
 				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
 			 WHERE APC_CD					= #{apcCd}
-			   AND PRDCR_CD             	= #{prdcr_cd}
+			   AND PRDCR_CD             	= #{prdcrCd}
 			   AND PRDCR_LAND_INFO_NO   	= #{prdcrLandInfoNo}
 		]]>
 	</update>
@@ -149,7 +149,7 @@
 				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
 				 , SYS_LAST_CHG_PRGRM_ID    = #{sysLastChgPrgrmId}
 			 WHERE APC_CD					= #{apcCd}
-			   AND PRDCR_CD             	= #{prdcr_cd}
+			   AND PRDCR_CD             	= #{prdcrCd}
 			   AND PRDCR_LAND_INFO_NO   	= #{prdcrLandInfoNo}
 		]]>
 	</update>

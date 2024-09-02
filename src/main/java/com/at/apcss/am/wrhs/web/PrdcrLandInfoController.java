@@ -68,4 +68,42 @@ public class PrdcrLandInfoController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	/**
+	 * 생산농지정보 삭제
+	 * @param prdcrLandInfoVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/deletePrdcrLandInfo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deletePrdcrLandInfo(@RequestBody PrdcrLandInfoVO prdcrLandInfoVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			prdcrLandInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+			prdcrLandInfoVO.setSysFrstInptUserId(getUserId());
+			prdcrLandInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+			prdcrLandInfoVO.setSysLastChgUserId(getUserId());
+
+
+			HashMap<String, Object> rtnObj = prdcrLandInfoService.deletePrdcrLandInfo(prdcrLandInfoVO);
+
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

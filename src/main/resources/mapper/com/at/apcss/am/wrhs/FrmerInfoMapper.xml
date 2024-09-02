@@ -334,8 +334,10 @@
 			 WHERE APC_CD 					= #{apcCd}
 			   AND PRDCR_CD                 = #{prdcrCd}
 			   AND PRDCR_LAND_INFO_NO       = #{prdcrLandInfoNo}
-			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
 		]]>
+		<if test='cltvtnHstryNo != null and cltvtnHstryNo != ""'>
+			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
+		</if>
 	</update>
 
     <!-- ==============================================================================	-->
