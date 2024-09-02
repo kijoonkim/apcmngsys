@@ -353,7 +353,7 @@
             {caption: ['정산일자(퇴직일자)'], ref: 'WORK_END_DAT', 	width:'130px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["중간소득신고 여부"], ref: 'MIDWAY_TX_RETURN_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
-                typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
+                typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
@@ -395,19 +395,19 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
             {caption: ["결정세액(주민세)"], ref: 'CALC_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["결정세액(농특세)"], ref: 'CALC_SPEC_TX_AMT', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["결정세액(농특세)"], ref: 'CALC_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
             {caption: ["기납부세액(소득세)"], ref: 'NOW_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
             {caption: ["기납부세액(주민세)"], ref: 'NOW_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["기납부세액(농특세)"], ref: 'NOW_SPEC_TX_AMT', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["기납부세액(농특세)"], ref: 'NOW_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
             {caption: ["차감징수세액(소득세)"], ref: 'INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
             {caption: ["차감징수세액(주민세)"], ref: 'LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["차감징수세액(농특세)"], ref: 'SPEC_TX_AMT', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["차감징수세액(농특세)"], ref: 'SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
             {caption: ["차감징수세액계"], ref: 'TX_TOT_AMT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
@@ -528,7 +528,7 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                /*fn_view();*/
 
             } else {
                 alert(data.resultMessage);
@@ -593,7 +593,7 @@
     const getParamForm = async function () {
 
         let returnData = [];
-        let updateData = gvwInfoGrid.getGridDataAll();
+        let updateData = gvwInfoGrid.getUpdateData(true, 'all');
 
         let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
 
