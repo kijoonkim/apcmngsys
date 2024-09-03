@@ -238,6 +238,7 @@
 			     , CH.RMRK              AS RMRK
 			     , CH.DEL_YN            AS DEL_YN
 			     , (SELECT MAX(ATCHFL_NO) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_NO
+			     , (SELECT MAX(ATCHFL_ORGN_NM) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_ORGN_NM
 			  FROM TB_CLTVTN_HSTRY CH
 			 WHERE CH.DEL_YN = 'N'
 			   AND CH.APC_CD = #{apcCd}
@@ -411,6 +412,7 @@
 					   AND CQ.PRDCR_CD = PI.PRDCR_CD
 					   AND PI.DEL_YN = 'N'
 					   AND CQ.DEL_YN = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 			<if test='apcCd != null and apcCd != ""'>
     				   AND PI.APC_CD = #{apcCd}
@@ -481,6 +483,7 @@
 					   AND CQ.PRDCR_CD(+) = PI.PRDCR_CD
 					   AND PI.DEL_YN = 'N'
 					   AND CQ.DEL_YN(+) = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 			<if test='apcCd != null and apcCd != ""'>
     				   AND PI.APC_CD = #{apcCd}
@@ -853,6 +856,7 @@
 					   AND PI.DEL_YN = 'N'
 					   AND FW.DEL_YN = 'N'
 					   AND FWD.DEL_YN = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 					   AND PI.APC_CD = #{apcCd}
@@ -932,6 +936,7 @@
 					   AND PI.DEL_YN = 'N'
 					   AND FW.DEL_YN(+) = 'N'
 					   AND FWD.DEL_YN(+) = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 					   AND PI.APC_CD = #{apcCd}

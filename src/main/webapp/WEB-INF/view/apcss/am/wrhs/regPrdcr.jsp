@@ -72,20 +72,9 @@
     							</sbux-input>
 							</td>
 							<td style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">전화번호</th>
+							<th scope="row" class="th_bg">영농관리여부</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text" id="srch-inp-telno" name="srch-inp-telno"
-									class="form-control input-sm" maxlength="20"
-    							></sbux-input>
-							</td>
-							<td colspan="2" style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg">주소</th>
-							<td class="td_input" style="border-right: hidden;" colspan="3">
-								<sbux-input
-									uitype="text" id="srch-inp-addr" name="srch-inp-addr"
-									class="form-control input-sm" maxlength="50"
-								></sbux-input>
+								<sbux-checkbox id="srch-chk-agrcYn" name="srch-chk-agrcYn" uitype="normal" text="사용" true-value="Y" false-value="" ></sbux-checkbox>
 							</td>
 						</tr>
 					</tbody>
@@ -93,18 +82,18 @@
 
 
 				<!-- 1번째 그리드-->
-				<div class="ad_tbl_top">
+				<!-- <div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li><span>생산자 목록</span></li>
 					</ul>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
 					<div id="sb-area-grdAgrixPrdcr" style="height:258px;"></div>
-				</div>
+				</div> -->
 				<div class="ad_tbl_top2">
 					<ul class="ad_tbl_count">
 						<li>
-							<span>생산자 등록 내역</span>
+							<span>생산자 내역</span>
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
@@ -132,7 +121,7 @@
 				</div>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdApcPrdcr" style="height:283px;"></div>
+					<div id="sb-area-grdApcPrdcr" style="height:576px;"></div>
 				</div>
 			</div>
 
@@ -174,30 +163,6 @@
 				</div>
 		</div>
 	</section>
-	<!-- 생산작업자 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 선택" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-oprtr">
-    	<jsp:include page="../../am/popup/oprtrPopup.jsp"></jsp:include>
-    </div>
-
-	<!-- 생산자 상세 Modal -->
-    <div>
-        <sbux-modal
-        	id="modal-prdcrDtl"
-        	name="modal-prdcrDtl"
-        	uitype="middle"
-        	header-title="생산자 상세"
-        	body-html-id="body-modal-prdcrDtl"
-        	footer-is-close-button="false"
-        	header-is-close-button="false"
-        	style="width:1000px"
-        ></sbux-modal>
-    </div>
-    <div id="body-modal-prdcrDtl">
-    	<jsp:include page="../../am/popup/prdcrDtlPopup.jsp"></jsp:include>
-    </div>
 
     <!-- 산지 선택 Modal -->
     <div>
@@ -245,7 +210,7 @@
 		await fn_reset();
 	}
 	async function cfn_add() {
-	
+
 	}
 	async function cfn_del() {
 
@@ -274,7 +239,7 @@
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComWrhsSeCd, 	'WRHS_SE_CD'),							// 입고구분
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComTrsprtSeCd, 	'TRSPRT_SE_CD'),						// 운송구분
 			gfn_setComCdSBSelect('grdApcPrdcr', 	jsonComClclnCrtrCd, 'CLCLN_CRTR_CD'),						// 정산기준
-			gfn_setComCdSBSelect('prdcrDtl-slt-frmhsCtpv', jsonCtpvPrdcrDtlPop, 'CTPV', '0000'),		// 지역
+			//gfn_setComCdSBSelect('prdcrDtl-slt-frmhsCtpv', jsonCtpvPrdcrDtlPop, 'CTPV', '0000'),		// 지역
 
 		]);
 		await fn_setSltJson();
@@ -293,7 +258,7 @@
 	var jsonApcPrdcrBackUp = [];
 
 	const fn_createAgrixPrdcrGrid = function() {
-
+		/*
 	    var SBGridAgrixPrdcrProperties = {};
 	    SBGridAgrixPrdcrProperties.parentid = 'sb-area-grdAgrixPrdcr';
 	    SBGridAgrixPrdcrProperties.id = 'grdAgrixPrdcr';
@@ -322,7 +287,7 @@
 	        {caption: ["비고"],  			ref: 'rmrk',   			type:'output',  width:'300px', style: 'text-align:left'}
 	    ];
 	    grdAgrixPrdcr = _SBGrid.create(SBGridAgrixPrdcrProperties);
-
+		*/
 
 	    var SBGridApcPrdcrProperties = {};
 	    SBGridApcPrdcrProperties.parentid = 'sb-area-grdApcPrdcr';
@@ -351,19 +316,18 @@
 				        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
 	            	}
 		    }},
-		    {caption: ["상세"], 			ref: 'delYn',  			type:'button',  width:'50px',  style:'text-align:center',	sortable: false,
-		    	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if(!gfn_isEmpty(strValue)){
-			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalPrdcrDtl(" + nRow + ")'>정보</button>";
-	        	}else{
-	        		return ;
-	        	}
-		    }},
 		    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
 		    {caption: ['생산자코드'], 		ref: 'prdcrCd', 	type: 'output', 	width: '70px', style: 'text-align:center', sortable: false},
-		    //{caption: ['생산자코드'], 			ref: 'prdcrCd', 	hidden:true},
 	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
+	        	{
+		    		caption : ["영농관리"],
+		    		ref : 'agrcYn',
+		    		width : '60px',
+		    		style : 'text-align:center',
+		    		type : 'checkbox',
+		    		typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+		    	},
 	        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '90px', style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonApcItemCd', 	label:'label', value:'value', itemcount: 10}},
 	        {
@@ -438,7 +402,7 @@
 	const fn_search = async function(){
 
 		let rst = await Promise.all([
-			fn_setGrdAgrixAprdcr(),
+			//fn_setGrdAgrixAprdcr(),
 			fn_setGrdApcPrdcr(),
 		])
 	}
@@ -489,15 +453,15 @@
 	}
 
 	const fn_setGrdApcPrdcr = async function(){
-		let prdcrNm 	= SBUxMethod.get("srch-inp-prdcrNm");
-		let telno 		= SBUxMethod.get("srch-inp-telno");
+		let prdcrNm 		= SBUxMethod.get("srch-inp-prdcrNm");
+		let agrcYn			= SBUxMethod.get("srch-chk-agrcYn")["srch-chk-agrcYn"]
+		const prdcrVO = {
+			apcCd				: gv_selectedApcCd
+		  , prdcrNm 			: prdcrNm
+		  ,	agrcYn 				: agrcYn
+		}
 
-		const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", {
-        	apcCd		: gv_selectedApcCd
-          , prdcrNm		: prdcrNm
-          ,	telno 		: telno
-		});
-
+        const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrList.do", prdcrVO);
         const data = await postJsonPromise;
 
 		try {
@@ -532,6 +496,7 @@
 				  , frmhsAddr		: item.frmhsAddr
 				  , extrnlLnkgCd	: item.extrnlLnkgCd
 				  , itemVrtyCd		: gfn_isEmpty(item.rprsItemCd) ? item.rprsVrtyCd : item.rprsItemCd + item.rprsVrtyCd
+				  , agrcYn			: item.agrcYn
 				}
 				jsonApcPrdcr.push(prdcrVO);
 			});
@@ -729,12 +694,12 @@
 			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
-		
+
 		// comConfirm
 		if (!gfn_comConfirm("Q0001", "선택내역 삭제")) {	//	Q0001	{0} 하시겠습니까?
 	    	return;
 	    }
-		
+
 		try {
 			const postUrl = "/am/cmns/deletePrdcrList.do";
     		const postJsonPromise = gfn_postJSON(postUrl, prdcrList);

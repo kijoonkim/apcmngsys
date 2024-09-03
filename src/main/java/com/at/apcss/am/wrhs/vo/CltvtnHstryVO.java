@@ -80,5 +80,9 @@ public class CltvtnHstryVO extends ComVO {
 	 * 첨부파일 경로
 	 * */
 	private String filePath;
+	/*
+	 * 첨부파일 원본명
+	 * */
+	private String atchflOrgnNm;
 
 }
