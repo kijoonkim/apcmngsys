@@ -257,6 +257,7 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 		//SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.useMixedWidth = true;
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		//SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheader="seq";
@@ -272,7 +273,7 @@
 			//{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
 				//,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
-				ref: 'bizNm',		type:'input',  width:'435px',    style:'text-align:center'},
+				ref: 'bizNm',		type:'input',  width:'435px',	style:'text-align:center'},
 			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'
@@ -377,12 +378,17 @@
 			}
 		});
 		//alert('준비중');
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 
 	//신규 등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
@@ -394,6 +400,7 @@
 			let rowSts = grdFcltInstlInfo.getRowStatus(i);
 
 			rowData.prgrsYn = 'Y';//진척도 갱신 유무
+			rowData.tmpChk = tmpChk; //임시저장 체크
 
 			if (rowSts === 1){
 				rowData.rowSts = "I";
@@ -642,6 +649,8 @@
 
 			rowData.apcCd = apcCd;
 			rowData.apcNm = apcNm;
+
+			rowData.prgrsYn = 'Y';//진척도 갱신 유무
 
 			rowData.rowSts = "I";
 
