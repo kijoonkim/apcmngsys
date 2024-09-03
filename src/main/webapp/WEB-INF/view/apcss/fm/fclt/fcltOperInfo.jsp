@@ -32,8 +32,8 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-		<div class="box box-solid">
-			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
@@ -943,6 +943,45 @@
 		console.log(SBUxMethod.get('dtl-inp-apcCd'));
 		console.log(SBUxMethod.get('dtl-inp-crtrYr'));
 		fn_selectFcltOperInfo();//상세조회
+	}
+
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set("dtl-inp-operOgnzNm",null);  // 운영조직 명
+		SBUxMethod.set("dtl-inp-operOgnzBrno",null);  //운영조직 사업자등록번호
+		SBUxMethod.set("dtl-inp-operOgnzCrno",null);  //운영조직 법인등록번호
+		SBUxMethod.set("dtl-inp-rprsv",null);  // 대표자
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddr",null);  // 소재지
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrDtl",null);  // 소재지 상세
+		SBUxMethod.set("dtl-inp-operOgnzAdmCd",null);  //운영조직 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmCd",null);  //운영조직 도로명코드
+		SBUxMethod.set("dtl-inp-operOgnzZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-operOgnzBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-operOgnzSlno",null);  //apc 건물 부번
+
+		SBUxMethod.set("dtl-inp-ctpvCd",null);  //시도 코드 (법정동코드 앞2자리)
+		SBUxMethod.set("dtl-inp-sigunCd",null);  //시군구 코드 (법정동 코드 앞5자리)
+
+		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
+		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
+
+		SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
+		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
+		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
+		SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
+		SBUxMethod.set("dtl-inp-apcRoadNmAddrDtl",null);  //apc 주소 상세
+		SBUxMethod.set("dtl-inp-apcAdmCd",null);  //apc 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-apcRoadNmCd",null);  //apc 도로명코드
+		SBUxMethod.set("dtl-inp-apcZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-apcBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-apcSlno",null);  //apc 건물 부번
+
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.set("dtl-inp-operItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-operItemCd"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemCd"+i, null);
+		}
 	}
 
 	// apc 선택 팝업 호출

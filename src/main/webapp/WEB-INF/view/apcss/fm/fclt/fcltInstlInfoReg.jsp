@@ -28,8 +28,8 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
@@ -39,6 +39,7 @@
 				<sbux-button id="btnPop2" name="btnPop2" uitype="modal" target-id="modal-biz" onclick="fn_openMaodalBiz" text="지원사업관리" class="btn btn-sm btn-primary"></sbux-button>
 				<sbux-button id="btnPop3" name="btnPop3" uitype="modal" target-id="modal-bizSrch" onclick="fn_openMaodalBizSrch" text="지원사업검색" class="btn btn-sm btn-primary"></sbux-button>
 				 -->
+				 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -197,7 +198,8 @@
 	const fn_init = async function() {
 		await fn_initSBSelect();
 		await fn_fcltInstlInfoCreateGrid();
-		await fn_selectFcltInstlInfoList();
+		await fn_search();
+
 		//진척도
 		await cfn_selectPrgrs();
 
@@ -257,6 +259,7 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 		//SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.useMixedWidth = true;
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		//SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheader="seq";
@@ -272,7 +275,7 @@
 			//{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
 				//,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
-				ref: 'bizNm',		type:'input',  width:'435px',    style:'text-align:center'},
+				ref: 'bizNm',		type:'input',  width:'435px',	style:'text-align:center'},
 			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'
@@ -294,12 +297,21 @@
 		grdFcltInstlInfo = _SBGrid.create(SBGridProperties);
 
 	}
+	/**
+     * 목록 조회
+     */
+	const fn_search = async function() {
+		let pageSize = grdFcltInstlInfo.getPageSize();
+		let pageNo = 1;
+
+		fn_selectFcltInstlInfoList(pageSize, pageNo);
+	}
 
 	/**
      * @param {number} pageSize
      * @param {number} pageNo
 	*/
-    const fn_selectFcltInstlInfoList = async function(pageSize, pageNo) {
+	const fn_selectFcltInstlInfoList = async function(pageSize, pageNo) {
 		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
@@ -307,7 +319,7 @@
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInstlInfoList.do", {
 			apcCd: apcCd,
-			//trgtYr: crtrYr,
+			//crtrYr: crtrYr,
 
 			// pagination
 			//pagingYn : 'N',
@@ -377,12 +389,17 @@
 			}
 		});
 		//alert('준비중');
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 
 	//신규 등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
@@ -394,6 +411,7 @@
 			let rowSts = grdFcltInstlInfo.getRowStatus(i);
 
 			rowData.prgrsYn = 'Y';//진척도 갱신 유무
+			rowData.tmpChk = tmpChk; //임시저장 체크
 
 			if (rowSts === 1){
 				rowData.rowSts = "I";
@@ -643,6 +661,8 @@
 			rowData.apcCd = apcCd;
 			rowData.apcNm = apcNm;
 
+			rowData.prgrsYn = 'Y';//진척도 갱신 유무
+
 			rowData.rowSts = "I";
 
 			//저장할데이터
@@ -852,8 +872,8 @@
 		];
 
 		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
+		let fileName = "지원사업 리스트 엑셀 업로드 양식.xlsx"
 
-		let fileName = "지원사업 리스트 엑셀 업로드(샘플).xlsx"
 		gfn_exportExcelMulti(fileName, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}
 

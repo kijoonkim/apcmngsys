@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 
 			</div>
@@ -369,7 +370,7 @@
 		await SBUxMethod.changeGroupAttr('group1','disabled','true');
 		await SBUxMethod.changeGroupAttr('group2','disabled','true');
 
-		await fn_setGrdLtMcIfList();//데이터 조회
+		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
 
@@ -382,11 +383,15 @@
 		}
 	}
 
+	const fn_search = async function() {
+		fn_setGrdLtMcIfList();
+	}
+
 	const fn_setGrdLtMcIfList = async function(copy_chk) {
 		 console.log("******************fn_setGrdLtMcIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");/
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){

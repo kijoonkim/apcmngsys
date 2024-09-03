@@ -29,8 +29,8 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 상품화설비현황 -->
@@ -397,7 +397,7 @@
 	const fn_init = async function() {
 		await fn_clear();
 
-		await fn_setGrdGdsMcList();
+		await fn_search();
 
 		//진척도
 		await cfn_selectPrgrs();
@@ -419,6 +419,9 @@
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
 		}
+	}
+	const fn_search = async function() {
+		fn_setGrdGdsMcList();
 	}
 
 	/**

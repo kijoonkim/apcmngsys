@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 통합관리시스템 활용현황 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -198,7 +199,7 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
-		await fn_selectUniMnIfList();
+		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
 		//최종제출 여부
@@ -208,6 +209,10 @@
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
+	}
+
+	const fn_search = async function() {
+		fn_selectUniMnIfList();
 	}
 
 	const fn_selectUniMnIfList = async function(copy_chk) {

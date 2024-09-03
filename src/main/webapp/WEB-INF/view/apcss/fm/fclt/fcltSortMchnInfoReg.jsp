@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별기운영 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -431,7 +432,7 @@
 	const fn_init = async function() {
 		await fn_clear();//전체 비활성화
 
-		await fn_setGrdStMcInfList();//데이터 조회
+		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
 		//최종제출 여부
@@ -451,6 +452,10 @@
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
 		}
+	}
+
+	const fn_search = async function() {
+		fn_setGrdStMcInfList();
 	}
 
 	/**
@@ -484,8 +489,8 @@
 				//item.sn 1~4
 				//itemChk 품목 존재 여부
 				SBUxMethod.set('dtl-inp-itemChk'+item.sn ,'Y');
-
-				$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
+				console.log(item);
+				$('#itemNm'+item.sn).text("품목 : "+item.sortItemNm);
 
 				let sortMchnHoldYn = item.sortMchnHoldYn;
 				//품목이 없는경우 해당 행자체가 존재 하지 않아 조회가 안되므로 여기서 활성화
