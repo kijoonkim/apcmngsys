@@ -118,7 +118,11 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 작년평균망
 	 * */
-	private int lastYrEvl;
+	private double lastYrEvl;
+	/*
+	 * 올해평균망
+	 * */
+	private double tyEvl;
 	/*
 	 * 변동갭
 	 * */
