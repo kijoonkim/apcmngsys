@@ -209,6 +209,7 @@
                  , PR.PRCHS_QNTT        AS PRCHS_QNTT
                  , PR.PRCHS_AMT         AS PRCHS_AMT
                  , FI.FRMERNO           AS FRMERNO
+                 , NVL(PR.AGRC_YN, 'N')			AS AGRC_YN
 
 			  FROM TB_PRDCR_INFO PR
 			     , TB_AX_FRMER_INFO FI
@@ -261,6 +262,9 @@
 		</if>
 		<if test=' telno != null and telno !=""'>
 			   AND PR.TELNO LIKE '%' || #{telno} || '%'
+		</if>
+		<if test=' agrcYn != null and agrcYn !=""'>
+			   AND NVL(PR.AGRC_YN, 'N') = #{agrcYn}
 		</if>
 
     	<![CDATA[
@@ -363,6 +367,9 @@
 		</if>
 		<if test=' telno != null and telno !=""'>
 			   AND PR.TELNO LIKE '%' || #{telno} || '%'
+		</if>
+		<if test=' agrcYn != null and agrcYn !=""'>
+			   AND NVL(PR.AGRC_YN, 'N') = #{agrcYn}
 		</if>
 
     	<![CDATA[
@@ -502,6 +509,7 @@
 			     	, PLOR_CD
 					, RMRK
 					, EXTRNL_LNKG_CD
+					, AGRC_YN
 	    		  	, SYS_FRST_INPT_DT
 	    		  	, SYS_FRST_INPT_USER_ID
 	    		  	, SYS_FRST_INPT_PRGRM_ID
@@ -526,6 +534,7 @@
 					, #{plorCd}
 					, #{rmrk}
 					, #{extrnlLnkgCd}
+					, #{agrcYn}
 					, SYSDATE
 	   			  	, #{sysFrstInptUserId}
 	   			  	, #{sysFrstInptPrgrmId}
@@ -565,6 +574,7 @@
 				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+				, AGRC_YN = #{agrcYn}
     	]]>
 		<if test='delYn != null and delYn !=""'>
 			   	, DEL_YN= #{delYn}
@@ -605,6 +615,7 @@
 				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+				, AGRC_YN = #{agrcYn}
     	]]>
 		<if test='delYn != null and delYn !=""'>
 			   	, DEL_YN= #{delYn}

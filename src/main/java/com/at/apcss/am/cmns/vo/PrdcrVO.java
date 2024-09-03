@@ -266,6 +266,12 @@ public class PrdcrVO extends ComVO {
 	 * 농가대표부번
 	 */
 	private String rprsFrlnSno;
+	/**
+	 * 영농관리여부
+	 */
+	private String agrcYn;
+
+
 	private int crtrArea;
 	private int plntngArea;
 	private int prchsQntt;

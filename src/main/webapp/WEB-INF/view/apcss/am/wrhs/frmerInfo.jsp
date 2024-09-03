@@ -568,7 +568,7 @@
         		}
 
         	}},
-        	{caption : ['사진명'], 		ref: 'fileName', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
+        	{caption : ['사진명'], 		ref: 'atchflOrgnNm', 	type: 'input', width: '100px', style: 'text-align:left'},
         	{caption : ['쓰기여부'], 	ref: 'inputFlag', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
         	{caption : ['비고'], 		ref: 'rmrk', 		type: 'input', 		width: '200px', style: 'text-align:left', typeinfo : {maxlength : 300}},
 	    ];
@@ -867,9 +867,9 @@
 		        	// 하이픈 뒤의 부분을 가져오고, 숫자를 추출합니다
 		        	const lastNumber = parseInt(fileId.substring(lastHyphenIndex + 1));
 
-		        	let fileNameCol = grdCltvtnHstry.getColRef("fileName");
+		        	let atchflOrgnNmCol = grdCltvtnHstry.getColRef("atchflOrgnNm");
 
-		        	grdCltvtnHstry.setCellData(lastNumber, fileNameCol, file.name, true);
+		        	grdCltvtnHstry.setCellData(lastNumber, atchflOrgnNmCol, file.name, true);
 		        	grdCltvtnHstry.setRowStatus(lastNumber, "update", true);
 		        }
 
@@ -1216,6 +1216,7 @@
 	        		  , delYn			: item.delYn
 	        		  , atchflNo		: item.atchflNo
 	        		  , filePath		: item.filePath
+	        		  , atchflOrgnNm	: item.atchflOrgnNm
 	        	}
 
 	        	if (!gfn_isEmpty(item.cltvtnHstryNo)) {
@@ -1798,7 +1799,7 @@
 			let rowData = grdCltvtnHstry.getRowData(i);
 
 			let rowSts = grdCltvtnHstry.getRowStatus(i);
-			let fileName = rowData.fileName;
+			let atchflOrgnNm = rowData.atchflOrgnNm;
 			let cltvtnHstryNo = rowData.cltvtnHstryNo;
 			let delYn = rowData.delYn;
 
@@ -1812,7 +1813,7 @@
 						rowData.prdcrCd = prdcrCd;
 						rowData.prdcrLandInfoNo = choicePrdcrLandInfoNo;
 
-						if (!gfn_isEmpty(fileName)) {
+						if (!gfn_isEmpty(atchflOrgnNm)) {
 							let fileId = 'inp-file-' + (i);
 					    	let fileInput = document.getElementById(fileId);
 							let file = fileInput.files[0];
@@ -1836,7 +1837,7 @@
 					if (rowSts === 2) {
 						rowData.rowSts = "U";
 
-						if (!gfn_isEmpty(fileName)) {
+						if (!gfn_isEmpty(atchflOrgnNm)) {
 							let fileId = 'inp-file-' + (i);
 					    	let fileInput = document.getElementById(fileId);
 							let file = fileInput.files[0];
