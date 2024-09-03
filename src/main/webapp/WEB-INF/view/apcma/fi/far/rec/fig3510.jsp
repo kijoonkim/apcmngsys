@@ -1617,7 +1617,7 @@
         SBUxMethod.set("DIFF_DAY", gfn_diffDate(value, SBUxMethod.get('PAY_BASE_DATE')));
 
         if(gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
-            let ht1 = fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), value);
+            let ht1 = await fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), value);
 
             SBUxMethod.set("BILL_DUE_DATE", ht1[0].has("BILL_DUE_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DATE"]) : "" : "");
             SBUxMethod.set("BILL_DUE_DAY", ht1[0].has("BILL_DUE_DAY") ? !gfn_nvl(ht1[0]["BILL_DUE_DAY"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DAY"]) : "" : "");
@@ -5734,7 +5734,7 @@
     }
 
     const fn_setExpectedPayDateReadOnly = async function () {
-        let ht = fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), gfn_nvl(SBUxMethod.get('DOC_DATE')));
+        let ht = await fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), gfn_nvl(SBUxMethod.get('DOC_DATE')));
 
         if (ht.length > 0) {
             if (ht[0].has("EXPECTED_PAY_DATE")) {
