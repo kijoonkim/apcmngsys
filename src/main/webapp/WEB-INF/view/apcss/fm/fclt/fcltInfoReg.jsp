@@ -29,8 +29,8 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 시설 장비 인력 현황 -->
@@ -81,10 +81,6 @@
 			<br>
 			<!-- 진척도 추가 -->
 			<%@ include file="prgrs/apcPrgrs.jsp" %>
-
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-spmtDsctn" style="height:0px;"></div>
-			</div>
 			<br>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>시설현황</caption>
@@ -463,7 +459,7 @@
 		SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
-		//fn_init();
+		fn_init();
 	});
 
 	/* 초기화면 로딩 기능*/
