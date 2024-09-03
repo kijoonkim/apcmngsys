@@ -1,4 +1,4 @@
-<%
+]<%
  /**
   * @Class Name : fcltSortMchnOperInfoReg.jsp
   * @Description : 3.4.선별기운영기간 화면
@@ -36,6 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별기운영기간 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -130,8 +131,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm1">품목1</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk1" name="dtl-inp-itemChk1" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -222,8 +221,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm2">품목2</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk2" name="dtl-inp-itemChk2" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -314,8 +311,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm3">품목3</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk3" name="dtl-inp-itemChk3" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -406,8 +401,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm4">기타품목</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk4" name="dtl-inp-itemChk4" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -539,11 +532,12 @@
 	});
 
 	const fn_init = async function() {
-		//await fn_clear();//전체 비활성화
+		await fn_clear();//전체 비활성화
 
-		await fn_selectStMcOpIfList();//데이터 조회
+		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
+
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
 		if(prgrsLast  == 'Y'){
@@ -552,6 +546,21 @@
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
 	}
+
+	//전체 데이터 초기화 및 비활성화
+	function fn_clear() {
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			SBUxMethod.clearGroupData('group'+i);
+			SBUxMethod.attr('dtl-inp-warehouseSeCd_chk_mon_'+i+'_1','disabled','true');
+			SBUxMethod.attr('dtl-inp-warehouseSeCd_chk_mon_'+i+'_non','disabled','true');
+			SBUxMethod.set('dtl-inp-itemChk'+i,null);
+		}
+	}
+	const fn_search = async function() {
+		fn_selectStMcOpIfList();
+	}
+
 
 	/**
      * @param {number} pageSize
@@ -579,11 +588,12 @@
 		//예외처리
 		try {
 			//console.log(data);
+			fn_clear();//전체 비활성화
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
-				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
-
+				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부
 				$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
+				SBUxMethod.changeGroupAttr('group'+item.sn,'disabled','false');
 
 				if(item.operYn == 'Y'){
 					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_2',item.operPeriodYn1);
@@ -677,7 +687,7 @@
 			}
 		}
 		console.log(saveList);
-		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltSortMchnOperInfo.do", saveList);
+		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltSortMchnOperInfo.do", saveList);
 
 		const data = await postJsonPromise;
 

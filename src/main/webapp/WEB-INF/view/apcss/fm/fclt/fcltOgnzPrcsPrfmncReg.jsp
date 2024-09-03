@@ -36,6 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 유통조직처리실적 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -708,7 +709,10 @@
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
+	}
 
+	const fn_search = async function() {
+		fn_selectOgPcList();
 	}
 
 	const fn_selectOgPcList = async function(copy_chk) {

@@ -38,6 +38,7 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_selectFcltOperInfo"></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
@@ -449,7 +450,6 @@
 
 		fn_init();
 
-
 	});
 
 	var jsonComOgnzTypeCd = [];//조직유형
@@ -474,7 +474,7 @@
 
 		//if() user=userTpye 값과 apc에 따라 변경 dtl-inp-apcNm
 
-		fn_selectFcltOperInfo();
+		fn_search();
 
 		//진척도
 		cfn_selectPrgrs();
@@ -486,6 +486,9 @@
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
+	}
+	const fn_search = async function() {
+		fn_selectFcltOperInfo();
 	}
 
 	const fn_selectFcltOperInfo = async function(){

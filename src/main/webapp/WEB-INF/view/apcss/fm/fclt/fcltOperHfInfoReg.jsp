@@ -36,6 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 시설고용인력 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -294,9 +295,10 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
-		await fn_selectGrdHireInfoList();
+		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
+
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
 		if(prgrsLast  == 'Y'){
@@ -304,6 +306,10 @@
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
+	}
+
+	const fn_search = async function() {
+		fn_selectGrdHireInfoList();
 	}
 
 	const fn_selectGrdHireInfoList = async function(copy_chk) {

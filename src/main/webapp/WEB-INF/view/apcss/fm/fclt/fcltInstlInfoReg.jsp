@@ -39,6 +39,7 @@
 				<sbux-button id="btnPop2" name="btnPop2" uitype="modal" target-id="modal-biz" onclick="fn_openMaodalBiz" text="지원사업관리" class="btn btn-sm btn-primary"></sbux-button>
 				<sbux-button id="btnPop3" name="btnPop3" uitype="modal" target-id="modal-bizSrch" onclick="fn_openMaodalBizSrch" text="지원사업검색" class="btn btn-sm btn-primary"></sbux-button>
 				 -->
+				 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -197,7 +198,8 @@
 	const fn_init = async function() {
 		await fn_initSBSelect();
 		await fn_fcltInstlInfoCreateGrid();
-		await fn_selectFcltInstlInfoList();
+		await fn_search();
+
 		//진척도
 		await cfn_selectPrgrs();
 
@@ -295,12 +297,21 @@
 		grdFcltInstlInfo = _SBGrid.create(SBGridProperties);
 
 	}
+	/**
+     * 목록 조회
+     */
+	const fn_search = async function() {
+		let pageSize = grdFcltInstlInfo.getPageSize();
+		let pageNo = 1;
+
+		fn_selectFcltInstlInfoList(pageSize, pageNo);
+	}
 
 	/**
      * @param {number} pageSize
      * @param {number} pageNo
 	*/
-    const fn_selectFcltInstlInfoList = async function(pageSize, pageNo) {
+	const fn_selectFcltInstlInfoList = async function(pageSize, pageNo) {
 		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
@@ -308,7 +319,7 @@
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInstlInfoList.do", {
 			apcCd: apcCd,
-			//trgtYr: crtrYr,
+			//crtrYr: crtrYr,
 
 			// pagination
 			//pagingYn : 'N',
@@ -861,8 +872,8 @@
 		];
 
 		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
+		let fileName = "지원사업 리스트 엑셀 업로드 양식.xlsx"
 
-		let fileName = "지원사업 리스트 엑셀 업로드(샘플).xlsx"
 		gfn_exportExcelMulti(fileName, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}
 

@@ -397,7 +397,7 @@
 	const fn_init = async function() {
 		await fn_clear();
 
-		await fn_setGrdGdsMcList();
+		await fn_search();
 
 		//진척도
 		await cfn_selectPrgrs();
@@ -419,6 +419,9 @@
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
 		}
+	}
+	const fn_search = async function() {
+		fn_setGrdGdsMcList();
 	}
 
 	/**

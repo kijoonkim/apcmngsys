@@ -49,6 +49,10 @@ public class FcltSortMchnInfoVO extends ComVO{
 	private String crtrYr;
 	private String apcCd;
 	private String apcNm;
+
+	private String itemCd;
+	private String itemNm;
+
 	private String sortItemCd;
 	private String sortItemNm;
 	private String sortPrcsAblt;
