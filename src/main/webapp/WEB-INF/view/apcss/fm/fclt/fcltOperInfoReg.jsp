@@ -74,7 +74,9 @@
 									></sbux-spinner>
 								</td>
 								<td class="td_input" style="border-right: hidden;">
+									<!--
 									<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_copy" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+									-->
 								</td>
 								<td></td>
 							</tr>
@@ -560,6 +562,7 @@
 			console.error("failed", e.message);
 		}
 	}
+
 	//작년 데이터 복사
 	const fn_copy = async function(){
 		console.log('************fn_copy********');
