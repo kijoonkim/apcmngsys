@@ -886,7 +886,7 @@
 			let item = {
 					crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 					,apcCd : SBUxMethod.get('dtl-inp-apcCd')
-					, prgrsYn : 'Y' //진척도 갱신 여부
+					, prgrsYn : 'N' //진척도 갱신 여부
 
 					,sn : i
 					,rtlOgnzTotTrmtAmt : SBUxMethod.get('dtl-inp-rtlOgnzTotTrmtAmt'+i)

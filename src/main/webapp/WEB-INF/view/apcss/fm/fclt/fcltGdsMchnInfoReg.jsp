@@ -500,11 +500,16 @@
 		}
 		*/
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
@@ -523,6 +528,7 @@
 						,apcCd : SBUxMethod.get('srch-inp-apcCd')
 						,sortMchnHoldYn : sortMchnHoldYn
 						, prgrsYn : 'Y' //진척도 갱신 여부
+						, tmprStrgYn : tmpChk//임시저장 여부
 				}
 				if(sortMchnHoldYn == 'Y'){
 					itemVo.sortMchnSpcect = SBUxMethod.get('dtl-inp-sortMchnSpcect'+i);

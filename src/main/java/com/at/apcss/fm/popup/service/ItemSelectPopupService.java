@@ -31,4 +31,11 @@ public interface ItemSelectPopupService {
 
 	public List<ItemSelectPopupVO> selectYrGpcList(ItemSelectPopupVO itemSelectPopupVO) throws Exception;
 
+	/**
+	 * APC전수조사 품목 리스트
+	 * @param ItemSelectPopupVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItemSelectPopupVO> selectApcItemList(ItemSelectPopupVO itemSelectPopupVO) throws Exception;
 }

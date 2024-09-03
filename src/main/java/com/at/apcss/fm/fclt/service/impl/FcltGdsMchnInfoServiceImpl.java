@@ -90,7 +90,7 @@ public class FcltGdsMchnInfoServiceImpl extends BaseServiceImpl implements FcltG
 		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
 		for (FcltGdsMchnInfoVO fcltGdsMchnInfoVO : fcltGdsMchnInfoVOList) {
 			saveCnt = fcltGdsMchnInfoMapper.insertFcltGdsMchnInfo(fcltGdsMchnInfoVO);
-			prgrsYn = fcltGdsMchnInfoVO.getPrgrsYn();
+			prgrsYn = fcltGdsMchnInfoVO.getPrgrsYn() == null ? "N" : fcltGdsMchnInfoVO.getPrgrsYn();
 			//진척도 변경
 			fcltPrgrsVO.setApcCd(fcltGdsMchnInfoVO.getApcCd());
 			fcltPrgrsVO.setCrtrYr(fcltGdsMchnInfoVO.getCrtrYr());
@@ -98,12 +98,13 @@ public class FcltGdsMchnInfoServiceImpl extends BaseServiceImpl implements FcltG
 			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltGdsMchnInfoVO.getSysFrstInptPrgrmId());
 			fcltPrgrsVO.setSysLastChgUserId(fcltGdsMchnInfoVO.getSysLastChgUserId());
 			fcltPrgrsVO.setSysLastChgPrgrmId(fcltGdsMchnInfoVO.getSysLastChgPrgrmId());
+			fcltPrgrsVO.setPrgrsSel("4");
 			//임시저장
-			String tmprStrgYn = fcltGdsMchnInfoVO.getTmprStrgYn();
+			String tmprStrgYn = fcltGdsMchnInfoVO.getTmprStrgYn() == null ? "N" : fcltGdsMchnInfoVO.getTmprStrgYn();
 			if(tmprStrgYn.equals("Y")) {
-				fcltPrgrsVO.setPrgrs4("T");
+				fcltPrgrsVO.setPrgrsVal("T");
 			}else {
-				fcltPrgrsVO.setPrgrs4("Y");
+				fcltPrgrsVO.setPrgrsVal("Y");
 			}
 		}
 

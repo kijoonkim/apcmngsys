@@ -571,7 +571,7 @@
 		let saveList = {
 				crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 				,apcCd : SBUxMethod.get('dtl-inp-apcCd')
-				, prgrsYn : 'Y' //진척도 갱신 여부
+				, prgrsYn : 'N' //진척도 갱신 여부
 				,lwtpStrgPlcHldYn: itemChk
 				,storCap: SBUxMethod.get('srch-inp-opera2')
 				,stStorPerfm: SBUxMethod.get('srch-inp-opera3')

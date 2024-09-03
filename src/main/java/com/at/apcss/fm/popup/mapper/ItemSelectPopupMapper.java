@@ -32,4 +32,13 @@ public interface ItemSelectPopupMapper {
 	public List<ItemSelectPopupVO> selectItemList(ItemSelectPopupVO vo);
 
 	public List<ItemSelectPopupVO> selectYrGpcList(ItemSelectPopupVO vo);
+
+	/**
+	 * APC전수조사 품목선택 리스트 조회
+	 * @param ItemSelectPopupVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItemSelectPopupVO> selectApcItemList(ItemSelectPopupVO vo);
+
 }

@@ -795,7 +795,7 @@
 					crtrYr : crtrYr
 					,apcCd : apcCd
 					,sn  : i
-					, prgrsYn : 'Y' //진척도 갱신 여부
+					, prgrsYn : 'N' //진척도 갱신 여부
 					,apcGnrlTrmtAmt : SBUxMethod.get('dtl-inp-apcGnrlTrmtAmt'+i)
 					,apcOgnzCprtnSortTrst : SBUxMethod.get('dtl-inp-apcOgnzCprtnSortTrst'+i)
 					,apcCtrtEmspap : SBUxMethod.get('dtl-inp-apcCtrtEmspap'+i)

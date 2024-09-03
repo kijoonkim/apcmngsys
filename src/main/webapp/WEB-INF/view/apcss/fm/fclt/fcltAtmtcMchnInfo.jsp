@@ -118,7 +118,32 @@
 								autocomplete="off"
 							></sbux-input>
 						</td>
-						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -142,33 +167,134 @@
 			<!--[pp] 검색 -->
 			<div><label>스마트자동화 상세내역</label></div>
 			<div>
-					<table class="table table-bordered tbl_row tbl_fixed" style="width: 575px">
+					<table class="table table-bordered tbl_row tbl_fixed" style="width: 640px">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
-							<col style="width: 24%">
+							<col style="width: 32%">
 							<col style="width: 15%">
 							<col style="width: 15%">
 							<col style="width: 15%">
 						</colgroup>
 						<tbody>
 							<tr>
-								<th style="border-right: 1px solid white !important; text-align: center;">설비</th>
+								<th rowspan="2" style="border-right: 1px solid white !important; text-align: center;">설비</th>
 								<th style="border-right: 1px solid white !important; text-align: center;">품목1</th>
 								<th style="border-right: 1px solid white !important; text-align: center;">품목2</th>
 								<th style="border-right: 1px solid white !important; text-align: center;">품목3</th>
 							</tr>
 							<tr>
-								<th>디팔렛타이저</th>
+								<th style="border-right: 1px solid white !important; text-align: center;">
+									<sbux-button id="srch-btn-allItem1" name="srch-btn-allItem1" uitype="normal" onclick="fn_allSel(1)" text="전체 미설치" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</th>
+								<th style="border-right: 1px solid white !important; text-align: center;">
+									<sbux-button id="srch-btn-allItem2" name="srch-btn-allItem2" uitype="normal" onclick="fn_allSel(2)" text="전체 미설치" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</th>
+								<th style="border-right: 1px solid white !important; text-align: center;">
+									<sbux-button id="srch-btn-allItem3" name="srch-btn-allItem3" uitype="normal" onclick="fn_allSel(3)" text="전체 미설치" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</th>
+							</tr>
+							<tr>
+								<th>(입고)계근대</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-dptz1"
-										name="dtl-inp-dptz1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wbg1_1" name="dtl-rdo-wbg1" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wbg1_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wbg1_2" name="dtl-rdo-wbg1" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wbg1_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wbg2_1" name="dtl-rdo-wbg2" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wbg2_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wbg2_2" name="dtl-rdo-wbg2" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wbg2_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wbg3_1" name="dtl-rdo-wbg3" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wbg3_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wbg3_2" name="dtl-rdo-wbg3" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wbg3_2">미설치</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>(입고)바코드 /QR 시스템</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wrhsBrQr1_1" name="dtl-rdo-wrhsBrQr1" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wrhsBrQr1_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wrhsBrQr1_2" name="dtl-rdo-wrhsBrQr1" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wrhsBrQr1_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wrhsBrQr2_1" name="dtl-rdo-wrhsBrQr2" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wrhsBrQr2_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wrhsBrQr2_2" name="dtl-rdo-wrhsBrQr2" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wrhsBrQr2_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wrhsBrQr3_1" name="dtl-rdo-wrhsBrQr3" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wrhsBrQr3_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-wrhsBrQr3_2" name="dtl-rdo-wrhsBrQr3" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-wrhsBrQr3_2">미설치</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>(입고)키오스크·태블릿</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-kskTblt1_1" name="dtl-rdo-kskTblt1" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-kskTblt1_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-kskTblt1_2" name="dtl-rdo-kskTblt1" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-kskTblt1_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-kskTblt2_1" name="dtl-rdo-kskTblt2" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-kskTblt2_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-kskTblt2_2" name="dtl-rdo-kskTblt2" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-kskTblt2_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-kskTblt3_1" name="dtl-rdo-kskTblt3" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-kskTblt3_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-kskTblt3_2" name="dtl-rdo-kskTblt3" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-kskTblt3_2">미설치</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>(선별)디팔렛타이저</th>
+								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-dptz1_1" name="dtl-rdo-dptz1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-dptz1_1">설치</label>
@@ -179,15 +305,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-dptz2"
-										name="dtl-inp-dptz2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-dptz2_1" name="dtl-rdo-dptz2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-dptz1_1">설치</label>
@@ -198,15 +315,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-dptz3"
-										name="dtl-inp-dptz3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-dptz3_1" name="dtl-rdo-dptz3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-dptz1_1">설치</label>
@@ -218,17 +326,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>자동덤핑기</th>
+								<th>(선별)자동덤핑기</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-apm1"
-										name="dtl-inp-apm1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-apm1_1" name="dtl-rdo-apm1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-apm1_1">설치</label>
@@ -239,15 +338,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-apm2"
-										name="dtl-inp-apm2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-apm2_1" name="dtl-rdo-apm2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-apm2_1">설치</label>
@@ -258,15 +348,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-apm3"
-										name="dtl-inp-apm3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-apm3_1" name="dtl-rdo-apm3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-apm3_1">설치</label>
@@ -278,17 +359,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>전자식 중량 선별기</th>
+								<th>(선별)전자식 중량 선별기</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-elctrnWghtSortMchn1"
-										name="dtl-inp-elctrnWghtSortMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-elctrnWghtSortMchn1_1" name="dtl-rdo-elctrnWghtSortMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-elctrnWghtSortMchn1_1">설치</label>
@@ -299,15 +371,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-elctrnWghtSortMchn2"
-										name="dtl-inp-elctrnWghtSortMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-elctrnWghtSortMchn2_1" name="dtl-rdo-elctrnWghtSortMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-elctrnWghtSortMchn2_1">설치</label>
@@ -318,15 +381,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-elctrnWghtSortMchn3"
-										name="dtl-inp-elctrnWghtSortMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-elctrnWghtSortMchn3_1" name="dtl-rdo-elctrnWghtSortMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-elctrnWghtSortMchn3_1">설치</label>
@@ -338,17 +392,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>비파괴 당도 선별기</th>
+								<th>(선별)비파괴 당도 선별기</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-ndstBrckSortMchn1"
-										name="dtl-inp-ndstBrckSortMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ndstBrckSortMchn1_1" name="dtl-rdo-ndstBrckSortMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-ndstBrckSortMchn1_1">설치</label>
@@ -359,15 +404,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-ndstBrckSortMchn2"
-										name="dtl-inp-ndstBrckSortMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ndstBrckSortMchn2_1" name="dtl-rdo-ndstBrckSortMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-ndstBrckSortMchn2_1">설치</label>
@@ -378,15 +414,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-ndstBrckSortMchn3"
-										name="dtl-inp-ndstBrckSortMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ndstBrckSortMchn3_1" name="dtl-rdo-ndstBrckSortMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-ndstBrckSortMchn3_1">설치</label>
@@ -398,17 +425,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>등급별 원물 자동 이송 장치</th>
+								<th>(선별)등급별 원물 자동 이송 장치</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-grdRawMtrAtmtcTrnsfMchn1"
-										name="dtl-inp-grdRawMtrAtmtcTrnsfMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-grdRawMtrAtmtcTrnsfMchn1_1" name="dtl-rdo-grdRawMtrAtmtcTrnsfMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-grdRawMtrAtmtcTrnsfMchn1_1">설치</label>
@@ -419,15 +437,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-grdRawMtrAtmtcTrnsfMchn2"
-										name="dtl-inp-grdRawMtrAtmtcTrnsfMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-grdRawMtrAtmtcTrnsfMchn2_1" name="dtl-rdo-grdRawMtrAtmtcTrnsfMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-grdRawMtrAtmtcTrnsfMchn2_1">설치</label>
@@ -438,15 +447,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-grdRawMtrAtmtcTrnsfMchn3"
-										name="dtl-inp-grdRawMtrAtmtcTrnsfMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-grdRawMtrAtmtcTrnsfMchn3_1" name="dtl-rdo-grdRawMtrAtmtcTrnsfMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-grdRawMtrAtmtcTrnsfMchn3_1">설치</label>
@@ -458,17 +458,41 @@
 								</td>
 							</tr>
 							<tr>
-								<th>공박스(망․톤백 등) 자동 배출 장치</th>
+								<th>(선별)전자식 대시보드(모니터)</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-emptBxAtmtcExhstMchn1"
-										name="dtl-inp-emptBxAtmtcExhstMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-dshbrd1_1" name="dtl-rdo-dshbrd1" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-dshbrd1_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-dshbrd1_2" name="dtl-rdo-dshbrd1" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-dshbrd1_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-dshbrd2_1" name="dtl-rdo-dshbrd2" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-dshbrd2_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-dshbrd2_2" name="dtl-rdo-dshbrd2" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-dshbrd2_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-dshbrd3_1" name="dtl-rdo-dshbrd3" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-dshbrd3_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-dshbrd3_2" name="dtl-rdo-dshbrd3" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-dshbrd3_2">미설치</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>(포장)공박스(망․톤백 등) 자동 배출 장치</th>
+								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-emptBxAtmtcExhstMchn1_1" name="dtl-rdo-emptBxAtmtcExhstMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-emptBxAtmtcExhstMchn1_1">설치</label>
@@ -479,15 +503,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-emptBxAtmtcExhstMchn2"
-										name="dtl-inp-emptBxAtmtcExhstMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-emptBxAtmtcExhstMchn2_1" name="dtl-rdo-emptBxAtmtcExhstMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-emptBxAtmtcExhstMchn2_1">설치</label>
@@ -498,15 +513,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-emptBxAtmtcExhstMchn3"
-										name="dtl-inp-emptBxAtmtcExhstMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-emptBxAtmtcExhstMchn3_1" name="dtl-rdo-emptBxAtmtcExhstMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-emptBxAtmtcExhstMchn3_1">설치</label>
@@ -518,17 +524,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>자동 박스(망․톤백 등) 포장기</th>
+								<th>(포장)자동 박스(망․톤백 등) 포장기</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcBxPckgMchn1"
-										name="dtl-inp-atmtcBxPckgMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcBxPckgMchn1_1" name="dtl-rdo-atmtcBxPckgMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcBxPckgMchn1_1">설치</label>
@@ -539,15 +536,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcBxPckgMchn2"
-										name="dtl-inp-atmtcBxPckgMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcBxPckgMchn2_1" name="dtl-rdo-atmtcBxPckgMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcBxPckgMchn2_1">설치</label>
@@ -558,15 +546,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcBxPckgMchn3"
-										name="dtl-inp-atmtcBxPckgMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcBxPckgMchn3_1" name="dtl-rdo-atmtcBxPckgMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcBxPckgMchn3_1">설치</label>
@@ -578,17 +557,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>자동 소포장기</th>
+								<th>(포장)자동 소포장기</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcSsMchn1"
-										name="dtl-inp-atmtcSsMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcSsMchn1_1" name="dtl-rdo-atmtcSsMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcSsMchn1_1">설치</label>
@@ -599,15 +569,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcSsMchn2"
-										name="dtl-inp-atmtcSsMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcSsMchn2_1" name="dtl-rdo-atmtcSsMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcSsMchn2_1">설치</label>
@@ -618,15 +579,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcSsMchn3"
-										name="dtl-inp-atmtcSsMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcSsMchn3_1" name="dtl-rdo-atmtcSsMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcSsMchn3_1">설치</label>
@@ -638,17 +590,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>자동랩핑기</th>
+								<th>(포장)자동랩핑기</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcWrapMchn1"
-										name="dtl-inp-atmtcWrapMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWrapMchn1_1" name="dtl-rdo-atmtcWrapMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcWrapMchn1_1">설치</label>
@@ -659,15 +602,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcWrapMchn2"
-										name="dtl-inp-atmtcWrapMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWrapMchn2_1" name="dtl-rdo-atmtcWrapMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcWrapMchn2_1">설치</label>
@@ -678,15 +612,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcWrapMchn3"
-										name="dtl-inp-atmtcWrapMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWrapMchn3_1" name="dtl-rdo-atmtcWrapMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcWrapMchn3_1">설치</label>
@@ -698,17 +623,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>자동 중량체크기(포장 시)</th>
+								<th>(포장)자동 중량체크기(포장 시)</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcWghtChckMchn1"
-										name="dtl-inp-atmtcWghtChckMchn1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWghtChckMchn1_1" name="dtl-rdo-atmtcWghtChckMchn1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcWghtChckMchn1_1">설치</label>
@@ -719,15 +635,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcWghtChckMchn2"
-										name="dtl-inp-atmtcWghtChckMchn2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWghtChckMchn2_1" name="dtl-rdo-atmtcWghtChckMchn2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcWghtChckMchn2_1">설치</label>
@@ -738,15 +645,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-atmtcWghtChckMchn3"
-										name="dtl-inp-atmtcWghtChckMchn3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWghtChckMchn3_1" name="dtl-rdo-atmtcWghtChckMchn3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-atmtcWghtChckMchn3_1">설치</label>
@@ -758,17 +656,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>팔렛타이저(로봇팔 등)</th>
+								<th>(출고)팔렛타이저(로봇팔 등)</th>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-ptz1"
-										name="dtl-inp-ptz1"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ptz1_1" name="dtl-rdo-ptz1" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-ptz1_1">설치</label>
@@ -779,15 +668,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-ptz2"
-										name="dtl-inp-ptz2"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ptz2_1" name="dtl-rdo-ptz2" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-ptz2_1">설치</label>
@@ -798,15 +678,6 @@
 									</p>
 								</td>
 								<td>
-									<sbux-checkbox
-										id="dtl-inp-ptz3"
-										name="dtl-inp-ptz3"
-										uitype="hidden"
-										text=""
-										true-value="Y"
-										false-value="N"
-										class="check"
-										></sbux-checkbox>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ptz3_1" name="dtl-rdo-ptz3" uitype="normal" value="1" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-ptz3_1">설치</label>
@@ -814,6 +685,72 @@
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ptz3_2" name="dtl-rdo-ptz3" uitype="normal" value="2" class="radio_label"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-ptz3_2">미설치</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>(출고) 바코드 /QR 시스템</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-spmtBrQr1_1" name="dtl-rdo-spmtBrQr1" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-spmtBrQr1_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-spmtBrQr1_2" name="dtl-rdo-spmtBrQr1" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-spmtBrQr1_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-spmtBrQr2_1" name="dtl-rdo-spmtBrQr2" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-spmtBrQr2_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-spmtBrQr2_2" name="dtl-rdo-spmtBrQr2" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-spmtBrQr2_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-spmtBrQr3_1" name="dtl-rdo-spmtBrQr3" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-spmtBrQr3_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-spmtBrQr3_2" name="dtl-rdo-spmtBrQr3" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-spmtBrQr3_2">미설치</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>(저장) 온습도 자동제어기</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-thAc1_1" name="dtl-rdo-thAc1" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-thAc1_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-thAc1_2" name="dtl-rdo-thAc1" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-thAc1_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-thAc2_1" name="dtl-rdo-thAc2" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-thAc2_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-thAc2_2" name="dtl-rdo-thAc2" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-thAc2_2">미설치</label>
+									</p>
+								</td>
+								<td>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-thAc3_1" name="dtl-rdo-thAc3" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-thAc3_1">설치</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-thAc3_2" name="dtl-rdo-thAc3" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-thAc3_2">미설치</label>
 									</p>
 								</td>
 							</tr>
@@ -826,29 +763,91 @@
 						<caption>검색 조건 설정</caption>
 						<colgroup>
 							<col style="width: 20%">
-							<col style="width: 30%">
-							<col style="width: 30%">
-							<col style="width: 30%">
+
+							<col style="width: 7%">
+							<col style="width: 28px">
+							<col style="width: 7%">
+							<col style="width: 28px">
+							<col style="width: 7%">
+							<col style="width: 40px">
+
+							<col style="width: 7%">
+							<col style="width: 28px">
+							<col style="width: 7%">
+							<col style="width: 28px">
+							<col style="width: 7%">
+							<col style="width: 40px">
+
+							<col style="width: 7%">
+							<col style="width: 28px">
+							<col style="width: 7%">
+							<col style="width: 28px">
+							<col style="width: 7%">
+							<col style="width: 40px">
+							<col style="width: 0%">
 						</colgroup>
 						<tbody>
 							<tr>
 								<th style="border-right: 1px solid white !important; text-align: center;">설비</th>
-								<th style="border-right: 1px solid white !important; text-align: center;">품목1</th>
-								<th style="border-right: 1px solid white !important; text-align: center;">품목2</th>
-								<th style="border-right: 1px solid white !important; text-align: center;">품목3</th>
+								<th colspan="6" style="border-right: 1px solid white !important; text-align: center;">품목1</th>
+								<th colspan="6" style="border-right: 1px solid white !important; text-align: center;">품목2</th>
+								<th colspan="6" style="border-right: 1px solid white !important; text-align: center;">품목3</th>
 							</tr>
 							<tr>
-								<th>규격</th>
-								<td>
-									<sbux-input id="dtl-inp-rprsItemSpcfct1" name="dtl-inp-rprsItemSpcfct1"dtl-inp-rprsItemSpcfct"" uitype="text" class="form-control input-sm" placeholder="예시) 2대x1조 32등급" ></sbux-input>
+								<th>규격<br>(예시: 2대x1조 32등급)</th>
+
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctCnt1" name="dtl-inp-spcfctCnt1" uitype="text" class="form-control input-sm"></sbux-input>
 								</td>
-								<td>
-									<sbux-input id="dtl-inp-rprsItemSpcfct2" name="dtl-inp-rprsItemSpcfct2"dtl-inp-rprsItemSpcfct"" uitype="text" class="form-control input-sm" placeholder="예시) 2대x1조 32등급" ></sbux-input>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									대
 								</td>
-								<td>
-									<sbux-input id="dtl-inp-rprsItemSpcfct3" name="dtl-inp-rprsItemSpcfct3"dtl-inp-rprsItemSpcfct"" uitype="text" class="form-control input-sm" placeholder="예시) 2대x1조 32등급" ></sbux-input>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctGrp1" name="dtl-inp-spcfctGrp1" uitype="text" class="form-control input-sm"></sbux-input>
 								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									조
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctGrd1" name="dtl-inp-spcfctGrd1" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>등급</td>
+
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctCnt2" name="dtl-inp-spcfctCnt2" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									대
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctGrp2" name="dtl-inp-spcfctGrp2" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									조
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctGrd2" name="dtl-inp-spcfctGrd2" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>등급</td>
+
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctCnt3" name="dtl-inp-spcfctCnt3" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									대
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctGrp3" name="dtl-inp-spcfctGrp3" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									조
+								</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input id="dtl-inp-spcfctGrd3" name="dtl-inp-spcfctGrd3" uitype="text" class="form-control input-sm"></sbux-input>
+								</td>
+								<td>등급</td>
 							</tr>
+							<!--
 							<tr>
 								<th>기타 가공설비</th>
 								<td>
@@ -861,11 +860,17 @@
 									<sbux-input id="dtl-inp-etcMnfcMchn3" name="dtl-inp-etcMnfcMchn3" uitype="text" class="form-control input-sm" placeholder="예시)착즙기, 커팅기 등" ></sbux-input>
 								</td>
 							</tr>
+							-->
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				</div>
+			</div>
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
@@ -993,7 +998,7 @@
 					crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 					,apcCd : SBUxMethod.get('dtl-inp-apcCd')
 					,sn : i
-					, prgrsYn : 'Y' //진척도 갱신 여부
+					, prgrsYn : 'N' //진척도 갱신 여부
 					,rprsItemSpcfct : SBUxMethod.get('dtl-inp-rprsItemSpcfct'+i)
 					,dptz : SBUxMethod.get('dtl-inp-dptz'+i)
 					,apm : SBUxMethod.get('dtl-inp-apm'+i)

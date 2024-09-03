@@ -659,7 +659,7 @@
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltPrcsNtslInfo.do", {
 			crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 			,apcCd : SBUxMethod.get('dtl-inp-apcCd')
-			,prgrsYn : 'Y' //진척도 갱신 여부
+			,prgrsYn : 'N' //진척도 갱신 여부
 			,apcNtslAmtLgszRtl : SBUxMethod.get('dtl-inp-apcNtslAmtLgszRtl')
 			,apcNtslAmtFoodMtrl : SBUxMethod.get('dtl-inp-apcNtslAmtFoodMtrl')
 			,apcNtslAmtWhlslMrkt : SBUxMethod.get('dtl-inp-apcNtslAmtWhlslMrkt')

@@ -645,7 +645,7 @@
 						, apcCd : apcCd
 						, sn : i
 						, sortMchnHoldYn : sortMchnHoldYn
-						, prgrsYn : 'Y' //진척도 갱신 여부
+						, prgrsYn : 'N' //진척도 갱신 여부
 				}
 				if(sortMchnHoldYn == 'Y'){
 					itemVo.sortPrcsAblt = SBUxMethod.get('dtl-inp-sortPrcsAblt'+i);

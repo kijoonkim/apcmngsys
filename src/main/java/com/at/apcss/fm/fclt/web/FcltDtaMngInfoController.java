@@ -14,18 +14,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.fclt.service.FcltDtaMngInfoService;
+import com.at.apcss.fm.fclt.vo.FcltDataMngVO;
 import com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO;
 
 
 /**
  * @Class Name : FcltDtaMngInfoController.java
  * @Description : 스마트데이터화에 대한 Controller 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -34,7 +34,7 @@ import com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Controller
@@ -58,14 +58,12 @@ public class FcltDtaMngInfoController extends BaseController {
 		logger.info("=============select=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltDtaMngInfoVO> resultList = new ArrayList<>();
+		List<FcltDataMngVO> resultDtlList = new ArrayList<>();
 
 		try {
-			 resultList = fcltDtaMngInfoService.selectFcltDtaMngInfoList(fcltDtaMngInfoVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltDtaMngInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
+			resultList = fcltDtaMngInfoService.selectFcltDtaMngInfoList(fcltDtaMngInfoVO);
+			//데이터 관리 체크박스 리스트
+			resultDtlList = fcltDtaMngInfoService.selectFcltDataMngList(fcltDtaMngInfoVO);
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -73,6 +71,7 @@ public class FcltDtaMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put("resultDtlList", resultDtlList);
 		logger.info("=============select=====END========");
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -80,7 +79,7 @@ public class FcltDtaMngInfoController extends BaseController {
 	// 메시지 등록
 	@PostMapping(value = "/fm/fclt/insertFcltDtaMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltDtaMngInfo(@RequestBody FcltDtaMngInfoVO fcltDtaMngInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============insert=====end========");
+		logger.info("=============insert=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -99,9 +98,9 @@ public class FcltDtaMngInfoController extends BaseController {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-
+		logger.info("=============insert=====end1========");
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insert=====end========");
+		logger.info("=============insert=====end2========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -128,7 +127,6 @@ public class FcltDtaMngInfoController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 		logger.info("=============update=====end========");
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -156,7 +154,6 @@ public class FcltDtaMngInfoController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		logger.info("=============delete=====end========");
-
 		return getSuccessResponseEntity(resultMap);
 	}
 

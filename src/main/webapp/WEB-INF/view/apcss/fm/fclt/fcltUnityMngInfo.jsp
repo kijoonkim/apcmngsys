@@ -376,7 +376,7 @@
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltUnityMngInfo.do", {
 			crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 			,apcCd : SBUxMethod.get('dtl-inp-apcCd')
-			, prgrsYn : 'Y' //진척도 갱신 여부
+			, prgrsYn : 'N' //진척도 갱신 여부
 
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()

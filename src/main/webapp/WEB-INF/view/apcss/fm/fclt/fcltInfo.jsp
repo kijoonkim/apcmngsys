@@ -686,7 +686,7 @@
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
 			crtrYr: crtrYr
 			, apcCd: apcCd
-			, prgrsYn : 'Y' //진척도 갱신 여부
+			, prgrsYn : 'N' //진척도 갱신 여부
 			, cspTotArea: SBUxMethod.get('dtl-inp-cspTotArea')
 			, cspTotRmrk: SBUxMethod.get('dtl-inp-cspTotRmrk')
 			, cspCfppArea: SBUxMethod.get('dtl-inp-cspCfppArea')

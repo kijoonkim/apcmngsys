@@ -612,7 +612,7 @@
 						,crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 						,apcCd : SBUxMethod.get('dtl-inp-apcCd')
 						,sortMchnHoldYn : sortMchnHoldYn
-						, prgrsYn : 'Y' //진척도 갱신 여부
+						, prgrsYn : 'N' //진척도 갱신 여부
 				}
 				if(sortMchnHoldYn == 'Y'){
 					itemVo.sortMchnSpcect = SBUxMethod.get('dtl-inp-sortMchnSpcect'+i);

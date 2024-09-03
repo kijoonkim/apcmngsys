@@ -328,8 +328,8 @@
 			{caption: ["사업연도","사업연도"],				ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["지원유형","지원유형"],				ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
 				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
-			{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
-				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
+			//{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
+				//,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
 				ref: 'bizNm',		type:'input',  width:'435px',    style:'text-align:center'},
 			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'
@@ -477,7 +477,7 @@
 				alert("처리 되었습니다.");
 				//fn_search();
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
-				cfn_allTabPrgrsRefrash();
+				//cfn_allTabPrgrsRefrash();
 			} else {
 				alert(data.resultMessage);
 			}

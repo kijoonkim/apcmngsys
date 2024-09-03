@@ -484,7 +484,7 @@
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperHfInfo.do", {
 			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
-			, prgrsYn : 'Y' //진척도 갱신 여부
+			, prgrsYn : 'N' //진척도 갱신 여부
 			,hireRgllbrCtzn : SBUxMethod.get('dtl-inp-hireRgllbrCtzn')
 			,hireRgllbrFrgnr : SBUxMethod.get('dtl-inp-hireRgllbrFrgnr')
 

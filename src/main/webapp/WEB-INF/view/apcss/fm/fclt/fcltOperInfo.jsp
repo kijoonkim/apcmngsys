@@ -465,7 +465,7 @@
 		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
 	</div>
 	<div id="body-modal-itemSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup2.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/ApcItemSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -795,7 +795,7 @@
 			*/
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?") , null);
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
 	}
 
 	//임시저장
@@ -863,7 +863,7 @@
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
 			crtrYr: crtrYr  // 등록년도
-			, prgrsYn : 'Y' //진척도 갱신 여부
+			, prgrsYn : 'N' //진척도 갱신 여부
 			, apcCd: apcCd // APC코드
 			//, tmprStrgYn: tmpChk//임시저장 체크
 			, operOgnzNm: SBUxMethod.get("dtl-inp-operOgnzNm")  // 운영조직 명

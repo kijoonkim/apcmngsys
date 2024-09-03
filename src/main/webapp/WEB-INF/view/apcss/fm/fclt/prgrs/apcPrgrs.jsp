@@ -341,7 +341,7 @@
 			if (prgrsVal == 'Y') {
 				$("#scrn"+num).attr("data-saved","true");
 				$("#scrn"+num).attr("data-draft","false");
-			}else if (prgrsVal == 'D') { //D 임시저장
+			}else if (prgrsVal == 'T') { //T 임시저장
 				$("#scrn"+num).attr("data-saved","false");
 				$("#scrn"+num).attr("data-draft","true");
 			}else{

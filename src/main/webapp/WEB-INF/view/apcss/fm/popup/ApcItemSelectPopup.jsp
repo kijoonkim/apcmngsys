@@ -151,7 +151,8 @@
 				{caption: ['부류코드'], ref: 'clsCd', width: '15%', type: 'input', style: 'text-align:center'},
 				{caption: ['부류명'], ref: 'clsNm', width: '35%', type: 'input', style: 'text-align:center'},
 				{caption: ['품목코드'], ref: 'itemCd', width: '15%', type: 'input', style: 'text-align:center'},
-				{caption: ['품목명'], ref: 'itemNm', width: '35%', type: 'input', style: 'text-align:center'}
+				{caption: ['품목명'], ref: 'itemNm', width: '35%', type: 'input', style: 'text-align:center'},
+				{caption: ["조회용 부류"], 	ref: 'srchLclsfCd',   hidden : true},
 			];
 
 			grdItemPop = _SBGrid.create(SBGridProperties);
@@ -182,13 +183,15 @@
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
 			//var itemCd = SBUxMethod.get("item-inp-itemCd");
-			var itemNm = nvlScnd(SBUxMethod.get("item-inp-itemNm"),'');
+			let itemNm = nvlScnd(SBUxMethod.get("item-inp-itemNm"),'');
+			let srchLclsfCd = nvlScnd(SBUxMethod.get("item-inp-srchLclsfCd"),'');
 
 			console.log("setGrid 호출 / itemNm : " + itemNm + "/ 타입 : " + typeof(itemNm));
 
-			const postJsonPromise = gfn_postJSON("/fm/popup/selectItemListPopup.do", {
+			const postJsonPromise = gfn_postJSON("/fm/popup/selectApcItemListPopup.do", {
 
 				itemNm : itemNm, //검색 파라미터
+				srchLclsfCd : srchLclsfCd,
 				// pagination
 				pagingYn : 'Y',
 				currentPageNo : pageNo,
@@ -207,7 +210,8 @@
 							itemCd 	: item.itemCd,
 							itemNm 	: item.itemNm,
 							clsCd 	: item.clsCd,
-							clsNm 	: item.clsNm
+							clsNm 	: item.clsNm,
+							srchLclsfCd : item.srchLclsfCd
 					}
 					jsonItemPop.push(itemVal);
 
