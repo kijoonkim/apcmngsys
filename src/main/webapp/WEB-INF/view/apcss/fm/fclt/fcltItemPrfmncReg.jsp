@@ -225,9 +225,9 @@
 			crtrYr: crtrYr,
 
 			// pagination
-			pagingYn : 'N',
-			currentPageNo : pageNo,
-			recordCountPerPage : pageSize
+			//pagingYn : 'N',
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
 		});
 
 		const data = await postJsonPromise;

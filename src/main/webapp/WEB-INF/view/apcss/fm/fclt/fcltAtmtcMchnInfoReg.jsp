@@ -71,7 +71,9 @@
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
+							<!--
 							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectAtMcIfList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							-->
 						</td>
 						<td></td>
 					</tr>
@@ -95,10 +97,21 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th style="border-right: 1px solid white !important; text-align: center;">설비</th>
+								<th rowspan="2" style="border-right: 1px solid white !important; text-align: center;">설비</th>
 								<th style="border-right: 1px solid white !important; text-align: center;">품목1</th>
 								<th style="border-right: 1px solid white !important; text-align: center;">품목2</th>
 								<th style="border-right: 1px solid white !important; text-align: center;">품목3</th>
+							</tr>
+							<tr>
+								<th style="border-right: 1px solid white !important; text-align: center;">
+									<sbux-button id="srch-btn-allItem1" name="srch-btn-allItem1" uitype="normal" onclick="fn_allSel(1)" text="전체 미설치" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</th>
+								<th style="border-right: 1px solid white !important; text-align: center;">
+									<sbux-button id="srch-btn-allItem2" name="srch-btn-allItem2" uitype="normal" onclick="fn_allSel(2)" text="전체 미설치" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</th>
+								<th style="border-right: 1px solid white !important; text-align: center;">
+									<sbux-button id="srch-btn-allItem3" name="srch-btn-allItem3" uitype="normal" onclick="fn_allSel(3)" text="전체 미설치" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</th>
 							</tr>
 							<tr>
 								<th>(입고)계근대</th>
@@ -893,11 +906,16 @@
 		console.log("******************fn_save**********************************");
 
 		//alert('준비중');
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
@@ -910,6 +928,7 @@
 					,apcCd : SBUxMethod.get('srch-inp-apcCd')
 					,sn : i
 					, prgrsYn : 'Y' //진척도 갱신 여부
+					, tmprStrgYn : tmpChk//임시저장 여부
 					//,rprsItemSpcfct : SBUxMethod.get('dtl-inp-rprsItemSpcfct'+i)
 
 					,wbg : SBUxMethod.get('dtl-rdo-wbg'+i)

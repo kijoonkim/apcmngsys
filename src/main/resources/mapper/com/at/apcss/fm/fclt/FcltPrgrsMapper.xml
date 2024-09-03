@@ -57,6 +57,14 @@
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  AP.APC_CD = #{apcCd}
 			</if>
+			<if test='itemNm != null and !itemNm.equals("")'>
+			  AND  EXISTS(SELECT 1
+			  				FROM TB_TE_APC_OPER_TRMT_ITEM
+			  				WHERE 1=1
+			  				  AND APC_CD = AP.APC_CD
+			  				  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
+			  				)
+			</if>
 	</select>
 
 	<!-- ==========================================================================	-->
@@ -102,6 +110,14 @@
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  AP.APC_CD = #{apcCd}
 			</if>
+			<if test='itemNm != null and !itemNm.equals("")'>
+			  AND  EXISTS(SELECT 1
+			  				FROM TB_TE_APC_OPER_TRMT_ITEM
+			  				WHERE 1=1
+			  				  AND APC_CD = AP.APC_CD
+			  				  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
+			  				)
+			</if>
 	</select>
 
 	<!-- 진척도 갱신 -->
@@ -118,102 +134,97 @@
 				SYS_LAST_CHG_DT		=  SYSDATE
 				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
-				<if test='prgrs1 != null and !prgrs1.equals("")'>
-				, PRGRS_1			= #{prgrs1}
+				<if test='prgrsSel.equals("1")'>
+				, PRGRS_1			= #{prgrsVal}
 				</if>
-				<if test='prgrs2 != null and !prgrs2.equals("")'>
-				, PRGRS_2			= #{prgrs2}
+				<if test='prgrsSel.equals("2")'>
+				, PRGRS_2			= #{prgrsVal}
 				</if>
-				<if test='prgrs3 != null and !prgrs3.equals("")'>
-				, PRGRS_3			= #{prgrs3}
+				<if test='prgrsSel.equals("3")'>
+				, PRGRS_3			= #{prgrsVal}
 				</if>
-				<if test='prgrs4 != null and !prgrs4.equals("")'>
-				, PRGRS_4			= #{prgrs4}
+				<if test='prgrsSel.equals("4")'>
+				, PRGRS_4			= #{prgrsVal}
 				</if>
-				<if test='prgrs5 != null and !prgrs5.equals("")'>
-				, PRGRS_5			= #{prgrs5}
+				<if test='prgrsSel.equals("5")'>
+				, PRGRS_5			= #{prgrsVal}
 				</if>
-				<if test='prgrs6 != null and !prgrs6.equals("")'>
-				, PRGRS_6			= #{prgrs6}
+				<if test='prgrsSel.equals("6")'>
+				, PRGRS_6			= #{prgrsVal}
 				</if>
-				<if test='prgrs7 != null and !prgrs7.equals("")'>
-				, PRGRS_7			= #{prgrs7}
+				<if test='prgrsSel.equals("7")'>
+				, PRGRS_7			= #{prgrsVal}
 				</if>
-				<if test='prgrs8 != null and !prgrs8.equals("")'>
-				, PRGRS_8			= #{prgrs8}
+				<if test='prgrsSel.equals("8")'>
+				, PRGRS_8			= #{prgrsVal}
 				</if>
-				<if test='prgrs9 != null and !prgrs9.equals("")'>
-				, PRGRS_9			= #{prgrs9}
+				<if test='prgrsSel.equals("9")'>
+				, PRGRS_9			= #{prgrsVal}
 				</if>
-				<if test='prgrs10 != null and !prgrs10.equals("")'>
-				, PRGRS_10			= #{prgrs10}
+				<if test='prgrsSel.equals("10")'>
+				, PRGRS_10			= #{prgrsVal}
 				</if>
-				<if test='prgrs11 != null and !prgrs11.equals("")'>
-				, PRGRS_11			= #{prgrs11}
+				<if test='prgrsSel.equals("11")'>
+				, PRGRS_11			= #{prgrsVal}
 				</if>
-				<if test='prgrs12 != null and !prgrs12.equals("")'>
-				, PRGRS_12			= #{prgrs12}
+				<if test='prgrsSel.equals("12")'>
+				, PRGRS_12			= #{prgrsVal}
 				</if>
-				<if test='prgrs13 != null and !prgrs13.equals("")'>
-				, PRGRS_13			= #{prgrs13}
+				<if test='prgrsSel.equals("13")'>
+				, PRGRS_13			= #{prgrsVal}
 				</if>
-				<if test='prgrs14 != null and !prgrs14.equals("")'>
-				, PRGRS_14			= #{prgrs14}
+				<if test='prgrsSel.equals("14")'>
+				, PRGRS_14			= #{prgrsVal}
 				</if>
 				<if test='prgrsLast != null and !prgrsLast.equals("")'>
 				, PRGRS_LAST		= #{prgrsLast}
 				</if>
-
-				WHERE 1=1
-				  AND AP.CRTR_YR 		= #{crtrYr}
-				  AND AP.APC_CD 		= #{apcCd}
-				  AND AP.PRGRS_SE_CD 	= 'FCLT'
 		WHEN NOT MATCHED THEN
 		  INSERT (
 				  CRTR_YR
 				  , APC_CD
 				  , PRGRS_SE_CD
 
-				<if test='prgrs1 != null and !prgrs1.equals("")'>
+				<if test='prgrsSel.equals("1")'>
 				  , PRGRS_1
 				</if>
-				<if test='prgrs2 != null and !prgrs2.equals("")'>
+				<if test='prgrsSel.equals("2")'>
 				  , PRGRS_2
 				</if>
-				<if test='prgrs3 != null and !prgrs3.equals("")'>
+				<if test='prgrsSel.equals("3")'>
 				  , PRGRS_3
 				</if>
-				<if test='prgrs4 != null and !prgrs4.equals("")'>
+				<if test='prgrsSel.equals("4")'>
 				  , PRGRS_4
 				</if>
-				<if test='prgrs5 != null and !prgrs5.equals("")'>
+				<if test='prgrsSel.equals("5")'>
 				  , PRGRS_5
 				</if>
-				<if test='prgrs6 != null and !prgrs6.equals("")'>
+				<if test='prgrsSel.equals("6")'>
 				  , PRGRS_6
 				</if>
-				<if test='prgrs7 != null and !prgrs7.equals("")'>
+				<if test='prgrsSel.equals("7")'>
 				  , PRGRS_7
 				</if>
-				<if test='prgrs8 != null and !prgrs8.equals("")'>
+				<if test='prgrsSel.equals("8")'>
 				  , PRGRS_8
 				</if>
-				<if test='prgrs9 != null and !prgrs9.equals("")'>
+				<if test='prgrsSel.equals("9")'>
 				  , PRGRS_9
 				</if>
-				<if test='prgrs10 != null and !prgrs10.equals("")'>
+				<if test='prgrsSel.equals("10")'>
 				  , PRGRS_10
 				</if>
-				<if test='prgrs11 != null and !prgrs11.equals("")'>
+				<if test='prgrsSel.equals("11")'>
 				  , PRGRS_11
 				</if>
-				<if test='prgrs12 != null and !prgrs12.equals("")'>
+				<if test='prgrsSel.equals("12")'>
 				  , PRGRS_12
 				</if>
-				<if test='prgrs13 != null and !prgrs13.equals("")'>
+				<if test='prgrsSel.equals("13")'>
 				  , PRGRS_13
 				</if>
-				<if test='prgrs14 != null and !prgrs14.equals("")'>
+				<if test='prgrsSel.equals("14")'>
 				  , PRGRS_14
 				</if>
 				<if test='prgrsLast != null and !prgrsLast.equals("")'>
@@ -233,47 +244,47 @@
 				  , #{apcCd}
 				  , 'FCLT'
 
-				<if test='prgrs1 != null and !prgrs1.equals("")'>
-				 , #{prgrs1}
+				<if test='prgrsSel.equals("1")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs2 != null and !prgrs2.equals("")'>
-				 , #{prgrs2}
+				<if test='prgrsSel.equals("2")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs3 != null and !prgrs3.equals("")'>
-				 , #{prgrs3}
+				<if test='prgrsSel.equals("3")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs4 != null and !prgrs4.equals("")'>
-				 , #{prgrs4}
+				<if test='prgrsSel.equals("4")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs5 != null and !prgrs5.equals("")'>
-				 , #{prgrs5}
+				<if test='prgrsSel.equals("5")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs6 != null and !prgrs6.equals("")'>
-				 , #{prgrs6}
+				<if test='prgrsSel.equals("6")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs7 != null and !prgrs7.equals("")'>
-				 , #{prgrs7}
+				<if test='prgrsSel.equals("7")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs8 != null and !prgrs8.equals("")'>
-				 , #{prgrs8}
+				<if test='prgrsSel.equals("8")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs9 != null and !prgrs9.equals("")'>
-				 , #{prgrs9}
+				<if test='prgrsSel.equals("9")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs10 != null and !prgrs10.equals("")'>
-				 , #{prgrs10}
+				<if test='prgrsSel.equals("10")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs11 != null and !prgrs11.equals("")'>
-				 , #{prgrs11}
+				<if test='prgrsSel.equals("11")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs12 != null and !prgrs12.equals("")'>
-				 , #{prgrs12}
+				<if test='prgrsSel.equals("12")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs13 != null and !prgrs13.equals("")'>
-				 , #{prgrs13}
+				<if test='prgrsSel.equals("13")'>
+				 , #{prgrsVal}
 				</if>
-				<if test='prgrs14 != null and !prgrs14.equals("")'>
-				 , #{prgrs14}
+				<if test='prgrsSel.equals("14")'>
+				 , #{prgrsVal}
 				</if>
 				<if test='prgrsLast != null and !prgrsLast.equals("")'>
 				 , #{prgrsLast}

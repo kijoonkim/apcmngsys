@@ -73,7 +73,7 @@ public class FcltOperHfInfoServiceImpl extends BaseServiceImpl implements FcltOp
 
 		int insertedCnt = fcltOperHfInfoMapper.insertFcltOperHfInfo(fcltOperHfInfoVO);
 
-		String prgrsYn = fcltOperHfInfoVO.getPrgrsYn();
+		String prgrsYn = fcltOperHfInfoVO.getPrgrsYn() == null ? "N" : fcltOperHfInfoVO.getPrgrsYn();
 
 		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
 			//진척도 변경
@@ -85,12 +85,13 @@ public class FcltOperHfInfoServiceImpl extends BaseServiceImpl implements FcltOp
 			fcltPrgrsVO.setSysLastChgUserId(fcltOperHfInfoVO.getSysLastChgUserId());
 			fcltPrgrsVO.setSysLastChgPrgrmId(fcltOperHfInfoVO.getSysLastChgPrgrmId());
 
+			fcltPrgrsVO.setPrgrsSel("8");
 			//임시저장
-			String tmprStrgYn = fcltOperHfInfoVO.getTmprStrgYn();
+			String tmprStrgYn = fcltOperHfInfoVO.getTmprStrgYn() == null ? "N" : fcltOperHfInfoVO.getTmprStrgYn();
 			if(tmprStrgYn.equals("Y")) {
-				fcltPrgrsVO.setPrgrs8("T");
+				fcltPrgrsVO.setPrgrsVal("T");
 			}else {
-				fcltPrgrsVO.setPrgrs8("Y");
+				fcltPrgrsVO.setPrgrsVal("Y");
 			}
 			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
 		}

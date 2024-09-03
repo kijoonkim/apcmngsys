@@ -487,10 +487,6 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
-
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
 			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
@@ -555,12 +551,16 @@
 			return;
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
 
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
+	}
 
 	//신규 등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		 console.log("******************fn_subInsert**********************************");
 		 if (!isConfirmed) return;
 
@@ -568,6 +568,7 @@
 			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			,prgrsYn : 'Y' //진척도 갱신 여부
+			, tmprStrgYn : tmpChk//임시저장 여부
 			,apcNtslAmtLgszRtl : SBUxMethod.get('dtl-inp-apcNtslAmtLgszRtl')
 			,apcNtslAmtFoodMtrl : SBUxMethod.get('dtl-inp-apcNtslAmtFoodMtrl')
 			,apcNtslAmtWhlslMrkt : SBUxMethod.get('dtl-inp-apcNtslAmtWhlslMrkt')

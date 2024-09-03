@@ -290,8 +290,10 @@
 			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
 
 			/*테스트*/
+			/*
 			apcCd = '0122';
 			crtrYr = '2023';
+			*/
 
 			let postJsonPromise = gfn_postJSON("/fm/fclt/selectPrgrs.do", {
 				apcCd : apcCd
@@ -339,7 +341,7 @@
 			if (prgrsVal == 'Y') {
 				$("#scrn"+num).attr("data-saved","true");
 				$("#scrn"+num).attr("data-draft","false");
-			}else if (prgrsVal == 'D') { //D 임시저장
+			}else if (prgrsVal == 'T') { //T 임시저장
 				$("#scrn"+num).attr("data-saved","false");
 				$("#scrn"+num).attr("data-draft","true");
 			}else{

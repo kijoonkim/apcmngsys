@@ -40,7 +40,6 @@
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
-					<sbux-button id="btntest" name="btntest" uitype="normal" text="iframe test" class="btn btn-sm btn-primary" onclick="test"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -423,7 +422,7 @@
 		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
 	</div>
 	<div id="body-modal-itemSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup2.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/ApcItemSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -662,7 +661,7 @@
 		}
 		*/
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
 	}
 
 	//임시저장
@@ -670,15 +669,15 @@
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
-
 	//신규등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		//등록년도는 항상 올해
-		let now = new Date();
-		let crtrYr = now.getFullYear();
+		//let now = new Date();
+		//let crtrYr = now.getFullYear();
+		let crtrYr = "2023";
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 
 		//품목 리스트
@@ -733,8 +732,8 @@
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
 			crtrYr: crtrYr  // 등록년도
 			, prgrsYn : 'Y' //진척도 갱신 여부
-			, apcCd: apcCd // APC코드
 			, tmprStrgYn: tmpChk//임시저장 체크
+			, apcCd: apcCd // APC코드
 			, operOgnzNm: SBUxMethod.get("dtl-inp-operOgnzNm")  // 운영조직 명
 			, operOgnzBrno: SBUxMethod.get("dtl-inp-operOgnzBrno")  //운영조직 사업자등록번호
 			, operOgnzCrno: SBUxMethod.get("dtl-inp-operOgnzCrno")  //운영조직 법인등록번호
@@ -948,10 +947,6 @@
 			SBUxMethod.set("dtl-inp-apcBmno", buldMnnm);//APC 건물본번
 			SBUxMethod.set("dtl-inp-apcSlno", buldSlno);//APC 건물부번
 		}
-	}
-
-	function test() {
-		cfn_allTabPrgrsRefrash();
 	}
 
 </script>

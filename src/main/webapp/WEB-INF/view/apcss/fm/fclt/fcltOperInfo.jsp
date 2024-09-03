@@ -123,7 +123,32 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 						</tr>
 					</tbody>
 				</table>
@@ -423,7 +448,7 @@
 			</div>
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
 		</div>
@@ -440,7 +465,7 @@
 		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
 	</div>
 	<div id="body-modal-itemSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup2.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/ApcItemSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -770,7 +795,7 @@
 			*/
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?") , null);
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
 	}
 
 	//임시저장
@@ -838,7 +863,7 @@
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
 			crtrYr: crtrYr  // 등록년도
-			, prgrsYn : 'Y' //진척도 갱신 여부
+			, prgrsYn : 'N' //진척도 갱신 여부
 			, apcCd: apcCd // APC코드
 			//, tmprStrgYn: tmpChk//임시저장 체크
 			, operOgnzNm: SBUxMethod.get("dtl-inp-operOgnzNm")  // 운영조직 명

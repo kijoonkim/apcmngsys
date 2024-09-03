@@ -73,7 +73,7 @@ public class FcltSortMchnInfoServiceImpl extends BaseServiceImpl implements Fclt
 		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
 		for (FcltSortMchnInfoVO fcltSortMchnInfoVO : fcltSortMchnInfoVOList) {
 			saveCnt = fcltSortMchnInfoMapper.insertFcltSortMchnInfo(fcltSortMchnInfoVO);
-			prgrsYn = fcltSortMchnInfoVO.getPrgrsYn();
+			prgrsYn = fcltSortMchnInfoVO.getPrgrsYn() == null ? "N" : fcltSortMchnInfoVO.getPrgrsYn();
 			//진척도 변경
 			fcltPrgrsVO.setApcCd(fcltSortMchnInfoVO.getApcCd());
 			fcltPrgrsVO.setCrtrYr(fcltSortMchnInfoVO.getCrtrYr());
@@ -82,12 +82,13 @@ public class FcltSortMchnInfoServiceImpl extends BaseServiceImpl implements Fclt
 			fcltPrgrsVO.setSysLastChgUserId(fcltSortMchnInfoVO.getSysLastChgUserId());
 			fcltPrgrsVO.setSysLastChgPrgrmId(fcltSortMchnInfoVO.getSysLastChgPrgrmId());
 
+			fcltPrgrsVO.setPrgrsSel("5");
 			//임시저장
-			String tmprStrgYn = fcltSortMchnInfoVO.getTmprStrgYn();
+			String tmprStrgYn = fcltSortMchnInfoVO.getTmprStrgYn() == null ? "N" : fcltSortMchnInfoVO.getTmprStrgYn();
 			if(tmprStrgYn.equals("Y")) {
-				fcltPrgrsVO.setPrgrs5("T");
+				fcltPrgrsVO.setPrgrsVal("T");
 			}else {
-				fcltPrgrsVO.setPrgrs5("Y");
+				fcltPrgrsVO.setPrgrsVal("Y");
 			}
 		}
 
