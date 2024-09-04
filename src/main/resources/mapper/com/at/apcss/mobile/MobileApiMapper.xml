@@ -14,8 +14,8 @@
 	<insert id="addRefreshToken" parameterType="map">
 		<![CDATA[
 			INSERT INTO TB_REFRESHTOKEN
-			(USER_ID, TOKEN, EXPIRY_DATE, REG_DATE)
-			values (#{USER_ID}, #{TOKEN}, #{EXPIRY_DATE}, SYSDATE)
+			(USER_ID, TOKEN, EXPRY_DT, CRT_DT)
+			values (#{USER_ID}, #{TOKEN}, #{EXPRY_DT}, SYSDATE)
 		]]>
 	</insert>
 	

@@ -218,7 +218,7 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	private boolean isRefreshTokenExpired(Map<String, Object> token) {
-		return isDateExpired((Date)token.get("EXPIRY_DATE"));
+		return isDateExpired((Date)token.get("EXPRY_DT"));
 	}
 	
 	private boolean isDateExpired(Date target) {

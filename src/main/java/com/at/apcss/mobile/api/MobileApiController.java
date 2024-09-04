@@ -246,7 +246,7 @@ public class MobileApiController extends BaseController{
 			Map<String, Object> refreshTokenMap = new HashMap<String, Object>();
 			refreshTokenMap.put("USER_ID", resultVO.getUserId());
 			refreshTokenMap.put("TOKEN", refreshToken);
-			refreshTokenMap.put("EXPIRY_DATE", expDate);
+			refreshTokenMap.put("EXPRY_DT", expDate);
 
 			mobileApiService.addRefreshToken(refreshTokenMap);
 
@@ -439,7 +439,7 @@ public class MobileApiController extends BaseController{
 	}
 	
 	private boolean isRefreshTokenExpired(Map<String, Object> token) {
-		return isDateExpired((Date)token.get("EXPIRY_DATE"));
+		return isDateExpired((Date)token.get("EXPRY_DT"));
 	}
 
 	private boolean isDateExpired(Date target) {
