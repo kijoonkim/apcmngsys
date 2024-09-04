@@ -163,10 +163,11 @@
 		},
 		choice: function() {
 			let nRow = grdItemPop.getRow();
+			if(nRow < 0){
+				return;
+			}
 			let rowData = grdItemPop.getRowData(nRow);
-			//console.log(itemSn);
 			rowData.sn = itemSn;
-			//console.log(rowData);
 			popItemSelect.close(rowData);
 		},
 		search: async function(/** {boolean} */ isEditable) {
