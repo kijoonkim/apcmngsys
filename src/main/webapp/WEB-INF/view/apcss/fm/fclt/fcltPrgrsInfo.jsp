@@ -1,15 +1,15 @@
 <%
  /**
-  * @Class Name : fcltPrgrsInfoReg.jsp
-  * @Description : 2.시설설치보완 화면
+  * @Class Name : fcltPrgrsInfo.jsp
+  * @Description : 전체 진척도 확인
   * @author SI개발부
-  * @since 2023.12.12
+  * @since 2024.09.03
   * @version 1.0
   * @Modification Information
   * @
   * @ 수정일       	수정자      	수정내용
   * @ ----------	----------	---------------------------
-  * @ 2023.12.12   	김현호			최초 생성
+  * @ 2024.08.20   	임준완			최초 생성
   * @see
   *
   */

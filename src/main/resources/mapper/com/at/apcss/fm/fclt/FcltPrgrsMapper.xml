@@ -62,6 +62,7 @@
 			  				FROM TB_TE_APC_OPER_TRMT_ITEM
 			  				WHERE 1=1
 			  				  AND APC_CD = AP.APC_CD
+			  				  AND OGNZ_SE_CD = '2'
 			  				  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
 			  				)
 			</if>
@@ -115,6 +116,7 @@
 			  				FROM TB_TE_APC_OPER_TRMT_ITEM
 			  				WHERE 1=1
 			  				  AND APC_CD = AP.APC_CD
+			  				  AND OGNZ_SE_CD = '2'
 			  				  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
 			  				)
 			</if>

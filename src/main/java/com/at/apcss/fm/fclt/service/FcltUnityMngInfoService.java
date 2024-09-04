@@ -1,14 +1,13 @@
 package com.at.apcss.fm.fclt.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO;
 
 
 /**
  * 통합관리시스템 Service 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -17,7 +16,7 @@ import com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 public interface FcltUnityMngInfoService {

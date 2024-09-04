@@ -27,7 +27,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 /**
  * @Class Name : FcltOperInfoController.java
  * @Description : 운영자개요에 대한 Controller 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -36,7 +36,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21             최초 생성
  * </pre>
  */
 @Controller

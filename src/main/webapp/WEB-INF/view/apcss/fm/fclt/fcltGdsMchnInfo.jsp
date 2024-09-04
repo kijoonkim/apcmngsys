@@ -510,6 +510,21 @@
 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
 		}
 	}
+	//입력폼 초기화
+	const fn_clearForm = async function() {
+		for (var i = 0; i < 5; i++) {
+			SBUxMethod.set('dtl-inp-itemChk'+i ,null);
+			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i ,null);
+
+			SBUxMethod.set("dtl-inp-sortMchnSpcect"+i, null);
+			SBUxMethod.set("dtl-inp-sortBrckMvhn"+i, null);
+			SBUxMethod.set("dtl-inp-colorSort"+i, null);
+			SBUxMethod.set("dtl-inp-shapSort"+i, null);
+			SBUxMethod.set("dtl-inp-mnfcMchn"+i, null);
+			//제조사 추가
+			SBUxMethod.set("dtl-inp-mkrNm"+i, null);
+		}
+	}
 
 	/**
      * @param {number} pageSize
@@ -573,7 +588,6 @@
 		}
 	}
 
-
 	//등록
 	const fn_save = async function() {
 		//console.log("******************fn_save**********************************");
@@ -606,7 +620,7 @@
 
 			//품목이 존재하는경우만 저장
 			if(itemChk == 'Y'){
-				let sortMchnHoldYn = SBUxMethod.get('dtl-inp-sortMchnHoldYn'+i);
+				let sortMchnHoldYn = $('#dtl-inp-sortMchnHoldYn'+i).val();
 				let itemVo = {
 						sn : i
 						,crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
@@ -661,6 +675,7 @@
 	}
 	// apc 선택 팝업 콜백 함수
 	const fn_setApc = function(apc) {
+		//fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
@@ -755,7 +770,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -838,7 +853,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {

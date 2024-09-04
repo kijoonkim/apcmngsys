@@ -374,7 +374,11 @@
 		}
 	}
 
-
+	//그리드 초기화
+	const fn_clearForm = function() {
+		jsonFcltInstlInfo.length= 0;
+		grdFcltInstlInfo.rebuild();
+	}
 
 	//등록
 	const fn_save = async function() {
@@ -452,14 +456,14 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
-		//console.log("======fn_setApc=======");
-		//console.log(apc);
+	const fn_setApc = async function(apc) {
+		fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
-		//console.log("======fn_setApc====end===");
+		//진척도 갱신
+		await cfn_selectPrgrs();
 	}
 
 	//지원사업 관리 팝업 버튼

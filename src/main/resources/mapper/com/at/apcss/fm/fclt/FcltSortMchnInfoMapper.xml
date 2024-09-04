@@ -43,7 +43,7 @@
 			  AND OTI.APC_CD = OASM.APC_CD(+)
 			  AND OTI.CRTR_YR = OASM.CRTR_YR(+)
 			  AND OTI.SN = OASM.SN(+)
-			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
 			  AND OASM.DEL_YN != 'Y'
 		]]>
@@ -95,7 +95,7 @@
 			  AND OTI.APC_CD = OASM.APC_CD(+)
 			  AND OTI.CRTR_YR = OASM.CRTR_YR(+)
 			  AND OTI.SN = OASM.SN(+)
-			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
 			  AND OASM.DEL_YN != 'Y'
 		]]>

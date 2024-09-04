@@ -52,7 +52,7 @@
 			  AND OTI.APC_CD = FSD.APC_CD(+)
 			  AND OTI.CRTR_YR = FSD.CRTR_YR(+)
 			  AND OTI.SN = FSD.SN(+)
-			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
 			  AND FSD.DEL_YN != 'Y'
 		]]>
@@ -113,7 +113,7 @@
 			  AND OTI.APC_CD = FSD.APC_CD(+)
 			  AND OTI.CRTR_YR = FSD.CRTR_YR(+)
 			  AND OTI.SN = FSD.SN(+)
-			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
 			  AND FSD.DEL_YN != 'Y'
 			]]>
@@ -192,6 +192,7 @@
 				  		  AND APC_CD = #{apcCd}
 				  		  AND CRTR_YR = #{crtrYr}
 				  		  AND SN = #{sn}
+				  		  AND OGNZ_SE_CD = '2'
 				  	)
 				  , (SELECT
 				  			ITEM_NM
@@ -200,6 +201,7 @@
 				  		  AND APC_CD = #{apcCd}
 				  		  AND CRTR_YR = #{crtrYr}
 				  		  AND SN = #{sn}
+				  		  AND OGNZ_SE_CD = '2'
 				  	)
 				  , #{sortMchnSpcect}
 				  , #{sortBrckMvhn}

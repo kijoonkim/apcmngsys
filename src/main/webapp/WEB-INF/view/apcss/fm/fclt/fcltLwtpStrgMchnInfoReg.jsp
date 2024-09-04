@@ -603,11 +603,13 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
 	}
 
 	const fn_strgPlcOprtngRt = async function() {

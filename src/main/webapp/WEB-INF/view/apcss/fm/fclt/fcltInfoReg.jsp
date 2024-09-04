@@ -15,7 +15,7 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -481,6 +481,8 @@
 	}
 
 	const fn_search = async function() {
+		fn_clearForm();
+
 		fn_selectFcltInfoList();
 	}
 
@@ -543,6 +545,33 @@
 			}
 			//console.error("failed", e.message);
 		}
+	}
+
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set('dtl-inp-cspTotArea',null);
+		SBUxMethod.set('dtl-inp-cspTotRmrk',null);
+		SBUxMethod.set('dtl-inp-cspCfppArea',null);
+		SBUxMethod.set('dtl-inp-cspCfppRmrk',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsArea',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsRmrk',null);
+		SBUxMethod.set('dtl-inp-cspDtpArea',null);
+		SBUxMethod.set('dtl-inp-cspDtpRmrk',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltArea',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcRmrk',null);
+		fn_sumAll();//자동계산 부분 처리
 	}
 
 	//등록
@@ -707,11 +736,14 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
 	}
 
 </script>

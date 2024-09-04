@@ -554,7 +554,7 @@
 			let itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
 			//품목이 존재하는경우만 저장
 			if(itemChk == 'Y'){
-				let sortMchnHoldYn = SBUxMethod.get('dtl-inp-sortMchnHoldYn'+i);
+				let sortMchnHoldYn = $('#dtl-inp-sortMchnHoldYn'+i).val();
 				let itemVo = {
 						crtrYr : crtrYr
 						, apcCd : apcCd
@@ -574,7 +574,7 @@
 			}
 		}
 
-		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltGdsMchnInfo.do", saveList);
+		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltSortMchnInfo.do", saveList);
 
 		const data = await postJsonPromise;
 
@@ -610,11 +610,13 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
 	}
 	// 평균가동일수 계산
 	const fn_calSortAvgOprtngDcnt = function(groupNum) {

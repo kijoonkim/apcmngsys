@@ -639,7 +639,7 @@
 			let itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
 			//품목이 존재하는경우만 저장
 			if(itemChk == 'Y'){
-				let sortMchnHoldYn = SBUxMethod.get('dtl-inp-sortMchnHoldYn'+i);
+				let sortMchnHoldYn = $('#dtl-inp-sortMchnHoldYn'+i).val();
 				let itemVo = {
 						crtrYr : crtrYr
 						, apcCd : apcCd

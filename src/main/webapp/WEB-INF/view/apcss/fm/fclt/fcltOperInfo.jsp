@@ -609,7 +609,7 @@
 		let pageSize = grdFcltOperInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -920,7 +920,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltOperInfo.getCol();
 		if (nCol < 1) {
@@ -940,8 +940,9 @@
 		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
 		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
 		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
-		console.log(SBUxMethod.get('dtl-inp-apcCd'));
-		console.log(SBUxMethod.get('dtl-inp-crtrYr'));
+		//console.log(SBUxMethod.get('dtl-inp-apcCd'));
+		//console.log(SBUxMethod.get('dtl-inp-crtrYr'));
+
 		fn_selectFcltOperInfo();//상세조회
 	}
 
@@ -965,7 +966,7 @@
 		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
 		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
 
-		SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
+		//SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
 		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
 		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
 		SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
@@ -976,9 +977,12 @@
 		SBUxMethod.set("dtl-inp-apcBmno",null);  //apc 건물 본번
 		SBUxMethod.set("dtl-inp-apcSlno",null);  //apc 건물 부번
 
+		SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd",null);  //운영조직 기타 품목 부류
+		SBUxMethod.set("dtl-inp-apcEtcCtgryCd",null);  //apc 기타 품목 부류
+
 		for (var i = 1; i < 5; i++) {
-			SBUxMethod.set("dtl-inp-operItemNm"+i, null);
-			SBUxMethod.set("dtl-inp-operItemCd"+i, null);
+			SBUxMethod.set("dtl-inp-operOgnzItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-operOgnzItemCd"+i, null);
 			SBUxMethod.set("dtl-inp-apcItemNm"+i, null);
 			SBUxMethod.set("dtl-inp-apcItemCd"+i, null);
 		}
