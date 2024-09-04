@@ -49,7 +49,8 @@
 			     , PLI.FRMERNO              AS FRMERNO
 			     , PLI.DEL_YN               AS DEL_YN
 			  FROM TB_PRDCR_LAND_INFO PLI
-			 WHERE PLI.APC_CD 	= #{apcCd}
+			 WHERE PLI.DEL_YN = 'N'
+			   AND PLI.APC_CD 	= #{apcCd}
 			   AND PLI.PRDCR_CD = #{prdcrCd}
 		]]>
 	</select>

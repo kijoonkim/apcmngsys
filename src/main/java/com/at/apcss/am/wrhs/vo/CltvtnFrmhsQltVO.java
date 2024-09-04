@@ -110,7 +110,7 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 예상망
 	 * */
-	private String expctNet;
+	private int expctQntt;
 	/*
 	 * 품질평가
 	 * */

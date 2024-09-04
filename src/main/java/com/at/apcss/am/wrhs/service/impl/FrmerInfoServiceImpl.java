@@ -283,8 +283,8 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 					ComAtchflVO comAtchflVO = cltvtnHstryVO.getComAtchflVO();
 
 					if (comAtchflVO != null) {
-
-						comAtchflVO.setPrntsTblNo(cltvtnHstryNo);
+						String prntsTblNo = "CQ" + cltvtnHstryVO.getApcCd() + cltvtnHstryVO.getPrdcrCd() + cltvtnHstryVO.getPrdcrLandInfoNo() + cltvtnHstryNo;
+						comAtchflVO.setPrntsTblNo(prntsTblNo);
 						comAtchflVO.setAtchflPath(cltvtnListVO.getAtchflPath());
 
 						HashMap<String, Object> rtnOjb = comAtchflService.fileUpload(comAtchflVO);
@@ -312,6 +312,8 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 					ComAtchflVO comAtchflVO = cltvtnHstryVO.getComAtchflVO();
 
 					if (comAtchflVO != null) {
+						String prntsTblNo = "CQ" + cltvtnHstryVO.getApcCd() + cltvtnHstryVO.getPrdcrCd() + cltvtnHstryVO.getPrdcrLandInfoNo() + cltvtnHstryVO.getCltvtnHstryNo();
+						comAtchflVO.setPrntsTblNo(prntsTblNo);
 						comAtchflVO.setAtchflPath(cltvtnListVO.getAtchflPath());
 
 						HashMap<String, Object> rtnOjb = comAtchflService.fileUpload(comAtchflVO);
