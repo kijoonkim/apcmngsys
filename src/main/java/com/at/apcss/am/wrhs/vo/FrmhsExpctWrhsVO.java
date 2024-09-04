@@ -82,11 +82,11 @@ public class FrmhsExpctWrhsVO extends ComVO {
     /*
      * 예상양
      * */
-    private int expctNet;
+    private int expctQntt;
     /*
      * 최종저장구분
      * */
-    private String lastStrgSeCd;
+    private String qltEvl;
     /*
      * 담당자
      * */

@@ -32,6 +32,7 @@ public class CltvtnHstryVO extends ComVO {
 	 * 생산자코드
 	 * */
 	private String prdcrCd;
+	private String prdcrNm;
 	/*
 	 * 생산자농지정보번호
 	 * */
@@ -84,5 +85,13 @@ public class CltvtnHstryVO extends ComVO {
 	 * 첨부파일 원본명
 	 * */
 	private String atchflOrgnNm;
+	/*
+	 * 확정일자
+	 * */
+	private String cfmtnYmd;
+	/*
+	 * 농가지역
+	 * */
+	private String frmhsCtpv;
 
 }

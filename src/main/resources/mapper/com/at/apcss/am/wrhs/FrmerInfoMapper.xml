@@ -232,20 +232,34 @@
 			SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList */
 				   CH.APC_CD            AS APC_CD
 			     , CH.PRDCR_CD          AS PRDCR_CD
+			     , PI.PRDCR_NM			AS PRDCR_NM
+			     , PI.FRMHS_CTPV		AS FRMHS_CTPV
 			     , CH.PRDCR_LAND_INFO_NO AS PRDCR_LAND_INFO_NO
 			     , CH.CLTVTN_HSTRY_NO   AS CLTVTN_HSTRY_NO
+			     , CH.CFMTN_YMD 		AS CFMTN_YMD
 			     , CH.CN                AS CN
 			     , CH.RMRK              AS RMRK
 			     , CH.DEL_YN            AS DEL_YN
-			     , (SELECT MAX(ATCHFL_NO) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_NO
-			     , (SELECT MAX(ATCHFL_ORGN_NM) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_ORGN_NM
+			     , (SELECT MAX(ATCHFL_NO) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = 'CQ' || CH.APC_CD || CH.PRDCR_CD || CH.PRDCR_LAND_INFO_NO || CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_NO
+			     , (SELECT MAX(ATCHFL_ORGN_NM) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = 'CQ' || CH.APC_CD || CH.PRDCR_CD || CH.PRDCR_LAND_INFO_NO || CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_ORGN_NM
 			  FROM TB_CLTVTN_HSTRY CH
-			 WHERE CH.DEL_YN = 'N'
+			     , TB_PRDCR_INFO PI
+			 WHERE CH.APC_CD = PI.APC_CD
+			   AND CH.PRDCR_CD = PI.PRDCR_CD
+			   AND PI.DEL_YN = 'N'
+			   AND CH.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
 			   AND CH.APC_CD = #{apcCd}
+		</if>
+		<if test='prdcrCd != null and prdcrCd !=""'>
 			   AND CH.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='prdcrLandInfoNo != null and prdcrLandInfoNo !=""'>
 			   AND CH.PRDCR_LAND_INFO_NO = #{prdcrLandInfoNo}
+		</if>
+		<![CDATA[
 			 ORDER BY CH.CLTVTN_HSTRY_NO
-
 		]]>
     </select>
 
@@ -266,6 +280,7 @@
 				 , PRDCR_CD
 				 , PRDCR_LAND_INFO_NO
 				 , CLTVTN_HSTRY_NO
+				 , CFMTN_YMD
 				 , CN
 				 , RMRK
 				 , SYS_FRST_INPT_DT
@@ -281,6 +296,7 @@
 				 , #{prdcrCd}
 				 , #{prdcrLandInfoNo}
 				 , #{cltvtnHstryNo}
+				 , #{cfmtnYmd}
 				 , #{cn}
 				 , #{rmrk}
 				 , SYSDATE
@@ -304,7 +320,8 @@
 		<![CDATA[
 			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry */
 				   TB_CLTVTN_HSTRY
-			   SET CN                       = #{cn}
+			   SET CFMTN_YMD				= #{cfmtnYmd}
+			     , CN                       = #{cn}
 				 , RMRK                     = #{rmrk}
 				 , SYS_LAST_CHG_DT          = SYSDATE
 				 , SYS_LAST_CHG_USER_ID     = #{sysLastChgUserId}
@@ -379,7 +396,7 @@
 					     , CQ.PLNTNG_STTS_CD    AS PLNTNG_STTS_CD
 					     , CQ.CMPT_YMD_CYCL_1   AS CMPT_YMD_CYCL_1
 					     , CQ.CMPT_YMD_CYCL_2   AS CMPT_YMD_CYCL_2
-					     , CQ.EXPCT_NET 		AS EXPCT_NET
+					     , CQ.EXPCT_QNTT 		AS EXPCT_QNTT
 					     , CQ.QLT_EVL           AS QLT_EVL
 					     , CQ.TY_EVL            AS TY_EVL
                          , (SELECT MAX(TY_EVL)
@@ -456,7 +473,7 @@
 					     , ''   AS PLNTNG_STTS_CD
 					     , ''   AS CMPT_YMD_CYCL_1
 					     , ''   AS CMPT_YMD_CYCL_2
-					     , ''   AS EXPCT_NET
+					     , ''   AS EXPCT_QNTT
 					     , ''   AS QLT_EVL
 					     , ''   AS TY_EVL
 					     , ''   AS LAST_YR_EVL
@@ -553,7 +570,7 @@
 				 , PLNTNG_STTS_CD
 				 , CMPT_YMD_CYCL_1
 				 , CMPT_YMD_CYCL_2
-				 , EXPCT_NET
+				 , EXPCT_QNTT
 				 , QLT_EVL
 				 , TY_EVL
 				 , FLCTN_DFRNC
@@ -604,7 +621,7 @@
 				 , #{plntngSttsCd}
 				 , #{cmptYmdCycl1}
 				 , #{cmptYmdCycl2}
-				 , #{expctNet}
+				 , #{expctQntt}
 				 , #{qltEvl}
 				 , #{tyEvl}
 				 , #{flctnDfrnc}
@@ -667,7 +684,7 @@
 				 , PLNTNG_STTS_CD           = #{plntngSttsCd}
 				 , CMPT_YMD_CYCL_1          = #{cmptYmdCycl1}
 				 , CMPT_YMD_CYCL_2          = #{cmptYmdCycl2}
-				 , EXPCT_NET				= #{expctNet}
+				 , EXPCT_QNTT				= #{expctQntt}
 				 , QLT_EVL                  = #{qltEvl}
 				 , TY_EVL              		= #{tyEvl}
 				 , FLCTN_DFRNC              = #{flctnDfrnc}
@@ -741,32 +758,22 @@
 			     , pt0.PRDCR_CD                     AS PRDCR_CD
 			     , MAX(pt0.PRDCR_NM)				AS PRDCR_NM
 			     , MAX(pt0.CRTR_YM)					AS CRTR_YM
+			     , pt0.CRTR_YR						AS CRTR_YR
+			     , pt0.CRTR_MM						AS CRTR_MM
 			     , MAX(pt0.RPRS_ITEM_CD)            AS RPRS_ITEM_CD
 			     , MAX(pt0.RPRS_VRTY_CD)            AS RPRS_VRTY_CD
 			     , MAX(pt0.FRMHS_ADDR)              AS FRMHS_ADDR
 			     , MAX(pt0.FRMHS_CTPV)              AS FRMHS_CTPV
 			     , MAX(pt0.FRMHS_TELNO)             AS FRMHS_TELNO
-			     , (SELECT PLNTNG_PRCL
-                      FROM TB_CLTVTN_FRMHS_QLT X
-                     WHERE X.APC_CD = pt0.APC_CD
-                       AND X.PRDCR_CD = pt0.PRDCR_CD
-                       AND X.DEL_YN = 'N'
-                       AND X.YR = #{yr}
-                   ) AS PLNTNG_PRCL
-			     , (SELECT EXPCT_NET
-                      FROM TB_CLTVTN_FRMHS_QLT X
-                     WHERE X.APC_CD = pt0.APC_CD
-                       AND X.PRDCR_CD = pt0.PRDCR_CD
-                       AND X.DEL_YN = 'N'
-                       AND X.YR = #{yr}
-                   ) AS EXPCT_NET
+			     , MAX(CQ.EXPCT_QNTT)               AS EXPCT_QNTT
+			     , MAX(CQ.PLNTNG_PRCL)              AS PLNTNG_PRCL
+			     , MAX(CQ.PIC)                      AS PIC
+			     , MAX(CQ.QLT_EVL)                  AS QLT_EVL
+			     , SUM(QNTT) - MAX(CQ.EXPCT_QNTT)    AS EXPCT_VLM_VRSS
 			     , pt0.FRMHS_EXPCT_WRHS_NO          AS FRMHS_EXPCT_WRHS_NO
 			     , MAX(pt0.HDOFC_EXTRNL_SE_CD)      AS HDOFC_EXTRNL_SE_CD
 			     , MAX(pt0.EXTRNL_WAREHOUSE_CD)     AS EXTRNL_WAREHOUSE_CD
 			     , MAX(pt0.HRVST_YMD)               AS HRVST_YMD
-			     , MAX(pt0.LAST_STRG_SE_CD)         AS LAST_STRG_SE_CD
-			     , MAX(pt0.PIC)                     AS PIC
-			     , MAX(pt0.EXPCT_VLM_VRSS)          AS EXPCT_VLM_VRSS
 			     , MAX(pt0.PRCHS_CMPTN_YN)          AS PRCHS_CMPTN_YN
 			     , MAX(pt0.RMRK)                    AS RMRK
 			     , MAX(pt0.DEL_YN)                  AS DEL_YN
@@ -817,9 +824,6 @@
 					     , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
 					     , FW.EXTRNL_WAREHOUSE_CD       AS EXTRNL_WAREHOUSE_CD
 					     , FW.HRVST_YMD                 AS HRVST_YMD
-					     , FW.LAST_STRG_SE_CD           AS LAST_STRG_SE_CD
-					     , FW.PIC                       AS PIC
-					     , FW.EXPCT_VLM_VRSS            AS EXPCT_VLM_VRSS
 					     , FW.PRCHS_CMPTN_YN            AS PRCHS_CMPTN_YN
 					     , FW.RMRK                      AS RMRK
 					     , FWD.YMD                      AS YMD
@@ -855,7 +859,9 @@
 					     , CASE WHEN FWD.YMD = '29' THEN FWD.QNTT END AS YMD_29
 					     , CASE WHEN FWD.YMD = '30' THEN FWD.QNTT END AS YMD_30
 					     , CASE WHEN FWD.YMD = '31' THEN FWD.QNTT END AS YMD_31
-					     , FWD.CRTR_YM                  AS CRTR_YM
+					     , FWD.CRTR_YR                  AS CRTR_YR
+					     , FWD.CRTR_MM                  AS CRTR_MM
+					     , FWD.CRTR_YR || FWD.CRTR_MM   AS CRTR_YM
 					     , FWD.QNTT                     AS QNTT
 					  FROM TB_PRDCR_INFO PI
 					     , TB_FRMHS_EXPCT_WRHS FW
@@ -877,7 +883,7 @@
 					   AND PI.PRDCR_CD = #{prdcrCd}
 		</if>
 		<if test='yr != null and yr != ""'>
-					   AND SUBSTR(FWD.CRTR_YM, 1, 4) = #{yr}
+					   AND CRTR_YR = #{yr}
 		</if>
 		<![CDATA[
 					 UNION ALL
@@ -896,9 +902,6 @@
 					     , '' AS HDOFC_EXTRNL_SE_CD
 					     , '' AS EXTRNL_WAREHOUSE_CD
 					     , '' AS HRVST_YMD
-					     , '' AS LAST_STRG_SE_CD
-					     , '' AS PIC
-					     , '' AS EXPCT_VLM_VRSS
 					     , '' AS PRCHS_CMPTN_YN
 					     , '' AS RMRK
 					     , '' AS YMD
@@ -934,6 +937,8 @@
 					     , 0  AS YMD_29
 					     , 0  AS YMD_30
 					     , 0  AS YMD_31
+					     , '' AS CRTR_YR
+					     , '' AS CRTR_MM
 					     , '' AS CRTR_YM
 					     , 0  AS QNTT
 					  FROM TB_PRDCR_INFO PI
@@ -971,12 +976,21 @@
 					   					   AND X.APC_CD = #{apcCd}
 		</if>
 		<if test='yr != null and yr != ""'>
-					   					   AND SUBSTR(Y.CRTR_YM, 1, 4) = #{yr}
+					   					   AND Y.CRTR_YR = #{yr}
 		</if>
 		<![CDATA[
 					                  )
 			        ) pt0
-			 GROUP BY pt0.APC_CD, pt0.PRDCR_CD, pt0.FRMHS_EXPCT_WRHS_NO, pt0.CRTR_YM
+			 		, TB_CLTVTN_FRMHS_QLT CQ
+			 WHERE CQ.APC_CD(+) = pt0.APC_CD
+			   AND CQ.PRDCR_CD(+) = pt0.PRDCR_CD
+			   AND CQ.DEL_YN(+) = 'N'
+		]]>
+		<if test='yr != null and yr != ""'>
+			   AND CQ.YR(+) = #{yr}
+		</if>
+		<![CDATA[
+			 GROUP BY pt0.APC_CD, pt0.PRDCR_CD, pt0.FRMHS_EXPCT_WRHS_NO, pt0.CRTR_YR, pt0.CRTR_MM
 			 ORDER BY pt0.PRDCR_CD
 		]]>
 
@@ -1000,10 +1014,6 @@
 				 , HDOFC_EXTRNL_SE_CD
 				 , EXTRNL_WAREHOUSE_CD
 				 , HRVST_YMD
-				 , EXPCT_NET
-				 , LAST_STRG_SE_CD
-				 , PIC
-				 , EXPCT_VLM_VRSS
 				 , PRCHS_CMPTN_YN
 				 , RMRK
 				 , SYS_FRST_INPT_DT
@@ -1020,10 +1030,6 @@
 				 , #{hdofcExtrnlSeCd}
 				 , #{extrnlWarehouseCd}
 				 , #{hrvstYmd}
-				 , #{expctNet}
-				 , #{lastStrgSeCd}
-				 , #{pic}
-				 , #{expctVlmVrss}
 				 , #{prchsCmptnYn}
 				 , #{rmrk}
 				 , SYSDATE
@@ -1052,10 +1058,6 @@
 				   HDOFC_EXTRNL_SE_CD       = #{hdofcExtrnlSeCd}
 				 , EXTRNL_WAREHOUSE_CD      = #{extrnlWarehouseCd}
 				 , HRVST_YMD                = #{hrvstYmd}
-				 , EXPCT_NET                = #{expctNet}
-				 , LAST_STRG_SE_CD          = #{lastStrgSeCd}
-				 , PIC                      = #{pic}
-				 , EXPCT_VLM_VRSS           = #{expctVlmVrss}
 				 , PRCHS_CMPTN_YN           = #{prchsCmptnYn}
 				 , RMRK                     = #{rmrk}
 				 , SYS_LAST_CHG_DT          = SYSDATE
@@ -1104,7 +1106,8 @@
 			     ( APC_CD
 				 , PRDCR_CD
 				 , FRMHS_EXPCT_WRHS_NO
-				 , CRTR_YM
+				 , CRTR_YR
+				 , CRTR_MM
 				 , YMD
 				 , QNTT
 				 , SYS_FRST_INPT_DT
@@ -1118,7 +1121,8 @@
 				 ( #{apcCd}
 				 , #{prdcrCd}
 				 , #{frmhsExpctWrhsNo}
-				 , #{crtrYm}
+				 , #{crtrYr}
+				 , #{crtrMm}
 				 , #{ymd}
 				 , #{qntt}
 				 , SYSDATE
@@ -1148,20 +1152,21 @@
 			       	   A.APC_CD 					= #{apcCd}
 			       AND A.PRDCR_CD 					= #{prdcrCd}
 			       AND A.FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
-			       AND A.CRTR_YM					= #{crtrYm}
+			       AND A.CRTR_YR					= #{crtrYr}
 			       AND A.YMD						= #{ymd}
 			      )
 			 WHEN MATCHED THEN
 					UPDATE
 				       SET
 						   A.QNTT					= #{qntt}
+						 , A.CRTR_MM				= #{crtrMm}
 						 , A.SYS_LAST_CHG_DT        = SYSDATE
 						 , A.SYS_LAST_CHG_USER_ID   = #{sysLastChgUserId}
 						 , A.SYS_LAST_CHG_PRGRM_ID  = #{sysLastChgPrgrmId}
 					 WHERE A.APC_CD 				= #{apcCd}
 					   AND A.PRDCR_CD 				= #{prdcrCd}
 					   AND A.FRMHS_EXPCT_WRHS_NO 	= #{frmhsExpctWrhsNo}
-					   AND A.CRTR_YM				= #{crtrYm}
+					   AND A.CRTR_YR				= #{crtrYr}
 					   AND A.YMD					= #{ymd}
 		     WHEN NOT MATCHED THEN
 		     		INSERT
@@ -1169,7 +1174,8 @@
 					       APC_CD
 						 , PRDCR_CD
 						 , FRMHS_EXPCT_WRHS_NO
-						 , CRTR_YM
+						 , CRTR_YR
+						 , CRTR_MM
 						 , YMD
 						 , QNTT
 						 , SYS_FRST_INPT_DT
@@ -1184,7 +1190,8 @@
 						   #{apcCd}
 						 , #{prdcrCd}
 						 , #{frmhsExpctWrhsNo}
-						 , #{crtrYm}
+						 , #{crtrYr}
+						 , #{crtrMm}
 						 , #{ymd}
 						 , #{qntt}
 						 , SYSDATE

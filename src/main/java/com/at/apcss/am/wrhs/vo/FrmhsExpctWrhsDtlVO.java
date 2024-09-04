@@ -39,6 +39,14 @@ public class FrmhsExpctWrhsDtlVO extends ComVO {
      * */
     private String crtrYm;
     /*
+     * 기준연도
+     * */
+    private String crtrYr;
+    /*
+     * 기준월
+     * */
+    private String crtrMm;
+    /*
      * 일자
      * */
     private String ymd;
