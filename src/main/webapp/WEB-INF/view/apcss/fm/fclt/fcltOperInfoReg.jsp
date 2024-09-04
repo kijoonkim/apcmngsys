@@ -31,7 +31,7 @@
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid" style="height: 100vh">
-			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
@@ -415,14 +415,14 @@
 	</section>
 	<!-- apc 선택 Modal -->
 	<div>
-		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fclt/fm/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 	<!-- 품목 선택 Modal -->
 	<div>
-		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
+		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-itemSelect">
 		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/ApcItemSelectPopup.jsp"></jsp:include>
@@ -728,7 +728,7 @@
 		//등록년도는 항상 올해
 		//let now = new Date();
 		//let crtrYr = now.getFullYear();
-		let crtrYr = "2023";
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 
 		//품목 리스트
@@ -743,7 +743,7 @@
 			if(i == 4){
 				etcCtgryCd = SBUxMethod.get("dtl-inp-operOgnzEtcCtgryCd");
 			}
-			console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm));
+			//console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm));
 			if(!gfn_isEmpty(itemNm)){
 				let itemData = {
 						itemNm : itemNm
@@ -765,7 +765,7 @@
 			if(i == 4){
 				etcCtgryCd = SBUxMethod.get("dtl-inp-apcEtcCtgryCd");
 			}
-			console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm)+ " itemNm = "+itemNm);
+			//console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm)+ " itemNm = "+itemNm);
 			if(!gfn_isEmpty(itemNm)){
 				let itemData = {
 						itemNm : itemNm
@@ -779,7 +779,6 @@
 		}
 
 		console.log(itemArr);
-		return;
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
 			crtrYr: crtrYr  // 등록년도
@@ -859,6 +858,7 @@
 	}
 	// 품목 선택 팝업 콜백 함수
 	const fn_setItem = function(itemVal) {
+		//console.log(itemVal);
 		if (!gfn_isEmpty(itemVal)) {
 			switch (itemVal.sn) {
 			case 1: case 2: case 3:
