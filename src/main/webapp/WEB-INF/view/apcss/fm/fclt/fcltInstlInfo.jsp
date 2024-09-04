@@ -421,7 +421,11 @@
 		}
 	}
 
-
+	//그리드 초기화
+	const fn_clearForm = function() {
+		jsonFcltInstlInfo.length= 0;
+		grdFcltInstlInfo.rebuild();
+	}
 
 	//등록
 	const fn_save = async function() {
@@ -665,7 +669,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -748,7 +752,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {
@@ -768,8 +772,8 @@
 		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
 		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
 		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
-		console.log(SBUxMethod.get('dtl-inp-apcCd'));
-		console.log(SBUxMethod.get('dtl-inp-crtrYr'));
+		//console.log(SBUxMethod.get('dtl-inp-apcCd'));
+		//console.log(SBUxMethod.get('dtl-inp-crtrYr'));
 		fn_selectFcltInstlInfoList();//상세조회
 	}
 

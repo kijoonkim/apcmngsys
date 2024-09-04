@@ -15,16 +15,16 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
-   	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
+	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -36,6 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 상품화설비현황 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -395,7 +396,6 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		await fn_clear();
 
 		await fn_search();
 
@@ -411,16 +411,10 @@
 		}
 	}
 
-	//전체 데이터 초기화 및 비활성화
-	function fn_clear() {
-		for (var i = 1; i < 5; i++) {
-			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
-			SBUxMethod.clearGroupData('group'+i);
-			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
-			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
-		}
-	}
 	const fn_search = async function() {
+
+		fn_clearForm();
+
 		fn_setGrdGdsMcList();
 	}
 
@@ -454,7 +448,7 @@
 				//품목 번호 item.sn 1~4
 				//itemChk 품목 존재 여부
 				SBUxMethod.set('dtl-inp-itemChk'+item.sn ,'Y');
-				console.log(item.sn);
+				//console.log(item.sn);
 				switch (item.sn) {
 				case '1': case '2': case '3':
 					$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
@@ -486,6 +480,26 @@
 		}
 	}
 
+	//전체 데이터 초기화 및 비활성화
+	const fn_clearForm = async function() {
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			SBUxMethod.clearGroupData('group'+i);
+			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
+
+ 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
+ 			//console.log($('#dtl-inp-sortMchnHoldYn'+i).val());
+			SBUxMethod.set('dtl-inp-itemChk'+i ,null);
+
+			SBUxMethod.set("dtl-inp-sortMchnSpcect"+i, null);
+			SBUxMethod.set("dtl-inp-sortBrckMvhn"+i, null);
+			SBUxMethod.set("dtl-inp-colorSort"+i, null);
+			SBUxMethod.set("dtl-inp-shapSort"+i, null);
+			SBUxMethod.set("dtl-inp-mnfcMchn"+i, null);
+			//제조사 추가
+			SBUxMethod.set("dtl-inp-mkrNm"+i, null);
+		}
+	}
 
 	//등록
 	const fn_save = async function() {
@@ -520,11 +534,11 @@
 
 		for (var i = 1; i <= 4; i++) {
 
-			let itemChk = SBUxMethod.get('srch-inp-itemChk'+i);
-
+			let itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
+			console.log(itemChk);
 			//품목이 존재하는경우만 저장
 			if(itemChk == 'Y'){
-				let sortMchnHoldYn = SBUxMethod.get('dtl-inp-sortMchnHoldYn'+i);
+				let sortMchnHoldYn = $('#dtl-inp-sortMchnHoldYn'+i).val();
 				let itemVo = {
 						sn : i
 						,crtrYr : SBUxMethod.get('srch-inp-crtrYr')
@@ -543,6 +557,12 @@
 				}
 				saveList.push(itemVo);
 			}
+		}
+		console.log(saveList);
+
+		if(saveList.length == 0){
+			alert("저장할 값이 없습니다");
+			return;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltGdsMchnInfo.do",saveList);
@@ -581,11 +601,14 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		await fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
 	}
 
 

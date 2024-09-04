@@ -490,6 +490,7 @@
 		}
 	}
 	const fn_search = async function() {
+		fn_clearForm();
 		fn_selectFcltOperInfo();
 	}
 
@@ -503,7 +504,7 @@
 		});
 
 		let data = await postJsonPromise;
-	    try{
+		try{
 			if(data.resultList.length > 0){
 				let resultVO = data.resultList[0];
 				console.log(resultVO);
@@ -563,6 +564,48 @@
 		}
 	}
 
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set("dtl-inp-operOgnzNm",null);  // 운영조직 명
+		SBUxMethod.set("dtl-inp-operOgnzBrno",null);  //운영조직 사업자등록번호
+		SBUxMethod.set("dtl-inp-operOgnzCrno",null);  //운영조직 법인등록번호
+		SBUxMethod.set("dtl-inp-rprsv",null);  // 대표자
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddr",null);  // 소재지
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrDtl",null);  // 소재지 상세
+		SBUxMethod.set("dtl-inp-operOgnzAdmCd",null);  //운영조직 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmCd",null);  //운영조직 도로명코드
+		SBUxMethod.set("dtl-inp-operOgnzZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-operOgnzBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-operOgnzSlno",null);  //apc 건물 부번
+
+		SBUxMethod.set("dtl-inp-ctpvCd",null);  //시도 코드 (법정동코드 앞2자리)
+		SBUxMethod.set("dtl-inp-sigunCd",null);  //시군구 코드 (법정동 코드 앞5자리)
+
+		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
+		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
+
+		SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
+		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
+		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
+		SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
+		SBUxMethod.set("dtl-inp-apcRoadNmAddrDtl",null);  //apc 주소 상세
+		SBUxMethod.set("dtl-inp-apcAdmCd",null);  //apc 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-apcRoadNmCd",null);  //apc 도로명코드
+		SBUxMethod.set("dtl-inp-apcZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-apcBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-apcSlno",null);  //apc 건물 부번
+
+		SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd",null);  //운영조직 기타 품목 부류
+		SBUxMethod.set("dtl-inp-apcEtcCtgryCd",null);  //apc 기타 품목 부류
+
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.set("dtl-inp-operOgnzItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-operOgnzItemCd"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemCd"+i, null);
+		}
+	}
+
 	//작년 데이터 복사
 	const fn_copy = async function(){
 		console.log('************fn_copy********');
@@ -610,19 +653,21 @@
 					let itemData = resultVO.itemList[i];
 					let sn = itemData.sn;
 					let ognzSeCd = itemData.ognzSeCd;
-					if(ognzSeCd == '1'){
-						SBUxMethod.set("dtl-inp-operOgnzItemNm"+sn, itemData.itemNm);
-						if(sn == '4'){
-							SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd", itemData.etcCtgryCd);
-						}else{
-							SBUxMethod.set("dtl-inp-operOgnzItemCd"+sn, itemData.itemCd);
-						}
-					}else if(ognzSeCd == '2'){
-						SBUxMethod.set("dtl-inp-apcItemNm"+sn, itemData.itemNm);
-						if(sn == '4'){
-							SBUxMethod.set("dtl-inp-apcEtcCtgryCd", itemData.etcCtgryCd);
-						}else{
-							SBUxMethod.set("dtl-inp-apcItemCd"+sn, itemData.itemCd);
+					if(!gfn_isEmpty(itemData.itemCd)){
+						if(ognzSeCd == '1'){
+							SBUxMethod.set("dtl-inp-operOgnzItemNm"+sn, itemData.itemNm);
+							if(sn == '4'){
+								SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd", itemData.etcCtgryCd);
+							}else{
+								SBUxMethod.set("dtl-inp-operOgnzItemCd"+sn, itemData.itemCd);
+							}
+						}else if(ognzSeCd == '2'){
+							SBUxMethod.set("dtl-inp-apcItemNm"+sn, itemData.itemNm);
+							if(sn == '4'){
+								SBUxMethod.set("dtl-inp-apcEtcCtgryCd", itemData.etcCtgryCd);
+							}else{
+								SBUxMethod.set("dtl-inp-apcItemCd"+sn, itemData.itemCd);
+							}
 						}
 					}
 				}
@@ -734,6 +779,7 @@
 		}
 
 		console.log(itemArr);
+		return;
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
 			crtrYr: crtrYr  // 등록년도
@@ -797,11 +843,14 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
 	}
 
 	// 품목 선택 팝업 호출

@@ -7,7 +7,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 /**
  * 진척도 Service 인터페이스
- * @author 임준완
+ * @author
  * @since 2024.07.23
  * @version 1.0
  * @see
@@ -16,7 +16,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2024.07.23  임준완        최초 생성
+ * 2024.07.23          최초 생성
  * </pre>
  */
 public interface FcltPrgrsService {

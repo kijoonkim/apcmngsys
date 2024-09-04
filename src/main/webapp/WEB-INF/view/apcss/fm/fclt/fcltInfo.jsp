@@ -644,6 +644,33 @@
 		}
 	}
 
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set('dtl-inp-cspTotArea',null);
+		SBUxMethod.set('dtl-inp-cspTotRmrk',null);
+		SBUxMethod.set('dtl-inp-cspCfppArea',null);
+		SBUxMethod.set('dtl-inp-cspCfppRmrk',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsArea',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsRmrk',null);
+		SBUxMethod.set('dtl-inp-cspDtpArea',null);
+		SBUxMethod.set('dtl-inp-cspDtpRmrk',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltArea',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcRmrk',null);
+		fn_sumAll();//자동계산 부분 처리
+	}
+
 	//등록
 	const fn_save = async function() {
 		//console.log("******************fn_save**********************************");
@@ -894,7 +921,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -977,7 +1004,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {
