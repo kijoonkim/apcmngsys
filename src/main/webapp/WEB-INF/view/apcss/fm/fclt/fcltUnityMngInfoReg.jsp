@@ -30,7 +30,7 @@
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid" style="height: 100vh">
-			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 통합관리시스템 활용현황 -->
@@ -87,8 +87,8 @@
 			<%@ include file="prgrs/apcPrgrs.jsp" %>
 			<br>
 
-			<div><label>통합관리시스템활용 상세내역</label></div>
-			<div><label style="font-size: x-small;">- 활용하신다면 어떤 작업단계까지 활용하고 계십니까? 해당하는 곳에 체크해 주십시오</label></div>
+			<div><label style="font-weight: bold;">통합관리시스템활용 상세내역</label></div>
+			<div><label>- 활용하신다면 어떤 작업단계까지 활용하고 계십니까? 해당하는 곳에 체크해 주십시오</label></div>
 
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed" style="width: 800px">
@@ -170,7 +170,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fclt/fm/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 
 </body>

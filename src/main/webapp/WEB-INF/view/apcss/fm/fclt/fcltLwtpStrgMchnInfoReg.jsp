@@ -30,7 +30,7 @@
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid" style="height: 100vh">
-			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영 -->
@@ -144,7 +144,7 @@
 								true-value="Y"
 								false-value="N"
 								class="check"
-								onchange ="fn_selectOnchange(this)"
+								onkeyup ="fn_selectOnchange(this)"
 							></sbux-checkbox>
 						</td>
 						<td style="border-right:hidden; padding-right: 0px !important;">
@@ -154,8 +154,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="1,000"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -166,8 +167,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="100"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -178,8 +180,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="2,000"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -190,7 +193,7 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="210"
+								placeholder=""
 								readonly
 							></sbux-input>
 						</td>
@@ -338,11 +341,11 @@
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
-    <div>
+	<div>
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fclt/fm/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -366,12 +369,10 @@
 		SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
+		fn_init();
 	})
 
 	const fn_init = async function() {
-		await SBUxMethod.changeGroupAttr('group1','disabled','true');
-		await SBUxMethod.changeGroupAttr('group2','disabled','true');
-
 		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
@@ -383,6 +384,13 @@
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
+	}
+
+
+	//입력폼 초기화
+	const fn_clearForm = async function() {
+		await SBUxMethod.changeGroupAttr('group1','disabled','true');
+		await SBUxMethod.changeGroupAttr('group2','disabled','true');
 	}
 
 	const fn_search = async function() {
@@ -424,7 +432,10 @@
 					SBUxMethod.set('dtl-inp-strgPlcStrgAblt',item.strgPlcStrgAblt);
 					SBUxMethod.set('dtl-inp-strgPlcStrmStrgAblt',item.strgPlcStrmStrgAblt);
 					SBUxMethod.set('dtl-inp-strgPlcLtrmStrgAblt',item.strgPlcLtrmStrgAblt);
-					SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
+					//SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
+
+					//저장 가동률 계산
+					fn_strgPlcOprtngRt();
 
 					SBUxMethod.set('warehouseSeCd_chk_mon_2_non',item.operYn);
 					//SBUxMethod.set('warehouseSeCd_chk_mon_2_1',item.operPeriodYn);
@@ -445,7 +456,6 @@
 					}
 				}
 			});
-
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -613,12 +623,12 @@
 	}
 
 	const fn_strgPlcOprtngRt = async function() {
-		let strgPlcStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrgAblt'));
-		let strgPlcStrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt'));
-		let strgPlcLtrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt'));
+		let strgPlcStrgAblt = gfn_nvl(SBUxMethod.get('dtl-inp-strgPlcStrgAblt')) == "" ? 0 : parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrgAblt'));
+		let strgPlcStrmStrgAblt = gfn_nvl(SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt')) == "" ? 0 : parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt'));
+		let strgPlcLtrmStrgAblt = gfn_nvl(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt')) == "" ? 0 : parseFloat(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt'));
 
-		let result = ( strgPlcStrmStrgAblt + strgPlcLtrmStrgAblt ) / strgPlcStrgAblt ;
-		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result);
+		let result = ( ( strgPlcStrmStrgAblt + strgPlcLtrmStrgAblt ) / strgPlcStrgAblt) * 100 ;
+		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result.toFixed(2));
 	}
 
 </script>

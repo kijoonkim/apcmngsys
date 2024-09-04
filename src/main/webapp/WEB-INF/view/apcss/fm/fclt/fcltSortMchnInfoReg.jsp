@@ -30,7 +30,7 @@
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid" style="height: 100vh">
-			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별기운영 -->
@@ -401,7 +401,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fclt/fm/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -430,7 +430,7 @@
 	})
 
 	const fn_init = async function() {
-		await fn_clear();//전체 비활성화
+		await fn_clearForm();//전체 비활성화
 
 		await fn_search();//데이터 조회
 
@@ -445,17 +445,18 @@
 	}
 
 	//전체 데이터 초기화 및 비활성화
-	function fn_clear() {
+	function fn_clearForm() {
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
 			SBUxMethod.clearGroupData('group'+i);
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
-			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
+			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
 		}
 	}
 
 	const fn_search = async function() {
-		fn_setGrdStMcInfList();
+		await fn_clearForm();
+		await fn_setGrdStMcInfList();
 	}
 
 	/**
@@ -483,8 +484,7 @@
 
 		//예외처리
 		try {
-			console.log(data);
-			fn_clear();//전체 초기화 및 비활성화
+			//console.log(data);
 			data.resultList.forEach((item, index) => {
 				//item.sn 1~4
 				//itemChk 품목 존재 여부
@@ -611,6 +611,7 @@
 	}
 	// apc 선택 팝업 콜백 함수
 	const fn_setApc = async function(apc) {
+		fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);

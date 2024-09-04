@@ -15,6 +15,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnChoisItem" name="btnChoisItem" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.choice"></sbux-button>
 					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.search" onkeyup="fn_itemSelectEnterKey();"></sbux-button>
 					<sbux-button id="btnEditItem" name="btnEditItem" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.edit"></sbux-button>
 					<sbux-button id="btnCancelItem" name="btnCancelItem" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.cancel"></sbux-button>
@@ -163,9 +164,9 @@
 		choice: function() {
 			let nRow = grdItemPop.getRow();
 			let rowData = grdItemPop.getRowData(nRow);
-			console.log(itemSn);
+			//console.log(itemSn);
 			rowData.sn = itemSn;
-			console.log(rowData);
+			//console.log(rowData);
 			popItemSelect.close(rowData);
 		},
 		search: async function(/** {boolean} */ isEditable) {
@@ -272,8 +273,6 @@
 
 		return str ;
 	}
-
-
 
 </script>
 </html>

@@ -32,7 +32,7 @@
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid" style="height: 100vh">
-			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99999" >
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 시설고용인력 -->
@@ -205,7 +205,7 @@
 									name="dtl-inp-hireRgllbrCtzn"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="10"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -216,7 +216,7 @@
 									name="dtl-inp-hireRgllbrFrgnr"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="1"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -227,7 +227,7 @@
 									name="dtl-inp-hireTmprWgTotSum"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="1"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -238,7 +238,7 @@
 									name="dtl-inp-hireTmprAvgWg"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="1"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -249,7 +249,7 @@
 									name="dtl-inp-hireTmprMin"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="10"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -260,7 +260,7 @@
 									name="dtl-inp-hireTmprMax"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="10"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -298,7 +298,7 @@
 									name="dtl-inp-hireFrgnrMin"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="10"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -309,7 +309,7 @@
 									name="dtl-inp-hireFrgnrMax"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="10"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -320,7 +320,7 @@
 									name="dtl-inp-hireFrgnrAvg"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="10"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -331,7 +331,7 @@
 									name="dtl-inp-hireFrgnrTaskCn"
 									uitype="text"
 									class="form-control input-sm"
-									placeholder="10"
+									placeholder=""
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -353,9 +353,8 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fclt/fm/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
-
 </body>
 <script type="text/javascript">
 
@@ -384,11 +383,29 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_clearForm();
 		await fn_initSBSelect();
 		await fn_fcltApcInfoCreateGrid();
 
 		await fn_search();
 
+	}
+
+	//입력폼 초기화
+	function fn_clearForm() {
+		SBUxMethod.set('dtl-inp-hireRgllbrCtzn',null);
+		SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',null);
+
+		SBUxMethod.set('dtl-inp-hireTmprWgTotSum',null);
+		SBUxMethod.set('dtl-inp-hireTmprAvgWg',null);
+
+		SBUxMethod.set('dtl-inp-hireTmprMin',null);
+		SBUxMethod.set('dtl-inp-hireTmprMax',null);
+
+		SBUxMethod.set('dtl-inp-hireFrgnrMin',null);
+		SBUxMethod.set('dtl-inp-hireFrgnrMax',null);
+		SBUxMethod.set('dtl-inp-hireFrgnrAvg',null);
+		SBUxMethod.set('dtl-inp-hireFrgnrTaskCn',null);
 	}
 
 	var jsonComCtpv = [];//시도
@@ -435,19 +452,19 @@
 
 			data.resultList.forEach((item, index) => {
 
-				SBUxMethod.set('dtl-inp-hireRgllbrCtzn',item.hireRgllbrCtzn);
-				SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',item.hireRgllbrFrgnr);
+				SBUxMethod.set('dtl-inp-hireRgllbrCtzn',gfn_nvl(item.hireRgllbrCtzn));
+				SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',gfn_nvl(item.hireRgllbrFrgnr));
 
-				SBUxMethod.set('dtl-inp-hireTmprWgTotSum',item.hireTmprWgTotSum);
-				SBUxMethod.set('dtl-inp-hireTmprAvgWg',item.hireTmprAvgWg);
+				SBUxMethod.set('dtl-inp-hireTmprWgTotSum',gfn_nvl(item.hireTmprWgTotSum));
+				SBUxMethod.set('dtl-inp-hireTmprAvgWg',gfn_nvl(item.hireTmprAvgWg));
 
-				SBUxMethod.set('dtl-inp-hireTmprMin',item.hireTmprMin);
-				SBUxMethod.set('dtl-inp-hireTmprMax',item.hireTmprMax);
+				SBUxMethod.set('dtl-inp-hireTmprMin',gfn_nvl(item.hireTmprMin));
+				SBUxMethod.set('dtl-inp-hireTmprMax',gfn_nvl(item.hireTmprMax));
 
-				SBUxMethod.set('dtl-inp-hireFrgnrMin',item.hireFrgnrMin);
-				SBUxMethod.set('dtl-inp-hireFrgnrMax',item.hireFrgnrMax);
-				SBUxMethod.set('dtl-inp-hireFrgnrAvg',item.hireFrgnrAvg);
-				SBUxMethod.set('dtl-inp-hireFrgnrTaskCn',item.hireFrgnrTaskCn);
+				SBUxMethod.set('dtl-inp-hireFrgnrMin',gfn_nvl(item.hireFrgnrMin));
+				SBUxMethod.set('dtl-inp-hireFrgnrMax',gfn_nvl(item.hireFrgnrMax));
+				SBUxMethod.set('dtl-inp-hireFrgnrAvg',gfn_nvl(item.hireFrgnrAvg));
+				SBUxMethod.set('dtl-inp-hireFrgnrTaskCn',gfn_nvl(item.hireFrgnrTaskCn));
 			});
 
 
@@ -616,7 +633,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -699,7 +716,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {

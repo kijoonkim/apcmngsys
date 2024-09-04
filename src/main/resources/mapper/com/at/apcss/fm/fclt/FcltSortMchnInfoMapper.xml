@@ -125,7 +125,7 @@
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  , SORT_PRCS_ABLT			= #{sortPrcsAblt}
+				  SORT_PRCS_ABLT			= #{sortPrcsAblt}
 				  , SORT_PRCS_PRFMNC		= #{sortPrcsPrfmnc}
 				  , SORT_OPRTNG_HR			= #{sortOprtngHr}
 				  , SORT_AVG_OPRTNG_DCNT	= #{sortAvgOprtngDcnt}
