@@ -1,4 +1,4 @@
-<%
+]<%
  /**
   * @Class Name : fcltSortMchnOperInfoReg.jsp
   * @Description : 3.4.선별기운영기간 화면
@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별기운영기간 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -130,8 +131,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm1">품목1</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk1" name="dtl-inp-itemChk1" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -222,8 +221,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm2">품목2</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk2" name="dtl-inp-itemChk2" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -314,8 +311,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm3">품목3</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk3" name="dtl-inp-itemChk3" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -406,8 +401,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm4">기타품목</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk4" name="dtl-inp-itemChk4" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -509,7 +502,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -539,11 +532,12 @@
 	});
 
 	const fn_init = async function() {
-		//await fn_clear();//전체 비활성화
+		await fn_clearForm();//전체 비활성화
 
-		await fn_selectStMcOpIfList();//데이터 조회
+		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
+
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
 		if(prgrsLast  == 'Y'){
@@ -553,12 +547,30 @@
 		}
 	}
 
+	//전체 데이터 초기화 및 비활성화
+	function fn_clearForm() {
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			SBUxMethod.clearGroupData('group'+i);
+			SBUxMethod.attr('warehouseSeCd_chk_mon_'+i+'_1','disabled','true');
+			SBUxMethod.attr('warehouseSeCd_chk_mon_'+i+'_non','disabled','true');
+			SBUxMethod.set('warehouseSeCd_chk_mon_'+i+'_1','N');
+			SBUxMethod.set('warehouseSeCd_chk_mon_'+i+'_non','N');
+			SBUxMethod.set('dtl-inp-itemChk'+i,null);
+		}
+	}
+	const fn_search = async function() {
+		await fn_clearForm();
+		await fn_selectStMcOpIfList();
+	}
+
+
 	/**
      * @param {number} pageSize
      * @param {number} pageNo
      */
 	const fn_selectStMcOpIfList = async function(copy_chk) {
-		 console.log("******************fn_selectStMcOpIfList**********************************");
+		console.log("******************fn_selectStMcOpIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
@@ -578,12 +590,15 @@
 
 		//예외처리
 		try {
-			//console.log(data);
+			console.log(data);
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
-				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
+				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부
+				$('#itemNm'+sn).text("품목 : "+item.itemNm);
+				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 
-				$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
+				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_1','disabled','false');
+				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_non','disabled','false');
 
 				if(item.operYn == 'Y'){
 					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_2',item.operPeriodYn1);
@@ -677,7 +692,7 @@
 			}
 		}
 		console.log(saveList);
-		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltSortMchnOperInfo.do", saveList);
+		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltSortMchnOperInfo.do", saveList);
 
 		const data = await postJsonPromise;
 
@@ -750,11 +765,15 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
+		await fn_search();
 	}
 
 </script>

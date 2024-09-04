@@ -9,7 +9,7 @@
   * @
   * @ 수정일       	수정자      	수정내용
   * @ ----------	----------	---------------------------
-  * @ 2023.12.12   	김현호		최초 생성
+  * @ 2023.12.12   	김현호			최초 생성
   * @see
   *
   */
@@ -30,17 +30,17 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-		<div class="box box-solid">
-			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_selectFcltOperInfo"></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
-					<sbux-button id="btntest" name="btntest" uitype="normal" text="iframe test" class="btn btn-sm btn-primary" onclick="test"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
@@ -74,7 +74,9 @@
 									></sbux-spinner>
 								</td>
 								<td class="td_input" style="border-right: hidden;">
+									<!--
 									<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_copy" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+									-->
 								</td>
 								<td></td>
 							</tr>
@@ -413,17 +415,17 @@
 	</section>
 	<!-- apc 선택 Modal -->
 	<div>
-		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 	<!-- 품목 선택 Modal -->
 	<div>
-		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
+		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-itemSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup2.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/ApcItemSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -450,7 +452,6 @@
 
 		fn_init();
 
-
 	});
 
 	var jsonComOgnzTypeCd = [];//조직유형
@@ -475,7 +476,7 @@
 
 		//if() user=userTpye 값과 apc에 따라 변경 dtl-inp-apcNm
 
-		fn_selectFcltOperInfo();
+		fn_search();
 
 		//진척도
 		cfn_selectPrgrs();
@@ -488,6 +489,10 @@
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
 	}
+	const fn_search = async function() {
+		fn_clearForm();
+		fn_selectFcltOperInfo();
+	}
 
 	const fn_selectFcltOperInfo = async function(){
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
@@ -499,7 +504,7 @@
 		});
 
 		let data = await postJsonPromise;
-	    try{
+		try{
 			if(data.resultList.length > 0){
 				let resultVO = data.resultList[0];
 				console.log(resultVO);
@@ -558,6 +563,49 @@
 			console.error("failed", e.message);
 		}
 	}
+
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set("dtl-inp-operOgnzNm",null);  // 운영조직 명
+		SBUxMethod.set("dtl-inp-operOgnzBrno",null);  //운영조직 사업자등록번호
+		SBUxMethod.set("dtl-inp-operOgnzCrno",null);  //운영조직 법인등록번호
+		SBUxMethod.set("dtl-inp-rprsv",null);  // 대표자
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddr",null);  // 소재지
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrDtl",null);  // 소재지 상세
+		SBUxMethod.set("dtl-inp-operOgnzAdmCd",null);  //운영조직 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmCd",null);  //운영조직 도로명코드
+		SBUxMethod.set("dtl-inp-operOgnzZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-operOgnzBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-operOgnzSlno",null);  //apc 건물 부번
+
+		SBUxMethod.set("dtl-inp-ctpvCd",null);  //시도 코드 (법정동코드 앞2자리)
+		SBUxMethod.set("dtl-inp-sigunCd",null);  //시군구 코드 (법정동 코드 앞5자리)
+
+		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
+		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
+
+		SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
+		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
+		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
+		SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
+		SBUxMethod.set("dtl-inp-apcRoadNmAddrDtl",null);  //apc 주소 상세
+		SBUxMethod.set("dtl-inp-apcAdmCd",null);  //apc 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-apcRoadNmCd",null);  //apc 도로명코드
+		SBUxMethod.set("dtl-inp-apcZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-apcBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-apcSlno",null);  //apc 건물 부번
+
+		SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd",null);  //운영조직 기타 품목 부류
+		SBUxMethod.set("dtl-inp-apcEtcCtgryCd",null);  //apc 기타 품목 부류
+
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.set("dtl-inp-operOgnzItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-operOgnzItemCd"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemCd"+i, null);
+		}
+	}
+
 	//작년 데이터 복사
 	const fn_copy = async function(){
 		console.log('************fn_copy********');
@@ -605,19 +653,21 @@
 					let itemData = resultVO.itemList[i];
 					let sn = itemData.sn;
 					let ognzSeCd = itemData.ognzSeCd;
-					if(ognzSeCd == '1'){
-						SBUxMethod.set("dtl-inp-operOgnzItemNm"+sn, itemData.itemNm);
-						if(sn == '4'){
-							SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd", itemData.etcCtgryCd);
-						}else{
-							SBUxMethod.set("dtl-inp-operOgnzItemCd"+sn, itemData.itemCd);
-						}
-					}else if(ognzSeCd == '2'){
-						SBUxMethod.set("dtl-inp-apcItemNm"+sn, itemData.itemNm);
-						if(sn == '4'){
-							SBUxMethod.set("dtl-inp-apcEtcCtgryCd", itemData.etcCtgryCd);
-						}else{
-							SBUxMethod.set("dtl-inp-apcItemCd"+sn, itemData.itemCd);
+					if(!gfn_isEmpty(itemData.itemCd)){
+						if(ognzSeCd == '1'){
+							SBUxMethod.set("dtl-inp-operOgnzItemNm"+sn, itemData.itemNm);
+							if(sn == '4'){
+								SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd", itemData.etcCtgryCd);
+							}else{
+								SBUxMethod.set("dtl-inp-operOgnzItemCd"+sn, itemData.itemCd);
+							}
+						}else if(ognzSeCd == '2'){
+							SBUxMethod.set("dtl-inp-apcItemNm"+sn, itemData.itemNm);
+							if(sn == '4'){
+								SBUxMethod.set("dtl-inp-apcEtcCtgryCd", itemData.etcCtgryCd);
+							}else{
+								SBUxMethod.set("dtl-inp-apcItemCd"+sn, itemData.itemCd);
+							}
 						}
 					}
 				}
@@ -662,7 +712,7 @@
 		}
 		*/
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
 	}
 
 	//임시저장
@@ -670,15 +720,15 @@
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
-
 	//신규등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		//등록년도는 항상 올해
-		let now = new Date();
-		let crtrYr = now.getFullYear();
+		//let now = new Date();
+		//let crtrYr = now.getFullYear();
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 
 		//품목 리스트
@@ -693,7 +743,7 @@
 			if(i == 4){
 				etcCtgryCd = SBUxMethod.get("dtl-inp-operOgnzEtcCtgryCd");
 			}
-			console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm));
+			//console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm));
 			if(!gfn_isEmpty(itemNm)){
 				let itemData = {
 						itemNm : itemNm
@@ -715,7 +765,7 @@
 			if(i == 4){
 				etcCtgryCd = SBUxMethod.get("dtl-inp-apcEtcCtgryCd");
 			}
-			console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm)+ " itemNm = "+itemNm);
+			//console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm)+ " itemNm = "+itemNm);
 			if(!gfn_isEmpty(itemNm)){
 				let itemData = {
 						itemNm : itemNm
@@ -733,8 +783,8 @@
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
 			crtrYr: crtrYr  // 등록년도
 			, prgrsYn : 'Y' //진척도 갱신 여부
-			, apcCd: apcCd // APC코드
 			, tmprStrgYn: tmpChk//임시저장 체크
+			, apcCd: apcCd // APC코드
 			, operOgnzNm: SBUxMethod.get("dtl-inp-operOgnzNm")  // 운영조직 명
 			, operOgnzBrno: SBUxMethod.get("dtl-inp-operOgnzBrno")  //운영조직 사업자등록번호
 			, operOgnzCrno: SBUxMethod.get("dtl-inp-operOgnzCrno")  //운영조직 법인등록번호
@@ -792,11 +842,15 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		await fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
+		await fn_search();
 	}
 
 	// 품목 선택 팝업 호출
@@ -805,6 +859,7 @@
 	}
 	// 품목 선택 팝업 콜백 함수
 	const fn_setItem = function(itemVal) {
+		//console.log(itemVal);
 		if (!gfn_isEmpty(itemVal)) {
 			switch (itemVal.sn) {
 			case 1: case 2: case 3:
@@ -948,10 +1003,6 @@
 			SBUxMethod.set("dtl-inp-apcBmno", buldMnnm);//APC 건물본번
 			SBUxMethod.set("dtl-inp-apcSlno", buldSlno);//APC 건물부번
 		}
-	}
-
-	function test() {
-		cfn_allTabPrgrsRefrash();
 	}
 
 </script>

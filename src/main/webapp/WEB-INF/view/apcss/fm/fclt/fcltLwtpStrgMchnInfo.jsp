@@ -29,8 +29,8 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영 -->
@@ -118,7 +118,32 @@
 								autocomplete="off"
 							></sbux-input>
 						</td>
-						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -387,14 +412,19 @@
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				</div>
+			</div>
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
-    <div>
+	<div>
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -541,7 +571,7 @@
 		let saveList = {
 				crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 				,apcCd : SBUxMethod.get('dtl-inp-apcCd')
-				, prgrsYn : 'Y' //진척도 갱신 여부
+				, prgrsYn : 'N' //진척도 갱신 여부
 				,lwtpStrgPlcHldYn: itemChk
 				,storCap: SBUxMethod.get('srch-inp-opera2')
 				,stStorPerfm: SBUxMethod.get('srch-inp-opera3')

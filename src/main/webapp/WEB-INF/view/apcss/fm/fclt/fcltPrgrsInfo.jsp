@@ -1,15 +1,15 @@
 <%
  /**
-  * @Class Name : fcltPrgrsInfoReg.jsp
-  * @Description : 2.시설설치보완 화면
+  * @Class Name : fcltPrgrsInfo.jsp
+  * @Description : 전체 진척도 확인
   * @author SI개발부
-  * @since 2023.12.12
+  * @since 2024.09.03
   * @version 1.0
   * @Modification Information
   * @
   * @ 수정일       	수정자      	수정내용
   * @ ----------	----------	---------------------------
-  * @ 2023.12.12   	김현호			최초 생성
+  * @ 2024.08.20   	임준완			최초 생성
   * @see
   *
   */
@@ -119,12 +119,50 @@
 								autocomplete="off"
 							></sbux-input>
 						</td>
-						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 					</tr>
 				</tbody>
 			</table>
 			</div>
-			<div>
+			<div style="display:flex; justify-content: flex-start; margin-top: 10px;" >
+				<div>
+				</div>
+				<div style="margin-left: auto; padding-right: 15px;">
+					<!--
+					<sbux-button id="btnAllAprv" name="btnAllAprv" uitype="normal" text="전체 반려" class="btn btn-sm btn-outline-danger" onclick="fn_allAprv('Y')"></sbux-button>
+					 -->
+					<sbux-button id="btnAllRjct" name="btnAllRjct" uitype="normal" text="전체 승인" class="btn btn-sm btn-outline-danger" onclick="fn_allAprv('N')"></sbux-button>
+					<sbux-button id="btnSelCancel" name="btnSelCancel" uitype="normal" text="선택 승인취소" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('C')"></sbux-button>
+					<sbux-button id="btnSelRjct" name="btnSelRjct" uitype="normal" text="선택 반려" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('N')"></sbux-button>
+					<sbux-button id="btnSelAprv" name="btnSelAprv" uitype="normal" text="선택 승인" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('Y')"></sbux-button>
+				</div>
+			</div>
+			<div class="box-body">
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
@@ -143,7 +181,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -179,7 +217,10 @@
 		//await cfn_selectPrgrs();
 	}
 
-	var jsonGrdComBizSprtCd = [];	//지원유형
+	var jsonComCtpv = [];//시도
+	var jsonComSgg = [];//시군구
+	var jsonComSrchLclsfCd = [];	//조회용 부류
+	//var jsonGrdComBizSprtCd = [];	//지원유형
 
 	let test = [];
 
@@ -190,6 +231,9 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
+			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
+			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
+			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
 			//gfn_setComCdSBSelect('grdFcltPrgrsInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD') 	//지원 유형
 			//gfn_setComCdSBSelect('grdFcltPrgrsInfo', 	test , 	'BIZ_SPRT_CD') 	//지원 유형
 		]);
@@ -227,11 +271,11 @@
 		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
-		//SBGridProperties.fixedrowheight=45;
+		SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			//{caption: ["체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
-				//typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
+			{caption: ["체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
 			{caption: ["등록년도"],		ref: 'crtrYr',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["사업명"],		ref: 'apcNm',		type:'input',  width:'200px',    style:'text-align:center'},
 			{caption: ["최종제출"],		ref: 'prgrsLast',	type:'input',  width:'60px',    style:'text-align:center'},
@@ -249,6 +293,10 @@
 			{caption: ["12"],		ref: 'prgrs12',		type:'input',  width:'40px',    style:'text-align:center'},
 			{caption: ["13"],		ref: 'prgrs13',		type:'input',  width:'40px',    style:'text-align:center'},
 			{caption: ["14"],		ref: 'prgrs14',		type:'input',  width:'40px',    style:'text-align:center'},
+
+			{caption: ["AT승인"],				ref: 'aprvAtStts',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["지자체\n(시도)승인"],		ref: 'aprvCtpvStts',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["지자체\n(시군구)승인"],	ref: 'aprvSggStts',		type:'input',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
 			//{caption: ["행추가여부"],	ref: 'addYn',	hidden : true},
@@ -326,6 +374,9 @@
 						,prgrs14		:fn_prgrsChnage(item.prgrs14)
 						,prgrsLast		:item.prgrsLast
 
+						,aprvAtStts		:item.aprvAtStts	//승인상태 AT
+						,aprvCtpvStts	:item.aprvCtpvStts	//승인상태 지자체(시도)
+						,aprvSggStts	:item.aprvSggStts	//승인상태 지자체(시군구)
 
 				}
 				jsonFcltPrgrsInfo.push(itemVO);
@@ -441,6 +492,21 @@
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
 		//console.log("======fn_setApc====end===");
+	}
+
+	//시도 변경 이벤트
+	const fn_ctpvChange = async function(){
+		SBUxMethod.set("srch-inp-sgg", "");
+	}
+
+	// 전체 승인 반려
+	const fn_allAprv = function(ynVal) {
+
+	}
+
+	// 선택 승인 반려 취소
+	const fn_selAprv = function(ynVal) {
+
 	}
 
 </script>

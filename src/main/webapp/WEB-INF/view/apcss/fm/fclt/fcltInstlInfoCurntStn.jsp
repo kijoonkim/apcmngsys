@@ -181,12 +181,12 @@
     </div>
  --%>
  	<!-- apc 선택 Modal -->
-    <div>
-        <sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-apcSelect">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
-    </div>
+	<div>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcSelect">
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
+	</div>
 
 </body>
 <script type="text/javascript">
@@ -296,11 +296,11 @@
 
 		var chk = {
 				trgtYr: trgtYr,
-	        	apcCd: apcCd,
-	        	// pagination
-		  		pagingYn : 'N',
-				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+				apcCd: apcCd,
+				// pagination
+				//pagingYn : 'N',
+				//currentPageNo : pageNo,
+	 			//recordCountPerPage : pageSize
 
 		}
 		console.log('=============chk==================');
@@ -312,9 +312,9 @@
 			apcCd: apcCd,
         	trgtYr: trgtYr,
         	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : pageNo,
- 		  	recordCountPerPage : pageSize
+	  		//pagingYn : 'N',
+			//currentPageNo : pageNo,
+ 		  	//recordCountPerPage : pageSize
         });
 		console.log("a11111111111111");
         const data = await postJsonPromise;

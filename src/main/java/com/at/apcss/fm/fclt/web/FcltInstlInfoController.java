@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -83,6 +82,11 @@ public class FcltInstlInfoController extends BaseController {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
+		fcltInstlInfoVO.setSysFrstInptUserId(getUserId());
+		fcltInstlInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltInstlInfoVO.setSysLastChgUserId(getUserId());
+		fcltInstlInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
 		int insertedCnt = 0;
 
 		try {
@@ -100,26 +104,29 @@ public class FcltInstlInfoController extends BaseController {
 
 	@PostMapping(value = "/fm/fclt/insertFcltInstlInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltInstlInfoList(@RequestBody List<FcltInstlInfoVO> fcltInstlInfoList, HttpServletRequest requset) throws Exception {
-	    logger.info("=============insertFcltInstlInfoList=====start========");
+		logger.info("=============insertFcltInstlInfoList=====start========");
 
-	    HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-	    int totalInsertedCnt = 0;
+		int totalInsertedCnt = 0;
 
-	    try {
-	        for (FcltInstlInfoVO fcltInstlInfoVO : fcltInstlInfoList) {
-	            int insertedCnt = fcltInstlInfoService.insertFcltInstlInfo(fcltInstlInfoVO);
-	            totalInsertedCnt += insertedCnt;
-	        }
-	    } catch (Exception e) {
-	        logger.debug(e.getMessage());
-	        return getErrorResponseEntity(e);
-	    }
+		try {
+			for (FcltInstlInfoVO fcltInstlInfoVO : fcltInstlInfoList) {
+				fcltInstlInfoVO.setSysFrstInptUserId(getUserId());
+				fcltInstlInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+				fcltInstlInfoVO.setSysLastChgUserId(getUserId());
+				fcltInstlInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+				totalInsertedCnt += fcltInstlInfoService.insertFcltInstlInfo(fcltInstlInfoVO);
+			}
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
 
-	    resultMap.put(ComConstants.PROP_INSERTED_CNT, totalInsertedCnt);
-	    logger.info("=============insertFcltInstlInfoList=====end========");
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, totalInsertedCnt);
+		logger.info("=============insertFcltInstlInfoList=====end========");
 
-	    return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntity(resultMap);
 	}
 
 

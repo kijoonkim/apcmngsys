@@ -32,8 +32,8 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-		<div class="box box-solid">
-			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
@@ -123,7 +123,32 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 						</tr>
 					</tbody>
 				</table>
@@ -423,7 +448,7 @@
 			</div>
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
 		</div>
@@ -433,14 +458,14 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 	<!-- 품목 선택 Modal -->
 	<div>
 		<sbux-modal id="modal-itemSelect" name="modal-itemSelect" uitype="middle" header-title="품목 선택" body-html-id="body-modal-itemSelect" footer-is-close-button="false" style="width:600px"></sbux-modal>
 	</div>
 	<div id="body-modal-itemSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemSelectPopup2.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/ApcItemSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -584,7 +609,7 @@
 		let pageSize = grdFcltOperInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -770,7 +795,7 @@
 			*/
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?") , null);
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
 	}
 
 	//임시저장
@@ -838,7 +863,7 @@
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperInfo.do", {
 			crtrYr: crtrYr  // 등록년도
-			, prgrsYn : 'Y' //진척도 갱신 여부
+			, prgrsYn : 'N' //진척도 갱신 여부
 			, apcCd: apcCd // APC코드
 			//, tmprStrgYn: tmpChk//임시저장 체크
 			, operOgnzNm: SBUxMethod.get("dtl-inp-operOgnzNm")  // 운영조직 명
@@ -895,7 +920,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltOperInfo.getCol();
 		if (nCol < 1) {
@@ -915,9 +940,52 @@
 		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
 		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
 		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
-		console.log(SBUxMethod.get('dtl-inp-apcCd'));
-		console.log(SBUxMethod.get('dtl-inp-crtrYr'));
+		//console.log(SBUxMethod.get('dtl-inp-apcCd'));
+		//console.log(SBUxMethod.get('dtl-inp-crtrYr'));
+
 		fn_selectFcltOperInfo();//상세조회
+	}
+
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set("dtl-inp-operOgnzNm",null);  // 운영조직 명
+		SBUxMethod.set("dtl-inp-operOgnzBrno",null);  //운영조직 사업자등록번호
+		SBUxMethod.set("dtl-inp-operOgnzCrno",null);  //운영조직 법인등록번호
+		SBUxMethod.set("dtl-inp-rprsv",null);  // 대표자
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddr",null);  // 소재지
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrDtl",null);  // 소재지 상세
+		SBUxMethod.set("dtl-inp-operOgnzAdmCd",null);  //운영조직 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmCd",null);  //운영조직 도로명코드
+		SBUxMethod.set("dtl-inp-operOgnzZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-operOgnzBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-operOgnzSlno",null);  //apc 건물 부번
+
+		SBUxMethod.set("dtl-inp-ctpvCd",null);  //시도 코드 (법정동코드 앞2자리)
+		SBUxMethod.set("dtl-inp-sigunCd",null);  //시군구 코드 (법정동 코드 앞5자리)
+
+		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
+		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
+
+		//SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
+		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
+		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
+		SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
+		SBUxMethod.set("dtl-inp-apcRoadNmAddrDtl",null);  //apc 주소 상세
+		SBUxMethod.set("dtl-inp-apcAdmCd",null);  //apc 법정동코드(행정구역코드)
+		SBUxMethod.set("dtl-inp-apcRoadNmCd",null);  //apc 도로명코드
+		SBUxMethod.set("dtl-inp-apcZip",null);  //apc 우편번호
+		SBUxMethod.set("dtl-inp-apcBmno",null);  //apc 건물 본번
+		SBUxMethod.set("dtl-inp-apcSlno",null);  //apc 건물 부번
+
+		SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd",null);  //운영조직 기타 품목 부류
+		SBUxMethod.set("dtl-inp-apcEtcCtgryCd",null);  //apc 기타 품목 부류
+
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.set("dtl-inp-operOgnzItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-operOgnzItemCd"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemNm"+i, null);
+			SBUxMethod.set("dtl-inp-apcItemCd"+i, null);
+		}
 	}
 
 	// apc 선택 팝업 호출

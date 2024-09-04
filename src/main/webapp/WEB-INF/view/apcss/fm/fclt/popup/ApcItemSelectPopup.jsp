@@ -15,6 +15,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnChoisItem" name="btnChoisItem" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.choice"></sbux-button>
 					<sbux-button id="btnSearchItem" name="btnSearchItem" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.search" onkeyup="fn_itemSelectEnterKey();"></sbux-button>
 					<sbux-button id="btnEditItem" name="btnEditItem" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.edit"></sbux-button>
 					<sbux-button id="btnCancelItem" name="btnCancelItem" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popItemSelect.cancel"></sbux-button>
@@ -33,15 +34,27 @@
 						<col style="width: 22%">
 						<col style="width: 11%">
 						<col style="width: 22%">
-						<col style="width: auto">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">품목명</th>
-							<th colspan="2">
+							<td>
 								<sbux-input id="item-inp-itemNm" name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_itemSelectEnterKey"></sbux-input>
-							</th>
-							<th colspan="2"></th>
+							</td>
+							<!--
+							<th colspan="1"></th>
+							-->
+							<th scope="row">부류</th>
+							<td>
+								<sbux-select
+									id="item-inp-srchLclsfCd"
+									name="item-inp-srchLclsfCd"
+									uitype="single"
+									jsondata-ref="jsonComItemSrchLclsfCd"
+									unselected-text="전체"
+									class="form-control input-sm"
+								></sbux-select>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -72,10 +85,13 @@
 
 	var grdItemPop = null;
 	var jsonItemPop = [];
+	var jsonComItemSrchLclsfCd = [];
 	var itemSn;
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
+
+
 	const popItemSelect = {
 		prgrmId: 'itemPopup',
 		modalId: 'modal-itemSelect',
@@ -88,6 +104,12 @@
 		callbackFnc: function() {},
 		init: async function(_itemSn,_callbackFnc) {
 			console.log("========init===========");
+
+			if (grdItemPop == null) {
+				//부류
+				await gfn_setComCdSBSelect('item-inp-srchLclsfCd', jsonComItemSrchLclsfCd, 'SRCH_LCLSF_CD');
+			}
+
 			itemSn = _itemSn;
 			SBUxMethod.hide('btnEditItem');
 			SBUxMethod.hide('btnCancelItem');
@@ -130,7 +152,8 @@
 				{caption: ['부류코드'], ref: 'clsCd', width: '15%', type: 'input', style: 'text-align:center'},
 				{caption: ['부류명'], ref: 'clsNm', width: '35%', type: 'input', style: 'text-align:center'},
 				{caption: ['품목코드'], ref: 'itemCd', width: '15%', type: 'input', style: 'text-align:center'},
-				{caption: ['품목명'], ref: 'itemNm', width: '35%', type: 'input', style: 'text-align:center'}
+				{caption: ['품목명'], ref: 'itemNm', width: '35%', type: 'input', style: 'text-align:center'},
+				{caption: ["조회용 부류"], 	ref: 'srchLclsfCd',   hidden : true},
 			];
 
 			grdItemPop = _SBGrid.create(SBGridProperties);
@@ -140,10 +163,11 @@
 		},
 		choice: function() {
 			let nRow = grdItemPop.getRow();
+			if(nRow < 0){
+				return;
+			}
 			let rowData = grdItemPop.getRowData(nRow);
-			console.log(itemSn);
 			rowData.sn = itemSn;
-			console.log(rowData);
 			popItemSelect.close(rowData);
 		},
 		search: async function(/** {boolean} */ isEditable) {
@@ -161,13 +185,15 @@
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
 			//var itemCd = SBUxMethod.get("item-inp-itemCd");
-			var itemNm = nvlScnd(SBUxMethod.get("item-inp-itemNm"),'');
+			let itemNm = nvlScnd(SBUxMethod.get("item-inp-itemNm"),'');
+			let srchLclsfCd = nvlScnd(SBUxMethod.get("item-inp-srchLclsfCd"),'');
 
 			console.log("setGrid 호출 / itemNm : " + itemNm + "/ 타입 : " + typeof(itemNm));
 
-			const postJsonPromise = gfn_postJSON("/fm/popup/selectItemListPopup.do", {
+			const postJsonPromise = gfn_postJSON("/fm/popup/selectApcItemListPopup.do", {
 
 				itemNm : itemNm, //검색 파라미터
+				srchLclsfCd : srchLclsfCd,
 				// pagination
 				pagingYn : 'Y',
 				currentPageNo : pageNo,
@@ -186,7 +212,8 @@
 							itemCd 	: item.itemCd,
 							itemNm 	: item.itemNm,
 							clsCd 	: item.clsCd,
-							clsNm 	: item.clsNm
+							clsNm 	: item.clsNm,
+							srchLclsfCd : item.srchLclsfCd
 					}
 					jsonItemPop.push(itemVal);
 
@@ -247,8 +274,6 @@
 
 		return str ;
 	}
-
-
 
 </script>
 </html>

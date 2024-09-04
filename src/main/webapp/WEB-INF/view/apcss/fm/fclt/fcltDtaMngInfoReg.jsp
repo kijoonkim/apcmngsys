@@ -15,7 +15,7 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 스마트데이터화 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -71,7 +72,9 @@
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
+							<!--
 							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectAtMcIfList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							-->
 						</td>
 						<td></td>
 					</tr>
@@ -90,117 +93,150 @@
 				<li><label style="font-size: x-small;">-데이터를 관리하는 방법은 무엇입니까?</label></li>
 			</div>
 			<div>
-				<table class="table table-bordered tbl_row tbl_fixed" style="width: 50%">
+				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 30%">
-						<col style="width: 70%">
+						<col style="width: 10%">
+						<col style="width: 40%">
+						<col style="width: 50%">
 					</colgroup>
 						<tbody>
 							<tr>
 								<th class="text-center">구분</th>
 								<th class="text-center">관리방법</th>
+								<th class="text-center">데이터관리 항목(다수 선택)</th>
 							</tr>
 							<tr>
 								<th>생산정보</th>
 								<td class="text-center">
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-prdctnInfoMngMthd_1" name="dtl-rdo-prdctnInfoMngMthd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-prdctnInfoMngMthd_1" name="dtl-rdo-prdctnInfoMngMthd" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-prdctnInfoMngMthd_1">관리안함</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-prdctnInfoMngMthd_2" name="dtl-rdo-prdctnInfoMngMthd" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-prdctnInfoMngMthd_2" name="dtl-rdo-prdctnInfoMngMthd" uitype="normal" value="2" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-prdctnInfoMngMthd_2">수기/엑셀</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-prdctnInfoMngMthd_3" name="dtl-rdo-prdctnInfoMngMthd" uitype="normal" value="3" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-prdctnInfoMngMthd_3" name="dtl-rdo-prdctnInfoMngMthd" uitype="normal" value="3" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-prdctnInfoMngMthd_3">시스템</label>
 									</p>
+								</td>
+								<td id="PRDCTN">
 								</td>
 							</tr>
 							<tr>
 								<th>입고정보</th>
 								<td class="text-center">
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-wrhsInfoMngMthd_1" name="dtl-rdo-wrhsInfoMngMthd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-wrhsInfoMngMthd_1" name="dtl-rdo-wrhsInfoMngMthd" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-wrhsInfoMngMthd_1">관리안함</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-wrhsInfoMngMthd_2" name="dtl-rdo-wrhsInfoMngMthd" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-wrhsInfoMngMthd_2" name="dtl-rdo-wrhsInfoMngMthd" uitype="normal" value="2" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-wrhsInfoMngMthd_2">수기/엑셀</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-wrhsInfoMngMthd_3" name="dtl-rdo-wrhsInfoMngMthd" uitype="normal" value="3" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-wrhsInfoMngMthd_3" name="dtl-rdo-wrhsInfoMngMthd" uitype="normal" value="3" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-wrhsInfoMngMthd_3">시스템</label>
 									</p>
+								</td>
+								<td id="WRHS">
 								</td>
 							</tr>
 							<tr>
 								<th>선별정보</th>
 								<td class="text-center">
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-sortInfoMngMthd_1" name="dtl-rdo-sortInfoMngMthd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-sortInfoMngMthd_1" name="dtl-rdo-sortInfoMngMthd" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-sortInfoMngMthd_1">관리안함</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-sortInfoMngMthd_2" name="dtl-rdo-sortInfoMngMthd" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-sortInfoMngMthd_2" name="dtl-rdo-sortInfoMngMthd" uitype="normal" value="2" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-sortInfoMngMthd_2">수기/엑셀</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-sortInfoMngMthd_3" name="dtl-rdo-sortInfoMngMthd" uitype="normal" value="3" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-sortInfoMngMthd_3" name="dtl-rdo-sortInfoMngMthd" uitype="normal" value="3" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-sortInfoMngMthd_3">시스템</label>
 									</p>
+								</td>
+								<td id="SORT">
 								</td>
 							</tr>
 							<tr>
 								<th>저장정보</th>
 								<td class="text-center">
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-strgInfoMngMthd_1" name="dtl-rdo-strgInfoMngMthd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-strgInfoMngMthd_1" name="dtl-rdo-strgInfoMngMthd" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-strgInfoMngMthd_1">관리안함</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-strgInfoMngMthd_2" name="dtl-rdo-strgInfoMngMthd" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-strgInfoMngMthd_2" name="dtl-rdo-strgInfoMngMthd" uitype="normal" value="2" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-strgInfoMngMthd_2">수기/엑셀</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-strgInfoMngMthd_3" name="dtl-rdo-strgInfoMngMthd" uitype="normal" value="3" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-strgInfoMngMthd_3" name="dtl-rdo-strgInfoMngMthd" uitype="normal" value="3" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-strgInfoMngMthd_3">시스템</label>
 									</p>
+								</td>
+								<td id="STRG">
 								</td>
 							</tr>
 							<tr>
 								<th>포장정보</th>
 								<td class="text-center">
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-pckgInfoMngMthd_1" name="dtl-rdo-pckgInfoMngMthd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-pckgInfoMngMthd_1" name="dtl-rdo-pckgInfoMngMthd" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-pckgInfoMngMthd_1">관리안함</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-pckgInfoMngMthd_2" name="dtl-rdo-pckgInfoMngMthd" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-pckgInfoMngMthd_2" name="dtl-rdo-pckgInfoMngMthd" uitype="normal" value="2" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-pckgInfoMngMthd_2">수기/엑셀</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-pckgInfoMngMthd_3" name="dtl-rdo-pckgInfoMngMthd" uitype="normal" value="3" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-pckgInfoMngMthd_3" name="dtl-rdo-pckgInfoMngMthd" uitype="normal" value="3" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-pckgInfoMngMthd_3">시스템</label>
 									</p>
+								</td>
+								<td id="PCKG">
+								</td>
+							</tr>
+							<tr>
+								<th>작업정보</th>
+								<td class="text-center">
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-jobInfoMngMthd_1" name="dtl-rdo-jobInfoMngMthd" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-jobInfoMngMthd_1">관리안함</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-jobInfoMngMthd_2" name="dtl-rdo-jobInfoMngMthd" uitype="normal" value="2" class="radio_label" group-id="group1"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-jobInfoMngMthd_2">수기/엑셀</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-jobInfoMngMthd_3" name="dtl-rdo-jobInfoMngMthd" uitype="normal" value="3" class="radio_label" group-id="group1"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-jobInfoMngMthd_3">시스템</label>
+									</p>
+								</td>
+								<td id="JOB">
 								</td>
 							</tr>
 							<tr>
 								<th>출고정보</th>
 								<td class="text-center">
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-spmtInfoMngMthd_1" name="dtl-rdo-spmtInfoMngMthd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-spmtInfoMngMthd_1" name="dtl-rdo-spmtInfoMngMthd" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-spmtInfoMngMthd_1">관리안함</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-spmtInfoMngMthd_2" name="dtl-rdo-spmtInfoMngMthd" uitype="normal" value="2" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-spmtInfoMngMthd_2" name="dtl-rdo-spmtInfoMngMthd" uitype="normal" value="2" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-spmtInfoMngMthd_2">수기/엑셀</label>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="dtl-rdo-spmtInfoMngMthd_3" name="dtl-rdo-spmtInfoMngMthd" uitype="normal" value="3" class="radio_label"></sbux-radio>
+										<sbux-radio id="dtl-rdo-spmtInfoMngMthd_3" name="dtl-rdo-spmtInfoMngMthd" uitype="normal" value="3" class="radio_label" group-id="group1"></sbux-radio>
 										<label class="radio_label" for="dtl-rdo-spmtInfoMngMthd_3">시스템</label>
 									</p>
+								</td>
+								<td id="SPMT">
 								</td>
 							</tr>
 						</tbody>
@@ -218,7 +254,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -248,7 +284,11 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
-		await fn_selectAtMcIfList();
+		await fn_setChkList();//체크박스 세팅
+
+		await fn_clearForm();
+
+		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
 
@@ -261,15 +301,25 @@
 		}
 	}
 
-	const fn_selectAtMcIfList = async function(copy_chk) {
+	//입력폼 초기화
+	const fn_clearForm = async function() {
+		SBUxMethod.clearGroupData("group1");
+		jsonComDataMngType.forEach((item) => {
+			SBUxMethod.clearGroupData(item.value);
+			SBUxMethod.set("dtl-chk-all"+item.value , "N");
+		});
+	}
+
+	const fn_search = async function() {
+		await fn_clearForm();
+		await fn_selectDtMnIfList();
+	}
+
+	const fn_selectDtMnIfList = async function(copy_chk) {
 		 console.log("******************fn_pagingAtMcIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
-
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
@@ -292,7 +342,16 @@
 				SBUxMethod.set('dtl-rdo-sortInfoMngMthd',item.sortInfoMngMthd);
 				SBUxMethod.set('dtl-rdo-strgInfoMngMthd',item.strgInfoMngMthd);
 				SBUxMethod.set('dtl-rdo-pckgInfoMngMthd',item.pckgInfoMngMthd);
+				SBUxMethod.set('dtl-rdo-jobInfoMngMthd',item.jobInfoMngMthd);
 				SBUxMethod.set('dtl-rdo-spmtInfoMngMthd',item.spmtInfoMngMthd);
+			});
+			console.log(data.resultDtlList);
+			await data.resultDtlList.forEach((item, index) => {
+				SBUxMethod.set('dtl-chk-'+item.dataMngTypeDtl,item.dataMngYn);
+			});
+
+			await jsonComDataMngType.forEach((item) => {
+				fn_selDataMngChk(item.value);
 			});
 
 		} catch (e) {
@@ -318,25 +377,50 @@
 			return;
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
-		 console.log("******************fn_subInsert**********************************");
-		 if (!isConfirmed) return;
-		 console.log(SBUxMethod.get('srch-inp-crtrYr'));
-		 const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltDtaMngInfo.do", {
-			 crtrYr : SBUxMethod.get('srch-inp-crtrYr')
-			,apcCd : SBUxMethod.get('srch-inp-apcCd')
+	const fn_subInsert = async function (isConfirmed , tmpChk){
+		console.log("******************fn_subInsert**********************************");
+		if (!isConfirmed) return;
+		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
+
+		let fcltDataMngVOList = [];
+
+		let crtrYr = SBUxMethod.get('srch-inp-crtrYr');
+		let apcCd = SBUxMethod.get('srch-inp-apcCd');
+
+		await jsonComDataMngTypeDtl.forEach((item) => {
+			let dataVO = {
+				crtrYr : crtrYr
+				, apcCd : apcCd
+				, dataMngType : item.mastervalue
+				, dataMngTypeDtl : item.value
+				, dataMngYn : $("#dtl-chk-"+item.value).val()
+			}
+			fcltDataMngVOList.push(dataVO);
+		});
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltDtaMngInfo.do", {
+			crtrYr : crtrYr
+			,apcCd : apcCd
 			, prgrsYn : 'Y' //진척도 갱신 여부
+			, tmprStrgYn : tmpChk
 
 			,prdctnInfoMngMthd : SBUxMethod.get('dtl-rdo-prdctnInfoMngMthd')
 			,wrhsInfoMngMthd : SBUxMethod.get('dtl-rdo-wrhsInfoMngMthd')
 			,sortInfoMngMthd : SBUxMethod.get('dtl-rdo-sortInfoMngMthd')
 			,strgInfoMngMthd : SBUxMethod.get('dtl-rdo-strgInfoMngMthd')
 			,pckgInfoMngMthd : SBUxMethod.get('dtl-rdo-pckgInfoMngMthd')
+			,jobInfoMngMthd : SBUxMethod.get('dtl-rdo-jobInfoMngMthd')
 			,spmtInfoMngMthd : SBUxMethod.get('dtl-rdo-spmtInfoMngMthd')
+			,fcltDataMngVOList : fcltDataMngVOList
 		});
 
 		const data = await postJsonPromise;
@@ -348,6 +432,7 @@
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
 				cfn_allTabPrgrsRefrash();
 			} else {
+				console.log(data);
 				alert(data.resultMessage);
 			}
 		} catch(e) {
@@ -361,10 +446,122 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		await fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
+		await fn_search();
+	}
+
+	//공통코드 DATA_MNG_TYPE 데이터 관리 타입 , DATA_MNG_TYPE_DTL 데이터 관리 타입 상세
+	let jsonComDataMngTypeDtl = [];
+	let jsonComDataMngType = [];
+
+	const fn_setChkList = async function() {
+		let result1 = gfn_getComCdDtls('DATA_MNG_TYPE_DTL');
+		jsonComDataMngTypeDtl.length=0;
+		await result1.then((arr) => {
+			arr.forEach((item) => {
+				const cdVl = {
+					text: item.cdVlNm,
+					label: item.cdVlNm,
+					value: item.cdVl,
+					mastervalue : item.upCdVl,
+					useYn : item.useYn
+				}
+				jsonComDataMngTypeDtl.push(cdVl);
+			})
+		})
+
+		let result2 = gfn_getComCdDtls('DATA_MNG_TYPE');
+		jsonComDataMngType.length=0;
+		await result2.then((arr) => {
+			arr.forEach((item) => {
+				const cdVl = {
+					text: item.cdVlNm,
+					label: item.cdVlNm,
+					value: item.cdVl,
+					mastervalue : item.upCdVl,
+					useYn : item.useYn
+				}
+				jsonComDataMngType.push(cdVl);
+			})
+		})
+		//console.log(jsonComDataMngTypeDtl);
+
+		await jsonComDataMngType.forEach((item) => {
+			if(!gfn_isEmpty(item.value)){
+				//console.log(item);
+				let $targetTd = $('#'+item.value);
+				let $newP = $('<p>').addClass('ad_input_row');
+				$targetTd.append($newP);
+				$newP.sbCheckbox({
+					id:"dtl-chk-all"+item.value,
+					name:"dtl-chk-all"+item.value,
+					uitype:"normal",
+					text:"전체선택",
+					trueValue:"Y",
+					falseValue:"N",
+					itemBottomPadding:"5px",
+					textRightPadding:"5px",
+					onchange:"fn_allDataMngChk('"+item.value+"')",
+					textStyle:"font-weight: normal;",
+				});
+			}
+		})
+
+		await jsonComDataMngTypeDtl.forEach((item) => {
+			if(!gfn_isEmpty(item.mastervalue)){
+				//console.log(item);
+				let $targetTd = $('#'+item.mastervalue);
+				let $newP = $('<p>').addClass('ad_input_row');
+				$targetTd.append($newP);
+				$newP.sbCheckbox({
+					id:"dtl-chk-"+item.value,
+					name:"dtl-chk-"+item.value,
+					uitype:"normal",
+					text:item.text,
+					trueValue:"Y",
+					falseValue:"N",
+					itemBottomPadding:"5px",
+					textRightPadding:"5px",
+					groupId:item.mastervalue,
+					textStyle:"font-weight: normal;",
+					onchange:"fn_selDataMngChk('"+item.mastervalue+"')",
+				});
+			}
+		})
+	}
+	// 데이터관리 항목 전체선택 값 변경시
+	const fn_allDataMngChk = function(groupId) {
+		//let selVal = SBUxMethod.get("dtl-chk-all"+groupId);
+		let selVal = $("#dtl-chk-all"+groupId).val();
+		//console.log(groupId,selVal);
+		if (!gfn_isEmpty(groupId)) {
+			let targetGroup = jsonComDataMngTypeDtl.filter((item) => item.mastervalue == groupId);
+			targetGroup.forEach((item) => {
+				SBUxMethod.set("dtl-chk-"+item.value,selVal);
+			})
+		}
+	}
+
+	// 데이터관리 항목 일반 값 변경시
+	const fn_selDataMngChk = function(groupId) {
+		if (!gfn_isEmpty(groupId)) {
+			//group 길이 랑 'Y' 값 갯수 비교
+			let group = SBUxMethod.getGroupData(groupId);
+			let trueCnt = 0;
+			for (var i = 0; i < group.length; i++) {
+				let chkVal = Object.values(group[i].component_value);
+				if(chkVal[0] == "Y"){
+					trueCnt++;
+				}
+			}
+			SBUxMethod.set("dtl-chk-all"+groupId , group.length == trueCnt ? 'Y' : 'N');
 		}
 	}
 

@@ -104,7 +104,7 @@
 		USING DUAL
 		ON (
 			AFIS.APC_CD = #{apcCd}
-			AND AFIS = #{sn}
+			AND AFIS.SN = #{sn}
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
@@ -147,7 +147,14 @@
 				  )
 			VALUES
 				(
+				<choose>
+					<when test='sn != null and !sn.equals("")'>
+					#{sn}
+					</when>
+					<otherwise>
 					(SELECT MAX(SN) FROM TB_TE_APC_FCLT_INSTL_SPLMNT WHERE APC_CD = #{apcCd})
+					</otherwise>
+				</choose>
 					, #{bizYr}
 					, #{apcCd}
 					, #{apcNm}

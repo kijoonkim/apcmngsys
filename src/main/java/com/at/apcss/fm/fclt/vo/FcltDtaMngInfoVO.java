@@ -1,5 +1,7 @@
 package com.at.apcss.fm.fclt.vo;
 
+import java.util.List;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -52,6 +54,12 @@ public class FcltDtaMngInfoVO extends ComVO{
 	private String pckgInfoMngMthd;
 	private String spmtInfoLinkSttn;
 	private String spmtInfoMngMthd;
+	/* 20240828 작업정보 추가 */
+	private String jobInfoLinkSttn;
+	private String jobInfoMngMthd;
+
+	/* 데이터 항목 리스트 */
+	private List<FcltDataMngVO> fcltDataMngVOList;
 
 }
 

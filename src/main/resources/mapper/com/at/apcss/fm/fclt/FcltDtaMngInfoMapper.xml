@@ -33,6 +33,7 @@
 				, SORT_INFO_MNG_MTHD
 				, STRG_INFO_MNG_MTHD
 				, PCKG_INFO_MNG_MTHD
+				, JOB_INFO_MNG_MTHD
 				, SPMT_INFO_MNG_MTHD
 
 			FROM TB_TE_APC_SMART_PRPLSN_STTN ASPS
@@ -80,6 +81,7 @@
 				, SORT_INFO_MNG_MTHD
 				, STRG_INFO_MNG_MTHD
 				, PCKG_INFO_MNG_MTHD
+				, JOB_INFO_MNG_MTHD
 				, SPMT_INFO_MNG_MTHD
 
 			FROM TB_TE_APC_SMART_PRPLSN_STTN ASPS
@@ -118,6 +120,7 @@
 				  , SORT_INFO_MNG_MTHD = #{sortInfoMngMthd}
 				  , STRG_INFO_MNG_MTHD = #{strgInfoMngMthd}
 				  , PCKG_INFO_MNG_MTHD = #{pckgInfoMngMthd}
+				  , JOB_INFO_MNG_MTHD = #{jobInfoMngMthd}
 				  , SPMT_INFO_MNG_MTHD = #{spmtInfoMngMthd}
 
 				  , SYS_LAST_CHG_DT			= SYSDATE
@@ -134,6 +137,7 @@
 				  , SORT_INFO_MNG_MTHD
 				  , STRG_INFO_MNG_MTHD
 				  , PCKG_INFO_MNG_MTHD
+				  , JOB_INFO_MNG_MTHD
 				  , SPMT_INFO_MNG_MTHD
 
 				  , SYS_FRST_INPT_DT
@@ -154,6 +158,7 @@
 				  , #{sortInfoMngMthd}
 				  , #{strgInfoMngMthd}
 				  , #{pckgInfoMngMthd}
+				  , #{jobInfoMngMthd}
 				  , #{spmtInfoMngMthd}
 
 				  , SYSDATE
@@ -183,6 +188,7 @@
 				  , SORT_INFO_MNG_MTHD = #{sortInfoMngMthd}
 				  , STRG_INFO_MNG_MTHD = #{strgInfoMngMthd}
 				  , PCKG_INFO_MNG_MTHD = #{pckgInfoMngMthd}
+				  , JOB_INFO_MNG_MTHD = #{jobInfoMngMthd}
 				  , SPMT_INFO_MNG_MTHD = #{spmtInfoMngMthd}
 		]]>
 		<if test='delYn != null and delYn != ""'>
@@ -194,7 +200,7 @@
 				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			WHERE 1=1
-			  AND TRGT_YR = #{trgtYr}
+			  AND CRTR_YR = #{crtrYr}
 			  AND APC_CD = #{apcCd}
 		]]>
 	</update>
@@ -230,5 +236,118 @@
 	</delete>
 	-->
 
+
+	<!--  -->
+	<select id="selectFcltDataMngList" parameterType="com.at.apcss.fm.fclt.vo.FcltDtaMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltDataMngVO">
+		<![CDATA[
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
+			  ASDM.CRTR_YR
+			, ASDM.APC_CD
+			, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = ASDM.APC_CD AND CRTR_YR = ASDM.CRTR_YR
+			) AS APC_NM
+
+			, ASDM.DATA_MNG_TYPE
+			, ASDM.DATA_MNG_TYPE_DTL
+			, ASDM.DATA_MNG_YN
+
+		FROM TB_TE_APC_SMART_DATA_MNG ASDM
+		WHERE 1=1
+		  AND DEL_YN != 'Y'
+		  AND APC_CD IS NOT NULL
+		]]>
+		<if test='crtrYr != null and !crtrYr.equals("")'>
+		  AND ASDM.CRTR_YR = #{crtrYr}
+		</if>
+		<if test='apcCd != null and !apcCd.equals("")'>
+		  AND ASDM.APC_CD = #{apcCd}
+		</if>
+	</select>
+
+	<update id="insertFcltDataMng" parameterType="com.at.apcss.fm.fclt.vo.FcltDataMngVO">
+		MERGE INTO TB_TE_APC_SMART_DATA_MNG ASDM /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.insertFcltDataMng */
+		USING DUAL
+		ON (
+			ASDM.CRTR_YR = #{crtrYr}
+			AND ASDM.APC_CD = #{apcCd}
+			AND ASDM.DATA_MNG_TYPE_DTL = #{dataMngTypeDtl}
+			)
+		WHEN MATCHED THEN
+		  UPDATE SET
+				  DATA_MNG_YN = #{dataMngYn}
+
+				  , SYS_LAST_CHG_DT			= SYSDATE
+				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+		  INSERT (
+				  CRTR_YR
+				  , APC_CD
+				  , APC_NM
+
+				  , DATA_MNG_TYPE
+				  , DATA_MNG_TYPE_DTL
+				  , DATA_MNG_YN
+
+				  , SYS_FRST_INPT_DT
+				  , SYS_FRST_INPT_USER_ID
+				  , SYS_FRST_INPT_PRGRM_ID
+				  , SYS_LAST_CHG_DT
+				  , SYS_LAST_CHG_USER_ID
+				  , SYS_LAST_CHG_PRGRM_ID
+				)
+		VALUES
+				(
+				  #{crtrYr}
+				  , #{apcCd}
+				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
+
+				  , #{dataMngType}
+				  , #{dataMngTypeDtl}
+				  , #{dataMngYn}
+
+				  , SYSDATE
+				  , #{sysFrstInptUserId}
+				  , #{sysFrstInptPrgrmId}
+				  , SYSDATE
+				  , #{sysLastChgUserId}
+				  , #{sysLastChgPrgrmId}
+				)
+	</update>
+
+	<update id="updateFcltDataMng" parameterType="com.at.apcss.fm.fclt.vo.FcltDataMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.updateFcltDataMng */
+				TB_TE_APC_SMART_DATA_MNG ASDM
+			   SET
+				  DATA_MNG_YN = #{dataMngYn}
+		]]>
+		<if test='delYn != null and delYn != ""'>
+				, DEL_YN 	= #{delYn}
+		</if>
+		<![CDATA[
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			WHERE 1=1
+			  AND ASDM.CRTR_YR = #{crtrYr}
+			  AND ASDM.APC_CD = #{apcCd}
+			  AND ASDM.DATA_MNG_TYPE_DTL = #{dataMngTypeDtl}
+		]]>
+	</update>
+
+
+	<update id="deleteFcltDataMng" parameterType="com.at.apcss.fm.fclt.vo.FcltDataMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.deleteFcltDataMng */
+				TB_TE_APC_SMART_DATA_MNG ASDM
+			   SET
+				  DEL_YN 	= 'Y'
+			WHERE 1=1
+			  AND ASDM.CRTR_YR = #{crtrYr}
+			  AND ASDM.APC_CD = #{apcCd}
+			  AND ASDM.DATA_MNG_TYPE_DTL = #{dataMngTypeDtl}
+		]]>
+	</update>
 </mapper>
 

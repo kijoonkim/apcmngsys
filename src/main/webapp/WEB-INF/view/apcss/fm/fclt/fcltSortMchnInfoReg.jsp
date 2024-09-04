@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별기운영 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -400,7 +401,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -429,9 +430,9 @@
 	})
 
 	const fn_init = async function() {
-		await fn_clear();//전체 비활성화
+		await fn_clearForm();//전체 비활성화
 
-		await fn_setGrdStMcInfList();//데이터 조회
+		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
 		//최종제출 여부
@@ -444,13 +445,18 @@
 	}
 
 	//전체 데이터 초기화 및 비활성화
-	function fn_clear() {
+	function fn_clearForm() {
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
 			SBUxMethod.clearGroupData('group'+i);
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
-			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
+			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
 		}
+	}
+
+	const fn_search = async function() {
+		await fn_clearForm();
+		await fn_setGrdStMcInfList();
 	}
 
 	/**
@@ -478,14 +484,13 @@
 
 		//예외처리
 		try {
-			console.log(data);
-			fn_clear();//전체 초기화 및 비활성화
+			//console.log(data);
 			data.resultList.forEach((item, index) => {
 				//item.sn 1~4
 				//itemChk 품목 존재 여부
 				SBUxMethod.set('dtl-inp-itemChk'+item.sn ,'Y');
-
-				$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
+				console.log(item);
+				$('#itemNm'+item.sn).text("품목 : "+item.sortItemNm);
 
 				let sortMchnHoldYn = item.sortMchnHoldYn;
 				//품목이 없는경우 해당 행자체가 존재 하지 않아 조회가 안되므로 여기서 활성화
@@ -526,11 +531,16 @@
 			return;
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
@@ -544,13 +554,14 @@
 			let itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
 			//품목이 존재하는경우만 저장
 			if(itemChk == 'Y'){
-				let sortMchnHoldYn = SBUxMethod.get('dtl-inp-sortMchnHoldYn'+i);
+				let sortMchnHoldYn = $('#dtl-inp-sortMchnHoldYn'+i).val();
 				let itemVo = {
 						crtrYr : crtrYr
 						, apcCd : apcCd
 						, sn : i
 						, sortMchnHoldYn : sortMchnHoldYn
 						, prgrsYn : 'Y' //진척도 갱신 여부
+						, tmprStrgYn : tmpChk//임시저장 여부
 				}
 				if(sortMchnHoldYn == 'Y'){
 					itemVo.sortPrcsAblt = SBUxMethod.get('dtl-inp-sortPrcsAblt'+i);
@@ -563,7 +574,7 @@
 			}
 		}
 
-		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltGdsMchnInfo.do", saveList);
+		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltSortMchnInfo.do", saveList);
 
 		const data = await postJsonPromise;
 
@@ -599,11 +610,15 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
+		await fn_search();
 	}
 	// 평균가동일수 계산
 	const fn_calSortAvgOprtngDcnt = function(groupNum) {

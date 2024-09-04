@@ -221,6 +221,7 @@
 				  		  AND APC_CD = #{apcCd}
 				  		  AND CRTR_YR = #{crtrYr}
 				  		  AND SN = #{sn}
+				  		  AND OGNZ_SE_CD = '2'
 				  	)
 				  , (SELECT
 				  			ITEM_NM
@@ -229,6 +230,7 @@
 				  		  AND APC_CD = #{apcCd}
 				  		  AND CRTR_YR = #{crtrYr}
 				  		  AND SN = #{sn}
+				  		  AND OGNZ_SE_CD = '2'
 				  	)
 
 				  , #{dptz}

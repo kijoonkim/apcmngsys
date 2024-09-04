@@ -93,6 +93,8 @@ public class FcltOperInfoVO extends ComVO{
 	private String prgrsYn;//진척도 갱신 여부
 	private String tmprStrgYn;//임시저장 여부
 
+	private String itemCd;
+	private String itemNm;
 
 	/*품목리스트*/
 	private List<FcltItemVO> itemList;

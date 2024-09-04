@@ -74,7 +74,7 @@ public class FcltOgnzPrcsPrfmncServiceImpl extends BaseServiceImpl implements Fc
 		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
 		for (FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO : fcltOgnzPrcsPrfmncVOList) {
 			saveCnt += fcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc(fcltOgnzPrcsPrfmncVO);
-			prgrsYn = fcltOgnzPrcsPrfmncVO.getPrgrsYn();
+			prgrsYn = fcltOgnzPrcsPrfmncVO.getPrgrsYn() == null ? "N" : fcltOgnzPrcsPrfmncVO.getPrgrsYn();
 			//진척도 변경
 			fcltPrgrsVO.setApcCd(fcltOgnzPrcsPrfmncVO.getApcCd());
 			fcltPrgrsVO.setCrtrYr(fcltOgnzPrcsPrfmncVO.getCrtrYr());
@@ -83,12 +83,13 @@ public class FcltOgnzPrcsPrfmncServiceImpl extends BaseServiceImpl implements Fc
 			fcltPrgrsVO.setSysLastChgUserId(fcltOgnzPrcsPrfmncVO.getSysLastChgUserId());
 			fcltPrgrsVO.setSysLastChgPrgrmId(fcltOgnzPrcsPrfmncVO.getSysLastChgPrgrmId());
 
+			fcltPrgrsVO.setPrgrsSel("12");
 			//임시저장
-			String tmprStrgYn = fcltOgnzPrcsPrfmncVO.getTmprStrgYn();
+			String tmprStrgYn = fcltOgnzPrcsPrfmncVO.getTmprStrgYn() == null ? "N" : fcltOgnzPrcsPrfmncVO.getTmprStrgYn();
 			if(tmprStrgYn.equals("Y")) {
-				fcltPrgrsVO.setPrgrs12("T");
+				fcltPrgrsVO.setPrgrsVal("T");
 			}else {
-				fcltPrgrsVO.setPrgrs12("Y");
+				fcltPrgrsVO.setPrgrsVal("Y");
 			}
 		}
 

@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 
 			</div>
@@ -72,7 +73,9 @@
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
+							<!--
 							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_setGrdLtMcIfList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							-->
 						</td>
 						<td></td>
 					</tr>
@@ -141,7 +144,7 @@
 								true-value="Y"
 								false-value="N"
 								class="check"
-								onchange ="fn_selectOnchange(this)"
+								onkeyup ="fn_selectOnchange(this)"
 							></sbux-checkbox>
 						</td>
 						<td style="border-right:hidden; padding-right: 0px !important;">
@@ -151,8 +154,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="1,000"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -163,8 +167,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="100"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -175,8 +180,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="2,000"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -187,7 +193,7 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="210"
+								placeholder=""
 								readonly
 							></sbux-input>
 						</td>
@@ -335,11 +341,11 @@
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
-    <div>
+	<div>
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -363,13 +369,11 @@
 		SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
+		fn_init();
 	})
 
 	const fn_init = async function() {
-		await SBUxMethod.changeGroupAttr('group1','disabled','true');
-		await SBUxMethod.changeGroupAttr('group2','disabled','true');
-
-		await fn_setGrdLtMcIfList();//데이터 조회
+		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
 
@@ -382,11 +386,22 @@
 		}
 	}
 
+
+	//입력폼 초기화
+	const fn_clearForm = async function() {
+		await SBUxMethod.changeGroupAttr('group1','disabled','true');
+		await SBUxMethod.changeGroupAttr('group2','disabled','true');
+	}
+
+	const fn_search = async function() {
+		fn_setGrdLtMcIfList();
+	}
+
 	const fn_setGrdLtMcIfList = async function(copy_chk) {
 		 console.log("******************fn_setGrdLtMcIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");/
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
@@ -417,7 +432,10 @@
 					SBUxMethod.set('dtl-inp-strgPlcStrgAblt',item.strgPlcStrgAblt);
 					SBUxMethod.set('dtl-inp-strgPlcStrmStrgAblt',item.strgPlcStrmStrgAblt);
 					SBUxMethod.set('dtl-inp-strgPlcLtrmStrgAblt',item.strgPlcLtrmStrgAblt);
-					SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
+					//SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
+
+					//저장 가동률 계산
+					fn_strgPlcOprtngRt();
 
 					SBUxMethod.set('warehouseSeCd_chk_mon_2_non',item.operYn);
 					//SBUxMethod.set('warehouseSeCd_chk_mon_2_1',item.operPeriodYn);
@@ -438,7 +456,6 @@
 					}
 				}
 			});
-
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -463,13 +480,17 @@
 			return;
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	};
 
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
+	}
 
 
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
@@ -479,6 +500,7 @@
 				crtrYr : SBUxMethod.get('srch-inp-crtrYr')
 				,apcCd : SBUxMethod.get('srch-inp-apcCd')
 				, prgrsYn : 'Y' //진척도 갱신 여부
+				, tmprStrgYn : tmpChk//임시저장 여부
 				,lwtpStrgPlcHldYn: itemChk
 				,storCap: SBUxMethod.get('srch-inp-opera2')
 				,stStorPerfm: SBUxMethod.get('srch-inp-opera3')
@@ -591,20 +613,23 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
+		await fn_search();
 	}
 
 	const fn_strgPlcOprtngRt = async function() {
-		let strgPlcStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrgAblt'));
-		let strgPlcStrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt'));
-		let strgPlcLtrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt'));
+		let strgPlcStrgAblt = gfn_nvl(SBUxMethod.get('dtl-inp-strgPlcStrgAblt')) == "" ? 0 : parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrgAblt'));
+		let strgPlcStrmStrgAblt = gfn_nvl(SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt')) == "" ? 0 : parseFloat(SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt'));
+		let strgPlcLtrmStrgAblt = gfn_nvl(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt')) == "" ? 0 : parseFloat(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt'));
 
-		let result = ( strgPlcStrmStrgAblt + strgPlcLtrmStrgAblt ) / strgPlcStrgAblt ;
-		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result);
+		let result = ( ( strgPlcStrmStrgAblt + strgPlcLtrmStrgAblt ) / strgPlcStrgAblt) * 100 ;
+		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result.toFixed(2));
 	}
 
 </script>

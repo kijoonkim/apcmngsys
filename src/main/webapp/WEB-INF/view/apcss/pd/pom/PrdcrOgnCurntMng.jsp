@@ -472,43 +472,45 @@
 			</div>
 		</div>
 	</section>
-    <!-- 품목 팝업 -->
-    <div class="exp-div-excel" style="display: none;width: 1000px;">
+	<!-- 엑셀 업로드 양식 -->
+	<div class="exp-div-excel" style="display: none;width: 1000px;">
 		<div id="sbexp-area-grdExpUpload" style="height:1px; width: 100%;"></div>
 	</div>
-	<div>
-        <sbux-modal
-        	id="modal-yrGpcList"
-        	name="modal-yrGpcList"
-        	uitype="middle"
-        	header-title="품목 선택"
-        	body-html-id="body-modal-yrGpcList"
-        	footer-is-close-button="false"
-        	style="width:700px"
-       	></sbux-modal>
-    </div>
-    <div id="body-modal-yrGpcList">
-    	<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
-    </div>
 
-    <!-- IMPORT 엑셀 등록 Modal -->
-    <div>
-        <sbux-modal
-        	id="modal-imp"
-        	name="modal-imp"
-        	uitype="middle"
-        	header-title="농가리스트 등록(Excel)"
-        	body-html-id="body-modal-imp"
-        	footer-is-close-button="false"
-        	header-is-close-button="false"
-        	style="width:1000px"
+	<!-- 품목 팝업 -->
+	<div>
+		<sbux-modal
+			id="modal-yrGpcList"
+			name="modal-yrGpcList"
+			uitype="middle"
+			header-title="품목 선택"
+			body-html-id="body-modal-yrGpcList"
+			footer-is-close-button="false"
+			style="width:700px"
 		></sbux-modal>
-    </div>
-    <div id="body-modal-imp">
-    	<jsp:include page="../../fm/popup/importExcelPopup.jsp"></jsp:include>
-    </div>
-    <!-- 프로그래스 로딩바 진행률 관련 -->
-    <sbux-progress id="progOpen" name="progOpen" uitype="bar" indicator-type="load"
+	</div>
+	<div id="body-modal-yrGpcList">
+		<jsp:include page="/WEB-INF/view/apcss/fm/popup/ItemYrGpcPopup.jsp"></jsp:include>
+	</div>
+
+	<!-- IMPORT 엑셀 등록 Modal -->
+	<div>
+		<sbux-modal
+			id="modal-imp"
+			name="modal-imp"
+			uitype="middle"
+			header-title="농가리스트 등록(Excel)"
+			body-html-id="body-modal-imp"
+			footer-is-close-button="false"
+			header-is-close-button="false"
+			style="width:1000px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-imp">
+		<jsp:include page="../../fm/popup/importExcelPopup.jsp"></jsp:include>
+	</div>
+	<!-- 프로그래스 로딩바 진행률 관련 -->
+	<sbux-progress id="progOpen" name="progOpen" uitype="bar" indicator-type="load"
 			show-openlayer="true" is-fixed="true"
 			openlayer-title="<span class='empRed'>데이터 로딩 중입니다.</span> 잠시만 기다려 주십시오."
 			>
@@ -2141,7 +2143,7 @@
 
 		if (gfn_isEmpty(brno)) {
 			gfn_comAlert("W0001", "생산자조직");		//	W0002	{0}을/를 선택하세요.
-            return;
+			return;
 		}
 
 
@@ -2158,13 +2160,13 @@
 		SBGridProperties.columns = impColumns;
 		SBGridProperties.rowheader="seq";
 		popImp.importExcel(
-    			"농가리스트 Import",
-    			SBGridProperties,
-    			fn_importExcel,
-    			fn_setDataAfterImport,
-    			fn_grdImpValueChanged
+				"농가리스트 Import",
+				SBGridProperties,
+				fn_importExcel,
+				fn_setDataAfterImport,
+				fn_grdImpValueChanged
 			);
-    }
+	}
 
 	/**
 	 * @name fn_importExcel
@@ -2209,24 +2211,24 @@
 			await fn_cltbtnSnDeleteRsrc(prdcrOgnzSn , yr);
 		}
 
- 		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
+		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
 
- 			const rowData = _grdImp.getRowData(iRow);
+			const rowData = _grdImp.getRowData(iRow);
 			//console.log(rowData);
- 			// validation check
- 	    	if (gfn_isEmpty(rowData.flnm)) {
- 	    		gfn_comAlert("W0002", "성명");		//	W0002	{0}을/를 입력하세요.
- 	    		_grdImp.setRow(iRow);
- 	            return;
- 	    	}
- 	    	if (gfn_isEmpty(rowData.cltvtnLandAddr)) {
- 	    		gfn_comAlert("W0002", "재배지 주소");		//	W0002	{0}을/를 입력하세요.
- 	    		_grdImp.setRow(iRow);
- 	            return;
- 	    	}
- 	    	if (gfn_isEmpty(rowData.ecSpmtPlanVlm)){
- 	    		gfn_comAlert("W0002", "전속출하계약량");		//	W0002	{0}을/를 입력하세요.
- 	    		_grdImp.setRow(iRow);
+			// validation check
+			if (gfn_isEmpty(rowData.flnm)) {
+				gfn_comAlert("W0002", "성명");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
+				return;
+			}
+			if (gfn_isEmpty(rowData.cltvtnLandAddr)) {
+				gfn_comAlert("W0002", "재배지 주소");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
+				return;
+			}
+			if (gfn_isEmpty(rowData.ecSpmtPlanVlm)){
+				gfn_comAlert("W0002", "전속출하계약량");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
 				return true;
 			}
 			if (gfn_isEmpty(rowData.ecSpmtVlm)){
@@ -2256,15 +2258,15 @@
 			rowData.prdcrOgnzCd = prdcrOgnzCd;
 			rowData.prdcrOgnzNm = prdcrOgnzNm;
 			rowData.sttgUpbrItemSe = sttgUpbrItemSe;
- 			rowData.rowSts = "I";
+			rowData.rowSts = "I";
 
- 			//날짜입력시 특수 문자 제거
+			//날짜입력시 특수 문자 제거
 			let dateVal = rowData.joinDay;
 			let result = formatDateToYYYYMMDD(dateVal);
 			rowData.joinDay = result.substr(0,8);//년월일 이상 적는 경우 대비
 
 			//저장할데이터
- 	    	const pckgPrfmnc = {
+			const pckgPrfmnc = {
 				apoCd: rowData.apoCd,
 				apoSe: rowData.apoSe,
 				crno: rowData.crno,
@@ -2297,109 +2299,109 @@
 				prdctnVlm: rowData.prdctnVlm,
 				ecSpmtVlm: rowData.ecSpmtVlm,
 				spmtPrc: rowData.spmtPrc
- 	    	}
+			}
 
- 	    	pckgPrfmncList.push(pckgPrfmnc);
- 		}
+			pckgPrfmncList.push(pckgPrfmnc);
+		}
 
 		if (pckgPrfmncList.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 		}
 
-    	if (!gfn_comConfirm("Q0001", "저장")) {
-    		return;
-    	}
+		if (!gfn_comConfirm("Q0001", "저장")) {
+			return;
+		}
 
-    	let postUrl = "/pd/pom/multiSavePrdcrOgnCurntMngList.do";
+		let postUrl = "/pd/pom/multiSavePrdcrOgnCurntMngList.do";
 
-    	const postJsonPromise = gfn_postJSON(postUrl, pckgPrfmncList);
+		const postJsonPromise = gfn_postJSON(postUrl, pckgPrfmncList);
 		const data = await postJsonPromise;
 
-        try {
-        	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-        		popImp.close();
-        		fn_dtlGridSearch01();
-        	} else {
-        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-        	}
-        } catch(e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+				popImp.close();
+				fn_dtlGridSearch01();
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+		} catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
 	}
 
 	//숫자 반환 함수
 	function fn_numReturn(dateString) {
-	    // 숫자만 추출하여 문자열로 반환
-	    var numbers = dateString.toString().match(/\d+/g);
+		// 숫자만 추출하여 문자열로 반환
+		var numbers = dateString.toString().match(/\d+/g);
 
-	    // 추출된 숫자가 없는 경우 빈 문자열 반환
-	    return numbers ? numbers.join('') : '';
+		// 추출된 숫자가 없는 경우 빈 문자열 반환
+		return numbers ? numbers.join('') : '';
 	}
 
 	function formatDateToYYYYMMDD(inputDate) {
-	    // 정규식을 사용하여 날짜 형식에서 연도, 월, 일을 추출
-	    var match = inputDate.toString().match(/(\d{4})[-./년](\d{1,2})[-./월](\d{1,2})일?/);
+		// 정규식을 사용하여 날짜 형식에서 연도, 월, 일을 추출
+		var match = inputDate.toString().match(/(\d{4})[-./년](\d{1,2})[-./월](\d{1,2})일?/);
 
-	    // 추출된 연도, 월, 일을 사용하여 YYYYMMDD 형태의 문자열로 반환
-	    if (match) {
-	        var year = match[1];
-	        var month = match[2].padStart(2, '0'); // 월이 한 자리 수일 경우 앞에 0 추가
-	        var day = match[3].padStart(2, '0');   // 일이 한 자리 수일 경우 앞에 0 추가
-	        return year + month + day;
-	    } else {
-	        // 매치되는 형식이 없을 경우 예외 처리 또는 기본값 반환
-	    	return inputDate;
-	    }
+		// 추출된 연도, 월, 일을 사용하여 YYYYMMDD 형태의 문자열로 반환
+		if (match) {
+			var year = match[1];
+			var month = match[2].padStart(2, '0'); // 월이 한 자리 수일 경우 앞에 0 추가
+			var day = match[3].padStart(2, '0');   // 일이 한 자리 수일 경우 앞에 0 추가
+			return year + month + day;
+		} else {
+			// 매치되는 형식이 없을 경우 예외 처리 또는 기본값 반환
+			return inputDate;
+		}
 	}
 
 	function formatData(input) {
-	    if (typeof input === 'number') {
-	        // 숫자인 경우
-	        const inputString = input.toString();
-	        if (inputString.length === 5) {
-	            // 5자리인 경우: Excel 날짜 서식 시리얼을 YYYYMMDD로 변환
-	            return excelSerialToKoreanDate(input);
-	        } else {
-	            // 6자리 이상인 경우: 앞에서부터 8자리까지 잘라서 리턴
-	            // YY/MM/DD
-	            // YYYY/M/D
-	            return inputString.substring(0, 8);
-	        }
-	    } else if (typeof input === 'string') {
-	        // 문자열인 경우: 특수문자 제외하고 앞에서부터 8자리까지 잘라서 리턴
-	        //YYYY년 MM월 DD일
-	        //YY년 MM월 DD일
-	        //YYYY.MM.DD
-	        //YYYY/MM/DD
-	        //YYYY-YMM-DD
-	        //YYYYMMDD
-	        const sanitizedString = input.replace(/[^0-9a-zA-Z]/g, '');
-	        return sanitizedString.substring(0, 8);
-	    } else {
-	        // 다른 형식인 경우
-	        return null; // 또는 다른 처리를 원하는 대로 수행
-	    }
+		if (typeof input === 'number') {
+			// 숫자인 경우
+			const inputString = input.toString();
+			if (inputString.length === 5) {
+				// 5자리인 경우: Excel 날짜 서식 시리얼을 YYYYMMDD로 변환
+				return excelSerialToKoreanDate(input);
+			} else {
+				// 6자리 이상인 경우: 앞에서부터 8자리까지 잘라서 리턴
+				// YY/MM/DD
+				// YYYY/M/D
+				return inputString.substring(0, 8);
+			}
+		} else if (typeof input === 'string') {
+			// 문자열인 경우: 특수문자 제외하고 앞에서부터 8자리까지 잘라서 리턴
+			//YYYY년 MM월 DD일
+			//YY년 MM월 DD일
+			//YYYY.MM.DD
+			//YYYY/MM/DD
+			//YYYY-YMM-DD
+			//YYYYMMDD
+			const sanitizedString = input.replace(/[^0-9a-zA-Z]/g, '');
+			return sanitizedString.substring(0, 8);
+		} else {
+			// 다른 형식인 경우
+			return null; // 또는 다른 처리를 원하는 대로 수행
+		}
 	}
 
 	// Excel 시리얼 넘버를 YYYY-MM-DD로 변환하는 함수
 	function excelSerialToKoreanDate(serial) {
-	    const MS_PER_DAY = 24 * 60 * 60 * 1000; // milliseconds per day
-	    let date = new Date((serial - 2) * MS_PER_DAY + Date.UTC(1900, 0, 1));
+		const MS_PER_DAY = 24 * 60 * 60 * 1000; // milliseconds per day
+		let date = new Date((serial - 2) * MS_PER_DAY + Date.UTC(1900, 0, 1));
 
-	    let year = date.getFullYear();
-	    let month = (date.getMonth() + 1).toString().padStart(2, '0');
-	    let day = date.getDate().toString().padStart(2, '0');
+		let year = date.getFullYear();
+		let month = (date.getMonth() + 1).toString().padStart(2, '0');
+		let day = date.getDate().toString().padStart(2, '0');
 
-	    return '' + year + month + day;
+		return '' + year + month + day;
 	}
 
 	//콤보 세팅
-    const fn_setSltJson = async function() {
+	const fn_setSltJson = async function() {
 
 		//const itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
 		// 첫 시트에서 쓰일 json을 엑셀에서 쓰는 변수에 담는 함수
@@ -2412,13 +2414,13 @@
 	}
 
 
-  	/**
+	/**
      * @name fn_grdImpValueChanged
      * @description import 변경 event 처리
      * @function
      */
 	const fn_grdImpValueChanged = function(_grdImp) {
-  		//valuechanged 이벤트
+		//valuechanged 이벤트
 		console.log("fn_grdImpValueChanged");
 		console.log(_grdImp);
 		var nRow = _grdImp.getRow();
@@ -2472,7 +2474,7 @@
 
 		if (gfn_isEmpty(itemCd)) {
 			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
-            return;
+			return;
 		}
 		*/
 		//const itemNm = SBUxMethod.getText("srch-slt-itemCd");	// 품목
@@ -2513,6 +2515,7 @@
 			SBGridProperties.extendlastcol = 'none';
 			SBGridProperties.columns = exp.columns;
 			exp.sbGrid = _SBGrid.create(SBGridProperties);
+			console.log(exp.sbGrid);
 			exp.sbGrid.addRow(true);
 		});
 	}

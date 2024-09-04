@@ -1,15 +1,22 @@
 package com.at.apcss.am.wrhs.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import com.at.apcss.am.wrhs.mapper.FrmerInfoMapper;
 import com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper;
 import com.at.apcss.am.wrhs.service.PrdcrLandInfoService;
+import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : FrmerInfoServiceServiceImpl.java
@@ -31,6 +38,9 @@ public class PrdcrLandInfoServiceImpl extends BaseServiceImpl implements PrdcrLa
 
 	@Resource(name="prdcrLandInfoMapper")
 	private PrdcrLandInfoMapper prdcrLandInfoMapper;
+
+	@Resource(name = "frmerInfoMapper")
+	private FrmerInfoMapper frmerInfoMapper;
 
 	@Override
 	public List<PrdcrLandInfoVO> selectPrdcrLandInfoList(PrdcrLandInfoVO prdcrLandInfoVO) throws Exception {
@@ -57,8 +67,23 @@ public class PrdcrLandInfoServiceImpl extends BaseServiceImpl implements PrdcrLa
 	}
 
 	@Override
-	public int deletePrdcrLandInfo(PrdcrLandInfoVO prdcrLandInfoVO) throws Exception {
-		int deletedCnt = prdcrLandInfoMapper.deletePrdcrLandInfo(prdcrLandInfoVO);
-		return deletedCnt;
+	public HashMap<String, Object> deletePrdcrLandInfo(PrdcrLandInfoVO prdcrLandInfoVO) throws Exception {
+
+		if (0 == prdcrLandInfoMapper.deletePrdcrLandInfo(prdcrLandInfoVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		CltvtnHstryVO cltvtnHstryVO = new CltvtnHstryVO();
+
+		BeanUtils.copyProperties(prdcrLandInfoVO, cltvtnHstryVO);
+
+		List<CltvtnHstryVO> resultList = frmerInfoMapper.selectCltvtnHstryList(cltvtnHstryVO);
+
+		if (resultList != null) {
+			if (0 == frmerInfoMapper.deleteCltvtnHstry(cltvtnHstryVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+		}
+		return null;
 	}
 }

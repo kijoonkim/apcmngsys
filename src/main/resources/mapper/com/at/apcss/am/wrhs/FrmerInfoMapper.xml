@@ -238,6 +238,7 @@
 			     , CH.RMRK              AS RMRK
 			     , CH.DEL_YN            AS DEL_YN
 			     , (SELECT MAX(ATCHFL_NO) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_NO
+			     , (SELECT MAX(ATCHFL_ORGN_NM) FROM TB_COM_ATCHFL CA WHERE CA.PRNTS_TBL_NO = CH.CLTVTN_HSTRY_NO AND CA.PRNTS_TBL_SE_CD = '01') AS ATCHFL_ORGN_NM
 			  FROM TB_CLTVTN_HSTRY CH
 			 WHERE CH.DEL_YN = 'N'
 			   AND CH.APC_CD = #{apcCd}
@@ -334,8 +335,10 @@
 			 WHERE APC_CD 					= #{apcCd}
 			   AND PRDCR_CD                 = #{prdcrCd}
 			   AND PRDCR_LAND_INFO_NO       = #{prdcrLandInfoNo}
-			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
 		]]>
+		<if test='cltvtnHstryNo != null and cltvtnHstryNo != ""'>
+			   AND CLTVTN_HSTRY_NO          = #{cltvtnHstryNo}
+		</if>
 	</update>
 
     <!-- ==============================================================================	-->
@@ -376,9 +379,15 @@
 					     , CQ.PLNTNG_STTS_CD    AS PLNTNG_STTS_CD
 					     , CQ.CMPT_YMD_CYCL_1   AS CMPT_YMD_CYCL_1
 					     , CQ.CMPT_YMD_CYCL_2   AS CMPT_YMD_CYCL_2
-					     , CQ.EXPCT_NET         AS EXPCT_NET
+					     , CQ.EXPCT_NET 		AS EXPCT_NET
 					     , CQ.QLT_EVL           AS QLT_EVL
-					     , CQ.LAST_YR_EVL       AS LAST_YR_EVL
+					     , CQ.TY_EVL            AS TY_EVL
+                         , (SELECT MAX(TY_EVL)
+                             FROM TB_CLTVTN_FRMHS_QLT X
+                            WHERE X.APC_CD = CQ.APC_CD
+                              AND X.PRDCR_CD = CQ.PRDCR_CD
+                              AND X.YR = (#{yr} - 1)
+                           ) AS LAST_YR_EVL
 					     , CQ.FLCTN_DFRNC       AS FLCTN_DFRNC
 					     , CQ.EMPT_SORT         AS EMPT_SORT
 					     , CQ.MESH_SE_CD        AS MESH_SE_CD
@@ -409,6 +418,7 @@
 					   AND CQ.PRDCR_CD = PI.PRDCR_CD
 					   AND PI.DEL_YN = 'N'
 					   AND CQ.DEL_YN = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 			<if test='apcCd != null and apcCd != ""'>
     				   AND PI.APC_CD = #{apcCd}
@@ -448,6 +458,7 @@
 					     , ''   AS CMPT_YMD_CYCL_2
 					     , ''   AS EXPCT_NET
 					     , ''   AS QLT_EVL
+					     , ''   AS TY_EVL
 					     , ''   AS LAST_YR_EVL
 					     , ''   AS FLCTN_DFRNC
 					     , ''   AS EMPT_SORT
@@ -479,6 +490,7 @@
 					   AND CQ.PRDCR_CD(+) = PI.PRDCR_CD
 					   AND PI.DEL_YN = 'N'
 					   AND CQ.DEL_YN(+) = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 			<if test='apcCd != null and apcCd != ""'>
     				   AND PI.APC_CD = #{apcCd}
@@ -543,7 +555,7 @@
 				 , CMPT_YMD_CYCL_2
 				 , EXPCT_NET
 				 , QLT_EVL
-				 , LAST_YR_EVL
+				 , TY_EVL
 				 , FLCTN_DFRNC
 				 , EMPT_SORT
 				 , MESH_SE_CD
@@ -594,7 +606,7 @@
 				 , #{cmptYmdCycl2}
 				 , #{expctNet}
 				 , #{qltEvl}
-				 , #{lastYrEvl}
+				 , #{tyEvl}
 				 , #{flctnDfrnc}
 				 , #{emptSort}
 				 , #{meshSeCd}
@@ -655,9 +667,9 @@
 				 , PLNTNG_STTS_CD           = #{plntngSttsCd}
 				 , CMPT_YMD_CYCL_1          = #{cmptYmdCycl1}
 				 , CMPT_YMD_CYCL_2          = #{cmptYmdCycl2}
-				 , EXPCT_NET                = #{expctNet}
+				 , EXPCT_NET				= #{expctNet}
 				 , QLT_EVL                  = #{qltEvl}
-				 , LAST_YR_EVL              = #{lastYrEvl}
+				 , TY_EVL              		= #{tyEvl}
 				 , FLCTN_DFRNC              = #{flctnDfrnc}
 				 , EMPT_SORT                = #{emptSort}
 				 , MESH_SE_CD               = #{meshSeCd}
@@ -741,11 +753,17 @@
                        AND X.DEL_YN = 'N'
                        AND X.YR = #{yr}
                    ) AS PLNTNG_PRCL
+			     , (SELECT EXPCT_NET
+                      FROM TB_CLTVTN_FRMHS_QLT X
+                     WHERE X.APC_CD = pt0.APC_CD
+                       AND X.PRDCR_CD = pt0.PRDCR_CD
+                       AND X.DEL_YN = 'N'
+                       AND X.YR = #{yr}
+                   ) AS EXPCT_NET
 			     , pt0.FRMHS_EXPCT_WRHS_NO          AS FRMHS_EXPCT_WRHS_NO
 			     , MAX(pt0.HDOFC_EXTRNL_SE_CD)      AS HDOFC_EXTRNL_SE_CD
 			     , MAX(pt0.EXTRNL_WAREHOUSE_CD)     AS EXTRNL_WAREHOUSE_CD
 			     , MAX(pt0.HRVST_YMD)               AS HRVST_YMD
-			     , MAX(pt0.EXPCT_NET)               AS EXPCT_NET
 			     , MAX(pt0.LAST_STRG_SE_CD)         AS LAST_STRG_SE_CD
 			     , MAX(pt0.PIC)                     AS PIC
 			     , MAX(pt0.EXPCT_VLM_VRSS)          AS EXPCT_VLM_VRSS
@@ -799,7 +817,6 @@
 					     , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
 					     , FW.EXTRNL_WAREHOUSE_CD       AS EXTRNL_WAREHOUSE_CD
 					     , FW.HRVST_YMD                 AS HRVST_YMD
-					     , FW.EXPCT_NET                 AS EXPCT_NET
 					     , FW.LAST_STRG_SE_CD           AS LAST_STRG_SE_CD
 					     , FW.PIC                       AS PIC
 					     , FW.EXPCT_VLM_VRSS            AS EXPCT_VLM_VRSS
@@ -851,6 +868,7 @@
 					   AND PI.DEL_YN = 'N'
 					   AND FW.DEL_YN = 'N'
 					   AND FWD.DEL_YN = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 					   AND PI.APC_CD = #{apcCd}
@@ -878,7 +896,6 @@
 					     , '' AS HDOFC_EXTRNL_SE_CD
 					     , '' AS EXTRNL_WAREHOUSE_CD
 					     , '' AS HRVST_YMD
-					     , '' AS EXPCT_NET
 					     , '' AS LAST_STRG_SE_CD
 					     , '' AS PIC
 					     , '' AS EXPCT_VLM_VRSS
@@ -930,6 +947,7 @@
 					   AND PI.DEL_YN = 'N'
 					   AND FW.DEL_YN(+) = 'N'
 					   AND FWD.DEL_YN(+) = 'N'
+					   AND PI.AGRC_YN = 'Y'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 					   AND PI.APC_CD = #{apcCd}

@@ -383,6 +383,12 @@
 	var jsonGrdExtrnlWarehouseSe	= [];
 	var jsonGrdLastStrgSe			= [];
 	var jsonGrdPrchsCmptnYn			= [];
+	var jsonComYn 					= [];
+	var jsonQltEvl					= [
+		{value:"A", text:"A", label:"A"},
+		{value:"B", text:"B", label:"B"},
+		{value:"C", text:"C", label:"C"},
+	];
 	var choicePrdcrLandInfoNo = "";
 
 	/**
@@ -414,6 +420,7 @@
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdExtrnlWarehouseSe, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 외부창고코드
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdLastStrgSe, 			'LAST_STRG_SE_CD'),		// 최종저장구분
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdPrchsCmptnYn, 		'CLCTM_YN'),			// 수매완료여부
+			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonComYn, 					'GBN_YN'),				// YN
     	])
 
     	grdFrmhsExpctWrhs.refresh({"combo":true})
@@ -458,28 +465,28 @@
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
-		    {caption : ['품종(캔)', 	"뉴마르스"], 	ref: 'sdQntt1', 	type: 'input', 	width: '100px', style:'text-align: right',
+		    {caption : ['품종(캔)', 	"뉴마르스"], 	ref: 'sdQntt1', 	type: 'input', 	width: '100px', style:'text-align: right; background:#FFF8DC;',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', 	"카타마루"], 	ref: 'sdQntt2', 	type: 'input', 	width: '100px', style:'text-align: right',
+		    {caption : ['품종(캔)', 	"카타마루"], 	ref: 'sdQntt2', 	type: 'input', 	width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', 	"홈스타"], 		ref: 'sdQntt3', 	type: 'input', 	width: '100px', style:'text-align: right',
+		    {caption : ['품종(캔)', 	"홈스타"], 		ref: 'sdQntt3', 	type: 'input', 	width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', 	"페가수스"], 	ref: 'sdQntt4', 	type: 'input', 	width: '100px', style:'text-align: right',
+		    {caption : ['품종(캔)', 	"페가수스"], 	ref: 'sdQntt4', 	type: 'input', 	width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', 	"찬스볼"], 		ref: 'sdQntt5', 	type: 'input', 	width: '100px', style:'text-align: right',
+		    {caption : ['품종(캔)', 	"찬스볼"], 		ref: 'sdQntt5', 	type: 'input', 	width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['밑비료', 		"밑비료"], 		ref: 'cmpt', 		type: 'input', 	width: '100px', style: 'text-align:center'},
-		    {caption : ['파종일자', 	"파종일자"], 	ref: 'sdngYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center',
+		    {caption : ['밑비료', 		"밑비료"], 		ref: 'cmpt', 		type: 'input', 	width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+		    {caption : ['파종일자', 	"파종일자"], 	ref: 'sdngYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 		    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-		    {caption : ['정식일자', 	"정식일자"], 	ref: 'clclnYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center',
+		    {caption : ['정식일자', 	"정식일자"], 	ref: 'clclnYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-		    {caption : ['추비일자', 	"1차"], 		ref: 'cmptYmdCycl1', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
+		    {caption : ['추비일자', 	"1차"], 		ref: 'cmptYmdCycl1', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-		    {caption : ['추비일자', 	"2차"], 		ref: 'cmptYmdCycl2', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
+		    {caption : ['추비일자', 	"2차"], 		ref: 'cmptYmdCycl2', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-		    {caption : ['저장결과<br>(부패율)', "저장결과<br>(부패율)"], 	ref: 'strgRslt', 	type: 'input', 	width: '80px', style:'text-align: right',
+		    {caption : ['저장결과<br>(부패율)', "저장결과<br>(부패율)"], 	ref: 'strgRslt', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
 	            typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
-        	{caption : ['비고', '비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:left'},
+        	{caption : ['비고', '비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:left; background:#FFF8DC;'},
 	    ];
 	    grdCltvtnFrmhsQltPrdcr = _SBGrid.create(SBGridProperties);
 	}
@@ -505,10 +512,10 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procPrdcrLandInfo(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	    	{caption : ['위치'], 	ref: 'frlnAddr', 	type: 'input', 	width: '360px', style: 'text-align:left', typeinfo : {maxlength : 70}},
-	    	{caption : ['법정동'], 	ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {maxlength : 10}},
-	    	{caption : ['본번'], 	ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3}},
-	    	{caption : ['부번'], 	ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3}},
+	    	{caption : ['위치'], 	ref: 'frlnAddr', 	type: 'input', 	width: '360px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70}},
+	    	{caption : ['법정동'], 	ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 10}},
+	    	{caption : ['본번'], 	ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 3}},
+	    	{caption : ['부번'], 	ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', typeinfo : {maxlength : 3}},
         	{caption : ['지도'], 	ref: 'map', 		type: 'button', 	width: '60px', style: 'text-align:center',
         		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
 	    	{caption : ["이력"], 	ref: 'prdcrLandInfoNo',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -544,7 +551,7 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRowHstry(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-        	{caption : ['내용'], 	ref: 'cn', 			type: 'input', 		width: '300px', style: 'text-align:left', typeinfo : {maxlength : 300}},
+        	{caption : ['내용'], 	ref: 'cn', 			type: 'input', 		width: '300px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 300}},
         	{caption : ['사진'], 	ref: 'atchflNo',	type: 'button', 	width: '60px', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if (strValue== null || strValue == "") {
 			        return "";
@@ -568,9 +575,9 @@
         		}
 
         	}},
-        	{caption : ['사진명'], 		ref: 'fileName', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
+        	{caption : ['사진명'], 		ref: 'atchflOrgnNm', 	type: 'input', width: '100px', style: 'text-align:left'},
         	{caption : ['쓰기여부'], 	ref: 'inputFlag', 	type: 'input', hidden : true, 	width: '100px', style: 'text-align:left'},
-        	{caption : ['비고'], 		ref: 'rmrk', 		type: 'input', 		width: '200px', style: 'text-align:left', typeinfo : {maxlength : 300}},
+        	{caption : ['비고'], 		ref: 'rmrk', 		type: 'input', 		width: '200px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 300}},
 	    ];
 	    grdCltvtnHstry = _SBGrid.create(SBGridProperties);
 	}
@@ -588,6 +595,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties.frozencols = 4;
 	    SBGridProperties.contextmenu = true;					// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuListFrmhsQlt;	// 우클릭 메뉴 리스트
 	    SBGridProperties.columns = [
@@ -597,67 +605,74 @@
 		    {caption : ['상세주소', '상세주소'], 	ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:rigth'},
 		    {caption : ['연락처', 	'연락처'], 		ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
 		    	format : {type:'string', rule:'000-0000-0000'}},
-		    {caption : ['품종(캔)', '뉴마르스'], 	ref: 'sdQntt1', 	type: 'input', 		width: '80px', 	style:'text-align: right',
+		    {caption : ['품종(캔)', '뉴마르스'], 	ref: 'sdQntt1', 	type: 'input', 		width: '80px', 	style:'text-align: right; background:#FFF8DC;',
             	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', '카타마루'], 	ref: 'sdQntt2', 	type: 'input', 		width: '80px',  style:'text-align: right',
+		    {caption : ['품종(캔)', '카타마루'], 	ref: 'sdQntt2', 	type: 'input', 		width: '80px',  style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', '홈스타'], 		ref: 'sdQntt3', 	type: 'input', 		width: '80px',  style:'text-align: right',
+		    {caption : ['품종(캔)', '홈스타'], 		ref: 'sdQntt3', 	type: 'input', 		width: '80px',  style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', '페가수스'], 	ref: 'sdQntt4', 	type: 'input', 		width: '80px',  style:'text-align: right',
+		    {caption : ['품종(캔)', '페가수스'], 	ref: 'sdQntt4', 	type: 'input', 		width: '80px',  style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['품종(캔)', '찬스볼'], 		ref: 'sdQntt5', 	type: 'input', 		width: '80px',  style:'text-align: right',
+		    {caption : ['품종(캔)', '찬스볼'], 		ref: 'sdQntt5', 	type: 'input', 		width: '80px',  style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['필지(평)', '계약'], 		ref: 'ctrtPrcl', 	type: 'input', 		width: '100px', style:'text-align: right',
+		    {caption : ['필지(평)', '계약'], 		ref: 'ctrtPrcl', 	type: 'input', 		width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['필지(평)', '정식'], 		ref: 'plntngPrcl', 	type: 'input', 		width: '100px', style:'text-align: right',
+		    {caption : ['필지(평)', '정식'], 		ref: 'plntngPrcl', 	type: 'input', 		width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['수매', '양(망)'], 			ref: 'prchsQntt', 	type: 'input', 		width: '100px', style:'text-align: right',
+		    {caption : ['수매', '양(망)'], 			ref: 'prchsQntt', 	type: 'input', 		width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['수매', '금액'], 			ref: 'prchsAmt', 	type: 'input', 		width: '100px', style:'text-align: right',
+		    {caption : ['수매', '금액'], 			ref: 'prchsAmt', 	type: 'input', 		width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['파종', 	'일자'], 		ref: 'sdngYmd', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
+		    {caption : ['파종', 	'일자'], 		ref: 'sdngYmd', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 		    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-		    {caption : ['파종', 	'상태'], 		ref: 'sdngSttsCd', 	type: 'combo', 	width: '100px', style: 'text-align:center', sortable: false,
+		    {caption : ['파종', 	'상태'], 		ref: 'sdngSttsCd', 	type: 'combo', 	width: '100px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 				typeinfo: {ref:'jsonGrdSdngStts', 	label:'label', value:'value', itemcount: 10}},
-		    {caption : ['정식', 	'일자'], 		ref: 'plntngYmd', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
+		    {caption : ['정식', 	'일자'], 		ref: 'plntngYmd', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-			{caption : ['정식', 	'상태'], 		ref: 'plntngSttsCd', 	type: 'combo', 	width: '100px', style: 'text-align:center', sortable: false,
+			{caption : ['정식', 	'상태'], 		ref: 'plntngSttsCd', 	type: 'combo', 	width: '100px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 				typeinfo: {ref:'jsonGrdPlntngStts', label:'label', value:'value', itemcount: 10}},
-			{caption : ['추비일자', '1차'], 		ref: 'cmptYmdCycl1', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
+			{caption : ['추비일자', '1차'], 		ref: 'cmptYmdCycl1', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-		    {caption : ['추비일자', '2차'], 		ref: 'cmptYmdCycl2', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
+		    {caption : ['추비일자', '2차'], 		ref: 'cmptYmdCycl2', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-			{caption : ['예상망', 	'예상망'], 		ref: 'expctNet', 	type: 'input', 		width: '100px', style:'text-align: right',
+			{caption : ['예상망', 	'예상망'], 		ref: 'expctNet', 	type: 'output', 		width: '100px', style:'text-align: right',
 	            typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['품질평가', '품질평가'], 	ref: 'qltEvl', 		type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['작년<br>평균망', '작년<br>평균망'], ref: 'lastYrEvl', 	type: 'input', 	width: '100px', style:'text-align: right',
-            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption : ['저장결과<br>(부패율)', "저장결과<br>(부패율)"], 	ref: 'strgRslt', 	type: 'input', 	width: '80px', style:'text-align: right',
+			{caption : ['품질평가', '품질평가'], 	ref: 'qltEvl', 		type: 'combo', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
+				typeinfo: {ref:'jsonQltEvl', label:'label', value:'value', itemcount: 10}},
+			{caption : ['올해<br>평균망', '올해<br>평균망'], ref: 'tyEvl', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#.###'}},
+			{caption : ['작년<br>평균망', '작년<br>평균망'], ref: 'lastYrEvl', 	type: 'output', 	width: '80px', style:'text-align: right',
+            	typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#.###'}},
+            {caption : ['저장결과<br>(부패율)', "저장결과<br>(부패율)"], 	ref: 'strgRslt', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
     	        typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
-			{caption : ['변동갭', '변동갭'], 		ref: 'flctnDfrnc', 	type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['무선별', '무선별'], 		ref: 'emptSort', 	type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['망사구분', '망사구분'], 	ref: 'meshSeCd', 	type: 'combo', 	width: '100px', style: 'text-align:center', sortable: false,
+			{caption : ['변동갭', '변동갭'], 		ref: 'flctnDfrnc', 	type: 'input', 		width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+			{caption : ['무선별', '무선별'], 		ref: 'emptSort', 	type: 'input', 		width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+			{caption : ['망사구분', '망사구분'], 	ref: 'meshSeCd', 	type: 'combo', 	width: '100px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 				typeinfo: {ref:'jsonGrdMeshSe', 	label:'label', value:'value', itemcount: 10}},
-			{caption : ['저장구분 예상망', '단가 C'], 	ref: 'strm', 	type: 'input', 		width: '80px', style:'text-align: right',
+			{caption : ['저장구분 예상망', '단가 C'], 	ref: 'strm', 	type: 'input', 		width: '80px', style:'text-align: right; background:#FFF8DC;',
 				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['저장구분 예상망', '중기 B'], 	ref: 'tmidlTerm', 	type: 'input', 	width: '80px', style:'text-align: right',
+			{caption : ['저장구분 예상망', '중기 B'], 	ref: 'tmidlTerm', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
 	            typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['저장구분 예상망', '장기 A'], 	ref: 'ltrm', 	type: 'input', 		width: '80px', style:'text-align: right',
+			{caption : ['저장구분 예상망', '장기 A'], 	ref: 'ltrm', 	type: 'input', 		width: '80px', style:'text-align: right; background:#FFF8DC;',
 	            typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['저장구분 예상망', '차이'], 	ref: 'dfrnc', 	type: 'input', 		width: '80px', style:'text-align: right',
+			{caption : ['저장구분 예상망', '차이'], 	ref: 'dfrnc', 	type: 'input', 		width: '80px', style:'text-align: right; background:#FFF8DC;',
 	            typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['토양 및 퇴비', '토양'], 	ref: 'soil', 		type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['토양 및 퇴비', '퇴비'], 	ref: 'cmpt', 		type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['토양 및 퇴비', '기타'], 	ref: 'etc', 		type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['병충해', 	'노균병'], 		ref: 'pestYn1', 	type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['병충해', 	'균핵병'], 		ref: 'pestYn2', 	type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['병충해', 	'습해'], 		ref: 'pestYn3', 	type: 'input', 		width: '100px', style: 'text-align:center'},
-			{caption : ['담당자', 	'담당자'], 		ref: 'pic', 		type: 'input', 		width: '100px', style: 'text-align:center'},
-        	{caption : ['생육 특이사항', '생육 특이사항'], 	ref: 'grdpExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:left'},
-        	{caption : ['저장 특이사항', '저장 특이사항'], 	ref: 'strgExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:left'},
-        	{caption : ['비고', '비고'], 	ref: 'rmrk', 	type: 'input', 	width: '200px', style: 'text-align:left', typeinfo : {maxlength : 300}},
+			{caption : ['토양 및 퇴비', '토양'], 	ref: 'soil', 		type: 'input', 		width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+			{caption : ['토양 및 퇴비', '퇴비'], 	ref: 'cmpt', 		type: 'input', 		width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+			{caption : ['토양 및 퇴비', '기타'], 	ref: 'etc', 		type: 'input', 		width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+			{caption : ['병충해', 	'노균병'], 		ref: 'pestYn1', 	type: 'combo', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
+				typeinfo: {ref:'jsonComYn', label:'label', value:'value', itemcount: 10}},
+			{caption : ['병충해', 	'균핵병'], 		ref: 'pestYn2', 	type: 'combo', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
+				typeinfo: {ref:'jsonComYn', label:'label', value:'value', itemcount: 10}},
+			{caption : ['병충해', 	'습해'], 		ref: 'pestYn3', 	type: 'combo', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
+				typeinfo: {ref:'jsonComYn', label:'label', value:'value', itemcount: 10}},
+			{caption : ['담당자', 	'담당자'], 		ref: 'pic', 		type: 'input', 		width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+        	{caption : ['생육 특이사항', '생육 특이사항'], 	ref: 'grdpExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:left; background:#FFF8DC;'},
+        	{caption : ['저장 특이사항', '저장 특이사항'], 	ref: 'strgExcptnMttr', 	type: 'input', 	width: '200px', style: 'text-align:left; background:#FFF8DC;'},
+        	{caption : ['비고', '비고'], 	ref: 'rmrk', 	type: 'input', 	width: '200px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 300}},
 	    ];
 	    grdCltvtnFrmhsQlt = _SBGrid.create(SBGridProperties);
+	    grdCltvtnFrmhsQlt.bind('valuechanged', 'fn_setExpctNet');
 	}
 
 	const fn_frmhsExpctWrhs = function () {
@@ -674,6 +689,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties.frozencols = 4;
 		SBGridProperties.contextmenu = true;						// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuListExpctWrhs;	// 우클릭 메뉴 리스트
 
@@ -683,18 +699,18 @@
 		    {caption : ['상세주소'], 		ref: 'frmhsAddr', 	type: 'output', 	width: '300px', style: 'text-align:rigth'},
 		    {caption : ['연락처'], 			ref: 'frmhsTelno', 	type: 'output', 	width: '100px', style: 'text-align:center',
 		    	format : {type:'string', rule:'000-0000-0000'}},
-		    {caption : ['본사/외부구분'], 	ref: 'hdofcExtrnlSeCd', 	type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
+		    {caption : ['본사/외부구분'], 	ref: 'hdofcExtrnlSeCd', 	type: 'combo', 	width: '120px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 				typeinfo: {ref:'jsonGrdHdofcExtrnlSe', 	label:'label', value:'value', itemcount: 10}},
-		    {caption : ['외부창고명'], 		ref: 'extrnlWarehouseSeCd', type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
+		    {caption : ['외부창고명'], 		ref: 'extrnlWarehouseSeCd', type: 'combo', 	width: '120px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 				typeinfo: {ref:'jsonGrdExtrnlWarehouseSe', 	label:'label', value:'value', itemcount: 10}},
-			{caption : ['수확일자'], 		ref: 'hrvstYmd', 	type : 'input', 	width: '100px', style:'text-align:center'},
+			{caption : ['수확일자'], 		ref: 'hrvstYmd', 	type : 'input', 	width: '100px', style:'text-align:center; background:#FFF8DC;'},
 			{caption : ['정식면적(평)'], 	ref: 'plntngPrcl', 	type: 'output', 	width: '80px', style:'text-align: right',
 				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['예상량(망)'], 		ref: 'expctNet', 	type: 'input', 		width: '80px', style:'text-align: right',
+			{caption : ['예상량(망)'], 		ref: 'expctNet', 	type: 'output', 		width: '80px', style:'text-align: right',
 				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['일자합계'], 		ref: 'tot', 		type: 'output', 	width: '80px', style:'text-align: right',
+			{caption : ['일자합계'], 		ref: 'tot', 		type: 'output', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
 				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-			{caption : ['기준연월'], 		ref: 'crtrYm', 	type : 'datepicker', 	width: '100px', style:'text-align:center',
+			{caption : ['기준연월'], 		ref: 'crtrYm', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {calendartype: 'yearmonth', gotoCurrentClick: true, clearbutton: true}},
 	    ];
 	    for (var i=1; i<=31; i++) {
@@ -702,7 +718,7 @@
 	    	let caption = i+"";
 	    	let ref = "ymd"+i+"Qntt";
 			columns.push(
-					{caption : [caption], 		ref: ref, 		type: 'input', 		width: '40px', style:'text-align: right',
+					{caption : [caption], 		ref: ref, 		type: 'input', 		width: '40px', style:'text-align: right; background:#FFF8DC;',
 						typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, callback : function (strValue) {
 							if (strValue== null || strValue == "" || strValue == 0){
 				        		return "";
@@ -715,14 +731,14 @@
 	    }
 
 	    columns.push(
-	    		{caption : ['최종저장구분'], 	ref: 'lastStrgSeCd', type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
+	    		{caption : ['최종저장구분'], 	ref: 'lastStrgSeCd', type: 'combo', 	width: '120px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 					typeinfo: {ref:'jsonGrdLastStrgSe', 	label:'label', value:'value', itemcount: 10}},
-				{caption : ['담당자'], 			ref: 'pic', type: 'input', 	width: '100px', style: 'text-align:center'},
-				{caption : ['예상량대비'], 	ref: 'expctVlmVrss', 	type: 'input', 	width: '80px', style:'text-align: right',
+				{caption : ['담당자'], 			ref: 'pic', type: 'input', 	width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+				{caption : ['예상량대비'], 	ref: 'expctVlmVrss', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-				{caption : ['수매완료여부'], 	ref: 'prchsCmptnYn', type: 'combo', 	width: '120px', style: 'text-align:center', sortable: false,
+				{caption : ['수매완료여부'], 	ref: 'prchsCmptnYn', type: 'combo', 	width: '120px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 					typeinfo: {ref:'jsonGrdPrchsCmptnYn', 	label:'label', value:'value', itemcount: 10}},
-				{caption : ['비고'], 			ref: 'rmrk', type: 'input', 	width: '300px', style: 'text-align:left'},
+				{caption : ['비고'], 			ref: 'rmrk', type: 'input', 	width: '300px', style: 'text-align:left; background:#FFF8DC;'},
 	    		)
 
 	    SBGridProperties.columns = columns;
@@ -789,7 +805,28 @@
 		if(mapCol === col){
 			frmidMapPopup(item);
 		}
+	}
 
+	/**
+     * @name fn_setExpctNet
+     * @description 재배농가품질 예상망 계산
+     */
+	const fn_setExpctNet = function() {
+
+		let nRow = grdCltvtnFrmhsQlt.getRow();
+		let nCol = grdCltvtnFrmhsQlt.getCol();
+		let tyEvlCol = grdCltvtnFrmhsQlt.getColRef("tyEvl")
+		let plntngPrclCol = grdCltvtnFrmhsQlt.getColRef("plntngPrcl")
+		// tyEvl plntngPrcl
+		if (nCol == tyEvlCol || nCol == plntngPrclCol) {
+			let expctNetCol = grdCltvtnFrmhsQlt.getColRef("expctNet")
+			let rowData = grdCltvtnFrmhsQlt.getRowData(nRow);
+			let tyEvl = parseFloat(rowData.tyEvl);
+			let plntngPrcl = parseInt(rowData.plntngPrcl);
+
+			let expctNet = Math.round(plntngPrcl * tyEvl * 1.2);
+			grdCltvtnFrmhsQlt.setCellData(nRow, expctNetCol, expctNet, true);
+		}
 	}
 
 	/**
@@ -867,9 +904,9 @@
 		        	// 하이픈 뒤의 부분을 가져오고, 숫자를 추출합니다
 		        	const lastNumber = parseInt(fileId.substring(lastHyphenIndex + 1));
 
-		        	let fileNameCol = grdCltvtnHstry.getColRef("fileName");
+		        	let atchflOrgnNmCol = grdCltvtnHstry.getColRef("atchflOrgnNm");
 
-		        	grdCltvtnHstry.setCellData(lastNumber, fileNameCol, file.name, true);
+		        	grdCltvtnHstry.setCellData(lastNumber, atchflOrgnNmCol, file.name, true);
 		        	grdCltvtnHstry.setRowStatus(lastNumber, "update", true);
 		        }
 
@@ -1216,6 +1253,7 @@
 	        		  , delYn			: item.delYn
 	        		  , atchflNo		: item.atchflNo
 	        		  , filePath		: item.filePath
+	        		  , atchflOrgnNm	: item.atchflOrgnNm
 	        	}
 
 	        	if (!gfn_isEmpty(item.cltvtnHstryNo)) {
@@ -1362,6 +1400,7 @@
  	        	  , cmptYmdCycl2        : item.cmptYmdCycl2
  	        	  , expctNet            : item.expctNet
  	        	  , qltEvl              : item.qltEvl
+ 	        	  , tyEvl           	: fn_zero(item.tyEvl)
  	        	  , lastYrEvl           : fn_zero(item.lastYrEvl)
  	        	  , flctnDfrnc          : fn_zero(item.flctnDfrnc)
  	        	  , emptSort            : item.emptSort
@@ -1589,7 +1628,7 @@
     			grdPrdcrLandInfo.deleteRow(nRow);
     		} else {
     			if (gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
-        			//fn_del(rowData, nRow);
+        			fn_deletePrdcrLandInfo(rowData, nRow)
         		}
     		}
     	}
@@ -1798,7 +1837,7 @@
 			let rowData = grdCltvtnHstry.getRowData(i);
 
 			let rowSts = grdCltvtnHstry.getRowStatus(i);
-			let fileName = rowData.fileName;
+			let atchflOrgnNm = rowData.atchflOrgnNm;
 			let cltvtnHstryNo = rowData.cltvtnHstryNo;
 			let delYn = rowData.delYn;
 
@@ -1812,7 +1851,7 @@
 						rowData.prdcrCd = prdcrCd;
 						rowData.prdcrLandInfoNo = choicePrdcrLandInfoNo;
 
-						if (!gfn_isEmpty(fileName)) {
+						if (!gfn_isEmpty(atchflOrgnNm)) {
 							let fileId = 'inp-file-' + (i);
 					    	let fileInput = document.getElementById(fileId);
 							let file = fileInput.files[0];
@@ -1836,7 +1875,7 @@
 					if (rowSts === 2) {
 						rowData.rowSts = "U";
 
-						if (!gfn_isEmpty(fileName)) {
+						if (!gfn_isEmpty(atchflOrgnNm)) {
 							let fileId = 'inp-file-' + (i);
 					    	let fileInput = document.getElementById(fileId);
 							let file = fileInput.files[0];
@@ -1969,6 +2008,26 @@
 	    		console.error("failed", e.message);
 	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 			}
+		}
+	}
+
+	const fn_deletePrdcrLandInfo = async function(deleteVO, nRow) {
+
+		const postJsonPromise = gfn_postJSON("/am/wrhs/deletePrdcrLandInfo.do", deleteVO);
+    	const data = await postJsonPromise;
+
+    	try{
+    		if (_.isEqual("S", data.resultStatus)) {
+    			grdPrdcrLandInfo.deleteRow(nRow);
+        	} else {
+	    		gfn_comAlert(data.resultCode, data.resultMessage);
+	    	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -2178,6 +2237,7 @@
 		}
 		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
     	SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+
     }
 
 	/**
@@ -2191,6 +2251,7 @@
 
 		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
 		fn_setPrdcrForm(prdcr);
+		fn_setPrdcrFormDtl(prdcr);
 	}
 
  	/**
@@ -2333,7 +2394,8 @@
 	const fn_setPrdcrFormDtl = async function(prdcrDtl) {
 
 		if (!gfn_isEmpty(prdcrDtl)) {
-
+			SBUxMethod.set("dtl-inp-prdcrNm", prdcrDtl.prdcrNm);
+			SBUxMethod.set("dtl-inp-prdcrCd", prdcrDtl.prdcrCd);
 			SBUxMethod.set("dtl-inp-frmhsTelno", prdcrDtl.frmhsTelno);
 			SBUxMethod.set("dtl-inp-prdcrLinkCd", prdcrDtl.prdcrLinkCd);
 			SBUxMethod.set("dtl-inp-frmhsCtpv", prdcrDtl.frmhsCtpv);

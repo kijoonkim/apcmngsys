@@ -71,7 +71,9 @@
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
+							<!--
 							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectOgItmPrfList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							-->
 						</td>
 						<td></td>
 					</tr>
@@ -159,7 +161,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -181,10 +183,6 @@
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
-
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){

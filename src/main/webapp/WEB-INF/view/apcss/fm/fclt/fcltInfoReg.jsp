@@ -15,7 +15,7 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 시설 장비 인력 현황 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -71,7 +72,9 @@
 								></sbux-spinner>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
+								<!--
 								<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectFcltInfoList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								-->
 							</td>
 							<td></td>
 						</tr>
@@ -81,11 +84,8 @@
 			<br>
 			<!-- 진척도 추가 -->
 			<%@ include file="prgrs/apcPrgrs.jsp" %>
-
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-spmtDsctn" style="height:0px;"></div>
-			</div>
 			<br>
+			<p>* 복수동으로 분리된 경우 합산하여 기재</p>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>시설현황</caption>
 				<colgroup>
@@ -427,7 +427,7 @@
 					</tr>
 				</tbody>
 			</table>
-			 <p>* 복수동으로 분리된 경우 합산하여 기재</p>
+
 			</div>
 			</div>
 
@@ -439,7 +439,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -463,7 +463,7 @@
 		SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
-		//fn_init();
+		fn_init();
 	});
 
 	/* 초기화면 로딩 기능*/
@@ -481,6 +481,12 @@
 		}
 	}
 
+	const fn_search = async function() {
+		fn_clearForm();
+
+		fn_selectFcltInfoList();
+	}
+
 	/**
      * @param {number} pageSize
      * @param {number} pageNo
@@ -490,10 +496,6 @@
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-input-crtrYr");
-
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
@@ -546,16 +548,39 @@
 		}
 	}
 
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set('dtl-inp-cspTotArea',null);
+		SBUxMethod.set('dtl-inp-cspTotRmrk',null);
+		SBUxMethod.set('dtl-inp-cspCfppArea',null);
+		SBUxMethod.set('dtl-inp-cspCfppRmrk',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsArea',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsRmrk',null);
+		SBUxMethod.set('dtl-inp-cspDtpArea',null);
+		SBUxMethod.set('dtl-inp-cspDtpRmrk',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltArea',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcRmrk',null);
+		fn_sumAll();//자동계산 부분 처리
+	}
+
 	//등록
 	const fn_save = async function() {
 		//console.log("******************fn_save**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
-
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
 
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
@@ -575,28 +600,29 @@
 			}
 		});
 		*/
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 
 
-
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
-
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
 			crtrYr: crtrYr
 			, apcCd: apcCd
 			, prgrsYn : 'Y' //진척도 갱신 여부
+			, tmprStrgYn : tmpChk//임시저장 여부
 			, cspTotArea: SBUxMethod.get('dtl-inp-cspTotArea')
 			, cspTotRmrk: SBUxMethod.get('dtl-inp-cspTotRmrk')
 			, cspCfppArea: SBUxMethod.get('dtl-inp-cspCfppArea')
@@ -711,11 +737,15 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
+		fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
+		await fn_search();
 	}
 
 </script>

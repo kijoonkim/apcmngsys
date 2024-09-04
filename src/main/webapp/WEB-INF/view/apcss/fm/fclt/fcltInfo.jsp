@@ -36,8 +36,8 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 시설 장비 인력 현황 -->
@@ -125,7 +125,32 @@
 								autocomplete="off"
 							></sbux-input>
 						</td>
-						<td colspan="12" style="border-right: hidden;">&nbsp;</td>
+						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
+						<th scope="row" class="th_bg">품목명</th>
+						<td colspan="3" class="td_input" style="border-right:hidden;">
+							<sbux-input
+								uitype="text"
+								id="srch-inp-itemNm"
+								name="srch-inp-itemNm"
+								class="form-control input-sm srch-keyup-area"
+								autocomplete="off"
+							></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+						</td>
+						<th scope="row" class="th_bg">부류</th>
+						<td colspan="2" class="td_input" style="border-right: hidden;">
+							<sbux-select
+								id="srch-inp-srchLclsfCd"
+								name="srch-inp-srchLclsfCd"
+								uitype="single"
+								jsondata-ref="jsonComSrchLclsfCd"
+								unselected-text="전체"
+								class="form-control input-sm"
+							></sbux-select>
+						</td>
+						<td colspan="" class="td_input" style="border-right: hidden;">
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -143,7 +168,9 @@
 				<div id="sb-area-grdFcltApcInfo" style="height:350px; width: 100%;"></div>
 			</div>
 		</div>
+
 		<div class="box-body">
+			<p>* 복수동으로 분리된 경우 합산하여 기재</p>
 			<sbux-input uitype="hidden" id="dtl-inp-apcCd" name="dtl-inp-apcCd"></sbux-input>
 			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
 			<table class="table table-bordered tbl_row tbl_fixed">
@@ -487,7 +514,11 @@
 					</tr>
 				</tbody>
 			</table>
-			 <p>* 복수동으로 분리된 경우 합산하여 기재</p>
+			<div class="" style="display:flex; justify-content: flex-start;" >
+				<div style="margin-left: auto;">
+					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				</div>
+			</div>
 			</div>
 			</div>
 
@@ -499,7 +530,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -614,6 +645,33 @@
 		}
 	}
 
+	//입력폼 초기화
+	const fn_clearForm = function() {
+		SBUxMethod.set('dtl-inp-cspTotArea',null);
+		SBUxMethod.set('dtl-inp-cspTotRmrk',null);
+		SBUxMethod.set('dtl-inp-cspCfppArea',null);
+		SBUxMethod.set('dtl-inp-cspCfppRmrk',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsArea',null);
+		SBUxMethod.set('dtl-inp-cspClnOprtngPrcsRmrk',null);
+		SBUxMethod.set('dtl-inp-cspDtpArea',null);
+		SBUxMethod.set('dtl-inp-cspDtpRmrk',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltArea',null);
+		SBUxMethod.set('dtl-inp-cspNgdsFcltRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcPrcPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcLwtpStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCaStrgPlcRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcCurnRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcGnrlStrgRmrk',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcArea',null);
+		SBUxMethod.set('dtl-inp-strgPlcEtcRmrk',null);
+		fn_sumAll();//자동계산 부분 처리
+	}
+
 	//등록
 	const fn_save = async function() {
 		//console.log("******************fn_save**********************************");
@@ -653,14 +711,10 @@
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
 
-		/*테스트*/
-		apcCd = '0122';
-		crtrYr = '2023';
-
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInfo.do", {
 			crtrYr: crtrYr
 			, apcCd: apcCd
-			, prgrsYn : 'Y' //진척도 갱신 여부
+			, prgrsYn : 'N' //진척도 갱신 여부
 			, cspTotArea: SBUxMethod.get('dtl-inp-cspTotArea')
 			, cspTotRmrk: SBUxMethod.get('dtl-inp-cspTotRmrk')
 			, cspCfppArea: SBUxMethod.get('dtl-inp-cspCfppArea')
@@ -868,7 +922,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -951,7 +1005,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {

@@ -29,13 +29,14 @@
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
+		<div class="box box-solid" style="height: 100vh">
+			<div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background-color: white; z-index: 99" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 통합관리시스템 활용현황 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -71,7 +72,9 @@
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
+							<!--
 							<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_selectUniMnIfList(1)" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+							-->
 						</td>
 						<td></td>
 					</tr>
@@ -84,8 +87,8 @@
 			<%@ include file="prgrs/apcPrgrs.jsp" %>
 			<br>
 
-			<div><label>통합관리시스템활용 상세내역</label></div>
-			<div><label style="font-size: x-small;">- 활용하신다면 어떤 작업단계까지 활용하고 계십니까? 해당하는 곳에 체크해 주십시오</label></div>
+			<div><label style="font-weight: bold;">통합관리시스템활용 상세내역</label></div>
+			<div><label>- 활용하신다면 어떤 작업단계까지 활용하고 계십니까? 해당하는 곳에 체크해 주십시오</label></div>
 
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed" style="width: 800px">
@@ -167,7 +170,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 
 </body>
@@ -198,7 +201,7 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
-		await fn_selectUniMnIfList();
+		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
 		//최종제출 여부
@@ -208,6 +211,10 @@
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
+	}
+
+	const fn_search = async function() {
+		fn_selectUniMnIfList();
 	}
 
 	const fn_selectUniMnIfList = async function(copy_chk) {
@@ -226,9 +233,9 @@
 			crtrYr: crtrYr,
 
 			// pagination
-			pagingYn : 'N',
-			currentPageNo : pageNo,
- 			recordCountPerPage : pageSize
+			//pagingYn : 'N',
+			//currentPageNo : pageNo,
+ 			//recordCountPerPage : pageSize
 		});
 
 		const data = await postJsonPromise;
@@ -269,11 +276,16 @@
 			return;
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
+	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
@@ -281,6 +293,7 @@
 			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
+			, tmprStrgYn : tmpChk//임시저장 여부
 
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()
@@ -313,11 +326,14 @@
 		popApcSelect.init(fn_setApc);
 	}
 	// apc 선택 팝업 콜백 함수
-	const fn_setApc = function(apc) {
+	const fn_setApc = async function(apc) {
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+		//진척도 갱신
+		await cfn_selectPrgrs();
+		await fn_search();
 	}
 
 </script>
