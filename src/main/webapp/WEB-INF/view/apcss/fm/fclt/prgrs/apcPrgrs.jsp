@@ -302,33 +302,42 @@
 
 			let data = await postJsonPromise;
 			try{
-				//console.log(data);
-				let resultVo = data.resultMap;
-				cfn_setPrgrs(resultVo.prgrs1,'1');
-				cfn_setPrgrs(resultVo.prgrs2,'2');
-				cfn_setPrgrs(resultVo.prgrs3,'3');
-				cfn_setPrgrs(resultVo.prgrs4,'4');
-				cfn_setPrgrs(resultVo.prgrs5,'5');
-				cfn_setPrgrs(resultVo.prgrs6,'6');
-				cfn_setPrgrs(resultVo.prgrs7,'7');
-				cfn_setPrgrs(resultVo.prgrs8,'8');
-				cfn_setPrgrs(resultVo.prgrs9,'9');
-				cfn_setPrgrs(resultVo.prgrs10,'10');
-				cfn_setPrgrs(resultVo.prgrs11,'11');
-				cfn_setPrgrs(resultVo.prgrs12,'12');
-				cfn_setPrgrs(resultVo.prgrs13,'13');
-				cfn_setPrgrs(resultVo.prgrs14,'14');
+				if(data.resultMap != null){
+					let resultVo = data.resultMap;
+					cfn_setPrgrs(resultVo.prgrs1,'1');
+					cfn_setPrgrs(resultVo.prgrs2,'2');
+					cfn_setPrgrs(resultVo.prgrs3,'3');
+					cfn_setPrgrs(resultVo.prgrs4,'4');
+					cfn_setPrgrs(resultVo.prgrs5,'5');
+					cfn_setPrgrs(resultVo.prgrs6,'6');
+					cfn_setPrgrs(resultVo.prgrs7,'7');
+					cfn_setPrgrs(resultVo.prgrs8,'8');
+					cfn_setPrgrs(resultVo.prgrs9,'9');
+					cfn_setPrgrs(resultVo.prgrs10,'10');
+					cfn_setPrgrs(resultVo.prgrs11,'11');
+					cfn_setPrgrs(resultVo.prgrs12,'12');
+					cfn_setPrgrs(resultVo.prgrs13,'13');
+					cfn_setPrgrs(resultVo.prgrs14,'14');
 
-				if(!gfn_isEmpty(resultVo.cnt)){
-					$('#prgrsCnt').text(resultVo.cnt);
-					SBUxMethod.set("dtl-inp-prgrsCnt", resultVo.cnt);
-					if(resultVo.cnt == '14' && resultVo.prgrsLast != 'Y'){
-						//최종 제출 활성화
-						SBUxMethod.attr('btnLastSave','disabled','false');
-					}else{
-						SBUxMethod.attr('btnLastSave','disabled','true');
+					if(!gfn_isEmpty(resultVo.cnt)){
+						$('#prgrsCnt').text(resultVo.cnt);
+						SBUxMethod.set("dtl-inp-prgrsCnt", resultVo.cnt);
+						if(resultVo.cnt == '14' && resultVo.prgrsLast != 'Y'){
+							//최종 제출 활성화
+							SBUxMethod.attr('btnLastSave','disabled','false');
+						}else{
+							SBUxMethod.attr('btnLastSave','disabled','true');
+						}
 					}
+				}else{
+					for (var i = 1; i < 15; i++) {
+						cfn_setPrgrs(null,i);
+					}
+					$('#prgrsCnt').text("0");
+					SBUxMethod.set("dtl-inp-prgrsCnt", 0);
+					SBUxMethod.attr('btnLastSave','disabled','true');
 				}
+
 			}catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
