@@ -254,7 +254,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fclt/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -454,6 +454,7 @@
 		}
 		//진척도 갱신
 		await cfn_selectPrgrs();
+		await fn_search();
 	}
 
 	//공통코드 DATA_MNG_TYPE 데이터 관리 타입 , DATA_MNG_TYPE_DTL 데이터 관리 타입 상세

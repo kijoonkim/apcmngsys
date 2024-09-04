@@ -418,7 +418,7 @@
 		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
-		<jsp:include page="/WEB-INF/view/apcss/fclt/fm/popup/apcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
 	</div>
 	<!-- 품목 선택 Modal -->
 	<div>
@@ -843,13 +843,14 @@
 	}
 	// apc 선택 팝업 콜백 함수
 	const fn_setApc = async function(apc) {
-		fn_clearForm();
+		await fn_clearForm();
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
 		//진척도 갱신
 		await cfn_selectPrgrs();
+		await fn_search();
 	}
 
 	// 품목 선택 팝업 호출

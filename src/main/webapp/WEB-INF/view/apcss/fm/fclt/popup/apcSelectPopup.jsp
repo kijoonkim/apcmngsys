@@ -15,6 +15,7 @@
 					</p>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnChoisApc" name="btnChoisApc" uitype="normal" text="선택" class="btn btn-sm btn-outline-danger" onclick="popApcSelect.choice"></sbux-button>
 					<sbux-button id="btnSearchApc" name="btnSearchApc" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="popApcSelect.search" onkeyup="enterKey();"></sbux-button>
 					<sbux-button id="btnEditApc" name="btnEditApc" uitype="normal" text="편집" class="btn btn-sm btn-outline-danger" onclick="popApcSelect.edit"></sbux-button>
 					<sbux-button id="btnCancelApc" name="btnCancelApc" uitype="normal" text="취소" class="btn btn-sm btn-outline-danger" onclick="popApcSelect.cancel"></sbux-button>
@@ -120,75 +121,78 @@
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
-		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
-		    SBGridProperties.id = this.gridId;			//'grdApcPop';					//'grdApcPop';
-		    SBGridProperties.jsonref = this.jsonId;		//'jsonApcPop';		//'jsonApcPop';
-		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
-		    SBGridProperties.extendlastcol = 'scroll';
-		    SBGridProperties.oneclickedit = true;
-		    SBGridProperties.allowcopy = true;
+			SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
+			SBGridProperties.id = this.gridId;			//'grdApcPop';					//'grdApcPop';
+			SBGridProperties.jsonref = this.jsonId;		//'jsonApcPop';		//'jsonApcPop';
+			SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			SBGridProperties.selectmode = 'byrow';
 			SBGridProperties.explorerbar = 'sortmove';
-		    SBGridProperties.scrollbubbling = false;
-		    SBGridProperties.paging = {
+			SBGridProperties.extendlastcol = 'scroll';
+			SBGridProperties.oneclickedit = true;
+			SBGridProperties.allowcopy = true;
+			SBGridProperties.explorerbar = 'sortmove';
+			SBGridProperties.scrollbubbling = false;
+			SBGridProperties.paging = {
 				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
-		    SBGridProperties.columns = [
-		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
-		        {caption: ['APC명'], ref: 'apcNm', width: '500px', type: 'input', style: 'text-align:center'},
-		    ];
+				'count' : 5,
+				'size' : 20,
+				'sorttype' : 'page',
+				'showgoalpageui' : true
+			};
+			SBGridProperties.columns = [
+				{caption: ['APC코드'], ref: 'apcCd', hidden : true},
+				{caption: ['APC명'], ref: 'apcNm', width: '500px', type: 'input', style: 'text-align:center'},
+			];
 
-		    grdApcPop = _SBGrid.create(SBGridProperties);
-		    grdApcPop.bind('beforepagechanged', this.paging);
-		    grdApcPop.bind('dblclick', popApcSelect.choice);	//'popApcChoice');
-		    //this.search();
+			grdApcPop = _SBGrid.create(SBGridProperties);
+			grdApcPop.bind('beforepagechanged', this.paging);
+			grdApcPop.bind('dblclick', popApcSelect.choice);	//'popApcChoice');
+			//this.search();
 		},
 		choice: function() {
 			let nRow = grdApcPop.getRow();
+			if(nRow < 0){
+				return;
+			}
 			let rowData = grdApcPop.getRowData(nRow);
 			popApcSelect.close(rowData);
 		},
 		search: async function(/** {boolean} */ isEditable) {
 			// set pagination
 			grdApcPop.rebuild();
-	    	let pageSize = grdApcPop.getPageSize();
-	    	let pageNo = 1;
+			let pageSize = grdApcPop.getPageSize();
+			let pageNo = 1;
 
-	    	// grid clear
-	    	jsonApcPop.length = 0;
-	    	grdApcPop.refresh();
-	    	//grdApcPop.clearStatus();
-	    	this.setGrid(pageSize, pageNo, isEditable);
+			// grid clear
+			jsonApcPop.length = 0;
+			grdApcPop.refresh();
+			//grdApcPop.clearStatus();
+			this.setGrid(pageSize, pageNo, isEditable);
 		},
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
-	    	//var apcCd = SBUxMethod.get("apc-inp-apcCd");
+			//var apcCd = SBUxMethod.get("apc-inp-apcCd");
 			var apcNm = nvlScnd(SBUxMethod.get("apc-inp-apcNm"),'');
 
 			console.log("setGrid 호출 / apcNm : " + apcNm + "/ 타입 : " + typeof(apcNm));
 
-	        const postJsonPromise = gfn_postJSON("/fm/popup/selectApcListPopup.do", {
+			const postJsonPromise = gfn_postJSON("/fm/popup/selectApcListPopup.do", {
 
-	        	apcNm : apcNm, //검색 파라미터
-	        	// pagination
-		  		pagingYn : 'Y',
+				apcNm : apcNm, //검색 파라미터
+				// pagination
+				pagingYn : 'Y',
 				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+				recordCountPerPage : pageSize
 			});
 
-	        const data = await postJsonPromise;
+			const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
-	    		let totalRecordCount = 0;
+				/** @type {number} **/
+				let totalRecordCount = 0;
 
-	    		jsonApcPop.length = 0;
-	        	data.resultList.forEach((item, index) => {
+				jsonApcPop.length = 0;
+				data.resultList.forEach((item, index) => {
 					const apc = {
 					    apcCd 		: item.apcCd,
 					    apcNm 	: item.apcNm
@@ -200,58 +204,58 @@
 					}
 				});
 
-	        	if (jsonApcPop.length > 0) {
-	        		if(grdApcPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdApcPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdApcPop.rebuild();
+				if (jsonApcPop.length > 0) {
+					if(grdApcPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+						grdApcPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+						grdApcPop.rebuild();
 					}else{
 						grdApcPop.refresh();
 					}
-	        	} else {
-	        		grdApcPop.setPageTotalCount(totalRecordCount);
-	        		grdApcPop.rebuild();
-	        	}
+				} else {
+					grdApcPop.setPageTotalCount(totalRecordCount);
+					grdApcPop.rebuild();
+				}
 
-	        	if (isEditable) {
-	        		grdApcPop.setCellDisabled(0, 0, grdApcPop.getRows() - 1, grdApcPop.getCols() - 1, false);
-	        		let nRow = grdApcPop.getRows();
+				if (isEditable) {
+					grdApcPop.setCellDisabled(0, 0, grdApcPop.getRows() - 1, grdApcPop.getCols() - 1, false);
+					let nRow = grdApcPop.getRows();
 					grdApcPop.addRow(true);
 					grdApcPop.setCellDisabled(nRow, 0, nRow, grdApcPop.getCols() - 1, true);
-	        	} else {
-	        		grdApcPop.setCellDisabled(0, 0, grdApcPop.getRows() - 1, grdApcPop.getCols() - 1, true);
-	        	}
+				} else {
+					grdApcPop.setCellDisabled(0, 0, grdApcPop.getRows() - 1, grdApcPop.getCols() - 1, true);
+				}
 
-	        	document.querySelector('#apc-pop-cnt').innerText = totalRecordCount;
+				document.querySelector('#apc-pop-cnt').innerText = totalRecordCount;
 
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdApcPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdApcPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		},
+		paging: function() {
+			let recordCountPerPage = grdApcPop.getPageSize();		// 몇개의 데이터를 가져올지 설정
+			let currentPageNo = grdApcPop.getSelectPageIndex();		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popApcSelect.setGrid(recordCountPerPage, currentPageNo);
-	    }
+			popApcSelect.setGrid(recordCountPerPage, currentPageNo);
+		}
 	}
 
-function fn_apcSelectEnterKey() {
+	function fn_apcSelectEnterKey() {
 		if(window.event.keyCode == 13) {
 			popApcSelect.search();
 		}
 	}
 
 	//null 체크
-function nvlScnd(str, defaultStr){
+	function nvlScnd(str, defaultStr){
 
-       if(typeof str == "undefined" || str == null || str == "" || str == "null")
-           str = defaultStr ;
+		if(typeof str == "undefined" || str == null || str == "" || str == "null")
+			str = defaultStr ;
 
-       return str ;
-   }
+		return str ;
+	}
 
 
 
