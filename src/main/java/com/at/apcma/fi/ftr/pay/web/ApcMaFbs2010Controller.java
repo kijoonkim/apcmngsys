@@ -230,36 +230,6 @@ public class ApcMaFbs2010Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/fi/ftr/pay/selectFbsName.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFbsName(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============selectFbsName=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            param.put("procedure", 		"P_FBSNAME_Q");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============selectFbsName=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
-        }
-    }
-
     @PostMapping(value = "/fi/ftr/pay/insertFbs2010List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertFbs2010List(
             @RequestBody Map<String, Object> param

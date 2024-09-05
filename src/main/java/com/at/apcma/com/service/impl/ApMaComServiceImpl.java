@@ -4,9 +4,12 @@ import com.at.apcma.com.mapper.ProcMapper;
 import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaComUtil;
 import com.at.apcma.com.service.ApcMaCommDirectService;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.vo.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -690,6 +688,132 @@ public class ApMaComServiceImpl implements ApcMaComService {
 		}
 
 		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> sendSalaryTransferDataForFtp(Map<String, Object> param) {
+		HashMap<String, Object> returnMap = new HashMap<String, Object>();
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		List<Map<String, Object>> dtFirmbanking = (List<Map<String, Object>>) param.get("params");
+
+		String strContent = "";
+		String upload_file_name = dtFirmbanking.get(0).get("FILE_NAME").toString();
+		int intStrLength = Integer.parseInt(dtFirmbanking.get(0).get("STR_LENGTH").toString());
+		String newfile_name = filePath_ma +"\\salary\\temp\\" + upload_file_name;
+		FileWriter objwriter = null;
+		boolean bSuccess = false;
+		int iTotalLength = 0;
+		int iCnt = 0;
+
+		try {
+			objwriter = new FileWriter(newfile_name, Charset.defaultCharset());
+
+			for (Map dr : dtFirmbanking) {
+				try {
+					char[] charArr = dr.get("SEND_DATA").toString().toCharArray();
+					int hCnt = 0;
+
+					for (char ch : charArr) {
+						if (Character.getType(ch) == Character.OTHER_LETTER) {
+							hCnt++;
+						}
+					}
+
+					String paddedString = StringUtils.rightPad(dr.get("SEND_DATA").toString(), intStrLength - 2 - hCnt) + "\r\n";
+					byte[] StrByte = paddedString.getBytes(Charset.defaultCharset());
+					char[] StrChar = new String(StrByte, Charset.defaultCharset()).toCharArray();
+
+					strContent += paddedString;
+					objwriter.write(StrChar, 0, StrChar.length);
+					bSuccess = true;
+
+					iTotalLength += StrChar.length;
+				} catch (Exception e) {
+					bSuccess = false;
+				}
+
+				iCnt++;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (objwriter != null) {
+				try {
+					objwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		if (bSuccess && iCnt > 2 && iTotalLength > 2) {
+			String strftpaddress = "ftp://" + loginVO.getMaFBSBIP() + "/";
+			String strPath = loginVO.getMaFBSSENDPATH();
+			String user = loginVO.getMaFBSBATCHID();
+			String pwd = loginVO.getMaFBSBATCHPW();
+
+			if (loginVO.getMaFBSSERVERTYPE().toString().equals("DEV")) {
+				strftpaddress = "ftp://" + loginVO.getMaFBSBIP() + "/";
+				strPath = loginVO.getMaFBSSENDPATH();
+				user = loginVO.getMaFBSBATCHID();
+				pwd = loginVO.getMaFBSBATCHPW();
+			}
+
+			String ftpPath = strPath + upload_file_name;
+			String inputFile = newfile_name;
+
+			FTPClient ftpClient = new FTPClient();
+
+			try (FileInputStream inputStream = new FileInputStream(inputFile)) {
+				ftpClient.connect(loginVO.getMaFBSBIP());
+				ftpClient.login(user, pwd);
+
+				// Switch to passive mode
+				ftpClient.enterLocalPassiveMode();
+				ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+
+				// Perform FTP upload
+				boolean done = ftpClient.storeFile(ftpPath, inputStream);
+				if (done) {
+					logger.info("File is successfully uploaded.");
+					returnMap.put(ComConstants.PROP_RESULT_STATUS, "S");
+					returnMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+					returnMap.put(ComConstants.PROP_RESULT_MESSAGE, "급여이체파일 전송결과 - [Success], file_name : " + newfile_name);
+				} else {
+					logger.error("File upload failed.");
+					returnMap.put(ComConstants.PROP_RESULT_STATUS, "E");
+					returnMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+					returnMap.put(ComConstants.PROP_RESULT_MESSAGE, "급여이체파일 전송실패");
+				}
+
+			} catch (FileNotFoundException ex) {
+				logger.error("The file was not found: " + ex.getMessage());
+			} catch (IOException ex) {
+				logger.error("Error occurred: " + ex.getMessage());
+			} finally {
+				try {
+					if (ftpClient.isConnected()) {
+						ftpClient.logout();
+						ftpClient.disconnect();
+					}
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		} else {
+			if (iCnt <= 2 || iTotalLength <= 2) {
+				returnMap.put(ComConstants.PROP_RESULT_STATUS, "E");
+				returnMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+				returnMap.put(ComConstants.PROP_RESULT_MESSAGE, "전송가능한 급여이체건이 존재하지 않습니다.");
+			} else {
+				returnMap.put(ComConstants.PROP_RESULT_STATUS, "E");
+				returnMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+				returnMap.put(ComConstants.PROP_RESULT_MESSAGE, "급여이체파일 전송실패");
+			}
+		}
+
+		return returnMap;
 	}
 
 	private int byteArrayDefrag(byte[] array) {
