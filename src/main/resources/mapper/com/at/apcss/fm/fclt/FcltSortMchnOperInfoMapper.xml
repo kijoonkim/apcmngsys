@@ -22,35 +22,43 @@
 	<!-- ==========================================================================	-->
 	<select id="selectFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfo */
-					 FCLT.TRGT_YR                AS   TRGT_YR
-				,	 FCLT.APC_CD                 AS   APC_CD
-				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
-				,    FCLT.SORT_MCHN_HLD_YN_AYR1  AS	   SORT_MCHN_HLD_YN_AYR1
-				,    FCLT.SORT_MCHN_HLD_YN_101   AS	   SORT_MCHN_HLD_YN101
-				,    FCLT.SORT_MCHN_HLD_YN_102   AS    SORT_MCHN_HLD_YN_102
-				,    FCLT.SORT_MCHN_HLD_YN_103   AS    SORT_MCHN_HLD_YN_103
-				,    FCLT.SORT_MCHN_HLD_YN_104   AS    SORT_MCHN_HLD_YN_104
-				,    FCLT.SORT_MCHN_HLD_YN_105   AS    SORT_MCHN_HLD_YN_105
-				,    FCLT.SORT_MCHN_HLD_YN_106   AS    SORT_MCHN_HLD_YN_106
-				,    FCLT.SORT_MCHN_HLD_YN_107   AS    SORT_MCHN_HLD_YN_107
-				,    FCLT.SORT_MCHN_HLD_YN_108   AS    SORT_MCHN_HLD_YN_108
-				,    FCLT.SORT_MCHN_HLD_YN_109   AS    SORT_MCHN_HLD_YN_109
-				,    FCLT.SORT_MCHN_HLD_YN_110   AS    SORT_MCHN_HLD_YN_110
-				,    FCLT.SORT_MCHN_HLD_YN_111   AS    SORT_MCHN_HLD_YN_111
-				,    FCLT.SORT_MCHN_HLD_YN_112   AS    SORT_MCHN_HLD_YN_112
-				,    FCLT.SORT_MCHN_HLD_YN_AYR2  AS	   SORT_MCHN_HLD_YN_AYR2
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+				, AMOP.OPER_YN
+				, AMOP.OPER_PERIOD_YN_1
+				, AMOP.OPER_PERIOD_YN_2
+				, AMOP.OPER_PERIOD_YN_3
+				, AMOP.OPER_PERIOD_YN_4
+				, AMOP.OPER_PERIOD_YN_5
+				, AMOP.OPER_PERIOD_YN_6
+				, AMOP.OPER_PERIOD_YN_7
+				, AMOP.OPER_PERIOD_YN_8
+				, AMOP.OPER_PERIOD_YN_9
+				, AMOP.OPER_PERIOD_YN_10
+				, AMOP.OPER_PERIOD_YN_11
+				, AMOP.OPER_PERIOD_YN_12
 
-			  FROM TB_FCLT_SORT_MCHN_OPER_INFO FCLT
-			 WHERE 1=1
-			 AND DEL_YN != 'Y'
-			 AND APC_CD IS NOT NULL
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,(SELECT *
+					FROM TB_TE_APC_MCHN_OPER_PERIOD
+					WHERE MCHN_SE_CD = '1'
+				) AMOP
+			WHERE 1=1
+			  AND OTI.APC_CD = AMOP.APC_CD(+)
+			  AND OTI.CRTR_YR = AMOP.CRTR_YR(+)
+			  AND OTI.SN = AMOP.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
 		]]>
-		<if test='trgtYr != null and !trgtYr.equals("")'>
-			  AND  FCLT.TRGT_YR = #{trgtYr}
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND  FCLT.APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 	</select>
 
@@ -75,36 +83,42 @@
 		<!-- End 페이징 -->
 		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList */
-				CRTR_YR
-				, APC_CD
-				, SN
-				, ITEM_CD
-				, ITEM_NM
-				, OPER_YN
-				, OPER_PERIOD_YN_1
-				, OPER_PERIOD_YN_2
-				, OPER_PERIOD_YN_3
-				, OPER_PERIOD_YN_4
-				, OPER_PERIOD_YN_5
-				, OPER_PERIOD_YN_6
-				, OPER_PERIOD_YN_7
-				, OPER_PERIOD_YN_8
-				, OPER_PERIOD_YN_9
-				, OPER_PERIOD_YN_10
-				, OPER_PERIOD_YN_11
-				, OPER_PERIOD_YN_12
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+				, AMOP.OPER_YN
+				, AMOP.OPER_PERIOD_YN_1
+				, AMOP.OPER_PERIOD_YN_2
+				, AMOP.OPER_PERIOD_YN_3
+				, AMOP.OPER_PERIOD_YN_4
+				, AMOP.OPER_PERIOD_YN_5
+				, AMOP.OPER_PERIOD_YN_6
+				, AMOP.OPER_PERIOD_YN_7
+				, AMOP.OPER_PERIOD_YN_8
+				, AMOP.OPER_PERIOD_YN_9
+				, AMOP.OPER_PERIOD_YN_10
+				, AMOP.OPER_PERIOD_YN_11
+				, AMOP.OPER_PERIOD_YN_12
 
-			FROM TB_TE_APC_MCHN_OPER_PERIOD AMOP
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,(SELECT *
+					FROM TB_TE_APC_MCHN_OPER_PERIOD
+					WHERE MCHN_SE_CD = '1'
+				) AMOP
 			WHERE 1=1
-			  AND DEL_YN != 'Y'
-			  AND APC_CD IS NOT NULL
-			  AND MCHN_SE_CD = '1'
-			]]>
+			  AND OTI.APC_CD = AMOP.APC_CD(+)
+			  AND OTI.CRTR_YR = AMOP.CRTR_YR(+)
+			  AND OTI.SN = AMOP.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
+		]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND  AMOP.CRTR_YR = #{crtrYr}
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND  AMOP.APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>

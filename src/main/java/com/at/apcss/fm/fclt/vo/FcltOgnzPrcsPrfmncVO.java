@@ -40,6 +40,8 @@ public class FcltOgnzPrcsPrfmncVO extends ComVO{
 	private String rtlOgnzOGnzSum;
 	private String rtlOgnzOgnzCprtnSortTrst;
 	private String rtlOgnzOgnzCtrtEmspap;
+	private String rtlOgnzTotTrmtVlm;
+
 
 }
 

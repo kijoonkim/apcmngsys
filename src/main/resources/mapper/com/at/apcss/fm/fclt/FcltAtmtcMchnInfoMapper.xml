@@ -23,11 +23,13 @@
 	<select id="selectFcltAtmtcMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
 		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfo */
-				  SPSD.CRTR_YR
-				, SPSD.APC_CD
-				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = SPSD.APC_CD AND CRTR_YR = SPSD.CRTR_YR
+				  OTI.CRTR_YR
+				, OTI.APC_CD
+				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = OTI.APC_CD AND CRTR_YR = OTI.CRTR_YR
 				) AS APC_NM
-				, SPSD.SN
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
 				--, SPSD.RPRS_ITEM_SPCFCT
 				, SPSD.DPTZ
 				, SPSD.APM
@@ -51,16 +53,21 @@
 				, SPSD.SPMT_BR_QR
 				, SPSD.TH_AC
 
-			FROM TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
 			WHERE 1=1
-			  AND DEL_YN != 'Y'
-			  AND APC_CD IS NOT NULL
+			  AND OTI.APC_CD = SPSD.APC_CD(+)
+			  AND OTI.CRTR_YR = SPSD.CRTR_YR(+)
+			  AND OTI.SN = SPSD.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
+			  AND OTI.SN NOT IN ('4')
 		]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND SPSD.CRTR_YR = #{crtrYr}
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND SPSD.APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 	</select>
 
@@ -85,11 +92,13 @@
 
 			<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfo */
-				  SPSD.CRTR_YR
-				, SPSD.APC_CD
-				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = SPSD.APC_CD AND CRTR_YR = SPSD.CRTR_YR
+				  OTI.CRTR_YR
+				, OTI.APC_CD
+				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = OTI.APC_CD AND CRTR_YR = OTI.CRTR_YR
 				) AS APC_NM
-				, SPSD.SN
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
 				--, SPSD.RPRS_ITEM_SPCFCT
 				, SPSD.DPTZ
 				, SPSD.APM
@@ -113,16 +122,21 @@
 				, SPSD.SPMT_BR_QR
 				, SPSD.TH_AC
 
-			FROM TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
 			WHERE 1=1
-			  AND DEL_YN != 'Y'
-			  AND APC_CD IS NOT NULL
+			  AND OTI.APC_CD = SPSD.APC_CD(+)
+			  AND OTI.CRTR_YR = SPSD.CRTR_YR(+)
+			  AND OTI.SN = SPSD.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
+			  AND OTI.SN NOT IN ('4')
 			]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND SPSD.CRTR_YR = #{crtrYr}
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND SPSD.APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 
 		<!-- Start 페이징 -->

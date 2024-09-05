@@ -156,7 +156,9 @@
 					<!--
 					<sbux-button id="btnAllAprv" name="btnAllAprv" uitype="normal" text="전체 반려" class="btn btn-sm btn-outline-danger" onclick="fn_allAprv('Y')"></sbux-button>
 					 -->
+					<sbux-button id="btnAllRjct1" name="btnAllRjct1" uitype="normal" text="전체 취소" class="btn btn-sm btn-outline-danger" onclick="fn_allAprv('N')"></sbux-button>
 					<sbux-button id="btnAllRjct" name="btnAllRjct" uitype="normal" text="전체 승인" class="btn btn-sm btn-outline-danger" onclick="fn_allAprv('N')"></sbux-button>
+					&nbsp;
 					<sbux-button id="btnSelCancel" name="btnSelCancel" uitype="normal" text="선택 승인취소" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('C')"></sbux-button>
 					<sbux-button id="btnSelRjct" name="btnSelRjct" uitype="normal" text="선택 반려" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('N')"></sbux-button>
 					<sbux-button id="btnSelAprv" name="btnSelAprv" uitype="normal" text="선택 승인" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('Y')"></sbux-button>
@@ -197,8 +199,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -336,7 +338,7 @@
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectPrgrsList.do", {
 			apcCd: apcCd,
 			apcNm: apcNm,
-			trgtYr: crtrYr,
+			crtrYr: crtrYr,
 			ctpv: ctpv,
 			sgg: sgg,
 

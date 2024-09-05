@@ -117,11 +117,9 @@
 				  , RTL_OGNZ_GNRL_SUM				= #{rtlOgnzGnrlSum}
 				  , RTL_OGNZ_GNRL_SMPL_TRST			= #{rtlOgnzGnrlSmplTrst}
 				  , RTL_OGNZ_GNRL_SMPL_EMSPAP		= #{rtlOgnzGnrlSmplEmspap}
-				  , RTL_OGNZ_OGNZ_SUM				= #{rtlOgnzOGnzSum}}
+				  , RTL_OGNZ_OGNZ_SUM				= #{rtlOgnzOGnzSum}
 				  , RTL_OGNZ_OGNZ_CPRTN_SORT_TRST	= #{rtlOgnzOgnzCprtnSortTrst}
 				  , RTL_OGNZ_OGNZ_CTRT_EMSPAP		= #{rtlOgnzOgnzCtrtEmspap}
-
-				  , TMPR_STRG_YN			= #{tmprStrgYn}
 
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -130,6 +128,7 @@
 		  INSERT (
 				  CRTR_YR
 				  , APC_CD
+				  , APC_NM
 				  , SN
 
 				  , ITEM_CD
@@ -143,8 +142,6 @@
 				  , RTL_OGNZ_OGNZ_SUM
 				  , RTL_OGNZ_OGNZ_CPRTN_SORT_TRST
 				  , RTL_OGNZ_OGNZ_CTRT_EMSPAP
-
-				  , TMPR_STRG_YN
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -171,8 +168,6 @@
 				  , #{rtlOgnzOGnzSum}
 				  , #{rtlOgnzOgnzCprtnSortTrst}
 				  , #{rtlOgnzOgnzCtrtEmspap}
-
-				  , #{tmprStrgYn}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -204,8 +199,6 @@
 				, RTL_OGNZ_OGNZ_SUM				= #{rtlOgnzOGnzSum}}
 				, RTL_OGNZ_OGNZ_CPRTN_SORT_TRST	= #{rtlOgnzOgnzCprtnSortTrst}
 				, RTL_OGNZ_OGNZ_CTRT_EMSPAP		= #{rtlOgnzOgnzCtrtEmspap}
-
-				, TMPR_STRG_YN					= #{tmprStrgYn}
 
 		]]>
 		<if test='delYn != null and delYn != ""'>

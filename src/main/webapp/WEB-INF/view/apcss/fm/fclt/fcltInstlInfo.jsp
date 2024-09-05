@@ -184,7 +184,9 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
-						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="엑셀다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_down"></sbux-button>
+						<sbux-button id="btn_dwnld" name="btn_dwnld" uitype="normal" text="양식 다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld"></sbux-button>
+						&nbsp;
+						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="양식 다운로드(데이터포함)" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld('Y')"></sbux-button>
 						&nbsp;
 						<sbux-button id="btn_upload" name="btn_upload" uitype="normal" text="엑셀업로드" class="btn btn-xs btn-outline-danger" onclick="fn_upload"></sbux-button>
 						&nbsp;
@@ -251,8 +253,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -382,7 +384,9 @@
 			jsonFcltInstlInfo.length = 0;
 			let totalRecordCount = 0;
 			data.resultList.forEach((item, index) => {
-				console.log(item);
+				//console.log(item);
+				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
+
 				let itemVO = {
 						sn				:item.sn
 						,bizYr			:item.bizYr
@@ -396,6 +400,7 @@
 						,lcltExpndCtpv	:item.lcltExpndSgg
 						,slfBrdn		:item.slfBrdn
 						,addYn			:'N'
+							,tot : totVal
 				}
 				jsonFcltInstlInfo.push(itemVO);
 			});

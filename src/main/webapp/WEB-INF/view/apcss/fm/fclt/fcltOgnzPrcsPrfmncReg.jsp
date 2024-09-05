@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -739,6 +740,10 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
+				console.log(item);
+
+				let sn = item.sn;
+
 				//let rtlOgnzGnrlSum = Number(item.rtlOgnzGnrlSmplTrst) + Number(item.rtlOgnzGnrlSmplEmspap);
 				//let rtlOgnzOGnzSum = Number(item.rtlOgnzOgnzCprtnSortTrst) + Number(item.rtlOgnzOgnzCtrtEmspap);
 				//let rtlOgnzTotTrmtAmt = Number(rtlOgnzGnrlSum) + Number(rtlOgnzOGnzSum);
@@ -755,7 +760,7 @@
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,item.rtlOgnzTotTrmtVlm);
 			});
 			//sum('srch-inp-opera3',1);
-			//sum('srch-inp-opera6',2);
+			fn_sum();
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -839,7 +844,10 @@
 
 	//처리실적 자동계산
 	function fn_sum(e){
-		extractNumbers2(e.name);
+		if(e != null){
+			extractNumbers2(e.name);
+		}
+
 
 		let rtlOgnzGnrlSmplTrstArr = [];
 		let rtlOgnzGnrlSmplEmspapArr = [];

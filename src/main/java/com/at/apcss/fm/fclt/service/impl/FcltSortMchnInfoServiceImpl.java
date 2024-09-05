@@ -72,7 +72,7 @@ public class FcltSortMchnInfoServiceImpl extends BaseServiceImpl implements Fclt
 		String prgrsYn = "";
 		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
 		for (FcltSortMchnInfoVO fcltSortMchnInfoVO : fcltSortMchnInfoVOList) {
-			saveCnt = fcltSortMchnInfoMapper.insertFcltSortMchnInfo(fcltSortMchnInfoVO);
+			saveCnt += fcltSortMchnInfoMapper.insertFcltSortMchnInfo(fcltSortMchnInfoVO);
 			prgrsYn = fcltSortMchnInfoVO.getPrgrsYn() == null ? "N" : fcltSortMchnInfoVO.getPrgrsYn();
 			//진척도 변경
 			fcltPrgrsVO.setApcCd(fcltSortMchnInfoVO.getApcCd());

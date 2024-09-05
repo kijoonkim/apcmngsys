@@ -15,7 +15,7 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -490,16 +490,25 @@
 				//item.sn 1~4
 				//itemChk 품목 존재 여부
 				SBUxMethod.set('dtl-inp-itemChk'+item.sn ,'Y');
-				console.log(item);
-				$('#itemNm'+item.sn).text("품목 : "+item.sortItemNm);
+				//console.log(item);
+				let sn = item.sn;
+				if(sn == '4'){
+					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
+				}else{
+					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
+				}
+				//$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
 
 				let sortMchnHoldYn = item.sortMchnHoldYn;
 				//품목이 없는경우 해당 행자체가 존재 하지 않아 조회가 안되므로 여기서 활성화
 				SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+item.sn,'disabled','false');
-				SBUxMethod.set('dtl-inp-sortMchnHoldYn'+item.sn ,sortMchnHoldYn);
+				if(gfn_isEmpty(sortMchnHoldYn)){
+					SBUxMethod.set('dtl-inp-sortMchnHoldYn'+item.sn ,'N');
+				}
 
 				if(sortMchnHoldYn == 'Y'){
 					SBUxMethod.changeGroupAttr('group'+item.sn,'disabled','false');//선별기보유 할경우 해당 그룹 활성화
+					SBUxMethod.set('dtl-inp-sortMchnHoldYn'+item.sn ,'Y');
 					SBUxMethod.set('dtl-inp-sortPrcsAblt'+item.sn ,item.sortPrcsAblt);
 					SBUxMethod.set('dtl-inp-sortPrcsPrfmnc'+item.sn ,item.sortPrcsPrfmnc);
 					SBUxMethod.set('dtl-inp-sortOprtngHr'+item.sn ,item.sortOprtngHr);
@@ -592,7 +601,15 @@
 		}
 		// 결과 확인 후 재조회
 		console.log("insert result", data);
-	 }
+	}
+
+	function fn_convertToZero(value) {
+		if (value === '' || value === undefined || value === null) {
+			return 0;
+		} else {
+			return value;
+		}
+	}
 
 	//품종 유무 선택시 작성가능 아닐시 데이테 리셋
 	function fn_selectOnchange(e,groupId){

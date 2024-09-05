@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -593,6 +594,18 @@
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
 
+		<c:if test="${loginVO.id eq 'admin'}">
+		/*테스트*/
+		let apcCd = '0861';
+		let crtrYr = '2024';
+		let apcNm = 'test';
+		SBUxMethod.set("srch-inp-apcCd", apcCd);
+		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		fn_init();
+
 	});
 
 	/* 초기세팅 */
@@ -641,15 +654,15 @@
 		try {
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
-				//SBUxMethod.set('srch-inp-apcTrmtAmt'+sn,item.apcTrmtAmt);
+				//SBUxMethod.set('dtl-inp-apcTrmtAmt'+sn,item.apcTrmtAmt);
 
-				SBUxMethod.set('srch-inp-apcTrmtVlm'+sn,item.apcTrmtAmt);
-				SBUxMethod.set('srch-inp-apcGnrlTrmtAmt'+sn,item.apcGnrlTrmtAmt);
-				SBUxMethod.set('srch-inp-apcOgnzCprtnSortTrst'+sn,item.apcOgnzCprtnSortTrst);
-				SBUxMethod.set('srch-inp-apcCtrtEmspap'+sn,item.apcCtrtEmspap);
-				SBUxMethod.set('srch-inp-apcTmSpmtAmt'+sn,item.tmSpmtAmt);
+				SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,item.apcTrmtAmt);
+				SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,item.apcGnrlTrmtAmt);
+				SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst'+sn,item.apcOgnzCprtnSortTrst);
+				SBUxMethod.set('dtl-inp-apcCtrtEmspap'+sn,item.apcCtrtEmspap);
+				SBUxMethod.set('dtl-inp-apcTmSpmtAmt'+sn,item.tmSpmtAmt);
 			});
-			fn_cal('dtl-inp-apcOgnzCprtnSortTrst1');
+			fn_cal();
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

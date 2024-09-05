@@ -35,6 +35,8 @@
 			, AOPO.RPRSV
 
 			, AOPO.LOCTN
+			, AOPO.LOCTN_DTL
+
 			, AOPO.OPER_OGNZ_BMNO
 			, AOPO.OPER_OGNZ_SLNO
 			, AOPO.OPER_OGNZ_ROAD_NM_CD
@@ -42,6 +44,8 @@
 			, AOPO.OPER_OGNZ_ZIP
 
 			, AOPO.APC_LOCTN
+			, AOPO.APC_LOCTN_DTL
+
 			, AOPO.APC_BMNO
 			, AOPO.APC_SLNO
 			, AOPO.APC_ROAD_NM_CD
@@ -91,6 +95,8 @@
 					, AOPO.RPRSV
 
 					, AOPO.LOCTN
+					, AOPO.LOCTN_DTL
+
 					, AOPO.OPER_OGNZ_BMNO
 					, AOPO.OPER_OGNZ_SLNO
 					, AOPO.OPER_OGNZ_ROAD_NM_CD
@@ -98,6 +104,8 @@
 					, AOPO.OPER_OGNZ_ZIP
 
 					, AOPO.APC_LOCTN
+					, AOPO.APC_LOCTN_DTL
+
 					, AOPO.APC_BMNO
 					, AOPO.APC_SLNO
 					, AOPO.APC_ROAD_NM_CD
@@ -143,6 +151,7 @@
 
 				, RPRSV					=  #{rprsv}
 				, LOCTN					=  #{loctn}
+				, LOCTN_DTL				=  #{loctnDtl}
 
 				, OPER_OGNZ_BMNO		=  #{operOgnzBmno}
 				, OPER_OGNZ_SLNO		=  #{operOgnzSlno}
@@ -151,6 +160,8 @@
 				, OPER_OGNZ_ZIP			=  #{operOgnzZip}
 
 				, APC_LOCTN				=  #{apcLoctn}
+				, APC_LOCTN_DTL			=  #{apcLoctnDtl}
+
 				, APC_BMNO				=  #{apcBmno}
 				, APC_SLNO				=  #{apcSlno}
 				, APC_ROAD_NM_CD		=  #{apcRoadNmCd}
@@ -182,12 +193,14 @@
 				  , APC_CRNO
 				  , RPRSV
 				  , LOCTN
+				  , LOCTN_DTL
 				  , OPER_OGNZ_BMNO
 				  , OPER_OGNZ_SLNO
 				  , OPER_OGNZ_ROAD_NM_CD
 				  , OPER_OGNZ_ADM_CD
 				  , OPER_OGNZ_ZIP
 				  , APC_LOCTN
+				  , APC_LOCTN_DTL
 				  , APC_BMNO
 				  , APC_SLNO
 				  , APC_ROAD_NM_CD
@@ -220,6 +233,7 @@
 
 				  , #{rprsv}
 				  , #{loctn}
+				  , #{loctnDtl}
 				  , #{operOgnzBmno}
 				  , #{operOgnzSlno}
 				  , #{operOgnzRoadNmCd}
@@ -227,6 +241,7 @@
 				  , #{operOgnzZip}
 
 				  , #{apcLoctn}
+				  , #{apcLoctnDtl}
 				  , #{apcBmno}
 				  , #{apcSlno}
 				  , #{apcRoadNmCd}
@@ -272,6 +287,7 @@
 
 				, RPRSV					=  #{rprsv}
 				, LOCTN					=  #{loctn}
+				, LOCTN_DTL				=  #{loctnDtl}
 
 				, OPER_OGNZ_BMNO		=  #{operOgnzBmno}
 				, OPER_OGNZ_SLNO		=  #{operOgnzSlno}
@@ -280,6 +296,7 @@
 				, OPER_OGNZ_ZIP			=  #{operOgnzZip}
 
 				, APC_LOCTN				=  #{apcLoctn}
+				, APC_LOCTN_DTL			=  #{apcLoctnDtl}
 				, APC_BMNO				=  #{apcBmno}
 				, APC_SLNO				=  #{apcSlno}
 				, APC_ROAD_NM_CD		=  #{apcRoadNmCd}
