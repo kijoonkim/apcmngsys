@@ -289,12 +289,6 @@
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
 
-			/*테스트*/
-			/*
-			apcCd = '0122';
-			crtrYr = '2023';
-			*/
-
 			let postJsonPromise = gfn_postJSON("/fm/fclt/selectPrgrs.do", {
 				apcCd : apcCd
 				,crtrYr : crtrYr

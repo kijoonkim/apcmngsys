@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -120,8 +121,8 @@
 						<tr>
 							<td class="td_input">
 								<sbux-input
-									id="dtl-inp-hireRgllbrCtzn"
-									name="dtl-inp-hireRgllbrCtzn"
+									id="dtl-inp-hireRgllbrOfc"
+									name="dtl-inp-hireRgllbrOfc"
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
@@ -131,8 +132,8 @@
 							<td>명</td>
 							<td class="td_input">
 								<sbux-input
-									id="dtl-inp-hireRgllbrFrgnr"
-									name="dtl-inp-hireRgllbrFrgnr"
+									id="dtl-inp-hireRgllbrSpt"
+									name="dtl-inp-hireRgllbrSpt"
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
@@ -283,8 +284,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -363,9 +364,8 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-
-				SBUxMethod.set('dtl-inp-hireRgllbrCtzn',gfn_nvl(item.hireRgllbrCtzn));
-				SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',gfn_nvl(item.hireRgllbrFrgnr));
+				SBUxMethod.set('dtl-inp-hireRgllbrSpt',gfn_nvl(item.hireRgllbrSpt));
+				SBUxMethod.set('dtl-inp-hireRgllbrOfc',gfn_nvl(item.hireRgllbrOfc));
 
 				SBUxMethod.set('dtl-inp-hireTmprWgTotSum',gfn_nvl(item.hireTmprWgTotSum));
 				SBUxMethod.set('dtl-inp-hireTmprAvgWg',gfn_nvl(item.hireTmprAvgWg));
@@ -419,8 +419,8 @@
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
-			,hireRgllbrCtzn : SBUxMethod.get('dtl-inp-hireRgllbrCtzn')
-			,hireRgllbrFrgnr : SBUxMethod.get('dtl-inp-hireRgllbrFrgnr')
+			,hireRgllbrOfc : SBUxMethod.get('dtl-inp-hireRgllbrOfc')
+			,hireRgllbrSpt : SBUxMethod.get('dtl-inp-hireRgllbrSpt')
 
 			,hireTmprWgTotSum : SBUxMethod.get('dtl-inp-hireTmprWgTotSum')
 			,hireTmprAvgWg : SBUxMethod.get('dtl-inp-hireTmprAvgWg')
@@ -433,7 +433,6 @@
 			,hireFrgnrAvg : SBUxMethod.get('dtl-inp-hireFrgnrAvg')
 			,hireFrgnrTaskCn : SBUxMethod.get('dtl-inp-hireFrgnrTaskCn')
 		});
-
 
 		const data = await postJsonPromise;
 

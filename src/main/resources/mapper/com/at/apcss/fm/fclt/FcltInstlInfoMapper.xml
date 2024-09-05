@@ -152,7 +152,7 @@
 					#{sn}
 					</when>
 					<otherwise>
-					(SELECT MAX(SN) FROM TB_TE_APC_FCLT_INSTL_SPLMNT WHERE APC_CD = #{apcCd})
+					(SELECT NVL(MAX(SN),0)+1 FROM TB_TE_APC_FCLT_INSTL_SPLMNT WHERE APC_CD = #{apcCd})
 					</otherwise>
 				</choose>
 					, #{bizYr}
