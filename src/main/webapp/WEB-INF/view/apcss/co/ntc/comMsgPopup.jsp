@@ -260,7 +260,7 @@
         SBUxMethod.closeModal("modal-msgAlarm");
         await fn_setLeftMenu('CO');
 
-        let data = sideJsonData.filter((item) => item.id == 'CO_003_001');
+        let data = sideJsonData.filter((item) => item.id == 'CO_004_006');
         fn_actionGoPage(
             data[0].url
             , 'LEFT'

@@ -211,7 +211,31 @@ public abstract class BaseController {
 		return null;
 	}
 
+	
+	protected String getUntyOgnzCd() {
 
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if (loginVO != null) {
+			return loginVO.getUntyOgnzCd();
+		}
+
+		return null;
+	}
+	
+	protected String getAuthrtMngrYn() {
+
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+
+		if (loginVO != null) {
+			return loginVO.getAuthrtMngrYn();
+		}
+
+		return null;
+	}
+	
+		
+	
 	protected String getUntyOgnzId() {
 
 		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
