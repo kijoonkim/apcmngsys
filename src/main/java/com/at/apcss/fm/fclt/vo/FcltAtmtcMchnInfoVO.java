@@ -39,6 +39,8 @@ public class FcltAtmtcMchnInfoVO extends ComVO{
 	private String tmprStrgYn;//임시저장 여부
 	private String apcCd;
 	private String apcNm;
+	private String itemCd;
+	private String itemNm;
 	private String sn;
 
 	private String rprsItemSpcfct;

@@ -89,7 +89,7 @@ public class FcltGdsMchnInfoServiceImpl extends BaseServiceImpl implements FcltG
 		String prgrsYn = "";
 		FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
 		for (FcltGdsMchnInfoVO fcltGdsMchnInfoVO : fcltGdsMchnInfoVOList) {
-			saveCnt = fcltGdsMchnInfoMapper.insertFcltGdsMchnInfo(fcltGdsMchnInfoVO);
+			saveCnt += fcltGdsMchnInfoMapper.insertFcltGdsMchnInfo(fcltGdsMchnInfoVO);
 			prgrsYn = fcltGdsMchnInfoVO.getPrgrsYn() == null ? "N" : fcltGdsMchnInfoVO.getPrgrsYn();
 			//진척도 변경
 			fcltPrgrsVO.setApcCd(fcltGdsMchnInfoVO.getApcCd());

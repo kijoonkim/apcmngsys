@@ -1,4 +1,4 @@
-]<%
+<%
  /**
   * @Class Name : fcltSortMchnOperInfoReg.jsp
   * @Description : 3.4.선별기운영기간 화면
@@ -87,7 +87,10 @@
 			<!-- 진척도 추가 -->
 			<%@ include file="prgrs/apcPrgrs.jsp" %>
 			<br>
-			<div><label>선별기운영기간 상세내역</label></div>
+			<div>
+				<label style="font-weight: bold;">선별기운영기간 상세내역</label><br>
+				<label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label>
+			</div>
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
@@ -492,7 +495,7 @@
 
 				</tbody>
 			</table>
-				<div><label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label></div>
+
 			</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -595,9 +598,16 @@
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
 				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부
-				$('#itemNm'+sn).text("품목 : "+item.itemNm);
-				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
+				if(sn == '4'){
+					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
+				}else{
+					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
+				}
+				//$('#itemNm'+sn).text("품목 : "+item.itemNm);
 
+				//품목이 있는 줄만 조회 됨
+				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');
+				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_1','disabled','false');
 				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_non','disabled','false');
 

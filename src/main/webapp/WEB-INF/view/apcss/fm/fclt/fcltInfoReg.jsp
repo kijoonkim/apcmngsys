@@ -624,27 +624,27 @@
 			, apcCd: apcCd
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
-			, cspTotArea: SBUxMethod.get('dtl-inp-cspTotArea')
+			, cspTotArea: fn_convertToZero(SBUxMethod.get('dtl-inp-cspTotArea'))
 			, cspTotRmrk: SBUxMethod.get('dtl-inp-cspTotRmrk')
-			, cspCfppArea: SBUxMethod.get('dtl-inp-cspCfppArea')
+			, cspCfppArea: fn_convertToZero(SBUxMethod.get('dtl-inp-cspCfppArea'))
 			, cspCfppRmrk: SBUxMethod.get('dtl-inp-cspCfppRmrk')
-			, cspClnOprtngPrcsArea: SBUxMethod.get('dtl-inp-cspClnOprtngPrcsArea')
+			, cspClnOprtngPrcsArea: fn_convertToZero(SBUxMethod.get('dtl-inp-cspClnOprtngPrcsArea'))
 			, cspClnOprtngPrcsRmrk: SBUxMethod.get('dtl-inp-cspClnOprtngPrcsRmrk')
-			, cspDtpArea: SBUxMethod.get('dtl-inp-cspDtpArea')
+			, cspDtpArea: fn_convertToZero(SBUxMethod.get('dtl-inp-cspDtpArea'))
 			, cspDtpRmrk: SBUxMethod.get('dtl-inp-cspDtpRmrk')
-			, cspNgdsFcltArea: SBUxMethod.get('dtl-inp-cspNgdsFcltArea')
+			, cspNgdsFcltArea: fn_convertToZero(SBUxMethod.get('dtl-inp-cspNgdsFcltArea'))
 			, cspNgdsFcltRmrk: SBUxMethod.get('dtl-inp-cspNgdsFcltRmrk')
-			, strgPlcPrcPlcArea: SBUxMethod.get('dtl-inp-strgPlcPrcPlcArea')
+			, strgPlcPrcPlcArea: fn_convertToZero(SBUxMethod.get('dtl-inp-strgPlcPrcPlcArea'))
 			, strgPlcPrcPlcRmrk: SBUxMethod.get('dtl-inp-strgPlcPrcPlcRmrk')
-			, strgPlcLwtpStrgArea: SBUxMethod.get('dtl-inp-strgPlcLwtpStrgArea')
+			, strgPlcLwtpStrgArea: fn_convertToZero(SBUxMethod.get('dtl-inp-strgPlcLwtpStrgArea'))
 			, strgPlcLwtpStrgRmrk: SBUxMethod.get('dtl-inp-strgPlcLwtpStrgRmrk')
-			, strgPlcCaStrgPlcArea: SBUxMethod.get('dtl-inp-strgPlcCaStrgPlcArea')
+			, strgPlcCaStrgPlcArea: fn_convertToZero(SBUxMethod.get('dtl-inp-strgPlcCaStrgPlcArea'))
 			, strgPlcCaStrgPlcRmrk: SBUxMethod.get('dtl-inp-strgPlcCaStrgPlcRmrk')
-			, strgPlcCurnArea: SBUxMethod.get('dtl-inp-strgPlcCurnArea')
+			, strgPlcCurnArea: fn_convertToZero(SBUxMethod.get('dtl-inp-strgPlcCurnArea'))
 			, strgPlcCurnRmrk: SBUxMethod.get('dtl-inp-strgPlcCurnRmrk')
-			, strgPlcGnrlStrgArea: SBUxMethod.get('dtl-inp-strgPlcGnrlStrgArea')
+			, strgPlcGnrlStrgArea: fn_convertToZero(SBUxMethod.get('dtl-inp-strgPlcGnrlStrgArea'))
 			, strgPlcGnrlStrgRmrk: SBUxMethod.get('dtl-inp-strgPlcGnrlStrgRmrk')
-			, strgPlcEtcArea: SBUxMethod.get('dtl-inp-strgPlcEtcArea')
+			, strgPlcEtcArea: fn_convertToZero(SBUxMethod.get('dtl-inp-strgPlcEtcArea'))
 			, strgPlcEtcRmrk: SBUxMethod.get('dtl-inp-strgPlcEtcRmrk')
 		});
 
@@ -663,6 +663,14 @@
 		}
 		// 결과 확인 후 재조회
 		//console.log("insert result", data);
+	}
+
+	function fn_convertToZero(value) {
+		if (value === '' || value === undefined || value === null) {
+			return 0;
+		} else {
+			return value;
+		}
 	}
 
 	//면적 합산
