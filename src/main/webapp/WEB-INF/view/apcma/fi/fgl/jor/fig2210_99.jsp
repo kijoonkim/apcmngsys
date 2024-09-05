@@ -682,7 +682,6 @@
     var p_summit_yn 	= true;		// c# fnsummit_yn();
     
     var p_menu_param	= null;
-	var p_open_menu		= false;
     
     //grid 초기화
     var Fig2210Grid; 			// 그리드를 담기위한 객체 선언
@@ -859,7 +858,6 @@
 		} else {
 			pg_state = 'new';			
 		}
-		p_open_menu = true;
 // 		console.log('1 pg_state:', pg_state);			
 // 		console.log('1 p_menu_param:', p_menu_param);
     	
@@ -3774,7 +3772,7 @@
     const fn_subAllRelease = async function (wtype, p_strdoc_id, p_item_id_d, p_hold_reason_d){
 
 		let p_fi_org_code	= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
-		let p_doc_date		= gfnma_date6(gfnma_nvl(SBUxMethod.get("sch-doc-date")));
+		let p_doc_date		= gfnma_date7(gfnma_nvl(SBUxMethod.get("sch-doc-date")));
       	if(!p_doc_date){
       		gfn_comAlert("E0000","전기일자가 없습니다.");
 			return;      		 

@@ -434,7 +434,6 @@
 	var p_ss_deptCode 			= '${loginVO.maDeptCode}';
 	var p_ss_deptName 			= '${loginVO.maDeptName}';
 	//-----------------------------------------------------------
-console.log('p_ss_deptName:', p_ss_deptName);	
 	
     var jsonCbofiOrgCode 		= []; // 사업단위
     var jsonCbositeCode 		= []; // 사업장

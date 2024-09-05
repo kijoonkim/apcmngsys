@@ -21,14 +21,14 @@
 			<div class="box-body cu-table-div" style="overflow:auto">
 
                 <div style="display:flex;vertical-align:middle;float:right;padding-top:0px;padding-bottom:5px;margin-right:auto">
-					<sbux-button id="scp-pop-btn-query-disp" class="btn btn-xs btn-outline-dark" text="조회" uitype="modal" onclick="fn_popQueryDisp('Q')"></sbux-button>
+					<sbux-button id="scp-pop-btn-query-disp" class="btn btn-xs btn-outline-dark" text="조회" uitype="modal" onclick="fn_popQueryDisp()"></sbux-button>
 					<font style="width:5px"></font>
 					<sbux-button class="btn btn-xs btn-outline-dark" text="반제처리" uitype="modal" onclick=""></sbux-button>
 					<font style="width:5px"></font>
 					<sbux-button class="btn btn-xs btn-outline-dark" text="취소" uitype="modal" onclick=""></sbux-button>
 				</div>
 
-				<div class="card" style="height:200px;margin-bottom:20px;">
+				<div class="card" style="height:200px;margin-bottom:10px;">
 	                <table class="table table-bordered tbl_fixed">
 	                    <caption>검색 조건 설정</caption>
 	                    <colgroup>
@@ -199,17 +199,66 @@
 					</table>
 				</div>
 				
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>미결항목</span>
+                        </li>
+                    </ul>
+                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
+                    	<font>잔액(통화)</font>
+						<sbux-input style="width:150px" id="" uitype="text" class="form-control input-sm" ></sbux-input>
+						
+						<font style="width:10px"></font>
+						
+                    	<font>잔액(전표)</font>
+						<sbux-input style="width:150px" id="" uitype="text" class="form-control input-sm" ></sbux-input>
+						
+						<font style="width:10px"></font>
+						
+                    	<font>반제(통화)</font>
+						<sbux-input style="width:150px" id="" uitype="text" class="form-control input-sm" ></sbux-input>
+						
+						<font style="width:10px"></font>
+						
+                    	<font>반제(전표)</font>
+						<sbux-input style="width:150px" id="" uitype="text" class="form-control input-sm" ></sbux-input>
+						
+						<font style="width:10px"></font>
+						
+                    	<font>반제(순금액-통화)</font>
+						<sbux-input style="width:150px" id="" uitype="text" class="form-control input-sm" ></sbux-input>
+					</div>
+                </div>
+				
 				<div id="compopfig2320GridListDiv" class="card" style="width:100%;height:200px;border:1px solid #f4f4f4;">
 				</div>
 				
-                <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-					<a href="#" id="btn1-row-add" class="cu-btn-plus" style="padding-left:10px" >
-						<img src="../../../resource/images/plus.png" width="20px" /> 행추가
-					</a>
-					<a href="#" id="btn1-row-del" class="cu-btn-minus" style="padding-left:10px">
-						<img src="../../../resource/images/minus.png" width="20px" /> 행삭제
-					</a>
-				</div>
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>미결반제항목 등록</span>
+                        </li>
+                    </ul>
+                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
+                    	<font>반제(통화)</font>
+						<sbux-input style="width:150px" id="" uitype="text" class="form-control input-sm" ></sbux-input>
+						
+						<font style="width:10px"></font>
+						
+                    	<font>반제(전표)</font>
+						<sbux-input style="width:150px" id="" uitype="text" class="form-control input-sm" ></sbux-input>
+
+						<font style="width:10px"></font>
+						
+						<a href="#" id="btn1-pop-row-add" class="cu-btn-plus" style="padding-left:10px" >
+							<img src="../../../resource/images/plus.png" width="20px" /> 행추가
+						</a>
+						<a href="#" id="btn1-pop-row-del" class="cu-btn-minus" style="padding-left:10px">
+							<img src="../../../resource/images/minus.png" width="20px" /> 행삭제
+						</a>
+					</div>
+                </div>
 				
 				<div id="compopfig2320GridEditDiv" class="card" style="width:100%;height:200px;border:1px solid #f4f4f4;">
 				</div>
@@ -467,8 +516,23 @@ var jsonPopAccCharacter 	= []; // 미결관리대상
 var jsonPopDocType 			= []; // 전표유형
 var jsonPopSiteCode 		= []; // 
 
+var jsonPopLineType 		= []; // 라인유형
+var jsonPopDebitCredit 		= []; // 차/대
+
 var pp_strAccountCodeList	= ""; // 복수계정 파라미터
 var pp_strCsCodeList		= ""; // 복수거래처 파라미터
+
+//상세정보 보기
+function fn_popViewFig2320GridEvent() {
+	
+	let nRow = Fig2320GridList.getRow();
+	let nCol = Fig2320GridList.getCol();
+	if (nRow < 1) {
+        return;
+	}
+    let rowData = Fig2320GridList.getRowData(nRow);
+    console.log('rowData:', rowData);
+}
 
 /**
  * @description 미결반제전표
@@ -497,6 +561,40 @@ function compopfig2320(options) {
 	 	$(modalId).find('.cu-table-div').css('height', settings.height);
 	}	
 	
+    /**
+     * 행추가
+     */
+    var fn_popGridRowAdd = function() {
+        var idx = Fig2320GridEdit.getRows();
+        if(idx==-1){
+        	idx = 0;
+        }
+        Fig2320GridEdit.insertRow(idx-1, 'below');
+        Fig2320GridEdit.setCellData(idx, 2, idx, true, true);
+        Fig2320GridEdit.setCellData(idx, 14, 0, true, true);
+        Fig2320GridEdit.setCellData(idx, 15, 0, true, true);
+        Fig2320GridEdit.setCellData(idx, 32, 1, true, true);
+    }
+    
+    /**
+     * 행삭제
+     */
+    var fn_popGridRowDel = function() {
+    	Fig2320GridEdit.deleteRow(Fig2320GridEdit.getRow());
+    } 
+	
+	
+	$('#btn1-pop-row-add').off('click');
+	$('#btn1-pop-row-add').click(function(e){
+		e.preventDefault();
+		fn_popGridRowAdd();
+	});
+	$('#btn1-pop-row-del').off('click');
+	$('#btn1-pop-row-del').click(function(e){
+		e.preventDefault();
+		fn_popGridRowDel();
+	}); 
+	
 	//컴포넌트를 다시 그린다.
 	SBUxMethod.refresh('sch-pop-entry-date-to');
 	SBUxMethod.refresh('tab_norm_pop');
@@ -521,6 +619,11 @@ function compopfig2320(options) {
             gfnma_setComSelect(['sch-pop-acc-character'],	jsonPopAccCharacter, 	'L_FIM033_01', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 전표유형
             gfnma_setComSelect(['sch-pop-doc-type'],		jsonPopDocType, 	  	'L_FIM051_CLR', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            
+            // 그리드내 라인유형
+			gfnma_setComSelect([], 							jsonPopLineType, 		'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 그리드내 차/대
+			gfnma_setComSelect([], 							jsonPopDebitCredit, 	'L_FIG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 	
@@ -530,6 +633,8 @@ function compopfig2320(options) {
   		await fn_popInitSBSelect()
 		//화면셋팅
     	fn_statePopup();
+  	    fn_createFig2320GridList();	
+  	    fn_createFig2320GridEdit();	
 	} 	
 	
 	function fn_statePopup(){
@@ -589,105 +694,33 @@ function compopfig2320(options) {
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
+        	{caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '40px', style: 'text-align:center',
+        	    typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
+        	        checkedvalue: 'Y', uncheckedvalue: 'N'
+        	    }
+        	},        	
+            {caption: ["전표유형"],					ref: 'DOC_TYPE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전표번호"],					ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["순번"], 					ref: 'ITEM_SEQ',    			type:'output',  	width:'60px',  		style:'text-align:left'},
-            {caption: ["수정시간"], 				ref: 'INSERT_TIME', 			type:'output',		width:'150px',  	style:'text-align:left'},
-            {caption: ["수정자"],    				ref: 'INSERT_USERID', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["수정자명"],    				ref: 'USER_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["지급기준일"],  				ref: 'PAY_BASE_DATE', 			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["지급예상일"],  				ref: 'EXPECTED_PAY_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["지급조건"],    				ref: 'PAY_TERM_CODE', 			type:'output',  	width:'80px',  		style:'text-align:left'},
-            {caption: ["지급조건명"],  				ref: 'PAY_TERM_NAME', 			type:'output',  	width:'120px',  	style:'text-align:right'},
-            {caption: ["금액"],	   					ref: 'AMOUNT', 					type:'output',  	width:'120px',  	style:'text-align:right'},
-            {caption: ["어음만기일"],	  			ref: 'BILL_DUE_DATE', 			type:'output',  	width:'100px',  	style:'text-align:right'},
-            {caption: ["비고"],	  					ref: 'DESCRIPTION', 			type:'output',  	width:'250px',  	style:'text-align:right'},
-            {caption: ["어음일수"],	   				ref: 'BILL_DUE_DAY', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["어음지급일"],				ref: 'BILL_DUE_PAY_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전기일자"],  				ref: 'DOC_DATE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["계정명"],  					ref: 'ACCOUNT_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["부서명"],  					ref: 'DEPT_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["원가중심코드"], 			ref: 'COST_CENTER_CODE', 		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["원가중심명"], 				ref: 'COST_CENTER_NAME', 		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["거래처코드"], 				ref: 'CS_CODE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["통화"], 					ref: 'CURRENCY_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["환율"], 					ref: 'EXCHANGE_RATE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["차대"], 					ref: 'DEBIT_CREDIT', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["순금액(잔액-통화)"], 		ref: 'REMAIN_ORIGINAL_AMOUNT_RAW', 			type:'output',		width:'200px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
+            {caption: ["반제금액(통화)"], 			ref: 'REMAIN_ORIGINAL_AMOUNT_RAW', 			type:'output',		width:'200px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
+            {caption: ["적요"], 					ref: 'DOC_DESC',    			type:'output',  	width:'300px',  		style:'text-align:left'},
+            {caption: ["상태"], 					ref: 'LINE_STATUS',    			type:'output',  	width:'100px',  		style:'text-align:left'},
         ];
 
         Fig2320GridList = _SBGrid.create(SBGridProperties);
-        //Fig2320GridList.bind('click', 'fn_viewGrid');
+        Fig2320GridList.bind('click', 'fn_popViewFig2320GridEvent');
     }	
-    fn_createFig2320GridList();	
 	
-    const fn_setFig2320GridList = async function(wtype) {
-
-		Fig2320GridList.clearStatus();
-
-	    var paramObj = { 
-			V_P_DEBUG_MODE_YN		: ''
-			,V_P_LANG_ID			: ''
-			,V_P_COMP_CODE			: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
-			
-			,V_P_FI_ORG_CODE        : settings.param['p_strfi_org_code']
-			,V_P_DOC_ID             : settings.param['p_doc_id']
-
-			,V_P_FORM_ID			: p_formId
-			,V_P_MENU_ID			: p_menuId
-			,V_P_PROC_ID			: ''
-			,V_P_USERID				: p_userId
-			,V_P_PC					: '' 
-	    };		
-
-        const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2320List.do", {
-        	getType				: 'json',
-        	workType			: wtype,
-        	cv_count			: '2',
-        	params				: gfnma_objectToString(paramObj, true)
-		});
-
-        const data = await postJsonPromise;
-		console.log('data:', data);
-		
-		try {
-  			if (_.isEqual("S", data.resultStatus)) {
-
-  	        	/** @type {number} **/
-  	    		let totalRecordCount = 0;
-
-  	        	jsonFig2320List.length = 0;
-  	        	data.cv_2.forEach((item, index) => {
-  					const msg = {
-  						DOC_ID					: gfnma_nvl(item.DOC_ID),			
-  						DOC_NAME				: gfnma_nvl(item.DOC_NAME),
-  						ITEM_ID					: gfnma_nvl(item.ITEM_ID),			
-  						ITEM_SEQ				: gfnma_nvl(item.ITEM_SEQ),		
-  						INSERT_USERID			: gfnma_nvl(item.INSERT_USERID),
-  						USER_NAME				: gfnma_nvl(item.USER_NAME),
-  						INSERT_TIME				: gfnma_nvl(item.INSERT_TIME),
-  						PAY_BASE_DATE			: gfnma_nvl(item.PAY_BASE_DATE),
-  						EXPECTED_PAY_DATE		: gfnma_date5(gfnma_nvl(item.EXPECTED_PAY_DATE)),
-  						PAY_TERM_CODE			: gfnma_nvl(item.PAY_TERM_CODE),
-  						PAY_TERM_NAME			: gfnma_nvl(item.PAY_TERM_NAME),
-  						AMOUNT					: gfnma_nvl(item.AMOUNT),
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),
-  						BILL_DUE_DATE			: gfnma_date5(gfnma_nvl(item.BILL_DUE_DATE)),
-  						BILL_DUE_DAY			: gfnma_nvl(item.BILL_DUE_DAY),
-  						BILL_DUE_PAY_DATE		: gfnma_date5(gfnma_nvl(item.BILL_DUE_PAY_DATE)),
-  						BANK_ACCOUNT_SEQ		: gfnma_nvl(item.BANK_ACCOUNT_SEQ),
-  						PGM_ID					: gfnma_nvl(item.PGM_ID),
-  					}
-  					jsonFig2320List.push(msg);
-  					totalRecordCount ++;
-  				});
-
-        		Fig2320GridList.rebuild();
-  	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
-  	        	
-        	} else {
-          		alert(data.resultMessage);
-        	}
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }    
-
     function fn_createFig2320GridEdit() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'compopfig2320GridEditDiv';
@@ -701,26 +734,55 @@ function compopfig2320(options) {
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["전표번호"],					ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '40px', style: 'text-align:center',
+        	    typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
+        	        checkedvalue: 'Y', uncheckedvalue: 'N'
+        	    }
+        	},        	
             {caption: ["순번"], 					ref: 'ITEM_SEQ',    			type:'output',  	width:'60px',  		style:'text-align:left'},
-            {caption: ["수정시간"], 				ref: 'INSERT_TIME', 			type:'output',		width:'150px',  	style:'text-align:left'},
-            {caption: ["수정자"],    				ref: 'INSERT_USERID', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["수정자명"],    				ref: 'USER_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["지급기준일"],  				ref: 'PAY_BASE_DATE', 			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["지급예상일"],  				ref: 'EXPECTED_PAY_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["지급조건"],    				ref: 'PAY_TERM_CODE', 			type:'output',  	width:'80px',  		style:'text-align:left'},
-            {caption: ["지급조건명"],  				ref: 'PAY_TERM_NAME', 			type:'output',  	width:'120px',  	style:'text-align:right'},
-            {caption: ["금액"],	   					ref: 'AMOUNT', 					type:'output',  	width:'120px',  	style:'text-align:right'},
-            {caption: ["어음만기일"],	  			ref: 'BILL_DUE_DATE', 			type:'output',  	width:'100px',  	style:'text-align:right'},
-            {caption: ["비고"],	  					ref: 'DESCRIPTION', 			type:'output',  	width:'250px',  	style:'text-align:right'},
-            {caption: ["어음일수"],	   				ref: 'BILL_DUE_DAY', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["어음지급일"],				ref: 'BILL_DUE_PAY_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["라인유형"],					ref: 'LINE_TYPE', 				type:'combo',  		width:'80px',  		style:'text-align:center',
+            	typeinfo: {
+					ref			: 'jsonPopLineType',
+					label		: 'label',
+					value		: 'value',
+					displayui :true, 
+					oneclickedit: true
+            	}
+            },
+            {caption: ["차/대"],					ref: 'DEBIT_CREDIT', 			type:'combo',  		width:'60px',  		style:'text-align:center',
+            	typeinfo: {
+					ref			: 'jsonDebitCredit',
+					label		: 'label',
+					value		: 'value',
+					displayui :true, 
+					oneclickedit: true
+            	}
+            },
+            
+            {caption: ["거래처"], 					ref: 'CS_CODE',    				type:'input',  		width:'70px',  		style:'text-align:left'},
+            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'input',		width:'150px',  	style:'text-align:left'},
+
+            {caption: ["계정코드"], 				ref: 'ACCOUNT_CODE', 			type:'input',  		width:'70px',  		style:'text-align:left'},
+            {caption: [''], 						ref: 'btn3',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup3(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            {caption: ["계정과목명"], 				ref: 'ACCOUNT_NAME', 			type:'input',		width:'150px',  	style:'text-align:left'},
+            
+            {caption: ["통화금액"], 				ref: 'ORIGINAL_AMT', 			type:'input',		width:'150px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
+            {caption: ["전표금액"], 				ref: 'FUNCTIONAL_AMT', 			type:'input',		width:'150px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
+
         ];
 
-        Fig2320GridList = _SBGrid.create(SBGridProperties);
-        //Fig2320GridList.bind('click', 'fn_viewGrid');
+        Fig2320GridEdit = _SBGrid.create(SBGridProperties);
+        //Fig2320GridEdit.bind('click', 'fn_viewGrid');
     }	
-    fn_createFig2320GridEdit();	
     
 	//close event
 	$(modalId).find('.cu-btn-cancel').off('click');
@@ -740,7 +802,7 @@ function fn_popCurrencyCodeChange(val) {
 	
 	if(!val) return;
 	
-	let p_entry_date_to	= gfnma_date6(gfnma_nvl(SBUxMethod.get("sch-pop-entry-date-to")));
+	let p_entry_date_to	= gfnma_date7(gfnma_nvl(SBUxMethod.get("sch-pop-entry-date-to")));
 	
 	var paramObj = {
 		    V_P_DEBUG_MODE_YN	: '',
@@ -918,11 +980,20 @@ function fn_popMultiCs() {
 	});
 	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
 }
- 
+
 /**
  * 조회
  */
-const fn_popQueryDisp = async function (wtype){
+const fn_popQueryDisp = function (){
+
+	fn_popSubQueryDispA('Q');
+	fn_popSubQueryDispB('DEFAULTRULE');
+}
+
+/**
+ * 조회
+ */
+const fn_popSubQueryDispA = async function (wtype){
 
 	let p_cs_code_fr		= gfnma_nvl(SBUxMethod.get("sch-pop-cs-code-fr"));
 	let p_cs_code_to		= gfnma_nvl(SBUxMethod.get("sch-pop-cs-code-to"));
@@ -931,7 +1002,7 @@ const fn_popQueryDisp = async function (wtype){
 	
 	let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("sch-pop-fi-org-code"));
 	let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("sch-pop-acct-rule-code"));
-	let p_entry_date_to		= gfnma_date6(gfnma_nvl(SBUxMethod.get("sch-pop-entry-date-to")));
+	let p_entry_date_to		= gfnma_date7(gfnma_nvl(SBUxMethod.get("sch-pop-entry-date-to")));
 	let p_acc_character		= gfnma_nvl(SBUxMethod.get("sch-pop-acc-character"));
 	let p_currenty_code		= gfnma_nvl(SBUxMethod.get("sch-pop-currency-code"));
 	
@@ -984,8 +1055,245 @@ const fn_popQueryDisp = async function (wtype){
 
     try {
     	if (_.isEqual("S", data.resultStatus)) {
-    		if(data.resultMessage){
-          		alert(data.resultMessage);
+    		
+        	/** @type {number} **/
+    		let totalRecordCount = 0;
+
+    		jsonFig2320List.length = 0;
+        	data.cv_1.forEach((item, index) => {
+				const msg = {
+					ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),			
+					ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),			
+					
+					ACC_ITEM_CODE1			: gfnma_nvl(item.ACC_ITEM_CODE1),			
+					ACC_ITEM_CODE2			: gfnma_nvl(item.ACC_ITEM_CODE2),			
+					ACC_ITEM_CODE3			: gfnma_nvl(item.ACC_ITEM_CODE3),			
+					ACC_ITEM_CODE4			: gfnma_nvl(item.ACC_ITEM_CODE4),			
+					ACC_ITEM_CODE5			: gfnma_nvl(item.ACC_ITEM_CODE5),			
+					ACC_ITEM_CODE6			: gfnma_nvl(item.ACC_ITEM_CODE6),			
+					ACC_ITEM_CODE7			: gfnma_nvl(item.ACC_ITEM_CODE7),			
+					ACC_ITEM_CODE8			: gfnma_nvl(item.ACC_ITEM_CODE8),			
+					ACC_ITEM_CODE9			: gfnma_nvl(item.ACC_ITEM_CODE9),			
+					ACC_ITEM_CODE10			: gfnma_nvl(item.ACC_ITEM_CODE10),			
+					
+					ACC_ITEM_NAME1			: gfnma_nvl(item.ACC_ITEM_NAME1),			
+					ACC_ITEM_NAME2			: gfnma_nvl(item.ACC_ITEM_NAME2),			
+					ACC_ITEM_NAME3			: gfnma_nvl(item.ACC_ITEM_NAME3),			
+					ACC_ITEM_NAME4			: gfnma_nvl(item.ACC_ITEM_NAME4),			
+					ACC_ITEM_NAME5			: gfnma_nvl(item.ACC_ITEM_NAME5),			
+					ACC_ITEM_NAME6			: gfnma_nvl(item.ACC_ITEM_NAME6),			
+					ACC_ITEM_NAME7			: gfnma_nvl(item.ACC_ITEM_NAME7),			
+					ACC_ITEM_NAME8			: gfnma_nvl(item.ACC_ITEM_NAME8),			
+					ACC_ITEM_NAME9			: gfnma_nvl(item.ACC_ITEM_NAME9),			
+					ACC_ITEM_NAME10			: gfnma_nvl(item.ACC_ITEM_NAME10),			
+
+					ACC_ITEM_VALUE1			: gfnma_nvl(item.ACC_ITEM_VALUE1),			
+					ACC_ITEM_VALUE2			: gfnma_nvl(item.ACC_ITEM_VALUE2),			
+					ACC_ITEM_VALUE3			: gfnma_nvl(item.ACC_ITEM_VALUE3),			
+					ACC_ITEM_VALUE4			: gfnma_nvl(item.ACC_ITEM_VALUE4),			
+					ACC_ITEM_VALUE5			: gfnma_nvl(item.ACC_ITEM_VALUE5),			
+					ACC_ITEM_VALUE6			: gfnma_nvl(item.ACC_ITEM_VALUE6),			
+					ACC_ITEM_VALUE7			: gfnma_nvl(item.ACC_ITEM_VALUE7),			
+					ACC_ITEM_VALUE8			: gfnma_nvl(item.ACC_ITEM_VALUE8),			
+					ACC_ITEM_VALUE9			: gfnma_nvl(item.ACC_ITEM_VALUE9),			
+					ACC_ITEM_VALUE10		: gfnma_nvl(item.ACC_ITEM_VALUE10),			
+
+					ACC_VALUE_NAME1			: gfnma_nvl(item.ACC_VALUE_NAME1),			
+					ACC_VALUE_NAME2			: gfnma_nvl(item.ACC_VALUE_NAME2),			
+					ACC_VALUE_NAME3			: gfnma_nvl(item.ACC_VALUE_NAME3),			
+					ACC_VALUE_NAME4			: gfnma_nvl(item.ACC_VALUE_NAME4),			
+					ACC_VALUE_NAME5			: gfnma_nvl(item.ACC_VALUE_NAME5),			
+					ACC_VALUE_NAME6			: gfnma_nvl(item.ACC_VALUE_NAME6),			
+					ACC_VALUE_NAME7			: gfnma_nvl(item.ACC_VALUE_NAME7),			
+					ACC_VALUE_NAME8			: gfnma_nvl(item.ACC_VALUE_NAME8),			
+					ACC_VALUE_NAME9			: gfnma_nvl(item.ACC_VALUE_NAME9),			
+					ACC_VALUE_NAME10		: gfnma_nvl(item.ACC_VALUE_NAME10),			
+					
+					AFTER_DUE_DATE_YN			: gfnma_nvl(item.AFTER_DUE_DATE_YN),			
+					APPLY_FUNCTIONAL_AMOUNT		: gfnma_nvl(item.APPLY_FUNCTIONAL_AMOUNT),			
+					APPLY_FUNCTIONAL_AMOUNT_RAW	: gfnma_nvl(item.APPLY_FUNCTIONAL_AMOUNT_RAW),			
+					APPLY_ORIGINAL_AMOUNT		: gfnma_nvl(item.APPLY_ORIGINAL_AMOUNT),			
+					APPLY_ORIGINAL_AMOUNT_INPUT	: gfnma_nvl(item.APPLY_ORIGINAL_AMOUNT_INPUT),			
+					APPLY_ORIGINAL_AMOUNT_RAW	: gfnma_nvl(item.APPLY_ORIGINAL_AMOUNT_RAW),			
+					
+					BASIS_TYPE				: gfnma_nvl(item.BASIS_TYPE),			
+					BILL_DUE_DATE			: gfnma_nvl(item.BILL_DUE_DATE),			
+					BILL_DUE_DAY			: gfnma_nvl(item.BILL_DUE_DAY),			
+					BILL_DUE_PAY_DATE		: gfnma_nvl(item.BILL_DUE_PAY_DATE),			
+					CARD_NUM				: gfnma_nvl(item.CARD_NUM),			
+					CARD_USE_TYPE			: gfnma_nvl(item.CARD_USE_TYPE),			
+					CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
+					
+					COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),			
+					COST_CENTER_NAME		: gfnma_nvl(item.COST_CENTER_NAME),			
+					CS_CODE					: gfnma_nvl(item.CS_CODE),			
+					CS_NAME					: gfnma_nvl(item.CS_NAME),			
+					CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),			
+					DEBIT_CREDIT			: gfnma_nvl(item.DEBIT_CREDIT),			
+					DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),			
+					DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),			
+					
+					DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DOCUMENT_ISSUE_DATE),			
+					DOCUMENT_NAME			: gfnma_nvl(item.DOCUMENT_NAME),			
+					DOCUMENT_NO				: gfnma_nvl(item.DOCUMENT_NO),			
+					
+					DOC_BATCH_NO			: gfnma_nvl(item.DOC_BATCH_NO),			
+					DOC_DATE				: gfnma_nvl(item.DOC_DATE),			
+					DOC_DATE_P				: gfnma_nvl(item.DOC_DATE_P),			
+					DOC_DESC				: gfnma_nvl(item.DOC_DESC),			
+					DOC_ID					: gfnma_nvl(item.DOC_ID),			
+					DOC_NAME				: gfnma_nvl(item.DOC_NAME),			
+					DOC_NUM					: gfnma_nvl(item.DOC_NUM),			
+					DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),			
+					DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),			
+					DUP_ISSUE_BILL_TYPE		: gfnma_nvl(item.DUP_ISSUE_BILL_TYPE),			
+					ETAX_TYPE				: gfnma_nvl(item.ETAX_TYPE),			
+					
+					EXCHANGE_GAIN_ACCOUNT		: gfnma_nvl(item.EXCHANGE_GAIN_ACCOUNT),			
+					EXCHANGE_GAIN_ACCOUNT_NAME	: gfnma_nvl(item.EXCHANGE_GAIN_ACCOUNT_NAME),			
+					EXCHANGE_LOSS_ACCOUNT		: gfnma_nvl(item.EXCHANGE_LOSS_ACCOUNT),			
+					EXCHANGE_LOSS_ACCOUNT_NAME	: gfnma_nvl(item.EXCHANGE_LOSS_ACCOUNT_NAME),			
+					EXCHANGE_RATE				: gfnma_nvl(item.EXCHANGE_RATE),			
+					EXCHANGE_TYPE				: gfnma_nvl(item.EXCHANGE_TYPE),			
+					
+					EXCLUDE_REVENUE_AMT_YN		: gfnma_nvl(item.EXCLUDE_REVENUE_AMT_YN),			
+					EXPECTED_PAY_DATE			: gfnma_nvl(item.EXPECTED_PAY_DATE),			
+					EXPORT_AMT					: gfnma_nvl(item.EXPORT_AMT),			
+					EXPORT_AMT_KRW				: gfnma_nvl(item.EXPORT_AMT_KRW),			
+					EXPORT_LICENSE_NO			: gfnma_nvl(item.EXPORT_LICENSE_NO),			
+					FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),			
+					FOREIGN_AMT					: gfnma_nvl(item.FOREIGN_AMT),			
+					FUNCTIONAL_AMOUNT			: gfnma_nvl(item.FUNCTIONAL_AMOUNT),			
+					HOLD_FLAG					: gfnma_nvl(item.HOLD_FLAG),			
+					HOLD_REASON					: gfnma_nvl(item.HOLD_REASON),			
+					ISSUE_NAME					: gfnma_nvl(item.ISSUE_NAME),			
+					ITEM_SOURCE_ID				: gfnma_nvl(item.ITEM_SOURCE_ID),			
+					ITEM_SOURCE_TYPE			: gfnma_nvl(item.ITEM_SOURCE_TYPE),			
+					LINE_STATUS					: gfnma_nvl(item.LINE_STATUS),			
+					LOCAL_CREDIT_TYPE			: gfnma_nvl(item.LOCAL_CREDIT_TYPE),			
+					ORIGINAL_AMOUNT				: gfnma_nvl(item.ORIGINAL_AMOUNT),			
+					PAYEE_CODE					: gfnma_nvl(item.PAYEE_CODE),			
+					PAY_BASE_DATE				: gfnma_nvl(item.PAY_BASE_DATE),			
+					PAY_METHOD					: gfnma_nvl(item.PAY_METHOD),			
+					PAY_TERM_CODE				: gfnma_nvl(item.PAY_TERM_CODE),			
+					PAY_TERM_NAME				: gfnma_nvl(item.PAY_TERM_NAME),			
+					PROJECT_CODE				: gfnma_nvl(item.PROJECT_CODE),			
+					PROJECT_NAME				: gfnma_nvl(item.PROJECT_NAME),			
+					
+					REMAIN_FUNCTIONAL_AMOUNT	: gfnma_nvl(item.REMAIN_FUNCTIONAL_AMOUNT),			
+					REMAIN_FUNCTIONAL_AMOUNT_RAW: gfnma_nvl(item.REMAIN_FUNCTIONAL_AMOUNT_RAW),			
+					REMAIN_ORIGINAL_AMOUNT		: gfnma_nvl(item.REMAIN_ORIGINAL_AMOUNT),			
+					REMAIN_ORIGINAL_AMOUNT_RAW	: gfnma_nvl(item.REMAIN_ORIGINAL_AMOUNT_RAW),			
+					
+					REPORT_OMIT_YN				: gfnma_nvl(item.REPORT_OMIT_YN),			
+					SEQ							: gfnma_nvl(item.SEQ),			
+					SHIPPING_DATE				: gfnma_nvl(item.SHIPPING_DATE),			
+					SITE_CODE					: gfnma_nvl(item.SITE_CODE),			
+					SOURCE_RECORD_COUNT			: gfnma_nvl(item.SOURCE_RECORD_COUNT),			
+					STANDARD_DATE				: gfnma_nvl(item.STANDARD_DATE),			
+					SUPPLY_AMT					: gfnma_nvl(item.SUPPLY_AMT),			
+					VAT_AMT						: gfnma_nvl(item.VAT_AMT),			
+					VAT_ASSET_TYPE				: gfnma_nvl(item.VAT_ASSET_TYPE),			
+					VAT_EXPORT_AMT				: gfnma_nvl(item.VAT_EXPORT_AMT),			
+					VAT_EXPORT_AMT_KRW			: gfnma_nvl(item.VAT_EXPORT_AMT_KRW),			
+					VAT_NOT_DEDUCTION_TYPE		: gfnma_nvl(item.VAT_NOT_DEDUCTION_TYPE),			
+					
+					VOUCHER_NO					: gfnma_nvl(item.VOUCHER_NO),			
+					VOUCHER_TYPE				: gfnma_nvl(item.VOUCHER_TYPE),
+					WON_AMT						: gfnma_nvl(item.WON_AMT),
+					ZERO_REPORT_YN				: gfnma_nvl(item.ZERO_REPORT_YN),
+					ZERO_TYPE					: gfnma_nvl(item.ZERO_TYPE)    		
+				}
+				jsonFig2320List.push(msg);
+				totalRecordCount ++;
+			});
+
+        	Fig2320GridList.rebuild();
+        	console.log('jsonFig2320List:', jsonFig2320List);
+    		
+    	} else {
+      		alert(data.resultMessage);
+    	}
+    	
+    } catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }  
+}  
+
+/**
+ * 조회
+ */
+const fn_popSubQueryDispB = async function (wtype){
+
+	let p_cs_code_fr		= gfnma_nvl(SBUxMethod.get("sch-pop-cs-code-fr"));
+	let p_cs_code_to		= gfnma_nvl(SBUxMethod.get("sch-pop-cs-code-to"));
+	let p_account_code_fr	= gfnma_nvl(SBUxMethod.get("sch-pop-account-code-fr"));
+	let p_account_code_to	= gfnma_nvl(SBUxMethod.get("sch-pop-account-code-to"));
+	
+	let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("sch-pop-fi-org-code"));
+	let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("sch-pop-acct-rule-code"));
+	let p_entry_date_to		= gfnma_date7(gfnma_nvl(SBUxMethod.get("sch-pop-entry-date-to")));
+	let p_acc_character		= gfnma_nvl(SBUxMethod.get("sch-pop-acc-character"));
+	let p_currenty_code		= gfnma_nvl(SBUxMethod.get("sch-pop-currency-code"));
+	
+	let p_rule_code 		= (wtype=='DEFAULTRULE') ? '93' : '';
+	
+	if( p_cs_code_fr == "" || p_cs_code_to == "" || p_account_code_fr == "" || p_account_code_to == ""){
+		//gfn_comAlert("E0000","거래처 또는 계정과목을 반드시 입력 후 조회해주세요.");
+		return;      		 
+	}
+	if( !p_currenty_code ) {
+		//gfn_comAlert("E0000","통화를 선택해야 합니다.");
+		return;      		 
+	}
+	
+    var paramObj = { 
+		V_P_DEBUG_MODE_YN			: ''
+		,V_P_LANG_ID				: ''
+		,V_P_COMP_CODE				: gv_ma_selectedApcCd
+		,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+	
+		,V_P_FI_ORG_CODE			: p_fi_org_code
+		,V_P_ACCT_RULE_CODE			: p_acct_rule_code
+		,V_P_BASE_DATE     			: p_entry_date_to
+		,V_P_ACCOUNT_CODE_FR 		: p_account_code_fr
+		,V_P_ACCOUNT_CODE_TO		: p_account_code_to
+		,V_P_CS_CODE_FR 			: p_cs_code_fr
+		,V_P_CS_CODE_TO				: p_cs_code_to
+		,V_P_ACCOUNT_CODE_D			: pp_strAccountCodeList
+		,V_P_CS_CODE_D				: pp_strCsCodeList
+		,V_P_ACC_CHARACTER			: p_acc_character
+		,V_P_CURRENCY_CODE			: p_currenty_code
+		,V_P_RULE_CODE				: p_rule_code
+			
+		,V_P_FORM_ID				: p_formId
+		,V_P_MENU_ID				: p_menuId
+		,V_P_PROC_ID				: ''
+		,V_P_USERID					: p_userId
+		,V_P_PC						: '' 
+    };		
+	console.log('paramObj:', paramObj);
+	    
+    const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2320List.do", {
+    	getType				: 'json',
+    	workType			: wtype,
+    	cv_count			: '3',
+    	params				: gfnma_objectToString(paramObj)
+	});    	 
+    const data = await postJsonPromise;
+	console.log('data:', data);
+
+    try {
+    	if (_.isEqual("S", data.resultStatus)) {
+    		if(data.cv_2.length>0){
+    			var list = data.cv_2;
+    			for (var i = 0; i < list.length; i++) {
+					
+				}
     		}
     	} else {
       		alert(data.resultMessage);

@@ -1138,7 +1138,7 @@
 		compopup1({
 			compCode				: gv_ma_selectedApcCd
 			,clientCode				: gv_ma_selectedClntCd
-			,bizcompId				: 'P_COM028'
+			,bizcompId				: 'P_COM028' 
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["프로젝트코드",		"프로젝트명"]
@@ -1210,20 +1210,26 @@
      */
     var fn_addItem = function() {
     	
-    	SBUxMethod.attr('modal-compopfig2320', 'header-title', '미결반제전표');
-		SBUxMethod.openModal('modal-compopfig2320');
+//     	SBUxMethod.attr('modal-compopfig2320', 'header-title', '미결반제전표');
+// 		SBUxMethod.openModal('modal-compopfig2320');
 		
-    	compopfig2320({
-    		height			: '600px'
-    		,width			: '1600px'
-    		,param			: {
-    		}
-   			,callbackEvent	: function (data){
-   				console.log('callback data:', data);
-   			},
-    	});
+//     	compopfig2320({
+//     		height			: '600px'
+//     		,width			: '1600px'
+//     		,param			: {
+//     		}
+//    			,callbackEvent	: function (data){
+//    				console.log('callback data:', data);
+//    			},
+//     	});
+
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'target'		: 'MA_A20_030_020_001'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
   	}       
-    
     
     
 </script>
