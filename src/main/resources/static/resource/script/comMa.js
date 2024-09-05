@@ -153,7 +153,21 @@ const gfnma_date5 = function (str1, str2) {
 const gfnma_date6 = function (str) {
 	var rstr 	= '';
 	var gubun	= (str) ? str : '';
-	rstr += gfnma_date().substr(0,4) + gubun + gfnma_date().substr(4,2) + gubun + gfnma_date().substr(6,2); 
+	var nday	= gfnma_date();
+	rstr = nday.substr(0,4) + gubun + nday.substr(4,2) + gubun + nday.substr(6,2); 
+	return rstr;
+}
+
+/**
+ * @name 		gfnma_date7
+ * @description 날짜에서 구분자 삭제
+ * @function
+ * @param 		{string} str : 날짜 
+ * @returns 	{string}
+ */
+const gfnma_date7 = function (str) {
+	var regex 	= /[^0-9]/g;
+	var rstr 	= str.replace(regex, "");
 	return rstr;
 }
 
@@ -811,9 +825,13 @@ const gfnma_getRound = function (val, unit) {
 		for (var i = 0; i < unit; i++) {
 			str += '0';
 		}
-		str = '1' + str;
-		str = Number(str);
-		rnum = Math.floor(Math.round(val * str))/str;
+		if(unit==0){
+			rnum = Math.round(val);
+		} else {
+			str = '1' + str;
+			str = Number(str);
+			rnum = Math.floor(Math.round(val * str))/str;
+		}
 	}
     return rnum;
 }
