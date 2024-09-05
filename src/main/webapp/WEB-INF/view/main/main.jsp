@@ -822,7 +822,7 @@
     <jsp:include page="../apcss/co/dmnd/prfrmImprvDmndPopup.jsp"></jsp:include>
 </div>
 <div>
-    <sbux-modal id="modal-msgAlarm" name="modal-msgAlarm" uitype="middle" header-title="APC업무지원시스템 - 알림" body-html-id="body-modal-msgAlarm" footer-is-close-button="false" header-is-close-button="true" style="width:1000px;margin-top: 20vh"></sbux-modal>
+    <sbux-modal id="modal-msgAlarm" name="modal-msgAlarm" uitype="middle" header-title="APC업무지원시스템 - 알림" body-html-id="body-modal-msgAlarm" footer-is-close-button="false" header-is-close-button="true" callback-after-close="fn_popMsgRefresh" style="width:1000px;margin-top: 20vh"></sbux-modal>
 </div>
 <div id="body-modal-msgAlarm">
     <jsp:include page="../apcss/co/ntc/comMsgPopup.jsp"></jsp:include>
@@ -1572,6 +1572,14 @@
     const fn_msgPopup = function(){
         SBUxMethod.openModal('modal-msgAlarm');
         popMsg.init('${loginVO.id}');
+    }
+    async function fn_popMsgRefresh(){
+        let data = await popMsg.search('${loginVO.id}');
+        if(data.resultList.length > 0){
+            $("#pop_cnt").text(data.resultList.length);
+        }else{
+            $("#pop_wrap").css("display","none");
+        }
     }
 </script>
 
