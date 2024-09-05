@@ -46,6 +46,7 @@
 				<sbux-button id="btnDown" name="btnDown" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-primary" onclick="fn_down"></sbux-button>
 				<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="엑셀업로드" class="btn btn-sm btn-primary" onclick="fn_upload"></sbux-button>
 				-->
+				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>

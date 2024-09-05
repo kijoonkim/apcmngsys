@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -519,8 +520,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -642,10 +643,16 @@
 			return;
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
+	}
+
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
@@ -688,6 +695,7 @@
 					}
 				}
 				itemVo.prgrsYn = 'Y';//진척도 갱신 여부
+				itemVo.tmprStrgYn = tmpChk;//진척도 갱신 여부
 				saveList.push(itemVo);
 			}
 		}

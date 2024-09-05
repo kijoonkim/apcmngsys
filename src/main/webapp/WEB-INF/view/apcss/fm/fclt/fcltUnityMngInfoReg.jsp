@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -108,28 +109,28 @@
 								<th>생산정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsPrdctnInfo" name="dtl-inp-umsPrdctnInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsPrdctnInfo" name="dtl-inp-umsPrdctnInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsPrdctnInfo" ></label>
 									</p>
 								</td>
 								<th>입고정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsWrhsInfo" name="dtl-inp-umsWrhsInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsWrhsInfo" name="dtl-inp-umsWrhsInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsWrhsInfo" ></label>
 									</p>
 								</td>
 								<th>선별정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsSortInfo" name="dtl-inp-umsSortInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsSortInfo" name="dtl-inp-umsSortInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsSortInfo" ></label>
 									</p>
 								</td>
 								<th>저장정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsStrgInfo" name="dtl-inp-umsStrgInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsStrgInfo" name="dtl-inp-umsStrgInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsStrgInfo" ></label>
 									</p>
 								</td>
@@ -138,21 +139,21 @@
 								<th>포장정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsPckgInfo" name="dtl-inp-umsPckgInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsPckgInfo" name="dtl-inp-umsPckgInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsPckgInfo" ></label>
 									</p>
 								</td>
 								<th>출고정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsSpmtInfo" name="dtl-inp-umsSpmtInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsSpmtInfo" name="dtl-inp-umsSpmtInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsSpmtInfo" ></label>
 									</p>
 								</td>
 								<th>정산정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsClclnInfo" name="dtl-inp-umsClclnInfo" uitype="normal" true-value = "1" false-value = "0"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsClclnInfo" name="dtl-inp-umsClclnInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
@@ -187,8 +188,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -201,6 +202,8 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_clearForm();
+
 		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
@@ -213,8 +216,19 @@
 		}
 	}
 
+	const fn_clearForm = async function() {
+		SBUxMethod.set('dtl-inp-umsPrdctnInfo',"N");
+		SBUxMethod.set('dtl-inp-umsWrhsInfo',"N");
+		SBUxMethod.set('dtl-inp-umsSortInfo',"N");
+		SBUxMethod.set('dtl-inp-umsStrgInfo',"N");
+		SBUxMethod.set('dtl-inp-umsPckgInfo',"N");
+		SBUxMethod.set('dtl-inp-umsSpmtInfo',"N");
+		SBUxMethod.set('dtl-inp-umsClclnInfo',"N");
+	}
+
 	const fn_search = async function() {
-		fn_selectUniMnIfList();
+		await fn_clearForm();
+		await fn_selectUniMnIfList();
 	}
 
 	const fn_selectUniMnIfList = async function(copy_chk) {

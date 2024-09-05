@@ -73,6 +73,26 @@ public class FcltUnityMngInfoServiceImpl extends BaseServiceImpl implements Fclt
 
 		int insertedCnt = fcltUnityMngInfoMapper.insertFcltUnityMngInfo(fcltUnityMngInfoVO);
 
+		String prgrsYn = fcltUnityMngInfoVO.getPrgrsYn() == null ? "N" : fcltUnityMngInfoVO.getPrgrsYn();
+		if(insertedCnt == 1 && prgrsYn.equals("Y")) {
+			//진척도 변경
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltUnityMngInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltUnityMngInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltUnityMngInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltUnityMngInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltUnityMngInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltUnityMngInfoVO.getSysLastChgPrgrmId());
+			fcltPrgrsVO.setPrgrsSel("11");
+			//임시저장
+			String tmprStrgYn = fcltUnityMngInfoVO.getTmprStrgYn() == null ? "N" : fcltUnityMngInfoVO.getTmprStrgYn();
+			if(tmprStrgYn.equals("Y")) {
+				fcltPrgrsVO.setPrgrsVal("T");
+			}else {
+				fcltPrgrsVO.setPrgrsVal("Y");
+			}
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
 		return insertedCnt;
 	}
 
