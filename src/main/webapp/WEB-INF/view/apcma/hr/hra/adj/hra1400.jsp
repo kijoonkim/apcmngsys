@@ -95,7 +95,7 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">정산연도</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td colspan="2" class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
                             id="srch-ye_tx_yyyy"
                             name="srch-ye_tx_yyyy"
@@ -103,12 +103,10 @@
                             datepicker-mode="year"
                             date-format="yyyy"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            style="width: 95%;"
                             required>
-                        <%--onchange="fn_payDate"--%>
                     </sbux-datepicker>
                 </td>
-                <td colspan="2" style="border-right: hidden;"></td>
+                <td <%--colspan="2"--%> style="border-right: hidden;"></td>
                 <th scope="row" class="th_bg">정산구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">

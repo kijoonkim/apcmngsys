@@ -192,12 +192,6 @@
                     <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
                 </li>
             </ul>
-            <div style="margin-left: auto;">
-                <sbux-button
-                        id="btnSelectMode" name="btnSelectMode" uitype="normal" text="복사모드해제"
-                        class="btn btn-sm btn-outline-danger" onclick="fn_btnSelectMode" style="float: right;"
-                ></sbux-button>
-            </div>
         </div>
         <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
         </sbux-tabs>
@@ -208,6 +202,35 @@
                 </div>
             </div>
             <div id="tabInfo2" >
+                <div style="margin-left: auto;">
+                    <sbux-button
+                            id="btnCopyClear"
+                            name="btnCopyClear"
+                            uitype="normal"
+                            text="복사모드해제" <%--그리드 복사 불가. 붙여넣기 불가.--%>
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="fn_gridCopyClear"
+                            style="float: right; display: block"
+                    ></sbux-button>
+                    <sbux-button
+                            id="btnCopyLine"
+                            name="btnCopyLine"
+                            uitype="normal"
+                            text="행복사모드" <%--행단위로 복사--%>
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="fn_gridCopyLine"
+                            style="float: right; display: none;"
+                    ></sbux-button>
+                    <sbux-button
+                            id="btnCopyCell"
+                            name="btnCopyCell"
+                            uitype="normal"
+                            text="셀복사모드" <%--셀단위로 복사--%>
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="fn_gridCopyCell"
+                            style="float: right; display: none;"
+                    ></sbux-button>
+                </div>
                 <div>
                     <div id="sb-area-gvwYearEndTaxResult" style="height:520px; width:100%;"></div>
                 </div>
@@ -381,10 +404,12 @@
     const fn_init = async function () {
 
         fn_createGrid();
-        fn_createResultGrid();
+        fn_createResultGrid('clear');
 
         let openDate = gfn_dateToYear(new Date());
         SBUxMethod.set('SRCH_YE_TX_YYYY', openDate);
+
+        SBUxMethod.hideTab('tabJson','tabInfo1');
 
     }
 
@@ -395,7 +420,7 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            fn_save('U', '');
+            fn_save('U', '', 'tabInfo2');
 
         }
     }
@@ -481,21 +506,57 @@
     }
 
     //계산결과 마감 리스트
-    function fn_createResultGrid() {
+    function fn_createResultGrid(chMode, rowData) {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwYearEndTaxResult';
         SBGridProperties.id = 'gvwYearEndTaxResultGrid';
         SBGridProperties.jsonref = 'jsonYearEndTaxResultList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true; //복사
-        SBGridProperties.filtering = true; //필터링
-        /*SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )*/
-        SBGridProperties.explorerbar = 'sortmove';
+
+        if (chMode == 'clear') { //복사해제모드
+            SBGridProperties.selectmode = 'free';
+        } else if(chMode == 'line'){ //행복사모드
+            SBGridProperties.selectmode = 'byrow'; //byrow 선택row  채우는 방향 옵션
+            SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+            SBGridProperties.selectcellfocus = true; //selectmode가 byrow, byrows일 때 선택한 셀을 표시 여부를 설정합니다.
+
+        } else if(chMode == 'cell'){ //셀복사모드
+            SBGridProperties.selectmode = 'free';
+            SBGridProperties.allowpaste = true; //붙여넣기( true : 가능 , false : 불가능 )
+        }
         SBGridProperties.extendlastcol = 'scroll';
+        /*SBGridProperties.frozencols = 3;*/
+        //그리드 총계 하단 고정
+        SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.rowheader = ['update'];
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [1],
+                sum : [13,14,15,16,17,18,19,20,21]
+            },
+            /*subtotalrow : {
+                1: {
+                    titlecol: 0,
+                    titlevalue: '합계',
+                    style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol: 0
+                },
+            },
+            grandtotalrow : {
+                titlecol 	: 0,
+                titlevalue	: '합계',
+                style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol	: 0
+            },*/
+            datasorting	: true,
+            usedecimal : false
+        };
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
-                typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
+                typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
@@ -503,7 +564,7 @@
                 typeinfo : {ref : 'jsonCloseState', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["확정"], ref: 'CONFIRM_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
-                typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
+                typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
@@ -524,30 +585,30 @@
             {caption: ['시작월'], ref: 'YE_YYYYMM', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true, hidden : true},
             {caption: ["분납여부"], ref: 'SPLIT_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
-                typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
+                typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
             {caption: ["분납월수"], ref: 'SPLIT_MONTH', type: 'output', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' }},
             {caption: ["총세금"], ref: 'TAX_TOT', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["총소득세"], ref: 'INC_TAX_TOT', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["총지방소득세"], ref: 'LOCAL_TAX_TOT', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["소득세(당월)"], ref: 'INC_TAX_01', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["지방소득세(당월)"], ref: 'LOCAL_TAX_01', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["소득세(M1)"], ref: 'INC_TAX_02', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["지방소득세(M1)"], ref: 'LOCAL_TAX_02', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["소득세(M2)"], ref: 'INC_TAX_03', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["지방소득세(M2)"], ref: 'LOCAL_TAX_03', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["생성자"], ref: 'INSERT_USERID', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ['생성일시'], ref: 'INSERT_TIME', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true, hidden : true},
@@ -556,12 +617,18 @@
         ];
 
         gvwYearEndTaxResultGrid = _SBGrid.create(SBGridProperties);
+
+        if (rowData != null){
+            gvwYearEndTaxResultGrid.push(rowData);
+        }
+
+        /*gvwYearEndTaxResultGrid.bind('valuechanged','gridValueChanged');*/
     }
 
     /**
      * 목록 조회
      */
-    const fn_search = async function (strWorkType) {
+    const fn_search = async function () {
 
         let SITE_CODE           = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
         let YE_TX_TYPE          = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
@@ -690,7 +757,7 @@
     }
 
     //저장
-    const fn_save = async function (strWorkType, strStatus) {
+    const fn_save = async function (strWorkType, strStatus, targetid) {
 
         let returnData = [];
 
@@ -713,16 +780,21 @@
             updateData.forEach((item, index) => {
 
                 if (_.isEqual(item.CHK_YN, 'Y')) {
+
+                    console.log('----gfnma_nvl(item.INC_TAX_01  )---', gfnma_nvl(item.INC_TAX_01  ));
+                    console.log('----gfnma_nvl(item.LOCAL_TAX_01)---', gfnma_nvl(item.LOCAL_TAX_01));
+                    console.log('----INC_TAX_02---', gfnma_nvl(item.INC_TAX_02  ) == '' ? 0 : item.INC_TAX_02);
+
                     isCount = true;
-                    stremp_code += item.EMP_CODE + '|';
-                    strsplit_yn += item.SPLIT_YN + '|';
-                    strsplit_month += item.SPLIT_MONTH + '|';
-                    strinc_tax_01 += item.INC_TAX_01 + '|';
-                    strlocal_tax_01 += item.LOCAL_TAX_01 + '|';
-                    strinc_tax_02 += item.INC_TAX_02 + '|';
-                    strlocal_tax_02 += item.LOCAL_TAX_02 + '|';
-                    strinc_tax_03 += item.INC_TAX_03 + '|';
-                    strlocal_tax_03 += item.LOCAL_TAX_03 + '|';
+                    stremp_code     += item.EMP_CODE    + '|';
+                    strsplit_yn     += item.SPLIT_YN    + '|';
+                    strsplit_month  += gfnma_nvl(item.SPLIT_MONTH ) == '' ? 0 + '|' : item.SPLIT_MONTH + '|';
+                    strinc_tax_01   += gfnma_nvl(item.INC_TAX_01  ) == '' ? 0 + '|' : item.INC_TAX_01  + '|';
+                    strlocal_tax_01 += gfnma_nvl(item.LOCAL_TAX_01) == '' ? 0 + '|' : item.LOCAL_TAX_01+ '|';
+                    strinc_tax_02   += gfnma_nvl(item.INC_TAX_02  ) == '' ? 0 + '|' : item.INC_TAX_02  + '|';
+                    strlocal_tax_02 += gfnma_nvl(item.LOCAL_TAX_02) == '' ? 0 + '|' : item.LOCAL_TAX_02+ '|';
+                    strinc_tax_03   += gfnma_nvl(item.INC_TAX_03  ) == '' ? 0 + '|' : item.INC_TAX_03  + '|';
+                    strlocal_tax_03 += gfnma_nvl(item.LOCAL_TAX_03) == '' ? 0 + '|' : item.LOCAL_TAX_03+ '|';
                 }
             })
 
@@ -733,46 +805,47 @@
             }
         }
 
-        if (stremp_code.Length > 0)
+        if (stremp_code != '')
         {
             stremp_code = stremp_code.slice(0, -1)
         }
-        if (strsplit_yn.Length > 0)
+        if (strsplit_yn != '')
         {
             strsplit_yn = strsplit_yn.slice(0, -1)
         }
 
-        if (strsplit_month.Length > 0)
+        if (strsplit_month != '')
         {
             strsplit_month = strsplit_month.slice(0, -1)
 
         }
-        if (strinc_tax_01.Length > 0)
+        if (strinc_tax_01 != '')
         {
             strinc_tax_01 = strinc_tax_01.slice(0, -1)
 
         }
-        if (strlocal_tax_01.Length > 0)
+        if (strlocal_tax_01 != '')
         {
             strlocal_tax_01 = strlocal_tax_01.slice(0, -1)
 
         }
-        if (strinc_tax_02.Length > 0)
+        console.log('----strinc_tax_02---', strinc_tax_02);
+        if (strinc_tax_02 != '')
         {
             strinc_tax_02 = strinc_tax_02.slice(0, -1)
 
         }
-        if (strlocal_tax_02.Length > 0)
+        if (strlocal_tax_02 != '')
         {
             strlocal_tax_02 = strlocal_tax_02.slice(0, -1)
 
         }
-        if (strinc_tax_03.Length > 0)
+        if (strinc_tax_03 != '')
         {
             strinc_tax_03 = strinc_tax_03.slice(0, -1);
 
         }
-        if (strlocal_tax_03.Length > 0)
+        if (strlocal_tax_03 != '')
         {
             strlocal_tax_03 = strlocal_tax_03.slice(0, -1)
         }
@@ -815,6 +888,8 @@
             , V_P_PC: ''
         };
 
+        console.log('-------------paramObj--------------', paramObj);
+
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra2900.do", {
             getType: 'json',
             workType: strWorkType,
@@ -823,6 +898,8 @@
         });
 
         const data = await postJsonPromise;
+
+        console.log('-------------data--------------', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -854,11 +931,11 @@
 
         if (_.isEqual(targetid, 'tabInfo1')){
 
-            fn_save('UNCONFIRM', 'CLOSE');
+            fn_save('UNCONFIRM', 'CLOSE', targetid);
 
         }else if (_.isEqual(targetid, 'tabInfo2')){
 
-            fn_save('UNCONFIRM', 'CLOSE');
+            fn_save('UNCONFIRM', 'CLOSE', targetid);
 
         }
 
@@ -870,11 +947,11 @@
 
         if (_.isEqual(targetid, 'tabInfo1')){
 
-            fn_save('CONFIRM', 'CLOSE');
+            fn_save('CONFIRM', 'CLOSE', targetid);
 
         }else if (_.isEqual(targetid, 'tabInfo2')){
 
-            fn_save('CONFIRM', 'CLOSE');
+            fn_save('CONFIRM', 'CLOSE', targetid);
 
         }
     }
@@ -886,11 +963,11 @@
 
         if (_.isEqual(targetid, 'tabInfo1')){
 
-            fn_save('BAL_CLOSE', 'P_CLOSE');
+            fn_save('BAL_CLOSE', 'P_CLOSE', targetid);
 
         }else if (_.isEqual(targetid, 'tabInfo2')){
 
-            fn_save('CALC_CLOSE', 'CALCULATE');
+            fn_save('CALC_CLOSE', 'CALCULATE', targetid);
 
         }
 
@@ -903,14 +980,56 @@
 
         if (_.isEqual(targetid, 'tabInfo1')){
 
-            fn_save('BAL_CLOSE', 'CLOSE');
+            fn_save('BAL_CLOSE', 'CLOSE', targetid);
 
         }else if (_.isEqual(targetid, 'tabInfo2')){
 
-            fn_save('CALC_CLOSE', 'CLOSE');
+            fn_save('CALC_CLOSE', 'CLOSE', targetid);
 
         }
 
+    }
+
+    const fn_gridCopyClear = function (){ /*셀복사 해제 (복사해제모드)*/
+        $('#btnCopyClear').hide();
+        $('#btnCopyLine').show();
+        $('#btnCopyCell').hide();
+
+        /*grdFimList.bind('selectmode', 'free');*/
+
+        let datas = gvwYearEndTaxResultGrid.getGridDataAll();
+        _SBGrid.destroy('grdDetail');
+
+        let line = 'line'; //그리드 프로퍼티스 라인모드
+
+        fn_createResultGrid(line, datas);
+
+
+    }
+    const fn_gridCopyLine = function () { /*행복사 (행복사모드)*/
+        $('#btnCopyClear').hide();
+        $('#btnCopyLine').hide();
+        $('#btnCopyCell').show();
+
+        let datas = gvwYearEndTaxResultGrid.getGridDataAll();
+        _SBGrid.destroy('grdDetail');
+
+        let cell = 'cell'; //그리드 프로퍼티스 셀모드
+
+        fn_createResultGrid(cell, datas);
+
+    }
+    const fn_gridCopyCell = function () { /*셀복사 (셀복사모드)*/
+        $('#btnCopyClear').show();
+        $('#btnCopyLine').hide();
+        $('#btnCopyCell').hide();
+
+        let datas = gvwYearEndTaxResultGrid.getGridDataAll();
+        _SBGrid.destroy('grdDetail');
+
+        let clear = 'clear'; //그리드 프로퍼티스 클리어모드
+
+        fn_createResultGrid(clear, datas);
     }
 
 
