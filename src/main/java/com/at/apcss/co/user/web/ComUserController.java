@@ -80,6 +80,85 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/co/user/selectCorpUserAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectCorpUserAprvList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+		
+		// 회원유형코드
+		String mbrTypeCd = ComConstants.CON_MBR_TYPE_CD_CORP;	// 법인회원 조회
+		
+		comUserVO.setMbrTypeCd(mbrTypeCd);
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		comUserVO.setSuperUserYn(null);
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			comUserVO.setUntyOgnzCd(untyOgnzCd);
+			comUserVO.setAuthrtMngrYn(authrtMngrYn);
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		try {
+			resultList = comUserService.selectCorpUserAprvList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	@PostMapping(value = "/co/user/selectLocgovUserAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectLocgovUserAprvList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+		
+		// 회원유형코드
+		String mbrTypeCd = ComConstants.CON_MBR_TYPE_CD_LOCGOV;	// 법인회원 조회
+		
+		comUserVO.setMbrTypeCd(mbrTypeCd);
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		
+		comUserVO.setSuperUserYn(null);
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			comUserVO.setUntyOgnzCd(untyOgnzCd);
+			comUserVO.setAuthrtMngrYn(authrtMngrYn);
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		try {
+			resultList = comUserService.selectLocgovUserAprvList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	@PostMapping(value = "/co/user/selectUntyUserAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectUntyUserAprvList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
 
@@ -451,6 +530,136 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/co/user/insertCorpAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertCorpAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( ComUserVO user : comUserList ) {
+				user.setSysFrstInptUserId(getUserId());
+				user.setSysFrstInptPrgrmId(getPrgrmId());
+				user.setSysLastChgUserId(getUserId());
+				user.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = comUserService.insertCorpAprvList(comUserList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	@PostMapping(value = "/co/user/deleteCorpAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteCorpAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( ComUserVO user : comUserList ) {
+				user.setSysFrstInptUserId(getUserId());
+				user.setSysFrstInptPrgrmId(getPrgrmId());
+				user.setSysLastChgUserId(getUserId());
+				user.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = comUserService.deleteCorpAprvList(comUserList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	@PostMapping(value = "/co/user/insertLocgovAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertLocgovAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( ComUserVO user : comUserList ) {
+				user.setSysFrstInptUserId(getUserId());
+				user.setSysFrstInptPrgrmId(getPrgrmId());
+				user.setSysLastChgUserId(getUserId());
+				user.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = comUserService.insertLocgovAprvList(comUserList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+
+	@PostMapping(value = "/co/user/deleteLocgovAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteLocgovAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			for ( ComUserVO user : comUserList ) {
+				user.setSysFrstInptUserId(getUserId());
+				user.setSysFrstInptPrgrmId(getPrgrmId());
+				user.setSysLastChgUserId(getUserId());
+				user.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = comUserService.deleteLocgovAprvList(comUserList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	@PostMapping(value = "/co/user/insertUntyAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertUntyAprvList(@RequestBody List<ComUserVO> comUserList, HttpServletRequest request) throws Exception {
 
@@ -483,5 +692,6 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	
 
 }

@@ -134,13 +134,10 @@
 			}
 		},
 		callbackFnc: function() {},
-		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm, _latesFlag = false, _yr) {
+		init: async function(_apcCd, _apcNm, _callbackFnc, _prdcrNm, _latesFlag = false, _yr = null) {
 
 			excelYn = "N";
-
-			if (!gfn_isEmpty(_yr)) {
-				prvYr = _yr
-			}
+			prvYr = _yr;
 
 			// set param
 			SBUxMethod.set("prdcr-inp-apcCd", _apcCd);

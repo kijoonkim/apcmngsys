@@ -205,6 +205,22 @@ public class ComConstants {
 	public final static String CON_USER_STTS_VALID = "01";
 	public final static String CON_USER_STTS_DORMANCY = "02";
 	public final static String CON_USER_STTS_UNUSED = "03";
+	
+
+	/**
+	 * 회원유형코드 : 1 법인
+	 */
+	public final static String CON_MBR_TYPE_CD_CORP = "1";
+	/**
+	 * 회원유형코드 : 2 지자체
+	 */
+	public final static String CON_MBR_TYPE_CD_LOCGOV = "2";
+	/**
+	 * 회원유형코드 : 3 개인
+	 */
+	public final static String CON_MBR_TYPE_CD_PRSNA = "3";
+	
+	
 
 	/* 토큰 관련 */
 	public final static String CON_TOKEN_ACCESSTOKEN_EXPIRED = "30";

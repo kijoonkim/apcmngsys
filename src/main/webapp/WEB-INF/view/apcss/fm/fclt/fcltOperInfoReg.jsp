@@ -37,7 +37,9 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 				</div>
 				<div style="margin-left: auto;">
+					<!--
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
+					-->
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_selectFcltOperInfo"></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -411,6 +413,11 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+				<div style="margin-left: auto;">
+					<sbux-button id="btnInsert1" name="btnInsert1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+				</div>
+			</div>
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
@@ -442,8 +449,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -475,6 +482,8 @@
 		fn_initSBSelect();
 
 		//if() user=userTpye 값과 apc에 따라 변경 dtl-inp-apcNm
+		//APC명 자동설정
+		SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));
 
 		fn_search();
 
@@ -524,7 +533,7 @@
 				SBUxMethod.set("dtl-inp-sigunCd", resultVO.sigunCd);//시군구 코드
 				SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
 
-				SBUxMethod.set("dtl-inp-apcNm", resultVO.apcNm);//apc명
+				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 				SBUxMethod.set("dtl-inp-apcBrno", resultVO.apcBrno);//apc 사업자등록번호
 				SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
 				SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
@@ -584,7 +593,7 @@
 		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
 		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
 
-		SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
+		//SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
 		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
 		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
 		SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
@@ -847,6 +856,7 @@
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
+			SBUxMethod.set('dtl-inp-apcNm', apc.apcNm);
 		}
 		//진척도 갱신
 		await cfn_selectPrgrs();

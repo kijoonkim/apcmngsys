@@ -254,7 +254,8 @@ nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap {
   height: 60px;
 }
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-brand {
-  position: relative;
+  position: absolute;
+  z-index: 9999;
   line-height: 60px;
   float: left;
   height: auto;
@@ -1017,6 +1018,7 @@ nav.sbux-meu-fixed-bottom .sbux-meu-fluid .sbux-meu-bd-wrap > ul.sbux-meu-bd-ul 
   position: relative;
   display: inline-table;
   width: 200px;
+  height: 100%;
 }
 nav.sbux-meu-wrap .sbux-meu-fluid .sbux-meu-hd-wrap .sbux-meu-hd-tgl {
   display: none;

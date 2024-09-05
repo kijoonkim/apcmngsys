@@ -54,6 +54,22 @@ public class ComUserVO extends ComVO {
 	private String untyAuthrtMngUserId;
 	private String untyAuthrtId;
 
+	
+	/**
+	 * 조직코드
+	 */
+	private String ognzCd;
+	
+	/**
+	 * 조직명
+	 */
+	private String ognzNm;
+	
+	/**
+	 * 법인명
+	 */
+	private String corpNm;
+	
 	private String ctpv;
 	private String sgg;
 	
@@ -63,6 +79,19 @@ public class ComUserVO extends ComVO {
 	private int untyAuthrtMngUserCnt;
 	
 	private String superUserYn;
+
+	
+	/**
+	 * 회원유형코드
+	 */
+	private String mbrTypeCd;
+	
+	private String authrtMngrYn;	
+	private String sysMesYn;
+	private String sysFmYn;
+	private String sysPdYn;
+	private String sysCsYn;
+	
 	
 	private String rtnCd;
 	private String rtnMsg;

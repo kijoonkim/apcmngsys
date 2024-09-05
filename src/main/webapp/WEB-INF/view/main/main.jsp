@@ -38,11 +38,11 @@
         }
         .sbt-A-wrap {min-width:1024px; margin:0 auto; height:100vh; overflow: scroll; -ms-overflow-style: none; scrollbar-width: none;}
         .sbt-A-wrap ::-webkit-scrollbar {display: none;}
-        .sbt-A-wrap .main {display:table;  width:100%; height:100%;}
+        .sbt-A-wrap .main {display:table;  width:100%;}
         .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; height:90vh;}
         .sbt-A-wrap .left .sbt-all-left {height: 100%;}
         .sbt-A-wrap .content {display:table-cell; height: 90vh;}
-        .sbux-sidemeu {position: relative; z-index: 1;}
+        .sbux-sidemeu {position: relative; z-index: 1; height: 100%;}
         .footer {
             display: flex; align-items: center; justify-content: center; font-size: 16px;
             background:rgb(42, 48, 65); height:0px; padding:10px; box-sizing: border-box;  color:#dddddd;
@@ -143,6 +143,12 @@
 .button-goldenBrown:hover{
     background-color: white;
     color: black;
+}
+#idxSide_menu > div.sbux-vscroll-wrap{
+    height: 100% !important;
+}
+#idxSide_menu > div.sbux-vscroll-wrap > div.sbux-sidemeu.sbux-sidemeu-split.slideline{
+    height: 100% !important;
 }
 
 
@@ -671,7 +677,7 @@
 
 </script>
 <!-- //inline scripts related to this page -->
-<div class="sbt-A-wrap">
+<div class="sbt-A-wrap" style="display:flex; flex-direction: column">
     <!-- header (menu) -->
     <div class="sbt-all-header">
         <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
@@ -680,14 +686,44 @@
                    wrap-style="width:100%"
                    storage-data="object"
                    onclick="fn_selectTopMenu('top_menu')">
-            <brand-item text="APC통합지원" image-src="/resource/images/header_logo.png">
+            <brand-item text="APC통합지원" image-src="/resource/images/header_logo.png" wrap-style="width:500px;">
             </brand-item>
         </sbux-menu>
-        <div class="user-info-wrap">
+        <div class="user-info-wrap" style="z-index:9999;border-left: 5px solid white;background:#149fff;">
+            <div style="width: 50px;margin-left: 5px;position: relative;cursor: pointer" onclick="fn_msgPopup();">
+<%--            <svg  width="100%" height="100%" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"--%>
+<%--                 viewBox="0 0 283.46 283.46" style="enable-background:new 0 0 283.46 283.46;" xml:space="preserve">--%>
+<%--<style type="text/css">--%>
+<%--    .st0{fill:#A8CCBA;}--%>
+<%--    .st1{fill:#FFFFFF;}--%>
+<%--</style>--%>
+<%--                <path class="st0" d="M141.73,283.46L141.73,283.46C63.46,283.46,0,220.01,0,141.73v0C0,63.46,63.46,0,141.73,0h0--%>
+<%--	c78.28,0,141.73,63.46,141.73,141.73v0C283.46,220.01,220.01,283.46,141.73,283.46z"/>--%>
+<%--                <path class="st1" d="M223.9,92.58c-3.39-8.41-10.96-13.61-20.04-13.61c-41.34-0.01-82.68,0-124.02-0.01c-1.52,0-3.02,0.13-4.51,0.43--%>
+<%--	c-9.49,1.95-16.73,10.3-16.71,19.62c0.05,28.48,0.01,56.96,0.03,85.44c0,1.61,0.07,3.24,0.52,4.81--%>
+<%--	c2.56,8.86,10.93,15.22,20.18,15.23c41.66,0.02,83.33,0.02,124.99-0.01c5.6,0,10.46-2.11,14.48-5.96c3.59-3.44,5.76-7.62,6.01-12.68--%>
+<%--	c0-29.3,0-58.59,0-87.89C224.49,96.17,224.61,94.33,223.9,92.58z M205.71,90.06c0,0.75-0.54,0.89-0.87,1.17--%>
+<%--	c-20.67,17.73-41.34,35.45-62,53.19c-0.73,0.62-1.15,0.78-1.98,0.07c-20.9-17.96-41.82-35.89-62.74-53.82--%>
+<%--	c-0.08-0.07-0.14-0.16-0.53-0.62C120.49,90.06,163.09,90.06,205.71,90.06z M69.67,185.09c-0.48-0.83-0.5-1.67-0.5-2.51--%>
+<%--	c0-27.23,0-54.47,0-81.7c0-1.19,0.13-2.35,0.7-3.6c3.06,2.62,6.04,5.17,9.02,7.73c11.24,9.63,22.47,19.26,33.72,28.89--%>
+<%--	c0.61,0.52,1.27,0.81,0.37,1.83c-14.3,16.27-28.55,32.58-42.82,48.88C70.03,184.76,69.87,184.9,69.67,185.09z M203.58,193.62--%>
+<%--	c-41.17,0-82.33,0-123.5,0c-1.14,0-2.22-0.18-3.44-0.65c3.17-3.62,6.22-7.11,9.27-10.6c11.52-13.17,23.06-26.33,34.54-39.53--%>
+<%--	c0.93-1.07,1.41-1.08,2.46-0.16c4.95,4.35,9.97,8.61,14.99,12.89c2.67,2.28,5.17,2.28,7.82,0.02c5.13-4.38,10.27-8.77,15.37-13.19--%>
+<%--	c0.7-0.61,1.06-0.73,1.75,0.07c14.56,16.69,29.15,33.34,43.73,50.01c0.1,0.12,0.17,0.27,0.29,0.48--%>
+<%--	C205.81,193.49,204.71,193.62,203.58,193.62z M214.07,185c-0.6-0.07-0.81-0.63-1.13-1c-13.99-15.97-27.96-31.96-41.97-47.91--%>
+<%--	c-0.89-1.02-0.86-1.44,0.17-2.32c13.82-11.77,27.59-23.6,41.37-35.41c0.4-0.34,0.81-0.66,1.29-1.05c0.54,1.22,0.67,2.38,0.67,3.57--%>
+<%--	c0,27.18,0,54.36,0,81.55C214.47,183.3,214.41,184.16,214.07,185z"/>--%>
+<%--</svg>--%>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-bell-circle" width="100%" height="100%" viewBox="0 0 24 24">
+        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M17,16V15L16,14V11.39C16,10.3 15.73,9.34 15.21,8.53C14.7,7.72 13.96,7.21 13,7V6.5A1,1 0 0,0 12,5.5A1,1 0 0,0 11,6.5V7C10.04,7.21 9.3,7.72 8.79,8.53C8.27,9.34 8,10.3 8,11.39V14L7,15V16H17M13.5,17H10.5A1.5,1.5 0 0,0 12,18.5A1.5,1.5 0 0,0 13.5,17Z" fill="#fff" />
+    </svg>
+    <span id="pop_wrap" style="position:absolute;left: 30px; border-radius:50%;text-align:center;background: red;width: 15px;height: 15px;line-height: 15px;">
+        <p id="pop_cnt" style="font-weight: bold; color: white"></p>
+    </span>
+            </div>
             <c:if test="${loginVO != null && loginVO.id != null}">
             	<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
-<%--                <button style="background-color: initial;border: hidden" onclick="fn_fullScreen()">👀</button>--%>
-                <span class="name-t"><c:out value='${userName}'></c:out></span>님 반갑습니다.
+                <span class="name-t" style="margin-left: 5px"><c:out value='${userName}'></c:out></span>
 				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
                     <li style="background-color:#149FFF;">
@@ -706,7 +742,7 @@
             </c:if>
         </div>
     </div>
-    <div class="main">
+    <div class="main" style="flex: 1">
         <!--left (sidemenu) -->
         <div class="left">
             <div class="sbt-all-left">
@@ -785,8 +821,12 @@
 <div id="body-modal-prfrmImprvDmnd">
     <jsp:include page="../apcss/co/dmnd/prfrmImprvDmndPopup.jsp"></jsp:include>
 </div>
-
-<%--<jsp:include page="./noticePopup.jsp"/>--%>
+<div>
+    <sbux-modal id="modal-msgAlarm" name="modal-msgAlarm" uitype="middle" header-title="APC업무지원시스템 - 알림" body-html-id="body-modal-msgAlarm" footer-is-close-button="false" header-is-close-button="true" callback-after-close="fn_popMsgRefresh" style="width:1000px;margin-top: 20vh"></sbux-modal>
+</div>
+<div id="body-modal-msgAlarm">
+    <jsp:include page="../apcss/co/ntc/comMsgPopup.jsp"></jsp:include>
+</div>
 
 </body>
 <script type="text/javascript">
@@ -879,6 +919,7 @@
         iframe.scrolling = 'auto';
 
         mfn_displayButton();
+        fn_topMenuSet();
 
     });
     /** 각각 탭끼리 소통 관제탑 메인
@@ -1467,6 +1508,77 @@
         }catch (e){
             /** 전달인자가 비어있을경우 json parse exception **/
             console.error(e.toString());
+        }
+    }
+
+    const fn_topMenuSet = async function () {
+        $("#idxTop_json > div").css({
+            "width": "79vw",
+            "left": "0",
+            "margin-left": "0"
+        });
+        $("#sbux_idxTop_json").css({
+            "width": "calc(100% - 240px)",
+            "overflow-x": "scroll"
+        });
+
+        const scrollContainer = document.querySelector('#sbux_idxTop_json');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let isDragging = false;
+
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+            scrollContainer.style.cursor = 'grabbing';
+            isDragging = false;
+        });
+
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        });
+
+        scrollContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        });
+
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 2; // 드래그 속도 조정
+            scrollContainer.scrollLeft = scrollLeft - walk;
+            isDragging = true;
+        });
+
+        let data = await popMsg.search('${loginVO.id}');
+        if(data.resultList.length > 0){
+            $("#pop_cnt").text(data.resultList.length);
+        }else{
+            $("#pop_wrap").css("display","none");
+        }
+
+    }
+
+    function cfn_closeTab(_menuId){
+        let menuId = 'TAB_' + _menuId;
+        SBUxMethod.removeTab("tab_menu", menuId);
+    }
+
+    const fn_msgPopup = function(){
+        SBUxMethod.openModal('modal-msgAlarm');
+        popMsg.init('${loginVO.id}');
+    }
+    async function fn_popMsgRefresh(){
+        let data = await popMsg.search('${loginVO.id}');
+        if(data.resultList.length > 0){
+            $("#pop_cnt").text(data.resultList.length);
+        }else{
+            $("#pop_wrap").css("display","none");
         }
     }
 </script>

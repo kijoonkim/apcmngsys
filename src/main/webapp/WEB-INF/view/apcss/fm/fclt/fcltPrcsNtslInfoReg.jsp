@@ -117,7 +117,7 @@
 							<th class="text-center" colspan="2">계</th>
 						</tr>
 						<tr>
-							<th>유통초직 처리실적</th>
+							<th>유통조직 처리실적</th>
 							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
 									id="dtl-inp-rtlOgnzTotTrmtAmt1"
@@ -458,8 +458,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
