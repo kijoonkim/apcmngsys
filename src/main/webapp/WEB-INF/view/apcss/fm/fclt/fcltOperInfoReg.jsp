@@ -646,7 +646,7 @@
 	    try{
 			if(data.resultList.length > 0){
 				let resultVO = data.resultList[0];
-				console.log(resultVO);
+				//console.log(resultVO);
 
 				SBUxMethod.set("dtl-inp-operOgnzNm", resultVO.operOgnzNm);//운영조직명
 				SBUxMethod.set("dtl-inp-operOgnzBrno", resultVO.operOgnzBrno);//운영조직 사업자등록번호
