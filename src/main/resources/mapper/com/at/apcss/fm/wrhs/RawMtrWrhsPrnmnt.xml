@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : RawMtrWrhsPrnmnt.xml                               			        -->
+<!-- DESC : 원물입고예정 mapper                                            		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.09.03  	윤필호        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper">
+    <!-- =======================================================================================	-->
+    <!-- NAME : com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList		-->
+    <!-- DESC : 입고예정 리스트 조회.	                                       			                -->
+    <!-- =======================================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			                -->
+    <!-- ===========  	============  	========================================================	-->
+    <!-- 2024.09.03  	윤필호        	Initial Creation                                            -->
+    <!-- =======================================================================================	-->
+    <select id="selectRawMtrWrhsPrnmntList" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO" resultType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
+        <![CDATA[
+    		SELECT
+		]]>
+        <!-- Start 페이징 -->
+        <if test='pagingYn != null and pagingYn.equals("Y")'>
+                ROWNUM AS ROW_SEQ
+                , COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+                ,
+        </if>
+        <!-- End 페이징 -->
+        <![CDATA[
+				  pt0.*
+            FROM (
+                SELECT /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList */
+                       WP.APC_CD            AS APC_CD
+                     , WP.PRDCR_CD          AS PRDCR_CD
+                     , WP.PRNMNTNO          AS PRNMNTNO
+                     , WP.PRNMNT_YMD        AS PRNMNT_YMD
+                     , WP.PRNMNT_HR         AS PRNMNT_HR
+                     , WP.ITEM_CD           AS ITEM_CD
+                     , WP.VRTY_CD           AS VRTY_CD
+                     , WP.PRNMNT_QNTT       AS PRNMNT_QNTT
+                     , WP.PRNMNT_WGHT       AS PRNMNT_WGHT
+                     , WP.RMRK              AS RMRK
+                     , WP.DEL_YN            AS DEL_YN
+
+                  FROM
+                       TB_RAW_MTR_WRHS_PRNMNT WP
+--                      , TB_RAW_MTR_INVNTR INV
+
+                 WHERE WP.DEL_YN = 'N'
+		]]>
+
+        <if test='apcCd != null and apcCd != ""'>
+                   AND WP.APC_CD = #{apcCd}
+        </if>
+        <if test='wrhsPrnmntYmdFrom != null and wrhsPrnmntYmdFrom != ""'>
+                   AND WP.PRNMNT_YMD <![CDATA[>=]]> #{wrhsPrnmntYmdFrom}
+        </if>
+        <if test='wrhsPrnmntYmdTo != null and wrhsPrnmntYmdTo != ""'>
+                   AND WP.PRNMNT_YMD <![CDATA[<=]]> #{wrhsPrnmntYmdTo}
+        </if>
+<!--        <if test='prdcrCd != null and prdcrCd != ""'>-->
+<!--            <choose>-->
+<!--                <when test='prdcrGroupYn != null and prdcrGroupYn != "" and prdcrGroupYn =="Y"'>-->
+<!--                    AND WP.PRDCR_CD IN (SELECT COL1 FROM TABLE(FN_SYS_SPLIT_STRING(#{prdcrCd})))-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    AND WP.PRDCR_CD = #{prdcrCd}-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </if>-->
+
+        <![CDATA[
+             ORDER BY WP.APC_CD, PRNMNT_YMD DESC
+             ) pt0
+		]]>
+
+        <!-- Start 페이징 -->
+        <if test='pagingYn != null and pagingYn.equals("Y")'>
+            OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+            FETCH FIRST #{recordCountPerPage} ROWS ONLY
+        </if>
+        <!-- End 페이징 -->
+    </select>
+</mapper>
