@@ -37,6 +37,20 @@ public interface ComUserMapper {
 	 * @return List<>
 	 */
 	public List<ComUserVO> selectUntyUserAprvList(ComUserVO comUserVO);
+	
+	/**
+	 * 법인사용자승인등록 목록 조회
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public List<ComUserVO> selectCorpUserAprvList(ComUserVO comUserVO);
+	
+	/**
+	 * 지자체사용자승인등록 목록 조회
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public List<ComUserVO> selectLocgovUserAprvList(ComUserVO comUserVO);
 
 	
 	/**
@@ -132,6 +146,23 @@ public interface ComUserMapper {
     public int delComUserAprv(HashMap<String,Object> comUser);
     
     public void insertSpUntyAuthAprv(ComUserVO comUserVO) throws Exception;
+    
+    /**
+     * 통합사용자승인(법인, 지자체)
+     * @param comUserVO
+     * @throws Exception
+     */
+    public void insertSpUserAuthAprv(ComUserVO comUserVO) throws Exception;
+    
+    
+    /**
+     * 통합사용자승인(법인, 지자체) 취소
+     * @param comUserVO
+     * @throws Exception
+     */
+    public void deleteSpUserAuthAprv(ComUserVO comUserVO) throws Exception;
+    
+    
 }
 
 

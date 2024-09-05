@@ -38,6 +38,22 @@ public interface ComUserService {
 	 */
 	public List<ComUserVO> selectUntyUserAprvList(ComUserVO comUserVO) throws Exception;
 	
+	/**
+	 * 법인사용자승인등록 목록조회
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComUserVO> selectCorpUserAprvList(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * 지자체사용자승인등록 목록조회
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ComUserVO> selectLocgovUserAprvList(ComUserVO comUserVO) throws Exception;
+
 	
 	/**
 	 * 사용자 정보를 변경한다.
@@ -243,5 +259,34 @@ public interface ComUserService {
 	 */
 	public HashMap<String,Object> insertUntyAprvList(List<ComUserVO> comUserList) throws Exception;
 
+	
+	/**
+	 * 법인사용자 목록 승인등록
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String,Object> insertCorpAprvList(List<ComUserVO> comUserList) throws Exception;
+	
+	/**
+	 * 지자체사용자 목록 승인등록
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String,Object> insertLocgovAprvList(List<ComUserVO> comUserList) throws Exception;
+	
+	/**
+	 * 법인사용자 목록 승인 취소
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String,Object> deleteCorpAprvList(List<ComUserVO> comUserList) throws Exception;
+	
+	/**
+	 * 지자체사용자 목록 승인취소
+	 * @param comUserList
+	 * @return
+	 */
+	public HashMap<String,Object> deleteLocgovAprvList(List<ComUserVO> comUserList) throws Exception;
+	
     
 }
