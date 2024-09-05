@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComMsgMapper.xml                                    				-->
+<!-- DESC : 알림 메시지 정보 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.09.05  	손민성        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.ntc.mapper.ComMsgPopupMapper">
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.co.ntc.mapper.ComMsgPopupMapper.selectMsgPopupList		-->
+    <!-- DESC : 메시지 리스트 조회                                             		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.05  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectMsgPopup" parameterType="com.at.apcss.co.ntc.vo.ComMsgPopupVO" resultType="com.at.apcss.co.ntc.vo.ComMsgPopupVO">
+        <![CDATA[
+            SELECT
+                USER_ID         AS USER_ID
+            ,   RCPTN_DT        AS RCPTN_DT
+            ,   RCPTN_SEQ       AS RCPTN_SEQ
+            ,   NTC_SE_CD       AS NTC_SE_CD
+            ,   NTC_MSG         AS NTC_MSG
+            ,   DSPTCH_USER_ID  AS DSPTCH_USER_ID
+            ,   ACS_MENU_ID     AS ACS_MENU_ID
+            ,   IDNTY_YN        AS IDNTY_YN
+            ,   IDNTY_DT        AS IDNTY_DT
+            FROM
+                TB_COM_USER_NTC
+            WHERE
+                1=1
+            AND IDNTY_YN = 'N'
+        ]]>
+        <if test="userId != null and userId != ''">
+            AND USER_ID = #{userId}
+        </if>
+            ORDER BY RCPTN_DT, RCPTN_SEQ
+    </select>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.co.ntc.mapper.ComMsgPopupMapper.updateMsgPopup		    -->
+    <!-- DESC : 메시지 리스트 확인 업데이트                                        		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.05  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateMsgPopup" parameterType="com.at.apcss.co.ntc.vo.ComMsgPopupVO">
+        <![CDATA[
+            UPDATE TB_COM_USER_NTC
+            SET IDNTY_YN = 'Y'
+            WHERE
+                USER_ID = #{userId}
+            AND RCPTN_DT = #{rcptnDt}
+            AND RCPTN_SEQ = #{rcptnSeq}
+        ]]>
+    </update>
+
+</mapper>

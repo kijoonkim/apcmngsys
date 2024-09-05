@@ -850,18 +850,8 @@
             return;
         }
 
-        if (gfn_isEmpty(wrhsWght)) {
-            gfn_comAlert("W0001", "중량");		//	//	W0002	{0}을/를 입력하세요.
-            return;
-        }
-
         if (gfn_isEmpty(warehouseSeCd)) {
             gfn_comAlert("W0001", "창고");		//	W0002	{0}을/를 선택하세요.
-            return;
-        }
-
-        if (gfn_isEmpty(prdctnYr)) {
-            gfn_comAlert("W0001", "생산연도");		//	W0002	{0}을/를 선택하세요.
             return;
         }
 
@@ -905,7 +895,7 @@
             wrhsWght: wrhsWght,
             warehouseSeCd: warehouseSeCd,
             grdCd: grdCd,
-            prdctnYr: prdctnYr,
+            // prdctnYr: prdctnYr,
             stdGrdList: stdGrdList
         }
         let postJsonPromise;
