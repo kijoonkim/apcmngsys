@@ -86,4 +86,11 @@ public interface ApcMaComService {
 	 * @return
 	 */
     HashMap<String, Object> sendFirmBanking(Map<String, Object> param);
+
+	/**
+	 * 급여 이체 파일 ftp 전송
+	 * @param param
+	 * @return
+	 */
+    HashMap<String, Object> sendSalaryTransferDataForFtp(Map<String, Object> param);
 }

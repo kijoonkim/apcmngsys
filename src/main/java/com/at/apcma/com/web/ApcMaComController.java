@@ -11,13 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -694,6 +688,65 @@ public class ApcMaComController extends BaseController {
 		
 		logger.info("=============fim3420List=====end========");
 		return getSuccessResponseEntityMa(resultMap);
-	}	
-	
+	}
+
+	@PostMapping(value = "/com/selectFbsOpenList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFbsOpenList(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+
+		logger.info("=============selectFbsOpenList=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			param.put("procedure", 		"P_FBSOPEN_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============selectFbsOpenList=====end========");
+		if(resultMap.get("resultStatus").equals("E")) {
+			String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+			String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+			return getErrorResponseEntity(errorCode, errorStr);
+		} else {
+			return getSuccessResponseEntity(resultMap);
+		}
+	}
+
+	@PostMapping(value = "/com/selectFbsName.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFbsName(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+
+		logger.info("=============selectFbsName=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			param.put("procedure", 		"P_FBSNAME_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============selectFbsName=====end========");
+		if(resultMap.get("resultStatus").equals("E")) {
+			String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+			String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+			return getErrorResponseEntity(errorCode, errorStr);
+		} else {
+			return getSuccessResponseEntity(resultMap);
+		}
+	}
 }

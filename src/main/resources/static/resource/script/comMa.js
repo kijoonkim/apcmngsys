@@ -1149,7 +1149,7 @@ const gfnma_fbsOpen = async function (strBank_Code, strFbs_Service, strcs_code, 
 		V_P_PC				: '',
 	};
 
-	const postJsonPromise = gfn_postJSON("/fi/ftr/trn/selectFbsOpenList.do", {
+	const postJsonPromise = gfn_postJSON("/com/selectFbsOpenList.do", {
 		getType				: 'json',
 		workType			: 'Q',
 		cv_count			: '1',
@@ -1190,6 +1190,95 @@ const gfnma_fbsOpen = async function (strBank_Code, strFbs_Service, strcs_code, 
 		console.error("failed", e.message);
 		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		return false;
+	}
+}
+
+/**
+ * @name 		gfnma_fbsName
+ * @description 펌뱅킹 업무개시 조회
+ * @function
+ * @param 		{string} strBank_Code
+ * @param 		{string} strFbs_Service
+ * @param 		{string} strcs_code
+ * @param 		{string} strFbs_Work_Type
+ * @returns 	{boolean}
+ */
+const gfnma_fbsName = async function (
+	strBank_Code, strFbs_Service, strFbs_Work_Type,
+	strAccount_Bank, strAcccount_No, strSocialNum, strAccount_Owner, strCurrency_Code, strFbs_No) {
+	let bSync = false;
+	let strArray1 = new Array("", "OPEN_ERROR");
+
+	var paramObj = {
+		V_P_DEBUG_MODE_YN	: '',
+		V_P_LANG_ID		: '',
+		V_P_COMP_CODE		: gv_ma_selectedApcCd,
+		V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+		V_P_BANK_CODE : strBank_Code,
+		V_P_FBS_SERVICE : strFbs_Service,
+		V_P_FBS_WORK_TYPE : strFbs_Work_Type,
+		V_P_ACCOUNT_BANK : strAccount_Bank,
+		V_P_ACCOUNT_NO : strAcccount_No.replaceAll("-", ""),
+		V_P_SOCIALNUM : strSocialNum,
+		V_P_ACCOUNT_OWNER : strAccount_Owner,
+		V_P_CURRENCY_CODE : strCurrency_Code,
+		V_P_FBS_NO : strFbs_No,
+		V_P_INTERFACEID : "",
+		V_P_FORM_ID		: p_formId,
+		V_P_MENU_ID		: p_menuId,
+		V_P_PROC_ID		: '',
+		V_P_USERID			: '',
+		V_P_PC				: '',
+	};
+
+	const postJsonPromise = gfn_postJSON("/com/selectFbsName.do", {
+		getType				: 'json',
+		workType			: 'Q',
+		cv_count			: '1',
+		params				: gfnma_objectToString(paramObj)
+	});
+	const data = await postJsonPromise;
+
+	try {
+		if (_.isEqual("S", data.resultStatus)) {
+			if (data.cv_1.length >= 1) {
+				let str = "";
+				let num1 = 0;
+				let num2 = 0;
+
+				for (const row in data.cv_1) {
+					var strArray2 =  gfnma_firmBankingSend(FBS_SERVICE, gfn_nvl(row["SEND_DATA"]), bSync);
+
+					if (strArray2.code.trim() == "000" || strArray2.code.trim() == "0000" || strArray2.code.trim() == "COMP") {
+						++num2;
+					} else {
+						++num1;
+						str = strArray2.code;
+					}
+				}
+
+				if (num1 > 0) {
+					gfn_comAlert("E0000", "수취인확인 에러 [" + str + "]");
+					strArray1[1] = str;
+				}
+
+				if (num2 > 0 && num1 == 0) {
+					strArray1[1] = "OK";
+				}
+			}
+
+			return strArray1;
+		} else {
+			strArray1[1] = data.resultMessage;
+			alert(data.resultMessage);
+			return strArray1;
+		}
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	}
 }
 

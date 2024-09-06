@@ -2,7 +2,9 @@ package com.at.apcma.fi.ftr.trn.web;
 
 import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,8 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -152,8 +162,8 @@ public class ApcMaFbs2240Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/fi/ftr/trn/uploadFbs2240.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> uploadFbs2240(
+    @PostMapping(value = "/fi/ftr/trn/selectFbs2240DataForToBeUpload.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFbs2240DataForToBeUpload(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
@@ -202,6 +212,104 @@ public class ApcMaFbs2240Controller extends BaseController {
         }
 
         logger.info("=============selectFbs2240Batch=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/fi/ftr/trn/uploadFbs2240.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> uploadFbs2240(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============uploadFbs2240=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.sendSalaryTransferDataForFtp(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============uploadFbs2240=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+
+    @PostMapping(value = "/fi/ftr/trn/downloadFbs2240.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> downloadFbs2240(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request
+            , HttpServletResponse response) throws Exception{
+
+        logger.info("=============downloadFbs2240=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            List<Map<String, Object>> dtFirmbanking = (List<Map<String, Object>>) param.get("params");
+            int iCnt = 0;
+            int intStrLength = Integer.parseInt(dtFirmbanking.get(0).get("STR_LENGTH").toString());
+
+            for (Map dr : dtFirmbanking) {
+                try {
+                    String sendData = dr.get("SEND_DATA").toString();
+                    int hCnt = 0;
+
+                    // 유니코드 문자 확인
+                    for (char ch : sendData.toCharArray()) {
+                        if (Character.getType(ch) == Character.OTHER_LETTER) {
+                            hCnt++;
+                        }
+                    }
+
+                    String paddedString = StringUtils.rightPad(dr.get("SEND_DATA").toString(), intStrLength - 2 - hCnt) + "\r\n";
+                    byte[] StrByte = paddedString.getBytes(Charset.defaultCharset());
+
+                    ByteArrayOutputStream baos	= new ByteArrayOutputStream();
+                    baos.write(StrByte);
+                    byte[] textbuf	= null;
+                    textbuf = baos.toByteArray();
+                    baos.close();
+
+                    int length = textbuf.length;
+                    OutputStream out = response.getOutputStream();
+                    out.write(textbuf, 0, length);
+                    resultMap.put(ComConstants.PROP_RESULT_STATUS, "S");
+                    resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+                    resultMap.put(ComConstants.PROP_RESULT_MESSAGE, "파일이 생성되었습니다.");
+                    out.close();
+                } catch (Exception e) {
+                    resultMap.put(ComConstants.PROP_RESULT_STATUS, "E");
+                    resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+                    resultMap.put(ComConstants.PROP_RESULT_MESSAGE, "파일생성이 실패했습니다.");
+                }
+
+                iCnt++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============downloadFbs2240=====end========");
         if(resultMap.get("resultStatus").equals("E")) {
             String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
             String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
