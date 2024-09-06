@@ -54,14 +54,13 @@
 			  AND OTI.SN = FSD.SN(+)
 			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
-			  AND FSD.DEL_YN != 'Y'
 		]]>
-		<if test='crtrYr != null and crtrYr != ""'>
-		  AND  FSD.CRTR_YR = #{crtrYr}
-		</if>
-		<if test='apcCd != null and apcCd != ""'>
-		  AND  FSD.APC_CD = #{apcCd}
-		</if>
+			<if test='crtrYr != null and crtrYr != ""'>
+			  AND OTI.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='apcCd != null and apcCd != ""'>
+			  AND OTI.APC_CD = #{apcCd}
+			</if>
 	</select>
 
 	<!-- ==========================================================================	-->
@@ -115,13 +114,12 @@
 			  AND OTI.SN = FSD.SN(+)
 			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
-			  AND FSD.DEL_YN != 'Y'
 			]]>
 			<if test='crtrYr != null and crtrYr != ""'>
-			  AND  FSD.CRTR_YR = #{crtrYr}
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and apcCd != ""'>
-			  AND  FSD.APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 
 
@@ -151,7 +149,7 @@
 				  , SHAP_SORT 			= #{shapSort}
 				  , MNFC_MCHN 			= #{mnfcMchn}
 				  , MKR_NM	 			= #{mkrNm}
-				  , TMPR_STRG_YN		= #{tmprStrgYn}
+				  , SORT_MCHN_HOLD_YN	= #{sortMchnHoldYn}
 
 				  , SYS_LAST_CHG_DT		= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -168,10 +166,10 @@
 				  , COLOR_SORT
 				  , SHAP_SORT
 				  , MNFC_MCHN
-				  , SN
 				  , MKR_NM
+				  , SORT_MCHN_HOLD_YN
 
-				  , TMPR_STRG_YN
+				  , SN
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -209,10 +207,9 @@
 				  , #{shapSort}
 				  , #{mnfcMchn}
 				  , #{mkrNm}
+				  , #{sortMchnHoldYn}
 
 				  , #{sn}
-
-				  , #{tmprStrgYn}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -234,8 +231,7 @@
 				  , SHAP_SORT 			= #{shapSort}
 				  , MNFC_MCHN 			= #{mnfcMchn}
 				  , MKR_NM	 			= #{mkrNm}
-
-				  , TMPR_STRG_YN		= #{tmprStrgYn}
+				  , SORT_MCHN_HOLD_YN	= #{sortMchnHoldYn}
 
 		]]>
 		<if test='delYn != null and delYn != ""'>

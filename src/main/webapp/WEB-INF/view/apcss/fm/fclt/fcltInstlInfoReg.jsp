@@ -264,7 +264,7 @@
 		//SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
+			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', mixedWidth : '20%' ,type: 'checkbox', style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
 			{caption: ["고유번호","고유번호"],				ref: 'sn',			type:'output',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
@@ -335,6 +335,7 @@
 			let totalRecordCount = 0;
 			data.resultList.forEach((item, index) => {
 				//console.log(item);
+				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
 				let itemVO = {
 						sn				:item.sn
 						,bizYr			:item.bizYr
@@ -348,6 +349,8 @@
 						,lcltExpndSgg	:item.lcltExpndSgg
 						,slfBrdn		:item.slfBrdn
 						,addYn			:'N'
+						//임시
+						,tot : totVal
 				}
 				jsonFcltInstlInfo.push(itemVO);
 			});

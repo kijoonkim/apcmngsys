@@ -167,8 +167,14 @@
 			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
 			<!--[pp] 검색 -->
 			<div style="display: flex;">
-				<label>◦처리실적 총취급액</label>
-				<label style="margin-left:auto; font-size: x-small; line-height: 20px;">(금액: 백만원)</label>
+				<div>
+					<label style="font-weight: bold;">◦처리실적 총취급액</label>
+					<br>
+					<label> - 총취급액은 '5.1 유통조직 처리실적' , '5.2 APC 처리실적' 메뉴의 총취급액 데이터</label><br>
+				</div>
+				<div style="margin-left:auto; font-size: x-small;">
+					<span style="position: relative; bottom: -24px;">(금액: 백만원)</span>
+				</div>
 			</div>
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -324,15 +330,17 @@
 					</tbody>
 				</table>
 			</div>
-			<div>
-				<label> - 총취급액은 '5.1 유통조직 처리실적' , '5.2 APC 처리실적' 메뉴의 총취급액 데이터</label><br>
-			</div>
 			<br>
 			<br>
-			<div></div>
 			<div style="display: flex;">
-				<label>산지유통판매처 상세내역</label>
-				<label style="margin-left:auto; font-size: x-small; line-height: 20px;">(금액: 백만원)</label>
+				<div>
+					<label style="font-weight: bold;">◦산지유통판매처 상세내역(산지유통시설 처리상품 주요 판매처)</label><br>
+					<label> - 출자·출하조직은 생산유통통합조직 통해서 판매한 실적 및 직접 판매한 실적을 합산하여 기재.</label><br>
+					<label> - 기타항목은 다른 유통조직에 판매한 금액</label>
+				</div>
+				<div style="margin-left:auto; font-size: x-small;">
+					<span style="position: relative; bottom: -44px;">(금액: 백만원)</span>
+				</div>
 			</div>
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -506,11 +514,6 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div>
-				<label style="font-weight: bold;">◦ (산지유통시설 처리상품 주요 판매처)</label><br>
-				<label> - 출자·출하조직은 생산유통통합조직 통해서 판매한 실적 및 직접 판매한 실적을 합산하여 기재.</label><br>
-				<label> - 기타항목은 다른 유통조직에 판매한 금액</label>
 			</div>
 		</div>
 		<!--[pp] //검색결과 -->

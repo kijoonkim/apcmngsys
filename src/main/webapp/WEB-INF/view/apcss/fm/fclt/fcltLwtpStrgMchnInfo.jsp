@@ -222,7 +222,7 @@
 								true-value="Y"
 								false-value="N"
 								class="check"
-								onchange ="fn_selectOnchange(this)"
+								onkeyup ="fn_selectOnchange(this)"
 							></sbux-checkbox>
 						</td>
 						<td style="border-right:hidden; padding-right: 0px !important;">
@@ -233,7 +233,8 @@
 								class="form-control input-sm"
 								group-id="group1"
 								placeholder=""
-								onchange="fn_strgPlcOprtngRt"
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -245,7 +246,8 @@
 								class="form-control input-sm"
 								group-id="group1"
 								placeholder=""
-								onchange="fn_strgPlcOprtngRt"
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -257,7 +259,8 @@
 								class="form-control input-sm"
 								group-id="group1"
 								placeholder=""
-								onchange="fn_strgPlcOprtngRt"
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -441,8 +444,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);

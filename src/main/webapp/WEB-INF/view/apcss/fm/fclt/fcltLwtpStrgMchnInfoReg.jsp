@@ -503,10 +503,10 @@
 				, prgrsYn : 'Y' //진척도 갱신 여부
 				, tmprStrgYn : tmpChk//임시저장 여부
 				,lwtpStrgPlcHldYn: itemChk
-				,storCap: SBUxMethod.get('srch-inp-opera2')
-				,stStorPerfm: SBUxMethod.get('srch-inp-opera3')
-				,ltStorPerfm: SBUxMethod.get('srch-inp-opera4')
-				,storOpRate: SBUxMethod.get('srch-inp-opera5')
+				,strgPlcStrgAblt: SBUxMethod.get('dtl-inp-strgPlcStrgAblt')
+				,strgPlcStrmStrgAblt: SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt')
+				,strgPlcLtrmStrgAblt: SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt')
+				,strgPlcOprtngRt: SBUxMethod.get('dtl-inp-strgPlcOprtngRt')
 		};
 
 		if(itemChk == 'Y'){

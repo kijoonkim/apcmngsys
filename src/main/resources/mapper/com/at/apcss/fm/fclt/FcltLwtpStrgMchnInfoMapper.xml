@@ -158,6 +158,8 @@
 				  , STRG_PLC_LTRM_STRG_ABLT = #{strgPlcLtrmStrgAblt}
 				  , STRG_PLC_OPRTNG_RT 		= #{strgPlcOprtngRt}
 
+				  , LWTP_STRG_PLC_HLD_YN 	= #{lwtpStrgPlcHldYn}
+
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -171,6 +173,8 @@
 				  , STRG_PLC_STRM_STRG_ABLT
 				  , STRG_PLC_LTRM_STRG_ABLT
 				  , STRG_PLC_OPRTNG_RT
+
+				  , LWTP_STRG_PLC_HLD_YN
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -190,6 +194,8 @@
 				  , #{strgPlcStrmStrgAblt}
 				  , #{strgPlcLtrmStrgAblt}
 				  , #{strgPlcOprtngRt}
+
+				  , #{lwtpStrgPlcHldYn}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -218,6 +224,8 @@
 				  , STRG_PLC_STRM_STRG_ABLT = #{strgPlcStrmStrgAblt}
 				  , STRG_PLC_LTRM_STRG_ABLT = #{strgPlcLtrmStrgAblt}
 				  , STRG_PLC_OPRTNG_RT 		= #{strgPlcOprtngRt}
+
+				  , LWTP_STRG_PLC_HLD_YN 	= #{lwtpStrgPlcHldYn}
 
 		]]>
 		<if test='delYn != null and delYn != ""'>
