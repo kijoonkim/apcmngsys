@@ -727,7 +727,7 @@
 				SBUxMethod.set("dtl-inp-sigunCd", resultVO.sigunCd);//시군구 코드
 				SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
 
-				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
+				//SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 				SBUxMethod.set("dtl-inp-apcBrno", resultVO.apcBrno);//apc 사업자등록번호
 				SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
 				//SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
