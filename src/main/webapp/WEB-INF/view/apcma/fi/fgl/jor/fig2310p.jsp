@@ -338,103 +338,103 @@
 			                        <tr>
 			                            <th scope="row" class="th_bg">전자발행</th>
 			                            <td class="td_input" >
-				                       		<sbux-select 	onchange="fn_FormChange(ETAX_TYPE, 'ETAX_TYPE')"   	id="ETAX_TYPE" 	jsondata-ref="jsonEtaxType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select 	onchange="fn_FomChange(ETAX_TYPE, 'ETAX_TYPE')"   	id="ETAX_TYPE" 	jsondata-ref="jsonEtaxType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">신고일자</th>
 			                            <td class="td_input" >
-										    <sbux-datepicker onchange="fn_FormChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
+										    <sbux-datepicker onchange="fn_FomChange(STANDARD_DATE, 'STANDARD_DATE')"  id="STANDARD_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
 			                            </td>
 			                            <th scope="row" class="th_bg">공급가액</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(SUPPLY_AMT, 'SUPPLY_AMT')" id="SUPPLY_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(SUPPLY_AMT, 'SUPPLY_AMT')" id="SUPPLY_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">수출신고번호</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(EXPORT_LICENSE_NO, 'EXPORT_LICENSE_NO')" id="EXPORT_LICENSE_NO" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(EXPORT_LICENSE_NO, 'EXPORT_LICENSE_NO')" id="EXPORT_LICENSE_NO" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">당기제출금_외화</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(EXPORT_AMT, 'EXPORT_AMT')" id="EXPORT_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(EXPORT_AMT, 'EXPORT_AMT')" id="EXPORT_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 									</tr>				                    	
 			                        <tr>
 			                            <th scope="row" class="th_bg">카드용도</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(CARD_USE_TYPE, 'CARD_USE_TYPE')" id="CARD_USE_TYPE" 	jsondata-ref="jsonCardUseType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(CARD_USE_TYPE, 'CARD_USE_TYPE')" id="CARD_USE_TYPE" 	jsondata-ref="jsonCardUseType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">카드번호</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(CARD_NUM, 'CARD_NUM')" id="CARD_NUM" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(CARD_NUM, 'CARD_NUM')" id="CARD_NUM" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">내국신용장구분</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(LOCAL_CREDIT_TYPE, 'LOCAL_CREDIT_TYPE')" id="LOCAL_CREDIT_TYPE" 	jsondata-ref="jsonLocalCreditType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(LOCAL_CREDIT_TYPE, 'LOCAL_CREDIT_TYPE')" id="LOCAL_CREDIT_TYPE" 	jsondata-ref="jsonLocalCreditType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">선적일자</th>
 			                            <td class="td_input" >
-										    <sbux-datepicker onchange="fn_FormChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
+										    <sbux-datepicker onchange="fn_FomChange(SHIPPING_DATE, 'SHIPPING_DATE')" id="SHIPPING_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
 			                            </td>
 			                            <th scope="row" class="th_bg">당기제출금_원화</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(EXPORT_AMT_KRW, 'EXPORT_AMT_KRW')" id="EXPORT_AMT_KRW" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(EXPORT_AMT_KRW, 'EXPORT_AMT_KRW')" id="EXPORT_AMT_KRW" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 									</tr>				                    	
 			                        <tr>
 			                            <th scope="row" class="th_bg">불공제유형</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(VAT_NOT_DEDUCTION_TYPE, 'VAT_NOT_DEDUCTION_TYPE')" id="VAT_NOT_DEDUCTION_TYPE" jsondata-ref="jsonVatNotDedType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(VAT_NOT_DEDUCTION_TYPE, 'VAT_NOT_DEDUCTION_TYPE')" id="VAT_NOT_DEDUCTION_TYPE" jsondata-ref="jsonVatNotDedType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">예정신고누락</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(REPORT_OMIT_YN, 'REPORT_OMIT_YN')" id="REPORT_OMIT_YN" jsondata-ref="jsonReportOmitYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(REPORT_OMIT_YN, 'REPORT_OMIT_YN')" id="REPORT_OMIT_YN" jsondata-ref="jsonReportOmitYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">서류명</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(DOCUMENT_NAME, 'DOCUMENT_NAME')" id="DOCUMENT_NAME" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(DOCUMENT_NAME, 'DOCUMENT_NAME')" id="DOCUMENT_NAME" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">수출외화금액</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(FOREIGN_AMT, 'FOREIGN_AMT')" id="FOREIGN_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(FOREIGN_AMT, 'FOREIGN_AMT')" id="FOREIGN_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">당기신고해당분_외화</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(VAT_EXPORT_AMT, 'VAT_EXPORT_AMT')" id="VAT_EXPORT_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(VAT_EXPORT_AMT, 'VAT_EXPORT_AMT')" id="VAT_EXPORT_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 									</tr>				                    	
 			                        <tr>
 			                            <th scope="row" class="th_bg">중복발행</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(DUP_ISSUE_BILL_TYPE, 'DUP_ISSUE_BILL_TYPE')" id="DUP_ISSUE_BILL_TYPE" jsondata-ref="jsonDupIssList" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(DUP_ISSUE_BILL_TYPE, 'DUP_ISSUE_BILL_TYPE')" id="DUP_ISSUE_BILL_TYPE" jsondata-ref="jsonDupIssList" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">감가상각자산유형</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(VAT_ASSET_TYPE, 'VAT_ASSET_TYPE')" id="VAT_ASSET_TYPE" jsondata-ref="jsonVatAssetType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(VAT_ASSET_TYPE, 'VAT_ASSET_TYPE')" id="VAT_ASSET_TYPE" jsondata-ref="jsonVatAssetType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">발급자</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(ISSUE_NAME, 'ISSUE_NAME')" id="ISSUE_NAME" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(ISSUE_NAME, 'ISSUE_NAME')" id="ISSUE_NAME" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">수출원화금액</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(WON_AMT, 'WON_AMT')" id="WON_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(WON_AMT, 'WON_AMT')" id="WON_AMT" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">당기신고해당분_원화</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(VAT_EXPORT_AMT_KRW, 'VAT_EXPORT_AMT_KRW')" id="VAT_EXPORT_AMT_KRW" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(VAT_EXPORT_AMT_KRW, 'VAT_EXPORT_AMT_KRW')" id="VAT_EXPORT_AMT_KRW" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 									</tr>				                    	
 			                        <tr>
 			                            <th scope="row" class="th_bg">11일외전송</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(AFTER_DUE_DATE_YN, 'AFTER_DUE_DATE_YN')" id="AFTER_DUE_DATE_YN" 	jsondata-ref="jsonAfterDueDateYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(AFTER_DUE_DATE_YN, 'AFTER_DUE_DATE_YN')" id="AFTER_DUE_DATE_YN" 	jsondata-ref="jsonAfterDueDateYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">영세율첨부서류여부</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(ZERO_REPORT_YN, 'ZERO_REPORT_YN')" id="ZERO_REPORT_YN" 	jsondata-ref="jsonZeroReportYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(ZERO_REPORT_YN, 'ZERO_REPORT_YN')" id="ZERO_REPORT_YN" 	jsondata-ref="jsonZeroReportYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">발급일자</th>
 			                            <td class="td_input" >
-										    <sbux-datepicker onchange="fn_FormChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
+										    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOCUMENT_ISSUE_DATE')"  id="DOCUMENT_ISSUE_DATE" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-datepicker>                          
 			                            </td>
 			                            <td colspan="4" class="td_input" >
 			                            </td>
@@ -442,15 +442,15 @@
 			                        <tr>
 			                            <th scope="row" class="th_bg">수입금액제외</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(EXCLUDE_REVENUE_AMT_YN, 'EXCLUDE_REVENUE_AMT_YN')" id="EXCLUDE_REVENUE_AMT_YN" jsondata-ref="jsonExcludeAmtYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(EXCLUDE_REVENUE_AMT_YN, 'EXCLUDE_REVENUE_AMT_YN')" id="EXCLUDE_REVENUE_AMT_YN" jsondata-ref="jsonExcludeAmtYn" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">영세율구분</th>
 			                            <td class="td_input" >
-				                       		<sbux-select onchange="fn_FormChange(ZERO_TYPE, 'ZERO_TYPE')"  id="ZERO_TYPE"  jsondata-ref="jsonZeroType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+				                       		<sbux-select onchange="fn_FomChange(ZERO_TYPE, 'ZERO_TYPE')"  id="ZERO_TYPE"  jsondata-ref="jsonZeroType" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 			                            </td>
 			                            <th scope="row" class="th_bg">내국신용장서류번호</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FormChange(DOCUMENT_NO, 'DOCUMENT_NO')"  id="DOCUMENT_NO" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(DOCUMENT_NO, 'DOCUMENT_NO')"  id="DOCUMENT_NO" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <td colspan="4" class="td_input" >
 			                            </td>
@@ -480,22 +480,22 @@
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목1</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE1, 'ACC_ITEM_VALUE1')"  id="ACC_ITEM_VALUE1" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME1, 'ACC_VALUE_NAME1')"  id="ACC_VALUE_NAME1" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE1, 'ACC_ITEM_VALUE1')"  id="ACC_ITEM_VALUE1" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME1, 'ACC_VALUE_NAME1')"  id="ACC_VALUE_NAME1" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목5</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE5, 'ACC_ITEM_VALUE5')"  id="ACC_ITEM_VALUE5" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME5, 'ACC_VALUE_NAME5')"  id="ACC_VALUE_NAME5" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE5, 'ACC_ITEM_VALUE5')"  id="ACC_ITEM_VALUE5" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME5, 'ACC_VALUE_NAME5')"  id="ACC_VALUE_NAME5" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목9</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			   									<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE9, 'ACC_ITEM_VALUE9')"  id="ACC_ITEM_VALUE9" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME9, 'ACC_VALUE_NAME9')"  id="ACC_VALUE_NAME9" uitype="text" class="form-control input-sm" ></sbux-input>
+			   									<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE9, 'ACC_ITEM_VALUE9')"  id="ACC_ITEM_VALUE9" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME9, 'ACC_VALUE_NAME9')"  id="ACC_VALUE_NAME9" uitype="text" class="form-control input-sm" ></sbux-input>
 			   								</div>
 			                            </td>
 									</tr>
@@ -503,22 +503,22 @@
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목2</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE2, 'ACC_ITEM_VALUE2')"  id="ACC_ITEM_VALUE2" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME2, 'ACC_VALUE_NAME2')"  id="ACC_VALUE_NAME2" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE2, 'ACC_ITEM_VALUE2')"  id="ACC_ITEM_VALUE2" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME2, 'ACC_VALUE_NAME2')"  id="ACC_VALUE_NAME2" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목6</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE6, 'ACC_ITEM_VALUE6')"  id="ACC_ITEM_VALUE6" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME6, 'ACC_VALUE_NAME6')"  id="ACC_VALUE_NAME6" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE6, 'ACC_ITEM_VALUE6')"  id="ACC_ITEM_VALUE6" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME6, 'ACC_VALUE_NAME6')"  id="ACC_VALUE_NAME6" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목10</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE10, 'ACC_ITEM_VALUE10')"  id="ACC_ITEM_VALUE10" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME10, 'ACC_VALUE_NAME10')"  id="ACC_VALUE_NAME10" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE10, 'ACC_ITEM_VALUE10')"  id="ACC_ITEM_VALUE10" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME10, 'ACC_VALUE_NAME10')"  id="ACC_VALUE_NAME10" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 									</tr>
@@ -526,15 +526,15 @@
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목3</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE3, 'ACC_ITEM_VALUE3')"  id="ACC_ITEM_VALUE3" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME3, 'ACC_VALUE_NAME3')"  id="ACC_VALUE_NAME3" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE3, 'ACC_ITEM_VALUE3')"  id="ACC_ITEM_VALUE3" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME3, 'ACC_VALUE_NAME3')"  id="ACC_VALUE_NAME3" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목7</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE7, 'ACC_ITEM_VALUE7')"  id="ACC_ITEM_VALUE7" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME7, 'ACC_VALUE_NAME7')"  id="ACC_VALUE_NAME7" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE7, 'ACC_ITEM_VALUE7')"  id="ACC_ITEM_VALUE7" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME7, 'ACC_VALUE_NAME7')"  id="ACC_VALUE_NAME7" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" ></th>
@@ -545,15 +545,15 @@
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목4</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE4, 'ACC_ITEM_VALUE4')"  id="ACC_ITEM_VALUE4" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME4, 'ACC_VALUE_NAME4')"  id="ACC_VALUE_NAME4" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE4, 'ACC_ITEM_VALUE4')"  id="ACC_ITEM_VALUE4" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME4, 'ACC_VALUE_NAME4')"  id="ACC_VALUE_NAME4" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg cu-tab2-fom-area" >관리항목8</th>
 			                            <td colspan="2" class="td_input" >
 			                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-				   								<sbux-input onchange="fn_FormChange(ACC_ITEM_VALUE8, 'ACC_ITEM_VALUE8')"  id="ACC_ITEM_VALUE8" uitype="text" class="form-control input-sm" ></sbux-input>
-				   								<sbux-input onchange="fn_FormChange(ACC_VALUE_NAME8, 'ACC_VALUE_NAME8')"  id="ACC_VALUE_NAME8" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_ITEM_VALUE8, 'ACC_ITEM_VALUE8')"  id="ACC_ITEM_VALUE8" uitype="text" class="form-control input-sm" ></sbux-input>
+				   								<sbux-input onchange="fn_FomChange(ACC_VALUE_NAME8, 'ACC_VALUE_NAME8')"  id="ACC_VALUE_NAME8" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            	</div>
 			                            </td>
 			                            <th scope="row" class="th_bg" ></th>
@@ -613,11 +613,11 @@
 	var p_ss_currUnit			= '${loginVO.maCurrUnit}';
 	
 	//grid 초기화
-	var Fig2320GridList; 			// 그리드를 담기위한 객체 선언
-	var jsonFig2320List 	= []; 	// 그리드의 참조 데이터 주소 선언
+	var Fig2310GridList; 			// 그리드를 담기위한 객체 선언
+	var jsonFig2310List 	= []; 	// 그리드의 참조 데이터 주소 선언
 
-	var Fig2320GridEdit; 			// 그리드를 담기위한 객체 선언
-	var jsonFig2320Edit 	= [];	// 그리드의 참조 데이터 주소 선언
+	var Fig2310GridEdit; 			// 그리드를 담기위한 객체 선언
+	var jsonFig2310Edit 	= [];	// 그리드의 참조 데이터 주소 선언
 
 	var jsonTempList 		= [];	// 저장할 임시 저장소
 
@@ -632,11 +632,25 @@
 	var jsonDebitCredit 	= []; 	// 차/대
     var jsonHoldReason		= []; 	// 보류사유 
 
+    var jsonEtaxType			= []; // 전자발행
+    var jsonCardUseType			= []; // 카드용도
+    var jsonLocalCreditType		= []; // 내국신용장구분
+    var jsonVatNotDedType		= []; // 불공제유형
+    var jsonReportOmitYn		= []; // 예정신고누락
+    var jsonDupIssList			= []; // 중복발행
+    var jsonVatAssetType		= []; // 감가상각자산유형
+    var jsonAfterDueDateYn		= []; // 11일외전송
+    var jsonZeroReportYn		= []; // 영세율첨부서류여부
+    var jsonExcludeAmtYn		= []; // 수입금액제외
+    var jsonZeroType			= []; // 영세율구분
+    
 	var pp_strAccountCodeList	= ""; // 복수계정 파라미터
 	var pp_strCsCodeList		= ""; // 복수거래처 파라미터
 	
 	var bEditEventEnabled		= true;
 
+    var p_sel_row 				= '';
+    var p_sel_col 				= '';
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
@@ -658,6 +672,29 @@
 			gfnma_setComSelect([], 							jsonDebitCredit, 	'L_FIG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 그리드내 보류사유
 			gfnma_setComSelect([], 							jsonHoldReason, 	'L_COM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			
+            // 전자발행
+            gfnma_setComSelect(['ETAX_TYPE'],					jsonEtaxType, 		'L_FIT005', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 카드용도
+            gfnma_setComSelect(['CARD_USE_TYPE'],				jsonCardUseType, 	'L_FIT012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 내국신용장구분
+            gfnma_setComSelect(['LOCAL_CREDIT_TYPE'],			jsonLocalCreditType,'L_FIT011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 불공제유형
+            gfnma_setComSelect(['VAT_NOT_DEDUCTION_TYPE'],		jsonVatNotDedType,	'L_FIT013', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 예정신고누락
+            gfnma_setComSelect(['REPORT_OMIT_YN'],				jsonReportOmitYn,	'L_FIT009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 중복발행
+            gfnma_setComSelect(['DUP_ISSUE_BILL_TYPE'],			jsonDupIssList,		'L_FIT007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 감가상각자산유형
+            gfnma_setComSelect(['VAT_ASSET_TYPE'],				jsonVatAssetType,	'L_FIT014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 11일외전송
+            gfnma_setComSelect(['AFTER_DUE_DATE_YN'],			jsonAfterDueDateYn,	'L_FIT006', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 영세율첨부서류여부
+            gfnma_setComSelect(['ZERO_REPORT_YN'],				jsonZeroReportYn,	'L_FIT019', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 수입금액제외
+            gfnma_setComSelect(['EXCLUDE_REVENUE_AMT_YN'],		jsonExcludeAmtYn,	'L_FIT008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 영세율구분
+            gfnma_setComSelect(['ZERO_TYPE'],					jsonZeroType,		'L_FIT010', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -667,8 +704,8 @@
   		
 		//화면셋팅
     	fn_state();
-  	    fn_createFig2320GridList();	
-  	    fn_createFig2320GridEdit();	
+  	    fn_createFig2310GridList();	
+  	    fn_createFig2310GridEdit();	
 	}    
     
     // only document
@@ -737,11 +774,11 @@
 		
     }
     
-    function fn_createFig2320GridList() {
+    function fn_createFig2310GridList() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTop';
-	    SBGridProperties.id 				= 'Fig2320GridList';
-	    SBGridProperties.jsonref 			= 'jsonFig2320List';
+	    SBGridProperties.id 				= 'Fig2310GridList';
+	    SBGridProperties.jsonref 			= 'jsonFig2310List';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.allowcopy 			= true; //복사	    
@@ -755,89 +792,89 @@
         	        checkedvalue: 'Y', uncheckedvalue: 'N'
         	    }
         	},        	
-            {caption: ["전표유형"],					ref: 'DOC_TYPE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표유형"],					ref: 'ITEM_SOURCE_TYPE_NAME',	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전표번호"],					ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전기일자"],  				ref: 'DOC_DATE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["계정명"],  					ref: 'ACCOUNT_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["부서명"],  					ref: 'DEPT_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["원가중심코드"], 			ref: 'COST_CENTER_CODE', 		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["원가중심코드"], 			ref: 'COST_CENTER_CODE', 		type:'output',  	width:'80px',  		style:'text-align:left'},
             {caption: ["원가중심명"], 				ref: 'COST_CENTER_NAME', 		type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["거래처코드"], 				ref: 'CS_CODE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["통화"], 					ref: 'CURRENCY_CODE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["환율"], 					ref: 'EXCHANGE_RATE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["차대"], 					ref: 'DEBIT_CREDIT', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["차대"], 					ref: 'DEBIT_CREDIT_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["순금액(잔액-통화)"], 		ref: 'REMAIN_ORIGINAL_AMOUNT_RAW', 			type:'output',		width:'200px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
             {caption: ["반제금액(통화)"], 			ref: 'REMAIN_ORIGINAL_AMOUNT_RAW', 			type:'output',		width:'200px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
             {caption: ["적요"], 					ref: 'DOC_DESC',    			type:'output',  	width:'300px',  		style:'text-align:left'},
-            {caption: ["상태"], 					ref: 'LINE_STATUS',    			type:'output',  	width:'100px',  		style:'text-align:left'},
+            {caption: ["상태"], 					ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px',  		style:'text-align:left'},
         ];
 
-        Fig2320GridList = _SBGrid.create(SBGridProperties);
-        Fig2320GridList.bind('valuechanged', 	'fn_changeValFig2320GridListEvent')
-        //Fig2320GridList.bind('click', 'fn_popViewFig2320GridEvent');
+        Fig2310GridList = _SBGrid.create(SBGridProperties);
+        Fig2310GridList.bind('valuechanged', 	'fn_changeValFig2310GridListEvent')
+        //Fig2310GridList.bind('click', 'fn_popViewFig2310GridEvent');
     }	
 
     /**
      * 그리드내 change event
      */    
-    function fn_changeValFig2320GridListEvent() {
-        let nRow = Fig2320GridList.getRow(); // 클릭한 Row Index 추출
-        let nCol = Fig2320GridList.getCol(); // 클릭한 Col Index 추출
+    function fn_changeValFig2310GridListEvent() {
+        let nRow = Fig2310GridList.getRow(); // 클릭한 Row Index 추출
+        let nCol = Fig2310GridList.getCol(); // 클릭한 Col Index 추출
 
-        let rowData = Fig2320GridList.getRowData(nRow);
+        let rowData = Fig2310GridList.getRowData(nRow);
 		console.log('nRow:', nRow);
 		console.log('nCol:', nCol);
 		console.log('rowData:', rowData);
         
-        let cellValue = Fig2320GridList.getCellData(nRow, nCol);
+        let cellValue = Fig2310GridList.getCellData(nRow, nCol);
 		console.log('cellValue:', cellValue);
-        if (Fig2320GridList.getRefOfCol(nCol) == 'CHECK_YN') {			
+        if (Fig2310GridList.getRefOfCol(nCol) == 'CHECK_YN') {			
             if(cellValue=='Y'){
             	if(Number(rowData['APPLY_ORIGINAL_AMOUNT_INPUT'])==0){
-            		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_INPUT'] 	= rowData['REMAIN_ORIGINAL_AMOUNT_RAW'];
-            		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT'] 		= rowData['REMAIN_ORIGINAL_AMOUNT'];
+            		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_INPUT'] 	= rowData['REMAIN_ORIGINAL_AMOUNT_RAW'];
+            		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT'] 		= rowData['REMAIN_ORIGINAL_AMOUNT'];
             	}
             	if(Number(rowData['APPLY_FUNCTIONAL_AMOUNT'])==0){
-            		jsonFig2320List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT'] 		= rowData['REMAIN_FUNCTIONAL_AMOUNT'];
+            		jsonFig2310List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT'] 		= rowData['REMAIN_FUNCTIONAL_AMOUNT'];
             	}
             	if(Number(rowData['APPLY_ORIGINAL_AMOUNT_RAW'])==0){
-            		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW'] 	= rowData['REMAIN_ORIGINAL_AMOUNT_RAW'];
+            		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW'] 	= rowData['REMAIN_ORIGINAL_AMOUNT_RAW'];
             	}
             } else {
-            	jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= '0';
-            	jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_INPUT']	= '0';
-            	jsonFig2320List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= '0';
-            	jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= '0';
+            	jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= '0';
+            	jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_INPUT']	= '0';
+            	jsonFig2310List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= '0';
+            	jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= '0';
             }
         	if(rowData['HOLD_FLAG']=='Y'){
-        		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= '0';
-        		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_INPUT']	= '0';
-        		jsonFig2320List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= '0';
-        		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= '0';
-        		jsonFig2320List[nRow-1]['CHECK_YN']						= 'N';
+        		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= '0';
+        		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_INPUT']	= '0';
+        		jsonFig2310List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= '0';
+        		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= '0';
+        		jsonFig2310List[nRow-1]['CHECK_YN']						= 'N';
           		gfn_comAlert("E0000","보류지정된 거래처 또는 전표입니다.");
     			return;      		 
         	}
         }
         
-        if (Fig2320GridList.getRefOfCol(nCol) == 'APPLY_ORIGINAL_AMOUNT_INPUT') {			
+        if (Fig2310GridList.getRefOfCol(nCol) == 'APPLY_ORIGINAL_AMOUNT_INPUT') {			
         	if(rowData['DEBIT_CREDIT']=='C'){
-            	jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= Math.abs(Number(rowData['APPLY_ORIGINAL_AMOUNT_INPUT']));
+            	jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= Math.abs(Number(rowData['APPLY_ORIGINAL_AMOUNT_INPUT']));
         	} else {
-            	jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= rowData['APPLY_ORIGINAL_AMOUNT_INPUT'];
+            	jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= rowData['APPLY_ORIGINAL_AMOUNT_INPUT'];
         	}
         	if(rowData['APPLY_ORIGINAL_AMOUNT']==rowData['REMAIN_ORIGINAL_AMOUNT']){
-            	jsonFig2320List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= rowData['REMAIN_FUNCTIONAL_AMOUNT'];
+            	jsonFig2310List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= rowData['REMAIN_FUNCTIONAL_AMOUNT'];
         	} else {
             	if(Number(rowData['APPLY_ORIGINAL_AMOUNT_INPUT']) == 0){
-            		jsonFig2320List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= '0';
-            		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= '0';
-            		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= '0';
+            		jsonFig2310List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= '0';
+            		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= '0';
+            		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT']		= '0';
             	}
             	if(Number(rowData['APPLY_ORIGINAL_AMOUNT_INPUT']) != 0){
             		var tmp1 = gfnma_getRound((Number(rowData['APPLY_ORIGINAL_AMOUNT']) * Number(rowData['EXCHANGE_RATE']) / Number(SBUxMethod.get('sch-numbase-scale'))), Number(p_ss_currUnit));
-            		jsonFig2320List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= Number(tmp1);
+            		jsonFig2310List[nRow-1]['APPLY_FUNCTIONAL_AMOUNT']		= Number(tmp1);
             		var tmp2 = Number(rowData['REMAIN_ORIGINAL_AMOUNT']) * Number(rowData['REMAIN_ORIGINAL_AMOUNT_RAW']);
             		if(tmp2>0){
             			tmp2 = 1;
@@ -846,7 +883,7 @@
             		} else {
             			tmp2 = 0;
             		}
-            		jsonFig2320List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= (Number(rowData['APPLY_ORIGINAL_AMOUNT']) *  tmp2);
+            		jsonFig2310List[nRow-1]['APPLY_ORIGINAL_AMOUNT_RAW']	= (Number(rowData['APPLY_ORIGINAL_AMOUNT']) *  tmp2);
             		
             	}
         	}
@@ -867,8 +904,8 @@
         var p_cr_apply_functional_amount 	= 0;
         var p_dr_apply_functional_amount 	= 0;
     	
-    	for (var i = 0; i < jsonFig2320List.length; i++) {
-			var obj = jsonFig2320List[i];
+    	for (var i = 0; i < jsonFig2310List.length; i++) {
+			var obj = jsonFig2310List[i];
 			if(obj['CHECK_YN']=='Y'){
 				p_dremain_functional_amount 		+= Number(obj['REMAIN_FUNCTIONAL_AMOUNT']);
 				p_dremain_original_amount 			+= Number(obj['REMAIN_ORIGINAL_AMOUNT']);
@@ -897,7 +934,7 @@
         var iDrSetCnt = 0;
         var iCrSetCnt = 0;    	
         var tmp1 	= gfnma_nvl(SBUxMethod.get('sch-acc-character'));
-        var elist	= jsonFig2320Edit;
+        var elist	= jsonFig2310Edit;
         if(tmp1){
         	if(elist.length > 0){
             	for (var i = elist.length - 1; i >= 0; i--) {
@@ -905,13 +942,13 @@
             		if(obj2['CHECK_YN']=='Y'){
             			if(p_dr_apply_original_amount > 0){
                     		if(obj2['DEBIT_CREDIT']=='D' && obj2['LINE_TYPE']=='1' && iDrSetCnt == 0){
-                    			Fig2320GridEdit.setCellData((i+1), 11, p_dr_apply_original_amount, true, true);
+                    			Fig2310GridEdit.setCellData((i+1), 11, p_dr_apply_original_amount, true, true);
                     			iDrSetCnt ++;
                     		}
             			}
             			if(p_cr_apply_original_amount > 0){
                     		if(obj2['DEBIT_CREDIT']=='C' && obj2['LINE_TYPE']=='1' && iCrSetCnt == 0){
-                    			Fig2320GridEdit.setCellData((i+1), 11, p_cr_apply_original_amount, true, true);
+                    			Fig2310GridEdit.setCellData((i+1), 11, p_cr_apply_original_amount, true, true);
                     			iDrSetCnt ++;
                     		}
             			}
@@ -924,25 +961,25 @@
 		        var p_currency_code = gfnma_nvl(SBUxMethod.get('sch-currency-code'));
 		        var p_exchange_rate = gfnma_nvl(SBUxMethod.get('sch-exchange-rate'));
 		        var p_description 	= gfnma_nvl(SBUxMethod.get('sch-description'));
-		        var idx 			= Fig2320GridEdit.getRows();
+		        var idx 			= Fig2310GridEdit.getRows();
 		        if(idx==-1){
 		        	idx = 0;
 		        }
-		        Fig2320GridEdit.insertRow(idx-1, 'below');
-		        Fig2320GridEdit.setCellData(idx, 1, 'Y', true, true);
-		        Fig2320GridEdit.setCellData(idx, 2, idx, true, true);
-		        Fig2320GridEdit.setCellData(idx, 3, '1', true, true);
-		        Fig2320GridEdit.setCellData(idx, 13, p_currency_code, true, true);
-		        Fig2320GridEdit.setCellData(idx, 30, p_exchange_rate, true, true);
-		        Fig2320GridEdit.setCellData(idx, 14, p_description, true, true);
+		        Fig2310GridEdit.insertRow(idx-1, 'below');
+		        Fig2310GridEdit.setCellData(idx, 1, 'Y', true, true);
+		        Fig2310GridEdit.setCellData(idx, 2, idx, true, true);
+		        Fig2310GridEdit.setCellData(idx, 3, '1', true, true);
+		        Fig2310GridEdit.setCellData(idx, 13, p_currency_code, true, true);
+		        Fig2310GridEdit.setCellData(idx, 30, p_exchange_rate, true, true);
+		        Fig2310GridEdit.setCellData(idx, 14, p_description, true, true);
 		        if(p_dr_apply_original_amount > 0 && iDrSetCnt < 1){
-			        Fig2320GridEdit.setCellData(idx, 4, 'D', true, true);
-			        Fig2320GridEdit.setCellData(idx, 11, p_dr_apply_original_amount, true, true);
+			        Fig2310GridEdit.setCellData(idx, 4, 'D', true, true);
+			        Fig2310GridEdit.setCellData(idx, 11, p_dr_apply_original_amount, true, true);
 		        }
                 // 반제항목 반대계정 설정된 행이 없을 경우추가한다.
                 if(p_cr_apply_original_amount > 0 && iCrSetCnt < 1){
-			        Fig2320GridEdit.setCellData(idx, 4, 'C', true, true);
-			        Fig2320GridEdit.setCellData(idx, 11, p_cr_apply_original_amount, true, true);
+			        Fig2310GridEdit.setCellData(idx, 4, 'C', true, true);
+			        Fig2310GridEdit.setCellData(idx, 11, p_cr_apply_original_amount, true, true);
                 }
 			}        		
         	if(elist.length > 0){
@@ -951,11 +988,11 @@
             			var obj2 = elist[i];
                 		if(obj2['DEBIT_CREDIT']=='D' && obj2['LINE_TYPE']=='1'){
                 			if(p_dr_apply_original_amount == 0){
-                		    	Fig2320GridEdit.deleteRow(Fig2320GridEdit.getRow());
+                		    	Fig2310GridEdit.deleteRow(Fig2310GridEdit.getRow());
                 			}
                 		} else if(obj2['DEBIT_CREDIT']=='C' && obj2['LINE_TYPE']=='1'){
                 			if(p_cr_apply_original_amount == 0){
-                		    	Fig2320GridEdit.deleteRow(Fig2320GridEdit.getRow());
+                		    	Fig2310GridEdit.deleteRow(Fig2310GridEdit.getRow());
                 			}
                 		}
                 	}
@@ -971,7 +1008,7 @@
         var cr_apply_functional_amount2 = 0;
         var dr_apply_functional_amount2 = 0;
     	
-   		var editAllList = Fig2320GridEdit.getGridDataAll();
+   		var editAllList = Fig2310GridEdit.getGridDataAll();
     	for (var i = 0; i < editAllList.length; i++) {
     		var obj = editAllList[i];
     		if(obj['CHECK_YN']=='Y'){
@@ -1012,11 +1049,11 @@
     	SBUxMethod.set('sch-numDiffFuntion', 	t2);   	
     }
     
-    function fn_createFig2320GridEdit() {
+    function fn_createFig2310GridEdit() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdBot';
-	    SBGridProperties.id 				= 'Fig2320GridEdit';
-	    SBGridProperties.jsonref 			= 'jsonFig2320Edit';
+	    SBGridProperties.id 				= 'Fig2310GridEdit';
+	    SBGridProperties.jsonref 			= 'jsonFig2310Edit';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.allowcopy 			= true; //복사	    
@@ -1170,33 +1207,74 @@
             
         ];
 
-        Fig2320GridEdit = _SBGrid.create(SBGridProperties);
-        Fig2320GridEdit.bind('valuechanged', 	'fn_changeValFig2320GridEditEvent')
-        //Fig2320GridEdit.bind('click', 'fn_viewGrid');
+        Fig2310GridEdit = _SBGrid.create(SBGridProperties);
+        Fig2310GridEdit.bind('valuechanged', 	'fn_changeValFig2310GridEditEvent')
+        Fig2310GridEdit.bind('click', 			'fn_viewFig2310GridEditEvent');
     }	    
 
     /**
+     * 그리드내 click event
+     */
+    function fn_viewFig2310GridEditEvent() {
+    	
+    	let nRow = Fig2310GridEdit.getRow();
+    	let nCol = Fig2310GridEdit.getCol();
+		if (nRow < 1) {
+            return;
+		}
+		p_sel_row = nRow;
+		p_sel_col = nCol;
+		
+        let rowData = Fig2310GridEdit.getRowData(nRow);
+		fn_getFig2310GridEdit(rowData);
+		
+		if(rowData['LINE_TYPE']=='3'){
+			//부가세
+			SBUxMethod.selectTab('tab_norm','tab1');
+		} else {
+			SBUxMethod.selectTab('tab_norm','tab2');
+		}
+    }
+    
+    /**
      * 그리드내 change event
      */
-    const fn_changeValFig2320GridEditEvent = async function() {
+    const fn_changeValFig2310GridEditEvent = async function() {
      
     	if(!bEditEventEnabled){
     		return;
     	}
     	
-        let nRow = Fig2320GridEdit.getRow(); // 클릭한 Row Index 추출
-        let nCol = Fig2320GridEdit.getCol(); // 클릭한 Col Index 추출
+        let nRow = Fig2310GridEdit.getRow(); // 클릭한 Row Index 추출
+        let nCol = Fig2310GridEdit.getCol(); // 클릭한 Col Index 추출
 
-        let rowData = Fig2320GridEdit.getRowData(nRow);
+        let rowData = Fig2310GridEdit.getRowData(nRow);
+        fn_getFig2310GridEdit(rowData);
 		console.log('nRow:', nRow);
 		console.log('nCol:', nCol);
 		console.log('rowData:', rowData);
         
-        let cellValue = Fig2320GridEdit.getCellData(nRow, nCol);
+        let cellValue = Fig2310GridEdit.getCellData(nRow, nCol);
 		console.log('cellValue:', cellValue);
 		
 		let p_entry_date_to	= gfnma_date7(gfnma_nvl(SBUxMethod.get("sch-entry-date-to")));
-        if (Fig2320GridEdit.getRefOfCol(nCol) == 'CURRENCY_CODE') {		
+		
+        if (Fig2310GridEdit.getRefOfCol(nCol) == 'LINE_TYPE') {			
+            let comboItem = jsonLineType.find(item => item.value === cellValue); 
+
+            if (comboItem) { 					// ComboItem 값이 있을 때
+                let value = comboItem.value; 	// ComboItem의 Value 추출
+                console.log('추출된 Value:', value);
+				if(value=='3'){
+					//부가세
+					SBUxMethod.selectTab('tab_norm','tab1');
+				} else {
+					SBUxMethod.selectTab('tab_norm','tab2');
+				}
+            }
+        }
+        
+        if (Fig2310GridEdit.getRefOfCol(nCol) == 'CURRENCY_CODE') {		
         	
 			//환율가져오기
 			let p_currency_code	= gfnma_nvl(rowData['CURRENCY_CODE']);
@@ -1221,37 +1299,37 @@
 				var p_chkspot_yn 	= gfnma_nvl(SBUxMethod.get('sch-chkspot-yn')['sch-chkspot-yn']);
 				var p_exchange_rate = gfnma_nvl(SBUxMethod.get('sch-exchange-rate'));
 				if(p_chkspot_yn == 'N'){
-					Fig2320GridEdit.setCellData(nRow, 30, data[0]['RATE'], true, true);
+					Fig2310GridEdit.setCellData(nRow, 30, data[0]['RATE'], true, true);
 				} else {
 					if( (p_chkspot_yn == 'Y') && (!p_exchange_rate) ){
 						SBUxMethod.set('sch-exchange-rate', data[0]['RATE']);
 					}
-					Fig2320GridEdit.setCellData(nRow, 30, p_exchange_rate, true, true);
+					Fig2310GridEdit.setCellData(nRow, 30, p_exchange_rate, true, true);
 				}
-				jsonFig2320Edit[nRow-1]['BASE_SCALE'] = data[0]['BASE_SCALE'];
+				jsonFig2310Edit[nRow-1]['BASE_SCALE'] = data[0]['BASE_SCALE'];
 				if( !(data[0]['BASE_SCALE']) || Number(rowData['ORIGINAL_AMT']) == 0 ){
             		var tmp1 = gfnma_getRound((Number(rowData['ORIGINAL_AMT']) * Number(p_exchange_rate) / Number(SBUxMethod.get('sch-numbase-scale'))), Number(p_ss_currUnit));
-					Fig2320GridEdit.setCellData(nRow, 12, tmp1, true, true);
+					Fig2310GridEdit.setCellData(nRow, 12, tmp1, true, true);
 				} else {
             		var tmp2 = gfnma_getRound((Number(rowData['ORIGINAL_AMT']) * Number(rowData['EXCHANGE_RATE']) / Number(rowData['BASE_SCALE'])), Number(p_ss_currUnit));
-					Fig2320GridEdit.setCellData(nRow, 12, tmp2, true, true);
+					Fig2310GridEdit.setCellData(nRow, 12, tmp2, true, true);
 				}
 				fn_SummaryB();
 			});
         }
         	
-        if (Fig2320GridEdit.getRefOfCol(nCol) == 'ORIGINAL_AMT') {		
+        if (Fig2310GridEdit.getRefOfCol(nCol) == 'ORIGINAL_AMT') {		
         	if( !rowData['BASE_SCALE'] || Number(rowData['ORIGINAL_AMT']) == 0 ){
         		var tmp1 = gfnma_getRound((Number(rowData['ORIGINAL_AMT']) * Number(p_exchange_rate) / Number(SBUxMethod.get('sch-numbase-scale'))), Number(p_ss_currUnit));
-				Fig2320GridEdit.setCellData(nRow, 12, tmp1, true, true);
+				Fig2310GridEdit.setCellData(nRow, 12, tmp1, true, true);
         	} else {
         		var tmp2 = gfnma_getRound((Number(rowData['ORIGINAL_AMT']) * Number(rowData['EXCHANGE_RATE']) / Number(rowData['BASE_SCALE'])), Number(p_ss_currUnit));
-				Fig2320GridEdit.setCellData(nRow, 12, tmp2, true, true);
+				Fig2310GridEdit.setCellData(nRow, 12, tmp2, true, true);
         	}
 			fn_SummaryB();
         }
 		
-        if (Fig2320GridEdit.getRefOfCol(nCol) == 'PAY_TERM_CODE') {		
+        if (Fig2310GridEdit.getRefOfCol(nCol) == 'PAY_TERM_CODE') {		
         	if(rowData['PAY_TERM_CODE']){
                 let ht = await fn_getExpectedPayDate('Q2', rowData['PAY_TERM_CODE'], gfnma_date7(gfnma_nvl(SBUxMethod.get("sch-entry-date-to"))), '');
         		if(ht.length > 0){
@@ -1259,19 +1337,19 @@
         			if(Object.keys(obj).includes('EXPECTED_PAY_DATE')){
         				if( obj['EXPECTED_PAY_DATE'] != 'X' ){
         					bEditEventEnabled = false;
-        					Fig2320GridEdit.setCellData(nRow, 29, gfnma_nvl(obj['EXPECTED_PAY_DATE']), 	true, true);
-        					Fig2320GridEdit.setCellData(nRow, 46, gfnma_nvl(obj['PAY_BASE_DATE']), 		true, true);
-        					Fig2320GridEdit.setCellData(nRow, 48, gfnma_nvl(obj['BILL_DUE_DAY']), 		true, true);
-        					Fig2320GridEdit.setCellData(nRow, 47, gfnma_nvl(obj['BILL_DUE_DATE']), 		true, true);
-        					Fig2320GridEdit.setCellData(nRow, 49, gfnma_nvl(obj['BILL_DUE_PAY_DATE']), 	true, true);
+        					Fig2310GridEdit.setCellData(nRow, 29, gfnma_nvl(obj['EXPECTED_PAY_DATE']), 	true, true);
+        					Fig2310GridEdit.setCellData(nRow, 46, gfnma_nvl(obj['PAY_BASE_DATE']), 		true, true);
+        					Fig2310GridEdit.setCellData(nRow, 48, gfnma_nvl(obj['BILL_DUE_DAY']), 		true, true);
+        					Fig2310GridEdit.setCellData(nRow, 47, gfnma_nvl(obj['BILL_DUE_DATE']), 		true, true);
+        					Fig2310GridEdit.setCellData(nRow, 49, gfnma_nvl(obj['BILL_DUE_PAY_DATE']), 	true, true);
         					bEditEventEnabled = true;
         				} else if(obj['EXPECTED_PAY_DATE'] == 'X') {
         					bEditEventEnabled = false;
-        					Fig2320GridEdit.setCellData(nRow, 29, p_entry_date_to, 	true, true);
-        					Fig2320GridEdit.setCellData(nRow, 46, p_entry_date_to, 	true, true);
-        					Fig2320GridEdit.setCellData(nRow, 48, '', true, true);
-        					Fig2320GridEdit.setCellData(nRow, 47, '', true, true);
-        					Fig2320GridEdit.setCellData(nRow, 49, '', true, true);
+        					Fig2310GridEdit.setCellData(nRow, 29, p_entry_date_to, 	true, true);
+        					Fig2310GridEdit.setCellData(nRow, 46, p_entry_date_to, 	true, true);
+        					Fig2310GridEdit.setCellData(nRow, 48, '', true, true);
+        					Fig2310GridEdit.setCellData(nRow, 47, '', true, true);
+        					Fig2310GridEdit.setCellData(nRow, 49, '', true, true);
         					bEditEventEnabled = true;
         				}
         			}
@@ -1279,63 +1357,63 @@
         	}
         }
         
-        if (Fig2320GridEdit.getRefOfCol(nCol) == 'PAY_BASE_DATE') {		
+        if (Fig2310GridEdit.getRefOfCol(nCol) == 'PAY_BASE_DATE') {		
         	if(rowData['PAY_TERM_CODE']){
                 let ht = await fn_getExpectedPayDate('Q2', rowData['PAY_TERM_CODE'], rowData['PAY_BASE_DATE'], 'PAY_BASE_DATE');
         		if(ht.length > 0){
         			var obj = ht[0];
         			if(Object.keys(obj).includes('EXPECTED_PAY_DATE')){
         				if( obj['EXPECTED_PAY_DATE'] != 'X' ){
-        					Fig2320GridEdit.setCellData(nRow, 29, gfnma_nvl(obj['EXPECTED_PAY_DATE']), 	true, true);
-        					Fig2320GridEdit.setCellData(nRow, 48, gfnma_nvl(obj['BILL_DUE_DAY']), 		true, true);
-        					Fig2320GridEdit.setCellData(nRow, 47, gfnma_nvl(obj['BILL_DUE_DATE']), 		true, true);
-        					Fig2320GridEdit.setCellData(nRow, 49, gfnma_nvl(obj['BILL_DUE_PAY_DATE']), 	true, true);
+        					Fig2310GridEdit.setCellData(nRow, 29, gfnma_nvl(obj['EXPECTED_PAY_DATE']), 	true, true);
+        					Fig2310GridEdit.setCellData(nRow, 48, gfnma_nvl(obj['BILL_DUE_DAY']), 		true, true);
+        					Fig2310GridEdit.setCellData(nRow, 47, gfnma_nvl(obj['BILL_DUE_DATE']), 		true, true);
+        					Fig2310GridEdit.setCellData(nRow, 49, gfnma_nvl(obj['BILL_DUE_PAY_DATE']), 	true, true);
         				} else if(obj['EXPECTED_PAY_DATE'] == 'X') {
-        					Fig2320GridEdit.setCellData(nRow, 29, rowData['PAY_BASE_DATE'], 	true, true);
-        					Fig2320GridEdit.setCellData(nRow, 48, '', true, true);
-        					Fig2320GridEdit.setCellData(nRow, 47, '', true, true);
-        					Fig2320GridEdit.setCellData(nRow, 49, '', true, true);
+        					Fig2310GridEdit.setCellData(nRow, 29, rowData['PAY_BASE_DATE'], 	true, true);
+        					Fig2310GridEdit.setCellData(nRow, 48, '', true, true);
+        					Fig2310GridEdit.setCellData(nRow, 47, '', true, true);
+        					Fig2310GridEdit.setCellData(nRow, 49, '', true, true);
         				}
         			}
         		}
         	}
         }
         
-        if (Fig2320GridEdit.getRefOfCol(nCol) == 'BASIS_TYPE') {		
+        if (Fig2310GridEdit.getRefOfCol(nCol) == 'BASIS_TYPE') {		
         	if(rowData['BASIS_TYPE'] == '5'){
-				Fig2320GridEdit.setCellData(nRow, 46, p_entry_date_to, true, true);
-				Fig2320GridEdit.setCellData(nRow, 29, "", true, true);
+				Fig2310GridEdit.setCellData(nRow, 46, p_entry_date_to, true, true);
+				Fig2310GridEdit.setCellData(nRow, 29, "", true, true);
         	} else {
             	if(rowData['PAY_TERM_CODE']){
                     let ht = await fn_getExpectedPayDate('Q', rowData['PAY_TERM_CODE'], p_entry_date_to, 'PAY_BASE_DATE');
-					Fig2320GridEdit.setCellData(nRow, 46, gfnma_nvl(ht[0]['EXPECTED_PAY_DATE']), true, true);
-					Fig2320GridEdit.setCellData(nRow, 29, rowData['EXPECTED_PAY_DATE'], true, true);
+					Fig2310GridEdit.setCellData(nRow, 46, gfnma_nvl(ht[0]['EXPECTED_PAY_DATE']), true, true);
+					Fig2310GridEdit.setCellData(nRow, 29, rowData['EXPECTED_PAY_DATE'], true, true);
             	}
         	}
         }
         
-        if (Fig2320GridEdit.getRefOfCol(nCol) == 'ACCOUNT_CODE') {		
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE1'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE2'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE3'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE4'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE5'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE6'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE7'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE8'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE9'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_ITEM_VALUE10'] = "";
+        if (Fig2310GridEdit.getRefOfCol(nCol) == 'ACCOUNT_CODE') {		
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE1'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE2'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE3'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE4'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE5'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE6'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE7'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE8'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE9'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_ITEM_VALUE10'] = "";
         	
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME1'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME2'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME3'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME4'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME5'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME6'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME7'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME8'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME9'] = "";
-			jsonFig2320Edit[nRow-1]['ACC_VALUE_NAME10'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME1'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME2'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME3'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME4'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME5'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME6'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME7'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME8'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME9'] = "";
+			jsonFig2310Edit[nRow-1]['ACC_VALUE_NAME10'] = "";
         }
     }
     
@@ -1361,7 +1439,7 @@
         const postJsonPromise = gfn_postJSON("/fi/far/rec/getExpectedPayDate.do", {
             getType: 'json',
             workType: 'Q2',
-            cv_count: '0',
+            cv_count: '1',
             params: gfnma_objectToString(paramObj)
         });
 
@@ -1372,11 +1450,11 @@
             if (_.isEqual("S", data.resultStatus)) {
                 data.cv_1.forEach((item, index) => {
                     var msg = {
-                        EXPECTED_PAY_DATE : item.EXPECTED_PAY_DATE,
-                        PAY_BASE_DATE : item.PAY_BASE_DATE,
-                        BILL_DUE_DAY : item.BILL_DUE_DAY,
-                        BILL_DUE_DATE : item.BILL_DUE_DATE,
-                        BILL_DUE_PAY_DATE : item.BILL_DUE_PAY_DATE
+                        EXPECTED_PAY_DATE 	: item.EXPECTED_PAY_DATE,
+                        PAY_BASE_DATE 		: item.PAY_BASE_DATE,
+                        BILL_DUE_DAY 		: item.BILL_DUE_DAY,
+                        BILL_DUE_DATE 		: item.BILL_DUE_DATE,
+                        BILL_DUE_PAY_DATE 	: item.BILL_DUE_PAY_DATE
                     }
                     retrunData.push(msg);
                 });
@@ -1398,8 +1476,8 @@
      */
 	function fn_gridPopup1(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 5) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 7) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 5) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 7) 
         if(!cellData1 && !cellData2){
         	gfn_comAlert("E0000","찾고자 하는 거래처 코드 혹은 거래처명을 2글자 이상 입력하세요");
         	return;	
@@ -1435,8 +1513,8 @@
    			,tableColumnWidths		: ["80px", 			"200px",		"100px",			"100px",			"200px",		"70px",			"70px",		"70px",				"150px",			"70px",			"120px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 5, 	data['CS_CODE'], true, true);
-				Fig2320GridEdit.setCellData(row, 7, 	data['CS_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 5, 	data['CS_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 7, 	data['CS_NAME'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1447,8 +1525,8 @@
      */
 	function fn_gridPopup2(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 8) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 10) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 8) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 10) 
     	fn_gridPopup2Show(row, col, cellData1, cellData2);
 	}
     
@@ -1457,8 +1535,8 @@
      */
     var fn_gridPopup2Show = function(row, col, cellData1, cellData2) {
     	
-        var nRow 			= Fig2320GridEdit.getRow();
-        var rowData 		= Fig2320GridEdit.getRowData(nRow);
+        var nRow 			= Fig2310GridEdit.getRow();
+        var rowData 		= Fig2310GridEdit.getRowData(nRow);
     	var pp_open_to_all	= "NULL"; 
     	var pp_line_type	= "'" + rowData['LINE_TYPE'] + "'"; 
     	var pp_open_to_fcm	= "'" + gfnma_nvl(SBUxMethod.get("sch-open-to-fcm-yn")) + "'"; 
@@ -1488,76 +1566,76 @@
    			,tableColumnWidths		: ["100px", 		"250px",		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 8, 	data['ACCOUNT_CODE'], true, true);
-				Fig2320GridEdit.setCellData(row, 10, 	data['ACCOUNT_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 8, 	data['ACCOUNT_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 10, 	data['ACCOUNT_NAME'], true, true);
 				
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE1'] = data['ACC_ITEM_CODE1'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE2'] = data['ACC_ITEM_CODE2'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE3'] = data['ACC_ITEM_CODE3'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE4'] = data['ACC_ITEM_CODE4'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE5'] = data['ACC_ITEM_CODE5'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE6'] = data['ACC_ITEM_CODE6'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE7'] = data['ACC_ITEM_CODE7'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE8'] = data['ACC_ITEM_CODE8'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE9'] = data['ACC_ITEM_CODE9'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_CODE10'] = data['ACC_ITEM_CODE10'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE1'] = data['ACC_ITEM_CODE1'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE2'] = data['ACC_ITEM_CODE2'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE3'] = data['ACC_ITEM_CODE3'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE4'] = data['ACC_ITEM_CODE4'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE5'] = data['ACC_ITEM_CODE5'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE6'] = data['ACC_ITEM_CODE6'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE7'] = data['ACC_ITEM_CODE7'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE8'] = data['ACC_ITEM_CODE8'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE9'] = data['ACC_ITEM_CODE9'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_CODE10'] = data['ACC_ITEM_CODE10'];
 				
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME1'] = data['ACC_ITEM_NAME1'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME2'] = data['ACC_ITEM_NAME2'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME3'] = data['ACC_ITEM_NAME3'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME4'] = data['ACC_ITEM_NAME4'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME5'] = data['ACC_ITEM_NAME5'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME6'] = data['ACC_ITEM_NAME6'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME7'] = data['ACC_ITEM_NAME7'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME8'] = data['ACC_ITEM_NAME8'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME9'] = data['ACC_ITEM_NAME9'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_NAME10'] = data['ACC_ITEM_NAME10'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME1'] = data['ACC_ITEM_NAME1'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME2'] = data['ACC_ITEM_NAME2'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME3'] = data['ACC_ITEM_NAME3'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME4'] = data['ACC_ITEM_NAME4'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME5'] = data['ACC_ITEM_NAME5'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME6'] = data['ACC_ITEM_NAME6'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME7'] = data['ACC_ITEM_NAME7'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME8'] = data['ACC_ITEM_NAME8'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME9'] = data['ACC_ITEM_NAME9'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_NAME10'] = data['ACC_ITEM_NAME10'];
 				
-				jsonFig2320Edit[row-1]['DATA_TYPE1'] = data['DATA_TYPE1'];
-				jsonFig2320Edit[row-1]['DATA_TYPE2'] = data['DATA_TYPE2'];
-				jsonFig2320Edit[row-1]['DATA_TYPE3'] = data['DATA_TYPE3'];
-				jsonFig2320Edit[row-1]['DATA_TYPE4'] = data['DATA_TYPE4'];
-				jsonFig2320Edit[row-1]['DATA_TYPE5'] = data['DATA_TYPE5'];
-				jsonFig2320Edit[row-1]['DATA_TYPE6'] = data['DATA_TYPE6'];
-				jsonFig2320Edit[row-1]['DATA_TYPE7'] = data['DATA_TYPE7'];
-				jsonFig2320Edit[row-1]['DATA_TYPE8'] = data['DATA_TYPE8'];
-				jsonFig2320Edit[row-1]['DATA_TYPE9'] = data['DATA_TYPE9'];
-				jsonFig2320Edit[row-1]['DATA_TYPE10'] = data['DATA_TYPE10'];
+				jsonFig2310Edit[row-1]['DATA_TYPE1'] = data['DATA_TYPE1'];
+				jsonFig2310Edit[row-1]['DATA_TYPE2'] = data['DATA_TYPE2'];
+				jsonFig2310Edit[row-1]['DATA_TYPE3'] = data['DATA_TYPE3'];
+				jsonFig2310Edit[row-1]['DATA_TYPE4'] = data['DATA_TYPE4'];
+				jsonFig2310Edit[row-1]['DATA_TYPE5'] = data['DATA_TYPE5'];
+				jsonFig2310Edit[row-1]['DATA_TYPE6'] = data['DATA_TYPE6'];
+				jsonFig2310Edit[row-1]['DATA_TYPE7'] = data['DATA_TYPE7'];
+				jsonFig2310Edit[row-1]['DATA_TYPE8'] = data['DATA_TYPE8'];
+				jsonFig2310Edit[row-1]['DATA_TYPE9'] = data['DATA_TYPE9'];
+				jsonFig2310Edit[row-1]['DATA_TYPE10'] = data['DATA_TYPE10'];
 				
-				jsonFig2320Edit[row-1]['POPUP_ID1'] = data['POPUP_ID1'];
-				jsonFig2320Edit[row-1]['POPUP_ID2'] = data['POPUP_ID2'];
-				jsonFig2320Edit[row-1]['POPUP_ID3'] = data['POPUP_ID3'];
-				jsonFig2320Edit[row-1]['POPUP_ID4'] = data['POPUP_ID4'];
-				jsonFig2320Edit[row-1]['POPUP_ID5'] = data['POPUP_ID5'];
-				jsonFig2320Edit[row-1]['POPUP_ID6'] = data['POPUP_ID6'];
-				jsonFig2320Edit[row-1]['POPUP_ID7'] = data['POPUP_ID7'];
-				jsonFig2320Edit[row-1]['POPUP_ID8'] = data['POPUP_ID8'];
-				jsonFig2320Edit[row-1]['POPUP_ID9'] = data['POPUP_ID9'];
-				jsonFig2320Edit[row-1]['POPUP_ID10'] = data['POPUP_ID10'];
+				jsonFig2310Edit[row-1]['POPUP_ID1'] = data['POPUP_ID1'];
+				jsonFig2310Edit[row-1]['POPUP_ID2'] = data['POPUP_ID2'];
+				jsonFig2310Edit[row-1]['POPUP_ID3'] = data['POPUP_ID3'];
+				jsonFig2310Edit[row-1]['POPUP_ID4'] = data['POPUP_ID4'];
+				jsonFig2310Edit[row-1]['POPUP_ID5'] = data['POPUP_ID5'];
+				jsonFig2310Edit[row-1]['POPUP_ID6'] = data['POPUP_ID6'];
+				jsonFig2310Edit[row-1]['POPUP_ID7'] = data['POPUP_ID7'];
+				jsonFig2310Edit[row-1]['POPUP_ID8'] = data['POPUP_ID8'];
+				jsonFig2310Edit[row-1]['POPUP_ID9'] = data['POPUP_ID9'];
+				jsonFig2310Edit[row-1]['POPUP_ID10'] = data['POPUP_ID10'];
 				
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN1'] = data['ACC_ITEM_YN1'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN2'] = data['ACC_ITEM_YN2'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN3'] = data['ACC_ITEM_YN3'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN4'] = data['ACC_ITEM_YN4'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN5'] = data['ACC_ITEM_YN5'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN6'] = data['ACC_ITEM_YN6'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN7'] = data['ACC_ITEM_YN7'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN8'] = data['ACC_ITEM_YN8'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN9'] = data['ACC_ITEM_YN9'];
-				jsonFig2320Edit[row-1]['ACC_ITEM_YN10'] = data['ACC_ITEM_YN10'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN1'] = data['ACC_ITEM_YN1'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN2'] = data['ACC_ITEM_YN2'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN3'] = data['ACC_ITEM_YN3'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN4'] = data['ACC_ITEM_YN4'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN5'] = data['ACC_ITEM_YN5'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN6'] = data['ACC_ITEM_YN6'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN7'] = data['ACC_ITEM_YN7'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN8'] = data['ACC_ITEM_YN8'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN9'] = data['ACC_ITEM_YN9'];
+				jsonFig2310Edit[row-1]['ACC_ITEM_YN10'] = data['ACC_ITEM_YN10'];
 				
-				jsonFig2320Edit[row-1]['ACC_CATEGORY'] 	= data['ACC_CATEGORY'];
-				jsonFig2320Edit[row-1]['PROJECT_YN'] 	= data['PROJECT_YN'];
-				jsonFig2320Edit[row-1]['COST_CLASS'] 	= data['COST_CLASS'];
+				jsonFig2310Edit[row-1]['ACC_CATEGORY'] 	= data['ACC_CATEGORY'];
+				jsonFig2310Edit[row-1]['PROJECT_YN'] 	= data['PROJECT_YN'];
+				jsonFig2310Edit[row-1]['COST_CLASS'] 	= data['COST_CLASS'];
 				
-				fn_getFig2320GridEdit(jsonFig2320Edit[row-1]);
+				fn_getFig2310GridEdit(jsonFig2310Edit[row-1]);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
     }      
     
     //그리드 값 가져오기
-    function fn_getFig2320GridEdit(rowData) {
+    function fn_getFig2310GridEdit(rowData) {
     	gfnma_uxDataClear('#tab1');
     	gfnma_uxDataClear('#tab2');
     	$('.cu-tab2-fom-area').text('');
@@ -1571,8 +1649,8 @@
      */
 	function fn_gridPopup3(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 15) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 17) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 15) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 17) 
     	fn_gridPopup3Show(row, col, cellData1, cellData2);
 	}
     
@@ -1603,8 +1681,8 @@
    			,tableColumnWidths		: ["100px", 		"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 15, 	data['DEPT_NAME'], true, true);
-				Fig2320GridEdit.setCellData(row, 17, 	data['DEPT_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 15, 	data['DEPT_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 17, 	data['DEPT_CODE'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1615,8 +1693,8 @@
      */
 	function fn_gridPopup4(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 18) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 20) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 18) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 20) 
     	fn_gridPopup4Show(row, col, cellData1, cellData2);
 	}
     
@@ -1647,8 +1725,8 @@
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 18, 	data['COST_CENTER_CODE'], true, true);
-				Fig2320GridEdit.setCellData(row, 20, 	data['COST_CENTER_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 18, 	data['COST_CENTER_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 20, 	data['COST_CENTER_NAME'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1659,8 +1737,8 @@
      */
 	function fn_gridPopup5(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 22) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 24) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 22) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 24) 
     	fn_gridPopup5Show(row, col, cellData1, cellData2);
 	}
     
@@ -1692,8 +1770,8 @@
 			,tableColumnWidths		: ["100px", 			"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 22, 	data['PROJECT_CODE'], true, true);
-				Fig2320GridEdit.setCellData(row, 24, 	data['PROJECT_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 22, 	data['PROJECT_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 24, 	data['PROJECT_NAME'], true, true);
 			},
 		});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1704,8 +1782,8 @@
      */
 	function fn_gridPopup6(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 25) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 27) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 25) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 27) 
     	fn_gridPopup6Show(row, col, cellData1, cellData2);
 	}
     
@@ -1736,9 +1814,9 @@
    			,tableColumnWidths		: ["100px", 			"250px",			"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 25, 	data['PAY_TERM_CODE'], true, true);
-				Fig2320GridEdit.setCellData(row, 27, 	data['PAY_TERM_NAME'], true, true);
-				Fig2320GridEdit.setCellData(row, 28, 	data['PAY_METHOD_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 25, 	data['PAY_TERM_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 27, 	data['PAY_TERM_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 28, 	data['PAY_METHOD_NAME'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1749,8 +1827,8 @@
      */
 	function fn_gridPopup7(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 32) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 34) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 32) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 34) 
     	fn_gridPopup7Show(row, col, cellData1, cellData2);
 	}
     
@@ -1781,8 +1859,8 @@
    			,tableColumnWidths		: ["100px", 			"250px",			"100px",		"200px",			"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 32, 	data['TAX_TYPE_NAME'], true, true);
-				Fig2320GridEdit.setCellData(row, 34, 	data['TAX_TYPE_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 32, 	data['TAX_TYPE_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 34, 	data['TAX_TYPE_CODE'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1793,8 +1871,8 @@
      */
 	function fn_gridPopup8(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2320GridEdit.getCellData(row, 36) 
-        let cellData2 = Fig2320GridEdit.getCellData(row, 38) 
+        let cellData1 = Fig2310GridEdit.getCellData(row, 36) 
+        let cellData2 = Fig2310GridEdit.getCellData(row, 38) 
     	fn_gridPopup8Show(row, col, cellData1, cellData2);
 	}
     
@@ -1825,8 +1903,8 @@
    			,tableColumnWidths		: ["100px", 			"250px",			"100px",		"200px",			"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2320GridEdit.setCellData(row, 36, 	data['TAX_TYPE_NAME'], true, true);
-				Fig2320GridEdit.setCellData(row, 38, 	data['TAX_TYPE_CODE'], true, true);
+				Fig2310GridEdit.setCellData(row, 36, 	data['TAX_TYPE_NAME'], true, true);
+				Fig2310GridEdit.setCellData(row, 38, 	data['TAX_TYPE_CODE'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1836,22 +1914,22 @@
      * 행추가
      */
     var fn_gridRowAdd = function() {
-        var idx = Fig2320GridEdit.getRows();
+        var idx = Fig2310GridEdit.getRows();
         if(idx==-1){
         	idx = 0;
         }
-        Fig2320GridEdit.insertRow(idx-1, 'below');
-        Fig2320GridEdit.setCellData(idx, 2, idx, true, true);
-        Fig2320GridEdit.setCellData(idx, 14, 0, true, true);
-        Fig2320GridEdit.setCellData(idx, 15, 0, true, true);
-        Fig2320GridEdit.setCellData(idx, 32, 1, true, true);
+        Fig2310GridEdit.insertRow(idx-1, 'below');
+        Fig2310GridEdit.setCellData(idx, 2, idx, true, true);
+        Fig2310GridEdit.setCellData(idx, 14, 0, true, true);
+        Fig2310GridEdit.setCellData(idx, 15, 0, true, true);
+        Fig2310GridEdit.setCellData(idx, 32, 1, true, true);
     }
     
     /**
      * 행삭제
      */
     var fn_gridRowDel = function() {
-    	Fig2320GridEdit.deleteRow(Fig2320GridEdit.getRow());
+    	Fig2310GridEdit.deleteRow(Fig2310GridEdit.getRow());
     }     
     
     /**
@@ -2110,7 +2188,7 @@
         	params				: gfnma_objectToString(paramObj)
     	});    	 
         const data = await postJsonPromise;
-    	console.log('data:', data);
+    	console.log('P_FIG2320_Q data:', data);
 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -2118,7 +2196,7 @@
             	/** @type {number} **/
         		let totalRecordCount = 0;
 
-        		jsonFig2320List.length = 0;
+        		jsonFig2310List.length = 0;
             	data.cv_1.forEach((item, index) => {
     				const msg = {
     					ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),			
@@ -2189,6 +2267,7 @@
     					CS_NAME					: gfnma_nvl(item.CS_NAME),			
     					CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),			
     					DEBIT_CREDIT			: gfnma_nvl(item.DEBIT_CREDIT),			
+    					DEBIT_CREDIT_NAME		: gfnma_nvl(item.DEBIT_CREDIT_NAME),			
     					DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),			
     					DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),			
     					
@@ -2204,6 +2283,7 @@
     					DOC_NAME				: gfnma_nvl(item.DOC_NAME),			
     					DOC_NUM					: gfnma_nvl(item.DOC_NUM),			
     					DOC_STATUS				: gfnma_nvl(item.DOC_STATUS),			
+    					DOC_STATUS_NAME			: gfnma_nvl(item.DOC_STATUS_NAME),			
     					DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),			
     					DUP_ISSUE_BILL_TYPE		: gfnma_nvl(item.DUP_ISSUE_BILL_TYPE),			
     					ETAX_TYPE				: gfnma_nvl(item.ETAX_TYPE),			
@@ -2228,6 +2308,7 @@
     					ISSUE_NAME					: gfnma_nvl(item.ISSUE_NAME),			
     					ITEM_SOURCE_ID				: gfnma_nvl(item.ITEM_SOURCE_ID),			
     					ITEM_SOURCE_TYPE			: gfnma_nvl(item.ITEM_SOURCE_TYPE),			
+    					ITEM_SOURCE_TYPE_NAME		: gfnma_nvl(item.ITEM_SOURCE_TYPE_NAME),			
     					LINE_STATUS					: gfnma_nvl(item.LINE_STATUS),			
     					LOCAL_CREDIT_TYPE			: gfnma_nvl(item.LOCAL_CREDIT_TYPE),			
     					ORIGINAL_AMOUNT				: gfnma_nvl(item.ORIGINAL_AMOUNT),			
@@ -2263,11 +2344,11 @@
     					ZERO_REPORT_YN				: gfnma_nvl(item.ZERO_REPORT_YN),
     					ZERO_TYPE					: gfnma_nvl(item.ZERO_TYPE)    		
     				}
-    				jsonFig2320List.push(msg);
+    				jsonFig2310List.push(msg);
     				totalRecordCount ++;
     			});
 
-            	Fig2320GridList.rebuild();
+            	Fig2310GridList.rebuild();
         		
         	} else {
           		alert(data.resultMessage);
@@ -2348,7 +2429,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.cv_2.length>0){
-        			jsonFig2320Edit.length = 0;
+        			jsonFig2310Edit.length = 0;
                 	data.cv_2.forEach((item, index) => {
         				const msg = {
         						ITEM_SEQ				: (index + 1),			
@@ -2400,9 +2481,9 @@
         						
         						BASE_SCALE 				: '',
         				}        			
-        				jsonFig2320Edit.push(msg);
+        				jsonFig2310Edit.push(msg);
         			});
-                	Fig2320GridEdit.rebuild();
+                	Fig2310GridEdit.rebuild();
         		}
         	} else {
           		alert(data.resultMessage);
@@ -2440,7 +2521,7 @@
         	var prev_cc_code 	= "";
         	var this_cc_code 	= "";
         	var iCount 			= 0;
-       		var gridAllList 	= Fig2320GridList.getGridDataAll();
+       		var gridAllList 	= Fig2310GridList.getGridDataAll();
         	for (var i = 0; i < gridAllList.length; i++) {
         		var obj = gridAllList[i];
         		if(obj['CHECK_YN']=='Y'){
@@ -2481,7 +2562,7 @@
         	jsonTempList 	= [];
             var iSeq 		= 0;
             
-       		var editAllList = Fig2320GridEdit.getGridDataAll();
+       		var editAllList = Fig2310GridEdit.getGridDataAll();
         	for (var i = 0; i < editAllList.length; i++) {
         		var obj = editAllList[i];
         		if(obj['CHECK_YN']=='Y'){
@@ -2494,7 +2575,7 @@
         		}
         	}
         	
-       		var gridAllList = Fig2320GridList.getGridDataAll();
+       		var gridAllList = Fig2310GridList.getGridDataAll();
         	for (var i = 0; i < gridAllList.length; i++) {
         		var obj = editAllList[i];
         		if(obj['CHECK_YN']=='Y'){
@@ -2557,7 +2638,7 @@
     	
         if( !wType || wType=='N' || wType=='U' ){
     		
-       		var editAllList = Fig2320GridEdit.getGridDataAll();
+       		var editAllList = Fig2310GridEdit.getGridDataAll();
         	for (var i = 0; i < editAllList.length; i++) {
         		
 				var obj = editAllList[i];
@@ -3495,6 +3576,16 @@
 		SBUxMethod.removeTab("tab_menu", 'TAB_MA_A20_030_020_001');
     }
     
+    //폼의 값 --> 그리드에 셋팅하기
+    function fn_FomChange(val, id) {
+		console.log('val:', val);        
+		console.log('id:', id);        
+		console.log('p_sel_row:', p_sel_row);        
+		if(p_sel_row>-1){
+			jsonFig2310Edit[p_sel_row-1][id] = val;
+		}
+		console.log(jsonFig2210);
+    }    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

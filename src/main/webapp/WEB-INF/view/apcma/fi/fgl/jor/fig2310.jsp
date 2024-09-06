@@ -101,6 +101,27 @@
 	                    <tbody>
 	                    
                            	<!-- hidden  -->
+  							<sbux-input  id="sch-txtinsert-userid" 		name="sch-txtinsert-userid" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txttemp-doc-num" 		name="sch-txttemp-doc-num" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtconfirm-emp-code" 	name="sch-txtconfirm-emp-code" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtstd-doc-num" 		name="sch-txtstd-doc-num" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtsource-type" 		name="sch-txtsource-type" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtappr-id" 			name="sch-txtappr-id" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtsource-type2" 		name="sch-txtsource-type2" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtentry-path" 		name="sch-txtentry-path" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-txtproxy-emp-code" 	name="sch-txtproxy-emp-code" 		style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-numappr-count" 		name="sch-numappr-count" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							
+                       		<sbux-select id="sch-hold-flag" 			name="sch-hold-flag" 				style="display:none;" uitype="single" 	jsondata-ref="jsonHoldFlag" unselected-text="선택" class="form-control input-sm"></sbux-select>
+  							<sbux-input  id="sch-ymdrelease-date" 		name="sch-ymdrelease-date" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-textEditEx1" 			name="sch-textEditEx1" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-ymdhold-date" 			name="sch-ymdhold-date" 			style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+  							<sbux-input  id="sch-textEditEx2" 			name="sch-textEditEx2" 				style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
+                       		<sbux-select id="sch-cbohold-reason" 		name="sch-cbohold-reason" 			style="display:none;" uitype="single" 	jsondata-ref="jsonHoldReason" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                       		<sbux-select id="sch-cbofi-org-code" 		name="sch-cbofi-org-code" 			style="display:none;" uitype="single" 	jsondata-ref="jsonFiOrgCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                       		
+                       		<sbux-select id="sch-cbosite-code" 			name="sch-cbosite-code" 			style="display:none;" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                       		<sbux-select id="sch-cboexchange-type" 		name="sch-cboexchange-type" 		style="display:none;" uitype="single" jsondata-ref="jsonExchangeType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                        		<!-- /hidden -->
                        		
 	                        <tr>
@@ -242,7 +263,7 @@
 	                            <th scope="row" class="th_bg">통화</th>
 	                            <td colspan="3" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		                                <sbux-select style="width:150px" id="sch-currency-code" name="sch-currency-code" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                                <sbux-select style="width:150px" id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 		   								<sbux-input uitype="text" id="sch-exchange-rate" class="form-control input-sm" ></sbux-input>
 	                            	</div>
 	                            </td>
@@ -571,32 +592,76 @@
 	var p_ss_issAccountChief	= '${loginVO.maIsAccountChief}';
 	var p_ss_isAccountManager	= '${loginVO.maIsAccountManager}';
 	var p_ss_fiDeleteUser 		= '${loginVO.maFI_DELETE_USER}';
+	var p_ss_defaultAcctRule	= '${loginVO.maDefaultAcctRule}';
 	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
 	var p_ss_siteCode			= '${loginVO.maSiteCode}';
 	var p_ss_deptCode			= '${loginVO.maDeptCode}';
 	var p_ss_deptName			= '${loginVO.maDeptName}';
+	var p_ss_currCode			= '${loginVO.maCurrCode}';
 	
-    var pg_colcs_code_bizId		= '';	//그리드내(거래처) 팝업 bizId
-    var pg_colcs_code_title		= '';	//그리드내(거래처) 팝업 타이틀
-    var pg_colcs_code_field1	= '';	//그리드내(거래처) 컬럼명
-    var pg_colcs_code_field2	= '';	//그리드내(거래처) 컬럼명
+    var pg_vat_type_bizId		= 'P_ACCOUNT_POPUP_Q';	//그리드내(부가세유형) 팝업 bizId
 	
-    var pg_rule_code_bizId		= '';	//멀티셀렉트 'srch-compopup1-rulecode' bizId
-    var pg_rule_code_where		= "";	//멀티셀렉트 'srch-compopup1-rulecode' where
+    var pg_colcs_code_bizId		= 'P_CS_ALL';	//그리드내(거래처) 팝업 bizId
+    var pg_colcs_code_title		= '거래처';		//그리드내(거래처) 팝업 타이틀
+    var pg_colcs_code_field1	= 'CS_CODE';	//그리드내(거래처) 컬럼명
+    var pg_colcs_code_field2	= 'CS_NAME';	//그리드내(거래처) 컬럼명
+    
+    var pg_colpay_term_code_bizId	= 'P_PAY_DATE';			//그리드내(지급기준) 컬럼명
+    
+    var pg_rule_code_bizId		= 'L_RULE';					//멀티셀렉트 'srch-compopup1-rulecode' bizId
+    var pg_rule_code_where		= "AND doc_type = '93'";	//멀티셀렉트 'srch-compopup1-rulecode' where
 	
-	var pg_state	= 'new';
+	var pg_doc_type_bizId		= 'L_FIM051';
+	var pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
+    
+    var pg_strdoc_type			= '93';
+    
+    var p_summit_yn 	= true;		// c# fnsummit_yn();
+    var p_menu_param	= null;
+	var pg_state		= '';
 	
     //grid 초기화
     var Fig2310Grid; 			// 그리드를 담기위한 객체 선언
     var jsonFig2310 = []; 		// 그리드의 참조 데이터 주소 선언
 	//-----------------------------------------------------------
 	
+    var jsonAcctRuleCode 		= []; // 회계기준
+    var jsonFiOrgCode 			= []; // 사업단위
+    var jsonSiteCode 			= []; 
+    var jsonHoldFlag 			= []; 
+    var jsonHoldReason			= []; // 보류사유 
+    var jsonExchangeType		= [];  
+
+    var jsonTaxSiteCode 		= []; // 신고사업장
+    var jsonSubTaxSiteCode 		= []; // 총사업장
+    var jsonDocType 			= []; // 전표유형
+    var jsonDocStatus 			= []; // 전표유형
+    var jsonCurrencyCode 		= []; // 통화
+    
     var jsonLineType 			= []; // 라인유형
     var jsonDebitCredit 		= []; // 차/대
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 
+            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 								jsonHoldReason, 	'L_COM042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-cbofi-org-code'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-cbosite-code'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-cboexchange-type'],		jsonExchangeType,	'L_COM034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			
+            // 회계기준
+            gfnma_setComSelect(['sch-acct-rule-code'],			jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 신고사업장
+            gfnma_setComSelect(['sch-tax-site-code'],			jsonTaxSiteCode, 	'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            // 종사업장
+            gfnma_setComSelect(['sch-sub-tax-site-code'],		jsonSubTaxSiteCode, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            // 전표유형
+            gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		pg_doc_type_bizId, pg_doc_type_where, gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-doc-status'],				jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 통화
+            gfnma_setComSelect(['sch-currency-code'],			jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            
             // 그리드내 라인유형
 			gfnma_setComSelect([], 								jsonLineType, 		'L_FIM052', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             // 그리드내 차/대
@@ -629,22 +694,37 @@
 
 	async function fn_init(type) {
 		
-		if(pg_state=='new'){
-    		pg_rule_code_bizId		= 'L_RULE';
-    		pg_rule_code_where		= "AND doc_type = '93'";
-		}
 		if(type){
 			//select init
 	  		await fn_initSBSelect()
 		}
+		
+		//그리드 셋팅
+    	fn_createGrid2310();	
+    	
 		//화면셋팅
-    	//fn_state(pg_state);
+    	fn_state(pg_state);
 	}    
     
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
+    	
+    	if(p_menu_param){
+    		pg_state = 'edit';
+    	} else {
+    		pg_state = 'new';
+    	}
+    	
     	fn_init(true);
-    	fn_createGrid2310();	
+    	
+		$('#btn1-row-add').click(function(e){
+			e.preventDefault();
+			fn_gridRowAdd();
+		});
+		$('#btn1-row-del').click(function(e){
+			e.preventDefault();
+			fn_gridRowDel();
+		});    	
 
     });
 
@@ -653,7 +733,209 @@
      */
     function fn_state(type) {
     	
+		if(type=='new'){
+			cfn_add();
+		}
+    }
+    
+    /**
+     * 신규
+     */
+     var cfn_add = function() {
+    	
+		SBUxMethod.set("sch-txtinsert-userid", 	p_userId);
+		SBUxMethod.set("sch-acct-rule-code", 	p_ss_defaultAcctRule);
+		SBUxMethod.set("sch-doc-type", 			pg_strdoc_type);
+		SBUxMethod.set("sch-doc-status", 		'1');
+		SBUxMethod.set("sch-cbofi-org-code", 	p_ss_fiOrgCode);
+		SBUxMethod.set("sch-cbosite-code", 		p_ss_siteCode);
+		SBUxMethod.set("sch-dept-code", 		p_ss_deptCode);
+		SBUxMethod.set("sch-dept-name", 		p_ss_deptName);
+		SBUxMethod.set("sch-hold-flag", 		'Y');
+		SBUxMethod.set("sch-tax-site-code", 	'T02');
+		
+		SBUxMethod.attr('sch-acct-rule-code', 	'disabled', false);
+		SBUxMethod.attr('sch-cbofi-org-code', 	'disabled', false);
+		SBUxMethod.attr('sch-cbosite-code', 	'disabled', false);
+		
+		SBUxMethod.set("sch-doc-date", 			gfnma_date4());
+		SBUxMethod.set("sch-currency-code", 	p_ss_currCode);
+		SBUxMethod.set("sch-exchange-rate", 	'1');
+		
+		var strinvoice_status_code = SBUxMethod.get('sch-doc-status');
+		fn_enableSet(strinvoice_status_code);
+		
+		pg_vat_type_bizId		= 'P_NOT_ACCOUNT_POPUP_Q';
+		
+		SBUxMethod.set("sch-txtsource-type2", 	'MANUAL');
+		if(pg_strdoc_type == '92'){
+			pg_colcs_code_bizId 		= 'P_CS_PURCHASE';
+    		pg_colcs_code_title 		= '거래처 (구매)';
+    		pg_colpay_term_code_bizId 	= 'P_PAY_DATE_P';
+    		SBUxMethod.set("sch-txtsource-type2", 	'AP');
+		}
+		
+    }
 
+     /**
+      * 콤포넌트 활성화
+      */    
+	var fn_enableSet = function(code) {
+    	
+    	if(code=='0'){
+    		
+			$('#main-btn-save', parent.document).attr('disabled', true);
+			$('#main-btn-del', 	parent.document).attr('disabled', false);
+			
+    		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+    		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+    		SBUxMethod.attr('sch-btn-end', 			'disabled', true);
+    		SBUxMethod.attr('sch-btn-scm', 			'disabled', true);
+    		
+    		$('#btn1-row-add').attr('disabled', 	false);
+    		$('#btn1-row-del').attr('disabled', 	false);
+    		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+    		
+    		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+    		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+    	
+    	} else {
+    		
+    		if(code=='1'){
+    			
+        		//미승인
+    			$('#main-btn-save', parent.document).attr('disabled', true);
+    			$('#main-btn-del', 	parent.document).attr('disabled', true);
+    			
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
+        		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+        		SBUxMethod.attr('sch-btn-end', 			'disabled', true);
+        		
+        		$('#btn1-row-add').attr('disabled', 	false);
+        		$('#btn1-row-del').attr('disabled', 	false);
+        		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+
+        		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+        		
+        		var insert_userid = SBUxMethod.get('sch-txtinsert-userid');
+        		if(insert_userid != p_userId || !p_summit_yn){
+        			$('#main-btn-save', parent.document).attr('disabled', true);
+        			$('#main-btn-del', parent.document).attr('disabled', true);
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+            		$('#btn1-row-add').attr('disabled', 	true);
+            		$('#btn1-row-del').attr('disabled', 	true);
+        		}
+        	} else if(code=='3'){
+        		
+        		//승인중
+    			$('#main-btn-save', parent.document).attr('disabled', true);
+    			$('#main-btn-del', parent.document).attr('disabled', false);
+        		
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
+        		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
+        		SBUxMethod.attr('sch-btn-end', 			'disabled', true);
+        		
+        		$('#btn1-row-add').attr('disabled', 	false);
+        		$('#btn1-row-del').attr('disabled', 	false);
+        		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+        		
+        		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+        		
+        		var confirm_emp_code 		= SBUxMethod.get('sch-txtconfirm-emp-code');
+        		var proxy_emp_code 			= SBUxMethod.get('sch-txtproxy-emp-code');
+        		
+        		var insert_userid			= SBUxMethod.get('sch-txtinsert-userid');
+        		var appr_id					= SBUxMethod.get('sch-txtappr-id');
+        		
+        		if( confirm_emp_code != p_ss_empCode && proxy_emp_code != p_ss_empCode ){
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+        		}
+        		if( insert_userid == p_userId || !p_summit_yn ){
+        			$('#main-btn-save', parent.document).attr('disabled', 	true);
+        			$('#main-btn-del', parent.document).attr('disabled', 	true);
+        		}
+        		if(!appr_id){
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', 	true);
+        		}
+        	
+        	} else if(code=='5'){
+        		
+        		//승인완료
+    			$('#main-btn-save', parent.document).attr('disabled', false);
+    			$('#main-btn-del', parent.document).attr('disabled', false);
+        		
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+           		SBUxMethod.attr('sch-btn-end', 			'disabled', false);
+        		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
+
+        		$('#btn1-row-add').attr('disabled', 	true);
+        		$('#btn1-row-del').attr('disabled', 	true);
+        		
+        		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
+        		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
+
+        		var insert_userid		= SBUxMethod.get('sch-txtinsert-userid');
+        		if(insert_userid == p_userId || !p_summit_yn){
+        			$('#main-btn-save', parent.document).attr('disabled', true);
+        			$('#main-btn-del', parent.document).attr('disabled', true);
+            		$('#btn1-row-add').attr('disabled', 	false);
+            		$('#btn1-row-del').attr('disabled', 	false);
+        		}
+        		
+                //본인이 등록했고 본인만 결제권자 였으면 반려 가능
+        		var appr_acount			= SBUxMethod.get('sch-numappr-count');
+        		appr_acount = (appr_acount=="") ? '0' : appr_acount;
+        		if(insert_userid == p_userId && appr_acount == "1" ){
+            		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
+        			$('#main-btn-del', parent.document).attr('disabled', true);
+        		}
+        		
+        		if(appr_acount != "0" ){
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
+        		}
+
+        	} else {
+        		
+    			$('#main-btn-save', parent.document).attr('disabled', false);
+    			$('#main-btn-del', parent.document).attr('disabled', false);
+    			
+        		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
+        		var appr_id			= SBUxMethod.get('sch-txtappr-id');
+        		if(appr_id == ""){
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
+        		} else {
+            		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
+        		}
+        		SBUxMethod.attr('sch-btn-end', 		'disabled', true);
+    			
+        		var posting_date	= SBUxMethod.get('sch-posting-date');
+        		var txtentry_path	= SBUxMethod.get('sch-txtentry-path');
+        		if(posting_date != "" && txtentry_path != "REVERSE"){
+        			$('#main-btn-cancel', parent.document).attr('disabled', false);
+        		} else {
+        			$('#main-btn-cancel', parent.document).attr('disabled', true);
+        		}
+        		$('#btn1-row-add').attr('disabled', 	true);
+        		$('#btn1-row-del').attr('disabled', 	true);
+        		
+        		SBUxMethod.attr('sch-btn-release', 		'disabled', false);
+        		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', false);
+        	}
+    		
+    		var insert_userid		= SBUxMethod.get('sch-txtinsert-userid');
+    		if(p_ss_isAccountManager || code=='1' || insert_userid == p_userId ){
+                //panHeader.ActionMode = ActionMode.Save;
+                //gvwInfo.ActionMode = ActionMode.Save;
+    		} else {
+                //panHeader.ActionMode = ActionMode.View;
+                //gvwInfo.ActionMode = ActionMode.View;
+    		}
+    		
+    	}       	 
+    	 
     }
     
     function fn_createGrid2310() {
@@ -722,7 +1004,16 @@
             
             {caption: ["통화금액"], 				ref: 'ORIGINAL_AMT', 			type:'input',		width:'150px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
             {caption: ["전표금액"], 				ref: 'FUNCTIONAL_AMT', 			type:'input',		width:'150px',  	style:'text-align:right', typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 20},  format : {type:'number', rule:'#,###'}},
-            {caption: ["통화"],						ref: 'CURRENCY_CODE',			type:'output',  	width:'70px',  		style:'text-align:left'},
+            {caption: ["통화"],						ref: 'CURRENCY_CODE', 			type:'combo',  		width:'100px',  	style:'text-align:center',
+            	typeinfo: {
+					ref			: 'jsonCurrencyCode',
+					label		: 'label',
+					value		: 'value',
+					displayui :true, 
+					oneclickedit: true
+            	}
+            },
+            
             {caption: ["적요"], 					ref: 'DESCRIPTION', 			type:'input',		width:'250px',  	style:'text-align:left'},
 
             {caption: ["부서"], 					ref: 'DEPT_NAME', 				type:'input',  		width:'100px',  	style:'text-align:left'},
@@ -741,7 +1032,7 @@
             },
             {caption: ["원가중심점명"], 			ref: 'COST_CENTER_NAME', 		type:'input',		width:'150px',  	style:'text-align:left'},
             
-            {caption: ["프로젝트코드"], 			ref: 'PROJECT_CODE',			type:'input',  		width:'100px',  		style:'text-align:left'},
+            {caption: ["프로젝트코드"], 			ref: 'PROJECT_CODE',			type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: [''], 						ref: 'btn6',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup6(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
@@ -756,11 +1047,67 @@
             	}	
             },
             {caption: ["지급기준명"], 				ref: 'PAY_TERM_NAME', 			type:'output',		width:'150px',  	style:'text-align:left'},
-            {caption: ["지급방법"], 				ref: 'PAY_METHOD', 				type:'output',		width:'150px',  	style:'text-align:left'},
+            {caption: ["지급방법"], 				ref: 'PAY_METHOD_NAME', 		type:'output', 		width:'150px',  	style:'text-align:left'},
+            {caption: [''], 						ref: 'btn7',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup8(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            {caption: ["지급방법코드"],				ref: 'PAY_METHOD', 				type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
             
 			{caption: ['지급기일'],					ref: 'EXPECTED_PAY_DATE',		type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	}, width:'150px', style:'text-align:center'},	
+            {caption: ["지급일기준"], 				ref: 'BASIS_TYPE', 				type:'input',		width:'100px',  	style:'text-align:left'},
             {caption: ["환율"], 					ref: 'EXCHANGE_RATE', 			type:'input',		width:'100px',  	style:'text-align:right'},
+            {caption: ["원천징수여부"], 			ref: 'WITHHOLD_FLAG', 			type:'checkbox', 	width:'120px', 		style:'text-align:center', typeinfo: { ignoreupdate: false, checkedvalue: 'Y', uncheckedvalue: 'N'}},        	
 
+            {caption: ["원천징수세금코드"],			ref: 'WITHHOLD_TAX_TYPE', 		type:'output', 		width:'150px',  	style:'text-align:left'},
+            {caption: [''], 						ref: 'btn8',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "1," + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            {caption: ["원천징수세금코드"],			ref: 'WITHHOLD_TAX_CODE', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
+
+            {caption: ["원천징수거래처"], 			ref: 'WITHHOLD_CS_CODE', 		type:'input',		width:'200px',  	style:'text-align:left'},
+
+            {caption: ["원천징수세금코드2"],		ref: 'WITHHOLD_TAX_TYPE2', 		type:'output', 		width:'150px',  	style:'text-align:left'},
+            {caption: [''], 						ref: 'btn9',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup9(event," + "2," + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            {caption: ["원천징수세금코드2"],		ref: 'WITHHOLD_TAX_CODE2', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
+  
+            {caption: ["원천징수거래처2"], 			ref: 'WITHHOLD_CS_CODE2', 		type:'input',		width:'200px',  	style:'text-align:left'},
+          
+            {caption: ["보류사유"],					ref: 'HOLD_REASON', 			type:'combo',  		width:'120px',  	style:'text-align:center',
+            	typeinfo: {
+					ref			: 'jsonHoldReason',
+					label		: 'label',
+					value		: 'value',
+					displayui 	: true, 
+					oneclickedit: true
+            	}
+            },
+            
+            {caption: ["보류자"], 					ref: 'HOLD_USER', 				type:'input',		width:'100px',  	style:'text-align:left'},
+            {caption: ["보류여부"], 				ref: 'HOLD_FLAG', 				type:'checkbox', 	width:'80px', 		style:'text-align:center', typeinfo: { ignoreupdate: false, checkedvalue: 'Y', uncheckedvalue: 'N'}},        	
+			{caption: ['해제일'],					ref: 'RELEASE_DATE',			type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	}, width:'150px', style:'text-align:center'},	
+            {caption: ["해제자"], 					ref: 'RELEASE_USER', 			type:'input',		width:'100px',  	style:'text-align:left'},
+			{caption: ['보류일'],					ref: 'HOLD_DATE',				type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	}, width:'150px', style:'text-align:center'},	
+			{caption: ['지급기산일'],				ref: 'PAY_BASE_DATE',			type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	}, width:'150px', style:'text-align:center'},	
+			{caption: ['어음만기일'],				ref: 'BILL_DUE_DATE',			type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	}, width:'150px', style:'text-align:center'},	
+            {caption: ["어음기일"], 				ref: 'BILL_DUE_DAY', 			type:'input',		width:'100px',  	style:'text-align:left'},
+			{caption: ['어음만기지급일'],			ref: 'BILL_DUE_PAY_DATE',		type:'datepicker',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	}, width:'150px', style:'text-align:center'},	
+            
+            {caption: ["계좌행번"], 				ref: 'SEQ_NAME', 				type:'output', 		width:'100px',  	style:'text-align:left'},
+            {caption: [''], 						ref: 'btn10',    				type:'button',  	width:'40px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup10(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            {caption: ["계좌행번"],					ref: 'BANK_ACCOUNT_SEQ', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
+			
         ];
 
         Fig2310Grid = _SBGrid.create(SBGridProperties);
@@ -790,29 +1137,29 @@
 					SBUxMethod.selectTab('tab_norm','tab2');
 				}
             }
-        } else if(Fig2310Grid.getRefOfCol(nCol) == 'ORIGINAL_AMT'){
-            let cellValue = Fig2310Grid.getCellData(nRow, nCol); 	
-        	console.log('ORIGINAL_AMT:', cellValue);
-            Fig2310Grid.setCellData(nRow, nCol+1, cellValue, true, true);
-            fn_gridTotal();            
-        } else if(Fig2310Grid.getRefOfCol(nCol) == 'DEBIT_CREDIT'){
-            fn_gridTotal();            
+//         } else if(Fig2310Grid.getRefOfCol(nCol) == 'ORIGINAL_AMT'){
+//             let cellValue = Fig2310Grid.getCellData(nRow, nCol); 	
+//         	console.log('ORIGINAL_AMT:', cellValue);
+//             Fig2310Grid.setCellData(nRow, nCol+1, cellValue, true, true);
+//             fn_gridTotal();            
+//         } else if(Fig2310Grid.getRefOfCol(nCol) == 'DEBIT_CREDIT'){
+//             fn_gridTotal();            
         }    	
     }    
     
     //상세정보 보기
     function fn_viewFig2310GridEvent() {
     	
-    	let nRow = Fig2210Grid.getRow();
-    	let nCol = Fig2210Grid.getCol();
+    	let nRow = Fig2310Grid.getRow();
+    	let nCol = Fig2310Grid.getCol();
 		if (nRow < 1) {
             return;
 		}
 		p_sel_row = nRow;
 		p_sel_col = nCol;
 		
-        let rowData = Fig2210Grid.getRowData(nRow);
-		fn_getFig2210Grid(rowData);
+        let rowData = Fig2310Grid.getRowData(nRow);
+		fn_getFig2310Grid(rowData);
 		
 		if(rowData['LINE_TYPE']=='3'){
 			//부가세
@@ -821,6 +1168,18 @@
 			SBUxMethod.selectTab('tab_norm','tab2');
 		}
     }    
+    
+    //그리드 값 가져오기
+    function fn_getFig2310Grid(rowData) {
+		//console.log('fn_getFig2210Grid:', rowData);        
+    	gfnma_uxDataClear('#tab1');
+    	gfnma_uxDataClear('#tab2');
+    	$('.cu-tab2-fom-area').text('');
+    	
+        gfnma_uxDataSet('#tab1', rowData);
+        gfnma_uxDataSet('#tab2', rowData);
+    }
+    
     
     /**
      * 그리드내 팝업(부가세유형) 조회
@@ -839,7 +1198,8 @@
     	
         var searchText1 	= cellData1;
         var searchText2 	= cellData2;
-    	var addParams = [gfnma_date6(), 'NULL'];	
+        var today			= "'" + gfnma_date6() + "'";
+    	var addParams = [today];	
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부가세유형');
     	compopup1({
@@ -891,7 +1251,7 @@
         var replaceText2 	= "_CS_NAME_"; 
         var strWhereClause 	= "AND A.CS_CODE LIKE '%" + replaceText0 + "%' AND A.BIZ_REGNO LIKE '%" + replaceText1 + "%' " + " AND A.CS_NAME LIKE '%" + replaceText2 + "%' ";
         
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처');
+    	SBUxMethod.attr('modal-compopup1', 'header-title', pg_colcs_code_title);
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
@@ -935,18 +1295,16 @@
         var nRow 			= Fig2310Grid.getRow();
         var rowData 		= Fig2310Grid.getRowData(nRow);
     	var pp_open_to_all	= "'" + gfnma_nvl(SBUxMethod.get("sch-reverse-flag")) + "'"; 
-    	var pp_line_type	= "'" + rowData['LINE_TYPE'] + "'"; 
-    	var pp_open_to_fcm	= "'" + gfnma_nvl(SBUxMethod.get("sch-txtopen-to-fcm-yn")) + "'"; 
         
         var searchText1 	= cellData1;
         var searchText2 	= cellData2;
-    	var addParams 		= [pp_open_to_all, pp_line_type, pp_open_to_fcm];	
+    	var addParams 		= [pp_open_to_all];	
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목');
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'P_FIM045_LINE'
+    		,bizcompId				: 'P_FIM045'
        		,popupType				: 'B'
     		,whereClause			: addParams
        		,searchCaptions			: ["계정코드", 		"계정명"]
@@ -1033,7 +1391,7 @@
      */
 	function fn_gridPopup4(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2310Grid.getCellData(row, 17) 
+        let cellData1 = Fig2310Grid.getCellData(row, 18) 
     	fn_gridPopup4Show(row, col, cellData1);
 	}
     
@@ -1064,8 +1422,8 @@
    			,tableColumnWidths		: ["100px", 		"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 17, 	data['DEPT_NAME'], true, true);
-				Fig2310Grid.setCellData(row, 19, 	data['DEPT_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 18, 	data['DEPT_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 20, 	data['DEPT_CODE'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1076,8 +1434,8 @@
      */
 	function fn_gridPopup5(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2310Grid.getCellData(row, 20) 
-        let cellData2 = Fig2310Grid.getCellData(row, 22) 
+        let cellData1 = Fig2310Grid.getCellData(row, 21) 
+        let cellData2 = Fig2310Grid.getCellData(row, 23) 
     	fn_gridPopup5Show(row, col, cellData1, cellData2);
 	}
     
@@ -1108,8 +1466,8 @@
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 20, 	data['COST_CENTER_CODE'], true, true);
-				Fig2310Grid.setCellData(row, 22, 	data['COST_CENTER_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 21, 	data['COST_CENTER_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 23, 	data['COST_CENTER_NAME'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1177,13 +1535,13 @@
     	
         var replaceText0 	= "_PAY_TERM_CODE_";
         var replaceText1 	= "_PAY_TERM_NAME_"; 
-        var strWhereClause 	= "AND PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND PAY_TERM_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'P_PAY_DATE'
+    		,bizcompId				: pg_colpay_term_code_bizId
        		,popupType				: 'A'
        		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
@@ -1200,29 +1558,170 @@
 				Fig2310Grid.setCellData(row, 27, 	data['PAY_TERM_CODE'], true, true);
 				Fig2310Grid.setCellData(row, 29, 	data['PAY_TERM_NAME'], true, true);
 				Fig2310Grid.setCellData(row, 30, 	data['PAY_METHOD_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 32, 	data['PAY_METHOD'], true, true);
+				Fig2310Grid.setCellData(row, 34, 	data['BASIS_TYPE'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
     }          
     
     /**
+     * 그리드내 팝업(지급방법) 조회
+     */
+	function fn_gridPopup8(event, row, col) {
+		event.stopPropagation();	
+        let cellData1 = Fig2310Grid.getCellData(row, 32) 
+        let cellData2 = Fig2310Grid.getCellData(row, 30) 
+    	fn_gridPopup8Show(row, col, cellData1, cellData2);
+	}
+    
+    /**
+     * 그리드내 공통팝업(지급방법) 오픈
+     */
+    var fn_gridPopup8Show = function(row, col, cellData1, cellData2) {
+    	
+        var replaceText0 	= "_SUB_CODE_";
+        var replaceText1 	= "_CODE_NAME_"; 
+        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
+    	
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '지급방법');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'L_FIM081'
+       		,popupType				: 'A'
+       		,whereClause			: strWhereClause
+       		,searchCaptions			: ["코드", 				"코드명"]
+   			,searchInputFields		: ["SUB_CODE", 			"CODE_NAME"]
+   			,searchInputValues		: [cellData1, 			cellData2]
+   			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
+    		,width					: '900px'
+    		,height					: '500px'
+   			,tableHeader			: ["코드",		"코드명", 			"은행",			"계좌번호",			"계좌코드"]
+   			,tableColumnNames		: ["SUB_CODE",	"CODE_NAME", 		"BANK_CODE",	"ACCOUNT_NUM",		"DEPOSIT_CODE"]
+   			,tableColumnWidths		: ["100px", 	"200px",			"100px",		"200px",			"200px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				Fig2310Grid.setCellData(row, 30, 	data['CODE_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 32, 	data['SUB_CODE'], true, true);
+			},
+    	});
+		SBUxMethod.openModal('modal-compopup1');
+    }          
+    
+    /**
+     * 그리드내 팝업(원천징수세금코드) 조회
+     */
+	function fn_gridPopup9(event, type, row, col) {
+		event.stopPropagation();	
+        let cellData1 = ''; 
+        let cellData2 = ''; 
+        if(type=='1'){
+            cellData1 = Fig2310Grid.getCellData(row, 39) 
+            cellData2 = Fig2310Grid.getCellData(row, 37) 
+        } else {
+            cellData1 = Fig2310Grid.getCellData(row, 43) 
+            cellData2 = Fig2310Grid.getCellData(row, 41) 
+        }
+    	fn_gridPopup9Show(type, row, col, cellData1, cellData2);
+	}
+    
+    /**
+     * 그리드내 공통팝업(원천징수세금코드) 오픈
+     */
+    var fn_gridPopup9Show = function(type, row, col, cellData1, cellData2) {
+    	
+        var replaceText0 	= "_TAX_TYPE_CODE_";
+        var replaceText1 	= "_TAX_TYPE_NAME_"; 
+        var strWhereClause 	= "AND A.TAX_TYPE_CODE LIKE '%" + replaceText0 + "%' AND A.TAX_TYPE_NAME LIKE '%" + replaceText1 + "%' ";
+    	
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '원천징수세금코드');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'L_WITHHOLD_TAX_TYPE'
+       		,popupType				: 'A'
+       		,whereClause			: strWhereClause
+       		,searchCaptions			: ["코드", 				"코드명"]
+   			,searchInputFields		: ["TAX_TYPE_CODE", 	"TAX_TYPE_NAME"]
+   			,searchInputValues		: [cellData1, 			cellData2]
+   			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
+    		,width					: '900px'
+    		,height					: '500px'
+   			,tableHeader			: ["원천세코드",		"원천세명", 		"세율구분",		"구분명",			"원천세율"]
+   			,tableColumnNames		: ["TAX_TYPE_CODE",		"TAX_TYPE_NAME", 	"TAX_GROUP",	"TAX_GROUP_NAME",	"TAX_RATE"]
+   			,tableColumnWidths		: ["100px", 			"200px",			"100px",		"200px",			"100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				if(type=='1'){
+					Fig2310Grid.setCellData(row, 37, 	data['TAX_TYPE_NAME'], true, true);
+					Fig2310Grid.setCellData(row, 39, 	data['TAX_TYPE_CODE'], true, true);
+				} else {
+					Fig2310Grid.setCellData(row, 41, 	data['TAX_TYPE_NAME'], true, true);
+					Fig2310Grid.setCellData(row, 43, 	data['TAX_TYPE_CODE'], true, true);
+				}
+			},
+    	});
+		SBUxMethod.openModal('modal-compopup1');
+    }          
+    
+    
+    /**
+     * 그리드내 팝업(계좌행번) 조회
+     */
+	function fn_gridPopup10(event, row, col) {
+		event.stopPropagation();	
+        let cellData1 = Fig2310Grid.getCellData(row, 8)		//거래처 
+        let cellData2 = Fig2310Grid.getCellData(row, 33) 	//지급기일
+        if(!cellData1 || !cellData2){
+        	gfn_comAlert("E0000","거래처 및 지급기일을 입력하세요");
+        	return;	
+        }
+    	fn_gridPopup10Show(row, col, cellData1, cellData2);
+	}
+    
+    /**
+     * 그리드내 공통팝업(계좌행번) 오픈
+     */
+    var fn_gridPopup10Show = function(row, col, cellData1, cellData2) {
+    	
+    	cellData2			= cellData2.replace(/-/gi, "");
+        var replaceText0 	= "_" + pg_colcs_code_field1 + "_";
+        var replaceText1 	= "_EXPECTED_PAY_DATE_"; 
+        var strWhereClause 	= "AND A." + pg_colcs_code_field1 + " LIKE '%" + replaceText0 + "%' AND '" + replaceText1 + "' BETWEEN A.EFFECT_START_DATE AND A.EFFECT_END_DATE";
+        //"AND A.CS_CODE LIKE '%100004%' AND '20240802' BETWEEN A.EFFECT_START_DATE AND A.EFFECT_END_DATE"        
+        
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '계좌행번');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'L_CS_ACCOUNT'
+       		,popupType				: 'A'
+    		,whereClause			: strWhereClause
+       		,searchCaptions			: ["거래처코드", 			"지급기일"]
+   			,searchInputFields		: [pg_colcs_code_field1, 	"EXPECTED_PAY_DATE"]
+   			,searchInputValues		: [cellData1, 				cellData2]
+			,searchInputTypes		: ["input", 				"input"]		//input, datepicker가 있는 경우
+    		,width					: '1000px'
+    		,height					: '500px'
+   			,tableHeader			: ["행번", 				"행번명",		"은행코드",			"은행명",			"계좌번호",			"비고",			"계좌주",				"거래처",			"시작일",				"종료일",			"복수등록"]
+   			,tableColumnNames		: ["BANK_ACCOUNT_SEQ", 	"SEQ_NAME",		"BANK_CODE",		"BANK_NAME",		"BANK_ACCOUNT_NO",	"DESCRIPTION",	"BANK_ACCOUNT_OWNER",	"CS_CODE",			"EFFECT_START_DATE",	"EFFECT_END_DATE",	"BNKCNT"]
+   			,tableColumnWidths		: ["50px", 				"80px",			"80px",				"150px",			"150px",			"200px",		"200px",				"100px",			"80px",					"80px",				"100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				Fig2310Grid.setCellData(row, 55, 	data['SEQ_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 57, 	data['BANK_ACCOUNT_SEQ'], true, true);
+				//Fig2310Grid.setCellData(row, 37, 	data['BANK_ACCOUNT_NO'], true, true);
+			},
+    	});
+		SBUxMethod.openModal('modal-compopup1');
+    }        
+    
+    /**
      * 미결반제전표 생성
      */
     var fn_addItem = function() {
     	
-//     	SBUxMethod.attr('modal-compopfig2320', 'header-title', '미결반제전표');
-// 		SBUxMethod.openModal('modal-compopfig2320');
-		
-//     	compopfig2320({
-//     		height			: '600px'
-//     		,width			: '1600px'
-//     		,param			: {
-//     		}
-//    			,callbackEvent	: function (data){
-//    				console.log('callback data:', data);
-//    			},
-//     	});
-
         var obj = {
         	'MENU_MOVE'		: 'Y'	
         	,'target'		: 'MA_A20_030_020_001'
@@ -1230,6 +1729,106 @@
         let json = JSON.stringify(obj);
         window.parent.cfn_openTabSearch(json);
   	}       
+    
+    /**
+     * 결의부서 팝업
+     */
+    var fn_compopup1 = function() {
+    	
+    	//type B 형 팝업
+    	var addParams = [];	//bizcompId 의 파라미터에 따라 추가할것
+    	var p_find1	= gfnma_nvl(SBUxMethod.get("sch-dept-name"));
+    	var p_day	= gfnma_date4();
+    	
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_ORG001'
+    		,popupType				: 'B'
+    		,whereClause			: addParams
+   			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputValues		: ["", 				p_find1,		p_day]
+			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+    		,height					: '400px'
+   			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				SBUxMethod.set('sch-dept-name', data.DEPT_NAME);
+				SBUxMethod.set('sch-dept-code', data.DEPT_CODE);
+			},
+    	});
+  	}   
+    
+    /**
+     * 통화
+     */
+    var fn_changeCurrencyCode = function(val) {
+    	
+		//환율가져오기
+		let p_doc_date		= gfnma_nvl(SBUxMethod.get('sch-doc-date'));
+		let p_currency_code	= gfnma_nvl(SBUxMethod.get('sch-currency-code'));
+		let p_exchange_type	= gfnma_nvl(SBUxMethod.get('sch-cboexchange-type'));
+		
+		var paramObj = {
+			    V_P_DEBUG_MODE_YN	: '',
+			    V_P_LANG_ID			: '',
+			    V_P_COMP_CODE		: gv_ma_selectedApcCd,
+			    V_P_CLIENT_CODE		: gv_ma_selectedClntCd,
+			    V_P_YYYYMMDD		: p_doc_date,
+			    V_P_CURR_CODE		: p_currency_code,
+			    V_P_RATE_TYPE		: p_exchange_type,
+			    V_P_FORM_ID			: p_formId,
+			    V_P_MENU_ID			: p_menuId,
+			    V_P_PROC_ID			: '',
+			    V_P_USERID			: '',
+			    V_P_PC				: ''
+		};
+		gfnma_getExchangeRateQ(paramObj, "Q", function(data){
+			
+			//data[0]['RATE']);
+			//data[0]['BASE_SCALE']);
+			SBUxMethod.set('sch-exchange-rate', data[0]['RATE']);
+		});    	
+    }
+    
+    /**
+     * 행추가
+     */
+    var fn_gridRowAdd = function() {
+        var idx = Fig2310Grid.getRows();
+        if(idx==-1){
+        	idx = 0;
+        }
+        
+        var p_description 	= gfnma_nvl(SBUxMethod.get("sch-description"));
+        var p_currency_code = gfnma_nvl(SBUxMethod.get("sch-currency-code"));
+        var p_exchange_rate = gfnma_nvl(SBUxMethod.get("sch-exchange-rate"));
+        var p_site_code 	= gfnma_nvl(SBUxMethod.get("sch-cbosite-code"));
+        var p_dept_code 	= gfnma_nvl(SBUxMethod.get("sch-dept-code"));
+        var p_dept_name 	= gfnma_nvl(SBUxMethod.get("sch-dept-name"));
+        
+        Fig2310Grid.insertRow(idx-1, 'below');
+        Fig2310Grid.setCellData(idx, 2, idx, true, true);
+        Fig2310Grid.setCellData(idx, 7,  p_description, true, true);
+        Fig2310Grid.setCellData(idx, 16, p_currency_code, true, true);
+        Fig2310Grid.setCellData(idx, 35, p_exchange_rate, true, true);
+        
+        //Fig2310Grid.setCellData(idx, 35, p_site_code, true, true);
+        Fig2310Grid.setCellData(idx, 20, p_dept_code, true, true);
+        Fig2310Grid.setCellData(idx, 18, p_dept_name, true, true);
+    }
+    
+    /**
+     * 행삭제
+     */
+    var fn_gridRowDel = function() {
+    	Fig2310Grid.deleteRow(Fig2310Grid.getRow());
+    	//fn_gridTotal();
+    } 
     
     
 </script>
