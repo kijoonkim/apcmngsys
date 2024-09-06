@@ -1158,8 +1158,8 @@
     	
     	if(code=='0'){
     		
-			$('#main-btn-save', parent.document).attr('disabled', false);
-			$('#main-btn-del', 	parent.document).attr('disabled', true);
+			$('#main-btn-save', parent.document).attr('disabled', true);
+			$('#main-btn-del', 	parent.document).attr('disabled', false);
 			
     		SBUxMethod.attr('sch-btn-submit', 		'disabled', true);
     		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
@@ -1204,7 +1204,7 @@
         		
         		//승인중
     			$('#main-btn-save', parent.document).attr('disabled', true);
-    			$('#main-btn-del', parent.document).attr('disabled', true);
+    			$('#main-btn-del', parent.document).attr('disabled', false);
         		
         		SBUxMethod.attr('sch-btn-submit', 		'disabled', false);
         		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
