@@ -74,9 +74,9 @@ public class UntyOgnzServiceImpl extends BaseServiceImpl implements UntyOgnzServ
 	@Override
 	public List<UntyOgnzVO> selectUntyOgnzApcList(UntyOgnzVO untyOgnzVO) throws Exception {
 
-		List<UntyOgnzVO> resultTreeList = untyOgnzMapper.selectUntyOgnzApcList(untyOgnzVO);
+		List<UntyOgnzVO> resultList = untyOgnzMapper.selectUntyOgnzApcList(untyOgnzVO);
 		
-		return resultTreeList;
+		return resultList;
 	}
 
 	
@@ -109,4 +109,62 @@ public class UntyOgnzServiceImpl extends BaseServiceImpl implements UntyOgnzServ
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> insertOgnzApcList(List<UntyOgnzVO> ognzApcList) throws Exception {
+		
+		
+		for ( UntyOgnzVO apc : ognzApcList ) {
+			
+			UntyOgnzVO chkVO = untyOgnzMapper.selectOgnzApc(apc);
+			
+			if (chkVO != null && StringUtils.hasText(chkVO.getApcCd())) {
+				untyOgnzMapper.updateOgnzApc(apc);
+			} else {
+				untyOgnzMapper.insertOgnzApc(apc);
+			}
+			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteOgnzApc(UntyOgnzVO untyOgnzVO) throws Exception {
+
+		UntyOgnzVO chkVO = untyOgnzMapper.selectOgnzApc(untyOgnzVO);
+		if (chkVO != null && StringUtils.hasText(chkVO.getApcCd())) {
+			untyOgnzMapper.deleteOgnzApc(untyOgnzVO);
+		} else {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록APC");
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<UntyOgnzVO> selectApcAprvList(UntyOgnzVO untyOgnzVO) throws Exception {
+		List<UntyOgnzVO> resultList = untyOgnzMapper.selectApcAprvList(untyOgnzVO);
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertApcAprvList(List<UntyOgnzVO> ognzApcList) throws Exception {
+		
+		for ( UntyOgnzVO apc : ognzApcList ) {
+			untyOgnzMapper.insertApcAprv(apc);
+			untyOgnzMapper.insertApcUserAprv(apc);			
+		}
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteApcAprvList(List<UntyOgnzVO> ognzApcList) throws Exception {
+		
+		for ( UntyOgnzVO apc : ognzApcList ) {
+			untyOgnzMapper.deleteApcAprv(apc);
+			untyOgnzMapper.deleteApcUserAprv(apc);			
+		}
+		return null;
+	}
+	
 }

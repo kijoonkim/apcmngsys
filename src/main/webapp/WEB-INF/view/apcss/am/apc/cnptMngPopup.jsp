@@ -152,17 +152,17 @@
 					ref:'jsonWhlsMrktCorp',
 					label: 'cdVlNm',
 					value: 'cdVl',
-					unselect: {label: '', value: ''},
+					//unselect: {label: '', value: ''},
 					displayui : false,
 					itemcount: 10,
-					/*
+					
 					filtering: {
 	            		usemode: true,
 	            		uppercol: 'cnptType',
 	            		attrname: 'cdChrVl',
 	            		listall: true
 	            	}
-					*/
+					
 				},
             },
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 1000}},
