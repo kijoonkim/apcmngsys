@@ -42,6 +42,14 @@ public interface UntyOgnzMapper {
 	public UntyOgnzVO selectUntyOgnz(UntyOgnzVO untyOgnzVO) throws Exception;
 	
 	/**
+	 * 관리APC 조회
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public UntyOgnzVO selectOgnzApc(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
 	 * 통합조직 목록 조회
 	 * @param untyOgnzVO
 	 * @return
@@ -66,12 +74,13 @@ public interface UntyOgnzMapper {
 	public List<UntyOgnzVO> selectUntyOgnzTreeList(UntyOgnzVO untyOgnzVO) throws Exception;
 	
 	/**
-	 * 통합조직 트리 목록 조회
+	 * 관리APC 목록 조회
 	 * @param untyOgnzVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<UntyOgnzVO> selectUntyOgnzApcList(UntyOgnzVO untyOgnzVO) throws Exception;
+	
 	
 	/**
 	 * 통합조직 등록
@@ -105,5 +114,73 @@ public interface UntyOgnzMapper {
 	 * @throws Exception
 	 */
 	public int deleteUntyOgnz(UntyOgnzVO untyOgnzVO) throws Exception;
-		
+	
+	/**
+	 * 관리APC등록
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertOgnzApc(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 관리APC변경
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateOgnzApc(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 관리APC삭제
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteOgnzApc(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	
+
+	/**
+	 * 관리APC 승인대상 목록 조회
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UntyOgnzVO> selectApcAprvList(UntyOgnzVO untyOgnzVO) throws Exception;	
+	
+	/**
+	 * 관리APC승인
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertApcAprv(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 관리APC승인
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertApcUserAprv(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	
+	/**
+	 * 관리APC등록
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteApcAprv(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 관리APC등록
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteApcUserAprv(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	
 }

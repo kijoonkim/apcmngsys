@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : locgovUserAuthrtAprv.jsp
-  * @Description : 법인 사용자 승인 화면
+  * @Description : 지자체 사용자 승인 화면
   * @author SI개발부
   * @since 2024.08.30
   * @version 1.0
@@ -458,7 +458,7 @@
 	        	width:'70px', 
 	        	style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "untyAuthrtMngYn"},
+                userattr: {colNm: "authrtMngrYn"},
         	},
         	{
         		caption: ["시/도"],
@@ -765,8 +765,7 @@
 		const rowData = grdUserAprv.getRowData(nRow, false);	// deep copy
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			switch (usrAttr.colNm) {
-				case "userType":
-				case "yn":
+				case "authrtMngrYn":
 					rowData.checkedYn = "Y";
 					grdUserAprv.refresh({"focus":false});
 					break;

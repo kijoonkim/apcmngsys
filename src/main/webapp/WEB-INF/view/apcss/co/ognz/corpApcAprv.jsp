@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : corpUserAuthrtAprv.jsp
-  * @Description : 법인 사용자 승인 화면
+  * @Class Name : corpApcAprv.jsp
+  * @Description : 법인 APC 승인 화면
   * @author SI개발부
   * @since 2024.08.30
   * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 법인 사용자 승인</title>
+	<title>title : 법인 APC 승인</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -83,15 +83,15 @@
 						<col style="width: 3%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row">승인상태</th>
+						<tr> 
+							<th scope="row">승인여부</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-select
-									id="srch-slt-userStts"
-									name="srch-slt-userStts"
+									id="srch-slt-aprvYn"
+									name="srch-slt-aprvYn"
 									uitype="single"
 									class="form-control input-sm"
-									jsondata-ref="jsonComUserStts"
+									jsondata-ref="jsonAprvYn"
 									unselected-text="전체"
 									onchange="fn_search"
 								></sbux-select>
@@ -107,41 +107,38 @@
 									placeholder=""
 									autocomplete="off"
 									title=""
-									maxlength="30"
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
-							<th scope="row">법인번호</th>
+							<th scope="row">APC명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
-									id="srch-inp-crno"
-									name="srch-inp-crno"
+									id="srch-inp-apcNm"
+									name="srch-inp-apcNm"
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
 									autocomplete="off"
 									title=""
-									maxlength="30"
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
-							<th scope="row">사용자명</th>
+							<th scope="row">신청여부</th>
 							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									id="srch-inp-userNm"
-									name="srch-inp-userNm"
-									uitype="text"
+								<sbux-select
+									id="srch-slt-aplyYn"
+									name="srch-slt-aplyYn"
+									uitype="single"
 									class="form-control input-sm"
-									placeholder=""
-									autocomplete="off"
-									title=""
-									maxlength="30"
-								></sbux-input>
+									jsondata-ref="jsonAplyYn"
+									unselected-text="전체"
+									onchange="fn_search"
+								></sbux-select>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
-							<th scope="row">사용자ID</th>
+							<th scope="row">관리자ID</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-userId"
@@ -155,8 +152,18 @@
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
-							<th scope="row"></th>
+							<th scope="row">관리자명</th>
 							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+									id="srch-inp-userNm"
+									name="srch-inp-userNm"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder=""
+									autocomplete="off"
+									title=""
+									maxlength="30"
+								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
@@ -165,8 +172,8 @@
 					<div class="ad_tbl_top2">
 						<ul class="ad_tbl_count">
 							<li>
-								<span>사용자 목록</span>
-								<span style="font-size:12px">(조회건수 <span id="cnt-userAprv">0</span>건)</span>
+								<span>관리APC 목록</span>
+								<span style="font-size:12px">(조회건수 <span id="cnt-apcAprv">0</span>건)</span>
 							</li>
 						</ul>
 						<div class="ad_tbl_toplist_datepk">
@@ -211,27 +218,10 @@
 							</table>
 						</div>
 					</div>
-					<div id="sb-area-grdUserAprv" style="height:576px;"></div>
+					<div id="sb-area-grdApcAprv" style="height:576px;"></div>
 				</div>
 			</div>
 	</section>
-	
-    <!-- 생산자 선택 Modal -->
-    <div>
-        <sbux-modal 
-        	id="modal-untyOgnz" 
-        	name="modal-untyOgnz" 
-        	uitype="middle" 
-        	header-title="통합조직 선택" 
-        	body-html-id="body-modal-untyOgnz" 
-        	footer-is-close-button="false" 
-        	header-is-close-button="false" 
-        	style="width:1000px"
-        ></sbux-modal>
-    </div>
-    <div id="body-modal-untyOgnz">
-    	<jsp:include page="../../co/popup/comUntyOgnzPopup.jsp"></jsp:include>
-    </div>
 	
 </body>
 
@@ -264,22 +254,17 @@
 		{'text': '1000건', 'value': '1000'},
 	]
 	
-	var jsonComUserType = [];
-	var jsonComUserStts	= [
-		{'text': '승인대기', 'value': '00'},
-		{'text': '승인완료', 'value': '01'},
-		{'text': '승인취소', 'value': '09'},
+	var jsonAprvYn	= [
+		{'text': '미승인', 'value': 'N'},
+		{'text': '승인', 'value': 'Y'},
 	];
-	var jsonUntyAuthrtType = [];
-	
-	var jsonUntyOgnz = [];
+	var jsonAplyYn	= [
+		{'text': '미신청', 'value': 'N'},
+		{'text': '신청', 'value': 'Y'},
+	];
 
-    var jsonUntyCtpv = [];
-    var jsonUntySgg = [];
-	
-	
-	var grdUserAprv;
-	var jsonUserAprv = [];
+	var grdApcAprv;
+	var jsonApcAprv = [];
 
 	/**
 	 * @name fn_init
@@ -293,61 +278,13 @@
 		
 		await fn_initSBSelect();
 		
-		fn_createGridUserAprv();
+		fn_createGridApcAprv();
 	}
 
 	const fn_initSBSelect = async function() {
-		
-		let result = await Promise.all([
-			gfn_getComCdDtls("USER_TYPE"),
-			gfn_getComCdDtls("UNTY_AUTHRT_TYPE"),
-			gfn_getComCdDtls("UNTY_CTPV"),
-			gfn_getComCdDtls("UNTY_SGG"),
-			//fn_getApcOgnz()
-		]);
-		
-		jsonComUserType = result[0];
-		jsonUntyAuthrtType = result[1];
-        jsonUntyCtpv = result[2];
-        jsonUntySgg = result[3];
-		
-		SBUxMethod.refresh("srch-slt-userType");
-		SBUxMethod.refresh("srch-slt-untyAuthrtType");
-		SBUxMethod.refresh("srch-slt-untyCtpv");
-		SBUxMethod.refresh("srch-slt-untySgg");
+		SBUxMethod.set("srch-slt-aprvYn", "N");
+		SBUxMethod.set("srch-slt-aplyYn", "Y");
 	}
-	
-	const fn_getApcOgnz = async function() {
-		
-		jsonUntyOgnz.length = 0;
-		
-		const postJsonPromise = gfn_postJSON("/co/ognz/selectOgnzList.do", {
-          	// pagination
-  	  		pagingYn : 'N',
-  		});
-
-        const data = await postJsonPromise;
-		
-		try {
-  			
-  			if (!_.isEqual("S", data.resultStatus)) {
-  	      		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-  	      		return;
-	      	}
-  			
-  			jsonApcOgnz = data.resultList;
-  			
-		} catch (e) {
-	   		if (!(e instanceof Error)) {
-	   			e = new Error(e);
-	   		}
-	   		console.error("failed", e.message);
-	       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-		
-		console.log("jsonApcOgnz", jsonApcOgnz);
-	}
-	
 	
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
@@ -384,13 +321,12 @@
             "callback": fn_colShow,				//콜백함수명
         }
     };
-	
-	const fn_createGridUserAprv = function() {
-		var SBGridProperties = {};
 
-	    SBGridProperties.parentid = 'sb-area-grdUserAprv';
-	    SBGridProperties.id = 'grdUserAprv';
-	    SBGridProperties.jsonref = 'jsonUserAprv';
+	const fn_createGridApcAprv = function() {
+		var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdApcAprv';
+	    SBGridProperties.id = 'grdApcAprv';
+	    SBGridProperties.jsonref = 'jsonApcAprv';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'none';
@@ -405,6 +341,7 @@
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
+		
 	    SBGridProperties.explorerbar = 'sortmove';
 		SBGridProperties.columns = [
         	{
@@ -419,101 +356,68 @@
 					checkedvalue : 'Y', 
 					uncheckedvalue : 'N'
 				}
-        	},
-	        {
-        		caption: ["상태"], 		
-        		ref: 'userSttsNm',	
+        	},    	    
+        	{
+        		caption: ["법인명"],
+        		ref: 'ognzNm',      
         		type:'output',  	
-        		width:'80px', 
+        		width:'150px', 
+        		style:'text-align:left'
+        	},
+        	{
+        		caption: ["APC명"],
+        		ref: 'apcNm',      
+        		type:'output',  	
+        		width:'150px', 
+        		style:'text-align:left'
+        	},
+        	{
+        		caption: ["신청"], 		
+        		ref: 'aplyYn',	
+        		type:'output',  	
+        		width:'40px', 
         		style:'text-align:center'
         	},
+        	{
+        		caption: ["신청일시"], 		
+        		ref: 'aplyDt',	
+        		type:'output',  	
+        		width:'110px', 
+        		style:'text-align:center',
+        	},
 	        {
-        		caption: ["사용자ID"],  	
+        		caption: ["승인"], 		
+        		ref: 'aprvYn',	
+        		type:'output',  	
+        		width:'40px', 
+        		style:'text-align:center'
+        	},
+        	{
+        		caption: ["승인일시"], 		
+        		ref: 'aprvDt',	
+        		type:'output',  	
+        		width:'110px', 
+        		style:'text-align:center',
+        	},
+        	{
+        		caption: ["관리자ID"],  	
         		ref: 'userId',    	
         		type:'output',		
-        		width:'200px', 
+        		width:'80px', 
         		style:'text-align:left'
         	},
 	        {
-        		caption: ["사용자명"],   	
+        		caption: ["관리자명"],   	
         		ref: 'userNm',      
         		type:'output',  	
         		width:'100px', 
         		style:'text-align:left'
         	},
-        	{
-        		caption: ["관리자"], 	 
-	        	ref: 'authrtMngrYn', 
-	        	type: 'checkbox',  
-	        	width:'70px', 
-	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "authrtMngrYn"},
-        	},
-        	
-        	{
-        		caption: ["MES"],
-        		ref: 'sysMesYn', 
-	        	type: 'checkbox',  
-	        	width:'50px', 
-	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "sysMesYn"},
-                columnhint : '<div style="width:150px;"><span style="color:red;">APC생산관리</span></div>'
-        	},
-        	{
-        		caption: ["FM"], 	 
-	        	ref: 'sysFmYn', 
-	        	type: 'checkbox',  
-	        	width:'50px', 
-	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "sysFmYn"},
-                columnhint : '<div style="width:150px;"><span style="color:red;">농가관리</span></div>'
-        	},
-        	{
-        		caption: ["PD"], 	 
-	        	ref: 'sysPdYn', 
-	        	type: 'checkbox',  
-	        	width:'50px', 
-	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "sysPdYn"},
-                columnhint : '<div style="width:150px;"><span style="color:red;">생산유통통합조직등록</span></div>'
-        	},
-        	{
-        		caption: ["CS"], 	 
-	        	ref: 'sysCsYn', 
-	        	type: 'checkbox',  
-	        	width:'50px', 
-	        	style: 'text-align:center',
-                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "sysCsYn"},
-                columnhint : '<div style="width:150px;"><span style="color:red;">APC전수조사</span></div>'
-        	},
-        	{
-        		caption: ["법인명"],
-        		ref: 'ognzNm',      
-        		type:'output',  	
-        		width:'100px', 
-        		style:'text-align:left'
-        	},
-        	{
-        		caption: ["법인번호"],
-        		ref: 'crno',      
-        		type:'output',  	
-        		width:'100px', 
-        		style: 'text-align:center',
-                format : {
-                	type:'string',
-                	rule:'0000-00-000000-0'
-                }
-        	},
 	        {
 	        	caption: ["직위"],		
 	        	ref: 'jbps',   	
 	        	type:'output',  	
-	        	width:'200px', 
+	        	width:'80px', 
 	        	style:'text-align:center'
 	        },
 	        {
@@ -546,22 +450,21 @@
 	        	style:'text-align:left'
 	        },
 		];
-		
-	    grdUserAprv = _SBGrid.create(SBGridProperties);
-	    grdUserAprv.bind( "afterpagechanged" , fn_pagingUserAprv);
-	    grdUserAprv.bind('valuechanged', fn_grdUserAprvValueChanged);
+	    grdApcAprv = _SBGrid.create(SBGridProperties);
+	    grdApcAprv.bind( "afterpagechanged" , fn_pagingApcAprv);
+	    grdApcAprv.bind('valuechanged', fn_grdApcAprvValueChanged);
 	}
 
     const fn_search = async function() {
+    	jsonApcAprv.length = 0;
     	
-    	jsonUserAprv.length = 0;
-    	
-    	let recordCountPerPage = grdUserAprv.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+    	let recordCountPerPage = grdApcAprv.getPageSize();  		// 몇개의 데이터를 가져올지 설정
     	let currentPageNo = 1;
-		var getColRef = grdUserAprv.getColRef("checkedYn");
-		grdUserAprv.setFixedcellcheckboxChecked(0, getColRef, false);
-		grdUserAprv.movePaging(currentPageNo);
+		var getColRef = grdApcAprv.getColRef("checkedYn");
+		grdApcAprv.setFixedcellcheckboxChecked(0, getColRef, false);
+		grdApcAprv.movePaging(currentPageNo);
     }
+
 
     /**
      * @name fn_setGrdUserAprv
@@ -569,19 +472,21 @@
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_setGrdUserAprv = async function(recordCountPerPage, currentPageNo) {
-		
-		const userStts = SBUxMethod.get("srch-slt-userStts");			//	사용자상태
+	const fn_setGrdApcAprv = async function(recordCountPerPage, currentPageNo) {
+    	 
+		const aprvYn = SBUxMethod.get("srch-slt-aprvYn");				//	승인여부
 		const corpNm = gfn_nvl(SBUxMethod.get("srch-inp-corpNm"));		//	법인명
-		const crno = gfn_nvl(SBUxMethod.get("srch-inp-crno"));			//	법인등록번호
+		const apcNm = gfn_nvl(SBUxMethod.get("srch-inp-apcNm"));		//	APC명
 		
-		const userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
-		const userId = SBUxMethod.get("srch-inp-userId");     // 	사용자ID
-
-		const postJsonPromise = gfn_postJSON("/co/user/selectCorpUserAprvList.do", {
-			userStts: userStts,
-			corpNm: corpNm,
-			crno: crno,
+		const aplyYn = SBUxMethod.get("srch-slt-aplyYn");				//	승인여부
+		const userNm = SBUxMethod.get("srch-inp-userNm");     // 	관리자명
+		const userId = SBUxMethod.get("srch-inp-userId");     // 	관리자ID
+		
+		const postJsonPromise = gfn_postJSON("/co/ognz/selectApcAprvList.do", {
+			aprvYn: aprvYn,
+			ognzNm: corpNm,
+			apcNm: apcNm,
+			aplyYn: aplyYn,
 			userNm: userNm,
 			userId: userId,
           	// pagination
@@ -602,59 +507,28 @@
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
-      		jsonUserAprv.length = 0;
+      		jsonApcAprv.length = 0;
           	data.resultList.forEach((item, index) => {
-          		const user = {
-					rowSeq: 		item.rowSeq,
-					apcCd: 			item.apcCd,
-					userId: 		item.userId,
-					userNm: 		item.userNm,
-					apcNm: 			item.apcNm,
-					userStts: 		item.userStts,
-					userSttsNm: 	item.userStts == "01" ? "승인완료" : item.userSttsNm,
-					userType: 		item.userType,
-					userTypeNm: 	item.userTypeNm,
-					eml: 			item.eml,
-					telno: 			item.telno,
-					jbttlNm: 		item.jbttlNm,
-					tkcgTaskNm: 	item.tkcgTaskNm,
-					mblTelno:		item.mblTelno,
-					telno:			item.telno,
-					odSbmsnYn:		item.odSbmsnYn,
-					aplyDocSbmsnYn:	item.aplyDocSbmsnYn,
-					ognzCd:			item.ognzCd,
-					ognzNm:			item.ognzNm,
-					crno:			item.crno,
-					jbps: 			item.jbps,
-					authrtMngrYn:	item.authrtMngrYn,
-					sysMesYn:		item.sysMesYn,
-					sysFmYn:		item.sysFmYn,
-					sysPdYn:		item.sysPdYn,
-					sysCsYn:		item.sysCsYn,
-  				}
-          		
-          		jsonUserAprv.push(user);
-
+        		jsonApcAprv.push(item);
   				if (index === 0) {
   					totalRecordCount = item.totalRecordCount;
   				}
   			});
 
-          	if (jsonUserAprv.length > 0) {
-          		if (grdUserAprv.getPageTotalCount() != data.resultList[0].totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-          			grdUserAprv.setPageTotalCount(data.resultList[0].totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-          			grdUserAprv.rebuild();
+          	if (jsonApcAprv.length > 0) {
+          		if (grdApcAprv.getPageTotalCount() != data.resultList[0].totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+          			grdApcAprv.setPageTotalCount(data.resultList[0].totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+          			grdApcAprv.rebuild();
    				} else {
-   					grdUserAprv.refresh();
+   					grdApcAprv.refresh();
    				}
-          		grdUserAprv.setRow(2);
+          		grdApcAprv.setRow(2);
           	} else {
-          		grdUserAprv.setPageTotalCount(0);
-          		grdUserAprv.rebuild();
+          		grdApcAprv.setPageTotalCount(0);
+          		grdApcAprv.rebuild();
           	}
 
-          	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
-
+          	document.querySelector('#cnt-apcAprv').innerText = totalRecordCount;
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -665,24 +539,23 @@
 		}
 	}
 
-	     
   	// 페이징
-	const fn_pagingUserAprv = async function (){
+	const fn_pagingApcAprv = async function (){
   		
-		jsonUserAprv.length = 0;
-     	let recordCountPerPage = grdUserAprv.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-     	let currentPageNo = grdUserAprv.getSelectPageIndex();
-     	fn_setGrdUserAprv(recordCountPerPage, currentPageNo);
+   		jsonApcAprv.length = 0;
+     	let recordCountPerPage = grdApcAprv.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+     	let currentPageNo = grdApcAprv.getSelectPageIndex();
+     	fn_setGrdApcAprv(recordCountPerPage, currentPageNo);
     }
   	
 	/**
 	 * @name fn_insert
-	 * @description 법인사용자승인등록
+	 * @description 법인APC승인등록
 	 */
 	const fn_insert = async function() {
 
 		const aprvList = [];
-		const allData = grdUserAprv.getGridDataAll();
+		const allData = grdApcAprv.getGridDataAll();
 		
 		for ( let i=0; i<allData.length; i++) {
 
@@ -690,12 +563,9 @@
 			if (item.checkedYn === "Y") {
 				
 				aprvList.push({
-					userId: item.userId,
-    				authrtMngrYn: 	item.authrtMngrYn,
-    				sysMesYn:		item.sysMesYn,
-    				sysFmYn: 		item.sysFmYn,
-    				sysPdYn: 		item.sysPdYn,
-    				sysCsYn: 		item.sysCsYn,
+					untyOgnzId: item.untyOgnzId,
+    				apcCd: 		item.apcCd,
+    				userId:		item.userId
     			});	
     		}
 		}
@@ -708,8 +578,8 @@
 		if (!gfn_comConfirm("Q0001", "승인")) {
 			return;
 		}
-		
-    	const postJsonPromise = gfn_postJSON("/co/user/insertCorpAprvList.do", aprvList);
+
+    	const postJsonPromise = gfn_postJSON("/co/ognz/insertApcAprvList.do", aprvList);
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -725,30 +595,30 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-	}
-	
+	}	
 	
 	/**
 	 * @name fn_cancel
-	 * @description 법인사용자승인취소
+	 * @description 법인APC승인취소
 	 */
 	const fn_cancel = async function() {
 
-		const userList = [];
-		const allData = grdUserAprv.getGridDataAll();
+		const aprvList = [];
+		const allData = grdApcAprv.getGridDataAll();
 		
 		for ( let i=0; i<allData.length; i++) {
 
 			const item = allData[i];
 			if (item.checkedYn === "Y") {
-				
-				userList.push({
-					userId: item.userId
+				aprvList.push({
+					untyOgnzId: item.untyOgnzId,
+    				apcCd: 		item.apcCd,
+    				userId:		item.userId
     			});	
     		}
 		}
 
-		if (userList.length == 0) {
+		if (aprvList.length == 0) {
 			gfn_comAlert("W0001", "승인취소대상");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
@@ -757,7 +627,7 @@
 			return;
 		}
 		
-    	const postJsonPromise = gfn_postJSON("/co/user/deleteCorpAprvList.do", userList);
+    	const postJsonPromise = gfn_postJSON("/co/ognz/deleteApcAprvList.do", aprvList);
 		const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -775,33 +645,27 @@
         }
 	}
 
-
  	/**
-     * @name fn_grdUserAprvValueChanged
+     * @name fn_grdApcAprvValueChanged
      * @description 그리드 변경 event 처리
      * @function
      */
-	const fn_grdUserAprvValueChanged = function() {
-		
-		let nRow = grdUserAprv.getRow();
-		let nCol = grdUserAprv.getCol();
-		const usrAttr = grdUserAprv.getColUserAttr(nCol);
-		const rowData = grdUserAprv.getRowData(nRow, false);	// deep copy
+	const fn_grdApcAprvValueChanged = function() {
+
+		let nRow = grdApcAprv.getRow();
+		let nCol = grdApcAprv.getCol();
+		const usrAttr = grdApcAprv.getColUserAttr(nCol);
+		const rowData = grdApcAprv.getRowData(nRow, false);	// deep copy
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 			switch (usrAttr.colNm) {
-				case "authrtMngrYn":
-				case "sysMesYn":
-				case "sysFmYn":
-				case "sysPdYn":
-				case "sysCsYn":
+				case "userType":
+				case "yn":
 					rowData.checkedYn = "Y";
-					grdUserAprv.refresh({"focus":false});
+					grdApcAprv.refresh({"focus":false});
 					break;
 			}
 		}
-		
  	}
-
 	
 	/**
 	 * @name fn_onChangeApc
@@ -811,11 +675,10 @@
 		fn_init();
 	}
 
-	
     // 엑셀 다운로드
     function fn_excelDwnld() {
     	grdUserAprv.exportLocalExcel(
-    			"법인사용자승인요청정보", 
+    			"법인APC승인요청정보", 
     			{
     				bSaveLabelData: true, 
     				bNullToBlank: true, 
@@ -828,27 +691,27 @@
 
     // 개인화 저장
     function fn_personalSave(){
-    	grdUserAprv.savePersonalInfo("apcCd");
+   		grdApcAprv.savePersonalInfo("apcCd");
 	}
     // 개인화 호출
     function fn_personalLoad(){
-    	grdUserAprv.loadPersonalInfo("apcCd");
+    	grdApcAprv.loadPersonalInfo("apcCd");
 	}
  	// 열 숨기기
     function fn_colHidden(){
-    	grdUserAprv.setColHidden(grdUserAprv.getCol(), true);
+    	grdApcAprv.setColHidden(grdApcAprv.getCol(), true);
     }
  	// 열 보이기
 	function fn_colShow(){
-     	for (let i = grdUserAprv.getFixedCols(); i < grdUserAprv.getCols()-1; i++) {
-     		grdUserAprv.setColHidden(i, false);
+     	for (let i = grdApcAprv.getFixedCols(); i < grdApcAprv.getCols()-1; i++) {
+     		grdApcAprv.setColHidden(i, false);
      	}
    	}
  	
 	const setPageSize = function(){
 		const size = parseInt(SBUxMethod.get("srch-slt-pageSize")) || 50;
-		grdUserAprv.setPageSize(size);
-		grdUserAprv.rebuild();
+		grdApcAprv.setPageSize(size);
+		grdApcAprv.rebuild();
 		fn_search();
 	};
  	
