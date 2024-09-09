@@ -103,4 +103,21 @@
     	]]>
     </select>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.deleteComAtchfl			-->
+	<!-- DESC : 첨부파일 삭제.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.09  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="deleteComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO" >
+    	<![CDATA[
+    		DELETE /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.deleteComAtchfl */
+			  FROM TB_COM_ATCHFL
+			 WHERE ATCHFL_NO 		= #{atchflNo}
+			   AND PRNTS_TBL_NO 	= #{prntsTblNo}
+    	]]>
+    </update>
+
 </mapper>

@@ -6,12 +6,15 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcss.am.cmns.service.ComAtchflService;
+import com.at.apcss.am.cmns.vo.ComAtchflVO;
 import com.at.apcss.am.wrhs.service.FrmerInfoService;
 import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
 import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
@@ -41,6 +44,9 @@ public class FrmerInfoController extends BaseController{
 
 	@Resource(name = "frmerInfoService")
 	private FrmerInfoService frmerInfoService;
+
+	@Resource(name="comAtchflService")
+	private ComAtchflService comAtchflService;
 
 
 	/**
@@ -371,6 +377,44 @@ public class FrmerInfoController extends BaseController{
 			frmhsExpctWrhsVO.setSysLastChgUserId(getUserId());
 
 			HashMap<String, Object> rtnObj = frmerInfoService.deleteFrmhsExpct(frmhsExpctWrhsVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 영농관리 - 재배이력 파일 삭제
+	 * @param CltvtnFrmhsQltVO
+	 * @param request
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wrhs/deleteFile.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteFile(@RequestBody CltvtnHstryVO cltvtnHstryVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			cltvtnHstryVO.setSysFrstInptPrgrmId(getPrgrmId());
+			cltvtnHstryVO.setSysFrstInptUserId(getUserId());
+			cltvtnHstryVO.setSysLastChgPrgrmId(getPrgrmId());
+			cltvtnHstryVO.setSysLastChgUserId(getUserId());
+
+			ComAtchflVO comAtchflVO = new ComAtchflVO();
+
+			BeanUtils.copyProperties(cltvtnHstryVO, comAtchflVO);
+
+			HashMap<String, Object> rtnObj = comAtchflService.deleteComAtchfl(comAtchflVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

@@ -362,7 +362,7 @@
 			body-html-id="body-modal-image"
 			footer-is-close-button="false"
 			header-is-close-button="false"
-			style="width:1100px"
+			style="width:620px"
 		></sbux-modal>
 	</div>
 	<div id="body-modal-image">
@@ -439,9 +439,9 @@
 	}
 
 	var tabJsonData = [
-		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "재배및수확후관리", "targetid" : "cltvtnHstryTab", 		"targetvalue" : "재배및수확후관리" },
-		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "재배농가품질", 	"targetid" : "frmhsQltTab", 		"targetvalue" : "재배농가품질" },
-		{ "id" : "2", "pid" : "-1", "order" : "3", "text" : "농가예상입고", 	"targetid" : "frmhsExpctWrhsTab", 	"targetvalue" : "농가예상입고" },
+		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "재배농가품질", 	"targetid" : "frmhsQltTab", 		"targetvalue" : "재배농가품질" },
+		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "농가예상입고", 	"targetid" : "frmhsExpctWrhsTab", 	"targetvalue" : "농가예상입고" },
+		{ "id" : "2", "pid" : "-1", "order" : "3", "text" : "재배및수확후관리", "targetid" : "cltvtnHstryTab", 		"targetvalue" : "재배및수확후관리" },
 		{ "id" : "3", "pid" : "-1", "order" : "4", "text" : "영농일지", 		"targetid" : "frmerInfoTab", 		"targetvalue" : "영농일지" },
 	];
 
@@ -605,8 +605,7 @@
         		let atchflNo = rowData.atchflNo;
         		let inputFlag = rowData.inputFlag
         		if (!gfn_isEmpty(atchflNo)) {
-        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>변경</button>"
-	        		+ "<input type='file' id='inp-file-" + nRow + "' style='display:none' onchange='fn_fileSelect(event)' accept='.jpg, .jpeg, .png'></input>";
+        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delFile("+ nRow +")'>삭제</button>";
         		}
         		if (inputFlag) {
         			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_fileUpload("+ nRow +")'>등록</button>"
@@ -784,6 +783,7 @@
 	    SBGridProperties.columns = columns;
 	    grdFrmhsExpctWrhs = _SBGrid.create(SBGridProperties);
 	    grdFrmhsExpctWrhs.bind('click', 'fn_setFrmerInfo');
+	    grdFrmhsExpctWrhs.bind('valuechanged', 'fn_setCrtrYm');
 
 	}
 
@@ -858,6 +858,7 @@
 		let nCol = grdCltvtnFrmhsQlt.getCol();
 		let tyEvlCol = grdCltvtnFrmhsQlt.getColRef("tyEvl")
 		let plntngPrclCol = grdCltvtnFrmhsQlt.getColRef("plntngPrcl")
+
 		if (nCol == tyEvlCol || nCol == plntngPrclCol) {
 			let expctQnttCol = grdCltvtnFrmhsQlt.getColRef("expctQntt")
 			let rowData = grdCltvtnFrmhsQlt.getRowData(nRow);
@@ -868,6 +869,61 @@
 			grdCltvtnFrmhsQlt.setCellData(nRow, expctQnttCol, expctQntt, true);
 		}
 	}
+
+	const fn_delFile = async function (nRow) {
+
+		let rowData = grdCltvtnHstryPrdcr.getRowData(nRow);
+		let atchflNo = rowData.atchflNo;
+		let prntsTblNo =  'CQ' + rowData.apcCd + rowData.prdcrCd + rowData.prdcrLandInfoNo + rowData.cltvtnHstryNo;
+
+		rowData.prntsTblNo = prntsTblNo;
+
+		if (gfn_comConfirm("Q0001", "삭제")) {		//	Q0001	{0} 하시겠습니까?
+			const postJsonPromise = gfn_postJSON("/am/wrhs/deleteFile.do", rowData);
+	    	const data = await postJsonPromise;
+
+	    	try{
+	    		if (_.isEqual("S", data.resultStatus)) {
+		    		fn_search();
+	       			gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+	        	} else {
+    	    		gfn_comAlert(data.resultCode, data.resultMessage);
+    	    	}
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+
+	}
+
+
+	const fn_setCrtrYm = function () {
+		let nRow = grdFrmhsExpctWrhs.getRow();
+		let nCol = grdFrmhsExpctWrhs.getCol();
+		let crtrYmCol = grdFrmhsExpctWrhs.getColRef("crtrYm");
+
+		if (nCol == crtrYmCol) {
+
+			let rowData = grdFrmhsExpctWrhs.getRowData(nRow);
+			let crtrYr = rowData.crtrYm.substring(0, 4);
+			let yr = SBUxMethod.get("srch-dtp-yr");
+
+			console.log("crtrYr", crtrYr)
+			console.log("yr", yr)
+
+			if (crtrYr != yr) {
+	  			gfn_comAlert("E0000", "조회연도와 입력연도가 다릅니다. 다른 연도 입력시 조회 후 입력 해주세요.");				//	E0000	{0}
+	  			grdCltvtnFrmhsQlt.setCellData(nRow, crtrYmCol, "", true);
+	            return;
+	  		}
+
+		}
+	}
+
 
 	/**
      * @name fn_setFrmerInfo
@@ -2322,20 +2378,21 @@
 
 						let qntt = rowData[ymdKey];
 
-						if (!gfn_isEmpty(qntt) && qntt > 0) {
-
-							let frmhsExpctWrhsDtl = {
-								apcCd 				: gv_selectedApcCd
-							  , prdcrCd 			: rowData.prdcrCd
-							  , frmhsExpctWrhsNo 	: rowData.frmhsExpctWrhsNo
-							  , crtrYr 				: rowData.crtrYm.substr(0, 4)
-							  , crtrMm 				: rowData.crtrYm.substr(4, 2)
-							  , ymd					: j
-							  , qntt				: qntt
-							}
-
-							frmhsExpctWrhsDtlList.push(frmhsExpctWrhsDtl);
+						if (gfn_isEmpty(qntt)) {
+							qntt = 0;
 						}
+
+						let frmhsExpctWrhsDtl = {
+							apcCd 				: gv_selectedApcCd
+						  , prdcrCd 			: rowData.prdcrCd
+						  , frmhsExpctWrhsNo 	: rowData.frmhsExpctWrhsNo
+						  , crtrYr 				: rowData.crtrYm.substr(0, 4)
+						  , crtrMm 				: rowData.crtrYm.substr(4, 2)
+						  , ymd					: j
+						  , qntt				: qntt
+						}
+
+						frmhsExpctWrhsDtlList.push(frmhsExpctWrhsDtl);
 					}
 
 					if (frmhsExpctWrhsDtlList.length > 0) {

@@ -156,10 +156,32 @@ public class ComAtchflServiceImpl extends BaseServiceImpl implements ComAtchflSe
 	}
 
 
+	/**
+	 * 파일 조회
+	 * @param ComAtchflVO
+	 * @return ComAtchflVO
+	 * @throws Exception
+	 */
 	@Override
 	public ComAtchflVO selectComAtchfl(ComAtchflVO comAtchflVO) throws Exception {
 
 		ComAtchflVO resultVO = comAtchflMapper.selectComAtchfl(comAtchflVO);
 		return resultVO;
+	}
+
+	/**
+	 * 파일 삭제
+	 * @param ComAtchflVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	@Override
+	public HashMap<String, Object> deleteComAtchfl(ComAtchflVO comAtchflVO) throws Exception {
+
+		if (0 == comAtchflMapper.deleteComAtchfl(comAtchflVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
 	}
 }
