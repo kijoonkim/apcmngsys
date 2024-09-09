@@ -35,6 +35,7 @@
 				, UMS_PCKG_INFO
 				, UMS_SPMT_INFO
 				, UMS_CLCLN_INFO
+				, UMS_WGH_INFO
 
 			FROM TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			WHERE 1=1
@@ -83,6 +84,7 @@
 				, UMS_PCKG_INFO
 				, UMS_SPMT_INFO
 				, UMS_CLCLN_INFO
+				, UMS_WGH_INFO
 
 			FROM TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			WHERE 1=1
@@ -121,6 +123,7 @@
 				  , UMS_PCKG_INFO = #{umsPckgInfo}
 				  , UMS_SPMT_INFO = #{umsSpmtInfo}
 				  , UMS_CLCLN_INFO = #{umsClclnInfo}
+				  , UMS_WGH_INFO = #{umsWghInfo}
 
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -138,6 +141,7 @@
 				  , UMS_PCKG_INFO
 				  , UMS_SPMT_INFO
 				  , UMS_CLCLN_INFO
+				  , UMS_WGH_INFO
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -159,6 +163,7 @@
 				  , #{umsPckgInfo}
 				  , #{umsSpmtInfo}
 				  , #{umsClclnInfo}
+				  , #{umsWghInfo}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -189,6 +194,7 @@
 				  , UMS_PCKG_INFO = #{umsPckgInfo}
 				  , UMS_SPMT_INFO = #{umsSpmtInfo}
 				  , UMS_CLCLN_INFO = #{umsClclnInfo}
+				  , UMS_WGH_INFO = #{umsWghInfo}
 
 		]]>
 		<if test='delYn != null and delYn != ""'>

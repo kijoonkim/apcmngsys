@@ -89,9 +89,10 @@
 			<br>
 			<div><label>스마트자동화 상세내역</label></div>
 			<div>
-					<table class="table table-bordered tbl_row tbl_fixed" style="width: 660px">
+					<table class="table table-bordered tbl_row tbl_fixed" style="width: 685px">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
+							<col style="width: 5%">
 							<col style="width: 32%">
 							<col style="width: 15%">
 							<col style="width: 15%">
@@ -99,12 +100,14 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th rowspan="2" style="border-right: 1px solid white !important; text-align: center;">설비</th>
+								<th colspan="2" style="border-right: 1px solid white !important; text-align: center;">설비</th>
 								<th style="border-right: 1px solid white !important; text-align: center;"><span id="itemNm1">품목1</span></th>
 								<th style="border-right: 1px solid white !important; text-align: center;"><span id="itemNm2">품목2</span></th>
 								<th style="border-right: 1px solid white !important; text-align: center;"><span id="itemNm3">품목3</span></th>
 							</tr>
 							<tr>
+								<th style="border-right: 1px solid white !important; text-align: center;">구분</th>
+								<th style="border-right: 1px solid white !important; text-align: center;">설비명</th>
 								<th style="border-right: 1px solid white !important; text-align: center;">
 									<sbux-button id="srch-btn-allItem1" name="srch-btn-allItem1" uitype="normal" onclick="fn_allChk(1)" text="전체 미설치" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 								</th>
@@ -116,7 +119,8 @@
 								</th>
 							</tr>
 							<tr>
-								<th>(입고)계근대</th>
+								<th style="border-right: 1px solid white !important;">입고</th>
+								<th style="text-align: center;">계근대</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-wbg1_1" name="dtl-rdo-wbg1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -149,7 +153,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(입고)바코드 /QR 시스템</th>
+								<th style="border-right: 1px solid white !important;">입고</th>
+								<th style="text-align: center;">바코드 /QR 시스템</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-wrhsBrQr1_1" name="dtl-rdo-wrhsBrQr1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -182,7 +187,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(입고)키오스크·태블릿</th>
+								<th style="border-right: 1px solid white !important;">입고</th>
+								<th style="text-align: center;">키오스크·태블릿</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-kskTblt1_1" name="dtl-rdo-kskTblt1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -215,7 +221,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(선별)디팔렛타이저</th>
+								<th style="border-right: 1px solid white !important;">선별</th>
+								<th style="text-align: center;">디팔렛타이저</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-dptz1_1" name="dtl-rdo-dptz1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -248,7 +255,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(선별)자동덤핑기</th>
+								<th style="border-right: 1px solid white !important;">선별</th>
+								<th style="text-align: center;">자동덤핑기</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-apm1_1" name="dtl-rdo-apm1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -281,7 +289,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(선별)전자식 중량 선별기</th>
+								<th style="border-right: 1px solid white !important;">선별</th>
+								<th style="text-align: center;">전자식 중량 선별기</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-elctrnWghtSortMchn1_1" name="dtl-rdo-elctrnWghtSortMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -314,7 +323,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(선별)비파괴 당도 선별기</th>
+								<th style="border-right: 1px solid white !important;">선별</th>
+								<th style="text-align: center;">비파괴 당도 선별기</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ndstBrckSortMchn1_1" name="dtl-rdo-ndstBrckSortMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -347,7 +357,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(선별)등급별 원물 자동 이송 장치</th>
+								<th style="border-right: 1px solid white !important;">선별</th>
+								<th style="text-align: center;">등급별 원물 자동 이송 장치</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-grdRawMtrAtmtcTrnsfMchn1_1" name="dtl-rdo-grdRawMtrAtmtcTrnsfMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -380,7 +391,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(선별)전자식 대시보드(모니터)</th>
+								<th style="border-right: 1px solid white !important;">선별</th>
+								<th style="text-align: center;">전자식 대시보드(모니터)</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-dshbrd1_1" name="dtl-rdo-dshbrd1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -413,7 +425,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(포장)공박스(망․톤백 등) 자동 배출 장치</th>
+								<th style="border-right: 1px solid white !important;">포장</th>
+								<th style="text-align: center;">공박스(망․톤백 등) 자동 배출 장치</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-emptBxAtmtcExhstMchn1_1" name="dtl-rdo-emptBxAtmtcExhstMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -446,7 +459,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(포장)자동 박스(망․톤백 등) 포장기</th>
+								<th style="border-right: 1px solid white !important;">포장</th>
+								<th style="text-align: center;">자동 박스(망․톤백 등) 포장기</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcBxPckgMchn1_1" name="dtl-rdo-atmtcBxPckgMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -479,7 +493,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(포장)자동 소포장기</th>
+								<th style="border-right: 1px solid white !important;">포장</th>
+								<th style="text-align: center;">자동 소포장기</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcSsMchn1_1" name="dtl-rdo-atmtcSsMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -512,7 +527,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(포장)자동랩핑기</th>
+								<th style="border-right: 1px solid white !important;">포장</th>
+								<th style="text-align: center;">자동랩핑기</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWrapMchn1_1" name="dtl-rdo-atmtcWrapMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -545,7 +561,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(포장)자동 중량체크기(포장 시)</th>
+								<th style="border-right: 1px solid white !important;">포장</th>
+								<th style="text-align: center;">자동 중량체크기(포장 시)</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-atmtcWghtChckMchn1_1" name="dtl-rdo-atmtcWghtChckMchn1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -578,7 +595,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(출고)팔렛타이저(로봇팔 등)</th>
+								<th style="border-right: 1px solid white !important;">출고</th>
+								<th style="text-align: center;">팔렛타이저(로봇팔 등)</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-ptz1_1" name="dtl-rdo-ptz1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -611,7 +629,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(출고) 바코드 /QR 시스템</th>
+								<th style="border-right: 1px solid white !important;">출고</th>
+								<th style="text-align: center;">바코드 /QR 시스템</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-spmtBrQr1_1" name="dtl-rdo-spmtBrQr1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>
@@ -644,7 +663,8 @@
 								</td>
 							</tr>
 							<tr>
-								<th>(저장) 온습도 자동제어기</th>
+								<th style="border-right: 1px solid white !important;">저장</th>
+								<th style="text-align: center;">온습도 자동제어기</th>
 								<td>
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-thAc1_1" name="dtl-rdo-thAc1" uitype="normal" value="1" class="radio_label" group-id="group1"></sbux-radio>

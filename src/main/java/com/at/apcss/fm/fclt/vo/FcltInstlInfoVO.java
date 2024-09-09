@@ -48,5 +48,6 @@ public class FcltInstlInfoVO extends ComVO{
 	private String slfBrdn;
 	private String lcltExpndCtpv;
 	private String lcltExpndSgg;
+
 }
 

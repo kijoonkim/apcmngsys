@@ -202,8 +202,8 @@
 						<tr>
 							<td class="td_input">
 								<sbux-input
-									id="dtl-inp-hireRgllbrCtzn"
-									name="dtl-inp-hireRgllbrCtzn"
+									id="dtl-inp-hireRgllbrOfc"
+									name="dtl-inp-hireRgllbrOfc"
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
@@ -213,8 +213,8 @@
 							<td>명</td>
 							<td class="td_input">
 								<sbux-input
-									id="dtl-inp-hireRgllbrFrgnr"
-									name="dtl-inp-hireRgllbrFrgnr"
+									id="dtl-inp-hireRgllbrSpt"
+									name="dtl-inp-hireRgllbrSpt"
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
@@ -452,9 +452,8 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-
-				SBUxMethod.set('dtl-inp-hireRgllbrCtzn',gfn_nvl(item.hireRgllbrCtzn));
-				SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',gfn_nvl(item.hireRgllbrFrgnr));
+				SBUxMethod.set('dtl-inp-hireRgllbrSpt',gfn_nvl(item.hireRgllbrSpt));
+				SBUxMethod.set('dtl-inp-hireRgllbrOfc',gfn_nvl(item.hireRgllbrOfc));
 
 				SBUxMethod.set('dtl-inp-hireTmprWgTotSum',gfn_nvl(item.hireTmprWgTotSum));
 				SBUxMethod.set('dtl-inp-hireTmprAvgWg',gfn_nvl(item.hireTmprAvgWg));
@@ -503,8 +502,8 @@
 			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'N' //진척도 갱신 여부
-			,hireRgllbrCtzn : SBUxMethod.get('dtl-inp-hireRgllbrCtzn')
-			,hireRgllbrFrgnr : SBUxMethod.get('dtl-inp-hireRgllbrFrgnr')
+			,hireRgllbrOfc : SBUxMethod.get('dtl-inp-hireRgllbrOfc')
+			,hireRgllbrSpt : SBUxMethod.get('dtl-inp-hireRgllbrSpt')
 
 			,hireTmprWgTotSum : SBUxMethod.get('dtl-inp-hireTmprWgTotSum')
 			,hireTmprAvgWg : SBUxMethod.get('dtl-inp-hireTmprAvgWg')

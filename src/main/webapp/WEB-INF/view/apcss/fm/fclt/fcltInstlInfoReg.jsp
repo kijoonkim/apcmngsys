@@ -93,9 +93,11 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
+						<!--
 						<sbux-button id="btn_dwnld" name="btn_dwnld" uitype="normal" text="양식 다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld"></sbux-button>
 						&nbsp;
-						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="양식 다운로드(데이터포함)" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld('Y')"></sbux-button>
+						-->
+						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="양식 다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld('Y')"></sbux-button>
 						&nbsp;
 						<sbux-button id="btn_upload" name="btn_upload" uitype="normal" text="엑셀업로드" class="btn btn-xs btn-outline-danger" onclick="fn_upload"></sbux-button>
 						&nbsp;
@@ -266,8 +268,8 @@
 		SBGridProperties.columns = [
 			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', mixedWidth : '20%' ,type: 'checkbox', style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
-			{caption: ["고유번호","고유번호"],				ref: 'sn',			type:'output',  width:'50px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
+			//{caption: ["고유번호","고유번호"],				ref: 'sn',			type:'output',  width:'50px',    style:'text-align:center'
+				//,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
 			{caption: ["사업연도","사업연도"],			ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
 			{caption: ["지원유형","지원유형"],			ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
@@ -288,7 +290,7 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: [" "," "],	hidden : true ,	ref: 'rmrk',		type:'output',  width:'400px',    style:'text-align:center'},
 
-			//{caption: ["seq"],		ref: 'sn',		hidden : true},
+			{caption: ["seq"],		ref: 'sn',		hidden : true},
 			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
 			{caption: ["행추가여부"],	ref: 'addYn',	hidden : true},
 			//{caption: ["사업코드"],		ref: 'bizCd',	hidden : true},
@@ -498,11 +500,11 @@
 		for (let i=gridList.length-1; i>-1; i--) {
 			if (gridList[i].checked === "true") {
 				if (gridList[i].addYn == 'N') {
-					gridList[i].rowNum = i+1;
+					gridList[i].rowNum = i+2;
 					delList.push(gridList[i]);
 					delCnt++;
 				}else{
-					grdBizPop.deleteRow(i+1);
+					grdFcltInstlInfo.deleteRow(i+2);//테이블 해더가 2줄이면 +2
 					delCnt++;
 				}
 			}
@@ -510,8 +512,8 @@
 		if(delList.length > 0){
 			let rowStr = "";
 			for (var i = 0; i < delList.length; i++) {
-				rowStr += delList[i].rowNum;
-				if(!delList.length == i+1){
+				rowStr += (delList[i].rowNum-1);
+				if(delList.length != i+1){
 					rowStr += ", ";
 				}
 			}
@@ -519,7 +521,7 @@
 			if(confirm(delMsg)){
 				fn_deleteRsrc(delList);
 				for (var i = 0; i < delList.length; i++) {
-					grdBizPop.deleteRow(delList[i].rowNum);
+					grdFcltInstlInfo.deleteRow(delList[i].rowNum);
 				}
 			}
 			return;
@@ -532,12 +534,21 @@
 	}
 
 	async function fn_deleteRsrc(delList){
-		console.log(delList);
-		return;
-		let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUo.do", delList);
+		//console.log(delList);
+		let targetArr = [];
+
+		for (var i = 0; i < delList.length; i++) {
+			let valArr = {
+					sn : delList[i].sn
+					,apcCd : delList[i].apcCd
+			}
+			targetArr.push(valArr);
+		}
+		let postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInstlInfoList.do", targetArr);
 		let data = await postJsonPromise;
 		try{
-			if(data.result > 0){
+			//console.log(data);
+			if (_.isEqual("S", data.resultStatus)) {
 				alert("삭제 되었습니다.");
 			}else{
 				alert("삭제 도중 오류가 발생 되었습니다.");
@@ -556,11 +567,11 @@
 	const fn_getExpColumns = function() {
 		const _columns = [];
 		_columns.push(
-				{caption: ["고유번호\n(중복값불가)","고유번호\n(중복값불가)"],			ref: 'sn',		type:'input',  width:'100px',    style:'text-align:center'
+				//{caption: ["고유번호\n(중복값불가)","고유번호\n(중복값불가)"],			ref: 'sn',		type:'input',  width:'100px',    style:'text-align:center'
+					//,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
+				{caption: ["사업연도\n(YYYY\n4자리값으로)","사업연도\n(YYYY\n4자리값으로)"],		ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'
 					,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
-				{caption: ["사업연도","사업연도"],		ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'
-					,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
-				{caption: ["지원유형\n(1:정부사업\n2:시도사업\n3:시군사업\n4:자부담)","지원유형\n(1:정부사업\n2:시도사업\n3:시군사업\n4:자부담)"],		ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
+				{caption: ["지원유형\n(정부사업\n시도사업\n시군사업\n자부담)","지원유형\n(정부사업\n시도사업\n시군사업\n자부담)"],		ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
 					,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 				//{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
 					//,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
@@ -655,20 +666,29 @@
 			const rowData = _grdImp.getRowData(iRow);
 			console.log(rowData);
 			// validation check
-
 			if (gfn_isEmpty(rowData.bizYr)) {
 				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
 				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("bizYr"));
+				return;
+			}
+			console.log(rowData.bizYr,rowData.bizYr.length);
+			if (rowData.bizYr.length != 4) {
+				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("bizYr"));
 				return;
 			}
 			if (gfn_isEmpty(rowData.sprtBiz)) {
 				gfn_comAlert("W0002", "지원유형");		//	W0002	{0}을/를 입력하세요.
 				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("sprtBiz"));
 				return;
 			}
 			if (gfn_isEmpty(rowData.bizNm)) {
 				gfn_comAlert("W0002", "사업명");		//	W0002	{0}을/를 입력하세요.
 				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("bizNm"));
 				return;
 			}
 
@@ -681,8 +701,8 @@
 
 			//저장할데이터
 			const saveData = {
-				sn				:rowData.sn
-				,bizYr			:rowData.bizYr
+				//sn				:rowData.sn
+				bizYr			:rowData.bizYr
 				,apcCd			:rowData.apcCd
 				,apcNm			:rowData.apcNm
 				,sprtBiz		:rowData.sprtBiz
@@ -705,16 +725,22 @@
 			return;
 		}
 
+		if(confirm("기존 데이터를 삭제 하시곘습니까?")){
+			let delList = grdFcltInstlInfo.getGridDataAll();
+			await fn_deleteRsrc(delList);
+		}
+
+
 		let postUrl = "/fm/fclt/insertFcltInstlInfoList.do";
 
-		const postJsonPromise = gfn_postJSON(postUrl, bizList);
+		const postJsonPromise = await gfn_postJSON(postUrl, bizList);
 		const data = await postJsonPromise;
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 				popImp.close();
-				//fn_dtlGridSearch01();
+				fn_search();
 			} else {
 				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
 			}
@@ -732,13 +758,15 @@
 	 * @description afterimportexcel 이벤트
 	 */
 	const fn_setDataAfterImport = function(_grdImp) {
-		console.log("fn_setDataAfterImport");
-		console.log(_grdImp);
+		//console.log("fn_setDataAfterImport");
+		//console.log(_grdImp);
 		let impData = _grdImp.getGridDataAll();
 
 		const today = gfn_dateToYmd(new Date());
 
 		const abnormalList = [];
+
+		let falseCnt = 0;
 
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 
@@ -753,16 +781,26 @@
 			const regex2 = /^\d{1,18}$/;
 
 			//순번 확인
+			/*
 			let snVal = rowData.sn;
 			if(!gfn_isEmpty(snVal)){
 				rowData.sn = fn_findMatchingValue(snVal,regex2);
 			}
-
+			*/
+			//_grdImp.setCellStyle('background-color', iRow, nCol, iRow, nCol, 'lightpink');
+			//_grdImp.getColRef("bizYr")
 			//사업년도 확인
 			let bizYrVal = rowData.bizYr;
 			if(!gfn_isEmpty(bizYrVal)){
 				rowData.bizYr = fn_findMatchingValue(bizYrVal,regex2);
 			}
+			//년도값 길이가 4가 아닌경우 색표기
+			if(rowData.bizYr.length != 4){
+				let nCol = _grdImp.getColRef("bizYr");
+				_grdImp.setCellStyle('background-color', iRow+1, nCol, iRow+1, nCol, 'lightpink');
+				falseCnt++;
+			}
+
 
 			//지원 유형 확인
 			let sprtBizVal = rowData.sprtBiz;
@@ -777,6 +815,20 @@
 				}else{
 					rowData.sprtBiz = null;
 				}
+			}
+
+			//지원 유형이 비어있는경우 색표기
+			if(gfn_isEmpty(rowData.sprtBiz)){
+				let nCol = _grdImp.getColRef("sprtBiz");
+				_grdImp.setCellStyle('background-color', iRow+1, nCol, iRow+1, nCol, 'lightpink');
+				falseCnt++;
+			}
+
+			//사업명이 비어있는경우 색표기
+			if(gfn_isEmpty(rowData.bizNm)){
+				let nCol = _grdImp.getColRef("bizNm");
+				_grdImp.setCellStyle('background-color', iRow+1, nCol, iRow+1, nCol, 'lightpink');
+				falseCnt++;
 			}
 
 			//국고 확인
@@ -901,7 +953,8 @@
 			bIsMerge: true,
 			bUseFormat: false,
 			bIncludeData: true,
-			bUseCompress: false
+			bUseCompress: false,
+			bSaveComboLabel: true
 		};
 
 		var dataList = [];

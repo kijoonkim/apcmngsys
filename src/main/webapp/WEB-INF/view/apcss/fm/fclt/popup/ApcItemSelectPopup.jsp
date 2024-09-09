@@ -149,11 +149,13 @@
 				'showgoalpageui' : true
 			};
 			SBGridProperties.columns = [
-				{caption: ['부류코드'], ref: 'clsCd', width: '15%', type: 'input', style: 'text-align:center'},
-				{caption: ['부류명'], ref: 'clsNm', width: '35%', type: 'input', style: 'text-align:center'},
-				{caption: ['품목코드'], ref: 'itemCd', width: '15%', type: 'input', style: 'text-align:center'},
 				{caption: ['품목명'], ref: 'itemNm', width: '35%', type: 'input', style: 'text-align:center'},
+				//{caption: ['품목코드'], ref: 'itemCd', width: '15%', type: 'input', style: 'text-align:center'},
+				{caption: ['부류명'], ref: 'clsNm', width: '35%', type: 'input', style: 'text-align:center'},
+				//{caption: ['부류코드'], ref: 'clsCd', width: '15%', type: 'input', style: 'text-align:center'},
 				{caption: ["조회용 부류"], 	ref: 'srchLclsfCd',   hidden : true},
+				{caption: ["부류코드"], 	ref: 'clsCd',   hidden : true},
+				{caption: ["품목코드"], 	ref: 'itemCd',   hidden : true},
 			];
 
 			grdItemPop = _SBGrid.create(SBGridProperties);
