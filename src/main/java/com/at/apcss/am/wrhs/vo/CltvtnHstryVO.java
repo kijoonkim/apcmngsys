@@ -93,5 +93,9 @@ public class CltvtnHstryVO extends ComVO {
 	 * 농가지역
 	 * */
 	private String frmhsCtpv;
+	/*
+	 * 파일부모번호
+	 * */
+	private String prntsTblNo;
 
 }
