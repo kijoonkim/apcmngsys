@@ -158,7 +158,8 @@
                                 rcptnDt : item.rcptnDt,
                                 ntcMsg : item.ntcMsg,
                                 rcptnSeq : item.rcptnSeq,
-                                userId : item.userId
+                                userId : item.userId,
+                                acsMenuId : item.acsMenuId
                             });
                             $("#body-modal-msgAlarm > div > div.table").append(tmp);
                         }
@@ -181,7 +182,8 @@
                         const actionElements = document.querySelectorAll('[id^="btn_action"]');
                         actionElements.forEach(element => {
                             $(element).on("click",function(){
-                                fn_actionPage();
+                                let menuId = $(element).attr('data-menuId')
+                                fn_actionPage(menuId);
                             });
                         });
 
@@ -225,7 +227,7 @@
                      ${'${_vo.ntcMsg}'}
                 </div>
                 <div class="cell" data-title="action" style="text-align:center">
-                     <button id="btn_action_${'${_vo.rcptnSeq}'}" style="border:0; color:white; background:#2980b9">이동</button>
+                     <button id="btn_action_${'${_vo.rcptnSeq}'}" style="border:0; color:white; background:#2980b9" data-menuId="${'${_vo.acsMenuId}'}">이동</button>
                 </div>
                 <div style="display:none" data-title="userId">
                     ${'${_vo.userId}'}
@@ -256,11 +258,13 @@
     const fn_searchComCd = async function(){
         jsonNtcSeCd = await gfn_getComCdDtls("NTC_SE_CD");
     }
-    const fn_actionPage = async function(){
+    const fn_actionPage = async function(_menuId){
         SBUxMethod.closeModal("modal-msgAlarm");
-        await fn_setLeftMenu('CO');
+        let topId = _menuId.slice(0,_menuId.indexOf("_"));
+        await fn_setLeftMenu(topId);
 
-        let data = sideJsonData.filter((item) => item.id == 'CO_004_006');
+        let data = sideJsonData.filter((item) => item.id == _menuId);
+
         fn_actionGoPage(
             data[0].url
             , 'LEFT'
