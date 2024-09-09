@@ -1558,6 +1558,7 @@
         let data = await popMsg.search('${loginVO.id}');
         if(data.resultList.length > 0){
             $("#pop_cnt").text(data.resultList.length);
+            fn_msgPopup();
         }else{
             $("#pop_wrap").css("display","none");
         }
