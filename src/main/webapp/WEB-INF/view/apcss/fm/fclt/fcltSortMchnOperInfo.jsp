@@ -36,6 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 선별기운영기간 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
@@ -165,7 +166,10 @@
 			<sbux-input uitype="hidden" id="dtl-inp-apcCd" name="dtl-inp-apcCd"></sbux-input>
 			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
 			<!--[pp] 검색 -->
-			<div><label>선별기운영기간 상세내역</label></div>
+			<div>
+				<label style="font-weight: bold;">선별기운영기간 상세내역</label><br>
+				<label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label>
+			</div>
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
@@ -210,8 +214,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm1">품목1</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk1" name="dtl-inp-itemChk1" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -302,8 +304,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm2">품목2</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk2" name="dtl-inp-itemChk2" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -394,8 +394,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm3">품목3</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk3" name="dtl-inp-itemChk3" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -486,8 +484,6 @@
 					<tr>
 						<th class="text-center">
 							<span id="itemNm4">기타품목</span>
-							<br>
-							운영기간
 							<sbux-input id="dtl-inp-itemChk4" name="dtl-inp-itemChk4" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
@@ -578,7 +574,6 @@
 
 				</tbody>
 			</table>
-				<div><label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label></div>
 			</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -610,8 +605,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -691,8 +686,18 @@
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
 				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
+				if(sn == '4'){
+					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
+				}else{
+					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
+				}
+				//$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
 
-				$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
+				//품목이 있는 줄만 조회 됨
+				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');
+				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
+				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_1','disabled','false');
+				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_non','disabled','false');
 
 				if(item.operYn == 'Y'){
 					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_2',item.operPeriodYn1);

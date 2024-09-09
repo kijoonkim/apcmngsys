@@ -49,6 +49,11 @@ public class ApcInfoVO extends ComVO{
 	/** 우편번호 */
 	private String zip;
 
+	
+	private String sgg;
+	
+	private String ctpv;
+	
 	/**
 	 * 정산기준
 	 */

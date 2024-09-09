@@ -42,6 +42,7 @@
 					<!--
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
 					-->
+					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
@@ -482,8 +483,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -705,27 +706,36 @@
 	    try{
 			if(data.resultList.length > 0){
 				let resultVO = data.resultList[0];
-				console.log(resultVO);
+				//console.log(resultVO);
 
 				SBUxMethod.set("dtl-inp-operOgnzNm", resultVO.operOgnzNm);//운영조직명
 				SBUxMethod.set("dtl-inp-operOgnzBrno", resultVO.operOgnzBrno);//운영조직 사업자등록번호
 				SBUxMethod.set("dtl-inp-operOgnzCrno", resultVO.operOgnzCrno);//운영조직 법인등록번호
 				SBUxMethod.set("dtl-inp-rprsv", resultVO.rprsv);//대표자
 				SBUxMethod.set("dtl-inp-operOgnzRoadNmAddr", resultVO.loctn);//소재지
+				SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrDtl", resultVO.loctnDtl);//소재지
+				SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrFull", resultVO.loctn + resultVO.loctnDtl);//운영조직 주소
+
 				SBUxMethod.set("dtl-inp-operOgnzAdmCd", resultVO.operOgnzAdmCd);//운영조직 법정동코드(행정구역코드)
 				SBUxMethod.set("dtl-inp-operOgnzRoadNmCd", resultVO.operOgnzRoadNmCd);//운영조직 도로명코드
 				SBUxMethod.set("dtl-inp-operOgnzZip", resultVO.operOgnzZip);//운영조직 우편번호
 				SBUxMethod.set("dtl-inp-operOgnzBmno", resultVO.operOgnzBmno);//운영조직 건물 본번
 				SBUxMethod.set("dtl-inp-operOgnzSlno", resultVO.operOgnzSlno);//운영조직 건물 부번
 
+
 				SBUxMethod.set("dtl-inp-ctpvCd", resultVO.ctpvCd);//시도 코드
 				SBUxMethod.set("dtl-inp-sigunCd", resultVO.sigunCd);//시군구 코드
 				SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
 
-				SBUxMethod.set("dtl-inp-apcNm", resultVO.apcNm);//apc명
+				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 				SBUxMethod.set("dtl-inp-apcBrno", resultVO.apcBrno);//apc 사업자등록번호
 				SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
-				SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
+				//SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
+
+				SBUxMethod.set("dtl-inp-apcRoadNmAddr", resultVO.apcLoctn);//apc 주소
+				SBUxMethod.set("dtl-inp-apcRoadNmAddrDtl", resultVO.apcLoctnDtl);//apc 주소
+				SBUxMethod.set("dtl-inp-apcRoadNmAddrFull", resultVO.apcLoctn + resultVO.apcLoctnDtl);//apc 주소
+
 				SBUxMethod.set("dtl-inp-apcAdmCd", resultVO.apcAdmCd);//apc 법정동코드(행정구역코드)
 				SBUxMethod.set("dtl-inp-apcRoadNmCd", resultVO.apcRoadNmCd);//apc 도로명코드
 				SBUxMethod.set("dtl-inp-apcZip", resultVO.apcZip);//apc 우편번호
@@ -870,8 +880,10 @@
 			, operOgnzBrno: SBUxMethod.get("dtl-inp-operOgnzBrno")  //운영조직 사업자등록번호
 			, operOgnzCrno: SBUxMethod.get("dtl-inp-operOgnzCrno")  //운영조직 법인등록번호
 			, rprsv: SBUxMethod.get("dtl-inp-rprsv")  // 대표자
+
 			, loctn: SBUxMethod.get("dtl-inp-operOgnzRoadNmAddr")  // 소재지
 			, loctnDtl: SBUxMethod.get("dtl-inp-operOgnzRoadNmAddrDtl")  // 소재지 상세
+
 			, operOgnzAdmCd : SBUxMethod.get("dtl-inp-operOgnzAdmCd") //운영조직 법정동코드(행정구역코드)
 			, operOgnzRoadNmCd : SBUxMethod.get("dtl-inp-operOgnzRoadNmCd") //운영조직 도로명코드
 			, operOgnzZip : SBUxMethod.get("dtl-inp-operOgnzZip") //apc 우편번호
@@ -887,8 +899,10 @@
 			, apcNm: SBUxMethod.get("dtl-inp-apcNm")  //apc명
 			, apcBrno: SBUxMethod.get("dtl-inp-apcBrno")  //apc 사업자등록번호
 			, apcCrno: SBUxMethod.get("dtl-inp-apcCrno")  //apc 법인등록번호
-			, apcLoctn: SBUxMethod.get("dtl-inp-apcAddr")  //apc 주소
+
+			, apcLoctn: SBUxMethod.get("dtl-inp-apcRoadNmAddr")  //apc 주소
 			, apcLoctnDtl: SBUxMethod.get("dtl-inp-apcRoadNmAddrDtl")  //apc 주소 상세
+
 			, apcAdmCd : SBUxMethod.get("dtl-inp-apcAdmCd") //apc 법정동코드(행정구역코드)
 			, apcRoadNmCd : SBUxMethod.get("dtl-inp-apcRoadNmCd") //apc 도로명코드
 			, apcZip : SBUxMethod.get("dtl-inp-apcZip") //apc 우편번호

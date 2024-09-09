@@ -183,8 +183,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -264,7 +264,7 @@
 		//SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
+			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', mixedWidth : '20%' ,type: 'checkbox', style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
 			{caption: ["고유번호","고유번호"],				ref: 'sn',			type:'output',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
@@ -335,6 +335,7 @@
 			let totalRecordCount = 0;
 			data.resultList.forEach((item, index) => {
 				//console.log(item);
+				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
 				let itemVO = {
 						sn				:item.sn
 						,bizYr			:item.bizYr
@@ -348,6 +349,8 @@
 						,lcltExpndSgg	:item.lcltExpndSgg
 						,slfBrdn		:item.slfBrdn
 						,addYn			:'N'
+						//임시
+						,tot : totVal
 				}
 				jsonFcltInstlInfo.push(itemVO);
 			});
@@ -410,10 +413,16 @@
 		let gridData = grdFcltInstlInfo.getGridDataAll();
 		let saveList = [];
 
-		for(var i=1; i<=gridData.length; i++ ){
+		let apcCd = SBUxMethod.get('srch-inp-apcCd');
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");//진척도 갱신용
+
+
+		for(var i=2; i< gridData.length+2; i++ ){
 			let rowData = grdFcltInstlInfo.getRowData(i);
 			let rowSts = grdFcltInstlInfo.getRowStatus(i);
 
+			rowData.apcCd = apcCd;
+			rowData.crtrYr = crtrYr;
 			rowData.prgrsYn = 'Y';//진척도 갱신 유무
 			rowData.tmpChk = tmpChk; //임시저장 체크
 
@@ -438,7 +447,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-				//fn_search();
+				fn_search();
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
 				cfn_allTabPrgrsRefrash();
 			} else {

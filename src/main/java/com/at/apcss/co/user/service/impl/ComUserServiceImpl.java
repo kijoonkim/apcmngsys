@@ -443,5 +443,77 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> insertCorpAprvList(List<ComUserVO> comUserList) throws Exception {
+		
+		for ( ComUserVO user : comUserList ) {
+			user.setMbrTypeCd(ComConstants.CON_MBR_TYPE_CD_CORP);
+			comUserMapper.insertSpUserAuthAprv(user);
+			if (StringUtils.hasText(user.getRtnCd())) {
+				HashMap<String, Object> rtnObj = ComUtil.getResultMap(user.getRtnCd(), user.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
 
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertLocgovAprvList(List<ComUserVO> comUserList) throws Exception {
+
+		for ( ComUserVO user : comUserList ) {
+			user.setMbrTypeCd(ComConstants.CON_MBR_TYPE_CD_LOCGOV);
+			comUserMapper.insertSpUserAuthAprv(user);
+			if (StringUtils.hasText(user.getRtnCd())) {
+				HashMap<String, Object> rtnObj = ComUtil.getResultMap(user.getRtnCd(), user.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<ComUserVO> selectCorpUserAprvList(ComUserVO comUserVO) throws Exception {
+		List<ComUserVO> resultList = comUserMapper.selectCorpUserAprvList(comUserVO);
+		return resultList;
+	}
+
+	@Override
+	public List<ComUserVO> selectLocgovUserAprvList(ComUserVO comUserVO) throws Exception {
+		List<ComUserVO> resultList = comUserMapper.selectLocgovUserAprvList(comUserVO);
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteCorpAprvList(List<ComUserVO> comUserList) throws Exception {
+		
+		for ( ComUserVO user : comUserList ) {
+			user.setMbrTypeCd(ComConstants.CON_MBR_TYPE_CD_CORP);
+			comUserMapper.deleteSpUserAuthAprv(user);
+			if (StringUtils.hasText(user.getRtnCd())) {
+				HashMap<String, Object> rtnObj = ComUtil.getResultMap(user.getRtnCd(), user.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteLocgovAprvList(List<ComUserVO> comUserList) throws Exception {
+		
+		for ( ComUserVO user : comUserList ) {
+			user.setMbrTypeCd(ComConstants.CON_MBR_TYPE_CD_LOCGOV);
+			comUserMapper.deleteSpUserAuthAprv(user);
+			if (StringUtils.hasText(user.getRtnCd())) {
+				HashMap<String, Object> rtnObj = ComUtil.getResultMap(user.getRtnCd(), user.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+		
+		return null;
+	}
+	
+	
 }

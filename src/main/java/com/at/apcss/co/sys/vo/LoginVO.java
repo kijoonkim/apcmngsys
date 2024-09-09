@@ -95,7 +95,16 @@ public class LoginVO implements Serializable{
 	/** 농업인 일련번호 */
 	private String frmerSn;
 
-	/** 통합조직ID **/
+	/** 회원유형코드 */
+	private String mbrTypeCd;
+	
+	/** 통합조직코드 */
+	private String untyOgnzCd;
+	
+	/** 권한관리자여부 */
+	private String authrtMngrYn;
+	
+	/** 통합조직ID */
 	private String untyOgnzId;
 	
 	/** 통합조직유형 */
@@ -1044,6 +1053,24 @@ public class LoginVO implements Serializable{
 	}
 	public void setSgg(String sgg) {
 		this.sgg = sgg;
+	}
+	public String getUntyOgnzCd() {
+		return untyOgnzCd;
+	}
+	public void setUntyOgnzCd(String untyOgnzCd) {
+		this.untyOgnzCd = untyOgnzCd;
+	}
+	public String getAuthrtMngrYn() {
+		return authrtMngrYn;
+	}
+	public void setAuthrtMngrYn(String authrtMngrYn) {
+		this.authrtMngrYn = authrtMngrYn;
+	}
+	public String getMbrTypeCd() {
+		return mbrTypeCd;
+	}
+	public void setMbrTypeCd(String mbrTypeCd) {
+		this.mbrTypeCd = mbrTypeCd;
 	}
 
 

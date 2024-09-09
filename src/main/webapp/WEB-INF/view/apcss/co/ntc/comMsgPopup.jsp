@@ -264,6 +264,7 @@
         await fn_setLeftMenu(topId);
 
         let data = sideJsonData.filter((item) => item.id == _menuId);
+
         fn_actionGoPage(
             data[0].url
             , 'LEFT'

@@ -59,6 +59,7 @@ public class FcltOperInfoVO extends ComVO{
 	private String operOgnzBrno;
 	private String rprsv;
 	private String loctn;
+	private String loctnDtl;
 	private String ctpvCd;
 	private String ctpvNm;
 	private String sigunCd;
@@ -84,6 +85,7 @@ public class FcltOperInfoVO extends ComVO{
 	private String operOgnzAdmCd;
 	private String operOgnzZip;
 	private String apcLoctn;
+	private String apcLoctnDtl;
 	private String apcBmno;
 	private String apcSlno;
 	private String apcRoadNmCd;

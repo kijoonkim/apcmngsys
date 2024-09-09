@@ -2703,79 +2703,9 @@
             intprogram_seq = intprogram_seq + 1;
         });
 
-        let bSync = false;
-        let strArray1 = new Array("", "OPEN_ERROR");
-
         let FBS_SERVICE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE'));
 
-        var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedApcCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_BANK_CODE : "",
-            V_P_FBS_SERVICE : FBS_SERVICE,
-            V_P_FBS_WORK_TYPE : "NAME",
-            V_P_ACCOUNT_BANK : strpayer_bank_code,
-            V_P_ACCOUNT_NO : strpayer_bank_account.replaceAll("-", ""),
-            V_P_SOCIALNUM : strsocial_num,
-            V_P_ACCOUNT_OWNER : strpayer_bank_account_owner,
-            V_P_CURRENCY_CODE : strcurrency_code,
-            V_P_FBS_NO : strfbs_no,
-            V_P_INTERFACEID : "",
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: '',
-        };
-
-        const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbsName.do", {
-            getType				: 'json',
-            workType			: 'Q',
-            cv_count			: '1',
-            params				: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if (data.cv_1.length >= 1) {
-                    let str = "";
-                    let num1 = 0;
-                    let num2 = 0;
-
-                    for (const row in data.cv_1) {
-                        var strArray2 =  gfnma_firmBankingSend(FBS_SERVICE, gfn_nvl(row["SEND_DATA"]), bSync);
-
-                        if (strArray2.code.trim() == "000" || strArray2.code.trim() == "0000" || strArray2.code.trim() == "COMP") {
-                            ++num2;
-                        } else {
-                            ++num1;
-                            str = strArray2.code;
-                        }
-                    }
-
-                    if (num1 > 0) {
-                        gfn_comAlert("E0000", "수취인확인 에러 [" + str + "]");
-                        strArray1[1] = str;
-                    }
-
-                    if (num2 > 0 && num1 == 0) {
-                        strArray1[1] = "OK";
-                    }
-                }
-            } else {
-                strArray1[1] = data.resultMessage;
-                alert(data.resultMessage);
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
+        var result = await gfnma_fbsName("", FBS_SERVICE, "NAME", strpayer_bank_code, strpayer_bank_account, strsocial_num, strpayer_bank_account_owner, strcurrency_code, strfbs_no);
 
         SBUxMethod.closeProgress(gv_loadingOptions);
     }

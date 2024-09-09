@@ -152,16 +152,13 @@
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  FCLT_CD					= #{fcltCd}
-				  , FCLT_HLD_YN				= #{fcltHldYn}
-				  , FCLT_PRCS_CD			= #{fcltPrcsCd}
-				  , FCLT_PRCS_HR			= #{fcltPrcsHr}
-				  , STOR_CAP				= #{storCap}
-				  , ST_STOR_PERFM			= #{stStorPerfm}
-				  , LT_STOR_PERFM			= #{ltStorPerfm}
-				  , STOR_OP_RATE			= #{storOpRate}
+				  LWTP_STRG_PLC_HLD_MTHD 	= #{lwtpStrgPlcHldMthd}
+				  , STRG_PLC_STRG_ABLT 		= #{strgPlcStrgAblt}
+				  , STRG_PLC_STRM_STRG_ABLT = #{strgPlcStrmStrgAblt}
+				  , STRG_PLC_LTRM_STRG_ABLT = #{strgPlcLtrmStrgAblt}
+				  , STRG_PLC_OPRTNG_RT 		= #{strgPlcOprtngRt}
 
-				  , TMPR_STRG_YN			= #{tmprStrgYn}
+				  , LWTP_STRG_PLC_HLD_YN 	= #{lwtpStrgPlcHldYn}
 
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -177,7 +174,7 @@
 				  , STRG_PLC_LTRM_STRG_ABLT
 				  , STRG_PLC_OPRTNG_RT
 
-				  , TMPR_STRG_YN
+				  , LWTP_STRG_PLC_HLD_YN
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -198,7 +195,7 @@
 				  , #{strgPlcLtrmStrgAblt}
 				  , #{strgPlcOprtngRt}
 
-				  , #{tmprStrgYn}
+				  , #{lwtpStrgPlcHldYn}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -220,18 +217,15 @@
 	<update id="updateFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.updateFcltLwtpStrgMchnInfo */
-				TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
+				TB_TE_APC_OPER_ABLT_STRG_PLC OASP
 			   SET
-				  FCLT_CD			= #{fcltCd}
-				  , FCLT_HLD_YN		= #{fcltHldYn}
-				  , FCLT_PRCS_CD	= #{fcltPrcsCd}
-				  , FCLT_PRCS_HR	= #{fcltPrcsHr}
-				  , STOR_CAP		= #{storCap}
-				  , ST_STOR_PERFM	= #{stStorPerfm}
-				  , LT_STOR_PERFM	= #{ltStorPerfm}
-				  , STOR_OP_RATE	= #{storOpRate}
+				  LWTP_STRG_PLC_HLD_MTHD 	= #{lwtpStrgPlcHldMthd}
+				  , STRG_PLC_STRG_ABLT 		= #{strgPlcStrgAblt}
+				  , STRG_PLC_STRM_STRG_ABLT = #{strgPlcStrmStrgAblt}
+				  , STRG_PLC_LTRM_STRG_ABLT = #{strgPlcLtrmStrgAblt}
+				  , STRG_PLC_OPRTNG_RT 		= #{strgPlcOprtngRt}
 
-				  , TMPR_STRG_YN	= #{tmprStrgYn}
+				  , LWTP_STRG_PLC_HLD_YN 	= #{lwtpStrgPlcHldYn}
 
 		]]>
 		<if test='delYn != null and delYn != ""'>
@@ -243,7 +237,7 @@
 				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
 			WHERE 1=1
-			  AND TRGT_YR = #{trgtYr}
+			  AND CRTR_YR = #{crtrYr}
 			  AND APC_CD = #{apcCd}
 		]]>
 	</update>
@@ -259,11 +253,11 @@
 	<update id="deleteFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
 		<![CDATA[
 			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
-				TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
+				TB_TE_APC_OPER_ABLT_STRG_PLC OASP
 			   SET
 				  DEL_YN 	= 'Y'
 			WHERE 1=1
-			  AND TRGT_YR = #{trgtYr}
+			  AND CRTR_YR = #{crtrYr}
 			  AND  APC_CD = #{apcCd}
 		]]>
 	</update>
@@ -271,9 +265,9 @@
 	<delete id="deleteFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
 		<![CDATA[
 			DELETE /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.deleteFcltLwtpStrgMchnInfo */
-				TB_FCLT_LWTP_STRG_MCHN_INFO FCLT
+				TB_TE_APC_OPER_ABLT_STRG_PLC OASP
 			WHERE 1=1
-			  AND TRGT_YR = #{trgtYr}
+			  AND CRTR_YR = #{crtrYr}
 			  AND APC_CD = #{apcCd}
 		]]>
 	</delete>
@@ -305,8 +299,6 @@
 				  , OPER_PERIOD_YN_11	= #{operPeriodYn11}
 				  , OPER_PERIOD_YN_12	= #{operPeriodYn12}
 
-				  , TMPR_STRG_YN		= #{tmprStrgYn}
-
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -329,8 +321,6 @@
 				, OPER_PERIOD_YN_10
 				, OPER_PERIOD_YN_11
 				, OPER_PERIOD_YN_12
-
-				, TMPR_STRG_YN
 
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_USER_ID
@@ -358,8 +348,6 @@
 				  , #{operPeriodYn10}
 				  , #{operPeriodYn11}
 				  , #{operPeriodYn12}
-
-				  , #{tmprStrgYn}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}

@@ -36,6 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
@@ -221,7 +222,7 @@
 								true-value="Y"
 								false-value="N"
 								class="check"
-								onchange ="fn_selectOnchange(this)"
+								onkeyup ="fn_selectOnchange(this)"
 							></sbux-checkbox>
 						</td>
 						<td style="border-right:hidden; padding-right: 0px !important;">
@@ -231,8 +232,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="1,000"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -243,8 +245,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="100"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -255,8 +258,9 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="2,000"
-								onchange="fn_strgPlcOprtngRt"
+								placeholder=""
+								onkeyup="fn_strgPlcOprtngRt"
+								mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 							></sbux-input>
 						</td>
 						<td>톤</td>
@@ -267,7 +271,7 @@
 								uitype="text"
 								class="form-control input-sm"
 								group-id="group1"
-								placeholder="210"
+								placeholder=""
 								readonly
 							></sbux-input>
 						</td>
@@ -440,8 +444,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);

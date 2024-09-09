@@ -2,6 +2,7 @@ package com.at.apcss.fm.fclt.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -77,22 +78,24 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 
 	// 스마트자동화 등록
 	@PostMapping(value = "/fm/fclt/insertFcltAtmtcMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertFcltAtmtcMchnInfo(@RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> insertFcltAtmtcMchnInfo(@RequestBody List<FcltAtmtcMchnInfoVO> fcltAtmtcMchnInfoVOList, HttpServletRequest requset) throws Exception{
 		logger.info("=============insert=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		fcltAtmtcMchnInfoVO.setSysFrstInptUserId(getUserId());
-		fcltAtmtcMchnInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
-		fcltAtmtcMchnInfoVO.setSysLastChgUserId(getUserId());
-		fcltAtmtcMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		for (FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO : fcltAtmtcMchnInfoVOList) {
+			fcltAtmtcMchnInfoVO.setSysFrstInptUserId(getUserId());
+			fcltAtmtcMchnInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+			fcltAtmtcMchnInfoVO.setSysLastChgUserId(getUserId());
+			fcltAtmtcMchnInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
 
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = fcltAtmtcMchnInfoService.insertFcltAtmtcMchnInfo(fcltAtmtcMchnInfoVO);
+			insertedCnt = fcltAtmtcMchnInfoService.multiSaveFcltAtmtcMchnInfo(fcltAtmtcMchnInfoVOList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

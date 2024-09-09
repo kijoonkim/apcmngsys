@@ -36,6 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 스마트자동화 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
@@ -167,7 +168,7 @@
 			<!--[pp] 검색 -->
 			<div><label>스마트자동화 상세내역</label></div>
 			<div>
-					<table class="table table-bordered tbl_row tbl_fixed" style="width: 640px">
+					<table class="table table-bordered tbl_row tbl_fixed" style="width: 660px">
 						<caption>검색 조건 설정</caption>
 						<colgroup>
 							<col style="width: 32%">
@@ -797,53 +798,115 @@
 								<th>규격<br>(예시: 2대x1조 32등급)</th>
 
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctCnt1" name="dtl-inp-spcfctCnt1" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctCnt1"
+										name="dtl-inp-spcfctCnt1"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									대
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctGrp1" name="dtl-inp-spcfctGrp1" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctGrp1"
+										name="dtl-inp-spcfctGrp1"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									조
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctGrd1" name="dtl-inp-spcfctGrd1" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctGrd1"
+										name="dtl-inp-spcfctGrd1"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td>등급</td>
 
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctCnt2" name="dtl-inp-spcfctCnt2" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctCnt2"
+										name="dtl-inp-spcfctCnt2"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									대
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctGrp2" name="dtl-inp-spcfctGrp2" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctGrp2"
+										name="dtl-inp-spcfctGrp2"
+										uitype="text"
+										class="form-control input-sm" mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									조
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctGrd2" name="dtl-inp-spcfctGrd2" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctGrd2"
+										name="dtl-inp-spcfctGrd2"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td>등급</td>
 
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctCnt3" name="dtl-inp-spcfctCnt3" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctCnt3"
+										name="dtl-inp-spcfctCnt3"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									대
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctGrp3" name="dtl-inp-spcfctGrp3" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctGrp3"
+										name="dtl-inp-spcfctGrp3"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									조
 								</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
-									<sbux-input id="dtl-inp-spcfctGrd3" name="dtl-inp-spcfctGrd3" uitype="text" class="form-control input-sm"></sbux-input>
+									<sbux-input
+										id="dtl-inp-spcfctGrd3"
+										name="dtl-inp-spcfctGrd3"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										maxlength="10"
+									></sbux-input>
 								</td>
 								<td>등급</td>
 							</tr>
@@ -894,8 +957,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);

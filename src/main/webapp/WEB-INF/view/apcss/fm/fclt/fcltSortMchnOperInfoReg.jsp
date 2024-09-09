@@ -1,4 +1,4 @@
-]<%
+<%
  /**
   * @Class Name : fcltSortMchnOperInfoReg.jsp
   * @Description : 3.4.선별기운영기간 화면
@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -86,7 +87,10 @@
 			<!-- 진척도 추가 -->
 			<%@ include file="prgrs/apcPrgrs.jsp" %>
 			<br>
-			<div><label>선별기운영기간 상세내역</label></div>
+			<div>
+				<label style="font-weight: bold;">선별기운영기간 상세내역</label><br>
+				<label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label>
+			</div>
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
@@ -491,7 +495,7 @@
 
 				</tbody>
 			</table>
-				<div><label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label></div>
+
 			</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -519,8 +523,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -594,9 +598,16 @@
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
 				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부
-				$('#itemNm'+sn).text("품목 : "+item.itemNm);
-				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
+				if(sn == '4'){
+					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
+				}else{
+					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
+				}
+				//$('#itemNm'+sn).text("품목 : "+item.itemNm);
 
+				//품목이 있는 줄만 조회 됨
+				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');
+				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_1','disabled','false');
 				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_non','disabled','false');
 
@@ -642,10 +653,16 @@
 			return;
 		}
 
-		fn_subInsert(confirm("등록 하시겠습니까?"));
+		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
+
+	//임시저장
+	const fn_tmprStrg = async function(tmpChk) {
+		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
+	}
+
 	//신규등록
-	const fn_subInsert = async function (isConfirmed){
+	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
@@ -688,6 +705,7 @@
 					}
 				}
 				itemVo.prgrsYn = 'Y';//진척도 갱신 여부
+				itemVo.tmprStrgYn = tmpChk;//진척도 갱신 여부
 				saveList.push(itemVo);
 			}
 		}

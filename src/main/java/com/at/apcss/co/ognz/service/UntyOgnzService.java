@@ -47,12 +47,14 @@ public interface UntyOgnzService {
 
 	
 	/**
-	 * 통합조직 목록 조회
+	 * 관리APC 목록 조회
 	 * @param untyOgnzVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<UntyOgnzVO> selectUntyOgnzApcList(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+
 	
 	/**
 	 * 통합조직 트리 목록 조회
@@ -87,5 +89,48 @@ public interface UntyOgnzService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteUntyOgnz(UntyOgnzVO untyOgnzVO) throws Exception;
-			
+	
+	/**
+	 * 관리APC 등록
+	 * @param ognzApcList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertOgnzApcList(List<UntyOgnzVO> ognzApcList) throws Exception;
+	
+	/**
+	 * 관리APC 삭제
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteOgnzApc(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+
+	
+	/**
+	 * 관리APC승인대상 목록 조회
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UntyOgnzVO> selectApcAprvList(UntyOgnzVO untyOgnzVO) throws Exception;
+	
+	/**
+	 * 관리APC 승인등록
+	 * @param ognzApcList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcAprvList(List<UntyOgnzVO> ognzApcList) throws Exception;
+	
+	/**
+	 * 관리APC 승인삭제
+	 * @param untyOgnzVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteApcAprvList(List<UntyOgnzVO> ognzApcList) throws Exception;
+	
+	
 }

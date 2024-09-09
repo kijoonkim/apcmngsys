@@ -45,13 +45,12 @@
 			  AND OTI.SN = OASM.SN(+)
 			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
-			  AND OASM.DEL_YN != 'Y'
 		]]>
 		<if test='crtrYr != null and !crtrYr.equals("")'>
-		  AND OASM.CRTR_YR = #{crtrYr}
+		  AND OTI.CRTR_YR = #{crtrYr}
 		</if>
 		<if test='apcCd != null and !apcCd.equals("")'>
-		  AND OASM.APC_CD = #{apcCd}
+		  AND OTI.APC_CD = #{apcCd}
 		</if>
 	</select>
 
@@ -97,13 +96,12 @@
 			  AND OTI.SN = OASM.SN(+)
 			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
-			  AND OASM.DEL_YN != 'Y'
 		]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND OASM.CRTR_YR = #{crtrYr}
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND OASM.APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -130,7 +128,7 @@
 				  , SORT_OPRTNG_HR			= #{sortOprtngHr}
 				  , SORT_AVG_OPRTNG_DCNT	= #{sortAvgOprtngDcnt}
 
-				  , TMPR_STRG_YN			= #{tmprStrgYn}
+				  , SORT_MCHN_HOLD_YN		= #{sortMchnHoldYn}
 
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -148,7 +146,7 @@
 				   , SORT_OPRTNG_HR
 				   , SORT_AVG_OPRTNG_DCNT
 
-				   , TMPR_STRG_YN
+				   , SORT_MCHN_HOLD_YN
 
 				   , SYS_FRST_INPT_DT
 				   , SYS_FRST_INPT_USER_ID
@@ -170,7 +168,7 @@
 					, #{sortOprtngHr}
 					, #{sortAvgOprtngDcnt}
 
-					, #{tmprStrgYn}
+					, #{sortMchnHoldYn}
 
 					, SYSDATE
 					, #{sysFrstInptUserId}
@@ -199,7 +197,7 @@
 			  , SORT_OPRTNG_HR			= #{sortOprtngHr}
 			  , SORT_AVG_OPRTNG_DCNT	= #{sortAvgOprtngDcnt}
 
-			  , TMPR_STRG_YN			= #{tmprStrgYn}
+			  , SORT_MCHN_HOLD_YN		= #{sortMchnHoldYn}
 
 		]]>
 		<if test='delYn != null and delYn != ""'>

@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -88,8 +89,14 @@
 			<br>
 
 			<div style="display: flex;">
-				<label>◦처리실적 총취급액</label>
-				<label style="margin-left:auto; font-size: x-small; line-height: 20px;">(금액: 백만원)</label>
+				<div>
+					<label style="font-weight: bold;">○처리실적 총취급액</label>
+					<br>
+					<label> - 총취급액은 '5.1 유통조직 처리실적' , '5.2 APC 처리실적' 메뉴의 총취급액 데이터</label><br>
+				</div>
+				<div style="margin-left:auto; font-size: x-small;">
+					<span style="position: relative; bottom: -24px;">(금액: 백만원)</span>
+				</div>
 			</div>
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -117,7 +124,7 @@
 							<th class="text-center" colspan="2">계</th>
 						</tr>
 						<tr>
-							<th>유통초직 처리실적</th>
+							<th>유통조직 처리실적</th>
 							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
 									id="dtl-inp-rtlOgnzTotTrmtAmt1"
@@ -245,15 +252,17 @@
 					</tbody>
 				</table>
 			</div>
-			<div>
-				<label> - 총취급액은 '5.1 유통조직 처리실적' , '5.2 APC 처리실적' 메뉴의 총취급액 데이터</label><br>
-			</div>
 			<br>
 			<br>
-			<div></div>
 			<div style="display: flex;">
-				<label>산지유통판매처 상세내역</label>
-				<label style="margin-left:auto; font-size: x-small; line-height: 20px;">(금액: 백만원)</label>
+				<div>
+					<label style="font-weight: bold;">○산지유통판매처 상세내역(산지유통시설 처리상품 주요 판매처)</label><br>
+					<label> - 출자·출하조직은 생산유통통합조직 통해서 판매한 실적 및 직접 판매한 실적을 합산하여 기재.</label><br>
+					<label> - 기타항목은 다른 유통조직에 판매한 금액</label>
+				</div>
+				<div style="margin-left:auto; font-size: x-small;">
+					<span style="position: relative; bottom: -44px;">(금액: 백만원)</span>
+				</div>
 			</div>
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -428,11 +437,6 @@
 					</tbody>
 				</table>
 			</div>
-			<div>
-				<label style="font-weight: bold;">◦ (산지유통시설 처리상품 주요 판매처)</label><br>
-				<label> - 출자·출하조직은 생산유통통합조직 통해서 판매한 실적 및 직접 판매한 실적을 합산하여 기재.</label><br>
-				<label> - 기타항목은 다른 유통조직에 판매한 금액</label>
-			</div>
 		</div>
 		<!--[pp] //검색결과 -->
 	</div>
@@ -458,8 +462,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -509,6 +513,7 @@
 
 		//예외처리
 		try {
+			//console.log(data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl',item.apcNtslAmtLgszRtl);
 				SBUxMethod.set('dtl-inp-apcNtslAmtFoodMtrl',item.apcNtslAmtFoodMtrl);
@@ -534,7 +539,7 @@
 				SBUxMethod.set('dtl-inp-apcTrmtAmt4',item.apcTrmtAmt4);
 				SBUxMethod.set('dtl-inp-apcTrmtAmtTot',item.apcTrmtAmtTot);
 			});
-			sum();
+			fn_cal();
 
 		} catch (e) {
 			if (!(e instanceof Error)) {

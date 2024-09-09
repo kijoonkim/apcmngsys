@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
@@ -88,16 +89,17 @@
 			<br>
 
 			<div>
-				<label>상품화설비현황 상세내역</label>
+				<label style="font-weight: bold;">상품화설비현황 상세내역</label><br>
+				<label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label>
 			</div>
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 10%">
+					<col style="width: 12%">
 					<col style="width: 85px">
-					<col style="width: 25%">
-					<col style="width: 25%">
+					<col style="width: 24%">
+					<col style="width: 24%">
 					<col style="width: 70px">
 					<col style="width: 85px">
 					<col style="width: 85px">
@@ -355,7 +357,6 @@
 				</tbody>
 			</table>
 			</div>
-				<div><label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label></div>
 			</div>
 			<!--[pp] //검색결과 -->
 		</div>
@@ -382,8 +383,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -448,27 +449,27 @@
 				//품목 번호 item.sn 1~4
 				//itemChk 품목 존재 여부
 				SBUxMethod.set('dtl-inp-itemChk'+item.sn ,'Y');
-				//console.log(item.sn);
-				switch (item.sn) {
-				case '1': case '2': case '3':
-					$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
-					break;
+				let sn = item.sn;
+				if(sn == '4'){
+					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
+				}else{
+					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
 				}
 
 				let sortMchnHoldYn = item.sortMchnHoldYn;
 				//품목이 없는경우 해당 행자체가 존재 하지 않아 조회가 안되므로 여기서 활성화
-				SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+item.sn,'disabled','false');
-				SBUxMethod.set('dtl-inp-sortMchnHoldYn'+item.sn ,sortMchnHoldYn);
+				SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+sn,'disabled','false');
+				SBUxMethod.set('dtl-inp-sortMchnHoldYn'+sn ,sortMchnHoldYn);
 
 				if(sortMchnHoldYn == 'Y'){
-					SBUxMethod.changeGroupAttr('group'+item.sn,'disabled','false');//선별기보유 할경우 해당 그룹 활성화
-					SBUxMethod.set("dtl-inp-sortMchnSpcect"+item.sn, item.sortMchnSpcect);
-					SBUxMethod.set("dtl-inp-sortBrckMvhn"+item.sn, item.sortBrckMvhn);
-					SBUxMethod.set("dtl-inp-colorSort"+item.sn, item.colorSort);
-					SBUxMethod.set("dtl-inp-shapSort"+item.sn, item.shapSort);
-					SBUxMethod.set("dtl-inp-mnfcMchn"+item.sn, item.mnfcMchn);
+					SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');//선별기보유 할경우 해당 그룹 활성화
+					SBUxMethod.set("dtl-inp-sortMchnSpcect"+sn, gfn_nvl(item.sortMchnSpcect));
+					SBUxMethod.set("dtl-inp-sortBrckMvhn"+sn, gfn_nvl(item.sortBrckMvhn));
+					SBUxMethod.set("dtl-inp-colorSort"+sn, gfn_nvl(item.colorSort));
+					SBUxMethod.set("dtl-inp-shapSort"+sn, gfn_nvl(item.shapSort));
+					SBUxMethod.set("dtl-inp-mnfcMchn"+sn, gfn_nvl(item.mnfcMchn));
 					//제조사 추가
-					SBUxMethod.set("dtl-inp-mkrNm"+item.sn, item.mkrNm);
+					SBUxMethod.set("dtl-inp-mkrNm"+sn, gfn_nvl(item.mkrNm));
 				}
 			});
 
@@ -548,12 +549,12 @@
 						, tmprStrgYn : tmpChk//임시저장 여부
 				}
 				if(sortMchnHoldYn == 'Y'){
-					itemVo.sortMchnSpcect = SBUxMethod.get('dtl-inp-sortMchnSpcect'+i);
+					itemVo.sortMchnSpcect = gfn_nvl(SBUxMethod.get('dtl-inp-sortMchnSpcect'+i));
 					itemVo.sortBrckMvhn = $('#dtl-inp-sortBrckMvhn'+i).val();
 					itemVo.colorSort = $('#dtl-inp-colorSort'+i).val();
 					itemVo.shapSort = $('#dtl-inp-shapSort'+i).val();
-					itemVo.mnfcMchn = SBUxMethod.get('dtl-inp-mnfcMchn'+i);
-					itemVo.mkrNm = SBUxMethod.get('dtl-inp-mkrNm'+i);
+					itemVo.mnfcMchn = gfn_nvl(SBUxMethod.get('dtl-inp-mnfcMchn'+i));
+					itemVo.mkrNm = gfn_nvl(SBUxMethod.get('dtl-inp-mkrNm'+i));
 				}
 				saveList.push(itemVo);
 			}

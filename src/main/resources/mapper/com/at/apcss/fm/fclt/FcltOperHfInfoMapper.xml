@@ -28,15 +28,17 @@
 				,CRTR_YR
 				,HIRE_RGLLBR_OFC
 				,HIRE_RGLLBR_SPT
+
 				,HIRE_TMPR_WG_TOT_SUM
 				,HIRE_TMPR_AVG_WG
-				,HIRE_TMPR_YR_NOP
-				,HIRE_FRGNR
-				,HIRE_INSRNC_BPLC_MNGNO
-				,HIRE_RGLLBR_CTZN
-				,HIRE_RGLLBR_FRGNR
-				,HIRE_TMPR_JOB_CTZN
-				,HIRE_TMPR_JOB_FRGNR
+				,HIRE_TMPR_MIN
+				,HIRE_TMPR_MAX
+
+				,HIRE_FRGNR_MIN
+				,HIRE_FRGNR_MAX
+				,HIRE_FRGNR_AVG
+				,HIRE_FRGNR_TASK_CN
+
 			FROM TB_TE_APC_OPER_ABLT AOA
 			WHERE 1=1
 			  AND DEL_YN != 'Y'
@@ -74,8 +76,8 @@
 				APC_CD
 				,APC_NM
 				,CRTR_YR
-				,HIRE_RGLLBR_CTZN
-				,HIRE_RGLLBR_FRGNR
+				,HIRE_RGLLBR_OFC
+				,HIRE_RGLLBR_SPT
 
 				,HIRE_TMPR_WG_TOT_SUM
 				,HIRE_TMPR_AVG_WG
@@ -117,8 +119,8 @@
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  HIRE_RGLLBR_CTZN			= #{hireTmprJobCtzn}
-				  , HIRE_RGLLBR_FRGNR		= #{hireTmprJobFrgnr}
+				  HIRE_RGLLBR_OFC			= #{hireRgllbrOfc}
+				  , HIRE_RGLLBR_SPT			= #{hireRgllbrSpt}
 
 				  , HIRE_TMPR_WG_TOT_SUM	= #{hireTmprWgTotSum}
 				  , HIRE_TMPR_AVG_WG		= #{hireTmprAvgWg}
@@ -140,8 +142,8 @@
 				  CRTR_YR
 				  , APC_CD
 				  , APC_NM
-				  , HIRE_RGLLBR_CTZN
-				  , HIRE_RGLLBR_FRGNR
+				  , HIRE_RGLLBR_OFC
+				  , HIRE_RGLLBR_SPT
 
 				  , HIRE_TMPR_WG_TOT_SUM
 				  , HIRE_TMPR_AVG_WG
@@ -167,8 +169,8 @@
 				  #{crtrYr}
 				  , #{apcCd}
 				  , (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = #{apcCd} AND CRTR_YR = #{crtrYr})
-				  , #{hireTmprJobCtzn}
-				  , #{hireTmprJobFrgnr}
+				  , #{hireRgllbrOfc}
+				  , #{hireRgllbrSpt}
 
 				  , #{hireTmprWgTotSum}
 				  , #{hireTmprAvgWg}
@@ -204,8 +206,8 @@
 			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo */
 				TB_TE_APC_OPER_ABLT AOA
 			  SET
-				HIRE_RGLLBR_CTZN		= #{hireTmprJobCtzn}
-				, HIRE_RGLLBR_FRGNR		= #{hireTmprJobFrgnr}
+				HIRE_RGLLBR_OFC			= #{hireRgllbrOfc}
+				, HIRE_RGLLBR_SPT		= #{hireRgllbrSpt}
 
 				, HIRE_TMPR_WG_TOT_SUM	= #{hireTmprWgTotSum}
 				, HIRE_TMPR_AVG_WG		= #{hireTmprAvgWg}

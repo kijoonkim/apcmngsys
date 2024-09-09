@@ -37,6 +37,7 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
+				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 
 			</div>
@@ -361,8 +362,8 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0122';
-		let crtrYr = '2023';
+		let apcCd = '0861';
+		let crtrYr = '2024';
 		let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -502,10 +503,10 @@
 				, prgrsYn : 'Y' //진척도 갱신 여부
 				, tmprStrgYn : tmpChk//임시저장 여부
 				,lwtpStrgPlcHldYn: itemChk
-				,storCap: SBUxMethod.get('srch-inp-opera2')
-				,stStorPerfm: SBUxMethod.get('srch-inp-opera3')
-				,ltStorPerfm: SBUxMethod.get('srch-inp-opera4')
-				,storOpRate: SBUxMethod.get('srch-inp-opera5')
+				,strgPlcStrgAblt: SBUxMethod.get('dtl-inp-strgPlcStrgAblt')
+				,strgPlcStrmStrgAblt: SBUxMethod.get('dtl-inp-strgPlcStrmStrgAblt')
+				,strgPlcLtrmStrgAblt: SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt')
+				,strgPlcOprtngRt: SBUxMethod.get('dtl-inp-strgPlcOprtngRt')
 		};
 
 		if(itemChk == 'Y'){
