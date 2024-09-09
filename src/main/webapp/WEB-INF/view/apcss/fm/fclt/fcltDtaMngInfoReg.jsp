@@ -306,6 +306,7 @@
 		jsonComDataMngType.forEach((item) => {
 			SBUxMethod.clearGroupData(item.value);
 			SBUxMethod.set("dtl-chk-all"+item.value , "N");
+			SBUxMethod.set("dtl-inp-"+item.value ,null);
 		});
 	}
 
@@ -338,6 +339,9 @@
 
 			await data.resultDtlList.forEach((item, index) => {
 				SBUxMethod.set('dtl-chk-'+item.dataMngTypeDtl,item.dataMngYn);
+				if(!gfn_isEmpty(item.dataMngEtc)){
+					SBUxMethod.set('dtl-inp-'+item.dataMngType,item.dataMngEtc);
+				}
 			});
 
 			await jsonComDataMngType.forEach((item) => {
@@ -410,6 +414,9 @@
 				, dataMngType : item.mastervalue
 				, dataMngTypeDtl : item.value
 				, dataMngYn : $("#dtl-chk-"+item.value).val()
+			}
+			if(item.text == "기타"){
+				dataVO.dataMngEtc = SBUxMethod.get('dtl-inp-'+item.mastervalue);
 			}
 			fcltDataMngVOList.push(dataVO);
 		});
@@ -540,6 +547,17 @@
 					textStyle:"font-weight: normal;",
 					onchange:"fn_selDataMngChk('"+item.mastervalue+"')",
 				});
+				if(item.text == "기타"){
+					let $newP1 = $('<p>').addClass('ad_input_row');
+					$targetTd.append($newP1);
+					$newP1.sbInput({
+						id:"dtl-inp-"+item.mastervalue,
+						name:"dtl-inp-"+item.mastervalue,
+						uitype : 'text',
+						text:item.text,
+						style:"height: 20px;"
+					});
+				}
 			}
 		})
 	}
@@ -586,11 +604,13 @@
 				SBUxMethod.changeGroupAttr(groupId,'disabled','true');
 				SBUxMethod.set("dtl-chk-all"+groupId, "N");
 				SBUxMethod.attr("dtl-chk-all"+groupId,'disabled','true');
+				SBUxMethod.attr("dtl-inp-"+groupId,'disabled','true');
 			}else{
 				//SBUxMethod.clearGroupData(groupId);
 				SBUxMethod.changeGroupAttr(groupId,'disabled','false');
 				//SBUxMethod.set("dtl-chk-all"+groupId, "N");
 				SBUxMethod.attr("dtl-chk-all"+groupId,'disabled','false');
+				SBUxMethod.attr("dtl-inp-"+groupId,'disabled','false');
 			}
 		}
 	}

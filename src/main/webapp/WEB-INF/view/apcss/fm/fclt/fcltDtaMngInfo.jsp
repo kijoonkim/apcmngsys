@@ -390,6 +390,16 @@
 		]);
 	}
 
+	//입력폼 초기화
+	const fn_clearForm = async function() {
+		SBUxMethod.clearGroupData("group1");
+		jsonComDataMngType.forEach((item) => {
+			SBUxMethod.clearGroupData(item.value);
+			SBUxMethod.set("dtl-chk-all"+item.value , "N");
+			SBUxMethod.set("dtl-inp-"+item.value ,null);
+		});
+	}
+
 	const fn_selectAtMcIfList = async function(copy_chk) {
 		 console.log("******************fn_pagingAtMcIfList**********************************");
 
@@ -413,6 +423,9 @@
 		try {
 			await data.resultDtlList.forEach((item, index) => {
 				SBUxMethod.set('dtl-chk-'+item.dataMngTypeDtl,item.dataMngYn);
+				if(!gfn_isEmpty(item.dataMngEtc)){
+					SBUxMethod.set('dtl-inp-'+item.dataMngType,item.dataMngEtc);
+				}
 			});
 
 			await jsonComDataMngType.forEach((item) => {
@@ -485,6 +498,9 @@
 				, dataMngType : item.mastervalue
 				, dataMngTypeDtl : item.value
 				, dataMngYn : SBUxMethod.get('dtl-chk-'+item.value)
+			}
+			if(item.text == "기타"){
+				dataVO.dataMngEtc = SBUxMethod.get('dtl-inp-'+item.mastervalue);
 			}
 			fcltDataMngVOList.push(fcltDataMngVO);
 		})
@@ -608,6 +624,17 @@
 					textStyle:"font-weight: normal;",
 					onchange:"fn_selDataMngChk('"+item.mastervalue+"')",
 				});
+				if(item.text == "기타"){
+					let $newP1 = $('<p>').addClass('ad_input_row');
+					$targetTd.append($newP1);
+					$newP1.sbInput({
+						id:"dtl-inp-"+item.mastervalue,
+						name:"dtl-inp-"+item.mastervalue,
+						uitype : 'text',
+						text:item.text,
+						style:"height: 20px;"
+					});
+				}
 			}
 		})
 	}
@@ -654,11 +681,13 @@
 				SBUxMethod.changeGroupAttr(groupId,'disabled','true');
 				SBUxMethod.set("dtl-chk-all"+groupId, "N");
 				SBUxMethod.attr("dtl-chk-all"+groupId,'disabled','true');
+				SBUxMethod.attr("dtl-inp-"+groupId,'disabled','true');
 			}else{
 				//SBUxMethod.clearGroupData(groupId);
 				SBUxMethod.changeGroupAttr(groupId,'disabled','false');
 				//SBUxMethod.set("dtl-chk-all"+groupId, "N");
 				SBUxMethod.attr("dtl-chk-all"+groupId,'disabled','false');
+				SBUxMethod.attr("dtl-inp-"+groupId,'disabled','false');
 			}
 		}
 	}
@@ -751,7 +780,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -834,7 +863,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {

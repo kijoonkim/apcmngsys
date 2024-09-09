@@ -38,7 +38,7 @@
 		<result property="hrmEvlRole" column="HRM_EVL_ROLE" />
 		<result property="hrmPayMngrYn" column="HRM_PAY_MNGR_YN" />
 		<result property="acntgMngrYn" column="ACNTG_MNGR_YN" />
-		
+
 		<result property="untyOgnzId" column="UNTY_OGNZ_ID" />
 		<result property="untyOgnzType" column="UNTY_OGNZ_TYPE" />
 		<result property="untyAuthrtType" column="UNTY_AUTHRT_TYPE" />
@@ -76,12 +76,12 @@
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN
 				, CU.LCK_YN			AS LCK_YN
-				
+
 				, CU.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
 				, CU.UNTY_OGNZ_TYPE		AS UNTY_OGNZ_TYPE
 				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
-				
+
 			  FROM TB_COM_USER CU
 			 WHERE CU.USER_ID = #{id}
     	]]>
@@ -95,8 +95,8 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="actionLogin" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
-    	<![CDATA[
+	<select id="actionLogin" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
+		<![CDATA[
 			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.actionLogin */
 				  CU.USER_ID		AS ID
 				, CU.USER_NM		AS NAME
@@ -111,8 +111,9 @@
 				, CU.TELNO			AS TELNO
 				, CU.APC_CD			AS APC_CD
 				, CU.BRNO			AS BRNO
-			    , CU.ADDR           AS ADDR
-			    , CU.FRMER_SN       AS FRMER_SN
+				, CU.CRNO			AS CRNO
+				, CU.ADDR			AS ADDR
+				, CU.FRMER_SN		AS FRMER_SN
 				, (SELECT FN_GET_APC_NM(CU.APC_CD) FROM DUAL) AS APC_NM
 				, (SELECT X.APC_SE_CD FROM TB_APC_EVRMNT_STNG X WHERE X.APC_CD = CU.APC_CD) AS APC_SE_CD
 
@@ -122,7 +123,7 @@
 				, CU.END_LGN_DT		AS END_LGN_DT
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN
-				
+
 				, CU.CLNT_CD        	AS CLNT_CD
 				, CU.CORP_CD        	AS CORP_CD
 				, CU.USER_CTRGY     	AS USER_CTRGY
@@ -132,19 +133,19 @@
 				, CU.HRM_EVL_ROLE       AS HRM_EVL_ROLE
 				, CU.HRM_PAY_MNGR_YN	AS HRM_PAY_MNGR_YN
 				, CU.ACNTG_MNGR_YN      AS ACNTG_MNGR_YN
-				
+
 				, CU.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
 				, CU.UNTY_OGNZ_TYPE		AS UNTY_OGNZ_TYPE
 				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
-				
-			  FROM TB_COM_USER CU
-			 WHERE CU.USER_ID = #{id}
-			   AND CU.PSWD = #{password}
-			   -- AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
-			   AND CU.DEL_YN = 'N'
-    	]]>
-    </select>
+
+			 FROM TB_COM_USER CU
+			WHERE CU.USER_ID = #{id}
+			  AND CU.PSWD = #{password}
+			  -- AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
+			  AND CU.DEL_YN = 'N'
+		]]>
+	</select>
 
 
 	<!-- ==========================================================================	-->
@@ -155,8 +156,8 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="actionSSOLogin" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
-    	<![CDATA[
+	<select id="actionSSOLogin" parameterType="com.at.apcss.co.sys.vo.LoginVO" resultMap="loginMap">
+		<![CDATA[
 			SELECT /* com.at.apcss.co.sys.mapper.LoginMapper.actionSSOLogin */
 				  CU.USER_ID		AS ID
 				, CU.USER_NM		AS NAME
@@ -171,6 +172,7 @@
 				, CU.TELNO			AS TELNO
 				, CU.APC_CD			AS APC_CD
 				, CU.BRNO			AS BRNO
+				, CU.CRNO			AS CRNO
 				, (SELECT FN_GET_APC_NM(CU.APC_CD) FROM DUAL) AS APC_NM
 				, (SELECT X.APC_SE_CD FROM TB_APC_EVRMNT_STNG X WHERE X.APC_CD = CU.APC_CD) AS APC_SE_CD
 
@@ -180,7 +182,7 @@
 				, CU.END_LGN_DT		AS END_LGN_DT
 				, CU.END_LGN_IP		AS END_LGN_IP
 				, CU.DEL_YN			AS DEL_YN
-				
+
 				, CU.CLNT_CD        	AS CLNT_CD
 				, CU.CORP_CD        	AS CORP_CD
 				, CU.USER_CTRGY     	AS USER_CTRGY
@@ -190,21 +192,21 @@
 				, CU.HRM_EVL_ROLE       AS HRM_EVL_ROLE
 				, CU.HRM_PAY_MNGR_YN	AS HRM_PAY_MNGR_YN
 				, CU.ACNTG_MNGR_YN      AS ACNTG_MNGR_YN
-				
+
 				, CU.UNTY_OGNZ_ID		AS UNTY_OGNZ_ID
 				, CU.UNTY_OGNZ_TYPE		AS UNTY_OGNZ_TYPE
 				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
-				
+
 				, CU.CTPV				AS CTPV
 				, CU.SGG				AS SGG
-				
-			  FROM TB_COM_USER CU
-			 WHERE CU.USER_ID = #{id}
-			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
-			   AND CU.DEL_YN = 'N'
-    	]]>
-    </select>
+
+			 FROM TB_COM_USER CU
+			WHERE CU.USER_ID = #{id}
+			  AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
+			  AND CU.DEL_YN = 'N'
+		]]>
+	</select>
 
 
 	<!-- ==========================================================================	-->

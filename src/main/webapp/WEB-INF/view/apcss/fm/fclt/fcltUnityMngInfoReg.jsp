@@ -157,6 +157,13 @@
 										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
+								<th>계량정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsWghInfo" ></label>
+									</p>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -224,6 +231,7 @@
 		SBUxMethod.set('dtl-inp-umsPckgInfo',"N");
 		SBUxMethod.set('dtl-inp-umsSpmtInfo',"N");
 		SBUxMethod.set('dtl-inp-umsClclnInfo',"N");
+		SBUxMethod.set('dtl-inp-umsWghInfo',"N");
 	}
 
 	const fn_search = async function() {
@@ -265,6 +273,7 @@
 				SBUxMethod.set('dtl-inp-umsPckgInfo',item.umsPckgInfo);
 				SBUxMethod.set('dtl-inp-umsSpmtInfo',item.umsSpmtInfo);
 				SBUxMethod.set('dtl-inp-umsClclnInfo',item.umsClclnInfo);
+				SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
 			});
 
 		} catch (e) {
@@ -316,6 +325,7 @@
 			,umsPckgInfo : $('#dtl-inp-umsPckgInfo').val()
 			,umsSpmtInfo : $('#dtl-inp-umsSpmtInfo').val()
 			,umsClclnInfo : $('#dtl-inp-umsClclnInfo').val()
+			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 		});
 
 		const data = await postJsonPromise;

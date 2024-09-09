@@ -142,6 +142,8 @@
 							<td>
 								<sbux-input id="dtl-inp-rprsv" name="dtl-inp-rprsv" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
+							<td colspan="2"></td>
+							<!--
 							<th>운영조직 조직유형</th>
 							<td>
 								<sbux-select
@@ -153,6 +155,7 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
+							-->
 						</tr>
 						<!--
 						<tr>
@@ -235,6 +238,8 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							<td colspan="2"></td>
+							<!--
 							<th>APC 법인번호</th>
 							<td>
 								<sbux-input
@@ -246,6 +251,7 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							-->
 						</tr>
 						<!--
 						<tr>
@@ -446,6 +452,10 @@
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		let brno = '${loginVO.brno}';
+		if(brno != 0000 || brno != null || brno != ""){
+
+		}
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
@@ -461,7 +471,7 @@
 
 	});
 
-	var jsonComOgnzTypeCd = [];//조직유형
+	//var jsonComOgnzTypeCd = [];//조직유형
 	var jsonComEtcCtgryCd = [];//기타부류
 	var jsonComApcEtcCtgryCd = [];//APC기타부류
 
@@ -472,7 +482,7 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
-			gfn_setComCdSBSelect('dtl-inp-ognzTypeCd', 	jsonComOgnzTypeCd, 	'OGNZ_TYPE_CD'), 	//조직유형
+			//gfn_setComCdSBSelect('dtl-inp-ognzTypeCd', 	jsonComOgnzTypeCd, 	'OGNZ_TYPE_CD'), 	//조직유형
 			gfn_setComCdSBSelect('dtl-inp-operOgnzEtcCtgryCd', 		jsonComEtcCtgryCd, 	'ETC_CLS'), 	//운영조직 기타 부류
 			gfn_setComCdSBSelect('dtl-inp-apcEtcCtgryCd', 	jsonComApcEtcCtgryCd, 	'ETC_CLS'), 	//APC 기타 부류
 		]);
@@ -535,11 +545,11 @@
 
 				SBUxMethod.set("dtl-inp-ctpvCd", resultVO.ctpvCd);//시도 코드
 				SBUxMethod.set("dtl-inp-sigunCd", resultVO.sigunCd);//시군구 코드
-				SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
+				//SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
 
 				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 				SBUxMethod.set("dtl-inp-apcBrno", resultVO.apcBrno);//apc 사업자등록번호
-				SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
+				//SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
 				//SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
 
 				SBUxMethod.set("dtl-inp-apcRoadNmAddr", resultVO.apcLoctn);//apc 주소
@@ -601,11 +611,11 @@
 		SBUxMethod.set("dtl-inp-sigunCd",null);  //시군구 코드 (법정동 코드 앞5자리)
 
 		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
-		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
+		//SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
 
 		//SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
 		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
-		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
+		//SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
 		//SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
 
 		SBUxMethod.set("dtl-inp-apcRoadNmAddr",null);  //apc 주소 상세
@@ -665,11 +675,11 @@
 
 				SBUxMethod.set("dtl-inp-ctpvCd", resultVO.ctpvCd);//시도 코드
 				SBUxMethod.set("dtl-inp-sigunCd", resultVO.sigunCd);//시군구 코드
-				SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
+				//SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
 
 				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 				SBUxMethod.set("dtl-inp-apcBrno", resultVO.apcBrno);//apc 사업자등록번호
-				SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
+				//SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
 				//SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
 
 				SBUxMethod.set("dtl-inp-apcRoadNmAddr", resultVO.apcLoctn);//apc 주소
@@ -836,11 +846,11 @@
 			, sigunCd: SBUxMethod.get("dtl-inp-sigunCd") //시군구 코드 (법정동 코드 앞5자리)
 
 			, ognzType: SBUxMethod.getText("dtl-inp-ognzType") //조직유형 명
-			, ognzTypeCd: SBUxMethod.getValue("dtl-inp-ognzTypeCd") //조직유형 코드
+			//, ognzTypeCd: SBUxMethod.getValue("dtl-inp-ognzTypeCd") //조직유형 코드
 
 			, apcNm: SBUxMethod.get("dtl-inp-apcNm")  //apc명
 			, apcBrno: SBUxMethod.get("dtl-inp-apcBrno")  //apc 사업자등록번호
-			, apcCrno: SBUxMethod.get("dtl-inp-apcCrno")  //apc 법인등록번호
+			//, apcCrno: SBUxMethod.get("dtl-inp-apcCrno")  //apc 법인등록번호
 
 			, apcLoctn: SBUxMethod.get("dtl-inp-apcRoadNmAddr")  //apc 주소
 			, apcLoctnDtl: SBUxMethod.get("dtl-inp-apcRoadNmAddrDtl")  //apc 주소 상세

@@ -16,6 +16,7 @@ public class FcltDataMngVO extends ComVO{
 	private String dataMngType;
 	private String dataMngTypeDtl;
 	private String dataMngYn;
+	private String dataMngEtc;
 
 }
 

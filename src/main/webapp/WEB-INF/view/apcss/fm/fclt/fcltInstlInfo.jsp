@@ -535,11 +535,11 @@
 		for (let i=gridList.length-1; i>-1; i--) {
 			if (gridList[i].checked === "true") {
 				if (gridList[i].addYn == 'N') {
-					gridList[i].rowNum = i+1;
+					gridList[i].rowNum = i+2;
 					delList.push(gridList[i]);
 					delCnt++;
 				}else{
-					grdBizPop.deleteRow(i+1);
+					grdFcltInstlInfo.deleteRow(i+2);//테이블 해더가 2줄이면 +2
 					delCnt++;
 				}
 			}
@@ -547,8 +547,8 @@
 		if(delList.length > 0){
 			let rowStr = "";
 			for (var i = 0; i < delList.length; i++) {
-				rowStr += delList[i].rowNum;
-				if(!delList.length == i+1){
+				rowStr += (delList[i].rowNum-1);
+				if(delList.length != i+1){
 					rowStr += ", ";
 				}
 			}
@@ -556,7 +556,7 @@
 			if(confirm(delMsg)){
 				fn_deleteRsrc(delList);
 				for (var i = 0; i < delList.length; i++) {
-					grdBizPop.deleteRow(delList[i].rowNum);
+					grdFcltInstlInfo.deleteRow(delList[i].rowNum);
 				}
 			}
 			return;
@@ -567,14 +567,23 @@
 			return;
 		}
 	}
-	//수정필요
+
 	async function fn_deleteRsrc(delList){
-		console.log(delList);
-		return;
-		//let postJsonPromise = gfn_postJSON("/pd/bsm/deleteUo.do", delList);
+		//console.log(delList);
+		let targetArr = [];
+
+		for (var i = 0; i < delList.length; i++) {
+			let valArr = {
+					sn : delList[i].sn
+					,apcCd : delList[i].apcCd
+			}
+			targetArr.push(valArr);
+		}
+		let postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInstlInfoList.do", targetArr);
 		let data = await postJsonPromise;
 		try{
-			if(data.result > 0){
+			//console.log(data);
+			if (_.isEqual("S", data.resultStatus)) {
 				alert("삭제 되었습니다.");
 			}else{
 				alert("삭제 도중 오류가 발생 되었습니다.");
@@ -585,6 +594,431 @@
 			}
 			console.error("failed", e.message);
 		}
+	}
+
+	/*	엑셀업로드	*/
+
+	// 엑셀다운로드
+	const fn_getExpColumns = function() {
+		const _columns = [];
+		_columns.push(
+				//{caption: ["고유번호\n(중복값불가)","고유번호\n(중복값불가)"],			ref: 'sn',		type:'input',  width:'100px',    style:'text-align:center'
+					//,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
+				{caption: ["사업연도\n(YYYY\n4자리값으로)","사업연도\n(YYYY\n4자리값으로)"],		ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'
+					,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
+				{caption: ["지원유형\n(정부사업\n시도사업\n시군사업\n자부담)","지원유형\n(정부사업\n시도사업\n시군사업\n자부담)"],		ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
+					,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
+				//{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
+					//,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
+				{caption: ["사업명\n(APC 건립지원사업 ,\n 밭작물공동경영체 육성사업 ,\n 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 ,\n 밭작물공동경영체 육성사업 ,\n 과수거점산지유통센터 등)"],	ref: 'bizNm',		type:'input',  width:'435px',    style:'text-align:center'},
+				{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'120px',    style:'text-align:right'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				{caption: ["투자 사업비(백만원)","지자체(시도)"],		ref: 'lcltExpndCtpv',	type:'input',  width:'120px',    style:'text-align:right'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				{caption: ["투자 사업비(백만원)","지자체(시군구)"],		ref: 'lcltExpndSgg',	type:'input',  width:'120px',    style:'text-align:right'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				{caption: ["투자 사업비(백만원)","자부담"],		ref: 'slfBrdn',		type:'input',  width:'120px',    style:'text-align:right'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+		);
+
+		return _columns;
+	}
+
+	/**
+	 * @name fn_upload
+	 * @description 엑셀 업로드 버튼 클릭
+	 */
+	const fn_upload = async function() {
+
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+
+		if (gfn_isEmpty(apcCd)) {
+			gfn_comAlert("W0001", "APC");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
+
+		popImp.init();
+
+		const impColumns = fn_getExpColumns();
+		//await fn_setSltJson();
+
+		var SBGridProperties = {};
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'free';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = impColumns;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.fixedrowheight=45;
+		popImp.importExcel(
+				"지원사업 Import",
+				SBGridProperties,
+				fn_importExcel,
+				fn_setDataAfterImport,
+				fn_grdImpValueChanged
+			);
+		/*
+		_title,
+		_objSBGridProp,
+		_saveFnc,
+		_mappingFnc,
+		_changedFnc,
+		_callbackFnc
+		*/
+	}
+
+	/**
+	 * @name fn_importExcel
+	 * @description 엑셀 업로드 저장
+	 */
+	const fn_importExcel = async function(_grdImp) {
+
+		const bizList = [];
+
+		let impData = _grdImp.getGridDataAll();
+
+		console.log(impData);
+
+		if (impData.length == 0) {
+			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
+		}
+
+		let iCol = 0;
+
+		//지원사업 리스트 등록할때 필요한 값
+		let apcCd = SBUxMethod.get('srch-inp-apcCd');
+		let apcNm = SBUxMethod.get('srch-inp-apcNm');
+
+		/*
+		let regMsg = "기존데이터를 삭제 처리 하시겠습니까?";
+		if(confirm(regMsg)){
+			//지원사업 리스트 삭제 처리
+			await fn_deleteBizList(apcCd);
+		}
+		*/
+
+		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
+			const rowData = _grdImp.getRowData(iRow);
+			console.log(rowData);
+			// validation check
+			if (gfn_isEmpty(rowData.bizYr)) {
+				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("bizYr"));
+				return;
+			}
+			console.log(rowData.bizYr,rowData.bizYr.length);
+			if (rowData.bizYr.length != 4) {
+				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("bizYr"));
+				return;
+			}
+			if (gfn_isEmpty(rowData.sprtBiz)) {
+				gfn_comAlert("W0002", "지원유형");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("sprtBiz"));
+				return;
+			}
+			if (gfn_isEmpty(rowData.bizNm)) {
+				gfn_comAlert("W0002", "사업명");		//	W0002	{0}을/를 입력하세요.
+				_grdImp.setRow(iRow);
+				_grdImp.setCol(_grdImp.getColRef("bizNm"));
+				return;
+			}
+
+			rowData.apcCd = apcCd;
+			rowData.apcNm = apcNm;
+
+			rowData.prgrsYn = 'Y';//진척도 갱신 유무
+
+			rowData.rowSts = "I";
+
+			//저장할데이터
+			const saveData = {
+				//sn				:rowData.sn
+				bizYr			:rowData.bizYr
+				,apcCd			:rowData.apcCd
+				,apcNm			:rowData.apcNm
+				,sprtBiz		:rowData.sprtBiz
+				,bizNm			:rowData.bizNm
+				//,bizCd			:rowData.bizCd
+				,ne				:rowData.ne
+				,lcltExpndCtpv	:rowData.lcltExpndCtpv
+				,lcltExpndSgg	:rowData.lcltExpndSgg
+				,slfBrdn		:rowData.slfBrdn
+			}
+
+			bizList.push(saveData);
+		}
+
+		if (bizList.length == 0) {
+			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
+		}
+
+		if (!gfn_comConfirm("Q0001", "저장")) {
+			return;
+		}
+
+		if(confirm("기존 데이터를 삭제 하시곘습니까?")){
+			let delList = grdFcltInstlInfo.getGridDataAll();
+			await fn_deleteRsrc(delList);
+		}
+
+
+		let postUrl = "/fm/fclt/insertFcltInstlInfoList.do";
+
+		const postJsonPromise = await gfn_postJSON(postUrl, bizList);
+		const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+				popImp.close();
+				fn_search();
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+		} catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	/**
+	 * @name fn_setDataAfterImport
+	 * @description afterimportexcel 이벤트
+	 */
+	const fn_setDataAfterImport = function(_grdImp) {
+		//console.log("fn_setDataAfterImport");
+		//console.log(_grdImp);
+		let impData = _grdImp.getGridDataAll();
+
+		const today = gfn_dateToYmd(new Date());
+
+		const abnormalList = [];
+
+		let falseCnt = 0;
+
+		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
+
+			const rowData = _grdImp.getRowData(iRow+1, false);	// deep copy
+			console.log(rowData);
+			if(typeof rowData == "undefined" || rowData == null || rowData == "" ){
+				continue;
+			}
+			//숫자 4자리 확인
+			const regex1 = /^\d{1,4}$/;
+			//숫자 18자리 확인
+			const regex2 = /^\d{1,18}$/;
+
+			//순번 확인
+			/*
+			let snVal = rowData.sn;
+			if(!gfn_isEmpty(snVal)){
+				rowData.sn = fn_findMatchingValue(snVal,regex2);
+			}
+			*/
+			//_grdImp.setCellStyle('background-color', iRow, nCol, iRow, nCol, 'lightpink');
+			//_grdImp.getColRef("bizYr")
+			//사업년도 확인
+			let bizYrVal = rowData.bizYr;
+			if(!gfn_isEmpty(bizYrVal)){
+				rowData.bizYr = fn_findMatchingValue(bizYrVal,regex2);
+			}
+			//년도값 길이가 4가 아닌경우 색표기
+			if(rowData.bizYr.length != 4){
+				let nCol = _grdImp.getColRef("bizYr");
+				_grdImp.setCellStyle('background-color', iRow+1, nCol, iRow+1, nCol, 'lightpink');
+				falseCnt++;
+			}
+
+
+			//지원 유형 확인
+			let sprtBizVal = rowData.sprtBiz;
+			if(!gfn_isEmpty(sprtBizVal)){
+				let valueArr = jsonGrdComBizSprtCd.filter((item) => item.value == sprtBizVal);
+				let textArr = jsonGrdComBizSprtCd.filter((item) => item.text == sprtBizVal);
+				//let labelArr = jsonGrdComBizSprtCd.filter((item) => item.label == sprtBizVal);
+				if (valueArr.length > 0){
+
+				}else if (textArr.length > 0){
+					rowData.sprtBiz = textArr[0].value;
+				}else{
+					rowData.sprtBiz = null;
+				}
+			}
+
+			//지원 유형이 비어있는경우 색표기
+			if(gfn_isEmpty(rowData.sprtBiz)){
+				let nCol = _grdImp.getColRef("sprtBiz");
+				_grdImp.setCellStyle('background-color', iRow+1, nCol, iRow+1, nCol, 'lightpink');
+				falseCnt++;
+			}
+
+			//사업명이 비어있는경우 색표기
+			if(gfn_isEmpty(rowData.bizNm)){
+				let nCol = _grdImp.getColRef("bizNm");
+				_grdImp.setCellStyle('background-color', iRow+1, nCol, iRow+1, nCol, 'lightpink');
+				falseCnt++;
+			}
+
+			//국고 확인
+			let neVal = rowData.ne;
+			if(!gfn_isEmpty(neVal)){
+				rowData.ne = fn_findMatchingValue(neVal,regex2);
+			}
+
+			//지자체(시도) 확인
+			let lcltExpndCtpvVal = rowData.lcltExpndCtpv;
+			if(!gfn_isEmpty(lcltExpndCtpvVal)){
+				rowData.lcltExpndCtpv = fn_findMatchingValue(lcltExpndCtpvVal,regex2);
+			}
+
+			//지자체(시군구) 확인
+			let lcltExpndSggVal = rowData.lcltExpndSgg;
+			if(!gfn_isEmpty(lcltExpndSggVal)){
+				rowData.lcltExpndSgg = fn_findMatchingValue(lcltExpndSggVal,regex2);
+			}
+
+			//자부담 확인
+			let slfBrdnVal = rowData.slfBrdn;
+			if(!gfn_isEmpty(slfBrdnVal)){
+				rowData.slfBrdn = fn_findMatchingValue(slfBrdnVal,regex2);
+			}
+
+			_grdImp.refresh({"combo":true, "focus":false});
+		}
+		_grdImp.refresh();
+	}
+
+	function fn_findMatchingValue(value, regex) {
+		// 입력 값이 문자열이 아닌 경우 문자열로 변환
+		const strValue = value.toString();
+
+		// 정규 표현식 실행
+		const match = strValue.match(regex);
+		//console.log(match);
+
+		let resultVal = match ? match[0] : null;
+
+		if(match == null && typeof value == "number"){
+			resultVal = Math.floor(value).toString();
+		}
+
+		// 일치하는 값이 있으면 반환, 없으면 null 반환
+		return resultVal;
+	}
+
+	/**
+     * @name fn_grdImpValueChanged
+     * @description import 변경 event 처리
+     * @function
+     */
+	const fn_grdImpValueChanged = function(_grdImp) {
+		//valuechanged 이벤트
+		console.log("fn_grdImpValueChanged");
+		console.log(_grdImp);
+		var nRow = _grdImp.getRow();
+		var nCol = _grdImp.getCol();
+	}
+
+	const fn_createExpGrid = async function(_expObjList) {
+		_expObjList.forEach((exp, idx) => {
+			var SBGridProperties = {};
+			SBGridProperties.parentid = exp.parentid;
+			SBGridProperties.id = exp.id;
+			SBGridProperties.jsonref = exp.jsonref;
+			SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			SBGridProperties.selectmode = 'byrow';
+			SBGridProperties.extendlastcol = 'none';
+			SBGridProperties.columns = exp.columns;
+			SBGridProperties.fixedrowheight=30;
+			exp.sbGrid = _SBGrid.create(SBGridProperties);
+			if(jsonExpUpload.length == 0){
+				exp.sbGrid.addRow(true);
+			}
+		});
+	}
+
+	/*	엑셀 서식 받기	*/
+
+	var grdExpUpload;			// 엑셀업로드 서식 그리드
+	var jsonExpUpload 			= [];	// 엑셀업로드 서식 데이터
+
+	//서식 다운로드
+	const fn_dwnld = async function(dataChk){
+
+		if(dataChk == "Y"){
+			jsonExpUpload = jsonFcltInstlInfo;
+		}
+
+		const expColumns = fn_getExpColumns();
+		const expObjList = [
+
+			{
+				sbGrid: grdExpUpload,
+				parentid: "sbexp-area-grdExpUpload",
+				id: "grdExpUpload",
+				jsonref: "jsonExpUpload",
+				columns: expColumns,
+				sheetName: "지원사업 리스트",
+				title: "",
+				unit: ""
+			}
+
+		];
+
+		await fn_createExpGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
+		let fileName = "지원사업 리스트 엑셀 업로드 양식.xlsx"
+
+		gfn_exportExcelMulti(fileName, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
+	}
+
+	const gfn_exportExcelMulti = function(_fileName, _objList) {
+
+		// 엑셀 정보를 담는 변수
+		var objExcelInfo = {
+			strFileName : _fileName,
+			strAction : "/am/excel/saveMultiExcel",
+			bIsStyle: true,
+			bIsMerge: true,
+			bUseFormat: false,
+			bIncludeData: true,
+			bUseCompress: false,
+			bSaveComboLabel: true
+		};
+
+		var dataList = [];
+		var sheetNameList = [];
+		var titleList = [];
+		var unitList = [];
+		var arrAdditionalData = [];
+
+		// 넘어온 오브젝트를 이용한 forEach문으로 타이틀리스트에 title을 넣고 unitList에 unit을 넣는 포이치문
+		_objList.forEach((item, index) => {
+			sheetNameList.push(item.sheetName);
+			titleList.push(item.title);
+			unitList.push(item.unit);
+
+			if (index > 0) {
+				var data = item.sbGrid.exportExcel(objExcelInfo, "return");
+				dataList.push(data);
+			}
+		});
+
+		arrAdditionalData.push(
+			{"name": "arrSheetData", "value": JSON.stringify(dataList)},
+			{"name": "arrSheetName", "value": JSON.stringify(sheetNameList)},
+			{"name": "arrTitle", "value": JSON.stringify(titleList)},
+			{"name": "arrUnit", "value": JSON.stringify(unitList)}
+		);
+
+		objExcelInfo.arrAdditionalData = arrAdditionalData;
+		_objList[0].sbGrid.exportExcel(objExcelInfo);
 	}
 
 
