@@ -65,7 +65,8 @@ public class LoginVO implements Serializable{
 	private String endLgnDt;
 	private String endLgnIp;
 	private String brno;
-	
+	private String crno;
+
 	private String lgnRslt;
 	private String delYn;
 
@@ -76,7 +77,7 @@ public class LoginVO implements Serializable{
 	private String loginMessage;
 
 	private String frcdExpryYn;
-	
+
 	private String refreshToken;
 
 	private String clntCd;
@@ -88,7 +89,7 @@ public class LoginVO implements Serializable{
 	private String hrmEvlRole;
 	private String hrmPayMngrYn;
 	private String acntgMngrYn;
-	
+
 	/** 사용자 주소 */
 	private String addr;
 
@@ -97,22 +98,22 @@ public class LoginVO implements Serializable{
 
 	/** 통합조직ID **/
 	private String untyOgnzId;
-	
+
 	/** 통합조직유형 */
 	private String untyOgnzType;
-	
+
 	/** 통합권한유형 */
 	private String untyAuthrtType;
-	
+
 	/** 통합권한관리여부 */
 	private String untyAuthrtMngYn;
-	
+
 	/** 시도 */
 	private String ctpv;
 	/** 시군구 */
 	private String sgg;
-	
-	
+
+
 	public String getUntyOgnzId() {
 		return untyOgnzId;
 	}
@@ -130,7 +131,7 @@ public class LoginVO implements Serializable{
 	}
 	public void setUntyAuthrtType(String untyAuthrtType) {
 		this.untyAuthrtType = untyAuthrtType;
-	}	
+	}
 	public String getUntyAuthrtMngYn() {
 		return untyAuthrtMngYn;
 	}
@@ -138,7 +139,7 @@ public class LoginVO implements Serializable{
 		this.untyAuthrtMngYn = untyAuthrtMngYn;
 	}
 
-	
+
 	public String getFrmerSn() {
 		return frmerSn;
 	}
@@ -159,6 +160,12 @@ public class LoginVO implements Serializable{
 	}
 	public void setBrno(String brno) {
 		this.brno = brno;
+	}
+	public String getCrno() {
+		return crno;
+	}
+	public void setCrno(String crno) {
+		this.crno = crno;
 	}
 	/**
 	 * id attribute 를 리턴한다.
@@ -531,7 +538,7 @@ public class LoginVO implements Serializable{
 	public void setAcntgMngrYn(String acntgMngrYn) {
 		this.acntgMngrYn = acntgMngrYn;
 	}
-	
+
 	//------------------------------------------------------
 	/** 경영관리 */
 	private String maBaseCurrCode;		//	기본통화코드
@@ -595,7 +602,7 @@ public class LoginVO implements Serializable{
 	private String maLanguageID;		//	언어코드
 	private String maNTSBIZURL;			//	국세청 사업자등록현황 전송
 	private String maPositionCode;		//	직위코드
-	private String maProxyEmpCode;		//	
+	private String maProxyEmpCode;		//
 	private String maScmHome;			//	scm홈
 	private String maSiteCode;			//	사업장코드
 	private String maSiteName;			//	사업장명
@@ -605,7 +612,7 @@ public class LoginVO implements Serializable{
 	private String maTaxSiteName;		//	신고사업장명
 	private String maUserID;			//	사용자ID
 	private String maUserName;			//	사용자Name
-	
+
 	public String getMaBaseCurrCode() {
 		return maBaseCurrCode;
 	}
