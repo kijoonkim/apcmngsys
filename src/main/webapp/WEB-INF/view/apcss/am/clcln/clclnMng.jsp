@@ -175,7 +175,7 @@
                         </li>
                     </ul>
                 </div>
-                <div id="sb-area-1"></div>
+                <div id="sb-area-1" style="display:flex;flex-wrap: wrap;"></div>
                 <div id="sb-area-2"></div>
                 <div id="sb-area-3"></div>
                 <div id="sb-area-4"></div>
@@ -190,12 +190,119 @@
     </div>
 </body>
 <script type="text/javascript">
+    var grdGdsInvntr;
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        fn_createSmptPrfmncGrid();
+        fn_createSmptPrfmncGrid2();
+        fn_createSmptPrfmncGrid3();
+        fn_createSmptPrfmncGrid4();
+    });
     /**
      * @name fn_choicePrdcr
      * @description 생산자 선택 popup 호출
      */
     const fn_choicePrdcr = function() {
         popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
+    }
+    const fn_createSmptPrfmncGrid = async function() {
+        var SBGridPropertiesGdsInvntr = {};
+        SBGridPropertiesGdsInvntr.parentid = 'sb-area-1';
+        SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr';
+        SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
+        SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
+        SBGridPropertiesGdsInvntr.columns = [
+            {caption: ['정산년도','정산년도'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['차수','차수'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['정산구분','정산구분'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['정산분류','정산분류'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['지역','지역'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['주소','주소'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['농가명','농가명'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['연락처','연락처'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','1'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','2'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','3'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','4'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','5'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','6'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','7'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['종자','8'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+        ]
+        grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
+    }
+    const fn_createSmptPrfmncGrid2 = async function() {
+        var SBGridPropertiesGdsInvntr = {};
+        SBGridPropertiesGdsInvntr.parentid = 'sb-area-2';
+        SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr2';
+        SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
+        SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
+        SBGridPropertiesGdsInvntr.columns = [
+            {caption: ['정식면적<br>(평)','정식면적<br>(평)'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['1등급','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['1등급','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['2등급','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['2등급','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['소구','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['소구','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['비규격','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['비규격','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 1등급','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 1등급','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 2등급','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 2등급','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 소구','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 소구','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 기형','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['적색 기형','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['합계','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['합계','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+
+        ]
+        grdGdsInvntr2 = _SBGrid.create(SBGridPropertiesGdsInvntr);
+    }
+    const fn_createSmptPrfmncGrid3 = async function() {
+        var SBGridPropertiesGdsInvntr = {};
+        SBGridPropertiesGdsInvntr.parentid = 'sb-area-3';
+        SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr3';
+        SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
+        SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
+        SBGridPropertiesGdsInvntr.columns = [
+            {caption: ['구가지급금','단가'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['구가지급금','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['농협<br>수수료','농협<br>수수료'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['계약금','중지대'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['계약금','현금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['계약금','계'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['농자재','농자재'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['농기구<br>구입<br>지원금','농기구<br>구입<br>지원금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['콩<br>적자','콩<br>적자금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['양파<br>적자','양파<br>적자금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['운반비','운반비'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['양파<br>의무<br>자조금','양파<br>의무<br>자조금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['백<br>대여료','백<br>대여료'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['작목반<br>자조금','작목반<br>자조금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['백 미반납','수량'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['백 미반납','금액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['중도금','중도금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['수출<br>물류비','수출<br>물류비'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['공제계','공제계'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+        ]
+        grdGdsInvntr3 = _SBGrid.create(SBGridPropertiesGdsInvntr);
+    }
+    const fn_createSmptPrfmncGrid4 = async function() {
+        var SBGridPropertiesGdsInvntr = {};
+        SBGridPropertiesGdsInvntr.parentid = 'sb-area-4';
+        SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr4';
+        SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
+        SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
+        SBGridPropertiesGdsInvntr.columns = [
+            {caption: ['종자금<br>선입금','종자금<br>선입금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['선입금','선입금'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['최종지급액','최종지급액'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['계좌번호','계좌번호'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+            {caption: ['비고','비고'], 			ref: 'itemNm', 			width: '80px', 	type: 'output', style: 'text-align:center'},
+        ]
+        grdGdsInvntr4 = _SBGrid.create(SBGridPropertiesGdsInvntr);
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
