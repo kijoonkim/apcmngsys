@@ -384,6 +384,7 @@ public class SpmtPrfmncController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
+		resultMap.put(ComConstants.PROP_RESULT_MAP,spmtPrfmncComList.get(0));
 		return getSuccessResponseEntity(resultMap);
 	}
 	@PostMapping(value = "/am/spmt/selectSpmtPrfmncInvntList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })

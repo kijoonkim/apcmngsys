@@ -80,10 +80,10 @@
         </div>
         <div style="margin-left: auto;padding-top: 0px;display: flex;justify-content: flex-start;" class="box-header">
             <div style="margin-right: auto;">
-                <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장목록" class="btn btn-primary btn-mbl" onclick="fn_selectSpmtList"></sbux-button>
+                <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장" class="btn btn-primary btn-mbl" onclick="fn_docSpmt"></sbux-button>
+<%--                <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장목록" class="btn btn-primary btn-mbl" onclick="fn_selectSpmtList"></sbux-button>--%>
                 <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
-                <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장발행" class="btn btn-primary btn-mbl" onclick="fn_docSpmt()"></sbux-button>
                 <%--                <sbux-button id="fullScreen" name="fullScreen" uitype="normal" text="전체화면" class="btn btn-sm btn-primary btn-mbl" onclick="fn_fullScreen"></sbux-button>--%>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
@@ -224,6 +224,8 @@
                                 <label class="grdLable" for="grd3">
                                     <span class="radio-label">보통</span>
                                 </label>
+<%--                                <sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text="재고량" style="font-size: 20px;font-weight: bold">--%>
+<%--                                </sbux-label><p id="invtCnt" style="font-weight: bold; font-size: 20px"></p>--%>
                             </div>
 
                         </td>
@@ -286,6 +288,7 @@
         </div>
     </div>
 </section>
+<div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
 <script type="text/javascript">
 
@@ -296,6 +299,9 @@
     var jsonComVrty = [];
     var jsonComCnpt = [];
     var jsonComSpcfctCd = [];
+    var jsonGdsGrd = [];
+    /** 재고 JSON **/
+    var jsonGdsInvt = [];
 
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -315,7 +321,7 @@
         let rst = await Promise.all([
             gfn_setApcItemSBSelect('srch-slt-itemCd',jsonComItem,gv_selectedApcCd),		// 품목
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd',jsonComVrty,gv_selectedApcCd),		// 품종
-            gfn_setCpntRgnSBSelect('srch-slt-cnptCd',jsonComCnpt,gv_selectedApcCd)      // 거래처
+            gfn_setCpntRgnSBSelect('srch-slt-cnptCd',jsonComCnpt,gv_selectedApcCd),      // 거래처
             ]);
     }
 
@@ -345,6 +351,7 @@
         let grd = $('input[name="grd"]:checked').attr("grdCd");
         let cnt = SBUxMethod.get('btn_total');
         let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");
+        let cnptCd = SBUxMethod.get("srch-slt-cnptCd");
 
         if(gfn_isEmpty(itemCd)){
             gfn_comAlert("W0005","품종");
@@ -380,6 +387,8 @@
         }else{
             inptJson.push({
                 apcCd : gv_selectedApcCd,
+                blwInvntrAprv : 'Y',
+                cnptCd : cnptCd,
                 itemCd : itemCd,
                 itemNm : itemNm,
                 vrtyCd : vrtyCd,
@@ -390,12 +399,12 @@
                 spmtYmd : spmtYmd
             });
         }
-        console.log(inptJson,'inptJson');
         await fn_getTableRow();
 
         if(!document.querySelector("#srch-chk-totalCnt").checked){
             fn_cntReset();
         }
+
     }
 
     const fn_getTableRow = function(){
@@ -428,17 +437,105 @@
     }
 
     const fn_save = async function(){
-        console.log(inptJson);
         if(inptJson.length <= 0){
             gfn_comAlert("W0005","등록 대상");
             return;
         }
+        let spmtPrfmncList = [];
+        /** 각각 등급별 수량 쪼개기 **/
+        inptJson.forEach(el => {
+            let idx = 0;
+            for(let key in el){
+                if (key === "01" || key === "02" || key === "03") {
+                    spmtPrfmncList.push({
+                        gdsGrd: key,
+                        spmtQntt: el[key],
+                        spmtSn: idx,
+                        ...el
+                    });
+                }
+            }
+        });
+        spmtPrfmncList.forEach(function(item,idx){
+           item.spmtSn = idx;
+        });
+        let insertList = [];
+        insertList.push({"spmtPrfmncList" : spmtPrfmncList});
+
         try{
-            let postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do",inptJson);
+            let postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncDsctn.do",insertList);
             let data = await postJsonPromise;
-            console.log(data);
+
+            gfn_comAlert("I0001");
+            await fn_reset();
+            let returnSpmtNo = data.resultMap.spmtPrfmncList[0].spmtno;
+
+            const rptUrl = await gfn_getReportUrl('0503', 'DT_DOC');
+            console.log(rptUrl,"찾을수있어?");
+            if(document.querySelector('#srch-chk-autoPrint').checked){
+                if(!document.querySelector('#srch-chk-exePrint').checked){
+                    await gfn_exeDirectPrint(rptUrl, {
+                        apcCd: gv_selectedApcCd,
+                        spmtno: returnSpmtNo,
+                        element: 'div-rpt-clipReportPrint'
+                    });
+                }else{
+                    await gfn_DirectPrintClipReport(rptUrl, {
+                        apcCd: gv_selectedApcCd,
+                        spmtno: returnSpmtNo,
+                        element: 'div-rpt-clipReportPrint'
+                    });
+                }
+            }else{
+                // gfn_popClipReport("송품장",rptUrl,{apcCd: gv_selectedApcCd, spmtno: returnSpmtNo});
+            }
 
         }catch (e){
+            console.error(e);
+        }
+    }
+
+    const fn_reset = async function(){
+        inptJson.length = 0;
+        await fn_getTableRow();
+
+        await SBUxMethod.set("srch-slt-spcfctCd",null);
+        $("#btn_total").val("");
+        $('input[type="radio"][name="grd"]').prop('checked', false);
+
+        if (!$("#srch-chk-cnptCd").is(":checked")) {
+           await SBUxMethod.set("srch-slt-cnptCd",null);
+        }
+
+        if (!$("#srch-chk-fxngItem").is(":checked")) {
+            await SBUxMethod.set("srch-slt-itemCd",null);
+            await SBUxMethod.set("srch-slt-vrtyCd",null);
+        }
+    }
+
+    const fn_search = async function(){
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+        let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
+        let gdsGrd = $('input[name="grd"]:checked').attr("grdCd");
+
+        try{
+            const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
+                apcCd			: gv_selectedApcCd,
+                itemCd			: itemCd,
+                vrtyCd			: vrtyCd,
+                spcfctCd		: spcfctCd,
+                gdsGrd          : gdsGrd
+            });
+            const data = await postJsonPromise;
+            let totalCnt = 0;
+
+            data.resultList.forEach(function(item){
+                totalCnt += item.pckgQntt;
+            });
+            $("#invtCnt").text(totalCnt);
+
+        }catch (e) {
             console.error(e);
         }
     }
