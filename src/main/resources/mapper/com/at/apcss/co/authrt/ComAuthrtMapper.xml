@@ -974,6 +974,9 @@
 					   			  FROM TB_COM_USER_SYS_AUTH X
 					   			 WHERE X.USER_ID = #{userId}
 					   			   AND X.APRV_YN = 'Y'
+					   			UNION ALL
+					   			SELECT 'CO'
+					   			  FROM DUAL
 					   		)
 						)
 					   		
@@ -1068,6 +1071,9 @@
 					   			  FROM TB_COM_USER_SYS_AUTH X
 					   			 WHERE X.USER_ID = #{userId}
 					   			   AND X.APRV_YN = 'Y'
+					   			UNION ALL
+					   			SELECT 'CO'
+					   			  FROM DUAL
 					   		)
 						)
 				 ) MN
