@@ -938,6 +938,9 @@ const gfnma_getBrowser = function () {
  */
 const validateRequired = function () {
 	let requiredFields = document.querySelectorAll('[aria-required="true"]');
+	if(target) {
+		requiredFields = $("#"+target).find('[aria-required="true"]');
+	}
 	let allValid = true;
 
 	requiredFields.forEach(field => {
@@ -946,7 +949,8 @@ const validateRequired = function () {
 				allValid = false;
 			}
 		} else if (field.tagName === 'BUTTON') {
-			if (!field.getAttribute('data-selected-value')) {
+			alert(field.getAttribute('cu-label'))
+			if (!field.getAttribute('cu-label')) {
 				allValid = false;
 			}
 		}
