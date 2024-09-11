@@ -11,4 +11,8 @@ public class ApcSelectPopupVO extends ComVO{
 
 	private String apcCd;//apc코드
 	private String apcNm;//apc명
+
+	private String userId;
+	private String userType;
+
 }

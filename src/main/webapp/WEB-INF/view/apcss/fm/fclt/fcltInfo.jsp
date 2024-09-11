@@ -43,7 +43,9 @@
 				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 시설 장비 인력 현황 -->
 			</div>
 			<div style="margin-left: auto;">
+				<!--
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+				-->
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>

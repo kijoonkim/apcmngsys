@@ -25,6 +25,9 @@ public class FcltApcVO extends ComVO{
 	private String itemCd3;
 	private String itemNm3;
 
+	private String userType;
+	private String userId;
+
 }
 
 
