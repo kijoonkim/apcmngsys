@@ -222,6 +222,9 @@ public class FcltOperInfoController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltApcVO> resultList = new ArrayList<>();
 
+		fcltApcVO.setUserId(getUserId());//유저아이디
+		fcltApcVO.setUserType(getUserType());//유저권한
+
 		try {
 			resultList = fcltOperInfoService.selectApcList(fcltApcVO);
 
