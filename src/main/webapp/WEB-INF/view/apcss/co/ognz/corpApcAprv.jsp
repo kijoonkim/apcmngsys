@@ -426,10 +426,6 @@
 	        	type:'output',  	
 	        	width:'200px', 
 	        	style:'text-align:left',
-                format : {
-                	type:'string',
-                	rule:'000-0000-0000'
-                }
 	        },
 	        {
 	        	caption: ["전화번호"],		
@@ -437,10 +433,6 @@
 	        	type:'output',  	
 	        	width:'200px', 
 	        	style:'text-align:left',
-                format : {
-                	type:'string',
-                	rule:'000-0000-0000'
-                }
 	        },
 	        {
 	        	caption: ["이메일주소"],		

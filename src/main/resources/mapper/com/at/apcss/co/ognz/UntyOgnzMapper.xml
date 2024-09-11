@@ -555,7 +555,9 @@
 				, CU.JBPS			AS JBPS
 				, CU.MBL_TELNO		AS MBL_TELNO
 				, CU.TELNO			AS TELNO
+				, CU.CO_TELNO		AS CO_TELNO
 				, CU.EML			AS EML
+				
 			  FROM TB_APC_OGNZ_INFO OI
 			  
 			  JOIN TB_UNTY_OGNZ_APC OA
@@ -566,15 +568,14 @@
 			    ON AI.APC_CD = OA.APC_CD
 			   AND AI.DEL_YN = 'N'
 			
-			  JOIN TB_COM_USER CU
+			  LEFT JOIN TB_COM_UNTY_MNGR UM
+			    ON UM.UNTY_OGNZ_CD = OA.UNTY_OGNZ_ID
+			   AND UM.APRV_YN = 'Y'
+			
+			  LEFT JOIN TB_COM_USER CU
 			    ON CU.TYPE_CD = '1'
 			   AND CU.UNTY_OGNZ_CD = OI.OGNZ_CD
-			   
-			  JOIN TB_COM_USER_SYS_AUTH SA
-			    ON SA.SYS_ID = 'AM'
-			   AND SA.USER_ID = CU.USER_ID
-			   AND SA.DEL_YN = 'N'
-			   AND SA.APLY_YN = 'Y'
+			   AND CU.USER_ID = UM.USER_ID
 			   
 			 WHERE OI.DEL_YN = 'N'
     	]]>
@@ -603,7 +604,7 @@
 		</if>
 		
     	<![CDATA[
-    		 ORDER BY OGNZ_NM, APC_NM, USER_NM, USER_ID
+    		 ORDER BY OGNZ_CD, OGNZ_NM, APC_NM, USER_NM, USER_ID
     		  ) pt0
     	]]>
 		<!-- Start 페이징 -->

@@ -49,6 +49,7 @@ public class UntyOgnzVO extends ComVO {
 	private String jbps;
 	private String mblTelno;
 	private String telno;
+	private String coTelno;
 	private String eml;
 	
 	

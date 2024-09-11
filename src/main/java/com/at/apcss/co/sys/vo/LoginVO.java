@@ -104,7 +104,7 @@ public class LoginVO implements Serializable{
 	
 	/** 권한관리자여부 */
 	private String authrtMngrYn;
-	
+		
 	/** 통합조직ID */
 	private String untyOgnzId;
 
