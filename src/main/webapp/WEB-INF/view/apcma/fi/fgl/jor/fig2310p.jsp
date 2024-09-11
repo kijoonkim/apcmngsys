@@ -1438,7 +1438,7 @@
 
         const postJsonPromise = gfn_postJSON("/fi/far/rec/getExpectedPayDate.do", {
             getType: 'json',
-            workType: 'Q2',
+            workType: wType,
             cv_count: '1',
             params: gfnma_objectToString(paramObj)
         });
