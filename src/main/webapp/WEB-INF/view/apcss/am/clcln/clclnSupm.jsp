@@ -108,7 +108,7 @@
                       class="form-control input-sm input-sm-ast inpt_data_reqed"
                       style="height: 28px"
               ></sbux-datepicker>
-              <sbux-spinner id="spinner_normal" name="spinner_normal"
+              <sbux-spinner id="clclnNo" name="clclnNo"
                             wrap-style="flex-basis:30%"
                             uitype="normal"  number-min-value="1"
                             number-max-value="10" number-suffix-text="차수"
@@ -127,7 +127,8 @@
                       unselected-text="전체"
                       class="form-control input-sm"
                       style="flex-basis: 50%"
-                      jsondata-ref=""
+                      jsondata-ref="comboData1"
+                      jsondata-text="label"
               ></sbux-select>
             </div>
           </td>
@@ -141,7 +142,8 @@
                       unselected-text="전체"
                       class="form-control input-sm"
                       style="flex-basis: 50%"
-                      jsondata-ref=""
+                      jsondata-ref="comboData2"
+                      jsondata-text="label"
               ></sbux-select>
             </div>
           </td>
@@ -149,7 +151,7 @@
         </tbody>
       </table>
 
-      <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="webacc" is-scrollable="false"
+      <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
                  title-target-id-array="종자단가^등급단가"
                  title-text-array="종자단가^등급단가"
                  title-style-array="{margin-right: 5px;width: 8vw;
@@ -166,7 +168,7 @@
               </li>
             </ul>
           </div>
-          <div id="sb-area-종자단가"></div>
+          <div id="sb-area-종자단가" style="height: 500px"></div>
         </div>
         <div id="등급단가">
           <div class="ad_tbl_top">
@@ -176,7 +178,7 @@
               </li>
             </ul>
           </div>
-          <div id="sb-area-등급단가"></div>
+          <div id="sb-area-등급단가" style="height: 500px"></div>
         </div>
       </div>
 
@@ -190,6 +192,50 @@
 <script type="text/javascript">
   var grdGdsInvntr;
   var grdGdsInvntr1;
+  var jsonGrdGdsInvntr;
+  var jsonGrdGdsInvntr1;
+
+
+
+  var comboData1 = [
+    {label:"만생",value:"만생"},
+    {label:"조생",value:"조생"},
+  ]
+  var comboData2 = [
+    {label:"관내",value:"관내"},
+    {label:"구미하우스",value:"구미하우스"},
+    {label:"전라도",value:"전라도"},
+  ]
+  var comboData3 = [
+    {label:"뉴마르스",value:"뉴마르스"},
+    {label:"카타마루",value:"카타마루"},
+    {label:"케드스타",value:"케드스타"},
+    {label:"페가수스",value:"페가수스"},
+    {label:"에이스",value:"에이스"},
+    {label:"체인지업",value:"체인지업"},
+    {label:"조생에이스",value:"조생에이스"},
+    {label:"하이키타플러스",value:"하이키타플러스"},
+    {label:"썬파워",value:"썬파워"},
+    {label:"옥풍",value:"옥풍"},
+    {label:"쌩쌩볼",value:"쌩쌩볼"},
+    {label:"케이파워",value:"케이파워"},
+    {label:"젤빠른",value:"젤빠른"},
+    {label:"신나는",value:"신나는"},
+    {label:"하마에미",value:"하마에미"},
+    {label:"하미노타키라",value:"하미노타키라"},
+  ]
+  var comboData4 = [
+      {label:"1등급",value:"1등급"},
+      {label:"2등급",value:"2등급"},
+      {label:"소구",value:"소구"},
+      {label:"기형",value:"기형"},
+      {label:"적색 1등급",value:"적색 1등급"},
+      {label:"적색 2등급",value:"적색 2등급"},
+      {label:"적색 소구",value:"적색 소구"},
+      {label:"적색 기형",value:"적색 기형"},
+  ]
+
+
   window.addEventListener('DOMContentLoaded', async function(e) {
     fn_init();
 
@@ -201,7 +247,7 @@
     var SBGridPropertiesGdsInvntr = {};
     SBGridPropertiesGdsInvntr.parentid = 'sb-area-종자단가';
     SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr';
-    SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
+    SBGridPropertiesGdsInvntr.jsonref = 'jsonGrdGdsInvntr';
     SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
     SBGridPropertiesGdsInvntr.columns = [
       {caption: ["처리"],
@@ -212,13 +258,13 @@
         renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
             return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
         }},
-      {caption: '정산년도',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '차수',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '정산구분',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '정산분류',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '종자명',ref: 'itemNm',width: '15%',type: 'output', style: 'text-align:center'},
-      {caption: '단가',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '비고',ref: 'itemNm',width: '40%',type: 'output', style: 'text-align:center'},
+      {caption: '정산년도',ref: 'clclnY',width: '8%',type: 'output', style: 'text-align:center'},
+      {caption: '차수',ref: 'clclnNo',width: '8%',type: 'output', style: 'text-align:center'},
+      {caption: '정산구분',ref: 'crtrCd',width: '8%',type: 'combo',typeinfo : {ref:'comboData1', label:'label', value:'value', oneclickedit: true}, style: 'text-align:center'},
+      {caption: '정산분류',ref: 'crtrCd1',width: '8%',type: 'combo',typeinfo : {ref:'comboData2', label:'label', value:'value', oneclickedit: true}, style: 'text-align:center'},
+      {caption: '종자명',ref: 'crtrNm',width: '15%',type: 'combo',typeinfo : {ref:'comboData3', label:'label', value:'value', oneclickedit: true}, style: 'text-align:center'},
+      {caption: '단가',ref: 'pay',width: '8%',type: 'output', style: 'text-align:center'},
+      {caption: '비고',ref: 'rmrk',width: '40%',type: 'output', style: 'text-align:center'},
     ]
     grdGdsInvntr = _SBGrid.create(SBGridPropertiesGdsInvntr);
   }
@@ -227,7 +273,7 @@
     var SBGridPropertiesGdsInvntr = {};
     SBGridPropertiesGdsInvntr.parentid = 'sb-area-등급단가';
     SBGridPropertiesGdsInvntr.id = 'grdGdsInvntr1';
-    SBGridPropertiesGdsInvntr.jsonref = 'jsonGdsInvntr';
+    SBGridPropertiesGdsInvntr.jsonref = 'jsonGrdGdsInvntr1';
     SBGridPropertiesGdsInvntr.emptyrecords = '데이터가 없습니다.';
     SBGridPropertiesGdsInvntr.columns = [
       {caption: ["처리"],
@@ -238,13 +284,13 @@
         renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
           return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
         }},
-      {caption: '정산년도',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '차수',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '정산구분',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '정산분류',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '입고등급',ref: 'itemNm',width: '15%',type: 'output', style: 'text-align:center'},
-      {caption: '단가',ref: 'itemNm',width: '8%',type: 'output', style: 'text-align:center'},
-      {caption: '비고',ref: 'itemNm',width: '40%',type: 'output', style: 'text-align:center'},
+      {caption: '정산년도',ref: 'clclnY',width: '8%',type: 'output', style: 'text-align:center'},
+      {caption: '차수',ref: 'clclnNo',width: '8%',type: 'output', style: 'text-align:center'},
+      {caption: '정산구분',ref: 'crtrCd',width: '8%',type : 'combo',typeinfo : {ref:'comboData1', label:'label', value:'value', oneclickedit: true}, style: 'text-align:center'},
+      {caption: '정산분류',ref: 'crtrCd1',width: '8%',type: 'combo',typeinfo : {ref:'comboData2', label:'label', value:'value', oneclickedit: true}, style: 'text-align:center'},
+      {caption: '입고등급',ref: 'crtrNm',width: '15%',type: 'combo',typeinfo : {ref:'comboData4', label:'label', value:'value', oneclickedit: true}, style: 'text-align:center'},
+      {caption: '단가',ref: 'pay',width: '8%',type: 'output', style: 'text-align:center'},
+      {caption: '비고',ref: 'rmrk',width: '40%',type: 'output', style: 'text-align:center'},
     ]
     grdGdsInvntr1 = _SBGrid.create(SBGridPropertiesGdsInvntr);
   }
@@ -252,6 +298,208 @@
 
   const fn_init = async function(){
     SBUxMethod.set("srch-dtp-clclnY",gfn_dateToYear(new Date()));
+    SBUxMethod.set("clclnNo","1");
+  }
+  const fn_search = async function(){
+    jsonGrdGdsInvntr = [
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "만생",
+        crtrCd1 : "관내",
+        crtrNm : "뉴마르스",
+        pay : "120,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "만생",
+        crtrCd1 : "관내",
+        crtrNm : "카타마루",
+        pay : "120,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "만생",
+        crtrCd1 : "관내",
+        crtrNm : "케드스타",
+        pay : "100,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "만생",
+        crtrCd1 : "관내",
+        crtrNm : "페가수스",
+        pay : "105,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "구미하우스",
+        crtrNm : "에이스",
+        pay : "90,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "구미하우스",
+        crtrNm : "체인지업",
+        pay : "125,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "구미하우스",
+        crtrNm : "조생에이스",
+        pay : "120,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "구미하우스",
+        crtrNm : "하이키타플러스",
+        pay : "150,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "썬파워",
+        pay : "82,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "옥풍",
+        pay : "110,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "쌩쌩볼",
+        pay : "85,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "케이파워",
+        pay : "100,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "젤빠른",
+        pay : "125,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "신나는",
+        pay : "135,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "하마에미",
+        pay : "170,000"
+      },
+      {
+        clclnY : 2024,
+        clclnNo : 1,
+        crtrCd : "조생",
+        crtrCd1 : "전라도",
+        crtrNm : "하미노타키라",
+        pay : "155,000"
+      },
+    ]
+    grdGdsInvntr.rebuild();
+
+      jsonGrdGdsInvntr1 =[
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "1등급",
+              pay : "13,700"
+          },
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "2등급",
+              pay : "10,960"
+          },
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "소구",
+              pay : "5,480"
+          },
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "기형",
+              pay : "5,480"
+          },
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "적색 1등급",
+              pay : "13,700"
+          },
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "적색 2등급",
+              pay : "10,960"
+          },
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "적색 소구",
+              pay : "5,480"
+          },
+          {
+              clclnY: 2024,
+              clclnNo: 1,
+              crtrCd : "만생",
+              crtrCd1 : "관내",
+              crtrNm : "적색 기형",
+              pay : "5,480"
+          },
+      ]
+      grdGdsInvntr1.rebuild();
   }
 
 
