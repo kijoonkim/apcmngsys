@@ -540,7 +540,7 @@ public class MobileApiController extends BaseController{
 		return resultJson;
 	}
 
-	@PostMapping(value = "/farmMapMobile.do")
+	@RequestMapping(value = "/farmMapMobile.do")
 	public String farmMapMobile(FarmMapVO farmMapVO,
 									   Locale locale,
 									   HttpServletRequest request,
@@ -579,7 +579,7 @@ public class MobileApiController extends BaseController{
         return "/apcss/am/popup/framldMapPopupMobile";
 	}
 
-	@PostMapping(value = "/farmMapMobileJson.do")
+	@RequestMapping(value = "/farmMapMobileJson.do")
 	public String farmMapMobileJson(@RequestBody FarmMapVO farmMapVO,
 									   Locale locale,
 									   HttpServletRequest request,
