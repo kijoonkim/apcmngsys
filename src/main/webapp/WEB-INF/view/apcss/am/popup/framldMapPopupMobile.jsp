@@ -66,7 +66,9 @@
         const getFarmmapDataSeachPnu = async function(){
             await clearData(); // info 초기화
             var params = {};
-
+            var stdgCd = document.getElementById("framld-inp-stdgCd").value;
+            var frlnMno = document.getElementById("framld-inp-frlnMno").value;
+            var frlnSno = document.getElementById("framld-inp-frlnSno").value;
             params.pnu = stdgCd + "1" + fn_zeroPad(frlnMno, 4) + fn_zeroPad(frlnSno, 4);
             params.mapType = $("#mapType1").val();
             params.columnType = $("#columnType1").val();
