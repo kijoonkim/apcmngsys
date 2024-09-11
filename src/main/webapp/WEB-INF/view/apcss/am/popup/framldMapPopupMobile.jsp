@@ -13,6 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <title>title : 팜맵데이터</title>
+    <script src="../../src/jquery/js/jquery-3.3.1.min.js"></script>
     <script src="https://agis.epis.or.kr/ASD/js/lib/openlayers/OpenLayers.js"></script>
     <script src="https://agis.epis.or.kr/ASD/js/lib/proj4js/proj4.js"></script>
     <script src="https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey=${key}&domain=${domain}"></script>
@@ -50,6 +51,11 @@
             map1 = farmmapObj.init("mapDiv1");
             reqUrl = farmmapObj.rootUri;
             getButton('menuFarmmapDataSeachBjdAndLandCode,formFarmmapDataSeachBjdAndLandCode');
+
+            $("#framld-inp-stdgCd").val("${stdgCd}");
+            $("#framld-inp-frlnMno").val("${frlnMno}");
+            $("#framld-inp-frlnSno").val("${frlnSno}");
+            getFarmmapDataSeachPnu();
         }
 
         /**
@@ -66,9 +72,14 @@
         const getFarmmapDataSeachPnu = async function(){
             await clearData(); // info 초기화
             var params = {};
-            var stdgCd = document.getElementById("framld-inp-stdgCd").value;
-            var frlnMno = document.getElementById("framld-inp-frlnMno").value;
-            var frlnSno = document.getElementById("framld-inp-frlnSno").value;
+            /*
+            var stdgCd = $("#framld-inp-stdgCd").val();
+            var frlnMno = $("#framld-inp-frlnMno").val();
+            var frlnSno = $("#framld-inp-frlnSno").val();
+            */
+            var stdgCd = "${stdgCd}";
+            var frlnMno = "${frlnMno}";
+            var frlnSno = "${frlnSno}";
             params.pnu = stdgCd + "1" + fn_zeroPad(frlnMno, 4) + fn_zeroPad(frlnSno, 4);
             params.mapType = $("#mapType1").val();
             params.columnType = $("#columnType1").val();
@@ -317,7 +328,7 @@
 
     </script>
 </head>
-<body oncontextmenu="return false" onload="init()">
+<body oncontextmenu="return false">
 <section>
     <div class="box box-solid">
         <div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -331,7 +342,7 @@
             </div>
             <div style="margin-left: auto;">
                 <button id="btnSearchCnpt" name="btnSearchCnpt" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();">조회</button>
-                <button id="btnEndCnpt" name="btnEndCnpt" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-framldMap')">종료</button>
+                <button id="btnEndCnpt" name="btnEndCnpt" class="btn btn-sm btn-outline-danger" onclick="window.close();">종료</button>
             </div>
         </div>
         <div class="box-body">
@@ -385,29 +396,8 @@
 </section>
 </body>
 <script type="text/javascript">
-
-    /**
-     * @description
-     */
-    const popFramldMap = {
-        prgrmId: 'FramldMapPopup',
-        modalId: 'modal-framldMap',
-        gridId: 'grdFramldMapPop',
-        jsonId: 'jsonFramldMapPop',
-        areaId: "sb-area-grdFramldMapPop",
-        prvApcCd: "",
-        objGrid: null,
-        gridJson: [],
-        callbackFnc: function() {},
-        init: async function(_apcCd, _stdgCd, _frlnMno, _frlnSno) {
-            $("#framld-inp-apcNm").val(gv_selectedApcNm);
-            $("#framld-inp-stdgCd").val(_stdgCd);
-            $("#framld-inp-frlnMno").val(_frlnMno);
-            $("#framld-inp-frlnSno").val(_frlnSno);
-
-            await getFarmmapDataSeachPnu();
-        }
-    }
-
+    $(document).ready(function () {
+        init();
+    });
 </script>
 </html>

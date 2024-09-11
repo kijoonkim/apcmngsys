@@ -565,6 +565,12 @@ public class MobileApiController extends BaseController{
 		model.addAttribute("frlnMno", farmMapVO.getFrlnMno());
 		model.addAttribute("frlnSno", farmMapVO.getFrlnSno());
 /*
+		model.addAttribute("apcNm", "");
+		model.addAttribute("stdgCd", "5117010700");
+		model.addAttribute("frlnMno", "288");
+		model.addAttribute("frlnSno", "3");
+ */
+/*
 		for (String name : Collections.<String>list(request.getParameterNames())) {
 			String value = request.getParameter(name);
 			model.addAttribute(name, value);
@@ -597,7 +603,12 @@ public class MobileApiController extends BaseController{
 		model.addAttribute("stdgCd", farmMapVO.getStdgCd());
 		model.addAttribute("frlnMno", farmMapVO.getFrlnMno());
 		model.addAttribute("frlnSno", farmMapVO.getFrlnSno());
-
+/*
+		model.addAttribute("apcNm", "");
+		model.addAttribute("stdgCd", "5117010700");
+		model.addAttribute("frlnMno", "288");
+		model.addAttribute("frlnSno", "3");
+ */
 		return "/apcss/am/popup/framldMapPopupMobile";
 	}
 }
