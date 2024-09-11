@@ -276,8 +276,8 @@ input::-webkit-inner-spin-button {
 									uitype="text"
 									class="input-sm-ast inpt_data_reqed inpt-mbl srch-pltno"
 									autocomplete="off"
-<%--									onblur="fn_ipt_pltno"--%>
-<%--									onclick="fn_ipt_init"--%>
+									onblur="fn_ipt_pltno"
+									onclick="fn_ipt_init"
 								></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
@@ -5286,17 +5286,16 @@ input::-webkit-inner-spin-button {
         if (gfn_isEmpty(value)) return;
 
         if (value.length <= 3) {
-            pltno = gfn_dateToYmd(new Date()).substr(2);
+            pltno = gfn_dateToYmd(new Date());
 
             if (value < 10) {
-                pltno = pltno + "00" + value;
+                pltno = "RT" + pltno + "000" + value;
             } else if (value < 100) {
-                pltno = pltno + "0" + value;
+                pltno = "RT" + pltno + "00" + value;
             } else {
-                pltno = pltno + value;
+                pltno = "RT" + pltno + "0" + value;
             }
-            // SBUxMethod.set('dtl-inp-pltno', pltno);
-            // SBUxMethod.attr('dtl-inp-pltno', 'type', 'number');
+            SBUxMethod.set('dtl-inp-pltno', pltno);
         }
     }
 
@@ -5309,7 +5308,6 @@ input::-webkit-inner-spin-button {
                 SBUxMethod.set('dtl-inp-pltno', "")
             }
         }
-        // SBUxMethod.attr('dtl-inp-pltno', 'type', 'number');
     }
 	/** 입고실적 조회후 품목/품종 수정 **/
 	const fn_onchangeItemVrtyCd = async function(){

@@ -1000,6 +1000,7 @@
   position: relative;
   width: 100%;
   font-size: 0;
+  height: calc(100% - 30px);
 }
 .sbt-wrap-full .sbt-wrap-left {
   display: inline-block;
