@@ -403,6 +403,9 @@
         		width:'40px',
         		style: 'text-align:center',
 	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		if (_.isEqual("Y", objRowData.chkVl)) {
+	        			return "";
+	        		}
 	        		if (_.isEqual("N", objRowData.delYn)) {
 	        			if (gfn_isEmpty(strValue)){
 		            		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_choiceApc(" + nRow + ")'>🔍</button>";
@@ -438,6 +441,21 @@
                 style: 'text-align:left',
             },
             {
+            	caption: ['시/도'],
+            	ref: 'ctpvNm',
+            	type: 'output',
+                width: '100px',
+                style: 'text-align:left',
+            },
+            {
+            	caption: ['시/군/구'],
+            	ref: 'sggExpln',
+            	type: 'output',
+                width: '100px',
+                style: 'text-align:left',
+            },
+            /*
+            {
         	    caption: ["시/도"],	
         	    ref: 'ctpv',	
         	    type:'combo',  		
@@ -459,18 +477,13 @@
         	    style:'text-align:center',
         	    typeinfo : {
         	        ref:'jsonComSgg', 
-        	        label:'cdVlNm', 
+        	        label:'cdVlExpln', 
         	        value:'cdVl', 
         	        displayui : true,
         	        userattr: {colNm: "sgg"},
-    				filtering: {
-                		usemode: true,
-                		uppercol: 'ctpv',
-                		attrname: 'upCdVl',
-                		listall: true
-                	}
         	    },
         	},
+        	*/
             
         ];
         grdUntyOgnzApc = _SBGrid.create(SBGridProperties);
@@ -782,6 +795,7 @@
   	    		jsonUntyOgnzApc.length = 0;
   	        	data.resultList.forEach((item, index) => {
   	        		item.delYn = "N";
+  	        		item.chkVl = "Y";
   					jsonUntyOgnzApc.push(item);
   				});
   	        	
@@ -1003,10 +1017,11 @@
 			rowData.apcNm = _apcInfo.apcNm;
 			rowData.brno = _apcInfo.brno;
 			rowData.addr = _apcInfo.addr;
-			
-			
-			//rowData.ctpv = _apcInfo.ctpv;
-			//rowData.sgg = _apcInfo.sgg;
+			rowData.ctpv = _apcInfo.ctpv;
+			rowData.sgg = _apcInfo.sgg;
+			rowData.ctpvNm = _apcInfo.ctpvNm;
+			rowData.sggNm = _apcInfo.sggNm;
+			rowData.sggExpln = _apcInfo.sggExpln;
 			
 			grdUntyOgnzApc.refresh({"focus":false});			
 		}
@@ -1042,6 +1057,9 @@
 		rowData.addr = "";
 		rowData.ctpv = "";
 		rowData.sgg = "";
+		rowData.ctpvNm = "";
+		rowData.sggNm = "";
+		rowData.sggExpln = "";
 		
 		grdUntyOgnzApc.refresh({"focus":false});
 	}

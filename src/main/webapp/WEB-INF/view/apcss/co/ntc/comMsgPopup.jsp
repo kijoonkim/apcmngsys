@@ -120,7 +120,7 @@
                     구분
                 </div>
                 <div class="cell">
-                    수신일자
+                    수신일시
                 </div>
                 <div class="cell">
                     내용

@@ -42,6 +42,7 @@ public class ComUserVO extends ComVO {
 	private String brno;
 	private String brdt;
 	private String mblTelno;
+	private String coTelno;
 	private String odSbmsnYn;
 	private String aplyDocSbmsnYn;
 	
@@ -53,6 +54,11 @@ public class ComUserVO extends ComVO {
 	private String untyAuthrtMngYn;
 	private String untyAuthrtMngUserId;
 	private String untyAuthrtId;
+	
+	private String aplyYn;
+	private String mngrAplyYn;
+	private String authrtAplyYn;
+	private String aplySysId;
 
 	
 	/**
@@ -75,6 +81,7 @@ public class ComUserVO extends ComVO {
 	
 	private String ctpvNm;
 	private String sggNm;
+	private String sggExpln;
 	
 	private int untyAuthrtMngUserCnt;
 	

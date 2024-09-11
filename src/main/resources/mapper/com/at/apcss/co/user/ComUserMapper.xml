@@ -346,7 +346,7 @@
 		</if>
 		
 		<choose>
-    		<when test='superUserYn != null and pagingYn.equals("Y")'>
+    		<when test='superUserYn != null and superUserYn.equals("Y")'>
 				
     		</when>
     		<when test='untyOgnzId != null and untyOgnzId != ""'>
@@ -472,6 +472,7 @@
 				
 				, CU.CRNO					AS CRNO
 				, CU.BRNO					AS BRNO
+				, CU.CO_TELNO				AS CO_TELNO
 				, 'UO' || CU.UNTY_OGNZ_CD	AS UNTY_OGNZ_CD
 				, (
 					SELECT MAX(X.OGNZ_NM)
@@ -512,6 +513,40 @@
 					 WHERE X.USER_ID = CU.USER_ID
 					   AND X.SYS_ID = 'CS'
 					), 'N')					AS SYS_CS_YN
+					
+				, CASE
+					WHEN EXISTS (
+							SELECT 1
+							  FROM TB_COM_UNTY_MNGR X
+							 WHERE X.UNTY_OGNZ_CD =	'UO' || CU.UNTY_OGNZ_CD
+							   AND X.USER_ID = CU.USER_ID
+							   AND X.DEL_YN = 'N'
+							   AND X.APLY_YN = 'Y'
+							   AND X.APRV_YN = 'N'
+						) THEN 'Y'
+					ELSE 'N'
+				  END		AS MNGR_APLY_YN
+				, CASE
+					WHEN EXISTS (
+							SELECT 1
+							  FROM TB_COM_USER_SYS_AUTH X
+							 WHERE X.USER_ID = CU.USER_ID
+							   AND X.DEL_YN = 'N'
+							   AND X.APLY_YN = 'Y'
+							   AND X.APRV_YN = 'N'	
+						) THEN 'Y'
+					ELSE 'N'
+				  END		AS AUTHRT_APLY_YN
+				, (
+					SELECT AGGR_CONCAT(X.SYS_ID, ',') 
+					  FROM TB_COM_USER_SYS_AUTH X 
+					 WHERE X.USER_ID = CU.USER_ID
+					   AND X.DEL_YN = 'N'
+					   AND X.APLY_YN = 'Y'
+					   AND X.APRV_YN = 'N'
+				)			AS APLY_SYS_ID
+										
+					
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
 			   AND CU.TYPE_CD = #{mbrTypeCd}
@@ -526,9 +561,51 @@
 		<if test='userStts != null and userStts != ""'>
 			   AND CU.USER_STTS = #{userStts}
 		</if>
-		
+
 		<choose>
-    		<when test='superUserYn != null and pagingYn.equals("Y")'>
+    		<when test='aplyYn != null and aplyYn.equals("Y")'>
+				AND EXISTS (
+						SELECT 1
+						  FROM TB_COM_UNTY_MNGR X
+						 WHERE X.UNTY_OGNZ_CD =	'UO' || CU.UNTY_OGNZ_CD
+						   AND X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'
+						UNION ALL
+						SELECT 1
+						  FROM TB_COM_USER_SYS_AUTH X
+						 WHERE X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'						
+					)
+    		</when>
+    		<when test='aplyYn != null and aplyYn.equals("N")'>
+				AND NOT EXISTS (
+						SELECT 1
+						  FROM TB_COM_UNTY_MNGR X
+						 WHERE X.UNTY_OGNZ_CD =	'UO' || CU.UNTY_OGNZ_CD
+						   AND X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'
+						UNION ALL
+						SELECT 1
+						  FROM TB_COM_USER_SYS_AUTH X
+						 WHERE X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'						
+					)
+			</when>
+    		<otherwise>
+			   
+    		</otherwise>
+    	</choose>
+
+		<choose>
+    		<when test='superUserYn != null and superUserYn.equals("Y")'>
 				
     		</when>
     		<when test='untyOgnzCd != null and untyOgnzCd != ""'>
@@ -624,7 +701,46 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', CU.CTPV) FROM DUAL) AS CTPV_NM
 				, CU.SGG	AS SGG
 				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_SGG', CU.SGG) FROM DUAL) AS SGG_NM
+				, (SELECT X.CD_VL_EXPLN FROM TB_COM_CD_DTL X WHERE X.CD_ID = 'UNTY_SGG' AND X.CD_VL = CU.SGG AND X.APC_CD = '0000')	AS SGG_EXPLN
 				, CU.CO_NM	AS CO_NM
+				, CU.CO_TELNO	AS CO_TELNO
+				
+				, CASE
+					WHEN EXISTS (
+							SELECT 1
+							  FROM TB_COM_UNTY_MNGR X
+							 WHERE X.UNTY_OGNZ_CD =	CASE
+														WHEN CU.SGG IS NOT NULL THEN
+															'US' || CU.SGG
+														ELSE
+															'UC' || CU.CTPV
+													  END
+							   AND X.USER_ID = CU.USER_ID
+							   AND X.DEL_YN = 'N'
+							   AND X.APLY_YN = 'Y'
+							   AND X.APRV_YN = 'N'
+						) THEN 'Y'
+					ELSE 'N'
+				  END		AS MNGR_APLY_YN
+				, CASE
+					WHEN EXISTS (
+							SELECT 1
+							  FROM TB_COM_USER_SYS_AUTH X
+							 WHERE X.USER_ID = CU.USER_ID
+							   AND X.DEL_YN = 'N'
+							   AND X.APLY_YN = 'Y'
+							   AND X.APRV_YN = 'N'	
+						) THEN 'Y'
+					ELSE 'N'
+				  END		AS AUTHRT_APLY_YN
+				, (
+					SELECT AGGR_CONCAT(X.SYS_ID, ',') 
+					  FROM TB_COM_USER_SYS_AUTH X 
+					 WHERE X.USER_ID = CU.USER_ID
+					   AND X.DEL_YN = 'N'
+					   AND X.APLY_YN = 'Y'
+					   AND X.APRV_YN = 'N'
+				)			AS APLY_SYS_ID
 				
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
@@ -649,7 +765,59 @@
 		</if>
 		
 		<choose>
-    		<when test='superUserYn != null and pagingYn.equals("Y")'>
+    		<when test='aplyYn != null and aplyYn.equals("Y")'>
+				AND EXISTS (
+						SELECT 1
+						  FROM TB_COM_UNTY_MNGR X
+						 WHERE X.UNTY_OGNZ_CD =	CASE
+													WHEN CU.SGG IS NOT NULL THEN
+														'US' || CU.SGG
+													ELSE
+														'UC' || CU.CTPV
+												  END
+						   AND X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'
+						UNION ALL
+						SELECT 1
+						  FROM TB_COM_USER_SYS_AUTH X
+						 WHERE X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'						
+					)
+    		</when>
+    		<when test='aplyYn != null and aplyYn.equals("N")'>
+				AND NOT EXISTS (
+						SELECT 1
+						  FROM TB_COM_UNTY_MNGR X
+						 WHERE X.UNTY_OGNZ_CD =	CASE
+													WHEN CU.SGG IS NOT NULL THEN
+														'US' || CU.SGG
+													ELSE
+														'UC' || CU.CTPV
+												  END
+						   AND X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'
+						UNION ALL
+						SELECT 1
+						  FROM TB_COM_USER_SYS_AUTH X
+						 WHERE X.USER_ID = CU.USER_ID
+						   AND X.DEL_YN = 'N'
+						   AND X.APLY_YN = 'Y'
+						   AND X.APRV_YN = 'N'						
+					)
+			</when>
+    		<otherwise>
+			   
+    		</otherwise>
+    	</choose>
+		
+		<choose>
+    		<when test='superUserYn != null and superUserYn.equals("Y")'>
 				
     		</when>
     		<when test='untyOgnzCd != null and untyOgnzCd != ""'>
