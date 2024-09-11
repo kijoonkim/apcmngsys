@@ -66,9 +66,7 @@
         const getFarmmapDataSeachPnu = async function(){
             await clearData(); // info 초기화
             var params = {};
-            var stdgCd = SBUxMethod.get("framld-inp-stdgCd");
-            var frlnMno = SBUxMethod.get("framld-inp-frlnMno");
-            var frlnSno = SBUxMethod.get("framld-inp-frlnSno");
+
             params.pnu = stdgCd + "1" + fn_zeroPad(frlnMno, 4) + fn_zeroPad(frlnSno, 4);
             params.mapType = $("#mapType1").val();
             params.columnType = $("#columnType1").val();
@@ -330,8 +328,8 @@
                 </p>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnSearchCnpt" name="btnSearchCnpt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();"></sbux-button>
-                <sbux-button id="btnEndCnpt" name="btnEndCnpt" uitype="normal" text="종료" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-framldMap')"></sbux-button>
+                <button id="btnSearchCnpt" name="btnSearchCnpt" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();">조회</button>
+                <button id="btnEndCnpt" name="btnEndCnpt" class="btn btn-sm btn-outline-danger" onclick="gfn_closeModal('modal-framldMap')">종료</button>
             </div>
         </div>
         <div class="box-body">
@@ -354,19 +352,19 @@
                 <tr>
                     <th scope="row">APC명</th>
                     <th>
-                        <sbux-input id="framld-inp-apcNm" name="framld-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+                        <input id="framld-inp-apcNm" name="framld-inp-apcNm" uitype="text" class="form-control input-sm" disabled></input>
                     </th>
                     <th scope="row">법정동코드</th>
                     <th class="td_input">
-                        <sbux-input id="framld-inp-stdgCd" name="framld-inp-stdgCd" uitype="text" class="form-control input-sm"></sbux-input>
+                        <input id="framld-inp-stdgCd" name="framld-inp-stdgCd" uitype="text" class="form-control input-sm"></input>
                     </th>
                     <th scope="row">본번</th>
                     <th class="td_input">
-                        <sbux-input id="framld-inp-frlnMno" name="framld-inp-frlnMno" uitype="text" class="form-control input-sm"></sbux-input>
+                        <input id="framld-inp-frlnMno" name="framld-inp-frlnMno" uitype="text" class="form-control input-sm"></input>
                     </th>
                     <th scope="row">부번</th>
                     <th class="td_input">
-                        <sbux-input id="framld-inp-frlnSno" name="framld-inp-frlnSno" uitype="text" class="form-control input-sm"></sbux-input>
+                        <input id="framld-inp-frlnSno" name="framld-inp-frlnSno" uitype="text" class="form-control input-sm"></input>
                     </th>
                     <th>&nbsp;</th>
                 </tr>
@@ -400,16 +398,14 @@
         gridJson: [],
         callbackFnc: function() {},
         init: async function(_apcCd, _stdgCd, _frlnMno, _frlnSno) {
-            SBUxMethod.set("framld-inp-apcNm", gv_selectedApcNm);
-            SBUxMethod.set("framld-inp-stdgCd", _stdgCd);
-            SBUxMethod.set("framld-inp-frlnMno", _frlnMno);
-            SBUxMethod.set("framld-inp-frlnSno", _frlnSno);
+            $("#framld-inp-apcNm").val(gv_selectedApcNm);
+            $("#framld-inp-stdgCd").val(_stdgCd);
+            $("#framld-inp-frlnMno").val(_frlnMno);
+            $("#framld-inp-frlnSno").val(_frlnSno);
 
             await getFarmmapDataSeachPnu();
         }
     }
-
-    popFramldMap.init("${apcNm}", "${stdgCd}", "${frlnMno}", "${frlnSno}");
 
 </script>
 </html>
