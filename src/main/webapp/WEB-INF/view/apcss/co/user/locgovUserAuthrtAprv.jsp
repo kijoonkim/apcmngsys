@@ -131,6 +131,18 @@
 							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
+							<th scope="row">신청여부</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-aplyYn"
+									name="srch-slt-aplyYn"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonComAplyYn"
+									unselected-text="전체"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">사용자명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -157,10 +169,6 @@
 									title=""
 									maxlength="30"
 								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
-							<th scope="row"></th>
-							<td class="td_input" style="border-right: hidden;">
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
@@ -273,6 +281,10 @@
 		{'text': '승인대기', 'value': '00'},
 		{'text': '승인완료', 'value': '01'},
 		{'text': '승인취소', 'value': '09'},
+	];
+	var jsonComAplyYn = [
+		{'text': '신청', 'value': 'Y'},
+		{'text': '미신청', 'value': 'N'},
 	];
 	var jsonUntyAuthrtType = [];
 	
@@ -469,7 +481,7 @@
         	},
         	{
         		caption: ["시/군/구"],
-        		ref: 'sggNm',      
+        		ref: 'sggExpln',      
         		type:'output',  	
         		width:'100px', 
         		style:'text-align:left'
@@ -501,7 +513,7 @@
 	        },
 	        {
 	        	caption: ["전화번호"],		
-	        	ref: 'telno',   	
+	        	ref: 'coTelno',   	
 	        	type:'output',  	
 	        	width:'200px', 
 	        	style:'text-align:left',
@@ -517,6 +529,20 @@
 	        	width:'200px', 
 	        	style:'text-align:left'
 	        },
+	        {
+        		caption: ["관리자신청"], 		
+        		ref: 'mngrAplyYn',	
+        		type:'output',  	
+        		width:'80px', 
+        		style:'text-align:center'
+        	},
+        	{
+        		caption: ["업무권한신청"], 		
+        		ref: 'authrtAplyYn',	
+        		type:'output',  	
+        		width:'80px', 
+        		style:'text-align:center'
+        	},
 		];
 		
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
@@ -547,6 +573,7 @@
 		
 		const untyCtpv = SBUxMethod.get("srch-slt-untyCtpv");
 		const untySgg = SBUxMethod.get("srch-slt-untySgg");
+		const aplyYn = SBUxMethod.get("srch-slt-aplyYn");     // 	신청여부
 		
 		const userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
 		const userId = SBUxMethod.get("srch-inp-userId");     // 	사용자ID
@@ -557,6 +584,7 @@
 			sgg: untySgg,
 			userNm: userNm,
 			userId: userId,
+			aplyYn: aplyYn,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : currentPageNo,
@@ -593,6 +621,7 @@
 					tkcgTaskNm: 	item.tkcgTaskNm,
 					mblTelno:		item.mblTelno,
 					telno:			item.telno,
+					coTelno:		item.coTelno,
 					odSbmsnYn:		item.odSbmsnYn,
 					aplyDocSbmsnYn:	item.aplyDocSbmsnYn,
 					ognzCd:			item.ognzCd,
@@ -609,6 +638,9 @@
 					ctpvNm:			item.ctpvNm,
 					sgg:			item.sgg,
 					sggNm:			item.sggNm,
+					sggExpln:		item.sggExpln,
+					mngrAplyYn:		item.mngrAplyYn,
+					authrtAplyYn:	item.authrtAplyYn,
   				}
           		
           		jsonUserAprv.push(user);
@@ -670,7 +702,7 @@
 				aprvList.push({
 					userId: item.userId,
     				authrtMngrYn: 	item.authrtMngrYn,
-    				sysPdYn: 		'Y',
+    				//sysPdYn: 		'Y',
     				sysCsYn: 		'Y',
     			});	
     		}

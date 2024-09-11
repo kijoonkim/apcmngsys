@@ -54,6 +54,10 @@ public class ApcInfoVO extends ComVO{
 	
 	private String ctpv;
 	
+	private String sggNm;
+	private String sggExpln;
+	
+	
 	/**
 	 * 정산기준
 	 */

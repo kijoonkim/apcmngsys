@@ -127,6 +127,18 @@
 							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
+							<th scope="row">신청여부</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-aplyYn"
+									name="srch-slt-aplyYn"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonComAplyYn"
+									unselected-text="전체"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>							
 							<th scope="row">사용자명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -153,11 +165,7 @@
 									title=""
 									maxlength="30"
 								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
-							<th scope="row"></th>
-							<td class="td_input" style="border-right: hidden;">
-							</td>
+							</td>							
 							<td colspan="2" class="td_input"></td>
 						</tr>
 					</tbody>
@@ -167,6 +175,9 @@
 							<li>
 								<span>사용자 목록</span>
 								<span style="font-size:12px">(조회건수 <span id="cnt-userAprv">0</span>건)</span>
+							</li>
+							<li>
+								<span style="font-size:10px;color:blue;">업무시스템 - MES : 생산관리, FM : 농가관리, PD : 생산유통통합조직, CS : APC전수조사 </span>
 							</li>
 						</ul>
 						<div class="ad_tbl_toplist_datepk">
@@ -270,6 +281,11 @@
 		{'text': '승인완료', 'value': '01'},
 		{'text': '승인취소', 'value': '09'},
 	];
+	var jsonComAplyYn = [
+		{'text': '신청', 'value': 'Y'},
+		{'text': '미신청', 'value': 'N'},
+	];
+	
 	var jsonUntyAuthrtType = [];
 	
 	var jsonUntyOgnz = [];
@@ -291,7 +307,7 @@
 		SBUxMethod.set("srch-slt-userStts", "00");
 		SBUxMethod.set("srch-slt-pageSize", "50");
 		
-		await fn_initSBSelect();
+		//await fn_initSBSelect();
 		
 		fn_createGridUserAprv();
 	}
@@ -529,7 +545,7 @@
 	        },
 	        {
 	        	caption: ["전화번호"],		
-	        	ref: 'telno',   	
+	        	ref: 'coTelno',   	
 	        	type:'output',  	
 	        	width:'200px', 
 	        	style:'text-align:left',
@@ -545,6 +561,27 @@
 	        	width:'200px', 
 	        	style:'text-align:left'
 	        },
+        	{
+        		caption: ["관리자신청"], 		
+        		ref: 'mngrAplyYn',	
+        		type:'output',  	
+        		width:'80px', 
+        		style:'text-align:center'
+        	},
+        	{
+        		caption: ["업무권한신청"], 		
+        		ref: 'authrtAplyYn',	
+        		type:'output',  	
+        		width:'80px', 
+        		style:'text-align:center'
+        	},
+        	{
+        		caption: ["신청업무시스템"], 		
+        		ref: 'aplySysId',	
+        		type:'output',  	
+        		width:'150px', 
+        		style:'text-align:left'
+        	},
 		];
 		
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
@@ -577,13 +614,15 @@
 		
 		const userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
 		const userId = SBUxMethod.get("srch-inp-userId");     // 	사용자ID
-
+		const aplyYn = SBUxMethod.get("srch-slt-aplyYn");     // 	신청여부
+		
 		const postJsonPromise = gfn_postJSON("/co/user/selectCorpUserAprvList.do", {
 			userStts: userStts,
 			corpNm: corpNm,
 			crno: crno,
 			userNm: userNm,
 			userId: userId,
+			aplyYn: aplyYn,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : currentPageNo,
@@ -620,6 +659,7 @@
 					tkcgTaskNm: 	item.tkcgTaskNm,
 					mblTelno:		item.mblTelno,
 					telno:			item.telno,
+					coTelno:		item.coTelno,
 					odSbmsnYn:		item.odSbmsnYn,
 					aplyDocSbmsnYn:	item.aplyDocSbmsnYn,
 					ognzCd:			item.ognzCd,
@@ -627,10 +667,14 @@
 					crno:			item.crno,
 					jbps: 			item.jbps,
 					authrtMngrYn:	item.authrtMngrYn,
+					aplyYn:			item.aplyYn,
 					sysMesYn:		item.sysMesYn,
 					sysFmYn:		item.sysFmYn,
 					sysPdYn:		item.sysPdYn,
 					sysCsYn:		item.sysCsYn,
+					mngrAplyYn:		item.mngrAplyYn,
+					authrtAplyYn:	item.authrtAplyYn,
+					aplySysId:		item.aplySysId,
   				}
           		
           		jsonUserAprv.push(user);
