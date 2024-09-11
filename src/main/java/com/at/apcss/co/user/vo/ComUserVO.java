@@ -75,6 +75,8 @@ public class ComUserVO extends ComVO {
 	 * 법인명
 	 */
 	private String corpNm;
+	private String jbps;
+	private String coNm;
 	
 	private String ctpv;
 	private String sgg;

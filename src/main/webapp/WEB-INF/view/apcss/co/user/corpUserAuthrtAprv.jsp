@@ -529,30 +529,22 @@
 	        	caption: ["직위"],		
 	        	ref: 'jbps',   	
 	        	type:'output',  	
-	        	width:'200px', 
+	        	width:'80px', 
 	        	style:'text-align:center'
 	        },
 	        {
 	        	caption: ["휴대전화"],		
 	        	ref: 'mblTelno',   	
 	        	type:'output',  	
-	        	width:'200px', 
-	        	style:'text-align:left',
-                format : {
-                	type:'string',
-                	rule:'000-0000-0000'
-                }
+	        	width:'120px', 
+	        	style:'text-align:left'
 	        },
 	        {
 	        	caption: ["전화번호"],		
 	        	ref: 'coTelno',   	
 	        	type:'output',  	
-	        	width:'200px', 
-	        	style:'text-align:left',
-                format : {
-                	type:'string',
-                	rule:'000-0000-0000'
-                }
+	        	width:'120px', 
+	        	style:'text-align:left'
 	        },
 	        {
 	        	caption: ["이메일주소"],		
@@ -658,7 +650,6 @@
 					jbttlNm: 		item.jbttlNm,
 					tkcgTaskNm: 	item.tkcgTaskNm,
 					mblTelno:		item.mblTelno,
-					telno:			item.telno,
 					coTelno:		item.coTelno,
 					odSbmsnYn:		item.odSbmsnYn,
 					aplyDocSbmsnYn:	item.aplyDocSbmsnYn,

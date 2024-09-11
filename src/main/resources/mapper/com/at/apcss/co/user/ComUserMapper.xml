@@ -473,6 +473,7 @@
 				, CU.CRNO					AS CRNO
 				, CU.BRNO					AS BRNO
 				, CU.CO_TELNO				AS CO_TELNO
+				, CU.JBPS					AS JBPS
 				, 'UO' || CU.UNTY_OGNZ_CD	AS UNTY_OGNZ_CD
 				, (
 					SELECT MAX(X.OGNZ_NM)
@@ -610,7 +611,7 @@
     		</when>
     		<when test='untyOgnzCd != null and untyOgnzCd != ""'>
     			AND #{authrtMngrYn} = 'Y'
-				AND CU.UNTY_OGNZ_CD = REPLACE('UO', #{untyOgnzCd}, '')
+				AND CU.UNTY_OGNZ_CD = REPLACE(#{untyOgnzCd}, 'UO', '')
 			</when>
     		<otherwise>
 			   
@@ -704,7 +705,7 @@
 				, (SELECT X.CD_VL_EXPLN FROM TB_COM_CD_DTL X WHERE X.CD_ID = 'UNTY_SGG' AND X.CD_VL = CU.SGG AND X.APC_CD = '0000')	AS SGG_EXPLN
 				, CU.CO_NM	AS CO_NM
 				, CU.CO_TELNO	AS CO_TELNO
-				
+				, CU.JBPS		AS JBPS
 				, CASE
 					WHEN EXISTS (
 							SELECT 1

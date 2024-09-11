@@ -148,7 +148,14 @@
 					) THEN 'Y'
 					ELSE 'N'
 				  END	AS AUTHRT_MNGR_YN
-
+				, CASE
+					WHEN CU.TYPE_CD = '1' THEN 'UO' || CU.UNTY_OGNZ_CD
+					WHEN CU.TYPE_CD = '2' AND CU.SGG IS NOT NULL THEN 'US' || CU.SGG
+					WHEN CU.TYPE_CD = '2' THEN 'UC' || CU.CTPV
+					ELSE 'X'
+				  END		AS UNTY_OGNZ_CD
+					
+					
 			 FROM TB_COM_USER CU
 			WHERE CU.USER_ID = #{id}
 			  AND CU.PSWD = #{password}
@@ -208,9 +215,26 @@
 				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
 
+				, CASE
+					WHEN EXISTS (
+						SELECT 1
+						  FROM TB_COM_UNTY_MNGR X
+						 WHERE X.USER_ID = CU.USER_ID
+						   AND X.APRV_YN = 'Y'
+					) THEN 'Y'
+					ELSE 'N'
+				  END	AS AUTHRT_MNGR_YN
+
 				, CU.CTPV				AS CTPV
 				, CU.SGG				AS SGG
-
+				
+				, CASE
+					WHEN CU.TYPE_CD = '1' THEN 'UO' || CU.UNTY_OGNZ_CD
+					WHEN CU.TYPE_CD = '2' AND CU.SGG IS NOT NULL THEN 'US' || CU.SGG
+					WHEN CU.TYPE_CD = '2' THEN 'UC' || CU.CTPV
+					ELSE 'X'
+				  END		AS UNTY_OGNZ_CD
+				  
 			 FROM TB_COM_USER CU
 			WHERE CU.USER_ID = #{id}
 			  AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
