@@ -540,8 +540,8 @@ public class MobileApiController extends BaseController{
 		return resultJson;
 	}
 
-	@PostMapping(value = "/framldMapPopupMobile.do")
-	public String framldMapPopupMobile(FarmMapVO farmMapVO,
+	@PostMapping(value = "/farmMapMobile.do")
+	public String farmMapMobile(FarmMapVO farmMapVO,
 									   Locale locale,
 									   HttpServletRequest request,
 									   ModelMap model) throws Exception {
@@ -571,5 +571,33 @@ public class MobileApiController extends BaseController{
 		}
 */
         return "/apcss/am/popup/framldMapPopupMobile";
+	}
+
+	@PostMapping(value = "/farmMapMobileJson.do")
+	public String farmMapMobileJson(@RequestBody FarmMapVO farmMapVO,
+									   Locale locale,
+									   HttpServletRequest request,
+									   ModelMap model) throws Exception {
+		String domain = request.getServerName();
+
+		String apiKey = "";
+
+		if ("133.186.212.16".equals(domain)) {
+			apiKey = "NCfYZTYs0sp6X1s0lh5U";
+		} else if ("localhost".equals(domain)) {
+			apiKey = "8AuulPFHOftqyHEmTdQK";
+		} else if ("apcss.smartapc.or.kr".equals(domain)) {
+			apiKey = "NmdiNXbWcIWRYCX9O7jd";
+		}
+
+		model.addAttribute("domain", domain);
+		model.addAttribute("key", apiKey);
+
+		model.addAttribute("apcNm", farmMapVO.getApcNm());
+		model.addAttribute("stdgCd", farmMapVO.getStdgCd());
+		model.addAttribute("frlnMno", farmMapVO.getFrlnMno());
+		model.addAttribute("frlnSno", farmMapVO.getFrlnSno());
+
+		return "/apcss/am/popup/framldMapPopupMobile";
 	}
 }
