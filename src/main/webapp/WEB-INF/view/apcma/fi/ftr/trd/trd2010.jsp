@@ -292,14 +292,14 @@
                                             <th scope="row" class="th_bg">환율</th>
                                             <td colspan="2" class="td_input">
                                                 <sbux-input id="EXCHANGE_RATE" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}"></sbux-input>
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeExchangeRate(EXCHANGE_RATE)"></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">예적금액(원래)</th>
                                             <td class="td_input">
                                                 <sbux-input id="DEPOSIT_AMT" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}"></sbux-input>
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeDepositAmt(DEPOSIT_AMT)"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">예적금액(환산)</th>
                                             <td colspan="2" class="td_input">
@@ -357,6 +357,7 @@
                                                         date-format="yyyy-mm-dd"
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
+                                                        onchange="fn_changeDepositDate(DEPOSIT_DATE)"
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">만기일</th>
@@ -368,6 +369,7 @@
                                                         date-format="yyyy-mm-dd"
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
+                                                        onchange="fn_changeDueDate(DUE_DATE)"
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">총가입일수(일)</th>
@@ -617,6 +619,7 @@
                                                         date-format="yyyy-mm-dd"
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
+                                                        onchange="fn_changeInStartDate(IN_START_DATE)"
                                                 />
                                             </td>
                                             </td>
@@ -739,6 +742,7 @@
                                                         date-format="yyyy-mm-dd"
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
+                                                        onchange="fn_changeInterestInStartDate(INTEREST_IN_START_DATE)"
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">이자발생일</th>
@@ -1185,6 +1189,7 @@
     var p_menuId = '${comMenuVO.menuId}';
     var p_fiOrgCode = "${loginVO.maFIOrgCode}";
     var p_baseCurrCode = "${loginVO.maBaseCurrCode}";
+    var p_currUnit = "${loginVO.maCurrUnit}";
     //-----------------------------------------------------------
 
     var bQuery = false;
@@ -1195,6 +1200,8 @@
     var jsonFiOrgCode = []; // 사업단위
     var jsonBankCsCode = []; // 금융기관코드
     var jsonDepositType = []; // 예적금유형
+    var jsonBankAccountSeq = []; // 계좌정보
+    var jsonCtaxRate = []; // 법인세율
 
     //grid 초기화
     var gvwInfo; 			// 그리드를 담기위한 객체 선언
@@ -1265,7 +1272,7 @@
             // 예적금유형
             gfnma_setComSelect(['gvwInfo'], jsonDepositType, 'L_FIF040', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
-                target			: ['#SRCH_DEPOSIT_TYPE', '#DEPOSIT_TYPE']
+                target			: ['#SRCH_DEPOSIT_TYPE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIF040'
@@ -1282,7 +1289,60 @@
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'}
                 ]
             }),
+            gfnma_multiSelectInit({
+                target			: ['#DEPOSIT_TYPE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_FIF040'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SUB_CODE'
+                ,colLabel		: 'CODE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                ]
+                , callback : function(value) {
+                    if (!bQuery) return;
+
+                    if (gfn_nvl(value) == "")
+                        return;
+
+                    SBUxMethod.set('DEPOSIT_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD1"]);
+                    SBUxMethod.set('DEPOSIT_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD1_NM"]);
+
+                    SBUxMethod.set('ADVANCE_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD2"]);
+                    SBUxMethod.set('ADVANCE_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD2_NM"]);
+
+                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD3"]);
+                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD3_NM"]);
+
+                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD4"]);
+                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD4_NM"]);
+
+                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD5"]);
+                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD5_NM"]);
+
+                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD6"]);
+                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD6_NM"]);
+
+                    SBUxMethod.set('EXCHANGE_GAIN_ACC', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD7"]);
+                    SBUxMethod.set('EXCHANGE_GAIN_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD7_NM"]);
+
+                    SBUxMethod.set('EXCHANGE_LOSS_ACC', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD8"]);
+                    SBUxMethod.set('EXCHANGE_LOSS_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD8_NM"]);
+
+                    SBUxMethod.set('VAL_GAIN_ACC', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD9"]);
+                    SBUxMethod.set('VAL_GAIN_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD9_NM"]);
+                }
+            }),
             // 계좌행번
+            gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target: ['#PAY_SEQ']
                 , compCode: gv_ma_selectedApcCd
@@ -1551,6 +1611,7 @@
                 ]
             }),
             // 법인세율
+            gfnma_setComSelect([''], jsonCtaxRate, 'L_FIF050', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#CTAX_RATE']
                 ,compCode		: gv_ma_selectedApcCd
@@ -1568,6 +1629,17 @@
                     {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
                     {caption: "명칭", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
                 ]
+                , callback : function(value) {
+                    if (bQuery)
+                        return;
+
+                    if (gfn_nvl(value) == "") {
+                        gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', "");
+                        return;
+                    }
+
+                    gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', jsonCtaxRate.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD1"]);
+                }
             }),
             // 지방세율
             gfnma_multiSelectInit({
@@ -1686,6 +1758,7 @@
     }
 
     const fn_view = async function () {
+        if(gvwInfo.getRow() < 0) return;
         fnQRY_P_TRD2010_Q("DETAIL");
         SBUxMethod.attr("DEPOSIT_NUM", "readonly", "true");
     }
@@ -2293,6 +2366,66 @@
                 return false;
             }
         }
+    }
+
+    const fn_changeExchangeRate = async function(val) {
+        SBUxMethod.set("DEPOSIT_AMT_KRW", Math.round(Number(gfn_nvl(SBUxMethod.get("DEPOSIT_AMT"))) * Number(gfn_nvl(val)), p_currUnit));
+    }
+
+    const fn_changeDepositAmt = async function(val) {
+        SBUxMethod.set("DEPOSIT_AMT_KRW", Math.round(Number(gfn_nvl(val)) * Number(gfn_nvl(SBUxMethod.get("EXCHANGE_RATE"))), p_currUnit));
+    }
+
+    const fn_changeDepositDate = async function(val) {
+        if (bQuery)
+            return;
+
+        if (gfn_nvl(val) == "")
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("IN_START_DATE")) != "")
+            return;
+
+        SBUxMethod.set("IN_START_DATE", gfn_dateToYmd(gfn_nvl(val)));
+    }
+
+    const fn_changeInStartDate = async function(val) {
+        if (bQuery)
+            return;
+
+        if (gfn_nvl(val) == "")
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("IN_DD")) != "")
+            return;
+
+        SBUxMethod.set("IN_DD", gfn_nvl(val).substring(6,8));
+    }
+
+    const fn_changeDueDate = async function(val) {
+        if (bQuery)
+            return;
+
+        if (gfn_nvl(val) == "")
+            return;
+
+        if (gfn_nvl(SBUxMethod.get("INTEREST_IN_START_DATE")) != "")
+            return;
+
+        SBUxMethod.set("INTEREST_IN_START_DATE", gfn_dateToYmd(gfn_nvl(val)));
+    }
+
+    const fn_changeInterestInStartDate = async function(val) {
+        if (bQuery)
+            return;
+
+        if (gfn_nvl(val) == "")
+            return;
+
+        if (gfn_nvl(gfnma_multiSelectGet("#INTEREST_IN_DD")) != "")
+            return;
+
+        gfnma_multiSelectSet('#INTEREST_IN_DD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(val).substring(6,8));
     }
 
     // 신규
