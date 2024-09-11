@@ -61,7 +61,7 @@
 							<th scope="row" class="th_bg">사업단위</th>
 							<td class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
-									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
 										<font>선택</font>
 										<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 									</button>
@@ -80,6 +80,8 @@
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
 										style="width:100%;"
+                                        group-id="panHeader"
+                                        required
 								/>
 							</td>
                             <th scope="row" class="th_bg">만기예적금포함여부</th>
@@ -802,7 +804,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                    <div id="sb-area-gvwHistory" style="height:650px;"></div>
+                                    <div id="sb-area-gvwHistory" style="height:450px;"></div>
                                 </div>
                             </div>
                             <div id="tabPlan">
@@ -811,12 +813,14 @@
                                         <li><span>불입계획</span></li>
                                     </ul>
                                     <div class="ad_tbl_toplist">
+                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
+                                        <sbux-button id="btnReCalc" name="btnReCalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_reCalc" style="float: right;"></sbux-button>
                                         <sbux-button id="btn_addRowForGvwPlan" name="btn_addRowForGvwPlan" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwPlan"></sbux-button>
                                         <sbux-button id="btn_delRowForGvwPlan" name="btn_delRowForGvwPlan" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPlan"></sbux-button>
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                    <div id="sb-area-gvwPlan" style="height:650px;"></div>
+                                    <div id="sb-area-gvwPlan" style="height:450px;"></div>
                                 </div>
                             </div>
                             <div id="tabAmortize">
@@ -824,13 +828,13 @@
                                     <ul class="ad_tbl_count">
                                         <li><span>현재가치관리</span></li>
                                     </ul>
-                                    <div class="ad_tbl_toplist">
+                                    <%--<div class="ad_tbl_toplist">
                                         <sbux-button id="btnAmRecalc" name="btnAmRecalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_amRecalc" style="float: right;"></sbux-button>
                                         <sbux-button id="btnAmortize" name="btnAmortize" uitype="normal" text="최초 상각스케줄" class="btn btn-sm btn-outline-danger" onclick="fn_amortize" style="float: right;"></sbux-button>
-                                    </div>
+                                    </div--%>>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                                    <div id="sb-area-gvwAmortize" style="height:650px;"></div>
+                                    <div id="sb-area-gvwAmortize" style="height:450px;"></div>
                                 </div>
                             </div>
                             <div id="tabPL">
@@ -1179,9 +1183,12 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
-    var p_empCd = '${loginVO.maEmpCode}';
     var p_fiOrgCode = "${loginVO.maFIOrgCode}";
+    var p_baseCurrCode = "${loginVO.maBaseCurrCode}";
     //-----------------------------------------------------------
+
+    var bQuery = false;
+    var strDepositNoTmp = "";
 
     var jsonBankCode = []; // 은행코드
     var jsonCurrencyCode = []; // 통화코드
@@ -1281,7 +1288,7 @@
                 , compCode: gv_ma_selectedApcCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND a.cs_code = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
+                , whereClause: "AND a.cs_code = '" + gfn_nvl(SBUxMethod.get("BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DEPOSIT_DATE")) + "' BETWEEN a.effect_start_date AND a.effect_end_date"
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
@@ -1332,16 +1339,44 @@
                     {caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
+                    console.log(value)
                     if(value == "KRW") {
-                        $("#EXCHANGE_RATE").attr('disabled', 'true');
+                        $("#EXCHANGE_GAIN_ACC").attr("required", false);
+                        $("#EXCHANGE_GAIN_ACC_NAME").attr("required", false);
+                        $("#EXCHANGE_LOSS_ACC").attr("required", false);
+                        $("#EXCHANGE_LOSS_ACC_NAME").attr("required", false);
+                        $("#VAL_GAIN_ACC").attr("required", false);
+                        $("#VAL_GAIN_ACC_NAME").attr("required", false);
+                        $("#VAL_LOSS_ACC").attr("required", false);
+                        $("#VAL_LOSS_ACC_NAME").attr("required", false);
+
+                        $("#EXCHANGE_GAIN_ACC").removeClass("inpt_data_reqed");
+                        $("#EXCHANGE_GAIN_ACC_NAME").removeClass("inpt_data_reqed");
+                        $("#EXCHANGE_LOSS_ACC").removeClass("inpt_data_reqed");
+                        $("#EXCHANGE_LOSS_ACC_NAME").removeClass("inpt_data_reqed");
+                        $("#VAL_GAIN_ACC").removeClass("inpt_data_reqed");
+                        $("#VAL_GAIN_ACC_NAME").removeClass("inpt_data_reqed");
+                        $("#VAL_LOSS_ACC").removeClass("inpt_data_reqed");
+                        $("#VAL_LOSS_ACC_NAME").removeClass("inpt_data_reqed");
                     } else {
-                        $("#EXCHANGE_RATE").attr('disabled', 'false');
-                        gvwWFItem.setColDisabled(gvwWFItem.getColRef("FUNCTIONAL_AMT"), false, true);
+                        $("#EXCHANGE_GAIN_ACC").attr("required", true);
+                        $("#EXCHANGE_GAIN_ACC_NAME").attr("required", true);
+                        $("#EXCHANGE_LOSS_ACC").attr("required", true);
+                        $("#EXCHANGE_LOSS_ACC_NAME").attr("required", true);
+                        $("#VAL_GAIN_ACC").attr("required", true);
+                        $("#VAL_GAIN_ACC_NAME").attr("required", true);
+                        $("#VAL_LOSS_ACC").attr("required", true);
+                        $("#VAL_LOSS_ACC_NAME").attr("required", true);
+
+                        $("#EXCHANGE_GAIN_ACC").addClass("inpt_data_reqed");
+                        $("#EXCHANGE_GAIN_ACC_NAME").addClass("inpt_data_reqed");
+                        $("#EXCHANGE_LOSS_ACC").addClass("inpt_data_reqed");
+                        $("#EXCHANGE_LOSS_ACC_NAME").addClass("inpt_data_reqed");
+                        $("#VAL_GAIN_ACC").addClass("inpt_data_reqed");
+                        $("#VAL_GAIN_ACC_NAME").addClass("inpt_data_reqed");
+                        $("#VAL_LOSS_ACC").addClass("inpt_data_reqed");
+                        $("#VAL_LOSS_ACC_NAME").addClass("inpt_data_reqed");
                     }
-
-                    SBUxMethod.set("BASE_SCALE", parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == value)[0]["BASE_SCALE"]));
-
-                    fn_getExchange();
                 }
             }),
             // 예적금유형
@@ -1650,7 +1685,10 @@
         gvwInfo.bind('click', 'fn_view');
     }
 
-    const fn_view = async function () {}
+    const fn_view = async function () {
+        fnQRY_P_TRD2010_Q("DETAIL");
+        SBUxMethod.attr("DEPOSIT_NUM", "readonly", "true");
+    }
 
     function fn_createGvwHistoryGrid() {
         var SBGridProperties 				= {};
@@ -1846,12 +1884,636 @@
         gvwAmortize = _SBGrid.create(SBGridProperties);
     }
 
+    const fnQRY_P_TRD2010_Q = async function (strWorkType) {
+        if (strWorkType == "LIST") {
+            if (!SBUxMethod.validateRequired('panHeader') && !validateRequired()) {
+                return false;
+            }
+        }
+
+        bQuery = true;
+
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE'));
+        let BASE_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
+        let ALL_YN = gfn_nvl(gfnma_multiSelectGet("#SRCH_ALL_YN"));
+        let DEPOSIT_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DEPOSIT_TYPE"));
+        let BANK_CS_CODE = gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE"));
+        let DEPOSIT_NUM = strWorkType == "DETAIL" || strWorkType == "PLAN" || strWorkType == "RECALC" || strWorkType == "AMORTIZE" || strWorkType == "AM_RECALC" ? gfn_nvl(gvwInfo.getCellData(gvwInfo.getRow(), gvwInfo.getColRef("DEPOSIT_NUM"))) : "";
+        let PLAN_SEQ = strWorkType == "RECALC" || strWorkType == "AM_RECALC" ? parseInt(gfn_nvl(gvwPlan.getCellData(gvwPlan.getRow(), gvwPlan.getColRef("PLAN_SEQ")))) : 0;
+
+        // 비즈니스 로직 정보
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            V_P_FI_ORG_CODE : FI_ORG_CODE,
+            V_P_BASE_DATE_TO : BASE_DATE_TO,
+            V_P_TXN_DATE_FR : '',
+            V_P_TXN_DATE_TO : '',
+            V_P_ALL_YN : ALL_YN,
+            V_P_DEPOSIT_TYPE : DEPOSIT_TYPE,
+            V_P_BANK_CS_CODE : BANK_CS_CODE,
+            V_P_DEPOSIT_NUM : DEPOSIT_NUM,
+            V_P_PLAN_SEQ : PLAN_SEQ,
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/trd/selectTrd2010List.do", {
+            getType				: 'json',
+            workType			: strWorkType,
+            cv_count			: '5',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (strWorkType == "LIST") {
+                    jsonDepositList.length = 0;
+                    data.cv_1.forEach((item, index) => {
+                        const msg = {
+                            DEPOSIT_NUM : item.DEPOSIT_NUM,
+                            FI_ORG_CODE : item.FI_ORG_CODE,
+                            BANK_CODE : item.BANK_CODE,
+                            BANK_CS_CODE : item.BANK_CS_CODE,
+                            DEPOSIT_CATEGORY1 : item.DEPOSIT_CATEGORY1,
+                            DEPOSIT_CATEGORY2 : item.DEPOSIT_CATEGORY2,
+                            DEPOSIT_CATEGORY3 : item.DEPOSIT_CATEGORY3,
+                            DEPOSIT_NAME : item.DEPOSIT_NAME,
+                            ACCOUNT_NUM : item.ACCOUNT_NUM,
+                            ACCOUNT_OWNER : item.ACCOUNT_OWNER,
+                            DEPOSIT_DATE : item.DEPOSIT_DATE,
+                            DEPOSIT_AMT : item.DEPOSIT_AMT,
+                            IN_AMT : item.IN_AMT,
+                            REMAIN_AMT : item.REMAIN_AMT,
+                            DUE_DATE : item.DUE_DATE,
+                            CURRENCY_CODE : item.CURRENCY_CODE,
+                            INTEREST_RATE : item.INTEREST_RATE,
+                            DEPOSIT_TYPE : item.DEPOSIT_TYPE,
+                            INTEREST_CALC_METHOD : item.INTEREST_CALC_METHOD,
+                        }
+                        jsonDepositList.push(msg);
+                    });
+
+                    gvwInfo.rebuild();
+
+                    if (jsonDepositList.length > 0) {
+                        gvwInfo.clickRow(1);
+                    } else {
+                        fn_create();
+                    }
+                } else if (strWorkType == "DETAIL") {
+                    jsonInterestRateHistoryList.length = 0;
+                    jsonPaymentPlanList.length = 0;
+
+                    var rs = data.cv_2[0];
+
+                    gfnma_uxDataSet("#tabBase", rs);
+                    gfnma_uxDataSet("#tabAccount", rs);
+                    gfnma_uxDataSet("#tabInfo", rs);
+                    gfnma_uxDataSet("#tabPL", rs);
+                    gfnma_uxDataSet("#tabTR", rs);
+                    gfnma_uxDataSet("#tabTreasury", rs);
+                    gfnma_uxDataSet("#tabDept", rs);
+                    gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', rs.FI_ORG_CODE);
+                    gfnma_multiSelectSet('#DEPOSIT_TYPE', 'SUB_CODE', 'CODE_NAME', rs.DEPOSIT_TYPE);
+                    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', rs.CURRENCY_CODE);
+                    gfnma_multiSelectSet('#DEPOSIT_STATUS', 'SUB_CODE', 'CODE_NAME', rs.DEPOSIT_STATUS);
+                    gfnma_multiSelectSet('#PAY_SEQ', 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', rs.DEPOSIT_STATUS);
+                    gfnma_multiSelectSet('#IN_TERM', 'SUB_CODE', 'CODE_NAME', rs.IN_TERM);
+                    gfnma_multiSelectSet('#IN_DD', 'SUB_CODE', 'CODE_NAME', rs.IN_DD);
+                    gfnma_multiSelectSet('#IN_BASE', 'SUB_CODE', 'CODE_NAME', rs.IN_BASE);
+                    gfnma_multiSelectSet('#INTEREST_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_TYPE);
+                    gfnma_multiSelectSet('#INTEREST_IN_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_IN_TYPE);
+                    gfnma_multiSelectSet('#INTEREST_CALC_DAYS_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_CALC_DAYS_TYPE);
+                    gfnma_multiSelectSet('#INTEREST_IN_DD', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_IN_DD);
+                    gfnma_multiSelectSet('#INTEREST_CALC_METHOD', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_CALC_METHOD);
+                    gfnma_multiSelectSet('#INTEREST_CALC_YEAR_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_CALC_YEAR_TYPE);
+                    gfnma_multiSelectSet('#CTAX_RATE', 'SUB_CODE', 'CODE_NAME', rs.CTAX_RATE);
+                    gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', rs.PTAX_RATE);
+
+                    /*SBUxMethod.set("IN_BANK_CODE", gfn_nvl(rs.IN_BANK_CODE));
+                    SBUxMethod.set("IN_BANK_NAME", gfn_nvl(rs.IN_BANK_NAME));
+                    SBUxMethod.set("PAY_ACCOUNT_OWNER", gfn_nvl(rs.PAY_ACCOUNT_OWNER));
+                    SBUxMethod.set("IN_AMT", gfn_nvl(rs.IN_AMT));
+                    SBUxMethod.set("REMAIN_DEPOSIT_AMT", gfn_nvl(rs.REMAIN_DEPOSIT_AMT));
+                    SBUxMethod.set("DEFERRED_MM", gfn_nvl(rs.DEFERRED_MM));
+                    SBUxMethod.set("INTEREST_DEFERRED_MM", gfn_nvl(rs.INTEREST_DEFERRED_MM));
+                    SBUxMethod.set("DOC_DATE", gfn_nvl(rs.DOC_DATE));
+                    SBUxMethod.set("DOC_NUM", gfn_nvl(rs.DOC_NUM));
+                    SBUxMethod.set("DOC_SEQ", gfn_nvl(rs.DOC_SEQ));
+                    SBUxMethod.set("INSERT_USERID", gfn_nvl(rs.INSERT_USERID));*/
+
+                    data.cv_3.forEach((item, index) => {
+                        const msg = {
+                            TXN_ID : item.TXN_ID,
+                            SEQ : item.SEQ,
+                            DEPOSIT_NUM : item.DEPOSIT_NUM,
+                            APPLY_START_DATE : item.APPLY_START_DATE,
+                            APPLY_END_DATE : item.APPLY_END_DATE,
+                            INTEREST_RATE : item.INTEREST_RATE,
+                            DESCR : item.DESCR,
+                            CONFIRM_FLAG : item.CONFIRM_FLAG,
+                        }
+                        jsonInterestRateHistoryList.push(msg);
+                    });
+
+                    data.cv_4.forEach((item, index) => {
+                        const msg = {
+                            TXN_ID : item.TXN_ID,
+                            DEPOSIT_NUM : item.DEPOSIT_NUM,
+                            PLAN_SEQ : item.PLAN_SEQ,
+                            CURRENCY_CODE : item.CURRENCY_CODE,
+                            IN_PLAN_DATE : item.IN_PLAN_DATE,
+                            CURRENCY_CODE : item.CURRENCY_CODE,
+                            IN_PLAN_AMT : item.IN_PLAN_AMT,
+                            IN_TRANSFER_AMT : item.IN_TRANSFER_AMT,
+                            REMAIN_DEPOSIT_AMT : item.REMAIN_DEPOSIT_AMT,
+                            INTEREST_DAY : item.INTEREST_DAY,
+                            INTEREST_IN_PLAN_AMT : item.INTEREST_IN_PLAN_AMT,
+                            IN_TOTAL_AMT : item.IN_TOTAL_AMT,
+                            INTEREST_FROM_DATE : item.INTEREST_FROM_DATE,
+                            INTEREST_TO_DATE : item.INTEREST_TO_DATE,
+                            INTEREST_RATE : item.INTEREST_RATE,
+                            INTERFACE_FLAG : item.INTERFACE_FLAG,
+                            CONFIRM_FLAG : item.CONFIRM_FLAG,
+                            COMPLETE_FLAG : item.COMPLETE_FLAG,
+                            DUE_WITHDRAW_AMT : item.DUE_WITHDRAW_AMT,
+                            CTAX_RATE : item.CTAX_RATE,
+                            PTAX_RATE : item.PTAX_RATE,
+                            CTAX_WITHHOLD_AMOUNT : item.CTAX_WITHHOLD_AMOUNT,
+                            PTAX_WITHHOLD_AMOUNT : item.PTAX_WITHHOLD_AMOUNT,
+                            PRETAX_INTEREST_AMOUNT : item.PRETAX_INTEREST_AMOUNT,
+                        }
+                        jsonPaymentPlanList.push(msg);
+                    });
+
+                    gvwHistory.rebuild();
+                    gvwPlan.rebuild();
+                } else if (strWorkType == "PLAN" || strWorkType == "RECALC") {
+                    jsonPaymentPlanList.length = 0;
+                    data.cv_5.forEach((item, index) => {
+                        const msg = {
+                            PLAN_SEQ : item.PLAN_SEQ,
+                            CURRENCY_CODE : item.CURRENCY_CODE,
+                            DEPOSIT_NUM : item.DEPOSIT_NUM,
+                            DEPOSIT_AMOUNT : item.DEPOSIT_AMOUNT,
+                            IN_PLAN_AMT : item.IN_PLAN_AMT,
+                            IN_TRANSFER_AMT : item.IN_TRANSFER_AMT,
+                            REMAIN_DEPOSIT_AMT : item.REMAIN_DEPOSIT_AMT,
+                            IN_TOTAL_AMT : item.IN_TOTAL_AMT,
+                            INTEREST_RATE : item.INTEREST_RATE,
+                            INTEREST_FROM_DATE : item.INTEREST_FROM_DATE,
+                            INTEREST_TO_DATE : item.INTEREST_TO_DATE,
+                            IN_PLAN_DATE : item.IN_PLAN_DATE,
+                            INTEREST_DAY : item.INTEREST_DAY,
+                            TOTAL_DAY : item.TOTAL_DAY,
+                            INTEREST_IN_PLAN_AMT : item.INTEREST_IN_PLAN_AMT,
+                            TOTAL_IN_AMOUNT : item.TOTAL_IN_AMOUNT,
+                            CONFIRM_FLAG : item.CONFIRM_FLAG,
+                            INTERFACE_FLAG : item.INTERFACE_FLAG,
+                            COMPLETE_FLAG : item.COMPLETE_FLAG,
+                        }
+                        jsonPaymentPlanList.push(msg);
+                    });
+
+                    gvwPlan.rebuild();
+                }
+
+                return true;
+            } else {
+                alert(data.resultMessage);
+                return false;
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            return false;
+        } finally {
+            bQuery = false;
+        }
+    }
+
+    const fnSET_P_TRD2010_S = async function (strWorkType) {
+        if (!SBUxMethod.validateRequired('panHeader')) {
+            return false;
+        }
+
+        if (!SBUxMethod.validateRequired('tabBase') || !SBUxMethod.validateRequired('tabInfo')
+            || !SBUxMethod.validateRequired('tabAccount') || !SBUxMethod.validateRequired('tabPL')
+            || !SBUxMethod.validateRequired('tabTreasury') || !SBUxMethod.validateRequired('tabTreasuryF')
+            || !SBUxMethod.validateRequired('tabDept'))
+            return false;
+
+        // 비즈니스 로직 정보
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: '',
+            V_P_LANG_ID		: '',
+            V_P_COMP_CODE		: gv_ma_selectedApcCd,
+            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+            IV_P_DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+            V_P_FI_ORG_CODE : gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE')),
+            V_P_ACCOUNT_NUM : gfn_nvl(SBUxMethod.get("ACCOUNT_NUM")),
+            V_P_ACCOUNT_OWNER : gfn_nvl(SBUxMethod.get("ACCOUNT_OWNER")),
+            V_P_DEPOSIT_NAME : gfn_nvl(SBUxMethod.get("DEPOSIT_NAME")),
+            V_P_DEPOSIT_TYPE : gfn_nvl(gfnma_multiSelectGet("#SRCH_DEPOSIT_TYPE")),
+            V_P_DEPOSIT_CATEGORY1 : gfn_nvl(SBUxMethod.get("DEPOSIT_CATEGORY1")),
+            V_P_DEPOSIT_CATEGORY2 : gfn_nvl(SBUxMethod.get("DEPOSIT_CATEGORY2")),
+            V_P_DEPOSIT_CATEGORY3 : gfn_nvl(SBUxMethod.get("DEPOSIT_CATEGORY3")),
+            V_P_BANK_CODE : gfn_nvl(SBUxMethod.get("BANK_CODE")),
+            V_P_BANK_CS_CODE : gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+            V_P_DEPT_CODE : gfn_nvl(SBUxMethod.get("DEPT_CODE")),
+            V_P_COST_CENTER_CODE : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE")),
+            V_P_DEPOSIT_ACCOUNT : gfn_nvl(SBUxMethod.get("DEPOSIT_ACCOUNT")),
+            V_P_INTEREST_INCOME_ACCOUNT : gfn_nvl(SBUxMethod.get("INTEREST_INCOME_ACCOUNT")),
+            V_P_ADVANCE_INCOME_ACCOUNT : gfn_nvl(SBUxMethod.get("ADVANCE_INCOME_ACCOUNT")),
+            V_P_ACCRUED_INCOME_ACCOUNT : gfn_nvl(SBUxMethod.get("ACCRUED_INCOME_ACCOUNT")),
+            V_P_PRESENT_VALUE_ACCOUNT : gfn_nvl(SBUxMethod.get("PRESENT_VALUE_ACCOUNT")),
+            V_P_DEPOSIT_LIQUID_ACCOUNT : gfn_nvl(SBUxMethod.get("DEPOSIT_LIQUID_ACCOUNT")),
+            V_P_DEPOSIT_IN_TR_TYPE : gfn_nvl(SBUxMethod.get("DEPOSIT_IN_TR_TYPE")),
+            V_P_INTEREST_IN_TR_TYPE : gfn_nvl(SBUxMethod.get("INTEREST_IN_TR_TYPE")),
+            V_P_DEPOSIT_START_TR_TYPE : gfn_nvl(SBUxMethod.get("DEPOSIT_START_TR_TYPE")),
+            V_P_EXCHANGE_GAIN_ACC : gfn_nvl(SBUxMethod.get("EXCHANGE_GAIN_ACC")),
+            V_P_EXCHANGE_LOSS_ACC : gfn_nvl(SBUxMethod.get("EXCHANGE_LOSS_ACC")),
+            V_P_VAL_GAIN_ACC : gfn_nvl(SBUxMethod.get("VAL_GAIN_ACC")),
+            V_P_VAL_LOSS_ACC : gfn_nvl(SBUxMethod.get("VAL_LOSS_ACC")),
+            V_P_CURRENCY_CODE : gfn_nvl(gfnma_multiSelectGet("#CURRENCY_CODE")),
+            V_P_EXCHANGE_RATE : Number(gfn_nvl(SBUxMethod.get("EXCHANGE_RATE"))),
+            V_P_DEPOSIT_AMT : Number(gfn_nvl(SBUxMethod.get("DEPOSIT_AMT"))),
+            V_P_DEPOSIT_AMT_KRW : Number(gfn_nvl(SBUxMethod.get("DEPOSIT_AMT_KRW"))),
+            V_P_IN_DEPOSIT_CODE : gfn_nvl(SBUxMethod.get("IN_DEPOSIT_CODE")),
+            V_P_OUT_DEPOSIT_CODE : gfn_nvl(SBUxMethod.get("OUT_DEPOSIT_CODE")),
+            V_P_DEPOSIT_DATE : gfn_nvl(SBUxMethod.get("DEPOSIT_DATE")),
+            V_P_DUE_DATE : gfn_nvl(SBUxMethod.get("DUE_DATE")),
+            V_P_DEPOSIT_STATUS : gfn_nvl(gfnma_multiSelectGet("DEPOSIT_STATUS")),
+            V_P_DESCR : gfn_nvl(SBUxMethod.get("DESCR")),
+            V_P_PAY_DEPOSIT_CODE : gfn_nvl(SBUxMethod.get("PAY_DEPOSIT_CODE")),
+            V_P_PAY_ACCOUNT_NUM : gfn_nvl(SBUxMethod.get("PAY_ACCOUNT_NUM")),
+            V_P_PAY_DEPOSIT_NAME : gfn_nvl(SBUxMethod.get("PAY_DEPOSIT_NAME")),
+            V_P_IN_AMT : 0,
+            V_P_REMAIN_DEPOSIT_AMT : 0,
+            V_P_IN_TERM : gfn_nvl(gfnma_multiSelectGet("#IN_TERM")),
+            V_P_DEFERRED_MM : 0,
+            V_P_IN_CYCLE_MM : parseInt(gfn_nvl(SBUxMethod.get("IN_CYCLE_MM"))),
+            V_P_IN_START_DATE : gfn_nvl(SBUxMethod.get("IN_START_DATE")),
+            V_P_IN_PER_AMT : Number(gfn_nvl(SBUxMethod.get("IN_PER_AMT"))),
+            V_P_IN_FIRST_AMT : Number(gfn_nvl(SBUxMethod.get("IN_FIRST_AMT"))),
+            V_P_IN_DD : gfn_nvl(SBUxMethod.get("IN_DD")),
+            V_P_IN_BASE : gfn_nvl(SBUxMethod.get("IN_BASE")),
+            V_P_INTEREST_TYPE : gfn_nvl(SBUxMethod.get("INTEREST_TYPE")),
+            V_P_INTEREST_RATE : Number(gfn_nvl(SBUxMethod.get("INTEREST_RATE"))),
+            V_P_INTEREST_IN_TYPE : gfn_nvl(gfnma_multiSelectGet("#INTEREST_IN_TYPE")),
+            V_P_INTEREST_CALC_DAYS_TYPE : gfn_nvl(gfnma_multiSelectGet("#INTEREST_CALC_DAYS_TYPE")),
+            V_P_INTEREST_DEFERRED_MM : 0,
+            V_P_INTEREST_IN_CYCLE_MM : parseInt(gfn_nvl(SBUxMethod.get("INTEREST_IN_CYCLE_MM"))),
+            V_P_INTEREST_IN_START_DATE : gfn_nvl(SBUxMethod.get("INTEREST_IN_START_DATE")),
+            V_P_INTEREST_IN_DD : gfn_nvl(gfnma_multiSelectGet("#INTEREST_IN_DD")),
+            V_P_EFFECTIVE_INTEREST_RATE : Number(gfn_nvl(SBUxMethod.get("EFFECTIVE_INTEREST_RATE"))),
+            V_P_DEPOSIT_DISCOUNT_AMT : Number(gfn_nvl(SBUxMethod.get("DEPOSIT_DISCOUNT_AMT"))),
+            V_P_DOC_DATE : "",
+            V_P_DOC_NUM : 0,
+            V_P_DOC_SEQ : 0,
+            V_P_INTEREST_CALC_YEAR_TYPE : gfn_nvl(gfnma_multiSelectGet("#INTEREST_CALC_YEAR_TYPE")),
+            V_P_INTEREST_CALC_METHOD : gfn_nvl(gfnma_multiSelectGet("#INTEREST_CALC_METHOD")),
+            V_P_CTAX_WITHHOLD_ACCOUNT : gfn_nvl(SBUxMethod.get("CTAX_WITHHOLD_ACCOUNT")),
+            V_P_PTAX_WITHHOLD_ACCOUNT : gfn_nvl(SBUxMethod.get("PTAX_WITHHOLD_ACCOUNT")),
+            V_P_CTAX_WITHHOLD_TR_TYPE : gfn_nvl(SBUxMethod.get("CTAX_WITHHOLD_TR_TYPE")),
+            V_P_PTAX_WITHHOLD_TR_TYPE : gfn_nvl(SBUxMethod.get("PTAX_WITHHOLD_TR_TYPE")),
+            V_P_EXCHANGE_GAIN_TR_TYPE : gfn_nvl(SBUxMethod.get("EXCHANGE_GAIN_TR_TYPE")),
+            V_P_EXCHANGE_LOSS_TR_TYPE : gfn_nvl(SBUxMethod.get("EXCHANGE_LOSS_TR_TYPE")),
+            V_P_CTAX_RATE : Number(gfn_nvl(gfnma_multiSelectGet("CTAX_RATE")) == "" ? 0 : gfn_nvl(gfnma_multiSelectGet("CTAX_RATE"))),
+            V_P_PTAX_RATE : Number(gfn_nvl(gfnma_multiSelectGet("PTAX_RATE")) == "" ? 0 : gfn_nvl(gfnma_multiSelectGet("PTAX_RATE"))),
+            V_P_IN_PREAUTH_PAY_YN : gfn_nvl(SBUxMethod.get("IN_PREAUTH_PAY_YN").IN_PREAUTH_PAY_YN),
+            V_P_PAY_SEQ : gfn_nvl(gfnma_multiSelectGet("#PAY_SEQ")) == "" ? 0 : parseInt(gfn_nvl(gfnma_multiSelectGet("#PAY_SEQ"))),
+            V_P_FORM_ID		: p_formId,
+            V_P_MENU_ID		: p_menuId,
+            V_P_PROC_ID		: '',
+            V_P_USERID			: '',
+            V_P_PC				: '',
+        };
+
+        const postJsonPromise = gfn_postJSON("/fi/ftr/trd/insertTrd2010Master.do", {
+            getType				: 'json',
+            workType			: strWorkType,
+            cv_count			: '0',
+            params				: gfnma_objectToString(paramObj)
+        });
+
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (strWorkType == "N") {
+                    SBUxMethod.set("DEPOSIT_NUM", data.v_returnStr)
+                    strDepositNoTmp = data.v_returnStr;
+                } else {
+                    strDepositNoTmp = data.v_returnStr;
+                }
+                gfn_comAlert("I0001");
+                return true;
+            } else {
+                alert(data.resultMessage);
+                return false;
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            return false;
+        }
+    }
+
+    const fnSET_P_TRD2010_S1 = async function (strWorkType) {
+        if (!SBUxMethod.validateRequired('gvwHistory'))
+            return false;
+
+        // 비즈니스 로직 정보
+        let updatedData = gvwHistory.getUpdateData(true, 'all');
+        let listData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                cv_count: '0',
+                getType: 'json',
+                rownum: item.rownum,
+                workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN: '',
+                    V_P_LANG_ID: '',
+                    V_P_COMP_CODE: gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE: gv_ma_selectedClntCd,
+                    V_P_DEPOSIT_NUM : gfn_nvl(item.data.DEPOSIT_NUM),
+                    V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == "" ? 0 : parseInt(gfn_nvl(item.data.TXN_ID)),
+                    V_P_APPLY_START_DATE : gfn_nvl(item.data.APPLY_START_DATE),
+                    V_P_APPLY_END_DATE : gfn_nvl(item.data.APPLY_END_DATE),
+                    V_P_INTEREST_RATE : gfn_nvl(item.data.INTEREST_RATE) == "" ? 0 : Number(gfn_nvl(item.data.INTEREST_RATE)),
+                    V_P_DESCR : gfn_nvl(item.data.DESCR),
+                    V_P_CONFIRM_FLAG : gfn_nvl(item.data.CONFIRM_FLAG),
+                    V_P_FORM_ID: p_formId,
+                    V_P_MENU_ID: p_menuId,
+                    V_P_PROC_ID: '',
+                    V_P_USERID: '',
+                    V_P_PC: ''
+                })
+            }
+            listData.push(param);
+        });
+
+        if(listData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/ftr/trd/insertTrd2010Sub.do", {listData: listData});
+
+            const data = await postJsonPromise;
+            console.log('data:', data);
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    return true;
+                } else {
+                    alert(data.resultMessage);
+                    return false;
+                }
+
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                return false;
+            }
+        }
+    }
+
+    // 신규
+    function cfn_add() {
+        fn_create();
+    }
+
+    // 저장
+    function cfn_save() {
+        fn_save();
+    }
+
+    // 삭제
+    function cfn_del() {
+        fn_delete();
+    }
+
+    // 조회
+    function cfn_search() {
+        fn_search();
+    }
+
+    const fn_onload = async function (parentParameter) {
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+        gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+
+        if (parentParameter == null) {
+            SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date()));
+        } else {
+
+            if (parentParameter.hasOwnProperty("TXN_DATE")) {
+                SBUxMethod.set("SRCH_BASE_DATE", parentParameter["TXN_DATE"]);
+            }
+
+            if (parentParameter.hasOwnProperty("BANK_CS_CODE")) {
+                SBUxMethod.set("BANK_CS_CODE", parentParameter["BANK_CS_CODE"]);
+            }
+
+            if (parentParameter.hasOwnProperty("BANK_CS_NAME")) {
+                SBUxMethod.set("BANK_CS_NAME", parentParameter["BANK_CS_NAME"]);
+            }
+
+            fn_search();
+        }
+        SBUxMethod.set("IN_PREAUTH_PAY_YN", "N");
+    }
+
+    const fn_create = async function () {
+        InitControls(panList);
+        InitControls(grdHistory);
+        InitControls(panAccount);
+        InitControls(panInfo);
+        InitControls(grdPlan);
+        InitControls(grdAmortizegrdAmortize);
+        InitControls(panPL);
+        InitControls(panTR);
+        InitControls(panTRF);
+        InitControls(panDept);
+
+        SBUxMethod.focus('DEPOSIT_NUM');
+
+        SBUxMethod.set("DEPOSIT_NUM", "");
+        strDepositNoTmp = "";
+
+        gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', p_baseCurrCode);
+        SBUxMethod.set("EXCHANGE_RATE", "1");
+        gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', "14");
+    }
+
+    const fn_save = async function () {
+        let strStatus = "";
+
+        if (gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")) == "")
+            strStatus = "N";
+        else
+            strStatus = "U";
+
+        if (!fnSET_P_TRD2010_S(strStatus)) {
+            return;
+        }
+
+        if (!fnSET_P_TRD2010_S1()) {
+            return;
+        }
+
+        fn_search();
+        gvwInfo.clickRow(gvwInfo.getFilterDatas(gvwInfo.getColRef("DEPOSIT_NUM"), strDepositNoTmp);
+    }
+
+    const fn_delete = async function () {
+        if (gfn_comConfirm("Q0000", "[" + gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")) + "]" + " 예적금 정보를 삭제하시겠습니까?")) {
+            if (fnSET_P_TRD2010_S("D"))
+                fnQRY_P_TRD2010_Q("LIST");
+
+            if (jsonDepositList.length < 1) {
+                InitControls(panList);
+                InitControls(grdHistory);
+                InitControls(panAccount);
+                InitControls(panInfo);
+                InitControls(grdPlan);
+                InitControls(panPL);
+
+                panDisable.Enabled = true;
+            }
+        }
+    }
+
+    const fn_search = async function () {
+        await fnQRY_P_TRD2010_Q("LIST");
+    }
+
+    // 행추가
+    const fn_addRowForGvwHistory = async function () {
+        let rowVal = gvwHistory.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            gvwHistory.addRow(true);
+        }else{
+            gvwHistory.insertRow(rowVal);
+        }
+    }
+
+    // 행삭제
+    const fn_deleteRowForGvwHistory = async function () {
+        let rowVal = gvwHistory.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwHistory.deleteRow(rowVal);
+        }
+    }
+
+    // 행추가
+    const fn_addRowForGvwPlan = async function () {
+        let rowVal = gvwHistory.getRow();
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            gvwHistory.addRow(true);
+        }else{
+            gvwHistory.insertRow(rowVal);
+        }
+    }
+
+    // 행삭제
+    const fn_deleteRowForGvwPlan = async function () {
+        let rowVal = gvwHistory.getRow();
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
+            return;
+        } else {
+            gvwHistory.deleteRow(rowVal);
+        }
+    }
+
+    const fn_docCopy = async function () {
+        SBUxMethod.set("DEPOSIT_NUM", "");
+        SBUxMethod.set("DEPOSIT_NAME", "");
+    }
+
+    const fn_plan = async function () {
+        if (gfn_comConfirm("Q0000", "기존 불입계획 정보를 초기화하고 새로운 불입계획 정보를 불러오시겠습니까?")) {
+            var strdeposit_num = "";
+
+            if (jsonDepositList.length > 0)
+                strdeposit_num = gfn_nvl(gvwInfo.getCellData(gvwInfo.getRow(), gvwInfo.getColRef("DEPOSIT_NUM")));
+
+            fnQRY_P_TRD2010_Q("PLAN");
+            fnQRY_P_TRD2010_Q("DETAIL");
+            if (strdeposit_num != "") {
+                gvwInfo.clickRow(gvwInfo.getFilterDatas(gvwInfo.getColRef("DEPOSIT_NUM"), strdeposit_num)[0].row);
+            }
+        }
+    }
+
+    const fn_reCalc = async function () {
+        if (gfn_comConfirm("Q0000", "기존 현재가치관리 정보를 초기화하고 새로운 정보를 불러오시겠습니까?")) {
+            var strdeposit_num = "";
+
+            if (gvwInfo.RowCount > 0)
+                strdeposit_num = gfn_nvl(gvwInfo.getCellData(gvwInfo.getRow(), gvwInfo.getColRef("DEPOSIT_NUM")));
+
+            fnQRY_P_TRD2010_Q("RECALC");
+            fnQRY_P_TRD2010_Q("DETAIL");
+
+            if (strdeposit_num != "") {
+                gvwInfo.clickRow(gvwInfo.getFilterDatas(gvwInfo.getColRef("DEPOSIT_NUM"), strdeposit_num)[0].row);
+            }
+        }
+    }
+
+    const fn_amRecalc = async function () {}
+
+    const fn_amortize = async function () {}
+
     window.addEventListener('DOMContentLoaded', async function(e) {
+        let initObject = localStorage.getItem("callMain");
         await fn_initSBSelect();
         fn_createGvwInfoGrid();
         fn_createGvwHistoryGrid();
         fn_createGvwPlanGrid();
         fn_createGvwAmortizeGrid();
+
+        if(!gfn_isEmpty(initObject)){
+            initObject = JSON.parse(initObject);
+            localStorage.removeItem("callMain");
+
+            await fn_onload(initObject);
+        } else {
+            await fn_onload();
+        }
+    });
+
+    window.addEventListener('message', async function(event){
+        let obj = event.data;
+        if(!gfn_isEmpty(obj)){
+            await fn_onload(obj);
+        } else {
+            await fn_onload();
+        }
     });
 </script>
 <!-- inline scripts related to this page -->
