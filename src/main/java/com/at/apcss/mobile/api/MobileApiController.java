@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.at.apcss.mobile.service.FcmService;
+import com.at.apcss.mobile.vo.FarmMapVO;
 import com.at.apcss.mobile.vo.FcmSendVO;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
@@ -59,7 +60,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.com.jwt.config.EgovJwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
-
 
 /**
  * 모바일 API 호출을 위한 Controller
@@ -540,52 +540,30 @@ public class MobileApiController extends BaseController{
 		return resultJson;
 	}
 
-	@GetMapping("/getFarmmapObj.do")
-	@ResponseBody
-	public JSONObject getFarmmapObj(Locale locale,
-									HttpServletRequest request) throws Exception {
-		JSONObject resultJson = new JSONObject();
-		try {
-			String domain = request.getServerName();
+	@PostMapping(value = "/framldMapPopupMobile.do")
+	public String framldMapPopupMobile(@RequestBody FarmMapVO farmMapVO,
+									   Locale locale,
+									   HttpServletRequest request,
+									   ModelMap model) throws Exception {
+		String domain = request.getServerName();
 
-			String key = "";
+		String key = "";
 
-			if ("133.186.212.16".equals(domain)) {
-				key = "NCfYZTYs0sp6X1s0lh5U";
-			} else if ("localhost".equals(domain)) {
-				key = "8AuulPFHOftqyHEmTdQK";
-			} else if ("apcss.smartapc.or.kr".equals(domain)) {
-				key = "NmdiNXbWcIWRYCX9O7jd";
-			}
+		if ("133.186.212.16".equals(domain)) {
+			key = "NCfYZTYs0sp6X1s0lh5U";
+		} else if ("localhost".equals(domain)) {
+			key = "8AuulPFHOftqyHEmTdQK";
+		} else if ("apcss.smartapc.or.kr".equals(domain)) {
+			key = "NmdiNXbWcIWRYCX9O7jd";
+		}
 
-			String url = "https://agis.epis.or.kr/ASD/farmmapApi/farmapApi.do?apiKey="+key+"&domain="+domain;
+		model.addAttribute("domain", domain);
+		model.addAttribute("key", key);
+		model.addAttribute("apcNm", farmMapVO.getApcNm());
+		model.addAttribute("stdgCd", farmMapVO.getStdgCd());
+		model.addAttribute("frlnMno", farmMapVO.getFrlnMno());
+		model.addAttribute("frlnSno", farmMapVO.getFrlnSno());
 
-			HttpClient httpClient = HttpClientBuilder.create().build(); // Use this instead
-
-			HttpGet httpGet = new HttpGet(url);
-			//httpGet.addHeader("content-type", "application/json");
-			HttpResponse response = httpClient.execute(httpGet);
-
-			HttpEntity entity = response.getEntity();
-			String res = EntityUtils.toString(entity, "UTF-8");
-
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(res);
-			if (obj != null) {
-				resultJson.put("success", true);
-				resultJson.put("message", "성공");
-				resultJson.put("data", obj);
-			} else {
-				resultJson.put("success", false);
-				resultJson.put("code", "6666");
-				resultJson.put("message", "fail");
-			}
-		} catch (ParseException e) {
-			resultJson.put("success", false);
-			resultJson.put("code", "6666");
-			resultJson.put("message", "fail");
-        }
-
-        return resultJson;
+        return "/apcss/am/popup/framldMapPopupMobile";
 	}
 }
