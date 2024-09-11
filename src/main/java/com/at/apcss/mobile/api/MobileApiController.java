@@ -1,6 +1,9 @@
 package com.at.apcss.mobile.api;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import javax.annotation.Resource;
@@ -8,12 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.at.apcss.mobile.service.FcmService;
+import com.at.apcss.mobile.vo.FarmMapVO;
 import com.at.apcss.mobile.vo.FcmSendVO;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.TopicManagementResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,10 +39,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
@@ -47,7 +60,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.com.jwt.config.EgovJwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
-
 
 /**
  * 모바일 API 호출을 위한 Controller
@@ -526,5 +538,38 @@ public class MobileApiController extends BaseController{
 		}
 
 		return resultJson;
+	}
+
+	@PostMapping(value = "/framldMapPopupMobile.do")
+	public String framldMapPopupMobile(FarmMapVO farmMapVO,
+									   Locale locale,
+									   HttpServletRequest request,
+									   ModelMap model) throws Exception {
+		String domain = request.getServerName();
+
+		String apiKey = "";
+
+		if ("133.186.212.16".equals(domain)) {
+			apiKey = "NCfYZTYs0sp6X1s0lh5U";
+		} else if ("localhost".equals(domain)) {
+			apiKey = "8AuulPFHOftqyHEmTdQK";
+		} else if ("apcss.smartapc.or.kr".equals(domain)) {
+			apiKey = "NmdiNXbWcIWRYCX9O7jd";
+		}
+
+		model.addAttribute("domain", domain);
+		model.addAttribute("key", apiKey);
+
+		model.addAttribute("apcNm", farmMapVO.getApcNm());
+		model.addAttribute("stdgCd", farmMapVO.getStdgCd());
+		model.addAttribute("frlnMno", farmMapVO.getFrlnMno());
+		model.addAttribute("frlnSno", farmMapVO.getFrlnSno());
+/*
+		for (String name : Collections.<String>list(request.getParameterNames())) {
+			String value = request.getParameter(name);
+			model.addAttribute(name, value);
+		}
+*/
+        return "/apcss/am/popup/framldMapPopupMobile";
 	}
 }
