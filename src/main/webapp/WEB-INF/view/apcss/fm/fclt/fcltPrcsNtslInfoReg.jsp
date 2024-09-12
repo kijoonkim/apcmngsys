@@ -113,6 +113,7 @@
 						<col style="width: 60px">
 						<col style="width: 20%">
 						<col style="width: 60px">
+						<col style="width: 20%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -121,7 +122,7 @@
 							<th class="text-center" colspan="2">품목2</th>
 							<th class="text-center" colspan="2">품목3</th>
 							<th class="text-center" colspan="2">기타</th>
-							<th class="text-center" colspan="2">계</th>
+							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
 							<th>유통조직 처리실적</th>
@@ -185,6 +186,17 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
+								<sbux-input
+									id="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+									name="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+									uitype="text"
+									class="form-control input-sm"
+									style="text-align: right"
+									placeholder="자동계산"
+									readonly
+								></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<th>APC 처리실적</th>
@@ -248,6 +260,17 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
+								<sbux-input
+									id="dtl-inp-apcTrmtAmtTot1"
+									name="dtl-inp-apcTrmtAmtTot1"
+									uitype="text"
+									class="form-control input-sm"
+									style="text-align: right"
+									placeholder="자동계산"
+									readonly
+								></sbux-input>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -288,7 +311,7 @@
 							<th class="text-center" colspan="2">도매시장<br>(공판장 포함)</th>
 							<th class="text-center" colspan="2">온라인 도매시장</th>
 							<th class="text-center" colspan="2">소매업체 직판</th>
-							<td class="text-center" colspan="2" rowspan="2"></td>
+							<th class="text-center" colspan="2">계(백만원)</th>
 						</tr>
 						<tr>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -351,6 +374,18 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
+								<sbux-input
+									id="dtl-inp-apcNtslAmtTot"
+									name="dtl-inp-apcNtslAmtTot"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="자동계산"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+									readonly
+								></sbux-input>
+							</td>
+							<td>(백만원)</td>
 						</tr>
 						<tr>
 							<th class="text-center" colspan="2">수출</th>
@@ -358,7 +393,7 @@
 							<th class="text-center" colspan="2">온라인(B2B)</th>
 							<th class="text-center" colspan="2">온라인(B2C)</th>
 							<th class="text-center" colspan="2">기타</th>
-							<th class="text-center" colspan="2">계(백만원)</th>
+							<th class="text-center" colspan="2">계(한글단위)</th>
 						</tr>
 						<tr>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -423,12 +458,12 @@
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
-									id="dtl-inp-apcNtslAmtTot"
-									name="dtl-inp-apcNtslAmtTot"
+									id="dtl-inp-apcNtslAmtTot1"
+									name="dtl-inp-apcNtslAmtTot1"
 									uitype="text"
 									class="form-control input-sm"
+									style="text-align: right"
 									placeholder="자동계산"
-									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									readonly
 								></sbux-input>
 							</td>
@@ -532,12 +567,14 @@
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt3',item.rtlOgnzTotTrmtAmt3);
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt4',item.rtlOgnzTotTrmtAmt4);
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot',item.rtlOgnzTotTrmtAmtTot);
+				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1',fn_numberToKorean(item.rtlOgnzTotTrmtAmtTot));
 
 				SBUxMethod.set('dtl-inp-apcTrmtAmt1',item.apcTrmtAmt1);
 				SBUxMethod.set('dtl-inp-apcTrmtAmt2',item.apcTrmtAmt2);
 				SBUxMethod.set('dtl-inp-apcTrmtAmt3',item.apcTrmtAmt3);
 				SBUxMethod.set('dtl-inp-apcTrmtAmt4',item.apcTrmtAmt4);
 				SBUxMethod.set('dtl-inp-apcTrmtAmtTot',item.apcTrmtAmtTot);
+				SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',fn_numberToKorean(item.apcTrmtAmtTot));
 			});
 			fn_cal();
 
@@ -568,6 +605,7 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
@@ -629,6 +667,8 @@
 					+ convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcNtslAmtOnlnB2c'))
 					+ convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcNtslAmtEtc'));
 		SBUxMethod.set('dtl-inp-apcNtslAmtTot',sum);
+		SBUxMethod.set('dtl-inp-apcNtslAmtTot1',fn_numberToKorean(sum));
+
 	}
 
 
@@ -679,5 +719,34 @@
 		await fn_search();
 	}
 
+	function fn_numberToKorean(number) {
+		if(number == null){
+			return "";
+		}
+		if(typeof number == "string"){
+			number = parseFloat(number);
+		}
+		//기본 단위 100만원  100 0000
+		number = number * 100
+		var inputNumber = number < 0 ? false : number;
+		var unitWords = ["만", "억", "조", "경"];
+		var splitUnit = 10000;
+		var splitCount = unitWords.length;
+		var resultArray = [];
+		var resultString = "";
+
+		for (var i = 0; i < splitCount; i++) {
+			var unitResult = (inputNumber % Math.pow(splitUnit, i + 1)) / Math.pow(splitUnit, i);
+			unitResult = Math.floor(unitResult);
+			if (unitResult > 0) {
+				resultArray[i] = unitResult;
+			}
+		}
+		for (var i = 0; i < resultArray.length; i++) {
+			if (!resultArray[i]) continue;
+			resultString = String(resultArray[i]) + unitWords[i] + resultString;
+		}
+		return resultString + "원";
+	}
 </script>
 </html>

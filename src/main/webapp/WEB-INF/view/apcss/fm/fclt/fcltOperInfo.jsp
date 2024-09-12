@@ -581,9 +581,9 @@
 			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
 
-			{caption: ["담당자명"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
-			{caption: ["직위"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
-			{caption: ["연락처"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["담당자명"],	ref: 'picNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["직위"],	ref: 'jbps',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["연락처"],	ref: 'coTelno',		type:'input',  width:'100px',    style:'text-align:center'},
 
 			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
 			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},
