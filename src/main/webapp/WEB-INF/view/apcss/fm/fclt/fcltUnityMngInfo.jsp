@@ -193,6 +193,13 @@
 										<label class="check_label" for="dtl-inp-umsPrdctnInfo" ></label>
 									</p>
 								</td>
+								<th>계량정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsWghInfo" ></label>
+									</p>
+								</td>
 								<th>입고정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -207,6 +214,9 @@
 										<label class="check_label" for="dtl-inp-umsSortInfo" ></label>
 									</p>
 								</td>
+
+							</tr>
+							<tr>
 								<th>저장정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -214,8 +224,6 @@
 										<label class="check_label" for="dtl-inp-umsStrgInfo" ></label>
 									</p>
 								</td>
-							</tr>
-							<tr>
 								<th>포장정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -237,13 +245,7 @@
 										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
-								<th>계량정보</th>
-								<td>
-									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
-										<label class="check_label" for="dtl-inp-umsWghInfo" ></label>
-									</p>
-								</td>
+
 							</tr>
 						</tbody>
 					</table>
@@ -306,13 +308,13 @@
 
 	const fn_clearForm = async function() {
 		SBUxMethod.set('dtl-inp-umsPrdctnInfo',"N");
+		SBUxMethod.set('dtl-inp-umsWghInfo',"N");
 		SBUxMethod.set('dtl-inp-umsWrhsInfo',"N");
 		SBUxMethod.set('dtl-inp-umsSortInfo',"N");
 		SBUxMethod.set('dtl-inp-umsStrgInfo',"N");
 		SBUxMethod.set('dtl-inp-umsPckgInfo',"N");
 		SBUxMethod.set('dtl-inp-umsSpmtInfo',"N");
 		SBUxMethod.set('dtl-inp-umsClclnInfo',"N");
-		SBUxMethod.set('dtl-inp-umsWghInfo',"N");
 	}
 
 	var jsonComCtpv = [];//시도
@@ -358,13 +360,13 @@
 
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
+				SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
 				SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
 				SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
 				SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
 				SBUxMethod.set('dtl-inp-umsPckgInfo',item.umsPckgInfo);
 				SBUxMethod.set('dtl-inp-umsSpmtInfo',item.umsSpmtInfo);
 				SBUxMethod.set('dtl-inp-umsClclnInfo',item.umsClclnInfo);
-				SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
 			});
 
 		} catch (e) {
@@ -404,13 +406,13 @@
 			, prgrsYn : 'N' //진척도 갱신 여부
 
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
+			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()
 			,umsSortInfo : $('#dtl-inp-umsSortInfo').val()
 			,umsStrgInfo : $('#dtl-inp-umsStrgInfo').val()
 			,umsPckgInfo : $('#dtl-inp-umsPckgInfo').val()
 			,umsSpmtInfo : $('#dtl-inp-umsSpmtInfo').val()
 			,umsClclnInfo : $('#dtl-inp-umsClclnInfo').val()
-			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 		});
 
 		const data = await postJsonPromise;
@@ -493,6 +495,10 @@
 
 			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["담당자명"],	ref: 'picNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["직위"],	ref: 'jbps',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["연락처"],	ref: 'coTelno',		type:'input',  width:'100px',    style:'text-align:center'},
 
 			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
 			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},
