@@ -209,6 +209,9 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
+	var firstLoad = 0;
+	var secondLaod = 0;
+
     const lv_tabPrefix = "idxfrmJson_TAB_";
     let lv_frmId = "";
     let prvTabMenuId = "";

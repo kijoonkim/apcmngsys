@@ -209,6 +209,9 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
 		await fn_clearForm();
 
 		await fn_search();
@@ -235,6 +238,10 @@
 	}
 
 	const fn_search = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		await fn_clearForm();
 		await fn_selectUniMnIfList();
 	}
@@ -304,6 +311,10 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 

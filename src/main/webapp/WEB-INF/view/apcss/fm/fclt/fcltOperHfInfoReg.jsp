@@ -297,6 +297,11 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
+
 		await fn_clearForm();
 		await fn_search();
 		//진척도
