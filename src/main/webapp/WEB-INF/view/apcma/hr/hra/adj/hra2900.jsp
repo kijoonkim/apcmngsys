@@ -232,7 +232,7 @@
                     ></sbux-button>
                 </div>
                 <div>
-                    <div id="sb-area-gvwYearEndTaxResult" style="height:520px; width:100%;"></div>
+                    <div id="sb-area-gvwYearEndTaxResult" style="height:500px; width:100%;"></div>
                 </div>
             </div>
         </div>
@@ -423,12 +423,12 @@
             fn_save('U', '', 'tabInfo2');
 
         }
+
     }
 
     function cfn_search() {
 
         fn_search();
-
 
     }
 
