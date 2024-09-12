@@ -821,7 +821,7 @@
                                         <li><span>불입계획</span></li>
                                     </ul>
                                     <div class="ad_tbl_toplist">
-                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
+                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="최초불입계획" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
                                         <sbux-button id="btnReCalc" name="btnReCalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_reCalc" style="float: right;"></sbux-button>
                                         <sbux-button id="btn_addRowForGvwPlan" name="btn_addRowForGvwPlan" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwPlan"></sbux-button>
                                         <sbux-button id="btn_delRowForGvwPlan" name="btn_delRowForGvwPlan" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPlan"></sbux-button>
@@ -1176,13 +1176,6 @@
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-</div>
-
-<div>
-    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
-</div>
-<div id="body-modal-compopup3">
-    <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
 </div>
 </body>
 
@@ -2543,7 +2536,7 @@
         });
 
         if(listData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/fi/ftr/trd/insertTrd2010Sub.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/fi/ftr/trd/insertTrd2010ForHistory.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -2648,6 +2641,9 @@
     }
 
     const fn_onload = async function (parentParameter) {
+        SBUxMethod.hideTab('tabPlan');
+        SBUxMethod.hideTab('tabAmortize');
+
         gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
         gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
 
@@ -2733,7 +2729,7 @@
         }
 
         fn_search();
-        gvwInfo.clickRow(gvwInfo.getFilterDatas(gvwInfo.getColRef("DEPOSIT_NUM"), strDepositNoTmp);
+        gvwInfo.clickRow(gvwInfo.getFilterDatas(gvwInfo.getColRef("DEPOSIT_NUM"), strDepositNoTmp));
     }
 
     const fn_delete = async function () {
@@ -2764,9 +2760,15 @@
         let rowVal = gvwHistory.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwHistory.addRow(true);
+            gvwHistory.addRow(true, {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                CONFIRM_FLAG : "N"
+            });
         }else{
-            gvwHistory.insertRow(rowVal);
+            gvwHistory.insertRow(rowVal, 'below', {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                CONFIRM_FLAG : "N"
+            });
         }
     }
 
@@ -2786,9 +2788,19 @@
         let rowVal = gvwPlan.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwPlan.addRow(true);
+            gvwPlan.addRow(true, {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                INTERFACE_FLAG : "N",
+                CONFIRM_FLAG : "N",
+                COMPLETE_FLAG : "N"
+            });
         }else{
-            gvwPlan.insertRow(rowVal);
+            gvwPlan.insertRow(rowVal, 'below', {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                INTERFACE_FLAG : "N",
+                CONFIRM_FLAG : "N",
+                COMPLETE_FLAG : "N"
+            });
         }
     }
 
