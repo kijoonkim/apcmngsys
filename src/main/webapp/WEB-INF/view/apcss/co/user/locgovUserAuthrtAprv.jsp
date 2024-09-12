@@ -470,7 +470,7 @@
 	        	width:'70px', 
 	        	style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "authrtMngrYn"},
+                userattr: {colNm: "authrtMngrYn"}
         	},
         	{
         		caption: ["시/도"],
@@ -542,6 +542,17 @@
 	    grdUserAprv.bind('valuechanged', fn_grdUserAprvValueChanged);
 	}
 
+	const fn_setMngrYn = function(nRow, isChecked) {
+		
+		console.log("isChecked", isChecked);
+		
+		if (nRow > 0) {
+			const row = grdUserAprv.getRowData(nRow, false);
+			row.authrtMngrYn = isChecked ? "Y" : "N";
+			console.log(row);
+		}
+	}
+	
     const fn_search = async function() {
     	
     	jsonUserAprv.length = 0;
@@ -653,7 +664,19 @@
           		grdUserAprv.setPageTotalCount(0);
           		grdUserAprv.rebuild();
           	}
-
+          	
+          	const mngrCol = grdUserAprv.getColRef("authrtMngrYn");
+          	const allData = grdUserAprv.getGridDataAll();
+    		for ( let i=0; i<allData.length; i++) {
+    			if (!gfn_isEmpty(allData[i].sgg)) {
+    				grdUserAprv.setCellHide(i+1, mngrCol, i+1, mngrCol, true);
+    				grdUserAprv.setCellDisabled(i+1, mngrCol, i+1, mngrCol, true);
+    			} else {
+    				grdUserAprv.setCellHide(i+1, mngrCol, i+1, mngrCol, false);
+    				grdUserAprv.setCellDisabled(i+1, mngrCol, i+1, mngrCol, false);
+    			}
+    		}
+          	
           	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
 
 
@@ -684,6 +707,8 @@
 
 		const aprvList = [];
 		const allData = grdUserAprv.getGridDataAll();
+		
+		console.log(allData);
 		
 		for ( let i=0; i<allData.length; i++) {
 
