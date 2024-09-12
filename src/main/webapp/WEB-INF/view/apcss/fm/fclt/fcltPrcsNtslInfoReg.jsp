@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltPrcsNtslInfoReg.jsp
-  * @Description : 5.5.산지유통시설처리상품주요판매처 화면
+  * @Description : 5.3 산지유통시설처리상품주요판매처 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
