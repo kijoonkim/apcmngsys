@@ -110,7 +110,7 @@
 							</td>
                             <th scope="row" class="th_bg">금융기관</th>
                             <td class="td_input">
-                                 <sbux-input id="SRCH_BANK_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                 <sbux-input id="SRCH_BANK_CS_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
                             </td>
                             <td class="td_input">
                                 <sbux-input id="SRCH_BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -120,7 +120,7 @@
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
                                         target-id="modal-compopup1"
-                                        onclick="fn_findBankCode"
+                                        onclick="fn_findBankCsCode('SRCH_')"
                                 ></sbux-button>
                             </td>
 						</tr>
@@ -165,7 +165,7 @@
                                             <th scope="row" class="th_bg">사업단위</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -198,7 +198,7 @@
                                             <th scope="row" class="th_bg">예적금유형</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -224,27 +224,27 @@
                                         <tr>
                                             <th scope="row" class="th_bg">금융기관</th>
                                             <td class="td_input">
-                                                <sbux-input id="BANK_CS_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="BANK_CS_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findBankCsCode"
+                                                        onclick="fn_findBankCsCode('')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">은행</th>
                                             <td class="td_input">
-                                                <sbux-input id="BANK_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="BANK_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="BANK_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="BANK_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -281,7 +281,7 @@
                                             <th scope="row" class="th_bg">통화</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -292,35 +292,35 @@
                                             <th scope="row" class="th_bg">환율</th>
                                             <td colspan="2" class="td_input">
                                                 <sbux-input id="EXCHANGE_RATE" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeExchangeRate(EXCHANGE_RATE)"></sbux-input>
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeExchangeRate(EXCHANGE_RATE)" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">예적금액(원래)</th>
                                             <td class="td_input">
                                                 <sbux-input id="DEPOSIT_AMT" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeDepositAmt(DEPOSIT_AMT)"></sbux-input>
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" onchange="fn_changeDepositAmt(DEPOSIT_AMT)" required></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">예적금액(환산)</th>
                                             <td colspan="2" class="td_input">
                                                 <sbux-input id="DEPOSIT_AMT_KRW" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}"></sbux-input>
+                                                            mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">입금계좌</th>
                                             <td class="td_input">
-                                                <sbux-input id="IN_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="IN_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="IN_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="IN_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findInDeposit"
+                                                        onclick="fn_findDepositCode('IN')"
                                                 ></sbux-button>
                                             </td>
                                             <td class="td_input">
@@ -330,17 +330,17 @@
                                         <tr>
                                             <th scope="row" class="th_bg">출금계좌</th>
                                             <td class="td_input">
-                                                <sbux-input id="OUT_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="OUT_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="OUT_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="OUT_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findOutDeposit"
+                                                        onclick="fn_findDepositCode('OUT')"
                                                 ></sbux-button>
                                             </td>
                                             <td class="td_input">
@@ -358,6 +358,7 @@
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
                                                         onchange="fn_changeDepositDate(DEPOSIT_DATE)"
+                                                        required
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">만기일</th>
@@ -370,19 +371,20 @@
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
                                                         onchange="fn_changeDueDate(DUE_DATE)"
+                                                        required
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">총가입일수(일)</th>
                                             <td class="td_input">
                                                 <sbux-input id="DEPOSIT_DAY" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"></sbux-input>
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">예적금상태</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DEPOSIT_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -434,85 +436,85 @@
                                         <tr>
                                             <th scope="row" class="th_bg">예적금계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="DEPOSIT_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="DEPOSIT_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findDepositAccount"
+                                                        onclick="fn_findAccountCode('DEPOSIT_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">선수수익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="ADVANCE_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findAdvanceIncomeAccount"
+                                                        onclick="fn_findAccountCode('ADVANCE_INCOME_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">미수수익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findAccruedIncomeAccount"
+                                                        onclick="fn_findAccountCode('ACCRUED_INCOME_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">선급법인세계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findCtaxWithholdAccount"
+                                                        onclick="fn_findAccountCode('CTAX_WITHHOLD_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">선급지방소득세계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findPtaxWithholdAccount"
+                                                        onclick="fn_findAccountCode('PTAX_WITHHOLD_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -529,7 +531,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findPresentValueAccount"
+                                                        onclick="fn_findAccountCode('PRESENT_VALUE_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -546,7 +548,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findDepositLiquidAccount"
+                                                        onclick="fn_findAccountCode('DEPOSIT_LIQUID_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -574,17 +576,17 @@
                                         <tr>
                                             <th scope="row" class="th_bg">불입계좌</th>
                                             <td class="td_input">
-                                                <sbux-input id="PAY_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="PAY_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="PAY_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="PAY_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findPayDepositCode"
+                                                        onclick="fn_findDepositCode('PAY')"
                                                 ></sbux-button>
                                             </td>
                                             <td class="td_input">
@@ -595,7 +597,7 @@
                                             <th scope="row" class="th_bg">불입조건</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_TERM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_TERM" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -606,7 +608,7 @@
                                             <th scope="row" class="th_bg">불입주기(개월)</th>
                                             <td colspan="2" class="td_input">
                                                 <sbux-input id="IN_CYCLE_MM" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"></sbux-input>
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
@@ -620,13 +622,14 @@
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
                                                         onchange="fn_changeInStartDate(IN_START_DATE)"
+                                                        required
                                                 />
                                             </td>
                                             </td>
                                             <th scope="row" class="th_bg">최초불입액</th>
                                             <td colspan="2" class="td_input">
                                                 <sbux-input id="IN_FIRST_AMT" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"></sbux-input>
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
@@ -634,12 +637,12 @@
                                             <th scope="row" class="th_bg">1회불입액</th>
                                             <td class="td_input">
                                                 <sbux-input id="IN_PER_AMT" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"></sbux-input>
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">불입일</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -652,7 +655,7 @@
                                             <th scope="row" class="th_bg">불입기준</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_BASE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="IN_BASE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -663,7 +666,7 @@
                                             <th scope="row" class="th_bg">단복리 구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -676,7 +679,7 @@
                                             <th scope="row" class="th_bg">이자율구분</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -687,14 +690,14 @@
                                             <th scope="row" class="th_bg">약정이율</th>
                                             <td colspan="2" class="td_input">
                                                 <sbux-input id="INTEREST_RATE" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"></sbux-input>
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">이자수취기준</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -705,7 +708,7 @@
                                             <th scope="row" class="th_bg">이자일수계산기준</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_DAYS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_DAYS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -718,12 +721,12 @@
                                             <th scope="row" class="th_bg">이자발생주기(개월)</th>
                                             <td class="td_input">
                                                 <sbux-input id="INTEREST_IN_CYCLE_MM" class="form-control input-sm" uitype="text" style="width:100%"
-                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"></sbux-input>
+                                                            mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }" required></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">년간이자일수</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_YEAR_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_CALC_YEAR_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -743,12 +746,13 @@
                                                         class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                                         style="width:100%;"
                                                         onchange="fn_changeInterestInStartDate(INTEREST_IN_START_DATE)"
+                                                        required
                                                 />
                                             </td>
                                             <th scope="row" class="th_bg">이자발생일</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INTEREST_IN_DD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -860,85 +864,85 @@
                                         <tr>
                                             <th scope="row" class="th_bg">이자수익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="INTEREST_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="INTEREST_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="INTEREST_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="INTEREST_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findInterestIncomeAccount"
+                                                        onclick="fn_findAccountCode('INTEREST_INCOME_ACCOUNT')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환차익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_GAIN_ACC" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="EXCHANGE_GAIN_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="EXCHANGE_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findExchangeGainAcc"
+                                                        onclick="fn_findAccountCode('EXCHANGE_GAIN_ACC')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환차손계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_LOSS_ACC" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="EXCHANGE_LOSS_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="EXCHANGE_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findExchangeLossAcc"
+                                                        onclick="fn_findAccountCode('EXCHANGE_LOSS_ACC')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환평가이익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="VAL_GAIN_ACC" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="VAL_GAIN_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="VAL_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="VAL_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findValGainAcc"
+                                                        onclick="fn_findAccountCode('VAL_GAIN_ACC')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환평가손실계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="VAL_LOSS_ACC" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="VAL_LOSS_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="VAL_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="VAL_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findValLossAcc"
+                                                        onclick="fn_findAccountCode('VAL_LOSS_ACC')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -975,7 +979,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findDepositStartTrType"
+                                                        onclick="fn_findFundCode('DEPOSIT_START_TR')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -992,7 +996,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findDepositInTrType"
+                                                        onclick="fn_findFundCode('DEPOSIT_IN_TR')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -1009,7 +1013,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findInterestInTrType"
+                                                        onclick="fn_findFundCode('INTEREST_IN_TR')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -1026,7 +1030,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findCtaxWithholdTrType"
+                                                        onclick="fn_findFundCode('CTAX_WITHHOLD_TR')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -1043,7 +1047,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findPtaxWithholdTrType"
+                                                        onclick="fn_findFundCode('PTAX_WITHHOLD_TR')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -1080,7 +1084,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findExchangeGainTrType"
+                                                        onclick="fn_findFundCode('EXCHANGE_GAIN_TR')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -1097,7 +1101,7 @@
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
                                                         target-id="modal-compopup1"
-                                                        onclick="fn_findExchangeLossTrType"
+                                                        onclick="fn_findFundCode('EXCHANGE_LOSS_TR')"
                                                 ></sbux-button>
                                             </td>
                                         </tr>
@@ -1124,10 +1128,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">부서</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
                                             <td class="td_input">
-                                                <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                                                <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-button
@@ -1317,7 +1321,7 @@
                     SBUxMethod.set('DEPOSIT_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD1_NM"]);
 
                     SBUxMethod.set('ADVANCE_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD2"]);
-                    SBUxMethod.set('ADVANCE_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD2_NM"]);
+                    SBUxMethod.set('ADVANCE_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD2_NM"]);
 
                     SBUxMethod.set('ACCRUED_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD3"]);
                     SBUxMethod.set('ACCRUED_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD3_NM"]);
@@ -1957,6 +1961,204 @@
         gvwAmortize = _SBGrid.create(SBGridProperties);
     }
 
+    const fn_findBankCsCode = function(elementId) {
+        var searchText 		= gfnma_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
+        var replaceText0 	= "_CS_CODE_";
+        var replaceText1 	= "_CS_NAME_";
+        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_CS_BANK'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["거래처코드", "거래처명"]
+            ,searchInputFields		: ["CS_CODE", "CS_NAME"]
+            ,searchInputValues		: ["", searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["거래처코드", "거래처명", "은행코드", "은행명", "사업자번호", "주소"]
+            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
+            ,tableColumnWidths		: ["100px", "200px", "100px", "100px", "120px", "300px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set(elementId + 'BANK_CS_NAME', data.CS_NAME);
+                SBUxMethod.set(elementId + 'BANK_CS_CODE', data.CS_CODE);
+            },
+        });
+    }
+
+    const fn_findBankCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("BANK_NAME"));
+        var replaceText0 	= "_BANK_CODE_";
+        var replaceText1 	= "_BANK_NAME_";
+        var strWhereClause 	= "AND a.BANK_CODE LIKE '%" + replaceText0 + "%' AND a.BANK_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '은행 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_COM003'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", "명칭"]
+            ,searchInputFields		: ["BANK_CODE", "BANK_NAME"]
+            ,searchInputValues		: ["", searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["거래처코드", "거래처명"]
+            ,tableColumnNames		: ["BANK_CODE" , "BANK_NAME"]
+            ,tableColumnWidths		: ["80px", "150px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('BANK_NAME', data.BANK_NAME);
+                SBUxMethod.set('BANK_CODE', data.BANK_CODE);
+            },
+        });
+    }
+
+    const fn_findDepositCode = function(inOrOut) {
+        var searchText 		= gfnma_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_NAME"));
+        var replaceText0 	= "_DEPOSIT_CODE_";
+        var replaceText1 	= "_DEPOSIT_NAME_";
+        var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '예적금 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FIF001'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", "코드명"]
+            ,searchInputFields		: ["DEPOSIT_CODE", "DEPOSIT_NAME"]
+            ,searchInputValues		: ["", searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["계좌코드", "계좌명", "계좌유형명", "계좌번호", "은행코드", "은행명", "개설일", "만기일"]
+            ,tableColumnNames		: ["DEPOSIT_CODE", "DEPOSIT_NAME", "DEPOSIT_TYPE_NAME", "ACCOUNT_NUM", "BANK_CODE", "BANK_NAME", "OPEN_DATE", "EXPIRE_DATE"]
+            ,tableColumnWidths		: ["120px", "160px", "100px", "120px", "100px", "140px", "80px", "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set(inOrOut + '_DEPOSIT_NAME', data.DEPOSIT_NAME);
+                SBUxMethod.set(inOrOut + '_DEPOSIT_CODE', data.DEPOSIT_CODE);
+                SBUxMethod.set(inOrOut + '_ACCOUNT_NUM', data.ACCOUNT_NUM);
+
+            },
+        });
+    }
+
+    const fn_findAccountCode = function(section) {
+        var searchText 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
+        var replaceText0 	= "_ACCOUNT_CODE_";
+        var replaceText1 	= "_ACCOUNT_NAME_";
+        var strWhereClause 	= "AND a.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND a.ACCOUNT_NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_ACCT_DOC_IN'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", "명칭"]
+            ,searchInputFields		: ["ACCOUNT_CODE", "ACCOUNT_NAME"]
+            ,searchInputValues		: ["", searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["계정코드", "계정명", "계정(한국어)"]
+            ,tableColumnNames		: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
+            ,tableColumnWidths		: ["100px", "200px", "200px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set(section + '_NAME', data.ACCOUNT_NAME);
+                SBUxMethod.set(section, data.ACCOUNT_CODE);
+            },
+        });
+    }
+
+    const fn_findFundCode = function(section) {
+        var searchText 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
+        var replaceText0 	= "_CODE_";
+        var replaceText1 	= "_NAME_";
+        var strWhereClause 	= "AND a.CODE LIKE '%" + replaceText0 + "%' AND a.NAME LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '자금수지항목 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FUND_CODE'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["코드", "명칭"]
+            ,searchInputFields		: ["CODE", "NAME"]
+            ,searchInputValues		: ["", searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["코드", "명칭", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
+            ,tableColumnNames		: ["CODE", "NAME", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
+            ,tableColumnWidths		: ["100px", "200px", "100px", "150px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set(section + '_NAME', data.NAME);
+                SBUxMethod.set(section + '_TYPE', data.CODE);
+            },
+        });
+    }
+
+    const fn_findDeptCode = function() {
+        var searchText1 	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchText2 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchText3 	= gfn_dateToYmd(new Date());
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FI_DEPT'
+            ,popupType				: 'B'
+            ,whereClause			: ''
+            ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputValues		: [searchText1, 	searchText2,	searchText3]
+            ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+            ,width					: '700px'
+            ,height					: '300px'
+            ,tableHeader			: ["부서코드", 		"부서명"]
+            ,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+            ,tableColumnWidths		: ["150px", 		"250px"]
+            ,itemSelectEvent		: function (data){
+                SBUxMethod.set('DEPT_CODE', 	data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME', 	data.DEPT_NAME);
+            },
+        });
+    }
+
+    const fn_findCostCenterCode = function() {
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_CC_INPUT'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["계정코드", 			"계정명"]
+            ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+            ,searchInputValues		: [searchCode, 			searchName]
+            ,height					: '400px'
+            ,tableHeader			: ["코드", 				"명칭", 				"부서코드", 		"부서명", 			"원가유형", 		"사업장", 		"여신영역"]
+            ,tableColumnNames		: ["COST_CENTER_CODE",	"COST_CENTER_NAME",	"DEPT_CODE",	"COST_CENTER_NAME",	"COST_CLASS",	"SITE_CODE",	"CREDIT_AREA"]
+            ,tableColumnWidths		: ["80px", 				"80px", 			"80px", 		"80px", 			"80px", 		"80px", 		"80px"]
+            ,itemSelectEvent		: function (data){
+                SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
+                SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
+            },
+        });
+    }
+
     const fnQRY_P_TRD2010_Q = async function (strWorkType) {
         if (strWorkType == "LIST") {
             if (!SBUxMethod.validateRequired('panHeader') && !validateRequired()) {
@@ -1970,7 +2172,7 @@
         let BASE_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let ALL_YN = gfn_nvl(gfnma_multiSelectGet("#SRCH_ALL_YN"));
         let DEPOSIT_TYPE = gfn_nvl(gfnma_multiSelectGet("#SRCH_DEPOSIT_TYPE"));
-        let BANK_CS_CODE = gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE"));
+        let BANK_CS_CODE = gfn_nvl(SBUxMethod.get("SRCH_BANK_CS_CODE"));
         let DEPOSIT_NUM = strWorkType == "DETAIL" || strWorkType == "PLAN" || strWorkType == "RECALC" || strWorkType == "AMORTIZE" || strWorkType == "AM_RECALC" ? gfn_nvl(gvwInfo.getCellData(gvwInfo.getRow(), gvwInfo.getColRef("DEPOSIT_NUM"))) : "";
         let PLAN_SEQ = strWorkType == "RECALC" || strWorkType == "AM_RECALC" ? parseInt(gfn_nvl(gvwPlan.getCellData(gvwPlan.getRow(), gvwPlan.getColRef("PLAN_SEQ")))) : 0;
 
@@ -2203,7 +2405,7 @@
             V_P_DEPOSIT_CATEGORY2 : gfn_nvl(SBUxMethod.get("DEPOSIT_CATEGORY2")),
             V_P_DEPOSIT_CATEGORY3 : gfn_nvl(SBUxMethod.get("DEPOSIT_CATEGORY3")),
             V_P_BANK_CODE : gfn_nvl(SBUxMethod.get("BANK_CODE")),
-            V_P_BANK_CS_CODE : gfn_nvl(SBUxMethod.get("SRCH_BANK_CODE")),
+            V_P_BANK_CS_CODE : gfn_nvl(SBUxMethod.get("SRCH_BANK_CS_CODE")),
             V_P_DEPT_CODE : gfn_nvl(SBUxMethod.get("DEPT_CODE")),
             V_P_COST_CENTER_CODE : gfn_nvl(SBUxMethod.get("COST_CENTER_CODE")),
             V_P_DEPOSIT_ACCOUNT : gfn_nvl(SBUxMethod.get("DEPOSIT_ACCOUNT")),
@@ -2474,16 +2676,37 @@
     }
 
     const fn_create = async function () {
-        InitControls(panList);
-        InitControls(grdHistory);
-        InitControls(panAccount);
-        InitControls(panInfo);
-        InitControls(grdPlan);
-        InitControls(grdAmortizegrdAmortize);
-        InitControls(panPL);
-        InitControls(panTR);
-        InitControls(panTRF);
-        InitControls(panDept);
+        gfnma_uxDataClear('tabBase');
+        gfnma_uxDataClear('tabAccount');
+        gfnma_uxDataClear('tabInfo');
+        gfnma_uxDataClear('tabPL');
+        gfnma_uxDataClear('tabTreasury');
+        gfnma_uxDataClear('tabTreasuryF');
+        gfnma_uxDataClear('tabDept');
+
+        jsonInterestRateHistoryList.length = 0;
+        jsonPaymentPlanList.length = 0;
+        jsonPresentValueList.length = 0;
+        gvwHistory.rebuild();
+        gvwPlan.rebuild();
+        gvwAmortize.rebuild();
+
+        gfnma_multiSelectSet('#FI_ORG_CODE', '', '', '');
+        gfnma_multiSelectSet('#DEPOSIT_TYPE', '', '', '');
+        gfnma_multiSelectSet('#CURRENCY_CODE', '', '', '');
+        gfnma_multiSelectSet('#DEPOSIT_STATUS', '', '', '');
+        gfnma_multiSelectSet('#PAY_SEQ', '', '', '');
+        gfnma_multiSelectSet('#IN_TERM', '', '', '');
+        gfnma_multiSelectSet('#IN_DD', '', '', '');
+        gfnma_multiSelectSet('#IN_BASE', '', '', '');
+        gfnma_multiSelectSet('#INTEREST_TYPE', '', '', '');
+        gfnma_multiSelectSet('#INTEREST_IN_TYPE', '', '', '');
+        gfnma_multiSelectSet('#INTEREST_CALC_DAYS_TYPE', '', '', '');
+        gfnma_multiSelectSet('#INTEREST_IN_DD', '', '', '');
+        gfnma_multiSelectSet('#INTEREST_CALC_METHOD', '', '', '');
+        gfnma_multiSelectSet('#INTEREST_CALC_YEAR_TYPE', '', '', '');
+        gfnma_multiSelectSet('#CTAX_RATE', '', '', '');
+        gfnma_multiSelectSet('#PTAX_RATE', '', '', '');
 
         SBUxMethod.focus('DEPOSIT_NUM');
 
@@ -2522,14 +2745,15 @@
                 fnQRY_P_TRD2010_Q("LIST");
 
             if (jsonDepositList.length < 1) {
-                InitControls(panList);
-                InitControls(grdHistory);
-                InitControls(panAccount);
-                InitControls(panInfo);
-                InitControls(grdPlan);
-                InitControls(panPL);
+                gfnma_uxDataClear('tabBase');
+                gfnma_uxDataClear('tabAccount');
+                gfnma_uxDataClear('tabInfo');
+                gfnma_uxDataClear('tabPL');
 
-                panDisable.Enabled = true;
+                jsonInterestRateHistoryList.length = 0;
+                jsonPaymentPlanList.length = 0;
+                gvwHistory.rebuild();
+                gvwPlan.rebuild();
             }
         }
     }
@@ -2562,23 +2786,23 @@
 
     // 행추가
     const fn_addRowForGvwPlan = async function () {
-        let rowVal = gvwHistory.getRow();
+        let rowVal = gvwPlan.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwHistory.addRow(true);
+            gvwPlan.addRow(true);
         }else{
-            gvwHistory.insertRow(rowVal);
+            gvwPlan.insertRow(rowVal);
         }
     }
 
     // 행삭제
     const fn_deleteRowForGvwPlan = async function () {
-        let rowVal = gvwHistory.getRow();
+        let rowVal = gvwPlan.getRow();
         if (rowVal == -1) {
             gfn_comAlert("W0003", "행 삭제");         // W0003   {0}할 대상이 없습니다.
             return;
         } else {
-            gvwHistory.deleteRow(rowVal);
+            gvwPlan.deleteRow(rowVal);
         }
     }
 

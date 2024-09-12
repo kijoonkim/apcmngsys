@@ -17,7 +17,6 @@ public class RawMtrWrhsPrnmntVO extends ComVO {
      * 생산자코드
      */
     private String prdcrCd;
-    private String prdcrGroupYn;
 
     /**
      * 원물입고예정번호
@@ -45,6 +44,11 @@ public class RawMtrWrhsPrnmntVO extends ComVO {
      * 품종코드
      */
     private String vrtyCd;
+
+    /**
+     * 품종명
+     */
+    private String vrtyNm;
 
     /**
      * 예정수량

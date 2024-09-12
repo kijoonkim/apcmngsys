@@ -32,6 +32,8 @@
         <!-- End 페이징 -->
         <![CDATA[
 				  pt0.*
+    		      , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+
             FROM (
                 SELECT /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList */
                        WP.APC_CD            AS APC_CD
@@ -44,7 +46,6 @@
                      , WP.PRNMNT_QNTT       AS PRNMNT_QNTT
                      , WP.PRNMNT_WGHT       AS PRNMNT_WGHT
                      , WP.RMRK              AS RMRK
-                     , WP.DEL_YN            AS DEL_YN
 
                   FROM
                        TB_RAW_MTR_WRHS_PRNMNT WP
@@ -85,4 +86,29 @@
         </if>
         <!-- End 페이징 -->
     </select>
+
+    <!-- =======================================================================================    -->
+    <!-- NAME : com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmntDelYn	    -->
+    <!-- DESC : 입고예정 리스트 삭제.	                                       			                -->
+    <!-- =======================================================================================    -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			                -->
+    <!-- ===========  	============  	========================================================    -->
+    <!-- 2024.09.06  	윤필호        	Initial Creation                                            -->
+    <!-- =======================================================================================    -->
+    <update id="deleteRawMtrWrhsPrnmnt" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
+		<![CDATA[
+        UPDATE /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmntDelYn */
+            TB_RAW_MTR_WRHS_PRNMNT
+           SET
+              SYS_LAST_CHG_DT 		    = SYSDATE
+            , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+            , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+            , DEL_YN                    = 'Y'
+
+        WHERE APC_CD   = #{apcCd}
+          AND PRDCR_CD = #{prdcrCd}
+          AND PRNMNTNO = #{prnmntno}
+
+        ]]>
+	</update>
 </mapper>
