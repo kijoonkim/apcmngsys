@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltPrcsNtslInfo.jsp
-  * @Description : 산지유통판매처 화면
+  * @Description : 5.3 산지유통시설처리상품주요판매처 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -193,6 +193,7 @@
 						<col style="width: 60px">
 						<col style="width: 20%">
 						<col style="width: 60px">
+						<col style="width: 20%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -201,10 +202,10 @@
 							<th class="text-center" colspan="2">품목2</th>
 							<th class="text-center" colspan="2">품목3</th>
 							<th class="text-center" colspan="2">기타</th>
-							<th class="text-center" colspan="2">계</th>
+							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
-							<th>유통초직 처리실적</th>
+							<th>유통조직 처리실적</th>
 							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
 									id="dtl-inp-rtlOgnzTotTrmtAmt1"
@@ -265,6 +266,17 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
+								<sbux-input
+									id="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+									name="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+									uitype="text"
+									class="form-control input-sm"
+									style="text-align: right"
+									placeholder="자동계산"
+									readonly
+								></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<th>APC 처리실적</th>
@@ -328,6 +340,17 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
+								<sbux-input
+									id="dtl-inp-apcTrmtAmtTot1"
+									name="dtl-inp-apcTrmtAmtTot1"
+									uitype="text"
+									class="form-control input-sm"
+									style="text-align: right"
+									placeholder="자동계산"
+									readonly
+								></sbux-input>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -336,7 +359,7 @@
 			<br>
 			<div style="display: flex;">
 				<div>
-					<label style="font-weight: bold;">◦산지유통판매처 상세내역(산지유통시설 처리상품 주요 판매처)</label><br>
+					<label style="font-weight: bold;">○산지유통판매처 상세내역(산지유통시설 처리상품 주요 판매처)</label><br>
 					<label> - 출자·출하조직은 생산유통통합조직 통해서 판매한 실적 및 직접 판매한 실적을 합산하여 기재.</label><br>
 					<label> - 기타항목은 다른 유통조직에 판매한 금액</label>
 				</div>
@@ -366,9 +389,9 @@
 							<th class="text-center" colspan="2">대형유통업체(백화점 포함)</th>
 							<th class="text-center" colspan="2">식자재업체<br>(학교급식, 가공업체 포함)</th>
 							<th class="text-center" colspan="2">도매시장<br>(공판장 포함)</th>
-							<th class="text-center" colspan="2">온라인 도매시장</th>
+							<th class="text-center" colspan="2">aT온라인 도매시장</th>
 							<th class="text-center" colspan="2">소매업체 직판</th>
-							<td class="text-center" colspan="2" rowspan="2"></td>
+							<th class="text-center" colspan="2">계(백만원)</th>
 						</tr>
 						<tr>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -431,6 +454,18 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
+								<sbux-input
+									id="dtl-inp-apcNtslAmtTot"
+									name="dtl-inp-apcNtslAmtTot"
+									uitype="text"
+									class="form-control input-sm"
+									placeholder="자동계산"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+									readonly
+								></sbux-input>
+							</td>
+							<td>(백만원)</td>
 						</tr>
 						<tr>
 							<th class="text-center" colspan="2">수출</th>
@@ -438,7 +473,7 @@
 							<th class="text-center" colspan="2">온라인(B2B)</th>
 							<th class="text-center" colspan="2">온라인(B2C)</th>
 							<th class="text-center" colspan="2">기타</th>
-							<th class="text-center" colspan="2">계(백만원)</th>
+							<th class="text-center" colspan="2">계(한글단위)</th>
 						</tr>
 						<tr>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -503,12 +538,12 @@
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
-									id="dtl-inp-apcNtslAmtTot"
-									name="dtl-inp-apcNtslAmtTot"
+									id="dtl-inp-apcNtslAmtTot1"
+									name="dtl-inp-apcNtslAmtTot1"
 									uitype="text"
 									class="form-control input-sm"
+									style="text-align: right"
 									placeholder="자동계산"
-									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									readonly
 								></sbux-input>
 							</td>
@@ -548,7 +583,7 @@
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let apcCd = '0861';
-		let crtrYr = '2023';
+		let crtrYr = '2024';
 		//let apcNm = 'test';
 		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
@@ -622,14 +657,16 @@
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt3',item.rtlOgnzTotTrmtAmt3);
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt4',item.rtlOgnzTotTrmtAmt4);
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot',item.rtlOgnzTotTrmtAmtTot);
+				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1',fn_numberToKorean(item.rtlOgnzTotTrmtAmtTot));
 
 				SBUxMethod.set('dtl-inp-apcTrmtAmt1',item.apcTrmtAmt1);
 				SBUxMethod.set('dtl-inp-apcTrmtAmt2',item.apcTrmtAmt2);
 				SBUxMethod.set('dtl-inp-apcTrmtAmt3',item.apcTrmtAmt3);
 				SBUxMethod.set('dtl-inp-apcTrmtAmt4',item.apcTrmtAmt4);
 				SBUxMethod.set('dtl-inp-apcTrmtAmtTot',item.apcTrmtAmtTot);
+				SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',fn_numberToKorean(item.apcTrmtAmtTot));
 			});
-			sum();
+			fn_cal();
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -712,6 +749,8 @@
 					+ convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcNtslAmtOnlnB2c'))
 					+ convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcNtslAmtEtc'));
 		SBUxMethod.set('dtl-inp-apcNtslAmtTot',sum);
+		SBUxMethod.set('dtl-inp-apcNtslAmtTot1',fn_numberToKorean(sum));
+
 	}
 
 
