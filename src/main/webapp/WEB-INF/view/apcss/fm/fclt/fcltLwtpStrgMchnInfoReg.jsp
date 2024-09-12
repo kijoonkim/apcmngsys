@@ -373,6 +373,7 @@
 		fn_init();
 	})
 
+	/* 초기세팅 */
 	const fn_init = async function() {
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			return;

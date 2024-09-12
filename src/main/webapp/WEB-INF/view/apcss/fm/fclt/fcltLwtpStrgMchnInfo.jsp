@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : fcltLwtpStrgMchnInfo.jsp
-  * @Description : 저온저장고운영 화면
+  * @Class Name : fcltLwtpStrgMchnInfoReg.jsp
+  * @Description : 3.5.저온저장고운영 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -504,12 +504,13 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-				let lwtpStrgPlcHldMthd = item.lwtpStrgPlcHldMthd;//보유현황
-				if(lwtpStrgPlcHldMthd == '0'){
+				let lwtpStrgPlcHldYn = item.lwtpStrgPlcHldYn;//보유현황
+
+				if(lwtpStrgPlcHldYn == 'N'){
 					SBUxMethod.changeGroupAttr('group1','disabled','true');
 					SBUxMethod.changeGroupAttr('group2','disabled','true');
 					SBUxMethod.set('dtl-rdo-itemChk','N');
-				}else if(lwtpStrgPlcHldMthd == '1'){
+				}else if(lwtpStrgPlcHldYn == 'Y'){
 					SBUxMethod.changeGroupAttr('group1','disabled','false');
 					SBUxMethod.changeGroupAttr('group2','disabled','false');
 					SBUxMethod.set('dtl-rdo-itemChk','Y');
@@ -543,7 +544,6 @@
 					}
 				}
 			});
-
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -707,7 +707,7 @@
 		let strgPlcLtrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt'));
 
 		let result = ( strgPlcStrmStrgAblt + strgPlcLtrmStrgAblt ) / strgPlcStrgAblt ;
-		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result);
+		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result.toFixed(2));
 	}
 
 
