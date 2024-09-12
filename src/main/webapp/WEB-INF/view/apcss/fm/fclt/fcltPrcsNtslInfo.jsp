@@ -366,7 +366,7 @@
 							<th class="text-center" colspan="2">대형유통업체(백화점 포함)</th>
 							<th class="text-center" colspan="2">식자재업체<br>(학교급식, 가공업체 포함)</th>
 							<th class="text-center" colspan="2">도매시장<br>(공판장 포함)</th>
-							<th class="text-center" colspan="2">온라인 도매시장</th>
+							<th class="text-center" colspan="2">aT온라인 도매시장</th>
 							<th class="text-center" colspan="2">소매업체 직판</th>
 							<td class="text-center" colspan="2" rowspan="2"></td>
 						</tr>
