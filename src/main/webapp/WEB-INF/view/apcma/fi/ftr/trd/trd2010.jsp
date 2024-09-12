@@ -2104,9 +2104,7 @@
     }
 
     const fn_findDeptCode = function() {
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
-        var searchText3 	= gfn_dateToYmd(new Date());
+        var searchText 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
         compopup1({
@@ -2117,7 +2115,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: [searchText1, 	searchText2,	searchText3]
+            ,searchInputValues		: ["", 	searchText,	gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,width					: '700px'
             ,height					: '300px'
@@ -2132,8 +2130,7 @@
     }
 
     const fn_findCostCenterCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
+        var searchText 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
@@ -2145,13 +2142,13 @@
             ,bizcompId				: 'P_CC_INPUT'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["계정코드", 			"계정명"]
+            ,searchCaptions			: ["계정코드", "계정명"]
             ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
-            ,searchInputValues		: [searchCode, 			searchName]
+            ,searchInputValues		: ["", searchText]
             ,height					: '400px'
-            ,tableHeader			: ["코드", 				"명칭", 				"부서코드", 		"부서명", 			"원가유형", 		"사업장", 		"여신영역"]
-            ,tableColumnNames		: ["COST_CENTER_CODE",	"COST_CENTER_NAME",	"DEPT_CODE",	"COST_CENTER_NAME",	"COST_CLASS",	"SITE_CODE",	"CREDIT_AREA"]
-            ,tableColumnWidths		: ["80px", 				"80px", 			"80px", 		"80px", 			"80px", 		"80px", 		"80px"]
+            ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "원가유형", "사업장", "여신영역"]
+            ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "COST_CENTER_NAME", "COST_CLASS", "SITE_CODE", "CREDIT_AREA"]
+            ,tableColumnWidths		: ["80px", "80px", "80px", "80px", "80px", "80px","80px"]
             ,itemSelectEvent		: function (data){
                 SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
                 SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
