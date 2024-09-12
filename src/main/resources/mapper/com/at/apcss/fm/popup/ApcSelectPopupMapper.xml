@@ -48,6 +48,13 @@
 			<if test='userType == "28"'>
 			AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
 			</if>
+			<if test='userType == null or userType == ""'>
+			AND APC_CD IN (SELECT APC_CD
+							FROM TB_UNTY_OGNZ_APC
+							WHERE 1=1
+							  AND APRV_YN = 'Y'
+							  AND UNTY_OGNZ_ID = 'UO' || (SELECT UNTY_OGNZ_CD FROM TB_COM_USER WHERE USER_ID = #{userId}))
+			</if>
 		</if>
 		 ORDER BY APC_NM ASC
 
