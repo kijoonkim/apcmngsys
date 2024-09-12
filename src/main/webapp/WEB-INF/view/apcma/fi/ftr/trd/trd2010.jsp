@@ -821,7 +821,7 @@
                                         <li><span>불입계획</span></li>
                                     </ul>
                                     <div class="ad_tbl_toplist">
-                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
+                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="최초불입계획" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
                                         <sbux-button id="btnReCalc" name="btnReCalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_reCalc" style="float: right;"></sbux-button>
                                         <sbux-button id="btn_addRowForGvwPlan" name="btn_addRowForGvwPlan" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwPlan"></sbux-button>
                                         <sbux-button id="btn_delRowForGvwPlan" name="btn_delRowForGvwPlan" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPlan"></sbux-button>
@@ -1176,13 +1176,6 @@
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-</div>
-
-<div>
-    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
-</div>
-<div id="body-modal-compopup3">
-    <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
 </div>
 </body>
 
@@ -2104,9 +2097,7 @@
     }
 
     const fn_findDeptCode = function() {
-        var searchText1 	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        var searchText2 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
-        var searchText3 	= gfn_dateToYmd(new Date());
+        var searchText 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
         compopup1({
@@ -2117,7 +2108,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: [searchText1, 	searchText2,	searchText3]
+            ,searchInputValues		: ["", 	searchText,	gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,width					: '700px'
             ,height					: '300px'
@@ -2132,8 +2123,7 @@
     }
 
     const fn_findCostCenterCode = function() {
-        var searchCode 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"));
-        var searchName 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
+        var searchText 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
@@ -2145,13 +2135,13 @@
             ,bizcompId				: 'P_CC_INPUT'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["계정코드", 			"계정명"]
+            ,searchCaptions			: ["계정코드", "계정명"]
             ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
-            ,searchInputValues		: [searchCode, 			searchName]
+            ,searchInputValues		: ["", searchText]
             ,height					: '400px'
-            ,tableHeader			: ["코드", 				"명칭", 				"부서코드", 		"부서명", 			"원가유형", 		"사업장", 		"여신영역"]
-            ,tableColumnNames		: ["COST_CENTER_CODE",	"COST_CENTER_NAME",	"DEPT_CODE",	"COST_CENTER_NAME",	"COST_CLASS",	"SITE_CODE",	"CREDIT_AREA"]
-            ,tableColumnWidths		: ["80px", 				"80px", 			"80px", 		"80px", 			"80px", 		"80px", 		"80px"]
+            ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "원가유형", "사업장", "여신영역"]
+            ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "COST_CENTER_NAME", "COST_CLASS", "SITE_CODE", "CREDIT_AREA"]
+            ,tableColumnWidths		: ["80px", "80px", "80px", "80px", "80px", "80px","80px"]
             ,itemSelectEvent		: function (data){
                 SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
                 SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
@@ -2546,7 +2536,7 @@
         });
 
         if(listData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/fi/ftr/trd/insertTrd2010Sub.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/fi/ftr/trd/insertTrd2010ForHistory.do", {listData: listData});
 
             const data = await postJsonPromise;
             console.log('data:', data);
@@ -2651,6 +2641,9 @@
     }
 
     const fn_onload = async function (parentParameter) {
+        SBUxMethod.hideTab('tabPlan');
+        SBUxMethod.hideTab('tabAmortize');
+
         gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
         gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
 
@@ -2736,7 +2729,7 @@
         }
 
         fn_search();
-        gvwInfo.clickRow(gvwInfo.getFilterDatas(gvwInfo.getColRef("DEPOSIT_NUM"), strDepositNoTmp);
+        gvwInfo.clickRow(gvwInfo.getFilterDatas(gvwInfo.getColRef("DEPOSIT_NUM"), strDepositNoTmp));
     }
 
     const fn_delete = async function () {
@@ -2767,9 +2760,15 @@
         let rowVal = gvwHistory.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwHistory.addRow(true);
+            gvwHistory.addRow(true, {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                CONFIRM_FLAG : "N"
+            });
         }else{
-            gvwHistory.insertRow(rowVal);
+            gvwHistory.insertRow(rowVal, 'below', {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                CONFIRM_FLAG : "N"
+            });
         }
     }
 
@@ -2789,9 +2788,19 @@
         let rowVal = gvwPlan.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwPlan.addRow(true);
+            gvwPlan.addRow(true, {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                INTERFACE_FLAG : "N",
+                CONFIRM_FLAG : "N",
+                COMPLETE_FLAG : "N"
+            });
         }else{
-            gvwPlan.insertRow(rowVal);
+            gvwPlan.insertRow(rowVal, 'below', {
+                DEPOSIT_NUM : gfn_nvl(SBUxMethod.get("DEPOSIT_NUM")),
+                INTERFACE_FLAG : "N",
+                CONFIRM_FLAG : "N",
+                COMPLETE_FLAG : "N"
+            });
         }
     }
 

@@ -101,20 +101,41 @@ public class ApcMaTrd2010Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/fi/ftr/trd/insertTrd2010Sub.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertTrd2010Sub(
+    @PostMapping(value = "/fi/ftr/trd/insertTrd2010ForHistory.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertTrd2010ForHistory(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertTrd2010Sub=====start========");
+        logger.info("=============insertTrd2010ForHistory=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
             resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRD2010_S1");
 
-            logger.info("=============insertTrd2010Sub=====end========");
+            logger.info("=============insertTrd2010ForHistory=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
+    @PostMapping(value = "/fi/ftr/trd/insertTrd2010ForPlan.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertTrd2010ForPlan(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertTrd2010ForPlan=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRD2010_S2");
+
+            logger.info("=============insertTrd2010ForPlan=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
