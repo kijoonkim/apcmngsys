@@ -40,7 +40,7 @@
 					<!--
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
 					-->
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_selectFcltOperInfo"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
@@ -489,16 +489,15 @@
 	}
 
 	const fn_init = async function() {
-		fn_initSBSelect();
+		await fn_initSBSelect();
 
-		//if() user=userTpye 값과 apc에 따라 변경 dtl-inp-apcNm
-		//APC명 자동설정
-		SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));
-
-		fn_search();
-
+		//apc가 있으면 자동 조회
+		if(!gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
+		await fn_search();
 		//진척도
-		cfn_selectPrgrs();
+		await cfn_selectPrgrs();
 
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
@@ -509,11 +508,16 @@
 		}
 	}
 	const fn_search = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_clearForm();
 		fn_selectFcltOperInfo();
 	}
 
 	const fn_selectFcltOperInfo = async function(){
+
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
 
@@ -642,6 +646,11 @@
 
 	//작년 데이터 복사
 	const fn_copy = async function(){
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+
 		console.log('************fn_copy********');
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
@@ -728,7 +737,6 @@
 	const fn_save = async function() {
 		console.log("******************fn_save**********************************");
 
-		/*
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		let trgtYr = SBUxMethod.get("dtl-inp-trgtYr");
 		if (gfn_isEmpty(apcCd)) {
@@ -740,6 +748,7 @@
 			return;
 		}
 
+		/*
 		let itemCd1 = SBUxMethod.get("dtl-inp-operOgnzItemCd1");
 		let apcItem1 = SBUxMethod.get("dtl-inp-apcItem1");
 		if (gfn_isEmpty(itemCd1) && gfn_isEmpty(apcItem1)) {
@@ -760,7 +769,13 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
+
 	}
 
 	//신규등록
