@@ -1,6 +1,5 @@
 package com.at.apcss.fm.wrhs.service.impl;
 
-import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper;
 import com.at.apcss.fm.wrhs.service.RawMtrWrhsPrnmntService;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,10 +31,22 @@ public class RawMtrWrhsPrnmntServiceImpl extends BaseServiceImpl implements RawM
     @Autowired
     private RawMtrWrhsPrnmntMapper rawMtrWrhsPrnmntMapper;
 
+    //원물입고예정 목록 조회
     @Override
     public List<RawMtrWrhsPrnmntVO> selectRawMtrWrhsPrnmntList(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception {
 
-        List<RawMtrWrhsPrnmntVO> resultVo = rawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList(rawMtrWrhsPrnmntVO);
-        return resultVo;
+        List<RawMtrWrhsPrnmntVO> resultList = rawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList(rawMtrWrhsPrnmntVO);
+
+        return resultList;
+    }
+
+    //원물입고예정 삭제
+    @Override
+    public HashMap<String, Object> deleteRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception {
+
+        rawMtrWrhsPrnmntMapper.deleteRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+
+
+        return null;
     }
 }
