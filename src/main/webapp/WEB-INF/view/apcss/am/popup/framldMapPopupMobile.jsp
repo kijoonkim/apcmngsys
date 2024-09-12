@@ -342,7 +342,7 @@
             </div>
             <div style="margin-left: auto;">
                 <button id="btnSearchCnpt" name="btnSearchCnpt" class="btn btn-sm btn-outline-danger" onclick="getFarmmapDataSeachPnu();">조회</button>
-                <button id="btnEndCnpt" name="btnEndCnpt" class="btn btn-sm btn-outline-danger" onclick="window.close();">종료</button>
+                <button id="btnEndCnpt" name="btnEndCnpt" class="btn btn-sm btn-outline-danger" onclick="self.close();">종료</button>
             </div>
         </div>
         <div class="box-body">
