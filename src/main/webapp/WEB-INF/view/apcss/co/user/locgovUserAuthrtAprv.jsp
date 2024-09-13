@@ -463,6 +463,7 @@
         		width:'100px', 
         		style:'text-align:left'
         	},
+        	/*
         	{
         		caption: ["관리자"], 	 
 	        	ref: 'authrtMngrYn', 
@@ -472,6 +473,7 @@
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
                 userattr: {colNm: "authrtMngrYn"}
         	},
+        	*/
         	{
         		caption: ["시/도"],
         		ref: 'ctpvNm',      
@@ -665,6 +667,7 @@
           		grdUserAprv.rebuild();
           	}
           	
+          	/*
           	const mngrCol = grdUserAprv.getColRef("authrtMngrYn");
           	const allData = grdUserAprv.getGridDataAll();
     		for ( let i=0; i<allData.length; i++) {
@@ -676,6 +679,7 @@
     				grdUserAprv.setCellDisabled(i+1, mngrCol, i+1, mngrCol, false);
     			}
     		}
+    		*/
           	
           	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
 
@@ -708,21 +712,30 @@
 		const aprvList = [];
 		const allData = grdUserAprv.getGridDataAll();
 		
-		console.log(allData);
-		
 		for ( let i=0; i<allData.length; i++) {
 
 			const item = allData[i];
 			if (item.checkedYn === "Y") {
 				
+				if (_.isEqual(item.userStts, "01")) {
+					gfn_comAlert("W0010", "승인", "회원");		//	W0010	이미 {0}된 {1} 입니다.
+					return;
+				}
+				
+				
+				let authrtMngrYn = gfn_isEmpty(item.sgg) ? "Y" : "N";
+				
 				aprvList.push({
 					userId: item.userId,
-    				authrtMngrYn: 	item.authrtMngrYn,
+					authrtMngrYn: authrtMngrYn,
+					//authrtMngrYn: 	item.authrtMngrYn,
     				//sysPdYn: 		'Y',
     				sysCsYn: 		'Y',
     			});	
     		}
 		}
+		
+		console.log("aprvList", aprvList);
 
 		if (aprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
@@ -765,6 +778,11 @@
 
 			const item = allData[i];
 			if (item.checkedYn === "Y") {
+				
+				if (!_.isEqual(item.userStts, "01")) {
+					gfn_comAlert("W0011", "승인된 회원");		//	W0011	{0}이/가 아닙니다.
+					return;
+				}
 				
 				userList.push({
 					userId: item.userId
