@@ -161,7 +161,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <sbux-tabs id="idxTabMaster" name="idxTabMaster" uitype="normal" is-scrollable="false" jsondata-ref="jsonMasterTabData">
+                        <sbux-tabs id="idxTabMaster" name="idxTabMaster" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
                         </sbux-tabs>
                         <div class="tab-content">
                             <div id="tabBase">
@@ -844,10 +844,10 @@
                                         <li><span>불입계획</span></li>
                                     </ul>
                                     <div class="ad_tbl_toplist">
-                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="최초불입계획" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
-                                        <sbux-button id="btnReCalc" name="btnReCalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_reCalc" style="float: right;"></sbux-button>
                                         <sbux-button id="btn_addRowForGvwPlan" name="btn_addRowForGvwPlan" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwPlan"></sbux-button>
                                         <sbux-button id="btn_delRowForGvwPlan" name="btn_delRowForGvwPlan" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPlan"></sbux-button>
+                                        <sbux-button id="btnReCalc" name="btnReCalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_reCalc" style="float: right;"></sbux-button>
+                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="최초불입계획" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
@@ -1212,8 +1212,8 @@
     var p_currUnit = "${loginVO.maCurrUnit}";
     //-----------------------------------------------------------
 
-    var bQuery = false;
     var strDepositNoTmp = "";
+    var strtxn_id = "";
 
     var jsonBankCode = []; // 은행코드
     var jsonCurrencyCode = []; // 통화코드
@@ -1235,7 +1235,7 @@
     var jsonPresentValueList = [];
 
     // Tab Data
-    var jsonMasterTabData = [
+    var jsonTabData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "기본 정보", "targetid" : "tabBase", "targetvalue" : "기본 정보" },
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "계정과목 정보", "targetid" : "tabAccount", "targetvalue" : "계정과목 정보" },
         { "id" : "2", "pid" : "-1", "order" : "3", "text" : "불입정보", "targetid" : "tabInfo", "targetvalue" : "불입정보" },
@@ -1328,8 +1328,6 @@
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
                 ]
                 , callback : function(value) {
-                    if (!bQuery) return;
-
                     if (gfn_nvl(value) == "")
                         return;
 
@@ -1390,8 +1388,6 @@
                     {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
                 ]
                 , callback : function(value) {
-                    if (!bQuery) return;
-
                     SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
                     SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
                     SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
@@ -1650,9 +1646,6 @@
                     {caption: "명칭", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
-                    if (bQuery)
-                        return;
-
                     if (gfn_nvl(value) == "") {
                         gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', "");
                         return;
@@ -1778,8 +1771,10 @@
     }
 
     const fn_view = async function () {
-        if(gvwInfo.getRow() < 0) return;
+        var nRow = gvwPlan.getRow();
         await fnQRY_P_TRD2010_Q("DETAIL");
+
+        if(nRow < 0) return;
 
         if (gvwPlan.getCellData(nRow, gvwPlan.getColRef("CONFIRM_FLAG")) == "Y") {
             for(var i = 0; i < gvwPlan.getCols(); i++) {
@@ -2222,8 +2217,6 @@
             }
         }
 
-        bQuery = true;
-
         let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FI_ORG_CODE'));
         let BASE_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_BASE_DATE"));
         let TXN_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_FR"));
@@ -2431,8 +2424,6 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             return false;
-        } finally {
-            bQuery = false;
         }
     }
 
@@ -2712,9 +2703,6 @@
     }
 
     const fn_changeDepositDate = async function(val) {
-        if (bQuery)
-            return;
-
         if (gfn_nvl(val) == "")
             return;
 
@@ -2725,9 +2713,6 @@
     }
 
     const fn_changeInStartDate = async function(val) {
-        if (bQuery)
-            return;
-
         if (gfn_nvl(val) == "")
             return;
 
@@ -2738,9 +2723,6 @@
     }
 
     const fn_changeDueDate = async function(val) {
-        if (bQuery)
-            return;
-
         if (gfn_nvl(val) == "")
             return;
 
@@ -2751,9 +2733,6 @@
     }
 
     const fn_changeInterestInStartDate = async function(val) {
-        if (bQuery)
-            return;
-
         if (gfn_nvl(val) == "")
             return;
 
@@ -2870,7 +2849,7 @@
         else
             strStatus = "U";
 
-        strtxn_id = gvwPlan.GetValue("txn_id").ToString();
+        strtxn_id = gvwPlan.getCellData(gvwPlan.getRow(), gvwPlan.getColRef("TXN_ID"));
 
         if (!fnSET_P_TRD2010_S2()) {
             return;

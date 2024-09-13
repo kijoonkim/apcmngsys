@@ -138,7 +138,7 @@
                 </div>
                 <div class="row">
                     <div>
-                        <sbux-tabs id="idxTabMaster" name="idxTabMaster" uitype="normal" is-scrollable="false" jsondata-ref="jsonMasterTabData">
+                        <sbux-tabs id="idxTabMaster" name="idxTabMaster" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
                         </sbux-tabs>
                         <div class="tab-content">
                             <div id="tabBase">
@@ -821,10 +821,10 @@
                                         <li><span>불입계획</span></li>
                                     </ul>
                                     <div class="ad_tbl_toplist">
-                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="최초불입계획" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
-                                        <sbux-button id="btnReCalc" name="btnReCalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_reCalc" style="float: right;"></sbux-button>
                                         <sbux-button id="btn_addRowForGvwPlan" name="btn_addRowForGvwPlan" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRowForGvwPlan"></sbux-button>
                                         <sbux-button id="btn_delRowForGvwPlan" name="btn_delRowForGvwPlan" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRowForGvwPlan"></sbux-button>
+                                        <sbux-button id="btnReCalc" name="btnReCalc" uitype="normal" text="재계산" class="btn btn-sm btn-outline-danger" onclick="fn_reCalc" style="float: right;"></sbux-button>
+                                        <sbux-button id="btnPlan" name="btnPlan" uitype="normal" text="최초불입계획" class="btn btn-sm btn-outline-danger" onclick="fn_plan" style="float: right;"></sbux-button>
                                     </div>
                                 </div>
                                 <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
@@ -1212,7 +1212,7 @@
     var jsonPresentValueList = [];
 
     // Tab Data
-    var jsonMasterTabData = [
+    var jsonTabData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "기본 정보", "targetid" : "tabBase", "targetvalue" : "기본 정보" },
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "계정과목 정보", "targetid" : "tabAccount", "targetvalue" : "계정과목 정보" },
         { "id" : "2", "pid" : "-1", "order" : "3", "text" : "불입정보", "targetid" : "tabInfo", "targetvalue" : "불입정보" },
