@@ -194,9 +194,9 @@
 				itemNm : itemNm, //검색 파라미터
 				srchLclsfCd : srchLclsfCd,
 				// pagination
-				pagingYn : 'Y',
-				currentPageNo : pageNo,
-				recordCountPerPage : pageSize
+				//pagingYn : 'Y',
+				//currentPageNo : pageNo,
+				//recordCountPerPage : pageSize
 			});
 
 			const data = await postJsonPromise;
