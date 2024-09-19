@@ -245,4 +245,50 @@
 	</delete>
  -->
 
+	<select id="selectFcltSortMchnInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
+			<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnInfoMapper.selectFcltSortMchnInfoRawDataList */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+
+				, OASM.SORT_ITEM_CD
+				, OASM.SORT_ITEM_NM
+				, OASM.SORT_PRCS_ABLT
+				, OASM.SORT_PRCS_PRFMNC
+				, OASM.SORT_OPRTNG_HR
+				, OASM.SORT_AVG_OPRTNG_DCNT
+				, OASM.SORT_MCHN_HOLD_YN
+
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_OPER_ABLT_SORT_MCHN OASM
+			WHERE 1=1
+			  AND OTI.APC_CD = OASM.APC_CD(+)
+			  AND OTI.CRTR_YR = OASM.CRTR_YR(+)
+			  AND OTI.SN = OASM.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and crtrYr != ""'>
+			  AND OTI.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND OTI.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY OTI.CRTR_YR , APC_NM , OTI.SN
+	</select>
 </mapper>

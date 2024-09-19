@@ -71,6 +71,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 							</td>
 							 -->
@@ -269,7 +270,7 @@
 		//SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
-			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', mixedWidth : '20%' ,type: 'checkbox', style:'text-align: center',
+			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
 			//{caption: ["고유번호","고유번호"],				ref: 'sn',			type:'output',  width:'50px',    style:'text-align:center'
 				//,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},

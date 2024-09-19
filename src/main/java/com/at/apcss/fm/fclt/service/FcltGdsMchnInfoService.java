@@ -86,4 +86,13 @@ public interface FcltGdsMchnInfoService {
 	 */
 	public int deleteFcltGdsMchnInfoList(List<FcltGdsMchnInfoVO> fcltGdsMchnInfoList) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltGdsMchnInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltGdsMchnInfoVO> selectFcltGdsMchnInfoRawDataList(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception;
+
+
 }

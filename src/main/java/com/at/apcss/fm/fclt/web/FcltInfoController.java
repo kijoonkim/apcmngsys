@@ -63,11 +63,6 @@ public class FcltInfoController extends BaseController {
 		try {
 			 resultList = fcltInfoService.selectFcltInfoList(fcltInfoVO);
 
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
-
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -185,6 +180,28 @@ public class FcltInfoController extends BaseController {
 		}
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 		logger.info("=============delete=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 시설현황 조회
+	@PostMapping(value = "/fm/fclt/selectFcltInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltInfoRawDataList(Model model, @RequestBody FcltInfoVO fcltInfoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltInfoVO> resultList = new ArrayList<>();
+
+		fcltInfoVO.setUserId(getUserId());
+		fcltInfoVO.setUserType(getUserType());
+
+		try {
+			 resultList = fcltInfoService.selectFcltInfoRawDataList(fcltInfoVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
 		return getSuccessResponseEntity(resultMap);
 	}
 }

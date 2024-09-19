@@ -39,9 +39,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 				</div>
 				<div style="margin-left: auto;">
-					<!--
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
-					-->
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
@@ -200,6 +198,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<th>운영조직 법인번호</th>
@@ -211,13 +210,14 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th>운영조직 대표자</th>
 							<td>
-								<sbux-input id="dtl-inp-rprsv" name="dtl-inp-rprsv" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="dtl-inp-rprsv" name="dtl-inp-rprsv" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 							</td>
 							<td colspan="2"></td>
 							<!--
@@ -457,6 +457,7 @@
 					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
@@ -1177,6 +1178,143 @@
 	//시도 변경 이벤트
 	const fn_ctpvChange = async function(){
 		SBUxMethod.set("srch-inp-sgg", "");
+	}
+
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["운영조직명"],			ref:'operOgnzNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 사업자등록번호"],	ref:'operOgnzBrno',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 법인등록번호"],	ref:'operOgnzCrno',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["대표자"],				ref:'rprsv',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 주소"],			ref:'loctn',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 우편번호"],		ref:'operOgnzZip',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["APC명"],				ref:'apcNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 사업자번호"],		ref:'apcBrno',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 주소"],			ref:'apcLoctn',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 우편번호"],			ref:'apcZip',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["운영조직 대표품목1"],		ref:'itemNm1',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 대표품목2"],		ref:'itemNm2',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 대표품목3"],		ref:'itemNm3',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 기타품목"],		ref:'itemNm4',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["운영조직 기타부류"],		ref:'etcCtgryCd',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["APC 품목1"],			ref:'apcItemNm1',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 품목2"],			ref:'apcItemNm2',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 품목3"],			ref:'apcItemNm3',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 기타품목"],			ref:'apcItemNm4',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC 기타부류"],			ref:'apcEtcCtgryCd',	type:'output',width:'70px',style:'text-align:center'},
+
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();//그리드 생성
+
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		if (gfn_isEmpty(crtrYr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			crtrYr = year;
+		}
+
+		//userId로 지자체 시도 시군구 값 알아내서 처리
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoRawDataList.do", {
+			crtrYr : crtrYr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					operOgnzNm				:item.operOgnzNm
+					,operOgnzBrno			:item.operOgnzBrno
+					,operOgnzCrno			:item.operOgnzCrno
+					,rprsv					:item.rprsv
+					,loctn					:item.loctn
+					,operOgnzZip			:item.operOgnzZip
+
+					,apcNm					:item.apcNm
+					,apcBrno				:item.apcBrno
+					,apcLoctn				:item.apcLoctn
+					,apcZip					:item.apcZip
+
+					,itemNm1				:item.itemNm1
+					,itemNm2				:item.itemNm2
+					,itemNm3				:item.itemNm3
+					,itemNm4				:item.itemNm4
+					,etcCtgryCd				:item.etcCtgryCd
+
+					,apcItemNm1				:item.apcItemNm1
+					,apcItemNm2				:item.apcItemNm2
+					,apcItemNm3				:item.apcItemNm3
+					,apcItemNm4				:item.apcItemNm4
+					,apcEtcCtgryCd			:item.apcEtcCtgryCd
+
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_1.운영자개요_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
 </script>

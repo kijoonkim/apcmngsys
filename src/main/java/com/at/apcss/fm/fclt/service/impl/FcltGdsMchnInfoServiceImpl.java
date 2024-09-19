@@ -58,11 +58,6 @@ public class FcltGdsMchnInfoServiceImpl extends BaseServiceImpl implements FcltG
 	public List<FcltGdsMchnInfoVO> selectFcltGdsMchnInfoList(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception {
 
 		List<FcltGdsMchnInfoVO> resultList = fcltGdsMchnInfoMapper.selectFcltGdsMchnInfoList(fcltGdsMchnInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltGdsMchnInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -132,6 +127,13 @@ public class FcltGdsMchnInfoServiceImpl extends BaseServiceImpl implements FcltG
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltGdsMchnInfoVO> selectFcltGdsMchnInfoRawDataList(FcltGdsMchnInfoVO fcltGdsMchnInfoVO) throws Exception {
+
+		List<FcltGdsMchnInfoVO> resultList = fcltGdsMchnInfoMapper.selectFcltGdsMchnInfoRawDataList(fcltGdsMchnInfoVO);
+		return resultList;
 	}
 
 }

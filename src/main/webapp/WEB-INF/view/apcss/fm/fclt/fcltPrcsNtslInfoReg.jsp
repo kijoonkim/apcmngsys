@@ -70,6 +70,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
@@ -310,8 +311,8 @@
 							<th class="text-center" colspan="2">식자재업체<br>(학교급식, 가공업체 포함)</th>
 							<th class="text-center" colspan="2">도매시장<br>(공판장 포함)</th>
 							<th class="text-center" colspan="2">aT온라인 도매시장</th>
-							<th class="text-center" colspan="2">소매업체 직판</th>
-							<th class="text-center" colspan="2">계(백만원)</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">소매업체 직판</th>
+							<th class="text-center" colspan="2">계</th>
 						</tr>
 						<tr>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -393,7 +394,17 @@
 							<th class="text-center" colspan="2">온라인(B2B)</th>
 							<th class="text-center" colspan="2">온라인(B2C)</th>
 							<th class="text-center" colspan="2">기타</th>
-							<th class="text-center" colspan="2">계(한글단위)</th>
+							<td colspan="2" style="border-top: hidden !important;">
+								<sbux-input
+									id="dtl-inp-apcNtslAmtTot1"
+									name="dtl-inp-apcNtslAmtTot1"
+									uitype="text"
+									class="form-control input-sm"
+									style="text-align: right"
+									placeholder="자동계산"
+									readonly
+								></sbux-input>
+							</td>
 						</tr>
 						<tr>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -456,18 +467,7 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
-							<td style="border-right:hidden; padding-right: 0px !important;">
-								<sbux-input
-									id="dtl-inp-apcNtslAmtTot1"
-									name="dtl-inp-apcNtslAmtTot1"
-									uitype="text"
-									class="form-control input-sm"
-									style="text-align: right"
-									placeholder="자동계산"
-									readonly
-								></sbux-input>
-							</td>
-							<td>(백만원)</td>
+							<td colspan="2" style="border-top: hidden !important;">
 						</tr>
 					</tbody>
 				</table>

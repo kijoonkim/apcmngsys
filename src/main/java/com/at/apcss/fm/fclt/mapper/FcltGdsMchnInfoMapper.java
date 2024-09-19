@@ -58,4 +58,11 @@ public interface FcltGdsMchnInfoMapper {
 	 * @return
 	 */
 	public int deleteFcltGdsMchnInfo(FcltGdsMchnInfoVO fcltGdsMchnInfoVO);
+
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltGdsMchnInfoVO
+	 * @return
+	 */
+	public List<FcltGdsMchnInfoVO> selectFcltGdsMchnInfoRawDataList(FcltGdsMchnInfoVO fcltGdsMchnInfoVO);
 }
