@@ -46,9 +46,7 @@
 				<sbux-button id="btnDown" name="btnDown" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-primary" onclick="fn_down"></sbux-button>
 				<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="엑셀업로드" class="btn btn-sm btn-primary" onclick="fn_upload"></sbux-button>
 				-->
-				<!--
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
-				-->
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
@@ -186,9 +184,11 @@
 						</li>
 					</ul>
 					<div class="ad_tbl_toplist">
+						<!--
 						<sbux-button id="btn_dwnld" name="btn_dwnld" uitype="normal" text="양식 다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld"></sbux-button>
 						&nbsp;
-						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="양식 다운로드(데이터포함)" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld('Y')"></sbux-button>
+						-->
+						<sbux-button id="btn_down" name="btn_down" uitype="normal" text="양식 다운로드" class="btn btn-xs btn-outline-danger" onclick="fn_dwnld('Y')"></sbux-button>
 						&nbsp;
 						<sbux-button id="btn_upload" name="btn_upload" uitype="normal" text="엑셀업로드" class="btn btn-xs btn-outline-danger" onclick="fn_upload"></sbux-button>
 						&nbsp;
@@ -200,6 +200,11 @@
 				<!-- SBGrid를 호출합니다. -->
 				<div id="sb-area-grdFcltInstlInfo" style="height:450px; width: 100%;"></div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
+		</div>
+		<!-- 엑셀 업로드 양식 -->
+		<div class="exp-div-excel" style="display: none;width: 1000px;">
+			<div id="sbexp-area-grdExpUpload" style="height:1px; width: 100%;"></div>
 		</div>
 	</section>
 		<!-- apc 선택 Modal -->
@@ -240,6 +245,23 @@
 	</div>
 	<div id="body-modal-biz">
 		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/bizPopup.jsp"></jsp:include>
+	</div>
+
+	<!-- IMPORT 엑셀 등록 Modal -->
+	<div>
+		<sbux-modal
+			id="modal-imp"
+			name="modal-imp"
+			uitype="middle"
+			header-title="지원사업 엑셀 등록(Excel)"
+			body-html-id="body-modal-imp"
+			footer-is-close-button="false"
+			header-is-close-button="false"
+			style="width:1000px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-imp">
+		<jsp:include page="../../fm/popup/importExcelPopup.jsp"></jsp:include>
 	</div>
 </body>
 <script type="text/javascript">
@@ -324,19 +346,23 @@
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
 		//SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.useMixedWidth = true;
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		//SBGridProperties.fixedrowheight=45;
-		SBGridProperties.rowheader="seq";
+		//SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["체크박스","체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
-			{caption: ["사업연도","사업연도"],				ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'},
-			{caption: ["지원유형","지원유형"],				ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
+			//{caption: ["고유번호","고유번호"],				ref: 'sn',			type:'output',  width:'50px',    style:'text-align:center'
+				//,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
+			{caption: ["사업연도","사업연도"],			ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric'}, maxlength : 4}},
+			{caption: ["지원유형","지원유형"],			ref: 'sprtBiz',		type:'combo',  width:'100px',    style:'text-align:center'
 				,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 			//{caption: ["APC지원유형","APC지원유형"],				ref: 'apcBizSprt',		type:'combo',  width:'100px',    style:'text-align:center'
 				//,typeinfo : {ref:'jsonGrdComBizSprtCd', label:'label', value:'value', displayui : false}},
 			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
-				ref: 'bizNm',		type:'input',  width:'435px',    style:'text-align:center'},
+				ref: 'bizNm',		type:'input',  width:'435px',	style:'text-align:center'},
 			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'
@@ -352,7 +378,7 @@
 			{caption: ["seq"],		ref: 'sn',		hidden : true},
 			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
 			{caption: ["행추가여부"],	ref: 'addYn',	hidden : true},
-			{caption: ["사업코드"],		ref: 'bizCd',	hidden : true},
+			//{caption: ["사업코드"],		ref: 'bizCd',	hidden : true},
 		];
 
 		grdFcltInstlInfo = _SBGrid.create(SBGridProperties);
@@ -371,7 +397,7 @@
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInstlInfoList.do", {
 			apcCd: apcCd,
-			//trgtYr: crtrYr,
+			//crtrYr: crtrYr,
 
 			// pagination
 			//pagingYn : 'N',
@@ -388,7 +414,6 @@
 			data.resultList.forEach((item, index) => {
 				//console.log(item);
 				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
-
 				let itemVO = {
 						sn				:item.sn
 						,bizYr			:item.bizYr
@@ -396,13 +421,13 @@
 						,apcNm			:item.apcNm
 						,sprtBiz		:item.sprtBiz
 						,bizNm			:item.bizNm
-						,bizCd			:item.bizCd
+						//,bizCd			:item.bizCd
 						,ne				:item.ne
 						,lcltExpndCtpv	:item.lcltExpndCtpv
-						,lcltExpndCtpv	:item.lcltExpndSgg
+						,lcltExpndSgg	:item.lcltExpndSgg
 						,slfBrdn		:item.slfBrdn
 						,addYn			:'N'
-							,tot : totVal
+						,tot : totVal
 				}
 				jsonFcltInstlInfo.push(itemVO);
 			});
@@ -439,6 +464,11 @@
 	const fn_save = async function() {
 		console.log("******************fn_save**********************************");
 
+		if(gfn_isEmpty(SBUxMethod.get("dtl-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
 			if(e.value != "" && e.value.length != 4){
@@ -446,7 +476,40 @@
 				result++;
 				return e.focus();
 			}
+
 		});
+		let grdData = grdFcltInstlInfo.getGridDataAll();
+		for ( let iRow = 2; iRow <= grdData.length+1; iRow++ ) {
+			const rowData = grdFcltInstlInfo.getRowData(iRow);
+
+			if (gfn_isEmpty(rowData.bizYr)) {
+				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				grdFcltInstlInfo.setCol(_grdImp.getColRef("bizYr"));
+				return;
+			}
+			//console.log(rowData.bizYr,rowData.bizYr.length);
+
+			if (rowData.bizYr.length != 4) {
+				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				grdFcltInstlInfo.setCol(_grdImp.getColRef("bizYr"));
+				return;
+			}
+			if (gfn_isEmpty(rowData.sprtBiz)) {
+				gfn_comAlert("W0002", "지원유형");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				grdFcltInstlInfo.setCol(_grdImp.getColRef("sprtBiz"));
+				return;
+			}
+			if (gfn_isEmpty(rowData.bizNm)) {
+				gfn_comAlert("W0002", "사업명");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				grdFcltInstlInfo.setCol(_grdImp.getColRef("bizNm"));
+				return;
+			}
+		}
+
 		//alert('준비중');
 		fn_subInsert(confirm("등록 하시겠습니까?"));
 	}
@@ -460,7 +523,7 @@
 		let gridData = grdFcltInstlInfo.getGridDataAll();
 		let saveList = [];
 
-		for(var i=1; i<=gridData.length; i++ ){
+		for(var i=2; i<=gridData.length+2; i++ ){
 			let rowData = grdFcltInstlInfo.getRowData(i);
 			let rowSts = grdFcltInstlInfo.getRowStatus(i);
 
@@ -487,7 +550,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-				//fn_search();
+				fn_search();
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
 				//cfn_allTabPrgrsRefrash();
 			} else {
@@ -762,7 +825,7 @@
 			return;
 		}
 
-		if(confirm("기존 데이터를 삭제 하시곘습니까?")){
+		if(confirm("기존 데이터를 삭제 하시곘습니까?\n확인을 누를시 삭제 됩니다\n취소를 누를시 삭제 하지 않고 저장됩니다")){
 			let delList = grdFcltInstlInfo.getGridDataAll();
 			await fn_deleteRsrc(delList);
 		}
@@ -1226,6 +1289,184 @@
 	//시도 변경 이벤트
 	const fn_ctpvChange = async function(){
 		SBUxMethod.set("srch-inp-sgg", "");
+	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.mergecellsfixedrows  = 'bycol';
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["APC코드","APC코드"],		ref: 'apcCd',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["APC명","APC명"],			ref: 'apcNm',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["사업연도","사업연도"],			ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["지원유형","지원유형"],			ref: 'sprtBizNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
+				ref: 'bizNm',		type:'input',  width:'435px',	style:'text-align:center'},
+			{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","지자체(시도)"],		ref: 'lcltExpndCtpv',	type:'input',  width:'100px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","지자체(시군구)"],		ref: 'lcltExpndSgg',	type:'input',  width:'100px',    style:'text-align:right'},
+			{caption: ["투자 사업비(백만원)","자부담"],		ref: 'slfBrdn',		type:'input',  width:'100px',    style:'text-align:right'},
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_getRawDataColumns = function() {
+		const _columns = [];
+		_columns.push(
+				{caption: ["APC코드","APC코드"],		ref: 'apcCd',		type:'input',  width:'80px',    style:'text-align:center'},
+				{caption: ["APC명","APC명"],			ref: 'apcNm',		type:'input',  width:'80px',    style:'text-align:center'},
+				{caption: ["사업연도","사업연도"],			ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'},
+				{caption: ["지원유형","지원유형"],			ref: 'sprtBizNm',		type:'input',  width:'100px',    style:'text-align:center'},
+				{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
+					ref: 'bizNm',		type:'input',  width:'435px',	style:'text-align:center'},
+				{caption: ["투자 사업비(백만원)","계"],			ref: 'tot',			type:'output',  width:'100px',    style:'text-align:right'},
+				{caption: ["투자 사업비(백만원)","국고"],		ref: 'ne',			type:'input',  width:'100px',    style:'text-align:right'},
+				{caption: ["투자 사업비(백만원)","지자체(시도)"],		ref: 'lcltExpndCtpv',	type:'input',  width:'100px',    style:'text-align:right'},
+				{caption: ["투자 사업비(백만원)","지자체(시군구)"],		ref: 'lcltExpndSgg',	type:'input',  width:'100px',    style:'text-align:right'},
+				{caption: ["투자 사업비(백만원)","자부담"],		ref: 'slfBrdn',		type:'input',  width:'100px',    style:'text-align:right'},
+		);
+
+		return _columns;
+	}
+
+	const fn_createRawDataGrid = async function(_expObjList) {
+		_expObjList.forEach((exp, idx) => {
+			var SBGridProperties = {};
+			SBGridProperties.parentid = exp.parentid;
+			SBGridProperties.id = exp.id;
+			SBGridProperties.jsonref = exp.jsonref;
+			SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			SBGridProperties.selectmode = 'byrow';
+			SBGridProperties.extendlastcol = 'none';
+			SBGridProperties.columns = exp.columns;
+			SBGridProperties.fixedrowheight=30;
+			exp.sbGrid = _SBGrid.create(SBGridProperties);
+			if(jsonExpUpload.length == 0){
+				exp.sbGrid.addRow(true);
+			}
+		});
+	}
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();//그리드 생성
+		//$('#sb-area-hiddenGrd').show();
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		if (gfn_isEmpty(crtrYr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			crtrYr = year;
+		}
+
+		//userId로 지자체 시도 시군구 값 알아내서 처리
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInstlInfoRawDataList.do", {
+			crtrYr : crtrYr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
+
+				let hiddenGrdVO = {
+						sn				:item.sn
+						,bizYr			:item.bizYr
+						,apcCd			:item.apcCd
+						,apcNm			:item.apcNm
+						,sprtBizNm		:item.sprtBizNm
+						,bizNm			:item.bizNm
+						//,bizCd			:item.bizCd
+						,ne				:item.ne
+						,lcltExpndCtpv	:item.lcltExpndCtpv
+						,lcltExpndSgg	:item.lcltExpndSgg
+						,slfBrdn		:item.slfBrdn
+						,tot : totVal
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_2.시설설치보완_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		*/
+		//console.log(hiddenGrd.exportData);
+
+		//hiddenGrd.exportData("xlsx" , fileName , true , true);
+		fn_rowDataDownLoad(fileName);
+	}
+
+	const fn_rowDataDownLoad = async function(fileName){
+
+		const columns = fn_getRawDataColumns();
+		const expObjList = [
+			{
+				sbGrid: hiddenGrd,
+				parentid: "sb-area-hiddenGrd",
+				id: "hiddenGrd",
+				jsonref: "jsonHiddenGrd",
+				columns: columns,
+				sheetName: "지원사업 리스트",
+				title: "",
+				unit: ""
+			}
+		];
+
+		//await fn_createRawDataGrid(expObjList); // fn_createExpGrid함수에 expObjList를 담아서 보내주는 코드
+
+		//await fn_hiddenGrdSelect();
+
+		let realFileName = fileName + ".xlsx";
+
+		gfn_exportExcelMulti(realFileName, expObjList); // gfn_exportExcelMulti함수에 파일 이름, 오브젝트 리스트를 보내주는 코드
 	}
 
 </script>

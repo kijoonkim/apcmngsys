@@ -36,9 +36,7 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 상품화설비현황 -->
 			</div>
 			<div style="margin-left: auto;">
-				<!--
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
-				-->
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
@@ -442,6 +440,7 @@
 				</div>
 			</div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
@@ -891,5 +890,122 @@
 		SBUxMethod.set("srch-inp-sgg", "");
 	}
 
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["APC코드"],		ref:'apcCd',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC명"],			ref:'apcNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목코드"],			ref:'itemCd',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목명"],			ref:'itemNm',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["보유여부"],			ref:'sortMchnHoldYn',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["규격"],			ref:'sortMchnSpcect',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["당도기"],			ref:'sortBrckMvhn',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["색택선별"],			ref:'colorSort',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["형상선별"],			ref:'shapSort',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["가공설비"],			ref:'mnfcMchn',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["제조사"],			ref:'mkrNm',			type:'output',width:'70px',style:'text-align:center'},
+
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();//그리드 생성
+
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		if (gfn_isEmpty(crtrYr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			crtrYr = year;
+		}
+
+		//userId로 지자체 시도 시군구 값 알아내서 처리
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltGdsMchnInfoRawDataList.do", {
+			crtrYr : crtrYr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					apcCd				:item.apcCd
+					,apcNm				:item.apcNm
+					,itemNm				:item.itemNm
+					,itemCd				:item.itemCd
+
+					,sortMchnHoldYn		:item.sortMchnHoldYn
+
+					,sortMchnSpcect		:item.sortMchnSpcect
+					,sortBrckMvhn		:item.sortBrckMvhn
+
+					,colorSort			:item.colorSort
+					,shapSort			:item.shapSort
+					,mnfcMchn			:item.mnfcMchn
+					,mkrNm				:item.mkrNm
+
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_3.2상품화설비현황_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
 </script>
 </html>

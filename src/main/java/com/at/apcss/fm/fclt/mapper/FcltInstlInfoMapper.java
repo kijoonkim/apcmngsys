@@ -58,4 +58,11 @@ public interface FcltInstlInfoMapper {
 	 * @return
 	 */
 	public int deleteFcltInstlInfo(FcltInstlInfoVO fcltInstlInfoVO);
+
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltInstlInfoVO
+	 * @return
+	 */
+	public List<FcltInstlInfoVO> selectFcltInstlInfoRawDataList(FcltInstlInfoVO fcltInstlInfoVO);
 }

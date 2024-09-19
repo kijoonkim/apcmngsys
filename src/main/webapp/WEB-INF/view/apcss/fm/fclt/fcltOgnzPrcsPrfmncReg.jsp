@@ -70,6 +70,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
@@ -799,12 +800,24 @@
 		}
 	}
 
+	const fn_clearForm = async function() {
+		for (var sn = 1; sn < 5; sn++) {
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,null);
+		}
+		fn_sum();
+	}
+
 	const fn_search = async function() {
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			alert('APC를 선택해주세요');
 			return;
 		}
-		fn_selectOgPcList();
+		await fn_clearForm();
+		await fn_selectOgPcList();
 	}
 
 	const fn_selectOgPcList = async function(copy_chk) {

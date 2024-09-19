@@ -62,6 +62,9 @@ public class FcltSortMchnInfoVO extends ComVO{
 	private String sortMchnHoldYn;
 	private String sn;
 
+	private String userId;
+	private String userType;
+
 }
 
 

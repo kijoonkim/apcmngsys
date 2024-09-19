@@ -89,6 +89,13 @@ public interface FcltOperInfoMapper {
 	 */
 	public List<FcltApcVO> selectApcList(FcltApcVO fcltApcVO);
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltApcVO
+	 * @return
+	 */
+	public List<FcltApcVO> selectFcltOperInfoRawDataList(FcltApcVO fcltApcVO);
+
 }
 
 

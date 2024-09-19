@@ -109,7 +109,7 @@
 						<tr>
 							<th>운영조직명</th>
 							<td>
-								<sbux-input id="dtl-inp-operOgnzNm" name="dtl-inp-operOgnzNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="dtl-inp-operOgnzNm" name="dtl-inp-operOgnzNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
 							<td colspan="2">
 						</tr>
@@ -123,6 +123,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<th>운영조직 법인번호</th>
@@ -134,13 +135,14 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th>운영조직 대표자</th>
 							<td>
-								<sbux-input id="dtl-inp-rprsv" name="dtl-inp-rprsv" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="dtl-inp-rprsv" name="dtl-inp-rprsv" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 							</td>
 							<td colspan="2"></td>
 							<!--
@@ -452,10 +454,6 @@
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
-		let brno = '${loginVO.brno}';
-		if(brno != 0000 || brno != null || brno != ""){
-
-		}
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
@@ -492,7 +490,8 @@
 		await fn_initSBSelect();
 
 		//apc가 있으면 자동 조회
-		if(!gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		if(gfn_isEmpty(apcCd)){
 			return;
 		}
 		await fn_search();
@@ -508,7 +507,9 @@
 		}
 	}
 	const fn_search = async function() {
-		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		console.log(apcCd);
+		if(gfn_isEmpty(apcCd)){
 			alert('APC를 선택해주세요');
 			return;
 		}
@@ -524,6 +525,7 @@
 		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoList.do", {
 			apcCd : apcCd
 			,crtrYr : crtrYr
+			,memberInfoYn : 'Y' //회원정보 여부
 		});
 
 		let data = await postJsonPromise;

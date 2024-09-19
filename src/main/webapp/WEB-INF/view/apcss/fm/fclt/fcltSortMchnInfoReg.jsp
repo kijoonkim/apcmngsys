@@ -70,6 +70,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">

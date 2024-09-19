@@ -96,4 +96,12 @@ public interface FcltOperInfoService {
 	 */
 	public List<FcltApcVO> selectApcList(FcltApcVO fcltApcVO) throws Exception;
 
+	/**
+	 * 운영자개요 로우데이터를 조회한다.
+	 * @param fcltApcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltApcVO> selectFcltOperInfoRawDataList(FcltApcVO fcltApcVO) throws Exception;
+
 }

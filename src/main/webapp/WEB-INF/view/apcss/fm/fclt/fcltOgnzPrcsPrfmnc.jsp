@@ -37,8 +37,8 @@
 			</div>
 			<div style="margin-left: auto;">
 				<!--
-				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				-->
+				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
@@ -888,6 +888,17 @@
 		]);
 	}
 
+	const fn_clearForm = async function() {
+		for (var sn = 1; sn < 5; sn++) {
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,null);
+		}
+		fn_sum();
+	}
+
 	const fn_selectOgPcList = async function(copy_chk) {
 		 console.log("******************fn_pagingOgPcList**********************************");
 
@@ -1235,7 +1246,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -1318,7 +1329,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {

@@ -53,17 +53,11 @@ public class FcltGdsMchnInfoController extends BaseController {
 	// 상품화설비현황 조회
 	@PostMapping(value = "/fm/fclt/selectFcltGdsMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest request) throws Exception{
-		logger.info("=============selectFcltGdsMchnInfo=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltGdsMchnInfoVO> resultList = new ArrayList<>();
 
 		try {
 			 resultList = fcltGdsMchnInfoService.selectFcltGdsMchnInfoList(fcltGdsMchnInfoVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltGdsMchnInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -71,14 +65,12 @@ public class FcltGdsMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		logger.info("=============selectFcltGdsMchnInfo=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 상품화설비현황 등록
 	@PostMapping(value = "/fm/fclt/insertFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============insertFcltInfo=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		// validation check
 
@@ -98,14 +90,12 @@ public class FcltGdsMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insertFcltInfo=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 상품화설비현황 변경
 	@PostMapping(value = "/fm/fclt/updateFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltGdsMchnInfo(@RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============updateFcltInfo=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -124,14 +114,12 @@ public class FcltGdsMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		logger.info("=============updateFcltInfo=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 상품화설비현황 변경
 	@PostMapping(value = "/fm/fclt/multiSaveFcltGdsMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSaveFcltGdsMchnInfo(@RequestBody List<FcltGdsMchnInfoVO> fcltGdsMchnInfoVOList, HttpServletRequest requset) throws Exception{
-		logger.info("=============multiSaveFcltGdsMchnInfo=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int savedCnt = 0;
@@ -182,7 +170,6 @@ public class FcltGdsMchnInfoController extends BaseController {
 	// 상품화설비현황 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltGdsMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltGdsMchnInfoList(@RequestBody List<FcltGdsMchnInfoVO> fcltGdsMchnInfoList, HttpServletRequest requset) throws Exception{
-		logger.info("=============delete=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -203,7 +190,27 @@ public class FcltGdsMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============delete=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectFcltGdsMchnInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltGdsMchnInfoRawDataList(Model model, @RequestBody FcltGdsMchnInfoVO fcltGdsMchnInfoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltGdsMchnInfoVO> resultList = new ArrayList<>();
+
+		fcltGdsMchnInfoVO.setUserId(getUserId());
+		fcltGdsMchnInfoVO.setUserType(getUserType());
+
+		try {
+			 resultList = fcltGdsMchnInfoService.selectFcltGdsMchnInfoRawDataList(fcltGdsMchnInfoVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

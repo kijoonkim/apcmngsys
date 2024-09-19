@@ -333,4 +333,58 @@
 	</delete>
 	-->
 
+		<select id="selectFcltInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
+				AFS.CRTR_YR
+				, AFS.APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AFS.APC_CD) AS APC_NM
+
+				, AFS.CSP_CFPP_AREA
+				, AFS.CSP_CFPP_RMRK
+				, AFS.CSP_CLN_OPRTNG_PRCS_AREA
+				, AFS.CSP_CLN_OPRTNG_PRCS_RMRK
+				, AFS.CSP_DTP_AREA
+				, AFS.CSP_DTP_RMRK
+				, AFS.CSP_NGDS_FCLT_AREA
+				, AFS.CSP_NGDS_FCLT_RMRK
+				, AFS.CSP_TOT_AREA
+				, AFS.CSP_TOT_RMRK
+				, AFS.STRG_PLC_PRC_PLC_AREA
+				, AFS.STRG_PLC_PRC_PLC_RMRK
+				, AFS.STRG_PLC_LWTP_STRG_AREA
+				, AFS.STRG_PLC_LWTP_STRG_RMRK
+				, AFS.STRG_PLC_CA_STRG_PLC_AREA
+				, AFS.STRG_PLC_CA_STRG_PLC_RMRK
+				, AFS.STRG_PLC_CURN_AREA
+				, AFS.STRG_PLC_CURN_RMRK
+				, AFS.STRG_PLC_GNRL_STRG_AREA
+				, AFS.STRG_PLC_GNRL_STRG_RMRK
+				, AFS.STRG_PLC_ETC_AREA
+				, AFS.STRG_PLC_ETC_RMRK
+
+			FROM TB_TE_APC_FCLT_STTS AFS
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+	</select>
+
 </mapper>

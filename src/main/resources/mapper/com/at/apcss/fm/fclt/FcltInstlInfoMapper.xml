@@ -310,4 +310,45 @@
 	</delete>
 	-->
 
+	<select id="selectFcltInstlInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInstlInfoMapper.selectFcltInstlInfoRawDataList */
+				AFIS.SN
+				, AFIS.BIZ_YR
+				, AFIS.APC_CD
+				, AFIS.APC_NM
+				, AFIS.SPRT_BIZ
+				, FN_GET_COM_CD_VL_NM('BIZ_SPRT_CD',AFIS.SPRT_BIZ) AS SPRT_BIZ_NM
+				, AFIS.BIZ_CN
+				, AFIS.NE
+				, AFIS.LCLT_EXPND
+				, AFIS.SLF_BRDN
+				, AFIS.BIZ_NM
+				, AFIS.BIZ_CD
+				, AFIS.LCLT_EXPND_CTPV
+				, AFIS.LCLT_EXPND_SGG
+
+			FROM TB_TE_APC_FCLT_INSTL_SPLMNT AFIS
+			WHERE 1=1
+			  AND AFIS.DEL_YN = 'N'
+			  AND AFIS.BIZ_YR IS NOT NULL
+			 ]]>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND AFIS.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY APC_NM , BIZ_YR , SPRT_BIZ , BIZ_NM
+
+	</select>
+
 </mapper>

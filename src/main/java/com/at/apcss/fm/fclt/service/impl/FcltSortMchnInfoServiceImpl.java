@@ -58,11 +58,7 @@ public class FcltSortMchnInfoServiceImpl extends BaseServiceImpl implements Fclt
 	public List<FcltSortMchnInfoVO> selectFcltSortMchnInfoList(FcltSortMchnInfoVO fcltSortMchnInfoVO) throws Exception {
 
 		List<FcltSortMchnInfoVO> resultList = fcltSortMchnInfoMapper.selectFcltSortMchnInfoList(fcltSortMchnInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltSortMchnInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
+
 		return resultList;
 	}
 
@@ -133,6 +129,14 @@ public class FcltSortMchnInfoServiceImpl extends BaseServiceImpl implements Fclt
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltSortMchnInfoVO> selectFcltSortMchnInfoRawDataList(FcltSortMchnInfoVO fcltSortMchnInfoVO) throws Exception {
+
+		List<FcltSortMchnInfoVO> resultList = fcltSortMchnInfoMapper.selectFcltSortMchnInfoRawDataList(fcltSortMchnInfoVO);
+
+		return resultList;
 	}
 
 }

@@ -59,6 +59,8 @@ public class FcltOperInfoController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOperInfoVO> resultList = new ArrayList<>();
 
+		fcltOperInfoVO.setUserId(getUserId());
+
 		try {
 			resultList = fcltOperInfoService.selectFcltOperInfoList(fcltOperInfoVO);
 
@@ -227,6 +229,27 @@ public class FcltOperInfoController extends BaseController {
 
 		try {
 			resultList = fcltOperInfoService.selectApcList(fcltApcVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectFcltOperInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltOperInfoRawDataList(Model model, @RequestBody FcltApcVO fcltApcVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltApcVO> resultList = new ArrayList<>();
+
+		fcltApcVO.setUserId(getUserId());//유저아이디
+		fcltApcVO.setUserType(getUserType());//유저권한
+
+		try {
+			resultList = fcltOperInfoService.selectFcltOperInfoRawDataList(fcltApcVO);
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

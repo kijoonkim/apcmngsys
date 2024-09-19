@@ -62,11 +62,7 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 	public List<FcltInstlInfoVO> selectFcltInstlInfoList(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
 
 		List<FcltInstlInfoVO> resultList = fcltInstlInfoMapper.selectFcltInstlInfoList(fcltInstlInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltInstlInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
+
 		return resultList;
 	}
 
@@ -132,4 +128,11 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 		return deletedCnt;
 	}
 
+	@Override
+	public List<FcltInstlInfoVO> selectFcltInstlInfoRawDataList(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
+
+		List<FcltInstlInfoVO> resultList = fcltInstlInfoMapper.selectFcltInstlInfoRawDataList(fcltInstlInfoVO);
+
+		return resultList;
+	}
 }
