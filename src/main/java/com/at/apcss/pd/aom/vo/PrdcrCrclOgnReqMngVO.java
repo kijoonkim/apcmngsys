@@ -86,6 +86,7 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String sysLastChgDtYmd;
 
 	private String ctgryNm;
+	private String clsfNm;
 	private String sttgUpbrItemNm;
 	private String itemNm;
 	private String addr;

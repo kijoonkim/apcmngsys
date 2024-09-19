@@ -933,6 +933,17 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶정부관리 산지유통시설(APC) 현황</span>
+							</li>
+						</ul>
+				</div>
+				<div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdApcList" style="height:200px; width: 100%;"></div>
+				</div>
 				<!--
 				<div>
 				*신청대상구분
@@ -1006,7 +1017,7 @@
 			body-html-id="body-modal-gpcList"
 			footer-is-close-button="false"
 			style="width:800px"
-	   	></sbux-modal>
+		></sbux-modal>
 	</div>
 	<div id="body-modal-gpcList">
 		<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
@@ -1068,7 +1079,9 @@
 	var jsonComUoCd = [];//통합조직코드
 	var jsonComAprv = [];//통합조직여부
 	var jsonComAplyTrgtSe = [];//신청대상구분
-	var jsonComCtgryCd = [];//분류코드
+	var jsonComCtgryCd = [];//신규부류
+	var jsonComClsfCd = [];//평가부류
+
 	var jsonComSttgUpbrItemSe = [];//품목구분 전문/육성
 	var jsonComIsoHldYn = [];//출자출하조직 보유 여부
 	/**
@@ -1090,8 +1103,9 @@
 			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //통합조직여부
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 			gfn_setComCdSBSelect('dtl-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
-			gfn_setComCdSBSelect('grdGpcList', 				jsonComCtgryCd, 	'CTGRY_CD'), //분류코드
-			gfn_setComCdSBSelect('grdGpcList', 				jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
+			gfn_setComCdSBSelect('grdGpcList', 				jsonComClsfCd, 		'CLSF_CD'), //신규부류
+			gfn_setComCdSBSelect('grdGpcList', 				jsonComCtgryCd, 	'CTGRY_CD'), //평가부류
+			gfn_setComCdSBSelect('grdGpcList', 				jsonComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE_1'), //품목구분 _1 기타포함
 			gfn_setComCdSBSelect('dtl-input-isoHldYn', 		jsonComIsoHldYn, 	'ISO_HLD_YN'), //출자출하조직 보유 여부
 		]);
 		//품목 그리드
@@ -1108,6 +1122,7 @@
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_search();
+		await fn_apcListGrid();
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		var now = new Date();
@@ -1116,6 +1131,7 @@
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_dtlSearch();
+		await fn_apcListGrid();
 	</c:if>
 	}
 
@@ -2091,12 +2107,14 @@
 			{caption: ["분류코드"], 		ref: 'ctgryCd',   	hidden : true},
 			*/
 
-			{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',	style:'text-align:center',
-				typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
-
 			{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'150px',	style:'text-align:center',
 				typeinfo : {ref:'jsonComSttgUpbrItemSe', label:'label', value:'value', displayui : true},
 				validate : fn_Validate},
+			{caption: ["부류"], 		ref: 'clsfCd',   	type:'combo',  width:'150px',	style:'text-align:center',
+				typeinfo : {ref:'jsonComClsfCd', label:'label', value:'value', displayui : true}},
+			{caption: ["평가부류"], 		ref: 'ctgryCd',   	type:'combo',  width:'150px',	style:'text-align:center',
+				typeinfo : {ref:'jsonComCtgryCd', label:'label', value:'value', displayui : true}},
+
 			{caption: ["품목명"], 			ref: 'itemNm',   	type:'output',  width:'150px',	style:'text-align:center'},
 			/*
 			{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
@@ -2134,6 +2152,7 @@
 		grdGpcList.bind('dblclick','gridClick');
 	}
 
+	//전문/육성 품목 선택
 	function fn_Validate(objGrid, nRow, nCol, strValue) {
 		//console.log(strValue);
 		let aprv = SBUxMethod.get("rdo-aprv");
@@ -2144,11 +2163,23 @@
 				return "";
 			}else if(aprv == "2"){
 				if(strValue == "2"){
-					alert("전문품목만 선택가능합니다.");
+					alert("육성형 조직은 전문품목만 선택가능합니다.");
 					objGrid.setCellData(nRow,nCol,"1",true);
 					return "1";
 				}
 			}
+		}
+		let clsfCdCol = objGrid.getColRef('clsfCd');//부류
+		let ctgryCdCol = objGrid.getColRef('ctgryCd');//평가부류
+		//기타일떄 부류,평가부류 비활성화
+		if(strValue == '3'){
+			objGrid.setCellDisabled(nRow, nRow, clsfCdCol, clsfCdCol, true);
+			objGrid.setCellDisabled(nRow, nRow, ctgryCdCol, ctgryCdCol, true);
+			objGrid.setCellData(nRow,clsfCdCol,"");
+			objGrid.setCellData(nRow,ctgryCdCol,"");
+		}else{
+			objGrid.setCellDisabled(nRow, nRow, clsfCdCol, clsfCdCol, false);
+			objGrid.setCellDisabled(nRow, nRow, ctgryCdCol, ctgryCdCol, false);
 		}
 		return strValue;
 	}
@@ -2262,6 +2293,8 @@
 						,delYn: item.delYn
 						,apoCd: item.apoCd
 						,brno: item.brno
+
+						,clsfCd: item.clsfCd
 				}
 				jsonGpcList.push(GpcListVO);
 			});
@@ -2455,14 +2488,14 @@
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem = function(rowData) {
 		console.log("================fn_setGridItem================");
-		//console.log(rowData);
+		console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
 			//selGridRow : 선택된 행 값
 
 			let selGridRow = grdGpcList.getRow();
 
-			//let colRefIdx1 = grdGpcList.getColRef("ctgryCd");//분류코드 인덱스
+			let colRefIdx1 = grdGpcList.getColRef("ctgryCd");//분류코드 인덱스
 			//let colRefIdx2 = grdGpcList.getColRef("ctgryNm");//분류명 인덱스
 			let colRefIdx3 = grdGpcList.getColRef("itemCd");//품목코드 인덱스
 			let colRefIdx4 = grdGpcList.getColRef("itemNm");//품목명 인덱스
@@ -2478,7 +2511,7 @@
 			}
 
 			//그리드 값 세팅
-			//grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
 			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
@@ -2632,6 +2665,54 @@
 			console.error("failed", e.message);
 		}
 	}
+
+
+	/**************************APC현황 그리드**********************************/
+
+	//품목입력 그리드 변수
+	var jsonApcList = []; // 그리드의 참조 데이터 주소 선언
+	var grdApcList;
+
+	//품목입력 그리드
+	/* Grid 화면 그리기 기능*/
+	const fn_apcListGrid = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdApcList';
+		SBGridProperties.id = 'grdApcList';
+		SBGridProperties.jsonref = 'jsonApcList';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.rowheader = ['seq', 'update'];//맨앞열 추가 행갯수 , 업데이트 여부
+		SBGridProperties.rowheadercaption = {seq: 'No'};//seq 해더 추가
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = true;//입력 활성화 true 1번클릭 false 더블클릭
+		SBGridProperties.columns = [
+			{caption: ["구분","구분"], 			ref: 'a',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["소유자","소유자"], 		ref: 'b',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["설치년도","설치년도"], 	ref: 'c',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["유형","유형"], 			ref: 'd',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["시설규모(㎡)","부지"], 	ref: 'e',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["시설규모(㎡)","건물"], 	ref: 'f',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["투자금액\n(백만원)","투자금액\n(백만원)"], 		ref: 'g',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["보조사업","보조사업"], 			ref: 'h',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["취급현황","금액(백만원)"], 			ref: 'i',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["취급현황","물량(톤)"], 			ref: 'j',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["취급품목\n(대표 3개)","품목1"], 			ref: 'k',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["취급품목\n(대표 3개)","품목2"], 			ref: 'l',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["취급품목\n(대표 3개)","품목3"], 			ref: 'm',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["운영주체\n담당자","운영주체\n담당자"], 			ref: 'n',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["담당자\n전화번호","담당자\n전화번호"], 			ref: 'o',   	type:'output',  width:'50px',	style:'text-align:center'},
+			{caption: ["시설주소","시설주소"], 			ref: 'p',   	type:'output',  width:'150px',	style:'text-align:center'},
+		];
+
+		grdApcList = _SBGrid.create(SBGridProperties);
+
+		//grdApcList.bind('dblclick','gridClick');
+	}
+
+
 
 	/* 로우데이터 요청 */
 
