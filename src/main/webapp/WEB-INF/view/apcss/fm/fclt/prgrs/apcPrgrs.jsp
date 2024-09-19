@@ -5,7 +5,6 @@
 			<span style="margin-right: 5px">저장 완료 : <span id="prgrsCnt">0</span>/14</span>
 			<sbux-input uitype="hidden" id="dtl-inp-prgrsCnt" name="dtl-inp-prgrsCnt"></sbux-input>
 			<sbux-input uitype="hidden" id="dtl-inp-prgrsLast" name="dtl-inp-prgrsLast"></sbux-input>
-			<!--
 			<sbux-button
 				id="prgrs-btnPrint"
 				name="prgrs-btnPrint"
@@ -14,7 +13,6 @@
 				class="btn btn-sm btn-primary"
 				onclick="cfn_print"
 			></sbux-button>
-			-->
 			<sbux-button
 				id="prgrs-btnLastSave"
 				name="prgrs-btnLastSave"
@@ -389,7 +387,7 @@
 			//진척도 조회
 			cfn_selectPrgrs();
 		}
-		/*
+
 		const cfn_report = async function() {
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
@@ -398,10 +396,10 @@
 				return;
 			}
 
-			gfn_popClipReport("test출력", "fm/apcReport.crf", {
+			gfn_popClipReport("test출력", "fm/apcReport_20240913.crf", {
 				apcCd 		: gfn_nvl(apcCd)
 				, crtrYr 	: gfn_nvl(crtrYr)
 			});
 		}
-		*/
+
 	</script>
