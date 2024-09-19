@@ -186,7 +186,7 @@
 /*}*/
 
 </style>
-    
+
 <%--<script language="JavaScript">--%>
 <%--	//head 태그 안에 스크립트 선언--%>
 <%--    function setCookie( name, value, expiredays ) {--%>
@@ -201,7 +201,7 @@
 <%--        document.all['layer_popup'].style.visibility = "hidden";--%>
 <%--    }--%>
 <%--</script>--%>
-    
+
 </head>
 <body id="mainBody" oncontextmenu="return false;">
 
@@ -285,7 +285,7 @@
             //await fn_afterAddTab(menuNo);
 
     	} else {
-    		if(data.id == "PD" || data.id == "FM"){
+    		if(data.id == "PD" || data.id == "FM" || data.id == "CS"){
            		SBUxMethod.showTab('tab_menu','TAB_PD_009');
             }else{
             	SBUxMethod.hideTab('tab_menu','TAB_PD_009');
