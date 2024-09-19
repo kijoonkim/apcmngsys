@@ -1,6 +1,7 @@
 package com.at.apcss.am.cmns.service;
 
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
 
 /**
  * 업무 번호 Service 인터페이스
@@ -134,4 +135,13 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 원물입고예정번호 발번
+	 * @param apcCd
+	 * @param prdcrCd
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectFnGetPrnmntNo(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
 }

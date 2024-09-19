@@ -43,4 +43,19 @@
 		]]>
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPrnmntNo	-->
+	<!-- DESC : PrnmntNo 발번	                                                    -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.06  	최지호        		                                        -->
+	<!-- ==========================================================================	-->
+	<select id="selectFnGetPrnmntNo" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO" resultType="String">
+    	<![CDATA[
+		SELECT /* com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPrnmntNo */
+			FN_GET_ID_RAW_MTR_WRHS_PRNMNTNO(#{apcCd}, #{prdcrCd}) AS PRNMNTNO
+		FROM DUAL
+		]]>
+    </select>
 </mapper>

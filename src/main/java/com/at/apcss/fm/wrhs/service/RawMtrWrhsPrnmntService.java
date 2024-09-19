@@ -37,4 +37,12 @@ public interface RawMtrWrhsPrnmntService {
      * @throws Exception
      */
     public HashMap<String, Object> deleteRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 입고예정 등록
+     * @param rawMtrWrhsPrnmntVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
 }
