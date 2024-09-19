@@ -209,8 +209,7 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	var firstLoad = 0;
-	var secondLaod = 0;
+	let firstLoad = 0;
 
     const lv_tabPrefix = "idxfrmJson_TAB_";
     let lv_frmId = "";
@@ -288,7 +287,7 @@
             //await fn_afterAddTab(menuNo);
 
     	} else {
-    		if(data.id == "PD" || data.id == "FM"){
+    		if(data.id == "PD" || data.id == "FM" || data.id == "CS"){
            		SBUxMethod.showTab('tab_menu','TAB_PD_009');
             }else{
             	SBUxMethod.hideTab('tab_menu','TAB_PD_009');
@@ -302,88 +301,84 @@
      */
     async function fn_setLeftMenu(_menuNo, _menuId) {
 
-        var menuInfo = _.find(menuJson, {id: _menuNo});
-       // var pMenuId = menuInfo.pid;
-       // var pMenuNm = menuInfo.value;
-//         var pMenuId = "CS";
-//        var pMenuNm = "APC전수조사";
+		var menuInfo = _.find(menuJson, {id: _menuNo});
+		var pMenuId = menuInfo.pid;
+		var pMenuNm = menuInfo.value;
 
-       if(firstLoad == 0){
-      	 var pMenuId = "CS";
-           var pMenuNm = "APC전수조사";
-          firstLoad = firstLoad +1;
-        }else{
-     	 var pMenuId = menuInfo.pid;
-          var pMenuNm = menuInfo.value;
-        }
+		if(firstLoad == 0){
+			pMenuId = "CS";
+			pMenuNm = "APC전수조사";
+			firstLoad = firstLoad +1;
+		}
 
         if (gfn_isEmpty(pMenuId)) {
-        	pMenuId = _menuNo;
-        	pMenuNm = menuInfo.text;
+            pMenuId = _menuNo;
+            pMenuNm = menuInfo.text;
         }
 
-//         alert(pMenuId);
-//         alert(pMenuNm);
         //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
         const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
 
         const data = await postJsonPromise;
 
         try {
-        	sideJsonData.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const menu = {
-					id: item.menuId,
-					pid: item.upMenuId,
-					order: item.indctSeq,
-					text: item.menuNm,
-					url: item.pageUrl
-				}
-				sideJsonData.push(menu);
-			});
+            sideJsonData.length = 0;
+            data.resultList.forEach((item, index) => {
+                const menu = {
+                    id: item.menuId,
+                    pid: item.upMenuId,
+                    order: item.indctSeq,
+                    text: item.menuNm,
+                    url: item.pageUrl,
+                    prsnaYn : item.prsnaInfoYn,
+                    bmkYn	: item.bmkYn
+                }
+                sideJsonData.push(menu);
+            });
 
             //if (pMenuId !== "0") {
             if (!gfn_isEmpty(menuInfo.pid)) {
                 var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
                 if (pIdx >= 0) {
-                	sideJsonData[pIdx].class = "active";
+                    sideJsonData[pIdx].class = "active";
                 }
             }
 
             if (_menuId != undefined) {
-            	_menuNo = _menuId;
+                _menuNo = _menuId;
             }
 
             var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
             if (idx >= 0) {
-            	sideJsonData[idx].class = "active";
+                sideJsonData[idx].class = "active";
             }
 
             SBUxMethod.refresh("side_menu");
-           	if (!gfn_isEmpty(menuInfo.pid)) {
+            if (!gfn_isEmpty(menuInfo.pid)) {
                 SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
             }
 
-           	var title = pMenuNm;
-           	document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
+            var title = pMenuNm;
+            document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
 
             if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
-            	fn_actionGoPage(
-            			  sideJsonData[idx].url
-	                    , "LEFT"
-	                    , sideJsonData[idx].id
-	                    , sideJsonData[idx].text
-	                    , sideJsonData[idx].pid
-	                );
+                fn_actionGoPage(
+                    sideJsonData[idx].url
+                    , "LEFT"
+                    , sideJsonData[idx].id
+                    , sideJsonData[idx].text
+                    , sideJsonData[idx].pid
+                );
             }
             if(gv_userType === "00" || gv_userType ==="01"){
-            	document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+            	//document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+            	document.querySelector("#idxSide_menu div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
             }
         } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
         }
 
         /*
@@ -1159,9 +1154,36 @@
 
        	insertComLog(data);
 
-        fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
+        tabAddTest();
 
+        fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
         fn_getSysInfo();
+    }
+
+    const tabAddTest = async function() {
+    	var tabName = "TAB_PD_009";
+        var menuNo = "PD_009";
+        var jsonTabSelect = {
+              'id': tabName
+            , 'pid': '-1'
+            , 'text': '공지사항'	//'대시보드'
+            , 'targetid': tabName
+            //, 'targetvalue': tabName + '_value'
+            , 'targetvalue': tabName
+            , 'targetname': 'frmJson'
+            , 'link': '/co/menu/openPage.do/' + menuNo	// _url
+            , 'closeicon': false
+        };
+        SBUxMethod.addTab('tab_menu', jsonTabSelect);
+        //화면이력관리용 data
+        var data = {
+        		customData : {prsnaYn : null},
+        		id : tabName,
+        		text : "공지사항",
+        		prslType: "M1"
+        }
+
+        insertComLog(data);
     }
 
     function gfn_tabClose(_menuId) {
