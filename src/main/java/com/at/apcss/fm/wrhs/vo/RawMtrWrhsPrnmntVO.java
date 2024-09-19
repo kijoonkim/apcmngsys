@@ -46,6 +46,11 @@ public class RawMtrWrhsPrnmntVO extends ComVO {
     private String vrtyCd;
 
     /**
+     * 품목명
+     */
+    private String itemNm;
+
+    /**
      * 품종명
      */
     private String vrtyNm;
@@ -53,12 +58,12 @@ public class RawMtrWrhsPrnmntVO extends ComVO {
     /**
      * 예정수량
      */
-    private String prnmntQntt;
+    private int prnmntQntt;
 
     /**
      * 예정중량
      */
-    private String prnmntWght;
+    private double prnmntWght;
 
     /**
      * 비고

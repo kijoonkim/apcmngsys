@@ -36,4 +36,12 @@ public interface RawMtrWrhsPrnmntMapper {
      * @throws Exception
      */
     public int deleteRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 입고예정 등록
+     * @param rawMtrWrhsPrnmntVO
+     * @return
+     * @throws Exception
+     */
+    public int insertRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
 }
