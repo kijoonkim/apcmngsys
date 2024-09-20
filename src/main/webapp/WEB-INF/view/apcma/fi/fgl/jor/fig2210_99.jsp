@@ -1543,7 +1543,7 @@
     	
     	var p_source_id				= '1';
     	var p_acct_rule_code		= gfnma_nvl(SBUxMethod.get("sch-acct-rule-code"));
-    	var p_hold_flag				= gfnma_nvl(SBUxMethod.get("sch-hold-flag"));
+    	var p_hold_flag				= gfnma_nvl(SBUxMethod.get('sch-hold-flag'));
     	var p_fi_org_code			= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
     	var p_doc_date				= gfnma_getNumber(gfnma_nvl(SBUxMethod.get("sch-doc-date")));
     	var p_doc_name				= gfnma_nvl(SBUxMethod.get("sch-doc-name"));
