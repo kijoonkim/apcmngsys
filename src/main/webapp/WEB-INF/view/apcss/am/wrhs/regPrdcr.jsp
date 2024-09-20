@@ -539,7 +539,7 @@
 	    		}
 	    	}
 
-			if (!gfn_isEmpty(rowData.rprsItemCd) && !gfn_isEmpty(rowData.rprsVrtyCd)) {
+			if (!gfn_isEmpty(rowData.rprsItemCd)) {
 				rowData.rprsVrtyCd = rowData.itemVrtyCd.substring(4);
 			}
 
