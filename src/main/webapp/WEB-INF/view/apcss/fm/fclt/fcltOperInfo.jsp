@@ -184,7 +184,7 @@
 						<tr>
 							<th>운영조직명</th>
 							<td>
-								<sbux-input id="dtl-inp-operOgnzNm" name="dtl-inp-operOgnzNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="dtl-inp-operOgnzNm" name="dtl-inp-operOgnzNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
 							<td colspan="2">
 						</tr>

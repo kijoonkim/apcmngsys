@@ -695,8 +695,7 @@
 	 */
 	const fn_upload = async function() {
 
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-
+		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		if (gfn_isEmpty(apcCd)) {
 			gfn_comAlert("W0001", "APC");		//	W0002	{0}을/를 선택하세요.
 			return;
