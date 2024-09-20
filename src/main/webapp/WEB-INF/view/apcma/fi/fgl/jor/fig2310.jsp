@@ -712,6 +712,11 @@
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
     	
+    	p_menu_param = localStorage.getItem("callMain");
+    	if(p_menu_param){
+    		p_menu_param = JSON.parse(p_menu_param);
+    	}
+    	localStorage.removeItem("callMain");
     	if(p_menu_param){
     		pg_state = 'edit';
     	} else {
@@ -731,6 +736,20 @@
 
     });
 
+    //메뉴가 이미 열려있을때..
+    window.addEventListener('message', async function(e) {
+    	let obj = e.data;
+		if(obj){
+			if(obj['MENU_MOVE']){
+				//console.log('2 message pg_state:', pg_state);			
+				//console.log('2 message obj:', obj);
+				pg_state 		= 'edit';			
+				p_menu_param 	= obj;
+		     	fn_init(false);
+			}
+		}
+    });    
+    
     /**
      * 화면 state 변경
      */
@@ -738,6 +757,34 @@
     	
 		if(type=='new'){
 			cfn_add();
+		} else if(type=='edit'){
+			if(p_menu_param){
+				console.log('p_menu_param ====>>> in');			
+				if(p_menu_param['DOC_ID']){
+					SBUxMethod.set('sch-doc-id', 	p_menu_param['DOC_ID']);
+					fn_subSearch(function(){
+						if(p_menu_param['WORK_TYPE']=='COPY'){
+							SBUxMethod.set('sch-doc-id', 		'0');
+							SBUxMethod.set('sch-doc-name', 		'');
+							SBUxMethod.set('sch-doc-status', 	'1');
+							SBUxMethod.set('sch-doc-date', 		gfnma_date4());
+						}
+						if(SBUxMethod.get('sch-doc-type')!='93'){
+			    			$('#main-btn-save', parent.document).attr('disabled', true);
+							if(SBUxMethod.get('sch-doc-status')=='1'){
+								$('#main-btn-del', 	parent.document).attr('disabled', false);
+							}
+							$('#btn1-row-add').css('disabled', true);					
+							$('#btn1-row-del').css('disabled', true);					
+						}
+					});
+				}
+				if(Number(SBUxMethod.get('sch-doc-id'))!=0){
+					if(SBUxMethod.get('sch-doc-status')=='1'){
+						$('#main-btn-del', 	parent.document).attr('disabled', false);
+					}
+				}
+			}
 		}
     }
     
@@ -3152,6 +3199,17 @@
 		pg_vat_type_bizId	= 'P_ACCOUNT_POPUP_Q';
 		fn_setFig2310Grid('Q', function(){
 			fn_enableSet();
+		});		
+	}
+
+	function fn_subSearch(callbackFn) {
+    	
+		pg_vat_type_bizId	= 'P_ACCOUNT_POPUP_Q';
+		fn_setFig2310Grid('Q', function(){
+			fn_enableSet();
+			if(callbackFn){
+				callbackFn();
+			}
 		});		
 	}
     
