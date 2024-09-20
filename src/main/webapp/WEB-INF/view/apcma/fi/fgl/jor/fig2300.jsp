@@ -617,7 +617,14 @@
             {caption: ["사업장"],    				ref: 'SITE_NAME', 				type:'output',  	width:'150px', 		style:'text-align:left'},
             {caption: ["전기일자"],  				ref: 'DOC_DATE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전표구분"],  				ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'150px',  	style:'text-align:left'},
+            
             {caption: ["전표번호"],  				ref: 'DOC_NAME', 				type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: [''], 						ref: 'btn1',    				type:'button',  	width:'30px',  		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+   	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup1(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+            	}	
+            },
+            
             {caption: ["통화"],						ref: 'CURRENCY_CODE',			type:'output',  	width:'70px',  		style:'text-align:left'},
             
             {caption: ["청구자"], 					ref: 'REQUEST_EMP',    			type:'output',  	width:'100px', 		style:'text-align:left'},
@@ -2108,6 +2115,24 @@
 			fn_subAllAppr('REJECT', p_strappr_id, p_txtappr_opinion);
 		}       	
   	}   
+    
+    /**
+     * 그리드내 전표번호 조회
+     */
+	function fn_gridPopup1(event, row, col) {
+		event.preventDefault();	
+        let rowData = Fig2300Grid.getRowData(row);
+        console.log('fn_gridPopup1 rowData:', rowData);
+        
+        var obj = {
+        	'MENU_MOVE'		: 'Y'	
+        	,'DOC_ID' 		: rowData['DOC_ID']
+        	,'WORK_TYPE'	: 'VIEW'
+        	,'target'		: 'MA_A20_030_020_160'
+        }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);
+	}
     
     
 </script>
