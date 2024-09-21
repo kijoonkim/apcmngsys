@@ -36,6 +36,8 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 유통조직처리실적 -->
 			</div>
 			<div style="margin-left: auto;">
+				<!--
+				-->
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -737,6 +739,85 @@
 								</td>
 								<td>톤</td>
 							</tr>
+							<tr>
+								<th class="text-center">계</th>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+										name="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+										uitype="text" class="form-control input-sm"
+										placeholder="자동계산"
+										readonly
+										style="text-align: right;"
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzGnrlSumTot1"
+										name="dtl-inp-rtlOgnzGnrlSumTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										readonly
+										style="text-align: right;"
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzGnrlSmplTrstTot1"
+										name="dtl-inp-rtlOgnzGnrlSmplTrstTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzGnrlSmplEmspapTot1"
+										name="dtl-inp-rtlOgnzGnrlSmplEmspapTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzOGnzSumTot1"
+										name="dtl-inp-rtlOgnzOGnzSumTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzOgnzCprtnSortTrstTot1"
+										name="dtl-inp-rtlOgnzOgnzCprtnSortTrstTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzOgnzCtrtEmspapTot1"
+										name="dtl-inp-rtlOgnzOgnzCtrtEmspapTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+							</tr>
 						</thead>
 					</table>
 					</div>
@@ -807,6 +888,17 @@
 		]);
 	}
 
+	const fn_clearForm = async function() {
+		for (var sn = 1; sn < 5; sn++) {
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,null);
+		}
+		fn_sum();
+	}
+
 	const fn_selectOgPcList = async function(copy_chk) {
 		 console.log("******************fn_pagingOgPcList**********************************");
 
@@ -829,6 +921,10 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
+				//console.log(item);
+
+				let sn = item.sn;
+
 				//let rtlOgnzGnrlSum = Number(item.rtlOgnzGnrlSmplTrst) + Number(item.rtlOgnzGnrlSmplEmspap);
 				//let rtlOgnzOGnzSum = Number(item.rtlOgnzOgnzCprtnSortTrst) + Number(item.rtlOgnzOgnzCtrtEmspap);
 				//let rtlOgnzTotTrmtAmt = Number(rtlOgnzGnrlSum) + Number(rtlOgnzOGnzSum);
@@ -845,7 +941,7 @@
 				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,item.rtlOgnzTotTrmtVlm);
 			});
 			//sum('srch-inp-opera3',1);
-			//sum('srch-inp-opera6',2);
+			fn_sum();
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -922,7 +1018,9 @@
 
 	//처리실적 자동계산
 	function fn_sum(e){
-		extractNumbers2(e.name);
+		if(e != null){
+			extractNumbers2(e.name);
+		}
 
 		let rtlOgnzGnrlSmplTrstArr = [];
 		let rtlOgnzGnrlSmplEmspapArr = [];
@@ -948,6 +1046,12 @@
 		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspapTot',rtlOgnzOgnzCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0));
 		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlmTot',rtlOgnzTotTrmtVlmArr.reduce((acc, cur) => {return acc + cur;}, 0));
 
+		//한글 단위 표시
+		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrstTot1',fn_numberToKorean( rtlOgnzGnrlSmplTrstArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspapTot1',fn_numberToKorean( rtlOgnzGnrlSmplEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrstTot1',fn_numberToKorean( rtlOgnzOgnzCprtnSortTrstArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspapTot1',fn_numberToKorean( rtlOgnzOgnzCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+
 		let rtlOgnzTotTrmtAmt = [];
 		let rtlOgnzGnrlSum = [];
 		let rtlOgnzOGnzSum = [];
@@ -970,6 +1074,10 @@
 		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSumTot',rtlOgnzGnrlSum.reduce((acc, cur) => {return acc + cur;}, 0));
 		SBUxMethod.set('dtl-inp-rtlOgnzOGnzSumTot',rtlOgnzOGnzSum.reduce((acc, cur) => {return acc + cur;}, 0));
 
+		//한글 단위 표시
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1',fn_numberToKorean( rtlOgnzTotTrmtAmt.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSumTot1',fn_numberToKorean( rtlOgnzGnrlSum.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzOGnzSumTot1',fn_numberToKorean( rtlOgnzOGnzSum.reduce((acc, cur) => {return acc + cur;}, 0) ));
 	}
 
 	// 숫자(소숫점 가능)만 입력
@@ -1014,6 +1122,36 @@
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
+	}
+
+	function fn_numberToKorean(number) {
+		if(number == null){
+			return "";
+		}
+		if(typeof number == "string"){
+			number = parseFloat(number);
+		}
+		//기본 단위 100만원  100 0000
+		number = number * 100
+		var inputNumber = number < 0 ? false : number;
+		var unitWords = ["만", "억", "조", "경"];
+		var splitUnit = 10000;
+		var splitCount = unitWords.length;
+		var resultArray = [];
+		var resultString = "";
+
+		for (var i = 0; i < splitCount; i++) {
+			var unitResult = (inputNumber % Math.pow(splitUnit, i + 1)) / Math.pow(splitUnit, i);
+			unitResult = Math.floor(unitResult);
+			if (unitResult > 0) {
+				resultArray[i] = unitResult;
+			}
+		}
+		for (var i = 0; i < resultArray.length; i++) {
+			if (!resultArray[i]) continue;
+			resultString = String(resultArray[i]) + unitWords[i] + resultString;
+		}
+		return resultString + "원";
 	}
 
 
@@ -1070,6 +1208,10 @@
 			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
 
+			{caption: ["담당자명"],	ref: 'picNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["직위"],	ref: 'jbps',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["연락처"],	ref: 'coTelno',		type:'input',  width:'100px',    style:'text-align:center'},
+
 			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
 			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},
 
@@ -1104,7 +1246,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -1187,7 +1329,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {

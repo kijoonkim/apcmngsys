@@ -1543,7 +1543,7 @@
     	
     	var p_source_id				= '1';
     	var p_acct_rule_code		= gfnma_nvl(SBUxMethod.get("sch-acct-rule-code"));
-    	var p_hold_flag				= gfnma_nvl(SBUxMethod.get("sch-hold-flag"));
+    	var p_hold_flag				= gfnma_nvl(SBUxMethod.get('sch-hold-flag'));
     	var p_fi_org_code			= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
     	var p_doc_date				= gfnma_getNumber(gfnma_nvl(SBUxMethod.get("sch-doc-date")));
     	var p_doc_name				= gfnma_nvl(SBUxMethod.get("sch-doc-name"));
@@ -3566,7 +3566,7 @@
     const fn_subDocProcess = async function (wtype){
 
 		let p_fi_org_code	= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
-		let p_strdoc_id		= gfnma_nvl(SBUxMethod.get("sch-doc-ide"));
+		let p_strdoc_id		= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
 		
         if(!p_strdoc_id){
     		gfn_comAlert("E0000","전기처리 할 전표를 선택하세요");
@@ -3624,7 +3624,7 @@
      */
     var fn_docCancel = function() {
     	
-		let p_strdoc_id		= gfnma_nvl(SBUxMethod.get("sch-doc-ide"));
+		let p_strdoc_id		= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
     	
     	SBUxMethod.attr('modal-compopup4', 'header-title', '전표전기취소');
     	compopup4({

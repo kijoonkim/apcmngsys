@@ -50,6 +50,9 @@ public class ApcSelectPopupController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ApcSelectPopupVO> resultList = new ArrayList<>();
 
+		vo.setUserId(getUserId());//유저아이디
+		vo.setUserType(getUserType());//유저권한
+
 		try {
 
 			resultList = apcSelectPopupService.selectApcList(vo);

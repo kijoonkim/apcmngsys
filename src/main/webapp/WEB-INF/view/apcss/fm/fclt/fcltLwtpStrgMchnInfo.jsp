@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : fcltLwtpStrgMchnInfo.jsp
-  * @Description : 저온저장고운영 화면
+  * @Class Name : fcltLwtpStrgMchnInfoReg.jsp
+  * @Description : 3.5.저온저장고운영 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -36,6 +36,8 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영 -->
 			</div>
 			<div style="margin-left: auto;">
+				<!--
+				-->
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -502,22 +504,29 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-				let lwtpStrgPlcHldMthd = item.lwtpStrgPlcHldMthd;//보유현황
-				if(lwtpStrgPlcHldMthd == '0'){
+				let lwtpStrgPlcHldYn = item.lwtpStrgPlcHldYn;//보유현황
+
+				if(lwtpStrgPlcHldYn == 'N'){
 					SBUxMethod.changeGroupAttr('group1','disabled','true');
 					SBUxMethod.changeGroupAttr('group2','disabled','true');
 					SBUxMethod.set('dtl-rdo-itemChk','N');
-				}else if(lwtpStrgPlcHldMthd == '1'){
+				}else if(lwtpStrgPlcHldYn == 'Y'){
 					SBUxMethod.changeGroupAttr('group1','disabled','false');
 					SBUxMethod.changeGroupAttr('group2','disabled','false');
 					SBUxMethod.set('dtl-rdo-itemChk','Y');
 					SBUxMethod.set('dtl-inp-strgPlcStrgAblt',item.strgPlcStrgAblt);
 					SBUxMethod.set('dtl-inp-strgPlcStrmStrgAblt',item.strgPlcStrmStrgAblt);
 					SBUxMethod.set('dtl-inp-strgPlcLtrmStrgAblt',item.strgPlcLtrmStrgAblt);
-					SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
+					//SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
 
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_non',item.operYn);
+					//저장 가동률 계산
+					fn_strgPlcOprtngRt();
+
+					//운영 안함 여부
+					let operNonYn = item.operYn == "Y" ? "N" : "Y";
+					SBUxMethod.set('warehouseSeCd_chk_mon_2_non',operYn);
 					//SBUxMethod.set('warehouseSeCd_chk_mon_2_1',item.operPeriodYn);
+
 					if(item.operYn == 'Y'){
 						SBUxMethod.set('warehouseSeCd_chk_mon_2_2',item.operPeriodYn1);
 						SBUxMethod.set('warehouseSeCd_chk_mon_2_3',item.operPeriodYn2);
@@ -535,7 +544,6 @@
 					}
 				}
 			});
-
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -584,9 +592,9 @@
 		};
 
 		if(itemChk == 'Y'){
-			let operYn = $('#warehouseSeCd_chk_mon_2_non').val();//운영안함 여부
+			let operYn = $('#warehouseSeCd_chk_mon_2_non').val() == "Y" ? "N" : "Y";//운영안함 여부
 			saveList.operYn = operYn;
-			if(operYn == 'N'){
+			if(operYn == 'Y'){
 				//saveList.operPeriodYn = $('#warehouseSeCd_chk_mon_2_1').val();//전체선택
 				saveList.operPeriodYn1 = $('#warehouseSeCd_chk_mon_2_2').val();
 				saveList.operPeriodYn2 = $('#warehouseSeCd_chk_mon_2_3').val();
@@ -699,7 +707,7 @@
 		let strgPlcLtrmStrgAblt = parseFloat(SBUxMethod.get('dtl-inp-strgPlcLtrmStrgAblt'));
 
 		let result = ( strgPlcStrmStrgAblt + strgPlcLtrmStrgAblt ) / strgPlcStrgAblt ;
-		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result);
+		SBUxMethod.set('dtl-inp-strgPlcOprtngRt',result.toFixed(2));
 	}
 
 
@@ -755,6 +763,10 @@
 
 			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["담당자명"],	ref: 'picNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["직위"],	ref: 'jbps',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["연락처"],	ref: 'coTelno',		type:'input',  width:'100px',    style:'text-align:center'},
 
 			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
 			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},

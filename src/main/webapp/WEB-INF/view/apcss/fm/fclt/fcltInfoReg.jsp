@@ -23,7 +23,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>title : SBUx2.6</title>
+	<title>title : 시설현황</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -70,6 +70,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 							</td>
 							<td class="td_input" style="border-right: hidden;">
@@ -469,7 +470,11 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		await fn_selectFcltInfoList();
+
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
+		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
 
@@ -483,6 +488,10 @@
 	}
 
 	const fn_search = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_clearForm();
 
 		fn_selectFcltInfoList();
@@ -606,6 +615,10 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 

@@ -70,11 +70,6 @@ public class RawMtrWrhsApiController extends BaseController {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-//		rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
-//		rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
-//		rawMtrWrhsVO.setSysLastChgUserId(getUserId());
-//		rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
-
 		try {
 			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
 			if (rtnObj != null) {
@@ -100,12 +95,6 @@ public class RawMtrWrhsApiController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-
-//			rawMtrWrhsVO.setSysFrstInptUserId(getUserId());
-//			rawMtrWrhsVO.setSysFrstInptPrgrmId(getPrgrmId());
-//			rawMtrWrhsVO.setSysLastChgUserId(getUserId());
-//			rawMtrWrhsVO.setSysLastChgPrgrmId(getPrgrmId());
-
 			HashMap<String, Object> rtnObj = rawMtrWrhsService.updateRawMtrWrhs(rawMtrWrhsVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);

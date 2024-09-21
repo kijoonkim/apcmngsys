@@ -282,4 +282,58 @@
 	</delete>
 	-->
 
+	<select id="selectFcltGdsMchnInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltGdsMchnInfoVO">
+			<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.selectFcltGdsMchnInfoList */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+				, OTI.SN
+
+				, FSD.SORT_MCHN_SPCFCT
+				, FSD.SORT_BRCK_MCHN
+				, FSD.COLOR_SORT
+				, FSD.INR_DMG_IDNTF
+				, FSD.SORT_MCHN_ETC
+				, FSD.SHAP_SORT
+				, FSD.MNFC_MCHN
+				, FSD.PCKG_MCHN_GNRL
+				, FSD.PCKG_MCHN_ATMTC
+				, FSD.TOT_FRSH_CNV_MCHN
+				, FSD.RBT_PLTZ
+				, FSD.ETC_MNFC_MCHN_PRCS
+				, FSD.ETC_MCHN
+				, FSD.RMRK
+				, FSD.MKR_NM
+				, FSD.SORT_MCHN_HOLD_YN
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_FCLT_STTS_DTL FSD
+			WHERE 1=1
+			  AND OTI.APC_CD = FSD.APC_CD(+)
+			  AND OTI.CRTR_YR = FSD.CRTR_YR(+)
+			  AND OTI.SN = FSD.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and crtrYr != ""'>
+			  AND OTI.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND OTI.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY OTI.CRTR_YR , APC_NM , OTI.SN
+	</select>
 </mapper>

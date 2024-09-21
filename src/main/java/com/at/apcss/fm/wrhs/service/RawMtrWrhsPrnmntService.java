@@ -2,6 +2,7 @@ package com.at.apcss.fm.wrhs.service;
 
 import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,10 +23,26 @@ import java.util.List;
 
 public interface RawMtrWrhsPrnmntService {
     /**
-     * 등록된 입고예정을 조회한다.
+     * 등록된 입고예정 조회
      * @param rawMtrWrhsPrnmntVO
      * @return
      * @throws Exception
      */
     public List<RawMtrWrhsPrnmntVO> selectRawMtrWrhsPrnmntList(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 등록된 입고예정 삭제 : update set delYn Y
+     * @param rawMtrWrhsPrnmntVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> deleteRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 입고예정 등록
+     * @param rawMtrWrhsPrnmntVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
 }

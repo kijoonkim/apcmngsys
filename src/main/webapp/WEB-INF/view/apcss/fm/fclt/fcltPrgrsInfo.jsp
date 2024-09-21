@@ -299,7 +299,8 @@
 			{caption: ["AT승인"],				ref: 'aprvAtStts',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["지자체\n(시도)승인"],		ref: 'aprvCtpvStts',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["지자체\n(시군구)승인"],	ref: 'aprvSggStts',		type:'input',  width:'80px',    style:'text-align:center'},
-
+			{caption: ["AT승인"],				ref: 'aprvAtStts',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["출력"],  ref : 'temp1',      width : '50px',   style : 'text-align:center',    type : 'button', typeinfo:{buttonvalue: '출력'}},
 			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
 			//{caption: ["행추가여부"],	ref: 'addYn',	hidden : true},
 		];

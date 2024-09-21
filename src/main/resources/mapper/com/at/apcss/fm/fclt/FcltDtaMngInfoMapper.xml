@@ -249,6 +249,7 @@
 			, ASDM.DATA_MNG_TYPE
 			, ASDM.DATA_MNG_TYPE_DTL
 			, ASDM.DATA_MNG_YN
+			, ASDM.DATA_MNG_ETC
 
 		FROM TB_TE_APC_SMART_DATA_MNG ASDM
 		WHERE 1=1
@@ -274,6 +275,7 @@
 		WHEN MATCHED THEN
 		  UPDATE SET
 				  DATA_MNG_YN = #{dataMngYn}
+				  ,DATA_MNG_ETC = #{dataMngEtc}
 
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -287,6 +289,7 @@
 				  , DATA_MNG_TYPE
 				  , DATA_MNG_TYPE_DTL
 				  , DATA_MNG_YN
+				  , DATA_MNG_ETC
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -304,6 +307,7 @@
 				  , #{dataMngType}
 				  , #{dataMngTypeDtl}
 				  , #{dataMngYn}
+				  , #{dataMngEtc}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -320,6 +324,7 @@
 				TB_TE_APC_SMART_DATA_MNG ASDM
 			   SET
 				  DATA_MNG_YN = #{dataMngYn}
+				  ,DATA_MNG_ETC = #{dataMngEtc}
 		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

@@ -37,7 +37,7 @@ public class RawMtrWrhsPrnmntApiController extends BaseController {
     @Resource(name = "rawMtrWrhsPrnmntService")
     private RawMtrWrhsPrnmntService rawMtrWrhsPrnmntService;
 
-    //입고실적예정조회
+    //입고실적예정 조회
     @PostMapping(value = "/api/mobile/fm/wrhs/selectRawMtrWrhsPrnmntList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
     public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsPrnmntList(@RequestBody RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO, HttpServletRequest request) throws Exception {
 
@@ -56,6 +56,56 @@ public class RawMtrWrhsPrnmntApiController extends BaseController {
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    //입고실적예정 삭제
+    @PostMapping(value = "/api/mobile/fm/wrhs/deleteRawMtrWrhsPrnmnt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> deleteRawMtrWrhsPrnmnt(@RequestBody RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO, HttpServletRequest request) throws Exception {
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        HashMap<String, Object> result = new HashMap<String, Object>();
+
+        try {
+            result = rawMtrWrhsPrnmntService.deleteRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put("result", result);
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    //모바일 입고예정 INSERT
+    @PostMapping(value = "/api/mobile/fm/wrhs/insertRawMtrWrhsPrnmnt.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertRawMtrWrhsPrnmnt(@RequestBody RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+            HashMap<String, Object> rtnObj = rawMtrWrhsPrnmntService.insertRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_RESULT_MAP, rawMtrWrhsPrnmntVO);
 
         return getSuccessResponseEntity(resultMap);
     }

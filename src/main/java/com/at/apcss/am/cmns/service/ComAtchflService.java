@@ -53,6 +53,13 @@ public interface ComAtchflService {
 	 */
 	public ComAtchflVO selectComAtchfl(ComAtchflVO comAtchflVO) throws Exception;
 
+	/**
+	 * 첨부파일 삭제
+	 * @param comAtchflVO
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteComAtchfl(ComAtchflVO comAtchflVO) throws Exception;
 
 
 }

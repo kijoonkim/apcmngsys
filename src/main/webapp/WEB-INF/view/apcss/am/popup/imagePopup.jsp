@@ -17,7 +17,7 @@
 			</div>
 			<div class="box-body">
 				<div >
-					<img id="modalImage" src="" alt="Image" style="width:1028px;height:400px;">
+					<img id="modalImage" src="" alt="Image" style="width:550px;height:400px;">
 				</div>
 			</div>
 		</div>

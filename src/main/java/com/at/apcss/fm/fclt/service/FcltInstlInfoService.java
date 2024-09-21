@@ -77,4 +77,13 @@ public interface FcltInstlInfoService {
 	 */
 	public int deleteFcltInstlInfoList(List<FcltInstlInfoVO> fcltInstlInfoList) throws Exception;
 
+
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltInstlInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltInstlInfoVO> selectFcltInstlInfoRawDataList(FcltInstlInfoVO fcltInstlInfoVO) throws Exception;
+
 }

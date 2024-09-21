@@ -43,6 +43,31 @@ public class ApcMaFig2310Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
     
+    // 전표 조회
+    @PostMapping(value = "/fi/fgl/jor/selectFig2310QList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFig2310QList(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============selectFig2310QList=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		param.put("procedure", 		"P_FIG2310_Q");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============selectFig2310QList=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }   
+    
     // 미결반제전표 반제처리
     @PostMapping(value = "/fi/fgl/jor/insertFig2310.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertFig2310(
@@ -68,6 +93,29 @@ public class ApcMaFig2310Controller extends BaseController {
         return getSuccessResponseEntityMa(resultMap);
     }
 
-
+    // 보류해제, 보류지정 처리
+    @PostMapping(value = "/fi/fgl/jor/updateFig2310S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> updateFig2310S1(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============updateFig2310S1=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		param.put("procedure", 		"P_FIG2310_S1");
+    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============updateFig2310S1=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    }  
     
 }

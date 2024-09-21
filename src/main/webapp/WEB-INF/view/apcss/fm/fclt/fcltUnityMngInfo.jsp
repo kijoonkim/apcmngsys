@@ -36,6 +36,8 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 통합관리시스템 활용현황 -->
 			</div>
 			<div style="margin-left: auto;">
+				<!--
+				-->
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -191,6 +193,13 @@
 										<label class="check_label" for="dtl-inp-umsPrdctnInfo" ></label>
 									</p>
 								</td>
+								<th>계량정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsWghInfo" ></label>
+									</p>
+								</td>
 								<th>입고정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -205,6 +214,9 @@
 										<label class="check_label" for="dtl-inp-umsSortInfo" ></label>
 									</p>
 								</td>
+
+							</tr>
+							<tr>
 								<th>저장정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -212,8 +224,6 @@
 										<label class="check_label" for="dtl-inp-umsStrgInfo" ></label>
 									</p>
 								</td>
-							</tr>
-							<tr>
 								<th>포장정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -235,6 +245,7 @@
 										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
+
 							</tr>
 						</tbody>
 					</table>
@@ -297,6 +308,7 @@
 
 	const fn_clearForm = async function() {
 		SBUxMethod.set('dtl-inp-umsPrdctnInfo',"N");
+		SBUxMethod.set('dtl-inp-umsWghInfo',"N");
 		SBUxMethod.set('dtl-inp-umsWrhsInfo',"N");
 		SBUxMethod.set('dtl-inp-umsSortInfo',"N");
 		SBUxMethod.set('dtl-inp-umsStrgInfo',"N");
@@ -348,6 +360,7 @@
 
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
+				SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
 				SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
 				SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
 				SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
@@ -393,6 +406,7 @@
 			, prgrsYn : 'N' //진척도 갱신 여부
 
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
+			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()
 			,umsSortInfo : $('#dtl-inp-umsSortInfo').val()
 			,umsStrgInfo : $('#dtl-inp-umsStrgInfo').val()
@@ -481,6 +495,10 @@
 
 			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["담당자명"],	ref: 'picNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["직위"],	ref: 'jbps',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["연락처"],	ref: 'coTelno',		type:'input',  width:'100px',    style:'text-align:center'},
 
 			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
 			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},

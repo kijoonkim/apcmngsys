@@ -63,7 +63,7 @@
 			    , AI.REG_TELNO      AS REG_TELNO
 			    , AI.REG_ZIP		AS REG_ZIP
 			    , AI.APC_NM         AS APC_NM
-			    , AI.CTPV_NM        AS CTPV_NM
+			    --, AI.CTPV_NM        AS CTPV_NM
 			    , AI.SIGUN_NM       AS SIGUN_NM
 			    , AI.MB_CD          AS MB_CD
 			    , AI.BRNO          	AS BRNO
@@ -75,7 +75,14 @@
 			    , AI.FXNO           AS FXNO
 			    , AI.ZIP			AS ZIP
 			    , AI.DEL_YN			AS DEL_YN
+			    , AI.CTPV			AS CTPV
+			    , AI.SGG			AS SGG
+			    , (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', AI.CTPV) FROM DUAL)	AS CTPV_NM
+			    , (SELECT FN_GET_COM_CD_VL_NM('UNTY_SGG', AI.SGG) FROM DUAL)	AS SGG_NM
+			    , (SELECT X.CD_VL_EXPLN FROM TB_COM_CD_DTL X WHERE X.CD_ID = 'UNTY_SGG' AND X.CD_VL = AI.SGG AND X.APC_CD = '0000')	AS SGG_EXPLN
+			     
 		  	  FROM TB_APC_INFO AI
+		  	  
 		 	 WHERE 1=1
 		 	   AND AI.APC_NM IS NOT NULL
 		]]>

@@ -7,52 +7,220 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <%@ include file="../frame/inc/headerMeta.jsp" %>
+    <%@ include file="../frame/inc/headerScript.jsp" %>
 	<title>메인</title>
-	<%@ include file="../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../frame/inc/headerScript.jsp" %>
+
+    <c:set scope="request" var="serverType" value="${serverType}"></c:set>
+    <c:choose>
+        <c:when test="${serverType eq 'prd'}">
+            <!-- Google tag (gtag.js) 36 APC정보지원시스템 2024.4. UA connected-->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-L64PQ48CK5"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-L64PQ48CK5');
+              gtag('config', 'G-1C6GSRP5Z8', {'content_group': 'APC정보지원시스템'});
+            </script>
+        </c:when>
+        <c:otherwise>
+        </c:otherwise>
+    </c:choose>
+
+
 
     <style>
         /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
         html, body {
-        	height:100%;
+            height:100%;
         }
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; border:1px solid #333; height:auto;}
-        .sbt-A-wrap .main {display:table;  width:100%; height:100%;}
+        .sbt-A-wrap {min-width:1024px; margin:0 auto; height:100vh; overflow: scroll; -ms-overflow-style: none; scrollbar-width: none;}
+        .sbt-A-wrap ::-webkit-scrollbar {display: none;}
+        .sbt-A-wrap .main {display:table;  width:100%;}
         .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; height:90vh;}
         .sbt-A-wrap .left .sbt-all-left {height: 100%;}
         .sbt-A-wrap .content {display:table-cell; height: 90vh;}
-        .sbux-sidemeu {position: relative; z-index: 1;}
+        .sbux-sidemeu {position: relative; z-index: 1; height: 100%;}
         .footer {
             display: flex; align-items: center; justify-content: center; font-size: 16px;
             background:rgb(42, 48, 65); height:0px; padding:10px; box-sizing: border-box;  color:#dddddd;
         }
-    </style>
+
+
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 2px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 2px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.button:disabled {
+  background: #CCC;
+  border: 1px solid #CCC;
+  pointer-events: none;
+}
+
+.button-green {
+  background-color: #04AA6D;
+  color: white;
+  border: 1px solid #04AA6D;
+}
+
+.button-green:hover {
+  background-color: white;
+  color: black;
+}
+
+.button-blue {
+  background-color: #008CBA;
+  color: white;
+  border: 1px solid #008CBA;
+}
+
+.button-blue:hover {
+  background-color: white;
+  color: black;
+}
+
+.button-red {
+  background-color: #f44336;
+  color: white;
+  border: 1px solid #f44336;
+}
+
+.button-red:hover {
+  background-color: white;
+  color: black;
+}
+
+.button-gray {
+  background-color: #e7e7e7;
+  color: black;
+  border: 1px solid #e7e7e7;
+}
+
+.button-gray:hover {
+  background-color: white;
+  color: black;
+}
+
+.button-black {
+  background-color: #555555;
+  color: white;
+  border: 1px solid #555555;
+}
+
+.button-black:hover {
+  background-color: white;
+  color: black;
+}
+
+.button-brown{
+    background-color: #6b3111;
+    color: white;
+    border: 1px solid #6b3111;
+}
+
+.button-brown:hover {
+    background-color: white;
+    color: black;
+}
+.button-goldenBrown{
+    background-color: #bd8e1e;
+    color: white;
+    border: 1px solid #bd8e1e;
+}
+.button-goldenBrown:hover{
+    background-color: white;
+    color: black;
+}
+#idxSide_menu > div.sbux-vscroll-wrap{
+    height: 100% !important;
+}
+#idxSide_menu > div.sbux-vscroll-wrap > div.sbux-sidemeu.sbux-sidemeu-split.slideline{
+    height: 100% !important;
+}
+
+
+
+/**
+ * notics popup
+ */
+/*.layerPopup img{*/
+/*margin-bottom : 20px;}*/
+/*.layerPopup:before {display:block; content:""; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:9000}*/
+/*.layerPopup .layerBox {    z-index:10000;   */
+/*position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }*/
+/*.layerPopup .layerBox .title {margin-bottom:10px; font-weight:600;}*/
+/*.layerPopup .layerBox .btnTodayHide {*/
+/*font-size:14px; font-weight:600; color:black; */
+/*float: left;text-decoration:none;width: 150px; */
+/*height : 30px;line-height:30px;border:black solid 1px; text-align : center;text-decoration:none;*/
+/*}*/
+/*.layerPopup div{*/
+/*	display : inline;*/
+/*}*/
+/*.layerPopup form{*/
+/*	margin-top : 5px;*/
+/*	font-size:16px; font-weight:600;*/
+/*	weight: 100%;*/
+/*	height : 30px;*/
+/*	line-height:30px*/
+/*}*/
+/*.layerPopup #close {*/
+/*font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: right; line-height:30px; text-align : center;text-decoration:underline;*/
+/*}*/
+/*.layerPopup a{*/
+/*    text-decoration-line: none;*/
+/*    color: #3c8dbc;*/
+/*}*/
+
+</style>
+
+<%--<script language="JavaScript">--%>
+<%--	//head 태그 안에 스크립트 선언--%>
+<%--    function setCookie( name, value, expiredays ) {--%>
+<%--        var todayDate = new Date();--%>
+<%--        todayDate.setDate( todayDate.getDate() + expiredays ); --%>
+<%--        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"--%>
+<%--    }--%>
+<%--    function closePop() {--%>
+<%--        if ( document.pop_form.chkbox.checked ){--%>
+<%--            setCookie( "maindiv", "done" , 1 );--%>
+<%--        }--%>
+<%--        document.all['layer_popup'].style.visibility = "hidden";--%>
+<%--    }--%>
+<%--</script>--%>
+
 </head>
-<body id="mainBody" oncontextmenu="return false">
+<body id="mainBody" oncontextmenu="return false;">
+
+
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	let prvTabMenuId = "";
+	let firstLoad = 0;
 
-	var firstLoad = 0;
-    var secondLaod = 0;
+    const lv_tabPrefix = "idxfrmJson_TAB_";
+    let lv_frmId = "";
+    let prvTabMenuId = "";
 
-	//const sysPrgrmId = "main";
-	//gfn_setSysPrgrmId(sysPrgrmId);
-    //SBUx topmenu 컴포넌트의 json 데이터
 
-    /*
-    var menuJson = [
-        {"id": "1", "pid": "0", "order": "1", "text": "대메뉴1"},
-        {"id": "2", "pid": "0", "order": "2", "text": "시스템"},
-        {"id": "mng", "pid": "2", "order": "1", "text": "관리"},
-        {"id": "hist", "pid": "2", "order": "2", "text": "이력조회"},
-        {"id": "modal", "pid": "2", "order": "3", "text": "모달"},
-    ];
-    */
+    const jsonTabPage = [];
 
-	var menuJson = ${topMenuList};
+    const jsonCommonBtn = [];
+
+    var menuJson = ${topMenuList};
 
     //SBUx sidemenu 컴포넌트의 json 데이터
     var sideJsonData = [];
@@ -72,16 +240,14 @@
         , 'cssstyle': 'display:none'
     }];
 
-    // only document
-    //window.addEventListener('DOMContentLoaded', function(e) {
-    	//let bodyHeight = document.body.scrollHeight;
-    	//let topHeight = $(".sbt-all-header").height();
-        //$(".sbt-A-wrap").height(bodyHeight - topHeight - 5);
-    //});
-
+    /**
+     * @name fn_selectTopMenu
+     * @description 상단메뉴조회
+     * @function
+     */
     const fn_selectTopMenu = async (_id) => {
 
-		var data = SBUxMethod.get(_id);
+        var data = SBUxMethod.get(_id);
 
         var url = data.customData == undefined ? "" : data.customData.url;
         if (url == undefined) {
@@ -101,7 +267,8 @@
                 , 'pid': '-1'
                 , 'text': '공지사항'	//'대시보드'
                 , 'targetid': tabName
-                , 'targetvalue': tabName + '_value'
+                //, 'targetvalue': tabName + '_value'
+                , 'targetvalue': tabName
                 , 'targetname': 'frmJson'
                 , 'link': '/co/menu/openPage.do/' + menuNo	// _url
                 , 'closeicon': false
@@ -114,29 +281,18 @@
             		text : "공지사항",
             		prslType: "M1"
             }
+
             insertComLog(data);
 
-            await fn_afterAddTab(menuNo);
-    	}else{
-    		if(data.id == "PD" || data.id == "FM"){
+            //await fn_afterAddTab(menuNo);
+
+    	} else {
+    		if(data.id == "PD" || data.id == "FM" || data.id == "CS"){
            		SBUxMethod.showTab('tab_menu','TAB_PD_009');
             }else{
             	SBUxMethod.hideTab('tab_menu','TAB_PD_009');
             }
     	}
-
-        /*
-        fn_actionGoPage(
-            url
-            , _target
-            , data.id
-            , data.text
-            , data.pid
-        );
-
-       	let title = gfn_isEmpty(data.value) ? data.text : data.value;
-        document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
-        */
     }
 
     /**
@@ -145,91 +301,84 @@
      */
     async function fn_setLeftMenu(_menuNo, _menuId) {
 
-        var menuInfo = _.find(menuJson, {id: _menuNo});
-        //var pMenuId = menuInfo.pid;
-       // var pMenuNm = menuInfo.value;
-//         var pMenuId = "PD";
-//         var pMenuNm = "산지유통평가등록";
+		var menuInfo = _.find(menuJson, {id: _menuNo});
+		var pMenuId = menuInfo.pid;
+		var pMenuNm = menuInfo.value;
 
-
-
-        if(firstLoad == 0){
-        	 var pMenuId = "PD";
-             var pMenuNm = "생산유통통합조직등록";
-            firstLoad = firstLoad +1;
-          }else{
-       	 var pMenuId = menuInfo.pid;
-            var pMenuNm = menuInfo.value;
-          }
-
+		if(firstLoad == 0){
+			pMenuId = "PD";
+			pMenuNm = "생산유통통합조직";
+			firstLoad = firstLoad +1;
+		}
 
         if (gfn_isEmpty(pMenuId)) {
-        	pMenuId = _menuNo;
-        	pMenuNm = menuInfo.text;
+            pMenuId = _menuNo;
+            pMenuNm = menuInfo.text;
         }
 
-//         alert(pMenuId);
-//         alert(pMenuNm);
         //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
         const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
 
         const data = await postJsonPromise;
 
         try {
-        	sideJsonData.length = 0;
-        	data.resultList.forEach((item, index) => {
-				const menu = {
-					id: item.menuId,
-					pid: item.upMenuId,
-					order: item.indctSeq,
-					text: item.menuNm,
-					url: item.pageUrl
-				}
-				sideJsonData.push(menu);
-			});
+            sideJsonData.length = 0;
+            data.resultList.forEach((item, index) => {
+                const menu = {
+                    id: item.menuId,
+                    pid: item.upMenuId,
+                    order: item.indctSeq,
+                    text: item.menuNm,
+                    url: item.pageUrl,
+                    prsnaYn : item.prsnaInfoYn,
+                    bmkYn	: item.bmkYn
+                }
+                sideJsonData.push(menu);
+            });
 
             //if (pMenuId !== "0") {
             if (!gfn_isEmpty(menuInfo.pid)) {
                 var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
                 if (pIdx >= 0) {
-                	sideJsonData[pIdx].class = "active";
+                    sideJsonData[pIdx].class = "active";
                 }
             }
 
             if (_menuId != undefined) {
-            	_menuNo = _menuId;
+                _menuNo = _menuId;
             }
 
             var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
             if (idx >= 0) {
-            	sideJsonData[idx].class = "active";
+                sideJsonData[idx].class = "active";
             }
 
             SBUxMethod.refresh("side_menu");
-           	if (!gfn_isEmpty(menuInfo.pid)) {
+            if (!gfn_isEmpty(menuInfo.pid)) {
                 SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
             }
 
-           	var title = pMenuNm;
-           	document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
+            var title = pMenuNm;
+            document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
 
             if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
-            	fn_actionGoPage(
-            			  sideJsonData[idx].url
-	                    , "LEFT"
-	                    , sideJsonData[idx].id
-	                    , sideJsonData[idx].text
-	                    , sideJsonData[idx].pid
-	                );
+                fn_actionGoPage(
+                    sideJsonData[idx].url
+                    , "LEFT"
+                    , sideJsonData[idx].id
+                    , sideJsonData[idx].text
+                    , sideJsonData[idx].pid
+                );
             }
             if(gv_userType === "00" || gv_userType ==="01"){
-            	document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+            	//document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+            	document.querySelector("#idxSide_menu div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
             }
         } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
         }
 
         /*
@@ -299,20 +448,25 @@
         */
     }
 
-    //Left Menu Click
+    /**
+     * @name fn_selectMenu
+     * @description 메뉴 선택
+     * @function
+     */
     function fn_selectMenu(_target, _id) {
 
     	var data = SBUxMethod.get(_id);
 
-		if (_target === "TOP" && gfn_isEmpty(data.pid)) {
+        if (_target === "TOP" && gfn_isEmpty(data.pid)) {
             return;
         }
+
         var url = data.customData == undefined ? "" : data.customData.url;
         if (url == undefined) {
             return;
         }
 
-        fn_actionGoPage(
+		fn_actionGoPage(
             url
             , _target
             , data.id
@@ -320,29 +474,52 @@
             , data.pid
         );
 
-        /*
-        //[LEFT-MENU] menu-title 변경
-        if (_target === "TOP") {
-        	let title = gfn_isEmpty(data.value) ? data.text : data.value;
-            document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
-        } else if (_target === "LEFT") {
-        	let title = gfn_isEmpty(data.value) ? data.text : data.value;
-            document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = title;
+        try {
+            insertComLog(data);
+        } catch (err){
+            console.log(err);
         }
-        */
+
+    }
+
+    //로그
+    function insertComLog(data){
+    	var userName = "${loginVO.name}";
+    	var apc_cd = "${loginVO.apcCd}";
+    	var prsnaYn = data.customData.prsnaYn;
+
+        fetch("/sys/insertComLog.do",{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify({
+            	menuId : data.id,
+            	menuNm : data.text,
+            	userNm : userName,
+            	apcCd : apc_cd,
+            	flfmtTaskSeCd : prsnaYn,
+            	prslType : "M1"
+            })
+        })
+            .then((response) => response.json())
+            .catch((err) => console.log(err))
+
     }
 
     //화면 이동
-    const maxTebMenuCnt = 10;//메뉴탭 최대 허용 개수(10)
+    const maxTebMenuCnt = 11;//메뉴탭 최대 허용 개수(10)
     const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
-    	if (_menuGubun === "TOP") {
+        if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);
         } else if (_menuGubun === "LEFT") {
-        	//Set 브레드크럼 내비게이션
+
+            //Set 브레드크럼 내비게이션
             fn_setBreadcrumbs(_menuNo, _menuNm);
 
             //메뉴탭 생성 및 화면 요청
             var tabName = "TAB_" + _menuNo;
+
             if ( $('#' + tabName).length == 0 ) {
                 if (SBUxMethod.getTabsCount('tab_menu') == maxTebMenuCnt+1) {
                     alert("메뉴탭 최대 허용 개수(" + maxTebMenuCnt.toString() + "개)를 초과하였습니다.");
@@ -353,16 +530,14 @@
                     , 'pid': '-1'
                     , 'text': _menuNm
                     , 'targetid': tabName
-                    , 'targetvalue': tabName + '_value'
+                    , 'targetvalue': tabName
                     , 'targetname': 'frmJson'
                     , 'link': '/co/menu/openPage.do/' + _menuNo	// _url
                     , 'closeicon': true
                 };
-                SBUxMethod.addTab('tab_menu', jsonTabSelect);
 
-                fn_afterAddTab(_menuNo)
-            }
-            else {
+                SBUxMethod.addTab('tab_menu', jsonTabSelect);
+            } else {
                 SBUxMethod.selectTab(tabName);
             }
         }
@@ -371,199 +546,157 @@
     /**
      * @param {string} _menuId
      */
-	async function fn_afterAddTab(_menuId) {
+    async function fn_afterAddTab(_menuId) {
 
-    	prvTabMenuId = _menuId;
+        prvTabMenuId = _menuId;
 
-    	fetch("/sys/actionNewTab.do", {
-  		  	method: "POST",
-  		  	headers: {
-  		  		"Content-Type": "application/json",
-  		  	},
-  		  	body: JSON.stringify({
-  		  		sysPrgrmId : _menuId
-  			}),
-  		})
-  		.then((response) => response.json())
-  		.then(
-				(data) => {
-					console.log(data);
-				}
-  		);
+        if (gfn_isEmpty(_menuId)) {
+        	lv_frmId = "";
+        } else {
+        	lv_frmId = lv_tabPrefix + _menuId;
+        }
+
+
+        // 공통버튼 설정
+        await fn_setTabInfo(_menuId);
+
+        fetch("/sys/actionNewTab.do", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                sysPrgrmId : _menuId
+            }),
+        })
+        .then((response) => response.json())
+        .then(
+            (data) => {
+                // console.log(data);
+            }
+        );
     }
 
-     /**
-      * @param {string} menuNo
-      */
- 	function fn_afterSeletTab(_menuId) {
+    /**
+     * @param {string} menuNo
+     */
+    async function fn_afterSeletTab(_menuId) {
 
-      	prvTabMenuId = _menuId;
+        prvTabMenuId = _menuId;
 
-     	fetch("/sys/actionOldTab.do", {
-  		  	method: "POST",
-  		  	headers: {
-  		  		"Content-Type": "application/json",
-  		  	},
-  		  	body: JSON.stringify({
-  		  		sysPrgrmId : _menuId
-  			}),
-  		})
-  		.then((response) => response.json())
-  		.then(
-				(data) => {
-					console.log(data);
-				}
-  		);
-	}
+        if (gfn_isEmpty(_menuId)) {
+        	lv_frmId = "";
+        } else {
+        	lv_frmId = lv_tabPrefix + _menuId;
+        }
+
+
+        // TODO
+        // set page info and common button 설정
+
+        // 공통버튼 설정
+        await fn_setTabInfo(_menuId);
+
+        fetch("/sys/actionOldTab.do", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                sysPrgrmId : _menuId
+            }),
+        })
+        .then((response) => response.json())
+        .then(
+            (data) => {
+                // console.log(data);
+            }
+        );
+    }
 
     //Set breadcrumbs
     function fn_setBreadcrumbs(menuNo, menuNm) {
 
-    	/*
-    	var upMenuNo;
-        if (menuNo.indexOf("mng") > -1) {
-            upMenuNo = "mng";
-            topMenuNo = "2";
-        }
-        else if (menuNo.indexOf("hist") > -1) {
-            upMenuNo = "hist";
-            topMenuNo = "2";
-        }
-
-        var upMenuInfo = _.find(menuJson, {id: upMenuNo});
-        var topMenuInfo = _.find(menuJson, {id: topMenuNo});
-        menuJsonB = [
-            {"order": "1", "id": "id_1", "pid": "0", "text": "홈"},
-            {"order": "2", "id": "id_2", "pid": "0", "text": topMenuInfo.text},
-            {"order": "3", "id": "id_3", "pid": "0", "text": upMenuInfo.text},
-            {"order": "9", "id": "id_9", "pid": "0", "text": menuNm}
-        ];
-        */
         menuJsonB.length = 0;
         menuJsonB.push(
-			{"order": "10", "id": "id_1", "pid": "", "text": "홈"}
-		);
+            {"order": 10, "id": "id_1", "pid": "", "text": "홈"}
+        );
 
-      	//부모메뉴정보
+        //부모메뉴정보
         var menuInfo = _.find(sideJsonData, {id: menuNo});
         var upMenuNo = menuInfo.pid;
         var upMenuInfo = _.find(menuJson, {id: upMenuNo});
         if (!gfn_isEmpty(upMenuInfo.pid)) {
-        	var topMenuInfo = _.find(menuJson, {id: upMenuInfo.pid});
-        	menuJsonB.push(
-        			{"order": "20", "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text, "url": topMenuInfo.url}
-        		);
-        }
-       	menuJsonB.push(
-       			{"order": "30", "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text, "url": upMenuInfo.url}
-       		);
+            var topMenuInfo = _.find(menuJson, {id: upMenuInfo.pid});
 
+            menuJsonB.push(
+                {"order": 20, "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text, "url": topMenuInfo.url}
+            );
+
+        }
         menuJsonB.push(
-        		{"order": "40", "id": menuNo, "pid": upMenuNo, "text": menuNm, "url": menuInfo.url}
-   		);
-
-        /*
-        if (menuInfo != undefined) {
-            var pMenuNo = menuInfo.pid;
-            var pMenuInfo = _.find(sideJsonData, {id: pMenuNo});
-            if (pMenuInfo != undefined) {
-                menuJsonB.splice(menuJsonB.length-1, 0,
-                    {"order": "4", "id": "id_4", "pid": "0", "text": pMenuInfo.text}
+            {"order": 30, "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text, "url": upMenuInfo.url}
+        );
+        menuJsonB.push(
+            {"order": 40, "id": menuNo, "pid": upMenuNo, "text": menuNm, "url": menuInfo.url}
+        );
+        if (menuInfo.bmkYn == "Y"){
+        	menuJsonB.push(
+                    {"order": 50, "id": menuNo, "pid": upMenuNo, "text": '⭐', "value" : "Y"}
                 );
-            }
+        }else if(menuInfo.bmkYn == "N"){
+        	menuJsonB.push(
+                    {"order": 50, "id": menuNo, "pid": upMenuNo, "text": '☆', "value" : "N"}
+                );
         }
-        */
         SBUxMethod.refresh('breadcrumb');
+    }
+
+    const fn_setBreadcrumbsHome = function() {
+    	menuJsonB.length = 0;
+    	menuJsonB.push(
+            {"order": "10", "id": "id_1", "pid": "", "text": "홈"}
+        );
+    	SBUxMethod.refresh('breadcrumb');
     }
 
 
     //선택한 탭메뉴의 정보를 가져와 메뉴정보 설정
     function fn_setMenuInfo(args) {
 
-    	var idx = _.findLastIndex(tabJsonData, {text: args});
+        var idx = _.findLastIndex(tabJsonData, {text: args});
         var tabObj = tabJsonData[idx];
         var tabId = tabObj.targetid;
         var menuId = tabId.substring(tabId.indexOf("_")+1);
 
         var menuInfo = _.find(sideJsonData, {id: menuId});
+
+        if (gfn_isEmpty(menuInfo)) {
+        	// home
+        	fn_setBreadcrumbsHome();
+            prvTabMenuId = "";
+            lv_frmId = "";
+        	return;
+        }
+
         var upMenuNo = menuInfo.pid;
         var upMenuInfo = _.find(menuJson, {id: upMenuNo});
         var topMenuNo = upMenuInfo.pid;
         if (gfn_isEmpty(topMenuNo)) {
-        	topMenuNo = upMenuNo;
+            topMenuNo = upMenuNo;
         }
 
         //LEFT MENU
         if($('#idxSide_menu')[0].style.width != '0px'){
-	        fn_setLeftMenu(topMenuNo, menuId); // 2023-07-26 추가
+            fn_setLeftMenu(topMenuNo, menuId); // 2023-07-26 추가
         }
 
         fn_setBreadcrumbs(menuId, tabObj.text);
 
-        if (sysPrgrmId !== menuId) {
-        	fn_afterSeletTab(menuId);
-        }
-
-        //[LEFT-MENU] menu-title 변경
-        /*
-        var data = _.find(menuJson, {id: topMenuNo});
-        console.log("menuinfo data", data);
-        document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = data.text;
-        */
-    }
-
-    /**
-     * Set LEFT MENU
-     * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
-     */
-	/*
-    function fn_setLeftMenu(menuNo, menuId) {
-        if (menuNo === "AM_001") {
-            sideJsonData = [
-                {"id": "mng_1", "pid":"0", "order":"1", "text":"메뉴관리", "url":"/co/menu/menuMng.do", "topMenuNm": "aa"},
-                {"id": "mng_2", "pid":"0", "order":"2", "text":"화면관리", "url":"./mng/pageMng.html"},
-                {"id": "mng_3", "pid":"0", "order":"3", "text":"권한관리"},
-                {"id": "mng_3_1", "pid":"mng_3", "order":"1", "text":"권한그룹관리", "url":"./mng/authMng.html"},
-                {"id": "mng_3_2", "pid":"mng_3", "order":"2", "text":"권한사용자관리", "url":"./mng/authUserMng.html"},
-                {"id": "mng_4", "pid":"0", "order":"4", "text":"메시지관리", "url":"./mng/messageMng.html"},
-                {"id": "mng_5", "pid":"0", "order":"5", "text":"공통코드관리", "url":"./mng/codeMng.html"}
-            ];
-        }
-        else if (menuNo === "hist") {
-            sideJsonData = [
-                {"id": "hist_1", "pid":"0", "order":"11", "text":"접속이력관리", "url":"./hist/connectHistoryList.html"},
-                {"id": "hist_2", "pid":"0", "order":"12", "text":"화면열람이력관리", "url":"./hist/readingHistoryList.html"},
-                {"id": "hist_3", "pid":"0", "order":"13", "text":"송수신이력관리", "url":"./hist/reqResHistoryList.html"},
-                {"id": "hist_4", "pid":"0", "order":"14", "text":"배치실행이력관리", "url":"./hist/batchHistoryList.html"}
-            ];
-        }
-        else if (menuNo === "modal") {
-            SBUxMethod.openModal("jsModal");
-            //Set Grid
-            fn_createGrid();
-            fn_createGrid2();
-            fn_createGrid_1();
-            fn_createGrid_2();
-            fn_createGrid_3();
-            return;
-        }
-        var menuInfo = _.find(sideJsonData, {id: menuId});
-        var pMenuId;
-        if (menuId != undefined) {
-            pMenuId = menuInfo.pid;
-            if (pMenuId !== "0") {
-                var pIdx = _.findLastIndex(sideJsonData, {id: menuInfo.pid});
-                sideJsonData[pIdx].class = "active";
-            }
-            var idx = _.findLastIndex(sideJsonData, {id: menuId});
-            sideJsonData[idx].class = "active";
-        }
-		SBUxMethod.refresh("side_menu");
-        if (pMenuId != undefined && pMenuId !== "0") {
-            SBUxMethod.expandSideMenu("side_menu", pMenuId, 1, true);
+        if (prvTabMenuId !== menuId) {
+            fn_afterSeletTab(menuId);
         }
     }
-    */
 
     //ifrmae 높이 자동 설정
     function fn_resizeFrame(that){
@@ -575,163 +708,979 @@
         if(type == "show"){
             $(".sbt-A-wrap .left").css({width:0});
         }else{
-             $(".sbt-A-wrap .left").css({width:200});
+            $(".sbt-A-wrap .left").css({width:200});
         }
     }
 
+	function fn_selectTabMenu(_selectId, _selectJson) {
+		fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));
+	}
+
     //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
     function fn_chkTabList() {
+
+    	if (gfn_isEmpty()) {
+    		fn_clearPrvTabInfo();
+    	}
+        let tabs = SBUxMethod.getTabsChangedOrderData('tab_menu');
+        tabJsonData = tabs.data;
+
         if (SBUxMethod.getTabsCount('tab_menu') == 1) {
             $('.tab-content').hide();
             //side menu init
-		    //document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = "메뉴";
-		    //sideJsonData = [];
-		    //SBUxMethod.refresh("side_menu");
+            //document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = "메뉴";
+            //sideJsonData = [];
+            //SBUxMethod.refresh("side_menu");
             //breadCrumbs init
             //menuJsonB = [];
             menuJsonB.length = 0;
             menuJsonB.push(
-    			{"order": "10", "id": "id_1", "pid": "", "text": "홈"}
-    		);
+                {"order": "10", "id": "id_1", "pid": "", "text": "홈"}
+            );
             SBUxMethod.refresh('breadcrumb');
 
             fn_afterSeletTab("main");
-	    }
+        }
         else {
             fn_setMenuInfo(SBUxMethod.get('tab_menu'));
-	    }
+        }
     }
     //================== Modal ==================//
 
 </script>
 <!-- //inline scripts related to this page -->
-    <div class="sbt-A-wrap">
-        <!-- header (menu) -->
-        <div class="sbt-all-header">
-            <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
-                jsondata-ref="menuJson"
-                is-fixed="false"
-                wrap-style="width:100%"
-                storage-data="object"
-                onclick="fn_selectTopMenu('top_menu')">
-                <brand-item text="APC정보지원" image-src="/resource/images/header_logo.png">
-                </brand-item>
-            </sbux-menu>
-			<div class="user-info-wrap">
-				<c:if test="${loginVO != null && loginVO.id != null}">
-					<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
-					<span class="name-t"><c:out value='${userName}'></c:out></span>님 반갑습니다.
+<div class="sbt-A-wrap" style="display:flex; flex-direction: column">
+    <!-- header (menu) -->
+    <div class="sbt-all-header">
+        <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
+                   jsondata-ref="menuJson"
+                   is-fixed="false"
+                   wrap-style="width:100%"
+                   storage-data="object"
+                   onclick="fn_selectTopMenu('top_menu')">
+            <brand-item text="APC통합지원" image-src="/resource/images/header_logo.png" wrap-style="width:500px;">
+            </brand-item>
+        </sbux-menu>
+        <div class="user-info-wrap" style="z-index:9999;border-left: 5px solid white;background:#149fff;">
+            <div style="width: 50px;margin-left: 5px;position: relative;cursor: pointer" onclick="fn_msgPopup();">
+<%--            <svg  width="100%" height="100%" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"--%>
+<%--                 viewBox="0 0 283.46 283.46" style="enable-background:new 0 0 283.46 283.46;" xml:space="preserve">--%>
+<%--<style type="text/css">--%>
+<%--    .st0{fill:#A8CCBA;}--%>
+<%--    .st1{fill:#FFFFFF;}--%>
+<%--</style>--%>
+<%--                <path class="st0" d="M141.73,283.46L141.73,283.46C63.46,283.46,0,220.01,0,141.73v0C0,63.46,63.46,0,141.73,0h0--%>
+<%--	c78.28,0,141.73,63.46,141.73,141.73v0C283.46,220.01,220.01,283.46,141.73,283.46z"/>--%>
+<%--                <path class="st1" d="M223.9,92.58c-3.39-8.41-10.96-13.61-20.04-13.61c-41.34-0.01-82.68,0-124.02-0.01c-1.52,0-3.02,0.13-4.51,0.43--%>
+<%--	c-9.49,1.95-16.73,10.3-16.71,19.62c0.05,28.48,0.01,56.96,0.03,85.44c0,1.61,0.07,3.24,0.52,4.81--%>
+<%--	c2.56,8.86,10.93,15.22,20.18,15.23c41.66,0.02,83.33,0.02,124.99-0.01c5.6,0,10.46-2.11,14.48-5.96c3.59-3.44,5.76-7.62,6.01-12.68--%>
+<%--	c0-29.3,0-58.59,0-87.89C224.49,96.17,224.61,94.33,223.9,92.58z M205.71,90.06c0,0.75-0.54,0.89-0.87,1.17--%>
+<%--	c-20.67,17.73-41.34,35.45-62,53.19c-0.73,0.62-1.15,0.78-1.98,0.07c-20.9-17.96-41.82-35.89-62.74-53.82--%>
+<%--	c-0.08-0.07-0.14-0.16-0.53-0.62C120.49,90.06,163.09,90.06,205.71,90.06z M69.67,185.09c-0.48-0.83-0.5-1.67-0.5-2.51--%>
+<%--	c0-27.23,0-54.47,0-81.7c0-1.19,0.13-2.35,0.7-3.6c3.06,2.62,6.04,5.17,9.02,7.73c11.24,9.63,22.47,19.26,33.72,28.89--%>
+<%--	c0.61,0.52,1.27,0.81,0.37,1.83c-14.3,16.27-28.55,32.58-42.82,48.88C70.03,184.76,69.87,184.9,69.67,185.09z M203.58,193.62--%>
+<%--	c-41.17,0-82.33,0-123.5,0c-1.14,0-2.22-0.18-3.44-0.65c3.17-3.62,6.22-7.11,9.27-10.6c11.52-13.17,23.06-26.33,34.54-39.53--%>
+<%--	c0.93-1.07,1.41-1.08,2.46-0.16c4.95,4.35,9.97,8.61,14.99,12.89c2.67,2.28,5.17,2.28,7.82,0.02c5.13-4.38,10.27-8.77,15.37-13.19--%>
+<%--	c0.7-0.61,1.06-0.73,1.75,0.07c14.56,16.69,29.15,33.34,43.73,50.01c0.1,0.12,0.17,0.27,0.29,0.48--%>
+<%--	C205.81,193.49,204.71,193.62,203.58,193.62z M214.07,185c-0.6-0.07-0.81-0.63-1.13-1c-13.99-15.97-27.96-31.96-41.97-47.91--%>
+<%--	c-0.89-1.02-0.86-1.44,0.17-2.32c13.82-11.77,27.59-23.6,41.37-35.41c0.4-0.34,0.81-0.66,1.29-1.05c0.54,1.22,0.67,2.38,0.67,3.57--%>
+<%--	c0,27.18,0,54.36,0,81.55C214.47,183.3,214.41,184.16,214.07,185z"/>--%>
+<%--</svg>--%>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-bell-circle" width="100%" height="100%" viewBox="0 0 24 24">
+        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M17,16V15L16,14V11.39C16,10.3 15.73,9.34 15.21,8.53C14.7,7.72 13.96,7.21 13,7V6.5A1,1 0 0,0 12,5.5A1,1 0 0,0 11,6.5V7C10.04,7.21 9.3,7.72 8.79,8.53C8.27,9.34 8,10.3 8,11.39V14L7,15V16H17M13.5,17H10.5A1.5,1.5 0 0,0 12,18.5A1.5,1.5 0 0,0 13.5,17Z" fill="#fff" />
+    </svg>
+    <span id="pop_wrap" style="position:absolute;left: 30px; border-radius:50%;text-align:center;background: red;width: 15px;height: 15px;line-height: 15px;">
+        <p id="pop_cnt" style="font-weight: bold; color: white"></p>
+    </span>
+            </div>
+            <c:if test="${loginVO != null && loginVO.id != null}">
+            	<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
+                <span class="name-t" style="margin-left: 5px"><c:out value='${userName}'></c:out></span>
+				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
-					<li style="background-color:#149FFF;"><sbux-button id="btnPrfrmImprvDmnd" name="btnPrfrmImprvDmnd" uitype="normal" text="개선요청" style="width:64px; text-align:center; display:inline-block; font-size:12px;" onclick="fn_modalPopup"></sbux-button></li>
+                    <li style="background-color:#149FFF;">
+                        <sbux-button
+                            id="btnPrfrmImprvDmnd"
+                            name="btnPrfrmImprvDmnd"
+                            uitype="normal"
+                            text="개선요청"
+                            style="width:64px;
+                            text-align:center;
+                            display:inline-block;
+                            font-size:12px;" onclick="fn_modalPopup"
+                        ></sbux-button></li>
                     <li><a href="/actionLogout.do">로그아웃</a></li>
                 </ul>
-                </c:if>
+            </c:if>
+        </div>
+    </div>
+    <div class="main" style="flex: 1">
+        <!--left (sidemenu) -->
+        <div class="left">
+            <div class="sbt-all-left">
+                <sbux-sidemenu
+                	id="idxSide_menu"
+                	name="side_menu"
+                	uitype="normal"
+                    jsondata-ref="sideJsonData"
+                    show-filter-box="true"
+                    show-slide-button="true"
+                    menu-title="메뉴"
+                    storage-data="object"
+                    is-expand-only-select="true"
+                    callback-slide-button="fn_SlideButton"
+                    onclick="fn_selectMenu('LEFT', 'side_menu')"
+                    vertical-scroll-height="800px"
+                    vertical-scroll-placement="left"
+                ></sbux-sidemenu>
             </div>
         </div>
-        <div class="main">
-            <!--left (sidemenu) -->
-            <div class="left">
-                <div class="sbt-all-left">
-                    <sbux-sidemenu id="idxSide_menu" name="side_menu" uitype="normal"
-                        jsondata-ref="sideJsonData"
-                        show-filter-box="true"
-                        show-slide-button="true"
-                        menu-title="메뉴"
-                        storage-data="object"
-                        is-expand-only-select="true"
-                        callback-slide-button="fn_SlideButton"
-                        onclick="fn_selectMenu('LEFT', 'side_menu')"
-                    ></sbux-sidemenu>
-                </div>
-            </div>
-            <!--main content-->
-            <div class="content">
-                <sbux-breadcrumb
-                	id="breadcrumb"
-                	name="breadcrumb"
-                	uitype="text"
-                	jsondata-ref="menuJsonB"
-                	show-tooltip="true"
-                	tooltip-key="url"
-                ></sbux-breadcrumb>
-                <!--full content-->
-                <div class="sbt-wrap-full">
-                    <!--탭 입력 영역-->
-                    <div class="sbt-input-tab">
-                        <!--탭 영역-->
-                        <sbux-tabs id="tab_menu" name="tab_menu" uitype="normal"
-                            jsondata-ref="tabJsonData"
-                            storage-data="text"
-                            onclick="fn_setMenuInfo(tab_menu)"
-                            callback-after-close="fn_chkTabList"
-                        ></sbux-tabs>
-                        <div class="tab-content">
-                            <iframe id="idxfrmJson" name="frmJson"
-                                style="overflow-x:hidden;overflow:auto;width:100%;min-height:780px;border:0px;"
-                                scrolling="auto"
-                            ></iframe>
-                        </div>
+        <!--main content-->
+        <div class="content">
+        	<div class="row">
+        		<div class="col-sm-6">
+		            <sbux-breadcrumb
+		                    id="breadcrumb"
+		                    name="breadcrumb"
+		                    uitype="text"
+		                    jsondata-ref="menuJsonB"
+		                    show-tooltip="true"
+		                    tooltip-key="url"
+		                    onclick="fn_bmkYn()"
+		            ></sbux-breadcrumb>
+        		</div>
+        		<div class="col-sm-6">
+					<div style="position: relative; text-align: right; margin: 3px;">
+                        <button id="main-btn-attach" class="button button-goldenBrown" style="display:none" onclick="mfn_attach()">파일첨부 📂</button>
+                        <button id="main-btn-appr" class="button button-brown" style="display:none" onclick="mfn_appr()">결재처리 ✒️</button>
+						<button id="main-btn-init" class="button button-blue" style="display:none" onclick="mfn_init()">초기화 🔃</button>
+        				<button id="main-btn-add" class="button button-blue" style="display:none" onclick="mfn_add()">신규 ➕</button>
+        				<button id="main-btn-save" class="button button-red" style="display:none" onclick="mfn_save()">저장 💾</button>
+        				<button id="main-btn-del" class="button button-black" style="display:none" onclick="mfn_del()">삭제 🗑️</button>
+        				<button id="main-btn-search" class="button button-green" style="display:none" onclick="mfn_search()">조회 🔍</button>
+        			</div>
+        		</div>
+        	</div>
+
+            <!--full content-->
+            <div class="sbt-wrap-full">
+                <!--탭 입력 영역-->
+                <div class="sbt-input-tab">
+                    <!--탭 영역-->
+                    <sbux-tabs
+                    	id="tab_menu"
+                    	name="tab_menu"
+                    	uitype="normal"
+                        jsondata-ref="tabJsonData"
+                        storage-data="text"
+                        onclick="fn_setMenuInfo(tab_menu)"
+                        callback-after-select="fn_selectTabMenu"
+                        callback-after-close="fn_chkTabList"
+                    ></sbux-tabs>
+                    <div class="tab-content">
+                        <iframe id="idxfrmJson" name="frmJson"
+                        ></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-	<!-- 출하매출단가 등록 Modal -->
-    <div>
-        <sbux-modal id="modal-prfrmImprvDmnd" name="modal-prfrmImprvDmnd" uitype="middle" header-title="프로그램 개선요청" body-html-id="body-modal-prfrmImprvDmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
-    </div>
-    <div id="body-modal-prfrmImprvDmnd">
-    	<jsp:include page="../apcss/co/dmnd/prfrmImprvDmndPopup.jsp"></jsp:include>
-    </div>
+</div>
+<!-- 개선요청 Modal -->
+<div>
+    <sbux-modal id="modal-prfrmImprvDmnd" name="modal-prfrmImprvDmnd" uitype="middle" header-title="프로그램 개선요청" body-html-id="body-modal-prfrmImprvDmnd" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+</div>
+<div id="body-modal-prfrmImprvDmnd">
+    <jsp:include page="../apcss/co/dmnd/prfrmImprvDmndPopup.jsp"></jsp:include>
+</div>
+<div>
+    <sbux-modal id="modal-msgAlarm" name="modal-msgAlarm" uitype="middle" header-title="APC업무지원시스템 - 알림" body-html-id="body-modal-msgAlarm" footer-is-close-button="false" header-is-close-button="true" callback-after-close="fn_popMsgRefresh" style="width:1000px;margin-top: 20vh"></sbux-modal>
+</div>
+<div id="body-modal-msgAlarm">
+    <jsp:include page="../apcss/co/ntc/comMsgPopup.jsp"></jsp:include>
+</div>
+
 </body>
 <script type="text/javascript">
-	//only document
-	window.addEventListener('DOMContentLoaded', function(e) {
-		initMain();
-	});
-	const fn_modalPopup = async function() {
 
-		var userId =  '${loginVO.userId}';
-		var userNm	= '${loginVO.name}';
-		if(menuJsonB[0].id != "empty"){
-			var menuNm = "";
-			var menuId = "";
-			if(menuJsonB.length == 3){
-				menuNm = menuJsonB[2].text;
-				menuId = menuJsonB[2].pid;
-			}else{
+	let lv_sessUpdtUseYn;
+	let lv_interval = 3 * 60 * 1000;
 
-				menuNm = menuJsonB[3].text;
-				menuId = menuJsonB[3].pid;
-			}
+	let timerId;
 
-			prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId, userNm, menuId, menuNm);
-			SBUxMethod.openModal('modal-prfrmImprvDmnd');
-		}else{
-			gfn_comAlert("W0001", "프로그램");		//	W0001	{0}을/를 선택하세요.
+	const fn_clearBatch = () => {
+		if (!gfn_isEmpty(timerId)) {
+			clearInterval(timerId);
+		}
+	}
+
+    /**
+     * @name fn_getSysInfo
+     * @description apc 확인
+     * @function
+     */
+	const fn_getSysInfo = async function() {
+
+		if (!lv_authRefresh) {
+			return;
 		}
 
+    	if (_.isEqual("N", lv_sessUpdtUseYn)) {
+    		fn_clearBatch();
+    		return;
+    	}
 
+    	fn_clearBatch();
+
+    	if (gfn_isEmpty(gv_selectedApcCd)) {
+    		return;
+    	}
+
+		try {
+			const postJsonPromise = gfn_postJSON(
+						"/am/apc/selectApcEvrmntStng.do",
+						{apcCd: gv_selectedApcCd}
+					);
+	        const data = await postJsonPromise;
+
+	        if (	_.isEqual("S", data.resultStatus)
+	        		&& data.hasOwnProperty('resultMap')) {
+	        	if (	!gfn_isEmpty(data.resultMap)
+	        			&& data.resultMap.hasOwnProperty('sessUpdtUseYn')
+	        			&& _.isEqual("Y", data.resultMap.sessUpdtUseYn)) {
+
+	        		lv_sessUpdtUseYn = "Y";
+	        		document.querySelector("#lbl-autoRefresh").style.display = "";
+
+	        		timerId = setInterval(() => {
+						fn_getSysInfo();
+					}, lv_interval);
+
+	        	} else {
+	        		lv_sessUpdtUseYn = "N";
+					document.querySelector("#lbl-autoRefresh").style.display = "none";
+	        	}
+        	} else {
+        		lv_sessUpdtUseYn = "N";
+        	}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		} finally {
+
+		}
 	}
 
-	const initMain = async function() {
-		var tabName = "TAB_CO_014";
-		var menuNo = "CO_014";
-		var jsonTabSelect = {
-                'id': tabName
-                , 'pid': '-1'
-                , 'text': '🏠'	//'대시보드'
-                , 'targetid': tabName
-                , 'targetvalue': tabName + '_value'
-                , 'targetname': 'frmJson'
-                , 'link': '/co/menu/openPage.do/' + menuNo	// _url
-                , 'closeicon': false
-            };
+	let lv_authRefresh = true;
+	const fn_setAutoRefresh = function() {
+		lv_authRefresh = !lv_authRefresh;
+
+		const lblText = lv_authRefresh ? '🔒' : '🔓';
+		document.querySelector('#lbl-autoRefresh').innerText = lblText;
+	}
+
+    //only document
+    window.addEventListener('DOMContentLoaded', function(e) {
+
+    	document.querySelector("#lbl-autoRefresh").style.display = "none";
+        initMain();
+        var iframe = document.getElementById('idxfrmJson');
+        iframe.scrolling = 'auto';
+
+        mfn_displayButton();
+        fn_topMenuSet();
+
+    });
+    /** 각각 탭끼리 소통 관제탑 메인
+     *  send Tab > main > receive Tab **/
+    window.addEventListener('message',function(event){
+        try{
+            let object = JSON.parse(event.data);
+            if(!gfn_isEmpty(object)){
+                let target = object.target;
+                let data = sideJsonData.filter((item) => item.id == target);
+                let openFlag = tabJsonData.some((item) => item.targetid.replace("TAB_","") == target);
+
+                if(openFlag){
+                    /** receive Tab이 열려 있는 상태에선 msg를 전달하여 VO 전달 **/
+                    let iframe = "idxfrmJson_TAB_" + target;
+                    let el = document.getElementById(iframe);
+                    SBUxMethod.set("tab_menu","TAB_"+target);
+
+                    el.contentWindow.postMessage(object);
+
+                }else{
+                    localStorage.setItem("callMain",JSON.stringify(object));
+                    /** 현재 receive Tab이 없는경우 새로 오픈 **/
+                    fn_actionGoPage(
+                        data[0].url
+                        , 'LEFT'
+                        , data[0].id
+                        , data[0].text
+                        , data[0].pid
+                    );
+                }
+            }
+        }catch (e){
+            if(event.data == 'sideMenuOff'){
+                SBUxMethod.closeSideMenu('side_menu');
+            }
+        }
+
+
+    });
+
+    const fn_modalPopup = async function() {
+
+        var userId 		= '${loginVO.id}';
+        var userNm		= '${loginVO.name}';
+        var userType	= '${loginVO.userType}';
+        if(menuJsonB[0].id != "empty"){
+            var menuNm = "";
+            var menuId = "";
+            if(menuJsonB.length == 3){
+                menuNm = menuJsonB[2].text;
+                menuId = menuJsonB[2].pid;
+            }else{
+
+                menuNm = menuJsonB[3].text;
+                menuId = menuJsonB[3].pid;
+            }
+
+            prfrmImprvDmnd.init(gv_apcCd, gv_apcNm, userId, userNm, userType, menuId, menuNm);
+            SBUxMethod.openModal('modal-prfrmImprvDmnd');
+        }else{
+            gfn_comAlert("W0001", "프로그램");		//	W0001	{0}을/를 선택하세요.
+        }
+
+    }
+
+    const fn_bmkYn = async function(){
+
+    	let breadcrumb = SBUxMethod.getBreadcrumb("breadcrumb");
+    	let order = breadcrumb.order;
+    	if(order == "50"){
+
+    		let menuId = menuJsonB[menuJsonB.length-1].id;
+    		let bmkYn = menuJsonB[menuJsonB.length-1].value;
+
+    		SBUxMethod.refresh('breadcrumb');
+
+    		if(bmkYn == "Y" || bmkYn == "N"){
+    			let bmk = {menuId : menuId}
+    			if(bmkYn == "Y"){
+
+    				const postJsonPromise = gfn_postJSON("/co/authrt/deleteBmk.do", bmk);
+    		    	const data = await postJsonPromise;
+    		    	try{
+    		    		if (_.isEqual("S", data.resultStatus)) {
+
+    		    			let index = menuJsonB.length-1;
+    		    			menuJsonB[index].text = '☆'
+    		    			menuJsonB[index].value = "N"
+
+    		    			for(var i; i<menuJson.length; i++){
+    		    				if(menuJson[i].menuId == menuId){
+    		    					menuJson[i].bmkYn = "N"
+    		    					break;
+    		    				}
+    		    			}
+    		        	} else {
+    		        		gfn_comAlert(data.resultCode, data.resultMessage);
+    		        	}
+    		        }catch (e) {
+    		        	if (!(e instanceof Error)) {
+    		    			e = new Error(e);
+    		    		}
+    		    		console.error("failed", e.message);
+    				}
+    			}
+    			if(bmkYn == "N"){
+    				const postJsonPromise = gfn_postJSON("/co/authrt/insertBmk.do", bmk);
+    		    	const data = await postJsonPromise;
+    		    	try{
+    		    		if (_.isEqual("S", data.resultStatus)) {
+
+    		    			let index = menuJsonB.length-1;
+    		    			menuJsonB[index].text = '⭐'
+    		    			menuJsonB[index].value = "Y"
+
+    		    			for(var i; i<menuJson.length; i++){
+    		    				if(menuJson[i].menuId == menuId){
+    		    					menuJson[i].bmkYn = "Y";
+    		    					break;
+    		    				}
+    		    			}
+    		        	} else {
+    		        		gfn_comAlert(data.resultCode, data.resultMessage);
+    		        	}
+    		        }catch (e) {
+    		        	if (!(e instanceof Error)) {
+    		    			e = new Error(e);
+    		    		}
+    		    		console.error("failed", e.message);
+    				}
+    			}
+    			SBUxMethod.refresh('breadcrumb');
+    		}
+
+    	}
+    }
+
+    const initMain = async function() {
+        var tabName = "TAB_CO_014";
+        var menuNo = "CO_014";
+        var jsonTabSelect = {
+            'id': tabName
+            , 'pid': '-1'
+            , 'text': '🏠'	//'대시보드'
+            , 'targetid': tabName
+            , 'targetvalue': tabName
+            , 'targetname': 'frmJson'
+            , 'link': '/co/menu/openPage.do/' + menuNo	// _url
+            , 'closeicon': false
+        };
         SBUxMethod.addTab('tab_menu', jsonTabSelect);
+        //화면이력관리용 data
+        var data = {
+        		customData : {prsnaYn : null},
+        		id : tabName,
+        		text : "대시보드",
+        		prslType: "M1"
+        }
 
-		await fn_afterAddTab(menuNo);
-		fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
+       	insertComLog(data);
+
+        tabAddTest();
+
+        fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
+        fn_getSysInfo();
+    }
+
+    const tabAddTest = async function() {
+    	var tabName = "TAB_PD_009";
+        var menuNo = "PD_009";
+        var jsonTabSelect = {
+              'id': tabName
+            , 'pid': '-1'
+            , 'text': '공지사항'	//'대시보드'
+            , 'targetid': tabName
+            //, 'targetvalue': tabName + '_value'
+            , 'targetvalue': tabName
+            , 'targetname': 'frmJson'
+            , 'link': '/co/menu/openPage.do/' + menuNo	// _url
+            , 'closeicon': false
+        };
+        SBUxMethod.addTab('tab_menu', jsonTabSelect);
+        //화면이력관리용 data
+        var data = {
+        		customData : {prsnaYn : null},
+        		id : tabName,
+        		text : "공지사항",
+        		prslType: "M1"
+        }
+
+        insertComLog(data);
+    }
+
+    function gfn_tabClose(_menuId) {
+    	SBUxMethod.removeTab("tab_menu", _menuId)
+    }
+
+    function lfn_redirect(_url) {
+    	window.location.href = _url;
+    }
+
+    const mfn_search = function() {
+
+    	if (gfn_isEmpty(lv_frmId)) {
+    		return;
+    	}
+
+    	try {
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
+
+        	if (typeof tabContent !== 'object') {
+        		return;
+        	}
+
+        	tabContent.cfn_search();
+
+    	} catch (e) {
+    		console.log(e.message);
+    	}
+    }
+
+
+	const mfn_init = function() {
+
+		if (gfn_isEmpty(lv_frmId)) {
+    		return;
+    	}
+
+    	try {
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
+        	if (typeof tabContent !== 'object') {
+        		return;
+        	}
+
+        	tabContent.cfn_init();
+
+    	} catch (e) {
+    		console.log(e.message);
+    	}
+    }
+
+	const mfn_add = function() {
+
+    	if (gfn_isEmpty(lv_frmId)) {
+    		return;
+    	}
+
+    	try {
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
+        	if (typeof tabContent !== 'object') {
+        		return;
+        	}
+
+        	tabContent.cfn_add();
+
+    	} catch (e) {
+    		console.log(e.message);
+    	}
+    }
+
+	const mfn_save = function() {
+
+    	if (gfn_isEmpty(lv_frmId)) {
+    		return;
+    	}
+
+    	try {
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
+        	if (typeof tabContent !== 'object') {
+        		return;
+        	}
+
+        	tabContent.cfn_save();
+
+    	} catch (e) {
+    		console.log(e.message);
+    	}
+    }
+
+	const mfn_del = function() {
+
+    	if (gfn_isEmpty(lv_frmId)) {
+    		return;
+    	}
+
+    	try {
+    		const tabContent = document.getElementById(lv_frmId).contentWindow;
+        	if (typeof tabContent !== 'object') {
+        		return;
+        	}
+
+        	tabContent.cfn_del();
+
+    	} catch (e) {
+    		console.log(e.message);
+    	}
+    }
+
+    const mfn_appr = function() {
+        if (gfn_isEmpty(lv_frmId)) {
+            return;
+        }
+        try {
+            const tabContent = document.getElementById(lv_frmId).contentWindow;
+            if (typeof tabContent !== 'object') {
+                return;
+            }
+
+            tabContent.cfn_appr();
+
+        }catch (e){
+            console.log(e.message);
+        }
+    }
+
+    const mfn_attach = function() {
+        if (gfn_isEmpty(lv_frmId)) {
+            return;
+        }
+        try {
+            const tabContent = document.getElementById(lv_frmId).contentWindow;
+            if (typeof tabContent !== 'object') {
+                return;
+            }
+
+            tabContent.cfn_attach();
+
+        }catch (e){
+            console.log(e.message);
+        }
+    }
+
+
+	const mfn_displayButton = function (_uiInfo) {
+
+
+		const btnInit = document.getElementById("main-btn-init");
+		const btnAdd = document.getElementById("main-btn-add");
+		const btnSave = document.getElementById("main-btn-save");
+		const btnDel = document.getElementById("main-btn-del");
+		const btnSearch = document.getElementById("main-btn-search");
+		const btnAttach = document.getElementById("main-btn-attach");
+		const btnAppr = document.getElementById("main-btn-appr");
+
+		btnInit.disabled = true;
+		btnAdd.disabled = true;
+		btnDel.disabled = true;
+		btnSave.disabled = true;
+		btnSearch.disabled = true;
+        btnAttach.disable = true;
+        btnAppr.disable = true;
+
+		btnInit.style.display = "none";
+		btnAdd.style.display = "none";
+		btnDel.style.display = "none";
+		btnSave.style.display = "none";
+		btnSearch.style.display = "none";
+        btnAttach.style.display = "none";
+        btnAppr.style.display = "none";
+
+    	if (gfn_isEmpty(_uiInfo)) {
+    		return;
+    	}
+
+    	try {
+    		if (_uiInfo.hasOwnProperty('cmnsInit')) {
+    			if (_uiInfo.cmnsInit['button']) {
+    				btnInit.disabled = false;
+    				btnInit.disabled = _uiInfo.cmnsInit['disabled'];
+    				btnInit.style.display = _uiInfo.cmnsInit['visible'] ? "" : "none";
+    			}
+    		}
+    		if (_uiInfo.hasOwnProperty('cmnsAdd')) {
+    			if (_uiInfo.cmnsAdd['button']) {
+    				btnAdd.disabled = false;
+    				btnAdd.disabled = _uiInfo.cmnsAdd['disabled'];
+    				btnAdd.style.display = _uiInfo.cmnsAdd['visible'] ? "" : "none";
+    			}
+    		}
+    		if (_uiInfo.hasOwnProperty('cmnsDel')) {
+    			if (_uiInfo.cmnsDel['button']) {
+    				btnDel.disabled = false;
+    				btnDel.disabled = _uiInfo.cmnsDel['disabled'];
+    				btnDel.style.display = _uiInfo.cmnsDel['visible'] ? "" : "none";
+    			}
+    		}
+    		if (_uiInfo.hasOwnProperty('cmnsSave')) {
+    			if (_uiInfo.cmnsSave['button']) {
+    				btnSave.disabled = false;
+    				btnSave.disabled = _uiInfo.cmnsSave['disabled'];
+    				btnSave.style.display = _uiInfo.cmnsSave['visible'] ? "" : "none";
+    			}
+    		}
+    		if (_uiInfo.hasOwnProperty('cmnsSearch')) {
+    			if (_uiInfo.cmnsSearch['button']) {
+    				btnSearch.disabled = false;
+    				btnSearch.disabled = _uiInfo.cmnsSearch['disabled'];
+    				btnSearch.style.display = _uiInfo.cmnsSearch['visible'] ? "" : "none";
+    			}
+    		}
+            if (_uiInfo.hasOwnProperty('cmnsUpload')) {
+                if (_uiInfo.cmnsUpload['button']) {
+                    btnAttach.disabled = false;
+                    btnAttach.disabled = _uiInfo.cmnsUpload['disabled'];
+                    btnAttach.style.display = _uiInfo.cmnsUpload['visible'] ? "" : "none";
+                }
+            }
+            if (_uiInfo.hasOwnProperty('cmnsAppr')) {
+                if (_uiInfo.cmnsAppr['button']) {
+                    btnAppr.disabled = false;
+                    btnAppr.disabled = _uiInfo.cmnsAppr['disabled'];
+                    btnAppr.style.display = _uiInfo.cmnsAppr['visible'] ? "" : "none";
+                }
+            }
+
+    	} catch (e) {
+    		console.log(e.message);
+    	}
+    }
+
+	const fn_clearPrvTabInfo = function() {
+
+		if (gfn_isEmpty(prvTabMenuId)) {
+			return;
+		}
+
+		mfn_displayButton(null);
+
+		const idx = jsonTabPage.findIndex(function(item) {return item.menuId === prvTabMenuId});
+		if (idx >= 0) {
+			jsonTabPage.splice(idx, 1);
+		}
 	}
 
+	const fn_setTabInfo = async function(_menuId) {
+
+		let uiInfo;
+
+		const idx = jsonTabPage.findIndex(function(item) {return item.menuId === _menuId});
+
+		if (idx >= 0) {
+			uiInfo = jsonTabPage[idx];
+		} else {
+
+			uiInfo = {
+				menuId: _menuId,
+        		cmnsInit: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsAdd: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsDel: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsSave: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+        		cmnsSearch: {
+        			button: false,
+        			disabled: false,
+        			visible: false,
+        		},
+                cmnsUpload: {
+                    button: false,
+                    disabled: false,
+                    visible: false,
+                },
+                cmnsAppr: {
+                    button: false,
+                    disabled: false,
+                    visible: false,
+                }
+			}
+
+			let _userId;
+       		<c:set scope="request" var="userId" value="${loginVO.id}"></c:set>
+       		_userId = '<c:out value='${userId}'></c:out>';
+
+           	if (!gfn_isEmpty(_userId)) {
+           		const postJsonPromise = gfn_postJSON(
+						"/co/authrt/selectUserAuthrtCmnsBtnList.do",
+						{menuId: _menuId, userId: _userId},
+						"main",
+						true
+					);
+		        const data = await postJsonPromise;
+		        try {
+		        	data.resultList.forEach((item, index) => {
+
+		                const hasButton = _.isEqual(item.delYn, 'N');
+		        		const disabled = _.isEqual(item.accessUseYn, 'Y') && _.isEqual(item.accessYn, 'N');
+		        		const visible = !(_.isEqual(item.indctUseYn, 'Y') && _.isEqual(item.indctYn, 'N'));
+
+		        		switch (item.entyId) {
+		                	case "CMNS_INIT":
+		                		uiInfo.cmnsInit.button = hasButton;
+		                		uiInfo.cmnsInit.disabled = disabled;
+		                		uiInfo.cmnsInit.visible = visible;
+		                		break;
+		                	case "CMNS_ADD":
+		                		uiInfo.cmnsAdd.button = hasButton;
+		                		uiInfo.cmnsAdd.disabled = disabled;
+		                		uiInfo.cmnsAdd.visible = visible;
+		                		break;
+		                	case "CMNS_DEL":
+		                		uiInfo.cmnsDel.button = hasButton;
+		                		uiInfo.cmnsDel.disabled = disabled;
+		                		uiInfo.cmnsDel.visible = visible;
+		                		break;
+		                	case "CMNS_SAVE":
+		                		uiInfo.cmnsSave.button = hasButton;
+		                		uiInfo.cmnsSave.disabled = disabled;
+		                		uiInfo.cmnsSave.visible = visible;
+		                		break;
+		                	case "CMNS_SEARCH":
+		                		uiInfo.cmnsSearch.button = hasButton;
+		                		uiInfo.cmnsSearch.disabled = disabled;
+		                		uiInfo.cmnsSearch.visible = visible;
+		                		break;
+                            case "CMNS_UPLOAD":
+                                uiInfo.cmnsUpload.button = hasButton;
+                                uiInfo.cmnsUpload.disabled = disabled;
+                                uiInfo.cmnsUpload.visible = visible;
+                                break;
+                            case "CMNS_APPR":
+                                uiInfo.cmnsAppr.button = hasButton;
+                                uiInfo.cmnsAppr.disabled = disabled;
+                                uiInfo.cmnsAppr.visible = visible;
+                                break;
+		                }
+		            });
+
+		        	jsonTabPage.push(uiInfo);
+
+		        } catch (e) {
+		            if (!(e instanceof Error)) {
+		                e = new Error(e);
+		            }
+		            console.error("failed", e.message);
+		        }
+			}
+
+		}
+
+		mfn_displayButton(uiInfo);
+
+	}
+    const fn_fullScreen = function(){
+            let el = $(".tab-content > div.active").children().attr('id');
+            let iframe = document.getElementById(el);
+            let dc =iframe.contentDocument || iframe.contentWindow.document;
+
+        if(!dc.fullscreenElement){
+            if(dc.documentElement.requestFullscreen){
+                dc.documentElement.requestFullscreen();
+            }else if(dc.documentElement.webkitRequestFullscreen){
+                dc.documentElement.webkitRequestFullscreen()
+            }else if(dc.documentElement.msRequestFullscreen){
+                dc.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(dc.exitFullscreen){
+                dc.exitFullscreen();
+            }else if(dc.webkitExitFullscreen){
+                dc.webkitExitFullscreen();
+            }else if(dc.msExitFullscreen){
+                dc.msExitFullscreen();
+            }
+        }
+    }
+
+    function cfn_openTabSearch (obj){
+        try{
+            let object = JSON.parse(obj);
+            if(!gfn_isEmpty(object)){
+                let target = object.target;
+                /** left Menu에서 넘어온 해당 Tab의 대한 정보로 필터링 **/
+                let data = sideJsonData.filter((item) => item.id == target);
+                /** 현재 열려있는 탭인지 확인 **/
+                let openFlag = tabJsonData.some((item) => item.targetid.replace("TAB_","") == target);
+
+                if(openFlag){
+                    /** receive Tab이 열려 있는 상태에선 msg를 전달하여 VO 전달 **/
+                    let iframe = "idxfrmJson_TAB_" + target;
+                    let el = document.getElementById(iframe);
+                    /** 해당 Tab open **/
+                    SBUxMethod.set("tab_menu","TAB_"+target);
+                    /** main > receive 로 parameter 전달 **/
+                    el.contentWindow.postMessage(object);
+                }else{
+                    localStorage.setItem("callMain",JSON.stringify(object));
+                    /** 현재 receive Tab이 없는경우 새로 오픈하며 중간에 로직을 위해서
+                     * 직접 전달하지않고 localStorage를 사용하여 param 전달 **/
+                    fn_actionGoPage(
+                        data[0].url
+                        , 'LEFT'
+                        , data[0].id
+                        , data[0].text
+                        , data[0].pid
+                    );
+                }
+            }
+        }catch (e){
+            /** 전달인자가 비어있을경우 json parse exception **/
+            console.error(e.toString());
+        }
+    }
+
+    const fn_topMenuSet = async function () {
+        $("#idxTop_json > div").css({
+            "width": "79vw",
+            "left": "0",
+            "margin-left": "0"
+        });
+        $("#sbux_idxTop_json").css({
+            "width": "calc(100% - 240px)",
+            "overflow-x": "scroll"
+        });
+
+        const scrollContainer = document.querySelector('#sbux_idxTop_json');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let isDragging = false;
+
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+            scrollContainer.style.cursor = 'grabbing';
+            isDragging = false;
+        });
+
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        });
+
+        scrollContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        });
+
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 2; // 드래그 속도 조정
+            scrollContainer.scrollLeft = scrollLeft - walk;
+            isDragging = true;
+        });
+
+        let data = await popMsg.search('${loginVO.id}');
+        if(data.resultList.length > 0){
+            $("#pop_cnt").text(data.resultList.length);
+            fn_msgPopup();
+        }else{
+            $("#pop_wrap").css("display","none");
+        }
+
+    }
+
+    function cfn_closeTab(_menuId){
+        let menuId = 'TAB_' + _menuId;
+        SBUxMethod.removeTab("tab_menu", menuId);
+    }
+
+    const fn_msgPopup = function(){
+        SBUxMethod.openModal('modal-msgAlarm');
+        popMsg.init('${loginVO.id}');
+    }
+    async function fn_popMsgRefresh(){
+        let data = await popMsg.search('${loginVO.id}');
+        if(data.resultList.length > 0){
+            $("#pop_cnt").text(data.resultList.length);
+        }else{
+            $("#pop_wrap").css("display","none");
+        }
+    }
 </script>
+
 </html>

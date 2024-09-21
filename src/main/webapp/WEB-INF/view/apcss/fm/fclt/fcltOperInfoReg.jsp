@@ -40,7 +40,7 @@
 					<!--
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력" class="btn btn-sm btn-primary" onclick=""></sbux-button>
 					-->
-					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_selectFcltOperInfo"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 					<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
@@ -109,7 +109,7 @@
 						<tr>
 							<th>운영조직명</th>
 							<td>
-								<sbux-input id="dtl-inp-operOgnzNm" name="dtl-inp-operOgnzNm" uitype="text" class="form-control input-sm" ></sbux-input>
+								<sbux-input id="dtl-inp-operOgnzNm" name="dtl-inp-operOgnzNm" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
 							<td colspan="2">
 						</tr>
@@ -123,6 +123,7 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 							<th>운영조직 법인번호</th>
@@ -134,14 +135,17 @@
 									class="form-control input-sm"
 									mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
 									autocomplete="off"
+									readonly
 								></sbux-input>
 							</td>
 						</tr>
 						<tr>
 							<th>운영조직 대표자</th>
 							<td>
-								<sbux-input id="dtl-inp-rprsv" name="dtl-inp-rprsv" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="dtl-inp-rprsv" name="dtl-inp-rprsv" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 							</td>
+							<td colspan="2"></td>
+							<!--
 							<th>운영조직 조직유형</th>
 							<td>
 								<sbux-select
@@ -153,6 +157,7 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
+							-->
 						</tr>
 						<!--
 						<tr>
@@ -235,6 +240,8 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							<td colspan="2"></td>
+							<!--
 							<th>APC 법인번호</th>
 							<td>
 								<sbux-input
@@ -246,6 +253,7 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
+							-->
 						</tr>
 						<!--
 						<tr>
@@ -461,7 +469,7 @@
 
 	});
 
-	var jsonComOgnzTypeCd = [];//조직유형
+	//var jsonComOgnzTypeCd = [];//조직유형
 	var jsonComEtcCtgryCd = [];//기타부류
 	var jsonComApcEtcCtgryCd = [];//APC기타부류
 
@@ -472,23 +480,23 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
-			gfn_setComCdSBSelect('dtl-inp-ognzTypeCd', 	jsonComOgnzTypeCd, 	'OGNZ_TYPE_CD'), 	//조직유형
+			//gfn_setComCdSBSelect('dtl-inp-ognzTypeCd', 	jsonComOgnzTypeCd, 	'OGNZ_TYPE_CD'), 	//조직유형
 			gfn_setComCdSBSelect('dtl-inp-operOgnzEtcCtgryCd', 		jsonComEtcCtgryCd, 	'ETC_CLS'), 	//운영조직 기타 부류
 			gfn_setComCdSBSelect('dtl-inp-apcEtcCtgryCd', 	jsonComApcEtcCtgryCd, 	'ETC_CLS'), 	//APC 기타 부류
 		]);
 	}
 
 	const fn_init = async function() {
-		fn_initSBSelect();
+		await fn_initSBSelect();
 
-		//if() user=userTpye 값과 apc에 따라 변경 dtl-inp-apcNm
-		//APC명 자동설정
-		SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));
-
-		fn_search();
-
+		//apc가 있으면 자동 조회
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		if(gfn_isEmpty(apcCd)){
+			return;
+		}
+		await fn_search();
 		//진척도
-		cfn_selectPrgrs();
+		await cfn_selectPrgrs();
 
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
@@ -499,17 +507,25 @@
 		}
 	}
 	const fn_search = async function() {
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		console.log(apcCd);
+		if(gfn_isEmpty(apcCd)){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_clearForm();
 		fn_selectFcltOperInfo();
 	}
 
 	const fn_selectFcltOperInfo = async function(){
+
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
 
 		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoList.do", {
 			apcCd : apcCd
 			,crtrYr : crtrYr
+			,memberInfoYn : 'Y' //회원정보 여부
 		});
 
 		let data = await postJsonPromise;
@@ -535,11 +551,11 @@
 
 				SBUxMethod.set("dtl-inp-ctpvCd", resultVO.ctpvCd);//시도 코드
 				SBUxMethod.set("dtl-inp-sigunCd", resultVO.sigunCd);//시군구 코드
-				SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
+				//SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
 
 				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 				SBUxMethod.set("dtl-inp-apcBrno", resultVO.apcBrno);//apc 사업자등록번호
-				SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
+				//SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
 				//SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
 
 				SBUxMethod.set("dtl-inp-apcRoadNmAddr", resultVO.apcLoctn);//apc 주소
@@ -601,11 +617,11 @@
 		SBUxMethod.set("dtl-inp-sigunCd",null);  //시군구 코드 (법정동 코드 앞5자리)
 
 		SBUxMethod.getText("dtl-inp-ognzType",null);  //조직유형 명
-		SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
+		//SBUxMethod.getValue("dtl-inp-ognzTypeCd",null);  //조직유형 코드
 
 		//SBUxMethod.set("dtl-inp-apcNm",null);  //apc명
 		SBUxMethod.set("dtl-inp-apcBrno",null);  //apc 사업자등록번호
-		SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
+		//SBUxMethod.set("dtl-inp-apcCrno",null);  //apc 법인등록번호
 		//SBUxMethod.set("dtl-inp-apcAddr",null);  //apc 주소
 
 		SBUxMethod.set("dtl-inp-apcRoadNmAddr",null);  //apc 주소 상세
@@ -632,6 +648,11 @@
 
 	//작년 데이터 복사
 	const fn_copy = async function(){
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+
 		console.log('************fn_copy********');
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
@@ -665,11 +686,11 @@
 
 				SBUxMethod.set("dtl-inp-ctpvCd", resultVO.ctpvCd);//시도 코드
 				SBUxMethod.set("dtl-inp-sigunCd", resultVO.sigunCd);//시군구 코드
-				SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
+				//SBUxMethod.set("dtl-inp-ognzTypeCd", resultVO.ognzTypeCd);//조직유형 코드
 
 				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 				SBUxMethod.set("dtl-inp-apcBrno", resultVO.apcBrno);//apc 사업자등록번호
-				SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
+				//SBUxMethod.set("dtl-inp-apcCrno", resultVO.apcCrno);//apc 법인등록번호
 				//SBUxMethod.set("dtl-inp-apcAddr", resultVO.apcLoctn);//apc 주소
 
 				SBUxMethod.set("dtl-inp-apcRoadNmAddr", resultVO.apcLoctn);//apc 주소
@@ -718,7 +739,6 @@
 	const fn_save = async function() {
 		console.log("******************fn_save**********************************");
 
-		/*
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		let trgtYr = SBUxMethod.get("dtl-inp-trgtYr");
 		if (gfn_isEmpty(apcCd)) {
@@ -730,6 +750,7 @@
 			return;
 		}
 
+		/*
 		let itemCd1 = SBUxMethod.get("dtl-inp-operOgnzItemCd1");
 		let apcItem1 = SBUxMethod.get("dtl-inp-apcItem1");
 		if (gfn_isEmpty(itemCd1) && gfn_isEmpty(apcItem1)) {
@@ -750,7 +771,13 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
+
 	}
 
 	//신규등록
@@ -836,11 +863,11 @@
 			, sigunCd: SBUxMethod.get("dtl-inp-sigunCd") //시군구 코드 (법정동 코드 앞5자리)
 
 			, ognzType: SBUxMethod.getText("dtl-inp-ognzType") //조직유형 명
-			, ognzTypeCd: SBUxMethod.getValue("dtl-inp-ognzTypeCd") //조직유형 코드
+			//, ognzTypeCd: SBUxMethod.getValue("dtl-inp-ognzTypeCd") //조직유형 코드
 
 			, apcNm: SBUxMethod.get("dtl-inp-apcNm")  //apc명
 			, apcBrno: SBUxMethod.get("dtl-inp-apcBrno")  //apc 사업자등록번호
-			, apcCrno: SBUxMethod.get("dtl-inp-apcCrno")  //apc 법인등록번호
+			//, apcCrno: SBUxMethod.get("dtl-inp-apcCrno")  //apc 법인등록번호
 
 			, apcLoctn: SBUxMethod.get("dtl-inp-apcRoadNmAddr")  //apc 주소
 			, apcLoctnDtl: SBUxMethod.get("dtl-inp-apcRoadNmAddrDtl")  //apc 주소 상세

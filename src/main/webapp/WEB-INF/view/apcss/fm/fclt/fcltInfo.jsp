@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltInfo.jsp
-  * @Description : 사설현황 화면
+  * @Description : 3.1.시설 장비 인력 현황 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -523,7 +523,7 @@
 			</div>
 			</div>
 			</div>
-
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
@@ -755,6 +755,7 @@
 		// 결과 확인 후 재조회
 		//console.log("insert result", data);
 	}
+
 	function fn_convertToZero(value) {
 		if (value === '' || value === undefined || value === null) {
 			return 0;
@@ -896,6 +897,10 @@
 
 			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["담당자명"],	ref: 'picNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["직위"],	ref: 'jbps',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["연락처"],	ref: 'coTelno',		type:'input',  width:'100px',    style:'text-align:center'},
 
 			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
 			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},
@@ -1043,6 +1048,145 @@
 	//시도 변경 이벤트
 	const fn_ctpvChange = async function(){
 		SBUxMethod.set("srch-inp-sgg", "");
+	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["등록년도"],			ref:'crtrYr',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC코드"],			ref:'apcCd',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC명"],			ref:'apcNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["총면적"],			ref:'cspTotArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["총면적 비고"],			ref:'cspTotRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["집하선별포장장 면적"],			ref:'cspCfppArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["집하선별포장장 비고"],			ref:'cspCfppRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["세척․가공 등 처리 면적"],			ref:'cspClnOprtngPrcsArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["세척․가공 등 처리 비고"],			ref:'cspClnOprtngPrcsRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["비상품화시설 면적"],			ref:'cspNgdsFcltArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["비상품화시설 비고"],			ref:'cspNgdsFcltRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["폐기물처리 면적"],			ref:'cspDtpArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["폐기물처리 비고"],			ref:'cspDtpRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["예냉고 면적"],			ref:'strgPlcPrcPlcArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["예냉고 비고"],			ref:'strgPlcPrcPlcRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["저온저장 면적"],			ref:'strgPlcLwtpStrgArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["저온저장 비고"],			ref:'strgPlcLwtpStrgRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["CA저장고 면적"],			ref:'strgPlcCaStrgPlcArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["CA저장고 비고"],			ref:'strgPlcCaStrgPlcRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["큐어링 면적"],			ref:'strgPlcCurnArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["큐어링 비고"],			ref:'strgPlcCurnRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["일반저장 면적"],			ref:'strgPlcGnrlStrgArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["일반저장 비고"],			ref:'strgPlcGnrlStrgRmrk',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["기타사항 면적"],			ref:'strgPlcEtcArea',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["기타사항 비고"],			ref:'strgPlcEtcRmrk',		type:'output',width:'70px',style:'text-align:center'},
+
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();//그리드 생성
+
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		if (gfn_isEmpty(crtrYr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			crtrYr = year;
+		}
+
+		//userId로 지자체 시도 시군구 값 알아내서 처리
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltInfoRawDataList.do", {
+			crtrYr : crtrYr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					crtrYr					:item.crtrYr
+					, apcCd					:item.apcCd
+					, apcNm					:item.apcNm
+					, cspTotArea			:item.cspTotArea
+					, cspTotRmrk			:item.cspTotRmrk
+					, cspCfppArea			:item.cspCfppArea
+					, cspCfppRmrk			:item.cspCfppRmrk
+					, cspClnOprtngPrcsArea	:item.cspClnOprtngPrcsArea
+					, cspClnOprtngPrcsRmrk	:item.cspClnOprtngPrcsRmrk
+					, cspDtpArea			:item.cspDtpArea
+					, cspDtpRmrk			:item.cspDtpRmrk
+					, cspNgdsFcltArea		:item.cspNgdsFcltArea
+					, cspNgdsFcltRmrk		:item.cspNgdsFcltRmrk
+					, strgPlcPrcPlcArea		:item.strgPlcPrcPlcArea
+					, strgPlcPrcPlcRmrk		:item.strgPlcPrcPlcRmrk
+					, strgPlcLwtpStrgArea	:item.strgPlcLwtpStrgArea
+					, strgPlcLwtpStrgRmrk	:item.strgPlcLwtpStrgRmrk
+					, strgPlcCaStrgPlcArea	:item.strgPlcCaStrgPlcArea
+					, strgPlcCaStrgPlcRmrk	:item.strgPlcCaStrgPlcRmrk
+					, strgPlcCurnArea		:item.strgPlcCurnArea
+					, strgPlcCurnRmrk		:item.strgPlcCurnRmrk
+					, strgPlcGnrlStrgArea	:item.strgPlcGnrlStrgArea
+					, strgPlcGnrlStrgRmrk	:item.strgPlcGnrlStrgRmrk
+					, strgPlcEtcArea		:item.strgPlcEtcArea
+					, strgPlcEtcRmrk		:item.strgPlcEtcRmrk
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_3.1 시설현황_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
 </script>

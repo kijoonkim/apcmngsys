@@ -539,7 +539,7 @@
 	    		}
 	    	}
 
-			if (!gfn_isEmpty(rowData.rprsItemCd) && !gfn_isEmpty(rowData.rprsVrtyCd)) {
+			if (!gfn_isEmpty(rowData.rprsItemCd)) {
 				rowData.rprsVrtyCd = rowData.itemVrtyCd.substring(4);
 			}
 
@@ -1006,7 +1006,7 @@
 		jsonExpPrdcr = 0;
 		grdApcPrdcr.rebuild();
 		jsonApcPrdcrBackUp = jsonApcPrdcr;
-		grdApcPrdcr.importExcelData(e,1,3);
+		grdApcPrdcr.importExcelData(e,1,2);
      }
 
 	const setDataAfterImport = function (e){
@@ -1126,6 +1126,14 @@
 					label:'label',
 					value:'value'
 				}
+			},
+			{
+				caption : ["영농관리"],
+				ref : 'agrcYn',
+				width : '60px',
+				style : 'text-align:center;background-color:#FFF8DC;',
+				type : 'checkbox',
+				typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
 			},
 			{
 				caption: ["대표품목"],

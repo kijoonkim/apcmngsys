@@ -28,4 +28,20 @@ public interface RawMtrWrhsPrnmntMapper {
      * @throws Exception
      */
     public List<RawMtrWrhsPrnmntVO> selectRawMtrWrhsPrnmntList(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 입고예정 삭제 : update set delYn Y
+     * @param rawMtrWrhsPrnmntVO
+     * @return List<RawMtrWrhsPrnmntVO>
+     * @throws Exception
+     */
+    public int deleteRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 입고예정 등록
+     * @param rawMtrWrhsPrnmntVO
+     * @return
+     * @throws Exception
+     */
+    public int insertRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
 }

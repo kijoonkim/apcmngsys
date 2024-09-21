@@ -152,7 +152,7 @@ public class UntyOgnzServiceImpl extends BaseServiceImpl implements UntyOgnzServ
 		
 		for ( UntyOgnzVO apc : ognzApcList ) {
 			untyOgnzMapper.insertApcAprv(apc);
-			untyOgnzMapper.insertApcUserAprv(apc);			
+			untyOgnzMapper.insertApcUserAprv(apc);
 		}
 		return null;
 	}

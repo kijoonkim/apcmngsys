@@ -131,6 +131,18 @@
 							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
+							<th scope="row">신청여부</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-aplyYn"
+									name="srch-slt-aplyYn"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonComAplyYn"
+									unselected-text="전체"
+								></sbux-select>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">사용자명</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -157,10 +169,6 @@
 									title=""
 									maxlength="30"
 								></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
-							<th scope="row"></th>
-							<td class="td_input" style="border-right: hidden;">
 							</td>
 							<td colspan="2" class="td_input"></td>
 						</tr>
@@ -273,6 +281,10 @@
 		{'text': '승인대기', 'value': '00'},
 		{'text': '승인완료', 'value': '01'},
 		{'text': '승인취소', 'value': '09'},
+	];
+	var jsonComAplyYn = [
+		{'text': '신청', 'value': 'Y'},
+		{'text': '미신청', 'value': 'N'},
 	];
 	var jsonUntyAuthrtType = [];
 	
@@ -451,6 +463,7 @@
         		width:'100px', 
         		style:'text-align:left'
         	},
+        	/*
         	{
         		caption: ["관리자"], 	 
 	        	ref: 'authrtMngrYn', 
@@ -458,8 +471,9 @@
 	        	width:'70px', 
 	        	style: 'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-                userattr: {colNm: "authrtMngrYn"},
+                userattr: {colNm: "authrtMngrYn"}
         	},
+        	*/
         	{
         		caption: ["시/도"],
         		ref: 'ctpvNm',      
@@ -469,7 +483,7 @@
         	},
         	{
         		caption: ["시/군/구"],
-        		ref: 'sggNm',      
+        		ref: 'sggExpln',      
         		type:'output',  	
         		width:'100px', 
         		style:'text-align:left'
@@ -485,38 +499,44 @@
 	        	caption: ["직위"],		
 	        	ref: 'jbps',   	
 	        	type:'output',  	
-	        	width:'200px', 
+	        	width:'100px', 
 	        	style:'text-align:center'
 	        },
 	        {
 	        	caption: ["휴대전화"],		
 	        	ref: 'mblTelno',   	
 	        	type:'output',  	
-	        	width:'200px', 
+	        	width:'120px', 
 	        	style:'text-align:left',
-                format : {
-                	type:'string',
-                	rule:'000-0000-0000'
-                }
 	        },
 	        {
 	        	caption: ["전화번호"],		
-	        	ref: 'telno',   	
+	        	ref: 'coTelno',  	
 	        	type:'output',  	
-	        	width:'200px', 
+	        	width:'120px', 
 	        	style:'text-align:left',
-                format : {
-                	type:'string',
-                	rule:'000-0000-0000'
-                }
 	        },
 	        {
 	        	caption: ["이메일주소"],		
 	        	ref: 'eml',   	
 	        	type:'output',  	
-	        	width:'200px', 
+	        	width:'150px', 
 	        	style:'text-align:left'
 	        },
+	        {
+        		caption: ["관리자신청"], 		
+        		ref: 'mngrAplyYn',	
+        		type:'output',  	
+        		width:'80px', 
+        		style:'text-align:center'
+        	},
+        	{
+        		caption: ["업무권한신청"], 		
+        		ref: 'authrtAplyYn',	
+        		type:'output',  	
+        		width:'80px', 
+        		style:'text-align:center'
+        	},
 		];
 		
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
@@ -524,6 +544,17 @@
 	    grdUserAprv.bind('valuechanged', fn_grdUserAprvValueChanged);
 	}
 
+	const fn_setMngrYn = function(nRow, isChecked) {
+		
+		console.log("isChecked", isChecked);
+		
+		if (nRow > 0) {
+			const row = grdUserAprv.getRowData(nRow, false);
+			row.authrtMngrYn = isChecked ? "Y" : "N";
+			console.log(row);
+		}
+	}
+	
     const fn_search = async function() {
     	
     	jsonUserAprv.length = 0;
@@ -547,6 +578,7 @@
 		
 		const untyCtpv = SBUxMethod.get("srch-slt-untyCtpv");
 		const untySgg = SBUxMethod.get("srch-slt-untySgg");
+		const aplyYn = SBUxMethod.get("srch-slt-aplyYn");     // 	신청여부
 		
 		const userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
 		const userId = SBUxMethod.get("srch-inp-userId");     // 	사용자ID
@@ -557,6 +589,7 @@
 			sgg: untySgg,
 			userNm: userNm,
 			userId: userId,
+			aplyYn: aplyYn,
           	// pagination
   	  		pagingYn : 'Y',
   			currentPageNo : currentPageNo,
@@ -592,7 +625,7 @@
 					jbttlNm: 		item.jbttlNm,
 					tkcgTaskNm: 	item.tkcgTaskNm,
 					mblTelno:		item.mblTelno,
-					telno:			item.telno,
+					coTelno:		item.coTelno,
 					odSbmsnYn:		item.odSbmsnYn,
 					aplyDocSbmsnYn:	item.aplyDocSbmsnYn,
 					ognzCd:			item.ognzCd,
@@ -609,6 +642,9 @@
 					ctpvNm:			item.ctpvNm,
 					sgg:			item.sgg,
 					sggNm:			item.sggNm,
+					sggExpln:		item.sggExpln,
+					mngrAplyYn:		item.mngrAplyYn,
+					authrtAplyYn:	item.authrtAplyYn,
   				}
           		
           		jsonUserAprv.push(user);
@@ -630,7 +666,21 @@
           		grdUserAprv.setPageTotalCount(0);
           		grdUserAprv.rebuild();
           	}
-
+          	
+          	/*
+          	const mngrCol = grdUserAprv.getColRef("authrtMngrYn");
+          	const allData = grdUserAprv.getGridDataAll();
+    		for ( let i=0; i<allData.length; i++) {
+    			if (!gfn_isEmpty(allData[i].sgg)) {
+    				grdUserAprv.setCellHide(i+1, mngrCol, i+1, mngrCol, true);
+    				grdUserAprv.setCellDisabled(i+1, mngrCol, i+1, mngrCol, true);
+    			} else {
+    				grdUserAprv.setCellHide(i+1, mngrCol, i+1, mngrCol, false);
+    				grdUserAprv.setCellDisabled(i+1, mngrCol, i+1, mngrCol, false);
+    			}
+    		}
+    		*/
+          	
           	document.querySelector('#cnt-userAprv').innerText = totalRecordCount;
 
 
@@ -667,14 +717,25 @@
 			const item = allData[i];
 			if (item.checkedYn === "Y") {
 				
+				if (_.isEqual(item.userStts, "01")) {
+					gfn_comAlert("W0010", "승인", "회원");		//	W0010	이미 {0}된 {1} 입니다.
+					return;
+				}
+				
+				
+				let authrtMngrYn = gfn_isEmpty(item.sgg) ? "Y" : "N";
+				
 				aprvList.push({
 					userId: item.userId,
-    				authrtMngrYn: 	item.authrtMngrYn,
-    				sysPdYn: 		'Y',
+					authrtMngrYn: authrtMngrYn,
+					//authrtMngrYn: 	item.authrtMngrYn,
+    				//sysPdYn: 		'Y',
     				sysCsYn: 		'Y',
     			});	
     		}
 		}
+		
+		console.log("aprvList", aprvList);
 
 		if (aprvList.length == 0) {
 			gfn_comAlert("W0001", "승인대상");		//	W0001	{0}을/를 선택하세요.
@@ -717,6 +778,11 @@
 
 			const item = allData[i];
 			if (item.checkedYn === "Y") {
+				
+				if (!_.isEqual(item.userStts, "01")) {
+					gfn_comAlert("W0011", "승인된 회원");		//	W0011	{0}이/가 아닙니다.
+					return;
+				}
 				
 				userList.push({
 					userId: item.userId

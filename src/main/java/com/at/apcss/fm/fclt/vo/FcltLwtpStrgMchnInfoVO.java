@@ -36,6 +36,8 @@ public class FcltLwtpStrgMchnInfoVO extends ComVO{
 	private String strgPlcItemCd;
 	private String strgPlcItemNm;
 	private String lwtpStrgPlcHldMthd;
+	private String lwtpStrgPlcHldYn;
+
 	private String strgPlcStrgAblt;
 	private String strgPlcStrmStrgAblt;
 	private String strgPlcLtrmStrgAblt;

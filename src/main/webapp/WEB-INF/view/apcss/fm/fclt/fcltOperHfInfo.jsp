@@ -38,6 +38,8 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 시설고용인력 -->
 			</div>
 			<div style="margin-left: auto;">
+				<!--
+				-->
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -202,8 +204,8 @@
 						<tr>
 							<td class="td_input">
 								<sbux-input
-									id="dtl-inp-hireRgllbrCtzn"
-									name="dtl-inp-hireRgllbrCtzn"
+									id="dtl-inp-hireRgllbrOfc"
+									name="dtl-inp-hireRgllbrOfc"
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
@@ -213,8 +215,8 @@
 							<td>명</td>
 							<td class="td_input">
 								<sbux-input
-									id="dtl-inp-hireRgllbrFrgnr"
-									name="dtl-inp-hireRgllbrFrgnr"
+									id="dtl-inp-hireRgllbrSpt"
+									name="dtl-inp-hireRgllbrSpt"
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
@@ -452,9 +454,8 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-
-				SBUxMethod.set('dtl-inp-hireRgllbrCtzn',gfn_nvl(item.hireRgllbrCtzn));
-				SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',gfn_nvl(item.hireRgllbrFrgnr));
+				SBUxMethod.set('dtl-inp-hireRgllbrSpt',gfn_nvl(item.hireRgllbrSpt));
+				SBUxMethod.set('dtl-inp-hireRgllbrOfc',gfn_nvl(item.hireRgllbrOfc));
 
 				SBUxMethod.set('dtl-inp-hireTmprWgTotSum',gfn_nvl(item.hireTmprWgTotSum));
 				SBUxMethod.set('dtl-inp-hireTmprAvgWg',gfn_nvl(item.hireTmprAvgWg));
@@ -503,8 +504,8 @@
 			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'N' //진척도 갱신 여부
-			,hireRgllbrCtzn : SBUxMethod.get('dtl-inp-hireRgllbrCtzn')
-			,hireRgllbrFrgnr : SBUxMethod.get('dtl-inp-hireRgllbrFrgnr')
+			,hireRgllbrOfc : SBUxMethod.get('dtl-inp-hireRgllbrOfc')
+			,hireRgllbrSpt : SBUxMethod.get('dtl-inp-hireRgllbrSpt')
 
 			,hireTmprWgTotSum : SBUxMethod.get('dtl-inp-hireTmprWgTotSum')
 			,hireTmprAvgWg : SBUxMethod.get('dtl-inp-hireTmprAvgWg')
@@ -599,6 +600,10 @@
 
 			{caption: ["시도"],	ref: 'ctpvNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["시군구"],	ref: 'sigunNm',		type:'input',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["담당자명"],	ref: 'picNm',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["직위"],	ref: 'jbps',		type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["연락처"],	ref: 'coTelno',		type:'input',  width:'100px',    style:'text-align:center'},
 
 			{caption: ["시도"],		ref: 'ctpvCd',		hidden : true},
 			{caption: ["시군구"],		ref: 'sigunCd',		hidden : true},

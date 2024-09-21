@@ -821,7 +821,7 @@
         // let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
 
         let bxQntt = $("#srch-inp-bxQntt").val();
-        let wrhsWght = $("#srch-inp-wrhsWght").val();
+        let wrhsWght = bxQntt * 18;
 
         //let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
         let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고

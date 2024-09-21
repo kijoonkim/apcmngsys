@@ -17,6 +17,11 @@ public class UntyOgnzVO extends ComVO {
 	private String untyOgnzLinkCd;
 	private String ctpv;
 	private String sgg;
+	
+	private String ctpvNm;
+	private String sggNm;
+	private String sggExpln;
+	
 	private int indctSeq;
 	private int untyOgnzLvl;
 	
@@ -44,6 +49,7 @@ public class UntyOgnzVO extends ComVO {
 	private String jbps;
 	private String mblTelno;
 	private String telno;
+	private String coTelno;
 	private String eml;
 	
 	

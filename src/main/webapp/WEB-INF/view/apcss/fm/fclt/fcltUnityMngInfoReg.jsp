@@ -70,6 +70,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
@@ -113,6 +114,13 @@
 										<label class="check_label" for="dtl-inp-umsPrdctnInfo" ></label>
 									</p>
 								</td>
+								<th>계량정보</th>
+								<td>
+									<p class="ad_input_row">
+										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<label class="check_label" for="dtl-inp-umsWghInfo" ></label>
+									</p>
+								</td>
 								<th>입고정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -127,6 +135,9 @@
 										<label class="check_label" for="dtl-inp-umsSortInfo" ></label>
 									</p>
 								</td>
+
+							</tr>
+							<tr>
 								<th>저장정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -134,8 +145,6 @@
 										<label class="check_label" for="dtl-inp-umsStrgInfo" ></label>
 									</p>
 								</td>
-							</tr>
-							<tr>
 								<th>포장정보</th>
 								<td>
 									<p class="ad_input_row">
@@ -157,6 +166,7 @@
 										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
+
 							</tr>
 						</tbody>
 					</table>
@@ -202,7 +212,10 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
-		await fn_clearForm();
+
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
 
 		await fn_search();
 		//진척도
@@ -218,6 +231,7 @@
 
 	const fn_clearForm = async function() {
 		SBUxMethod.set('dtl-inp-umsPrdctnInfo',"N");
+		SBUxMethod.set('dtl-inp-umsWghInfo',"N");
 		SBUxMethod.set('dtl-inp-umsWrhsInfo',"N");
 		SBUxMethod.set('dtl-inp-umsSortInfo',"N");
 		SBUxMethod.set('dtl-inp-umsStrgInfo',"N");
@@ -227,6 +241,10 @@
 	}
 
 	const fn_search = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		await fn_clearForm();
 		await fn_selectUniMnIfList();
 	}
@@ -259,6 +277,7 @@
 
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
+				SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
 				SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
 				SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
 				SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
@@ -295,6 +314,10 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
@@ -310,6 +333,7 @@
 			, tmprStrgYn : tmpChk//임시저장 여부
 
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
+			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()
 			,umsSortInfo : $('#dtl-inp-umsSortInfo').val()
 			,umsStrgInfo : $('#dtl-inp-umsStrgInfo').val()

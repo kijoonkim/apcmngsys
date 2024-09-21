@@ -611,6 +611,8 @@
 	var p_ss_deptCode			= '${loginVO.maDeptCode}';
 	var p_ss_deptName			= '${loginVO.maDeptName}';
 	var p_ss_currUnit			= '${loginVO.maCurrUnit}';
+
+	var p_menu_param			= null;	// 메뉴이동 파라미터
 	
 	//grid 초기화
 	var Fig2310GridList; 			// 그리드를 담기위한 객체 선언
@@ -1438,7 +1440,7 @@
 
         const postJsonPromise = gfn_postJSON("/fi/far/rec/getExpectedPayDate.do", {
             getType: 'json',
-            workType: 'Q2',
+            workType: wType,
             cv_count: '1',
             params: gfnma_objectToString(paramObj)
         });
@@ -3573,7 +3575,8 @@
      * close
      */
 	function fn_cancel() {
-		SBUxMethod.removeTab("tab_menu", 'TAB_MA_A20_030_020_001');
+	    let menuId = 'MA_A20_030_020_001';
+		window.parent.cfn_closeTab(menuId);
     }
     
     //폼의 값 --> 그리드에 셋팅하기

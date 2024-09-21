@@ -157,24 +157,39 @@
 		    	{
 	 	        	caption: ['APC명'], 		
 	 	        	ref: 'apcNm',		
-	 	        	width: '20%', 
+	 	        	width: '15%', 
 	 	        	type: 'output', 
 	 	        	style:'text-align:left'
 	 	        },
 	 	       	{
 	 	        	caption: ['사업자번호'], 			
-	 	        	ref: 'addr', 	
-	 	        	width: '20%', 
+	 	        	ref: 'brno', 	
+	 	        	width: '15%', 
 	 	        	type: 'output', 
 	 	        	style:'text-align:left'
 	 	        },
 	 	        {
 	 	        	caption: ['주소'], 			
 	 	        	ref: 'addr', 	
-	 	        	width: '50%', 
+	 	        	width: '30%', 
 	 	        	type: 'output', 
 	 	        	style:'text-align:left'
 	 	        },
+	 	        {
+	 	        	caption: ['시/도'], 			
+	 	        	ref: 'ctpvNm', 	
+	 	        	width: '10%', 
+	 	        	type: 'output', 
+	 	        	style:'text-align:left'
+	 	        },
+	 	        {
+	 	        	caption: ['시/군/구'], 			
+	 	        	ref: 'sggExpln', 	
+	 	        	width: '20%', 
+	 	        	type: 'output', 
+	 	        	style:'text-align:left'
+	 	        },
+	 	        
 		    ];
 		    grdOgnzApcPop = _SBGrid.create(SBGridProperties);
 		    grdOgnzApcPop.bind('dblclick', popOgnzApc.choice);

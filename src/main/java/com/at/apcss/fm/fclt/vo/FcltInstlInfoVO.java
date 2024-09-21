@@ -40,6 +40,7 @@ public class FcltInstlInfoVO extends ComVO{
 	private String apcCd;
 	private String apcNm;
 	private String sprtBiz;
+	private String sprtBizNm;
 	private String bizCn;
 	private String bizNm;//사업명
 	private String bizCd;//사업코드
@@ -48,5 +49,8 @@ public class FcltInstlInfoVO extends ComVO{
 	private String slfBrdn;
 	private String lcltExpndCtpv;
 	private String lcltExpndSgg;
+
+	private String userId;
+	private String userType;
 }
 

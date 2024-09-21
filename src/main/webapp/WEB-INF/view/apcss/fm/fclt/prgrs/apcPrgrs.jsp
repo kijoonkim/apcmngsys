@@ -387,4 +387,19 @@
 			//진척도 조회
 			cfn_selectPrgrs();
 		}
+
+		const cfn_report = async function() {
+			let apcCd = SBUxMethod.get("srch-inp-apcCd");
+			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
+
+			if(apcCd == null || apcCd == "" || apcCd === undefined){
+				return;
+			}
+
+			gfn_popClipReport("test출력", "fm/apcReport_20240913.crf", {
+				apcCd 		: gfn_nvl(apcCd)
+				, crtrYr 	: gfn_nvl(crtrYr)
+			});
+		}
+
 	</script>

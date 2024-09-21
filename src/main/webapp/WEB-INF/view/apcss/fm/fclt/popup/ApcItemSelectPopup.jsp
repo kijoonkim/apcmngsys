@@ -30,20 +30,13 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 11%">
-						<col style="width: 22%">
-						<col style="width: 11%">
-						<col style="width: 22%">
+						<col style="width: 10%">
+						<col style="width: 30%">
+						<col style="width: 10%">
+						<col style="width: 30%">
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row">품목명</th>
-							<td>
-								<sbux-input id="item-inp-itemNm" name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_itemSelectEnterKey"></sbux-input>
-							</td>
-							<!--
-							<th colspan="1"></th>
-							-->
 							<th scope="row">부류</th>
 							<td>
 								<sbux-select
@@ -54,6 +47,10 @@
 									unselected-text="전체"
 									class="form-control input-sm"
 								></sbux-select>
+							</td>
+							<th scope="row">품목명</th>
+							<td>
+								<sbux-input id="item-inp-itemNm" name="item-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_itemSelectEnterKey"></sbux-input>
 							</td>
 						</tr>
 					</tbody>
@@ -149,11 +146,13 @@
 				'showgoalpageui' : true
 			};
 			SBGridProperties.columns = [
-				{caption: ['부류코드'], ref: 'clsCd', width: '15%', type: 'input', style: 'text-align:center'},
-				{caption: ['부류명'], ref: 'clsNm', width: '35%', type: 'input', style: 'text-align:center'},
-				{caption: ['품목코드'], ref: 'itemCd', width: '15%', type: 'input', style: 'text-align:center'},
-				{caption: ['품목명'], ref: 'itemNm', width: '35%', type: 'input', style: 'text-align:center'},
+				{caption: ['부류명'], ref: 'clsNm', width: '50%', type: 'input', style: 'text-align:center'},
+				{caption: ['품목명'], ref: 'itemNm', width: '50%', type: 'input', style: 'text-align:center'},
+				//{caption: ['부류코드'], ref: 'clsCd', width: '15%', type: 'input', style: 'text-align:center'},
+				//{caption: ['품목코드'], ref: 'itemCd', width: '15%', type: 'input', style: 'text-align:center'},
 				{caption: ["조회용 부류"], 	ref: 'srchLclsfCd',   hidden : true},
+				{caption: ["부류코드"], 	ref: 'clsCd',   hidden : true},
+				{caption: ["품목코드"], 	ref: 'itemCd',   hidden : true},
 			];
 
 			grdItemPop = _SBGrid.create(SBGridProperties);
@@ -195,9 +194,9 @@
 				itemNm : itemNm, //검색 파라미터
 				srchLclsfCd : srchLclsfCd,
 				// pagination
-				pagingYn : 'Y',
-				currentPageNo : pageNo,
-				recordCountPerPage : pageSize
+				//pagingYn : 'Y',
+				//currentPageNo : pageNo,
+				//recordCountPerPage : pageSize
 			});
 
 			const data = await postJsonPromise;

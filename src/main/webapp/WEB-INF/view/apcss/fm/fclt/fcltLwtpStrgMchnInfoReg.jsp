@@ -71,6 +71,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
@@ -373,7 +374,11 @@
 		fn_init();
 	})
 
+	/* 초기세팅 */
 	const fn_init = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
 		await fn_search();//데이터 조회
 
 		await cfn_selectPrgrs();//진척도
@@ -395,6 +400,11 @@
 	}
 
 	const fn_search = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+		fn_clearForm();
 		fn_setGrdLtMcIfList();
 	}
 
@@ -421,12 +431,13 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-				let lwtpStrgPlcHldMthd = item.lwtpStrgPlcHldMthd;//보유현황
-				if(lwtpStrgPlcHldMthd == '0'){
+				let lwtpStrgPlcHldYn = item.lwtpStrgPlcHldYn;//보유현황
+
+				if(lwtpStrgPlcHldYn == 'N'){
 					SBUxMethod.changeGroupAttr('group1','disabled','true');
 					SBUxMethod.changeGroupAttr('group2','disabled','true');
 					SBUxMethod.set('dtl-rdo-itemChk','N');
-				}else if(lwtpStrgPlcHldMthd == '1'){
+				}else if(lwtpStrgPlcHldYn == 'Y'){
 					SBUxMethod.changeGroupAttr('group1','disabled','false');
 					SBUxMethod.changeGroupAttr('group2','disabled','false');
 					SBUxMethod.set('dtl-rdo-itemChk','Y');
@@ -438,8 +449,11 @@
 					//저장 가동률 계산
 					fn_strgPlcOprtngRt();
 
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_non',item.operYn);
+					//운영 안함 여부
+					let operNonYn = item.operYn == "Y" ? "N" : "Y";
+					SBUxMethod.set('warehouseSeCd_chk_mon_2_non',operYn);
 					//SBUxMethod.set('warehouseSeCd_chk_mon_2_1',item.operPeriodYn);
+
 					if(item.operYn == 'Y'){
 						SBUxMethod.set('warehouseSeCd_chk_mon_2_2',item.operPeriodYn1);
 						SBUxMethod.set('warehouseSeCd_chk_mon_2_3',item.operPeriodYn2);
@@ -486,6 +500,10 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
@@ -510,9 +528,9 @@
 		};
 
 		if(itemChk == 'Y'){
-			let operYn = $('#warehouseSeCd_chk_mon_2_non').val();//운영안함 여부
+			let operYn = $('#warehouseSeCd_chk_mon_2_non').val() == "Y" ? "N" : "Y";//운영안함 여부
 			saveList.operYn = operYn;
-			if(operYn == 'N'){
+			if(operYn == 'Y'){
 				//saveList.operPeriodYn = $('#warehouseSeCd_chk_mon_2_1').val();//전체선택
 				saveList.operPeriodYn1 = $('#warehouseSeCd_chk_mon_2_2').val();
 				saveList.operPeriodYn2 = $('#warehouseSeCd_chk_mon_2_3').val();

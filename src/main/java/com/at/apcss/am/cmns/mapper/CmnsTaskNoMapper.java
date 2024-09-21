@@ -1,6 +1,8 @@
 package com.at.apcss.am.cmns.mapper;
 
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
+import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.cmns.vo.CmnsTaskNoVO;
@@ -37,4 +39,12 @@ public interface CmnsTaskNoMapper {
 	 * @throws Exception
 	 */
 	public String selectFnGetPltNo(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 원물입고예정번호 발번
+	 * @param rawMtrWrhsPrnmntVO
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectFnGetPrnmntNo(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
 }

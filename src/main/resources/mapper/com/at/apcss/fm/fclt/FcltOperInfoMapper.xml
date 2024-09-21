@@ -80,19 +80,26 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectFcltOperInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList */
-					  AOPO.OPER_OGNZ_NM
-					, AOPO.CRTR_YR
+					 AOPO.CRTR_YR
+
+					<if test='memberInfoYn == "Y"'>
+					, (SELECT CO_NM FROM TB_COM_USER WHERE USER_ID = #{userId}) AS OPER_OGNZ_NM
+					, (SELECT RPRSV_KORN_NM FROM TB_COM_USER WHERE USER_ID = #{userId}) AS RPRSV
+					, (SELECT BRNO FROM TB_COM_USER WHERE USER_ID = #{userId}) AS OPER_OGNZ_BRNO
+					, (SELECT CRNO FROM TB_COM_USER WHERE USER_ID = #{userId}) AS OPER_OGNZ_CRNO
+					</if>
+
+					<if test='memberInfoYn != "Y"'>
+					, AOPO.OPER_OGNZ_NM
+					, AOPO.RPRSV
 					, AOPO.OPER_OGNZ_BRNO
 					, AOPO.OPER_OGNZ_CRNO
-
+					</if>
 					, AOPO.APC_CD
 					, AOPO.APC_NM
-					, AOPO.APC_BRNO
-					, AOPO.APC_CRNO
 
-					, AOPO.RPRSV
+					, AOPO.APC_BRNO
 
 					, AOPO.LOCTN
 					, AOPO.LOCTN_DTL
@@ -121,7 +128,6 @@
 			WHERE 1=1
 			  AND AOPO.DEL_YN = 'N'
 			  AND AOPO.APC_CD IS NOT NULL
-			]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
 			  AND  AOPO.CRTR_YR = #{crtrYr}
 			</if>
@@ -521,6 +527,21 @@
 		  AND  AOPO.APC_NM LIKE '%' || #{apcNm} || '%'
 		</if>
 
+		<if test='userId != null and userId != ""'>
+			<if test='userType == "27" or userType == "28"'>
+			AND APC_CD IN (SELECT APC_CD
+							FROM TB_APC_INFO
+							WHERE 1=1
+							<if test='userType == "27"'>
+							  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+							</if>
+							<if test='userType == "28"'>
+							  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+							</if>
+							)
+			</if>
+		</if>
+
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			  ) pt0
@@ -528,5 +549,72 @@
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
 		</if>
 		<!-- End 페이징 -->
+	</select>
+
+
+	<select id="selectFcltOperInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltApcVO" resultType="com.at.apcss.fm.fclt.vo.FcltApcVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoRawDataList */
+					  AOPO.OPER_OGNZ_NM
+					, AOPO.CRTR_YR
+					, AOPO.OPER_OGNZ_BRNO
+					, AOPO.OPER_OGNZ_CRNO
+
+					, AOPO.APC_CD
+					, AOPO.APC_NM
+					, AOPO.APC_BRNO
+
+					, AOPO.RPRSV
+
+					, (AOPO.LOCTN || ', ' || AOPO.LOCTN_DTL) AS LOCTN
+					, AOPO.OPER_OGNZ_ZIP
+
+					, (AOPO.APC_LOCTN || ', ' || AOPO.APC_LOCTN_DTL) AS APC_LOCTN
+					, AOPO.APC_ZIP
+
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '1' AND OGNZ_SE_CD ='1'
+					) AS ITEM_NM_1
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '2' AND OGNZ_SE_CD ='1'
+					) AS ITEM_NM_2
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '3' AND OGNZ_SE_CD ='1'
+					) AS ITEM_NM_3
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '4' AND OGNZ_SE_CD ='1'
+					) AS ITEM_NM_4
+					,(SELECT FN_GET_COM_CD_VL_NM('ETC_CLS',ETC_CTGRY_CD) FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '4' AND OGNZ_SE_CD ='1'
+					) AS ETC_CTGRY_CD
+
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '1' AND OGNZ_SE_CD ='2'
+					) AS APC_ITEM_NM_1
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '2' AND OGNZ_SE_CD ='2'
+					) AS APC_ITEM_NM_2
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '3' AND OGNZ_SE_CD ='2'
+					) AS APC_ITEM_NM_3
+					,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '4' AND OGNZ_SE_CD ='2'
+					) AS APC_ITEM_NM_4
+					,(SELECT FN_GET_COM_CD_VL_NM('ETC_CLS',ETC_CTGRY_CD) FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '4' AND OGNZ_SE_CD ='2'
+					) AS APC_ETC_CTGRY_CD
+
+			FROM TB_TE_APC_OPER_PRSN_OTLN AOPO
+			WHERE 1=1
+			  AND AOPO.DEL_YN = 'N'
+			  AND AOPO.APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND  AOPO.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
 	</select>
 </mapper>

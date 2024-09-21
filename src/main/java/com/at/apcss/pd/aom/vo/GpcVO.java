@@ -22,6 +22,8 @@ public class GpcVO extends ComVO{
 	private String ctgryNm;			//분류명
 	private String itemCd;			//품목코드
 	private String itemNm;			//품목명
+	private String clsfCd;			//품목코드
+	private String clsfNm;			//품목명
 	private String rmrk;			//비고
 
 

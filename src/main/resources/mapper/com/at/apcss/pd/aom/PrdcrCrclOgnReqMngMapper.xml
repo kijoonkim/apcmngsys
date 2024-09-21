@@ -541,7 +541,10 @@
 					SET
 						RMRK	= #{rmrk}
 						, CTGRY_CD 				= #{ctgryCd}
+						, CTGRY_NM 				= (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = #{ctgryCd})
 						, STTG_UPBR_ITEM_SE 	= #{sttgUpbrItemSe}
+						, CLSF_CD 				= #{clsfCd}
+						, CLSF_NM 				= (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = #{clsfCd})
 				]]>
 				<if test='delYn != null and delYn != ""'>
 						, DEL_YN 				= #{delYn}
@@ -567,6 +570,8 @@
 		    		  , STTG_UPBR_ITEM_SE
 		    		  , CTGRY_CD
 		    		  , CTGRY_NM
+		    		  , CLSF_CD
+		    		  , CLSF_NM
 		    		  , ITEM_CD
 		    		  , ITEM_NM
 		    		  , RMRK
@@ -590,6 +595,8 @@
 		   			  , #{sttgUpbrItemSe}
 		   			  , #{ctgryCd}
 		   			  , (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = #{ctgryCd})
+		   			  , #{clsfCd}
+		   			  , (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = #{clsfCd})
 		   			  , #{itemCd}
 		   			  , #{itemNm}
 		   			  , #{rmrk}
@@ -615,6 +622,8 @@
 
 				, CM.YR
 				, CM.STTG_UPBR_ITEM_SE
+				, CM.CLSF_CD
+				, CM.CLSF_NM
 				, CM.CTGRY_CD
 				, CM.CTGRY_NM
 				, CM.ITEM_CD
@@ -690,6 +699,7 @@
 			,A.CRNO
 			,A.CORP_NM
 			,C.CTGRY_NM
+			,C.CLSF_NM
 			,DECODE(C.STTG_UPBR_ITEM_SE,1,'전문',2,'육성','') AS STTG_UPBR_ITEM_NM
 			,C.ITEM_NM
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_CTPV' AND CD_VL = A.CTPV) AS CTPV

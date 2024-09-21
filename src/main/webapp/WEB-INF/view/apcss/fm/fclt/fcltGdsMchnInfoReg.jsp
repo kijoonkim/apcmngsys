@@ -70,6 +70,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
@@ -397,9 +398,11 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
 
 		await fn_search();
-
 		//진척도
 		await cfn_selectPrgrs();
 
@@ -413,10 +416,13 @@
 	}
 
 	const fn_search = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+		await fn_clearForm();
 
-		fn_clearForm();
-
-		fn_setGrdGdsMcList();
+		await fn_setGrdGdsMcList();
 	}
 
 	/**
@@ -505,7 +511,7 @@
 	//등록
 	const fn_save = async function() {
 		//console.log("******************fn_save**********************************");
-		/*
+
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
@@ -516,13 +522,17 @@
 			alert("대상연도를 작성해주세요");
 			return;
 		}
-		*/
+
 
 		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 

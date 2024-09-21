@@ -44,4 +44,12 @@ public interface ComAtchflMapper {
 	 * @throws Exception
 	 */
 	public ComAtchflVO selectComAtchfl(ComAtchflVO comAtchflVO) throws Exception;
+
+	/**
+	 * 첨부파일 삭제
+	 * @param comAtchflVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int deleteComAtchfl(ComAtchflVO comAtchflVO) throws Exception;
 }

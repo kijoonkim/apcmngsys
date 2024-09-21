@@ -70,6 +70,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
@@ -658,6 +659,85 @@
 								</td>
 								<td>톤</td>
 							</tr>
+							<tr>
+								<th class="text-center">계</th>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+										name="dtl-inp-rtlOgnzTotTrmtAmtTot1"
+										uitype="text" class="form-control input-sm"
+										placeholder="자동계산"
+										readonly
+										style="text-align: right;"
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzGnrlSumTot1"
+										name="dtl-inp-rtlOgnzGnrlSumTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										readonly
+										style="text-align: right;"
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzGnrlSmplTrstTot1"
+										name="dtl-inp-rtlOgnzGnrlSmplTrstTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzGnrlSmplEmspapTot1"
+										name="dtl-inp-rtlOgnzGnrlSmplEmspapTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzOGnzSumTot1"
+										name="dtl-inp-rtlOgnzOGnzSumTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzOgnzCprtnSortTrstTot1"
+										name="dtl-inp-rtlOgnzOgnzCprtnSortTrstTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-rtlOgnzOgnzCtrtEmspapTot1"
+										name="dtl-inp-rtlOgnzOgnzCtrtEmspapTot1"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder="자동계산"
+										style="text-align: right;"
+										readonly
+									></sbux-input>
+								</td>
+							</tr>
 						</thead>
 					</table>
 					</div>
@@ -701,7 +781,13 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
-		await fn_selectOgPcList();
+
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+
+		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
 
@@ -714,8 +800,24 @@
 		}
 	}
 
+	const fn_clearForm = async function() {
+		for (var sn = 1; sn < 5; sn++) {
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,null);
+		}
+		fn_sum();
+	}
+
 	const fn_search = async function() {
-		fn_selectOgPcList();
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
+		await fn_clearForm();
+		await fn_selectOgPcList();
 	}
 
 	const fn_selectOgPcList = async function(copy_chk) {
@@ -740,7 +842,7 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-				console.log(item);
+				//console.log(item);
 
 				let sn = item.sn;
 
@@ -791,6 +893,10 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
@@ -873,6 +979,12 @@
 		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspapTot',rtlOgnzOgnzCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0));
 		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlmTot',rtlOgnzTotTrmtVlmArr.reduce((acc, cur) => {return acc + cur;}, 0));
 
+		//한글 단위 표시
+		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrstTot1',fn_numberToKorean( rtlOgnzGnrlSmplTrstArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspapTot1',fn_numberToKorean( rtlOgnzGnrlSmplEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrstTot1',fn_numberToKorean( rtlOgnzOgnzCprtnSortTrstArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspapTot1',fn_numberToKorean( rtlOgnzOgnzCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+
 		let rtlOgnzTotTrmtAmt = [];
 		let rtlOgnzGnrlSum = [];
 		let rtlOgnzOGnzSum = [];
@@ -895,6 +1007,10 @@
 		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSumTot',rtlOgnzGnrlSum.reduce((acc, cur) => {return acc + cur;}, 0));
 		SBUxMethod.set('dtl-inp-rtlOgnzOGnzSumTot',rtlOgnzOGnzSum.reduce((acc, cur) => {return acc + cur;}, 0));
 
+		//한글 단위 표시
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1',fn_numberToKorean( rtlOgnzTotTrmtAmt.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSumTot1',fn_numberToKorean( rtlOgnzGnrlSum.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-rtlOgnzOGnzSumTot1',fn_numberToKorean( rtlOgnzOGnzSum.reduce((acc, cur) => {return acc + cur;}, 0) ));
 	}
 
 	// 숫자(소숫점 가능)만 입력
@@ -944,5 +1060,34 @@
 		await fn_search();
 	}
 
+	function fn_numberToKorean(number) {
+		if(number == null){
+			return "";
+		}
+		if(typeof number == "string"){
+			number = parseFloat(number);
+		}
+		//기본 단위 100만원  100 0000
+		number = number * 100
+		var inputNumber = number < 0 ? false : number;
+		var unitWords = ["만", "억", "조", "경"];
+		var splitUnit = 10000;
+		var splitCount = unitWords.length;
+		var resultArray = [];
+		var resultString = "";
+
+		for (var i = 0; i < splitCount; i++) {
+			var unitResult = (inputNumber % Math.pow(splitUnit, i + 1)) / Math.pow(splitUnit, i);
+			unitResult = Math.floor(unitResult);
+			if (unitResult > 0) {
+				resultArray[i] = unitResult;
+			}
+		}
+		for (var i = 0; i < resultArray.length; i++) {
+			if (!resultArray[i]) continue;
+			resultString = String(resultArray[i]) + unitWords[i] + resultString;
+		}
+		return resultString + "원";
+	}
 </script>
 </html>

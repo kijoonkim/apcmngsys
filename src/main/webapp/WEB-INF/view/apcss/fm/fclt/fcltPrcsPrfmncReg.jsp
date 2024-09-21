@@ -69,6 +69,7 @@
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									disabled
 								></sbux-spinner>
 						</td>
 						<td></td>
@@ -566,6 +567,67 @@
 								</td>
 								<td>%</td>
 							</tr>
+							<tr>
+								<th class="text-center">계</th>
+
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-apcGnrlTrmtAmtTot1"
+										name="dtl-inp-apcGnrlTrmtAmtTot1"
+										uitype="text"
+										class="form-control input-sm"
+										style="text-align: right;"
+										placeholder="자동계산"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-apcOgnzCprtnSortTrstTot1"
+										name="dtl-inp-apcOgnzCprtnSortTrstTot1"
+										uitype="text"
+										class="form-control input-sm"
+										style="text-align: right;"
+										placeholder="자동계산"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-apcCtrtEmspapTot1"
+										name="dtl-inp-apcCtrtEmspapTot1"
+										uitype="text"
+										class="form-control input-sm"
+										style="text-align: right;"
+										placeholder="자동계산"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-apcTrmtAmtTot1"
+										name="dtl-inp-apcTrmtAmtTot1"
+										uitype="text"
+										class="form-control input-sm"
+										style="text-align: right;"
+										placeholder="자동계산"
+										readonly
+									></sbux-input>
+								</td>
+								<td colspan="2">
+								</td>
+								<td colspan="2">
+									<sbux-input
+										id="dtl-inp-apcTmSpmtAmtTot1"
+										name="dtl-inp-apcTmSpmtAmtTot1"
+										uitype="text"
+										class="form-control input-sm"
+										style="text-align: right;"
+										placeholder="자동계산"
+										readonly
+									></sbux-input>
+								</td>
+							</tr>
 						</thead>
 					</table>
 				</div>
@@ -610,7 +672,9 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
-
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			return;
+		}
 		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
@@ -624,6 +688,10 @@
 	}
 
 	const fn_search = async function() {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_selectAtMcIfList();
 	}
 
@@ -691,6 +759,10 @@
 
 	//임시저장
 	const fn_tmprStrg = async function(tmpChk) {
+		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
+			alert('APC를 선택해주세요');
+			return;
+		}
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
@@ -768,6 +840,11 @@
 		SBUxMethod.set('dtl-inp-apcCtrtEmspapTot',apcCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0));
 		SBUxMethod.set('dtl-inp-apcTrmtVlmTot',apcTrmtVlmArr.reduce((acc, cur) => {return acc + cur;}, 0));
 
+		//한글 단위 표시
+		SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtTot1', fn_numberToKorean( apcGnrlTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstTot1', fn_numberToKorean( apcOgnzCprtnSortTrstArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+		SBUxMethod.set('dtl-inp-apcCtrtEmspapTot1', fn_numberToKorean( apcCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
+
 		let apcTrmtAmtArr = [];
 
 		for (var i = 0; i < 4; i++) {
@@ -783,11 +860,15 @@
 			SBUxMethod.set('dtl-inp-apcTrmtAmt'+(i+1),sum1);
 			SBUxMethod.set('dtl-inp-apcTmSpmtRt'+(i+1),rt1.toFixed(0));
 		}
-		let apcTrmtAmtTot = apcTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
 
-		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',apcTrmtAmtTot );
+		let apcTrmtAmtTot = apcTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
+		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',apcTrmtAmtTot);
 		let apcTmSpmtAmtTot = apcTmSpmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
 		SBUxMethod.set('dtl-inp-apcTmSpmtAmtTot',apcTmSpmtAmtTot);
+
+		//한글 단위 표시
+		SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',fn_numberToKorean( apcTrmtAmtTot ));
+		SBUxMethod.set('dtl-inp-apcTmSpmtAmtTot1',fn_numberToKorean( apcTmSpmtAmtTot ));
 
 		let totRt;
 		if(apcTrmtAmtTot === 0){
@@ -843,6 +924,36 @@
 		//진척도 갱신
 		await cfn_selectPrgrs();
 		await fn_search();
+	}
+
+	function fn_numberToKorean(number) {
+		if(number == null){
+			return "";
+		}
+		if(typeof number == "string"){
+			number = parseFloat(number);
+		}
+		//기본 단위 100만원  100 0000
+		number = number * 100
+		var inputNumber = number < 0 ? false : number;
+		var unitWords = ["만", "억", "조", "경"];
+		var splitUnit = 10000;
+		var splitCount = unitWords.length;
+		var resultArray = [];
+		var resultString = "";
+
+		for (var i = 0; i < splitCount; i++) {
+			var unitResult = (inputNumber % Math.pow(splitUnit, i + 1)) / Math.pow(splitUnit, i);
+			unitResult = Math.floor(unitResult);
+			if (unitResult > 0) {
+				resultArray[i] = unitResult;
+			}
+		}
+		for (var i = 0; i < resultArray.length; i++) {
+			if (!resultArray[i]) continue;
+			resultString = String(resultArray[i]) + unitWords[i] + resultString;
+		}
+		return resultString + "원";
 	}
 
 </script>

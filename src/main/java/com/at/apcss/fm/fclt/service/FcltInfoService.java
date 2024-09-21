@@ -8,7 +8,7 @@ import com.at.apcss.fm.fclt.vo.FcltInfoVO;
 
 /**
  * 시설현황 Service 인터페이스
- * @author 
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -79,4 +79,11 @@ public interface FcltInfoService {
 	 */
 	public int deleteFcltInfoList(List<FcltInfoVO> fcltInfoList) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltInfoVO> selectFcltInfoRawDataList(FcltInfoVO fcltInfoVO) throws Exception;
 }

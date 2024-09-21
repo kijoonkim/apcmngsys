@@ -68,6 +68,9 @@ public class FcltGdsMchnInfoVO extends ComVO{
 	private String mnfcMchn;
 	private String mkrNm;//제조사명 추가
 	private String sortMchnHoldYn;//선별기 보유여부
+
+	private String userId;
+	private String userType;
 }
 
 

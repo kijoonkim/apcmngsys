@@ -960,6 +960,26 @@
 					    ON AM.AUTHRT_ID = CA.AUTHRT_ID
 					   AND AM.DEL_YN = 'N'
 					 WHERE CA.DEL_YN = 'N'
+					 
+					   AND (
+					   		EXISTS (
+					   				SELECT 1
+					   				  FROM TB_COM_USER X
+					   				 WHERE X.USER_ID = #{userId}
+					   				   AND X.UNTY_AUTHRT_TYPE IN ('00', '01')
+					   			)
+					   		OR
+					   		SUBSTR(AM.MENU_ID, 1, 2) IN (
+					   			SELECT X.SYS_ID
+					   			  FROM TB_COM_USER_SYS_AUTH X
+					   			 WHERE X.USER_ID = #{userId}
+					   			   AND X.APRV_YN = 'Y'
+					   			UNION ALL
+					   			SELECT 'CO'
+					   			  FROM DUAL
+					   		)
+						)
+					   		
     	]]>
 				<if test='authrtId != null and authrtId != ""'>
 					   AND CA.AUTHRT_ID = #{authrtId}
@@ -1016,28 +1036,46 @@
 								, AUTH.AUTHRT_TYPE	AS AUTHRT_TYPE
 								, NVL2(AUTH.MENU_ID, 'Y', 'N') AS USE_YN
 
-				  FROM
-				    (SELECT
-				      2		    AS LVL
-					, 999+ROWNUM 	AS SEQ
-
-				    , 'BM'			    AS SYS_ID
-				    , 'BM'		        AS UP_MENU_ID
-				    , '즐겨찾기'		AS UP_MENU_NM
-				    , MN.MENU_ID		AS MENU_ID
-				    , MN.MENU_NM		AS MENU_NM
-				    , MN.MENU_TYPE  	AS MENU_TYPE
-				    , MN.USER_TYPE		AS USER_TYPE
-				    , MN.PAGE_URL		AS PAGE_URL
-				    , MN.APC_CD			AS APC_CD
-				    , MN.INDCT_SEQ		AS INDCT_SEQ
-				    , 'Y'               AS BMK_YN
-
-				 FROM TB_COM_MENU MN
-				    , TB_COM_MENU_BMK MB
-				WHERE MN.MENU_ID = MB.MENU_ID
-				 AND MN.DEL_YN = 'N'
-				 AND MB.USER_ID = #{userId}
+				  FROM (
+				    SELECT
+					      2		    AS LVL
+						, 999+ROWNUM 	AS SEQ
+	
+					    , 'BM'			    AS SYS_ID
+					    , 'BM'		        AS UP_MENU_ID
+					    , '즐겨찾기'		AS UP_MENU_NM
+					    , MN.MENU_ID		AS MENU_ID
+					    , MN.MENU_NM		AS MENU_NM
+					    , MN.MENU_TYPE  	AS MENU_TYPE
+					    , MN.USER_TYPE		AS USER_TYPE
+					    , MN.PAGE_URL		AS PAGE_URL
+					    , MN.APC_CD			AS APC_CD
+					    , MN.INDCT_SEQ		AS INDCT_SEQ
+					    , 'Y'               AS BMK_YN
+	
+					 FROM TB_COM_MENU MN
+					    , TB_COM_MENU_BMK MB
+					WHERE MN.MENU_ID = MB.MENU_ID
+					 AND MN.DEL_YN = 'N'
+					 AND MB.USER_ID = #{userId}
+					 AND (
+					   		EXISTS (
+					   				SELECT 1
+					   				  FROM TB_COM_USER X
+					   				 WHERE X.USER_ID = #{userId}
+					   				   AND X.UNTY_AUTHRT_TYPE IN ('00', '01')
+					   			)
+					   		OR
+					   		SUBSTR(MB.MENU_ID, 1, 2) IN (
+					   			SELECT X.SYS_ID
+					   			  FROM TB_COM_USER_SYS_AUTH X
+					   			 WHERE X.USER_ID = #{userId}
+					   			   AND X.APRV_YN = 'Y'
+					   			UNION ALL
+					   			SELECT 'CO'
+					   			  FROM DUAL
+					   		)
+						)
 				 ) MN
 
 				 LEFT JOIN TB_COM_MENU UM
