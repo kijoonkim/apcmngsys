@@ -743,7 +743,7 @@
 			return;
 		}
 
-		if(confirm("기존 데이터를 삭제 하시곘습니까?")){
+		if(confirm("기존 데이터를 삭제 하시곘습니까?\n확인을 누를시 삭제 됩니다\n취소를 누를시 삭제 하지 않고 저장됩니다")){
 			let delList = grdFcltInstlInfo.getGridDataAll();
 			await fn_deleteRsrc(delList);
 		}
