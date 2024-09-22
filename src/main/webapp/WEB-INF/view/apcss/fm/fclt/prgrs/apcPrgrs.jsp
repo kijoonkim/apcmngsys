@@ -395,7 +395,7 @@
 			if(apcCd == null || apcCd == "" || apcCd === undefined){
 				return;
 			}
-
+			//comReport.js
 			gfn_popClipReport("test출력", "fm/apcReport_20240913.crf", {
 				apcCd 		: gfn_nvl(apcCd)
 				, crtrYr 	: gfn_nvl(crtrYr)
