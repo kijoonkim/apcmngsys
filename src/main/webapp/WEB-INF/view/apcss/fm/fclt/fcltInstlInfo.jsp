@@ -1116,6 +1116,7 @@
 		SBGridProperties.id = 'grdFcltApcInfo';
 		SBGridProperties.jsonref = 'jsonFcltApcInfo';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
@@ -1199,9 +1200,9 @@
 			sigunCd: sigunCd,
 
 			// pagination
-			pagingYn : 'Y',
-			currentPageNo : pageNo,
-			recordCountPerPage : pageSize
+			//pagingYn : 'Y',
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
 		});
 		const data = await postJsonPromise;
 		//await 오류시 확인

@@ -11,7 +11,7 @@
 				uitype="normal"
 				text="출력"
 				class="btn btn-sm btn-primary"
-				onclick="cfn_print"
+				onclick="cfn_report"
 			></sbux-button>
 			<sbux-button
 				id="prgrs-btnLastSave"
@@ -391,7 +391,7 @@
 		const cfn_report = async function() {
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
-
+			console.log(apcCd,crtrYr);
 			if(apcCd == null || apcCd == "" || apcCd === undefined){
 				return;
 			}
