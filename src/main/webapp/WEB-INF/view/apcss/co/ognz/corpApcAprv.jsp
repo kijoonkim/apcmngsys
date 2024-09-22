@@ -372,6 +372,13 @@
         		style:'text-align:left'
         	},
         	{
+        		caption: ["APC코드"],
+        		ref: 'apcCd',      
+        		type:'output',  	
+        		width:'60px', 
+        		style:'text-align:center'
+        	},
+        	{
         		caption: ["신청"], 		
         		ref: 'aplyYn',	
         		type:'output',  	
