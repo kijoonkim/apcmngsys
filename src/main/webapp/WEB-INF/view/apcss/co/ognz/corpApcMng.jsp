@@ -397,7 +397,7 @@
                 style: 'text-align:left',
             },
         	{
-	        	caption: [" "],
+	        	caption: ["APC명"],
         		ref: 'apcCd',
         		type:'button',
         		width:'40px',
