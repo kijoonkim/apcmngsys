@@ -491,8 +491,13 @@
 
     const fn_view = async function () {
         var nRow = gvwList.getRow();
+        var nCol = gvwList.getCol();
         if (nRow < 0)
             return;
+
+        if(nCol == gvwList.getColRef("INTEREST_IN_PLAN_AMT_O") || nCol == gvwList.getColRef("CTAX_RATE")
+            || nCol == gvwList.getColRef("PTAX_RATE") || nCol == gvwList.getColRef("CTAX_WITHHOLD_AMOUNT")
+            || nCol == gvwList.getColRef("PTAX_WITHHOLD_AMOUNT")) return;
 
         if (SBUxMethod.get('idxTabMaster') == "tabPageEx1") {
             fnQRY_P_TRD2030_Q("DETAIL");
