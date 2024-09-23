@@ -51,6 +51,9 @@ public class FcltOperHfInfoVO extends ComVO{
 	private String hireFrgnrMax;
 	private String hireFrgnrAvg;
 	private String hireFrgnrTaskCn;
+
+	private String userId;
+	private String userType;
 }
 
 

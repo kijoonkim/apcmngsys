@@ -132,6 +132,7 @@
 			SBGridProperties.allowcopy = true;
 			SBGridProperties.explorerbar = 'sortmove';
 			SBGridProperties.scrollbubbling = false;
+			/*
 			SBGridProperties.paging = {
 				'type' : 'page',
 				'count' : 5,
@@ -139,6 +140,7 @@
 				'sorttype' : 'page',
 				'showgoalpageui' : true
 			};
+			*/
 			SBGridProperties.columns = [
 				{caption: ['APC코드'], ref: 'apcCd', hidden : true},
 				{caption: ['APC명'], ref: 'apcNm', width: '500px', type: 'input', style: 'text-align:center'},
@@ -180,9 +182,9 @@
 
 				apcNm : apcNm, //검색 파라미터
 				// pagination
-				pagingYn : 'Y',
-				currentPageNo : pageNo,
-				recordCountPerPage : pageSize
+				//pagingYn : 'Y',
+				//currentPageNo : pageNo,
+				//recordCountPerPage : pageSize
 			});
 
 			const data = await postJsonPromise;
@@ -203,6 +205,10 @@
 						totalRecordCount = item.totalRecordCount;
 					}
 				});
+				//페이징 처리가 빠진경우
+				if(totalRecordCount < data.resultList.length){
+					totalRecordCount = data.resultList.length;
+				}
 
 				if (jsonApcPop.length > 0) {
 					if(grdApcPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다

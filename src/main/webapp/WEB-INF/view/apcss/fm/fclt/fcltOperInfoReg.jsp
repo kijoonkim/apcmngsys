@@ -458,12 +458,12 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0861';
 		let crtrYr = '2024';
+		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
-		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
 		fn_init();
@@ -490,6 +490,8 @@
 	const fn_init = async function() {
 		await fn_initSBSelect();
 
+		await fn_selectUserApcList();//선택가능한 APC리스트 조회
+
 		//apc가 있으면 자동 조회
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		if(gfn_isEmpty(apcCd)){
@@ -507,6 +509,37 @@
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
 		}
 	}
+
+	/* 선택가능한 APC리스트 조회 */
+	const fn_selectUserApcList = async function(){
+
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectUserApcList.do", {
+
+		});
+
+		let data = await postJsonPromise;
+		try{
+			console.log(data);
+			let apcListLength = data.resultList.length;
+			console.log(apcListLength);
+			if(apcListLength == 1){
+				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
+				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
+			}else if (apcListLength > 1){
+				//APC선택 팝업 열기
+				fn_modalApcSelect();
+				SBUxMethod.openModal("modal-apcSelect");
+			}
+
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
 	const fn_search = async function() {
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		console.log(apcCd);
@@ -740,32 +773,73 @@
 	const fn_save = async function() {
 		console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
-		let trgtYr = SBUxMethod.get("dtl-inp-trgtYr");
+		let apcCd = SBUxMethod.get("srch-inp-apcCd");
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
 		}
-		if (gfn_isEmpty(trgtYr)) {
+		if (gfn_isEmpty(crtrYr)) {
 			alert("대상연도를 작성해주세요");
 			return;
 		}
+		//운영조직 주소 , apc주소 , apc 사업자번호 ,
+		let addr = SBUxMethod.get("dtl-inp-operOgnzRoadNmAddrFull");
+		if (gfn_isEmpty(addr)) {
+			alert("운영조직 주소를 작성해주세요");
+			return;
+		}
 
-		/*
+		//apc 사업자번호
+		let apcBrno = SBUxMethod.get("dtl-inp-apcBrno");
+		console.log(apcBrno,apcBrno.length);
+		if (gfn_isEmpty(apcBrno)) {
+			alert("APC 사업자번호를 작성해주세요");
+			return;
+		}
+		if (apcBrno.length != 10) {
+			alert("APC 사업자번호는 총 10자리입니다. 사업자번호를 올바르게 작성하였는지 확인해주세요.");
+			return;
+		}
+		//APC주소
+		let apcAddr = SBUxMethod.get("dtl-inp-apcRoadNmAddrFull");
+		if (gfn_isEmpty(apcAddr)) {
+			alert("APC주소를 작성해주세요");
+			return;
+		}
+
+
 		let itemCd1 = SBUxMethod.get("dtl-inp-operOgnzItemCd1");
 		let apcItem1 = SBUxMethod.get("dtl-inp-apcItem1");
-		if (gfn_isEmpty(itemCd1) && gfn_isEmpty(apcItem1)) {
-			alert("'운영조직 취급 대표품목1'과 'APC 처리 대표품목1'은 필수로 작성해주셔야 합니다.");
+		if (gfn_isEmpty(itemCd1)) {
+			alert("'운영조직 취급 대표품목1'은 필수로 작성해주셔야 합니다.");
 			return;
 		}
-		//2,4 사업자 번호
-		let operOgnzBrno = !SBUxMethod.get("dtl-inp-operOgnzBrno");
-		let apcBrno = !SBUxMethod.get("dtl-inp-apcBrno");
-		if (gfn_isEmpty(operOgnzBrno)) {
-			alert("사업자번호는 총 10자리입니다. 사업자번호를 올바르게 작성하였는지 확인해주세요.");
+		if (gfn_isEmpty(apcItem1)) {
+			alert("'APC 처리 대표품목1'은 필수로 작성해주셔야 합니다.");
 			return;
 		}
-		*/
+
+		//기타품목 값이 있을떄 부류 선택 필수
+		let itemCd4 = SBUxMethod.get("dtl-inp-operOgnzItemCd4");
+		let apcItem4 = SBUxMethod.get("dtl-inp-apcItem4");
+
+		let operOgnzEtcCtgryCd = SBUxMethod.get("dtl-inp-operOgnzEtcCtgryCd");
+		let apcEtcCtgryCd = SBUxMethod.get("dtl-inp-apcEtcCtgryCd");
+
+		if (!gfn_isEmpty(itemCd4)) {
+			if(gfn_isEmpty(operOgnzEtcCtgryCd)){
+				alert("운영조직 기타품목의 부류를 선택해주세요");
+				return;
+			}
+		}
+		if (!gfn_isEmpty(apcItem4)) {
+			if(gfn_isEmpty(apcEtcCtgryCd)){
+				alert("APC 기타품목의 부류를 선택해주세요");
+				return;
+			}
+		}
+
 
 		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
 	}

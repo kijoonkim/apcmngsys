@@ -24,7 +24,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO;
 /**
  * @Class Name : FcltOperHfInfocontroller.java
  * @Description : 시설고용인력에 대한 Controller 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -33,7 +33,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Controller
@@ -52,20 +52,12 @@ public class FcltOperHfInfocontroller extends BaseController {
 
 	// 시설현황 조회
 	@PostMapping(value = "/fm/fclt/selectFcltOperHfInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest request) throws Exception{
-		logger.info("=============selectFcltOperHfInfoList=====start========");
+	public ResponseEntity<HashMap<String, Object>> selectFcltOperHfInfoList(Model model, @RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOperHfInfoVO> resultList = new ArrayList<>();
 
-		logger.info(fcltOperHfInfoVO.getApcCd());
-		logger.info(fcltOperHfInfoVO.toString());
 		try {
 			 resultList = fcltOperHfInfoService.selectFcltOperHfInfoList(fcltOperHfInfoVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltOperHfInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -73,8 +65,6 @@ public class FcltOperHfInfocontroller extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-		logger.info("=============selectFcltOperHfInfoList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -82,20 +72,7 @@ public class FcltOperHfInfocontroller extends BaseController {
 	@PostMapping(value = "/fm/fclt/insertFcltOperHfInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltOperHfInfo(@RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		logger.info("=============insertFcltOperHfInfo=======start======");
 		// validation check
-
-		logger.info(fcltOperHfInfoVO.getTrgtYr());
-		logger.info(fcltOperHfInfoVO.getHireSeCd());
-//		logger.info(fcltOperHfInfoVO.getHireNope());
-//		logger.info(fcltOperHfInfoVO.getHireNope2());
-//		logger.info(fcltOperHfInfoVO.getHireNope3());
-//		logger.info(fcltOperHfInfoVO.getHireNope4());
-		logger.info(fcltOperHfInfoVO.getTrgtYr());
-		logger.info(fcltOperHfInfoVO.getTrgtYr());
-		logger.info(fcltOperHfInfoVO.toString());
-
-
 
 		// audit 항목
 		fcltOperHfInfoVO.setSysFrstInptUserId(getUserId());
@@ -106,9 +83,6 @@ public class FcltOperHfInfocontroller extends BaseController {
 		int insertedCnt = 0;
 
 		try {
-
-
-			logger.info("==========================");
 			insertedCnt = fcltOperHfInfoService.insertFcltOperHfInfo(fcltOperHfInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -116,7 +90,6 @@ public class FcltOperHfInfocontroller extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insertFcltOperHfInfo=======end======");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -124,7 +97,6 @@ public class FcltOperHfInfocontroller extends BaseController {
 	@PostMapping(value = "/fm/fclt/updateFcltOperHfInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltOperHfInfo(@RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		logger.info("=============updateFcltOperHfInfo=========start====");
 		// validation check
 
 		// audit 항목
@@ -141,7 +113,6 @@ public class FcltOperHfInfocontroller extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		logger.info("=============updateFcltOperHfInfo======end=======");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -175,7 +146,6 @@ public class FcltOperHfInfocontroller extends BaseController {
 	@PostMapping(value = "/fm/fclt/deleteFcltOperHfInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltOperHfInfoList(@RequestBody List<FcltOperHfInfoVO> fcltOperHfInfoList, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		logger.info("=============delete=====start========");
 		// validation check
 
 		// audit 항목
@@ -194,7 +164,27 @@ public class FcltOperHfInfocontroller extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============delete=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectFcltOperHfInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltOperHfInfoRawDataList(Model model, @RequestBody FcltOperHfInfoVO fcltOperHfInfoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltOperHfInfoVO> resultList = new ArrayList<>();
+
+		fcltOperHfInfoVO.setUserId(getUserId());
+		fcltOperHfInfoVO.setUserType(getUserType());
+
+		try {
+			 resultList = fcltOperHfInfoService.selectFcltOperHfInfoRawDataList(fcltOperHfInfoVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

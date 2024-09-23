@@ -78,4 +78,12 @@ public interface FcltLwtpStrgMchnInfoService {
 	 */
 	public int deleteFcltLwtpStrgMchnInfoList(List<FcltLwtpStrgMchnInfoVO> fcltLwtpStrgMchnInfoList) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltLwtpStrgMchnInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltLwtpStrgMchnInfoVO> selectFcltLwtpStrgMchnInfoRawDataList(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception;
+
 }

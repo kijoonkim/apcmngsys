@@ -25,7 +25,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
 /**
  * @Class Name : FcltPrcsPrfmncController.java
  * @Description : 산지유통처리실적에 대한 Controller 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -34,7 +34,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Controller
@@ -53,8 +53,7 @@ public class FcltPrcsPrfmncController extends BaseController {
 
 	// 산지유통처리실적 조회
 	@PostMapping(value = "/fm/fclt/selectFcltPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest request) throws Exception{
-		logger.info("=============select=====start========");
+	public ResponseEntity<HashMap<String, Object>> selectFcltPrcsPrfmncList(Model model, @RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest request) throws Exception{
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltPrcsPrfmncVO> resultList = new ArrayList<>();
@@ -62,25 +61,19 @@ public class FcltPrcsPrfmncController extends BaseController {
 		try {
 			 resultList = fcltPrcsPrfmncService.selectFcltPrcsPrfmncList(fcltPrcsPrfmncVO);
 
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltPrcsPrfmncVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
-
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		logger.info("=============select=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 산지유통처리실적 변경
 	@PostMapping(value = "/fm/fclt/multiSaveFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSaveFcltPrcsPrfmnc(@RequestBody List<FcltPrcsPrfmncVO> fcltPrcsPrfmncVOList, HttpServletRequest requset) throws Exception{
-		logger.info("=============multiSaveFcltPrcsPrfmnc=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int savedCnt = 0;
@@ -106,7 +99,6 @@ public class FcltPrcsPrfmncController extends BaseController {
 	// 산지유통처리실적 등록
 	@PostMapping(value = "/fm/fclt/insertFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============insert=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -128,15 +120,12 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insert=====end========");
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 산지유통처리실적 변경
 	@PostMapping(value = "/fm/fclt/updateFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============update=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -156,15 +145,12 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		logger.info("=============update=====end========");
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 산지유통처리실적 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltPrcsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltPrcsPrfmnc(@RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============delete=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -184,15 +170,12 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============delete=====end========");
-
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 산지유통처리실적 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltPrcsPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltPrcsPrfmncList(@RequestBody List<FcltPrcsPrfmncVO> fcltPrcsPrfmncList, HttpServletRequest requset) throws Exception{
-		logger.info("=============deleteList=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -214,8 +197,28 @@ public class FcltPrcsPrfmncController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============deleteList=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
 
+	// 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectFcltPrcsPrfmncRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltPrcsPrfmncRawDataList(Model model, @RequestBody FcltPrcsPrfmncVO fcltPrcsPrfmncVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltPrcsPrfmncVO> resultList = new ArrayList<>();
+
+		fcltPrcsPrfmncVO.setUserId(getUserId());
+		fcltPrcsPrfmncVO.setUserType(getUserType());
+
+		try {
+			 resultList = fcltPrcsPrfmncService.selectFcltPrcsPrfmncRawDataList(fcltPrcsPrfmncVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

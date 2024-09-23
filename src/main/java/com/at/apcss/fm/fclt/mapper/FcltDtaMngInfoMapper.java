@@ -91,4 +91,11 @@ public interface FcltDtaMngInfoMapper {
 	 */
 	public int deleteFcltDataMng(FcltDataMngVO fcltDataMngVO);
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltDtaMngInfoVO
+	 * @return
+	 */
+	public List<FcltDtaMngInfoVO> selectFcltDtaMngInfoRawDataList(FcltDtaMngInfoVO fcltDtaMngInfoVO);
+
 }

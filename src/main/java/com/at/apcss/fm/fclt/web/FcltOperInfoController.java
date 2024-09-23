@@ -55,7 +55,7 @@ public class FcltOperInfoController extends BaseController {
 
 	// 운영자개요 조회
 	@PostMapping(value = "/fm/fclt/selectFcltOperInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectFcltOperInfoList(Model model, @RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOperInfoVO> resultList = new ArrayList<>();
 
@@ -250,6 +250,28 @@ public class FcltOperInfoController extends BaseController {
 
 		try {
 			resultList = fcltOperInfoService.selectFcltOperInfoRawDataList(fcltApcVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	// 선택가능한 APC목록 조회
+	@PostMapping(value = "/fm/fclt/selectUserApcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUserApcList(Model model, @RequestBody FcltApcVO fcltApcVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltApcVO> resultList = new ArrayList<>();
+
+		fcltApcVO.setUserId(getUserId());//유저아이디
+		fcltApcVO.setUserType(getUserType());//유저권한
+
+		try {
+			resultList = fcltOperInfoService.selectUserApcList(fcltApcVO);
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());

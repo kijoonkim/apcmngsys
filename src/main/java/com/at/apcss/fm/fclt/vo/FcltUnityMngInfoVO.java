@@ -41,6 +41,9 @@ public class FcltUnityMngInfoVO extends ComVO{
 	private String umsSpmtInfo;
 	private String umsClclnInfo;
 	private String umsWghInfo;
+
+	private String userId;
+	private String userType;
 }
 
 

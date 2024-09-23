@@ -59,11 +59,6 @@ public class FcltOperHfInfoServiceImpl extends BaseServiceImpl implements FcltOp
 	public List<FcltOperHfInfoVO> selectFcltOperHfInfoList(FcltOperHfInfoVO fcltOperHfInfoVO) throws Exception {
 
 		List<FcltOperHfInfoVO> resultList = fcltOperHfInfoMapper.selectFcltOperHfInfoList(fcltOperHfInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltOperHfInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -125,5 +120,13 @@ public class FcltOperHfInfoServiceImpl extends BaseServiceImpl implements FcltOp
 
 		return deletedCnt;
 	}
+
+	@Override
+	public List<FcltOperHfInfoVO> selectFcltOperHfInfoRawDataList(FcltOperHfInfoVO fcltOperHfInfoVO) throws Exception {
+
+		List<FcltOperHfInfoVO> resultList = fcltOperHfInfoMapper.selectFcltOperHfInfoRawDataList(fcltOperHfInfoVO);
+		return resultList;
+	}
+
 
 }

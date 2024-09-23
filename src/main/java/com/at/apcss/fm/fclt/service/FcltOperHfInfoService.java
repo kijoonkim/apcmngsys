@@ -78,4 +78,12 @@ public interface FcltOperHfInfoService {
 	 */
 	public int deleteFcltOperHfInfoList(List<FcltOperHfInfoVO> fcltOperHfInfoList) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltOperHfInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltOperHfInfoVO> selectFcltOperHfInfoRawDataList(FcltOperHfInfoVO fcltOperHfInfoVO) throws Exception;
+
 }

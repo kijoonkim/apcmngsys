@@ -59,11 +59,6 @@ public class FcltLwtpStrgMchnInfoServiceImpl extends BaseServiceImpl implements 
 	public List<FcltLwtpStrgMchnInfoVO> selectFcltLwtpStrgMchnInfoList(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception {
 
 		List<FcltLwtpStrgMchnInfoVO> resultList = fcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfoList(fcltLwtpStrgMchnInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltLwtpStrgMchnInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -124,6 +119,13 @@ public class FcltLwtpStrgMchnInfoServiceImpl extends BaseServiceImpl implements 
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltLwtpStrgMchnInfoVO> selectFcltLwtpStrgMchnInfoRawDataList(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception {
+
+		List<FcltLwtpStrgMchnInfoVO> resultList = fcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfoRawDataList(fcltLwtpStrgMchnInfoVO);
+		return resultList;
 	}
 
 }

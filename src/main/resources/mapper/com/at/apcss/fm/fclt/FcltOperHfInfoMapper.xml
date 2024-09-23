@@ -265,4 +265,48 @@
 		]]>
 	</delete>
 -->
+	<select id="selectFcltOperHfInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoRawDataList */
+				APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOA.APC_CD) AS APC_NM
+				,CRTR_YR
+
+				,HIRE_RGLLBR_OFC
+				,HIRE_RGLLBR_SPT
+
+				,HIRE_TMPR_WG_TOT_SUM
+				,HIRE_TMPR_AVG_WG
+				,HIRE_TMPR_MIN
+				,HIRE_TMPR_MAX
+
+				,HIRE_FRGNR_MIN
+				,HIRE_FRGNR_MAX
+				,HIRE_FRGNR_AVG
+				,HIRE_FRGNR_TASK_CN
+
+			FROM TB_TE_APC_OPER_ABLT AOA
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND AOA.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND AOA.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY APC_NM
+	</select>
 </mapper>

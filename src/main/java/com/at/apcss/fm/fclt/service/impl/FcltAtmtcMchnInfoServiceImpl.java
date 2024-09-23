@@ -10,7 +10,6 @@ import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltAtmtcMchnInfoService;
 import com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
-import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 
 
 /**
@@ -60,11 +59,6 @@ public class FcltAtmtcMchnInfoServiceImpl extends BaseServiceImpl implements Fcl
 	public List<FcltAtmtcMchnInfoVO> selectFcltAtmtcMchnInfoList(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO) throws Exception {
 
 		List<FcltAtmtcMchnInfoVO> resultList = fcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfoList(fcltAtmtcMchnInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltAtmtcMchnInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -136,6 +130,13 @@ public class FcltAtmtcMchnInfoServiceImpl extends BaseServiceImpl implements Fcl
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltAtmtcMchnInfoVO> selectFcltAtmtcMchnInfoRawDataList(FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO) throws Exception {
+
+		List<FcltAtmtcMchnInfoVO> resultList = fcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfoRawDataList(fcltAtmtcMchnInfoVO);
+		return resultList;
 	}
 
 }

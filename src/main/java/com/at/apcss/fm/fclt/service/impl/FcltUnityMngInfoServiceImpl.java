@@ -59,11 +59,6 @@ public class FcltUnityMngInfoServiceImpl extends BaseServiceImpl implements Fclt
 	public List<FcltUnityMngInfoVO> selectFcltUnityMngInfoList(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception {
 
 		List<FcltUnityMngInfoVO> resultList = fcltUnityMngInfoMapper.selectFcltUnityMngInfoList(fcltUnityMngInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltUnityMngInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -122,6 +117,13 @@ public class FcltUnityMngInfoServiceImpl extends BaseServiceImpl implements Fclt
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltUnityMngInfoVO> selectFcltUnityMngInfoRawDataList(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception {
+
+		List<FcltUnityMngInfoVO> resultList = fcltUnityMngInfoMapper.selectFcltUnityMngInfoRawDataList(fcltUnityMngInfoVO);
+		return resultList;
 	}
 
 }

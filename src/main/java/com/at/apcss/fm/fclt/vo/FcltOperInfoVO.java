@@ -97,6 +97,8 @@ public class FcltOperInfoVO extends ComVO{
 
 	private String itemCd;
 	private String itemNm;
+	private String srchLclsfCd;
+
 
 	private String userId;//계정 정보 확인 용도
 	private String userType;//계정 정보 확인 용도

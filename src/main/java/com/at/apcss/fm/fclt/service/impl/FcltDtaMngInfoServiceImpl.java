@@ -186,4 +186,12 @@ public class FcltDtaMngInfoServiceImpl extends BaseServiceImpl implements FcltDt
 		return saveCnt;
 	}
 
+	@Override
+	public List<FcltDtaMngInfoVO> selectFcltDtaMngInfoRawDataList(FcltDtaMngInfoVO fcltDtaMngInfoVO) throws Exception {
+
+		List<FcltDtaMngInfoVO> resultList = fcltDtaMngInfoMapper.selectFcltDtaMngInfoRawDataList(fcltDtaMngInfoVO);
+
+		return resultList;
+	}
+
 }

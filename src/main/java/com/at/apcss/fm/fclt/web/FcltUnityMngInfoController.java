@@ -25,7 +25,7 @@ import com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO;
 /**
  * @Class Name : FcltUnityMngInfoController.java
  * @Description : 통합관리시스템에대한 Controller 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -34,7 +34,7 @@ import com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Controller
@@ -53,18 +53,13 @@ public class FcltUnityMngInfoController extends BaseController {
 
 	// 통합관리시스템 조회
 	@PostMapping(value = "/fm/fclt/selectFcltUnityMngInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltUnityMngInfoVO fcltUnityMngInfoVO, HttpServletRequest request) throws Exception{
-		logger.info("=============selectMenuList=====start========");
+	public ResponseEntity<HashMap<String, Object>> selectFcltUnityMngInfoList(Model model, @RequestBody FcltUnityMngInfoVO fcltUnityMngInfoVO, HttpServletRequest request) throws Exception{
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltUnityMngInfoVO> resultList = new ArrayList<>();
 
 		try {
 			 resultList = fcltUnityMngInfoService.selectFcltUnityMngInfoList(fcltUnityMngInfoVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltUnityMngInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -72,14 +67,13 @@ public class FcltUnityMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		logger.info("=============selectMenuList=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 통합관리시스템 등록
 	@PostMapping(value = "/fm/fclt/insertFcltUnityMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltUnityMngInfo(@RequestBody FcltUnityMngInfoVO fcltUnityMngInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============insert=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -100,14 +94,13 @@ public class FcltUnityMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insert=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 통합관리시스템 변경
 	@PostMapping(value = "/fm/fclt/updateFcltUnityMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltUnityMngInfo(@RequestBody FcltUnityMngInfoVO fcltUnityMngInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============update=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -126,14 +119,13 @@ public class FcltUnityMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		logger.info("=============update=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 통합관리시스템 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltUnityMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltUnityMngInfo(@RequestBody FcltUnityMngInfoVO fcltUnityMngInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============delete=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -152,14 +144,13 @@ public class FcltUnityMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============delete=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 통합관리시스템 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltUnityMngInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltUnityMngInfoList(@RequestBody List<FcltUnityMngInfoVO> fcltUnityMngInfoList, HttpServletRequest requset) throws Exception{
-		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -169,8 +160,6 @@ public class FcltUnityMngInfoController extends BaseController {
 			fcltUnityMngInfoVO.setSysLastChgUserId(getUserId());
 			fcltUnityMngInfoVO.setSysLastChgPrgrmId(getPrgrmId());
 		}
-
-
 
 		int deletedCnt = 0;
 
@@ -182,7 +171,27 @@ public class FcltUnityMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============deleteList=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectFcltUnityMngInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltUnityMngInfoRawDataList(Model model, @RequestBody FcltUnityMngInfoVO fcltUnityMngInfoVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltUnityMngInfoVO> resultList = new ArrayList<>();
+
+		fcltUnityMngInfoVO.setUserId(getUserId());
+		fcltUnityMngInfoVO.setUserType(getUserType());
+		try {
+			 resultList = fcltUnityMngInfoService.selectFcltUnityMngInfoRawDataList(fcltUnityMngInfoVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

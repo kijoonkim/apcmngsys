@@ -25,7 +25,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO;
 /**
  * @Class Name : FcltLwtpStrgMchnInfoController.java
  * @Description : 저온저장고운영에 대한 Controller 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -34,7 +34,7 @@ import com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Controller
@@ -53,17 +53,12 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 
 	// 저온저장고운영 조회
 	@PostMapping(value = "/fm/fclt/selectFcltLwtpStrgMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO, HttpServletRequest request) throws Exception{
-		logger.info("=============select=====start========");
+	public ResponseEntity<HashMap<String, Object>> selectFcltLwtpStrgMchnInfoList(Model model, @RequestBody FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltLwtpStrgMchnInfoVO> resultList = new ArrayList<>();
 
 		try {
 			 resultList = fcltLwtpStrgMchnInfoService.selectFcltLwtpStrgMchnInfoList(fcltLwtpStrgMchnInfoVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltLwtpStrgMchnInfoVO msg : resultList ) {
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -71,7 +66,6 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		logger.info("=============select=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -79,7 +73,6 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 	@PostMapping(value = "/fm/fclt/insertFcltLwtpStrgMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltLwtpStrgMchnInfo(@RequestBody FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		logger.info("=============insert=====start========");
 		// validation check
 
 		// audit 항목
@@ -98,14 +91,12 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insert=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 저온저장고운영 변경
 	@PostMapping(value = "/fm/fclt/updateFcltLwtpStrgMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltLwtpStrgMchnInfo(@RequestBody FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============update=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -124,7 +115,6 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		logger.info("=============update=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
@@ -132,7 +122,6 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 	@PostMapping(value = "/fm/fclt/deleteFcltLwtpStrgMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltLwtpStrgMchnInfo(@RequestBody FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		logger.info("=============delete=====start========");
 		// validation check
 
 		// audit 항목
@@ -149,14 +138,12 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============delete=====start========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 저온저장고운영 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltLwtpStrgMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltLwtpStrgMchnInfoList(@RequestBody List<FcltLwtpStrgMchnInfoVO> fcltLwtpStrgMchnInfoList, HttpServletRequest requset) throws Exception{
-		logger.info("=============deleteList=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -173,12 +160,32 @@ public class FcltLwtpStrgMchnInfoController extends BaseController {
 			deletedCnt = fcltLwtpStrgMchnInfoService.deleteFcltLwtpStrgMchnInfoList(fcltLwtpStrgMchnInfoList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
-			logger.info("=============deleteList=====end========");
 			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
 
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectFcltLwtpStrgMchnInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltLwtpStrgMchnInfoRawDataList(Model model, @RequestBody FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltLwtpStrgMchnInfoVO> resultList = new ArrayList<>();
+
+		fcltLwtpStrgMchnInfoVO.setUserId(getUserId());
+		fcltLwtpStrgMchnInfoVO.setUserType(getUserType());
+
+		try {
+			 resultList = fcltLwtpStrgMchnInfoService.selectFcltLwtpStrgMchnInfoRawDataList(fcltLwtpStrgMchnInfoVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

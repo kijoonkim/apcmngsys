@@ -59,10 +59,6 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 	public List<FcltPrcsPrfmncVO> selectFcltPrcsPrfmncList(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
 
 		List<FcltPrcsPrfmncVO> resultList = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmncList(fcltPrcsPrfmncVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltPrcsPrfmncVO msg : resultList ) {
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -133,6 +129,13 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltPrcsPrfmncVO> selectFcltPrcsPrfmncRawDataList(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
+
+		List<FcltPrcsPrfmncVO> resultList = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmncRawDataList(fcltPrcsPrfmncVO);
+		return resultList;
 	}
 
 }

@@ -124,4 +124,12 @@ public interface FcltDtaMngInfoService {
 	 */
 	public int deleteFcltDataMng(FcltDataMngVO fcltDataMngVO) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltDtaMngInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltDtaMngInfoVO> selectFcltDtaMngInfoRawDataList(FcltDtaMngInfoVO fcltDtaMngInfoVO) throws Exception;
+
 }

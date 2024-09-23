@@ -23,9 +23,13 @@
 	<select id="selectFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc */
-				OPD.APC_CD
-				, OPD.CRTR_YR
-				, OPD.SN
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+
 				, OPD.RTL_OGNZ_TOT_TRMT_AMT
 				, OPD.RTL_OGNZ_TOT_TRMT_VLM
 				, OPD.RTL_OGNZ_GNRL_SUM
@@ -35,16 +39,20 @@
 				, OPD.RTL_OGNZ_OGNZ_CPRTN_SORT_TRST
 				, OPD.RTL_OGNZ_OGNZ_CTRT_EMSPAP
 
-			FROM TB_TE_APC_OPER_PRFMNC_DTL OPD
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_OPER_PRFMNC_DTL OPD
 			WHERE 1=1
-			  AND DEL_YN != 'Y'
-			  AND APC_CD IS NOT NULL
+			  AND OTI.APC_CD = OPD.APC_CD(+)
+			  AND OTI.CRTR_YR = OPD.CRTR_YR(+)
+			  AND OTI.SN = OPD.SN(+)
+			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.APC_CD IS NOT NULL
 					]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND CRTR_YR = #{crtrYr}
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 	</select>
 
@@ -68,10 +76,14 @@
 		<!-- End 페이징 -->
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc */
-				OPD.APC_CD
-				, OPD.CRTR_YR
-				, OPD.SN
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+
 				, OPD.RTL_OGNZ_TOT_TRMT_AMT
 				, OPD.RTL_OGNZ_TOT_TRMT_VLM
 				, OPD.RTL_OGNZ_GNRL_SUM
@@ -81,16 +93,20 @@
 				, OPD.RTL_OGNZ_OGNZ_CPRTN_SORT_TRST
 				, OPD.RTL_OGNZ_OGNZ_CTRT_EMSPAP
 
-			FROM TB_TE_APC_OPER_PRFMNC_DTL OPD
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_OPER_PRFMNC_DTL OPD
 			WHERE 1=1
-			  AND DEL_YN != 'Y'
-			  AND APC_CD IS NOT NULL
+			  AND OTI.APC_CD = OPD.APC_CD(+)
+			  AND OTI.CRTR_YR = OPD.CRTR_YR(+)
+			  AND OTI.SN = OPD.SN(+)
+			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.APC_CD IS NOT NULL
 					]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND CRTR_YR = #{crtrYr}
+			  AND OTI.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND APC_CD = #{apcCd}
+			  AND OTI.APC_CD = #{apcCd}
 			</if>
 
 		<!-- Start 페이징 -->
@@ -246,4 +262,52 @@
 		]]>
 	</delete>
 -->
+
+	<select id="selectFcltOgnzPrcsPrfmncRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncRawDataList */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+
+				, OPD.RTL_OGNZ_TOT_TRMT_AMT
+				, OPD.RTL_OGNZ_TOT_TRMT_VLM
+				, OPD.RTL_OGNZ_GNRL_SUM
+				, OPD.RTL_OGNZ_GNRL_SMPL_TRST
+				, OPD.RTL_OGNZ_GNRL_SMPL_EMSPAP
+				, OPD.RTL_OGNZ_OGNZ_SUM
+				, OPD.RTL_OGNZ_OGNZ_CPRTN_SORT_TRST
+				, OPD.RTL_OGNZ_OGNZ_CTRT_EMSPAP
+
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_OPER_PRFMNC_DTL OPD
+			WHERE 1=1
+			  AND OTI.APC_CD = OPD.APC_CD(+)
+			  AND OTI.CRTR_YR = OPD.CRTR_YR(+)
+			  AND OTI.SN = OPD.SN(+)
+			  AND OTI.OGNZ_SE_CD = '1'
+			  AND OTI.APC_CD IS NOT NULL
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND OTI.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND OTI.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY OTI.CRTR_YR , APC_NM , OTI.SN
+	</select>
 </mapper>

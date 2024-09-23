@@ -20,8 +20,8 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
-    	<![CDATA[
+	<select id="selectFcltLwtpStrgMchnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfo */
 				OASP.CRTR_YR
 				, OASP.APC_CD
@@ -63,10 +63,10 @@
 			  AND OASP.CRTR_YR = MOP.CRTR_YR(+)
 					]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND CRTR_YR = #{crtrYr}
+			  AND OASP.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
-			  AND APC_CD = #{apcCd}
+			  AND OASP.APC_CD = #{apcCd}
 			</if>
 	</select>
 	<!-- ==========================================================================	-->
@@ -359,4 +359,66 @@
 				  , #{sysLastChgPrgrmId}
 				)
 	</update>
+
+	<select id="selectFcltLwtpStrgMchnInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltLwtpStrgMchnInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltLwtpStrgMchnInfoMapper.selectFcltLwtpStrgMchnInfoRawDataList */
+				OASP.CRTR_YR
+				, OASP.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OASP.APC_CD) AS APC_NM
+				, OASP.STRG_PLC_ITEM_CD
+				, OASP.STRG_PLC_ITEM_NM
+				, OASP.LWTP_STRG_PLC_HLD_MTHD
+				, DECODE(OASP.LWTP_STRG_PLC_HLD_YN , 'Y' , '보유' , 'N' , '미보유' , '') AS LWTP_STRG_PLC_HLD_YN
+				, OASP.STRG_PLC_STRG_ABLT
+				, OASP.STRG_PLC_STRM_STRG_ABLT
+				, OASP.STRG_PLC_LTRM_STRG_ABLT
+				, OASP.STRG_PLC_OPRTNG_RT
+
+				, DECODE(MOP.OPER_YN , 'Y' , '운영함' , 'N' , '운영안함' , '') AS OPER_YN
+				, MOP.OPER_PERIOD_YN_1
+				, MOP.OPER_PERIOD_YN_2
+				, MOP.OPER_PERIOD_YN_3
+				, MOP.OPER_PERIOD_YN_4
+				, MOP.OPER_PERIOD_YN_5
+				, MOP.OPER_PERIOD_YN_6
+				, MOP.OPER_PERIOD_YN_7
+				, MOP.OPER_PERIOD_YN_8
+				, MOP.OPER_PERIOD_YN_9
+				, MOP.OPER_PERIOD_YN_10
+				, MOP.OPER_PERIOD_YN_11
+				, MOP.OPER_PERIOD_YN_12
+
+			FROM TB_TE_APC_OPER_ABLT_STRG_PLC OASP
+				,(SELECT *
+					FROM TB_TE_APC_MCHN_OPER_PERIOD
+					WHERE 1=1
+					  AND SN = 0
+					  AND MCHN_SE_CD = '2'
+				) MOP
+			WHERE 1=1
+			  AND OASP.DEL_YN != 'Y'
+			  AND OASP.APC_CD IS NOT NULL
+			  AND OASP.APC_CD = MOP.APC_CD(+)
+			  AND OASP.CRTR_YR = MOP.CRTR_YR(+)
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND OASP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND OASP.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY APC_NM
+	</select>
 </mapper>

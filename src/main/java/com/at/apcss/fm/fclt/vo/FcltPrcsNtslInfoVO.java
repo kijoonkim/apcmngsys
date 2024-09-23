@@ -50,6 +50,8 @@ public class FcltPrcsNtslInfoVO extends ComVO{
 	private String apcNtslAmtEtc;
 	private String apcNtslAmtOnlnWhlslMrkt;
 
+	private String apcNtslAmtTot;
+
 
 	private String apcTrmtAmt1;
 	private String apcTrmtAmt2;
@@ -62,6 +64,19 @@ public class FcltPrcsNtslInfoVO extends ComVO{
 	private String rtlOgnzTotTrmtAmt3;
 	private String rtlOgnzTotTrmtAmt4;
 	private String rtlOgnzTotTrmtAmtTot;
+
+	private String userId;
+	private String userType;
+
+	private String itemNm1;
+	private String itemNm2;
+	private String itemNm3;
+	private String itemNm4;
+
+	private String apcItemNm1;
+	private String apcItemNm2;
+	private String apcItemNm3;
+	private String apcItemNm4;
 
 }
 

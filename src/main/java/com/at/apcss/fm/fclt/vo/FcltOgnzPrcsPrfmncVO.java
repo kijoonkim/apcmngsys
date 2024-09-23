@@ -42,6 +42,12 @@ public class FcltOgnzPrcsPrfmncVO extends ComVO{
 	private String rtlOgnzOgnzCtrtEmspap;
 	private String rtlOgnzTotTrmtVlm;
 
+	private String itemCd;
+	private String itemNm;
+
+	private String userId;
+	private String userType;
+
 
 }
 

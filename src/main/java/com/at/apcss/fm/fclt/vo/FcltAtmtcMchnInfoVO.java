@@ -68,6 +68,9 @@ public class FcltAtmtcMchnInfoVO extends ComVO{
 	private String spmtBrQr;
 	private String thAc;
 
+	private String userId;
+	private String userType;
+
 }
 
 

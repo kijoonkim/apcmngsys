@@ -119,6 +119,7 @@
 								name="srch-inp-apcNm"
 								class="form-control input-sm srch-keyup-area"
 								autocomplete="off"
+								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
 						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -130,6 +131,7 @@
 								name="srch-inp-itemNm"
 								class="form-control input-sm srch-keyup-area"
 								autocomplete="off"
+								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
 						<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -197,11 +199,11 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th></th>
-							<th class="text-center" colspan="2">품목1</th>
-							<th class="text-center" colspan="2">품목2</th>
-							<th class="text-center" colspan="2">품목3</th>
-							<th class="text-center" colspan="2">기타</th>
+							<th style="border-right: 1px solid white !important;"></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm1">품목1</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm2">품목2</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm3">품목3</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm4">기타</span></th>
 							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
@@ -277,6 +279,14 @@
 									readonly
 								></sbux-input>
 							</td>
+						</tr>
+						<tr>
+							<th style="border-right: 1px solid white !important;"></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm1">품목1</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm2">품목2</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm3">품목3</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm4">기타</span></th>
+							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
 							<th>APC 처리실적</th>
@@ -386,10 +396,10 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th class="text-center" colspan="2">대형유통업체(백화점 포함)</th>
-							<th class="text-center" colspan="2">식자재업체<br>(학교급식, 가공업체 포함)</th>
-							<th class="text-center" colspan="2">도매시장<br>(공판장 포함)</th>
-							<th class="text-center" colspan="2">aT온라인 도매시장</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">대형유통업체(백화점 포함)</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">식자재업체<br>(학교급식, 가공업체 포함)</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">도매시장<br>(공판장 포함)</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">aT온라인 도매시장</th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">소매업체 직판</th>
 							<th class="text-center" colspan="2">계</th>
 						</tr>
@@ -468,10 +478,10 @@
 							<td>(백만원)</td>
 						</tr>
 						<tr>
-							<th class="text-center" colspan="2">수출</th>
-							<th class="text-center" colspan="2">홈쇼핑(TV매체)</th>
-							<th class="text-center" colspan="2">온라인(B2B)</th>
-							<th class="text-center" colspan="2">온라인(B2C)</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">수출</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">홈쇼핑(TV매체)</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">온라인(B2B)</th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;">온라인(B2C)</th>
 							<th class="text-center" colspan="2">기타</th>
 							<td colspan="2" style="border-top: hidden !important;">
 								<sbux-input
@@ -558,6 +568,7 @@
 				<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 			</div>
 		</div>
+		<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 	</div>
 	</section>
 	<!-- apc 선택 Modal -->
@@ -593,6 +604,12 @@
 
 	});
 
+	function fn_selectEnterKey() {
+		if(window.event.keyCode == 13) {
+			fn_search();
+		}
+	}
+
 	/* 초기세팅 */
 	const fn_init = async function() {
 		await fn_initSBSelect();
@@ -604,6 +621,7 @@
 
 	var jsonComCtpv = [];//시도
 	var jsonComSgg = [];//시군구
+	var jsonComSrchLclsfCd = [];//조회용 부류
 
 	/**
 	 * combo 설정
@@ -614,7 +632,47 @@
 			//검색조건
 			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
+			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
 		]);
+	}
+
+	//입력폼 초기화
+	const fn_clearForm = async function() {
+		$('#itemNm1').text("품목1");
+		$('#itemNm2').text("품목2");
+		$('#itemNm3').text("품목3");
+		$('#itemNm4').text("기타");
+
+		$('#apcItemNm1').text("품목1");
+		$('#apcItemNm2').text("품목2");
+		$('#apcItemNm3').text("품목3");
+		$('#apcItemNm4').text("기타");
+
+		SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtFoodMtrl',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtWhlslMrkt',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtBzenty',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtExprt',null);
+
+		SBUxMethod.set('dtl-inp-apcNtslAmtHmsp',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2b',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2c',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtEtc',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtOnlnWhlslMrkt',null);
+
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt1',null);
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt2',null);
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt3',null);
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt4',null);
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot',null);
+		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1',null);
+
+		SBUxMethod.set('dtl-inp-apcTrmtAmt1',null);
+		SBUxMethod.set('dtl-inp-apcTrmtAmt2',null);
+		SBUxMethod.set('dtl-inp-apcTrmtAmt3',null);
+		SBUxMethod.set('dtl-inp-apcTrmtAmt4',null);
+		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',null);
+		SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',null);
 	}
 
 	const fn_selectItmPrfList = async function(copy_chk) {
@@ -664,6 +722,16 @@
 				SBUxMethod.set('dtl-inp-apcTrmtAmt4',item.apcTrmtAmt4);
 				SBUxMethod.set('dtl-inp-apcTrmtAmtTot',item.apcTrmtAmtTot);
 				SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',fn_numberToKorean(item.apcTrmtAmtTot));
+
+				$('#itemNm1').text("품목1:"+gfn_nvl(item.itemNm1));
+				$('#itemNm2').text("품목2:"+gfn_nvl(item.itemNm2));
+				$('#itemNm3').text("품목3:"+gfn_nvl(item.itemNm3));
+				$('#itemNm4').text("기타품목:"+gfn_nvl(item.itemNm4));
+
+				$('#apcItemNm1').text("품목1:"+gfn_nvl(item.apcItemNm1));
+				$('#apcItemNm2').text("품목2:"+gfn_nvl(item.apcItemNm2));
+				$('#apcItemNm3').text("품목3:"+gfn_nvl(item.apcItemNm3));
+				$('#apcItemNm4').text("기타품목:"+gfn_nvl(item.apcItemNm4));
 			});
 			fn_cal();
 
@@ -865,6 +933,7 @@
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		//SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheader="seq";
+		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -919,7 +988,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -932,6 +1001,8 @@
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
+		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
+		let srchLclsfCd = SBUxMethod.get("srch-inp-srchLclsfCd");//
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcList.do", {
 			//apcCd: apcCd,
@@ -939,11 +1010,13 @@
 			crtrYr: crtrYr,
 			ctpvCd: ctpvCd,
 			sigunCd: sigunCd,
+			itemNm: itemNm,
+			srchLclsfCd: srchLclsfCd,
 
 			// pagination
-			pagingYn : 'Y',
-			currentPageNo : pageNo,
-			recordCountPerPage : pageSize
+			//pagingYn : 'Y',
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
 		});
 		const data = await postJsonPromise;
 		//await 오류시 확인
@@ -976,6 +1049,10 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
+			//페이징 처리가 빠진경우
+			if(totalRecordCount < data.resultList.length){
+				totalRecordCount = data.resultList.length;
+			}
 
 			if (jsonFcltApcInfo.length > 0) {
 
@@ -1002,7 +1079,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {
@@ -1031,6 +1108,125 @@
 	//시도 변경 이벤트
 	const fn_ctpvChange = async function(){
 		SBUxMethod.set("srch-inp-sgg", "");
+	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["APC코드"],	ref:'apcCd',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC명"],		ref:'apcNm',	type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["대형유통업체(백화점 포함)(백만원)"],		ref:'apcNtslAmtLgszRtl',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["식자재업체(학교급식, 가공업체 포함)(백만원)"],	ref:'apcNtslAmtFoodMtrl',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["도매시장(공판장 포함)(백만원)"],			ref:'apcNtslAmtWhlslMrkt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["aT온라인 도매시장(백만원)"],			ref:'apcNtslAmtOnlnWhlslMrkt',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["소매업체 직판(백만원)"],				ref:'apcNtslAmtBzenty',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["수출(백만원)"],						ref:'apcNtslAmtExprt',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["홈쇼핑(TV매체)(백만원)"],				ref:'apcNtslAmtHmsp',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["온라인(B2B)(백만원)"],				ref:'apcNtslAmtOnlnB2b',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["온라인(B2C)(백만원)"],				ref:'apcNtslAmtOnlnB2c',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["기타(백만원)"],						ref:'apcNtslAmtEtc',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["계(백만원)"],						ref:'apcNtslAmtTot',			type:'output',width:'70px',style:'text-align:center'},
+
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();//그리드 생성
+
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		if (gfn_isEmpty(crtrYr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			crtrYr = year;
+		}
+
+		//userId로 지자체 시도 시군구 값 알아내서 처리
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltPrcsNtslInfoRawDataList.do", {
+			crtrYr : crtrYr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					apcCd				:item.apcCd
+					,apcNm				:item.apcNm
+
+					, apcNtslAmtLgszRtl			: item.apcNtslAmtLgszRtl
+					, apcNtslAmtFoodMtrl		: item.apcNtslAmtFoodMtrl
+					, apcNtslAmtWhlslMrkt		: item.apcNtslAmtWhlslMrkt
+					, apcNtslAmtBzenty			: item.apcNtslAmtBzenty
+					, apcNtslAmtExprt			: item.apcNtslAmtExprt
+					, apcNtslAmtHmsp			: item.apcNtslAmtHmsp
+					, apcNtslAmtOnlnB2b			: item.apcNtslAmtOnlnB2b
+					, apcNtslAmtOnlnB2c			: item.apcNtslAmtOnlnB2c
+					, apcNtslAmtEtc				: item.apcNtslAmtEtc
+					, apcNtslAmtOnlnWhlslMrkt	: item.apcNtslAmtOnlnWhlslMrkt
+
+					, apcNtslAmtTot				: item.apcNtslAmtTot
+
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_5.3APC처리상품주요판매처_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
 </script>

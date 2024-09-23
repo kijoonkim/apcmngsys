@@ -360,4 +360,65 @@
 	</delete>
 	-->
 
+	<select id="selectFcltAtmtcMchnInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO">
+			<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltAtmtcMchnInfoMapper.selectFcltAtmtcMchnInfoRawDataList */
+				  OTI.CRTR_YR
+				, OTI.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+
+				, DECODE(SPSD.WBG , '1' , '보유' , '2' , '미보유' , '') AS WBG
+				, DECODE(SPSD.WRHS_BR_QR , '1' , '보유' , '2' , '미보유' , '') AS WRHS_BR_QR
+				, DECODE(SPSD.KSK_TBLT , '1' , '보유' , '2' , '미보유' , '') AS KSK_TBLT
+				, DECODE(SPSD.DPTZ , '1' , '보유' , '2' , '미보유' , '') AS DPTZ
+				, DECODE(SPSD.APM , '1' , '보유' , '2' , '미보유' , '') AS APM
+				, DECODE(SPSD.ELCTRN_WGHT_SORT_MCHN , '1' , '보유' , '2' , '미보유' , '') AS ELCTRN_WGHT_SORT_MCHN
+				, DECODE(SPSD.NDST_BRCK_SORT_MCHN , '1' , '보유' , '2' , '미보유' , '') AS NDST_BRCK_SORT_MCHN
+				, DECODE(SPSD.GRD_RAW_MTR_ATMTC_TRNSF_MCHN , '1' , '보유' , '2' , '미보유' , '') AS GRD_RAW_MTR_ATMTC_TRNSF_MCHN
+				, DECODE(SPSD.DSHBRD , '1' , '보유' , '2' , '미보유' , '') AS DSHBRD
+				, DECODE(SPSD.EMPT_BX_ATMTC_EXHST_MCHN , '1' , '보유' , '2' , '미보유' , '') AS EMPT_BX_ATMTC_EXHST_MCHN
+				, DECODE(SPSD.ATMTC_BX_PCKG_MCHN , '1' , '보유' , '2' , '미보유' , '') AS ATMTC_BX_PCKG_MCHN
+				, DECODE(SPSD.ATMTC_SS_MCHN , '1' , '보유' , '2' , '미보유' , '') AS ATMTC_SS_MCHN
+				, DECODE(SPSD.ATMTC_WRAP_MCHN , '1' , '보유' , '2' , '미보유' , '') AS ATMTC_WRAP_MCHN
+				, DECODE(SPSD.ATMTC_WGHT_CHCK_MCHN , '1' , '보유' , '2' , '미보유' , '') AS ATMTC_WGHT_CHCK_MCHN
+				, DECODE(SPSD.PTZ , '1' , '보유' , '2' , '미보유' , '') AS PTZ
+				, DECODE(SPSD.SPMT_BR_QR , '1' , '보유' , '2' , '미보유' , '') AS SPMT_BR_QR
+				, DECODE(SPSD.TH_AC , '1' , '보유' , '2' , '미보유' , '') AS TH_AC
+
+				, SPSD.SPCFCT_CNT
+				, SPSD.SPCFCT_GRP
+				, SPSD.SPCFCT_GRD
+
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,TB_TE_APC_SMART_PRPLSN_STTN_DTL SPSD
+			WHERE 1=1
+			  AND OTI.APC_CD = SPSD.APC_CD(+)
+			  AND OTI.CRTR_YR = SPSD.CRTR_YR(+)
+			  AND OTI.SN = SPSD.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
+			  AND OTI.SN NOT IN ('4')
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND OTI.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND OTI.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY APC_NM , OTI.SN
+	</select>
 </mapper>
