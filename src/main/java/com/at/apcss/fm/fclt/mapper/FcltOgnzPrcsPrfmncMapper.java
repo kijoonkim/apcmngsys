@@ -58,4 +58,11 @@ public interface FcltOgnzPrcsPrfmncMapper {
 	 * @return
 	 */
 	public int deleteFcltOgnzPrcsPrfmnc(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO);
+
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltOgnzPrcsPrfmncVO
+	 * @return
+	 */
+	public List<FcltOgnzPrcsPrfmncVO> selectFcltOgnzPrcsPrfmncRawDataList(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO);
 }

@@ -58,6 +58,25 @@ public class FcltDtaMngInfoVO extends ComVO{
 	private String jobInfoLinkSttn;
 	private String jobInfoMngMthd;
 
+	private String prdctnDtl;
+	private String wrhsDtl;
+	private String sortDtl;
+	private String strgDtl;
+	private String pckgDtl;
+	private String jobDtl;
+	private String spmtDtl;
+
+	private String prdctnDtlEtc;
+	private String wrhsDtlEtc;
+	private String sortDtlEtc;
+	private String strgDtlEtc;
+	private String pckgDtlEtc;
+	private String jobDtlEtc;
+	private String spmtDtlEtc;
+
+	private String userId;
+	private String userType;
+
 	/* 데이터 항목 리스트 */
 	private List<FcltDataMngVO> fcltDataMngVOList;
 

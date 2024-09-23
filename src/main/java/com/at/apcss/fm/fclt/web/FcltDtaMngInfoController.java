@@ -54,8 +54,8 @@ public class FcltDtaMngInfoController extends BaseController {
 
 	// 메시지 조회
 	@PostMapping(value = "/fm/fclt/selectFcltDtaMngInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltDtaMngInfoVO fcltDtaMngInfoVO, HttpServletRequest request) throws Exception{
-		logger.info("=============select=====start========");
+	public ResponseEntity<HashMap<String, Object>> selectFcltDtaMngInfoList(Model model, @RequestBody FcltDtaMngInfoVO fcltDtaMngInfoVO, HttpServletRequest request) throws Exception{
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltDtaMngInfoVO> resultList = new ArrayList<>();
 		List<FcltDataMngVO> resultDtlList = new ArrayList<>();
@@ -72,14 +72,13 @@ public class FcltDtaMngInfoController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		resultMap.put("resultDtlList", resultDtlList);
-		logger.info("=============select=====END========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 메시지 등록
 	@PostMapping(value = "/fm/fclt/insertFcltDtaMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltDtaMngInfo(@RequestBody FcltDtaMngInfoVO fcltDtaMngInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============insert=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -98,16 +97,14 @@ public class FcltDtaMngInfoController extends BaseController {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		logger.info("=============insert=====end1========");
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insert=====end2========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 메시지 변경
 	@PostMapping(value = "/fm/fclt/updateFcltDtaMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltDtaMngInfo(@RequestBody FcltDtaMngInfoVO fcltDtaMngInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============update=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -126,14 +123,12 @@ public class FcltDtaMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		logger.info("=============update=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 메시지 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltDtaMngInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltDtaMngInfo(@RequestBody FcltDtaMngInfoVO fcltDtaMngInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============delete=====start========");
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -153,14 +148,13 @@ public class FcltDtaMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============delete=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 메시지 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltDtaMngInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltDtaMngInfoList(@RequestBody List<FcltDtaMngInfoVO> fcltDtaMngInfoList, HttpServletRequest requset) throws Exception{
-		logger.info("=============deleteList=====start========");
+
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -181,7 +175,28 @@ public class FcltDtaMngInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============deleteList=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 메시지 조회
+	@PostMapping(value = "/fm/fclt/selectFcltDtaMngInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltDtaMngInfoRawDataList(Model model, @RequestBody FcltDtaMngInfoVO fcltDtaMngInfoVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltDtaMngInfoVO> resultList = new ArrayList<>();
+
+		fcltDtaMngInfoVO.setUserId(getUserId());
+		fcltDtaMngInfoVO.setUserType(getUserType());
+
+		try {
+			resultList = fcltDtaMngInfoService.selectFcltDtaMngInfoRawDataList(fcltDtaMngInfoVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

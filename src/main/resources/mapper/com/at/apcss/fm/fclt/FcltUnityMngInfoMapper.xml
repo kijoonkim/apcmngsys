@@ -242,4 +242,45 @@
 	</delete>
 	-->
 
+	<select id="selectFcltUnityMngInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltUnityMngInfoRawDataList */
+				  ASPS.CRTR_YR
+				, ASPS.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = ASPS.APC_CD) AS APC_NM
+
+				, UMS_PRDCTN_INFO
+				, UMS_WRHS_INFO
+				, UMS_SORT_INFO
+				, UMS_STRG_INFO
+				, UMS_PCKG_INFO
+				, UMS_SPMT_INFO
+				, UMS_CLCLN_INFO
+				, UMS_WGH_INFO
+
+			FROM TB_TE_APC_SMART_PRPLSN_STTN ASPS
+			WHERE 1=1
+			  AND DEL_YN != 'Y'
+			  AND APC_CD IS NOT NULL
+			]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND ASPS.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND ASPS.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY APC_NM
+	</select>
+
 </mapper>

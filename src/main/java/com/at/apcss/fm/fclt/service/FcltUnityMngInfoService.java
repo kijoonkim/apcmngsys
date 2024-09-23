@@ -78,4 +78,12 @@ public interface FcltUnityMngInfoService {
 	 */
 	public int deleteFcltUnityMngInfoList(List<FcltUnityMngInfoVO> fcltUnityMngInfoList) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltUnityMngInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltUnityMngInfoVO> selectFcltUnityMngInfoRawDataList(FcltUnityMngInfoVO fcltUnityMngInfoVO) throws Exception;
+
 }

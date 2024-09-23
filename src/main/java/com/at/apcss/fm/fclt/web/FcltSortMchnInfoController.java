@@ -52,7 +52,7 @@ public class FcltSortMchnInfoController extends BaseController {
 
 	// 선별기운영 조회
 	@PostMapping(value = "/fm/fclt/selectFcltSortMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltSortMchnInfoVO fcltSortMchnInfoVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectFcltSortMchnInfoList(Model model, @RequestBody FcltSortMchnInfoVO fcltSortMchnInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltSortMchnInfoVO> resultList = new ArrayList<>();
 
@@ -198,6 +198,9 @@ public class FcltSortMchnInfoController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectFcltSortMchnInfoRawDataList(Model model, @RequestBody FcltSortMchnInfoVO fcltSortMchnInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltSortMchnInfoVO> resultList = new ArrayList<>();
+
+		fcltSortMchnInfoVO.setUserId(getUserId());//유저아이디
+		fcltSortMchnInfoVO.setUserType(getUserType());//유저권한
 
 		try {
 			 resultList = fcltSortMchnInfoService.selectFcltSortMchnInfoRawDataList(fcltSortMchnInfoVO);

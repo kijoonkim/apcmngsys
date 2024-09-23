@@ -78,4 +78,12 @@ public interface FcltPrcsNtslInfoService {
 	 */
 	public int deleteFcltPrcsNtslInfoList(List<FcltPrcsNtslInfoVO> fcltPrcsNtslInfoList) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltPrcsNtslInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltPrcsNtslInfoVO> selectFcltPrcsNtslInfoRawDataList(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception;
+
 }

@@ -10,7 +10,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 
 /**
  * 운영자개요 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -19,7 +19,7 @@ import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -95,6 +95,13 @@ public interface FcltOperInfoMapper {
 	 * @return
 	 */
 	public List<FcltApcVO> selectFcltOperInfoRawDataList(FcltApcVO fcltApcVO);
+
+	/**
+	 * 선택가능한 APC 목록을 조회한다.
+	 * @param fcltApcVO
+	 * @return
+	 */
+	public List<FcltApcVO> selectUserApcList(FcltApcVO fcltApcVO);
 
 }
 

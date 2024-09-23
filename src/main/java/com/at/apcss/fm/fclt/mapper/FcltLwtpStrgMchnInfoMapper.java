@@ -66,4 +66,10 @@ public interface FcltLwtpStrgMchnInfoMapper {
 	 */
 	public int insertFcltLwtpStrgMchnInfoPeriod(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltLwtpStrgMchnInfoVO
+	 * @return
+	 */
+	public List<FcltLwtpStrgMchnInfoVO> selectFcltLwtpStrgMchnInfoRawDataList(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO);
 }

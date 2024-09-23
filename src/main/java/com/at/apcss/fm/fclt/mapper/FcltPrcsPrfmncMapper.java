@@ -8,7 +8,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
 
 /**
  * 산지유통처리실적 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -17,7 +17,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -58,4 +58,11 @@ public interface FcltPrcsPrfmncMapper {
 	 * @return
 	 */
 	public int deleteFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO);
+
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltPrcsPrfmncVO
+	 * @return
+	 */
+	public List<FcltPrcsPrfmncVO> selectFcltPrcsPrfmncRawDataList(FcltPrcsPrfmncVO fcltPrcsPrfmncVO);
 }

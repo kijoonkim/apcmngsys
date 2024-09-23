@@ -15,7 +15,7 @@ import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
 /**
  * @Class Name : FcltSortMchnOperInfoServiceImpl.java
  * @Description : 선별기운영기간의 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -24,7 +24,7 @@ import com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Service("fcltSortMchnOperInfoService")
@@ -59,11 +59,6 @@ public class FcltSortMchnOperInfoServiceImpl extends BaseServiceImpl implements 
 	public List<FcltSortMchnOperInfoVO> selectFcltSortMchnOperInfoList(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception {
 
 		List<FcltSortMchnOperInfoVO> resultList = fcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList(fcltSortMchnOperInfoVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltSortMchnOperInfoVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -134,6 +129,13 @@ public class FcltSortMchnOperInfoServiceImpl extends BaseServiceImpl implements 
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltSortMchnOperInfoVO> selectFcltSortMchnOperInfoRawDataList(FcltSortMchnOperInfoVO fcltSortMchnOperInfoVO) throws Exception {
+
+		List<FcltSortMchnOperInfoVO> resultList = fcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoRawDataList(fcltSortMchnOperInfoVO);
+		return resultList;
 	}
 
 }

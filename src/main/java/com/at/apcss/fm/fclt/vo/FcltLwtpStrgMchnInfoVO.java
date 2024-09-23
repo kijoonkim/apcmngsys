@@ -61,6 +61,9 @@ public class FcltLwtpStrgMchnInfoVO extends ComVO{
 	private String operPeriodYn11;
 	private String operPeriodYn12;
 
+	private String userId;
+	private String userType;
+
 }
 
 

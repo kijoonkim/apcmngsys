@@ -104,4 +104,12 @@ public interface FcltOperInfoService {
 	 */
 	public List<FcltApcVO> selectFcltOperInfoRawDataList(FcltApcVO fcltApcVO) throws Exception;
 
+	/**
+	 * 선택가능한 APC 목록을 조회한다.
+	 * @param fcltApcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltApcVO> selectUserApcList(FcltApcVO fcltApcVO) throws Exception;
+
 }

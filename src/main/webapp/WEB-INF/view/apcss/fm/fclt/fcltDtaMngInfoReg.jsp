@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltDtaMngInfoReg.jsp
-  * @Description : 4.2.데이터화 화면
+  * @Description : 4.2 작업단계별 농가 데이터 현황 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -252,7 +252,7 @@
 	</section>
 	<!-- apc 선택 Modal -->
 	<div>
-		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:600px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
 		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
@@ -271,12 +271,12 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0861';
 		let crtrYr = '2024';
+		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
-		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
 		fn_init();
@@ -288,6 +288,8 @@
 		await fn_setChkList();//체크박스 세팅
 
 		await fn_clearForm();
+
+		await fn_selectUserApcList();//선택가능한 APC리스트 조회
 
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			return;
@@ -303,6 +305,36 @@
 			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+		}
+	}
+
+	/* 선택가능한 APC리스트 조회 */
+	const fn_selectUserApcList = async function(){
+
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectUserApcList.do", {
+
+		});
+
+		let data = await postJsonPromise;
+		try{
+			console.log(data);
+			let apcListLength = data.resultList.length;
+			console.log(apcListLength);
+			if(apcListLength == 1){
+				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
+				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
+			}else if (apcListLength > 1){
+				//APC선택 팝업 열기
+				fn_modalApcSelect();
+				SBUxMethod.openModal("modal-apcSelect");
+			}
+
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 
@@ -397,6 +429,44 @@
 			alert("대상연도를 작성해주세요");
 			return;
 		}
+
+		let prdctnInfoMngMthd = SBUxMethod.get('dtl-rdo-prdctnInfoMngMthd');
+		if (gfn_isEmpty(prdctnInfoMngMthd)) {
+			alert("생산정보 관리방법을 선택해주세요");
+			return;
+		}
+		let wrhsInfoMngMthd = SBUxMethod.get('dtl-rdo-wrhsInfoMngMthd');
+		if (gfn_isEmpty(wrhsInfoMngMthd)) {
+			alert("입고정보 관리방법을 선택해주세요");
+			return;
+		}
+		let sortInfoMngMthd = SBUxMethod.get('dtl-rdo-sortInfoMngMthd');
+		if (gfn_isEmpty(sortInfoMngMthd)) {
+			alert("선별정보 관리방법을 선택해주세요");
+			return;
+		}
+		let strgInfoMngMthd = SBUxMethod.get('dtl-rdo-strgInfoMngMthd');
+		if (gfn_isEmpty(strgInfoMngMthd)) {
+			alert("저장정보 관리방법을 선택해주세요");
+			return;
+		}
+		let pckgInfoMngMthd = SBUxMethod.get('dtl-rdo-pckgInfoMngMthd');
+		if (gfn_isEmpty(pckgInfoMngMthd)) {
+			alert("포장정보 관리방법을 선택해주세요");
+			return;
+		}
+		let jobInfoMngMthd = SBUxMethod.get('dtl-rdo-jobInfoMngMthd');
+		if (gfn_isEmpty(jobInfoMngMthd)) {
+			alert("작업정보 관리방법을 선택해주세요");
+			return;
+		}
+		let spmtInfoMngMthd = SBUxMethod.get('dtl-rdo-spmtInfoMngMthd');
+		if (gfn_isEmpty(spmtInfoMngMthd)) {
+			alert("출고정보 관리방법을 선택해주세요");
+			return;
+		}
+
+		console.log(prdctnInfoMngMthd , wrhsInfoMngMthd , sortInfoMngMthd , strgInfoMngMthd , pckgInfoMngMthd , jobInfoMngMthd , spmtInfoMngMthd);
 
 		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
@@ -546,6 +616,11 @@
 			if(!gfn_isEmpty(item.mastervalue)){
 				//console.log(item);
 				let $targetTd = $('#'+item.mastervalue);
+				//기타인경우 줄바꿈
+				if(item.text == "기타"){
+					let $br = $('<br>');
+					$targetTd.append($br);
+				}
 				let $newP = $('<p>').addClass('ad_input_row');
 				$targetTd.append($newP);
 				$newP.sbCheckbox({

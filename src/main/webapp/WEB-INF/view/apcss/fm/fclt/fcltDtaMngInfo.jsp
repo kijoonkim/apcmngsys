@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltDtaMngInfo.jsp
-  * @Description : 스마트데이터화 화면
+  * @Description : 4.2 작업단계별 농가 데이터 현황 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -9,7 +9,7 @@
   * @
   * @ 수정일       	수정자      	수정내용
   * @ ----------	----------	---------------------------
-  * @ 2023.12.12   	김현호		최초 생성
+  * @ 2023.12.12   	김현호			최초 생성
   * @see
   *
   */
@@ -119,6 +119,7 @@
 								name="srch-inp-apcNm"
 								class="form-control input-sm srch-keyup-area"
 								autocomplete="off"
+								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
 						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -130,6 +131,7 @@
 								name="srch-inp-itemNm"
 								class="form-control input-sm srch-keyup-area"
 								autocomplete="off"
+								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
 						<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -332,6 +334,7 @@
 					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
+			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
 	</section>
 	<!-- apc 선택 Modal -->
@@ -366,6 +369,11 @@
 		fn_init();
 
 	});
+	function fn_selectEnterKey() {
+		if(window.event.keyCode == 13) {
+			fn_search();
+		}
+	}
 
 	/* 초기세팅 */
 	const fn_init = async function() {
@@ -379,6 +387,7 @@
 
 	var jsonComCtpv = [];//시도
 	var jsonComSgg = [];//시군구
+	var jsonComSrchLclsfCd = [];//조회용 부류
 
 	/**
 	 * combo 설정
@@ -389,6 +398,7 @@
 			//검색조건
 			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
+			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
 		]);
 	}
 
@@ -471,6 +481,42 @@
 		}
 		if (gfn_isEmpty(crtrYr)) {
 			alert("대상연도를 작성해주세요");
+			return;
+		}
+
+		let prdctnInfoMngMthd = SBUxMethod.get('dtl-rdo-prdctnInfoMngMthd');
+		if (gfn_isEmpty(prdctnInfoMngMthd)) {
+			alert("생산정보 관리방법을 선택해주세요");
+			return;
+		}
+		let wrhsInfoMngMthd = SBUxMethod.get('dtl-rdo-wrhsInfoMngMthd');
+		if (gfn_isEmpty(wrhsInfoMngMthd)) {
+			alert("입고정보 관리방법을 선택해주세요");
+			return;
+		}
+		let sortInfoMngMthd = SBUxMethod.get('dtl-rdo-sortInfoMngMthd');
+		if (gfn_isEmpty(sortInfoMngMthd)) {
+			alert("선별정보 관리방법을 선택해주세요");
+			return;
+		}
+		let strgInfoMngMthd = SBUxMethod.get('dtl-rdo-strgInfoMngMthd');
+		if (gfn_isEmpty(strgInfoMngMthd)) {
+			alert("저장정보 관리방법을 선택해주세요");
+			return;
+		}
+		let pckgInfoMngMthd = SBUxMethod.get('dtl-rdo-pckgInfoMngMthd');
+		if (gfn_isEmpty(pckgInfoMngMthd)) {
+			alert("포장정보 관리방법을 선택해주세요");
+			return;
+		}
+		let jobInfoMngMthd = SBUxMethod.get('dtl-rdo-jobInfoMngMthd');
+		if (gfn_isEmpty(jobInfoMngMthd)) {
+			alert("작업정보 관리방법을 선택해주세요");
+			return;
+		}
+		let spmtInfoMngMthd = SBUxMethod.get('dtl-rdo-spmtInfoMngMthd');
+		if (gfn_isEmpty(spmtInfoMngMthd)) {
+			alert("출고정보 관리방법을 선택해주세요");
 			return;
 		}
 
@@ -611,6 +657,11 @@
 			if(!gfn_isEmpty(item.mastervalue)){
 				//console.log(item);
 				let $targetTd = $('#'+item.mastervalue);
+				//기타인경우 줄바꿈
+				if(item.text == "기타"){
+					let $br = $('<br>');
+					$targetTd.append($br);
+				}
 				let $newP = $('<p>').addClass('ad_input_row');
 				$targetTd.append($newP);
 				$newP.sbCheckbox({
@@ -732,6 +783,7 @@
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		//SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheader="seq";
+		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -799,6 +851,8 @@
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
+		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
+		let srchLclsfCd = SBUxMethod.get("srch-inp-srchLclsfCd");//
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcList.do", {
 			//apcCd: apcCd,
@@ -806,11 +860,13 @@
 			crtrYr: crtrYr,
 			ctpvCd: ctpvCd,
 			sigunCd: sigunCd,
+			itemNm: itemNm,
+			srchLclsfCd: srchLclsfCd,
 
 			// pagination
-			pagingYn : 'Y',
-			currentPageNo : pageNo,
-			recordCountPerPage : pageSize
+			//pagingYn : 'Y',
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
 		});
 		const data = await postJsonPromise;
 		//await 오류시 확인
@@ -843,6 +899,10 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
+			//페이징 처리가 빠진경우
+			if(totalRecordCount < data.resultList.length){
+				totalRecordCount = data.resultList.length;
+			}
 
 			if (jsonFcltApcInfo.length > 0) {
 
@@ -898,6 +958,156 @@
 	//시도 변경 이벤트
 	const fn_ctpvChange = async function(){
 		SBUxMethod.set("srch-inp-sgg", "");
+	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.columns = [
+			{caption: ["APC코드"],		ref:'apcCd',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC명"],			ref:'apcNm',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["생산정보 관리방법"],					ref:'prdctnInfoMngMthd',type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["생산정보 데이터관리 항목(다수선택)"],		ref:'prdctnDtl',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["생산정보 기타"],						ref:'prdctnDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["입고정보 관리방법"],					ref:'wrhsInfoMngMthd',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["입고정보 데이터관리 항목(다수선택)"],		ref:'wrhsDtl',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["입고정보 기타"],						ref:'wrhsDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["선별정보 관리방법"],					ref:'sortInfoMngMthd',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["선별정보 데이터관리 항목(다수선택)"],		ref:'sortDtl',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["선별정보 기타"],						ref:'sortDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["저장정보 관리방법"],					ref:'strgInfoMngMthd',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["저장정보 데이터관리 항목(다수선택)"],		ref:'strgDtl',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["저장정보 기타"],						ref:'strgDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["포장정보 관리방법"],					ref:'pckgInfoMngMthd',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["포장정보 데이터관리 항목(다수선택)"],		ref:'pckgDtl',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["포장정보 기타"],						ref:'pckgDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["작업정보 관리방법"],					ref:'jobInfoMngMthd',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["작업정보 데이터관리 항목(다수선택)"],		ref:'jobDtl',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["작업정보 기타"],						ref:'jobDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["출고정보 관리방법"],					ref:'spmtInfoMngMthd',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출고정보 데이터관리 항목(다수선택)"],		ref:'spmtDtl',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["출고정보 기타"],						ref:'spmtDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
+
+		];
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const fn_hiddenGrdSelect = async function(){
+		await fn_hiddenGrd();//그리드 생성
+
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		if (gfn_isEmpty(crtrYr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			crtrYr = year;
+		}
+
+		//userId로 지자체 시도 시군구 값 알아내서 처리
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltDtaMngInfoRawDataList.do", {
+			crtrYr : crtrYr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO = {
+					apcCd				:item.apcCd
+					,apcNm				:item.apcNm
+
+					,prdctnInfoMngMthd	:item.prdctnInfoMngMthd
+					,prdctnDtl			:item.prdctnDtl
+					,prdctnDtlEtc			:item.prdctnDtlEtc
+
+					,wrhsInfoMngMthd	:item.wrhsInfoMngMthd
+					,wrhsDtl			:item.wrhsDtl
+					,wrhsDtlEtc			:item.wrhsDtlEtc
+
+					,sortInfoMngMthd	:item.sortInfoMngMthd
+					,sortDtl			:item.sortDtl
+					,sortDtlEtc			:item.sortDtlEtc
+
+					,strgInfoMngMthd	:item.strgInfoMngMthd
+					,strgDtl			:item.strgDtl
+					,strgDtlEtc			:item.strgDtlEtc
+
+					,pckgInfoMngMthd	:item.pckgInfoMngMthd
+					,pckgDtl			:item.pckgDtl
+					,pckgDtlEtc			:item.pckgDtlEtc
+
+					,jobInfoMngMthd		:item.jobInfoMngMthd
+					,jobDtl				:item.jobDtl
+					,jobDtlEtc			:item.jobDtlEtc
+
+					,spmtInfoMngMthd	:item.spmtInfoMngMthd
+					,spmtDtl			:item.spmtDtl
+					,spmtDtlEtc			:item.spmtDtlEtc
+
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_4.2작업단계별농가데이터현황_로우데이터";
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
 

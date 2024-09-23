@@ -119,7 +119,7 @@
 	</section>
 		<!-- apc 선택 Modal -->
 	<div>
-		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:600px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
 		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
@@ -187,12 +187,12 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0861';
 		let crtrYr = '2024';
+		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
-		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
 		fn_init();
@@ -202,6 +202,8 @@
 	const fn_init = async function() {
 		await fn_initSBSelect();
 		await fn_fcltInstlInfoCreateGrid();
+
+		await fn_selectUserApcList();//선택가능한 APC리스트 조회
 
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			return;
@@ -219,9 +221,38 @@
 		}
 	}
 
-	var jsonGrdComBizSprtCd = [];	//지원유형
+	/* 선택가능한 APC리스트 조회 */
+	const fn_selectUserApcList = async function(){
 
-	let test = [];
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectUserApcList.do", {
+
+		});
+
+		let data = await postJsonPromise;
+		try{
+			console.log(data);
+			let apcListLength = data.resultList.length;
+			console.log(apcListLength);
+			if(apcListLength == 1){
+				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
+				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
+			}else if (apcListLength > 1){
+				//APC선택 팝업 열기
+				fn_modalApcSelect();
+				SBUxMethod.openModal("modal-apcSelect");
+			}
+
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+
+	var jsonGrdComBizSprtCd = [];	//지원유형
 
 	/**
 	 * combo 설정
@@ -230,8 +261,7 @@
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
-			gfn_setComCdSBSelect('grdFcltInstlInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD') 	//지원 유형
-			//gfn_setComCdSBSelect('grdFcltInstlInfo', 	test , 	'BIZ_SPRT_CD') 	//지원 유형
+			gfn_setComCdSBSelect('grdFcltInstlInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD'), 	//지원 유형
 		]);
 	}
 
@@ -397,13 +427,13 @@
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
+		//console.log("******************fn_save**********************************");
 
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			alert('APC를 선택해주세요');
 			return;
 		}
-
+		/*
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
 			if(e.value != "" && e.value.length != 4){
@@ -412,7 +442,39 @@
 				return e.focus();
 			}
 		});
-		//alert('준비중');
+		*/
+		let grdData = grdFcltInstlInfo.getGridDataAll();
+		for ( let iRow = 2; iRow <= grdData.length+1; iRow++ ) {
+			const rowData = grdFcltInstlInfo.getRowData(iRow);
+			//console.log(rowData);
+			if (gfn_isEmpty(rowData.bizYr)) {
+				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizYr"));
+				return;
+			}
+			//console.log(rowData.bizYr,rowData.bizYr.length);
+
+			if (rowData.bizYr.length != 4) {
+				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizYr"));
+				return;
+			}
+			if (gfn_isEmpty(rowData.sprtBiz)) {
+				gfn_comAlert("W0002", "지원유형");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("sprtBiz"));
+				return;
+			}
+			if (gfn_isEmpty(rowData.bizNm)) {
+				gfn_comAlert("W0002", "사업명");		//	W0002	{0}을/를 입력하세요.
+				grdFcltInstlInfo.setRow(iRow);
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizNm"));
+				return;
+			}
+		}
+
 		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');
 	}
 

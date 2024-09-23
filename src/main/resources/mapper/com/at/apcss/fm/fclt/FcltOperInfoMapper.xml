@@ -487,9 +487,9 @@
 			, AOPO.APC_NM
 
 			, AOPO.CTPV_CD
-			, AOPO.CTPV_NM
+			, FN_GET_COM_CD_VL_NM('UNTY_CTPV',AOPO.CTPV_CD) AS CTPV_NM
 			, AOPO.SIGUN_CD
-			, AOPO.SIGUN_NM
+			, FN_GET_COM_CD_VL_NM('UNTY_SGG',AOPO.SIGUN_NM) AS SIGUN_NM
 
 			,(SELECT ITEM_CD FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '1' AND OGNZ_SE_CD ='2'
 			) AS ITEM_CD_1
@@ -504,6 +504,10 @@
 			) AS ITEM_NM_2
 			,(SELECT ITEM_NM FROM TB_TE_APC_OPER_TRMT_ITEM WHERE APC_CD = AOPO.APC_CD AND CRTR_YR = AOPO.CRTR_YR AND SN = '3' AND OGNZ_SE_CD ='2'
 			) AS ITEM_NM_3
+
+			,(SELECT MAX(PIC_NM) FROM TB_COM_USER WHERE 'UO'||UNTY_OGNZ_CD = (SELECT MAX(UNTY_OGNZ_ID) FROM TB_UNTY_OGNZ_APC  WHERE APC_CD = AOPO.APC_CD AND APRV_YN = 'Y')) AS PIC_NM
+			,(SELECT MAX(JBPS) FROM TB_COM_USER WHERE 'UO'||UNTY_OGNZ_CD = (SELECT MAX(UNTY_OGNZ_ID) FROM TB_UNTY_OGNZ_APC  WHERE APC_CD = AOPO.APC_CD AND APRV_YN = 'Y')) AS JBPS
+			,(SELECT MAX(CO_TELNO) FROM TB_COM_USER WHERE 'UO'||UNTY_OGNZ_CD = (SELECT MAX(UNTY_OGNZ_ID) FROM TB_UNTY_OGNZ_APC  WHERE APC_CD = AOPO.APC_CD AND APRV_YN = 'Y')) AS CO_TELNO
 
 		FROM TB_TE_APC_OPER_PRSN_OTLN AOPO
 		WHERE 1=1
@@ -525,6 +529,34 @@
 
 		<if test='apcNm != null and !apcNm.equals("")'>
 		  AND  AOPO.APC_NM LIKE '%' || #{apcNm} || '%'
+		</if>
+
+		<if test='itemNm != null and !itemNm.equals("")'>
+		  AND  AOPO.APC_CD IN (SELECT APC_CD
+		  						FROM TB_TE_APC_OPER_TRMT_ITEM
+		  						WHERE 1=1
+		  						  AND OGNZ_SE_CD = '2'
+		  						  AND SN IN ('1','2','3')
+		  						  AND CRTR_YR = #{crtrYr}
+		  						  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
+		  						GROUP BY APC_CD
+		  						)
+		</if>
+
+		<if test='srchLclsfCd != null and !srchLclsfCd.equals("")'>
+		  AND  AOPO.APC_CD IN (SELECT APC_CD
+		  						FROM TB_TE_APC_OPER_TRMT_ITEM
+		  						WHERE 1=1
+		  						  AND OGNZ_SE_CD = '2'
+		  						  AND SN IN ('1','2','3')
+		  						  AND CRTR_YR = #{crtrYr}
+		  						  AND ITEM_CD IN (SELECT ITEM_CD
+		  						  					FROM TB_TE_APC_ITEM_CRTR
+		  						  					WHERE 1=1
+		  						  					  AND SRCH_LCLSF_CD = #{srchLclsfCd}
+		  						  					)
+		  						GROUP BY APC_CD
+		  						)
 		</if>
 
 		<if test='userId != null and userId != ""'>
@@ -616,5 +648,34 @@
 								)
 				</if>
 			</if>
+	</select>
+	<select id="selectUserApcList" parameterType="com.at.apcss.fm.fclt.vo.FcltApcVO" resultType="com.at.apcss.fm.fclt.vo.FcltApcVO">
+		SELECT * FROM (
+
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserApcList */
+				TAI.APC_CD
+				,TAI.APC_NM
+			FROM TB_APC_INFO TAI
+			WHERE TAI.DEL_YN = 'N'
+			<if test='userId != null and userId != "" and userId != "admin"'>
+				<if test='userType == "27"'>
+				AND TAI.CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+				<if test='userType == "28"'>
+				AND TAI.SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+				<if test='userType != "27" and userType != "28"'>
+				AND TAI.APC_CD IN (SELECT APC_CD
+									FROM TB_UNTY_OGNZ_APC
+									WHERE 1=1
+									  AND APRV_YN = 'Y'
+									  AND UNTY_OGNZ_ID = 'UO' || (SELECT UNTY_OGNZ_CD FROM TB_COM_USER WHERE USER_ID = #{userId}))
+				</if>
+			</if>
+			ORDER BY APC_NM ASC
+
+		<![CDATA[
+		)WHERE ROWNUM <= 2
+		]]>
 	</select>
 </mapper>

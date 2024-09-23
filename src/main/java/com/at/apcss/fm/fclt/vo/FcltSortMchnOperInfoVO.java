@@ -97,6 +97,9 @@ public class FcltSortMchnOperInfoVO extends ComVO{
 	private String operPeriodYn10;
 	private String operPeriodYn11;
 	private String operPeriodYn12;
+
+	private String userId;
+	private String userType;
 }
 
 

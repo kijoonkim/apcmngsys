@@ -50,6 +50,14 @@ public class FcltApcVO extends ComVO{
 	private String userType;
 	private String userId;
 
+	private String picNm;
+	private String jbps;
+	private String coTelno;
+
+	private String srchLclsfCd;
+
+	private String itemNm;
+
 }
 
 

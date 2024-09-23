@@ -296,4 +296,60 @@
 	</delete>
 -->
 
+
+	<select id="selectFcltSortMchnOperInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoRawDataList */
+				OTI.CRTR_YR
+				, OTI.APC_CD
+				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				, OTI.SN
+				, OTI.ITEM_CD
+				, OTI.ITEM_NM
+
+				, DECODE(AMOP.OPER_YN , 'Y' , '운영함' , 'N' , '운영안함' , '') AS OPER_YN
+				, AMOP.OPER_PERIOD_YN_1
+				, AMOP.OPER_PERIOD_YN_2
+				, AMOP.OPER_PERIOD_YN_3
+				, AMOP.OPER_PERIOD_YN_4
+				, AMOP.OPER_PERIOD_YN_5
+				, AMOP.OPER_PERIOD_YN_6
+				, AMOP.OPER_PERIOD_YN_7
+				, AMOP.OPER_PERIOD_YN_8
+				, AMOP.OPER_PERIOD_YN_9
+				, AMOP.OPER_PERIOD_YN_10
+				, AMOP.OPER_PERIOD_YN_11
+				, AMOP.OPER_PERIOD_YN_12
+
+			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
+				,(SELECT *
+					FROM TB_TE_APC_MCHN_OPER_PERIOD
+					WHERE MCHN_SE_CD = '1'
+				) AMOP
+			WHERE 1=1
+			  AND OTI.APC_CD = AMOP.APC_CD(+)
+			  AND OTI.CRTR_YR = AMOP.CRTR_YR(+)
+			  AND OTI.SN = AMOP.SN(+)
+			  AND OTI.OGNZ_SE_CD = '2'
+			  AND OTI.APC_CD IS NOT NULL
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  AND OTI.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND OTI.APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
+			ORDER BY OTI.CRTR_YR , APC_NM , OTI.SN
+	</select>
 </mapper>

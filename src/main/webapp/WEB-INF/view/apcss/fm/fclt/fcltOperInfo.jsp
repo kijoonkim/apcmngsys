@@ -119,6 +119,7 @@
 									name="srch-inp-apcNm"
 									class="form-control input-sm srch-keyup-area"
 									autocomplete="off"
+									onkeyenter="fn_selectEnterKey"
 								></sbux-input>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -130,6 +131,7 @@
 								name="srch-inp-itemNm"
 								class="form-control input-sm srch-keyup-area"
 								autocomplete="off"
+								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
 						<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -501,8 +503,15 @@
 
 	});
 
+	function fn_selectEnterKey() {
+		if(window.event.keyCode == 13) {
+			fn_search();
+		}
+	}
+
 	var jsonComCtpv = [];//시도
 	var jsonComSgg = [];//시군구
+	var jsonComSrchLclsfCd = [];//조회용 부류
 
 	//var jsonComOgnzTypeCd = [];//조직유형
 	var jsonComEtcCtgryCd = [];//기타부류
@@ -517,6 +526,7 @@
 			//검색조건
 			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
+			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
 
 			//gfn_setComCdSBSelect('dtl-inp-ognzTypeCd', 	jsonComOgnzTypeCd, 	'OGNZ_TYPE_CD'), 	//조직유형
 			gfn_setComCdSBSelect('dtl-inp-operOgnzEtcCtgryCd', 		jsonComEtcCtgryCd, 	'ETC_CLS'), 	//운영조직 기타 부류
@@ -566,6 +576,7 @@
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		//SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheader="seq";
+		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -633,6 +644,8 @@
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
+		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
+		let srchLclsfCd = SBUxMethod.get("srch-inp-srchLclsfCd");//
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcList.do", {
 			//apcCd: apcCd,
@@ -640,11 +653,13 @@
 			crtrYr: crtrYr,
 			ctpvCd: ctpvCd,
 			sigunCd: sigunCd,
+			itemNm: itemNm,
+			srchLclsfCd: srchLclsfCd,
 
 			// pagination
-			pagingYn : 'Y',
-			currentPageNo : pageNo,
-			recordCountPerPage : pageSize
+			//pagingYn : 'Y',
+			//currentPageNo : pageNo,
+			//recordCountPerPage : pageSize
 		});
 		const data = await postJsonPromise;
 		//await 오류시 확인
@@ -677,6 +692,10 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
+			//페이징 처리가 빠진경우
+			if(totalRecordCount < data.resultList.length){
+				totalRecordCount = data.resultList.length;
+			}
 
 			if (jsonFcltOperInfo.length > 0) {
 
@@ -784,35 +803,73 @@
 
 	//등록
 	const fn_save = async function(tmpChk) {
-		console.log("******************fn_save**********************************");
-		//임시저장 체크
-		if(gfn_isEmpty(tmpChk)){
-			/*
-			let apcCd = SBUxMethod.get("dtl-inp-apcCd");
-			let trgtYr = SBUxMethod.get("dtl-inp-trgtYr");
-			if (gfn_isEmpty(apcCd)) {
-				alert("apc를 선택해주세요");
-				return;
-			}
-			if (gfn_isEmpty(trgtYr)) {
-				alert("대상연도를 작성해주세요");
-				return;
-			}
+		//console.log("******************fn_save**********************************");
 
-			let itemCd1 = SBUxMethod.get("dtl-inp-operOgnzItemCd1");
-			let apcItem1 = SBUxMethod.get("dtl-inp-apcItem1");
-			if (gfn_isEmpty(itemCd1) && gfn_isEmpty(apcItem1)) {
-				alert("'운영조직 취급 대표품목1'과 'APC 처리 대표품목1'은 필수로 작성해주셔야 합니다.");
+		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
+		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
+		if (gfn_isEmpty(apcCd)) {
+			alert("apc를 선택해주세요");
+			return;
+		}
+		if (gfn_isEmpty(crtrYr)) {
+			alert("대상연도를 작성해주세요");
+			return;
+		}
+		//운영조직 주소 , apc주소 , apc 사업자번호 ,
+		let addr = SBUxMethod.get("dtl-inp-operOgnzRoadNmAddrFull");
+		if (gfn_isEmpty(addr)) {
+			alert("운영조직 주소를 작성해주세요");
+			return;
+		}
+
+		//apc 사업자번호
+		let apcBrno = SBUxMethod.get("dtl-inp-apcBrno");
+		console.log(apcBrno,apcBrno.length);
+		if (gfn_isEmpty(apcBrno)) {
+			alert("APC 사업자번호를 작성해주세요");
+			return;
+		}
+		if (apcBrno.length != 10) {
+			alert("APC 사업자번호는 총 10자리입니다. 사업자번호를 올바르게 작성하였는지 확인해주세요.");
+			return;
+		}
+		//APC주소
+		let apcAddr = SBUxMethod.get("dtl-inp-apcRoadNmAddrFull");
+		if (gfn_isEmpty(apcAddr)) {
+			alert("APC주소를 작성해주세요");
+			return;
+		}
+
+
+		let itemCd1 = SBUxMethod.get("dtl-inp-operOgnzItemCd1");
+		let apcItem1 = SBUxMethod.get("dtl-inp-apcItem1");
+		if (gfn_isEmpty(itemCd1)) {
+			alert("'운영조직 취급 대표품목1'은 필수로 작성해주셔야 합니다.");
+			return;
+		}
+		if (gfn_isEmpty(apcItem1)) {
+			alert("'APC 처리 대표품목1'은 필수로 작성해주셔야 합니다.");
+			return;
+		}
+
+		//기타품목 값이 있을떄 부류 선택 필수
+		let itemCd4 = SBUxMethod.get("dtl-inp-operOgnzItemCd4");
+		let apcItem4 = SBUxMethod.get("dtl-inp-apcItem4");
+
+		let operOgnzEtcCtgryCd = SBUxMethod.get("dtl-inp-operOgnzEtcCtgryCd");
+		let apcEtcCtgryCd = SBUxMethod.get("dtl-inp-apcEtcCtgryCd");
+
+		if (!gfn_isEmpty(itemCd4)) {
+			if(gfn_isEmpty(operOgnzEtcCtgryCd)){
+				alert("운영조직 기타품목의 부류를 선택해주세요");
 				return;
 			}
-			//2,4 사업자 번호
-			let operOgnzBrno = !SBUxMethod.get("dtl-inp-operOgnzBrno");
-			let apcBrno = !SBUxMethod.get("dtl-inp-apcBrno");
-			if (gfn_isEmpty(operOgnzBrno)) {
-				alert("사업자번호는 총 10자리입니다. 사업자번호를 올바르게 작성하였는지 확인해주세요.");
+		}
+		if (!gfn_isEmpty(apcItem4)) {
+			if(gfn_isEmpty(apcEtcCtgryCd)){
+				alert("APC 기타품목의 부류를 선택해주세요");
 				return;
 			}
-			*/
 		}
 
 		fn_subInsert(confirm("등록 하시겠습니까?") , 'N');

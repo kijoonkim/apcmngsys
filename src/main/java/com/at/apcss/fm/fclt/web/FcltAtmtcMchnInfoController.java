@@ -25,7 +25,7 @@ import com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO;
 /**
  * @Class Name : FcltAtmtcMchnInfoController.java
  * @Description : 스마트자동화에 대한 Controller 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -34,7 +34,7 @@ import com.at.apcss.fm.fclt.vo.FcltAtmtcMchnInfoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Controller
@@ -53,18 +53,12 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 
 	// 스마트자동화 조회
 	@PostMapping(value = "/fm/fclt/selectFcltAtmtcMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectMenuList(Model model, @RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest request) throws Exception{
-		logger.info("=============select=====start========");
+	public ResponseEntity<HashMap<String, Object>> selectFcltAtmtcMchnInfoList(Model model, @RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltAtmtcMchnInfoVO> resultList = new ArrayList<>();
 
 		try {
 			 resultList = fcltAtmtcMchnInfoService.selectFcltAtmtcMchnInfoList(fcltAtmtcMchnInfoVO);
-
-			 logger.debug("$$$$$$$$$$$$$$$$$$$$$");
-			 for (FcltAtmtcMchnInfoVO msg : resultList ) {
-				 logger.debug("msgCn : {}", msg.getMsgCn());
-			 }
 
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -72,14 +66,12 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-		logger.info("=============select=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 스마트자동화 등록
 	@PostMapping(value = "/fm/fclt/insertFcltAtmtcMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltAtmtcMchnInfo(@RequestBody List<FcltAtmtcMchnInfoVO> fcltAtmtcMchnInfoVOList, HttpServletRequest requset) throws Exception{
-		logger.info("=============insert=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -102,14 +94,12 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, insertedCnt);
-		logger.info("=============insert=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 스마트자동화 변경
 	@PostMapping(value = "/fm/fclt/updateFcltAtmtcMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateFcltAtmtcMchnInfo(@RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============update=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -128,14 +118,12 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
-		logger.info("=============update=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 스마트자동화 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltAtmtcMchnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltAtmtcMchnInfo(@RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest requset) throws Exception{
-		logger.info("=============delete=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -154,14 +142,12 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============delete=====end========");
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 스마트자동화 목록 삭제
 	@PostMapping(value = "/fm/fclt/deleteFcltAtmtcMchnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteFcltAtmtcMchnInfoList(@RequestBody List<FcltAtmtcMchnInfoVO> fcltAtmtcMchnInfoList, HttpServletRequest requset) throws Exception{
-		logger.info("=============deleteList=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
@@ -182,7 +168,27 @@ public class FcltAtmtcMchnInfoController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
-		logger.info("=============deleteList=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 로우데이터 조회
+	@PostMapping(value = "/fm/fclt/selectFcltAtmtcMchnInfoRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFcltAtmtcMchnInfoRawDataList(Model model, @RequestBody FcltAtmtcMchnInfoVO fcltAtmtcMchnInfoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<FcltAtmtcMchnInfoVO> resultList = new ArrayList<>();
+
+		fcltAtmtcMchnInfoVO.setUserId(getUserId());
+		fcltAtmtcMchnInfoVO.setUserType(getUserType());
+
+		try {
+			 resultList = fcltAtmtcMchnInfoService.selectFcltAtmtcMchnInfoRawDataList(fcltAtmtcMchnInfoVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

@@ -15,7 +15,7 @@ import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 /**
  * @Class Name : FcltOgnzPrcsPrfmncServiceImpl.java
  * @Description : 유통조직처리실적 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -59,11 +59,6 @@ public class FcltOgnzPrcsPrfmncServiceImpl extends BaseServiceImpl implements Fc
 	public List<FcltOgnzPrcsPrfmncVO> selectFcltOgnzPrcsPrfmncList(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception {
 
 		List<FcltOgnzPrcsPrfmncVO> resultList = fcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList(fcltOgnzPrcsPrfmncVO);
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$");
-		for (FcltOgnzPrcsPrfmncVO msg : resultList ) {
-			System.out.printf("msgCn : %s", msg.getMsgCn());
-			System.out.println();
-		}
 		return resultList;
 	}
 
@@ -134,6 +129,13 @@ public class FcltOgnzPrcsPrfmncServiceImpl extends BaseServiceImpl implements Fc
 		}
 
 		return deletedCnt;
+	}
+
+	@Override
+	public List<FcltOgnzPrcsPrfmncVO> selectFcltOgnzPrcsPrfmncRawDataList(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception {
+
+		List<FcltOgnzPrcsPrfmncVO> resultList = fcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncRawDataList(fcltOgnzPrcsPrfmncVO);
+		return resultList;
 	}
 
 }

@@ -133,7 +133,10 @@
 								<th style="text-align: center;" colspan="2">계약매취</th>
 							</tr>
 							<tr>
-								<th class="text-center">품목1</th>
+								<th class="text-center">
+									<span id="itemNm1">품목1</span>
+									<sbux-input id="dtl-inp-itemChk1" name="dtl-inp-itemChk1" uitype="hidden"></sbux-input>
+								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
 										id="dtl-inp-apcGnrlTrmtAmt1"
@@ -220,7 +223,10 @@
 								<td>%</td>
 							</tr>
 							<tr>
-								<th class="text-center">품목2</th>
+								<th class="text-center">
+									<span id="itemNm2">품목2</span>
+									<sbux-input id="dtl-inp-itemChk2" name="dtl-inp-itemChk2" uitype="hidden"></sbux-input>
+								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
 										id="dtl-inp-apcGnrlTrmtAmt2"
@@ -307,7 +313,10 @@
 								<td>%</td>
 							</tr>
 							<tr>
-								<th class="text-center">품목3</th>
+								<th class="text-center">
+									<span id="itemNm3">품목3</span>
+									<sbux-input id="dtl-inp-itemChk3" name="dtl-inp-itemChk3" uitype="hidden"></sbux-input>
+								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
 										id="dtl-inp-apcGnrlTrmtAmt3"
@@ -394,7 +403,10 @@
 								<td>%</td>
 							</tr>
 							<tr>
-								<th class="text-center">기타</th>
+								<th class="text-center">
+									<span id="itemNm4">기타</span>
+									<sbux-input id="dtl-inp-itemChk4" name="dtl-inp-itemChk4" uitype="hidden"></sbux-input>
+								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
 										id="dtl-inp-apcGnrlTrmtAmt4"
@@ -638,7 +650,7 @@
 	</section>
 	<!-- apc 선택 Modal -->
 	<div>
-		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+		<sbux-modal id="modal-apcSelect" name="modal-apcSelect" uitype="middle" header-title="apc 선택" body-html-id="body-modal-apcSelect" footer-is-close-button="false" style="width:600px; z-index: 10000;"></sbux-modal>
 	</div>
 	<div id="body-modal-apcSelect">
 		<jsp:include page="/WEB-INF/view/apcss/fm/fclt/popup/apcSelectPopup.jsp"></jsp:include>
@@ -659,12 +671,12 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let apcCd = '0861';
 		let crtrYr = '2024';
+		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
 		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
-		SBUxMethod.set("srch-inp-apcNm", apcNm);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
 
 		fn_init();
@@ -673,6 +685,8 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_selectUserApcList();//선택가능한 APC리스트 조회
+
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			return;
 		}
@@ -685,6 +699,36 @@
 			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+		}
+	}
+
+	/* 선택가능한 APC리스트 조회 */
+	const fn_selectUserApcList = async function(){
+
+		let postJsonPromise = gfn_postJSON("/fm/fclt/selectUserApcList.do", {
+
+		});
+
+		let data = await postJsonPromise;
+		try{
+			console.log(data);
+			let apcListLength = data.resultList.length;
+			console.log(apcListLength);
+			if(apcListLength == 1){
+				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
+				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
+			}else if (apcListLength > 1){
+				//APC선택 팝업 열기
+				fn_modalApcSelect();
+				SBUxMethod.openModal("modal-apcSelect");
+			}
+
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 
@@ -723,7 +767,12 @@
 		try {
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
-				//SBUxMethod.set('dtl-inp-apcTrmtAmt'+sn,item.apcTrmtAmt);
+				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
+				if(sn == '4'){
+					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
+				}else{
+					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
+				}
 
 				SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,item.apcTrmtAmt);
 				SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,item.apcGnrlTrmtAmt);

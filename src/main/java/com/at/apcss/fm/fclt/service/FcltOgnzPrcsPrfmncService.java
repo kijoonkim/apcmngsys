@@ -86,4 +86,12 @@ public interface FcltOgnzPrcsPrfmncService {
 	 */
 	public int deleteFcltOgnzPrcsPrfmncList(List<FcltOgnzPrcsPrfmncVO> fcltOgnzPrcsPrfmncList) throws Exception;
 
+	/**
+	 * 로우데이터를 조회한다.
+	 * @param fcltOgnzPrcsPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<FcltOgnzPrcsPrfmncVO> selectFcltOgnzPrcsPrfmncRawDataList(FcltOgnzPrcsPrfmncVO fcltOgnzPrcsPrfmncVO) throws Exception;
+
 }

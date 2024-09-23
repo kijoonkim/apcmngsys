@@ -126,6 +126,7 @@
 								name="srch-inp-apcNm"
 								class="form-control input-sm srch-keyup-area"
 								autocomplete="off"
+								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
 						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
@@ -137,6 +138,7 @@
 								name="srch-inp-itemNm"
 								class="form-control input-sm srch-keyup-area"
 								autocomplete="off"
+								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
 						<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -288,6 +290,12 @@
 		fn_init();
 	});
 
+	function fn_selectEnterKey() {
+		if(window.event.keyCode == 13) {
+			fn_search();
+		}
+	}
+
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		await fn_initSBSelect();
@@ -301,6 +309,7 @@
 	var jsonComCtpv = [];//시도
 	var jsonComSgg = [];//시군구
 	var jsonGrdComBizSprtCd = [];	//지원유형
+	var jsonComSrchLclsfCd = [];//조회용 부류
 
 	/**
 	 * combo 설정
@@ -311,7 +320,8 @@
 			//검색조건
 			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
-			gfn_setComCdSBSelect('grdFcltInstlInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD') 	//지원 유형
+			gfn_setComCdSBSelect('grdFcltInstlInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD'), 	//지원 유형
+			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
 		]);
 	}
 
@@ -468,7 +478,7 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
-
+		/*
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
 			if(e.value != "" && e.value.length != 4){
@@ -478,14 +488,15 @@
 			}
 
 		});
+		*/
 		let grdData = grdFcltInstlInfo.getGridDataAll();
 		for ( let iRow = 2; iRow <= grdData.length+1; iRow++ ) {
 			const rowData = grdFcltInstlInfo.getRowData(iRow);
 
 			if (gfn_isEmpty(rowData.bizYr)) {
 				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
-				grdFcltInstlInfo.setRow(iRow);
-				grdFcltInstlInfo.setCol(_grdImp.getColRef("bizYr"));
+				//grdFcltInstlInfo.setRow(iRow);
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizYr"));
 				return;
 			}
 			//console.log(rowData.bizYr,rowData.bizYr.length);
@@ -493,19 +504,19 @@
 			if (rowData.bizYr.length != 4) {
 				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
 				grdFcltInstlInfo.setRow(iRow);
-				grdFcltInstlInfo.setCol(_grdImp.getColRef("bizYr"));
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizYr"));
 				return;
 			}
 			if (gfn_isEmpty(rowData.sprtBiz)) {
 				gfn_comAlert("W0002", "지원유형");		//	W0002	{0}을/를 입력하세요.
 				grdFcltInstlInfo.setRow(iRow);
-				grdFcltInstlInfo.setCol(_grdImp.getColRef("sprtBiz"));
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("sprtBiz"));
 				return;
 			}
 			if (gfn_isEmpty(rowData.bizNm)) {
 				gfn_comAlert("W0002", "사업명");		//	W0002	{0}을/를 입력하세요.
 				grdFcltInstlInfo.setRow(iRow);
-				grdFcltInstlInfo.setCol(_grdImp.getColRef("bizNm"));
+				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizNm"));
 				return;
 			}
 		}
@@ -1116,7 +1127,6 @@
 		SBGridProperties.id = 'grdFcltApcInfo';
 		SBGridProperties.jsonref = 'jsonFcltApcInfo';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
 		SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
@@ -1124,6 +1134,7 @@
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		//SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheader="seq";
+		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -1191,6 +1202,8 @@
 		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
+		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
+		let srchLclsfCd = SBUxMethod.get("srch-inp-srchLclsfCd");//
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcList.do", {
 			//apcCd: apcCd,
@@ -1198,6 +1211,8 @@
 			crtrYr: crtrYr,
 			ctpvCd: ctpvCd,
 			sigunCd: sigunCd,
+			itemNm: itemNm,
+			srchLclsfCd: srchLclsfCd,
 
 			// pagination
 			//pagingYn : 'Y',
@@ -1235,6 +1250,10 @@
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
+			//페이징 처리가 빠진경우
+			if(totalRecordCount < data.resultList.length){
+				totalRecordCount = data.resultList.length;
+			}
 
 			if (jsonFcltApcInfo.length > 0) {
 
