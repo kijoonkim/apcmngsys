@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: fig2310_99.jsp
+ * @Class Name 		: fig2310p.jsp
  * @Description 	: 미결반제전표 신규 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.08.09

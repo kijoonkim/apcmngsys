@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: fig2200_q.jsp
+ * @Class Name 		: fig2300.jsp
  * @Description 	: 미결반제전표 조회 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.09.12

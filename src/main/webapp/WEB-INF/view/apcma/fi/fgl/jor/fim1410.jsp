@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: fim3100.jsp
+ * @Class Name 		: fim1410.jsp
  * @Description 	: 부서별계정 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.15
