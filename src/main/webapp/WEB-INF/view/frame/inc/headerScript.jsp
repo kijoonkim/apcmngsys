@@ -80,6 +80,8 @@
 	<script src="../../../src/select2/js/select2.min.js"></script>
 	<script src="../../../src/apexchart/js/apexcharts.js"></script>
 	<script src="../../../js/admin/pp_ui.js"></script>
+	
+	<script src="../../../js/exceljs/exceljs.min.js"></script>
 	 <!-- //js -->
 
 	<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->

@@ -1,4 +1,4 @@
-package com.at.apcma.fi.fgl.jor.web;
+package com.at.apcma.fi.fgl.leg.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,14 +19,14 @@ import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 
 /**
- * 미결잔액조회 처리하는 컨트롤러 클래스
+ * 계정별원장 처리하는 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
  * @since 		2024.07.29
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 미결잔액조회(Modification Information) >>
+ * << 계정별원장(Modification Information) >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
@@ -35,7 +35,7 @@ import com.at.apcss.co.sys.controller.BaseController;
  *  </pre>
  */
 @Controller
-public class ApcMaFig4195Controller extends BaseController {
+public class ApcMaFig4140Controller extends BaseController {
 
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
@@ -43,20 +43,20 @@ public class ApcMaFig4195Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
     
-    // 미결잔액조회
-    @PostMapping(value = "/fi/fgl/jor/selectFig4195List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFig4195List(
+    // 전표 조회
+    @PostMapping(value = "/fi/fgl/leg/selectFig4140List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFig4140List(
     		@RequestBody Map<String, Object> param
     		, Model model
     		, HttpSession session
     		, HttpServletRequest request) throws Exception{
     	
-    	logger.info("=============selectFig4195List=====start========");
+    	logger.info("=============selectFig4140List=====start========");
     	HashMap<String,Object> resultMap = new HashMap<String,Object>();
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG4195_Q");
+    		param.put("procedure", 		"P_FIG4140_Q");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -64,7 +64,7 @@ public class ApcMaFig4195Controller extends BaseController {
     		return getErrorResponseEntity(e);
     	}
     	
-    	logger.info("=============selectFig4195List=====end========");
+    	logger.info("=============selectFig4140List=====end========");
     	return getSuccessResponseEntityMa(resultMap);
     }   
     
