@@ -151,6 +151,7 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                placement="bottomRight"
                         />
                     </td>
                 </tr>
