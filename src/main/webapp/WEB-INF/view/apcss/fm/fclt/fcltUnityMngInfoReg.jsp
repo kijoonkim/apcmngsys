@@ -109,30 +109,43 @@
 						<tbody>
 							<tr>
 								<th>생산정보</th>
+								<td colspan="7">
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-umsYn1" name="dtl-rdo-umsYn" uitype="normal" value="Y" class="radio_label" onchange ="fn_selectOnchange(this)"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-umsYn1">활용</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-umsYn2" name="dtl-rdo-umsYn" uitype="normal" value="N" class="radio_label" onchange ="fn_selectOnchange(this)"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-umsYn2">활용안함</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>생산정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsPrdctnInfo" name="dtl-inp-umsPrdctnInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsPrdctnInfo" name="dtl-inp-umsPrdctnInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsPrdctnInfo" ></label>
 									</p>
 								</td>
 								<th>계량정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsWghInfo" ></label>
 									</p>
 								</td>
 								<th>입고정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsWrhsInfo" name="dtl-inp-umsWrhsInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsWrhsInfo" name="dtl-inp-umsWrhsInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsWrhsInfo" ></label>
 									</p>
 								</td>
 								<th>선별정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsSortInfo" name="dtl-inp-umsSortInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsSortInfo" name="dtl-inp-umsSortInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsSortInfo" ></label>
 									</p>
 								</td>
@@ -142,28 +155,28 @@
 								<th>저장정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsStrgInfo" name="dtl-inp-umsStrgInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsStrgInfo" name="dtl-inp-umsStrgInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsStrgInfo" ></label>
 									</p>
 								</td>
 								<th>포장정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsPckgInfo" name="dtl-inp-umsPckgInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsPckgInfo" name="dtl-inp-umsPckgInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsPckgInfo" ></label>
 									</p>
 								</td>
 								<th>출고정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsSpmtInfo" name="dtl-inp-umsSpmtInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsSpmtInfo" name="dtl-inp-umsSpmtInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsSpmtInfo" ></label>
 									</p>
 								</td>
 								<th>정산정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsClclnInfo" name="dtl-inp-umsClclnInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsClclnInfo" name="dtl-inp-umsClclnInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
@@ -273,6 +286,8 @@
 		SBUxMethod.set('dtl-inp-umsPckgInfo',"N");
 		SBUxMethod.set('dtl-inp-umsSpmtInfo',"N");
 		SBUxMethod.set('dtl-inp-umsClclnInfo',"N");
+		//비활성화
+		SBUxMethod.changeGroupAttr("group1",'disabled','true');
 	}
 
 	const fn_search = async function() {
@@ -311,14 +326,17 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-				SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
-				SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
-				SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
-				SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
-				SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
-				SBUxMethod.set('dtl-inp-umsPckgInfo',item.umsPckgInfo);
-				SBUxMethod.set('dtl-inp-umsSpmtInfo',item.umsSpmtInfo);
-				SBUxMethod.set('dtl-inp-umsClclnInfo',item.umsClclnInfo);
+				if(item.umsYn == 'Y'){
+					SBUxMethod.changeGroupAttr("group1",'disabled','false');
+					SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
+					SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
+					SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
+					SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
+					SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
+					SBUxMethod.set('dtl-inp-umsPckgInfo',item.umsPckgInfo);
+					SBUxMethod.set('dtl-inp-umsSpmtInfo',item.umsSpmtInfo);
+					SBUxMethod.set('dtl-inp-umsClclnInfo',item.umsClclnInfo);
+				}
 			});
 
 		} catch (e) {
@@ -366,7 +384,7 @@
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
-
+			,umsYn : SBUxMethod.get('dtl-rdo-umsYn')
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
 			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()
@@ -407,6 +425,16 @@
 		//진척도 갱신
 		await cfn_selectPrgrs();
 		await fn_search();
+	}
+	//활용 여부에 따라 비활성화 처리
+	function fn_selectOnchange(e){
+		console.log(e);
+		if($(e).val() == 'Y'){
+			SBUxMethod.changeGroupAttr("group1",'disabled','false');
+		}else{
+			SBUxMethod.changeGroupAttr("group1",'disabled','true');
+			SBUxMethod.clearGroupData("group1");
+		}
 	}
 
 </script>

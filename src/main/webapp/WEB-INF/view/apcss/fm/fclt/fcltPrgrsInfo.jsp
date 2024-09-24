@@ -293,7 +293,7 @@
 			{caption: ["체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
 			{caption: ["등록년도"],		ref: 'crtrYr',		type:'input',  width:'80px',    style:'text-align:center'},
-			{caption: ["사업명"],		ref: 'apcNm',		type:'input',  width:'200px',    style:'text-align:center'},
+			{caption: ["APC명"],		ref: 'apcNm',		type:'input',  width:'200px',    style:'text-align:center'},
 			{caption: ["최종제출"],		ref: 'prgrsLast',	type:'input',  width:'60px',    style:'text-align:center'},
 			{caption: ["1"],		ref: 'prgrs1',		type:'input',  width:'40px',    style:'text-align:center'},
 			{caption: ["2"],		ref: 'prgrs2',		type:'input',  width:'40px',    style:'text-align:center'},

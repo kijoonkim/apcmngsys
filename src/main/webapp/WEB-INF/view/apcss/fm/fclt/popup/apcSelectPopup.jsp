@@ -132,7 +132,6 @@
 			SBGridProperties.allowcopy = true;
 			SBGridProperties.explorerbar = 'sortmove';
 			SBGridProperties.scrollbubbling = false;
-			/*
 			SBGridProperties.paging = {
 				'type' : 'page',
 				'count' : 5,
@@ -140,7 +139,6 @@
 				'sorttype' : 'page',
 				'showgoalpageui' : true
 			};
-			*/
 			SBGridProperties.columns = [
 				{caption: ['APC코드'], ref: 'apcCd', hidden : true},
 				{caption: ['APC명'], ref: 'apcNm', width: '500px', type: 'input', style: 'text-align:center'},
@@ -176,15 +174,15 @@
 			//var apcCd = SBUxMethod.get("apc-inp-apcCd");
 			var apcNm = nvlScnd(SBUxMethod.get("apc-inp-apcNm"),'');
 
-			console.log("setGrid 호출 / apcNm : " + apcNm + "/ 타입 : " + typeof(apcNm));
+			//console.log("setGrid 호출 / apcNm : " + apcNm + "/ 타입 : " + typeof(apcNm));
 
 			const postJsonPromise = gfn_postJSON("/fm/popup/selectApcListPopup.do", {
 
 				apcNm : apcNm, //검색 파라미터
 				// pagination
-				//pagingYn : 'Y',
-				//currentPageNo : pageNo,
-				//recordCountPerPage : pageSize
+				pagingYn : 'Y',
+				currentPageNo : pageNo,
+				recordCountPerPage : pageSize
 			});
 
 			const data = await postJsonPromise;

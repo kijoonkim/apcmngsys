@@ -507,8 +507,10 @@
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
 		if(prgrsLast  == 'Y'){
 			await SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
+			await SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
 		} else {
 			await SBUxMethod.attr("btnInsert",'disabled','false'); // 저장버튼 활성화
+			await SBUxMethod.attr("btnInsert1",'disabled','false'); // 저장버튼 활성화
 		}
 	}
 

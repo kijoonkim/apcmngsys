@@ -179,6 +179,7 @@
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
 		let year  = date.getFullYear();
+		//진척도 갱신을 위해 사용
 		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
 		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
