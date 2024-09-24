@@ -48,17 +48,6 @@
                         id="btnDownload" name="btnDownload" uitype="normal" text="Excel 양식받기"
                         class="btn btn-sm btn-outline-danger" onclick="fn_exportData" style="float: right;"
                 ></sbux-button>
-                <%-- <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
-                              class="btn btn-sm btn-outline-danger"
-                              onclick="fn_create"></sbux-button>--%>
-               <%-- <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_save"></sbux-button>--%>
-                <%--<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_delete"></sbux-button>--%>
-                <%--<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_search"></sbux-button>--%>
             </div>
         </div>
 

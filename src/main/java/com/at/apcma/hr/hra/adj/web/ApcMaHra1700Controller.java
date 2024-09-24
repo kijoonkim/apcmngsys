@@ -54,7 +54,7 @@ public class ApcMaHra1700Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA1700_Q");
+            param.put("procedure", "P_HRA1700_2023_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -89,6 +89,32 @@ public class ApcMaHra1700Controller extends BaseController {
         }
 
         logger.info("=============insertHra1700=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+    // 연말정산 자동 계산
+    @PostMapping(value = "/hr/hra/adj/insertHra1700S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1500S1(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception {
+
+        logger.info("=============insertHra1500S1=====start========");
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+
+            param.put("procedure", "P_HRA1500_S1");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHra1500S1=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
     }

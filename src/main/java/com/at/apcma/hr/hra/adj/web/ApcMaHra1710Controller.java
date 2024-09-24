@@ -17,23 +17,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 연말정산 전산매체생성 컨트롤러 클래스
+ * 연말정산 결과조회 컨트롤러 클래스
  * @author 		인텔릭아이앤에스
- * @since 		2024.08.28
+ * @since 		2024.08.22
  * @version 	1.0
  * @see
  *
  * <pre>
- * << 연말정산 전산매체생성(Modification Information) >>
+ * << 연말정산 결과조회(Modification Information) >>
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
- *  2023.08.28  표주완     	최초 생성
+ *  2023.09.05  표주완     	최초 생성
  *
  *  </pre>
  */
 @Controller
-public class ApcMaHra1900Controller extends BaseController {
+public class ApcMaHra1710Controller extends BaseController {
 
     @Resource(name = "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
@@ -41,20 +41,20 @@ public class ApcMaHra1900Controller extends BaseController {
     @Resource(name = "apcMaComService")
     private ApcMaComService apcMaComService;
 
-    // 개인별 연말정산 결과조회 조회
-    @PostMapping(value = "/hr/hra/adj/selectHra1900List.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHra1900List(
+    // 연말정산 결과조회 조회
+    @PostMapping(value = "/hr/hra/adj/selectHra1710List.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHra1710List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception {
 
-        logger.info("=============selectHra1900List=====start========");
+        logger.info("=============selectHra1710List=====start========");
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
 
-            param.put("procedure", "P_HRA1900_2022_Q");
+            param.put("procedure", "P_HRA1710_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -62,36 +62,33 @@ public class ApcMaHra1900Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectHra1900List=====end========");
+        logger.info("=============selectHra1710List=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
     }
 
-    // 개인별 연말정산 결과조회 저장
-    @PostMapping(value = "/hr/hra/adj/insertHra1900.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHra1900(
+    // 연말정산 결과조회 등록
+    @PostMapping(value = "/hr/hra/adj/insertHra1710.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra1710(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
-            , HttpServletRequest request) throws Exception {
+            , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHra1900=====start========");
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        logger.info("=============insertHra1710=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1710_S");
 
-            param.put("procedure", "P_HRA1900_S");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-
+            logger.info("=============insertHra1710=====end========");
+            return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
-
-        logger.info("=============insertHra1900=====end========");
-        return getSuccessResponseEntityMa(resultMap);
-
     }
+
 
 
 }
