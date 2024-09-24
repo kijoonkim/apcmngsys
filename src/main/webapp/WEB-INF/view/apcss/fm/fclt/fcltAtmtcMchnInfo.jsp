@@ -975,19 +975,26 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-crtrYr", year);
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let apcCd = '0861';
 		let crtrYr = '2024';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
+		//지자체인경우 올해만 볼수 있게 수정
+		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -1014,6 +1021,7 @@
 		for (var i = 1; i < 4; i++) {
 			SBUxMethod.set('dtl-inp-itemChk'+i,null);//품목 존재 여부
 			$('#itemNm'+i).text("품목"+i);
+			$('#subItemNm'+i).text("품목"+i);
 
 			SBUxMethod.clearGroupData("group"+i);
 

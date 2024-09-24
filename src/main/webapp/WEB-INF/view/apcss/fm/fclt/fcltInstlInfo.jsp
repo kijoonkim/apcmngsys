@@ -269,22 +269,29 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-		//let date = new Date();
-		//let year  = date.getFullYear();
-		//SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
+		let date = new Date();
+		let year  = date.getFullYear();
+		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let apcCd = '0861';
 		let crtrYr = '2024';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
+		//지자체인경우 올해만 볼수 있게 수정
+		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -761,8 +768,8 @@
 		let iCol = 0;
 
 		//지원사업 리스트 등록할때 필요한 값
-		let apcCd = SBUxMethod.get('srch-inp-apcCd');
-		let apcNm = SBUxMethod.get('srch-inp-apcNm');
+		let apcCd = SBUxMethod.get('dtl-inp-apcCd');
+		let apcNm = SBUxMethod.get('dtl-inp-apcNm');
 
 		/*
 		let regMsg = "기존데이터를 삭제 처리 하시겠습니까?";

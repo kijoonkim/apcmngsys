@@ -357,17 +357,19 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-crtrYr", year);
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let crtrYr = '2024';
 		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcCd", apcCd);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
@@ -429,8 +431,11 @@
 
 	//입력폼 초기화
 	const fn_clearForm = async function() {
-		await SBUxMethod.changeGroupAttr('group1','disabled','true');
-		await SBUxMethod.changeGroupAttr('group2','disabled','true');
+		SBUxMethod.changeGroupAttr('group1','disabled','true');
+		SBUxMethod.changeGroupAttr('group2','disabled','true');
+		SBUxMethod.clearGroupData('group1');
+		SBUxMethod.clearGroupData('group2');
+		SBUxMethod.set('dtl-rdo-itemChk',null);
 	}
 
 	const fn_search = async function() {

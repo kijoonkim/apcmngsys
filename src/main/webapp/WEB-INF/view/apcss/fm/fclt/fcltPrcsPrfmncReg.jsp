@@ -663,18 +663,19 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-crtrYr", year);
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
-			SBUxMethod.set("srch-inp-apcCd", '0122');
-			//SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
+			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let crtrYr = '2024';
 		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcCd", apcCd);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
@@ -732,12 +733,28 @@
 		}
 	}
 
+	const fn_clearForm = async function() {
+		for (var sn = 1; sn < 5; sn++) {
+			SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,null);
+			SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,null);
+			SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-apcCtrtEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-apcTmSpmtAmt'+sn,null);
+		}
+		fn_cal();
+		$('#itemNm1').text("품목1");
+		$('#itemNm2').text("품목2");
+		$('#itemNm3').text("품목3");
+		$('#itemNm4').text("기타");
+	}
+
 	const fn_search = async function() {
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			alert('APC를 선택해주세요');
 			return;
 		}
-		fn_selectAtMcIfList();
+		await fn_clearForm();
+		await fn_selectAtMcIfList();
 	}
 
 	/**

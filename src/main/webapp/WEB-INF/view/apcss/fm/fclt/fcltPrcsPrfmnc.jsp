@@ -755,19 +755,26 @@
 		let date = new Date();
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let apcCd = '0861';
 		let crtrYr = '2024';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
+		//지자체인경우 올해만 볼수 있게 수정
+		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -804,6 +811,21 @@
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
 			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
 		]);
+	}
+
+	const fn_clearForm = async function() {
+		for (var sn = 1; sn < 5; sn++) {
+			SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,null);
+			SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,null);
+			SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst'+sn,null);
+			SBUxMethod.set('dtl-inp-apcCtrtEmspap'+sn,null);
+			SBUxMethod.set('dtl-inp-apcTmSpmtAmt'+sn,null);
+		}
+		fn_cal();
+		$('#itemNm1').text("품목1");
+		$('#itemNm2').text("품목2");
+		$('#itemNm3').text("품목3");
+		$('#itemNm4').text("기타");
 	}
 
 	/**
@@ -1141,6 +1163,7 @@
 		fn_searchApcList(recordCountPerPage, currentPageNo);
 	}
 
+
 	/**
      * 목록 조회
      */
@@ -1150,7 +1173,7 @@
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
 		//입력폼 초기화
-		//fn_clearForm();
+		fn_clearForm();
 
 		fn_searchApcList(pageSize, pageNo);
 	}
@@ -1241,7 +1264,7 @@
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
 		console.log("******************fn_view**********************************");
-		//fn_clearForm();
+		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
 		if (nCol < 1) {

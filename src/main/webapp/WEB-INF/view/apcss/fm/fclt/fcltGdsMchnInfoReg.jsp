@@ -378,17 +378,19 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
 
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let crtrYr = '2024';
 		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcCd", apcCd);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
@@ -540,6 +542,10 @@
 			//제조사 추가
 			SBUxMethod.set("dtl-inp-mkrNm"+i, null);
 		}
+		$('#itemNm1').text("품목1");
+		$('#itemNm2').text("품목2");
+		$('#itemNm3').text("품목3");
+		$('#itemNm4').text("기타");
 	}
 
 	//등록
