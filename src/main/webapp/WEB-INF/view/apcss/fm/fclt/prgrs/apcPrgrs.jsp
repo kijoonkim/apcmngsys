@@ -396,7 +396,7 @@
 				return;
 			}
 			//comReport.js
-			gfn_popClipReport("test출력", "fm/apcReport_20240913.crf", {
+			gfn_popClipReport("APC전수조사", "fm/fcltReport.crf", {
 				apcCd 		: gfn_nvl(apcCd)
 				, crtrYr 	: gfn_nvl(crtrYr)
 			});

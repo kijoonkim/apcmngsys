@@ -451,17 +451,19 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-crtrYr", year);//trgtYr -> crtrYr 변경
 
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let crtrYr = '2024';
 		let apcCd = '0861';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcCd", apcCd);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>

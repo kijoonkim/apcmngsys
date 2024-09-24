@@ -499,19 +499,26 @@
 		let year  = date.getFullYear();
 		SBUxMethod.set("srch-inp-crtrYr", year);
 
+		/*
 		if(gv_apcCd != 0000 || gv_apcCd != null || gv_apcCd != ""){
 			SBUxMethod.set("srch-inp-apcCd", gv_apcCd);
 			SBUxMethod.set("srch-inp-apcNm", gv_apcNm);
 		};
+		*/
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
 		let apcCd = '0861';
 		let crtrYr = '2024';
 		let apcNm = 'test';
-		SBUxMethod.set("srch-inp-apcCd", apcCd);
-		SBUxMethod.set("srch-inp-crtrYr", crtrYr);
+		//SBUxMethod.set("srch-inp-apcCd", apcCd);
+		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
+		</c:if>
+
+		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
+		//지자체인경우 올해만 볼수 있게 수정
+		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -559,6 +566,10 @@
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
 		}
+		$('#itemNm1').text("품목1");
+		$('#itemNm2').text("품목2");
+		$('#itemNm3').text("품목3");
+		$('#itemNm4').text("기타");
 	}
 
 	/**
@@ -652,8 +663,8 @@
 		if (!isConfirmed) return;
 		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
 
-		let crtrYr = SBUxMethod.get('srch-inp-crtrYr');
-		let apcCd = SBUxMethod.get('srch-inp-apcCd');
+		let crtrYr = SBUxMethod.get('dtl-inp-crtrYr');
+		let apcCd = SBUxMethod.get('dtl-inp-apcCd');
 
 		let saveList = [];
 
