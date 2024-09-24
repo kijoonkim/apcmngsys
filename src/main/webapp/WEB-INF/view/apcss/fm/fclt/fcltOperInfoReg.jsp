@@ -814,30 +814,30 @@
 
 
 		let itemCd1 = SBUxMethod.get("dtl-inp-operOgnzItemCd1");
-		let apcItem1 = SBUxMethod.get("dtl-inp-apcItem1");
+		let apcItemCd1 = SBUxMethod.get("dtl-inp-apcItemCd1");
 		if (gfn_isEmpty(itemCd1)) {
 			alert("'운영조직 취급 대표품목1'은 필수로 작성해주셔야 합니다.");
 			return;
 		}
-		if (gfn_isEmpty(apcItem1)) {
+		if (gfn_isEmpty(apcItemCd1)) {
 			alert("'APC 처리 대표품목1'은 필수로 작성해주셔야 합니다.");
 			return;
 		}
 
 		//기타품목 값이 있을떄 부류 선택 필수
-		let itemCd4 = SBUxMethod.get("dtl-inp-operOgnzItemCd4");
-		let apcItem4 = SBUxMethod.get("dtl-inp-apcItem4");
+		let itemNm4 = SBUxMethod.get("dtl-inp-operOgnzItemNm4");
+		let apcItemNm4 = SBUxMethod.get("dtl-inp-apcItemNm4");
 
 		let operOgnzEtcCtgryCd = SBUxMethod.get("dtl-inp-operOgnzEtcCtgryCd");
 		let apcEtcCtgryCd = SBUxMethod.get("dtl-inp-apcEtcCtgryCd");
 
-		if (!gfn_isEmpty(itemCd4)) {
+		if (!gfn_isEmpty(itemNm4)) {
 			if(gfn_isEmpty(operOgnzEtcCtgryCd)){
 				alert("운영조직 기타품목의 부류를 선택해주세요");
 				return;
 			}
 		}
-		if (!gfn_isEmpty(apcItem4)) {
+		if (!gfn_isEmpty(apcItemNm4)) {
 			if(gfn_isEmpty(apcEtcCtgryCd)){
 				alert("APC 기타품목의 부류를 선택해주세요");
 				return;

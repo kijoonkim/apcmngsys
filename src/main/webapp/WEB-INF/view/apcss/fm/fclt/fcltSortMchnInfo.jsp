@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltSortMchnInfo.jsp
-  * @Description : 선별기운영 화면
+  * @Description : 3.3.선별기운영 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -15,7 +15,7 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -557,14 +557,13 @@
 		]);
 	}
 
-
 	//전체 데이터 초기화 및 비활성화
 	function fn_clearForm() {
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
 			SBUxMethod.clearGroupData('group'+i);
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
-			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
+			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
 		}
 		$('#itemNm1').text("품목1");
 		$('#itemNm2').text("품목2");
@@ -598,7 +597,6 @@
 		//예외처리
 		try {
 			//console.log(data);
-			//fn_clear();//전체 초기화 및 비활성화
 			data.resultList.forEach((item, index) => {
 				//item.sn 1~4
 				//itemChk 품목 존재 여부
