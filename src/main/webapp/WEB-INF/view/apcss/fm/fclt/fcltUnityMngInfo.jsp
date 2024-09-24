@@ -186,7 +186,7 @@
 					</colgroup>
 						<tbody>
 							<tr>
-								<th>생산정보</th>
+								<th>활용여부</th>
 								<td colspan="7">
 									<p class="ad_input_row">
 										<sbux-radio id="dtl-rdo-umsYn1" name="dtl-rdo-umsYn" uitype="normal" value="Y" class="radio_label" onchange ="fn_selectOnchange(this)"></sbux-radio>
@@ -344,6 +344,7 @@
 		SBUxMethod.set('dtl-inp-umsClclnInfo',"N");
 		//비활성화
 		SBUxMethod.changeGroupAttr("group1",'disabled','true');
+		SBUxMethod.set('dtl-rdo-umsYn',null);
 	}
 
 	var jsonComCtpv = [];//시도
@@ -390,6 +391,7 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-rdo-umsYn',item.umsYn);
 				if(item.umsYn == 'Y'){
 					SBUxMethod.changeGroupAttr("group1",'disabled','false');
 					SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
