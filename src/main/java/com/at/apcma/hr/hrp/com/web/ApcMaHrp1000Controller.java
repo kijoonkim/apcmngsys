@@ -183,5 +183,27 @@ public class ApcMaHrp1000Controller extends BaseController {
         }
     }
 
+    // HRPMASTER 테이블에 해당 사번 자료 확인
+    @PostMapping(value = "/hr/hrp/com/insertHrp1000ChkEmp.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp1000ChkEmp(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrp1000ChkEmp=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaCommDirectService.checkMultiple(param);
+
+            logger.info("=============insertHrp1000ChkEmp=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+    }
+
 
 }

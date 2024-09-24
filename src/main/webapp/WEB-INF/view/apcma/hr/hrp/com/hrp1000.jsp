@@ -35,19 +35,6 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3><!-- 국가정보 -->
             </div>
-            <%--<div style="margin-left: auto;">
-               &lt;%&ndash; <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_create"></sbux-button>&ndash;%&gt;
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_delete"></sbux-button>
-                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_search"></sbux-button>
-            </div>--%>
         </div>
         <!--[pp] 검색 -->
         <!--[APC] START -->
@@ -72,19 +59,6 @@
             </colgroup>
             <tbody>
             <tr>
-                <%--<th scope="row" class="th_bg">법인</th>
-                <td colspan="" class="td_input" style="border-right:hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="srch-comp_code"
-                            name="srch-comp_code"
-                            class="form-control input-sm"
-                            jsondata-ref="L_ORG000"
-                    />
-                </td>
-                <td style="border-right: hidden;">&nbsp;</td>
-                <td style="border-right: hidden;">&nbsp;</td>--%>
                 <th scope="row" class="th_bg">사업장</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
@@ -115,28 +89,14 @@
                 <td style="border-right: hidden;">&nbsp;</td>
                 <td colspan="2" class="td_input td_input_dtl" style="border-left:hidden">
                     <sbux-button
-                            uitype="normal" id="srch-btn-add" name="srch-btn-add"
-                            class="btn btn-sm btn-outline-danger" text="변동항목추가" onclick="">
+                            uitype="normal" id="lbladd1" name="lbladd1"
+                            class="btn btn-sm btn-outline-danger" text="변동항목추가" onclick="fn_lbladd1">
                     </sbux-button>
                 </td>
             </tr>
             <tr>
                 <th scope="row" class="th_bg">부서</th>
-                <%--<td colspan="" class="td_input" style="border-right:hidden;">
-                    <sbux-input id="srch-dept_code" uitype="text" style="width:200px" placeholder=""
-                                class="form-control input-sm"></sbux-input>
-                </td>
-                <td colspan="" class="td_input" style="border-right:hidden;">
-                    <sbux-select
-                            unselected-text="전체"
-                            uitype="single"
-                            id="srch-dept_name"
-                            name="srch-dept_name"
-                            class="form-control input-sm"
-                            jsondata-ref="jsonDeptName"
-                    />
-                </td>--%>
-                <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;">
                     <sbux-input
                             uitype="hidden"
                             uitype="text"
@@ -155,13 +115,11 @@
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
                             target-id="modal-compopup1"
-                            onclick="fn_compopup1"
+                            onclick="fn_compopup1('srch')"
                     ></sbux-button>
                 </td>
-
-                <%--<td style="border-right: hidden;">&nbsp;</td>--%>
                 <th scope="row" class="th_bg">사원</th>
-                <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;">
                     <sbux-input
                             uitype="hidden"
                             uitype="text"
@@ -180,10 +138,9 @@
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
                             target-id="modal-compopup1"
-                            onclick="fn_compopup2"
+                            onclick="fn_compopup2('srch')"
                     ></sbux-button>
                 </td>
-                <%--<td style="border-right: hidden;">&nbsp;</td>--%>
                 <th scope="row" class="th_bg">급여영역</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-select
@@ -223,7 +180,7 @@
                     </ul>
                 </div>
                 <div>
-                    <table class="table table-bordered tbl_fixed">
+                    <table id="dataArea2" class="table table-bordered tbl_fixed">
                         <colgroup>
                             <col style="width:5%">
                             <col style="width:4%">
@@ -237,15 +194,30 @@
                         </colgroup>
                         <tr>
                             <th scope="row" class="th_bg">사원</th>
-                            <td class="td_input" style="border-right:hidden;">
-                                <sbux-input id="EMP_CODE" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" readonly></sbux-input>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                        uitype="text"
+                                        id="EMP_CODE"
+                                        class="form-control input-sm"
+                                ></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="DEPT_NAME" uitype="text" style="width:80%" placeholder=""
-                                            class="form-control input-sm" readonly></sbux-input>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                <%-- uitype="hidden"--%>
+                                        uitype="text"
+                                        id="EMP_FULL_NAME"
+                                        class="form-control input-sm"
+                                ></sbux-input>
                             </td>
-                            <%--<td style="border-right: hidden;">&nbsp;</td>--%>
+                            <td class="td_input" >
+                                <sbux-button
+                                        id="empBtn"
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="찾기" uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_compopup2"
+                                ></sbux-button>
+                            </td>
                             <th scope="row" class="th_bg">사업장</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-select
@@ -258,16 +230,6 @@
                                         readonly
                                 />
                             </td>
-                           <%-- <td class="td_input" style="border-right: hidden;">
-                                <div class="dropdown">
-                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <font>선택</font>
-                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                    </div>
-                                </div>
-                            </td>--%>
                             <th scope="row" class="th_bg">호봉</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-select
@@ -282,25 +244,30 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">부서</th>
-                            <td colspan="" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="DEPT_CODE" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" readonly></sbux-input>
-                            </td>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="EMP_FULL_NAME" uitype="text" style="width:80%" placeholder=""
-                                            class="form-control input-sm" readonly></sbux-input>
-                            </td>
-                           <%-- <td class="td_input" style="border-right: hidden;">
-                                <sbux-select
-                                        unselected-text=""
-                                        uitype="single"
-                                        id="DEPT_NAME"
-                                        name="DEPT_NAME"
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                        uitype="text"
+                                        id="DEPT_CODE"
                                         class="form-control input-sm"
-                                        jsondata-ref="jsonDeptName"
-                                />
-                            </td>--%>
-
+                                ></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input
+                                <%-- uitype="hidden"--%>
+                                        uitype="text"
+                                        id="DEPT_NAME"
+                                        class="form-control input-sm"
+                                ></sbux-input>
+                            </td>
+                            <td class="td_input" >
+                                <sbux-button
+                                        id="deptBtn"
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="찾기" uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_compopup1"
+                                ></sbux-button>
+                            </td>
                             <th scope="row" class="th_bg">사원구분</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-select
@@ -335,7 +302,6 @@
                                         name="ENTER_DATE"
                                         class="input-sm"
                                         autocomplete="off"
-                                        readonly
                                 ></sbux-datepicker>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -347,33 +313,30 @@
                                         name="RETIRE_DATE"
                                         class="input-sm"
                                         autocomplete="off"
-                                        readonly
                                 ></sbux-datepicker>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">여수습종료일</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <th scope="row" class="th_bg">급여수습종료일</th>
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
                                         id="TEMP_END_DATE"
                                         name="TEMP_END_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
                                         class="form-control input-sm input-sm-ast"
-                                        readonly>
-                                </sbux-datepicker>
+                                ></sbux-datepicker>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
                             <th scope="row" class="th_bg">상여적용시작일</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
                                         id="BONUS_APPLY_START_DATE"
                                         name="BONUS_APPLY_START_DATE"
                                         uitype="popup"
                                         date-format="yyyymmdd"
                                         class="form-control input-sm input-sm-ast"
-                                        readonly>
-                                </sbux-datepicker>
+                                        ></sbux-datepicker>
                             </td>
                         </tr>
                     </table>
@@ -383,7 +346,7 @@
                         <li><span>급여정보</span></li>
                     </ul>
                 </div>
-                <table class="table table-bordered tbl_fixed">
+                <table id="dataArea3" class="table table-bordered tbl_fixed">
                     <colgroup>
                         <col style="width:5%">
                         <col style="width:5%">
@@ -399,10 +362,6 @@
                     </colgroup>
                     <tr>
                         <th scope="row" class="th_bg">급여체계</th>
-                        <%--<td colspan="" class="td_input" style="border-right:hidden;">
-                            <sbux-input id="BANK_ACCOUNT" uitype="text" style="width:100%" placeholder=""
-                                        class="form-control input-sm"></sbux-input>
-                        </td>--%>
                         <td colspan="2" class="td_input" style="border-right: hidden;">
                             <sbux-select
                                     unselected-text=""
@@ -919,10 +878,14 @@
     /**
      * 공통팝업3
      */
-    var fn_compopup1 = function() {
+    var fn_compopup1 = function(type) {
 
-        var searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
-
+        var searchText = '';
+        if (_.isEqual(type, 'srch')){
+            searchText 		= gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        }else {
+            searchText 		= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        }
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
             compCode				: gv_ma_selectedApcCd
@@ -942,16 +905,28 @@
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"     ,   "100"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
-                SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+                if (_.isEqual(type, 'srch')){
+                    SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
+                    SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+                }else{
+                    SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
+                    SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
+                }
+
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
-    const fn_compopup2 = function() {
+    const fn_compopup2 = function(type) {
 
-        var searchText = gfnma_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText = '';
+        if (_.isEqual(type, 'srch')){
+            searchText = gfnma_nvl(SBUxMethod.get("srch-emp_full_name"));
+        }else{
+            searchText = gfnma_nvl(SBUxMethod.get("EMP_FULL_NAME"));
+        }
+
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -976,20 +951,43 @@
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
                 console.log('callback data:', data);
-                SBUxMethod.set('EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                if (_.isEqual(type, 'srch')){
+                    SBUxMethod.set('srch-emp_full_name', data.EMP_NAME);
+                    SBUxMethod.set('srch-emp_code', data.EMP_CODE);
+                }else{
+                    SBUxMethod.set('EMP_NAME', data.EMP_NAME);
+                    SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                }
             },
         });
 
     }
 
     // only document
-    window.addEventListener('DOMContentLoaded', function (e) {
+    window.addEventListener('DOMContentLoaded', async function (e) {
 
         fn_initSBSelect();
         fn_init();
+        await fn_onload();
 
     });
+
+    const fn_onload = async function () {
+
+        SBUxMethod.attr('empBtn'        ,	'readonly', true);//사원
+        SBUxMethod.attr('EMP_CODE'      ,	'readonly', true);//사원
+        SBUxMethod.attr('EMP_FULL_NAME' ,	'readonly', true);//사원
+        SBUxMethod.attr('SITE_CODE'     ,	'readonly', true);//사업장
+        SBUxMethod.attr('DEPT_CODE'     ,	'readonly', true);//부서
+        SBUxMethod.attr('DEPT_NAME'     ,	'readonly', true);//부서
+        SBUxMethod.attr('deptBtn'       ,	'readonly', true);//부서
+        SBUxMethod.attr('EMP_TYPE'      ,	'readonly', true);//사원구분
+        //$('#EMP_TYPE').attr('readonly', true);
+        $('#EMP_TYPE').removeAttr('readonly');
+        SBUxMethod.attr('POSITION_CODE' ,	'readonly', true);//직위
+        SBUxMethod.attr('ENTER_DATE'    ,	'readonly', true);//입사일
+        SBUxMethod.attr('RETIRE_DATE'   ,	'readonly', true);//퇴사일
+    }
 
     const fn_init = async function () {
 
@@ -1012,21 +1010,21 @@
         fn_create();
     }*/
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
             let  ret = false;
 
-            ret = fn_save('U');
+            ret = await fn_save('N');
 
             if (!ret){// DB에서 신규와 수정을 구분한다.
                 return;
             }
 
-            ret = fn_saveS1();
+            ret = await fn_saveS1();
 
-            ret = fn_saveS2();
+            ret = await fn_saveS2();
 
             /************ 사회보험가입이력 ************/
             let detailGridData = gvwDetailGrid.getUpdateData(true, 'all');
@@ -1062,7 +1060,7 @@
             });
 
            /* ret = fnSET_P_HRP5600_S("");*/
-            ret = fn_saveS3();
+            ret = await fn_saveS3();
 
 
             /************ 사회보험가입이력 ************/
@@ -1098,7 +1096,7 @@
 
             });
 
-            ret = fn_saveS4();
+            ret = await fn_saveS4();
 
             if (ret) {
                 gfn_comAlert("I0001");
@@ -1985,7 +1983,7 @@
 
                     gvwWithholdGrid.rebuild();
 
-                    fn_setData();
+                    fn_setData(rowData.EMP_CODE);
 
                 } else {
                     alert(data.resultMessage);
@@ -2085,13 +2083,75 @@
 
     }
 
-    const fn_setData = function () {
+    const fn_setData = async function (EMP_CODE){
 
-        let nRows = gvwInfoGrid.getRows();
-        if (nRows < 1) {
-            return;
+        let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " ;
+
+        var paramObj = {
+            EMP_CODE: query
         }
+        console.log(paramObj);
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000ChkEmp.do", paramObj);
 
+        const data = await postJsonPromise;
+
+        console.log('-----------data---------- :', data);
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+
+                console.log('-----------data EMP_CODE---------- :', data.EMP_CODE);
+                if (_.isEmpty(data.EMP_CODE) == false){
+
+                    SBUxMethod.set("PENSION_YN", 'Y');
+                    SBUxMethod.set("HEALTH_INSURE_YN", 'Y');
+                    SBUxMethod.set("EMPLOY_INSURE_YN", 'Y');
+                    SBUxMethod.set("PAY_YN", 'Y');
+                    SBUxMethod.set("BONUS_PAY_YN", 'N');
+                    SBUxMethod.set("OVER_TIME_PAY_YN", 'Y');
+                    SBUxMethod.set("RETIRE_PAY_YN", 'Y');
+                    SBUxMethod.set("INCOME_TAX_YN", 'Y');
+                    SBUxMethod.set("SUPPORTEE_QTY", 1);
+                    SBUxMethod.set("APPLICATION_RATE", 100);
+                    let openDate = gfn_dateToYm(new Date());
+                    SBUxMethod.set("LAST_APPLICATION_DATE", openDate);
+
+
+                }
+
+               /* if (rs != null)
+                {
+                    if (rs.ResultDataSet.Tables[0].Rows.Count == 0)
+                    {
+                        chkpension_yn.EditValue = "Y";
+                        chkhealth_insure_yn.EditValue = "Y";
+                        chkemploy_insure_yn.EditValue = "Y";
+                        chkpay_yn.EditValue = "Y";
+                        chkbonus_pay_yn.EditValue = "N";
+                        chkover_time_pay_yn.EditValue = "Y";
+                        chkretire_pay_yn.EditValue = "Y";
+                        chkincome_tax_yn.EditValue = "Y";
+                        // 부양가족수 기본값 1로 설정
+                        numsupportee_qty.EditValue = 1;
+                        // 원천징수적용비율 100%로 설정
+                        numapplication_rate.EditValue = 100;
+                        // 비율최종적용일 시스템일자로 설정
+                        string strDate = CurrentDate("YYYYMMDD");
+                        ymdlast_application_date.Text = strDate;
+                    }
+
+                }*/
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 
     }
 
@@ -2757,8 +2817,15 @@
     //저장
     const fn_saveS1 = async function () {
 
+        //수정시 수정된 데이터만 가져감
+        let updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');
+
+        if (_.isEmpty(updatedData)){
+            return true;
+        }
+
         let listData = [];
-        listData =  await getParamFormS1();
+        listData =  await getParamFormS1(updatedData);
 
         if (_.isEmpty(listData) == false) {
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000S1.do", {listData: listData});
@@ -2790,8 +2857,14 @@
     //저장
     const fn_saveS2 = async function () {
 
+        let updatedData = gvwWithholdGrid.getUpdateData(true, 'all');
+
+        if (_.isEmpty(updatedData)){
+            return true;
+        }
+
         let listData = [];
-        listData =  await getParamFormS2();
+        listData =  await getParamFormS2(updatedData);
 
         if (_.isEmpty(listData) == false) {
 
@@ -2829,7 +2902,7 @@
         let updatedData = gvwDetailGrid.getUpdateData(true, 'all');
 
         if (_.isEmpty(updatedData)){
-            return;
+            return true;
         }
 
         let listData = [];
@@ -2869,10 +2942,10 @@
     //월보수액 저장
     const fn_saveS4 = async function () {
 
-        let updatedData = gvwDetailGrid.gvwViewEx1Grid(true, 'all');
+        let updatedData = gvwDetailGrid.getUpdateData(true, 'all');
 
         if (_.isEmpty(updatedData)){
-            return;
+            return true;
         }
 
         let listData = [];
@@ -2908,9 +2981,9 @@
     }
 
 
-    const getParamFormS1 = async function () {
+    const getParamFormS1 = async function (updatedData) {
 
-        let updatedData;
+        /*let updatedData;*/
         let allDate = gvwPayInfoGrid.getGridDataAll();
         let returnData = [];
 
@@ -2939,8 +3012,8 @@
         });
         /**************** 중복체크 End *******************/
 
-        //수정시 수정된 데이터만 가져감
-        updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');
+       /* //수정시 수정된 데이터만 가져감
+        updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');*/
 
         if (!_.isEmpty(updatedData)) {
 
@@ -3028,19 +3101,19 @@
 
     }
 
-    const getParamFormS2 = async function () {
+    const getParamFormS2 = async function (updatedData) {
 
 
         //중복체크를 해야할 경우
         //let chdate = gvwWithholdGrid.getGridDataAll();
 
-        let updatedData;
+        /*let updatedData;*/
         let returnData = [];
 
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
 
 
-        updatedData = gvwWithholdGrid.getUpdateData(true, 'all');
+        /*updatedData = gvwWithholdGrid.getUpdateData(true, 'all');*/
 
         if (!_.isEmpty(updatedData)) {
             updatedData.forEach((item, index) => {
@@ -3168,6 +3241,20 @@
 
         return returnData;
     }
+
+    //변동항목추가 저장
+    const fn_lbladd1 = async function () {
+        var ht = {};
+
+        ht["target"] = 'MA_A10_030_010_280';
+        let json = JSON.stringify(ht);
+
+        window.parent.cfn_openTabSearch(json);
+
+
+    }
+
+
 
     /*const getParamForm = async function(){
 
