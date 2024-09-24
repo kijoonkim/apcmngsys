@@ -175,10 +175,10 @@
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>검색 조건 설정</caption>
 				<colgroup>
-					<col style="width: 10%">
+					<col style="width: 12%">
 					<col style="width: 85px">
-					<col style="width: 25%">
-					<col style="width: 25%">
+					<col style="width: 24%">
+					<col style="width: 24%">
 					<col style="width: 70px">
 					<col style="width: 85px">
 					<col style="width: 85px">
@@ -520,20 +520,17 @@
 		]);
 	}
 
+
 	//전체 데이터 초기화 및 비활성화
-	function fn_clear() {
+	const fn_clearForm = async function() {
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
 			SBUxMethod.clearGroupData('group'+i);
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
-			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,null);
-		}
-	}
-	//입력폼 초기화
-	const fn_clearForm = async function() {
-		for (var i = 0; i < 5; i++) {
+
+ 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
+ 			//console.log($('#dtl-inp-sortMchnHoldYn'+i).val());
 			SBUxMethod.set('dtl-inp-itemChk'+i ,null);
-			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i ,null);
 
 			SBUxMethod.set("dtl-inp-sortMchnSpcect"+i, null);
 			SBUxMethod.set("dtl-inp-sortBrckMvhn"+i, null);

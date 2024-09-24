@@ -308,8 +308,7 @@
 						</td>
 						<td>평</td>
 						<td>
-							<sbux-input id="dtl-inp-strgPlcLwtpStrgRmrk" name="dtl-inp-strgPlcLwtpStrgRmrk" uitype="text" class="form-control input-sm"
-							" ></sbux-input>
+							<sbux-input id="dtl-inp-strgPlcLwtpStrgRmrk" name="dtl-inp-strgPlcLwtpStrgRmrk" uitype="text" class="form-control input-sm" placeholder="예시)1동(50m²), 2동(300m²)"></sbux-input>
 						</td>
 					</tr>
 					<tr>

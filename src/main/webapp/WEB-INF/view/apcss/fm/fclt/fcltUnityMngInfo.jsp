@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltUnityMngInfo.jsp
-  * @Description : 통합관리시스템활용 화면
+  * @Description : 4.3.통합고나리시스템 활용현황 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -36,8 +36,6 @@
 					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 통합관리시스템 활용현황 -->
 			</div>
 			<div style="margin-left: auto;">
-				<!--
-				-->
 				<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -188,31 +186,44 @@
 					</colgroup>
 						<tbody>
 							<tr>
+								<th>활용여부</th>
+								<td colspan="7">
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-umsYn1" name="dtl-rdo-umsYn" uitype="normal" value="Y" class="radio_label" onchange ="fn_selectOnchange(this)"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-umsYn1">활용</label>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="dtl-rdo-umsYn2" name="dtl-rdo-umsYn" uitype="normal" value="N" class="radio_label" onchange ="fn_selectOnchange(this)"></sbux-radio>
+										<label class="radio_label" for="dtl-rdo-umsYn2">활용안함</label>
+									</p>
+								</td>
+							</tr>
+							<tr>
 								<th>생산정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsPrdctnInfo" name="dtl-inp-umsPrdctnInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsPrdctnInfo" name="dtl-inp-umsPrdctnInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsPrdctnInfo" ></label>
 									</p>
 								</td>
 								<th>계량정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsWghInfo" name="dtl-inp-umsWghInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsWghInfo" ></label>
 									</p>
 								</td>
 								<th>입고정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsWrhsInfo" name="dtl-inp-umsWrhsInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsWrhsInfo" name="dtl-inp-umsWrhsInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsWrhsInfo" ></label>
 									</p>
 								</td>
 								<th>선별정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsSortInfo" name="dtl-inp-umsSortInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsSortInfo" name="dtl-inp-umsSortInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsSortInfo" ></label>
 									</p>
 								</td>
@@ -222,28 +233,28 @@
 								<th>저장정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsStrgInfo" name="dtl-inp-umsStrgInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsStrgInfo" name="dtl-inp-umsStrgInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsStrgInfo" ></label>
 									</p>
 								</td>
 								<th>포장정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsPckgInfo" name="dtl-inp-umsPckgInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsPckgInfo" name="dtl-inp-umsPckgInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsPckgInfo" ></label>
 									</p>
 								</td>
 								<th>출고정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsSpmtInfo" name="dtl-inp-umsSpmtInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsSpmtInfo" name="dtl-inp-umsSpmtInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsSpmtInfo" ></label>
 									</p>
 								</td>
 								<th>정산정보</th>
 								<td>
 									<p class="ad_input_row">
-										<sbux-checkbox id="dtl-inp-umsClclnInfo" name="dtl-inp-umsClclnInfo" uitype="normal" true-value = "Y" false-value = "N"></sbux-checkbox>
+										<sbux-checkbox id="dtl-inp-umsClclnInfo" name="dtl-inp-umsClclnInfo" uitype="normal" true-value = "Y" false-value = "N" group-id="group1"></sbux-checkbox>
 										<label class="check_label" for="dtl-inp-umsClclnInfo" ></label>
 									</p>
 								</td>
@@ -257,7 +268,7 @@
 			<!--[pp] //검색결과 -->
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div style="margin-left: auto;">
-					<sbux-button id="btnSave1" name="btnSave1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnInsert1" name="btnInsert1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
 				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
@@ -331,6 +342,9 @@
 		SBUxMethod.set('dtl-inp-umsPckgInfo',"N");
 		SBUxMethod.set('dtl-inp-umsSpmtInfo',"N");
 		SBUxMethod.set('dtl-inp-umsClclnInfo',"N");
+		//비활성화
+		SBUxMethod.changeGroupAttr("group1",'disabled','true');
+		SBUxMethod.set('dtl-rdo-umsYn',null);
 	}
 
 	var jsonComCtpv = [];//시도
@@ -377,14 +391,18 @@
 		try {
 
 			data.resultList.forEach((item, index) => {
-				SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
-				SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
-				SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
-				SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
-				SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
-				SBUxMethod.set('dtl-inp-umsPckgInfo',item.umsPckgInfo);
-				SBUxMethod.set('dtl-inp-umsSpmtInfo',item.umsSpmtInfo);
-				SBUxMethod.set('dtl-inp-umsClclnInfo',item.umsClclnInfo);
+				SBUxMethod.set('dtl-rdo-umsYn',item.umsYn);
+				if(item.umsYn == 'Y'){
+					SBUxMethod.changeGroupAttr("group1",'disabled','false');
+					SBUxMethod.set('dtl-inp-umsPrdctnInfo',item.umsPrdctnInfo);
+					SBUxMethod.set('dtl-inp-umsWghInfo',item.umsWghInfo);
+					SBUxMethod.set('dtl-inp-umsWrhsInfo',item.umsWrhsInfo);
+					SBUxMethod.set('dtl-inp-umsSortInfo',item.umsSortInfo);
+					SBUxMethod.set('dtl-inp-umsStrgInfo',item.umsStrgInfo);
+					SBUxMethod.set('dtl-inp-umsPckgInfo',item.umsPckgInfo);
+					SBUxMethod.set('dtl-inp-umsSpmtInfo',item.umsSpmtInfo);
+					SBUxMethod.set('dtl-inp-umsClclnInfo',item.umsClclnInfo);
+				}
 			});
 
 		} catch (e) {
@@ -422,7 +440,7 @@
 			crtrYr : SBUxMethod.get('dtl-inp-crtrYr')
 			,apcCd : SBUxMethod.get('dtl-inp-apcCd')
 			, prgrsYn : 'N' //진척도 갱신 여부
-
+			,umsYn : SBUxMethod.get('dtl-rdo-umsYn')
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
 			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()

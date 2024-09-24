@@ -450,6 +450,32 @@
 			console.error("failed", e.message);
 		}
 	}
+	
+	//전체 데이터 초기화 및 비활성화
+	const fn_clearForm = async function() {
+		for (var i = 1; i < 5; i++) {
+			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			SBUxMethod.clearGroupData('group'+i);
+			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
+
+ 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
+ 			//console.log($('#dtl-inp-sortMchnHoldYn'+i).val());
+			SBUxMethod.set('dtl-inp-itemChk'+i ,null);
+
+			SBUxMethod.set("dtl-inp-sortMchnSpcect"+i, null);
+			SBUxMethod.set("dtl-inp-sortBrckMvhn"+i, null);
+			SBUxMethod.set("dtl-inp-colorSort"+i, null);
+			SBUxMethod.set("dtl-inp-shapSort"+i, null);
+			SBUxMethod.set("dtl-inp-mnfcMchn"+i, null);
+			//제조사 추가
+			SBUxMethod.set("dtl-inp-mkrNm"+i, null);
+		}
+		$('#itemNm1').text("품목1");
+		$('#itemNm2').text("품목2");
+		$('#itemNm3').text("품목3");
+		$('#itemNm4').text("기타");
+	}
+	
 
 	const fn_search = async function() {
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
@@ -521,31 +547,6 @@
 			}
 			//console.error("failed", e.message);
 		}
-	}
-
-	//전체 데이터 초기화 및 비활성화
-	const fn_clearForm = async function() {
-		for (var i = 1; i < 5; i++) {
-			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
-			SBUxMethod.clearGroupData('group'+i);
-			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
-
- 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
- 			//console.log($('#dtl-inp-sortMchnHoldYn'+i).val());
-			SBUxMethod.set('dtl-inp-itemChk'+i ,null);
-
-			SBUxMethod.set("dtl-inp-sortMchnSpcect"+i, null);
-			SBUxMethod.set("dtl-inp-sortBrckMvhn"+i, null);
-			SBUxMethod.set("dtl-inp-colorSort"+i, null);
-			SBUxMethod.set("dtl-inp-shapSort"+i, null);
-			SBUxMethod.set("dtl-inp-mnfcMchn"+i, null);
-			//제조사 추가
-			SBUxMethod.set("dtl-inp-mkrNm"+i, null);
-		}
-		$('#itemNm1').text("품목1");
-		$('#itemNm2').text("품목2");
-		$('#itemNm3').text("품목3");
-		$('#itemNm4').text("기타");
 	}
 
 	//등록

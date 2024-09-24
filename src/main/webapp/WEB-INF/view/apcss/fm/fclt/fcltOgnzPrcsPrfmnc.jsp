@@ -250,6 +250,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -263,6 +264,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -289,6 +291,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -302,6 +305,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -315,6 +319,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -359,6 +364,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -372,6 +378,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -398,6 +405,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -411,6 +419,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -424,6 +433,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -468,6 +478,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -481,6 +492,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -507,6 +519,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -520,6 +533,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -533,6 +547,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -577,6 +592,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -590,6 +606,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -616,6 +633,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -629,6 +647,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -642,6 +661,7 @@
 										placeholder=""
 										onkeyup="fn_sum(this)"
 										style="text-align: right;"
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
 								</td>
@@ -919,11 +939,16 @@
 
 	const fn_clearForm = async function() {
 		for (var sn = 1; sn < 5; sn++) {
-			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,null);
-			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,null);
-			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,null);
-			SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,null);
-			SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,null);
+			//SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,null);
+			//SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,null);
+			//SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,null);
+			//SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,null);
+			//SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,null);
+
+			//그룹 비활성화
+			SBUxMethod.changeGroupAttr('group'+sn,'disabled','true');
+			//그룹 초기화
+			SBUxMethod.clearGroupData('group'+sn);
 		}
 		fn_sum();
 		$('#itemNm1').text("품목1");
@@ -962,6 +987,9 @@
 				}else{
 					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
 				}
+
+				//그룹 비활성화
+				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 
 				SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,item.rtlOgnzGnrlSmplTrst);
 				SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,item.rtlOgnzGnrlSmplEmspap);

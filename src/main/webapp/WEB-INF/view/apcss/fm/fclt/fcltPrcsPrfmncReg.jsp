@@ -144,6 +144,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -156,6 +157,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -168,6 +170,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -192,6 +195,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -204,6 +208,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -234,6 +239,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -246,6 +252,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -258,6 +265,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -282,6 +290,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -294,6 +303,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -324,6 +334,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -336,6 +347,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -348,6 +360,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -372,6 +385,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -384,6 +398,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -414,6 +429,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -426,6 +442,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -438,6 +455,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -462,6 +480,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -474,6 +493,7 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
+										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 										onkeyup="fn_cal(this)"
 									></sbux-input>
@@ -735,11 +755,16 @@
 
 	const fn_clearForm = async function() {
 		for (var sn = 1; sn < 5; sn++) {
-			SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,null);
-			SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,null);
-			SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst'+sn,null);
-			SBUxMethod.set('dtl-inp-apcCtrtEmspap'+sn,null);
-			SBUxMethod.set('dtl-inp-apcTmSpmtAmt'+sn,null);
+			//SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,null);
+			//SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,null);
+			//SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst'+sn,null);
+			//SBUxMethod.set('dtl-inp-apcCtrtEmspap'+sn,null);
+			//SBUxMethod.set('dtl-inp-apcTmSpmtAmt'+sn,null);
+
+			//그룹 비활성화
+			SBUxMethod.changeGroupAttr('group'+sn,'disabled','true');
+			//그룹 초기화
+			SBUxMethod.clearGroupData('group'+sn);
 		}
 		fn_cal();
 		$('#itemNm1').text("품목1");
@@ -790,6 +815,7 @@
 				}else{
 					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
 				}
+				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 
 				SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,item.apcTrmtAmt);
 				SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,item.apcGnrlTrmtAmt);

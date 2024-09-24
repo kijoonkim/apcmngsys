@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltAtmtcMchnInfo.jsp
-  * @Description : 스마트자동화 화면
+  * @Description : 4.1.스마트화현황 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -1023,7 +1023,14 @@
 			$('#itemNm'+i).text("품목"+i);
 			$('#subItemNm'+i).text("품목"+i);
 
-			SBUxMethod.clearGroupData("group"+i);
+			//그룹 비활성화
+			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			//그룹 초기화
+			SBUxMethod.clearGroupData('group'+i);
+
+			SBUxMethod.attr('dtl-inp-spcfctCnt'+i,'disabled','true');
+			SBUxMethod.attr('dtl-inp-spcfctGrp'+i,'disabled','true');
+			SBUxMethod.attr('dtl-inp-spcfctGrd'+i,'disabled','true');
 
 			SBUxMethod.set('dtl-inp-spcfctCnt'+i,null);
 			SBUxMethod.set('dtl-inp-spcfctGrp'+i,null);
@@ -1082,6 +1089,13 @@
 					$('#subItemNm'+sn).text("품목"+sn+" : "+item.itemNm);
 				}
 				//$('#itemNm'+sn).text("품목 : "+item.itemNm);
+
+				//품목이 없는경우 해당 행자체가 존재 하지 않아 조회가 안되므로 여기서 활성화
+				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
+				SBUxMethod.attr('dtl-inp-spcfctCnt'+sn,'disabled','false');
+				SBUxMethod.attr('dtl-inp-spcfctGrp'+sn,'disabled','false');
+				SBUxMethod.attr('dtl-inp-spcfctGrd'+sn,'disabled','false');
+
 
 				SBUxMethod.set('dtl-rdo-wbg'+sn,item.wbg);
 				SBUxMethod.set('dtl-rdo-wrhsBrQr'+sn,item.wrhsBrQr);

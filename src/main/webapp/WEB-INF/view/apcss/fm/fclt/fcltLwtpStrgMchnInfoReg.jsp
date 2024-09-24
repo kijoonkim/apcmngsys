@@ -607,7 +607,7 @@
 	}
 
 	function fn_selectOnchange(e){
-		console.log(e);
+		//console.log(e);
 		if($(e).val() == 'Y'){
 			SBUxMethod.changeGroupAttr("group1",'disabled','false');
 			SBUxMethod.changeGroupAttr("group2",'disabled','false');
