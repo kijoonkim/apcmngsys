@@ -154,7 +154,97 @@
     </select>
 
 
-     <!-- ==========================================================================-->
+
+   	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectUserApcList			-->
+	<!-- DESC : 사용자 APC 목록 조회.	                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.26  	신정철        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+    <select id="selectUserApcList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectUserApcList */
+	    		  AE.APC_CD			AS APC_CD
+			    , AE.APC_NM         AS APC_NM
+		  	  FROM TB_APC_EVRMNT_STNG
+		 	 WHERE AE.DEL_YN = 'N'
+		 	   AND EXISTS (
+		 	   		SELECT 1
+		 	   		  FROM TB_COM_USER X
+		 	   		 WHERE X.APC_CD = AI.APC_CD
+		 	   		   AND X.DEL_YN = 'N'
+		 	   		   AND X.USER_ID = #{userId}
+		 	   		UNION ALL
+		 	   		SELECT
+		 	   		  FROM TB_COM_USER_APC X
+		 	   		 WHERE X.APC_CD = AI.APC_CD
+		 	   		   AND X.DEL_YN = 'N'
+		 	   		   AND X.USER_ID = #{userId}
+		 	   	)
+		]]>
+		
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectAprvApcInfoList		-->
+	<!-- DESC : 승인된 법인의 APC 내역 조회.	                                    -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.26  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectAprvApcInfoList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    	<![CDATA[
+    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectAprvApcInfoList */
+	    		  AI.APC_CD			AS APC_CD
+			    , AI.REG_APC_NM     AS REG_APC_NM
+			    , AI.REG_ADDR       AS REG_ADDR
+			    , AI.REG_TELNO      AS REG_TELNO
+			    , AI.REG_ZIP		AS REG_ZIP
+			    , AI.APC_NM         AS APC_NM
+			    , AI.SIGUN_NM       AS SIGUN_NM
+			    , AI.MB_CD          AS MB_CD
+			    , AI.BRNO          	AS BRNO
+			    , AI.BANK_CD        AS BANK_CD
+			    , AI.DPSTR_NM       AS DPSTR_NM
+			    , (SELECT FN_UTL_DECRYPT_ARIA(AI.ACTNO) FROM DUAL)	AS ACTNO
+			    , AI.ADDR           AS ADDR
+			    , AI.TELNO          AS TELNO
+			    , AI.FXNO           AS FXNO
+			    , AI.ZIP			AS ZIP
+			    , AI.DEL_YN			AS DEL_YN
+			    , AI.CTPV			AS CTPV
+			    , AI.SGG			AS SGG
+			    , (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', AI.CTPV) FROM DUAL)	AS CTPV_NM
+			    , (SELECT FN_GET_COM_CD_VL_NM('UNTY_SGG', AI.SGG) FROM DUAL)	AS SGG_NM
+			    , (SELECT FN_GET_COM_CD_VL_EXPLN('UNTY_SGG', AI.SGG) FROM DUAL)	AS SGG_EXPLN
+			     
+		  	  FROM TB_APC_INFO AI
+		  	  
+		 	 WHERE 1=1
+		 	   AND AI.APC_NM IS NOT NULL
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+		   	   AND AI.APC_CD = #{apcCd}
+		</if>
+		<if test='apcNm != null and apcNm != ""'>
+		   AND AI.APC_NM LIKE '%' ||  #{apcNm} || '%'
+		</if>
+		<if test='untyOgnzCd != null and untyOgnzCd != ""'>
+		   AND EXISTS (
+		   		SELECT 1
+		   		  FROM TB_UNTY_OGNZ_APC X
+		   		 WHERE X.UNTY_OGNZ_ID = #{untyOgnzCd}
+		   		   AND X.APC_CD = AI.APC_CD
+		   		   AND X.APRV_YN = 'Y'
+		   		   AND X.DEL_YN = 'N'
+		   	)
+		</if>
+    </select>
+
+    <!-- ==========================================================================-->
 	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcDsctnList			-->
 	<!-- DESC : APC 내역 조회.	                                             			-->
 	<!-- ==========================================================================	-->
@@ -187,6 +277,8 @@
 				, AI.ADDR              AS ADDR
 				, AI.TELNO             AS TELNO
 				, AI.FXNO              AS FXNO
+				, AI.CTPV				AS CTPV
+				, AI.SGG				AS SGG
 				, AI.DEL_YN			   AS DEL_YN
 		  FROM TB_APC_INFO AI
 		]]>
@@ -201,6 +293,9 @@
 			   AND AI.DEL_YN = #{delYn}
 			</if>
 		</where>
+		<![CDATA[
+		 ORDER BY AI.APC_CD
+		]]>
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
     		  ) pt0
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
@@ -233,6 +328,8 @@
 			     , ADDR						= #{addr}
 			     , TELNO					= #{fxno}
 			     , FXNO						= #{telno}
+			     , CTPV						= #{ctpv}
+			     , SGG						= #{sgg}
 			     , DEL_YN					= #{delYn}
 			 WHERE APC_CD 		= #{apcCd}
 		]]>
@@ -262,6 +359,8 @@
 			      , ADDR
 			      , TELNO
 			      , FXNO
+			      , CTPV
+			      , SGG
 			      , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
@@ -284,6 +383,8 @@
 	    		  , #{addr}
 	    		  , #{fxno}
 	    		  , #{telno}
+	    		  , #{ctpv}
+	    		  , #{sgg}
 	    		  , #{delYn}
 	    		  , SYSDATE
 	    		  , #{sysFrstInptUserId}

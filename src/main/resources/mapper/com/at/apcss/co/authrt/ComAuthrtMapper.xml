@@ -75,7 +75,7 @@
 			 WHERE CA.DEL_YN = 'N'
     	]]>
 		<if test='authrtId != null and authrtId != ""'>
-			   AND CA.AUTHRT_ID = #{authrtId}
+			   AND CA.AUTHRT_ID LIKE '%' || #{authrtId} || '%'
 		</if>
 		<if test='authrtNm != null and authrtNm != ""'>
 			   AND CA.AUTHRT_NM LIKE '%' || #{authrtNm} || '%'

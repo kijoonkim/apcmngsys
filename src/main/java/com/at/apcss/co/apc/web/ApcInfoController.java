@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -98,4 +99,42 @@ public class ApcInfoController extends BaseController{
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// 법인사용 승인된 APC 내역 조회
+	@PostMapping(value = "/co/apc/selectAprvApcInfoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectAprvApcInfoList(@RequestBody ApcInfoVO apcInfoVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ApcInfoVO> resultList = new ArrayList<>();
+		try {
+			
+			String untyAuthrtType = getUntyAuthrtType();
+			String untyOgnzCd = getUntyOgnzCd();
+			
+			
+			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+
+//			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+			} else {
+				
+				if (StringUtils.hasText(untyOgnzCd)) {
+					apcInfoVO.setUntyOgnzCd(untyOgnzCd);
+				} else {
+					apcInfoVO.setUntyOgnzCd(ComConstants.CON_XSDENY_CHAR);
+				}
+			}
+			
+			resultList = apcInfoService.selectAprvApcInfoList(apcInfoVO);
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 }
