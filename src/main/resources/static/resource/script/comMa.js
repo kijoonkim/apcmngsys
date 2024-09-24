@@ -32,6 +32,18 @@ const gfnma_objectToString = function (obj, log) {
 }
 
 /**
+ * @name 		gfnma_getThreeComma
+ * @description 값을 쓰리콤마로 변경
+ * @function
+ * @param 		{string} 
+ * @returns 	{string}
+ */
+const gfnma_getThreeComma = function (val) {
+    var str = String(val);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
+/**
  * @name 		gfnma_date
  * @description 날짜를 yyyyMMddHHmmss 문자열로
  * @function
@@ -1322,3 +1334,142 @@ async function gfnma_getExchangeRateQ(paramObj, workType, callbackFn) {
 		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	}
 }
+
+/**
+ * @name 		gfnma_htmlExcelDown
+ * @description html table 을 엑셀로 다운로드
+ * @function
+ * @param 		{object} Object
+ * @returns 	
+ */
+const gfnma_htmlExcelDown = function(obj) {
+    var _fileName 				= obj.fileName;
+    var _sheetName 				= obj.sheetName;
+    var _heads 					= obj.heads;
+    var _headFixed 				= obj.headFixed;
+    var _dataStartColumn 		= obj.dataStartColumn;
+    var _data 					= obj.data;
+    var _removeCommaIndexList 	= obj.removeCommaIndexList;
+
+    if (!_data || _data.length == 0) {
+        alert('다운로드할 데이터가 없습니다.');
+        return;
+    }
+
+    const download = async (workbook, fileName) => {
+        const buffer = await workbook.xlsx.writeBuffer();
+        const blob = new Blob([buffer], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = fileName + '.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+    };
+
+    var workbook = new ExcelJS.Workbook();
+    var sheet = null;
+    if (_headFixed) {
+        sheet = workbook.addWorksheet(_sheetName, { views: [_headFixed] });
+    } else {
+        sheet = workbook.addWorksheet(_sheetName);
+    }
+
+    //set head
+    for (var i = 0; i < _heads.length; i++) {
+        var colName = _heads[i]['column'];
+        if (colName.indexOf(':') > -1) {
+            var tmps = colName.split(':');
+            colName = tmps[0];
+        }
+        sheet.getCell(colName).value = _heads[i]['text'];
+        sheet.mergeCells(_heads[i]['column']);
+
+        if (_heads[i]['style']) {
+            sheet.getCell(colName).style = _heads[i]['style'];
+        }
+
+        if (_heads[i]['bgColor']) {
+            sheet.getCell(colName).fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: _heads[i]['bgColor'] },
+            };
+        }
+
+        if (_heads[i]['width']) {
+            sheet.getColumn(i + 1).width = Number(_heads[i]['width']);
+        }
+    }
+
+    //eng column create
+    var endCol = [
+        'A','B','C','D','E','F','G','H','I','J',
+        'K','L','M','N','O','P','Q','R','S','T',
+        'U','V','W','X','Y','Z',
+        'AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ',
+        'AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT',
+        'AU','AV','AW','AX','AY','AZ'
+    ];
+    var f_eng = _dataStartColumn.replace(/[0-9]/g, '');
+    var f_num = Number(_dataStartColumn.replace(/[A-Z]/g, ''));
+
+    var f_sidx = 0;
+    for (var i = 0; i < endCol.length; i++) {
+        if (endCol[i] == f_eng) {
+            f_sidx = i;
+            break;
+        }
+    }
+    //console.log('_data', _data);
+
+    //remove comma
+    if (_removeCommaIndexList != undefined && _removeCommaIndexList.length > 0) {
+        var nlist = [];
+        for (var i = 0; i < _data.length; i++) {
+            var tmp = [];
+            for (var j = 0; j < _data[i].length; j++) {
+                var str = _data[i][j];
+                for (var k = 0; k < _removeCommaIndexList.length; k++) {
+                    if (j == Number(_removeCommaIndexList[k])) {
+                        str = Number(comapp.util.removeComma(_data[i][j]));
+                        break;
+                    }
+                }
+                tmp.push(str);
+            }
+            nlist.push(tmp);
+        }
+        _data = [];
+        _data = nlist.slice();
+    }
+
+    //set data
+    for (var i = 0; i < _data.length; i++) {
+        var tmplist = _data[i];
+        var tt_sidx = f_sidx;
+        for (var j = 0; j < tmplist.length; j++) {
+            var tcolname = endCol[tt_sidx] + (f_num + i);
+            sheet.getCell(tcolname).value = tmplist[j];
+            tt_sidx++;
+        }
+    }
+
+    //file down
+    download(workbook, _fileName).then((r) => {});
+};
+
+const gfnma_getRowTable = function(tableId) {
+    var rlist = [];
+    $(tableId).find('tbody').find('tr').each(function (){
+	    var tmp = [];
+	    $(this).find('td').each(function () {
+	            tmp.push($(this).text());
+	        });
+	    rlist.push(tmp);
+    });
+    return rlist;
+};
+
