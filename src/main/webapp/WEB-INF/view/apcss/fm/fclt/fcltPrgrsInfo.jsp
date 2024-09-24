@@ -292,27 +292,27 @@
 		SBGridProperties.columns = [
 			{caption: ["체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
 				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
-			{caption: ["등록년도"],		ref: 'crtrYr',		type:'input',  width:'80px',    style:'text-align:center'},
-			{caption: ["APC명"],		ref: 'apcNm',		type:'input',  width:'200px',    style:'text-align:center'},
-			{caption: ["최종제출"],		ref: 'prgrsLast',	type:'input',  width:'60px',    style:'text-align:center'},
-			{caption: ["1"],		ref: 'prgrs1',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["2"],		ref: 'prgrs2',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["3"],		ref: 'prgrs3',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["4"],		ref: 'prgrs4',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["5"],		ref: 'prgrs5',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["6"],		ref: 'prgrs6',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["7"],		ref: 'prgrs7',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["8"],		ref: 'prgrs8',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["9"],		ref: 'prgrs9',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["10"],		ref: 'prgrs10',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["11"],		ref: 'prgrs11',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["12"],		ref: 'prgrs12',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["13"],		ref: 'prgrs13',		type:'input',  width:'40px',    style:'text-align:center'},
-			{caption: ["14"],		ref: 'prgrs14',		type:'input',  width:'40px',    style:'text-align:center'},
+			{caption: ["등록년도"],		ref: 'crtrYr',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["APC명"],		ref: 'apcNm',		type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["최종제출"],		ref: 'prgrsLast',	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["1"],		ref: 'prgrs1',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["2"],		ref: 'prgrs2',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["3"],		ref: 'prgrs3',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["4"],		ref: 'prgrs4',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["5"],		ref: 'prgrs5',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["6"],		ref: 'prgrs6',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["7"],		ref: 'prgrs7',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["8"],		ref: 'prgrs8',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["9"],		ref: 'prgrs9',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["10"],		ref: 'prgrs10',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["11"],		ref: 'prgrs11',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["12"],		ref: 'prgrs12',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["13"],		ref: 'prgrs13',		type:'output',  width:'40px',    style:'text-align:center'},
+			{caption: ["14"],		ref: 'prgrs14',		type:'output',  width:'40px',    style:'text-align:center'},
 
-			{caption: ["지자체\n(시도)승인"],		ref: 'aprvCtpvStts',	type:'input',  width:'80px',    style:'text-align:center'},
-			{caption: ["지자체\n(시군구)승인"],	ref: 'aprvSggStts',		type:'input',  width:'80px',    style:'text-align:center'},
-			{caption: ["출력"],  ref : 'temp1',      width : '50px',   style : 'text-align:center',    type : 'button', typeinfo:{buttonvalue: '출력'}},
+			{caption: ["지자체\n(시도)승인"],		ref: 'aprvCtpvStts',	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["지자체\n(시군구)승인"],	ref: 'aprvSggStts',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["출력"],  ref : 'temp1',      width : '50px',   style : 'text-align:center',    type : 'button', typeinfo:{buttonvalue: '출력', callback: fn_report}},
 			{caption: ["apcCd"],	ref: 'apcCd',	hidden : true},
 			//{caption: ["행추가여부"],	ref: 'addYn',	hidden : true},
 		];
@@ -523,7 +523,34 @@
 
 	// 선택 승인 반려 취소
 	const fn_selAprv = function(ynVal) {
+		<c:if test="${loginVO.userType eq '27'}">
+		</c:if>
+		<c:if test="${loginVO.userType eq '28'}">
+		</c:if>
+	}
 
+	//출력 버튼 처리
+	const fn_report = async function() {
+		//let apcCd = SBUxMethod.get("dtl-inp-apcCd");
+		//let crtrYr  =  SBUxMethod.get("dtl-inp-crtrYr");
+		let nRow = grdFcltPrgrsInfo.getRow();
+		let rowData = grdFcltPrgrsInfo.getRowData(nRow);
+
+		let apcCd = rowData.apcCd;
+		let crtrYr = rowData.crtrYr;
+		//console.log(apcCd,crtrYr);
+
+		if(apcCd == null || apcCd == "" || apcCd === undefined){
+			return;
+		}
+		if(gfn_isEmpty(crtrYr)){
+			return;
+		}
+		//comReport.js
+		gfn_popClipReport("APC전수조사", "fm/fcltReport.crf", {
+			apcCd 		: gfn_nvl(apcCd)
+			, crtrYr 	: gfn_nvl(crtrYr)
+		});
 	}
 
 </script>
