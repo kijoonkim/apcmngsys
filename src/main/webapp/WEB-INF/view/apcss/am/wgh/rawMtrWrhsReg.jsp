@@ -465,6 +465,7 @@
 					<div id="sbexp-area-grdExpBxKnd" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
 					<div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
+					<div id="sbexp-area-grdExpStdGrdJgmt" style="height:1px; width: 100%;"></div>
 					<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
 				</div>
 				<!-- 엑셀 시트별 데이터 영역 -->
@@ -941,6 +942,18 @@
 
     	// 등급
     	const stdGrd = stdGrdSelect.getStdGrd();
+		/** 수량별 입고등록시 입고수량과 등급별 수량 합계 0 체크 **/
+		let totalQntt = 0;
+		let regQntt = SBUxMethod.get("srch-inp-bxQntt");
+		if(stdGrd.stdGrdList[0].stdGrdType == "QT"){
+			stdGrd.stdGrdList.forEach(function(item){
+				totalQntt += item.grdNv||0;
+			});
+		}
+		if(totalQntt > regQntt){
+			gfn_comAlert("W0008","입고수량","등급수량");
+			return;
+		}
 
     	if (gfn_isEmpty(stdGrd)) {
     		gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
@@ -996,7 +1009,7 @@
    			prcsType: gfn_isEmpty(prcsType) ? '' : prcsType,
    			stdGrdList: stdGrd.stdGrdList
     	}
-    	
+
     	if(!gfn_isEmpty(rawMtrWrhs.vrtyCd)){
     		rawMtrWrhs.vrtyCd = rawMtrWrhs.vrtyCd.substring(4,8);
     	}
@@ -1075,7 +1088,6 @@
  		}
 
  		SBUxMethod.set("srch-inp-wrhsWght", rowData.wrhsWght);		// 중량
-
 		const stdGrdList = [];
 		if (!gfn_isEmpty(rowData.stdGrdCd)) {
 			rowData.stdGrdCd.split(',').forEach((item) => {
@@ -1088,7 +1100,6 @@
 				});
 			});
 		}
-
 		const stdGrdObj = {
 				apcCd: rowData.apcCd,
 				grdSeCd: _GRD_SE_CD_WRHS,	// 등급구분코드:원물입고
@@ -1694,6 +1705,7 @@
 	var grdExpBxKnd;
 	var grdExpStdGrd;
 	var grdExpStdGrdDtl;
+	var grdExpStdGrdJgmt;
 
 	// exp grid json
 	var jsonExpRawMtrWrhs = [];
@@ -1707,6 +1719,7 @@
 	var jsonExpBxKnd = [];
 	var jsonExpStdGrd = [];
 	var jsonExpStdGrdDtl = [];
+	var jsonExpStdGrdJgmt = [];
 
 
 	const fn_getExpColumns = function() {
@@ -1875,7 +1888,7 @@
 	    gjsonStdGrdObjKnd.forEach((item, index) => {
 
 	    	let grd;
-	    	if (_.isEqual(item.stdGrdType, "RT")) {
+	    	if (_.isEqual(item.stdGrdType, "RT") || _.isEqual(item.stdGrdType, "QT")) {
 	    		cntRt++;
 	    		grd = {
     				caption: ["등급:" + item.grdKndNm],
@@ -1979,6 +1992,7 @@
 		jsonExpBxKnd = gfn_cloneJson(jsonApcBx);
 		jsonExpStdGrd = gfn_cloneJson(gjsonStdGrdObjKnd);
 		jsonExpStdGrdDtl = gfn_cloneJson(gjsonStdGrdObjDtl);
+		jsonExpStdGrdJgmt = gfn_cloneJson(gjsonStdGrdObjJgmt);
 	}
 
 	const fn_createExpGrid = async function(_expObjList) {
@@ -2175,6 +2189,20 @@
 		        title: "",
 		        unit: ""
 		    },
+			{
+				sbGrid: grdExpStdGrdJgmt,
+				parentid: "sbexp-area-grdExpStdGrdJgmt",
+				id: "grdExpStdGrdJgmt",
+				jsonref: "jsonExpStdGrdJgmt",
+				columns: [
+					{caption: ["품목코드"],		ref: 'itemCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["등급종류명"],   	ref: 'grdNm',  	type:'output',  width:'100px',    style:'text-align:center'},
+					{caption: ["등급코드"],   	ref: 'grdCd',  	type:'output',  width:'100px',    style:'text-align:center'},
+				],
+				sheetName: "판정등급",
+				title: "",
+				unit: ""
+			},
 		];
 
 		await fn_createExpGrid(expObjList);
@@ -2267,7 +2295,7 @@
 		const rawMtrWrhsList = [];
 
 		let impData = _grdImp.getGridDataAll();
-		
+
 		if (impData.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 		}
@@ -2355,6 +2383,10 @@
 
  	    	let hasError = false;
 
+			 let totalWght = parseInt(rowData.wrhsWght);
+			 let totalQntt = parseInt(rowData.bxQntt);
+
+
 			// 상세등급
 			gjsonStdGrdObjKnd.forEach((item, index) => {
 				let colNm = gStdGrdObj.colPrfx + item.grdKnd;
@@ -2389,6 +2421,10 @@
 					}
 
 					grdNvSum += parseFloat(grd.grdNv) || 0;
+				} else if(_.isEqual(item.stdGrdType, "QT")){
+					grd.grdWght = (totalWght / totalQntt) * parseInt(rowData[colNm]);
+					grd.grdQntt = rowData[colNm];
+					grd.grdNv = rowData[colNm];
 				} else {
 					grd.grdCd = rowData[colNm];
 					if (gfn_isEmpty(grdCd) || _.isEqual(grdCd, "*")) {
@@ -2689,6 +2725,7 @@
 			}
 
 			let cntRt = 0;
+			let cntQt = 0;
 			let grdNvSum = 0;
 			const grdList = [];
 			// 상세등급
@@ -2698,6 +2735,12 @@
 				if (_.isEqual(item.stdGrdType, "RT")) {
 					// 값을 그대로 사용
 					cntRt++;
+					let grdNv = parseFloat(rowData[colNm]) || 0;
+					grdNvSum += grdNv
+					/** 빈값 들어올경우 0 세팅 **/
+					rowData[colNm] = grdNv;
+				} else if(_.isEqual(item.stdGrdType, "QT")) {
+					cntQt++;
 					let grdNv = parseFloat(rowData[colNm]) || 0;
 					grdNvSum += grdNv
 					/** 빈값 들어올경우 0 세팅 **/
@@ -2728,8 +2771,9 @@
 						}
 					}
 				}
-
-				grdList.push(rowData[colNm]);
+				if(!_.isEqual(item.stdGrdType, "QT")){
+					grdList.push(rowData[colNm]);
+				}
 			});
 			if (cntRt > 0 ){
 				if(gfn_isEmpty(rowData.pltno)){
@@ -2738,10 +2782,15 @@
 					rowData.bxQntt = grdNvSum;
 				}
 			}
+			/** 수량 **/
+			if(cntQt > 0){
+				if(gfn_isEmpty(rowData.bxQntt)){
+				rowData.bxQntt = grdNvSum;
+				}
+			}
 
 			// 판정등급
 			if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
-
 				if (grdList.length > 0) {
 					let jgmtGrdCd = gStdGrdObj.getJgmtGrdCd(grdList);
 					rowData.jgmtGrdCd = jgmtGrdCd;

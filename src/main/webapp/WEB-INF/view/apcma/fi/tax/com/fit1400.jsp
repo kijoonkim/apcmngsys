@@ -380,40 +380,23 @@
         });
     }
 
-    /** 공통 버튼 **/
-    function cfn_search(){
-        fn_search();
-    }
-    function cfn_save(){
-        console.log("save하게[ㅆ습니다");
 
-        console.log(vatGrid.getColStatus(3));
-    }
-
-
-    const fn_search = async function(){
-       let rst = await Promise.all([
-           fn_searchStdRep(),
-           fn_searchRepSite(),
-           fn_searchVatDom()
-       ]);
-
-    }
 
     /** grid click event mdTable 셋팅 **/
     const fn_setMdGrid = async function(){
         let idx = rptStdGrid.getRow();
         let data = rptStdGrid.getRowData(idx);
-        console.log(data,"data");
+
         let table = document.getElementById("middleTable");
         let regs = table.querySelectorAll(`[id^="reg-"]`);
         for (const item of regs) {
            let wordIdx = item.id.lastIndexOf('-') + 1;
            let key = item.id.substring(wordIdx);
-           console.log(key,"key");
-           console.log(item.id,"요소 아이디");
+
            await SBUxMethod.set(item.id,data[key]);
         }
+        /** 연도 readOnly **/
+        SBUxMethod.attr('reg-dtp-yyyy', 'readonly', 'true');
     }
     /** 신고 기준정보 리스트 조회 **/
     const fn_searchStdRep = async function(){
@@ -563,8 +546,36 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+ function cfn_save() {
+        fn_save();
+ }
+ function cfn_add() {
+        fn_create();
+ }
+ function cfn_del() {
+        fn_delete();
+ }
+ function cfn_search() {
+        fn_search();
+ }
 
+const fn_save = async function(){
 
+}
+const fn_create = async function(){
+
+}
+const fn_delete = async function(){
+
+}
+const fn_search = async function(){
+    let rst = await Promise.all([
+        fn_searchStdRep(),
+        fn_searchRepSite(),
+        fn_searchVatDom()
+    ]);
+
+}
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -1,4 +1,4 @@
-package com.at.apcma.co.sys.org.web;
+package com.at.apcma.fi.tax.vat;
 
 import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
@@ -27,20 +27,20 @@ import java.util.Map;
  *
  *  수정일      수정자		수정내용
  *  ----------	----------	---------------------------
- * @ 2024.08.05   	천용진		최초 생성
+ * @ 2024.09.04   	천용진		최초 생성
  *
  *  </pre>
  */
 @Controller
-public class ApcMaFit1400Controller  extends BaseController {
+public class ApcMaFit2110Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
 
-    @PostMapping(value = "/co/sys/fit/selectFit1400.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectFit1400(
+    @PostMapping(value = "/co/sys/fit/selectFit2110.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectFit1200(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
@@ -51,7 +51,7 @@ public class ApcMaFit1400Controller  extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIT1400_Q");
+            param.put("procedure", 		"P_FIT1200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class ApcMaFit1400Controller  extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============selectFit1400=====end========");
+        logger.info("=============selectFit1200=====end========");
         return getSuccessResponseEntityMa(resultMap);
     }
 }
