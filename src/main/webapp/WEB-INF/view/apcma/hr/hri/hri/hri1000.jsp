@@ -206,7 +206,9 @@
                                 <tr>
                                     <td rowspan="5" id="empPhotoArea" class="td_input" style="position: relative; vertical-align: top;">
                                         <img id="EMP_PHOTO" style="width: 100%; height: 100%; position: absolute;">
-                                        사진 업로드
+                                        <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                            <span>사진 업로드</span>
+                                        </div>
                                         <input type="file" name="EMP_PHOTO_FILE" id="EMP_PHOTO_FILE" accept="image/*" style="display: none;">
                                     </td>
                                     <th scope="row" class="th_bg">사번</th>
