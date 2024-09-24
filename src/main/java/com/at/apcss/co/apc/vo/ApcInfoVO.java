@@ -64,4 +64,9 @@ public class ApcInfoVO extends ComVO{
 	private String clclnCrtrCd;
 
 	private String apcSeCd;
+	
+	private String userId;
+	
+	private String untyOgnzCd;
+	
 }

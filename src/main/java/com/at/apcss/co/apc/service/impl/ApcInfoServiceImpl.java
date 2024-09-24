@@ -42,6 +42,20 @@ public class ApcInfoServiceImpl extends BaseServiceImpl implements ApcInfoServic
 		return resultList;
 	}
 
+	
+	@Override
+	public List<ApcInfoVO> selectUserApcList(ApcInfoVO apcInfoVO) throws Exception {
+		List<ApcInfoVO> resultList = apcInfoMapper.selectUserApcList(apcInfoVO);
+		return resultList;
+	}
+
+	@Override
+	public List<ApcInfoVO> selectAprvApcInfoList(ApcInfoVO apcInfoVO) throws Exception {
+		List<ApcInfoVO> resultList = apcInfoMapper.selectAprvApcInfoList(apcInfoVO);
+		return resultList;
+	}
+
+	
 	@Override
 	public List<ApcInfoVO> selectApcDsctnList(ApcInfoVO apcInfoVO) throws Exception {
 		return apcInfoMapper.selectApcDsctnList(apcInfoVO);
@@ -85,6 +99,5 @@ public class ApcInfoServiceImpl extends BaseServiceImpl implements ApcInfoServic
 		}
 		return null;
 	}
-
-
+	
 }

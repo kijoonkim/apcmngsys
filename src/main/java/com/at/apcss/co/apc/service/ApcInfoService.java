@@ -31,6 +31,27 @@ public interface ApcInfoService {
 	 */
 	List<ApcInfoVO> selectApcMngList(ApcInfoVO apcInfoVO) throws Exception;
 
+	
+	/**
+	 *
+	 * @param apcInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<ApcInfoVO> selectUserApcList(ApcInfoVO apcInfoVO) throws Exception;
+	
+	
+	/**
+	 * 승인된 법인 APC 조회
+	 * @param apcInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<ApcInfoVO> selectAprvApcInfoList(ApcInfoVO apcInfoVO) throws Exception;
+	
+	
+	
+	
 	/**
 	 * APC정보관리 APC내역 조회
 	 * @param apcInfoVO

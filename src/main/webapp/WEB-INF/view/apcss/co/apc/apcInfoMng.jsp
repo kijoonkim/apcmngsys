@@ -96,20 +96,34 @@
 	var comboDelYnJsData = [];
 	var comboMbCdJsData = [];
 
+	var jsonComCtpv 			= [];	// 시/도
+	var jsonComSgg 				= [];	// 시/군/구
+	
 	var apcInfoMngData = [];
 
 	const fn_initSBSelect = async function() {
-		let rst = await Promise.all([
+		let result = await Promise.all([
+			gfn_getComCdDtls("UNTY_CTPV"),
+			gfn_getComCdDtls("UNTY_SGG"),
 			gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'REVERSE_YN', gv_apcCd),
 			gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", gv_apcCd),
-			gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", gv_apcCd)
+			gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", gv_apcCd),
 		]);
-        fn_search();
+		
+		jsonComCtpv = result[0];
+		jsonComSgg = result[1];
+				
+        
 	}
 
-	window.addEventListener('DOMContentLoaded', function(e) {
+	const fn_init = async function() {
+		await fn_initSBSelect();
 		fn_createApcInfoMngGrid();
-		fn_initSBSelect();
+		//fn_search();
+	}
+	
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_init();
 	})
 
 	function fn_createApcInfoMngGrid() {
@@ -128,7 +142,7 @@
     	SBGridProperties.paging = {
 			'type' : 'page',
 		  	'count' : 5,
-		  	'size' : 20,
+		  	'size' : 500,
 		  	'sorttype' : 'page',
 		  	'showgoalpageui' : true
 	    };
@@ -138,10 +152,63 @@
             {caption: ['APC코드'],	ref: 'apcCd',		width: '70px', 		type: 'output',		style:'text-align: center', sortable: false},
             {caption: ['원본APC명'], 	ref: 'regApcNm', 	width: '200px',		type: 'input',		style:'text-align: center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
-            {caption: ['시도명'], 	ref: 'ctpvNm',	 	width: '70px', 		type: 'input',		style:'text-align: center', sortable: false,
+            {
+        		caption: ['시도명'], 	
+        		ref: 'ctpvNm',	 	
+        		width: '70px', 		
+        		type: 'input',		
+        		style:'text-align: center', 
+        		sortable: false,
+        		hidden : true,
+		        validate : gfn_chkByte.bind({byteLimit: 20})
+			},
+            {
+				caption: ['시군명'], 	
+				ref: 'sigunNm',	 	
+				width: '70px', 		
+				type: 'input',		
+				style:'text-align: center', 
+				sortable: false,
+        		hidden : true,
 		        validate : gfn_chkByte.bind({byteLimit: 20})},
-            {caption: ['시군명'], 	ref: 'sigunNm',	 	width: '70px', 		type: 'input',		style:'text-align: center', sortable: false,
-		        validate : gfn_chkByte.bind({byteLimit: 20})},
+		        
+	        {
+        	    caption: ["시/도"],	
+        	    ref: 'ctpv',	
+        	    type:'combo',  		
+        	    width:'140px', 
+        	    style:'text-align:center',
+        	    typeinfo : {
+        	        ref:'jsonComCtpv', 
+        	        label:'cdVlNm', 
+        	        value:'cdVl', 
+            	    itemcount: 10,
+        	        displayui : true
+        	    },
+        	    userattr: {colNm: "ctpv"},
+        	},
+        	{
+        	    caption: ["시/군/구"],	
+        	    ref: 'sgg',	
+        	    type:'combo',  		
+        	    width:'140px', 
+        	    style:'text-align:center',
+        	    typeinfo : {
+        	        ref:'jsonComSgg', 
+        	        label:'cdVlExpln', 
+        	        value:'cdVl', 
+        	        displayui : true,
+            	    itemcount: 10,
+        	        filtering: {
+                		usemode: true,
+                		uppercol: 'ctpv',
+                		attrname: 'upCdVl',
+                		listall: true
+                	}
+        	    },
+    	        userattr: {colNm: "sgg"},
+        	},
+        	
 			{caption: ['주체명'], 	ref: 'mbCd', 	 	width: '70px', 		type: 'combo',		style:'text-align: center', sortable: false,
         		typeinfo : {ref:'comboMbCdJsData', label:'label', value:'value', itemcount: 10}},
             {caption: ['원본주소'], 	ref: 'regAddr',  	width: '400px',		type: 'input', 									sortable: false,
@@ -228,6 +295,8 @@
   					  , addr 		: item.addr
   					  , fxno 		: item.fxno
   					  , telno 		: item.telno
+  					  , ctpv		: item.ctpv
+  					  , sgg			: item.sgg
   					  , delYn		: item.delYn
   					}
   					apcInfoMngData.push(Object.assign({}, apcDsctn));

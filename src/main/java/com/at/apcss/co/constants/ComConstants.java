@@ -111,8 +111,9 @@ public class ComConstants {
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";
 
+	public final static String CON_XSDENY_CHAR = "----==_dummy_part_66f108b0c681a_bf1d241437c4";
+	
 	public final static String EXCEL_YES = "Y";
-
 
 	/* MSG CODE */
 
@@ -139,7 +140,16 @@ public class ComConstants {
 	 */
 	public final static String MSGCD_NOT_EQUAL = "W0006";
 
-
+	/**
+	 * W0003		{0}할 대상이 없습니다. 
+	 */
+	public final static String MSGCD_NOT_FOUND_TARGET_TODO = "W0003";
+	/**
+	 * W0004	{0}한 대상이 없습니다. 
+	 */
+	public final static String MSGCD_NOT_FOUND_TARGET = "W0004";
+	
+	
 	/**
 	 * W0008	{0} 보다 {1}이/가 큽니다.
 	 */
@@ -156,6 +166,19 @@ public class ComConstants {
 	 * W0011	{0}이/가 아닙니다.
 	 */
 	public final static String MSGCD_NOT_TARGET = "W0011";		//	W0011	{0}이/가 아닙니다.
+	
+	/**
+	 * W0022	{0}의 {1}된 {2}이/가 아닙니다.
+	 */
+	public final static String MSGCD_NOT_PARAM_THREE = "W0022";	//	W0022	{0}의 {1}된 {2}이/가 아닙니다.
+	
+	
+	/**
+	 * W0020	{0} 상태의 {1} 입니다.
+	 */
+	public final static String MSGCD_TARGET_STATUS = "W0020";	//	{0} 상태의 {1} 입니다.
+	
+	
 	/**
 	 * W0012	마감등록 된 {0} 입니다.
 	 */
@@ -290,6 +313,14 @@ public class ComConstants {
 	 */
 	public final static String CON_FLFMT_TASK_SE_CD_DEFAULT = "";
 
+	/**
+	 * 승인진행코드 : 신청
+	 */
+	public final static String CON_APRV_PRGRS_CD_APLY = "R0";
+	public final static String CON_APRV_PRGRS_CD_APLY_CNCL = "R9";
+	public final static String CON_APRV_PRGRS_CD_APRV = "C0";
+	public final static String CON_APRV_PRGRS_CD_APRV_CNCL = "C9";
+	
 	/**
 	 * 중복허용 여부
 	 */

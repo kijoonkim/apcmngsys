@@ -78,15 +78,17 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
+						<col style="width: 6%">
 						<col style="width: 3%">
-						<col style="width: 3%">
-						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 3%">
 						<col style="width: 6%">
+						<col style="width: 3%">
+						
 					</colgroup>
 					<tbody>
 						<tr>
@@ -103,7 +105,23 @@
 							</td>
 							<th scope="row" class="th_bg">권한명</th>
 							<td class="td_input" colspan="3" style="border-right:hidden;">
-								<sbux-input class="form-control input-sm" id="srch-inp-authrtNm" name="srch-inp-authrtNm" uitype="text" onkeyenter="fn_search"></sbux-input>
+								<sbux-input 
+									class="form-control input-sm" 
+									id="srch-inp-authrtNm" 
+									name="srch-inp-authrtNm" 
+									uitype="text" 
+									onkeyenter="fn_search"
+								></sbux-input>
+							</td>
+							<th scope="row" class="th_bg">권한ID</th>
+							<td class="td_input" colspan="3" style="border-right:hidden;">
+								<sbux-input 
+									class="form-control input-sm" 
+									id="srch-inp-authrtId" 
+									name="srch-inp-authrtId" 
+									uitype="text" 
+									onkeyenter="fn_search"
+								></sbux-input>
 							</td>
 						</tr>
 					</tbody>
@@ -423,7 +441,12 @@
             {caption: ["<input type='checkbox' id='allCheckbox' onchange='fn_checkAllAuthMenu(this);'>"],
             	width: '20%',
                 ref: 'useYn', type: 'checkbox',   style: 'text-align:center',
-            	typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}
+            	typeinfo: {
+            		ignoreupdate : true, 
+            		fixedcellcheckbox : {usemode : true, rowindex : 0}, 
+            		checkedvalue : 'Y', 
+            		uncheckedvalue : 'N'
+            	},
             },
             /*
             {caption: ['상세'], ref: 'entyList', width: '100%', type: 'output',
@@ -601,11 +624,13 @@
 
 		let sysId = SBUxMethod.get("srch-slt-sysId");
 		let authrtNm = SBUxMethod.get("srch-inp-authrtNm");
+		let authrtId = SBUxMethod.get("srch-inp-authrtId");
 		let apcCd = gv_selectedApcCd;
 
         const postJsonPromise = gfn_postJSON("/co/authrt/selectComAuthrtList.do",{
         		sysId: sysId,
             	authrtNm: authrtNm,
+            	authrtId: authrtId,
             	apcCd: apcCd,
             	// pagination
     	  		pagingYn : 'Y',
@@ -974,10 +999,18 @@
     const fn_viewUi = function () {
 
         let nRow = grdComAuthMenu.getRow();
+        
         if (nRow < 1) {
             return;
         }
-
+        
+        let nCol = grdComAuthMenu.getCol();
+        let nColUseYn = grdComAuthMenu.getColRef("useYn");
+        
+        if (_.isEqual(nCol, nColUseYn)) {
+        	return;	
+        }
+        
         const rowData = grdComAuthMenu.getRowData(nRow);
 
         if (rowData.menuType != "02") {
