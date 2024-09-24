@@ -216,6 +216,9 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 						stdGrd.setGrdCd(AmConstants.CON_STD_GRD_CD_EMPTY);
 						sumGrdWght += stdGrd.getGrdWght();
 
+					} else if (AmConstants.CON_STD_GRD_TYPE_QT.equals(stdGrd.getStdGrdType())){
+						/** 수량,중량 front 포맷 완료 **/
+						stdGrd.setGrdCd(AmConstants.CON_STD_GRD_CD_EMPTY);
 					} else {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등급값");
 					}

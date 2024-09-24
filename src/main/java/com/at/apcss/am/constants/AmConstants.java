@@ -181,6 +181,10 @@ public class AmConstants {
      * 표준등급유형 : VL 등록 값
      */
     public final static String CON_STD_GRD_TYPE_VL = "VL";
+    /**
+     * 표준등급유형 : QT 등록 값(수량)
+     */
+    public final static String CON_STD_GRD_TYPE_QT = "QT";
     
     /**
      * 표준등급 EMPTY

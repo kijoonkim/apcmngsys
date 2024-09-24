@@ -320,7 +320,9 @@ const stdGrdSelect = {
 					cntRt++;
 				}
 				SBUxMethod.show('stdGrdSlt-inp-knd-' + id);
-			} else {
+			}else if(_.isEqual(item.stdGrdType, "QT")){
+				SBUxMethod.show('stdGrdSlt-inp-knd-' + id);
+			}else {
 				SBUxMethod.show('stdGrdSlt-slt-knd-' + id);
 				SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
 			}
@@ -336,11 +338,14 @@ const stdGrdSelect = {
 			SBUxMethod.show("stdGrdSlt-lbl-sumTitle");
 			SBUxMethod.show("stdGrdSlt-lbl-sum");
 		}
-		
+
 		if (gjsonStdGrdObjKnd.length > 1 && gjsonStdGrdObjJgmt.length > 0) {
 			SBUxMethod.show('stdGrdSlt-lbl-jgmt');
 			SBUxMethod.show('stdGrdSlt-slt-jgmt');
 			SBUxMethod.refresh('stdGrdSlt-slt-jgmt');
+		}
+		if(gjsonStdGrdObjKnd[0].stdGrdType == 'QT'){
+			SBUxMethod.attr('stdGrdSlt-slt-jgmt',"readonly","false");
 		}
 		
 		SBUxMethod.set("stdGrdSlt-lbl-wght", "");
@@ -372,7 +377,10 @@ const stdGrdSelect = {
 								SBUxMethod.set('stdGrdSlt-inp-knd-' + id, stdGrd.grdNv);
 								grdNvSum += parseFloat(stdGrd.grdNv) || 0;
 							}
-						} else {
+						}else if(_.isEqual(item.stdGrdType, "QT")){
+							SBUxMethod.hide('stdGrdSlt-slt-knd-' + id);
+							SBUxMethod.set('stdGrdSlt-inp-knd-' + id, stdGrd.grdNv);
+						}else {
 							SBUxMethod.refresh('stdGrdSlt-slt-knd-' + id);
 							SBUxMethod.set('stdGrdSlt-slt-knd-' + id, stdGrd.grdCd, { isTriggerExt : true } );
 						}
@@ -383,7 +391,6 @@ const stdGrdSelect = {
 				if (grdNvSum > 0) {
 					SBUxMethod.set("stdGrdSlt-lbl-sum", grdNvSum);
 				}
-				console.log("grdWghtSum", grdWghtSum);
 				if (grdWghtSum > 0) {
 					SBUxMethod.set("stdGrdSlt-lbl-wght", grdWghtSum);
 				}
@@ -393,7 +400,9 @@ const stdGrdSelect = {
 				const id = gStdGrdObj.idList[index];
 				if (_.isEqual(item.stdGrdType, "RT")) {
 					SBUxMethod.set('stdGrdSlt-inp-knd-' + id, "");
-				} else {
+				}else if(_.isEqual(item.stdGrdType, "QT")){
+					SBUxMethod.set('stdGrdSlt-inp-knd-' + id, "");
+				}else {
 					let jsonObj = gStdGrdObj.getGrdJson(id);
 					if (jsonObj.length == 0) {
 						return;
@@ -532,6 +541,7 @@ const stdGrdSelect = {
 		let jgmtGrdCd = "";
 		let jgmtGrdNm = "";
 
+
 		gjsonStdGrdObjJgmt.forEach((item, index) => {
 
 			let jgmtMinVl = parseInt(item.jgmtMinVl) || 0;
@@ -595,6 +605,8 @@ const stdGrdSelect = {
 		let cntWt = 0;
 		let grdWghtSum = 0;
 		let sumGrdNv = 0;
+		let totalWght = SBUxMethod.get('srch-inp-wrhsWght');
+		let totalQntt = SBUxMethod.get('srch-inp-bxQntt');
 		gjsonStdGrdObjKnd.forEach((item, index) => {
 			const _id = gStdGrdObj.idList[index];
 
@@ -608,7 +620,11 @@ const stdGrdSelect = {
 				}
 				grdCd = "";
 				sumGrdNv += grdNv;
-			} else {
+			}else if(_.isEqual(item.stdGrdType, "QT")){
+				grdCd = "";
+				item.grdWght = (totalWght / totalQntt) * grdNv;
+				item.grdQntt = grdNv;
+			}else {
 				if (gfn_isEmpty(grdCd)) {
 					result.isOmit = true;
 				}
@@ -623,7 +639,8 @@ const stdGrdSelect = {
 					stdGrdType: item.stdGrdType,
 					grdCd: grdCd,
 					grdNv: grdNv,
-					grdWght: null
+					grdWght: item.grdWght || null,
+					grdQntt: item.grdQntt || null,
 				}
 			
 			if (this.param.isWght) {
@@ -636,7 +653,7 @@ const stdGrdSelect = {
 
 			if (gfn_isEmpty(jgmtGrdCd) || _.isEqual(jgmtGrdCd, "*")) {
 				
-				if (_.isEqual(item.stdGrdType, "RT")) {
+				if (_.isEqual(item.stdGrdType, "RT")||_.isEqual(item.stdGrdType, "QT") ) {
 					jgmtGrdCd = "*";
 				} else {
 					jgmtGrdCd = grdCd;
