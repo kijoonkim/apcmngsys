@@ -202,7 +202,7 @@
                                         </td>
                                         <th scope="row" class="th_bg">비과세코드</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="TAX_FREE_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                            <sbux-input id="TAX_FREE_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                         </td>
                                         <td class="td_input" style="border-right:hidden;">
                                             <sbux-input id="TAX_FREE_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -352,7 +352,7 @@
                                     <tr>
                                         <th scope="row" class="th_bg">입력담당부서</th>
                                         <td class="td_input" style="border-right:hidden;">
-                                            <sbux-input id="ENTRY_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                                            <sbux-input id="ENTRY_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                         </td>
                                         <td class="td_input" style="border-right:hidden;">
                                             <sbux-input id="ENTRY_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -685,7 +685,8 @@
     }
 
     const fn_findTaxFreeCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("TAX_FREE_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("TAX_FREE_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("TAX_FREE_NAME"));
         var replaceText0 	= "_TAX_FREE_CODE_";
         var replaceText1 	= "_TAX_FREE_NAME_";
         var strWhereClause 	= "AND TAX_FREE_CODE LIKE '%" + replaceText0 + "%' AND TAX_FREE_NAME LIKE '%" + replaceText1 + "%'";
@@ -699,7 +700,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["비과세코드",		"비과세약칭"]
             ,searchInputFields		: ["TAX_FREE_CODE",	"TAX_FREE_NAME"]
-            ,searchInputValues		: ["", 			searchText]
+            ,searchInputValues		: [searchCode, 			searchName]
             ,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", "",	""]				//select 경우
             ,height					: '500px'
@@ -715,7 +716,8 @@
     }
 
     var fn_findEntryDeptCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -726,7 +728,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+            ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
