@@ -743,7 +743,8 @@
 		});
 		let data = await postJsonPromise;
 		try{
-			console.log("data==="+data);
+			console.log("selectPrdcrCrclOgnUsrMngList");
+			console.log(data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set("dtl-input-userId", item.userId);  //  아이디
 				SBUxMethod.set("dtl-input-userNm", item.userNm);  //  이름

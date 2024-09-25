@@ -70,7 +70,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" class="th_bg">년도</th>
+						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
@@ -170,18 +170,23 @@
 			<sbux-input uitype="hidden" id="dtl-inp-apcCd" name="dtl-inp-apcCd"></sbux-input>
 			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
 			<!--[pp] 검색 -->
-			<div><label>산지유통처리실적상세 상세내역 </label></div>
 			<div>
-				<label style="font-size: x-small; font-weight: bold;">◦ (산지유통시설 처리실적) </label>
-				<label style="font-size: x-small;"> 유통조직의 취급액 실적 중 APC에서 선별‧포장 등의 상품화 및/ 또는 장기저장 과정을 실시하여 판매한 실적을 기재</label>
-			</div>
-			<div>
-				<label style="font-size: x-small;">- APC에서 처리한 상품 : 원물 집하, 저온저장, 선별, 신선처리, 포장 등의 단계를 필수 또는 선택적으로 거친 상품을 말함</label>
-				<label style="font-size: x-small; text-decoration: underline;">(단, 농가 개별선별 상품의 운송을 위한 단순수탁 실적은 제외)</label>
-			</div>
-			<div>
-				<label style="font-size: x-small; font-weight: bold;">․ (일반취급)  </label>
-				<label style="font-size: x-small;"> 단순 매취 등의 물량 중 APC에서 저온저장, 신선처리, 포장 등의 처리를 거친 물량만 기재</label>
+				<label style="font-weight: bold;">○산지유통처리실적상세 상세내역 </label>
+				<br>
+
+				<label style="font-weight: bold;">- (산지유통시설 처리실적) </label>
+				<label> 유통조직의 취급액 실적 중 APC에서 선별‧포장 등의 상품화 및/ 또는 장기저장 과정을 실시하여 판매한 실적을 기재</label>
+				<br>
+
+				<label>- APC에서 처리한 상품 : 원물 집하, 저온저장, 선별, 신선처리, 포장 등의 단계를 필수 또는 선택적으로 거친 상품을 말함</label>
+				<label style="text-decoration: underline;">(단, 농가 개별선별 상품의 운송을 위한 단순수탁 실적은 제외)</label>
+				<br>
+
+				<label style="font-weight: bold;">(일반취급)</label>
+				<label> 단순 매취 등의 물량 중 APC에서 저온저장, 신선처리, 포장 등의 처리를 거친 물량만 기재</label>
+				<br>
+
+				<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
 			</div>
 			<div>
 				<table class="table table-bordered table-hover tbl_col tbl_fixed">
@@ -908,13 +913,13 @@
 		console.log("******************fn_save**********************************");
 
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
-		let trgtYr = SBUxMethod.get("dtl-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 

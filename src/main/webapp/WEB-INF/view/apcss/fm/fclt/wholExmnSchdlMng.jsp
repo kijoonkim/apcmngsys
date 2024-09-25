@@ -56,7 +56,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th class="th_bg" scope="row">대상연도</th>
+						<th class="th_bg" scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-input id="srch-input-trgtYr" name="srch-input-trgtYr" uitype="text" placeholder="" class="form-control pull-right input-sm"></sbux-input>
 						</td>

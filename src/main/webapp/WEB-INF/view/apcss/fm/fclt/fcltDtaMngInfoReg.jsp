@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltDtaMngInfoReg.jsp
-  * @Description : 4.2 작업단계별 농가 데이터 현황 화면
+  * @Description : 4.2 작업단계별 데이터 관리현황 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -64,7 +64,7 @@
 						<td>
 							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
-						<th scope="row">대상연도</th>
+						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
@@ -91,10 +91,10 @@
 			<br>
 
 			<div>
-				<li><label style="font-weight: bold;">작업단계별 데이터 관리현황</label></li>
-				<li><label>-어떤 작업단계까지 생산하는 데이터를 농가별로 연계하고 있습니까?</label></li>
-				<li><label>-데이터를 관리하는 방법은 무엇입니까?</label></li>
-				<li><label>* (시스템) 전산시스템으로 관리 / (수동) 수기 또는 엑셀 등으로 직접 연결</label></li>
+				<label style="font-weight: bold;">○작업단계별 데이터 관리현황</label><br>
+				<label>- 데이터를 관리하는 방법은 무엇입니까?</label><br>
+				<label>* (시스템) 전산시스템으로 관리 / (수동) 수기 또는 엑셀 등으로 직접 연결</label><br>
+				<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
 			</div>
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -433,7 +433,7 @@
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 

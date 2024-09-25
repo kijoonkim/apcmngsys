@@ -28,6 +28,13 @@ public class PrdcrCrclOgnUsrMngVO extends ComVO{
 	private String uoAprvStts;
 	private String userAprvYmd;
 
+	private String untyOgnzCd;//조직 코드
+	private String ctpv;//시군
+	private String sgg;//시도
+	private String typeCd;//계정 타입
+	private String coTelno;//회사번호
+	private String mbrUpdtYn;//정보갱신 여부
+	private String mbrUpdtTm;//정보갱신 시간
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

@@ -66,7 +66,7 @@
 								<td>
 									<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 								</td>
-								<th scope="row">대상연도</th>
+								<th scope="row">조사연도</th>
 								<td class="td_input" style="border-right: hidden;">
 									<sbux-spinner
 										id="srch-inp-crtrYr"
@@ -81,7 +81,6 @@
 									<sbux-button id="srch-btn-dataCopy" name="srch-btn-dataCopy" uitype="normal" text="작년 데이터 복사" onclick="fn_copy" style="font-size: small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 									-->
 								</td>
-								<td></td>
 							</tr>
 						</tbody>
 					</table>
@@ -91,7 +90,9 @@
 				<!-- 진척도 추가 -->
 				<%@ include file="prgrs/apcPrgrs.jsp" %>
 				<br>
-
+				<div>
+					<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
+				</div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>APC 등록</caption>
 					<colgroup>
@@ -546,13 +547,15 @@
 
 	const fn_search = async function() {
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		console.log(apcCd);
+		//console.log(apcCd);
 		if(gfn_isEmpty(apcCd)){
 			alert('APC를 선택해주세요');
 			return;
 		}
-		fn_clearForm();
-		fn_selectFcltOperInfo();
+		await fn_clearForm();
+		//진척도
+		await cfn_selectPrgrs();
+		await fn_selectFcltOperInfo();
 	}
 
 	const fn_selectFcltOperInfo = async function(){
@@ -784,7 +787,7 @@
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 		//운영조직 주소 , apc주소 , apc 사업자번호 ,
@@ -964,11 +967,13 @@
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				alert("처리 되었습니다.");
-				selectFcltOperInfo();
-				//fn_search();
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
-				cfn_allTabPrgrsRefrash();
+				await console.log(typeof cfn_allTabPrgrsRefrash);
+				await cfn_allTabPrgrsRefrash();
+				await selectFcltOperInfo();
+
+				await alert("처리 되었습니다.");
+				//fn_search();
 			} else {
 				alert(data.resultMessage);
 			}
@@ -977,7 +982,7 @@
 		// 결과 확인 후 재조회
 		console.log("insert result", data);
 		//진척도 재조회
-		cfn_selectPrgrs();
+		//cfn_selectPrgrs();
 	}
 
 	// apc 선택 팝업 호출
@@ -1147,6 +1152,10 @@
 			SBUxMethod.set("dtl-inp-apcBmno", buldMnnm);//APC 건물본번
 			SBUxMethod.set("dtl-inp-apcSlno", buldSlno);//APC 건물부번
 		}
+	}
+
+	function fn_test(){
+		console.log('fn_test');
 	}
 
 </script>

@@ -64,7 +64,7 @@
 							<td>
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
-							<th scope="row">대상연도</th>
+							<th scope="row">조사연도</th>
 							<td class="td_input"  style="border-right: hidden;">
 								<sbux-spinner
 									id="srch-inp-crtrYr"
@@ -88,7 +88,11 @@
 			<!-- 진척도 추가 -->
 			<%@ include file="prgrs/apcPrgrs.jsp" %>
 			<br>
-			<p>* 복수동으로 분리된 경우 합산하여 기재</p>
+
+			<div>
+				<label>* 복수동으로 분리된 경우 합산하여 기재</label><br>
+				<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
+			</div>
 			<table class="table table-bordered tbl_row tbl_fixed">
 				<caption>시설현황</caption>
 				<colgroup>
@@ -631,7 +635,7 @@
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 		/*

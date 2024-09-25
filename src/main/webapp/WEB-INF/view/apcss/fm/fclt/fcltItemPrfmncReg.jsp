@@ -59,7 +59,7 @@
 						<td>
 							<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 						</td>
-						<th scope="row">대상연도</th>
+						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
