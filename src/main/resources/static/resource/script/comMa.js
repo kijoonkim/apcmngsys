@@ -49,7 +49,7 @@ const gfnma_getThreeComma = function (val) {
  * @function
  * @returns 	{string}
  */
-const gfnma_date = function () {
+const gfnma_date = function (sdate) {
 	var rstr = '';
 	var pad = function(number, length) {
 	  var str = '' + number;
@@ -58,7 +58,13 @@ const gfnma_date = function () {
 	  }
 	  return str;
 	}
-	var nowDate = new Date();	
+	
+	var nowDate = null;	
+	if(sdate){
+		nowDate = sdate;	
+	} else {
+		nowDate = new Date();	
+	}
 	var yyyy = nowDate.getFullYear().toString();
 	var MM = pad(nowDate.getMonth() + 1,2);
 	var dd = pad(nowDate.getDate(), 2);
@@ -181,6 +187,19 @@ const gfnma_date7 = function (str) {
 	var regex 	= /[^0-9]/g;
 	var rstr 	= str.replace(regex, "");
 	return rstr;
+}
+
+/**
+ * @name 		gfnma_date8
+ * @description 날짜에서 요일을 구한다.
+ * @function
+ * @param 		{string} str : 날짜(2024-05-01) 
+ * @returns 	{string}
+ */
+const gfnma_date8 = function(str) {
+    const week = ['일', '월', '화', '수', '목', '금', '토'];
+    const dayOfWeek = week[new Date(str).getDay()];
+    return dayOfWeek;
 }
 
 /**
