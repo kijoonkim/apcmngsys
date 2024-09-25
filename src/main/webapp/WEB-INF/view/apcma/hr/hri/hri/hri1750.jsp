@@ -57,7 +57,9 @@
                 <colgroup>
                     <col style="width: 11%">
                     <col style="width: 11%">
-                    <col style="width: 11%">
+                    <col style="width: 1%">
+                    <col style="width: 10%">
+                    <col style="width: 3%">
                     <col style="width: 11%">
                     <col style="width: 11%">
                     <col style="width: 11%">
@@ -81,7 +83,7 @@
                     <td class="td_input" style="border-right:hidden;">
                         <span> ~ </span>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_REQUEST_DATE_TO"
@@ -103,9 +105,9 @@
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
@@ -118,7 +120,7 @@
                     </td>
                     <th scope="row" class="th_bg">사원</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -143,7 +145,7 @@
                     </ul>
                 </div>
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-bandgvwInfo" style="height:350px;"></div>
+                    <div id="sb-area-bandgvwInfo" style="height:443px;"></div>
                 </div>
                 <div class="ad_tbl_top2">
                     <ul class="ad_tbl_count">
@@ -303,7 +305,7 @@
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
-    var isHrManager = '${loginVO.maIsHRManager}';
+    var isHrManager = '${loginVO.maIsHRManager}' == 'Y';
     var p_empCode = '${loginVO.maEmpCode}';
     var p_empName = '${loginVO.maEmpName}';
     var p_deptCode = '${loginVO.maDeptCode}';
@@ -313,11 +315,11 @@
     var sourceType = "CERTI";
 
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createBandgvwInfoGrid();
 
-        cfn_search();
+        await fn_onload();
     });
 
     var editType			= "N";
@@ -331,13 +333,6 @@
     var jsonEmpState = []; // 재직구분
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_REQUEST_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
-        SBUxMethod.set("SRCH_REQUEST_DATE_TO", gfn_dateToYmd(new Date()));
-        if(isHrManager != null) SBUxMethod.attr('btnAdminApproval',"disabled","true");
-        $("#incomeTr").hide();
-        $("#certiMemoTh").hide();
-        $("#certiMemoTd").hide();
-
         let rst = await Promise.all([
             // 증명서유형
             gfnma_setComSelect(['SRCH_REPORT_TYPE', 'bandgvwInfo', 'REPORT_TYPE'], jsonReportType, 'L_HRI042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -355,11 +350,13 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("EMP_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+        var replaceText1 	= "_EMP_CODE_";
+        var replaceText2 	= "_EMP_NAME_";
+        var replaceText3 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_CODE LIKE '%" + replaceText1 + "%' AND X.EMP_NAME LIKE '%" + replaceText2 + "%' AND X.EMP_STATE LIKE '%" + replaceText3 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
@@ -368,11 +365,11 @@
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
-            ,searchInputValues		: ["", 			searchText,		""]
-            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
-            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchCode, searchName,		""]
+            ,searchInputTypes		: ["input", 	"input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"", "",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
@@ -386,7 +383,8 @@
     }
 
     var fn_findSrchDeptCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -397,7 +395,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+            ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
@@ -415,11 +413,13 @@
     }
 
     const fn_findSrchEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+        var replaceText1 	= "_EMP_CODE_";
+        var replaceText2 	= "_EMP_NAME_";
+        var replaceText3 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_CODE LIKE '%" + replaceText1 + "%' AND X.EMP_NAME LIKE '%" + replaceText2 + "%' AND X.EMP_STATE LIKE '%" + replaceText3 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
@@ -428,11 +428,11 @@
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
-            ,searchInputValues		: ["", 			searchText,		""]
-            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
-            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchCode, searchName,		""]
+            ,searchInputTypes		: ["input", 	"input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"", "",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
@@ -798,13 +798,13 @@
         let rowData = bandgvwInfo.getRowData(nRow);
 
         if(editType == "U") {
-            if (rowData.CONFIRM_STEP != "1") {
+            if (nRow > -1 && rowData.CONFIRM_STEP != "1") {
                 alert("미승인 건만 수정이 가능합니다.");
                 return;
             }
         }
 
-        let DOC_NUM = gfnma_nvl(rowData.DOC_NUM);
+        let DOC_NUM = editType == "N" ? '' :gfnma_nvl(rowData.DOC_NUM);
         let REQUEST_DATE = gfnma_nvl(SBUxMethod.get("REQUEST_DATE"));
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         let REPORT_TYPE = gfnma_nvl(SBUxMethod.get("REPORT_TYPE"));
@@ -816,15 +816,15 @@
         let PRINT_TYPE = gfnma_nvl(SBUxMethod.get("PRINT_TYPE"));
         let CERTI_MEMO = gfnma_nvl(SBUxMethod.get("CERTI_MEMO"));
         let SOURCE_SYS = gfnma_nvl(SBUxMethod.get("SOURCE_SYS"));
-        let SOCIAL_NUM_YN = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN"));
-        let IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN"));
+        let SOCIAL_NUM_YN = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
+        let IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
             V_P_LANG_ID : '',
             V_P_COMP_CODE : gv_ma_selectedApcCd,
             V_P_CLIENT_CODE : gv_ma_selectedClntCd,
-            IV_P_DOC_NUM : editType == "N" ? '' : DOC_NUM,
+            IV_P_DOC_NUM : DOC_NUM,
             V_P_REQUEST_DATE : REQUEST_DATE,
             V_P_EMP_CODE : EMP_CODE,
             V_P_REPORT_TYPE : REPORT_TYPE,
@@ -836,8 +836,8 @@
             V_P_PRINT_TYPE : '',
             V_P_CERTI_MEMO : CERTI_MEMO,
             V_P_SOURCE_SYS : 'HR',
-            V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN.SOCIAL_NUM_YN,
-            V_P_IMG_YN : IMG_YN.IMG_YN,
+            V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN,
+            V_P_IMG_YN : IMG_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',
@@ -946,20 +946,18 @@
         let rowData = bandgvwInfo.getRowData(nRow);
 
         if(gfn_comConfirm("Q0001", "선택한 건을 삭제")) {
-            let DOC_NUM = gfnma_nvl(SBUxMethod.get("DOC_NUM"));
-            let REQUEST_DATE = gfnma_nvl(SBUxMethod.get("REQUEST_DATE"));
-            let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-            let REPORT_TYPE = gfnma_nvl(SBUxMethod.get("REPORT_TYPE"));
-            let SUBMIT_PLACE = gfnma_nvl(SBUxMethod.get("SUBMIT_PLACE"));
-            let USE_DESCR = gfnma_nvl(SBUxMethod.get("USE_DESCR"));
-            let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_YEAR")) : '';
-            let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_RECEIVE_START_DATE")) : '';
-            let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(SBUxMethod.get("INCOME_RECEIVE_END_DATE")) : '';
-            let PRINT_TYPE = gfnma_nvl(SBUxMethod.get("PRINT_TYPE"));
-            let CERTI_MEMO = gfnma_nvl(SBUxMethod.get("CERTI_MEMO"));
-            let SOURCE_SYS = gfnma_nvl(SBUxMethod.get("SOURCE_SYS"));
-            let SOCIAL_NUM_YN = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN"));
-            let IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN"));
+            let DOC_NUM = gfnma_nvl(rowData.DOC_NUM);
+            let REQUEST_DATE = gfnma_nvl(rowData.REQUEST_DATE);
+            let EMP_CODE = gfnma_nvl(rowData.EMP_CODE);
+            let REPORT_TYPE = gfnma_nvl(rowData.REPORT_TYPE);
+            let SUBMIT_PLACE = gfnma_nvl(rowData.SUBMIT_PLACE);
+            let USE_DESCR = gfnma_nvl(rowData.USE_DESCR);
+            let INCOME_YEAR = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(rowData.INCOME_YEAR) : '';
+            let INCOME_RECEIVE_START_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(rowData.INCOME_RECEIVE_START_DATE) : '';
+            let INCOME_RECEIVE_END_DATE = (REPORT_TYPE == "R_INCOME_A" || REPORT_TYPE == "R_INCOME_B" || REPORT_TYPE == "R_INCOME_C") ? gfnma_nvl(rowData.INCOME_RECEIVE_END_DATE) : '';
+            let CERTI_MEMO = gfnma_nvl(rowData.CERTI_MEMO);
+            let SOCIAL_NUM_YN = gfnma_nvl(rowData.SOCIAL_NUM_YN);
+            let IMG_YN = gfnma_nvl(rowData.IMG_YN);
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN : '',
@@ -978,8 +976,8 @@
                 V_P_PRINT_TYPE : '',
                 V_P_CERTI_MEMO : CERTI_MEMO,
                 V_P_SOURCE_SYS : 'HR',
-                V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN.SOCIAL_NUM_YN,
-                V_P_IMG_YN : IMG_YN.IMG_YN,
+                V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN,
+                V_P_IMG_YN : IMG_YN,
                 V_P_FORM_ID : p_formId,
                 V_P_MENU_ID : p_menuId,
                 V_P_PROC_ID : '',
@@ -1094,6 +1092,62 @@
         }
     }
 
+    const fn_onload = async function () {
+        $("#certiMemoTh").hide();
+        $("#certiMemoTd").hide();
+
+        /*AddButton = false;
+        DeleteRowButton = false;*/
+
+        SBUxMethod.set("SRCH_REQUEST_DATE_FR", gfn_dateToYmd(new Date(new Date().getFullYear(), new Date().getMonth(), 1)));
+        SBUxMethod.set("SRCH_REQUEST_DATE_TO", gfn_dateToYmd(new Date()));
+
+        $("#incomeTr").hide();
+
+        SBUxMethod.set("IMG_YN", "N");
+        SBUxMethod.set("SOCIAL_NUM_YN", "Y");
+
+        // 인사총무관리자가 아니면 본인것만 신청 가능
+        if (!isHrManager) {
+            SBUxMethod.set("SRCH_DEPT_CODE", p_deptCode);
+            SBUxMethod.set("SRCH_DEPT_NAME", p_deptName);
+            SBUxMethod.set("SRCH_EMP_CODE", p_empCode);
+            SBUxMethod.set("SRCH_EMP_NAME", p_empName);
+
+            SBUxMethod.attr("SRCH_DEPT_CODE", "readonly", true);
+            SBUxMethod.attr("SRCH_DEPT_NAME", "readonly", true);
+            SBUxMethod.attr("SRCH_EMP_CODE", "readonly", true);
+            SBUxMethod.attr("SRCH_EMP_NAME", "readonly", true);
+            SBUxMethod.attr("EMP_CODE", "readonly", true);
+            SBUxMethod.attr("EMP_NAME", "readonly", true);
+
+            SBUxMethod.set("EMP_CODE", p_empCode);
+            SBUxMethod.set("EMP_NAME", p_empName);
+
+            SBUxMethod.hide('btnAdminApproval');
+
+            fn_search();
+        } else {
+            SBUxMethod.set("SRCH_DEPT_CODE", p_deptCode);
+            SBUxMethod.set("SRCH_DEPT_NAME", p_deptName);
+            SBUxMethod.set("SRCH_EMP_CODE", p_empCode);
+            SBUxMethod.set("SRCH_EMP_NAME", p_empName);
+
+            SBUxMethod.attr("SRCH_DEPT_CODE", "readonly", false);
+            SBUxMethod.attr("SRCH_DEPT_NAME", "readonly", false);
+            SBUxMethod.attr("SRCH_EMP_CODE", "readonly", false);
+            SBUxMethod.attr("SRCH_EMP_NAME", "readonly", false);
+            SBUxMethod.attr("EMP_CODE", "readonly", false);
+            SBUxMethod.attr("EMP_NAME", "readonly", false);
+
+            SBUxMethod.set("EMP_CODE", p_empCode);
+            SBUxMethod.set("EMP_NAME", p_empName);
+
+            SBUxMethod.show('btnAdminApproval');
+
+            fn_search();
+        }
+    }
 
     const fn_findReportFilePath = async function(reportType) {
         var paramObj = {
