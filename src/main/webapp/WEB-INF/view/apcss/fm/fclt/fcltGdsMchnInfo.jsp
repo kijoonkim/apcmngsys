@@ -67,7 +67,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" class="th_bg">년도</th>
+						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
@@ -168,8 +168,9 @@
 			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
 			<!--[pp] 검색 -->
 			<div>
-				<label style="font-weight: bold;">상품화설비현황 상세내역</label><br>
-				<label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label>
+				<label style="font-weight: bold;">○상품화설비현황 상세내역</label><br>
+				<label>* 해당 APC에서 소유하고 있는 품목별 선별기 모두 기재</label><br>
+				<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
 			</div>
 			<div>
 			<table class="table table-bordered tbl_row tbl_fixed">
@@ -220,8 +221,8 @@
 						</td>
 						<td class="text-center">
 							<sbux-checkbox
-									id="dtl-inp-sortBrckMvhn1"
-									name="dtl-inp-sortBrckMvhn1"
+									id="dtl-inp-sortBrckMchn1"
+									name="dtl-inp-sortBrckMchn1"
 									uitype="normal"
 									text=""
 									true-value="Y"
@@ -279,8 +280,8 @@
 						</td>
 						<td class="text-center">
 							<sbux-checkbox
-									id="dtl-inp-sortBrckMvhn2"
-									name="dtl-inp-sortBrckMvhn2"
+									id="dtl-inp-sortBrckMchn2"
+									name="dtl-inp-sortBrckMchn2"
 									uitype="normal"
 									text=""
 									true-value="Y"
@@ -338,8 +339,8 @@
 						</td>
 						<td class="text-center">
 							<sbux-checkbox
-									id="dtl-inp-sortBrckMvhn3"
-									name="dtl-inp-sortBrckMvhn3"
+									id="dtl-inp-sortBrckMchn3"
+									name="dtl-inp-sortBrckMchn3"
 									uitype="normal"
 									text=""
 									true-value="Y"
@@ -397,8 +398,8 @@
 						</td>
 						<td class="text-center">
 							<sbux-checkbox
-									id="dtl-inp-sortBrckMvhn4"
-									name="dtl-inp-sortBrckMvhn4"
+									id="dtl-inp-sortBrckMchn4"
+									name="dtl-inp-sortBrckMchn4"
 									uitype="normal"
 									text=""
 									true-value="Y"
@@ -533,7 +534,7 @@
 			SBUxMethod.set('dtl-inp-itemChk'+i ,null);
 
 			SBUxMethod.set("dtl-inp-sortMchnSpcect"+i, null);
-			SBUxMethod.set("dtl-inp-sortBrckMvhn"+i, null);
+			SBUxMethod.set("dtl-inp-sortBrckMchn"+i, null);
 			SBUxMethod.set("dtl-inp-colorSort"+i, null);
 			SBUxMethod.set("dtl-inp-shapSort"+i, null);
 			SBUxMethod.set("dtl-inp-mnfcMchn"+i, null);
@@ -591,7 +592,7 @@
 				if(sortMchnHoldYn == 'Y'){
 					SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');//선별기보유 할경우 해당 그룹 활성화
 					SBUxMethod.set("dtl-inp-sortMchnSpcect"+sn, gfn_nvl(item.sortMchnSpcect));
-					SBUxMethod.set("dtl-inp-sortBrckMvhn"+sn, gfn_nvl(item.sortBrckMvhn));
+					SBUxMethod.set("dtl-inp-sortBrckMchn"+sn, gfn_nvl(item.sortBrckMchn));
 					SBUxMethod.set("dtl-inp-colorSort"+sn, gfn_nvl(item.colorSort));
 					SBUxMethod.set("dtl-inp-shapSort"+sn, gfn_nvl(item.shapSort));
 					SBUxMethod.set("dtl-inp-mnfcMchn"+sn, gfn_nvl(item.mnfcMchn));
@@ -619,7 +620,7 @@
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 
@@ -650,7 +651,7 @@
 				}
 				if(sortMchnHoldYn == 'Y'){
 					itemVo.sortMchnSpcect = gfn_nvl(SBUxMethod.get('dtl-inp-sortMchnSpcect'+i));
-					itemVo.sortBrckMvhn = $('#dtl-inp-sortBrckMvhn'+i).val();
+					itemVo.sortBrckMchn = $('#dtl-inp-sortBrckMchn'+i).val();
 					itemVo.colorSort = $('#dtl-inp-colorSort'+i).val();
 					itemVo.shapSort = $('#dtl-inp-shapSort'+i).val();
 					itemVo.mnfcMchn = gfn_nvl(SBUxMethod.get('dtl-inp-mnfcMchn'+i));
@@ -944,7 +945,7 @@
 			{caption: ["보유여부"],			ref:'sortMchnHoldYn',	type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["규격"],			ref:'sortMchnSpcect',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["당도기"],			ref:'sortBrckMvhn',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["당도기"],			ref:'sortBrckMchn',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["색택선별"],			ref:'colorSort',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["형상선별"],			ref:'shapSort',			type:'output',width:'70px',style:'text-align:center'},
@@ -985,7 +986,7 @@
 					,sortMchnHoldYn		:item.sortMchnHoldYn
 
 					,sortMchnSpcect		:item.sortMchnSpcect
-					,sortBrckMvhn		:item.sortBrckMvhn
+					,sortBrckMchn		:item.sortBrckMchn
 
 					,colorSort			:item.colorSort
 					,shapSort			:item.shapSort

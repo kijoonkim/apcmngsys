@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltOperInfo.jsp
-  * @Description : 운영자개요 화면
+  * @Description : 1.운영자개요 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -9,7 +9,7 @@
   * @
   * @ 수정일       	수정자      	수정내용
   * @ ----------	----------	---------------------------
-  * @ 2023.12.12   	김현호		최초 생성
+  * @ 2023.12.12   	김현호			최초 생성
   * @see
   *
   */
@@ -70,7 +70,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg">년도</th>
+							<th scope="row" class="th_bg">조사연도</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-spinner
 										id="srch-inp-crtrYr"
@@ -166,8 +166,12 @@
 					<div id="sb-area-grdFcltOperInfo" style="height:350px; width: 100%;"></div>
 				</div>
 			</div>
+
 			<!-- 상세 내용 -->
 			<div class="box-body">
+				<div>
+					<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
+				</div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>APC 등록</caption>
 					<colgroup>
@@ -819,7 +823,7 @@
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 		//운영조직 주소 , apc주소 , apc 사업자번호 ,

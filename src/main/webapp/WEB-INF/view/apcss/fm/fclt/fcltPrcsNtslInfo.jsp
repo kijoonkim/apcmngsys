@@ -70,7 +70,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" class="th_bg">년도</th>
+						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
@@ -371,10 +371,11 @@
 				<div>
 					<label style="font-weight: bold;">○산지유통판매처 상세내역(산지유통시설 처리상품 주요 판매처)</label><br>
 					<label> - 출자·출하조직은 생산유통통합조직 통해서 판매한 실적 및 직접 판매한 실적을 합산하여 기재.</label><br>
-					<label> - 기타항목은 다른 유통조직에 판매한 금액</label>
+					<label> - 기타항목은 다른 유통조직에 판매한 금액</label><br>
+					<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
 				</div>
 				<div style="margin-left:auto; font-size: x-small;">
-					<span style="position: relative; bottom: -44px;">(금액: 백만원)</span>
+					<span style="position: relative; bottom: -64px;">(금액: 백만원)</span>
 				</div>
 			</div>
 			<div>
@@ -760,7 +761,7 @@
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 

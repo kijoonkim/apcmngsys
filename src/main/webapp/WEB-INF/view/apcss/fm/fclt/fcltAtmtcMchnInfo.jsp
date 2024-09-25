@@ -70,7 +70,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" class="th_bg">년도</th>
+						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
@@ -170,7 +170,10 @@
 			<sbux-input uitype="hidden" id="dtl-inp-apcCd" name="dtl-inp-apcCd"></sbux-input>
 			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
 			<!--[pp] 검색 -->
-			<div><label>스마트자동화 상세내역</label></div>
+			<div>
+				<label style="font-weight: bold;">○스마트자동화 상세내역</label><br>
+				<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
+			</div>
 			<div>
 					<table class="table table-bordered tbl_row tbl_fixed" style="width: 685px">
 						<caption>검색 조건 설정</caption>

@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltOperHfInfo.jsp
-  * @Description : 사설고용인력 화면
+  * @Description : 3.6.고용인력 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -72,7 +72,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" class="th_bg">년도</th>
+						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
@@ -172,7 +172,10 @@
 			<sbux-input uitype="hidden" id="dtl-inp-apcCd" name="dtl-inp-apcCd"></sbux-input>
 			<sbux-input uitype="hidden" id="dtl-inp-crtrYr" name="dtl-inp-crtrYr"></sbux-input>
 			<!--[pp] 검색 -->
-			<div><label>내국인 상세내역</label></div>
+			<div>
+				<label style="font-weight: bold;">○내국인 상세내역</label><br>
+				<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
+			</div>
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>내국인 상세</caption>
@@ -275,7 +278,10 @@
 				</table>
 			</div>
 			<br>
-			<div><label>외국인 상세내역</label></div>
+			<div>
+				<label style="font-weight: bold;">○외국인 상세내역</label><br>
+				<label>* 데이터 입력 시 조사연도의 직전년도 기준으로 작성해주시기 바랍니다.</label>
+			</div>
 			<!-- 외국인 근로자 -->
 			<div>
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -506,7 +512,7 @@
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
-			alert("대상연도를 작성해주세요");
+			alert("조사연도를 작성해주세요");
 			return;
 		}
 

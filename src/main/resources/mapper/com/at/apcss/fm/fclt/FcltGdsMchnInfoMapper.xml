@@ -144,7 +144,7 @@
 		WHEN MATCHED THEN
 		  UPDATE SET
 				  SORT_MCHN_SPCFCT 	= #{sortMchnSpcect}
-				  , SORT_BRCK_MCHN 		= #{sortBrckMvhn}
+				  , SORT_BRCK_MCHN 		= #{sortBrckMchn}
 				  , COLOR_SORT 			= #{colorSort}
 				  , SHAP_SORT 			= #{shapSort}
 				  , MNFC_MCHN 			= #{mnfcMchn}
@@ -202,7 +202,7 @@
 				  		  AND OGNZ_SE_CD = '2'
 				  	)
 				  , #{sortMchnSpcect}
-				  , #{sortBrckMvhn}
+				  , #{sortBrckMchn}
 				  , #{colorSort}
 				  , #{shapSort}
 				  , #{mnfcMchn}
@@ -226,7 +226,7 @@
 				TB_TE_APC_FCLT_STTS_DTL FSD
 			   SET
 				  SORT_MCHN_SPCFCT 		= #{sortMchnSpcect}
-				  , SORT_BRCK_MCHN 		= #{sortBrckMvhn}
+				  , SORT_BRCK_MCHN 		= #{sortBrckMchn}
 				  , COLOR_SORT 			= #{colorSort}
 				  , SHAP_SORT 			= #{shapSort}
 				  , MNFC_MCHN 			= #{mnfcMchn}

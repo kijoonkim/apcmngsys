@@ -77,7 +77,7 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row" class="th_bg">년도</th>
+						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
