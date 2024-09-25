@@ -94,7 +94,7 @@
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -109,7 +109,7 @@
                     </td>
                     <th scope="row" class="th_bg">사원</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -130,7 +130,7 @@
                     </td>
                     <th scope="row" class="th_bg">근태항목</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_TIME_ITEM_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_TIME_ITEM_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_TIME_ITEM_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -847,7 +847,8 @@
     }
 
     var fn_findDeptCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -858,7 +859,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+            ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
@@ -876,7 +877,8 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         let TIME_START_DATE = gfnma_nvl(SBUxMethod.get("SRCH_START_DATE"));
         let TIME_END_DATE = gfnma_nvl(SBUxMethod.get("SRCH_END_DATE"));
 
@@ -892,7 +894,7 @@
             ,whereClause			: addParams
             , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
             , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"BASE_DATE"]
-            ,searchInputValues		: ["", "", "", searchText, gfn_dateToYmd(new Date())]
+            ,searchInputValues		: ["", "", searchCode, searchName, gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
             ,height: '400px'
             , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
@@ -908,7 +910,8 @@
     }
 
     const fn_findTimeItemCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));
         var replaceText0 	= "_TIME_ITEM_CODE_";
         var replaceText1 	= "_TIME_ITEM_NAME_";
         var strWhereClause 	= "AND TIME_ITEM_CODE LIKE '%" + replaceText0 + "%' AND TIME_ITEM_NAME LIKE '%" + replaceText1 + "%'";
@@ -922,7 +925,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", 		"명칭"]
             ,searchInputFields		: ["TIME_ITEM_CODE", 	"TIME_ITEM_NAME"]
-            ,searchInputValues		: ["", 			searchText]
+            ,searchInputValues		: [searchCode, 			searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭", "비고", "분류"]
             ,tableColumnNames		: ["TIME_ITEM_CODE", "TIME_ITEM_NAME",  "MEMO", "TIME_CATEGORY"]
