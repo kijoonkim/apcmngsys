@@ -67,7 +67,7 @@ public class FcltLwtpStrgMchnInfoServiceImpl extends BaseServiceImpl implements 
 	public int insertFcltLwtpStrgMchnInfo(FcltLwtpStrgMchnInfoVO fcltLwtpStrgMchnInfoVO) throws Exception {
 
 		int insertedCnt = fcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfo(fcltLwtpStrgMchnInfoVO);
-		insertedCnt += fcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfoPeriod(fcltLwtpStrgMchnInfoVO);
+		int insertedCnt1 = fcltLwtpStrgMchnInfoMapper.insertFcltLwtpStrgMchnInfoPeriod(fcltLwtpStrgMchnInfoVO);
 		String prgrsYn = fcltLwtpStrgMchnInfoVO.getPrgrsYn() == null ? "N" : fcltLwtpStrgMchnInfoVO.getPrgrsYn();
 
 		if(insertedCnt == 1 && prgrsYn.equals("Y")) {

@@ -46,4 +46,12 @@ public interface FcltPrgrsMapper {
 	 * @return
 	 */
 	public int insertFcltPrgrs(FcltPrgrsVO fcltPrgrsVO);
+
+	/**
+	 * 최종제출 여부를 업데이트 한다.
+	 * @param fcltPrgrsVO
+	 * @return
+	 */
+	public int updatePrgrsLast(FcltPrgrsVO fcltPrgrsVO);
+
 }

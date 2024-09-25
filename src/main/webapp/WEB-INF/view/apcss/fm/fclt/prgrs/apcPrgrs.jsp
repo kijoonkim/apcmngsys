@@ -313,14 +313,28 @@
 					cfn_setPrgrs(resultVo.prgrs13,'13');
 					cfn_setPrgrs(resultVo.prgrs14,'14');
 
+					SBUxMethod.set("dtl-inp-prgrsCnt", resultVo.cnt);
+					SBUxMethod.set("dtl-inp-prgrsLast", resultVo.prgrsLast);
+
 					if(!gfn_isEmpty(resultVo.cnt)){
 						$('#prgrsCnt').text(resultVo.cnt);
-						SBUxMethod.set("dtl-inp-prgrsCnt", resultVo.cnt);
-						if(resultVo.cnt == '14' && resultVo.prgrsLast != 'Y'){
+
+						let prgrsLast = gfn_nvl(resultVo.prgrsLast);
+						//테스트
+						//prgrsLast = 'Y';
+						//SBUxMethod.set("dtl-inp-prgrsLast", prgrsLast);
+
+						if(resultVo.cnt == '14' && prgrsLast != 'Y'){
 							//최종 제출 활성화
-							SBUxMethod.attr('btnLastSave','disabled','false');
+							SBUxMethod.attr('prgrs-btnLastSave','disabled','false');
 						}else{
-							SBUxMethod.attr('btnLastSave','disabled','true');
+							SBUxMethod.attr('prgrs-btnLastSave','disabled','true');
+							if(prgrsLast == "Y"){
+								//저장버튼 비활성화 처리
+								if(typeof fn_prgrsLastChk === 'function'){
+									fn_prgrsLastChk();
+								}
+							}
 						}
 					}
 				}else{
@@ -331,7 +345,6 @@
 					SBUxMethod.set("dtl-inp-prgrsCnt", 0);
 					SBUxMethod.attr('btnLastSave','disabled','true');
 				}
-
 			}catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
@@ -362,9 +375,10 @@
 			if (!confirm(mngStr)) return;
 
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
-			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
+			let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+			console.log(apcCd,crtrYr);
 
-			let postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltPrgrs.do", {
+			let postJsonPromise = gfn_postJSON("/fm/fclt/updatePrgrsLast.do", {
 				apcCd : apcCd
 				,crtrYr : crtrYr
 				,prgrsLast : 'Y'//최종 제출
@@ -372,6 +386,7 @@
 		}
 		//열려있는 탭 중 apc전수조사인 경우 진척도 갱신
 		const cfn_allTabPrgrsRefrash = async function(){
+			console.log('cfn_allTabPrgrsRefrash');
 			let targetTab = 'TAB_CS_005';
 			for (var i = 0; i < parent.length; i++) {
 				let tabNm = parent[i].window.name.substring(8,18);
@@ -384,6 +399,7 @@
 		}
 		//진척도 갱신
 		function cfn_prgrsRefrash() {
+			console.log("cfn_prgrsRefrash");
 			//진척도 조회
 			cfn_selectPrgrs();
 		}
