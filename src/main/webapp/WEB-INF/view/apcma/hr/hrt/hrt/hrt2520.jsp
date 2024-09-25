@@ -108,7 +108,7 @@
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -123,7 +123,7 @@
                     </td>
                     <th scope="row" class="th_bg">사원</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -657,7 +657,8 @@
     });
 
     var fn_findDeptCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -668,7 +669,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
+            ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
@@ -686,11 +687,13 @@
     }
 
     const fn_findEmpCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
         var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+        var replaceText1 	= "_EMP_CODE_";
+        var replaceText2 	= "_EMP_NAME_";
+        var replaceText3 	= "_EMP_STATE_";
+        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_CODE LIKE '%" + replaceText1 + "%' AND X.EMP_NAME LIKE '%" + replaceText2 + "%' AND X.EMP_STATE LIKE '%" + replaceText3 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
@@ -699,11 +702,11 @@
             ,bizcompId				: 'P_HRI001'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
-            ,searchInputValues		: ["", 			searchText,		""]
-            ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
-            ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
+            ,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
+            ,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+            ,searchInputValues		: ["", 			searchCode, searchName,		""]
+            ,searchInputTypes		: ["input", 	"input", 	"input",		"select"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", 			"", "",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
