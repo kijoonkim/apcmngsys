@@ -72,4 +72,13 @@ public interface PrdcrCrclOgnUsrMngMapper {
 	 * @return
 	 */
 	public int updateMemberMbrUpdtYn(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
+
+	/**
+	 * 조직코드 수정
+	 * @param PrdcrCrclOgnUsrMngVO
+	 * @return
+	 */
+	public int updateMemberUntyOgnzCd(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
+
+
 }

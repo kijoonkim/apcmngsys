@@ -467,6 +467,8 @@
 			<div>
 				<sbux-button id="btnMemY" name="btnMemY" uitype="normal" text="정보갱신Y" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('Y')"></sbux-button>
 				<sbux-button id="btnMemN" name="btnMemN" uitype="normal" text="정보갱신N" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('N')"></sbux-button>
+				<sbux-input uitype="text" id="dtl-input-untyOgnzCd" name="dtl-input-untyOgnzCd" class="form-control input-sm" autocomplete="off"></sbux-input>
+				<sbux-button id="btnOgnzCd" name="btnOgnzCd" uitype="normal" text="조직코드 수정" class="btn btn-sm btn-outline-danger" onclick="fn_changeUntyOgnzCd()"></sbux-button>
 			</div>
 			</c:if>
 		</div>
@@ -936,6 +938,9 @@
 		}
 		SBUxMethod.set("dtl-input-cmptncInst", gfn_nvl(rowData.cmptncInst));  //  관할기관
 
+		<c:if test="${loginVO.userId eq 'admin'}">
+		SBUxMethod.set("dtl-input-untyOgnzCd", gfn_nvl(rowData.untyOgnzCd));  //  조직코드 admin 일떄만 수정 가능하게
+		</c:if>
 		/*
 		let fileupUrl = '/pd/bsm/fileUpload/'+gfn_nvl(rowData.brno)+'.do';
 		SBUxMethod.attr('files', 'upload-url', fileupUrl);
@@ -1152,6 +1157,31 @@
 		let postJsonPromise = gfn_postJSON("/pd/bsm/updateMemberMbrUpdtYn.do", {
 			userId : userId
 			,mbrUpdtYn : mbrUpdtYn
+		});
+		let data = await postJsonPromise;
+
+		try{
+			console.log(data);
+			fn_search();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//회원정보 조직여부 수정
+	async function fn_changeUntyOgnzCd(){
+		//아이디 필수
+		let userId = SBUxMethod.get("dtl-input-userId");
+		if(gfn_isEmpty(userId)) return;
+
+		let untyOgnzCd = SBUxMethod.get("dtl-input-untyOgnzCd");
+
+		let postJsonPromise = gfn_postJSON("/pd/bsm/updateMemberUntyOgnzCd.do", {
+			userId : userId
+			,untyOgnzCd : untyOgnzCd
 		});
 		let data = await postJsonPromise;
 

@@ -158,7 +158,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.explorerbar = 'sort';//정렬
 	    SBGridProperties.columns = [
-	    	{caption: ["조직코드"], 		ref: 'ognzCd',   	type:'input',  width:'15%', hidden : false},
+	    	{caption: ["조직코드"], 		ref: 'ognzCd',   	type:'output',  width:'15%', hidden : false},
 	        {caption: ["조직명"], 	ref: 'ognzNm',   	type:'input',   width:'15%',   style:'text-align:center'},
 	        {caption: ["사업자번호"], 	ref: 'brno',   	type:'input',   width:'15%',  style:'text-align:center'},
 	        {caption: ["법인등록번호"], 	ref: 'crno',   	type:'input',   width:'15%',  style:'text-align:center'},

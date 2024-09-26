@@ -233,4 +233,27 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//조직코드 변경
+	@PostMapping(value = "/pd/bsm/updateMemberUntyOgnzCd.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateMemberUntyOgnzCd(@RequestBody PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/bsm/updateMemberMbrUpdtYn >>> 호출 >>> ");
+
+		PrdcrCrclOgnUsrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		PrdcrCrclOgnUsrMngVO.setSysFrstInptUserId(getUserId());
+		PrdcrCrclOgnUsrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		PrdcrCrclOgnUsrMngVO.setSysLastChgUserId(getUserId());
+
+		int result = 0;
+
+		try {
+			result =+ PrdcrCrclOgnUsrMngService.updateMemberUntyOgnzCd(PrdcrCrclOgnUsrMngVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }
