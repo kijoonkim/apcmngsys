@@ -111,4 +111,8 @@ public class CnptVO extends ComVO {
 	 * 담당자전화번호
 	 * */
 	private String picTelno;
+	/*
+	 * 순번
+	 * */
+	private String sn;
 }

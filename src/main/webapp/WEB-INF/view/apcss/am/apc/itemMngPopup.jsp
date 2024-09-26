@@ -207,14 +207,16 @@
 		SBGridPropertiesItem.contextmenulist = objMenuListItem;	// 우클릭 메뉴 리스트
 		SBGridPropertiesItem.extendlastcol = 'scroll';
 		SBGridPropertiesItem.scrollbubbling = false;
+		SBGridPropertiesItem.explorerbar = 'sort';
+		SBGridPropertiesItem.filtering = true;
 		SBGridPropertiesItem.columns = [
-	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'60px',    style:'text-align:center',
+	        {caption: ["선택"], 	ref: 'empty',   type:'output',  width:'60px', filtering: {displayui : false},sortable: false, style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_addItem(" + nRow + ")'>선택</button>";
 	        }},
-	        {caption: ["부류"],     	ref: 'clsNm',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'200px',    style:'text-align:center'},
+	        {caption: ["부류"],     	ref: 'clsNm',  	type:'output',  width:'80px', filtering: {displayui : false},sortable: false,   style:'text-align:center'},
+	        {caption: ["코드"],     ref: 'itemCd',  type:'output',  width:'70px', filtering: {displayui : false},   style:'text-align:center',},
+	        {caption: ["명칭"],     ref: 'itemNm',  type:'output',  width:'200px', filtering: {listsearch : true},sortable: false, style:'text-align:center'},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true}
 
 	    ];

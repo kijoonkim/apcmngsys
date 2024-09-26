@@ -52,6 +52,7 @@
     		 , CT.FXNO				AS FXNO
     		 , CT.ADDR				AS ADDR
     		 , CT.PIC_TELNO  		AS PIC_TELNO
+    		 , CT.SN				AS SN
 		  FROM TB_CNPT_INFO CT
 		 WHERE CT.DEL_YN 	= 'N'
 		   AND CT.APC_CD 		= #{apcCd}
@@ -63,7 +64,7 @@
 		   AND CT.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
     	<![CDATA[
-		 ORDER BY CNPT_NM
+		 ORDER BY SN,CNPT_NM
 		]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -110,6 +111,7 @@
     		  , SYS_LAST_CHG_DT
     		  , SYS_LAST_CHG_USER_ID
     		  , SYS_LAST_CHG_PRGRM_ID
+			  , SN
     		)
    		VALUES
    			(
@@ -137,6 +139,7 @@
     		  , SYSDATE
     		  , #{sysLastChgUserId}
     		  , #{sysLastChgPrgrmId}
+    		  , #{sn}
    			)
     	]]>
     </insert>
@@ -171,6 +174,7 @@
     		 , FXNO						= #{fxno}
     		 , ADDR						= #{addr}
     		 , PIC_TELNO				= #{picTelno}
+    		 , SN						= #{sn}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND CNPT_CD 					= #{cnptCd}
 		]]>
