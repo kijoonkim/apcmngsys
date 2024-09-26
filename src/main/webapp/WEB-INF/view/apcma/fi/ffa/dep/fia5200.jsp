@@ -179,6 +179,31 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+			//법인
+			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//사업장
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-bplc']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG001'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'SITE_CODE'
+				,colLabel		: 'SITE_NAME'
+				,columns		:[
+		            {caption: "사업장코드",	ref: 'SITE_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			//사업단위
+			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			//감가상각기준
+			gfnma_setComSelect(['srch-slt-dprcCrtr'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
 		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -283,126 +308,249 @@
     }
 
 
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-    	fn_setNationInGrid();
+
+
+    const fn_queryClick = async function() {
+    {
+        //if (!ValidateControls(panHeader))
+        //    return;
+
+        fnQRY_P_FIA5200_Q("INFO");
+		fnQRY_P_FIA5200_Q("LOG");
+	}
+
+    //strWorkType : INFO, LOG
+    const fnQRY_P_FIA5200_Q = async function(strWorkType){
+    	 var paramObj = {
+      			V_P_DEBUG_MODE_YN	: ''
+      			,V_P_LANG_ID		: ''
+      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+      			,V_P_ACCT_RULE_CODE	: NATION_CODE
+      			,V_P_TXN_ID_D       : strtxn_id
+      			,V_P_CIP_TRANSFER_NO_D : strcip_no
+      			,V_P_TXN_DATE_D	    : strtxn_date
+      			,V_P_FORM_ID		: p_formId
+      			,V_P_MENU_ID		: p_menuId
+      			,V_P_PROC_ID		: ''
+      			,V_P_USERID			: ''
+      			,V_P_PC				: ''
+      	    };
+
+          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5100.do", {
+           	getType				: 'json',
+           	workType			:  strWorkType,
+           	cv_count			: '1',
+           	params				: gfnma_objectToString(paramObj)
+   			});
+
+        	const data = await postJsonPromise;
+          // 비즈니스 로직 정보
+           try {
+			   //info, log에 따라서 그리드에 데이터 넣어주는듯
+        	   if (strWorkType == "LOG"){
+                   //CommonProcessQuery(ServiceInfo.ERPBizDB, dtData, cProc.ProcName, cProc.GetParamInfo(), grdLog);
+               }
+               else if (strWorkType == "INFO"){
+                   //CommonProcessQuery(ServiceInfo.ERPBizDB, dtData, cProc.ProcName, cProc.GetParamInfo(), grdInfo);
+               }
+
+	          if (_.isEqual("S", data.resultStatus)) {
+	              gfn_comAlert("I0001");
+	              //fn_search();
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+ 	        } catch (e) {
+ 	            if (!(e instanceof Error)) {
+ 	                e = new Error(e);
+ 	            }
+ 	            console.error("failed", e.message);
+ 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	        }
     }
+	// 감가상각계산클릭
+    const fn_calculationClick = async function() {
 
-    /**
-     * 목록 가져오기
-     */
-    const fn_setNationInGrid = async function() {
+		 //자산분류리스 그리드에 행 없으면 return
+    	 //if (gvwInfo.FocusedRowHandle < 0)
+         //    return;
 
-		NationInGrid.clearStatus();
 
-		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
-		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
+         let bresult = false;
 
-	    var paramObj = {
-			V_P_DEBUG_MODE_YN	: ''
-			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_NATION_CODE	: NATION_CODE
-			,V_P_NATION_NAME	: NATION_NAME
-			,V_P_FORM_ID		: p_formId
-			,V_P_MENU_ID		: p_menuId
-			,V_P_PROC_ID		: ''
-			,V_P_USERID			: ''
-			,V_P_PC				: ''
-	    };
+         let intmax_seq = 0;
+         let strsite_code = "";
 
-        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '1',
-        	params				: gfnma_objectToString(paramObj)
-		});
+         //자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
+         for (int i = 0; i < gvwInfo.RowCount; i++){
 
-        const data = await postJsonPromise;
-		//console.log('data:', data);
-        try {
-  			if (_.isEqual("S", data.resultStatus)) {
+             if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
+                 intmax_seq = intmax_seq + 1;
+             }
 
-  	        	jsonNationList.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonNationList.push(msg);
-  				});
+         }
+		 // 자산분류리스 체크열 값이 y인 경우 site_code 값에 따라 fnSET_P_FIA5200_S(조회,회계기준과 지역코드를 기준으로 조회)
+		 // cbodepreciation_type : 감가상각기준
+         let intprogram_seq = 1;
+         for (int i = 0; i < gvwInfo.RowCount; i++){
+             if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
+                 bresult = false;
+                 strsite_code = gvwInfo.GetValue(i, "site_code").ToString();
+                 if (cbodepreciation_type.EditValue.ToString() == "1"){
+                     bresult = fnSET_P_FIA5200_S("GAAP", strsite_code);
+                 }
+                 else if (cbodepreciation_type.EditValue.ToString() == "2"){
+                     bresult = fnSET_P_FIA5200_S("IFRS", strsite_code);
+                 }
+                 else if (cbodepreciation_type.EditValue.ToString() == "3"){
+                     bresult = fnSET_P_FIA5200_S("TAX", strsite_code);
+                 }
+                 else{
+                     SetMessageBox(GetFormMessage("FIA5200_002")); //감가상각기준을 선택하여주시기 바랍니다.
+                     return;
+                 }
+                 intprogram_seq = intprogram_seq + 1;
+                 if (!bresult)
+                     break;
+             }
 
-        		NationInGrid.rebuild();
+         }
+         if (bresult){
+             fn_queryClick();
+         }
+  	}
 
-        	} else {
-          		alert(data.resultMessage);
-        	}
+ 	// 감가상각계산취소 클릭
+    const fn_calculationCancleClick = async function() {
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+
+    	//자산분류리스 그리드에 행 없으면 return
+    	//if (gvwInfo.FocusedRowHandle < 0)
+        //    return;
+
+
+        let bresult = false;
+
+        let intmax_seq = 0;
+        let strsite_code = "";
+        for (int i = 0; i < gvwInfo.RowCount; i++){
+
+            if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
+                intmax_seq = intmax_seq + 1;
+            }
         }
+
+        let intprogram_seq = 1;
+        for (int i = 0; i < gvwInfo.RowCount; i++){
+            if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
+                bresult = false;
+                strsite_code = gvwInfo.GetValue(i, "site_code").ToString();
+                bresult = fnSET_P_FIA5200_S("CANCEL", strsite_code);
+                intprogram_seq = intprogram_seq + 1;
+                if (!bresult)
+                    break;
+            }
+
+        }
+        if (bresult){
+            fn_queryClick();
+        }
+  	}
+	//조회
+	// srrWorkType : GAAP, IFRS, TAX, CANCLE
+    const fnSET_P_FIA5200_S = async function(strWorkType,strSiteCodeP){
+    	 var paramObj = {
+      			V_P_DEBUG_MODE_YN	: ''
+      			,V_P_LANG_ID		: ''
+      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+      			,V_P_ACCT_RULE_CODE	: NATION_CODE
+      			,V_P_TXN_ID_D       : strtxn_id
+      			,V_P_CIP_TRANSFER_NO_D : strcip_no
+      			,V_P_TXN_DATE_D	    : strtxn_date
+      			,V_P_FORM_ID		: p_formId
+      			,V_P_MENU_ID		: p_menuId
+      			,V_P_PROC_ID		: ''
+      			,V_P_USERID			: ''
+      			,V_P_PC				: ''
+      	    };
+
+          const postJsonPromise = gfn_postJSON("/fi/fia/searchFia5200.do", {
+           	getType				: 'json',
+           	workType			:  strWorkType,
+           	cv_count			: '1',
+           	params				: gfnma_objectToString(paramObj)
+   			});
+
+        	const data = await postJsonPromise;
+          // 비즈니스 로직 정보
+           try {
+          if (_.isEqual("S", data.resultStatus)) {
+              gfn_comAlert("I0001");
+              //fn_search();
+          } else {
+              alert(data.resultMessage);
+          }
+
+ 	        } catch (e) {
+ 	            if (!(e instanceof Error)) {
+ 	                e = new Error(e);
+ 	            }
+ 	            console.error("failed", e.message);
+ 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	        }
     }
 
-	const fn_compopup1 = function(list) {
+  	//조회? 확인 후 다시 정리
+	// srrWorkType : LOG,INFO
+    const fnSET_P_FIA5200_Q = async function(strWorkType){
+    	 var paramObj = {
+      			V_P_DEBUG_MODE_YN	: ''
+      			,V_P_LANG_ID		: ''
+      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+      			,V_P_ACCT_RULE_CODE	: NATION_CODE
+      			,V_P_TXN_ID_D       : strtxn_id
+      			,V_P_CIP_TRANSFER_NO_D : strcip_no
+      			,V_P_TXN_DATE_D	    : strtxn_date
+      			,V_P_FORM_ID		: p_formId
+      			,V_P_MENU_ID		: p_menuId
+      			,V_P_PROC_ID		: ''
+      			,V_P_USERID			: ''
+      			,V_P_PC				: ''
+      	    };
 
-		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+          const postJsonPromise = gfn_postJSON("/fi/fia/searchFia5200.do", {
+           	getType				: 'json',
+           	workType			:  strWorkType,
+           	cv_count			: '1',
+           	params				: gfnma_objectToString(paramObj)
+   			});
 
-     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-     	compopup1({
-     		compCode				: gv_ma_selectedApcCd
-     		,clientCode				: gv_ma_selectedClntCd
-     		,bizcompId				: 'P_HRI001'
-           	,popupType				: 'A'
-     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
-   			,searchInputValues		: ["", 			searchText,		""]
-   			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
-   			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
-     		,height					: '400px'
-   			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
-   			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
- 			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
- 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NAME);
- 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CODE);
- 			},
-     	});
-   	}
+        	const data = await postJsonPromise;
+          // 비즈니스 로직 정보
+           try {
+          if (_.isEqual("S", data.resultStatus)) {
+              gfn_comAlert("I0001");
+              //fn_search();
+          } else {
+              alert(data.resultMessage);
+          }
 
-    //선택 삭제
-    function fn_delete() {
-
-        //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
+ 	        } catch (e) {
+ 	            if (!(e instanceof Error)) {
+ 	                e = new Error(e);
+ 	            }
+ 	            console.error("failed", e.message);
+ 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	        }
     }
 
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
 
-    }
+
+
 
     const fn_dtpChange = async function(){
     	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
@@ -417,29 +565,7 @@
      }
 
 
-    const fn_clclnListAddRow = function(){
-    	grdClclnList.addRow();
-    }
 
-    const fn_clclnTrgtAddRow = function(){
-    	grdClclnTrgt.addRow();
-    }
-
-    const fn_clclnDsctnAddRow = function(){
-    	grdClclnDsctn.addRow();
-    }
-
-    const fn_clclnListDelRow = function(){
-    	grdClclnList.deleteRow(grdClclnList.getRows()-1)
-    }
-
-    const fn_clclnTrgtDelRow = function(){
-    	grdClclnTrgt.deleteRow(grdClclnTrgt.getRows()-1)
-    }
-
-    const fn_clclnDsctnDelRow = function(){
-    	grdClclnDsctn.deleteRow(grdClclnDsctn.getRows()-1)
-    }
 
 
 

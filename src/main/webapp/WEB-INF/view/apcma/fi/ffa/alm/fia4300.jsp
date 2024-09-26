@@ -678,10 +678,14 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+			//법인
 			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//회계기준
 			gfnma_setComSelect(['srch-slt-acntgCrtr'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//gfnma_setComSelect(['srch-slt-bplc'], jsonBplc, 'L_FIT001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//신고사업장
 			gfnma_setComSelect(['srch-slt-dspsTab-dclrBplc'], jsonDclrBplc, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-bplc']
 				,compCode		: gv_ma_selectedApcCd
@@ -700,9 +704,12 @@
 		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
+			//처분유형
 			gfnma_setComSelect(['srch-inp-astTab-dspsType'], jsonDspsUnit, 'L_FIA009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//gfnma_setComSelect(['srch-slt-dspsTab-currency'], jsonCurrency, 'L_FIF045', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//회계단위
 			gfnma_setComSelect(['srch-slt-bizUnit'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			//통화
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-dspsTab-currency1','#srch-slt-dspsTab-currency2']
 				,compCode		: gv_ma_selectedApcCd
@@ -721,7 +728,7 @@
 		            {caption: "명", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-
+			//부가세유형
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-dspsTab-vatType1']
 				,compCode		: gv_ma_selectedApcCd
@@ -742,6 +749,7 @@
 		            {caption: "비율", 		ref: 'VAT_RATE',    		width:'150px',  	style:'text-align:left'},
 				]
 			}),
+			//비용부가세유형
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-dspsTab-cstVatType1']
 				,compCode		: gv_ma_selectedApcCd
