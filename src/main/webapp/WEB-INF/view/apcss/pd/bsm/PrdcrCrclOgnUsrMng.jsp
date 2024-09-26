@@ -464,11 +464,14 @@
 				</table>
 			</div>
 			<c:if test="${loginVO.userId eq 'admin'}">
-			<div>
+			<div style="margin-left: 20px; border: 1px solid black; width: 400px">
 				<sbux-button id="btnMemY" name="btnMemY" uitype="normal" text="정보갱신Y" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('Y')"></sbux-button>
 				<sbux-button id="btnMemN" name="btnMemN" uitype="normal" text="정보갱신N" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('N')"></sbux-button>
-				<sbux-input uitype="text" id="dtl-input-untyOgnzCd" name="dtl-input-untyOgnzCd" class="form-control input-sm" autocomplete="off"></sbux-input>
-				<sbux-button id="btnOgnzCd" name="btnOgnzCd" uitype="normal" text="조직코드 수정" class="btn btn-sm btn-outline-danger" onclick="fn_changeUntyOgnzCd()"></sbux-button>
+				<div>
+					<span>조직코드</span>
+					<sbux-input uitype="text" id="dtl-input-untyOgnzCd" name="dtl-input-untyOgnzCd" class="form-control input-sm" autocomplete="off" style="width:200px; display: inline-block;"></sbux-input>
+					<sbux-button id="btnOgnzCd" name="btnOgnzCd" uitype="normal" text="조직코드 수정" class="btn btn-sm btn-outline-danger" onclick="fn_changeUntyOgnzCd()"></sbux-button>
+				</div>
 			</div>
 			</c:if>
 		</div>
