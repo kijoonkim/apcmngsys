@@ -174,7 +174,11 @@
 	}
 
 	const fnCustomOprtr = function(strValue) {
-        return strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11)
+		if(!gfn_isEmpty(strValue)){
+        	return strValue.slice(0,3) + "-" + strValue.slice(3,7) + "-" + strValue.slice(7,11)
+		}else{
+			return;
+		}
     }
 </script>
 </html>

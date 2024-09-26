@@ -112,6 +112,7 @@
             		}
 		    	}
             },
+            {caption: ["순번"], 		ref: 'sn',  	type:'input', width:'60px',     style:'text-align:center'},
             {caption: ["코드"], 		ref: 'cnptCd',  	type:'output', width:'80px',     style:'text-align:center',  hidden : true},
             {caption: ["거래처명"], 	ref: 'cnptNm',  	type:'input',  width:'125px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
             {
@@ -238,6 +239,7 @@
   					  , dlngShapCd 		: item.dlngShapCd
   					  , dlngMthdCd 		: item.dlngMthdCd
   					  , extrnlLnkgCd 	: item.extrnlLnkgCd
+					  , sn				: item.sn
   					}
   					jsonCnpt.push(cnpt);
   				});
