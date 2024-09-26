@@ -73,10 +73,12 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
@@ -85,7 +87,7 @@
 					<tbody>
 						<tr>
 							<th scope="row">승인상태</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-slt-userStts"
 									name="srch-slt-userStts"
@@ -96,9 +98,9 @@
 									onchange="fn_search"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">법인명</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-corpNm"
 									name="srch-inp-corpNm"
@@ -110,9 +112,8 @@
 									maxlength="30"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">법인번호</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-crno"
 									name="srch-inp-crno"
@@ -124,11 +125,10 @@
 									maxlength="30"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row">신청여부</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-slt-aplyYn"
 									name="srch-slt-aplyYn"
@@ -138,9 +138,9 @@
 									unselected-text="전체"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>							
+							<td class="td_input" style="border-right: hidden;"></td>							
 							<th scope="row">사용자명</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-userNm"
 									name="srch-inp-userNm"
@@ -152,9 +152,8 @@
 									maxlength="30"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">사용자ID</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-userId"
 									name="srch-inp-userId"
@@ -165,8 +164,7 @@
 									title=""
 									maxlength="30"
 								></sbux-input>
-							</td>							
-							<td colspan="2" class="td_input"></td>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -607,6 +605,9 @@
 		const userNm = SBUxMethod.get("srch-inp-userNm");     // 	사용자명
 		const userId = SBUxMethod.get("srch-inp-userId");     // 	사용자ID
 		const aplyYn = SBUxMethod.get("srch-slt-aplyYn");     // 	신청여부
+		
+		console.log("corpNm", corpNm);
+		console.log("crno", crno);
 		
 		const postJsonPromise = gfn_postJSON("/co/user/selectCorpUserAprvList.do", {
 			userStts: userStts,

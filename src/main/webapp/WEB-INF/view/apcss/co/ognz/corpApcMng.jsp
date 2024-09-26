@@ -203,8 +203,8 @@
 									</li>
 								</ul>
 							</div>
-							<div class="table-responsive tbl_scroll_sm">
-								<div id="sb-area-grdUntyOgnzApc" style="height:282px;"></div>
+							<div class ="row">
+								<div id="sb-area-grdUntyOgnzApc" style="height:420px;"></div>
 							</div>
 						</div>
 
@@ -702,19 +702,21 @@
     	const untyOgnzNm = SBUxMethod.get("srch-inp-untyOgnzNm");
     	const crno = SBUxMethod.get("srch-inp-crno");
     	const apcNm = SBUxMethod.get("srch-inp-apcNm");
-    	    	
-        const postJsonPromise = gfn_postJSON("/co/ognz/selectUntyOgnzTreeList.do", {
-        	crno: crno,
-        	untyOgnzNm: untyOgnzNm,
-        	apcNm: apcNm,
-        	// pagination
-	  		pagingYn : 'N',
-			currentPageNo : 0,
- 		  	recordCountPerPage : 0
-		});
-
-        const data = await postJsonPromise;
+    	
         try {
+        	
+        	const postJsonPromise = gfn_postJSON("/co/ognz/selectUntyOgnzTreeList.do", {
+            	crno: crno,
+            	untyOgnzNm: untyOgnzNm,
+            	apcNm: apcNm,
+            	// pagination
+    	  		pagingYn : 'N',
+    			currentPageNo : 0,
+     		  	recordCountPerPage : 0
+    		});
+
+            const data = await postJsonPromise;
+        	
   			if (_.isEqual("S", data.resultStatus)) {
 
   	        	/** @type {number} **/
@@ -745,7 +747,7 @@
   	        	//document.querySelector('#listCount').innerText = totalRecordCount;
 
         	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
 
         } catch (e) {
