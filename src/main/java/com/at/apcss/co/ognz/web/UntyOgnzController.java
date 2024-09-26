@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -47,6 +48,28 @@ public class UntyOgnzController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		List<UntyOgnzVO> resultList = new ArrayList<UntyOgnzVO>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		String authrtMngrYn = getAuthrtMngrYn();
+		
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			
+		} else if (ComConstants.CON_YES.equals(authrtMngrYn)) {
+			
+			if (!StringUtils.hasText(untyOgnzCd)) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+			}
+			
+			untyOgnzVO.setUntyOgnzId(untyOgnzCd);
+			
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		
 		try {
 			 resultList = untyOgnzService.selectUntyOgnzTreeList(untyOgnzVO);
 		}catch (Exception e) {

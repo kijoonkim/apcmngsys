@@ -1,5 +1,8 @@
 package com.at.apcss.co.user.vo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.EqualsAndHashCode;
@@ -33,7 +36,6 @@ public class ComUserVO extends ComVO {
 	private int lgnFailNmtm;
 	private String endLgnDt;
 	private String endLgnIp;
-	private String aprvYn;
 	private String userTypeNm;
 	private String userSttsNm;
 	private String delYn;
@@ -54,12 +56,23 @@ public class ComUserVO extends ComVO {
 	private String untyAuthrtMngYn;
 	private String untyAuthrtMngUserId;
 	private String untyAuthrtId;
-	
+
+	// 승인
+	private String aprvYn;
+	private String aprvDt;
+	private String aprvRmrk;
+	// 신청
 	private String aplyYn;
+	private String aplyDt;
+	private String aplyRmrk;
+	
 	private String mngrAplyYn;
 	private String authrtAplyYn;
 	private String aplySysId;
 
+	
+
+	
 	
 	/**
 	 * 조직코드
@@ -89,11 +102,13 @@ public class ComUserVO extends ComVO {
 	
 	private String superUserYn;
 
+	private String aplyUserId;
 	
 	/**
 	 * 회원유형코드
 	 */
 	private String mbrTypeCd;
+	private String mbrTypeNm;
 	
 	private String authrtMngrYn;	
 	private String sysMesYn;
@@ -104,5 +119,18 @@ public class ComUserVO extends ComVO {
 	
 	private String rtnCd;
 	private String rtnMsg;
+	
+	
+	private List<ComUserApcVO> userApcList;
+
+
+	public List<ComUserApcVO> getUserApcList() {
+		return userApcList == null ? null : userApcList.stream().collect(Collectors.toList());
+	}
+
+	public void setUserApcList(List<ComUserApcVO> userApcList) {
+		this.userApcList = userApcList == null ? null : userApcList.stream().collect(Collectors.toList());
+	}
+	
 	
 }

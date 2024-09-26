@@ -277,7 +277,7 @@
         	{
         		caption: ["체크박스"], 	
         		ref: 'checkedYn', 	
-        		type: 'checkbox',	
+        		type: 'checkbox',
         		width:'40px',  
         		style:'text-align: center',
 				typeinfo: {

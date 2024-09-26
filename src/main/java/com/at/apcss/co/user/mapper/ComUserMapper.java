@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
+
+import com.at.apcss.co.user.vo.ComUserApcVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 @Mapper
@@ -162,6 +164,88 @@ public interface ComUserMapper {
      */
     public void deleteSpUserAuthAprv(ComUserVO comUserVO) throws Exception;
     
+    
+    /**
+     * 사용자별 APC 목록 조회
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public List<ComUserVO> selectUserApcList(ComUserVO comUserVO) throws Exception;
+    
+    /**
+     * 사용자별 APC 조회
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public ComUserApcVO selectUserApc(ComUserApcVO comUserApcVO) throws Exception;
+    
+    /**
+     * 법인 APC 조회
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public ComUserApcVO selectCorpApc(ComUserApcVO comUserApcVO) throws Exception;
+    
+    
+    /**
+     * 사용자별 APC 등록
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public int insertUserApc(ComUserApcVO comUserApcVO) throws Exception;
+    
+    /**
+     * 사용자별 APC 변경
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public int updateUserApc(ComUserApcVO comUserApcVO) throws Exception;
+    
+    /**
+     * 사용자별 APC 삭제
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public int deleteUserApc(ComUserApcVO comUserApcVO) throws Exception;
+    
+    /**
+     * 통합조직 승인 APC 목록조회
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public List<ComUserApcVO> selectOgnzAprvApcList(ComUserVO comUserVO) throws Exception;
+    
+    
+    /**
+     * 사용자별 APC 승인
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public int updateUserApcAprv(ComUserApcVO comUserApcVO) throws Exception;
+    
+    /**
+     * 사용자별 APC 승인 취소
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public int updateUserApcAprvCncl(ComUserApcVO comUserApcVO) throws Exception;
+
+    /**
+     * 사용자별 APC 변경이력 등록
+     * @param comUserVO
+     * @return
+     * @throws Exception
+     */
+    public int insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception;
     
 }
 

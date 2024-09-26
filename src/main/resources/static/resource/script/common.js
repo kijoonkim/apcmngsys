@@ -29,6 +29,7 @@ const URL_APC_VRTYS 		= "/am/cmns/apcVrtys";		//	APC 품종
 const URL_APC_SPCFCTS 		= "/am/cmns/apcSpcfcts";	//	APC 규격
 const URL_APC_GRDS 			= "/am/cmns/apcGrds";		//	APC 등급
 const URL_APC_GDS_GRDS 		= "/am/cmns/apcStdGrdDtls";	//	APC 상품등급
+const URL_APC_SEEDS 		= "/am/cmns/apcSeeds";		//	APC 종자
 
 const URL_CNPT_INFO			= "/am/cmns/cnptInfos";		//	거래처
 const URL_GDS_INFO			= "/am/cmns/gdsInfos";		//	상품 ..
@@ -683,6 +684,21 @@ const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 		});
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_getApcSeed
+ * @description  APC 종자 목록 가져오기
+ * @function
+ * @param {string} _apcCd	APC코드
+ * @param {string} _itemCd	품목코드
+ * @param {string} _vrtyCd	품종코드
+ * @returns {any[]}
+ */
+async function gfn_getApcSeed (_apcCd, _itemCd, _vrtyCd) {
+	const postJsonPromise = gfn_postJSON(URL_APC_SEEDS, {apcCd: _apcCd, itemCd: _itemCd, vrtyCd: _vrtyCd, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+	return data.resultList;
 }
 
 /**

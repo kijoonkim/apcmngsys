@@ -3,6 +3,7 @@ package com.at.apcss.co.user.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.co.user.vo.ComUserApcVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 public interface ComUserService {
@@ -288,5 +289,53 @@ public interface ComUserService {
 	 */
 	public HashMap<String,Object> deleteLocgovAprvList(List<ComUserVO> comUserList) throws Exception;
 	
-    
+	
+	
+	/**
+	 * 사용자별 APC 목록 조회
+	 * @param comUserVO
+	 * @return List<>
+	 */
+	public List<ComUserVO> selectUserApcList(ComUserVO comUserVO) throws Exception;
+	
+	/**
+	 * 사용자APC 사용등록
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> insertUserApcAply(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * 사용자APC 사용등록 삭제
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> deleteUserApcAply(ComUserVO comUserVO) throws Exception;
+	
+	
+	/**
+	 * 사용자APC 사용 승인
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> insertUserApcAprv(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * 사용자APC 사용 승인 취소
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> deleteUserApcAprv(ComUserVO comUserVO) throws Exception;
+	
+	/**
+	 * 사용자APC 변경이력 등록
+	 * @param comUserApcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception;
 }

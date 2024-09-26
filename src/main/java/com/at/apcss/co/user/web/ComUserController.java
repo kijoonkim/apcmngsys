@@ -16,6 +16,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.user.service.ComUserService;
+import com.at.apcss.co.user.vo.ComUserApcVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 import egovframework.let.utl.sim.service.EgovFileScrty;
@@ -321,7 +322,7 @@ public class ComUserController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		String password = comUserVO.getPswd();
 		String userId = comUserVO.getUserId();
-		String prgrmId = "newAccount";
+		//String prgrmId = "newAccount";
 		comUserVO.setPswd(EgovFileScrty.encryptPassword(password,userId));
 		comUserVO.setSysFrstInptUserId(getUserId());
 		comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
@@ -692,6 +693,327 @@ public class ComUserController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+	
+	@PostMapping(value = "/co/user/selectComUserApcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectComUserApcList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzId = getUntyOgnzId();
+		comUserVO.setSuperUserYn(null);
+		comUserVO.setUserId(null);
+		comUserVO.setUserId(getUserId());
+		
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+			comUserVO.setUntyOgnzId(untyOgnzId);
+		} else {
+			
+		}
+		
+		try {
+			resultList = comUserService.selectComUserApcList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	@PostMapping(value = "/co/user/selectUserApcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUserApcList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		
+		comUserVO.setSuperUserYn(null);
+		comUserVO.setUntyOgnzId(null);
+		comUserVO.setAplyUserId(null);
+		
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+			comUserVO.setUntyOgnzId(untyOgnzCd);
+		} else {
+			comUserVO.setAplyUserId(getUserId());
+		}
+		
+		try {
+			resultList = comUserService.selectUserApcList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	@PostMapping(value = "/co/user/insertUserApcAply.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertUserApcAply(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			
+			List<ComUserApcVO> userApcList = comUserVO.getUserApcList();
+			
+			if (userApcList == null || userApcList.isEmpty()) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상"));
+			}
+			
+			String untyAuthrtType = getUntyAuthrtType();
+			String untyOgnzId = getUntyOgnzId();
+
+			String userId = ComUtil.nullToEmpty(getUserId());
+			
+			comUserVO.setUserId(getUserId());
+			
+			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+				comUserVO.setUntyOgnzId(untyOgnzId);
+			} else {
+				comUserVO.setUntyOgnzId(untyOgnzId);
+				for ( ComUserApcVO userApc : userApcList ) {
+					if (!userId.equals(userApc.getUserId())) {
+						return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "신청권한"));
+					}
+				}
+			}
+			
+			comUserVO.setSysFrstInptUserId(getUserId());
+			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = comUserService.insertUserApcAply(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/co/user/deleteUserApcAply.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteUserApcAply(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			
+			List<ComUserApcVO> userApcList = comUserVO.getUserApcList();
+			
+			if (userApcList == null || userApcList.isEmpty()) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "등록대상"));
+			}
+			
+			String untyAuthrtType = getUntyAuthrtType();
+			String untyOgnzId = getUntyOgnzId();
+
+			String userId = ComUtil.nullToEmpty(getUserId());
+			
+			comUserVO.setUserId(getUserId());
+			
+			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+				comUserVO.setUntyOgnzId(untyOgnzId);
+			} else {
+				comUserVO.setUntyOgnzId(untyOgnzId);
+				for ( ComUserApcVO userApc : userApcList ) {
+					if (!userId.equals(userApc.getUserId())) {
+						return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "신청권한"));
+					}
+				}
+			}
+			
+			comUserVO.setSysFrstInptUserId(getUserId());
+			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = comUserService.deleteUserApcAply(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
+	@PostMapping(value = "/co/user/selectUserApcAprvList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUserApcAprvList(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ComUserVO> resultList = new ArrayList<>();
+		
+		String untyAuthrtType = getUntyAuthrtType();
+		String untyOgnzCd = getUntyOgnzCd();
+		
+		comUserVO.setSuperUserYn(null);
+		comUserVO.setUntyOgnzId(null);
+		comUserVO.setAplyUserId(null);
+		
+		if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+			comUserVO.setSuperUserYn(ComConstants.CON_YES);
+		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+			comUserVO.setUntyOgnzId(untyOgnzCd);
+		} else {
+			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+		}
+		
+		try {
+			resultList = comUserService.selectUserApcList(comUserVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	
+	@PostMapping(value = "/co/user/insertUserApcAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertUserApcAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			
+			List<ComUserApcVO> userApcList = comUserVO.getUserApcList();
+			
+			if (userApcList == null || userApcList.isEmpty()) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "승인대상"));
+			}
+			
+			String untyAuthrtType = getUntyAuthrtType();
+			String untyOgnzId = getUntyOgnzId();
+			
+			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+				comUserVO.setUntyOgnzId(untyOgnzId);
+			} else {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+			}
+			
+			comUserVO.setSysFrstInptUserId(getUserId());
+			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = comUserService.insertUserApcAprv(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 	
 
+	
+
+	@PostMapping(value = "/co/user/deleteUserApcAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteUserApcAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			
+			List<ComUserApcVO> userApcList = comUserVO.getUserApcList();
+			
+			if (userApcList == null || userApcList.isEmpty()) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "취소대상"));
+			}
+			
+			String untyAuthrtType = getUntyAuthrtType();
+			String untyOgnzId = getUntyOgnzId();
+			
+			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
+				comUserVO.setUntyOgnzId(untyOgnzId);
+			} else {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+			}
+			
+			comUserVO.setSysFrstInptUserId(getUserId());
+			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = comUserService.deleteUserApcAprv(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 }

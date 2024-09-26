@@ -546,8 +546,6 @@
 
 	const fn_setMngrYn = function(nRow, isChecked) {
 		
-		console.log("isChecked", isChecked);
-		
 		if (nRow > 0) {
 			const row = grdUserAprv.getRowData(nRow, false);
 			row.authrtMngrYn = isChecked ? "Y" : "N";
