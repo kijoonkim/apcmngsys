@@ -39,7 +39,8 @@
             text-wrap: nowrap;
             overflow: hidden;
             cursor: pointer;
-            /*border-radius: 5px;*/
+            border-radius: 5px;
+            background: white;
         }
         .tabBox_sm{
             border: 1px solid black;
@@ -50,13 +51,14 @@
             text-wrap: nowrap;
             overflow: hidden;
             cursor: pointer;
+            background: white;
 
         }
         .tabBox.active, .tabBox_sm.active{
-            background-color: #fdbf01;
-            /*background-color: #1c54a2;*/
-            /*font-weight: bold;*/
-            /*color: white;*/
+            /*background-color: #fdbf01;*/
+            background-color: #1c54a2;
+            font-weight: bold;
+            color: white;
         }
         #tab_pckgPrfmncReg > li > div > table > tbody > tr > th {
             font-size: 28px;
@@ -177,7 +179,7 @@
                         </colgroup>
                         <tbody>
                         <tr>
-                            <th scope="row" class="th_bg">거래처</th>
+                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">거래처</th>
                             <td id="cnptInfoWrap" class="td_input_mob">
                                 <button class="carouselBtn" onclick="fn_left('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
                                 <div class="carousel_container" style="width: 100%; overflow: hidden">
@@ -190,7 +192,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">생산자</th>
-                            <td id="prdcrInfoWrap" class="td_input_mob">
+                            <td id="prdcrInfoWrap" class="td_input_mob" style="background: #e8f1f9;">
                                 <button class="carouselBtn" onclick="fn_left('prdcrInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
                                 <div class="carousel_container" style="width: 100%; overflow: hidden">
                                     <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
@@ -201,7 +203,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">품목</th>
+                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">품목</th>
                             <td id="itemInfoWrap" class="td_input_mob">
                                 <button class="carouselBtn" onclick="fn_left('itemInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
                                 <div class="carousel_container" style="width: 100%; overflow: hidden">
@@ -214,7 +216,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">품종</th>
-                            <td id="vrtyInfoWrap" class="td_input_mob">
+                            <td id="vrtyInfoWrap" class="td_input_mob" style="background: #e8f1f9;">
                                 <button class="carouselBtn" onclick="fn_left('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
                                 <div class="carousel_container" style="width: 100%; overflow: hidden">
                                     <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
@@ -225,7 +227,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">규격</th>
+                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">규격</th>
                             <td id="spcfctInfoWrap"class="td_input_mob">
                                 <button class="carouselBtn" onclick="fn_left('spcfctInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
                                 <div class="carousel_container" style="width: 100%; overflow: hidden">
@@ -238,7 +240,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">본수</th>
-                            <td class="td_input_mob">
+                            <td class="td_input_mob" style="background: #e8f1f9;">
                                 <div class="carousel">
                                     <div style="display: flex;gap: 1.5vw">
                                         <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="1">1</div>
@@ -256,7 +258,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">수량</th>
+                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">수량</th>
                             <td class="td_input_mob">
                                 <div style="display: flex; justify-content: space-between">
                                     <div style="display: flex; gap: 1.5vw">
@@ -266,7 +268,7 @@
                                         <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">50</div>
                                     </div>
                                     <div style="display: flex; gap: 1.5vw">
-                                        <input id="pckgQntt" type="number" style="font-size: 1.5vw; text-align: center; background: #ffff00;border: 1px solid black"/>
+                                        <input id="pckgQntt" type="number" style="font-size: 1.5vw;color: white; text-align: center; background: #307ea5;border: 1px solid black;font-weight: bold"/>
                                         <sbux-button
                                                 id="btnRegReset"
                                                 name="btnRegReset"
@@ -610,10 +612,19 @@
         pckgObj.prdcrIdentno = pckgObj.prdcrCd;
         delete pckgObj.prdcrCd;
 
+        let invntrObj = {...pckgObj};
+
+
+        let param = {
+            pckgPrfmncVO : pckgObj,
+            gdsInvntrVO : invntrObj,
+
+        }
+
         if(!gfn_comConfirm("Q0001","저장")){
             return;
         }
-        const postJsonPromise = gfn_postJSON("/am/invntr/insertGdsInvntr.do", pckgObj);
+        const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgPrfmnc.do", pckgObj);
         const data = await postJsonPromise;
         pckgObj = {};
     }
