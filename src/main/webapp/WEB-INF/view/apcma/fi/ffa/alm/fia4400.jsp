@@ -268,10 +268,14 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+			//법인
 			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//사업단위
 			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			//회계기준
 			gfnma_setComSelect(['srch-slt-acntgCrtr'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//gfnma_setComSelect(['gvwItemGrid'], jsonBiz, 'P_COM028', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PROJECT_CODE', 'PROJECT_NAME', 'Y', ''),
+
 			gfnma_setComSelect(['srch-slt-acqsSe'], jsonAcqsSe, 'L_FIA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-bplc']

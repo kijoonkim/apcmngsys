@@ -202,8 +202,13 @@
 
 
 	</section>
-
 	<!-- 팝업 Modal -->
+    <div>
+        <sbux-modal style="width:800px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+    </div>
+    <div id="body-modal-compopup1">
+    	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+    </div>
 
 
 </body>
@@ -227,6 +232,31 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+			//법인
+			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//사업장
+			gfnma_multiSelectInit({
+				target			: ['#srch-slt-bplc']
+				,compCode		: gv_ma_selectedApcCd
+				,clientCode		: gv_ma_selectedClntCd
+				,bizcompId		: 'L_ORG001'
+				,whereClause	: ''
+				,formId			: p_formId
+				,menuId			: p_menuId
+				,selectValue	: ''
+				,dropType		: 'down' 	// up, down
+				,dropAlign		: 'right' 	// left, right
+				,colValue		: 'SITE_CODE'
+				,colLabel		: 'SITE_NAME'
+				,columns		:[
+		            {caption: "사업장코드",	ref: 'SITE_CODE', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+				]
+			}),
+			//사업단위
+			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			//감가상각기준
+			gfnma_setComSelect(['srch-slt-dprcCrtr'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
 		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -514,30 +544,80 @@
     	}
      }
 
+    /**
+     * 담당부서
+     */
+    var fn_compopup3 = function() {
 
-    const fn_clclnListAddRow = function(){
-    	grdClclnList.addRow();
+    	//type B 형 팝업
+    	var addParams = ['p1', 'p2'];	//bizcompId 의 파라미터에 따라 추가할것
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_ORG001'
+    		,popupType				: 'B'
+    		,whereClause			: addParams
+   			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputValues		: ["", 				"",				"2024-07-10"]
+			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+    		,height					: '400px'
+   			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
+   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+			,itemSelectEvent		: function (data){
+				console.log('callback data:', data);
+				SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
+			},
+    	});
+    	//SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+  	}
+    /**
+     * 원가중심점
+     */
+    const fn_findCostCenterCode = function() {
+        var searchText 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_CC_INPUT'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["계정코드", "계정명"]
+            ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+            ,searchInputValues		: ["", searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "원가유형", "사업장", "여신영역"]
+            ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "COST_CENTER_NAME", "COST_CLASS", "SITE_CODE", "CREDIT_AREA"]
+            ,tableColumnWidths		: ["80px", "80px", "80px", "80px", "80px", "80px","80px"]
+            ,itemSelectEvent		: function (data){
+                SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
+                SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
+            },
+        });
+    }
+    // P_ASSET_CATEGORY
+    const fn_assetCategory = function(){
+
+    }
+    //P_ASSET_LEVEL2
+    const fn_assetLevel2 = function(){
+
     }
 
-    const fn_clclnTrgtAddRow = function(){
-    	grdClclnTrgt.addRow();
+  	//P_ASSET_LEVEL3
+    const fn_assetLevel3 = function(){
+
     }
 
-    const fn_clclnDsctnAddRow = function(){
-    	grdClclnDsctn.addRow();
-    }
 
-    const fn_clclnListDelRow = function(){
-    	grdClclnList.deleteRow(grdClclnList.getRows()-1)
-    }
-
-    const fn_clclnTrgtDelRow = function(){
-    	grdClclnTrgt.deleteRow(grdClclnTrgt.getRows()-1)
-    }
-
-    const fn_clclnDsctnDelRow = function(){
-    	grdClclnDsctn.deleteRow(grdClclnDsctn.getRows()-1)
-    }
 
 
 
