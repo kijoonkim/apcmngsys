@@ -1,15 +1,15 @@
 <%
 /**
- * @Class Name 		: fig4140.jsp
- * @Description 	: 계정별원장 신규 화면
+ * @Class Name 		: fig4160.jsp
+ * @Description 	: 총계정원장조회 신규 화면
  * @author 			: 인텔릭아이앤에스
- * @since 			: 2024.09.23
+ * @since 			: 2024.09.26
  * @version 		: 1.0
  * @Modification Information
  * @
  * @ 수정일       	수정자      수정내용
  * @ ----------		----------	---------------------------
- * @ 2024.09.23   	장성주		최초 생성
+ * @ 2024.09.26   	장성주		최초 생성
  * @see
  *
  */
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 계정별원장 신규</title>
+	<title>title : 총계정원장조회 신규</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
@@ -38,11 +38,18 @@
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 계정별원장 신규 -->
+                    </h3><!-- 총계정원장조회 신규 -->
                 </div>
                 <div style="margin-left: auto;">
-					<sbux-button class="btn btn-sm btn-outline-danger" text="엑셀다운" 	onclick="fn_excelDown()"></sbux-button>
-					<sbux-button class="btn btn-sm btn-outline-danger" text="출력" 		onclick="fn_print()"></sbux-button>
+           			<sbux-checkbox 
+           				id="SCH_CAL_FLAG" 
+           				uitype="normal" 
+           				text="3개월이상 집계" 
+           				style="padding-right:10px !important"
+           				true-value="Y" 
+           				false-value="N" >
+           			</sbux-checkbox>
+					<sbux-button class="btn btn-sm btn-outline-danger" text="집계작업" 	onclick="fn_btnCal()"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -69,6 +76,11 @@
 	                        <col style="width: 6%">
 	                        <col style="width: 6%">
 	                        <col style="width: 3%">
+	
+	                        <col style="width: 7%">
+	                        <col style="width: 6%">
+	                        <col style="width: 6%">
+	                        <col style="width: 3%">
 	                    </colgroup>
 	                    <tbody>
 	                    
@@ -77,7 +89,7 @@
                        		
 	                    	<tr>
 	                            <th scope="row" class="th_bg">사업단위</th>
-	                            <td colspan="11" class="td_input" >
+	                            <td colspan="15" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 			                            <sbux-select id="SCH_FI_ORG_CODE" uitype="single" jsondata-ref="jsonFiOrgCode" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
 					                    <font style="margin-right:15px"></font>
@@ -114,14 +126,19 @@
 									</sbux-datepicker>                            
 	                            </td>
 	                            
-	                            <th scope="row" class="th_bg">사업장</th>
+	                            <th scope="row" class="th_bg">소속사업장</th>
 	                            <td colspan="3" class="td_input" >
 		                            <sbux-select id="SCH_SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                            
-	                            <th scope="row" class="th_bg">회계기준</th>
+	                            <th scope="row" class="th_bg">전표구분</th>
 	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+		                            <sbux-select id="SCH_DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            
+	                            <th scope="row" class="th_bg">전표상태</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_DOC_STATUS" uitype="single" jsondata-ref="jsonDocStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                    	</tr>
 	                    	
@@ -147,30 +164,31 @@
 	                            	</div>
 	                            </td>	                    	
 	                    	
-	                            <th scope="row" class="th_bg">합계표시</th>
-	                            <td colspan="7" class="td_input" >
-	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-			                            <sbux-select id="SCH_SUMMARY_TYPE" uitype="single" jsondata-ref="jsonSummaryType" style="width:150px" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	   									<font style="width:5px"></font>
-		                       			<sbux-checkbox 
-		                       				id="SCH_CARRIED_OVER" 
-		                       				uitype="normal" 
-		                       				text="이월표시여부" 
-		                       				true-value="Y" 
-		                       				false-value="N" ></sbux-checkbox>
-	   									<font style="width:5px"></font>
-	                            	</div>
+	                            <th scope="row" class="th_bg">특수관계자유형</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_RELATED_CS_TYPE" uitype="single" jsondata-ref="jsonRelatedCsType" style="width:250px" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                    	
+	                            <th scope="row" class="th_bg">특수관계자여부</th>
+	                            <td colspan="3" class="td_input" >
+		                            <sbux-select id="SCH_YES_NO" uitype="single" jsondata-ref="jsonYesNo" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                            </td>
+	                            
+	                            <th scope="row" class="th_bg">합계표시여부</th>
+	                            <td colspan="3" class="td_input" >
+	                       			<sbux-checkbox 
+	                       				id="SCH_SUM_YN" 
+	                       				uitype="normal" 
+	                       				text="" 
+	                       				true-value="Y" 
+	                       				false-value="N" >
+	                       			</sbux-checkbox>
 	                            </td>
 	                            
 	                    	</tr>
 	                    	<tr>
-	                            <th scope="row" class="th_bg">계정수준</th>
-	                            <td colspan="3" class="td_input" >
-		                            <sbux-select id="SCH_ACCOUNT_GROUP" uitype="single" jsondata-ref="jsonAccountGroup" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>
-	                    	
 	                            <th scope="row" class="th_bg">계정과목</th>
-	                            <td colspan="7" class="td_input" >
+	                            <td colspan="15" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
 	   									<sbux-input style="width:100px" id="SCH_ACCOUNT_CODE_FR" uitype="text" class="form-control input-sm"></sbux-input>
 	   									<font style="width:5px"></font>
@@ -217,7 +235,7 @@
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li>
-                            <span>계정별원장</span>
+                            <span>총계정원장조회</span>
                             <span style="font-size:12px">(조회건수 <span id="listCount1">0</span>건)</span>
                         </li>
                     </ul>
@@ -269,20 +287,16 @@
 	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
 	
 	//grid 초기화
-	var Fig4140Grid; 				// 그리드를 담기위한 객체 선언
-	var jsonFig4140 		= []; 	// 그리드의 참조 데이터 주소 선언
-
-	var jsonTempList 		= [];	// 저장할 임시 저장소
+	var Fig4160Grid; 				// 그리드를 담기위한 객체 선언
+	var jsonFig4160 		= []; 	// 그리드의 참조 데이터 주소 선언
 
 	var jsonFiOrgCode 		= []; 	// 사업단위
 	var jsonSiteCode 		= []; 	// 사업장
-	var jsonAcctRuleCode 	= []; 	// 회계기준
-	var jsonSummaryType 	= []; 	// 합계표시
-	var jsonAccountGroup 	= []; 	// 계정수준
+	var jsonDocType 		= []; 	// 전표구분
+	var jsonDocStatus 		= []; 	// 전표상태
+	var jsonRelatedCsType	= []; 	// 특수관계자유형
+	var jsonYesNo			= []; 	// 특수관계자여부
 	
-    var p_sel_row 				= '';
-    var p_sel_col 				= '';
-    
     var p_strAccountCodeList	= '';	//복수선택
 	
     var p_menu_param			= null;
@@ -293,12 +307,14 @@
             gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['SCH_SITE_CODE'], 			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 합계표시
-            gfnma_setComSelect(['SCH_SUMMARY_TYPE'],		jsonSummaryType, 	'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 계정수준
-            gfnma_setComSelect(['SCH_ACCOUNT_GROUP'],		jsonAccountGroup, 	'L_FIG011_Y', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),            
+            // 전표구분
+            gfnma_setComSelect(['SCH_DOC_TYPE'], 			jsonDocType, 		'L_FIM051', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 전표상태
+            gfnma_setComSelect(['SCH_DOC_STATUS'], 			jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 특수관계자유형
+            gfnma_setComSelect(['SCH_RELATED_CS_TYPE'], 	jsonRelatedCsType, 	'L_COM047', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 특수관계자여부
+            gfnma_setComSelect(['SCH_YES_NO'], 				jsonYesNo, 			'L_COM036', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 	}	
 
@@ -308,7 +324,7 @@
   		
 		//화면셋팅
     	fn_state();
-  		fn_createFig4140Grid();
+  		fn_createFig4160Grid();
 	}    
     
     // only document
@@ -328,6 +344,11 @@
      * 화면 state 변경
      */
     function fn_state() {
+    	
+		SBUxMethod.set('SCH_CAL_FLAG', 		'N');
+		SBUxMethod.set('SCH_SUM_YN', 		'N');
+    	
+    	SBUxMethod.set("SCH_FI_ORG_CODE", 		p_ss_fiOrgCode);
     	
     	//년월
 		SBUxMethod.set('SCH_YMDPERIOD_YYYYMM_P', gfnma_date().substr(0,4) + '-' + gfnma_date().substr(4,2));
@@ -356,80 +377,104 @@
      * 목록 조회
      */
 	function cfn_search() {
-		fn_setFig4140Grid('Q');
+		fn_setFig4160Grid('Q');
 	}
     
-	function cfn_subSearch() {
-		fn_setFig4140Grid('Q');
-	}
-    
-    function fn_createFig4140Grid() {
+    function fn_createFig4160Grid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_AREA_GRDTOP';
-	    SBGridProperties.id 				= 'Fig4140Grid';
-	    SBGridProperties.jsonref 			= 'jsonFig4140';
+	    SBGridProperties.id 				= 'Fig4160Grid';
+	    SBGridProperties.jsonref 			= 'jsonFig4160';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
-        SBGridProperties.frozencols 		= 4;
-	    SBGridProperties.tree = {
-	            col: 0,
-	            levelref: 'level',
-	            open: true,
-	            lock: true
-	    },
+        //SBGridProperties.frozencols 		= 4;
+	    SBGridProperties.allowcopy 			= true; //복사	    
+        SBGridProperties.rowheader 			= ['seq'];
+		SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};
+	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total 				= {
+                type 		: 'grand',
+                position	: 'bottom',
+                columns		: {
+                    standard : [0],
+                    sum : [15,16,17,18,19,20]
+                },
+                grandtotalrow : {
+                    titlecol 		: 14,
+                    titlevalue		: '합계',
+                    style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol	: 0
+                },
+                datasorting	: false,
+        };
         SBGridProperties.columns = [
-            {caption: ["기간"],						ref: 'PERIOD_CODE', 			type:'output', 		width:'250px', 		style:'text-align:left'},
-            {caption: ["사업단위"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["계정과목"], 				ref: 'ACCOUNT_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
-            {caption: ["계정과목명"], 				ref: 'ACCOUNT_NAME', 			type:'output',		width:'250px',  	style:'text-align:left'},
-            {caption: ["일자"],    					ref: 'DOC_DATE', 				type:'output',  	width:'80px',  		style:'text-align:left'},
-            {caption: ["적요"],						ref: 'DESCRIPTION', 			type:'output',  	width:'300px', 		style:'text-align:left'},
-
-            {caption: ["코드"],						ref: 'CS_CODE', 				type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'output',		width:'150px',  	style:'text-align:left'},
-            {caption: ["사업자번호"], 				ref: 'BIZ_REGNO', 				type:'output',		width:'150px',  	style:'text-align:left'},
-            {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-
-            {caption: ["차변(전표)"], 	   			ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(전표)"], 	   			ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["순금액(전표)"],	   			ref: 'FUNCTIONAL_AMT', 			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["잔액(전표)"], 	   			ref: 'FUNCTIONAL_BALANCE_AMT', 	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["잔액(전표2)"], 	   			ref: 'FUNCTIONAL_BALANCE_AMT2',	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-
-            {caption: ["전표유형"], 				ref: 'DOC_TYPE',    			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["송장참조번호"], 			ref: 'SOURCE_JUNPYO_NO', 		type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["지급전표번호"],				ref: 'PAY_DOC_NAME',   			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["지급일자"], 				ref: 'PAY_DOC_DATE',   			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["반제전표번호"], 			ref: 'APPLY_DOC_NAME', 			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["반제일"], 					ref: 'APPLY_DOC_DATE', 			type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["전표상태"],					ref: 'DOC_STATUS_NAME',			type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["회계일자"],					ref: 'DOC_DATE', 				type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["유형"],						ref: 'DOC_TYPE_NAME', 			type:'output', 		width:'150px', 		style:'text-align:left'},
             
-            {caption: ["차변(통화)"], 	   			ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["대변(통화)"], 	   			ref: 'ORIGINAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["순금액(통화)"],	   			ref: 'ORIGINAL_AMT', 			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["잔액(통화)"], 	   			ref: 'ORIGINAL_BALANCE_AMT', 	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
-            {caption: ["잔액(통화2)"], 	   			ref: 'ORIGINAL_BALANCE_AMT2', 	type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            //{caption: ["전표번호"],					ref: 'DOC_NAME', 				type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ['전표번호'], 				ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:center', 
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            	}	
+            },
             
             {caption: ["통화"],						ref: 'CURRENCY_CODE',			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["회계기준"], 				ref: 'ACCT_RULE_NAME', 			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["여신관리영역"], 			ref: 'CREDIT_AREA', 			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["환율"], 					ref: 'EXCHANGE_RATE', 			type:'output',  	width:'100px', 		style:'text-align:left'},
-            {caption: ["사업장"], 					ref: 'SITE_NAME', 				type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["행유형"],					ref: 'LINE_TYPE_NAME',			type:'output',  	width:'60px',  		style:'text-align:left'},
+            {caption: ["차대"],						ref: 'DEBIT_CREDIT_NAME',		type:'output',  	width:'60px',  		style:'text-align:left'},
+            {caption: ["미결"],						ref: 'ACC_CHARACTER',			type:'output',  	width:'60px',  		style:'text-align:left'},
+            
+            {caption: ["계정코드(과)"], 			ref: 'ACCOUNT_CODE_A', 			type:'output',		width:'100px',  	style:'text-align:left'},
+            {caption: ["계정명(과)"], 				ref: 'ACCOUNT_NAME_A', 			type:'output',		width:'200px',  	style:'text-align:left'},
+            
+            {caption: ["계정코드(항)"], 			ref: 'ACCOUNT_CODE_B', 			type:'output',		width:'100px',  	style:'text-align:left'},
+            {caption: ["계정명(항)"], 				ref: 'ACCOUNT_NAME_B', 			type:'output',		width:'200px',  	style:'text-align:left'},
+            
+            {caption: ["계정코드"], 				ref: 'ACCOUNT_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},
+            {caption: ["계정명"], 					ref: 'ACCOUNT_NAME', 			type:'output',		width:'200px',  	style:'text-align:left'},
+            
+            {caption: ["차변(전표)"], 	   			ref: 'FUNCTIONAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["대변(전표)"], 	   			ref: 'FUNCTIONAL_CR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["순액(전표)"],	   			ref: 'FUNCTIONAL_NET_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["차변(통화)"], 	   			ref: 'ORIGINAL_DR_AMT', 		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["대변(통화)"], 	   			ref: 'ORIGINAL_CR_AMT',			type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["순액(통화)"], 	   			ref: 'ORIGINAL_NET_AMT',		type:'output',  	width:'120px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            
+            {caption: ["거래처코드"],				ref: 'CS_CODE', 				type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["라인순번"],					ref: 'ITEM_SEQ', 				type:'output',  	width:'80', 		style:'text-align:left'},
+            {caption: ["거래처명"], 				ref: 'CS_NAME', 				type:'output',		width:'200px',  	style:'text-align:left'},
+            {caption: ["적요"],						ref: 'DESCRIPTION', 			type:'output',  	width:'300px', 		style:'text-align:left'},
+            
+            {caption: ["송장참조번호"], 			ref: 'SOURCE_DOC_NAME', 		type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["작성자"], 					ref: 'INSERT_USERNAME', 		type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["원가중심점코드"], 			ref: 'COST_CENTER_CODE1',		type:'output',  	width:'150px', 		style:'text-align:left'},
+            {caption: ["원가중심점명"], 			ref: 'COST_CENTER_NAME',		type:'output',  	width:'150px', 		style:'text-align:left'},
+            
+            {caption: ["부서"], 					ref: 'DEPT_NAME', 				type:'output',		width:'100px',  	style:'text-align:left'},
+            {caption: ["프로젝트명"], 				ref: 'PROJECT_NAME', 			type:'output',		width:'250px',  	style:'text-align:left'},
+            
+            {caption: ["회계기준"], 				ref: 'ACCT_RULE_NAME',			type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["반제전표번호"], 			ref: 'APPLY_DOC_NAME',			type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["반제일"],	 				ref: 'APPLY_DOC_DATE',			type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["역분개전표"], 				ref: 'EVERSE_DOC_NAME', 		type:'output',  	width:'100px', 		style:'text-align:left'},
+
+            {caption: ["회계승인일"], 				ref: 'POSTING_DATE', 			type:'output',		width:'100px',  	style:'text-align:left'},
+            {caption: ["회계승인자"],  				ref: 'POSTING_USER',			type:'output',  	width:'100px',  	style:'text-align:left'},
+
         ];
 
-        Fig4140Grid = _SBGrid.create(SBGridProperties);
-//        Fig4140Grid.bind('click', 'fn_viewFig4140GridEvent');
+        Fig4160Grid = _SBGrid.create(SBGridProperties);
+//        Fig4160Grid.bind('click', 'fn_viewFig4160GridEvent');
     }        
     
     /**
      * 목록 가져오기
      */
-    const fn_setFig4140Grid = async function(wtype) {
+    const fn_setFig4160Grid = async function(wtype) {
     	
 		let p_fi_org_code			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
-		let p_acct_rule_code		= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
-		let p_entry_date_fr			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_FR"));
-		let p_entry_date_to			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_TO"));
-		let p_account_group			= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_GROUP"));
 		
 		let p_account_code_fr		= gfnma_nvl(SBUxMethod.get("SCH_MULTI_YN")['SCH_MULTI_YN']);
 		if(p_account_code_fr == 'N'){
@@ -451,11 +496,16 @@
 		} else {
 			p_account_code_d		= '';
 		}
-		
-		let p_summary_type			= gfnma_nvl(SBUxMethod.get("SCH_SUMMARY_TYPE"));
-		let p_carried_over			= gfnma_nvl(SBUxMethod.get("SCH_CARRIED_OVER")['SCH_CARRIED_OVER']);
+
+		let p_entry_date_fr			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_FR"));
+		let p_entry_date_to			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_TO"));
+		let p_doc_type				= gfnma_nvl(SBUxMethod.get("SCH_DOC_TYPE"));
+		let p_doc_status			= gfnma_nvl(SBUxMethod.get("SCH_DOC_STATUS"));
+		let p_yes_no				= gfnma_nvl(SBUxMethod.get("SCH_YES_NO"));
+		let p_related_cd_type		= gfnma_nvl(SBUxMethod.get("SCH_RELATED_CS_TYPE"));
 		let p_site_code				= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
-		
+		let p_cal_flag				= gfnma_nvl(SBUxMethod.get("SCH_CAL_FLAG")['SCH_CAL_FLAG']);
+
 		if(!p_entry_date_fr ||  !p_entry_date_to){
  			gfn_comAlert("E0000","회계일자를 선택하세요");
 			return;      		 
@@ -466,6 +516,7 @@
 			return;      		 
 		}
 		
+		let p_sum_yn				= gfnma_nvl(SBUxMethod.get("SCH_SUM_YN")['SCH_SUM_YN']);
 		
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
@@ -474,16 +525,17 @@
 			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
 			
 			,V_P_FI_ORG_CODE        : p_fi_org_code
-			,V_P_ACCT_RULE_CODE     : p_acct_rule_code 
-			,V_P_ENTRY_DATE_FR    	: p_entry_date_fr
-			,V_P_ENTRY_DATE_TO    	: p_entry_date_to
-			,V_P_ACCOUNT_GROUP    	: p_account_group
 			,V_P_ACCOUNT_CODE_FR    : p_account_code_fr
 			,V_P_ACCOUNT_CODE_TO    : p_account_code_to
-			,V_P_ACCOUNT_CODE_D		: p_account_code_d
-			,IV_P_END_BALANCE_YN   	: p_summary_type
-			,V_P_CARRIED_OVER_YN    : p_carried_over
+			,V_P_DOC_DATE_FR    	: p_entry_date_fr
+			,V_P_DOC_DATE_TO    	: p_entry_date_to
+			,V_P_DOC_TYPE    		: p_doc_type
+			,V_P_DOC_STATUS    		: p_doc_status
+			,V_P_RELATED_CS_YN 		: p_yes_no
+			,V_P_RELATED_CS_TYPE	: p_related_cd_type
+			,V_P_ACCOUNT_CODE_D		: p_strAccountCodeList
 			,V_P_SITE_CODE     		: p_site_code
+			,V_P_CAL_FLAG     		: p_cal_flag
 			
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
@@ -492,10 +544,10 @@
 			,V_P_PC					: '' 
 	    };		
 	    
-        const postJsonPromise = gfn_postJSON("/fi/fgl/leg/selectFig4140List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/leg/selectFig4160List.do", {
         	getType				: 'json',
         	workType			: wtype,
-        	cv_count			: '2',
+        	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
 
@@ -512,153 +564,76 @@
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
 						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),			
+						ACCOUNT_CODE_A				: gfnma_nvl(item.ACCOUNT_CODE_A),		
+						ACCOUNT_CODE_B				: gfnma_nvl(item.ACCOUNT_CODE_B),		
 						ACCOUNT_NAME				: gfnma_nvl(item.ACCOUNT_NAME),			
+						ACCOUNT_NAME_A				: gfnma_nvl(item.ACCOUNT_NAME_A),			
+						ACCOUNT_NAME_B				: gfnma_nvl(item.ACCOUNT_NAME_B),			
 						
-						ACCT_NAME					: gfnma_nvl(item.ACCT_NAME),			
 						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),			
 						ACCT_RULE_NAME				: gfnma_nvl(item.ACCT_RULE_NAME),			
+						ACC_CHARACTER				: gfnma_nvl(item.ACC_CHARACTER),			
 						
-						ACC_ITEM_CODE1				: gfnma_nvl(item.ACC_ITEM_CODE1),		
-						ACC_ITEM_CODE2				: gfnma_nvl(item.ACC_ITEM_CODE2),		
-						ACC_ITEM_CODE3				: gfnma_nvl(item.ACC_ITEM_CODE3),		
-						ACC_ITEM_CODE4				: gfnma_nvl(item.ACC_ITEM_CODE4),		
-						ACC_ITEM_CODE5				: gfnma_nvl(item.ACC_ITEM_CODE5),		
-						ACC_ITEM_CODE6				: gfnma_nvl(item.ACC_ITEM_CODE6),		
-						ACC_ITEM_CODE7				: gfnma_nvl(item.ACC_ITEM_CODE7),		
-						ACC_ITEM_CODE8				: gfnma_nvl(item.ACC_ITEM_CODE8),		
-						ACC_ITEM_CODE9				: gfnma_nvl(item.ACC_ITEM_CODE9),		
-						ACC_ITEM_CODE10				: gfnma_nvl(item.ACC_ITEM_CODE10),		
-
-						ACC_ITEM_VALUE1				: gfnma_nvl(item.ACC_ITEM_VALUE1),		
-						ACC_ITEM_VALUE2				: gfnma_nvl(item.ACC_ITEM_VALUE2),		
-						ACC_ITEM_VALUE3				: gfnma_nvl(item.ACC_ITEM_VALUE3),		
-						ACC_ITEM_VALUE4				: gfnma_nvl(item.ACC_ITEM_VALUE4),		
-						ACC_ITEM_VALUE5				: gfnma_nvl(item.ACC_ITEM_VALUE5),		
-						ACC_ITEM_VALUE6				: gfnma_nvl(item.ACC_ITEM_VALUE6),		
-						ACC_ITEM_VALUE7				: gfnma_nvl(item.ACC_ITEM_VALUE7),		
-						ACC_ITEM_VALUE8				: gfnma_nvl(item.ACC_ITEM_VALUE8),		
-						ACC_ITEM_VALUE9				: gfnma_nvl(item.ACC_ITEM_VALUE9),		
-						ACC_ITEM_VALUE10			: gfnma_nvl(item.ACC_ITEM_VALUE10),		
-
-						ACC_ITEM_VALUE_NAME1		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME1),		
-						ACC_ITEM_VALUE_NAME2		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME2),		
-						ACC_ITEM_VALUE_NAME3		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME3),		
-						ACC_ITEM_VALUE_NAME4		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME4),		
-						ACC_ITEM_VALUE_NAME5		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME5),		
-						ACC_ITEM_VALUE_NAME6		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME6),		
-						ACC_ITEM_VALUE_NAME7		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME7),		
-						ACC_ITEM_VALUE_NAME8		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME8),		
-						ACC_ITEM_VALUE_NAME9		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME9),		
-						ACC_ITEM_VALUE_NAME10		: gfnma_nvl(item.ACC_ITEM_VALUE_NAME10),		
-						
-						APPLY_DOC_DATE				: gfnma_nvl(item.APPLY_DOC_DATE),		
+						APPLY_DOC_DATE				: gfnma_date5(gfnma_nvl(item.APPLY_DOC_DATE)),		
 						APPLY_DOC_ID				: gfnma_nvl(item.APPLY_DOC_ID),		
-						APPLY_DOC_NAME				: gfnma_nvl(item.APPLY_DOC_NAME),		
-						BALANCE_SIDE				: gfnma_nvl(item.BALANCE_SIDE),		
-						BANK_ACCOUNT_SEQ			: gfnma_nvl(item.BANK_ACCOUNT_SEQ),		
-						BATCH_NO					: gfnma_nvl(item.BATCH_NO),		
+						APPLY_DOC_NAME				: gfnma_nvl(item.APPLY_DOC_NAME),	
+						COST_CENTER_CODE			: gfnma_nvl(item.COST_CENTER_CODE),	
+						COST_CENTER_CODE1			: gfnma_nvl(item.COST_CENTER_CODE1),	
+						COST_CENTER_NAME			: gfnma_nvl(item.COST_CENTER_NAME),	
 						
-						BILL_DUE_DATE				: gfnma_date5(gfnma_nvl(item.BILL_DUE_DATE)),			
-						BILL_DUE_DAY				: gfnma_nvl(item.BILL_DUE_DAY),			
-						BILL_DUE_PAY_DATE			: gfnma_date5(gfnma_nvl(item.BILL_DUE_PAY_DATE)),			
-						BIZ_REGNO					: gfnma_nvl(item.BIZ_REGNO),			
-						CARD_NO						: gfnma_nvl(item.CARD_NO),			
-						COST_CENTER_CODE			: gfnma_nvl(item.COST_CENTER_CODE),			
-						COST_CENTER_NAME			: gfnma_nvl(item.COST_CENTER_NAME),			
-						CREDIT_AREA					: gfnma_nvl(item.CREDIT_AREA),			
 						CS_CODE						: gfnma_nvl(item.CS_CODE),
 						CS_NAME						: gfnma_nvl(item.CS_NAME),
-
 						CURRENCY_CODE				: gfnma_nvl(item.CURRENCY_CODE),
-						DEPT_CODE					: gfnma_nvl(item.DEPT_CODE),
+						
+						DEBIT_CREDIT				: gfnma_nvl(item.DEBIT_CREDIT),
+						DEBIT_CREDIT_NAME			: gfnma_nvl(item.DEBIT_CREDIT_NAME),
 						DEPT_NAME					: gfnma_nvl(item.DEPT_NAME),
 						DESCRIPTION					: gfnma_nvl(item.DESCRIPTION),
-						DOC_DATE					: gfnma_nvl(item.DOC_DATE),
+						DOC_DATE					: gfnma_date5(gfnma_nvl(item.DOC_DATE)),
 						DOC_ID						: gfnma_nvl(item.DOC_ID),
 						DOC_NAME					: gfnma_nvl(item.DOC_NAME),
+						DOC_NUM						: gfnma_nvl(item.DOC_NUM),
+						
 						DOC_STATUS					: gfnma_nvl(item.DOC_STATUS),
 						DOC_STATUS_NAME				: gfnma_nvl(item.DOC_STATUS_NAME),
 						DOC_TYPE					: gfnma_nvl(item.DOC_TYPE),
 						DOC_TYPE_NAME				: gfnma_nvl(item.DOC_TYPE_NAME),
-
-						EXCHANGE_RATE				: gfnma_nvl(item.EXCHANGE_RATE),
-						EXPECTED_PAY_DATE			: gfnma_nvl(item.EXPECTED_PAY_DATE),
-						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
-						FI_ORG_NAME					: gfnma_nvl(item.FI_ORG_NAME),
 						
-						FUNCTIONAL_AMT				: gfnma_nvl(item.FUNCTIONAL_AMT),		
-						FUNCTIONAL_BALANCE_AMT		: gfnma_nvl(item.FUNCTIONAL_BALANCE_AMT),		
-						FUNCTIONAL_BALANCE_AMT2		: gfnma_nvl(item.FUNCTIONAL_BALANCE_AMT2),		
 						FUNCTIONAL_CR_AMT			: gfnma_nvl(item.FUNCTIONAL_CR_AMT),		
 						FUNCTIONAL_DR_AMT			: gfnma_nvl(item.FUNCTIONAL_DR_AMT),		
+						FUNCTIONAL_NET_AMT			: gfnma_nvl(item.FUNCTIONAL_NET_AMT),		
+						GUBUN						: gfnma_nvl(item.GUBUN),		
+						INSERT_USERNAME				: gfnma_nvl(item.INSERT_USERNAME),		
 						
-						HOLD_DATE					: gfnma_date5(gfnma_nvl(item.HOLD_DATE)),
-						HOLD_FLAG					: gfnma_nvl(item.HOLD_FLAG),
-						HOLD_REASON					: gfnma_nvl(item.HOLD_REASON),
-						HOLD_USER					: gfnma_nvl(item.HOLD_USER),
-						
-						INSERT_USERNAME				: gfnma_nvl(item.INSERT_USERNAME),
 						ITEM_ID						: gfnma_nvl(item.ITEM_ID),
-						ITEM_NAME					: gfnma_nvl(item.ITEM_NAME),
 						ITEM_SEQ					: gfnma_nvl(item.ITEM_SEQ),
-						ITEM_SOURCE_ID				: gfnma_nvl(item.ITEM_SOURCE_ID),
 						LINE_TYPE					: gfnma_nvl(item.LINE_TYPE),
-						
-						ORIGINAL_AMT				: gfnma_nvl(item.ORIGINAL_AMT),		
-						ORIGINAL_BALANCE_AMT		: gfnma_nvl(item.ORIGINAL_BALANCE_AMT),		
-						ORIGINAL_BALANCE_AMT2		: gfnma_nvl(item.ORIGINAL_BALANCE_AMT2),		
+						LINE_TYPE_NAME				: gfnma_nvl(item.LINE_TYPE_NAME),
+
 						ORIGINAL_CR_AMT				: gfnma_nvl(item.ORIGINAL_CR_AMT),		
 						ORIGINAL_DR_AMT				: gfnma_nvl(item.ORIGINAL_DR_AMT),		
+						ORIGINAL_NET_AMT			: gfnma_nvl(item.ORIGINAL_NET_AMT),		
 						
-						PAYEE_CODE					: gfnma_nvl(item.PAYEE_CODE),
-						PAY_BASE_DATE				: gfnma_date5(gfnma_nvl(item.PAY_BASE_DATE)),
-						PAY_DOC_DATE				: gfnma_nvl(item.PAY_DOC_DATE),
-						PAY_DOC_NAME				: gfnma_nvl(item.PAY_DOC_NAME),
-						PAY_METHOD					: gfnma_nvl(item.PAY_METHOD),
-						PAY_TERM_CODE				: gfnma_nvl(item.PAY_TERM_CODE),
-						PAY_TERM_ORIG				: gfnma_nvl(item.PAY_TERM_ORIG),
-						PERIOD_CODE					: gfnma_nvl(item.PERIOD_CODE),
-						PO_LINE_NO					: gfnma_nvl(item.PO_LINE_NO),
-						PROD_GROUP					: gfnma_nvl(item.PROD_GROUP),
-						PROJECT_CODE				: gfnma_nvl(item.PROJECT_CODE),
-						PROJECT_NAME				: gfnma_nvl(item.PROJECT_NAME),
-						RELEASE_DATE				: gfnma_date5(gfnma_nvl(item.RELEASE_DATE)),
-						RELEASE_USER				: gfnma_nvl(item.RELEASE_USER),
-						ROW_TYPE					: gfnma_nvl(item.ROW_TYPE),
-						SALES_CS_CODE				: gfnma_nvl(item.SALES_CS_CODE),
-						SALES_PERSON				: gfnma_nvl(item.SALES_PERSON),
-						SEQ							: gfnma_nvl(item.SEQ),
+						POSTING_DATE				: gfnma_date5(gfnma_nvl(item.POSTING_DATE)),		
+						POSTING_USER				: gfnma_nvl(item.POSTING_USER),		
+
+						PROJECT_CODE				: gfnma_nvl(item.PROJECT_CODE),		
+						PROJECT_NAME				: gfnma_nvl(item.PROJECT_NAME),		
+						REVERSE_DOC_ID				: gfnma_nvl(item.REVERSE_DOC_ID),		
+						REVERSE_DOC_NAME			: gfnma_nvl(item.REVERSE_DOC_NAME),		
+						
 						SITE_CODE					: gfnma_nvl(item.SITE_CODE),
-						SITE_NAME					: gfnma_nvl(item.SITE_NAME),
-						
+						SOURCE_DOC_ID				: gfnma_nvl(item.SOURCE_DOC_ID),
+						SOURCE_DOC_NAME				: gfnma_nvl(item.SOURCE_DOC_NAME),
 						SOURCE_ID					: gfnma_nvl(item.SOURCE_ID),
-						SOURCE_JUNPYO_ID			: gfnma_nvl(item.SOURCE_JUNPYO_ID),
-						SOURCE_JUNPYO_NO			: gfnma_nvl(item.SOURCE_JUNPYO_NO),
 						SOURCE_TYPE					: gfnma_nvl(item.SOURCE_TYPE),
-						TXN_QTY						: gfnma_nvl(item.TXN_QTY),
-						UOM							: gfnma_nvl(item.UOM),
-						VAT_TYPE					: gfnma_nvl(item.VAT_TYPE),
-						
-						VOUCHER_NO					: gfnma_nvl(item.VOUCHER_NO),
-						VOUCHER_NO1					: gfnma_nvl(item.VOUCHER_NO1),
-						VOUCHER_RECEIPT_DATE		: gfnma_nvl(item.VOUCHER_RECEIPT_DATE),
-						VOUCHER_TYPE				: gfnma_nvl(item.VOUCHER_TYPE),
-						
-						WITHHOLD_CS_CODE			: gfnma_nvl(item.WITHHOLD_CS_CODE),		
-						WITHHOLD_CS_CODE2			: gfnma_nvl(item.WITHHOLD_CS_CODE2),		
-						WITHHOLD_FLAG				: gfnma_nvl(item.WITHHOLD_FLAG),		
-						WITHHOLD_TAX_TYPE			: gfnma_nvl(item.WITHHOLD_TAX_TYPE),		
-						WITHHOLD_TAX_TYPE2			: gfnma_nvl(item.WITHHOLD_TAX_TYPE2),		
-						
-						WRITE_DEPT_NAME				: gfnma_nvl(item.WRITE_DEPT_NAME),		
+						SUBJECT_NAME				: gfnma_nvl(item.SUBJECT_NAME),
   					}
   					list.push(msg);
   					totalRecordCount ++;
   				});
 				
-  	        	fn_convertData(list);
-        		Fig4140Grid.rebuild();
-  	        	fn_setStyleGrid();
+        		fn_setStyleGrid(list, p_sum_yn);
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
@@ -673,6 +648,36 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     } 
+    
+    /**
+     * 합계, 누계 색상
+     */
+    var fn_setStyleGrid = function(list, type) {
+      	
+    	jsonFig4160 = [];    	
+      	for (var i = 0; i < list.length; i++) {
+      		var obj = list[i];
+      		if(type=='Y'){
+      			jsonFig4160.push(obj);
+      		} else {
+	      		if(obj['GUBUN']!='2' && obj['GUBUN']!='3' ){
+	      			jsonFig4160.push(obj);
+	      		}
+      		}
+      	}
+		Fig4160Grid.rebuild();
+      	
+		if(type=='Y'){
+	    	let allDatas = Fig4160Grid.getGridDataAll();
+	      	for (var i = 0; i < allDatas.length; i++) {
+	      		var obj = allDatas[i];
+	      		if(obj['GUBUN']=='2' || obj['GUBUN']=='3' ){
+	      			Fig4160Grid.setRowStyle(i+1, 'data', 'background', '#d4f1da');
+	      		}
+	      	}
+	    	Fig4160Grid.clearSelection();
+		}
+  	}     
     
     /**
      * 초기화
@@ -752,71 +757,12 @@
   	}       
     
     /**
-     * 엑셀다운
-     */
-    var fn_excelDown = function() {
-	    Fig4140Grid.exportData('xlsx', '계정별원장', true, {sheetName: '계정별원장'});
-  	}       
-    
-    /**
-     * 트리구조로 변경
-     */
-    var fn_convertData = function(list) {
-      	
-    	jsonFig4140.length = 0;
-
-    	//계정과목 타이틀 추출
-    	var tlist = [];      	
-      	var acode = null;      	
-      	for (var i = 0; i < list.length; i++) {
-      		var obj = list[i];
-      		if(obj['ACCOUNT_CODE']!=acode){
-	      		tlist.push(obj['ACCOUNT_CODE'] + '|' + obj['ACCOUNT_CODE'] + '-' + obj['ACCOUNT_NAME']);
-	      		acode = obj['ACCOUNT_CODE'];
-      		}
-      	}
-      	//console.log('tlist', tlist);
-      	
-      	//계정코드별 분류작업
-      	for (var i = 0; i < tlist.length; i++) {
-      		var tmp = tlist[i].split('|');
-      		jsonFig4140.push({
-      			'level'			: 1
-      			,'PERIOD_CODE'	: tmp[1]
-      		});
-      		for (var j = 0; j < list.length; j++) {
-      			var dobj = list[j];
-      			if(dobj['ACCOUNT_CODE']==tmp[0]){
-      				dobj['level'] = 2;
-      				jsonFig4140.push(dobj);
-      			}
-      		}
-      	}
-      	//console.log('jsonFig4140', jsonFig4140);      	
-  	}       
-    
-    /**
-     * 합계, 누계 색상
-     */
-    var fn_setStyleGrid = function() {
-      	
-    	let allDatas = Fig4140Grid.getGridDataAll()
-      	for (var i = 0; i < allDatas.length; i++) {
-      		var obj = allDatas[i];
-      		if(obj['ROW_TYPE']=='C' || obj['ROW_TYPE']=='D' ){
-      			Fig4140Grid.setRowStyle(i+1, 'data', 'background', '#d4f1da');
-      		}
-      	}
-    	Fig4140Grid.clearSelection();
-  	}       
-    
-    /**
      * 1일
      */
     var fn_dateDay1 = function() {
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		gfnma_date4());
 		SBUxMethod.set('SCH_ENTRY_DATE_TO', 		gfnma_date4());
-		cfn_subSearch();
+		cfn_search();
   	}       
     
     /**
@@ -852,7 +798,7 @@
 		console.log(ddate);
 		
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		ddate);
-		cfn_subSearch();
+		cfn_search();
   	}       
     
     /**
@@ -862,7 +808,7 @@
     	var ddate = SBUxMethod.get('SCH_ENTRY_DATE_TO');
     	ddate = ddate.substr(0,4) + '-' + ddate.substr(4,2) + '-01'; 
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		ddate);
-		cfn_subSearch();
+		cfn_search();
   	}       
     
     /**
@@ -876,7 +822,7 @@
 		var rdate = gfnma_date(newDate);
 		rdate = rdate.substr(0,4) + '-' + rdate.substr(4,2) + '-01'; 
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		rdate);
-		cfn_subSearch();
+		cfn_search();
   	}       
     
     /**
@@ -890,7 +836,7 @@
 		var rdate = gfnma_date(newDate);
 		rdate = rdate.substr(0,4) + '-' + rdate.substr(4,2) + '-01'; 
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		rdate);
-		cfn_subSearch();
+		cfn_search();
   	}       
     
     /**
@@ -900,7 +846,7 @@
     	var ddate = SBUxMethod.get('SCH_ENTRY_DATE_TO');
     	ddate = ddate.substr(0,4) + '-01-01'; 
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		ddate);
-		cfn_subSearch();
+		cfn_search();
   	}       
     
     /**
@@ -910,10 +856,25 @@
     	var ddate = SBUxMethod.get('SCH_ENTRY_DATE_TO');
     	ddate = ddate.substr(0,4) + '-01-01'; 
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		ddate);
-		cfn_subSearch();
+		cfn_search();
   	}       
     
-        
+    /**
+     * 그리드내 링크(전표번호) 조회
+     */
+	function fn_gridPopup1(event, doc_id) {
+		event.preventDefault();	
+		console.log('doc_id:', doc_id);		
+		
+        var obj = {
+            	'MENU_MOVE'		: 'Y'	
+            	,'DOC_ID' 		: doc_id
+            	,'WORK_TYPE'	: 'VIEW'
+            	,'target'		: 'MA_A20_030_020_150'
+            }
+        let json = JSON.stringify(obj);
+        window.parent.cfn_openTabSearch(json);			
+	}        
     
     
 </script>
