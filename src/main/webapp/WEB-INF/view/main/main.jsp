@@ -35,6 +35,14 @@
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
         html, body {
             height:100%;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            width : 100%;
+            overscroll-behavior: none;
+        }
+        #mainBody > div.sbt-A-wrap > div.main > div.content > div.row{
+            margin : 0 !important;
         }
         .sbt-A-wrap {min-width:1024px; margin:0 auto; height:100vh; overflow: scroll; -ms-overflow-style: none; scrollbar-width: none;}
         .sbt-A-wrap ::-webkit-scrollbar {display: none;}
@@ -144,63 +152,78 @@
     background-color: white;
     color: black;
 }
-#idxSide_menu > div.sbux-vscroll-wrap{
-    height: 100% !important;
-}
-#idxSide_menu > div.sbux-vscroll-wrap > div.sbux-sidemeu.sbux-sidemeu-split.slideline{
-    height: 100% !important;
-}
+/*#idxSide_menu > div.sbux-vscroll-wrap{*/
+/*    height: 100% !important;*/
+/*}*/
+/*#idxSide_menu > div.sbux-vscroll-wrap > div.sbux-sidemeu.sbux-sidemeu-split.slideline{*/
+/*    height: 100% !important;*/
+/*}*/
+
+/*div.sbux-sidemeu.sbux-sidemeu-split.slideline > div.sbux-sidemeu-title-wrap {*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*    z-index: 999;*/
+/*    background: white;*/
+/*}*/
+
+/*div.sbux-sidemeu.sbux-sidemeu-split.slideline > div.sbux-sidemeu-filter-wrap {*/
+/*    position: sticky;*/
+/*    top: 61px;*/
+/*    z-index: 999;*/
+/*    background: white;*/
+/*}*/
+
 
 
 
 /**
  * notics popup
  */
-/*.layerPopup img{*/
-/*margin-bottom : 20px;}*/
-/*.layerPopup:before {display:block; content:""; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:9000}*/
-/*.layerPopup .layerBox {    z-index:10000;   */
-/*position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }*/
-/*.layerPopup .layerBox .title {margin-bottom:10px; font-weight:600;}*/
-/*.layerPopup .layerBox .btnTodayHide {*/
-/*font-size:14px; font-weight:600; color:black; */
-/*float: left;text-decoration:none;width: 150px; */
-/*height : 30px;line-height:30px;border:black solid 1px; text-align : center;text-decoration:none;*/
-/*}*/
-/*.layerPopup div{*/
-/*	display : inline;*/
-/*}*/
-/*.layerPopup form{*/
-/*	margin-top : 5px;*/
-/*	font-size:16px; font-weight:600;*/
-/*	weight: 100%;*/
-/*	height : 30px;*/
-/*	line-height:30px*/
-/*}*/
-/*.layerPopup #close {*/
-/*font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: right; line-height:30px; text-align : center;text-decoration:underline;*/
-/*}*/
-/*.layerPopup a{*/
-/*    text-decoration-line: none;*/
-/*    color: #3c8dbc;*/
-/*}*/
+.layerPopup img{
+margin-bottom : 20px;}
+.layerPopup:before {display:block; content:""; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:9000}
+.layerPopup .layerBox {    z-index:10000;
+position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }
+.layerPopup .layerBox .title {margin-bottom:10px; font-weight:600;}
+.layerPopup .layerBox .btnTodayHide {
+font-size:14px; font-weight:600; color:black;
+float: left;text-decoration:none;width: 150px;
+height : 30px;line-height:30px;border:black solid 1px; text-align : center;text-decoration:none;
+}
+.layerPopup div{
+	display : inline;
+}
+.layerPopup form{
+	margin-top : 5px;
+	font-size:16px; font-weight:600;
+	weight: 100%;
+	height : 30px;
+	line-height:30px
+}
+.layerPopup #close {
+font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: right; line-height:30px; text-align : center;text-decoration:underline;
+}
+.layerPopup a{
+    text-decoration-line: none;
+    color: #3c8dbc;
+}
 
 </style>
 
-<%--<script language="JavaScript">--%>
-<%--	//head 태그 안에 스크립트 선언--%>
-<%--    function setCookie( name, value, expiredays ) {--%>
-<%--        var todayDate = new Date();--%>
-<%--        todayDate.setDate( todayDate.getDate() + expiredays ); --%>
-<%--        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"--%>
-<%--    }--%>
-<%--    function closePop() {--%>
-<%--        if ( document.pop_form.chkbox.checked ){--%>
-<%--            setCookie( "maindiv", "done" , 1 );--%>
-<%--        }--%>
-<%--        document.all['layer_popup'].style.visibility = "hidden";--%>
-<%--    }--%>
-<%--</script>--%>
+<script language="JavaScript">
+	//head 태그 안에 스크립트 선언
+    function setCookie( name, value, expiredays ) {
+        var todayDate = new Date();
+        todayDate.setDate( todayDate.getDate() + expiredays );
+        document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+    }
+    function closePop() {
+        if ( document.pop_form.chkbox.checked ){
+            setCookie( "maindiv", "done" , 1 );
+        }
+        document.all['layer_popup'].style.visibility = "hidden";
+    }
+</script>
 
 </head>
 <body id="mainBody" oncontextmenu="return false;">
@@ -821,6 +844,7 @@
 <div id="body-modal-prfrmImprvDmnd">
     <jsp:include page="../apcss/co/dmnd/prfrmImprvDmndPopup.jsp"></jsp:include>
 </div>
+<jsp:include page="./noticePopup.jsp"/>
 <div>
     <sbux-modal id="modal-msgAlarm" name="modal-msgAlarm" uitype="middle" header-title="APC업무지원시스템 - 알림" body-html-id="body-modal-msgAlarm" footer-is-close-button="false" header-is-close-button="true" callback-after-close="fn_popMsgRefresh" style="width:1000px;margin-top: 20vh"></sbux-modal>
 </div>
@@ -909,6 +933,10 @@
 		const lblText = lv_authRefresh ? '🔒' : '🔓';
 		document.querySelector('#lbl-autoRefresh').innerText = lblText;
 	}
+    document.addEventListener('touchmove', function(event) {
+        // 페이지 전체가 드래그될 때 기본 동작 방지
+        event.preventDefault();
+    }, { passive: false });
 
     //only document
     window.addEventListener('DOMContentLoaded', function(e) {
