@@ -85,7 +85,7 @@
                     </td>
                     <th scope="row" class="th_bg">거래처</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_CUSTOMER_CS_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_CUSTOMER_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_CUSTOMER_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -1074,7 +1074,8 @@
     }
 
     const fn_findCsCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
@@ -1089,7 +1090,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드", "거래처명", "사업자번호" ]
             ,searchInputFields		: ["CS_CODE", "CS_NAME", "BIZ_REGNO"]
-            ,searchInputValues		: ["", searchText, ""]
+            ,searchInputValues		: [searchCode, searchName, ""]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "사업자번호", "대표자", "업태", "종목", "주소", "전화", "팩스", "지급기준", "지급기준명", "지급방법", "통화"]
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS", "TEL", "FAX", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]

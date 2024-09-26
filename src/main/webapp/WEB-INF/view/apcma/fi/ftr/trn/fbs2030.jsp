@@ -76,7 +76,7 @@
                     </td>
                     <th scope="row" class="th_bg">거래처</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_CUSTOMER_CS_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_CUSTOMER_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_CUSTOMER_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -117,7 +117,7 @@
                     </td>
                     <th scope="row" class="th_bg">은행</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_BANK_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_BANK_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_BANK_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -132,7 +132,7 @@
                     </td>
                     <th scope="row" class="th_bg">계좌번호</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_BANK_ACCOUNT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -556,7 +556,8 @@
     }
 
     const fn_findCsCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_CUSTOMER_CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var replaceText2 	= "_BIZ_REGNO_";
@@ -571,7 +572,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드", "거래처명", "사업자번호" ]
             ,searchInputFields		: ["CS_CODE", "CS_NAME", "BIZ_REGNO"]
-            ,searchInputValues		: ["", searchText, ""]
+            ,searchInputValues		: [searchCode, searchName, ""]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "사업자번호", "대표자", "업태", "종목", "주소", "전화", "팩스", "지급기준", "지급기준명", "지급방법", "통화"]
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS", "TEL", "FAX", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
@@ -585,7 +586,8 @@
     }
 
     const fn_findBankCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
@@ -599,7 +601,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명"]
             ,searchInputFields		: ["CODE", "NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭"]
             ,tableColumnNames		: ["CODE" , "NAME"]
@@ -613,10 +615,11 @@
     }
 
     const fn_findBankAccount = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NAME"));
-        var replaceText0 	= "_BANK_CODE_";
-        var replaceText1 	= "_BANK_NAME_";
-        var strWhereClause 	= "AND BANK_CODE LIKE '%" + replaceText0 + "%' AND BANK_NAME LIKE '%" + replaceText1 + "%'";
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NO"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NAME"));
+        var replaceText0 	= "_CODE_";
+        var replaceText1 	= "_NAME_";
+        var strWhereClause 	= "AND AA.code LIKE '%" + replaceText0 + "%' AND AA.name LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
@@ -626,8 +629,8 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
-            ,searchInputFields		: ["BANK_CODE", "BANK_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputFields		: ["CODE", "NAME"]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["계좌번호", "명칭", "은행명", "통화"]
             ,tableColumnNames		: ["CODE" , "NAME", "BANK_NAME", "CURRENCY_CODE"]

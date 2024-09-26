@@ -201,7 +201,7 @@
                 <tr>
                     <th scope="row" class="th_bg">지급통화</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_PAY_CURRENCY_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_PAY_CURRENCY_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_PAY_CURRENCY_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -360,15 +360,15 @@
                             </colgroup>
                             <tbody>
                             <tr>
-                                <th scope="row" class="th_bg">지급(환산전)</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border:hidden;">지급(환산전)</td>
+                                <td class="td_input" style="border:hidden;">
                                     <sbux-input id="TOT_PAY_FUNCTIONAL_AMOUNT" name="TOT_PAY_FUNCTIONAL_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
-                                <th scope="row" class="th_bg">지급(환산후)</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border:hidden;">지급(환산후)</td>
+                                <td class="td_input" style="border:hidden;">
                                     <sbux-input id="TOT_PAY_FUNCTIONAL_AMT_CONV" name="TOT_PAY_FUNCTIONAL_AMT_CONV" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border:hidden;">
                                     <sbux-button id="btnSum" name="btnSum" uitype="normal" text="합계" class="btn btn-sm btn-outline-danger" onclick="fn_sum" style="float: right;"></sbux-button>
                                 </td>
                             </tr>
@@ -1110,7 +1110,8 @@
     }
 
     const fn_findPayCurrencyCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
         var replaceText0 	= "_CURRENCY_CODE_";
         var replaceText1 	= "_CURRENCY_NAME_";
         var strWhereClause 	= "AND CURRENCY_CODE LIKE '%" + replaceText0 + "%' AND CURRENCY_NAME LIKE '%" + replaceText1 + "%'";
@@ -1124,7 +1125,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "코드명"]
             ,searchInputFields		: ["CURRENCY_CODE", "CURRENCY_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["통화코드", "통화명", "비고"]
             ,tableColumnNames		: ["CURRENCY_CODE" , "CURRENCY_NAME", "DESCIPTION"]
