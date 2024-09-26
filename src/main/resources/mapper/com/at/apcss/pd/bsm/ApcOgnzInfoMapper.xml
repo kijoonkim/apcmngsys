@@ -547,26 +547,27 @@
 	</insert>
 
 	<update id="updateApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
-    	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.upateapcOgnzInfo */
-	    		TB_APC_OGNZ_INFO
+		<![CDATA[
+			UPDATE /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.upateapcOgnzInfo */
+				TB_APC_OGNZ_INFO
 			   SET
-			 	  OGNZ_CD 	= #{ognzCd}
-				, OGNZ_NM  	= #{ognzNm }
+			 	  OGNZ_NM  	= #{ognzNm }
 				, OGNZ_SE_CD 	= #{ognzSeCd}
 				, OGNZ_SE_NM 	= #{ognzSeNm}
 			    , BRNO 	= #{brno}
+			    , CRNO 	= #{crno}
 				, TYPE_CD 	= #{typeCd}
 				, TYPE_NM 	= #{typeNm}
 				, APC_HLD_CNT 	= #{apcHldCnt}
 				, DEL_YN   = #{delYn}
+			WHERE 1=1
+			  AND OGNZ_CD = #{ognzCd}
+		]]>
+	</update>
 
-    	]]>
-    </update>
-
-    <update id="updateMegerApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
-    	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+	<update id="updateMegerApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+		<![CDATA[
+			MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}

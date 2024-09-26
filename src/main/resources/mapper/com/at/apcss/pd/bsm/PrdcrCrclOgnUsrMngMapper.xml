@@ -319,34 +319,45 @@
 			, SYS_LAST_CHG_DT		= SYSDATE
 	    	, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 	    	, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-    	WHERE 1=1
-    	  AND USER_ID = #{userId}
-    </update>
-    <update id="updateTbEvApoUserType" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
-    	UPDATE TB_EV_APO  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateTbEvApoUserType */
-    	SET
-    		APO_SE = #{apoSe}
+		WHERE 1=1
+		  AND USER_ID = #{userId}
+	</update>
+	<update id="updateTbEvApoUserType" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+		UPDATE TB_EV_APO  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateTbEvApoUserType */
+		SET
+			APO_SE = #{apoSe}
 			, SYS_LAST_CHG_DT		= SYSDATE
-	    	, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    	, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-    	WHERE 1=1
-    	  AND BRNO = #{brno}
-    </update>
-    <update id="updateTbApcOgnzInfoUserType" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
-    	UPDATE TB_APC_OGNZ_INFO  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateTbApcOgnzInfoUserType */
-    	SET
-    		OGNZ_SE_CD = #{userType}
+			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE 1=1
+		  AND BRNO = #{brno}
+	</update>
+	<update id="updateTbApcOgnzInfoUserType" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+		UPDATE TB_APC_OGNZ_INFO  /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateTbApcOgnzInfoUserType */
+		SET
+			OGNZ_SE_CD = #{userType}
 			, SYS_LAST_CHG_DT		= SYSDATE
-	    	, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    	, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-    	WHERE 1=1
-    	  AND BRNO = #{brno}
-    </update>
+			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+	  	  	, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE 1=1
+		  AND BRNO = #{brno}
+	</update>
 
 	<update id="updateMemberMbrUpdtYn" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
 		UPDATE TB_COM_USER /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateMemberUserType */
 		SET
 			MBR_UPDT_YN = #{mbrUpdtYn}
+			, SYS_LAST_CHG_DT		= SYSDATE
+			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE 1=1
+		  AND USER_ID = #{userId}
+	</update>
+
+	<update id="updateMemberUntyOgnzCd" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+		UPDATE TB_COM_USER /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateMemberUntyOgnzCd */
+		SET
+			UNTY_OGNZ_CD = #{untyOgnzCd}
 			, SYS_LAST_CHG_DT		= SYSDATE
 			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 			, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}

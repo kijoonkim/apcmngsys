@@ -102,4 +102,10 @@ public class PrdcrCrclOgnUsrMngServiceImpl extends BaseServiceImpl implements Pr
 		return updatedCnt;
 	}
 
+	@Override
+	public int updateMemberUntyOgnzCd(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception {
+		int updatedCnt = PrdcrCrclOgnUsrMngMapper.updateMemberUntyOgnzCd(PrdcrCrclOgnUsrMngVO);
+		return updatedCnt;
+	}
+
 }
