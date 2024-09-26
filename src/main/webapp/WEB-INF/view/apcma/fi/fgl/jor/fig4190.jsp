@@ -468,10 +468,7 @@
     		height			: '400px'
     			,callbackEvent	: function (data){
     				console.log('callback data:', data);
-    				pp_strAccountCodeList = "";
-    				for (var i = 0; i < data.length; i++) {
-    					pp_strAccountCodeList += data[i] + '|';
-    				}
+    				pp_strAccountCodeList = data;
     				if(pp_strAccountCodeList){
     					pp_strAccountCodeList = pp_strAccountCodeList.slice(0, -1);
     					SBUxMethod.set('SCH_MULTI_YN', "Y");
@@ -543,12 +540,8 @@
     		height			: '400px'
     			,callbackEvent	: function (data){
     				console.log('callback data:', data);
-    				pp_strCsCodeList = "";
-    				for (var i = 0; i < data.length; i++) {
-    					pp_strCsCodeList += data[i] + '|';
-    				}
+    				pp_strCsCodeList = data;
     				if(pp_strCsCodeList){
-    					pp_strCsCodeList = pp_strCsCodeList.slice(0, -1);
     					SBUxMethod.set('SCH_MULTI_CS_YN', "Y");
     				} else {
     					SBUxMethod.set('SCH_MULTI_CS_YN', "N");

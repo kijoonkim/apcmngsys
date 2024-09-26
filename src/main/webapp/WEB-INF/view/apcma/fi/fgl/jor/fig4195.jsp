@@ -674,6 +674,11 @@
    			,callbackEvent	: function (data){
    				console.log('callback data:', data);
    				p_strAccountCodeList = data;
+				if(pp_strAccountCodeList){
+					SBUxMethod.set('SCH_MULTI_YN', "Y");
+				} else {
+					SBUxMethod.set('SCH_MULTI_YN', "N");
+				}
    			},
     	});
     	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
@@ -693,6 +698,11 @@
    			,callbackEvent	: function (data){
    				console.log('callback data:', data);
    				p_strCsCodeList = data;
+				if(p_strCsCodeList){
+					SBUxMethod.set('SCH_MULTI_CS_YN', "Y");
+				} else {
+					SBUxMethod.set('SCH_MULTI_CS_YN', "N");
+				}
    			},
     	});
     	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})

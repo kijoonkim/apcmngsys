@@ -2078,10 +2078,7 @@
     		height			: '400px'
     			,callbackEvent	: function (data){
     				console.log('callback data:', data);
-    				pp_strAccountCodeList = "";
-    				for (var i = 0; i < data.length; i++) {
-    					pp_strAccountCodeList += data[i] + '|';
-    				}
+    				pp_strAccountCodeList = data;
     				if(pp_strAccountCodeList){
     					pp_strAccountCodeList = pp_strAccountCodeList.slice(0, -1);
     					SBUxMethod.set('sch-multi-act-yn', "Y");
