@@ -107,7 +107,7 @@
 							</td>
                             <th scope="row" class="th_bg">금융기관</th>
                             <td class="td_input">
-                                 <sbux-input id="SRCH_BANK_CS_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                 <sbux-input id="SRCH_BANK_CS_CODE" class="form-control input-sm" uitype="text"></sbux-input>
                             </td>
                             <td class="td_input">
                                 <sbux-input id="SRCH_BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -247,7 +247,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">금융기관</th>
                                             <td class="td_input">
-                                                <sbux-input id="BANK_CS_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="BANK_CS_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -264,7 +264,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">은행</th>
                                             <td class="td_input">
-                                                <sbux-input id="BANK_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="BANK_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="BANK_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -333,7 +333,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">입금계좌</th>
                                             <td class="td_input">
-                                                <sbux-input id="IN_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="IN_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="IN_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -353,7 +353,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">출금계좌</th>
                                             <td class="td_input">
-                                                <sbux-input id="OUT_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="OUT_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="OUT_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -459,7 +459,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">예적금계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="DEPOSIT_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="DEPOSIT_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -476,7 +476,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">선수수익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="ADVANCE_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="ADVANCE_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -493,7 +493,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">미수수익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="ACCRUED_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="ACCRUED_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -510,7 +510,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">선급법인세계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="CTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="CTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -527,7 +527,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">선급지방소득세계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="PTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="PTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -544,7 +544,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">현재가치할인차금계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="PRESENT_VALUE_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="PRESENT_VALUE_ACCOUNT" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="PRESENT_VALUE_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -561,7 +561,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">유동성대체계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_LIQUID_ACCOUNT" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="DEPOSIT_LIQUID_ACCOUNT" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="DEPOSIT_LIQUID_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -599,7 +599,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">불입계좌</th>
                                             <td class="td_input">
-                                                <sbux-input id="PAY_DEPOSIT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="PAY_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="PAY_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -887,7 +887,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">이자수익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="INTEREST_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="INTEREST_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="INTEREST_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -904,7 +904,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환차익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_GAIN_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="EXCHANGE_GAIN_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="EXCHANGE_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -921,7 +921,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환차손계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_LOSS_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="EXCHANGE_LOSS_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="EXCHANGE_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -938,7 +938,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환평가이익계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="VAL_GAIN_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="VAL_GAIN_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="VAL_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -955,7 +955,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환평가손실계정</th>
                                             <td class="td_input">
-                                                <sbux-input id="VAL_LOSS_ACC" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="VAL_LOSS_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="VAL_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -992,7 +992,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">예금이체입금</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_START_TR_TYPE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="DEPOSIT_START_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="DEPOSIT_START_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -1009,7 +1009,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">예금이체출금</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPOSIT_IN_TR_TYPE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="DEPOSIT_IN_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="DEPOSIT_IN_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -1026,7 +1026,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">이자수익</th>
                                             <td class="td_input">
-                                                <sbux-input id="INTEREST_IN_TR_TYPE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="INTEREST_IN_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="INTEREST_IN_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -1043,7 +1043,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">법인세원천징수</th>
                                             <td class="td_input">
-                                                <sbux-input id="CTAX_WITHHOLD_TR_TYPE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="CTAX_WITHHOLD_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="CTAX_WITHHOLD_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -1060,7 +1060,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">지방소득세원천징수</th>
                                             <td class="td_input">
-                                                <sbux-input id="PTAX_WITHHOLD_TR_TYPE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="PTAX_WITHHOLD_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="PTAX_WITHHOLD_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -1097,7 +1097,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환차익</th>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_GAIN_TR_TYPE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="EXCHANGE_GAIN_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="EXCHANGE_GAIN_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -1114,7 +1114,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">환차손</th>
                                             <td class="td_input">
-                                                <sbux-input id="EXCHANGE_LOSS_TR_TYPE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="EXCHANGE_LOSS_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="EXCHANGE_LOSS_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -1151,7 +1151,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">부서</th>
                                             <td class="td_input">
-                                                <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
+                                                <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
@@ -1168,7 +1168,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">원가중심점</th>
                                             <td class="td_input">
-                                                <sbux-input id="COST_CENTER_CODE" class="form-control input-sm" uitype="text" readonly></sbux-input>
+                                                <sbux-input id="COST_CENTER_CODE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
                                             <td class="td_input">
                                                 <sbux-input id="COST_CENTER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -2016,7 +2016,8 @@
     }
 
     const fn_findBankCsCode = function(elementId) {
-        var searchText 		= gfnma_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get(elementId+"BANK_CS_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
@@ -2030,7 +2031,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드", "거래처명"]
             ,searchInputFields		: ["CS_CODE", "CS_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "은행코드", "은행명", "사업자번호", "주소"]
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
@@ -2044,7 +2045,8 @@
     }
 
     const fn_findBankCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("BANK_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("BANK_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("BANK_NAME"));
         var replaceText0 	= "_BANK_CODE_";
         var replaceText1 	= "_BANK_NAME_";
         var strWhereClause 	= "AND a.BANK_CODE LIKE '%" + replaceText0 + "%' AND a.BANK_NAME LIKE '%" + replaceText1 + "%'";
@@ -2058,7 +2060,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
             ,searchInputFields		: ["BANK_CODE", "BANK_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명"]
             ,tableColumnNames		: ["BANK_CODE" , "BANK_NAME"]
@@ -2072,7 +2074,8 @@
     }
 
     const fn_findDepositCode = function(inOrOut) {
-        var searchText 		= gfnma_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_NAME"));
         var replaceText0 	= "_DEPOSIT_CODE_";
         var replaceText1 	= "_DEPOSIT_NAME_";
         var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
@@ -2086,7 +2089,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "코드명"]
             ,searchInputFields		: ["DEPOSIT_CODE", "DEPOSIT_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["계좌코드", "계좌명", "계좌유형명", "계좌번호", "은행코드", "은행명", "개설일", "만기일"]
             ,tableColumnNames		: ["DEPOSIT_CODE", "DEPOSIT_NAME", "DEPOSIT_TYPE_NAME", "ACCOUNT_NUM", "BANK_CODE", "BANK_NAME", "OPEN_DATE", "EXPIRE_DATE"]
@@ -2102,7 +2105,8 @@
     }
 
     const fn_findAccountCode = function(section) {
-        var searchText 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get(section));
+        var searchName 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
         var replaceText0 	= "_ACCOUNT_CODE_";
         var replaceText1 	= "_ACCOUNT_NAME_";
         var strWhereClause 	= "AND a.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND a.ACCOUNT_NAME LIKE '%" + replaceText1 + "%'";
@@ -2116,7 +2120,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
             ,searchInputFields		: ["ACCOUNT_CODE", "ACCOUNT_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["계정코드", "계정명", "계정(한국어)"]
             ,tableColumnNames		: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
@@ -2130,7 +2134,8 @@
     }
 
     const fn_findFundCode = function(section) {
-        var searchText 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get(section));
+        var searchName 		= gfnma_nvl(SBUxMethod.get(section + "_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_NAME_";
         var strWhereClause 	= "AND a.CODE LIKE '%" + replaceText0 + "%' AND a.NAME LIKE '%" + replaceText1 + "%'";
@@ -2144,7 +2149,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
             ,searchInputFields		: ["CODE", "NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
             ,tableColumnNames		: ["CODE", "NAME", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
@@ -2158,7 +2163,8 @@
     }
 
     const fn_findDeptCode = function() {
-        var searchText 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchCode 	= gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchName 	= gfnma_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보');
         compopup1({
@@ -2169,7 +2175,7 @@
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-            ,searchInputValues		: ["", 	searchText,	gfn_dateToYmd(new Date())]
+            ,searchInputValues		: [searchCode, 	searchName,	gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,width					: '700px'
             ,height					: '300px'
@@ -2184,7 +2190,8 @@
     }
 
     const fn_findCostCenterCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
         var replaceText0 	= "_COST_CENTER_CODE_";
         var replaceText1 	= "_COST_CENTER_NAME_";
         var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
@@ -2198,7 +2205,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["계정코드", "계정명"]
             ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "원가유형", "사업장", "여신영역"]
             ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "COST_CENTER_NAME", "COST_CLASS", "SITE_CODE", "CREDIT_AREA"]

@@ -105,7 +105,7 @@
                     <td></td>
                     <th scope="row" class="th_bg">금융기관</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_BANK_CS_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_BANK_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_BANK_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -133,7 +133,7 @@
                 <tr>
                     <th scope="row" class="th_bg">통화</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_PAY_CURRENCY_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_PAY_CURRENCY_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td colspan="2" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_PAY_CURRENCY_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -148,10 +148,10 @@
                     </td>
                     <th scope="row" class="th_bg">계좌</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_DEPOSIT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_DEPOSIT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-button
@@ -1013,7 +1013,8 @@
     }
 
     const fn_findBankCsCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_CS_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_CS_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_BANK_CS_NAME"));
         var replaceText0 	= "_CS_CODE_";
         var replaceText1 	= "_CS_NAME_";
         var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
@@ -1027,7 +1028,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드", "거래처명"]
             ,searchInputFields		: ["CS_CODE", "CS_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "은행코드", "은행명", "사업자번호", "주소"]
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
@@ -1041,7 +1042,8 @@
     }
 
     const fn_findPayCurrencyCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_CODE"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
         var replaceText0 	= "_CURRENCY_CODE_";
         var replaceText1 	= "_CURRENCY_NAME_";
         var strWhereClause 	= "AND CURRENCY_CODE LIKE '%" + replaceText0 + "%' AND CURRENCY_NAME LIKE '%" + replaceText1 + "%'";
@@ -1055,7 +1057,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "코드명"]
             ,searchInputFields		: ["CURRENCY_CODE", "CURRENCY_NAME"]
-            ,searchInputValues		: ["", searchText]
+            ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["통화코드", "통화명", "비고"]
             ,tableColumnNames		: ["CURRENCY_CODE" , "CURRENCY_NAME", "DESCIPTION"]

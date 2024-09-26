@@ -295,7 +295,7 @@
                     <td colspan="3"></td>
                     <th scope="row" class="th_bg">거래처</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_CS_CODE_FR" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_CS_CODE_FR" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_CS_NAME_FR" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -305,14 +305,14 @@
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
                                 target-id="modal-compopup1"
-                                onclick="fn_findSrchDeptCode"
+                                onclick="fn_findCsCode('FR')"
                         ></sbux-button>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <span> ~ </span>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_CS_CODE_TO" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                        <sbux-input id="SRCH_CS_CODE_TO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_CS_NAME_TO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -322,7 +322,7 @@
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
                                 target-id="modal-compopup1"
-                                onclick="fn_findSrchDeptCode"
+                                onclick="fn_findCsCode('TO')"
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">
@@ -1263,6 +1263,37 @@
             },
         });
         SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
+    }
+
+    const fn_findCsCode = function(target) {
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("SRCH_CS_CODE_"+target));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("SRCH_CS_NAME_"+target));
+        var replaceText0 	= "_CS_CODE_";
+        var replaceText1 	= "_CS_NAME_";
+        var replaceText2 	= "_BIZ_REGNO_";
+        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_CS_PURCHASE'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["거래처코드", "거래처명", "사업자번호" ]
+            ,searchInputFields		: ["CS_CODE", "CS_NAME", "BIZ_REGNO"]
+            ,searchInputValues		: [searchCode, searchName, ""]
+            ,searchInputTypes		: ["input", "input", "input"]
+            ,height					: '400px'
+            ,tableHeader			: ["거래처코드", "거래처명", "사업자번호", "대표자", "업태", "종목", "주소", "전화", "팩스", "지급기준", "지급기준명", "지급방법", "통화"]
+            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS", "TEL", "FAX", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
+            ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                SBUxMethod.set('SRCH_CS_NAME_'+target, data.CS_NAME);
+                SBUxMethod.set('SRCH_CS_CODE_'+target, data.CS_CODE);
+            },
+        });
     }
 
     const fn_applyDate = async function() {

@@ -136,6 +136,7 @@
                                             text="찾기" uitype="modal"
                                             target-id="modal-compopup1"
                                             onclick="fn_findDeptCode"
+                                            disabled="true"
                                     ></sbux-button>
                                 </td>
                             </tr>
@@ -180,7 +181,7 @@
                             <tr>
                                 <th scope="row" class="th_bg">거래처</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" group-id="panWFTop" readonly></sbux-input>
+                                    <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
@@ -199,7 +200,7 @@
                                 <td></td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
                                 <td class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" group-id="panWFTop" readonly></sbux-input>
+                                    <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" group-id="panWFTop"></sbux-input>
                                 </td>
                                 <td class="td_input" style="border-right:hidden;">
                                     <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
@@ -805,10 +806,10 @@
                                         <col style="width: 3%">
                                     </colgroup>
                                     <tbody>
-                                        <tr> <%--TODO : P_FIM041--%>
+                                        <tr>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE1">관리항목1</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" grid-id="gvwWFItem" grid-event="valuechanged" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly/>
+                                                <sbux-input id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" grid-id="gvwWFItem" grid-event="valuechanged" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME1" name="ACC_VALUE_NAME1" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -824,7 +825,7 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE5">관리항목5</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME5" name="ACC_VALUE_NAME5" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -840,7 +841,7 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE9">관리항목9</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME9" name="ACC_VALUE_NAME9" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -858,7 +859,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE2">관리항목2</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME2" name="ACC_VALUE_NAME2" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -874,7 +875,7 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE6">관리항목6</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME6" name="ACC_VALUE_NAME6" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -890,7 +891,7 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE10">관리항목10</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME10" name="ACC_VALUE_NAME10" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -908,7 +909,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE3">관리항목3</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME3" name="ACC_VALUE_NAME3" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -924,7 +925,7 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE7">관리항목7</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME7" name="ACC_VALUE_NAME7" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -942,7 +943,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE4">관리항목4</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME4" name="ACC_VALUE_NAME4" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -958,7 +959,7 @@
                                             </td>
                                             <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE8">관리항목8</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <input id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" readonly />
+                                                <sbux-input id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" grid-id="gvwWFItem" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="ACC_VALUE_NAME8" name="ACC_VALUE_NAME8" grid-id="gvwWFItem" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom"></sbux-input>
@@ -1607,7 +1608,7 @@
         });
     }
 
-    var fn_changeExpectedPayDate = function (value) {
+    var fn_changeExpectedPayDate = async function (value) {
         if (!bnew)
             return;
 
@@ -1616,7 +1617,7 @@
 
         SBUxMethod.set("DIFF_DAY", gfn_diffDate(value, SBUxMethod.get('PAY_BASE_DATE')));
 
-        if(gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
+        if (gfn_nvl(SBUxMethod.get('BASIS_TYPE')) == "5") {
             let ht1 = await fn_getExpectedPayDate(gfn_nvl(SBUxMethod.get('PAY_TERM_CODE')), value);
 
             SBUxMethod.set("BILL_DUE_DATE", ht1[0].has("BILL_DUE_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DATE"]) : "" : "");
@@ -1626,7 +1627,8 @@
     }
 
     var fn_findDeptCode = function () {
-        var searchText = gfn_nvl(SBUxMethod.get("DEPT_NAME"));
+        var searchCode = gfn_nvl(SBUxMethod.get("DEPT_CODE"));
+        var searchName = gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -1637,7 +1639,7 @@
             , whereClause: ''
             , searchCaptions: ["부서코드", "부서명", "기준일"]
             , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "BASE_DATE"]
-            , searchInputValues: ["", searchText, gfn_dateToYmd(new Date())]
+            , searchInputValues: [searchCode, searchName, gfn_dateToYmd(new Date())]
             , searchInputTypes: ["input", "input", "datepicker"]		//input, datepicker가 있는 경우
             , height: '400px'
             , tableHeader: ["기준일", "사업장", "부서명", "사업장코드"]
@@ -1735,7 +1737,8 @@
     }
 
     var fn_findPayTermCode = function () {
-        var searchText = gfn_nvl(SBUxMethod.get("PAY_TERM_NAME"));
+        var searchCode = gfn_nvl(SBUxMethod.get("PAY_TERM_CODE"));
+        var searchName = gfn_nvl(SBUxMethod.get("PAY_TERM_NAME"));
         var replaceText0 = "_PAY_TERM_CODE_";
         var replaceText1 = "_PAY_TERM_NAME_";
         var strWhereClause = "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%'";
@@ -1749,7 +1752,7 @@
             , whereClause: strWhereClause
             , searchCaptions: ["코드", "명칭"]
             , searchInputFields: ["PAY_TERM_CODE", "PAY_TERM_NAME"]
-            , searchInputValues: ["", searchText]
+            , searchInputValues: [searchCode, searchName]
             , height: '400px'
             , tableHeader: ["지급기일코드", "지급기일명", "지급기준"]
             , tableColumnNames: ["PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD_NAME"]
@@ -1763,26 +1766,29 @@
     }
 
     var fn_findAccItem = function (num) {
-        var searchText = gfn_nvl(SBUxMethod.get("ACC_VALUE_NAME" + num));
+        var searchCode = gfn_nvl(SBUxMethod.get("ACC_ITEM_VALUE" + num));
+        var searchName = gfn_nvl(SBUxMethod.get("ACC_VALUE_NAME" + num));
         var replaceText0 = "_ACC_ITEM_VALUE_";
         var replaceText1 = "_ACC_VALUE_NAME_";
         var strWhereClause = "AND ACC_ITEM_VALUE LIKE '%" + replaceText0 + "%' AND ACC_VALUE_NAME LIKE '%" + replaceText1 + "%'";
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '관리항목 정보');
         compopup1({
-            compCode: gv_ma_selectedApcCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: accPopupBizcompIdList["ACC_VALUE_NAME" + num]
-            , popupType: 'A'
-            , whereClause: accPopupWhereList["ACC_VALUE_NAME" + num]
-            , searchCaptions: ["관리항목코드", "관리항목명"]
-            , searchInputFields: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME"]
-            , searchInputValues: ["", searchText]
-            , height: '400px'
-            , tableHeader: ["관리항목", "관리항목명", "데이터유형", "컨트롤유형"]
-            , tableColumnNames: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", "DATA_TYPE", "CONTROL_TYPE"]
-            , tableColumnWidths: ["100px", "100px", "80px", "80px"]
-            , itemSelectEvent: function (data) {
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_FIM041'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["관리항목코드", "관리항목명"]
+            ,searchInputFields		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME"]
+            ,searchInputValues		: [searchCode, searchName]
+            ,searchInputTypes		: ["input", "input"]			//input, select가 있는 경우
+            ,searchInputTypeValues	: ["", ""]				//select 경우
+            ,height					: '400px'
+            ,tableHeader			: ["관리항목", "관리항목명", "데이터유형", "컨트롤유형"]
+            ,tableColumnNames		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", "DATA_TYPE", "CONTROL_TYPE"]
+            ,tableColumnWidths		: ["100px", "100px", "80px", "80px"]
+            ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 SBUxMethod.set('ACC_VALUE_NAME' + num, data.ACC_VALUE_NAME);
                 SBUxMethod.set('ACC_ITEM_VALUE' + num, data.ACC_ITEM_VALUE);
