@@ -132,8 +132,6 @@
 				  , HIRE_FRGNR_AVG			= #{hireFrgnrAvg}
 				  , HIRE_FRGNR_TASK_CN		= #{hireFrgnrTaskCn}
 
-				  , TMPR_STRG_YN			= #{tmprStrgYn}
-
 				  , SYS_LAST_CHG_DT			= SYSDATE
 				  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 				  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -154,8 +152,6 @@
 				  , HIRE_FRGNR_MAX
 				  , HIRE_FRGNR_AVG
 				  , HIRE_FRGNR_TASK_CN
-
-				  , TMPR_STRG_YN
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -181,8 +177,6 @@
 				  , #{hireFrgnrMax}
 				  , #{hireFrgnrAvg}
 				  , #{hireFrgnrTaskCn}
-
-				  , #{tmprStrgYn}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -218,8 +212,6 @@
 				, HIRE_FRGNR_MAX		= #{hireFrgnrMax}
 				, HIRE_FRGNR_AVG		= #{hireFrgnrAvg}
 				, HIRE_FRGNR_TASK_CN	= #{hireFrgnrTaskCn}
-
-				, TMPR_STRG_YN			= #{tmprStrgYn}
 		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}
