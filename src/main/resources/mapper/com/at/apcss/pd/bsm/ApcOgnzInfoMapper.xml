@@ -88,6 +88,7 @@
 			, CM.OGNZ_SE_CD
 			, CM.OGNZ_SE_NM
 			, CM.BRNO
+			, CM.CRNO
 			, CM.TYPE_CD
 			, CM.TYPE_NM
 			, CM.APC_HLD_CNT
@@ -114,10 +115,12 @@
 			, CM.OGNZ_SE_CD
 			, CM.OGNZ_SE_NM
 			, CM.BRNO
+			, CM.CRNO
 			, CM.TYPE_CD
 			, CM.TYPE_NM
 			, CM.APC_HLD_CNT
 			, CM.DEL_YN
+			, TO_CHAR( CM.SYS_LAST_CHG_DT , 'YYYYMMDD HH:mm:ss') AS LAST
 			  FROM TB_APC_OGNZ_INFO CM
 			 WHERE 1=1
 
@@ -130,6 +133,15 @@
 			</if>
 			<if test='typeNm != null and typeNm != ""'>
 				AND CM.TYPE_NM LIKE '%' || #{typeNm} || '%'
+			</if>
+			<if test='brno != null and brno != ""'>
+				AND CM.BRNO LIKE '%' || #{brno} || '%'
+			</if>
+			<if test='crno != null and crno != ""'>
+				AND CM.CRNO LIKE '%' || #{crno} || '%'
+			</if>
+			<if test='ognzCd != null and ognzCd != ""'>
+				AND CM.OGNZ_CD LIKE '%' || #{ognzCd} || '%'
 			</if>
 
     </select>
@@ -145,6 +157,7 @@
 					,OGNZ_SE_CD
 					,OGNZ_SE_NM
 					,BRNO
+					,CRNO
 					,TYPE_CD
 					,TYPE_NM
 					,APC_HLD_CNT
@@ -157,6 +170,7 @@
 					,#{ognzSeCd}
 					,#{ognzSeNm}
 					,#{brno}
+					,#{crno}
 					,#{typeCd}
 					,#{typeNm}
 					,#{apcHldCnt}

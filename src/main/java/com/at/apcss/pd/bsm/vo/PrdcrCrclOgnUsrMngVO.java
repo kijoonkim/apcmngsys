@@ -35,6 +35,7 @@ public class PrdcrCrclOgnUsrMngVO extends ComVO{
 	private String coTelno;//회사번호
 	private String mbrUpdtYn;//정보갱신 여부
 	private String mbrUpdtTm;//정보갱신 시간
+	private String crno;		//법인등록번호
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

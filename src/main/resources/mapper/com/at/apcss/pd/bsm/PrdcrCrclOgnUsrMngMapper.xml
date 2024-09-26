@@ -41,6 +41,7 @@
 				, CM.UNTY_OGNZ_CD
 				, CM.CTPV
 				, CM.SGG
+				, CM.CRNO
 				, CM.TYPE_CD
 				, CM.CO_TELNO
 				, CM.MBR_UPDT_TM
@@ -106,6 +107,7 @@
 				, CM.UNTY_OGNZ_CD
 				, CM.CTPV
 				, CM.SGG
+				, CM.CRNO
 				, CM.TYPE_CD
 				, CM.CO_TELNO
 				, CM.MBR_UPDT_TM
@@ -340,4 +342,15 @@
     	WHERE 1=1
     	  AND BRNO = #{brno}
     </update>
+
+	<update id="updateMemberMbrUpdtYn" parameterType="com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO">
+		UPDATE TB_COM_USER /* com.at.apcss.pd.bsm.mapper.PrdcrCrclOgnUsrMngMapper.updateMemberUserType */
+		SET
+			MBR_UPDT_YN = #{mbrUpdtYn}
+			, SYS_LAST_CHG_DT		= SYSDATE
+			, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE 1=1
+		  AND USER_ID = #{userId}
+	</update>
 </mapper>

@@ -65,4 +65,11 @@ public interface PrdcrCrclOgnUsrMngMapper {
 	 * @return
 	 */
 	public int updateTbApcOgnzInfoUserType(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
+
+	/**
+	 * 유저 정보 갱신여부 수정
+	 * @param PrdcrCrclOgnUsrMngVO
+	 * @return
+	 */
+	public int updateMemberMbrUpdtYn(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO);
 }

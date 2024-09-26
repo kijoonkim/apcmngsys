@@ -22,10 +22,21 @@
 	<!-- ==========================================================================	-->
 	<select id="selectFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
 		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo */
-			  AOPO.OPER_OGNZ_NM
-			, AOPO.CRTR_YR
+			AOPO.CRTR_YR
+
+			<if test='memberInfoYn == "Y"'>
+			, (SELECT CO_NM FROM TB_COM_USER WHERE USER_ID = #{userId}) AS OPER_OGNZ_NM
+			, (SELECT RPRSV_KORN_NM FROM TB_COM_USER WHERE USER_ID = #{userId}) AS RPRSV
+			, (SELECT BRNO FROM TB_COM_USER WHERE USER_ID = #{userId}) AS OPER_OGNZ_BRNO
+			, (SELECT CRNO FROM TB_COM_USER WHERE USER_ID = #{userId}) AS OPER_OGNZ_CRNO
+			</if>
+
+			<if test='memberInfoYn != "Y"'>
+			, AOPO.OPER_OGNZ_NM
+			, AOPO.RPRSV
 			, AOPO.OPER_OGNZ_BRNO
 			, AOPO.OPER_OGNZ_CRNO
+			</if>A
 
 			, AOPO.APC_CD
 			, AOPO.APC_NM
@@ -677,5 +688,16 @@
 		<![CDATA[
 		)WHERE ROWNUM <= 2
 		]]>
+	</select>
+
+	<select id="selectUserInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserInfo */
+			CO_NM			 AS OPER_OGNZ_NM
+			,RPRSV_KORN_NM	 AS RPRSV
+			,BRNO			 AS OPER_OGNZ_BRNO
+			,CRNO			 AS OPER_OGNZ_CRNO
+		FROM TB_COM_USER
+		WHERE 1=1
+		  AND USER_ID = #{userId}
 	</select>
 </mapper>

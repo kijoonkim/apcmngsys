@@ -1556,6 +1556,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				userType = '2'
 			}
 			//유저 권한과 데이터가 맞지 않는 경우 오류 처리
+			/*
 			if(userType != apoSe){
 				alert("해당 계정의 권한과 기존데이터의 타입이 맞지 않습니다"+
 						"\n관리자에게 문의 해주세요");
@@ -1564,6 +1565,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				SBUxMethod.clearAllData();//모든 데이터 클리어
 				return false;
 			}
+			*/
 			if(corpDdlnSeCd == 'Y'){
 				//$(".btn").hide();// 모든 버튼 숨기기
 				//저장버튼만 숨김처리

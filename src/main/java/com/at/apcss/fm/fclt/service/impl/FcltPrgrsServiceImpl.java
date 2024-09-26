@@ -49,4 +49,10 @@ public class FcltPrgrsServiceImpl extends BaseServiceImpl implements FcltPrgrsSe
 		return insertCnt;
 	}
 
+	@Override
+	public int updatePrgrsLast(FcltPrgrsVO fcltPrgrsVO) throws Exception {
+		int insertCnt = fcltPrgrsMapper.updatePrgrsLast(fcltPrgrsVO);
+		return insertCnt;
+	}
+
 }

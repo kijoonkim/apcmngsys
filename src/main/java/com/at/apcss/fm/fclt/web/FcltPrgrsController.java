@@ -106,4 +106,31 @@ public class FcltPrgrsController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 운영자개요 등록
+	@PostMapping(value = "/fm/fclt/updatePrgrsLast.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updatePrgrsLast(@RequestBody FcltPrgrsVO fcltPrgrsVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltPrgrsVO.setSysFrstInptUserId(getUserId());
+		fcltPrgrsVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltPrgrsVO.setSysLastChgUserId(getUserId());
+		fcltPrgrsVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltPrgrsService.updatePrgrsLast(fcltPrgrsVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, updatedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

@@ -47,8 +47,10 @@ public class ApcOgnzInfoVO extends ComVO{
 	private String ognzSeCd;
 	private String ognzSeNm;
 	private String brno;
+	private String crno;
 	private String typeCd;
 	private String typeNm;
 	private String apcHldCnt;
+	private String last;
 
 }

@@ -304,4 +304,16 @@
 				  , #{sysLastChgPrgrmId}
 				)
 	</update>
+
+	<!-- 최종제출 여부 업데이트 -->
+	<update id="updatePrgrsLast" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+		UPDATE
+			TB_TE_APC_PRGRS
+		SET
+			PRGRS_LAST = #{prgrsLast}
+		WHERE 1=1
+		  AND CRTR_YR		= #{crtrYr}
+		  AND APC_CD		= #{apcCd}
+		  AND PRGRS_SE_CD	= 'FCLT'
+	</update>
 </mapper>

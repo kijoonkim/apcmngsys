@@ -38,11 +38,19 @@ public interface FcltPrgrsService {
 	public List<FcltPrgrsVO> selectPrgrsList(FcltPrgrsVO fcltPrgrsVO) throws Exception;
 
 	/**
-	 * 운영자개요정보를 등록한다.
+	 * 진척도를 등록한다.
 	 * @param fcltPrgrsVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int insertFcltPrgrs(FcltPrgrsVO fcltPrgrsVO) throws Exception;
+
+	/**
+	 * 최종제출 여부를 업데이트 한다
+	 * @param fcltPrgrsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePrgrsLast(FcltPrgrsVO fcltPrgrsVO) throws Exception;
 
 }
