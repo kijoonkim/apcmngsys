@@ -41,6 +41,7 @@
 				, CM.UNTY_OGNZ_CD
 				, CM.CTPV
 				, CM.SGG
+				, CM.CRNO
 				, CM.TYPE_CD
 				, CM.CO_TELNO
 				, CM.MBR_UPDT_TM
@@ -106,6 +107,7 @@
 				, CM.UNTY_OGNZ_CD
 				, CM.CTPV
 				, CM.SGG
+				, CM.CRNO
 				, CM.TYPE_CD
 				, CM.CO_TELNO
 				, CM.MBR_UPDT_TM

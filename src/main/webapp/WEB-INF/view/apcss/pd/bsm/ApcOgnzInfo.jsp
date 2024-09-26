@@ -38,15 +38,18 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-ognzNm" name="srch-inp-ognzNm" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<th class="th_bg">조직구분명</th>
+							<th class="th_bg">조직코드</th>
 							<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-ognzSeNm" name="srch-inp-ognzSeNm" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="srch-inp-ognzCd" name="srch-inp-ognzCd" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<th class="th_bg">유형명</th>
+							<th class="th_bg">사업자등록번호</th>
 							<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-typeNm" name="srch-inp-typeNm" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+								<sbux-input id="srch-inp-brno" name="srch-inp-brno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
 							</td>
-							<td colspan="2" style="border-left: hidden;"></td>
+							<th class="th_bg">법인등록번호</th>
+							<td class="td_input" style="border-right:hidden;">
+								<sbux-input id="srch-inp-crno" name="srch-inp-crno" uitype="text" class="form-control input-sm" placeholder="" ></sbux-input>
+							</td>
 						</tr>
 
 					</tbody>
@@ -153,12 +156,15 @@
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.explorerbar = 'sort';//정렬
 	    SBGridProperties.columns = [
 	    	{caption: ["조직코드"], 		ref: 'ognzCd',   	type:'input',  width:'15%', hidden : false},
 	        {caption: ["조직명"], 	ref: 'ognzNm',   	type:'input',   width:'15%',   style:'text-align:center'},
+	        {caption: ["사업자번호"], 	ref: 'brno',   	type:'input',   width:'15%',  style:'text-align:center'},
+	        {caption: ["법인등록번호"], 	ref: 'crno',   	type:'input',   width:'15%',  style:'text-align:center'},
+	        {caption: ["마지막변경시간"], 	ref: 'last',   	type:'output',   width:'16%',  style:'text-align:center'},
 	        {caption: ["조직구분코드"], 	ref: 'ognzSeCd',   	type:'input',  width:'15%',   style:'text-align:center'},
 	        {caption: ["조직구분명"], 	ref: 'ognzSeNm',   	type:'input',   width:'15%',  style:'text-align:center'},
-	        {caption: ["사업자번호"], 	ref: 'brno',   	type:'input',   width:'15%',  style:'text-align:center'},
 	        {caption: ["유형코드"], 	ref: 'typeCd',   	type:'input',  width:'15%',   style:'text-align:center'},
 	        {caption: ["유형명"], 	ref: 'typeNm',   	type:'input',  width:'15%',   style:'text-align:center'},
 	        {caption: ["APC보유수"], 	ref: 'apcHldCnt',   	type:'input',   width:'15%',  style:'text-align:center'},
@@ -203,12 +209,12 @@
 
 	const fn_report = async function() {
 		let ognzNm = SBUxMethod.get("srch-inp-ognzNm");//
-		let ognzSeNm = SBUxMethod.get("srch-inp-ognzSeNm");//
+		//let ognzSeNm = SBUxMethod.get("srch-inp-ognzSeNm");//
 		let typeNm = SBUxMethod.get("srch-inp-typeNm");//
 
 		gfn_popClipReport("통합조직 코드 관리", "pd/allCodeDoc.crf", {
 			ognzNm 		: gfn_nvl(ognzNm)
-			, ognzSeNm 	: gfn_nvl(ognzSeNm)
+			//, ognzSeNm 	: gfn_nvl(ognzSeNm)
 			, typeNm 	: gfn_nvl(typeNm)
 		});
 	}
@@ -217,30 +223,38 @@
 	/* Grid Row 조회 기능*/
 	const fn_searchFcltList = async function(){
 		let ognzNm = SBUxMethod.get("srch-inp-ognzNm");//
-		let ognzSeNm = SBUxMethod.get("srch-inp-ognzSeNm");//
-		let typeNm = SBUxMethod.get("srch-inp-typeNm");//
+		//let ognzSeNm = SBUxMethod.get("srch-inp-ognzSeNm");//
+		//let typeNm = SBUxMethod.get("srch-inp-typeNm");//
+		let brno = SBUxMethod.get("srch-inp-brno");//
+		let crno = SBUxMethod.get("srch-inp-crno");//
+		let ognzCd = SBUxMethod.get("srch-inp-ognzCd");//
 		//let apcCd = SBUxMethod.get("inp-apcCd");
-    	//let postJsonPromise = gfn_postJSON("/pd/bsm/selectapcOgnzInfo.do", {apcCd : apcCd});
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectApcOgnzInfoList.do", {
-    		ognzNm : ognzNm
-    		,ognzSeNm : ognzSeNm
-    		,typeNm : typeNm
+		//let postJsonPromise = gfn_postJSON("/pd/bsm/selectapcOgnzInfo.do", {apcCd : apcCd});
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectApcOgnzInfoList.do", {
+			ognzNm : ognzNm
+			//,ognzSeNm : ognzSeNm
+			,brno : brno
+			,crno : crno
+			,ognzCd : ognzCd
+			//,typeNm : typeNm
 		});
-        let data = await postJsonPromise;
-        try{
-        	jsonapcOgnzInfo.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise;
+		try{
+			jsonapcOgnzInfo.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				let apcOgnzInfoVO = {
 					ognzCd : item.ognzCd
 				  , ognzNm 		: item.ognzNm
 				  , ognzSeCd 	: item.ognzSeCd
 				  , ognzSeNm 	: item.ognzSeNm
 				  , brno 		: item.brno
+				  , crno 		: item.crno
 				  , typeCd 		: item.typeCd
 				  , typeNm 		: item.typeNm
 				  , apcHldCnt 	: item.apcHldCnt
 				  , delYn 		: item.delYn
+				  , last		: item.last
 				}
 				jsonapcOgnzInfo.push(apcOgnzInfoVO);
 			});

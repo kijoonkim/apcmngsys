@@ -147,6 +147,8 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		ComLogVO comLogVo = new ComLogVO();
 		String userId = loginVo.getUserId();
 		String brno = loginVo.getBrno();
+		String crno = loginVo.getCrno();
+		String typeCd = loginVo.getTypeCd();
 		String userType = loginVo.getUserType();
 		String menuId ="userChange";
 
@@ -158,7 +160,9 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 			sessionLoginVo.setUserId(userId);
 			sessionLoginVo.setUserType(userType);
 			sessionLoginVo.setBrno(brno);
+			sessionLoginVo.setCrno(crno);
 			sessionLoginVo.setId(userId);
+			sessionLoginVo.setMbrTypeCd(typeCd);
 			request.getSession().setAttribute("loginVO", sessionLoginVo);
 
 			comLogVo.setUserId(userId);
@@ -192,7 +196,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		PrdcrCrclOgnUsrMngVO.setSysFrstInptUserId(getUserId());
 		PrdcrCrclOgnUsrMngVO.setSysLastChgPrgrmId(getPrgrmId());
 		PrdcrCrclOgnUsrMngVO.setSysLastChgUserId(getUserId());
-		
+
 		int result = 0;
 
 		try {

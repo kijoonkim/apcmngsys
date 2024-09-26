@@ -221,6 +221,8 @@
 						<tr>
 							<th scope="row" class="th_bg" >아이디</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
+								<sbux-input id="dtl-input-crno" name="dtl-input-crno" uitype="hidden"></sbux-input>
+								<sbux-input id="dtl-input-typeCd" name="dtl-input-typeCd" uitype="hidden"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-userId"
@@ -602,6 +604,15 @@
 			{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',	style:'text-align:center'},
 			{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',	style:'text-align:center'},
 
+			{caption: ["조직코드"], 	ref: 'untyOgnzCd',   	type:'output',   width:'100px',  style:'text-align:center'},
+			{caption: ["법인등록번호"], 	ref: 'crno',   			type:'output',   width:'100px',  style:'text-align:center'},
+			{caption: ["시도"], 		ref: 'ctpv',   			type:'output',   width:'100px',  style:'text-align:center'},
+			{caption: ["시군구"], 		ref: 'sgg',   			type:'output',   width:'100px',  style:'text-align:center'},
+			{caption: ["회원타입"], 	ref: 'typeCd',   		type:'output',   width:'100px',  style:'text-align:center'},
+			{caption: ["회사번호"], 	ref: 'coTelno',   		type:'output',   width:'100px',  style:'text-align:center'},
+			{caption: ["회원정보 갱신여부"], 	ref: 'mbrUpdtYn',   type:'output',   width:'100px',  style:'text-align:center'},
+			{caption: ["회원정보 갱신시간"], 	ref: 'mbrUpdtTm',   type:'output',   width:'100px',  style:'text-align:center'},
+
 			{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
 			{caption: ["이름"], 		ref: 'userNm',   			hidden : true},
 			{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
@@ -702,6 +713,16 @@
 				  , coNm 		: item.coNm
 				  , cmptncInstAprvSe 	: item.cmptncInstAprvSe
 				  , cmptncInstAprvYmd : item.cmptncInstAprvYmd
+
+				  , untyOgnzCd 		: item.untyOgnzCd
+				  , crno 			: item.crno
+				  , ctpv 			: item.ctpv
+				  , sgg 			: item.sgg
+				  , typeCd 			: item.typeCd
+				  , coTelno 		: item.coTelno
+				  , mbrUpdtYn 		: item.mbrUpdtYn
+				  , mbrUpdtTm 		: item.mbrUpdtTm
+
 
 				  , cmptncInst 	: item.cmptncInst
 				}
@@ -895,6 +916,8 @@
 		SBUxMethod.set("dtl-input-userStts", gfn_nvl(rowData.userStts));  //  1차승인
 		SBUxMethod.set("dtl-input-telno", gfn_nvl(rowData.telno));  //  전화번호
 		SBUxMethod.set("dtl-input-brno", gfn_nvl(rowData.brno));  //  사업자번호
+		SBUxMethod.set("dtl-input-crno", gfn_nvl(rowData.crno));  //  법인등록 번호
+		SBUxMethod.set("dtl-input-typeCd", gfn_nvl(rowData.typeCd));  //  회원타입
 		SBUxMethod.set("dtl-input-mblTelno", gfn_nvl(rowData.mblTelno));  //  휴대폰번호
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", gfn_nvl(rowData.cmptncInstAprvYmd));  //  관할기관승인일
 		SBUxMethod.set("dtl-input-userAprvYmd", gfn_nvl(rowData.userAprvYmd));  //  사용자승인일
@@ -1023,23 +1046,32 @@
 		}
 
 	}
-
+	//해당 아이디로 세션 변경
 	async function fn_userChange(){
 		let userId = SBUxMethod.get("dtl-input-userId");
 		//아이디 필수
 		if(gfn_isEmpty(userId)) return;
-		let brno = SBUxMethod.get("dtl-input-brno");
+
 		let userType = SBUxMethod.get("dtl-input-userType");
+		/*
 		//통합,출자출하 조직만 가능하게 설정
 		if(userType != '21' && userType != '22'){
 			alert('통합조직 or 출자출하조직인 경우만 가능합니다');
 			return;
 		}
+		*/
+
 		if (!confirm("선택된 유저로 접속하시겠습니까?")) return;
+
+		let brno = SBUxMethod.get("dtl-input-brno");
+		let crno = SBUxMethod.get("dtl-input-crno");
+		let typeCd = SBUxMethod.get("dtl-input-typeCd");
 
 		let postJsonPromise = gfn_postJSON("/userChange.do", {
 			userId : userId
 			,brno : brno
+			,crno : crno
+			,typeCd : typeCd
 			,userType : userType
 		});
 		let data = await postJsonPromise;
