@@ -1,546 +1,682 @@
 <%
     /**
-     * @Class Name : regSpmtPrfmncMbl.jsp
-     * @Description : 출하실적등록 모바일 화면
+     * @Class Name : regSpmtPrfmncSimp.jsp
+     * @Description : 출하 간편등록 화면
      * @author SI개발부
-     * @since 2024.4.18
+     * @since 2024.09.10
      * @version 1.0
      * @Modification Information
      * @
      * @ 수정일       	수정자      	수정내용
      * @ ----------	----------	---------------------------
-     * @ 2024.4.18   	손민성		최초 생성
+     * @ 2024.09.25   	손민성		최초 생성
      * @see
      *
      */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 출하실적 간편등록</title>
+    <title>title : 출하 간편등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
     <style>
-        .th-mbl {
-            text-align: right;
-            font-weight: bold;
-            font-size: 28px;
-        }
-        .inpt-mbl{
-            height: 50px;
-            font-size: 28px;
-            line-height: 1.5;
-            color: #555;
-            width: 100%;
-        }
-        input[type="radio"]{
-            display: none;
-        }
-        .grdLable{
-            border: 1px solid black;
-            flex-basis: 10%;
-            font-size: 28px;
-            text-align: center;
-            height: 50px;
-            line-height: 1.7;
-            cursor: pointer;
-        }
-        .hidden-radio:checked + .grdLable{
-            background: #fcc000;
-        }
-        .radio-label{
-            font-weight: bold;
-        }
-        .btn_cnt{
-            width: 50px;
-            border-radius: 0;
-            height: 100%;
+        #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
             border: 0;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            background: #8faadc;
+            padding: 0;
         }
-        #inpt-table tbody td {
-            font-size: 23px;
+        .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-nor-bd > li.sbux-tabs-item > a:hover, .sbux-tabs-wrap.sbux-tabs-webacc ul.sbux-tabs-inbox-bd > li.sbux-tabs-item > a:hover {
+            border-color : rgb(221, 221, 221) !important;
+        }
+        .tabBox{
+            border: 1px solid black;
+            font-size: 2vw;
+            width: 15vw;
             text-align: center;
+            padding: 10px 0px;
+            text-wrap: nowrap;
+            overflow: hidden;
+            cursor: pointer;
+            /*border-radius: 5px;*/
+        }
+        .tabBox_sm{
+            border: 1px solid black;
+            font-size: 1vw;
+            width: 5vw;
+            text-align: center;
+            padding: 10px 0px;
+            text-wrap: nowrap;
+            overflow: hidden;
+            cursor: pointer;
+
+        }
+        .tabBox.active, .tabBox_sm.active{
+            background-color: #fdbf01;
+            /*background-color: #1c54a2;*/
+            /*font-weight: bold;*/
+            /*color: white;*/
+        }
+        #tab_pckgPrfmncReg > li > div > table > tbody > tr > th {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .td_input_mob{
+            padding: 10px 3vw !important;
+            position: relative;
+        }
+        .cell{
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            flex: 0 0 100%;
+            justify-content: center;
+        }
+        .carouselBtn{
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-color: initial;
+            border: 0;
+        }
+        .btn-size {
+            width: 10vw;
+            font-size: 1.2vw;
+        }
+        table th{
+            text-align : center;
         }
     </style>
 </head>
 <body oncontextmenu="return false">
-<section style="overflow: hidden">
+<section class="content container-fluid">
     <div class="box box-solid">
-        <div class="box-header" style="display:flex; justify-content: flex-start;" >
-            <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-            <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 출하실적 간편등록  -->
-        </div>
-        <div style="margin-left: auto;padding-top: 0px;display: flex;justify-content: flex-start;" class="box-header">
-            <div style="margin-right: auto;">
-                <sbux-button id="btnClose" name="btnClose" uitype="normal" text="송품장" class="btn btn-primary btn-mbl" onclick="fn_docSpmt"></sbux-button>
-<%--                <sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal"   text="송품장목록" class="btn btn-primary btn-mbl" onclick="fn_selectSpmtList"></sbux-button>--%>
-                <sbux-button id="btnReset" name="btnReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" onclick="fn_reset"></sbux-button>
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-mbl btn-outline-danger" onclick="fn_save"></sbux-button>
-                <%--                <sbux-button id="fullScreen" name="fullScreen" uitype="normal" text="전체화면" class="btn btn-sm btn-primary btn-mbl" onclick="fn_fullScreen"></sbux-button>--%>
-                <div style="float:right;margin-left:10px;">
-                    <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked>
-                        <label for="srch-chk-autoPrint"style="font-size: 3vh">자동출력</label>
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" >
-                        <label for="srch-chk-exePrint"style="font-size: 3vh">미리보기</label>
-                    </p>
-                </div>
+        <div class="box-header" style="display:flex; justify-content: flex-start; position: sticky; top:0; background: white; z-index: 999" >
+            <div ondblclick="fn_fullScreen()">
+                <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 정산정보조회 -->
+            </div>
+            <div style="margin-left: auto;">
+                <sbux-button
+                        id="btnReset"
+                        name="btnReset"
+                        uitype="normal"
+                        class="btn btn-sm btn-outline-danger"
+                        text="신규"
+                        onclick="fn_reset"
+                ></sbux-button>
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-bordered tbl_fixed">
+            <table class="table table-bordered tbl_fixed" style="margin-bottom: 10px">
                 <caption>검색 조건 설정</caption>
                 <colgroup>
                     <col style="width: 20%">
-                    <col style="width: 80%">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th scope="row" class="th_bg th-mbl">
-                            <span class="data_required"></span>출고일자
-                        </th>
-                        <td class="td_input" style="border: 1px solid black">
-                            <div style="display: flex;">
-                                <sbux-datepicker id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd"
-                                                 uitype="popup" date-format="yyyy-mm-dd"
-                                                 class="pull-right sbux-pik-group-apc inpt-mbl inpt_data_reqed input-sm-ast"
-                                                 onchange="fn_dtpChange(dtl-dtp-spmtYmd)"
-                                                 wrap-style="flex-basis:30%">
-                                </sbux-datepicker>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg th-mbl">
-                            <span class="data_required"></span>거래처
-                        </th>
-                        <td class="td_input">
-                            <div style="display:flex; gap: 5px">
-                                <sbux-select
-                                        id="srch-slt-cnptCd"
-                                        name="srch-slt-cnptCd"
-                                        uitype="single"
-                                        jsondata-ref="jsonComCnpt"
-                                        unselected-text="선택"
-                                        class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                        onchange="fn_onChangeSrchItemCd(this)"
-                                        wrap-style="flex-basis:40%"
-                                ></sbux-select>
-                                <p class="ad_input_row chk-mbl" style="vertical-align:middle;line-height: 1.6">
-                                    <input
-                                            style="width:20px;height:20px;"
-                                            type="checkbox"
-                                            id="srch-chk-cnptCd"
-                                            name="srch-chk-cnptCd"
-                                            checked
-                                    />
-                                    <label for="srch-chk-cnptCd" style="font-size: 25px">고정</label>
-                                </p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg th-mbl">
-                            <span class="data_required"></span>품목/품종
-                        </th>
-                        <td  class="td_input">
-                            <div style="display:flex; gap: 5px">
-                                    <sbux-select
-                                            id="srch-slt-itemCd"
-                                            name="srch-slt-itemCd"
-                                            uitype="single"
-                                            jsondata-ref="jsonComItem"
-                                            unselected-text="전체"
-                                            class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                            onchange="fn_onChangeSrchItemCd(this)"
-                                            wrap-style="flex-basis:40%"
-                                    ></sbux-select>
-                                    <sbux-select
-                                            id="srch-slt-vrtyCd"
-                                            name="srch-slt-vrtyCd"
-                                            uitype="single"
-                                            jsondata-ref="jsonComVrty"
-                                            jsondata-value="vrtyCd"
-                                            unselected-text="선택"
-                                            class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                            wrap-style="flex-basis:40%"
-                                    ></sbux-select>
-                                    <p class="ad_input_row chk-mbl" style="vertical-align:middle;line-height: 1.6">
-                                        <input
-                                                style="width:20px;height:20px;"
-                                                type="checkbox"
-                                                id="srch-chk-fxngItem"
-                                                name="srch-chk-fxngItem"
-                                                checked
-                                        />
-                                        <label for="srch-chk-fxngItem" style="font-size: 25px">고정</label>
-                                    </p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg th-mbl">
-                            <span class="data_required"></span>규격
-                        </th>
-                        <td class="td_input">
-                            <div style="display:flex">
-                                <sbux-select
-                                        id="srch-slt-spcfctCd"
-                                        name="srch-slt-spcfctCd"
-                                        uitype="single"
-                                        jsondata-ref="jsonComSpcfctCd"
-                                        unselected-text="전체"
-                                        class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                        jsondata-text="spcfctNm"
-                                        jsondata-value="spcfctCd"
-                                        wrap-style="flex-basis:40%"
-                                ></sbux-select>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg th-mbl">
-                            <span class="data_required"></span>등급
-                        </th>
-                        <td class="td_input" style="border: 1px solid black">
-                            <div style="display:flex; align-items: center; gap: 10px">
-                                <input id="grd1" type="radio" name="grd" class="hidden-radio" grdCd="01"/>
-                                <label class="grdLable" for="grd1">
-                                    <span class="radio-label">특상</span>
-                                </label>
-                                <input id="grd2" type="radio" name="grd" class="hidden-radio" grdCd="02"/>
-                                <label class="grdLable" for="grd2">
-                                    <span class="radio-label">특</span>
-                                </label>
-                                <input id="grd3" type="radio" name="grd" class="hidden-radio" grdCd="03"/>
-                                <label class="grdLable" for="grd3">
-                                    <span class="radio-label">보통</span>
-                                </label>
-<%--                                <sbux-label id="idxLabel_norm" name="label_norm" uitype="normal" text="재고량" style="font-size: 20px;font-weight: bold">--%>
-<%--                                </sbux-label><p id="invtCnt" style="font-weight: bold; font-size: 20px"></p>--%>
-                            </div>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg th-mbl">
-                            <span class="data_required"></span>수량
-                        </th>
-                        <td style="border: 1px solid black" class="td_input">
-                            <div id="cntWrap" style="display: flex; gap: 10px;">
-                                <div id="btn_wrap" style="display: flex; gap:10px">
-                                    <button class="btn_cnt" value="1" onclick="fn_addCnt(this.value)">1</button>
-                                    <button class="btn_cnt" value="5" onclick="fn_addCnt(this.value)">5</button>
-                                    <button class="btn_cnt" value="10" onclick="fn_addCnt(this.value)">10</button>
-                                    <button class="btn_cnt" value="50" onclick="fn_addCnt(this.value)">50</button>
-                                </div>
-                                <div style="flex-basis: 10%">
-                                    <sbux-input id="btn_total" name="btn_total" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" style="height:50px; font-size: 28px; text-align:center;background-color: #FFF8DC;"></sbux-input>
-                                </div>
-                                <div><sbux-button id="cntReset" name="cntReset" uitype="normal" text="초기화" class="btn btn-mbl btn-outline-danger" style="font-size: 23px;"onclick="fn_cntReset"></sbux-button></div>
-                                <div><sbux-button id="cntInpt" name="cntInpt" uitype="normal" text="확인" class="btn btn-primary btn-mbl" style="font-size: 23px;"onclick="fn_cntInpt"></sbux-button></div>
-                                <div><p class="ad_input_row chk-mbl" style="vertical-align:middle;line-height: 1.6">
-                                    <input
-                                            style="width:20px;height:20px;"
-                                            type="checkbox"
-                                            id="srch-chk-totalCnt"
-                                            name="srch-chk-totalCnt"
-                                    />
-                                    <label for="srch-chk-totalCnt" style="font-size: 25px">고정</label>
-                                </p></div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table id="inpt-table" class="table table-bordered tbl_fixed" style="margin-top: 15px">
-                <colgroup>
-                    <col style="width: 5%">
+                    <col style="width: 30%">
                     <col style="width: 20%">
-                    <col style="width: 25%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
+                    <col style="width: 30%">
                 </colgroup>
-                <thead>
-                    <td class="th_bg th-mbl" style="text-align: center">처리</td>
-                    <td class="th_bg th-mbl" style="text-align: center">품목</td>
-                    <td class="th_bg th-mbl" style="text-align: center">품종</td>
-                    <td class="th_bg th-mbl" style="text-align: center">규격</td>
-                    <td class="th_bg th-mbl" style="text-align: center">특상</td>
-                    <td class="th_bg th-mbl" style="text-align: center">특</td>
-                    <td class="th_bg th-mbl" style="text-align: center">상</td>
-                    <td class="th_bg th-mbl" style="text-align: center">계</td>
-                </thead>
                 <tbody>
+                <tr>
+                    <th scope="row" class="th_bg">APC명</th>
+                    <td class="td_input">
+                        <div style="display: flex">
+                            <sbux-input
+                                    id="gsb-slt-apcCd"
+                                    name="gsb-slt-apcCd"
+                                    uitype="text"
+                                    class="form-control input-sm"
+                                    style="flex-basis:60%"
+                                    readonly
+                                    value="${apcNm}"
+                            ></sbux-input>
+                        </div>
+                    </td>
+                    <th scope="row" class="th_bg">포장일자</th>
+                    <td class="td_input">
+                        <div style="display: flex;">
+                            <sbux-datepicker
+                                    id="srch-dtp-clclnY"
+                                    name="srch-dtp-clclnY"
+                                    uitype="popup"
+                                    date-format="yyyy-mm-dd"
+                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                    style="height: 28px"
+                            ></sbux-datepicker>
+                        </div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
+
+            <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
+                       title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc"
+                       title-text-array="출하선택^출하등록"
+                       title-style-array="{margin-right: 5px;width: 8vw;
+                 text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
+                 text-align: center;font-weight: bold;border-radius:0}">
+            </sbux-tabs>
+
+            <div class="tab-content">
+                <div id="tab_pckgPrfmncReg">
+                    <table class="table table-bordered tbl_fixed" style="margin-top: 10px">
+                        <colgroup>
+                            <col style="width: 15%">
+                            <col style="width: 85%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="th_bg">
+                                <div style="display: flex;justify-content: center;flex-direction: column;">
+                                    <div>거래처</div>
+                                    <div>
+                                        <span style="font-size: 15px">고정</span>
+                                        <input type="checkbox" id="fixCnpt" />
+                                    </div>
+                                </div>
+                            </th>
+                            <td id="cnptInfoWrap" class="td_input_mob">
+                                <button class="carouselBtn" onclick="fn_left('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
+                                <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                    </div>
+                                </div>
+                                <button class="carouselBtn" onclick="fn_right('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">생산자</th>
+                            <td id="prdcrInfoWrap" class="td_input_mob">
+                                <button class="carouselBtn" onclick="fn_left('prdcrInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
+                                <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                    </div>
+                                </div>
+                                <button class="carouselBtn" onclick="fn_right('prdcrInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">품목</th>
+                            <td id="itemInfoWrap" class="td_input_mob">
+                                <button class="carouselBtn" onclick="fn_left('itemInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
+                                <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                    </div>
+                                </div>
+                                <button class="carouselBtn" onclick="fn_right('itemInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">품종</th>
+                            <td id="vrtyInfoWrap" class="td_input_mob">
+                                <button class="carouselBtn" onclick="fn_left('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
+                                <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                    </div>
+                                </div>
+                                <button class="carouselBtn" onclick="fn_right('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">규격</th>
+                            <td id="spcfctInfoWrap"class="td_input_mob">
+                                <button class="carouselBtn" onclick="fn_left('spcfctInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
+                                <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                    </div>
+                                </div>
+                                <button class="carouselBtn" onclick="fn_right('spcfctInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 0; font-size: 28px; font-weight: bold;">
+                                <div style="background: #c5e0b4;flex-shrink: 0; padding: 10px 5vw; display: flex;gap: 5vw">
+                                    <div style="display: flex;gap: 10px; flex-shrink: 0;">재고 <input id="invntrQntt" type="number" style="color: #0a199e; border: 1px solid black;width: 10vw; background: white; padding-left: 10px" /></div>
+                                    <div style="display: flex;gap: 2px; flex-shrink: 0;">거래처: <div id="cnptcd" type="text" style="color: #0a199e"></div></div>
+                                    <div style="display: flex;gap: 2px; flex-shrink: 0;">생산자: <div id="prdcrcd" type="text" style="color: #0a199e"></div></div>
+                                    <div style="display: flex;gap: 2px; flex-shrink: 0;">품종: <div id="vrtycd" type="text" style="color: #0a199e"></div></div>
+                                    <div style="display: flex;gap: 2px; flex-shrink: 0;">규격: <div id="spcfctcd" type="text" style="color: #0a199e"></div></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">수량</th>
+                            <td class="td_input_mob">
+                                <div style="display: flex; justify-content: space-between">
+                                    <div style="display: flex; gap: 1.5vw">
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">1</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">5</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">10</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">50</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">100</div>
+                                    </div>
+                                    <div style="display: flex; gap: 1.5vw">
+                                        <input id="pckgQntt" type="number" style="font-size: 1.5vw; text-align: center; background: #ffff00;border: 1px solid black"/>
+                                        <sbux-button
+                                                id="btnRegReset"
+                                                name="btnRegReset"
+                                                uitype="normal"
+                                                class="btn btn-outline-danger btn-size"
+                                                text="초기화"
+                                                onclick="fn_RegReset"
+                                        ></sbux-button>
+                                        <sbux-button
+                                                id="btnRegSave"
+                                                name="btnRegSave"
+                                                uitype="normal"
+                                                class="btn btn-success btn-size"
+                                                text="확인"
+                                                onclick="fn_add"
+                                        ></sbux-button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tab_pckgPrfmnc">
+                    <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px">
+
+                    </div>
+                    <div style="display: flex; gap: 10px;justify-content: flex-end">
+                        <button class="btn btn-success" onclick="fn_saveWithReport()">출하등록<span style="color: yellow"> + 출하통지서</span></button>
+                        <button class="btn btn-success">출하등록</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+<!-- clip report direct print area  -->
 <div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
 <script type="text/javascript">
+    /** 포장실적 grid 변수 **/
+    var jsonPckgPrfmnc = [];
+    let gridPckgPrfmnc;
 
-    var inptJson = [];
+    /** 출하선택용 Obj **/
+    let spmtObj = {};
 
-    /** sbSelect **/
-    var jsonComItem = [];
-    var jsonComVrty = [];
-    var jsonComCnpt = [];
-    var jsonComSpcfctCd = [];
-    var jsonGdsGrd = [];
-    /** 재고 JSON **/
-    var jsonGdsInvt = [];
-
-
-    window.addEventListener('DOMContentLoaded', function(e) {
-        document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
-            el.style.width = "50px";
-            el.style.height = "50px";
-        });
-        document.querySelectorAll(".sbux-pik-icon").forEach((el) => {
-            el.style.fontSize = "24px";
-            //sbux-pik-icon
-        });
-        fn_initSBSelect();
-        SBUxMethod.set("dtl-dtp-spmtYmd",gfn_dateToYmd(new Date()));
+    window.addEventListener("DOMContentLoaded",function(){
+        fn_init();
     });
+    let carouselObj = {
+        cnptInfoWrap : {
+            CAROUSEL_LENGTH : 0,
+            current : 0
+        },
+        prdcrInfoWrap : {
+            CAROUSEL_LENGTH : 0,
+            current : 0
+        },
+        itemInfoWrap : {
+            CAROUSEL_LENGTH : 0,
+            current : 0
+        },
+        vrtyInfoWrap : {
+            CAROUSEL_LENGTH : 0,
+            current : 0
+        }
+    };
+    let CAROUSEL_LENGTH = 0;
+    let current = 0;
 
-    const fn_initSBSelect = async function() {
-        let rst = await Promise.all([
-            gfn_setApcItemSBSelect('srch-slt-itemCd',jsonComItem,gv_selectedApcCd),		// 품목
-            gfn_setApcVrtySBSelect('srch-slt-vrtyCd',jsonComVrty,gv_selectedApcCd),		// 품종
-            gfn_setCpntRgnSBSelect('srch-slt-cnptCd',jsonComCnpt,gv_selectedApcCd),      // 거래처
-            ]);
+    function fn_left(_el){
+        let id = _el;
+
+        if (carouselObj[id].current !== 0) {
+            carouselObj[id].current--;
+            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${current * -76.7}'}vw)`);
+        }
+    }
+    function fn_right(_el){
+        let id = _el;
+
+        if (carouselObj[id].current !== carouselObj[id].CAROUSEL_LENGTH) {
+            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${(current +1) * -76.7}'}vw)`);
+            carouselObj[id].current++;
+        }
     }
 
-    const fn_addCnt = function(_cnt){
-        let prvCnt = SBUxMethod.get('btn_total') || 0;
-        prvCnt += parseInt(_cnt);
-        SBUxMethod.set('btn_total',prvCnt);
-    }
-    const fn_cntReset = function(){
-        SBUxMethod.set('btn_total',"");
-    }
-    const fn_onChangeSrchItemCd = async function(_el){
-        let itemCd = SBUxMethod.get(_el.id);
-        jsonComSpcfctCd = await gfn_getApcSpcfcts(gv_selectedApcCd,itemCd);
-        SBUxMethod.refresh("srch-slt-spcfctCd");
+    const fn_init = async function(){
+        SBUxMethod.set('srch-dtp-clclnY',gfn_dateToYmd(new Date()));
+        /** 거래처 **/
+        await fn_search_cnpt();
+        /** 생산자 **/
+        await fn_search_prdcr();
+        /** 품목 **/
+        await fn_search_item();
 
+        /** 포장실적 grid 생성 **/
+        await fn_create_pckgPrfmnc();
+        fn_addDragEvn("cnptInfoWrap");
+        fn_addDragEvn("prdcrInfoWrap");
+        fn_addDragEvn("vrtyInfoWrap");
     }
-    /** 수량 입력 **/
-    const fn_cntInpt = async function(){
-        /** validation **/
-        let itemCd = SBUxMethod.get("srch-slt-itemCd");
-        let itemNm = SBUxMethod.getText("srch-slt-itemCd");
-        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-        let vrtyNm = SBUxMethod.getText("srch-slt-vrtyCd");
-        let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-        let spcfctNm = SBUxMethod.getText("srch-slt-spcfctCd");
-        let grd = $('input[name="grd"]:checked').attr("grdCd");
-        let cnt = SBUxMethod.get('btn_total');
-        let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");
-        let cnptCd = SBUxMethod.get("srch-slt-cnptCd");
+    const fn_create_pckgPrfmnc = async function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-pckgPrfmnc';
+        SBGridProperties.id = 'gridPckgPrfmnc';
+        SBGridProperties.jsonref = 'jsonPckgPrfmnc';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption: ["처리"], ref: 'pckgno', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
+                }
+            },
+            {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["생산자"],	ref: 'prdcrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["수량"],	ref: 'invntrQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+        ]
+        gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
+    }
 
-        if(gfn_isEmpty(itemCd)){
-            gfn_comAlert("W0005","품종");
-            return;
-        }
-        if(gfn_isEmpty(vrtyCd)){
-            gfn_comAlert("W0005","품목");
-            return;
-        }
-        if(gfn_isEmpty(spcfctCd)){
-            gfn_comAlert("W0005","규격");
-            return;
-        }
-        if(gfn_isEmpty(grd)){
-            gfn_comAlert("W0005","등급");
-            return;
-        }
-        if(gfn_isEmpty(cnt)){
-            gfn_comAlert("W0005","수량");
-            return;
+    const fn_search_cnpt = async function(){
+        /** 거래처 **/
+        const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
+        const data = await postJsonPromise;
+        await fn_append_button(data,"cnptInfoWrap","cnptNm","cnptCd");
+        carouselObj.cnptInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#cnptInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+    }
+    const fn_search_prdcr = async function(){
+        const postJsonPromise = gfn_postJSON(URL_PRDCR_INFO, {apcCd: gv_apcCd, delYn: "N"}, null, true);
+        const data = await postJsonPromise;
+        await fn_append_button(data,"prdcrInfoWrap","prdcrNm","prdcrCd");
+        carouselObj.prdcrInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#prdcrInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+    }
+    const fn_search_item = async function(){
+        const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: gv_apcCd, delYn: "N"}, null, true);
+        const data = await postJsonPromise;
+        await fn_append_button(data,"itemInfoWrap","itemNm","itemCd");
+        carouselObj.itemInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#itemInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+    }
+    const fn_search_vrty = async function(_itemCd){
+        const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
+        const data = await postJsonPromise;
+        await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd", true);
+        carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+    }
+    const fn_search_spcfct = async function(_itemCd){
+        const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
+        const data = await postJsonPromise;
+        await fn_append_button(data,"spcfctInfoWrap","spcfctNm","spcfctCd",true);
+    }
+
+    const fn_append_button = async function(data, id, label, value, flag = false){
+        if(gfn_isEmpty(data)) return;
+
+        let targetId = "#" + id;
+        let triggerFlag = data.resultList.length == 1;
+
+        /** 다음페이지 필요하지않을 경우 **/
+        if(data.resultList.length < 11){
+            $(`${'${targetId}'} > button`).css('display','none');
+        }else{
+            $(`${'${targetId}'} > button`).css('display','block');
         }
 
-        /** json에 담고 **/
-        let foundEl = inptJson.find(el => {
-            return el.itemCd === itemCd && el.vrtyCd === vrtyCd && el.spcfctCd === spcfctCd;
-        });
-        if(foundEl){
-            if(foundEl.hasOwnProperty(grd)){
-                foundEl[grd] += parseInt(cnt);
-            }else{
-                foundEl[grd] = parseInt(cnt);
+        if(!flag){
+            if(data.resultList.length % 10 !== 0 && data.resultList.length > 5){
+                let cnt = (Math.floor(data.resultList.length / 10) + 1) * 10;
+                let originLength = data.resultList.length;
+                data.resultList.length = cnt;
+                data.resultList.fill({cnptNm:'null'},originLength);
+            }
+            if(data.resultList.length < 5){
+                let cnt = (Math.floor(data.resultList.length / 5) + 1) * 5;
+                let originLength = data.resultList.length;
+                data.resultList.length = cnt;
+                data.resultList.fill({cnptNm:'null'},originLength);
             }
         }else{
-            inptJson.push({
-                apcCd : gv_selectedApcCd,
-                blwInvntrAprv : 'Y',
-                cnptCd : cnptCd,
-                itemCd : itemCd,
-                itemNm : itemNm,
-                vrtyCd : vrtyCd,
-                vrtyNm : vrtyNm,
-                spcfctCd : spcfctCd,
-                spcfctNm : spcfctNm,
-                [grd] : parseInt(cnt),
-                spmtYmd : spmtYmd
-            });
-        }
-        await fn_getTableRow();
+            /** 가변적 button clear **/
+            $(`${'${targetId}'} > div > div`).empty();
 
-        if(!document.querySelector("#srch-chk-totalCnt").checked){
-            fn_cntReset();
+            if(data.resultList.length == 0){
+                /** 규격,품종이 없을떄 **/
+                data.resultList.push({
+                    [label] : '없음',
+                    [value] : 'empty'
+                });
+            }
+            if(data.resultList.length % 10 !== 0 && data.resultList.length > 10 ){
+                let cnt = (Math.floor(data.resultList.length / 10) + 1) * 10;
+                let originLength = data.resultList.length;
+                data.resultList.length = cnt;
+                data.resultList.fill({cnptNm:'null'},originLength);
+            }
+            if(data.resultList.length < 5){
+                let originLength = data.resultList.length;
+                data.resultList.length = 5;
+                data.resultList.fill({cnptNm:'null'},originLength);
+            }
         }
 
+        for(let i = 0; i < data.resultList.length; i++){
+            if(i != 0 && i % 10 != 0){
+                let flag = data.resultList[i].cnptNm == 'null';
+                let style = flag ? 'visibility:hidden;' : '';
+
+                $(`${'${targetId}'} > .carousel_container > .carousel > :last-child`).append(`
+                <div class="tabBox" style="${'${style}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]}'}">
+                    ${'${data.resultList[i][label]}'}
+                </div>
+                `);
+            }else{
+                $(`${'${targetId}'} > .carousel_container > .carousel`).append(`
+                    <div class="cell">
+                        <div class="tabBox" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]'}}">
+                            ${'${data.resultList[i][label]}'}
+                        </div>
+                    </div>
+                    `)
+            }
+        }
+        if(triggerFlag){
+            /** option이 한개 뿐일떄 **/
+            $(`${'${targetId}'} > .carousel_container > .carousel > .cell > .tabBox`).eq(0).trigger('click');
+        }
     }
 
-    const fn_getTableRow = function(){
-        $("#inpt-table tbody").empty();
-        inptJson.forEach(function(item,idx){
-            $("#inpt-table tbody").append(`
-            <tr>
-                <td><button data-idx="${'${idx}'}" class="btn btn-mbl btn-primary sbux-btn sbux-comp-root sbux-exist sbux-uuid-cntInpt">삭제</button></td>
-                <td>${'${item.itemNm}'}</td>
-                <td>${'${item.vrtyNm}'}</td>
-                <td>${'${item.spcfctNm}'}</td>
-                <td>${'${item["01"] || 0}'}</td>
-                <td>${'${item["02"] || 0}'}</td>
-                <td>${'${item["03"] || 0}'}</td>
-                <td>${'${(item["01"] || 0) + (item["02"] || 0) + (item["03"] || 0)}'}</td>
-            </tr>
-            `);
+    const fn_select_button = async function(_el){
+        if($(_el).hasClass("active"))return;
+
+        $(_el).closest('div.carousel').find("div.active").removeClass("active");
+        $(_el).addClass("active");
+        let dataObj = $(_el).data();
+        /** 만약 정보 더 필요해서 data 추가되면 돌려서 집어야함 **/
+        for(let key in dataObj){
+            if(key == 'itemcd'){
+                await fn_search_spcfct(dataObj[key]);
+                await fn_search_vrty(dataObj[key]);
+                /** 품목별 품종, 규격 셋팅시 active가 없으면 재고탭 refresh **/
+                /** 품종 **/
+                if(!$(`#vrtyInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
+                    $("#vrtycd").html('');
+                    if(spmtObj.hasOwnProperty("vrtyCd")|| spmtObj.hasOwnProperty("vrtyNm")){
+                        delete spmtObj.vrtyCd;
+                        delete spmtObj.vrtyNm;
+                    }
+                }
+                /** 규격 **/
+                if(!$(`#spcfctInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
+                    $("#spcfctcd").html('');
+                    if(spmtObj.hasOwnProperty("spcfctCd")|| spmtObj.hasOwnProperty("spcfctNm")){
+                        delete spmtObj.spcfctCd;
+                        delete spmtObj.spcfctNm;
+                    }
+                }
+            }
+            $(`#${'${key}'}`).html($(_el).html());
+
+            let prefix = key.replace('cd','');
+            spmtObj[prefix + 'Cd'] = String(dataObj[key]);
+            spmtObj[prefix + 'Nm'] = String($(_el).text().trim());
+            $(`#${'${key}'}`).val($(_el).data(key));
+        }
+
+        /** 모든 탭이 선택될시 재고 조회 **/
+        fn_check_buttonAll();
+    }
+    const fn_cntAdd = function(_el){
+        let value = parseInt($(_el).text());
+        let originCnt = parseInt($("#pckgQntt").val()) || 0;
+        $("#pckgQntt").val(originCnt + value);
+    }
+    const fn_reset = function(){
+        let tabId = SBUxMethod.get("tab_norm");
+        if(tabId =='tab_pckgPrfmnc'){
+            jsonPckgPrfmnc.length = 0;
+            gridPckgPrfmnc.rebuild();
+        }else {
+            let isChecked = $('#fixCnpt').is(':checked');
+            /** 재고 선택 상태 초기화 **/
+            $("#invntrQntt").val(null);
+            $("#prdcrcd").html('');
+            $("#vrtycd").html('');
+            $("#spcfctcd").html('');
+
+            if (isChecked) {
+                $('div.tabBox.active').each(function (index) {
+                    if (index !== 0) {
+                        $(this).removeClass('active');
+                    }
+                });
+                let cnptCd = spmtObj.cnptCd;
+                let cnptNm = spmtObj.cnptNm;
+                spmtObj = {};
+                spmtObj.cnptCd = cnptCd;
+                spmtObj.cnptNm = cnptNm;
+            } else {
+                $('div.tabBox.active').removeClass('active');
+                $("#cnptcd").html('');
+                spmtObj = {};
+            }
+            fn_RegReset();
+        }
+    }
+    const fn_addDragEvn = function(_id) {
+        let id = "#" + _id;
+        const element = $(`${'${id}'} > div.carousel_container > div.carousel`).get(0);
+
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let threshold = 0;
+
+        // 터치 시작 이벤트
+        element.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;  // 터치 좌표는 e.touches 배열에서 가져옴
+            startY = e.touches[0].clientY;
+
+            threshold = element.offsetWidth * 0.3;  // 40% 넓이 임계값 설정
         });
 
-        const actionElements = document.querySelectorAll('[data-idx]');
-        actionElements.forEach(el => {
-           $(el).on("click",fn_removeRow.bind(this));
+        // 터치 이동 이벤트
+        element.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                const currentX = e.touches[0].clientX;  // 현재 터치 좌표
+                const deltaX = currentX - startX;       // 드래그 이동 거리
+
+                if (Math.abs(deltaX) > threshold) {     // 임계값 초과 시
+                    isDragging = false;
+                    if (deltaX > 0) {
+                        fn_left(_id);                  // 오른쪽 드래그
+                    } else if (deltaX < 0) {
+                        fn_right(_id);                 // 왼쪽 드래그
+                    }
+                }
+            }
         });
+
+        // 터치 종료 이벤트
+        element.addEventListener('touchend', () => {
+            isDragging = false;   // 드래그 종료
+        });
+    };
+
+    const fn_fullScreen =function(){
+
+        if(!document.fullscreenElement){
+            if(document.documentElement.requestFullscreen){
+                document.documentElement.requestFullscreen();
+            }else if(document.documentElement.webkitRequestFullscreen){
+                document.documentElement.webkitRequestFullscreen()
+            }else if(document.documentElement.msRequestFullscreen){
+                document.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(document.exitFullscreen){
+                document.exitFullscreen();
+            }else if(document.webkitExitFullscreen){
+                document.webkitExitFullscreen();
+            }else if(document.msExitFullscreen){
+                document.msExitFullscreen();
+            }
+        }
     }
 
-    const fn_removeRow = function(_el){
-        let idx = $(_el.target).data('idx');
-        inptJson.splice(idx, 1);
-        fn_getTableRow();
+    const fn_check_buttonAll = async function(){
+        /** 재고 조회시 옆탭에 json에 있는가 확인해야함. **/
+        let activeCnt = $("div.tabBox.active").length;
+        if(activeCnt < 5)return;
     }
 
-    const fn_save = async function(){
-        if(inptJson.length <= 0){
-            gfn_comAlert("W0005","등록 대상");
+    const fn_add = async function(){
+        /** validation **/
+        let addCnt = $("#pckgQntt").val();
+        let invntCnt = $("#invntrQntt").val();
+
+        if(addCnt > invntCnt){
+            gfn_comAlert("W0008","재고수량","등록수량");
             return;
         }
-        let spmtPrfmncList = [];
-        /** 각각 등급별 수량 쪼개기 **/
-        inptJson.forEach(el => {
-            let idx = 0;
-            for(let key in el){
-                if (key === "01" || key === "02" || key === "03") {
-                    spmtPrfmncList.push({
-                        gdsGrd: key,
-                        spmtQntt: el[key],
-                        spmtSn: idx,
-                        ...el
-                    });
-                }
-            }
-        });
-        spmtPrfmncList.forEach(function(item,idx){
-           item.spmtSn = idx;
-        });
-        let insertList = [];
-        insertList.push({"spmtPrfmncList" : spmtPrfmncList});
-
-        try{
-            let postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncDsctn.do",insertList);
-            let data = await postJsonPromise;
-
-            gfn_comAlert("I0001");
-            await fn_reset();
-            let returnSpmtNo = data.resultMap.spmtPrfmncList[0].spmtno;
-
-            const rptUrl = await gfn_getReportUrl('0503', 'DT_DOC');
-            console.log(rptUrl,"찾을수있어?");
-            if(document.querySelector('#srch-chk-autoPrint').checked){
-                if(!document.querySelector('#srch-chk-exePrint').checked){
-                    await gfn_exeDirectPrint(rptUrl, {
-                        apcCd: gv_selectedApcCd,
-                        spmtno: returnSpmtNo,
-                        element: 'div-rpt-clipReportPrint'
-                    });
-                }else{
-                    await gfn_DirectPrintClipReport(rptUrl, {
-                        apcCd: gv_selectedApcCd,
-                        spmtno: returnSpmtNo,
-                        element: 'div-rpt-clipReportPrint'
-                    });
-                }
-            }else{
-                // gfn_popClipReport("송품장",rptUrl,{apcCd: gv_selectedApcCd, spmtno: returnSpmtNo});
-            }
-
-        }catch (e){
-            console.error(e);
+        if(addCnt == 0){
+            gfn_comAlert("W0005","등록수량");
+            return;
         }
+        if(!gfn_comConfirm("Q0001","추가")){
+            return;
+        }
+        spmtObj.invntrQntt = addCnt;
+        jsonPckgPrfmnc.push(spmtObj);
+        gridPckgPrfmnc.rebuild();
+
+        fn_reset();
+    }
+    const fn_RegReset = function(){
+        $("#pckgQntt").val('');
     }
 
-    const fn_reset = async function(){
-        inptJson.length = 0;
-        await fn_getTableRow();
-
-        await SBUxMethod.set("srch-slt-spcfctCd",null);
-        $("#btn_total").val("");
-        $('input[type="radio"][name="grd"]').prop('checked', false);
-
-        if (!$("#srch-chk-cnptCd").is(":checked")) {
-           await SBUxMethod.set("srch-slt-cnptCd",null);
+    const fn_delRow = function(){
+        if(!gfn_comConfirm("Q0001","삭제")){
+            return;
         }
 
-        if (!$("#srch-chk-fxngItem").is(":checked")) {
-            await SBUxMethod.set("srch-slt-itemCd",null);
-            await SBUxMethod.set("srch-slt-vrtyCd",null);
-        }
+        let row = gridPckgPrfmnc.getRow()-1;
+        jsonPckgPrfmnc.splice(row,1);
+        gridPckgPrfmnc.rebuild();
     }
-
-    const fn_search = async function(){
-        let itemCd = SBUxMethod.get("srch-slt-itemCd");
-        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-        let spcfctCd = SBUxMethod.get("srch-slt-spcfctCd");
-        let gdsGrd = $('input[name="grd"]:checked').attr("grdCd");
-
-        try{
-            const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
-                apcCd			: gv_selectedApcCd,
-                itemCd			: itemCd,
-                vrtyCd			: vrtyCd,
-                spcfctCd		: spcfctCd,
-                gdsGrd          : gdsGrd
-            });
-            const data = await postJsonPromise;
-            let totalCnt = 0;
-
-            data.resultList.forEach(function(item){
-                totalCnt += item.pckgQntt;
-            });
-            $("#invtCnt").text(totalCnt);
-
-        }catch (e) {
-            console.error(e);
-        }
+    const fn_saveWithReport = async function(){
+        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DO_DOC');
+        await gfn_popClipReport("출하통지서", rptUrl, {apcCd: gv_selectedApcCd});
     }
-
-
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
