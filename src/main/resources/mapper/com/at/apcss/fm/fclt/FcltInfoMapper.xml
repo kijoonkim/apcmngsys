@@ -169,8 +169,6 @@
 				, STRG_PLC_ETC_AREA			= #{strgPlcEtcArea}
 				, STRG_PLC_ETC_RMRK			= #{strgPlcEtcRmrk}
 
-				, TMPR_STRG_YN				= #{tmprStrgYn}
-
 				, SYS_LAST_CHG_DT			= SYSDATE
 				, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
@@ -201,8 +199,6 @@
 				, STRG_PLC_GNRL_STRG_RMRK
 				, STRG_PLC_ETC_AREA
 				, STRG_PLC_ETC_RMRK
-
-				, TMPR_STRG_YN
 
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_USER_ID
@@ -238,8 +234,6 @@
 				, #{strgPlcGnrlStrgRmrk}
 				, #{strgPlcEtcArea}
 				, #{strgPlcEtcRmrk}
-
-				, #{tmprStrgYn}
 
 				, SYSDATE
 				, #{sysFrstInptUserId}
@@ -285,8 +279,6 @@
 				, STRG_PLC_GNRL_STRG_RMRK	= #{strgPlcGnrlStrgRmrk}
 				, STRG_PLC_ETC_AREA			= #{strgPlcEtcArea}
 				, STRG_PLC_ETC_RMRK			= #{strgPlcEtcRmrk}
-
-				, TMPR_STRG_YN				= #{tmprStrgYn}
 		]]>
 		<if test='delYn != null and delYn != ""'>
 				, DEL_YN 	= #{delYn}

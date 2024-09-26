@@ -46,7 +46,7 @@ public class ApcSelectPopupController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectApcListPopup(@RequestBody ApcSelectPopupVO vo, HttpServletRequest request) throws Exception {
 
 		logger.debug("selectApcListPopup.do 호출 <><><><> ");
-		logger.debug(vo.toString());
+		//logger.debug(vo.toString());
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<ApcSelectPopupVO> resultList = new ArrayList<>();
 

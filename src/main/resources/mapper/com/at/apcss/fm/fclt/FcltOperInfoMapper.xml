@@ -189,8 +189,6 @@
 				, SIGUN_CD				=  #{sigunCd}
 				, OGNZ_TYPE_CD			=  #{ognzTypeCd}
 
-				, TMPR_STRG_YN			=  #{tmprStrgYn}
-
 				, SYS_LAST_CHG_DT		=  SYSDATE
 				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
@@ -226,8 +224,6 @@
 				  , CTPV_CD
 				  , SIGUN_CD
 				  , OGNZ_TYPE_CD
-
-				  , TMPR_STRG_YN
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -268,8 +264,6 @@
 				  , #{ctpvCd}
 				  , #{sigunCd}
 				  , #{ognzTypeCd}
-
-				  , #{tmprStrgYn}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -323,8 +317,6 @@
 				, CTPV_CD				=  #{ctpvCd}
 				, SIGUN_CD				=  #{sigunCd}
 				, OGNZ_TYPE_CD			=  #{ognzTypeCd}
-
-				, TMPR_STRG_YN			=  #{tmprStrgYn}
 
 			]]>
 			<if test='delYn != null and delYn != ""'>
