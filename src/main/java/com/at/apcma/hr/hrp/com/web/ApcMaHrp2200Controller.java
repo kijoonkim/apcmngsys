@@ -70,7 +70,7 @@ public class ApcMaHrp2200Controller extends BaseController {
     }
 
     // 급여 변동항목 등록
-    /*@PostMapping(value = "/hr/hrp/com/insertHrp2200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/hr/hrp/com/insertHrp2200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrp2200(
             @RequestBody Map<String, Object> param
             , Model model
@@ -93,10 +93,10 @@ public class ApcMaHrp2200Controller extends BaseController {
         logger.info("=============insertHrp2200=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
-    }*/
+    }
 
     // 급여 변동항목 등록 (S1)
-    /*@PostMapping(value = "/hr/hrp/com/insertHrp2200S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/hr/hrp/com/insertHrp2200S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertHrp2200S1(
             @RequestBody Map<String, Object> param
             , Model model
@@ -115,17 +115,17 @@ public class ApcMaHrp2200Controller extends BaseController {
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
-    }*/
+    }
 
-    // 수당기준 적용
-    @PostMapping(value = "/hr/hrp/com/insertHrp2200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHrp2200(
+    // 급여 변동항목 등록
+    @PostMapping(value = "/hr/hrp/com/insertHrp2200S2.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp2200S2(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHrp2200=====start========");
+        logger.info("=============insertHrp2200S2=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
@@ -138,8 +138,10 @@ public class ApcMaHrp2200Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
 
-        logger.info("=============insertHrp2200=====end========");
+        logger.info("=============insertHrp2200S2=====end========");
         return getSuccessResponseEntityMa(resultMap);
+
     }
+
 
 }

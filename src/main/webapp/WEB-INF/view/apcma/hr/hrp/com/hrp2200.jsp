@@ -293,7 +293,9 @@
 
                     <div class="ad_tbl_toplist">
                         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
-                        <sbux-button
+                        <input type="file" name="excelFile2" id="excelFile2" accept=".xls,.xlsx" style="display: none;">
+                        <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="Excel 업로드" onclick="fn_uld"></sbux-button>
+                       <%-- <sbux-button
                                 id="btnUpload"
                                 name="btnUpload"
                                 uitype="normal"
@@ -301,7 +303,7 @@
                                 class="btn btn-sm btn-outline-danger"
                                 onclick="fn_uld"
                                 style="float: right;"
-                        ></sbux-button>
+                        ></sbux-button>--%>
                         <sbux-button
                                 id="btnDownload"
                                 name="btnDownload"
@@ -430,6 +432,73 @@
         fn_initSBSelect();
         fn_init();
 
+
+        document.getElementById('excelFile2').addEventListener('change', function(event) {
+            if(!window.FileReader) return;
+
+            let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+
+                event.target.files[0].name.length - 5));
+
+            //급여 변동항목 등록_출산경조금공제 - Excel파일 명
+            if (event.target.files[0].name.indexOf("_") < 0){
+                gfn_comAlert("E0000", "해당 급여항목의 엑셀파일만 업로드 가능합니다."); // HRP2200_001
+                return;
+            }else if (event.target.files[0].name.substring(event.target.files[0].name.indexOf("_")+1 ,
+                event.target.files[0].name.length - 5) != PAY_ITEM_NAME){
+                gfn_comAlert("E0000", "해당 급여항목의 엑셀파일만 업로드 가능합니다."); // HRP2200_001
+                return;
+            }
+
+            var reader = new FileReader();
+           /* let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
+            let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
+            let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));*/
+
+            reader.addEventListener(
+                "load",
+                () => {
+                    let workBook = XLSX.read(reader.result, { type: 'binary' });
+                    workBook.SheetNames.forEach(function (sheetName) {
+                        /*if(sheetName == "급여 변동항목 등록_출산경조금공제") {*/
+                            let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 1, header: [
+                                    "DEPT_NAME",
+                                    "EMP_CODE",
+                                    "EMP_FULL_NAME",
+                                    "PAY_AMT",
+                                    "TAX_PAY_DATE",
+                                    "MEMO",
+                                    "UPDATE_TIME",
+                                    "UPDATE_USERID",
+
+                                ]});
+
+                            list.forEach((item, index) => {
+                              /*  if(gfn_nvl(item.APPROVAL_NO) != "") {*/
+
+                                    item["CHK_YN"] = 'Y';
+                                    item["DEPT_NAME"] = item.DEPT_NAME;
+                                    item["EMP_CODE"] = item.EMP_CODE;
+                                    item["EMP_FULL_NAME"] = item.EMP_FULL_NAME;
+                                    item["PAY_AMT"] = item.PAY_AMT;
+                                    item["TAX_PAY_DATE"] = item.TAX_PAY_DATE.replace(/-/gi, "");
+                                    item["MEMO"] = item.MEMO;
+                                    item["UPDATE_TIME"] = item.UPDATE_TIME.replace(/-/gi, "");
+                                    item["UPDATE_USERID"] = item.UPDATE_USERID;
+                                    item["TXN_ID"] = '';
+
+                                    gvwDetallGrid.addRow(true, item);
+                                /*}*/
+                            });
+                       /* }*/
+                    });
+                    fn_save();
+                },
+                false,
+            );
+            reader.readAsBinaryString(event.target.files[0]);
+        });
+
     });
 
     const fn_initSBSelect = async function() {
@@ -471,6 +540,46 @@
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
+    }
+
+    /**
+     * 그리드내 공통팝업 오픈
+     */
+    var fn_compopup3 = function(row, col) {
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= "";
+        var replaceText0 = "_EMP_CODE_";
+        var replaceText1 = "_EMP_NAME_";
+        var replaceText2 = "_DEPT_CODE_";
+        var replaceText3 = "_DEPT_NAME_";
+        var replaceText4 = "_EMP_STATE_";
+        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001'
+            ,popupType				: 'A'
+            , whereClause           : strWhereClause
+            , searchCaptions        :   ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
+            , searchInputFields     :   ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputValues     :   [""           , ""         ,""             ,searchText         ,""]
+            , height                : '400px'
+            , tableHeader           :   ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
+            , tableColumnNames      :   ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnWidths     :   ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                //그리드내 원하는 위치에 값 셋팅하기
+                gvwDetallGrid.setCellData(row, (col-2), data['DEPT_NAME']);
+                gvwDetallGrid.setCellData(row, (col-1), data['EMP_CODE']);
+                gvwDetallGrid.setCellData(row, (col+1), data['EMP_NAME']);
+            }
+        });
     }
 
     const fn_init = async function () {
@@ -567,25 +676,28 @@
         /* SBGridProperties.contextmenu = true;*/				// 우클린 메뉴 호출 여부
         /*SBGridProperties.contextmenulist = objMenuList1;*/	// 우클릭 메뉴 리스트
         SBGridProperties.extendlastcol = 'scroll';
-
-
         SBGridProperties.columns = [
-            {caption: ["chk_yn"], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center', disabled: true, hidden: true,
-                typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
+            {caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '70px', style: 'text-align:center', /*hidden: true,*/
+                typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["부서"], ref: 'DEPT_NAME', type: 'input', width: '100px', style: 'text-align:left', disabled: true},
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '100px', style: 'text-align:left'},
-            {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'input', width: '100px', style: 'text-align:left'},
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                }
+            },
+            {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
-            {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+            {caption: ["비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ['수정일'], 		ref: 'UPDATE_TIME', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["수정자"], ref: 'UPDATE_USERID', type: 'input', width: '100px', style: 'text-align:left'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+            {caption: ["수정자"], ref: 'UPDATE_USERID', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["TXN_ID"], ref: 'TXN_ID', type: 'input', width: '100px', style: 'text-align:left', hidden: true}
 
 
@@ -593,7 +705,7 @@
 
         gvwDetallGrid = _SBGrid.create(SBGridProperties);
 
-        if (rowData != null){
+        if (_.isEmpty(rowData) == false){
             jsonDetallList.length = 0;
             jsonDetallList.push(rowData);
             gvwDetallGrid.rebuild();
@@ -601,6 +713,19 @@
 
 
         gvwDetallGrid.bind('click', 'fn_viewDetaill');
+        gvwDetallGrid.bind('valuechanged','gridValueChanged');
+    }
+
+    /**
+     * 그리드내 팝업 조회
+     */
+    function fn_gridPopup(event, row, col) {
+
+        console.log('grid popup row:', row);
+        console.log('grid popup col:', col);
+
+        event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
+        fn_compopup3(row, col);
     }
 
     /**
@@ -735,16 +860,6 @@
         let EMP_FULL_NAME = gfnma_nvl(SBUxMethod.get("EMP_FULL_NAME"));
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type"));
 
-       /* if (!PAY_YYYYMM) {
-            gfn_comAlert("W0002", "귀속년월");
-            return;
-        }
-
-        if (!PAY_TYPE) {
-            gfn_comAlert("W0002", "지급구분");
-            return;
-        }*/
-
         if(rowData != null && rowData != '') {
 
             var paramObj = {
@@ -857,11 +972,27 @@
     const fn_btnAdd = function () {
         let rowVal = gvwDetallGrid.getRow();
 
+        const msg = {
+            CHK_YN          : 'N',
+            DEPT_NAME       : '',
+            EMP_CODE        : '',
+            POP_BTN         : '',
+            EMP_FULL_NAME   : '',
+            PAY_AMT         : 0 ,
+            TAX_PAY_DATE    : '',
+            UPDATE_TIME     : '',
+            UPDATE_USERID   : '',
+            TXN_ID          : '',
+
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwDetallGrid.addRow(true);
+            gvwDetallGrid.addRow(true, msg);
         }else{
-            gvwDetallGrid.insertRow(rowVal);
+            gvwDetallGrid.insertRow(rowVal,'below', msg);
         }
 
     }
@@ -935,12 +1066,15 @@
         let EMP_FULL_NAME = gfnma_nvl(SBUxMethod.get("EMP_FULL_NAME")); //이름 디테일 그리드에도 있음
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
 
+        /*if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
 
-        let EMP_CODE = ''; //사번
-        let PAY_AMT = ''; //
-        let TAX_PAY_DATE = '';
-        let MEMO = '';
-        let TXN_ID = '';
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }*/
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
@@ -965,7 +1099,7 @@
             , V_P_PC: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp2200S1.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S2.do", {
             getType: 'json',
             workType: 'APPLY',
             cv_count: '0',
@@ -993,13 +1127,27 @@
     const fn_exportData = function () {
 
         if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")){
-            gvwDetallGrid.exportData("xlsx","급여 변동항목 등록_복지포인트정산",true);
+
+            let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+
+            const msg = {
+                arrRemoveCols   : [0,3],
+                combolabel      : false,
+                sheetName       : "급여 변동항목 등록_"+PAY_ITEM_NAME
+            }
+
+            gvwDetallGrid.exportData("xlsx","급여 변동항목 등록_"+PAY_ITEM_NAME,true,msg);
         }
         //gvwDetallGrid.exportData("xlsx",'급여 변동항목 등록_복지포인트정산 [호환모드]', true , true);
 
     }
 
     const fn_importExcelData = function (e){
+
+       /* console.log('---------e---------',e);
+        //let FILE = SBUxMethod.get("btnFileUpload"); //사업장
+        console.log('---------FILE---------',e.files);*/
+
         SBUxMethod.openModal('modal-excel');
         /*fn_createGridGdsPopup();*/
         jsonDetallList = 0;
@@ -1015,8 +1163,11 @@
             return;
         }
 */
-        document.querySelector("#btnFileUpload").value = "";
-        $("#btnFileUpload").click();
+       /* document.querySelector("#btnFileUpload").value = "";
+        $("#btnFileUpload").click();*/
+
+        document.querySelector("#excelFile2").value = "";
+        $('#excelFile2').click();
 
     }
 
@@ -1028,11 +1179,11 @@
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
             let listData = [];
-            listData =  await getParamFormS1('u');
+            listData =  await getParamFormS1();
 
-            if (listData.length > 0) {
+            if (_.isEmpty(listData) == false) {
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200.do", {listData: listData});
+                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", {listData: listData});
                 const data = await postJsonPromise;
 
                 try {
@@ -1058,7 +1209,7 @@
         }
     }
 
-    const getParamFormS1 = async function(strWorkType){
+    const getParamFormS1 = async function(){
 
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
         let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm"));
@@ -1072,53 +1223,57 @@
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사번
         let EMP_FULL_NAME = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//이름
 
-
-        let updatedData;
-        if (strWorkType == 'u') {
-            updatedData = gvwDetallGrid.getUpdateData(true, 'all');
-
-        }else{
-            updatedData = gvwDetallGrid.getUpdateData(true, 'd');
-
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
         }
+
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+
+
+        let updatedData = gvwDetallGrid.getUpdateData(true, 'all');
 
         let returnData = [];
 
-        updatedData.forEach((item, index) => {
+        if (_.isEmpty(updatedData) == false) {
 
+            updatedData.forEach((item, index) => {
+                const param = {
 
-            const param = {
+                    cv_count: '0',
+                    getType: 'json',
+                    workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                    params: gfnma_objectToString({
 
-                cv_count: '0',
-                getType: 'json',
-                workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                params: gfnma_objectToString({
+                        V_P_DEBUG_MODE_YN: ''
+                        , V_P_LANG_ID: ''
+                        , V_P_COMP_CODE: gv_ma_selectedApcCd
+                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                    V_P_DEBUG_MODE_YN			: ''
-                    ,V_P_LANG_ID				: ''
-                    ,V_P_COMP_CODE				: gv_ma_selectedApcCd
-                    ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+                        , V_P_SITE_CODE: SITE_CODE
+                        , V_P_PAY_YYYYMM: PAY_YYYYMM
+                        , V_P_PAY_TYPE: PAY_TYPE
+                        , V_P_PAY_ITEM_CODE: PAY_ITEM_CODE
+                        , V_P_EMP_CODE: item.data.EMP_CODE
+                        , V_P_PAY_AMT: item.data.PAY_AMT
+                        , V_P_TAX_PAY_DATE: item.data.TAX_PAY_DATE
+                        , V_P_MEMO: item.data.MEMO
+                        , V_P_TXN_ID: item.data.TXN_ID
 
-                    ,V_P_SITE_CODE: SITE_CODE
-                    ,V_P_PAY_YYYYMM: PAY_YYYYMM
-                    ,V_P_PAY_TYPE: PAY_TYPE
-                    ,V_P_PAY_ITEM_CODE: PAY_ITEM_CODE
-                    ,V_P_EMP_CODE: item.data.EMP_CODE
-                    ,V_P_PAY_AMT: item.data.PAY_AMT
-                    ,V_P_TAX_PAY_DATE: item.data.TAX_PAY_DATE
-                    ,V_P_MEMO: item.data.MEMO
-                    ,V_P_TXN_ID: item.data.TXN_ID
+                        , V_P_FORM_ID: p_formId
+                        , V_P_MENU_ID: p_menuId
+                        , V_P_PROC_ID: ''
+                        , V_P_USERID: ''
+                        , V_P_PC: ''
 
-                    ,V_P_FORM_ID: p_formId
-                    ,V_P_MENU_ID: p_menuId
-                    ,V_P_PROC_ID: ''
-                    ,V_P_USERID: ''
-                    ,V_P_PC: ''
-
-                })
-            }
-            returnData.push(param);
-        });
+                    })
+                }
+                returnData.push(param);
+            });
+        }
         return  returnData;
 
     }
@@ -1205,33 +1360,152 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            let listData = [];
-            listData =  await getParamFormS1('d');
+            let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
+            let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm"));
+            let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type"));
+            let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type"));
 
-            if (listData.length > 0) {
+            let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));//급여항목코드
+            let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("PAY_ITEM_NAME"));//급여항목명
+            let ENTRY_DEPT_CODE = gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));//입력부서
+            let ENTRY_DEPT_NAME = gfnma_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));//입력부서
+            let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사번
+            let EMP_FULL_NAME = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//이름
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200.do", {listData: listData});
-                const data = await postJsonPromise;
+            if (!PAY_YYYYMM) {
+                gfn_comAlert("W0002", "귀속년월");
+                return;
+            }
 
-                try {
-                    if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }else{
-                            gfn_comAlert("I0001");
-                            fn_search();
-                        }
-                    } else {
+            if (!PAY_TYPE) {
+                gfn_comAlert("W0002", "지급구분");
+                return;
+            }
+
+            let strtxn_id       = '';
+            let stremp_code     = '';
+            let strpay_amt      = '';
+            let strtax_pay_date = '';
+            let strmemo         = '';
+
+
+            let detallGridData = gvwDetallGrid.getGridDataAll();
+
+            detallGridData.forEach((item, index) => {
+
+                if (item.CHK_YN == 'Y' && item.PAY_AMT != '')
+                {
+                    strtxn_id       += item.TXN_ID          + "|";
+                    stremp_code     += item.EMP_CODE        + "|";
+                    strpay_amt      += item.PAY_AMT         + "|";
+                    strtax_pay_date += item.TAX_PAY_DATE    + "|";
+                    strmemo         += item.MEMO            + "|";
+                }
+            });
+
+            if (strtxn_id != '')
+            {
+                strtxn_id       = strtxn_id.slice(0, strtxn_id.Length - 1);
+                stremp_code     = stremp_code.Substring(0, stremp_code.Length - 1);
+                strpay_amt      = strpay_amt.Substring(0, strpay_amt.Length - 1);
+                strtax_pay_date = strtax_pay_date.Substring(0, strtax_pay_date.Length - 1);
+                strmemo         = strmemo.Substring(0, strmemo.Length - 1);
+            }
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN			: ''
+                ,V_P_LANG_ID				: ''
+                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+                ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+
+                ,V_P_SITE_CODE              : SITE_CODE
+                ,V_P_PAY_YYYYMM             : PAY_YYYYMM
+                ,V_P_PAY_TYPE               : PAY_TYPE
+                ,V_P_PAY_ITEM_CODE          : PAY_ITEM_CODE
+                ,V_P_TXN_ID                 : strtxn_id
+                ,V_P_EMP_CODE               : stremp_code
+                ,V_P_PAY_AMT                : strpay_amt
+                ,V_P_TAX_PAY_DATE           : strtax_pay_date
+                ,V_P_MEMO                   : strmemo
+
+                ,V_P_FORM_ID				: p_formId
+                ,V_P_MENU_ID				: p_menuId
+                ,V_P_PROC_ID				: ''
+                ,V_P_USERID					: ''
+                ,V_P_PC						: ''
+            };
+
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200.do", {
+                getType				: 'json',
+                workType			: 'D',
+                cv_count			: '0',
+                params				: gfnma_objectToString(paramObj)
+            });
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if(data.resultMessage){
                         alert(data.resultMessage);
                     }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    fn_search();
+                } else {
+                    alert(data.resultMessage);
                 }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
+    }
+
+
+    //급여변동항목 등록 그리드 변경
+    async function gridValueChanged() {
+
+        var nCol = gvwDetallGrid.getCol();
+
+        //특정 열 부터 이벤트 적용
+        if (nCol == -1) {
+            return;
+        }
+        var nRow = gvwDetallGrid.getRow();
+        if (nRow == -1) {
+            return;
+        }
+
+        var rowData = gvwDetallGrid.getRowData(nRow);
+
+        if (_.isEmpty(rowData) == false){
+
+            if (gvwDetallGrid.getRefOfCol(nCol) == "PAY_AMT" || gvwDetallGrid.getRefOfCol(nCol) == "MEMO")
+            {
+                if (rowData.CHK_YN == 'N')
+                {
+                    gvwDetallGrid.setCellData(nRow, 0, 'Y', true, true);
+                    /*rowData['CHK_YN'] = 'Y'*/
+                    /*gvwDetail.SetValue(e.RowHandle, "chk_yn", "Y");*/
+                }
+            }
+
+            let chkdata = gvwDetallGrid.getGridDataAll();
+        }
+
+
+
+        /*if (e.RowHandle < 0)
+            return;
+
+        if (e.Column.FieldName == "pay_amt" || e.Column.FieldName == "memo")
+        {
+            if (gvwDetail.GetValue(e.RowHandle, "chk_yn").ToString() == "N")
+            {
+                gvwDetail.SetValue(e.RowHandle, "chk_yn", "Y");
+            }
+        }*/
     }
 
 </script>
