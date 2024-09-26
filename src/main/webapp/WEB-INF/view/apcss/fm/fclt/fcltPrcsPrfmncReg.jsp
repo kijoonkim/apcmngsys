@@ -874,14 +874,14 @@
 					,sn  : i
 					, prgrsYn : 'Y' //진척도 갱신 여부
 					, tmprStrgYn : tmpChk//임시저장 여부
-					,apcGnrlTrmtAmt : SBUxMethod.get('dtl-inp-apcGnrlTrmtAmt'+i)
-					,apcOgnzCprtnSortTrst : SBUxMethod.get('dtl-inp-apcOgnzCprtnSortTrst'+i)
-					,apcCtrtEmspap : SBUxMethod.get('dtl-inp-apcCtrtEmspap'+i)
+					,apcGnrlTrmtAmt : gfn_nvl(SBUxMethod.get('dtl-inp-apcGnrlTrmtAmt'+i))
+					,apcOgnzCprtnSortTrst : gfn_nvl(SBUxMethod.get('dtl-inp-apcOgnzCprtnSortTrst'+i))
+					,apcCtrtEmspap : gfn_nvl(SBUxMethod.get('dtl-inp-apcCtrtEmspap'+i))
 
-					,apcTrmtAmt : SBUxMethod.get('dtl-inp-apcTrmtAmt'+i)//apc취급액
-					,apcTrmtVlm : SBUxMethod.get('dtl-inp-apcTrmtVlm'+i)//apc물량
-					,tmSpmtAmt : SBUxMethod.get('dtl-inp-apcTmSpmtAmt'+i)//APC 취급액 중 산지유통통합조직 출하액
-					,tmSpmtRt : SBUxMethod.get('dtl-inp-apcTmSpmtRt'+i)//전속출하 비율
+					,apcTrmtAmt : gfn_nvl(SBUxMethod.get('dtl-inp-apcTrmtAmt'+i))//apc취급액
+					,apcTrmtVlm : gfn_nvl(SBUxMethod.get('dtl-inp-apcTrmtVlm'+i))//apc물량
+					,tmSpmtAmt : gfn_nvl(SBUxMethod.get('dtl-inp-apcTmSpmtAmt'+i))//APC 취급액 중 산지유통통합조직 출하액
+					,tmSpmtRt : gfn_nvl(SBUxMethod.get('dtl-inp-apcTmSpmtRt'+i))//전속출하 비율
 			}
 			saveList.push(itemVo);
 		}

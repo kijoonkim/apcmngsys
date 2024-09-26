@@ -382,7 +382,7 @@
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
-			,umsYn : SBUxMethod.get('dtl-rdo-umsYn')
+			,umsYn : gfn_nvl(SBUxMethod.get('dtl-rdo-umsYn'))
 			,umsPrdctnInfo : $('#dtl-inp-umsPrdctnInfo').val()
 			,umsWghInfo : $('#dtl-inp-umsWghInfo').val()
 			,umsWrhsInfo : $('#dtl-inp-umsWrhsInfo').val()

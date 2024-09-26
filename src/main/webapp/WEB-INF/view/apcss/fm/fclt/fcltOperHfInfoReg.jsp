@@ -466,19 +466,19 @@
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
-			,hireRgllbrOfc : SBUxMethod.get('dtl-inp-hireRgllbrOfc')
-			,hireRgllbrSpt : SBUxMethod.get('dtl-inp-hireRgllbrSpt')
+			,hireRgllbrOfc : gfn_nvl(SBUxMethod.get('dtl-inp-hireRgllbrOfc'))
+			,hireRgllbrSpt : gfn_nvl(SBUxMethod.get('dtl-inp-hireRgllbrSpt'))
 
-			,hireTmprWgTotSum : SBUxMethod.get('dtl-inp-hireTmprWgTotSum')
-			,hireTmprAvgWg : SBUxMethod.get('dtl-inp-hireTmprAvgWg')
+			,hireTmprWgTotSum : gfn_nvl(SBUxMethod.get('dtl-inp-hireTmprWgTotSum'))
+			,hireTmprAvgWg : gfn_nvl(SBUxMethod.get('dtl-inp-hireTmprAvgWg'))
 
-			,hireTmprMin : SBUxMethod.get('dtl-inp-hireTmprMin')
-			,hireTmprMax : SBUxMethod.get('dtl-inp-hireTmprMax')
+			,hireTmprMin : gfn_nvl(SBUxMethod.get('dtl-inp-hireTmprMin'))
+			,hireTmprMax : gfn_nvl(SBUxMethod.get('dtl-inp-hireTmprMax'))
 
-			,hireFrgnrMin : SBUxMethod.get('dtl-inp-hireFrgnrMin')
-			,hireFrgnrMax : SBUxMethod.get('dtl-inp-hireFrgnrMax')
-			,hireFrgnrAvg : SBUxMethod.get('dtl-inp-hireFrgnrAvg')
-			,hireFrgnrTaskCn : SBUxMethod.get('dtl-inp-hireFrgnrTaskCn')
+			,hireFrgnrMin : gfn_nvl(SBUxMethod.get('dtl-inp-hireFrgnrMin'))
+			,hireFrgnrMax : gfn_nvl(SBUxMethod.get('dtl-inp-hireFrgnrMax'))
+			,hireFrgnrAvg : gfn_nvl(SBUxMethod.get('dtl-inp-hireFrgnrAvg'))
+			,hireFrgnrTaskCn : gfn_nvl(SBUxMethod.get('dtl-inp-hireFrgnrTaskCn'))
 		});
 
 		const data = await postJsonPromise;
