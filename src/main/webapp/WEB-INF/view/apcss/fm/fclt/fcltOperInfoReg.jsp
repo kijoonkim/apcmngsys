@@ -562,9 +562,10 @@
 
 		let data = await postJsonPromise;
 		try{
+			//console.log(data);
 			if(data.resultList.length > 0){
 				let resultVO = data.resultList[0];
-				console.log(resultVO);
+				//console.log(resultVO);
 
 				SBUxMethod.set("dtl-inp-operOgnzNm", resultVO.operOgnzNm);//운영조직명
 				SBUxMethod.set("dtl-inp-operOgnzBrno", resultVO.operOgnzBrno);//운영조직 사업자등록번호
@@ -621,7 +622,15 @@
 						}
 					}
 				}
+			}else{
+				let resultVO = data.resultMap;
+				//console.log(resultVO);
+				SBUxMethod.set("dtl-inp-operOgnzNm", resultVO.operOgnzNm);//운영조직명
+				SBUxMethod.set("dtl-inp-operOgnzBrno", resultVO.operOgnzBrno);//운영조직 사업자등록번호
+				SBUxMethod.set("dtl-inp-operOgnzCrno", resultVO.operOgnzCrno);//운영조직 법인등록번호
+				SBUxMethod.set("dtl-inp-rprsv", resultVO.rprsv);//대표자
 
+				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -696,7 +705,8 @@
 		});
 
 		let data = await postJsonPromise;
-	    try{
+		try{
+			//console.log(data);
 			if(data.resultList.length > 0){
 				let resultVO = data.resultList[0];
 				//console.log(resultVO);
@@ -757,6 +767,15 @@
 						}
 					}
 				}
+			}else{
+				let resultVO = data.resultMap;
+				//console.log(resultVO);
+				SBUxMethod.set("dtl-inp-operOgnzNm", resultVO.operOgnzNm);//운영조직명
+				SBUxMethod.set("dtl-inp-operOgnzBrno", resultVO.operOgnzBrno);//운영조직 사업자등록번호
+				SBUxMethod.set("dtl-inp-operOgnzCrno", resultVO.operOgnzCrno);//운영조직 법인등록번호
+				SBUxMethod.set("dtl-inp-rprsv", resultVO.rprsv);//대표자
+
+				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -918,38 +937,38 @@
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn: tmpChk//임시저장 체크
 			, apcCd: apcCd // APC코드
-			, operOgnzNm: SBUxMethod.get("dtl-inp-operOgnzNm")  // 운영조직 명
-			, operOgnzBrno: SBUxMethod.get("dtl-inp-operOgnzBrno")  //운영조직 사업자등록번호
-			, operOgnzCrno: SBUxMethod.get("dtl-inp-operOgnzCrno")  //운영조직 법인등록번호
-			, rprsv: SBUxMethod.get("dtl-inp-rprsv")  // 대표자
+			, operOgnzNm: gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzNm"))  // 운영조직 명
+			, operOgnzBrno: gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzBrno"))  //운영조직 사업자등록번호
+			, operOgnzCrno: gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzCrno"))  //운영조직 법인등록번호
+			, rprsv: gfn_nvl(SBUxMethod.get("dtl-inp-rprsv"))  // 대표자
 
-			, loctn: SBUxMethod.get("dtl-inp-operOgnzRoadNmAddr")  // 소재지
-			, loctnDtl: SBUxMethod.get("dtl-inp-operOgnzRoadNmAddrDtl")  // 소재지 상세
+			, loctn: gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzRoadNmAddr"))  // 소재지
+			, loctnDtl: gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzRoadNmAddrDtl"))  // 소재지 상세
 
-			, operOgnzAdmCd : SBUxMethod.get("dtl-inp-operOgnzAdmCd") //운영조직 법정동코드(행정구역코드)
-			, operOgnzRoadNmCd : SBUxMethod.get("dtl-inp-operOgnzRoadNmCd") //운영조직 도로명코드
-			, operOgnzZip : SBUxMethod.get("dtl-inp-operOgnzZip") //apc 우편번호
-			, operOgnzBmno : SBUxMethod.get("dtl-inp-operOgnzBmno") //apc 건물 본번
-			, operOgnzSlno : SBUxMethod.get("dtl-inp-operOgnzSlno") //apc 건물 부번
+			, operOgnzAdmCd : gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzAdmCd")) //운영조직 법정동코드(행정구역코드)
+			, operOgnzRoadNmCd : gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzRoadNmCd")) //운영조직 도로명코드
+			, operOgnzZip : gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzZip")) //apc 우편번호
+			, operOgnzBmno : gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzBmno")) //apc 건물 본번
+			, operOgnzSlno : gfn_nvl(SBUxMethod.get("dtl-inp-operOgnzSlno")) //apc 건물 부번
 
-			, ctpvCd: SBUxMethod.get("dtl-inp-ctpvCd") //시도 코드 (법정동코드 앞2자리)
-			, sigunCd: SBUxMethod.get("dtl-inp-sigunCd") //시군구 코드 (법정동 코드 앞5자리)
+			, ctpvCd: gfn_nvl(SBUxMethod.get("dtl-inp-ctpvCd")) //시도 코드 (법정동코드 앞2자리)
+			, sigunCd: gfn_nvl(SBUxMethod.get("dtl-inp-sigunCd")) //시군구 코드 (법정동 코드 앞5자리)
 
-			, ognzType: SBUxMethod.getText("dtl-inp-ognzType") //조직유형 명
-			//, ognzTypeCd: SBUxMethod.getValue("dtl-inp-ognzTypeCd") //조직유형 코드
+			, ognzType: gfn_nvl(SBUxMethod.getText("dtl-inp-ognzType")) //조직유형 명
+			//, ognzTypeCd: gfn_nvl(SBUxMethod.getValue("dtl-inp-ognzTypeCd")) //조직유형 코드
 
-			, apcNm: SBUxMethod.get("dtl-inp-apcNm")  //apc명
-			, apcBrno: SBUxMethod.get("dtl-inp-apcBrno")  //apc 사업자등록번호
-			//, apcCrno: SBUxMethod.get("dtl-inp-apcCrno")  //apc 법인등록번호
+			, apcNm: gfn_nvl(SBUxMethod.get("dtl-inp-apcNm"))  //apc명
+			, apcBrno: gfn_nvl(SBUxMethod.get("dtl-inp-apcBrno"))  //apc 사업자등록번호
+			//, apcCrno: gfn_nvl(SBUxMethod.get("dtl-inp-apcCrno"))  //apc 법인등록번호
 
-			, apcLoctn: SBUxMethod.get("dtl-inp-apcRoadNmAddr")  //apc 주소
-			, apcLoctnDtl: SBUxMethod.get("dtl-inp-apcRoadNmAddrDtl")  //apc 주소 상세
+			, apcLoctn: gfn_nvl(SBUxMethod.get("dtl-inp-apcRoadNmAddr"))  //apc 주소
+			, apcLoctnDtl: gfn_nvl(SBUxMethod.get("dtl-inp-apcRoadNmAddrDtl"))  //apc 주소 상세
 
-			, apcAdmCd : SBUxMethod.get("dtl-inp-apcAdmCd") //apc 법정동코드(행정구역코드)
-			, apcRoadNmCd : SBUxMethod.get("dtl-inp-apcRoadNmCd") //apc 도로명코드
-			, apcZip : SBUxMethod.get("dtl-inp-apcZip") //apc 우편번호
-			, apcBmno : SBUxMethod.get("dtl-inp-apcBmno") //apc 건물 본번
-			, apcSlno : SBUxMethod.get("dtl-inp-apcSlno") //apc 건물 부번
+			, apcAdmCd : gfn_nvl(SBUxMethod.get("dtl-inp-apcAdmCd")) //apc 법정동코드(행정구역코드)
+			, apcRoadNmCd : gfn_nvl(SBUxMethod.get("dtl-inp-apcRoadNmCd")) //apc 도로명코드
+			, apcZip : gfn_nvl(SBUxMethod.get("dtl-inp-apcZip")) //apc 우편번호
+			, apcBmno : gfn_nvl(SBUxMethod.get("dtl-inp-apcBmno")) //apc 건물 본번
+			, apcSlno : gfn_nvl(SBUxMethod.get("dtl-inp-apcSlno")) //apc 건물 부번
 
 			, itemList : itemArr //품목 리스트
 		});

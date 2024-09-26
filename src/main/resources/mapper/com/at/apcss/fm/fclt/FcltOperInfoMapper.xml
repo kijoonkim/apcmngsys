@@ -689,4 +689,15 @@
 		)WHERE ROWNUM <= 2
 		]]>
 	</select>
+
+	<select id="selectUserInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserInfo */
+			CO_NM			 AS OPER_OGNZ_NM
+			,RPRSV_KORN_NM	 AS RPRSV
+			,BRNO			 AS OPER_OGNZ_BRNO
+			,CRNO			 AS OPER_OGNZ_CRNO
+		FROM TB_COM_USER
+		WHERE 1=1
+		  AND USER_ID = #{userId}
+	</select>
 </mapper>

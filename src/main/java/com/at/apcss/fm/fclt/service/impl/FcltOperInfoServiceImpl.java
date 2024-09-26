@@ -170,4 +170,10 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 		List<FcltApcVO> resultList = fcltOperInfoMapper.selectUserApcList(fcltApcVO);
 		return resultList;
 	}
+
+	@Override
+	public FcltOperInfoVO selectUserInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+		FcltOperInfoVO resultVO = fcltOperInfoMapper.selectUserInfo(fcltOperInfoVO);
+		return resultVO;
+	}
 }

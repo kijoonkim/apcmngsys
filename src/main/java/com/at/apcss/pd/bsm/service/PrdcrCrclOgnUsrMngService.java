@@ -44,4 +44,6 @@ public interface PrdcrCrclOgnUsrMngService {
 
 	public int changeUserType(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
 
+	public int updateMemberMbrUpdtYn(PrdcrCrclOgnUsrMngVO PrdcrCrclOgnUsrMngVO) throws Exception;
+
 }

@@ -103,6 +103,13 @@ public interface FcltOperInfoMapper {
 	 */
 	public List<FcltApcVO> selectUserApcList(FcltApcVO fcltApcVO);
 
+	/**
+	 * 유저정보를 조회한다.
+	 * @param FcltOperInfoVO
+	 * @return
+	 */
+	public FcltOperInfoVO selectUserInfo(FcltOperInfoVO fcltApcVO);
+
 }
 
 

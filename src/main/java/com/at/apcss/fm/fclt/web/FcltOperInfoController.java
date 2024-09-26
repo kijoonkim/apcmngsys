@@ -58,18 +58,21 @@ public class FcltOperInfoController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectFcltOperInfoList(Model model, @RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltOperInfoVO> resultList = new ArrayList<>();
+		FcltOperInfoVO userInfo = new FcltOperInfoVO();
 
 		fcltOperInfoVO.setUserId(getUserId());
 
 		try {
 			resultList = fcltOperInfoService.selectFcltOperInfoList(fcltOperInfoVO);
-
+			userInfo = fcltOperInfoService.selectUserInfo(fcltOperInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, userInfo);
+
 		return getSuccessResponseEntity(resultMap);
 	}
 

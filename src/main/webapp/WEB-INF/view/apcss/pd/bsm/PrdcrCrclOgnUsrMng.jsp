@@ -463,6 +463,12 @@
 					</tbody>
 				</table>
 			</div>
+			<c:if test="${loginVO.userId eq 'admin'}">
+			<div>
+				<sbux-button id="btnMemY" name="btnMemY" uitype="normal" text="정보갱신Y" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('Y')"></sbux-button>
+				<sbux-button id="btnMemN" name="btnMemN" uitype="normal" text="정보갱신N" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('N')"></sbux-button>
+			</div>
+			</c:if>
 		</div>
 		<div>
 			<!--
@@ -1123,6 +1129,29 @@
 			,userType : userType
 			,authrtId : authrtId
 			,apoSe : apoSe
+		});
+		let data = await postJsonPromise;
+
+		try{
+			console.log(data);
+			fn_search();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//회원정보 갱신여부 수정
+	async function fn_changeMbrUpdtYn(mbrUpdtYn){
+		//아이디 필수
+		let userId = SBUxMethod.get("dtl-input-userId");
+		if(gfn_isEmpty(userId)) return;
+
+		let postJsonPromise = gfn_postJSON("/pd/bsm/updateMemberMbrUpdtYn.do", {
+			userId : userId
+			,mbrUpdtYn : mbrUpdtYn
 		});
 		let data = await postJsonPromise;
 
