@@ -551,10 +551,10 @@
 				, apcCd : apcCd
 				, dataMngType : item.mastervalue
 				, dataMngTypeDtl : item.value
-				, dataMngYn : SBUxMethod.get('dtl-chk-'+item.value)
+				, dataMngYn : $("#dtl-chk-"+item.value).val()
 			}
 			if(item.text == "기타"){
-				dataVO.dataMngEtc = SBUxMethod.get('dtl-inp-'+item.mastervalue);
+				dataVO.dataMngEtc = gfn_nvl(SBUxMethod.get('dtl-inp-'+item.mastervalue));
 			}
 			fcltDataMngVOList.push(fcltDataMngVO);
 		})
@@ -565,13 +565,13 @@
 			, prgrsYn : 'N' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
 
-			,prdctnInfoMngMthd : SBUxMethod.get('dtl-rdo-prdctnInfoMngMthd')
-			,wrhsInfoMngMthd : SBUxMethod.get('dtl-rdo-wrhsInfoMngMthd')
-			,sortInfoMngMthd : SBUxMethod.get('dtl-rdo-sortInfoMngMthd')
-			,strgInfoMngMthd : SBUxMethod.get('dtl-rdo-strgInfoMngMthd')
-			,pckgInfoMngMthd : SBUxMethod.get('dtl-rdo-pckgInfoMngMthd')
-			,jobInfoMngMthd : SBUxMethod.get('dtl-rdo-jobInfoMngMthd')
-			,spmtInfoMngMthd : SBUxMethod.get('dtl-rdo-spmtInfoMngMthd')
+			,prdctnInfoMngMthd : gfn_nvl(SBUxMethod.get('dtl-rdo-prdctnInfoMngMthd'))
+			,wrhsInfoMngMthd : gfn_nvl(SBUxMethod.get('dtl-rdo-wrhsInfoMngMthd'))
+			,sortInfoMngMthd : gfn_nvl(SBUxMethod.get('dtl-rdo-sortInfoMngMthd'))
+			,strgInfoMngMthd : gfn_nvl(SBUxMethod.get('dtl-rdo-strgInfoMngMthd'))
+			,pckgInfoMngMthd : gfn_nvl(SBUxMethod.get('dtl-rdo-pckgInfoMngMthd'))
+			,jobInfoMngMthd : gfn_nvl(SBUxMethod.get('dtl-rdo-jobInfoMngMthd'))
+			,spmtInfoMngMthd : gfn_nvl(SBUxMethod.get('dtl-rdo-spmtInfoMngMthd'))
 			,fcltDataMngVOList : fcltDataMngVOList
 		});
 

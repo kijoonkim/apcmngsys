@@ -718,7 +718,7 @@
 		for (var i = 1; i < 5; i++) {
 			let nonVal = $('#warehouseSeCd_chk_mon_'+i+'_non').val();
 			let itemVo = [];
-			let itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
+			let itemChk = gfn_nvl(SBUxMethod.get('dtl-inp-itemChk'+i));
 			//품목 존재 여부 확인
 			if(itemChk == 'Y'){
 				//운영여부 확인

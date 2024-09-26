@@ -985,14 +985,14 @@
 					, prgrsYn : 'Y' //진척도 갱신 여부
 					, tmprStrgYn : tmpChk//임시저장 여부
 					,sn : i
-					,rtlOgnzTotTrmtAmt : SBUxMethod.get('dtl-inp-rtlOgnzTotTrmtAmt'+i)
-					,rtlOgnzTotTrmtVlm : SBUxMethod.get('dtl-inp-rtlOgnzTotTrmtVlm'+i)
-					,rtlOgnzGnrlSum : SBUxMethod.get('dtl-inp-rtlOgnzGnrlSum'+i)
-					,rtlOgnzGnrlSmplTrst : SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplTrst'+i)
-					,rtlOgnzGnrlSmplEmspap : SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplEmspap'+i)
-					,rtlOgnzOGnzSum : SBUxMethod.get('dtl-inp-rtlOgnzOGnzSum'+i)
-					,rtlOgnzOgnzCprtnSortTrst : SBUxMethod.get('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+i)
-					,rtlOgnzOgnzCtrtEmspap : SBUxMethod.get('dtl-inp-rtlOgnzOgnzCtrtEmspap'+i)
+					,rtlOgnzTotTrmtAmt : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzTotTrmtAmt'+i))
+					,rtlOgnzTotTrmtVlm : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzTotTrmtVlm'+i))
+					,rtlOgnzGnrlSum : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzGnrlSum'+i))
+					,rtlOgnzGnrlSmplTrst : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplTrst'+i))
+					,rtlOgnzGnrlSmplEmspap : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplEmspap'+i))
+					,rtlOgnzOGnzSum : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzOGnzSum'+i))
+					,rtlOgnzOgnzCprtnSortTrst : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+i))
+					,rtlOgnzOgnzCtrtEmspap : gfn_nvl(SBUxMethod.get('dtl-inp-rtlOgnzOgnzCtrtEmspap'+i))
 			}
 			saveList.push(item);
 		}

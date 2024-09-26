@@ -1108,33 +1108,33 @@
 					, tmprStrgYn : tmpChk//임시저장 여부
 					//,rprsItemSpcfct : SBUxMethod.get('dtl-inp-rprsItemSpcfct'+i)
 
-					,wbg : SBUxMethod.get('dtl-rdo-wbg'+i)
-					,wrhsBrQr : SBUxMethod.get('dtl-rdo-wrhsBrQr'+i)
-					,kskTblt : SBUxMethod.get('dtl-rdo-kskTblt'+i)
+					,wbg : gfn_nvl(SBUxMethod.get('dtl-rdo-wbg'+i))
+					,wrhsBrQr : gfn_nvl(SBUxMethod.get('dtl-rdo-wrhsBrQr'+i))
+					,kskTblt : gfn_nvl(SBUxMethod.get('dtl-rdo-kskTblt'+i))
 
-					,dptz : SBUxMethod.get('dtl-rdo-dptz'+i)
-					,apm : SBUxMethod.get('dtl-rdo-apm'+i)
-					,elctrnWghtSortMchn : SBUxMethod.get('dtl-rdo-elctrnWghtSortMchn'+i)
-					,ndstBrckSortMchn : SBUxMethod.get('dtl-rdo-ndstBrckSortMchn'+i)
-					,grdRawMtrAtmtcTrnsfMchn : SBUxMethod.get('dtl-rdo-grdRawMtrAtmtcTrnsfMchn'+i)
+					,dptz : gfn_nvl(SBUxMethod.get('dtl-rdo-dptz'+i))
+					,apm : gfn_nvl(SBUxMethod.get('dtl-rdo-apm'+i))
+					,elctrnWghtSortMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-elctrnWghtSortMchn'+i))
+					,ndstBrckSortMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-ndstBrckSortMchn'+i))
+					,grdRawMtrAtmtcTrnsfMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-grdRawMtrAtmtcTrnsfMchn'+i))
 
-					,dshbrd : SBUxMethod.get('dtl-rdo-dshbrd'+i)
+					,dshbrd : gfn_nvl(SBUxMethod.get('dtl-rdo-dshbrd'+i))
 
-					,emptBxAtmtcExhstMchn : SBUxMethod.get('dtl-rdo-emptBxAtmtcExhstMchn'+i)
-					,atmtcBxPckgMchn : SBUxMethod.get('dtl-rdo-atmtcBxPckgMchn'+i)
-					,atmtcSsMchn : SBUxMethod.get('dtl-rdo-atmtcSsMchn'+i)
-					,atmtcWrapMchn : SBUxMethod.get('dtl-rdo-atmtcWrapMchn'+i)
-					,atmtcWghtChckMchn : SBUxMethod.get('dtl-rdo-atmtcWghtChckMchn'+i)
-					,ptz : SBUxMethod.get('dtl-rdo-ptz'+i)
+					,emptBxAtmtcExhstMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-emptBxAtmtcExhstMchn'+i))
+					,atmtcBxPckgMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcBxPckgMchn'+i))
+					,atmtcSsMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcSsMchn'+i))
+					,atmtcWrapMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcWrapMchn'+i))
+					,atmtcWghtChckMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcWghtChckMchn'+i))
+					,ptz : gfn_nvl(SBUxMethod.get('dtl-rdo-ptz'+i))
 
-					,spmtBrQr : SBUxMethod.get('dtl-rdo-spmtBrQr'+i)
-					,thAc : SBUxMethod.get('dtl-rdo-thAc'+i)
+					,spmtBrQr : gfn_nvl(SBUxMethod.get('dtl-rdo-spmtBrQr'+i))
+					,thAc : gfn_nvl(SBUxMethod.get('dtl-rdo-thAc'+i))
 
-					//,etcMnfcMchn : SBUxMethod.get('dtl-rdo-etcMnfcMchn'+i)
+					//,etcMnfcMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-etcMnfcMchn'+i))
 
-					,spcfctCnt : SBUxMethod.get('dtl-inp-spcfctCnt'+i)
-					,spcfctGrp : SBUxMethod.get('dtl-inp-spcfctGrp'+i)
-					,spcfctGrd : SBUxMethod.get('dtl-inp-spcfctGrd'+i)
+					,spcfctCnt : gfn_nvl(SBUxMethod.get('dtl-inp-spcfctCnt'+i))
+					,spcfctGrp : gfn_nvl(SBUxMethod.get('dtl-inp-spcfctGrp'+i))
+					,spcfctGrd : gfn_nvl(SBUxMethod.get('dtl-inp-spcfctGrd'+i))
 			};
 
 			saveList.push(item);

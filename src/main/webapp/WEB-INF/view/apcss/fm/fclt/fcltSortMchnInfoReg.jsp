@@ -623,10 +623,10 @@
 						, tmprStrgYn : tmpChk//임시저장 여부
 				}
 				if(sortMchnHoldYn == 'Y'){
-					itemVo.sortPrcsAblt = SBUxMethod.get('dtl-inp-sortPrcsAblt'+i);
-					itemVo.sortPrcsPrfmnc = SBUxMethod.get('dtl-inp-sortPrcsPrfmnc'+i);
-					itemVo.sortOprtngHr = SBUxMethod.get('dtl-inp-sortOprtngHr'+i);
-					itemVo.sortAvgOprtngDcnt = SBUxMethod.get('dtl-inp-sortAvgOprtngDcnt'+i);
+					itemVo.sortPrcsAblt = gfn_nvl(SBUxMethod.get('dtl-inp-sortPrcsAblt'+i));
+					itemVo.sortPrcsPrfmnc = gfn_nvl(SBUxMethod.get('dtl-inp-sortPrcsPrfmnc'+i));
+					itemVo.sortOprtngHr = gfn_nvl(SBUxMethod.get('dtl-inp-sortOprtngHr'+i));
+					itemVo.sortAvgOprtngDcnt = gfn_nvl(SBUxMethod.get('dtl-inp-sortAvgOprtngDcnt'+i));
 				}
 
 				saveList.push(itemVo);
