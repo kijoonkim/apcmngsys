@@ -48,7 +48,7 @@
 			<if test='userType == "28"'>
 			AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
 			</if>
-			<if test='userType == null or userType == ""'>
+			<if test='userType != "27" and userType != "28" and userType != "00"'>
 			AND APC_CD IN (SELECT APC_CD
 							FROM TB_UNTY_OGNZ_APC
 							WHERE 1=1
