@@ -195,6 +195,7 @@
 				data.resultList.forEach((item, index) => {
 					const apc = {
 					    apcCd 		: item.apcCd,
+					    apcCd 	: item.apcCd,
 					    apcNm 	: item.apcNm
 					}
 					jsonApcPop.push(apc);

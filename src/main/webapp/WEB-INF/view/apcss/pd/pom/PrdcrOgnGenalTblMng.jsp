@@ -437,8 +437,9 @@
 	var jsonGrdComCtpv = [];//시군
 	var jsonGrdComSgg = [];//시군
 
-	var jsonGrdComSttgUpbrItemSe = [];//품목구분
-	var jsonGrdComCtgryCd = [];//분류코드
+	var jsonGrdComSttgUpbrItemSe = [];//구분
+	var jsonGrdComCtgryCd = [];//평가부류
+	var jsonGrdComClsfCd = [];//신규부류
 
 
 	//통합조직,출하조직
@@ -478,8 +479,9 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComCtpv, 		'CMPTN_INST_CTPV'), //시도
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdComSgg, 			'CMPTN_INST_SIGUN'),//시군
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //품목구분
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdComCtgryCd, 	'CTGRY_CD'), //분류코드
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'), //구분
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdComCtgryCd, 	'CTGRY_CD'), //평가부류
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonGrdComClsfCd, 	'CLSF_CD'), //신규부류
 		]);
 	}
 
@@ -513,6 +515,7 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.rowheader="seq";
+	    SBGridProperties.explorerbar = 'sort';//정렬
 	    SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -581,16 +584,32 @@
 	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 	    SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
 	    SBGridProperties.fixedrowheight=45;
-	    SBGridProperties.rowheight = 57;
-	    //SBGridProperties.rowheader="seq";
-	    SBGridProperties.columns = [
-	    	{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
-	        {caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
-	        {caption: ["분류"], 			ref: 'ctgryNm',   	type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
+		//SBGridProperties.rowheight = 57;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.columns = [
+			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
+			{caption: ["구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
+				,typeinfo : {ref:'jsonGrdComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
+			{caption: ["부류"], 			ref: 'clsfCd',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
+				,typeinfo : {ref:'jsonGrdComClsfCd', label:'label', value:'value', displayui : false}},
+			{caption: ["평가부류"], 		ref: 'ctgryNm',   	type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
 
+			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'60px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하량(톤)\n[B]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["출하비율(%)\n[B/A]"] ,format: {type: 'string', rule: '@" %"'}
+				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			/*
 			{caption: ["생산량\n(결과)(톤)[A]"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 			{caption: ["전속(약정)\n출하계약량(톤)[B]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'
@@ -606,25 +625,25 @@
 				, ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출하비율(%)\n(육성형)[C/B]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
-			{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
-				,typeinfo : {textareanewline : true},disabled:true },
-	        //{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
+			*/
+			//{caption: ["탈락사유"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
+				//,typeinfo : {textareanewline : true},disabled:true },
+			//{caption: ["비고"], 			ref: 'rmrk',   		type:'input',  width:'220px',    style:'text-align:center'},
 
-	        {caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
-	        {caption: ["상세내역"], 	ref: 'brno',			hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',		hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'stbltYn',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
-	        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',	hidden : true},
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',			hidden : true},
+			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'stbltYn',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+			//{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',	hidden : true},
 
-	    ];
+		];
 
-	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 
 	}
 	/**

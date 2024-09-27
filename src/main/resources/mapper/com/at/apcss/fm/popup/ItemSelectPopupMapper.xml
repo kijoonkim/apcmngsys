@@ -76,8 +76,11 @@
 				, IC.STTG_UPBR_ITEM_SE
 				, IC.CTGRY_CD
 				, IC.CTGRY_NM
+				, IC.CLSF_CD
+				, IC.CLSF_NM
 			FROM TB_EV_APO_YR_GPC_CD IC
 			WHERE IC.DEL_YN = 'N'
+			  AND IC.STTG_UPBR_ITEM_SE != '3'
 		]]>
 
 		<if test='brno != null and brno != ""'>

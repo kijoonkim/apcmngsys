@@ -9,7 +9,7 @@ import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -18,7 +18,7 @@ import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -40,11 +40,11 @@ public interface PrdcrCrclOgnReqMngMapper {
 
 	public int deletePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
-	public int insertGpc(GpcVO gpcVO);
-
 	public int insertEvAplyMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
 	public List<GpcVO> selectGpcList(GpcVO gpcVO);
+
+	public int insertGpc(GpcVO gpcVO);
 
 	public int deleteGpc(GpcVO gpcVO);
 

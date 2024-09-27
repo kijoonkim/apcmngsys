@@ -1792,7 +1792,7 @@
 			let delYn = rowData.delYn;
 
 			rowData.apoCd = apoCd;
-			rowData.apoSe = apoSe;//품목을 등록한는 경우 통합조직만 있어 '1' 해도 무방
+			rowData.apoSe = '1';
 			rowData.brno = brno;
 			rowData.crno = crno;
 			rowData.corpNm = corpNm;
@@ -1836,17 +1836,17 @@
 				,crno: SBUxMethod.get('dtl-input-crno')//
 				,corpNm: SBUxMethod.get('dtl-input-corpNm')//
 				,yr: yr
-	   	 		//생산유통통합조직 승인형,육성형
-	   	 		,aprv: SBUxMethod.get('rdo-aprv')//
-	   	 		,isoHldYn: SBUxMethod.get('dtl-input-isoHldYn')//
-	   	 		//원물확보 시군 및 시도 개소 수
-	   	 		,uoCd: SBUxMethod.get('dtl-input-apoCd')//
-	   	 		,rawMtrEnsrSigunCnt: rawMtrEnsrSigunCnt
-	   	 		,rawMtrEnsrCtpvCnt: rawMtrEnsrCtpvCnt
-	   	 		,ctpvNm: ctpvNm
-		 		,sigunNm: sigunNm
-	   	 		//타조직통합여부
-	   	 		,untyYn: SBUxMethod.get('dtl-input-untyYn')//
+					//생산유통통합조직 승인형,육성형
+					,aprv: SBUxMethod.get('rdo-aprv')//
+					,isoHldYn: SBUxMethod.get('dtl-input-isoHldYn')//
+					//원물확보 시군 및 시도 개소 수
+					,uoCd: SBUxMethod.get('dtl-input-apoCd')//
+					,rawMtrEnsrSigunCnt: rawMtrEnsrSigunCnt
+					,rawMtrEnsrCtpvCnt: rawMtrEnsrCtpvCnt
+					,ctpvNm: ctpvNm
+				,sigunNm: sigunNm
+					//타조직통합여부
+					,untyYn: SBUxMethod.get('dtl-input-untyYn')//
 				,uoNm: SBUxMethod.get('dtl-input-uoNm')//
 				,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
 				,untyYr: SBUxMethod.get('dtl-input-untyYr')//
@@ -1855,7 +1855,8 @@
 				,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
 				//신청대상구분
 				//,aplyTrgtSe: SBUxMethod.get('dtl-input-aplyTrgtSe')//
-	  		};
+			};
+
 		saveList.gpcList = gpcList;
 
 		//console.log(saveList.gpcList);
@@ -2100,6 +2101,7 @@
 				return "";
 			}},
 			{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
+			{caption: ["통합조직코드"], 	ref: 'apoSe',   	hidden : true},
 			{caption: ["통합조직코드"], 	ref: 'brno',   		hidden : true},
 			{caption: ["통합조직코드"], 	ref: 'yr',   		hidden : true},
 			/*
@@ -2292,6 +2294,7 @@
 						,rmrk: item.rmrk
 						,delYn: item.delYn
 						,apoCd: item.apoCd
+						,apoSe: item.apoSe
 						,brno: item.brno
 
 						,clsfCd: item.clsfCd
@@ -2511,7 +2514,9 @@
 			}
 
 			//그리드 값 세팅
-			grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			if(!gfn_isEmpty(rowData.ctgryCd)){
+				grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			}
 			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);
@@ -2669,11 +2674,11 @@
 
 	/**************************APC현황 그리드**********************************/
 
-	//품목입력 그리드 변수
+	//APC현황 그리드 변수
 	var jsonApcList = []; // 그리드의 참조 데이터 주소 선언
 	var grdApcList;
 
-	//품목입력 그리드
+	//APC현황 그리드
 	/* Grid 화면 그리기 기능*/
 	const fn_apcListGrid = async function() {
 

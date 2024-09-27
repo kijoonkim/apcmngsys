@@ -88,7 +88,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		PrdcrCrclOgnReqMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 		PrdcrCrclOgnReqMngVO.setSysLastChgUserId(getUserId());
 
-		System.out.println(PrdcrCrclOgnReqMngVO.toString());
+		//System.out.println(PrdcrCrclOgnReqMngVO.toString());
 
 		int insertedCnt = 0;
 

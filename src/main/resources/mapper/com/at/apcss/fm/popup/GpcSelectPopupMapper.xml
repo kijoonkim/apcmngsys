@@ -63,4 +63,41 @@
 		<!-- End 페이징 -->
 	</select>
 
+	<select id="selectUoGpcList" parameterType="com.at.apcss.fm.popup.vo.GpcSelectPopupVO" resultType="com.at.apcss.fm.popup.vo.GpcSelectPopupVO">
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			SELECT
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				, pt0.*
+			  FROM (
+		</if>
+		<!-- End 페이징 -->
+
+		<![CDATA[
+		SELECT	/* com.at.apcss.fm.popup.mapper.GpcSelectPopupMapper.selectUoGpcList */
+			ITEM_NM
+			,ITEM_CD
+			,CTGRY_CD
+		FROM TB_EV_APO_YR_GPC_CD IC
+		WHERE 1=1
+		  AND BRNO = (SELECT UO_BRNO FROM TB_EV_APO_UO_CD WHERE ISO_BRNO = #{brno})
+		  AND STTG_UPBR_ITEM_SE IN ('1','2')
+		 ]]>
+		<if test='itemNm != null and itemNm != ""'>
+		  AND IC.ITEM_NM LIKE '%'||#{itemNm}||'%'
+		</if>
+		<if test='yr != null and yr != ""'>
+		  AND IC.YR = #{yr}
+		</if>
+		 ORDER BY IC.ITEM_NM ASC
+
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+		<!-- End 페이징 -->
+	</select>
 </mapper>

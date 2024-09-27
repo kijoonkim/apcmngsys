@@ -29,4 +29,6 @@ public interface GpcSelectPopupService {
 	 */
 	public List<GpcSelectPopupVO> selectGpcList(GpcSelectPopupVO gpcSelectPopupVO) throws Exception;
 
+	public List<GpcSelectPopupVO> selectUoGpcList(GpcSelectPopupVO gpcSelectPopupVO) throws Exception;
+
 }
