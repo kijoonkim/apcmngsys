@@ -79,6 +79,7 @@
 										uitype="text"
 										placeholder=""
 										class="form-control input-sm"
+										onkeyenter="fn_search"
 									></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">법인번호</th>
@@ -89,6 +90,7 @@
 										uitype="text"
 										placeholder=""
 										class="form-control input-sm"
+										onkeyenter="fn_search"
 									></sbux-input>
 								</td>
 								<th scope="row" class="th_bg">APC명</th>
@@ -99,6 +101,7 @@
 										uitype="text"
 										placeholder=""
 										class="form-control input-sm"
+										onkeyenter="fn_search"
 									></sbux-input>
 								</td>
 							</tr>
@@ -175,6 +178,7 @@
 												onChange="fn_onChangeSrchCtpv(this)" 
 												unselected-text="선택" 
 												class="form-control input-sm"
+												readonly
 											></sbux-select>
 										</td>
 										<th scope="row" class="th_bg">시/군/구</th>
@@ -191,6 +195,7 @@
 												class="form-control input-sm"
 												filter-source-name="dtl-slt-ctpv"
 												jsondata-filter="upCdVl"
+												readonly
 											></sbux-select>
 										</td>
 									</tr>
