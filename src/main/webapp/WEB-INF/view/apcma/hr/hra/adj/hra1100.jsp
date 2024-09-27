@@ -2752,10 +2752,22 @@
     const fn_btnAdd = function() {
         let rowVal = gvwDeductionGrid.getRow();
 
+        const msg = {
+            INC_FROM_AMT            : 0,
+            INC_TO_AMT              : 0,
+            BASE_DEAMT              : 0,
+            DER                     : 0,
+            DEDUCTION_LIMIT_EAMT    : 0,
+            MEMO                    : '',
+
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwDeductionGrid.addRow(true);
+            gvwDeductionGrid.addRow(true, msg);
         }else{
-            gvwDeductionGrid.insertRow(rowVal);
+            gvwDeductionGrid.insertRow(rowVal, 'below', msg);
         }
     }
 

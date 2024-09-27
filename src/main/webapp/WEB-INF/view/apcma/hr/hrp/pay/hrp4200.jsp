@@ -506,6 +506,19 @@
 
     });
 
+    // only message
+   /* window.addEventListener('message', async function(event){
+        let obj = event.data;
+
+        console.log('-------start-------', obj);
+
+        if(!gfn_isEmpty(obj)){
+            await fn_onload(obj);
+        } else {
+            await fn_onload();
+        }
+    });*/
+
     const fn_init = async function () {
 
         let openDate = gfn_dateToYm(new Date());
@@ -1413,6 +1426,37 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+
+    //전표조회
+    const fn_btnDocQ = async function () {
+
+        let gvwInfoGrid= gvwInfoGrid.getGridDataAll();
+
+        if (_.isEmpty(gvwInfoGrid)){
+            return;
+        }
+        let DOC_ID = gfnma_nvl(SBUxMethod.get("DOC_ID")); //사원코드
+        if (DOC_ID == ''){
+
+            gfn_comAlert("Q0000", "생성된 전표번호가 없습니다."); //HRP4200_004
+
+            //SetMessageBox(GetFormMessage("HRP4200_004")); //// 생성된 전표번호가 없습니다.
+            //SetMessageBox(GetFormMessage("HRW3300_007")); // 생성된 전표번호가 없습니다.
+            return;
+        }
+
+        var ht = {};
+
+        ht["WORK_TYPE"] = 'VIEW';
+        ht["DOC_ID"] = DOC_ID;
+
+        ht["target"] = 'MA_A20_030_020_150';
+        let json = JSON.stringify(ht);
+
+        window.parent.cfn_openTabSearch(json);
+
+
     }
 
 </script>
