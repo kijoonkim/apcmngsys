@@ -807,12 +807,12 @@
 
         editType    = 'N';
 
-        SBUxMethod.attr('YYYY',	'readonly', false);
+        SBUxMethod.attr('YYYY'           ,	'readonly', false);
 
-        SBUxMethod.set("YYYY", 			"");
+        SBUxMethod.set("YYYY"            , 			"");
         SBUxMethod.set("APPLY_START_DATE", 			"");
-        SBUxMethod.set("APPLY_END_DATE", 			"");
-        SBUxMethod.set("MEMO", 			"");
+        SBUxMethod.set("APPLY_END_DATE"  , 			"");
+        SBUxMethod.set("MEMO"            , 			"");
 
 
         jsonDetailList.length = 0;

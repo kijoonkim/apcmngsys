@@ -433,64 +433,57 @@
         fn_init();
 
 
-        document.getElementById('excelFile2').addEventListener('change', function(event) {
-            if(!window.FileReader) return;
+        document.getElementById('excelFile2').addEventListener('change', function (event) {
+            if (!window.FileReader) return;
 
             let PAY_ITEM_NAME = gfnma_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
 
-                event.target.files[0].name.length - 5));
-
             //급여 변동항목 등록_출산경조금공제 - Excel파일 명
-            if (event.target.files[0].name.indexOf("_") < 0){
+            if (event.target.files[0].name.indexOf("_") < 0) {
                 gfn_comAlert("E0000", "해당 급여항목의 엑셀파일만 업로드 가능합니다."); // HRP2200_001
                 return;
-            }else if (event.target.files[0].name.substring(event.target.files[0].name.indexOf("_")+1 ,
-                event.target.files[0].name.length - 5) != PAY_ITEM_NAME){
+            } else if (event.target.files[0].name.substring(event.target.files[0].name.indexOf("_") + 1,
+                event.target.files[0].name.length - 5) != PAY_ITEM_NAME) {
                 gfn_comAlert("E0000", "해당 급여항목의 엑셀파일만 업로드 가능합니다."); // HRP2200_001
                 return;
             }
 
             var reader = new FileReader();
-           /* let strmindate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_FR"));
-            let strmaxdate = gfnma_nvl(SBUxMethod.get("SRCH_DATE_TO"));
-            let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));*/
 
             reader.addEventListener(
                 "load",
                 () => {
-                    let workBook = XLSX.read(reader.result, { type: 'binary' });
+                    let workBook = XLSX.read(reader.result, {type: 'binary'});
                     workBook.SheetNames.forEach(function (sheetName) {
-                        /*if(sheetName == "급여 변동항목 등록_출산경조금공제") {*/
-                            let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 1, header: [
-                                    "DEPT_NAME",
-                                    "EMP_CODE",
-                                    "EMP_FULL_NAME",
-                                    "PAY_AMT",
-                                    "TAX_PAY_DATE",
-                                    "MEMO",
-                                    "UPDATE_TIME",
-                                    "UPDATE_USERID",
+                        let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {
+                            range: 1, header: [
+                                "DEPT_NAME",
+                                "EMP_CODE",
+                                "EMP_FULL_NAME",
+                                "PAY_AMT",
+                                "TAX_PAY_DATE",
+                                "MEMO",
+                                "UPDATE_TIME",
+                                "UPDATE_USERID",
 
-                                ]});
+                            ]
+                        });
 
-                            list.forEach((item, index) => {
-                              /*  if(gfn_nvl(item.APPROVAL_NO) != "") {*/
+                        list.forEach((item, index) => {
 
-                                    item["CHK_YN"] = 'Y';
-                                    item["DEPT_NAME"] = item.DEPT_NAME;
-                                    item["EMP_CODE"] = item.EMP_CODE;
-                                    item["EMP_FULL_NAME"] = item.EMP_FULL_NAME;
-                                    item["PAY_AMT"] = item.PAY_AMT;
-                                    item["TAX_PAY_DATE"] = item.TAX_PAY_DATE.replace(/-/gi, "");
-                                    item["MEMO"] = item.MEMO;
-                                    item["UPDATE_TIME"] = item.UPDATE_TIME.replace(/-/gi, "");
-                                    item["UPDATE_USERID"] = item.UPDATE_USERID;
-                                    item["TXN_ID"] = '';
+                            item["CHK_YN"] = 'Y';
+                            item["DEPT_NAME"] = item.DEPT_NAME;
+                            item["EMP_CODE"] = item.EMP_CODE;
+                            item["EMP_FULL_NAME"] = item.EMP_FULL_NAME;
+                            item["PAY_AMT"] = item.PAY_AMT;
+                            item["TAX_PAY_DATE"] = item.TAX_PAY_DATE.replace(/-/gi, "");
+                            item["MEMO"] = item.MEMO;
+                            item["UPDATE_TIME"] = item.UPDATE_TIME.replace(/-/gi, "");
+                            item["UPDATE_USERID"] = item.UPDATE_USERID;
+                            item["TXN_ID"] = '';
 
-                                    gvwDetallGrid.addRow(true, item);
-                                /*}*/
-                            });
-                       /* }*/
+                            gvwDetallGrid.addRow(true, item);
+                        });
                     });
                     fn_save();
                 },
@@ -508,7 +501,6 @@
             gfnma_setComSelect(['srch-pay_type'], jsonPayType, 'L_HRB008', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect([''], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
 
         ]);
     }
