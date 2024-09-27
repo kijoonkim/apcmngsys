@@ -706,11 +706,11 @@
 			 WHERE 1=1
 			   AND PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		   	   AND YR				= #{yr}
-    </update>
+	</update>
 
-    <!-- 적합여부 조회 -->
-    <select id="selectTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-    	SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn */
+	<!-- 적합여부 조회 -->
+	<select id="selectTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
 			,TOTAL.PRDCR_OGNZ_SN
@@ -817,11 +817,11 @@
 		ON TEFA.PRDCR_OGNZ_SN = TEFPSS.PRDCR_OGNZ_SN
 		AND TEFA.YR = TEFPSS.YR
 		AND TEFA.BRNO = TEFPSS.BRNO)TOTAL
-    </select>
+	</select>
 
-    <!-- 적합여부 조회 -->
-    <select id="selectTbEvFrmhsApoStbltYnList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-    	SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
+	<!-- 적합여부 조회 -->
+	<select id="selectTbEvFrmhsApoStbltYnList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
 			,TOTAL.PRDCR_OGNZ_SN

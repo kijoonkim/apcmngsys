@@ -37,4 +37,10 @@ public class GpcSelectPopupServiceImpl extends BaseServiceImpl implements GpcSel
 		return resultList;
 	}
 
+	@Override
+	public List<GpcSelectPopupVO> selectUoGpcList(GpcSelectPopupVO vo) throws Exception {
+		List<GpcSelectPopupVO> resultList = GpcSelectPopupMapper.selectUoGpcList(vo);
+		return resultList;
+	}
+
 }

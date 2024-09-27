@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.pd.aom.service.InvShipOgnReqMngService;
+import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 
 @Controller
@@ -66,6 +67,17 @@ public class InvShipOgnReqMngController extends BaseController{
 
 		try {
 			insertedCnt = InvShipOgnReqMngService.insertInvShipOgnReqMng(InvShipOgnReqMngVO);
+
+			List<GpcVO> GpcVoList = InvShipOgnReqMngVO.getGpcList();
+			for (GpcVO gpcVO : GpcVoList) {
+				gpcVO.setSysFrstInptPrgrmId(getPrgrmId());
+				gpcVO.setSysFrstInptUserId(getUserId());
+				gpcVO.setSysLastChgPrgrmId(getPrgrmId());
+				gpcVO.setSysLastChgUserId(getUserId());
+			}
+
+			insertedCnt += InvShipOgnReqMngService.multiSaveGpcList(GpcVoList);
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

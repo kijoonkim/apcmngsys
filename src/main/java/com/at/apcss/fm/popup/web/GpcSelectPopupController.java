@@ -51,8 +51,11 @@ public class GpcSelectPopupController extends BaseController {
 		List<GpcSelectPopupVO> resultList = new ArrayList<>();
 
 		try {
-
-			resultList = gpcSelectPopupService.selectGpcList(vo);
+			if(vo.getSelType().equals("1")) {
+				resultList = gpcSelectPopupService.selectUoGpcList(vo);
+			}else {
+				resultList = gpcSelectPopupService.selectGpcList(vo);
+			}
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

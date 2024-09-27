@@ -784,7 +784,7 @@
 		></sbux-modal>
 	</div>
 	<div id="body-modal-gpcList">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/gpcSelectPopup.jsp"></jsp:include>
 	</div>
 
 </body>
@@ -1390,11 +1390,11 @@
 			isoBrno : brno
 			,yr : year
 		});
-        let data = await postJsonPromise;
-        try{
-        	jsonInvShipOgnReqMng01.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise;
+		try{
+			jsonInvShipOgnReqMng01.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				SBUxMethod.set("dtl-input-apoCd", item.apoCd);
 				SBUxMethod.set("dtl-input-apoSe", item.apoSe);
 				SBUxMethod.set("dtl-input-crno", item.crno);
@@ -1522,13 +1522,13 @@
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
 
-        	}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 
@@ -1651,17 +1651,54 @@
 		console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
-		const postJsonPromise = gfn_postJSON("/pd/aom/insertInvShipOgnReqMng.do", {
-			apoCd: SBUxMethod.get('dtl-input-apoCd')//
-			,apoSe: '2'// 해당화면 등록자는 전부 출자출하조직임
-			,brno: SBUxMethod.get('dtl-input-brno')//
-			,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
-			,uoCd: SBUxMethod.get('dtl-input-uoCd')//
-			,crno: SBUxMethod.get('dtl-input-crno')//
-			,corpNm: SBUxMethod.get('dtl-input-corpNm')//
-			,yr: SBUxMethod.get('dtl-input-yr')//
-			,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
-		});
+		let gridData = grdGpcList.getGridDataAll();
+		let gpcList = [];
+
+		let apoCd = SBUxMethod.get('dtl-input-apoCd')//
+		let apoSe = SBUxMethod.get('dtl-input-apoSe')//
+		let brno = SBUxMethod.get('dtl-input-brno')//
+		let crno = SBUxMethod.get('dtl-input-crno')//
+		let corpNm = SBUxMethod.get('dtl-input-corpNm')//
+		let yr = SBUxMethod.get('dtl-input-yr')//
+
+		for(var i=1; i<=gridData.length; i++ ){
+
+			let rowData = grdGpcList.getRowData(i);
+			let rowSts = grdGpcList.getRowStatus(i);
+			//console.log(i+"행 상태값 : "+rowSts);
+
+			let delYn = rowData.delYn;
+
+			rowData.apoCd = apoCd;
+			rowData.apoSe = '2';
+			rowData.brno = brno;
+			rowData.crno = crno;
+			rowData.corpNm = corpNm;
+			rowData.yr = yr;
+
+			if(delYn == 'N'){
+				//모든데이터 저장 처리
+				rowData.rowSts = "I";
+				gpcList.push(rowData);
+
+			}
+		}
+
+		let saveList = {
+				apoCd: SBUxMethod.get('dtl-input-apoCd')//
+				,apoSe: '2'// 해당화면 등록자는 전부 출자출하조직임
+				,brno: SBUxMethod.get('dtl-input-brno')//
+				,uoBrno: SBUxMethod.get('dtl-input-uoBrno')//
+				,uoCd: SBUxMethod.get('dtl-input-uoCd')//
+				,crno: SBUxMethod.get('dtl-input-crno')//
+				,corpNm: SBUxMethod.get('dtl-input-corpNm')//
+				,yr: SBUxMethod.get('dtl-input-yr')//
+				,isoFundAplyAmt: SBUxMethod.get('dtl-input-isoFundAplyAmt')//
+			};
+
+		saveList.gpcList = gpcList;
+
+		const postJsonPromise = gfn_postJSON("/pd/aom/insertInvShipOgnReqMng.do", saveList);
 
 		const data = await postJsonPromise;
 		console.log("update result", data);
@@ -1792,9 +1829,9 @@
 		if (nCol < 1) {
 			return;
 		}
-	    var nRow = grdInvShipOgnReqMng01.getRow();
+		var nRow = grdInvShipOgnReqMng01.getRow();
 		if (nRow < 1) {
-	        return;
+			return;
 		}
 		if(nRow == null){
 			nRow = 1;
@@ -1848,9 +1885,11 @@
 		}
 		*/
 		</c:if>
-    }
+	}
 
 	const fn_clearForm01 = function() {
+		jsonGpcList.length=0;
+		grdGpcList.rebuild();
 
 		SBUxMethod.set("dtl-input-apoCd", null);
 		SBUxMethod.set("dtl-input-crno", null);
@@ -1882,13 +1921,13 @@
 	}
 
 	//신규
-    function fn_create() {
-    	console.log("******************fn_create**********************************");
-    	SBUxMethod.set('dtl-input-intyYn',null)//
-    	SBUxMethod.set('dtl-input-uoNm',null)//
-    	SBUxMethod.set('dtl-input-uoBrno',null)//
-    	SBUxMethod.set('dtl-input-untyYr',null)//
-    }
+	function fn_create() {
+		console.log("******************fn_create**********************************");
+		SBUxMethod.set('dtl-input-intyYn',null)//
+		SBUxMethod.set('dtl-input-uoNm',null)//
+		SBUxMethod.set('dtl-input-uoBrno',null)//
+		SBUxMethod.set('dtl-input-untyYr',null)//
+	}
 
 	//삭제
 	//출자출하조직 리스트 삭제
@@ -1899,26 +1938,29 @@
 		//console.log(nRow);
 		//console.log(typeof nRow);
 		let postJsonPromise = gfn_postJSON("/pd/aom/deleteInvShipOgnReqMng.do", InvShipOgnReqMngVO);
-        let data = await postJsonPromise;
+		let data = await postJsonPromise;
 
-        try{
-        	if(data.result > 0){
-        		alert("삭제 되었습니다.");
-        		grdInvShipOgnReqMng01.deleteRow(nRow);
-        	}else{
-        		alert("삭제 도중 오류가 발생 되었습니다.");
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+		try{
+			if(data.result > 0){
+				alert("삭제 되었습니다.");
+				grdInvShipOgnReqMng01.deleteRow(nRow);
+			}else{
+				alert("삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 
 	const fn_clearForm = function() {
 		jsonInvShipOgnReqMng01.length=0;
 		grdInvShipOgnReqMng01.rebuild();
+
+		jsonGpcList.length=0;
+		grdGpcList.rebuild();
 
 		SBUxMethod.set("dtl-input-apoCd", null);
 		SBUxMethod.set("dtl-input-crno", null);
@@ -2003,6 +2045,7 @@
 				return "";
 			}},
 			{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
+			{caption: ["통합조직코드"], 	ref: 'apoSe',   	hidden : true},
 			{caption: ["통합조직코드"], 	ref: 'brno',   		hidden : true},
 			{caption: ["통합조직코드"], 	ref: 'yr',   		hidden : true},
 			/*
@@ -2093,7 +2136,7 @@
 		}
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectGpcList.do", {
 			// apoCd : apoCd
-			apoSe : '1'
+			apoSe : '2'
 			,brno : SBUxMethod.get('dtl-input-brno')//
 			,crno : SBUxMethod.get('dtl-input-crno')//
 			//,corpNm : SBUxMethod.get('dtl-input-corpNm')//
@@ -2114,6 +2157,7 @@
 						,rmrk: item.rmrk
 						,delYn: item.delYn
 						,apoCd: item.apoCd
+						,apoSe: item.apoSe
 						,brno: item.brno
 
 						,clsfCd: item.clsfCd
@@ -2299,10 +2343,21 @@
 		let delYnCol = grdGpcList.getColRef('delYn');
 		let delYnValue = grdGpcList.getCellData(nRow,delYnCol);
 		if(delYnValue == '' || delYnValue == null){
-			return
+			return;
 		}
+		let rowData = grdGpcList.getRowData(nRow);
+		let selType = '1';
+		console.log(rowData);
+
+		if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
+			return;
+		}
+		if(rowData.sttgUpbrItemSe == '3'){
+			selType = '2';
+		}
+		let brno = SBUxMethod.get('dtl-input-brno');//
 		grdGpcList.setRow(nRow);
-		popGpcSelect.init(fn_setGridItem);
+		popGpcSelect.init(brno , selType ,fn_setGridItem);
 		SBUxMethod.openModal('modal-gpcList');
 	}
 
@@ -2333,7 +2388,9 @@
 			}
 
 			//그리드 값 세팅
-			grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			if(!gfn_isEmpty(rowData.ctgryCd)){
+				grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
+			}
 			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx3,rowData.itemCd,true);
 			grdGpcList.setCellData(selGridRow,colRefIdx4,rowData.itemNm,true);

@@ -8,7 +8,7 @@ import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -17,7 +17,7 @@ import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -25,8 +25,8 @@ public interface InvShipOgnReqMngMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
-	 * @param bbsVO
+	 * 출자출하조직 정보를 조회한다.
+	 * @param InvShipOgnReqMngVO
 	 * @return
 	 */
 	public InvShipOgnReqMngVO selectInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO);
@@ -40,4 +40,5 @@ public interface InvShipOgnReqMngMapper {
 	public int deleteInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception;
 
 	public List<InvShipOgnReqMngVO> hiddenGrdIsoSelectList(InvShipOgnReqMngVO InvShipOgnReqMngVO);
+
 }

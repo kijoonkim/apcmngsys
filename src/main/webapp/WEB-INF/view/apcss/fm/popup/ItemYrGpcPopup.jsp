@@ -70,6 +70,7 @@
 
 	var jsonPopComCtgryCd = [];
 	var jsonPopComSttgUpbrItemSe = [];
+	var jsonPopComClsfCd = [];
 	/**
 	 * @description 권한 사용자 선택 팝업
 	 */
@@ -93,6 +94,7 @@
 			SBUxMethod.attr('btnSearchItem', 'disabled', false);
 
 			gfn_setComCdSBSelect('grdItemPop01', 	jsonPopComCtgryCd, 			'CTGRY_CD'); //분류코드
+			gfn_setComCdSBSelect('grdItemPop01', 	jsonPopComClsfCd, 			'CLSF_CD'); //분류코드
 			gfn_setComCdSBSelect('grdItemPop01', 	jsonPopComSttgUpbrItemSe, 	'STTG_UPBR_ITEM_SE'); //품목구분
 
 			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
@@ -109,39 +111,41 @@
 		},
 		createGrid: function(/** {boolean} */ isEditable) {
 			var SBGridProperties = {};
-		    SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
-		    SBGridProperties.id = this.gridId;			//'grdItemPop01';					//'grdItemPop01';
-		    SBGridProperties.jsonref = this.jsonId;		//'jsonItemPop01';		//'jsonItemPop01';
-		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties.selectmode = 'byrow';
-		    SBGridProperties.explorerbar = 'sortmove';
-		    SBGridProperties.extendlastcol = 'scroll';
-		    SBGridProperties.oneclickedit = true;
-		    SBGridProperties.allowcopy = true;
+			SBGridProperties.parentid = this.areaId;	//'sb-area-grdComAuthUserPop';	//this.sbGridArea;	//'sb-area-grdComAuthUserPop';
+			SBGridProperties.id = this.gridId;			//'grdItemPop01';					//'grdItemPop01';
+			SBGridProperties.jsonref = this.jsonId;		//'jsonItemPop01';		//'jsonItemPop01';
+			SBGridProperties.emptyrecords = '데이터가 없습니다.';
+			SBGridProperties.selectmode = 'byrow';
 			SBGridProperties.explorerbar = 'sortmove';
-		    SBGridProperties.scrollbubbling = false;
-		    SBGridProperties.paging = {
+			SBGridProperties.extendlastcol = 'scroll';
+			SBGridProperties.oneclickedit = true;
+			SBGridProperties.allowcopy = true;
+			SBGridProperties.explorerbar = 'sortmove';
+			SBGridProperties.scrollbubbling = false;
+			SBGridProperties.paging = {
 				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
-		    SBGridProperties.columns = [
-		        {caption: ['품목코드'], 	ref: 'itemCd', width: '80px', type: 'input', style: 'text-align:center'},
-		        {caption: ['품목명'], 		ref: 'itemNm', width: '80px', type: 'input', style: 'text-align:center'},
-		        {caption: ['해당품목 선택조직'], ref: 'corpNm', width: '200px', type: 'input', style: 'text-align:center'},
-		    	{caption: ["품목분류"], 		ref: 'ctgryCd',   	type:'combo',  width:'120px',    style:'text-align:center',
-		    		typeinfo : {ref:'jsonPopComCtgryCd', label:'label', value:'value', displayui : false}},
-		    	{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'120px',    style:'text-align:center',
-		    		typeinfo : {ref:'jsonPopComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
-		        {caption: ['사업자번호'], 		ref: 'brno', hidden : true},
-		    ];
+				'count' : 5,
+				'size' : 20,
+				'sorttype' : 'page',
+				'showgoalpageui' : true
+			};
+			SBGridProperties.columns = [
+				{caption: ['품목코드'], 	ref: 'itemCd', width: '80px', type: 'input', style: 'text-align:center'},
+				{caption: ['품목명'], 		ref: 'itemNm', width: '80px', type: 'input', style: 'text-align:center'},
+				{caption: ['해당품목 선택조직'], ref: 'corpNm', width: '200px', type: 'input', style: 'text-align:center'},
+				{caption: ["부류"], 		ref: 'clsfCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+					typeinfo : {ref:'jsonPopComClsfCd', label:'label', value:'value', displayui : false}},
+				{caption: ["평가부류"], 		ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center',
+					typeinfo : {ref:'jsonPopComCtgryCd', label:'label', value:'value', displayui : false}},
+				{caption: ["전문/육성 구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'80px',    style:'text-align:center',
+					typeinfo : {ref:'jsonPopComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
+				{caption: ['사업자번호'], 		ref: 'brno', hidden : true},
+			];
 
-		    grdItemPop01 = _SBGrid.create(SBGridProperties);
-		    grdItemPop01.bind('beforepagechanged', this.paging);
-		    grdItemPop01.bind('dblclick', popYrGpcSelect.choice);	//'popItemChoice');
-		    //this.search();
+			grdItemPop01 = _SBGrid.create(SBGridProperties);
+			grdItemPop01.bind('beforepagechanged', this.paging);
+			grdItemPop01.bind('dblclick', popYrGpcSelect.choice);	//'popItemChoice');
+			//this.search();
 		},
 		choice: function() {
 			let nRow = grdItemPop01.getRow();
@@ -151,43 +155,44 @@
 		search: async function(/** {boolean} */ isEditable) {
 			// set pagination
 			grdItemPop01.rebuild();
-	    	let pageSize = grdItemPop01.getPageSize();
-	    	let pageNo = 1;
+			let pageSize = grdItemPop01.getPageSize();
+			let pageNo = 1;
 
-	    	// grid clear
-	    	jsonItemPop01.length = 0;
-	    	grdItemPop01.refresh();
-	    	//grdItemPop01.clearStatus();
-	    	this.setGrid(pageSize, pageNo, isEditable);
+			// grid clear
+			jsonItemPop01.length = 0;
+			grdItemPop01.refresh();
+			//grdItemPop01.clearStatus();
+			this.setGrid(pageSize, pageNo, isEditable);
 		},
 		setGrid: async function(pageSize, pageNo, isEditable) {
 
-	    	//var itemCd = SBUxMethod.get("item-inp-itemCd");
+			//var itemCd = SBUxMethod.get("item-inp-itemCd");
 			var itemNm = nvlScnd(SBUxMethod.get("item-inp-itemNm"),'');
 
 			console.log("setGrid 호출 / itemNm : " + itemNm + "/ 타입 : " + typeof(itemNm));
 
-	        const postJsonPromise = gfn_postJSON("/fm/popup/selectYrGpcListPopup.do", {
+			const postJsonPromise = gfn_postJSON("/fm/popup/selectYrGpcListPopup.do", {
 
-	        	itemNm : itemNm, //검색 파라미터
-	        	brno : popYrGpcBrno,
-	        	yr : popYrGpcYr,
-	        	// pagination
-		  		pagingYn : 'Y',
+				itemNm : itemNm, //검색 파라미터
+				brno : popYrGpcBrno,
+				yr : popYrGpcYr,
+				// pagination
+				pagingYn : 'Y',
 				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+				recordCountPerPage : pageSize
 			});
 
-	        const data = await postJsonPromise;
+			const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
-	    		let totalRecordCount = 0;
+				/** @type {number} **/
+				let totalRecordCount = 0;
 
-	    		jsonItemPop01.length = 0;
-	        	data.resultList.forEach((item, index) => {
+				jsonItemPop01.length = 0;
+				data.resultList.forEach((item, index) => {
 					const itemVal = {
 							ctgryCd : item.ctgryCd,
+							clsfCd : item.clsfCd,
 							sttgUpbrItemSe : item.sttgUpbrItemSe,
 							itemCd 	: item.itemCd,
 							itemNm 	: item.itemNm,
@@ -201,42 +206,42 @@
 					}
 				});
 
-	        	if (jsonItemPop01.length > 0) {
-	        		if(grdItemPop01.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdItemPop01.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdItemPop01.rebuild();
+				if (jsonItemPop01.length > 0) {
+					if(grdItemPop01.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+						grdItemPop01.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+						grdItemPop01.rebuild();
 					}else{
 						grdItemPop01.refresh();
 					}
-	        	} else {
-	        		grdItemPop01.setPageTotalCount(totalRecordCount);
-	        		grdItemPop01.rebuild();
-	        	}
+				} else {
+					grdItemPop01.setPageTotalCount(totalRecordCount);
+					grdItemPop01.rebuild();
+				}
 
-	        	if (isEditable) {
-	        		grdItemPop01.setCellDisabled(0, 0, grdItemPop01.getRows() - 1, grdItemPop01.getCols() - 1, false);
-	        		let nRow = grdItemPop01.getRows();
+				if (isEditable) {
+					grdItemPop01.setCellDisabled(0, 0, grdItemPop01.getRows() - 1, grdItemPop01.getCols() - 1, false);
+					let nRow = grdItemPop01.getRows();
 					grdItemPop01.addRow(true);
 					grdItemPop01.setCellDisabled(nRow, 0, nRow, grdItemPop01.getCols() - 1, true);
-	        	} else {
-	        		grdItemPop01.setCellDisabled(0, 0, grdItemPop01.getRows() - 1, grdItemPop01.getCols() - 1, true);
-	        	}
+				} else {
+					grdItemPop01.setCellDisabled(0, 0, grdItemPop01.getRows() - 1, grdItemPop01.getCols() - 1, true);
+				}
 
-	        	document.querySelector('#yrItem-pop-cnt').innerText = totalRecordCount;
+				document.querySelector('#yrItem-pop-cnt').innerText = totalRecordCount;
 
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdItemPop01.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdItemPop01.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		},
+		paging: function() {
+			let recordCountPerPage = grdItemPop01.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+			let currentPageNo = grdItemPop01.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popYrGpcSelect.setGrid(recordCountPerPage, currentPageNo);
-	    }
+			popYrGpcSelect.setGrid(recordCountPerPage, currentPageNo);
+		}
 	}
 
 function fn_gpcSelectEnterKey() {
@@ -248,11 +253,11 @@ function fn_gpcSelectEnterKey() {
 	//null 체크
 function nvlScnd(str, defaultStr){
 
-       if(typeof str == "undefined" || str == null || str == "" || str == "null")
-           str = defaultStr ;
+		if(typeof str == "undefined" || str == null || str == "" || str == "null")
+			str = defaultStr ;
 
-       return str ;
-   }
+		return str ;
+	}
 
 
 

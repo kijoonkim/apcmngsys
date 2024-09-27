@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper;
+import com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper;
 import com.at.apcss.pd.aom.service.InvShipOgnReqMngService;
+import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 
 
@@ -31,6 +33,8 @@ public class InvShipOgnReqMngServiceImpl extends BaseServiceImpl implements InvS
 
 	@Autowired
 	private InvShipOgnReqMngMapper InvShipOgnReqMngMapper;
+	@Autowired
+	private PrdcrCrclOgnReqMngMapper PrdcrCrclOgnReqMngMapper;
 
 	@Override
 	public InvShipOgnReqMngVO selectInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception {
@@ -87,5 +91,36 @@ public class InvShipOgnReqMngServiceImpl extends BaseServiceImpl implements InvS
 
 		List<InvShipOgnReqMngVO> resultList = InvShipOgnReqMngMapper.hiddenGrdIsoSelectList(InvShipOgnReqMngVO);
 		return resultList;
+	}
+
+	@Override
+	public int multiSaveGpcList(List<GpcVO> gpcVOList) throws Exception {
+		int savedCnt = 0;
+		for (GpcVO gpcVO : gpcVOList) {
+			savedCnt += insertGpc(gpcVO);
+		}
+		return savedCnt;
+	}
+
+	@Override
+	public int insertGpc(GpcVO gpcVO) throws Exception {
+
+		int insertedCnt = PrdcrCrclOgnReqMngMapper.insertGpc(gpcVO);
+
+		return insertedCnt;
+	}
+
+	@Override
+	public List<GpcVO> selectGpcList(GpcVO gpcVO) throws Exception {
+		List<GpcVO> resultList = PrdcrCrclOgnReqMngMapper.selectGpcList(gpcVO);
+		return resultList;
+	}
+
+	@Override
+	public int deleteGpc(GpcVO gpcVO) throws Exception {
+
+		int insertedCnt = PrdcrCrclOgnReqMngMapper.deleteGpc(gpcVO);
+
+		return insertedCnt;
 	}
 }

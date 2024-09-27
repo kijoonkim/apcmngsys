@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.fm.bbs.vo.BbsVO;
+import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 
 
@@ -43,5 +44,37 @@ public interface InvShipOgnReqMngService {
 	public int deleteInvShipOgnReqMng(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception;
 
 	public List<InvShipOgnReqMngVO> hiddenGrdIsoSelectList(InvShipOgnReqMngVO InvShipOgnReqMngVO) throws Exception;
+
+	/**
+	 * 품목 리스트를 조회한다.
+	 * @param GpcVO
+	 * @return List<GpcVO>
+	 * @throws Exception
+	 */
+	public List<GpcVO> selectGpcList(GpcVO gpcVO) throws Exception;
+
+	/**
+	 * 품목 리스트를 등록한다.
+	 * @param GpcVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int multiSaveGpcList(List<GpcVO> gpcVOList) throws Exception;
+
+	/**
+	 * 품목을 등록한다.
+	 * @param GpcVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertGpc(GpcVO gpcVO) throws Exception;
+
+	/**
+	 * 품목을 삭제한다.
+	 * @param GpcVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteGpc(GpcVO gpcVO) throws Exception;
 
 }

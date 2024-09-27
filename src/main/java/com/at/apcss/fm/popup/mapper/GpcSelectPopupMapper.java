@@ -31,4 +31,5 @@ public interface GpcSelectPopupMapper {
 	 */
 	public List<GpcSelectPopupVO> selectGpcList(GpcSelectPopupVO vo);
 
+	public List<GpcSelectPopupVO> selectUoGpcList(GpcSelectPopupVO vo);
 }

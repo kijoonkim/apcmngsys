@@ -605,49 +605,57 @@
 	    SBGridProperties.oneclickedit = true;
 	    //SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 	    //SBGridProperties.mergecellsverticalalign = 'bottom';
-	    SBGridProperties.columns = [
-	            {caption : ['품목명','품목명'],
-	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
-	            {caption : ['판매위임(매입)금액(천원)','구분'],
-	            	ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
-	            {caption : ['판매위임(매입)금액(천원)','구분'],
-		            ref : "seDtlNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
-		        //{caption : ['판매위임(매입)금액(천원)','품목구분'],
-			        //ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
-			    {caption : ['판매위임(매입)금액(천원)','취급유형'],
+		SBGridProperties.columns = [
+				{caption : ['품목명','품목명'],
+					ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
+				{caption : ['판매위임(매입)현황','구분'],
+					ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+				{caption : ['판매위임(매입)현황','구분'],
+					ref : "seDtlNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+				//{caption : ['판매위임(매입)금액(천원)','품목구분'],
+					//ref : "sttgUpbrItemNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
+				{caption : ['판매위임(매입)현황','취급유형'],
 					ref : "trmtTypeNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
-	            {caption : ['판매위임(매입)금액(천원)','매입처'],
-	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
+				{caption : ['판매위임(매입)현황','매입처'],
+					ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 
-	            {caption : ['판매위임(매입)금액(천원)','금액'], calc : 'fn_calcSlsCnsgnPrchsAmt',
-	            	ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
-	            	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false },
+				{caption : ['판매위임(매입)현황','물량(톤)']
+					//, calc : 'fn_calcSlsCnsgnPrchsAmt'
+					,ref : "slsCnsgnPrchsVlm",   width : '100px',        style : 'text-align:right',      type : 'input'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false },
+				{caption : ['판매위임(매입)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnPrchsAmt',
+					ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false },
 
-	            {caption : ['판매(매출)금액<br>(천원)','판매(매출)금액<br>(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
-	            	ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
-	            	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
-	            {caption : ['비고','비고'],
-	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
+				{caption : ['판매(매출)현황','물량(톤)']
+					//, calc : 'fn_calcSlsCnsgnSlsAmt'
+					,ref : "slsCnsgnSlsVlm",   width : '100px',        style : 'text-align:right',      type : 'input'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
+				{caption : ['판매(매출)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
+					ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
+				{caption : ['비고','비고'],
+					ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
 
-	            {caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
-		        {caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
-		        {caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
-		        {caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
-		        {caption: ["상세내역"], 	ref: 'prdcrOgnzCd',   	hidden : true},
-		        {caption: ["상세내역"], 	ref: 'cltvtnLandSn',   	hidden : true},
-		        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
-		        {caption: ["상세내역"], 	ref: 'typeSeNo',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'isoBrno',   		hidden : true},
-		        {caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
-	        ];
+				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+				{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'prdcrOgnzSn',   	hidden : true},
+				{caption: ["상세내역"], 	ref: 'prdcrOgnzCd',   	hidden : true},
+				{caption: ["상세내역"], 	ref: 'cltvtnLandSn',   	hidden : true},
+				{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+				{caption: ["상세내역"], 	ref: 'typeSeNo',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'isoBrno',   		hidden : true},
+				{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+				];
 
-	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
-	    //grdPrdcrOgnCurntMng01.bind('click','gridClick01');
-	    grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
+		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+		//grdPrdcrOgnCurntMng01.bind('click','gridClick01');
+		grdPrdcrOgnCurntMng01.bind('afteredit','fn_AfterEdit01');
 	}
 
 

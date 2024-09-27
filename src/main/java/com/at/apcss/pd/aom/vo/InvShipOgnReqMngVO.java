@@ -1,5 +1,7 @@
 package com.at.apcss.pd.aom.vo;
 
+import java.util.List;
+
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
@@ -62,5 +64,7 @@ public class InvShipOgnReqMngVO extends ComVO{
 	private String picTelno;
 	private String picMoblno;
 	private String picEml;
+
+	private List<GpcVO> gpcList;
 }
 
