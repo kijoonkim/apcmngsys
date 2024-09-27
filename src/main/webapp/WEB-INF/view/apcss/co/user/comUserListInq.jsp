@@ -98,7 +98,7 @@
 						            jsondata-value="cdVl"
 						            jsondata-text="cdVlNm"
 									jsondata-ref="jsonMbrTypeCd"
-								>
+								></sbux-input>
 							</td>
 							<td class="td_input"></td>
 						</tr>
@@ -377,7 +377,8 @@
 	        	ref: 'userTypeNm',  
 	        	type:'output',  
 	        	width:'150px', 
-	        	style:'text-align:center'
+	        	style:'text-align:center',
+	        	hidden: true
 	        },
 	        {
 	        	caption: ["메일주소"],	    
@@ -398,14 +399,16 @@
 	        	ref: 'jbttlNm',   	
 	        	type:'output',  
 	        	width:'90px', 
-	        	style:'text-align:center'
+	        	style:'text-align:center',
+	        	hidden: true
 	        },
 	        {
 	        	caption: ["담당업무"],  		
 	        	ref: 'tkcgTaskNm',  
 	        	type:'output',  
 	        	width:'110px', 
-	        	style:'text-align:center'
+	        	style:'text-align:center',
+	        	hidden: true
 	        },
         	{
         		caption: ["법인명"],
@@ -418,11 +421,22 @@
         		caption: ["법인번호"],
         		ref: 'crno',      
         		type:'output',  	
-        		width:'100px', 
+        		width:'120px', 
         		style: 'text-align:center',
                 format : {
                 	type:'string',
                 	rule:'0000-00-000000-0'
+                }
+        	},
+        	{
+        		caption: ["사업자번호"],
+        		ref: 'brno',      
+        		type:'output',  	
+        		width:'120px', 
+        		style: 'text-align:center',
+                format : {
+                	type:'string',
+                	rule:'000-00-00000'
                 }
         	},
         	{

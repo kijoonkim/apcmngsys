@@ -62,20 +62,81 @@
 					<tbody>
 						<tr>
 							<th scope="row">사용자ID</th>
-							<td td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-userId" name="srch-inp-userId" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+							<td colspan="3" td class="td_input" style="border-right: hidden;">
+								<sbux-input 
+									id="srch-inp-userId" 
+									name="srch-inp-userId" 
+									uitype="text" 
+									class="form-control input-sm" 
+									placeholder=""
+								></sbux-input>
 							</td>
-							<td colspan="2" style="border-right: hidden;"></td>
 							<th scope="row">사용자명</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-userNm" name="srch-inp-userNm" uitype="text" class="form-control input-sm" placeholder=""></sbux-input>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input 
+									id="srch-inp-userNm" 
+									name="srch-inp-userNm" 
+									uitype="text" 
+									class="form-control input-sm" 
+									placeholder=""
+								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"></td>
-							<th scope="row">사용자 유형</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-userType" name="srch-slt-userType" uitype="single" class="form-control input-sm" unselected-text="전체" jsondata-ref="jsonUserType">
+							<th scope="row">회원구분</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select 
+									id="srch-slt-mbrTypeCd" 
+									name="srch-slt-mbrTypeCd" 
+									uitype="single" 
+									class="form-control input-sm" 
+									unselected-text="전체" 
+						            jsondata-value="cdVl"
+						            jsondata-text="cdVlNm"
+									jsondata-ref="jsonMbrTypeCd"
+								>
 							</td>
-							<td colspan="2" class="td_input"></td>
+						</tr>
+						<tr>
+							<th scope="row">법인명</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-input 
+									id="srch-inp-ognzNm" 
+									name="srch-inp-ognzNm" 
+									uitype="text" 
+									class="form-control input-sm" 
+									placeholder="" 
+									maxlength="20"
+								></sbux-input>
+							</td>
+							<th scope="row">시/도</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-untyCtpv"
+									name="srch-slt-untyCtpv"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonUntyCtpv"
+						            jsondata-value="cdVl"
+						            jsondata-text="cdVlNm"
+									unselected-text="전체"
+									onchange="fn_sggInit"
+								></sbux-select>
+							</td>
+							<th scope="row">시/군/구</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<sbux-select
+									id="srch-slt-untySgg"
+									name="srch-slt-untySgg"
+									uitype="single"
+									class="form-control input-sm"
+									jsondata-ref="jsonUntySgg"
+									jsondata-value="cdVl"
+									jsondata-text="cdVlNm"
+									unselected-text="전체"
+									filter-source-name="srch-slt-untyCtpv"
+            						jsondata-filter="upCdVl"
+									
+								></sbux-select>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -87,7 +148,7 @@
 						<li><span>사용자 내역</span></li>
 					</ul>
 				</div>
-				<div id="sb-area-grdUserInfoChg" style="height:579px;"></div>
+				<div id="sb-area-grdComUser" style="height:579px;"></div>
 			</div>
 		</div>
 		<!-- 계정생성 Modal -->
@@ -120,157 +181,349 @@
 		await fn_search();
 	}
 
-	var jsonUseYn = [];
-	var jsonLckYn = [];
-	var jsonUserType=[];
-	var jsonUserStts=[];
+	var jsonUseYn 		= [];
+	var jsonLckYn 		= [];
+	var jsonUserType	= [];
+	var jsonUserStts	= [];
 	
-	const fn_initSBSelectSpcfct = async function() {
-		let rst = await Promise.all([
-			gfn_setComCdGridSelect('userInfoChgGridId', 		jsonUseYn, 				'REVERSE_YN', '0000'),	// 사용유무
-			gfn_setComCdSBSelect('userInfoChgGridId', 			jsonLckYn, 				'LCK_YN'),				// 잠김여부
-			gfn_setComCdSBSelect('srch-slt-userType', 			jsonUserType, 			'USER_TYPE','0000'),	// 사용자유형
-			gfn_setComCdSBSelect('srch-slt-comUserType', 			jsonUserType, 			'USER_TYPE','0000'),	// 사용자유형
-			gfn_setComCdSBSelect('srch-slt-comUserStts', 			jsonUserStts, 			'USER_STTS','0000'),	// 사용자상태
-		])
+	// 공통코드 JSON
+	var jsonMbrTypeCd 	= [];
+    var jsonUntyCtpv 	= [];
+    var jsonUntySgg 	= [];
+	
+	var grdComUser;
+	// 그리드 데이터
+	var jsonComUser	= [];
+    
+	/**
+	 * @name fn_init
+	 * @description form init
+	 */
+	const fn_init = async function() {
+		
+		await fn_initSBSelect();
+		fn_createGrid();
+	}
+    
+	const fn_initSBSelect = async function() {
+		
+		let result = await Promise.all([
+			gfn_getComCdDtls("TYPE_CD"),
+			gfn_getComCdDtls("UNTY_CTPV"),
+			gfn_getComCdDtls("UNTY_SGG"),
+			
+			gfn_setComCdGridSelect('userInfoChgGridId',		jsonUseYn, 				'REVERSE_YN'),	// 사용유무
+			gfn_setComCdSBSelect('userInfoChgGridId', 		jsonLckYn, 				'LCK_YN'),		// 잠김여부
+			gfn_setComCdSBSelect('srch-slt-comUserStts', 	jsonUserStts,			'USER_STTS'),	// 사용자상태
+		
+		]);
+		
+		jsonMbrTypeCd 	= result[0];
+	    jsonUntyCtpv 	= result[1];
+	    jsonUntySgg 	= result[2];
+		
+		SBUxMethod.refresh("srch-slt-mbrTypeCd");
+		SBUxMethod.refresh("srch-slt-untyCtpv");
+		SBUxMethod.refresh("srch-slt-untySgg");
 	}
 
+	const fn_sggInit = function() {
+		SBUxMethod.set("srch-slt-untySgg", "");
+		//SBUxMethod.refresh("srch-slt-untySgg");
+	}
+	
 	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_initSBSelectSpcfct();
-		fn_createUserInfoChgGrid();
-		fn_search();
+		fn_init();
 	});
 
-	var userInfoChgGridData = []; // 그리드의 참조 데이터 주소 선언
-	function fn_createUserInfoChgGrid() {
-	    var SBGridProperties1 = {};
-		    SBGridProperties1.parentid = 'sb-area-grdUserInfoChg';
-		    SBGridProperties1.id = 'userInfoChgGridId';
-		    SBGridProperties1.jsonref = 'userInfoChgGridData';
-		    SBGridProperties1.emptyrecords = '데이터가 없습니다.';
-		    SBGridProperties1.selectmode = 'byrow';
-		    SBGridProperties1.extendlastcol = 'scroll';
-		    SBGridProperties1.scrollbubbling = false;
-		    SBGridProperties1.oneclickedit = true;
-		    SBGridProperties1.explorerbar = 'sortmove';
-	    	SBGridProperties1.paging = {
-	    			'type' : 'page',
-	    		  	'count' : 5,
-	    		  	'size' : 20,
-	    		  	'sorttype' : 'page',
-	    		  	'showgoalpageui' : true
-	    	};
-		    SBGridProperties1.columns = [
-	        	 {caption: ["체크박스"], 		ref: 'checkedYn', 	type: 'checkbox',	width: '40px',	style:'text-align: center',
-					typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
-		         {caption: ["사용자ID"], 		ref: 'userId',     	type:'output',   	width:'180px', 	style:'text-align:center'},
-		         {caption: ["사용자명"], 		ref: 'userNm',    	type:'output',  	width:'105px', 	style:'text-align:center'},
-		         {caption: ["비밀번호"],    	ref: 'pswd',        type:'button',  	width:'51px', 	style:'text-align:center',
-		        	 renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-		 	        	if(strValue != null && strValue != ""){
-		 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_callUpdateUserPsd(\"UPD\", \"userInfoChgGridId\", " + nRow + ", " + nCol + ")'>초기화</button>";
-		 	        	}
-		 	        }},
-		         {caption: ["APC명"],	    ref: 'apcNm',   	type:'output',  	width:'105px', 	style:'text-align:center'},
-		         {caption: ["사용자유형"],   	ref: 'userTypeNm',  type:'output',  	width:'105px', 	style:'text-align:center'},
-		         {caption: ["메일주소"],	    ref: 'eml', 		type:'input',  		width:'200px', 	style:'text-align:center',
-					validate : gfn_chkByte.bind({byteLimit: 320})},
-		         {caption: ["전화번호"],  		ref: 'mblTelno',   	type:'input',  		width:'105px', 	style:'text-align:center',
-		        	validate : gfn_chkByte.bind({byteLimit: 11})},
-		         {caption: ["직책명"],  		ref: 'jbttlNm',   	type:'input',   	width:'105px', 	style:'text-align:center',
-					validate : gfn_chkByte.bind({byteLimit: 100})},
-		         {caption: ["담당업무"],  		ref: 'tkcgTaskNm',  type:'input',   	width:'105px', 	style:'text-align:center',
-					validate : gfn_chkByte.bind({byteLimit: 100})},
-		         {caption: ["사용유무"],  		ref: 'delYn',   	type:'combo',   	width:'105px', 	style:'text-align:center',
-					typeinfo : {ref:'jsonUseYn', label:'label', value:'value', displayui : true}
-		         },
-		         {caption: ["잠김여부"],  		ref: 'lckYn',   	type:'combo',   	width:'105px', style:'text-align:center',
-					typeinfo : {ref:'jsonLckYn', label:'label', value:'value', displayui : true}
-		         },
-		         {caption: ["최종접속일시"],	ref: 'endLgnDt',  	type:'output',  	width:'105px', style:'text-align:center'},
-		         {caption: ["APC코드"],		ref: 'apcCd',   	type:'output', 		hidden: true}
+	
+	
+	const fn_createGrid = function() {
+	    var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-grdComUser';
+	    SBGridProperties.id = 'grdComUser';
+	    SBGridProperties.jsonref = 'jsonComUser';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.frozencols = 3;
+	    SBGridProperties.selectmode = 'byrow';
+	    SBGridProperties.extendlastcol = 'scroll';
+	    SBGridProperties.scrollbubbling = false;
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.explorerbar = 'sortmove';
+	    SBGridProperties.paging = {
+   			'type' : 'page',
+   		  	'count' : 5,
+   		  	'size' : 50,
+   		  	'sorttype' : 'page',
+   		  	'showgoalpageui' : true
+    	};
+	    SBGridProperties.columns = [
+			{
+	        	caption: ["체크박스"], 		
+	        	ref: 'checkedYn', 	
+	        	type: 'checkbox',	
+	        	width: '40px',	style:'text-align: center',
+				typeinfo: {
+					ignoreupdate : true, 
+					fixedcellcheckbox : {
+						usemode : true, rowindex : 0
+					}, 
+					checkedvalue : 'Y', 
+					uncheckedvalue : 'N'
+					
+				}
+			},
+	        {
+				caption: ["사용자ID"], 		
+				ref: 'userId',     	
+				type:'output',   	
+				width:'180px', 	
+				style:'text-align:center'
+			},
+	        {
+				caption: ["사용자명"], 		
+				ref: 'userNm',    	
+				type:'output',  	
+				width:'105px', 	
+				style:'text-align:center'
+			},
+	        {
+				caption: ["비밀번호"],    	
+				ref: 'pswd',        
+				type:'button',  	
+				width:'51px', 	
+				style:'text-align:center',
+	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	 	        	if (strValue != null && strValue != ""){
+	 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_callUpdateUserPsd(\"UPD\", \"grdComUser\", " + nRow + ", " + nCol + ")'>초기화</button>";
+	 	        	}
+	 	        }
+			},
+	        {
+				caption: ["APC명"],	    
+				ref: 'apcNm',   	
+				type:'output',  	
+				width:'105px', 	
+				style:'text-align:center'
+			},
+	        {
+	        	caption: ["회원구분"],    	
+	        	ref: 'mbrTypeNm',  
+	        	type:'output',  
+	        	width:'120px', 
+	        	style:'text-align:center'
+	        },
+	        {
+	        	caption: ["메일주소"],	    
+	        	ref: 'eml', 		
+	        	type:'input',  		
+	        	width:'200px', 	
+	        	style:'text-align:center',
+				validate : gfn_chkByte.bind({byteLimit: 320})
+			},
+	        {
+				caption: ["휴대전화"], 
+				ref: 'mblTelno',   	
+				type:'input',  		
+				width:'105px', 	
+				style:'text-align:center',
+	        	validate : gfn_chkByte.bind({byteLimit: 11})
+	        },
+	        {
+	        	caption: ["직책명"],  		
+	        	ref: 'jbttlNm',   	
+	        	type:'input',   	
+	        	width:'105px', 	
+	        	style:'text-align:center',
+				validate : gfn_chkByte.bind({byteLimit: 100}),
+	        	hidden: true
+			},
+	        {
+				caption: ["담당업무"],  		
+				ref: 'tkcgTaskNm',  
+				type:'input',   	
+				width:'105px', 	
+				style:'text-align:center',
+				validate : gfn_chkByte.bind({byteLimit: 100}),
+	        	hidden: true
+			},
+        	{
+        		caption: ["법인명"],
+        		ref: 'ognzNm',      
+        		type:'output',  	
+        		width:'100px', 
+        		style:'text-align:left'
+        	},
+        	{
+        		caption: ["법인번호"],
+        		ref: 'crno',      
+        		type:'output',  	
+        		width:'120px', 
+        		style: 'text-align:center',
+                format : {
+                	type:'string',
+                	rule:'0000-00-000000-0'
+                }
+        	},
+        	{
+        		caption: ["사업자번호"],
+        		ref: 'brno',      
+        		type:'output',  	
+        		width:'120px', 
+        		style: 'text-align:center',
+                format : {
+                	type:'string',
+                	rule:'000-00-00000'
+                }
+        	},
+        	{
+        		caption: ["시/도"],
+        		ref: 'ctpvNm',      
+        		type:'output',  	
+        		width:'100px', 
+        		style:'text-align:left'
+        	},
+        	{
+        		caption: ["시/군/구"],
+        		ref: 'sggExpln',      
+        		type:'output',  	
+        		width:'100px', 
+        		style:'text-align:left'
+        	},
+        	{
+	        	caption: ["부서"],		
+	        	ref: 'coNm',   	
+	        	type:'input',  	
+	        	width:'80px', 
+	        	style:'text-align:center'
+	        },
+	        {
+	        	caption: ["직위"],		
+	        	ref: 'jbps',   	
+	        	type:'input',  	
+	        	width:'80px', 
+	        	style:'text-align:center'
+	        },
+	        {
+	        	caption: ["전화번호"],		
+	        	ref: 'coTelno',   	
+	        	type:'input',  	
+	        	width:'120px', 
+	        	style:'text-align:left'
+	        },
+	        {
+				caption: ["사용유무"],  		
+				ref: 'delYn',   	
+				type:'combo',   	
+				width:'105px', 	
+				style:'text-align:center',
+				typeinfo : {
+					ref:'jsonUseYn', 
+					label:'label', 
+					value:'value', 
+					displayui : true
+				}
+	        },
+	        {
+	        	caption: ["잠김여부"],  		
+	        	ref: 'lckYn',   	
+	        	type:'combo',   	
+	        	width:'105px', 
+	        	style:'text-align:center',
+				typeinfo : {
+					ref:'jsonLckYn', 
+					label:'label', 
+					value:'value', 
+					displayui : true
+				}
+	        },
+	        {
+	        	caption: ["최종접속일시"],	
+	        	ref: 'endLgnDt',  	
+	        	type:'output',  	
+	        	width:'105px', 
+	        	style:'text-align:center'
+	        },
+	        {
+	        	caption: ["APC코드"],		
+	        	ref: 'apcCd',   	
+	        	type:'output', 		
+	        	hidden: true
+	        }
 	    ];
-		    userInfoChgGridId = _SBGrid.create(SBGridProperties1);
-		    userInfoChgGridId.bind( "afterpagechanged" , fn_pagingUserList);
+	    grdComUser = _SBGrid.create(SBGridProperties);
+	    grdComUser.bind("afterpagechanged", fn_pagingComUser);
 	}
 
 	const fn_search = async function() {
-		let recordCountPerPage = userInfoChgGridId.getPageSize();  		// 몇개의 데이터를 가져올지 설정
+		let recordCountPerPage = grdComUser.getPageSize();  		// 몇개의 데이터를 가져올지 설정
 		let currentPageNo = 1;
-		userInfoChgGridId.movePaging(currentPageNo);
+		grdComUser.movePaging(currentPageNo);
 	}
 
 	//페이징
-	const fn_pagingUserList = async function() {
-		let recordCountPerPage = userInfoChgGridId.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-		let currentPageNo = userInfoChgGridId.getSelectPageIndex();
-		var getColRef = userInfoChgGridId.getColRef("checkedYn");
-		userInfoChgGridId.setFixedcellcheckboxChecked(0, getColRef, false);
-		fn_callSelectUserList(recordCountPerPage, currentPageNo);
+	const fn_pagingComUser = async function() {
+		let recordCountPerPage = grdComUser.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdComUser.getSelectPageIndex();
+		var getColRef = grdComUser.getColRef("checkedYn");
+		grdComUser.setFixedcellcheckboxChecked(0, getColRef, false);
+		fn_setGrdComUser(recordCountPerPage, currentPageNo);
 	}
-	
-	newUserInfoChgGridData = [];
-	userInfoChgGridData = [];
-	async function fn_callSelectUserList(recordCountPerPage, currentPageNo){
-		let apcCd = SBUxMethod.get("gsb-slt-apcCd");
-		let userId = SBUxMethod.get("srch-inp-userId");
-		let userNm = SBUxMethod.get("srch-inp-userNm");
-		let userType = SBUxMethod.get("srch-slt-userType");
 
-		var comUserVO = {
-			  apcCd					: apcCd
-			, userId				: userId
-			, userNm				: userNm
-			, userType				: userType
-			, pagingYn 				: 'Y'
-			, currentPageNo 		: currentPageNo
-			, recordCountPerPage 	: recordCountPerPage}
-		let postJsonPromise = gfn_postJSON("/co/user/users", comUserVO);
-	    let data = await postJsonPromise;
+	const fn_setGrdComUser = async function(recordCountPerPage, currentPageNo) {
+		
+		jsonComUser.length = 0;
+		
+		const apcCd = SBUxMethod.get("gsb-slt-apcCd");
+		const userId = SBUxMethod.get("srch-inp-userId");
+		const userNm = SBUxMethod.get("srch-inp-userNm");
+		const mbrTypeCd = SBUxMethod.get("srch-slt-mbrTypeCd");
+		const ognzNm = SBUxMethod.get("srch-inp-ognzNm");
+		const ctpv = SBUxMethod.get("srch-slt-untyCtpv");
+		const sgg = SBUxMethod.get("srch-slt-untySgg");
 
-	    newUserInfoChgGridData = [];
-	    userInfoChgGridData = [];
+		const param = {
+			apcCd: apcCd,
+			userId: userId,
+			userNm: userNm,
+			mbrTypeCd: mbrTypeCd,
+			ognzNm: ognzNm,
+			ctpv: ctpv,
+			sgg: sgg,
+			pagingYn: 'Y',
+			currentPageNo: currentPageNo,
+			recordCountPerPage: recordCountPerPage,
+		}
 
-	    try{
-	    	data.resultList.forEach((item, index) => {
-				let userAprvReg = {
-					userId		: item.userId
-				  , userNm		: item.userNm
-				  , pswd		: item.pswd
-				  , apcCd		: item.apcCd
-				  , apcNm		: item.apcNm
-				  , eml			: item.eml
-				  , userTypeNm	: item.userTypeNm
-				  , eml			: item.eml
-				  , telno		: item.telno
-				  , jbttlNm		: item.jbttlNm
-				  , tkcgTaskNm	: item.tkcgTaskNm
-				  , reverseYn	: item.reverseYn
-				  , lckYn		: item.lckYn
-				  , endLgnDt	: item.endLgnDt
-				  , delYn		: item.delYn
-				  , reverseLckYn: item.reverseLckYn
-				  , mblTelno	: item.mblTelno
-				}
-				userInfoChgGridData.push(Object.assign({}, userAprvReg));
-				newUserInfoChgGridData.push(Object.assign({}, userAprvReg));
-
-				if (index === 0) {
+	    try {
+	    	const postJsonPromise = gfn_postJSON("/co/user/selectComUserList.do", param);
+	    	const data = await postJsonPromise;
+		    
+		    if (_.isEqual("S", data.resultStatus)) {
+		    	data.resultList.forEach((item, index) => {
+		    		
+		    		jsonComUser.push(item);
+					
+		    		if (index === 0) {
 						totalRecordCount = item.totalRecordCount;
-				}
-			});
-	    	if (userInfoChgGridData.length > 0) {
-	      		if(userInfoChgGridId.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	      			userInfoChgGridId.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	      			userInfoChgGridId.rebuild();
-					}else{
-						userInfoChgGridId.refresh();
 					}
-	      	} else {
-	      		userInfoChgGridId.setPageTotalCount(totalRecordCount);
-	      		userInfoChgGridId.rebuild();
-	      	}
-
+				});
+		    	
+		    	if (jsonComUser.length > 0) {
+		      		if (grdComUser.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+		      			grdComUser.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+		      			grdComUser.rebuild();
+					} else {
+						grdComUser.refresh();
+					}
+		      	} else {
+		      		grdComUser.setPageTotalCount(totalRecordCount);
+		      		grdComUser.rebuild();
+		      	}
+		    } else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+	    	
 	    } catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -280,15 +533,13 @@
 	    }
 	}
 
-
-
 	//초기화 버튼
 	const fn_reset = async function(){
 		SBUxMethod.clear("gsb-slt-apcCd");
 		SBUxMethod.clear("srch-inp-apcCd");
 		SBUxMethod.clear("srch-inp-userId");
 		SBUxMethod.clear("srch-inp-userNm");
-		SBUxMethod.clear("srch-slt-userType");
+		//SBUxMethod.clear("srch-slt-userType");
 
 		fn_search();
 	}
@@ -299,25 +550,28 @@
      */
     const fn_save = async function() {
 
-		const allData = userInfoChgGridId.getGridDataAll();
+		const allData = grdComUser.getGridDataAll();
 
-		const userAprvRegGridData = [];
+		const userList = [];
 
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
-				userAprvRegGridData.push({
+				userList.push({
 					userId: item.userId,
 					eml: item.eml,
 					mblTelno: item.mblTelno,
 					jbttlNm: item.jbttlNm,
 					tkcgTaskNm: item.tkcgTaskNm,
+					coTelno: item.coTelno,
+					jbps: item.jbps,
+					coNm: item.coNm,
 					delYn: item.delYn,
 					lckYn: item.lckYn
     			});
     		}
 		});
 
-		if (userAprvRegGridData.length == 0) {
+		if (userList.length == 0) {
 			gfn_comAlert("W0005", "변경대상");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
@@ -327,10 +581,14 @@
     		return;
     	}
 
-    	const postJsonPromise = gfn_postJSON("/co/user/compareComUserAprv.do", userAprvRegGridData);
-		const data = await postJsonPromise;
-
         try {
+        	
+        	const postJsonPromise = gfn_postJSON(
+        			"/co/user/compareComUserAprv.do", 
+        			userList
+        		);
+    		const data = await postJsonPromise;
+    		
         	if (_.isEqual("S", data.resultStatus)) {
         		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
         		fn_search();
@@ -361,9 +619,9 @@
 	 */
 	 function fn_callUpdateUserPsd(gubun, grid, nRow, nCol) {
 	     if (gubun === "UPD") {
-	         if (grid === "userInfoChgGridId") {
+	         if (grid === "grdComUser") {
 	    		if(gfn_comConfirm("Q0001", "비밀번호 초기화")){
-	     			var comUserVO = userInfoChgGridId.getRowData(nRow);
+	     			var comUserVO = grdComUser.getRowData(nRow);
 	     			fn_updatePwd(comUserVO);
 	       		}
 	         }
@@ -376,22 +634,23 @@
 	  * ysh
 	  */
 	async function fn_updatePwd(comUserVO){
-			let postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
-	        let data = await postJsonPromise;
-	        try{
-	        	if(_.isEqual("S", data.resultStatus)){
-	        		gfn_comAlert("I0001");
-	        	}else{
-	        		gfn_comAlert("E0001");
-	        	}
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-			}
+        try{
+        	const postJsonPromise = gfn_postJSON("/co/user/updComUserPwd.do", comUserVO);
+        	const data = await postJsonPromise;
+        	
+    	    if(_.isEqual("S", data.resultStatus)){
+        		gfn_comAlert("I0001");
+        	} else{
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
+	}
 
 </script>
 
