@@ -85,7 +85,7 @@
 					<tbody>
 						<tr> 
 							<th scope="row">승인여부</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-slt-aprvYn"
 									name="srch-slt-aprvYn"
@@ -96,9 +96,9 @@
 									onchange="fn_search"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">법인명</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-corpNm"
 									name="srch-inp-corpNm"
@@ -107,11 +107,11 @@
 									placeholder=""
 									autocomplete="off"
 									title=""
+									onkeyenter="fn_search"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">APC명</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-apcNm"
 									name="srch-inp-apcNm"
@@ -120,13 +120,13 @@
 									placeholder=""
 									autocomplete="off"
 									title=""
+									onkeyenter="fn_search"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"></td>
 						</tr>
 						<tr>
 							<th scope="row">신청여부</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-slt-aplyYn"
 									name="srch-slt-aplyYn"
@@ -137,9 +137,9 @@
 									onchange="fn_search"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
+							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">관리자ID</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-userId"
 									name="srch-inp-userId"
@@ -149,11 +149,11 @@
 									autocomplete="off"
 									title=""
 									maxlength="30"
+									onkeyenter="fn_search"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;"></td>
 							<th scope="row">관리자명</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="srch-inp-userNm"
 									name="srch-inp-userNm"
@@ -163,9 +163,9 @@
 									autocomplete="off"
 									title=""
 									maxlength="30"
+									onkeyenter="fn_search"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -436,7 +436,7 @@
 	        },
 	        {
 	        	caption: ["전화번호"],		
-	        	ref: 'telno',   	
+	        	ref: 'coTelno',   	
 	        	type:'output',  	
 	        	width:'200px', 
 	        	style:'text-align:left',

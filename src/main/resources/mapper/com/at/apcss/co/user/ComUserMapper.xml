@@ -119,8 +119,11 @@
 				, CU.MBL_TELNO              AS MBL_TELNO
 				, CU.DEL_YN                 AS DEL_YN
 				, CU.CRNO                   AS CRNO
+				, CU.BRNO					AS BRNO
 				, CU.BRDT                   AS BRDT
 				
+				, CU.JBPS					AS JBPS
+				, CU.CO_TELNO				AS CO_TELNO
 				, CU.CO_NM					AS CO_NM
 				, CU.CTPV					AS CTPV
 				, CU.SGG					AS SGG
@@ -955,6 +958,15 @@
     	]]>
     	<if test='mblTelno != null and mblTelno != ""'>
     		 , MBL_TELNO 					= #{mblTelno}
+    	</if>
+    	<if test='jbps != null and jbps != ""'>
+    		 , JBPS 					= #{jbps}
+    	</if>
+    	<if test='coTelno != null and coTelno != ""'>
+    		 , CO_TELNO 					= #{coTelno}
+    	</if>
+    	<if test='coNm != null and coNm != ""'>
+    		 , CO_NM 					= #{coNm}
     	</if>
     	<if test='jbttlNm != null and jbttlNm != ""'>
     		 , JBTTL_NM 				= #{jbttlNm}

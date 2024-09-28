@@ -40,10 +40,12 @@
             </div>
             <div style="margin-left: auto;">
                 <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
+                <%--<input type="file" name="file" id="excelFile2" accept=".xls,.xlsx" style="display: none;">--%>
                 <sbux-button
                         id="btnUpload" name="btnUpload" uitype="normal" text="Excel 업로드"
                         class="btn btn-sm btn-outline-danger" onclick="fn_uld" style="float: right;"
                 ></sbux-button>
+                <%--<sbux-button id="btnUpload2" name="btnUpload2" uitype="normal" class="btn btn-sm btn-outline-danger" text="Excel 양식받기" onclick="$('#excelFile2').click()"></sbux-button>--%>
                 <sbux-button
                         id="btnDownload" name="btnDownload" uitype="normal" text="Excel 양식받기"
                         class="btn btn-sm btn-outline-danger" onclick="fn_exportData" style="float: right;"
@@ -466,12 +468,8 @@
         console.log('grid popup col:', col);
 
         let rowData = grdExceptionList.getRowData(row);
-
-        console.log('----rowData---- : ',rowData);
-
         let rowStatus = grdExceptionList.getRowStatus(row);
 
-        console.log('----rowStatus---- : ',rowStatus);
 
         if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){
 
