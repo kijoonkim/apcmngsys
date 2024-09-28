@@ -434,7 +434,6 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,"상단그리드 데이터 정보");
 
         try{
             if (_.isEqual("S", data.resultStatus)) {
@@ -487,7 +486,6 @@
 
         const data = await postJsonPromise;
 
-        console.log(data,"신고사업장 정보 리슽");
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_2)){
@@ -540,7 +538,6 @@
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_5)){
                     const camelCasedArray = convertArrayToCamelCase(data.cv_5);
-                    console.log(camelCasedArray);
                     jsonVatGrid = camelCasedArray;
                     vatGrid.rebuild();
                 }
@@ -567,7 +564,6 @@
         fn_search();
  }
  const fn_seqChange = async function(_id){
-        console.log(_id);
         await SBUxMethod.set("srch-dtp-yyyy",_id);
         await fn_search();
  }
@@ -640,7 +636,6 @@ const fn_create = async function(){
 
     SBUxMethod.attr('reg-dtp-yyyy', 'readonly', 'false');
     let ymd = SBUxMethod.get('srch-dtp-yyyy');
-    console.log(ymd,"기준년도?");
     SBUxMethod.set('reg-dtp-yyyy',ymd);
 }
 const fn_delete = async function(){
