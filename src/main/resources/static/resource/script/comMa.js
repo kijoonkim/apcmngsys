@@ -1535,7 +1535,7 @@ const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix) {
 			if (gfn_isEmpty(sbValue)) {
 				let msg = searchMsg(element);
 				gfn_comAlert("W0005", msg);
-				return;
+				return false;
 			} else {
 				console.log({[formatKey]: sbValue});
 				if (_paramObj.hasOwnProperty(formatKey)) {
@@ -1561,4 +1561,5 @@ const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix) {
 			}
 		}
 	}
+	return true;
 }

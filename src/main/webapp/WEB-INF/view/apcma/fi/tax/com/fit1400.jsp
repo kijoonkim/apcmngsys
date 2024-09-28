@@ -569,6 +569,10 @@
  }
 
 const fn_save = async function(){
+
+    if(!gfn_comConfirm("Q0001","저장")){
+        return;
+    }
     let status = "";
     let rowIdx = rptStdGrid.getRow();
 
@@ -615,7 +619,11 @@ const fn_save = async function(){
     }
 
     paramObj.V_P_SEQ = seq;
-    gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_");
+    let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_");
+
+    if(!postFlag){
+        return;
+    }
 
     const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1400S.do", {
         getType				: 'json',
@@ -623,6 +631,12 @@ const fn_save = async function(){
         workType            : status,
         params				: gfnma_objectToString(paramObj)
     });
+    const data = await postJsonPromise;
+
+    if(data.resultStatus === "S"){
+        gfn_comAlert("Q0000",data.resultMessage);
+        await fn_search();
+    }
 }
 const fn_create = async function(){
     /** 신고 기준정보 초기화 **/
@@ -638,8 +652,57 @@ const fn_create = async function(){
     let ymd = SBUxMethod.get('srch-dtp-yyyy');
     SBUxMethod.set('reg-dtp-yyyy',ymd);
 }
-const fn_delete = async function(){
+const fn_delete = async function() {
+    if(!gfn_comConfirm("Q0001","삭제")){
+        return;
+    }
 
+    let status = "D";
+    let rowIdx = rptStdGrid.getRow();
+    var paramObj = {
+        V_P_DEBUG_MODE_YN: ''
+        , V_P_LANG_ID: ''
+        , V_P_COMP_CODE: gv_ma_selectedApcCd
+        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+        , VL_P_YYYY: ''
+        , V_P_SEQ: ''
+        , V_P_TAX_TERM: ''
+        , V_P_VAT_REP_DETAIL_TYPE: ''
+        , V_P_REFUND_YN: ''
+        , V_P_VAT_TYPE_NAME: ''
+        , V_P_STANDARD_MONTH_FR: ''
+        , V_P_STANDARD_MONTH_TO: ''
+        , V_P_REPORT_DATE: ''
+        , V_P_PAY_ORGSITE_NO: ''
+        , V_P_MEMO: ''
+        , V_P_REFUND_TYPE: ''
+        , V_P_REFUND_CANCEL_YN: ''
+        , V_P_FORM_ID: p_formId
+        , V_P_MENU_ID: p_menuId
+        , V_P_PROC_ID: ''
+        , V_P_USERID: ''
+        , V_P_PC: ''
+    }
+    /** 공통으로 get 불가능한 요소 **/
+    let seq = gfnma_nvl(rptStdGrid.getRowData(rowIdx).seq);
+    paramObj.V_P_SEQ = seq;
+    let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_");
+
+    if(!postFlag){
+        return;
+    }
+    const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1400S.do", {
+        getType				: 'json',
+        cv_count			: '0',
+        workType            : status,
+        params				: gfnma_objectToString(paramObj)
+    });
+    const data = await postJsonPromise;
+
+    if(data.resultStatus === "S"){
+        gfn_comALert("Q0000",data.resultMessage);
+        await fn_search();
+    }
 }
 const fn_search = async function(){
     let rst = await Promise.all([
