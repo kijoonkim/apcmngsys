@@ -1492,3 +1492,73 @@ const gfnma_getRowTable = function(tableId) {
     return rlist;
 };
 
+const gfnma_camelToSnakeUpper = function(str) {
+	return str.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase().toUpperCase();
+};
+const gfnma_snakeToCamel = function(str){
+	return str.toLowerCase().replace(/(_\w)/g,function(match){
+		return match[1].toUpperCase();
+	});
+};
+/**
+ * @name gfn_getTableElement
+ * @description Table 내부 sb요소 일괄 GET
+ * 필수 : table Id 필수, table 내부 td 요소들 id값 개발표준 준수
+ * ex) reg[등록] srch[검색조건] dtl[상세]
+ * @function
+ * @param {String} _tableId
+ * @param {String} _pattern
+ * @param {Object} _paramObj
+ * @param {String} _preFix
+ * @returns
+ */
+const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix) {
+	let table = document.getElementById(_tableId);
+	let elements = table.querySelectorAll(`[id^=${_pattern}]`);
+	elements = Array.from(elements);
+
+	function searchMsg(_el) {
+		let $closestTd = $(_el).closest('td');
+		let $closestTh = $closestTd.closest('tr').find('th').filter(function () {
+			return $(this).index() < $closestTd.index();
+		}).last();
+		return $closestTh.html();
+
+	}
+
+	for (let element of elements) {
+		let key = element.id.split('-').pop();
+		let formatKey = _preFix + gfnma_camelToSnakeUpper(key);
+
+		if (element.type === 'text' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
+			let sbValue = SBUxMethod.get(element.id);
+			if (gfn_isEmpty(sbValue)) {
+				let msg = searchMsg(element);
+				gfn_comAlert("W0005", msg);
+				return;
+			} else {
+				console.log({[formatKey]: sbValue});
+				if (_paramObj.hasOwnProperty(formatKey)) {
+					_paramObj[formatKey] = sbValue;
+				} else {
+					for (let objKey in _paramObj) {
+						if (objKey.split('_').slice(2).join('_') === key.toUpperCase()) {
+							_paramObj[objKey] = sbValue;
+						}
+					}
+				}
+			}
+		} else if (element.type === 'checkbox') {
+			let sbValue = SBUxMethod.getCheckbox(element.id)[element.id];
+			if (_paramObj.hasOwnProperty(formatKey)) {
+				_paramObj[formatKey] = sbValue;
+			} else {
+				for (let objKey in _paramObj) {
+					if (objKey.split('_').slice(2).join('_') === key.toUpperCase()) {
+						_paramObj[objKey] = sbValue;
+					}
+				}
+			}
+		}
+	}
+}
