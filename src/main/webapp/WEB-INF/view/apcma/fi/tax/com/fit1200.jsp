@@ -28,7 +28,7 @@
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
 <body oncontextmenu="return false">
-
+    <section>
     <div class="box box-solid">
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
@@ -90,7 +90,7 @@
                             <li><span>신고사업장정보</span></li>
                         </ul>
                     </div>
-                    <table class="table table-bordered tbl_fixed">
+                    <table id="regTable" class="table table-bordered tbl_fixed">
                         <colgroup>
                             <col style="width: 15%">
                             <col style="width: 10%">
@@ -106,41 +106,47 @@
                         <tr>
                             <th scope="row" class="th_bg">사업장 구분</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-select id="reg-slt-taxSiteType" uitype="single" jsondata-ref="jsonTaxSiteType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
                             <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">사업장 코드</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="기준연도" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                                <div style="display: flex; gap: 5px">
+                                <sbux-input id="reg-slt-wholePaySiteCode" name="reg-slt-wholePaySiteCode" uitype="text" class="form-control input-sm" wrap-style="flex-basis:30%"></sbux-input>
+                                <div style="display: flex;position: relative">
+                                    <sbux-input id="reg-slt-wholePaySiteCode1" name="reg-slt-wholePaySiteCode1" uitype="text" class="form-control input-sm"></sbux-input>
+                                    <button style="background-image:url('/static/resource/svg/dot.svg');background-repeat: no-repeat; background-position: center;
+                                    background-size: contain; position: absolute; right: 1px; top: 1px; bottom: 1px; border: 0; background-color: white;" onclick="fn_openPopup()"></button>
+                                </div>
+                                </div>
                             </td>
-                            <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">신고번호</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="신고구분명" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="reg-slt-wholePaySiteNo" name="reg-slt-wholePaySiteNo" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">손채권세액공제비율(분자)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="reg-inp-baddebtsNumerator" name="reg-inp-baddebtsNumerator" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">의제매입세액(분자)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="reg-inp-deemedNumerator" name="reg-inp-deemedNumerator" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden"></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">손채권세액공제비율(분모)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="reg-inp-baddebtsDenominator" name="reg-inp-baddebtsDenominator" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">의제매입세액(분모)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="reg-inp-deemedDenominator" name="reg-inp-deemedDenominator" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td colspan="4"></td>
                         </tr>
@@ -148,7 +154,7 @@
                             <td colspan="3" style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">한도율(분자)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="reg-inp-deemLimitNum" name="reg-inp-deemLimitNum" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td colspan="4"></td>
                         </tr>
@@ -156,7 +162,7 @@
                             <td colspan="3" style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">한도율(분모)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-input id="reg-inp-deemLimitDenom" name="reg-inp-deemLimitDenom" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td colspan="4"></td>
                         </tr>
@@ -169,8 +175,16 @@
         </div>
     </div>
 </section>
-
-
+    <div>
+        <sbux-modal id="wholePaySitePopup" name="wholePaySitePopup" uitype="small"
+                    header-title="신고사업장정보"
+                    body-html-id="body-wholePaySitePopup"
+                    style="width: 500px">
+        </sbux-modal>
+    </div>
+    <div id="body-wholePaySitePopup">
+        <jsp:include page="../../../com/popup/comPopFit1200.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
     var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
@@ -180,14 +194,15 @@
     var p_menuId 	= '${comMenuVO.menuId}';
     //----------------------------------------------------------
     var jsonCorpNm;
+    var jsonTaxSiteType;
 
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
     });
     const fn_init = async function(){
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
-        SBUxMethod.refresh('srch-slt-corpNm');
+        jsonTaxSiteType = await gfnma_getComSelectList('L_FIT036','','','','COMP_CODE',"COMP_NAME");
+        SBUxMethod.refresh('reg-slt-taxSiteType');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
 
         /** 기준연도 **/
@@ -204,7 +219,7 @@
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
+            ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TYPE_NAME'
             ,columns		:[
@@ -222,11 +237,12 @@
 
     /** 공통버튼 조회 **/
     function cfn_search(){
-        fn_searchFit1200Q();
+        fn_search();
     }
 
     /** 공통버튼 저장 **/
     function cfn_save(){
+        fn_save();
     }
 
     /** 공통버튼 신규 **/
@@ -234,21 +250,18 @@
 
     }
     /** fit1200_Q_Detail **/
-    const fn_searchFit1200Q = async function(){
+    const fn_search = async function(){
        let V_P_YYYY = gfnma_nvl(SBUxMethod.get("srch-dtp-yyyy"));
        let V_P_SEQ = gfnma_multiSelectGet("#src-btn-currencyCode");
-       console.log(V_P_YYYY);
-       console.log(V_P_SEQ);
 
        var paramObj = {
-            V_P_WORK_TYPE           :   "DETAIL"
+            V_P_WORK_TYPE           :   ""
            ,V_P_DEBUG_MODE_YN       :   ""
            ,V_P_LANG_ID             :   ""
            ,V_P_COMP_CODE           :   gv_ma_selectedApcCd
            ,V_P_CLIENT_CODE         :   gv_ma_selectedClntCd
            ,V_P_YYYY                :   V_P_YYYY
            ,V_P_SEQ                 :   V_P_SEQ
-           ,V_P_USER_ID             :   ""
            ,V_P_FORM_ID             :   p_formId
            ,V_P_MENU_ID             :   p_formId
            ,V_P_PROC_ID             :   ""
@@ -259,12 +272,11 @@
         const postJsonPromise = gfn_postJSON("/co/sys/fit/selectFit1200.do", {
             getType				: 'json',
             workType			: 'Q',
-            cv_count			: '5',
+            cv_count			: '1',
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
 
-        console.log(data,"data");
         return;
         try{
             if (_.isEqual("S", data.resultStatus)) {
@@ -276,6 +288,52 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
+    const fn_save = async function(){
+       if(!gfn_comConfirm("Q0001","저장")){
+           return;
+       }
+
+       var paramObj = {
+            V_P_DEBUG_MODE_YN              : ''
+           ,V_P_LANG_ID                    : ''
+           ,V_P_COMP_CODE                  : gv_ma_selectedApcCd
+           ,V_P_CLIENT_CODE                : gv_ma_selectedClntCd
+           ,V_P_YYYY                       : ''
+           ,V_P_SEQ                        : ''
+           ,V_P_TAX_SITE_TYPE              : ''
+           ,V_P_WHOLE_PAY_SITE_CODE        : ''
+           ,V_P_WHOLE_PAY_SITE_NO          : ''
+           ,V_P_BADDEBTS_NUMERATOR         : ''
+           ,V_P_BADDEBTS_DENOMINATOR       : ''
+           ,V_P_DEEMED_NUMERATOR           : ''
+           ,V_P_DEEMED_DENOMINATOR         : ''
+           ,V_P_DEEM_LIMIT_NUM             : ''
+           ,V_P_DEEM_LIMIT_DENOM           : ''
+           ,V_P_FORM_ID                    : p_formId
+           ,V_P_MENU_ID                    : p_menuId
+           ,V_P_PROC_ID                    : ''
+           ,V_P_USERID			           : ''
+           ,V_P_PC				           : ''
+       }
+       let postFlag = gfnma_getTableElement("regTable","reg-",paramObj,"V_P_");
+
+       if(!postFlag){
+           return;
+       }
+
+       const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1200S.do",{
+           getType				: 'json',
+           cv_count			    : '0',
+           workType             : '',
+           params				: gfnma_objectToString(paramObj)
+       });
+
+
+    }
+    const fn_openPopup = function(){
+        SBUxMethod.openModal('wholePaySitePopup');
+        popFit1200.fn_init(() => {});
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

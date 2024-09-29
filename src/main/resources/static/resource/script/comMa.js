@@ -509,6 +509,51 @@ async function gfnma_getComSelectList(_bizcompid, _whereclause, _compcode, _clie
 	}
 	return rlist;
 }
+/**
+ * @name 		gfnma_setComSelect
+ * @description sbux-select 데이터 가져오기
+ * @function
+ * @param 		{(string|string[])} _targetIds
+ * @param 		{string} _bizcompid
+ * @param 		{string} _whereclause
+ * @param 		{string} _compcode
+ * @param 		{string} _clientcode
+ * @param 		{string} _subcode
+ * @param 		{string} _codename
+ * @returns 	{Array}
+ */
+async function gfnma_getComList(_bizcompid, _whereclause, _compcode, _clientcode, _subcode, _codename, _callbackFn) {
+
+	if (gfn_isEmpty(_bizcompid)) {
+		return;
+	}
+
+	var paramObj = {
+		V_P_DEBUG_MODE_YN	: ''
+		,V_P_LANG_ID		: ''
+		,V_P_COMP_CODE		: _compcode
+		,V_P_CLIENT_CODE	: _clientcode
+		,V_P_BIZCOMP_ID		: _bizcompid
+		,V_P_WHERE_CLAUSE	: _whereclause
+		,V_P_PROC_PARAMS	: ''
+		,V_P_FORM_ID		: ''
+		,V_P_MENU_ID		: ''
+		,V_P_PROC_ID		: ''
+		,V_P_USERID			: ''
+		,V_P_PC				: ''
+	};
+
+	const postJsonPromise = gfn_postJSON("/com/comSelectList.do", {
+		getType				: 'json',
+		workType			: 'Q',
+		cv_count			: '1',
+		params				: gfnma_objectToString(paramObj)
+	});
+
+	const data = await postJsonPromise;
+	console.log('gfnma_getComSelectList get data:', data);
+	return data;
+}
 
 /**
  * @name 		gfnma_multiSelectInit
