@@ -39,14 +39,14 @@ public class ApcMaFit1200Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
 
-    @PostMapping(value = "/co/sys/fit/selectFit1200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/fi/tax/selectFit1200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectFit1200(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============selectFit1400=====start========");
+        logger.info("=============selectFit1200=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
@@ -60,6 +60,29 @@ public class ApcMaFit1200Controller extends BaseController {
         }
 
         logger.info("=============selectFit1200=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+    }
+    @PostMapping(value = "/fi/tax/insertFit1200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertFit1200(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertFit1200=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+
+            param.put("procedure", 		"P_FIT1200_S");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertFit1200=====end========");
         return getSuccessResponseEntityMa(resultMap);
     }
 }

@@ -53,13 +53,6 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">법인</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="srch-slt-corpNm" uitype="single" jsondata-ref="jsonCorpNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                    </td>
-                    <td style="border-right: hidden"></td>
-                </tr>
-                <tr>
                     <th scope="row" class="th_bg">기준연도</th>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year" date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
@@ -106,7 +99,9 @@
                         <tr>
                             <th scope="row" class="th_bg">사업장 구분</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="reg-slt-taxSiteType" uitype="single" jsondata-ref="jsonTaxSiteType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                <sbux-select id="reg-slt-taxSiteType" uitype="single" jsondata-ref="jsonTaxSiteType"
+                                             unselected-text="선택" class="form-control input-sm"
+                                             jsondata-text="CODE_NAME" jsondata-value="SUB_CODE"></sbux-select>
                             </td>
                             <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">사업장 코드</th>
@@ -114,7 +109,7 @@
                                 <div style="display: flex; gap: 5px">
                                 <sbux-input id="reg-slt-wholePaySiteCode" name="reg-slt-wholePaySiteCode" uitype="text" class="form-control input-sm" wrap-style="flex-basis:30%"></sbux-input>
                                 <div style="display: flex;position: relative">
-                                    <sbux-input id="reg-slt-wholePaySiteCode1" name="reg-slt-wholePaySiteCode1" uitype="text" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="reg-slt-taxSiteName" name="reg-slt-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
                                     <button style="background-image:url('/static/resource/svg/dot.svg');background-repeat: no-repeat; background-position: center;
                                     background-size: contain; position: absolute; right: 1px; top: 1px; bottom: 1px; border: 0; background-color: white;" onclick="fn_openPopup()"></button>
                                 </div>
@@ -201,7 +196,9 @@
         fn_init();
     });
     const fn_init = async function(){
-        jsonTaxSiteType = await gfnma_getComSelectList('L_FIT036','','','','COMP_CODE',"COMP_NAME");
+        /** 사업장 구분 **/
+        let data = await gfnma_getComList('L_FIT036','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
+        jsonTaxSiteType = data.cv_1;
         SBUxMethod.refresh('reg-slt-taxSiteType');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
 
@@ -232,7 +229,6 @@
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
         });
-
     }
 
     /** 공통버튼 조회 **/
@@ -254,32 +250,51 @@
        let V_P_YYYY = gfnma_nvl(SBUxMethod.get("srch-dtp-yyyy"));
        let V_P_SEQ = gfnma_multiSelectGet("#src-btn-currencyCode");
 
+       if(gfn_isEmpty(V_P_YYYY)){
+           gfn_comAlert("W0005","기준연도");
+           return;
+       }
+       if(gfn_isEmpty(V_P_SEQ)){
+           gfn_comAlert("W0005","신고구분명");
+           return;
+       }
        var paramObj = {
-            V_P_WORK_TYPE           :   ""
-           ,V_P_DEBUG_MODE_YN       :   ""
+            V_P_DEBUG_MODE_YN       :   ""
            ,V_P_LANG_ID             :   ""
            ,V_P_COMP_CODE           :   gv_ma_selectedApcCd
            ,V_P_CLIENT_CODE         :   gv_ma_selectedClntCd
            ,V_P_YYYY                :   V_P_YYYY
            ,V_P_SEQ                 :   V_P_SEQ
            ,V_P_FORM_ID             :   p_formId
-           ,V_P_MENU_ID             :   p_formId
+           ,V_P_MENU_ID             :   p_menuId
            ,V_P_PROC_ID             :   ""
-           ,V_P_USERID              :   p_formId
+           ,V_P_USERID              :   ""
            ,V_P_PC                  :   ""
        }
 
-        const postJsonPromise = gfn_postJSON("/co/sys/fit/selectFit1200.do", {
+        const postJsonPromise = gfn_postJSON("/fi/tax/selectFit1200.do", {
             getType				: 'json',
-            workType			: 'Q',
+            workType			: 'DETAIL',
             cv_count			: '1',
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
 
-        return;
         try{
             if (_.isEqual("S", data.resultStatus)) {
+                let table = document.getElementById('regTable');
+                let elements = table.querySelectorAll("[id^='reg-']");
+                let idsArray = Array.from(elements).map(element => element.id);
+                for(let key in data.cv_1[0]){
+                    let sbElId = gfnma_snakeToCamel(key);
+                    idsArray.forEach(item => {
+                       let sbId = item.split('-').pop();
+                       if(sbElId == sbId){
+                          sbElId = item;
+                       }
+                    });
+                    SBUxMethod.set(sbElId,data.cv_1[0][key]);
+                }
             }
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -321,11 +336,16 @@
        if(!postFlag){
            return;
        }
+       /** TABLE 이외 parma **/
+       let seq = gfnma_multiSelectGet("#src-btn-currencyCode");
+       paramObj.V_P_SEQ = seq;
+       let yyyy = SBUxMethod.get("srch-dtp-yyyy");
+       paramObj.V_P_YYYY = yyyy;
 
-       const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1200S.do",{
+       const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1200.do",{
            getType				: 'json',
            cv_count			    : '0',
-           workType             : '',
+           workType             : 'N',
            params				: gfnma_objectToString(paramObj)
        });
 
@@ -333,7 +353,18 @@
     }
     const fn_openPopup = function(){
         SBUxMethod.openModal('wholePaySitePopup');
-        popFit1200.fn_init(() => {});
+        popFit1200.fn_init(dblclick);
+    }
+    function dblclick(){
+        let gridIdx = grdTaxSite.getRow();
+        let rowData = grdTaxSite.getRowData(gridIdx);
+        let _siteCode = rowData.TAX_SITE_CODE;
+        let _orgsiteName = rowData.TAX_SITE_NAME;
+
+        SBUxMethod.set("reg-slt-wholePaySiteCode",_siteCode);
+        SBUxMethod.set("reg-slt-taxSiteName",_orgsiteName);
+
+        SBUxMethod.closeModal('wholePaySitePopup');
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

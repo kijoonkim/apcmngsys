@@ -86,7 +86,6 @@
                     {caption: ['사업자번호'], ref: 'BIZ_REGNO', type: 'output', width: '40%', style: 'text-align:center'}
                 ]
             };
-
             grdTaxSite = _SBGrid.create(gridProperties);
             grdTaxSite.bind('dblclick', this.fn_callBack);
         }
