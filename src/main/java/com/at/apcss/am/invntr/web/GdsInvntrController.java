@@ -275,4 +275,40 @@ public class GdsInvntrController extends BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value="/am/invntr/insertGdsInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertGdsInvntr(@RequestBody GdsInvntrVO gdsInvntrVO, HttpServletRequest request ) throws Exception{
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultList = new  HashMap<String, Object>();
+		try{
+			gdsInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+			gdsInvntrVO.setSysFrstInptUserId(getUserId());
+			gdsInvntrVO.setSysLastChgUserId(getUserId());
+			gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+			System.out.println("##########################");
+			Class<?> objClass = gdsInvntrVO.getClass();
+			java.lang.reflect.Field[] fields = objClass.getDeclaredFields();
+			for (java.lang.reflect.Field field : fields) {
+				field.setAccessible(true); // private 필드 접근 허용
+				try {
+					System.out.println(field.getName() + ": " + field.get(gdsInvntrVO));
+				} catch (IllegalAccessException e) {
+					System.out.println(field.getName() + ": 접근 불가");
+				}
+			}
+			System.out.println("##########################");
+
+			resultList = gdsInvntrService.insertGdsInvntr(gdsInvntrVO);
+
+		} catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

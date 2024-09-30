@@ -219,6 +219,19 @@ public class PckgPrfmncVO extends ComVO {
 	private String stdGrdCd;
 
 	/**
+	 * 거래처코드(GET용)
+	 * */
+	private String cnptCd;
+	/**
+	 * 거래처명(GET용)
+	 * */
+	private String cnptNm;
+	/**
+	 * 본수(GET용)
+	 * */
+	private String stemQntt;
+
+	/**
 	 * 표준등급
 	 */
 	private List<GdsStdGrdVO> stdGrdList;

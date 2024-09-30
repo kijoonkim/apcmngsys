@@ -101,6 +101,10 @@
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 정산정보조회 -->
             </div>
+            <div>
+                <sbux-switch id="switch_single" name="switch_single" uitype="single" switch-speed="fast" glow-effect="false" checked label-front-back-text='확인메세지^켬'>
+                </sbux-switch>
+            </div>
             <div style="margin-left: auto;">
                 <sbux-button
                         id="btnReset"
@@ -379,13 +383,13 @@
                 return "<button type='button'style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                 }
             },
-            {caption: ["거래처"],	ref: 'cnptCd',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["생산자"],	ref: 'prdcrCd',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["품목"],	ref: 'itemCd',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["품종"],	ref: 'vrtyCd',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["규격"],	ref: 'spcfctCd',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["본수"],	ref: 'prdcrCd',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["수량"],	ref: 'pckgQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["생산자"],	ref: 'rprsPrdcrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["본수"],	ref: 'stemQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["수량"],	ref: 'invntrQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
         ]
         gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
     }
@@ -609,25 +613,68 @@
         pckgObj.invntrQntt = parseInt($("#pckgQntt").val());
         pckgObj.stemQntt = $("div.tabBox_sm.active").text();
 
-        pckgObj.prdcrIdentno = pckgObj.prdcrCd;
+        pckgObj.rprsPrdcrCd = pckgObj.prdcrCd;
         delete pckgObj.prdcrCd;
 
         let invntrObj = {...pckgObj};
-
-
+        let pckgPrfmncObj = {
+            apcCd : gv_apcCd,
+            pckgSn : 0,
+            pckgQntt : pckgObj.invntrQntt,
+            pckgYmd : pckgObj.pckgYmd
+        }
         let param = {
-            pckgPrfmncVO : pckgObj,
+            pckgPrfmncVO : pckgPrfmncObj,
             gdsInvntrVO : invntrObj,
-
         }
 
-        if(!gfn_comConfirm("Q0001","저장")){
-            return;
+        if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+            if(!gfn_comConfirm("Q0001","저장")){
+                return;
+            }
         }
-        const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgPrfmnc.do", pckgObj);
+        const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/insertPckgPrfmncSc.do", param);
         const data = await postJsonPromise;
+
+        fn_search();
         pckgObj = {};
     }
+
+    const fn_search = async function(){
+
+        const postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd});
+        const data = await postJsonPromise;
+        try {
+            if(data.resultStatus === 'S'){
+                jsonPckgPrfmnc = data.resultList;
+                gridPckgPrfmnc.rebuild();
+            }
+        }catch (e) {
+            console.error(e);
+        }
+    }
+
+    const fn_delRow = async function(_nRow){
+        if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+            if(!gfn_comConfirm("Q0001","삭제")){
+                return;
+            }
+        }
+
+        let delObj = gridPckgPrfmnc.getRowData(_nRow);
+        const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do",delObj);
+        const data = await postJsonPromise;
+        try {
+            if(data.resultStatus === 'S'){
+                gfn_comAlert("I0001");
+                fn_search();
+            }
+        }catch (e) {
+            console.error(e);
+        }
+    }
+
+
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

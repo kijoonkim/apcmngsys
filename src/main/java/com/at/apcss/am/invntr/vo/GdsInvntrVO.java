@@ -346,8 +346,21 @@ public class GdsInvntrVO extends ComVO {
 	 * 입고일자
 	 * */
 	private String wrhsYmd;
-	
-	
+
+	/**
+	 * 거래처코드
+	 * */
+	private String cnptCd;
+	/**
+	 * 거래처명
+	 * */
+	private String cnptNm;
+	/**
+	 * 본수
+	 * */
+	private String stemQntt;
+
+
 	private List<SpmtGdsVO> spmtGdsList;
 
 	public List<SpmtGdsVO> getSpmtGdsList() {
