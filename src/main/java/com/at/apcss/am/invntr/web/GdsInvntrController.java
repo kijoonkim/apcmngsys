@@ -284,18 +284,6 @@ public class GdsInvntrController extends BaseController {
 			gdsInvntrVO.setSysFrstInptUserId(getUserId());
 			gdsInvntrVO.setSysLastChgUserId(getUserId());
 			gdsInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
-			System.out.println("##########################");
-			Class<?> objClass = gdsInvntrVO.getClass();
-			java.lang.reflect.Field[] fields = objClass.getDeclaredFields();
-			for (java.lang.reflect.Field field : fields) {
-				field.setAccessible(true); // private 필드 접근 허용
-				try {
-					System.out.println(field.getName() + ": " + field.get(gdsInvntrVO));
-				} catch (IllegalAccessException e) {
-					System.out.println(field.getName() + ": 접근 불가");
-				}
-			}
-			System.out.println("##########################");
 
 			resultList = gdsInvntrService.insertGdsInvntr(gdsInvntrVO);
 
