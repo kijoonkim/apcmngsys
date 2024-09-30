@@ -236,6 +236,10 @@ public class MobileApiController extends BaseController{
 				resultData.put("prdcrResultList", null);
 			}
 
+			//생산농가의 사용자 정보 및 APC목록 조회
+			comUserVO.put("aprvYn", "Y");
+			resultData.put("aprvPrdcrUserApcList", comUserService.selectAprvPrdcrUserApcList(comUserVO));
+
 			// 로그인 정보를 세션에 저장
 			//resultMap.put("loginVO", resultVO);
 
