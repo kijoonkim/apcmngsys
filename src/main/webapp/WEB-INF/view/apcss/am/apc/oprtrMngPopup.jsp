@@ -48,7 +48,14 @@
 							</th>
 							<th scope="row">구분</th>
 							<th>
-								<sbux-input id="oprtr-inp-jobClsf" name="oprtr-inp-jobClsf" uitype="text" class="form-control input-sm"></sbux-input>
+								<sbux-select
+									id="oprtr-slt-jobClsfCd" name="oprtr-slt-jobClsfCd"
+									uitype="single"
+									filtering="true"
+									jsondata-ref="jsonApcJobClsfCd"
+									unselected-text="전체"
+									class=""
+								></sbux-select>
 							</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -69,6 +76,16 @@
 <script type="text/javascript">
 	//설비 등록
 	var jsonOprtr = []; // 그리드의 참조 데이터 주소 선언
+	var jsonApcJobClsfCd = [];
+	var jsonGrdJobClsfCd = [];
+
+	const fn_initSBSelectOprtr = async function() {
+		let rst = await Promise.all([
+			gfn_setComCdGridSelect('grdOprtr', jsonGrdJobClsfCd, "JOB_CLSF_CD", gv_apcCd),
+			gfn_setComCdSBSelect('oprtr-slt-jobClsfCd', jsonApcJobClsfCd, "JOB_CLSF_CD", gv_apcCd),
+		])
+	}
+
 	async function fn_oprtrMngCreateGrid() {
 
 		SBUxMethod.set("oprtr-inp-apcNm", SBUxMethod.get("inp-apcNm"));
@@ -95,7 +112,8 @@
 	        	}
 	        }},
 	        {caption: ["작업자명"], 	ref: 'flnm',  	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {mask : {alias : 'k'}, maxlength : 33}},
-	        {caption: ["구분"], 		ref: 'jobClsf', type:'input',  width:'80px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 7}},
+	        {caption: ["구분"], 		ref: 'jobClsfCd',   type:'combo',  width:'100px',    style:'text-align:center;',
+				typeinfo : {ref:'jsonGrdJobClsfCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["생년월일"], 	ref: 'brdt',   	type:'input',  width:'100px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 10}), typeinfo : {maxlength : 10}, format : {type:'date', rule:'yyyy-**-**', origin:'YYYYMMDD'}},
 	        {caption: ["전화번호"], 	ref: 'telno',   type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fnNewCallNumber}},
 	        {caption: ["주소"], 		ref: 'addr',    type:'input',  width:'260px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 200}), typeinfo : {maxlength : 66}},
@@ -109,6 +127,7 @@
 	    ];
 	    grdOprtr = _SBGrid.create(SBGridProperties);
 	    fn_searchOprtr();
+
 	}
 
 	/**
@@ -129,12 +148,12 @@
 
 	const fn_searchOprtr = async function(){
 		let apcCd 	= SBUxMethod.get("inp-apcCd");
-		let jobClsf = SBUxMethod.get("oprtr-inp-jobClsf");
+		let jobClsfCd = SBUxMethod.get("oprtr-slt-jobClsfCd");
 		let flnm = SBUxMethod.get("oprtr-inp-flnm");
     	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
-    		apcCd 	: apcCd
-		  , jobClsf : jobClsf
-		  , flnm	: flnm
+    		apcCd 		: apcCd
+		  , jobClsfCd 	: jobClsfCd
+		  , flnm		: flnm
 			});
         let data = await postJsonPromise;
         jsonOprtr.length = 0;
@@ -143,7 +162,7 @@
   	        	data.resultList.forEach((item, index) => {
   					let oprtrVO = {
   						flnm 		: item.flnm
-  					  , jobClsf		: item.jobClsf
+  					  , jobClsfCd	: item.jobClsfCd
   					  , brdt 		: item.brdt
   					  , telno 		: item.telno
   					  , addr 		: item.addr
@@ -181,14 +200,14 @@
 
 			let flnm = grdOprtr.getRowData(i).flnm;
 			let brdt = grdOprtr.getRowData(i).brdt;
-			let jobClsf = grdOprtr.getRowData(i).jobClsf;
+			let jobClsfCd = grdOprtr.getRowData(i).jobClsfCd;
 			let delYn = grdOprtr.getRowData(i).delYn;
 			if(delYn == 'N'){
 				if(gfn_isEmpty(flnm)){
 					gfn_comAlert("W0002", "작업자명");		//	W0002	{0}을/를 입력하세요.
 					return;
 				}
-				if(gfn_isEmpty(jobClsf)){
+				if(gfn_isEmpty(jobClsfCd)){
 					gfn_comAlert("W0002", "구분");			//	W0002	{0}을/를 입력하세요.
 					return;
 				}

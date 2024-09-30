@@ -691,7 +691,7 @@
     <div id="body-modal-bffaSortReg">
     	<jsp:include page="../apc/bffaSortRegMngPopup.jsp"></jsp:include>
     </div>
-    
+
     <!-- 거래처 등록 Modal -->
     <div>
         <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처/발주수신 등록" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -739,7 +739,7 @@
 
 	}
 	async function cfn_add() {
-	
+
 	}
 	async function cfn_del() {
 
@@ -748,7 +748,7 @@
 		await fn_save();
 	}
 	async function cfn_search() {
-		await fn_searchApcEvmntStng();		
+		await fn_searchApcEvmntStng();
 	}
 
 	var comboUesYnJsData = [];
@@ -818,7 +818,7 @@
 	// const fn_search = async function() {
 	// 	await fn_initSBSelect();
 	// }
-	
+
 	const selectApcEvrmntStng = async function(){
 		let apcCd = gv_apcCd;
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
@@ -935,6 +935,7 @@
 			fn_cnptMngCreateGrid();
 			fn_lgszMrktMngCreateGrid();
 		}if(targetName == 'btnOprtr'){
+			fn_initSBSelectOprtr();
 			fn_oprtrMngCreateGrid();
 		}if(targetName == 'btnPlor'){
 			fn_plorStdMngCreateGrid();

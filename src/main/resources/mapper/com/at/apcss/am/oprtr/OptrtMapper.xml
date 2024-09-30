@@ -33,7 +33,8 @@
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectOprtrList */
 	    		   OM.APC_CD            AS APC_CD
-	    		 , OM.JOB_CLSF			AS JOB_CLSF
+	    		 , OM.JOB_CLSF_CD		AS JOB_CLSF_CD
+	    		 , (SELECT FN_GET_COM_CD_VL_NM('JOB_CLSF_CD', OM.JOB_CLSF_CD, OM.APC_CD) FROM DUAL)         AS JOB_CLSF_NM
 			     , OM.FLNM              AS FLNM
 			     , OM.BRDT              AS BRDT
 			     , OM.TELNO             AS TELNO
@@ -50,8 +51,8 @@
 		<if test='flnm != null and flnm != ""'>
 		   AND OM.FLNM LIKE '%' ||  #{flnm} || '%'
 		</if>
-		<if test='jobClsf != null and jobClsf != ""'>
-		   AND OM.JOB_CLSF LIKE '%' ||  #{jobClsf} || '%'
+		<if test='jobClsfCd != null and jobClsfCd != ""'>
+		   AND OM.JOB_CLSF_CD = #{jobClsfCd}
 		</if>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -74,7 +75,7 @@
     	INSERT INTO TB_OPRTR_MNG
     		(
     			APC_CD
-    		  , JOB_CLSF
+    		  , JOB_CLSF_CD
     		  , FLNM
 		      , BRDT
 		      , TELNO
@@ -95,7 +96,7 @@
    		VALUES
    			(
    				#{apcCd}
-   			  , #{jobClsf}
+   			  , #{jobClsfCd}
     		  , #{flnm}
     		  , #{brdt}
     		  , #{telno}
@@ -139,7 +140,7 @@
     		 , RMRK						= #{rmrk}
     		 , DEL_YN					= #{delYn}
 		 WHERE APC_CD 					= #{apcCd}
-		   AND JOB_CLSF					= #{jobClsf}
+		   AND JOB_CLSF_CD				= #{jobClsfCd}
 		   AND FLNM 					= #{flnm}
 		   AND BRDT 					= #{brdt}
 		]]>
@@ -157,7 +158,7 @@
 		<![CDATA[
 		DELETE FROM TB_OPRTR_MNG
 		 WHERE APC_CD			= #{apcCd}
-		   AND JOB_CLSF			= #{jobClsf}
+		   AND JOB_CLSF_CD		= #{jobClsfCd}
 		   AND FLNM 			= #{flnm}
  		   AND BRDT 			= #{brdt}
 		]]>
