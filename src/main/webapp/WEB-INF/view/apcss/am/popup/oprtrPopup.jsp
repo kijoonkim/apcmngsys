@@ -48,7 +48,14 @@
 							</th>
 							<th scope="row">구분</th>
 							<th>
-								<sbux-input id="oprtr-inp-jobClsf" name="oprtr-inp-jobClsf" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
+								<sbux-select
+									id="oprtr-slt-jobClsfCd" name="oprtr-slt-jobClsfCd"
+									uitype="single"
+									filtering="true"
+									jsondata-ref="jsonApcJobClsfCd"
+									unselected-text="전체"
+									class=""
+								></sbux-select>
 							</th>
 						</tr>
 					</tbody>
@@ -67,6 +74,8 @@
 <script type="text/javascript">
 	//설비 등록
 	var jsonOprtrPop = []; // 그리드의 참조 데이터 주소 선언
+	var jsonGrdJobClsfCd = [];
+	var jsonApcJobClsfCd = [];
 
 	const popOprtr = {
 		modalId: 'modal-oprtr',
@@ -81,6 +90,10 @@
 			this.prvApcCd = _apcCd;
 			SBUxMethod.set("oprtr-inp-apcNm", _apcNm);
 			SBUxMethod.set("oprtr-inp-flnm", _oprtr);
+
+			let rst = await Promise.all([
+				gfn_setComCdSBSelect('oprtr-slt-jobClsfCd', jsonApcJobClsfCd, "JOB_CLSF_CD", gv_apcCd),
+			])
 
 			if (!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
 				this.callbackSelectFnc = _callbackChoiceFnc;
@@ -107,7 +120,7 @@
 		    SBGridProperties.columns = [
 		        {caption: ["작업자명"], 	ref: 'flnm',  	type: 'output',  width:'100px',	style:'text-align:center',
 		        	typeinfo : {mask : {alias : 'k'}}},
-		        {caption: ["구분"], 		ref: 'jobClsf',  	type: 'output',  width:'80px',	style:'text-align:center'},
+	        	{caption: ["구분"], 		ref: 'jobClsfNm',   type:'output',  width:'100px',    style:'text-align:center;'},
 		        {caption: ["생년월일"], 	ref: 'brdt',   	type: 'output',  width:'100px',	style:'text-align:center',
 		        		format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
 		        {caption: ["전화번호"], 	ref: 'telno',   type: 'output',  width:'120px',	style:'text-align:center',
@@ -146,11 +159,11 @@
 
 			let apcCd = this.prvApcCd;
 			let flnm = SBUxMethod.get("oprtr-inp-flnm");
-			let jobClsf = SBUxMethod.get("oprtr-inp-jobClsf");
+			let jobClsfCd = SBUxMethod.get("oprtr-slt-jobClsfCd");
 	    	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
-	        	apcCd: apcCd
-	          , jobClsf	: jobClsf
-			  ,	flnm : flnm
+	        	apcCd		: apcCd
+	          , jobClsfCd	: jobClsfCd
+			  ,	flnm 		: flnm
 	 		});
 	        let data = await postJsonPromise;
 	        try{
@@ -158,7 +171,8 @@
 	        	data.resultList.forEach((item, index) => {
 					let oprtrVO = {
 						flnm 		: item.flnm
-					  , jobClsf		: item.jobClsf
+					  , jobClsfCd	: item.jobClsfCd
+					  , jobClsfNm	: item.jobClsfNm
 					  , brdt 		: item.brdt
 					  , telno 		: item.telno
 					  , addr 		: item.addr

@@ -242,7 +242,7 @@
 			{caption: ["작업구분"], 	ref: 'prfmncSeCd',   	hidden:true},
 			{caption: ["실적순번"], 	ref: 'prfmncSn',   		hidden:true},
 			{caption: ["생년월일"], 	ref: 'brdt',   			hidden:true},
-			{caption: ["구분"], 		ref: 'jobClsf',   		hidden:true},
+			{caption: ["구분"], 		ref: 'jobClsfCd',   	hidden:true},
 
 	    ];
 	    grdOprtrPrfmnc = _SBGrid.create(SBGridOprtrProperties);
@@ -748,7 +748,7 @@
 		let nRow = grdOprtrPrfmnc.getRow();
 		let flnmCol = grdOprtrPrfmnc.getColRef("flnm");
 		let brdtCol = grdOprtrPrfmnc.getColRef("brdt");
-		let jobClsfCol = grdOprtrPrfmnc.getColRef("jobClsf");
+		let jobClsfCdCol = grdOprtrPrfmnc.getColRef("jobClsfCd");
 		let flag = true;
 		if (!gfn_isEmpty(oprtr)) {
 
@@ -759,11 +759,11 @@
 					let rowSts = grdOprtrPrfmnc.getRowStatus(i);
 					let delYn = rowData.delYn;
 					let flnm = rowData.flnm
-					let jobClsf = rowData.jobClsf
+					let jobClsfCd = rowData.jobClsfCd
 					let brdt = rowData.brdt
 
 					if(delYn == 'N'){
-						if(oprtr.flnm == flnm && oprtr.brdt == brdt && oprtr.jobClsf == jobClsf){
+						if(oprtr.flnm == flnm && oprtr.brdt == brdt && oprtr.jobClsfCd == jobClsfCd){
 							gfn_comAlert("W0010", "등록", "작업자")	// W0010 이미 {0}된 {1} 입니다.
 							flag = false;
 							break;
@@ -773,7 +773,7 @@
 				if(flag){
 					grdOprtrPrfmnc.setCellData(nRow, flnmCol, oprtr.flnm);
 					grdOprtrPrfmnc.setCellData(nRow, brdtCol, oprtr.brdt);
-					grdOprtrPrfmnc.setCellData(nRow, jobClsfCol, oprtr.jobClsf);
+					grdOprtrPrfmnc.setCellData(nRow, jobClsfCdCol, oprtr.jobClsfCd);
 				}else{
 					let flnm = "";
 
@@ -784,7 +784,7 @@
 			}else{
 				grdOprtrPrfmnc.setCellData(nRow, flnmCol, oprtr.flnm);
 				grdOprtrPrfmnc.setCellData(nRow, brdtCol, oprtr.brdt);
-				grdOprtrPrfmnc.setCellData(nRow, jobClsfCol, oprtr.jobClsf);
+				grdOprtrPrfmnc.setCellData(nRow, jobClsfCdCol, oprtr.jobClsfCd);
 			}
 
 		}
