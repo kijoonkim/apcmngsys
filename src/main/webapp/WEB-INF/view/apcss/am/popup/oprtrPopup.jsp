@@ -31,22 +31,25 @@
 					<colgroup>
 						<col style="width: 100px">
 						<col style="width: 200px">
-						<col style="width: 100px">
-						<col style="width: 200px">
-						<col style="width: 100px">
+						<col style="width: 80px">
+						<col style="width: 160px">
+						<col style="width: 80px">
+						<col style="width: 160px">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">APC명</th>
 							<th>
-								<sbux-input id=oprtr-inp-apcNm name="oprtr-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
+								<sbux-input id="oprtr-inp-apcNm" name="oprtr-inp-apcNm" uitype="text" class="form-control input-sm" disabled></sbux-input>
 							</th>
 							<th scope="row">작업자명</th>
 							<th>
-								<sbux-input id=oprtr-inp-flnm name="oprtr-inp-flnm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
+								<sbux-input id="oprtr-inp-flnm" name="oprtr-inp-flnm" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
 							</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
+							<th scope="row">구분</th>
+							<th>
+								<sbux-input id="oprtr-inp-jobClsf" name="oprtr-inp-jobClsf" uitype="text" maxlength="33" class="form-control input-sm"></sbux-input>
+							</th>
 						</tr>
 					</tbody>
 				</table>
@@ -104,11 +107,12 @@
 		    SBGridProperties.columns = [
 		        {caption: ["작업자명"], 	ref: 'flnm',  	type: 'output',  width:'100px',	style:'text-align:center',
 		        	typeinfo : {mask : {alias : 'k'}}},
+		        {caption: ["구분"], 		ref: 'jobClsf',  	type: 'output',  width:'80px',	style:'text-align:center'},
 		        {caption: ["생년월일"], 	ref: 'brdt',   	type: 'output',  width:'100px',	style:'text-align:center',
 		        		format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
 		        {caption: ["전화번호"], 	ref: 'telno',   type: 'output',  width:'120px',	style:'text-align:center',
 		        	typeinfo : {mask: {alias : '999-9999-9999'}}, format : {type:'custom', callback : fnCustomOprtr}},
-		        {caption: ["주소"], 		ref: 'addr',    type: 'output',  width:'360px',	style:'text-align:center'},
+		        {caption: ["주소"], 		ref: 'addr',    type: 'output',  width:'260px',	style:'text-align:center'},
 		        {caption: ["입사일자"], 	ref: 'jncmpYmd', 	type: 'output',  width:'100px',	style:'text-align:center',
 			        typeinfo: {dateformat: 'yy-mm-dd'}, format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}},
 		        /* {caption: ["은행"], 		ref: 'bankCd',  type: 'output',  width:'100px',	style:'text-align:center'},
@@ -142,9 +146,11 @@
 
 			let apcCd = this.prvApcCd;
 			let flnm = SBUxMethod.get("oprtr-inp-flnm");
+			let jobClsf = SBUxMethod.get("oprtr-inp-jobClsf");
 	    	let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
-	        	apcCd: apcCd,
-	        	flnm : flnm
+	        	apcCd: apcCd
+	          , jobClsf	: jobClsf
+			  ,	flnm : flnm
 	 		});
 	        let data = await postJsonPromise;
 	        try{
@@ -152,6 +158,7 @@
 	        	data.resultList.forEach((item, index) => {
 					let oprtrVO = {
 						flnm 		: item.flnm
+					  , jobClsf		: item.jobClsf
 					  , brdt 		: item.brdt
 					  , telno 		: item.telno
 					  , addr 		: item.addr
