@@ -102,6 +102,10 @@
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 정산정보조회 -->
             </div>
+            <div>
+                <sbux-switch id="switch_single" name="switch_single" uitype="single" switch-speed="fast" glow-effect="false" checked label-front-back-text='확인메세지^켬'>
+                </sbux-switch>
+            </div>
             <div style="margin-left: auto;">
                 <sbux-button
                         id="btnReset"
@@ -674,9 +678,10 @@
             gfn_comAlert("W0005","규격");
             return;
         }
-
-        if(!gfn_comConfirm("Q0001","추가")){
-            return;
+        if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+            if(!gfn_comConfirm("Q0001","추가")){
+                return;
+            }
         }
 
         spmtObj.invntrQntt = addCnt;
