@@ -3,9 +3,12 @@ package com.at.apcss.am.pckg.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,4 +182,45 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 		return null;
 	}
 
+	@Override
+	public int insertPckgPrfmncSc(Map<String, Object> param) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		GdsInvntrVO gdsInvntrVO = objectMapper.convertValue(param.get("gdsInvntrVO"), GdsInvntrVO.class);
+		PckgPrfmncVO pckgPrfmncVO = objectMapper.convertValue(param.get("pckgPrfmncVO"), PckgPrfmncVO.class);
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		int insertCnt = 0;
+
+		String apcCd = pckgPrfmncVO.getApcCd();
+		String pckgYmd = pckgPrfmncVO.getPckgYmd();
+		String pckgNo = cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
+
+		/** 공통 정보 **/
+		String userId = (String)param.get("userId");
+		String prgrmId = (String)param.get("prgrmId");
+
+		gdsInvntrVO.setSysFrstInptUserId(userId);
+		gdsInvntrVO.setSysLastChgUserId(userId);
+		gdsInvntrVO.setSysFrstInptPrgrmId(prgrmId);
+		gdsInvntrVO.setSysLastChgPrgrmId(prgrmId);
+		pckgPrfmncVO.setSysFrstInptUserId(userId);
+		pckgPrfmncVO.setSysLastChgUserId(userId);
+		pckgPrfmncVO.setSysFrstInptPrgrmId(prgrmId);
+		pckgPrfmncVO.setSysLastChgPrgrmId(prgrmId);
+
+		/** 포장번호 **/
+		gdsInvntrVO.setPckgno(pckgNo);
+		pckgPrfmncVO.setPckgno(pckgNo);
+
+		insertCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
+		if(insertCnt < 1){
+			throw new EgovBizException();
+		}
+		rtnObj = gdsInvntrService.insertGdsInvntr(gdsInvntrVO);
+		if(rtnObj != null){
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		return insertCnt;
+	}
 }
