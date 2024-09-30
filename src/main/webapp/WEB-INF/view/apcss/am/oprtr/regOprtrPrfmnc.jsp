@@ -140,7 +140,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdOptrtPrfmnc" style="height:271px;"></div>
+					<div id="sb-area-grdOprtrPrfmnc" style="height:271px;"></div>
 				</div>
 			</div>
 		</div>
@@ -169,9 +169,9 @@
 	})
 
 	var grdPrfmnc;
-	var grdOptrtPrfmnc;
+	var grdOprtrPrfmnc;
 	var jsonPrfmnc = [];
-	var jsonOptrtPrfmnc = [];
+	var jsonOprtrPrfmnc = [];
 
 	function fn_createPrfmncGrid() {
 
@@ -188,6 +188,7 @@
 	         {caption: ["작업일자"], 	ref: 'prfmncYmd',	type:'output',  width:'120px', style: 'text-align:center',
 	            	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 	         {caption: ["설비"], 	 	ref: 'fcltNm',		type:'output',  width:'120px', style: 'text-align:center'},
+	         {caption: ["품목"],    	ref: 'itemNm',	type:'output',  width:'120px', style: 'text-align:center'},
 	         {caption: ["규격"],    	ref: 'spcfctNm',	type:'output',  width:'120px', style: 'text-align:center'},
 	         {caption: ["수량"],	    ref: 'qntt',   		type:'output',  width:'120px', style: 'text-align:right',
      			typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
@@ -201,19 +202,19 @@
 	    grdPrfmnc.bind('click', fn_setGrdOprtrPrfmnc);
 
 
-	    var SBGridOptrtProperties = {};
-	    SBGridOptrtProperties.parentid = 'sb-area-grdOptrtPrfmnc';
-	    SBGridOptrtProperties.id = 'grdOptrtPrfmnc';
-	    SBGridOptrtProperties.jsonref = 'jsonOptrtPrfmnc';
-	    SBGridOptrtProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridOptrtProperties.selectmode = 'free';
-	    SBGridOptrtProperties.extendlastcol = 'scroll';
-	    SBGridOptrtProperties.oneclickedit = true;
-	    SBGridOptrtProperties.allowcopy = true;
-	    SBGridOptrtProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
-	    SBGridOptrtProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridOptrtProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
-	    SBGridOptrtProperties.columns = [
+	    var SBGridOprtrProperties = {};
+	    SBGridOprtrProperties.parentid = 'sb-area-grdOprtrPrfmnc';
+	    SBGridOprtrProperties.id = 'grdOprtrPrfmnc';
+	    SBGridOprtrProperties.jsonref = 'jsonOprtrPrfmnc';
+	    SBGridOprtrProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridOprtrProperties.selectmode = 'free';
+	    SBGridOprtrProperties.extendlastcol = 'scroll';
+	    SBGridOprtrProperties.oneclickedit = true;
+	    SBGridOprtrProperties.allowcopy = true;
+	    SBGridOprtrProperties.explorerbar = 'move';				// 개인화 컬럼 이동 가능
+	    SBGridOprtrProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridOprtrProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
+	    SBGridOprtrProperties.columns = [
 	    	{caption: ["처리"], 		ref: 'delYn',   	type:'button',  width:'80px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
@@ -241,10 +242,11 @@
 			{caption: ["작업구분"], 	ref: 'prfmncSeCd',   	hidden:true},
 			{caption: ["실적순번"], 	ref: 'prfmncSn',   		hidden:true},
 			{caption: ["생년월일"], 	ref: 'brdt',   			hidden:true},
+			{caption: ["구분"], 		ref: 'jobClsf',   		hidden:true},
 
 	    ];
-	    grdOptrtPrfmnc = _SBGrid.create(SBGridOptrtProperties);
-	    grdOptrtPrfmnc.bind('valuechanged', 'fn_grdHrValueChanged');
+	    grdOprtrPrfmnc = _SBGrid.create(SBGridOprtrProperties);
+	    grdOprtrPrfmnc.bind('valuechanged', 'fn_grdHrValueChanged');
 	}
 
 	/**
@@ -261,7 +263,7 @@
 
     // 엑셀 다운로드
     function fn_excelDwnld() {
-    	grdOptrtPrfmnc.exportLocalExcel("작업자실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    	grdOprtrPrfmnc.exportLocalExcel("작업자실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 
 	const fn_reset = function(){
@@ -270,9 +272,9 @@
 		SBUxMethod.set("dtl-spn-jobBgngHr", "");
 		SBUxMethod.set("dtl-spn-jobEndHr", "");
 
-		jsonOptrtPrfmnc.length = 0;
+		jsonOprtrPrfmnc.length = 0;
 		jsonPrfmnc.length= 0;
-		grdOptrtPrfmnc.rebuild();
+		grdOprtrPrfmnc.rebuild();
 		grdPrfmnc.rebuild();
 
 	}
@@ -283,11 +285,11 @@
 			gfn_comAlert("W0001", "작업일자");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-		let nRow = grdOptrtPrfmnc.getRow();
-		let nCol = grdOptrtPrfmnc.getCol();
+		let nRow = grdOprtrPrfmnc.getRow();
+		let nCol = grdOprtrPrfmnc.getCol();
 
-		let jobBgngHrCol = grdOptrtPrfmnc.getColRef("jobBgngHr");
-		let jobEndHrCol = grdOptrtPrfmnc.getColRef("jobEndHr");
+		let jobBgngHrCol = grdOprtrPrfmnc.getColRef("jobBgngHr");
+		let jobEndHrCol = grdOprtrPrfmnc.getColRef("jobEndHr");
 
 		switch (nCol) {
 		case jobBgngHrCol:	// checkbox
@@ -303,13 +305,13 @@
 	}
 
 	const fn_hrClCln = function(){
-		let nRow = grdOptrtPrfmnc.getRow();
-		let nCol = grdOptrtPrfmnc.getCol();
-		let jobBgngHrCol = grdOptrtPrfmnc.getColRef("jobBgngHr");
-		let jobEndHrCol = grdOptrtPrfmnc.getColRef("jobEndHr");
-		let jobHrCol = grdOptrtPrfmnc.getColRef("jobHr");
+		let nRow = grdOprtrPrfmnc.getRow();
+		let nCol = grdOprtrPrfmnc.getCol();
+		let jobBgngHrCol = grdOprtrPrfmnc.getColRef("jobBgngHr");
+		let jobEndHrCol = grdOprtrPrfmnc.getColRef("jobEndHr");
+		let jobHrCol = grdOprtrPrfmnc.getColRef("jobHr");
 
-		let rowData = grdOptrtPrfmnc.getRowData(nRow);
+		let rowData = grdOprtrPrfmnc.getRowData(nRow);
 		let jobBgngHr = rowData.jobBgngHr
 		let jobEndHr = rowData.jobEndHr
 
@@ -318,9 +320,9 @@
 
 			let jobHr = fn_hrSet(jobBgngHr, jobEndHr)
 			if(jobHr == null){
-				grdOptrtPrfmnc.setCellData(nRow, jobEndHrCol, "");
+				grdOprtrPrfmnc.setCellData(nRow, jobEndHrCol, "");
 			}else{
-				grdOptrtPrfmnc.setCellData(nRow, jobHrCol, jobHr)
+				grdOprtrPrfmnc.setCellData(nRow, jobHrCol, jobHr)
 			}
 		}
 	}
@@ -334,11 +336,11 @@
 		let jobBgngHr = SBUxMethod.get("dtl-spn-jobBgngHr");
 		let jobEndHr = SBUxMethod.get("dtl-spn-jobEndHr");
 
-		let jobBgngHrCol = grdOptrtPrfmnc.getColRef("jobBgngHr");
-		let jobEndHrCol = grdOptrtPrfmnc.getColRef("jobEndHr");
-		let jobHrCol = grdOptrtPrfmnc.getColRef("jobHr");
+		let jobBgngHrCol = grdOprtrPrfmnc.getColRef("jobBgngHr");
+		let jobEndHrCol = grdOprtrPrfmnc.getColRef("jobEndHr");
+		let jobHrCol = grdOprtrPrfmnc.getColRef("jobHr");
 
-		let nRow = grdOptrtPrfmnc.getRow();
+		let nRow = grdOprtrPrfmnc.getRow();
 
 		if (gfn_isEmpty(jobBgngHr)) {
   			gfn_comAlert("W0002", "시작시간");		//	W0002	{0}을/를 입력하세요.
@@ -359,9 +361,9 @@
 			if(jobHr == null){
 				SBUxMethod.set("dtl-spn-jobEndHr", "");
 			}else{
-				grdOptrtPrfmnc.setCellData(nRow, jobBgngHrCol, jobBgngHr)
-				grdOptrtPrfmnc.setCellData(nRow, jobEndHrCol, jobEndHr)
-				grdOptrtPrfmnc.setCellData(nRow, jobHrCol, jobHr)
+				grdOprtrPrfmnc.setCellData(nRow, jobBgngHrCol, jobBgngHr)
+				grdOprtrPrfmnc.setCellData(nRow, jobEndHrCol, jobEndHr)
+				grdOprtrPrfmnc.setCellData(nRow, jobHrCol, jobHr)
 			}
 		}
 	}
@@ -376,9 +378,9 @@
 		let jobBgngHr = SBUxMethod.get("dtl-spn-jobBgngHr");
 		let jobEndHr = SBUxMethod.get("dtl-spn-jobEndHr");
 
-		let jobBgngHrCol = grdOptrtPrfmnc.getColRef("jobBgngHr");
-		let jobEndHrCol = grdOptrtPrfmnc.getColRef("jobEndHr");
-		let jobHrCol = grdOptrtPrfmnc.getColRef("jobHr");
+		let jobBgngHrCol = grdOprtrPrfmnc.getColRef("jobBgngHr");
+		let jobEndHrCol = grdOprtrPrfmnc.getColRef("jobEndHr");
+		let jobHrCol = grdOprtrPrfmnc.getColRef("jobHr");
 
 		if (gfn_isEmpty(jobBgngHr)) {
   			gfn_comAlert("W0002", "시작시간");		//	W0002	{0}을/를 입력하세요.
@@ -395,17 +397,17 @@
 			if(jobHr == null){
 				SBUxMethod.set("dtl-spn-jobEndHr", "");
 			}else{
-				let gridData = grdOptrtPrfmnc.getGridDataAll();
+				let gridData = grdOprtrPrfmnc.getGridDataAll();
 
 				for(var i=1; i<gridData.length; i++ ){
-					let rowData = grdOptrtPrfmnc.getRowData(i);
-					let rowSts = grdOptrtPrfmnc.getRowStatus(i);
+					let rowData = grdOprtrPrfmnc.getRowData(i);
+					let rowSts = grdOprtrPrfmnc.getRowStatus(i);
 					let delYn = rowData.delYn;
 					if(delYn == "N"){
 
-						grdOptrtPrfmnc.setCellData(i, jobBgngHrCol, jobBgngHr)
-						grdOptrtPrfmnc.setCellData(i, jobEndHrCol, jobEndHr)
-						grdOptrtPrfmnc.setCellData(i, jobHrCol, jobHr)
+						grdOprtrPrfmnc.setCellData(i, jobBgngHrCol, jobBgngHr)
+						grdOprtrPrfmnc.setCellData(i, jobEndHrCol, jobEndHr)
+						grdOprtrPrfmnc.setCellData(i, jobHrCol, jobHr)
 					}
 				}
 
@@ -465,8 +467,8 @@
 			return;
 		}
 
-		jsonOptrtPrfmnc.length = 0;
-		grdOptrtPrfmnc.refresh();
+		jsonOprtrPrfmnc.length = 0;
+		grdOprtrPrfmnc.refresh();
 
 		let rst = await Promise.all([
 			fn_setGrdPrfmnc()
@@ -495,6 +497,8 @@
 		      		  , prfmncSeCd	: item.prfmncSeCd
 		      		  , prfmncYmd 	: item.prfmncYmd
 		      		  , fcltNm		: item.fcltNm
+		      		  , itemCd		: item.itemCd
+		      		  , itemNm		: item.itemNm
 		      		  , spcfctCd	: item.spcfctCd
 		      		  , spcfctNm	: item.spcfctNm
 		      		  , qntt		: item.qntt
@@ -549,7 +553,7 @@
         const data = await postJsonPromise;
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				jsonOptrtPrfmnc.length = 0;
+				jsonOprtrPrfmnc.length = 0;
 		      	data.resultList.forEach((item, index) => {
 		      		const prfmncVO = {
 			      			prfmncSeNm	: item.prfmncSeNm
@@ -570,13 +574,13 @@
 			      		  , delYn		: item.delYn
 			      		  , insertYn	: "N"
 					}
-			      	jsonOptrtPrfmnc.push(prfmncVO);
+			      	jsonOprtrPrfmnc.push(prfmncVO);
 
 				});
-		      	grdOptrtPrfmnc.setCellDisabled(0, grdOptrtPrfmnc.getRows() -1, 0, grdOptrtPrfmnc.getCols() - 1, false);
-		      	grdOptrtPrfmnc.rebuild();
-		      	grdOptrtPrfmnc.addRow(true);
-		      	grdOptrtPrfmnc.setCellDisabled(grdOptrtPrfmnc.getRows()-1, 0, grdOptrtPrfmnc.getRows()-1, grdOptrtPrfmnc.getCols() - 1, true);
+		      	grdOprtrPrfmnc.setCellDisabled(0, grdOprtrPrfmnc.getRows() -1, 0, grdOprtrPrfmnc.getCols() - 1, false);
+		      	grdOprtrPrfmnc.rebuild();
+		      	grdOprtrPrfmnc.addRow(true);
+		      	grdOprtrPrfmnc.setCellDisabled(grdOprtrPrfmnc.getRows()-1, 0, grdOprtrPrfmnc.getRows()-1, grdOprtrPrfmnc.getCols() - 1, true);
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         	}
@@ -605,45 +609,45 @@
 	        let jobYmd = rowData.prfmncYmd
 	        let prfmncno = rowData.prfmncno
 
-			let apcCdCol = grdOptrtPrfmnc.getColRef("apcCd");
-			let prfmncSeNmCol = grdOptrtPrfmnc.getColRef("prfmncSeNm");
-			let prfmncSeCdCol = grdOptrtPrfmnc.getColRef("prfmncSeCd");
-			let prfmncnoCol = grdOptrtPrfmnc.getColRef("prfmncno");
-			let jobYmdCol = grdOptrtPrfmnc.getColRef("jobYmd");
-			let fcltNmCol = grdOptrtPrfmnc.getColRef("fcltNm");
+			let apcCdCol = grdOprtrPrfmnc.getColRef("apcCd");
+			let prfmncSeNmCol = grdOprtrPrfmnc.getColRef("prfmncSeNm");
+			let prfmncSeCdCol = grdOprtrPrfmnc.getColRef("prfmncSeCd");
+			let prfmncnoCol = grdOprtrPrfmnc.getColRef("prfmncno");
+			let jobYmdCol = grdOprtrPrfmnc.getColRef("jobYmd");
+			let fcltNmCol = grdOprtrPrfmnc.getColRef("fcltNm");
 
-			grdOptrtPrfmnc.setCellData(nRow, nCol, "N", true);
-			grdOptrtPrfmnc.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
-			grdOptrtPrfmnc.setCellData(nRow, prfmncSeNmCol, prfmncSeNm, true);
-			grdOptrtPrfmnc.setCellData(nRow, prfmncSeCdCol, prfmncSeCd, true);
-			grdOptrtPrfmnc.setCellData(nRow, prfmncnoCol, prfmncno, true);
-			grdOptrtPrfmnc.setCellData(nRow, jobYmdCol, jobYmd, true);
-			grdOptrtPrfmnc.setCellData(nRow, fcltNmCol, fcltNm, true);
+			grdOprtrPrfmnc.setCellData(nRow, nCol, "N", true);
+			grdOprtrPrfmnc.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
+			grdOprtrPrfmnc.setCellData(nRow, prfmncSeNmCol, prfmncSeNm, true);
+			grdOprtrPrfmnc.setCellData(nRow, prfmncSeCdCol, prfmncSeCd, true);
+			grdOprtrPrfmnc.setCellData(nRow, prfmncnoCol, prfmncno, true);
+			grdOprtrPrfmnc.setCellData(nRow, jobYmdCol, jobYmd, true);
+			grdOprtrPrfmnc.setCellData(nRow, fcltNmCol, fcltNm, true);
 
-			grdOptrtPrfmnc.rebuild();
-			grdOptrtPrfmnc.addRow(true);
-			grdOptrtPrfmnc.setCellDisabled(nRow+1, 0, nRow+1, grdOptrtPrfmnc.getCols() - 1, true);
+			grdOprtrPrfmnc.rebuild();
+			grdOprtrPrfmnc.addRow(true);
+			grdOprtrPrfmnc.setCellDisabled(nRow+1, 0, nRow+1, grdOprtrPrfmnc.getCols() - 1, true);
 		}else if(gubun == "DEL"){
 
-			if(grdOptrtPrfmnc.getRowData(nRow).insertYn == "Y"){
+			if(grdOprtrPrfmnc.getRowData(nRow).insertYn == "Y"){
 				if (gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")) {		//	Q0001	{0} 하시겠습니까?
-        			var oprtrPrfmncVO = grdOptrtPrfmnc.getRowData(nRow);
+        			var oprtrPrfmncVO = grdOprtrPrfmnc.getRowData(nRow);
         			fn_deleteOprtrPrfmnc(oprtrPrfmncVO);
-        			grdOptrtPrfmnc.deleteRow(nRow);
+        			grdOprtrPrfmnc.deleteRow(nRow);
         		}
         	}else{
-        		grdOptrtPrfmnc.deleteRow(nRow);
+        		grdOprtrPrfmnc.deleteRow(nRow);
         	}
 		}
 	}
 
 	const fn_save = async function(){
 		let saveList = [];
-		let gridData = grdOptrtPrfmnc.getGridDataAll();
+		let gridData = grdOprtrPrfmnc.getGridDataAll();
 
 		for(var i=1; i<=gridData.length; i++ ){
-			let rowData = grdOptrtPrfmnc.getRowData(i);
-			let rowSts = grdOptrtPrfmnc.getRowStatus(i);
+			let rowData = grdOprtrPrfmnc.getRowData(i);
+			let rowSts = grdOprtrPrfmnc.getRowStatus(i);
 
 			let delYn = rowData.delYn;
 			let flnm = rowData.flnm;
@@ -728,7 +732,7 @@
 	 * @description 생산작업자선택팝업 호출
 	 */
 	const fn_grdChoiceOprtr = function() {
-		let nRow = grdOptrtPrfmnc.getRow();
+		let nRow = grdOprtrPrfmnc.getRow();
 		let flnm = "";
 
 		SBUxMethod.openModal('modal-oprtr');
@@ -741,23 +745,25 @@
 	 * @description 생산작업자 선택 callback
 	 */
 	const fn_setFlnm = function(oprtr) {
-		let nRow = grdOptrtPrfmnc.getRow();
-		let flnmCol = grdOptrtPrfmnc.getColRef("flnm");
-		let brdtCol = grdOptrtPrfmnc.getColRef("brdt");
+		let nRow = grdOprtrPrfmnc.getRow();
+		let flnmCol = grdOprtrPrfmnc.getColRef("flnm");
+		let brdtCol = grdOprtrPrfmnc.getColRef("brdt");
+		let jobClsfCol = grdOprtrPrfmnc.getColRef("jobClsf");
 		let flag = true;
 		if (!gfn_isEmpty(oprtr)) {
 
-			let gridData = grdOptrtPrfmnc.getGridDataAll();
+			let gridData = grdOprtrPrfmnc.getGridDataAll();
 			if(gridData.length > 2){
 				for(var i=1; i<gridData.length; i++ ){
-					let rowData = grdOptrtPrfmnc.getRowData(i);
-					let rowSts = grdOptrtPrfmnc.getRowStatus(i);
+					let rowData = grdOprtrPrfmnc.getRowData(i);
+					let rowSts = grdOprtrPrfmnc.getRowStatus(i);
 					let delYn = rowData.delYn;
 					let flnm = rowData.flnm
+					let jobClsf = rowData.jobClsf
 					let brdt = rowData.brdt
 
 					if(delYn == 'N'){
-						if(oprtr.flnm == flnm && oprtr.brdt == brdt){
+						if(oprtr.flnm == flnm && oprtr.brdt == brdt && oprtr.jobClsf == jobClsf){
 							gfn_comAlert("W0010", "등록", "작업자")	// W0010 이미 {0}된 {1} 입니다.
 							flag = false;
 							break;
@@ -765,8 +771,9 @@
 					}
 				}
 				if(flag){
-					grdOptrtPrfmnc.setCellData(nRow, flnmCol, oprtr.flnm);
-					grdOptrtPrfmnc.setCellData(nRow, brdtCol, oprtr.brdt);
+					grdOprtrPrfmnc.setCellData(nRow, flnmCol, oprtr.flnm);
+					grdOprtrPrfmnc.setCellData(nRow, brdtCol, oprtr.brdt);
+					grdOprtrPrfmnc.setCellData(nRow, jobClsfCol, oprtr.jobClsf);
 				}else{
 					let flnm = "";
 
@@ -775,8 +782,9 @@
 					popOprtr.init(gv_selectedApcCd, gv_selectedApcNm, flnm, fn_setFlnm);
 				}
 			}else{
-				grdOptrtPrfmnc.setCellData(nRow, flnmCol, oprtr.flnm);
-				grdOptrtPrfmnc.setCellData(nRow, brdtCol, oprtr.brdt);
+				grdOprtrPrfmnc.setCellData(nRow, flnmCol, oprtr.flnm);
+				grdOprtrPrfmnc.setCellData(nRow, brdtCol, oprtr.brdt);
+				grdOprtrPrfmnc.setCellData(nRow, jobClsfCol, oprtr.jobClsf);
 			}
 
 		}
