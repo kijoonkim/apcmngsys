@@ -99,7 +99,7 @@
 			    , GI.RMRK 			AS RMRK
 			    , GI.DEL_YN			AS DEL_YN
 	    		, GI.CNPT_CD		AS CNPT_CD
-	    		, GI.STEM_QNTT		AS STEM_QNTT
+			    , GI.BX_GDS_QNTT	AS BX_GDS_QNTT
 
 			  FROM
 			  	  TB_GDS_INVNTR GI
