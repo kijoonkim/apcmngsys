@@ -17,6 +17,11 @@ public class OprtrVO extends ComVO{
 	private String apcCd;
 
 	/*
+	 * 작업구분
+	 * */
+	private String jobClsfCd;
+	private String jobClsfNm;
+	/*
 	 * 작업자명
 	 * */
 	private String flnm;

@@ -203,6 +203,14 @@ public interface ComUserService {
 	public List<HashMap<String, Object>> selectComUserAprvList(HashMap<String, Object> comUserVO) throws Exception;
 
 	/**
+	 * 생산농가의 사용자 정보 및 APC목록 조회
+	 * @param HashMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectAprvPrdcrUserApcList(HashMap<String, Object> comUserVO) throws Exception;
+
+	/**
      * 생산농가 계정관리 승인요청 수정
      * @param HashMap
      * @return

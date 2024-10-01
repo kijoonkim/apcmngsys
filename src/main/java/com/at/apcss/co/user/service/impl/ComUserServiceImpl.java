@@ -350,6 +350,19 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
         List<HashMap<String, Object>> resultVO = comUserMapper.selectComUserPrdcrRegList(comUserVO);
         return resultVO;
     }
+
+	/**
+	 * 생산농가가 속한 생산자 정보 및 APC목록 조회
+	 * @param HashMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public List<HashMap<String, Object>> selectAprvPrdcrUserApcList(HashMap<String, Object> comUserVO) throws Exception {
+		List<HashMap<String, Object>> resultVO = comUserMapper.selectAprvPrdcrUserApcList(comUserVO);
+		return resultVO;
+	}
+
     /**
      * 생산농가 계정관리 승인요청 수정
      * @param HashMap
