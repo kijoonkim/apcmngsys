@@ -48,6 +48,20 @@
             background-color : white !important;
             border-radius: 0 !important;
             padding: 0px 12px !important;
+            height: auto;
+        }
+        table td {
+            border: 1px solid #b0b2fe;
+        }
+        #resizer{
+            background-image:url('/static/resource/svg/dot_h.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 17px;
+            cursor:ew-resize;
+            background-color: rgba(43, 45, 48, 0.07);
+            height: 100%;
+            width: 5px;
         }
     </style>
 </head>
@@ -129,7 +143,7 @@
                     </div>
                     <div id="sb-area-grdListGrid" style="width: 100%"></div>
                 </div>
-                <div id="resizer"style="cursor:ew-resize;background-color: #cbd5e0;height: 100%; width: 2px;"></div>
+                <div id="resizer"></div>
                 <div style="padding: 10px;flex: 1;display: flex;flex-direction: column">
                     <div style="flex: 1">
                         <div style="flex: 1">
@@ -749,12 +763,12 @@
         SBGridProperties.jsonref = 'jsonGrdAr';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
         ];
         grdAr = _SBGrid.create(SBGridProperties);
     }
@@ -765,66 +779,66 @@
         SBGridProperties.jsonref = 'jsonGrdAp';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
         ];
         grdAp = _SBGrid.create(SBGridProperties);
     }
-    <%--const resizer = document.getElementById('resizer');--%>
-    <%--const leftSide = resizer.previousElementSibling;--%>
-    <%--const rightSide = resizer.nextElementSibling;--%>
+    const resizer = document.getElementById('resizer');
+    const leftSide = resizer.previousElementSibling;
+    const rightSide = resizer.nextElementSibling;
 
-    <%--let x = 0;--%>
-    <%--let y = 0;--%>
+    let x = 0;
+    let y = 0;
 
-    <%--let leftWidth = 0;--%>
+    let leftWidth = 0;
 
-    <%--const mouseDownHandler = function (e) {--%>
-    <%--    x = e.clientX;--%>
-    <%--    y = e.clientY;--%>
-    <%--    leftWidth = leftSide.getBoundingClientRect().width;--%>
+    const mouseDownHandler = function (e) {
+        x = e.clientX;
+        y = e.clientY;
+        leftWidth = leftSide.getBoundingClientRect().width;
 
-    <%--    document.addEventListener('mousemove', mouseMoveHandler);--%>
-    <%--    document.addEventListener('mouseup', mouseUpHandler);--%>
-    <%--};--%>
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    };
 
-    <%--const mouseMoveHandler = function (e) {--%>
-    <%--    const dx = e.clientX - x;--%>
-    <%--    const dy = e.clientY - y;--%>
+    const mouseMoveHandler = function (e) {
+        const dx = e.clientX - x;
+        const dy = e.clientY - y;
 
-    <%--    document.body.style.cursor = 'col-resize';--%>
+        document.body.style.cursor = 'col-resize';
 
-    <%--    leftSide.style.userSelect = 'none';--%>
-    <%--    leftSide.style.pointerEvents = 'none';--%>
+        leftSide.style.userSelect = 'none';
+        leftSide.style.pointerEvents = 'none';
 
-    <%--    rightSide.style.userSelect = 'none';--%>
-    <%--    rightSide.style.pointerEvents = 'none';--%>
+        rightSide.style.userSelect = 'none';
+        rightSide.style.pointerEvents = 'none';
 
-    <%--    const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;--%>
-    <%--    leftSide.style.width = `${'${newLeftWidth}'}%`;--%>
-    <%--    사업장grid.resize();--%>
-    <%--    매출grid.resize();--%>
-    <%--    매입grid.resize();--%>
-    <%--};--%>
+        const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
+        leftSide.style.width = `${'${newLeftWidth}'}%`;
+        grdListGrid.resize();
+        grdAr.resize();
+        grdAp.resize();
+    };
 
-    <%--const mouseUpHandler = function () {--%>
-    <%--    resizer.style.removeProperty('cursor');--%>
-    <%--    document.body.style.removeProperty('cursor');--%>
+    const mouseUpHandler = function () {
+        resizer.style.removeProperty('cursor');
+        document.body.style.removeProperty('cursor');
 
-    <%--    leftSide.style.removeProperty('user-select');--%>
-    <%--    leftSide.style.removeProperty('pointer-events');--%>
+        leftSide.style.removeProperty('user-select');
+        leftSide.style.removeProperty('pointer-events');
 
-    <%--    rightSide.style.removeProperty('user-select');--%>
-    <%--    rightSide.style.removeProperty('pointer-events');--%>
+        rightSide.style.removeProperty('user-select');
+        rightSide.style.removeProperty('pointer-events');
 
-    <%--    document.removeEventListener('mousemove', mouseMoveHandler);--%>
-    <%--    document.removeEventListener('mouseup', mouseUpHandler);--%>
-    <%--};--%>
-    //resizer.addEventListener('mousedown', mouseDownHandler);
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
+    };
+    resizer.addEventListener('mousedown', mouseDownHandler);
 
     function cfn_save() {
         fn_save();
@@ -857,7 +871,7 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-        gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
+        gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno','ymdstandardTermFr','ymdstandardTermTo']);
         let arapType = _id === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
         let seq = gfnma_multiSelectGet("#src-btn-currencyCode");
         let workType = _id === 'tpgAR'? 'Q':'Q1';
