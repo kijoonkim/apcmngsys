@@ -65,4 +65,11 @@ public interface FcltInstlInfoMapper {
 	 * @return
 	 */
 	public List<FcltInstlInfoVO> selectFcltInstlInfoRawDataList(FcltInstlInfoVO fcltInstlInfoVO);
+
+	/**
+	 * 진척도를 갱신한다
+	 * @param fcltInstlInfoVO
+	 * @return
+	 */
+	public int updateFcltInstlInfoPrgrs(FcltInstlInfoVO fcltInstlInfoVO);
 }

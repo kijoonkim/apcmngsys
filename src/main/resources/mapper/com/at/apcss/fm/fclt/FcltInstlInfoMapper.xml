@@ -351,4 +351,18 @@
 
 	</select>
 
+	<!-- 진척도 업데이트 -->
+	<update id="updateFcltInstlInfoPrgrs" parameterType="com.at.apcss.fm.fclt.vo.FcltInstlInfoVO">
+		UPDATE
+			TB_TE_APC_PRGRS
+		SET
+			PRGRS_2			= #{prgrsYn}
+			, SYS_LAST_CHG_DT		=  SYSDATE
+			, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+		WHERE 1=1
+		  AND CRTR_YR		= #{crtrYr}
+		  AND APC_CD		= #{apcCd}
+		  AND PRGRS_SE_CD	= 'FCLT'
+	</update>
 </mapper>
