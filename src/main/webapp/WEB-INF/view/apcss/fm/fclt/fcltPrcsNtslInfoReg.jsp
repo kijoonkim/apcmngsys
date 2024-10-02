@@ -662,15 +662,15 @@
 				SBUxMethod.set('dtl-inp-apcTrmtAmtTot',item.apcTrmtAmtTot);
 				SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',fn_numberToKorean(item.apcTrmtAmtTot));
 
-				$('#itemNm1').text("품목1:"+item.itemNm1);
-				$('#itemNm2').text("품목2:"+item.itemNm2);
-				$('#itemNm3').text("품목3:"+item.itemNm3);
-				$('#itemNm4').text("기타품목:"+item.itemNm4);
+				$('#itemNm1').text("품목1:"+gfn_nvl(item.itemNm1));
+				$('#itemNm2').text("품목2:"+gfn_nvl(item.itemNm2));
+				$('#itemNm3').text("품목3:"+gfn_nvl(item.itemNm3));
+				$('#itemNm4').text("기타품목:"+gfn_nvl(item.itemNm4));
 
-				$('#apcItemNm1').text("품목1:"+item.apcItemNm1);
-				$('#apcItemNm2').text("품목2:"+item.apcItemNm2);
-				$('#apcItemNm3').text("품목3:"+item.apcItemNm3);
-				$('#apcItemNm4').text("기타품목:"+item.apcItemNm4);
+				$('#apcItemNm1').text("품목1:"+gfn_nvl(item.apcItemNm1));
+				$('#apcItemNm2').text("품목2:"+gfn_nvl(item.apcItemNm2));
+				$('#apcItemNm3').text("품목3:"+gfn_nvl(item.apcItemNm3));
+				$('#apcItemNm4').text("기타품목:"+gfn_nvl(item.apcItemNm4));
 			});
 			fn_cal();
 
@@ -711,8 +711,11 @@
 
 	//신규 등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		 console.log("******************fn_subInsert**********************************");
-		 if (!isConfirmed) return;
+		console.log("******************fn_subInsert**********************************");
+		let crtrYr = SBUxMethod.get('srch-inp-crtrYr')
+		let apcCd =  SBUxMethod.get('srch-inp-apcCd')
+		console.log(crtrYr , apcCd);
+		if (!isConfirmed) return;
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltPrcsNtslInfo.do", {
 			crtrYr : SBUxMethod.get('srch-inp-crtrYr')

@@ -86,4 +86,12 @@ public interface FcltInstlInfoService {
 	 */
 	public List<FcltInstlInfoVO> selectFcltInstlInfoRawDataList(FcltInstlInfoVO fcltInstlInfoVO) throws Exception;
 
+	/**
+	 * 시설설치보완정보를 변경한다.
+	 * @param fcltInstlInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateFcltInstlInfoPrgrs(FcltInstlInfoVO fcltInstlInfoVO) throws Exception;
+
 }
