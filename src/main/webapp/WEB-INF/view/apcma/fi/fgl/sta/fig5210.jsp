@@ -124,12 +124,7 @@
                             <th scope="row" class="th_bg">조건</th>
                             <td colspan="11" class="td_input" >
                             	<div style="display:flex;float:left">
-	                            	<font>준재무제표계정표시</font>
-								    <font style="padding-left:10px;"></font>  
-	                            	<sbux-checkbox id="SCH_CHKREPORT_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
                             	
-								    <font style="padding-left:30px;"></font>  
-								    
 	                            	<font>기초포함</font>
 								    <font style="padding-left:10px;"></font>  
 	                            	<sbux-checkbox id="SCH_CHKBEGIN_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -147,7 +142,13 @@
 	                            	<sbux-checkbox id="SCH_CHKPARENT_INCLUDE_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
 
 								    <font style="padding-left:30px;"></font>  
+
+	                            	<font>표준재무제표계정표시</font>
+								    <font style="padding-left:10px;"></font>  
+	                            	<sbux-checkbox id="SCH_CHKREPORT_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
 								    
+								    <font style="padding-left:30px;"></font>  
+
 	                            	<font>본사계정표시</font>
 								    <font style="padding-left:10px;"></font>  
 	                            	<sbux-checkbox id="SCH_CHKHQ_YN" uitype="normal" text="예" true-value="Y" false-value="N" ></sbux-checkbox>
@@ -159,11 +160,12 @@
                 </table>
                 
 				<div class="table-responsive tbl_scroll_sm" style="padding-top:10px">
-				   <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
-				                   title-target-id-array = "sb_area_tab1^sb_area_tab2"
-				                   title-text-array = "시산표(밴드)^시산표(트리)"
-				                   title-target-value-array="1^2"
-				                   onclick="fn_tabClick(tab_norm)"></sbux-tabs>					
+				
+				    <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
+	                   title-target-id-array = "sb_area_tab1^sb_area_tab2"
+	                   title-text-array = "시산표(밴드)^시산표(트리)"
+	                   title-target-value-array="1^2"
+	                   onclick="fn_tabClick(tab_norm)"></sbux-tabs>					
 					
 					<div class="tab-content">
 						<div id="sb_area_tab1" >
@@ -171,6 +173,11 @@
 							</div>
 						</div>
 						<div id="sb_area_tab2" >
+		                    <div style="display:flex;vertical-align:middle;float:right;padding-top:0px;padding-bottom:5px;margin-right:auto">
+			                    <sbux-button uitype="normal" text="트리펼치기"  class="btn btn-sm btn-outline-danger" onclick="fn_treeOpen()" ></sbux-button>
+			                    <span style="width:5px"></span>
+			                    <sbux-button uitype="normal" text="트리접기"  	class="btn btn-sm btn-outline-danger" onclick="fn_treeClose()" ></sbux-button>
+							</div>
 							<div id="SB_TAB2_GRID" style="height:465px; width:100%;">
 							</div>
 						</div>
@@ -207,8 +214,11 @@
 	var jsonAccountGroup	= [];	// 계정수준
 	
     //grid 초기화
-    var Fig5210Grid; 				// 그리드를 담기위한 객체 선언
-    var jsonFig5210 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var Fig5210Grid; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5210Grid 		= []; 	// 그리드의 참조 데이터 주소 선언
+    
+    var Fig5210Tree; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5210Tree 		= []; 	// 그리드의 참조 데이터 주소 선언
     
     var p_sel_tab			= 1;	// 현재탭
     
@@ -268,11 +278,14 @@
     	fn_gridSetTitle();
     }
     
+    /**
+     * 시산표 그리드 (Tab1)
+     */
     function fn_createFig5210Grid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB1_GRID';
 	    SBGridProperties.id 				= 'Fig5210Grid';
-	    SBGridProperties.jsonref 			= 'jsonFig5210';
+	    SBGridProperties.jsonref 			= 'jsonFig5210Grid';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
@@ -307,27 +320,60 @@
         ];
 
         Fig5210Grid = _SBGrid.create(SBGridProperties);
-        Fig5210Grid.bind('click', 'fn_viewFig5210GridEvent');
-    }
-
-    //상세정보 보기
-    function fn_viewFig5210GridEvent() {
-
-    	editType = "E";    	
-    	
-    	var nCol = Fig5210Grid.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }
-        var nRow = Fig5210Grid.getRow();
-		if (nRow < 1) {
-            return;
-		}
-        let rowData = Fig5210Grid.getRowData(nRow);
-
+        //Fig5210Grid.bind('click', 'fn_viewFig5210GridEvent');
     }
     
+    /**
+     * 시산표 그리드 (Tab1)
+     */
+    function fn_createFig5210Tree() {
+        var SBGridProperties 				= {};
+	    SBGridProperties.parentid 			= 'SB_TAB2_GRID';
+	    SBGridProperties.id 				= 'Fig5210Tree';
+	    SBGridProperties.jsonref 			= 'jsonFig5210Tree';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.tree = {
+	            col: 0,
+	            levelref: 'LEVEL',
+	            open: true,
+	            lock: true
+	    },
+	    SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total 				= {
+                type 		: 'grand',
+                position	: 'bottom',
+                columns		: {
+                    standard : [0],
+                    sum : [3,4,5,6,7,8]
+                },
+                grandtotalrow : {
+                    titlecol 		: 2,
+                    titlevalue		: '합계',
+                    style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol	: 0
+                },
+                datasorting	: true,
+        };
+        SBGridProperties.columns = [
+            {caption: ["계정그룹"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'150px', 		style:'text-align:left'},
+            {caption: ["계정코드"],			ref: 'ACCOUNT_CODE', 			type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: [gd2_title_gigan],	ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
+            {caption: ["차변기초잔액"],		ref: 'DEBIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["차변기말잔액"],		ref: 'DEBIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: [gd2_title_cha],		ref: 'DEBIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: [gd2_title_dae],		ref: 'CREDIT_SUM_AMT_F', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["대변기말잔액"],		ref: 'CREDIT_BALANCE_AMT_F', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["대변기초잔액"],		ref: 'CREDIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["비고"],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
+        ];
+
+        Fig5210Tree = _SBGrid.create(SBGridProperties);
+        //Fig5210Grid.bind('click', 'fn_viewFig5210GridEvent');
+    }
+
     /**
      * 목록 조회
      */
@@ -335,12 +381,12 @@
     	if(p_sel_tab==1){
 	    	fn_setFig5210Grid('Q');
     	} else {
-	    	fn_setFig5210Grid('Q');
+	    	fn_setFig5210Tree('Q2');
     	}
     }
 
     /**
-     * 목록조회
+     * 시산표(밴드) 목록조회
      */
     const fn_setFig5210Grid = async function(wtype) {
 		
@@ -414,7 +460,7 @@
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	        	jsonFig5210.length = 0;
+  	        	jsonFig5210Grid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),
@@ -441,7 +487,7 @@
   						HQ_ACCOUNT_NAME 		: gfnma_nvl(item.HQ_ACCOUNT_NAME),
   						SORT_SEQ 				: gfnma_nvl(item.SORT_SEQ),
   					}
-  					jsonFig5210.push(msg);
+  					jsonFig5210Grid.push(msg);
   					totalRecordCount ++;
   				});
 
@@ -462,6 +508,133 @@
     }
 
     /**
+     * 시산표(트리) 목록조회
+     */
+    const fn_setFig5210Tree = async function(wtype) {
+		
+    	//타이틀 재구성
+    	fn_gridSetTitle();
+    	fn_createFig5210Tree();    	
+    	//--------------------------
+    	
+		Fig5210Tree.clearStatus();
+
+		let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
+		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
+		let p_site_code			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
+		let p_ymdperiod_fr		= gfnma_nvl(SBUxMethod.get("SCH_YMDPERIOD_FR"));
+		let p_ymdperiod_to		= gfnma_nvl(SBUxMethod.get("SCH_YMDPERIOD_TO"));
+		let p_account_group		= gfnma_nvl(SBUxMethod.get("SCH_ACCOUNT_GROUP"));
+		let p_currency_code		= gfnma_nvl(SBUxMethod.get("SCH_CURRENCY_CODE"));
+		let p_begin_include_yn	= gfnma_nvl(SBUxMethod.get("SCH_CHKBEGIN_INCLUDE_YN")['SCH_CHKBEGIN_INCLUDE_YN']);
+		let p_parent_include_yn	= gfnma_nvl(SBUxMethod.get("SCH_CHKPARENT_INCLUDE_YN")['SCH_CHKPARENT_INCLUDE_YN']);
+		let p_zero_include_yn	= gfnma_nvl(SBUxMethod.get("SCH_CHKZERO_INCLUDE_YN")['SCH_CHKZERO_INCLUDE_YN']);
+		
+		if(!p_fi_org_code){
+ 			gfn_comAlert("E0000","사업단위를 선택하세요");
+			return;      		 
+		}
+		if(!p_acct_rule_code){
+ 			gfn_comAlert("E0000","회계기준을 선택하세요");
+			return;      		 
+		}
+		if(!p_ymdperiod_fr || !p_ymdperiod_to){
+ 			gfn_comAlert("E0000","기간을 선택하세요");
+			return;      		 
+		}
+		
+	    var paramObj = { 
+			V_P_DEBUG_MODE_YN		: ''
+			,V_P_LANG_ID			: ''
+			,V_P_COMP_CODE			: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+			
+			,V_P_ACCT_RULE_CODE		: p_acct_rule_code
+			,V_P_FI_ORG_CODE		: p_fi_org_code
+			,V_P_SITE_CODE			: p_site_code
+			,V_P_PERIOD_FR			: p_ymdperiod_fr
+			,V_P_PERIOD_TO			: p_ymdperiod_to
+			,V_P_ACCOUNT_GROUP		: p_account_group
+			,V_P_CURRENCY_CODE		: p_currency_code
+			,V_P_BEGIN_INCLUDE_YN	: p_begin_include_yn
+			,V_P_PARENT_INCLUDE_YN	: p_parent_include_yn
+			,V_P_ZERO_INCLUDE_YN	: p_zero_include_yn
+			
+			,V_P_FORM_ID			: p_formId
+			,V_P_MENU_ID			: p_menuId
+			,V_P_PROC_ID			: ''
+			,V_P_USERID				: p_userId
+			,V_P_PC					: '' 
+	    };		
+
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5210List.do", {
+        	getType				: 'json',
+        	workType			: wtype,
+        	cv_count			: '2',
+        	params				: gfnma_objectToString(paramObj)
+		});
+
+        const data = await postJsonPromise;
+		console.log('data:', data);
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+
+  	        	/** @type {number} **/
+  	    		let totalRecordCount = 0;
+
+  	        	jsonFig5210Tree.length = 0;
+  	        	data.cv_1.forEach((item, index) => {
+  					const msg = {
+  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE_VIEW		: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
+  						ACCOUNT_GROUP			: gfnma_nvl(item.ACCOUNT_GROUP),
+  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),
+  						ACCT_RULE_CODE			: gfnma_nvl(item.ACCT_RULE_CODE),
+  						COMP_CODE				: gfnma_nvl(item.COMP_CODE),
+  						CREDIT_BALANCE_AMT_F	: gfnma_nvl(item.CREDIT_BALANCE_AMT_F),
+  						CREDIT_BALANCE_AMT_O	: gfnma_nvl(item.CREDIT_BALANCE_AMT_O),
+  						CREDIT_BAL_AMT_F_BEGIN	: gfnma_nvl(item.CREDIT_BAL_AMT_F_BEGIN),
+  						CREDIT_BAL_AMT_O_BEGIN	: gfnma_nvl(item.CREDIT_BAL_AMT_O_BEGIN),
+  						CREDIT_SUM_AMT_F		: gfnma_nvl(item.CREDIT_SUM_AMT_F),
+  						CREDIT_SUM_AMT_O		: gfnma_nvl(item.CREDIT_SUM_AMT_O),
+  						DEBIT_BALANCE_AMT_F		: gfnma_nvl(item.DEBIT_BALANCE_AMT_F),
+  						DEBIT_BALANCE_AMT_O		: gfnma_nvl(item.DEBIT_BALANCE_AMT_O),
+  						DEBIT_BAL_AMT_F_BEGIN	: gfnma_nvl(item.DEBIT_BAL_AMT_F_BEGIN),
+  						DEBIT_BAL_AMT_O_BEGIN	: gfnma_nvl(item.DEBIT_BAL_AMT_O_BEGIN),
+  						DEBIT_SUM_AMT_F			: gfnma_nvl(item.DEBIT_SUM_AMT_F),
+  						DEBIT_SUM_AMT_O			: gfnma_nvl(item.DEBIT_SUM_AMT_O),
+  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),
+  						FONT_SIZE 				: gfnma_nvl(item.FONT_SIZE),
+  						HQ_ACCOUNT_CODE 		: gfnma_nvl(item.HQ_ACCOUNT_CODE),
+  						HQ_ACCOUNT_NAME 		: gfnma_nvl(item.HQ_ACCOUNT_NAME),
+  						KEYID 					: gfnma_nvl(item.KEYID),
+  						LEVEL 					: gfnma_nvl(item.LEVEL),
+  						PARENTKEYID 			: gfnma_nvl(item.PARENTKEYID),
+  						REPORT_ACCOUNT_CODE 	: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
+  						REPORT_ACCOUNT_NAME 	: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
+  						SORT_SEQ 				: gfnma_nvl(item.SORT_SEQ),
+  					}
+  					jsonFig5210Tree.push(msg);
+  					totalRecordCount ++;
+  				});
+
+        		Fig5210Tree.rebuild();
+        		fn_setStyleTree();
+
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }    
+    
+    /**
      * 탭클릭
      */
     const fn_tabClick = function(val) {
@@ -481,10 +654,16 @@
 			gd1_title_gigan = '기간(당월): ' +  edate;
 			gd1_title_cha	= '차변합계(당월)';
 			gd1_title_dae	= '대변합계(당월)';
+			gd2_title_gigan = '기간(당월): ' +  edate;
+			gd2_title_cha	= '차변합계(당월)';
+			gd2_title_dae	= '대변합계(당월)';
 		} else {
 			gd1_title_gigan = '기간: ' +  sdate + ' ~ ' + edate;
 			gd1_title_cha	= '차변합계';
 			gd1_title_dae	= '대변합계';
+			gd2_title_gigan = '기간: ' +  sdate + ' ~ ' + edate;
+			gd2_title_cha	= '차변합계';
+			gd2_title_dae	= '대변합계';
 		}
     }
 
@@ -501,7 +680,7 @@
     }
 
     /**
-     * 합계, 누계 색상
+     * 시산표(밴드) 합계 색상
      */
     var fn_setStyleGrid = function() {
     	let allDatas = Fig5210Grid.getGridDataAll();
@@ -517,6 +696,40 @@
 	      	Fig5210Grid.clearSelection();
       	}
   	}     
+
+    /**
+     * 시산표(트리) 합계 색상
+     */
+    var fn_setStyleTree = function() {
+    	let allDatas = Fig5210Tree.getGridDataAll();
+    	let chk 	 = false;
+      	for (var i = 0; i < allDatas.length; i++) {
+      		var obj = allDatas[i];
+      		if(obj['ACCOUNT_GROUP']=='G'){
+      			Fig5210Tree.setRowStyle(i+1, 'data', 'background', '#d4f1da');
+      			chk = true;
+      		}
+      	}
+      	if(chk){
+      		Fig5210Tree.clearSelection();
+      	}
+  	}    
+
+    /**
+     * 트리펼치기
+     */
+    var fn_treeOpen = function() {
+    	Fig5210Tree.openTreeNodeAll();
+  	}    
+
+    /**
+     * 트리접기
+     */
+    var fn_treeClose = function() {
+    	Fig5210Tree.closeTreeNodeAll();
+  	}    
+    
+    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
