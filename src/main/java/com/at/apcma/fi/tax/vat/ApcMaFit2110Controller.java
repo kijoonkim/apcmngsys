@@ -39,7 +39,7 @@ public class ApcMaFit2110Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
 
-    @PostMapping(value = "/co/sys/fit/selectFit2110.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    @PostMapping(value = "/fi/tax/vat/selectFit2110.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectFit1200(
             @RequestBody Map<String, Object> param
             , Model model
@@ -51,7 +51,7 @@ public class ApcMaFit2110Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIT1200_Q");
+            param.put("procedure", 		"P_FIT2110_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

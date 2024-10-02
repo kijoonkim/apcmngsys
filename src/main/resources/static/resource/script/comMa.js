@@ -1557,7 +1557,7 @@ const gfnma_snakeToCamel = function(str){
  * @param {String} _preFix
  * @returns
  */
-const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix) {
+const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix, _ignore) {
 	let table = document.getElementById(_tableId);
 	let elements = table.querySelectorAll(`[id^=${_pattern}]`);
 	elements = Array.from(elements);
@@ -1573,6 +1573,9 @@ const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix) {
 
 	for (let element of elements) {
 		let key = element.id.split('-').pop();
+		if(_ignore.includes(key)){
+			continue;
+		}
 		let formatKey = _preFix + gfnma_camelToSnakeUpper(key);
 
 		if (element.type === 'text' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
@@ -1582,7 +1585,6 @@ const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix) {
 				gfn_comAlert("W0005", msg);
 				return false;
 			} else {
-				console.log({[formatKey]: sbValue});
 				if (_paramObj.hasOwnProperty(formatKey)) {
 					_paramObj[formatKey] = sbValue;
 				} else {
