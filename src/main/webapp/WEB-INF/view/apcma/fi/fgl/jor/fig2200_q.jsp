@@ -615,7 +615,7 @@
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
                 },
-                datasorting	: false,
+                datasorting	: true,
         };
         SBGridProperties.columns = [
         	{caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '40px', style: 'text-align:center',
@@ -1717,7 +1717,7 @@
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
                 },
-                datasorting	: false,
+                datasorting	: true,
         };
         SBGridProperties.columns = [
             {caption: ["전표번호"],    				ref: 'DOC_NAME', 				type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -1961,7 +1961,7 @@
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
                 },
-                datasorting	: false,
+                datasorting	: true,
         };
         SBGridProperties.columns = [
             {caption: ["전표유형"],					ref: 'DOC_TYPE_NAME', 			type:'output',  	width:'120px', 		style:'text-align:left'},

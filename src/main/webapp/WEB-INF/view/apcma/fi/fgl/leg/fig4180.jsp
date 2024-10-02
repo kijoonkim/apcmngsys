@@ -453,7 +453,7 @@
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
                 },
-                datasorting	: false,
+                datasorting	: true,
         };
         SBGridProperties.columns = [
             {caption: ["사업단위"], 				ref: 'FI_ORG_NAME',    			type:'output',  	width:'200px', 		style:'text-align:left'},
@@ -521,7 +521,7 @@
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
                 },
-                datasorting	: false,
+                datasorting	: true,
         };
         SBGridProperties.columns = [
             {caption: ["계정코드"], 				ref: 'ACCT_NAME', 				type:'output',		width:'150px',  	style:'text-align:left'},
