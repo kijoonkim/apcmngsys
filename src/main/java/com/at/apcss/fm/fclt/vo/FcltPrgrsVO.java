@@ -65,6 +65,12 @@ public class FcltPrgrsVO extends ComVO{
 	private String aprvAtStts;	//승인상태 AT
 	private String aprvCtpvStts;	//승인상태 지자체(시도)
 	private String aprvSggStts;	//승인상태 지자체(시군구)
+
+	private String aprvYn;//승인 여부
+	private String rjctRsn;//반려 이유
+
+	private String userType;
+	private String userId;
 }
 
 

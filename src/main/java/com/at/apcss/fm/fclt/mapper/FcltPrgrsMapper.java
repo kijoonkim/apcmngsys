@@ -54,4 +54,11 @@ public interface FcltPrgrsMapper {
 	 */
 	public int updatePrgrsLast(FcltPrgrsVO fcltPrgrsVO);
 
+	/**
+	 * 최종제출 여부를 업데이트 한다.
+	 * @param fcltPrgrsVO
+	 * @return
+	 */
+	public int updateAprv(FcltPrgrsVO fcltPrgrsVO);
+
 }
