@@ -358,7 +358,7 @@ public class GdsInvntrVO extends ComVO {
 	/**
 	 * 본수
 	 * */
-	private String stemQntt;
+	private String bxGdsQntt;
 
 
 	private List<SpmtGdsVO> spmtGdsList;

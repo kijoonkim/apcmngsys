@@ -861,7 +861,7 @@
 		    		, SYS_LAST_CHG_DT
 		    		, SYS_LAST_CHG_USER_ID
 		    		, SYS_LAST_CHG_PRGRM_ID
-		    		, STEM_QNTT
+		    		, BX_GDS_QNTT
 		    		, CNPT_CD
 	    		)
 	   		VALUES
@@ -902,7 +902,7 @@
 		    		, SYSDATE
 		    		, #{sysLastChgUserId}
 		    		, #{sysLastChgPrgrmId}
-		    		, #{stemQntt}
+		    		, #{bxGdsQntt}
 		    		, #{cnptCd}
 	   			)
     	]]>

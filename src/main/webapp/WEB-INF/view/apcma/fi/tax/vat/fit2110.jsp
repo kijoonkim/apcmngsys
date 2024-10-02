@@ -23,9 +23,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>Title</title><title>title : 신용카드수령명세서(매입)</title>
+    <title>title : 신용카드수령명세서(매입)</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+    <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <style>
         #Sales > table > tbody > tr > td,#Purchase > table > tbody > tr > td{
             text-align: center;
@@ -42,12 +43,18 @@
             text-align: right;
             width: 100%;
         }
+        .tpgTd{
+            border: 0 !important;
+            background-color : white !important;
+            border-radius: 0 !important;
+            padding: 0px 12px !important;
+        }
     </style>
 </head>
 <body oncontextmenu="return false">
-<section>
-    <div class="box box-solid">
-        <div class="box-header">
+<section class="content container-fluid">
+    <div class="box box-solid" style="border-radius: 0">
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
@@ -55,45 +62,59 @@
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-bordered tbl_fixed">
+            <table id="srchTable" class="table table-bordered tbl_fixed">
                 <colgroup>
-                    <col style="width: 15%">
                     <col style="width: 10%">
-                    <col style="width: 8%">
                     <col style="width: 15%">
+                    <col style="width: 1%">
                     <col style="width: 10%">
-                    <col style="width: 8%">
                     <col style="width: 15%">
+                    <col style="width: 1%">
                     <col style="width: 10%">
+                    <col style="width: 29%">
                     <col style="width: 8%">
                 </colgroup>
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg">법인</th>
                     <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-select readonly id="srch-slt-corpNm" name="srch-slt-corpNm" uitype="single" jsondata-ref="jsonCorpNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <td></td>
                     <th scope="row" class="th_bg">기준연도</th>
                     <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="기준연도" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
+                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                        >
+                        </sbux-datepicker>
                     </td>
                     <td></td>
                     <th scope="row" class="th_bg">신고구분명</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="신고구분명" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                        <div style="display: flex;gap: 5px">
+                            <div class="dropdown">
+                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
+                            </div>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm"></sbux-input>
+                            <p style="text-align: center;line-height: 30px">~</p>
+                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm"></sbux-input>
+                        </div>
                     </td>
-                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">신고사업장</th>
                     <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="신고사업장" uitype="text" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
                     </td>
                     <td></td>
                     <th scope="row" class="th_bg">사업자번호</th>
                     <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="사업자번호" uitype="text" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm"></sbux-input>
                     </td>
                     <td colspan="4"></td>
                 </tr>
@@ -106,7 +127,7 @@
                             <li><span>사업장 리스트</span></li>
                         </ul>
                     </div>
-                    <div id="사업장리스트그리드" style="width: 100%"></div>
+                    <div id="sb-area-grdListGrid" style="width: 100%"></div>
                 </div>
                 <div id="resizer"style="cursor:ew-resize;background-color: #cbd5e0;height: 100%; width: 2px;"></div>
                 <div style="padding: 10px;flex: 1;display: flex;flex-direction: column">
@@ -118,18 +139,18 @@
                                 </ul>
                             </div>
                         </div>
-                        <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal" is-scrollable="false"
-                                   title-target-id-array="Sales^Purchase"
+                        <sbux-tabs id="tabVATtax" name="tabVATtax" uitype="normal" is-scrollable="false"
+                                   title-target-id-array="tpgAR^tpgAP" callback-after-select="fn_afterSelectTab"
                                    title-text-array="매출^매입">
                         </sbux-tabs>
                         <div class="tab-content" style="height: auto">
-                            <div id="Sales">
-                                <table style="width: 60%">
+                            <div id="tpgAR">
+                                <table style="width: 100%;text-align: center">
                                     <colgroup>
-                                        <col style="width: 29%">
-                                        <col style="width: 25%">
-                                        <col style="width: 9%">
-                                        <col style="width: 7%">
+                                        <col style="width: 20%">
+                                        <col style="width: 20%">
+                                        <col style="width: 15%">
+                                        <col style="width: 15%">
                                         <col style="width: 15%">
                                         <col style="width: 15%">
                                     </colgroup>
@@ -143,54 +164,194 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">합&emsp;&emsp;&emsp;&emsp;계</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="totalCustomerCnt" name="totalCustomerCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="totalBillCnt" name="totalBillCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="totalSupplyAmt" name="totalSupplyAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="totalVatAmt" name="totalVatAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td rowspan="3">과세기간 종료일 다음 달11일까지 전송된 전자세금 계산서 발급분</td>
                                         <td>사업자등록번호 발급분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoCustomerCnt" name="etaxCorpRegnoCustomerCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoBillCnt" name="etaxCorpRegnoBillCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoSupplyAmt" name="etaxCorpRegnoSupplyAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoVatAmt" name="etaxCorpRegnoVatAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>주민등록번호 발급분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoCustomerC" name="etaxResidentRegnoCustomerC" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoBillCnt" name="etaxResidentRegnoBillCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoSupplyAmt" name="etaxResidentRegnoSupplyAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoVatAmt" name="etaxResidentRegnoVatAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>소계</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="etaxSumCustomerCnt" name="etaxSumCustomerCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxSumBillCnt" name="etaxSumBillCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxSumSupplyAmt" name="etaxSumSupplyAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxSupplyVatAmt" name="etaxSupplyVatAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td rowspan="3">위 전자세금계산서 외의 발급분</td>
                                         <td>사업자등록번호 발급분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="corpRegnoCustomerCnt" name="corpRegnoCustomerCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="corpRegnoBillCnt" name="corpRegnoBillCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="corpRegnoSupplyAmt" name="corpRegnoSupplyAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="corpRegnoVatAmt" name="corpRegnoVatAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>주민등록번호 발급분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="residentRegnoCustomerCnt" name="residentRegnoCustomerCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="residentRegnoBillCnt" name="residentRegnoBillCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="residentRegnoSupplyAmt" name="residentRegnoSupplyAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="residentRegnoVatAmt" name="residentRegnoVatAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>소계</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="sumCustomerCnt" name="sumCustomerCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="sumBillCnt" name="sumBillCnt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="sumSupllyAmt" name="sumSupllyAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="supplyVatAmt" name="supplyVatAmt" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -199,76 +360,216 @@
                                         <li><span>과세기간 종료일 다음달 11일까지 전송된 전자세금계산서외 발급분 매출처별 명세</span></li>
                                     </ul>
                                 </div>
-                                <div id="매출그리드" style="width: 100%; height: 100%"></div>
+                                <div id="sb-area-grdAr" style="width: 100%; height: 100%"></div>
                             </div>
-                            <div id="Purchase">
-                                <table style="width: 60%">
+                            <div id="tpgAP">
+                                <table style="width: 100%;text-align: center">
                                     <colgroup>
-                                        <col style="width: 29%">
-                                        <col style="width: 25%">
-                                        <col style="width: 9%">
-                                        <col style="width: 7%">
+                                        <col style="width: 20%">
+                                        <col style="width: 20%">
+                                        <col style="width: 15%">
+                                        <col style="width: 15%">
                                         <col style="width: 15%">
                                         <col style="width: 15%">
                                     </colgroup>
                                     <tbody>
                                     <tr>
                                         <td colspan="2">구&emsp;&emsp;&emsp;&emsp;분</td>
-                                        <td>매입처수</td>
+                                        <td>매출처수</td>
                                         <td>매수</td>
                                         <td>공급가액</td>
                                         <td>세액</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">합&emsp;&emsp;&emsp;&emsp;계</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="totalCustomerCnt2" name="totalCustomerCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="totalBillCnt2" name="totalBillCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="totalSupplyAmt2" name="totalSupplyAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="totalVatAmt2" name="totalVatAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td rowspan="3">과세기간 종료일 다음 달11일까지 전송된 전자세금 계산서 발급받은 분</td>
-                                        <td>사업자등록번호 발급받은 분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td rowspan="3">과세기간 종료일 다음 달11일까지 전송된 전자세금 계산서 발급분</td>
+                                        <td>사업자등록번호 발급분</td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoCustomerCnt2" name="etaxCorpRegnoCustomerCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoBillCnt2" name="etaxCorpRegnoBillCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoSupplyAmt2" name="etaxCorpRegnoSupplyAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxCorpRegnoVatAmt2" name="etaxCorpRegnoVatAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>주민등록번호 발급받은 분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>주민등록번호 발급분</td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoCustomerC2" name="etaxResidentRegnoCustomerC2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoBillCnt2" name="etaxResidentRegnoBillCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoSupplyAmt2" name="etaxResidentRegnoSupplyAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxResidentRegnoVatAmt2" name="etaxResidentRegnoVatAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>소계</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="etaxSumCustomerCnt2" name="etaxSumCustomerCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxSumBillCnt2" name="etaxSumBillCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxSumSupplyAmt2" name="etaxSumSupplyAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="etaxSupplyVatAmt2" name="etaxSupplyVatAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td rowspan="3">위 전자세금계산서 외의 발급받은 분</td>
-                                        <td>사업자등록번호 발급받은 분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td rowspan="3">위 전자세금계산서 외의 발급분</td>
+                                        <td>사업자등록번호 발급분</td>
+                                        <td>
+                                            <sbux-input id="corpRegnoCustomerCnt2" name="corpRegnoCustomerCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="corpRegnoBillCnt2" name="corpRegnoBillCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="corpRegnoSupplyAmt2" name="corpRegnoSupplyAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="corpRegnoVatAmt2" name="corpRegnoVatAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>주민등록번호 발급받은 분</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>주민등록번호 발급분</td>
+                                        <td>
+                                            <sbux-input id="residentRegnoCustomerCnt2" name="residentRegnoCustomerCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="residentRegnoBillCnt2" name="residentRegnoBillCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="residentRegnoSupplyAmt2" name="residentRegnoSupplyAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="residentRegnoVatAmt2" name="residentRegnoVatAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>소계</td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
-                                        <td><input type="number" value="0"/></td>
+                                        <td>
+                                            <sbux-input id="sumCustomerCnt2" name="sumCustomerCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="sumBillCnt2" name="sumBillCnt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="sumSupllyAmt2" name="sumSupllyAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
+                                        <td>
+                                            <sbux-input id="supplyVatAmt2" name="supplyVatAmt2" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -277,7 +578,7 @@
                                         <li><span>과세기간 종료일 다음달 11일까지 전송된 전자세금계산서외 발급분 매입처별 명세</span></li>
                                     </ul>
                                 </div>
-                                <div id="매입그리드" style="width: 100%; height: 100%"></div>
+                                <div id="sb-area-grdAp" style="width: 100%; height: 100%"></div>
                             </div>
                         </div>
                     </div>
@@ -287,118 +588,318 @@
     </div>
 </section>
 </body>
-<script>
-    let json사업장리스트 = [];
-    let json매출 = [];
-    let json매입 = [];
+<script type="text/javascript">
+    var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+    var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
+    // common ---------------------------------------------------
+    var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
+    var p_menuId 	= '${comMenuVO.menuId}';
+    //-----------------------------------------------------------
+    /** 부가세기간 구분 **/
+    var jsonCbotaxTerm = [];
+    /** 신고 구분 **/
+    var jsonCbotaxRepDtlType = [];
+    /** 환급 구분 **/
+    var jsonCboRfType = [];
 
-    let 사업장grid;
-    let 매출grid;
-    let 매입grid;
+    var jsonCorpNm = [];
+    var jsonGrdList = [];
+    var jsonGrdAr = [];
+    var jsonGrdAp = [];
 
+    var grdListGrid;
+    var grdAr;
+    var grdAp;
 
-
-    window.addEventListener("DOMContentLoaded",function(){
-       fn_createGrid();
-        fn_create매출();
-        fn_create매입();
+    window.addEventListener("DOMContentLoaded",function(e){
+        fn_createGrid();
+        fn_createGridAr();
+        fn_createGridAp();
+        fn_init();
     });
+
+    const fn_init = async function(){
+        /** 법인 select **/
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        SBUxMethod.refresh('srch-slt-corpNm');
+        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
+        /** 기준연도 **/
+        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+
+        /** 신고구분명 select **/
+        gfnma_multiSelectInit({
+            target			: ['#src-btn-currencyCode']
+            ,compCode		: gv_ma_selectedApcCd
+            ,clientCode		: gv_ma_selectedClntCd
+            ,bizcompId		: 'L_FIT030'
+            ,whereClause	: ''
+            ,formId			: p_formId
+            ,menuId			: p_menuId
+            ,selectValue	: ''
+            ,dropType		: 'down' 	// up, down
+            ,dropAlign		: 'right' 	// left, right
+            ,colValue		: 'SEQ'
+            ,colLabel		: 'VAT_TYPE_NAME'
+            ,columns		:[
+                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
+                {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
+            ]
+            ,callback       : fn_choice
+        })
+    }
+    async function fn_choice(_value){
+       let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
+        if (tr.length) {
+            let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
+            if (termFr.length) {
+                SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
+                SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
+            }
+
+            let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
+            if (termTo.length) {
+                SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
+            }
+        }
+        var paramObj = {
+             V_P_DEBUG_MODE_YN      : ''
+            ,V_P_LANG_ID            : ''
+            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+            ,V_P_YYYY               : ''
+            ,V_P_SEQ                : ''
+            ,V_P_TAX_SITE_CODE      : ''
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+            ,V_P_AR_AP_TYPE         : ''
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+        }
+
+        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
+        paramObj.V_P_SEQ = _value;
+        let arapType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
+        paramObj.V_P_AR_AP_TYPE = arapType;
+
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2110.do", {
+            getType				: 'json',
+            cv_count			: '13',
+            workType            : 'LIST',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            jsonGrdList = data.cv_1;
+            grdListGrid.rebuild();
+            if(grdListGrid.getRows() === 2){
+                grdListGrid.setRow(1);
+                let workType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'Q':'Q1';
+                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
+                const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2110.do", {
+                    getType				: 'json',
+                    cv_count			: '13',
+                    workType            : workType,
+                    params				: gfnma_objectToString(paramObj)
+                });
+                const data = await postJsonPromise;
+
+                if(data.resultStatus === 'S'){
+                    if(workType === 'Q'){
+                        let resultObj = data.cv_2[0];
+                        for(let key in resultObj){
+                            let elId = "#" + gfnma_snakeToCamel(key);
+                            $(elId).val(parseInt(resultObj[key]));
+                        }
+                    }else{
+                        let resultObj = data.cv_3[0];
+                        for(let key in resultObj){
+                            let elId = "#" + gfnma_snakeToCamel(key);
+                            $(elId).val(parseInt(resultObj[key]));
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     const fn_createGrid = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = '사업장리스트그리드';
-        SBGridProperties.id = '사업장리스트그리드';
-        SBGridProperties.jsonref = 'json사업장리스트';
+        SBGridProperties.parentid = 'sb-area-grdListGrid';
+        SBGridProperties.id = 'grdListGrid';
+        SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'check',        width : '50%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'academy',      width : '50%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
-        사업장grid = _SBGrid.create(SBGridProperties);
+        grdListGrid = _SBGrid.create(SBGridProperties);
     }
-    const fn_create매출 = function(){
+    const fn_createGridAr = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = '매출그리드';
-        SBGridProperties.id = '매출그리드';
-        SBGridProperties.jsonref = 'json매출';
+        SBGridProperties.parentid = 'sb-area-grdAr';
+        SBGridProperties.id = 'grdAr';
+        SBGridProperties.jsonref = 'jsonGrdAr';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['순번'],               ref : 'check',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'academy',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['상호(법인명)'],          ref : 'academy',      width : '30%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['매수'],          ref : 'academy',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['공급가액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['세액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
+            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
         ];
-        매출grid = _SBGrid.create(SBGridProperties);
+        grdAr = _SBGrid.create(SBGridProperties);
     }
-    const fn_create매입 = function(){
+    const fn_createGridAp = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = '매입그리드';
-        SBGridProperties.id = '매입그리드';
-        SBGridProperties.jsonref = 'json매입';
+        SBGridProperties.parentid = 'sb-area-grdAp';
+        SBGridProperties.id = 'grdAp';
+        SBGridProperties.jsonref = 'jsonGrdAp';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['순번'],               ref : 'check',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
-            {caption : ['사업자번호'],          ref : 'academy',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['상호(법인명)'],          ref : 'academy',      width : '30%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['매수'],          ref : 'academy',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['공급가액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['세액'],          ref : 'academy',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'checkbox'},
+            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
         ];
-        매입grid = _SBGrid.create(SBGridProperties);
+        grdAp = _SBGrid.create(SBGridProperties);
     }
-    const resizer = document.getElementById('resizer');
-    const leftSide = resizer.previousElementSibling;
-    const rightSide = resizer.nextElementSibling;
+    <%--const resizer = document.getElementById('resizer');--%>
+    <%--const leftSide = resizer.previousElementSibling;--%>
+    <%--const rightSide = resizer.nextElementSibling;--%>
 
-    let x = 0;
-    let y = 0;
+    <%--let x = 0;--%>
+    <%--let y = 0;--%>
 
-    let leftWidth = 0;
+    <%--let leftWidth = 0;--%>
 
-    const mouseDownHandler = function (e) {
-        x = e.clientX;
-        y = e.clientY;
-        leftWidth = leftSide.getBoundingClientRect().width;
+    <%--const mouseDownHandler = function (e) {--%>
+    <%--    x = e.clientX;--%>
+    <%--    y = e.clientY;--%>
+    <%--    leftWidth = leftSide.getBoundingClientRect().width;--%>
 
-        document.addEventListener('mousemove', mouseMoveHandler);
-        document.addEventListener('mouseup', mouseUpHandler);
-    };
+    <%--    document.addEventListener('mousemove', mouseMoveHandler);--%>
+    <%--    document.addEventListener('mouseup', mouseUpHandler);--%>
+    <%--};--%>
 
-    const mouseMoveHandler = function (e) {
-        const dx = e.clientX - x;
-        const dy = e.clientY - y;
+    <%--const mouseMoveHandler = function (e) {--%>
+    <%--    const dx = e.clientX - x;--%>
+    <%--    const dy = e.clientY - y;--%>
 
-        document.body.style.cursor = 'col-resize';
+    <%--    document.body.style.cursor = 'col-resize';--%>
 
-        leftSide.style.userSelect = 'none';
-        leftSide.style.pointerEvents = 'none';
+    <%--    leftSide.style.userSelect = 'none';--%>
+    <%--    leftSide.style.pointerEvents = 'none';--%>
 
-        rightSide.style.userSelect = 'none';
-        rightSide.style.pointerEvents = 'none';
+    <%--    rightSide.style.userSelect = 'none';--%>
+    <%--    rightSide.style.pointerEvents = 'none';--%>
 
-        const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
-        leftSide.style.width = `${'${newLeftWidth}'}%`;
-        사업장grid.resize();
-        매출grid.resize();
-        매입grid.resize();
-    };
+    <%--    const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;--%>
+    <%--    leftSide.style.width = `${'${newLeftWidth}'}%`;--%>
+    <%--    사업장grid.resize();--%>
+    <%--    매출grid.resize();--%>
+    <%--    매입grid.resize();--%>
+    <%--};--%>
 
-    const mouseUpHandler = function () {
-        resizer.style.removeProperty('cursor');
-        document.body.style.removeProperty('cursor');
+    <%--const mouseUpHandler = function () {--%>
+    <%--    resizer.style.removeProperty('cursor');--%>
+    <%--    document.body.style.removeProperty('cursor');--%>
 
-        leftSide.style.removeProperty('user-select');
-        leftSide.style.removeProperty('pointer-events');
+    <%--    leftSide.style.removeProperty('user-select');--%>
+    <%--    leftSide.style.removeProperty('pointer-events');--%>
 
-        rightSide.style.removeProperty('user-select');
-        rightSide.style.removeProperty('pointer-events');
+    <%--    rightSide.style.removeProperty('user-select');--%>
+    <%--    rightSide.style.removeProperty('pointer-events');--%>
 
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
-    };
-    resizer.addEventListener('mousedown', mouseDownHandler);
+    <%--    document.removeEventListener('mousemove', mouseMoveHandler);--%>
+    <%--    document.removeEventListener('mouseup', mouseUpHandler);--%>
+    <%--};--%>
+    //resizer.addEventListener('mousedown', mouseDownHandler);
+
+    function cfn_save() {
+        fn_save();
+    }
+    function cfn_add() {
+        fn_create();
+    }
+    function cfn_del() {
+        fn_delete();
+    }
+    function cfn_search() {
+        fn_search();
+    }
+
+    async function fn_afterSelectTab(_id){
+        var paramObj = {
+            V_P_DEBUG_MODE_YN      : ''
+            ,V_P_LANG_ID            : ''
+            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+            ,V_P_YYYY               : ''
+            ,V_P_SEQ                : ''
+            ,V_P_TAX_SITE_CODE      : ''
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+            ,V_P_AR_AP_TYPE         : ''
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+        }
+        gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
+        let arapType = _id === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
+        let seq = gfnma_multiSelectGet("#src-btn-currencyCode");
+        let workType = _id === 'tpgAR'? 'Q':'Q1';
+
+        paramObj.V_P_AR_AP_TYPE = arapType;
+        paramObj.V_P_SEQ = seq;
+
+        /** 사업장 리스트 chk **/
+        let gridIdx = grdListGrid.getRow();
+        if(gridIdx < 0){
+            return;
+        }
+
+        paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(gridIdx).TAX_SITE_CODE;
+
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2110.do", {
+            getType				: 'json',
+            cv_count			: '13',
+            workType            : workType,
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            if(workType === 'Q'){
+                let resultObj = data.cv_2[0];
+                for(let key in resultObj){
+                    let elId = "#" + gfnma_snakeToCamel(key);
+                    $(elId).val(parseInt(resultObj[key]));
+                }
+                jsonGrdAr = data.cv_3;
+                grdAr.rebuild();
+            }else{
+                let resultObj = data.cv_4[0];
+                for(let key in resultObj){
+                    let elId = "#" + gfnma_snakeToCamel(key) + '2';
+                    $(elId).val(parseInt(resultObj[key]));
+                }
+                jsonGrdAp = data.cv_5;
+                grdAp.rebuild();
+            }
+        }
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
