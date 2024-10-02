@@ -223,6 +223,7 @@
 							<td colspan="2" class="td_input" style="border-right:hidden;" >
 								<sbux-input id="dtl-input-crno" name="dtl-input-crno" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-input-typeCd" name="dtl-input-typeCd" uitype="hidden"></sbux-input>
+								<sbux-input id="dtl-input-userType" name="dtl-input-userType" uitype="hidden"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-userId"
@@ -283,8 +284,8 @@
 							<th scope="row" class="th_bg"><span class="data_required" ></span>권한</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
 								<sbux-select
-									id="dtl-input-userType"
-									name="dtl-input-userType"
+									id="dtl-input-userType1"
+									name="dtl-input-userType1"
 									uitype="single"
 									jsondata-ref="jsonComUserDtlType"
 									unselected-text="선택"
@@ -465,6 +466,7 @@
 			</div>
 			<c:if test="${loginVO.userId eq 'admin'}">
 			<div style="margin-left: 20px; border: 1px solid black; width: 400px">
+				<p>admin 계정만 보임</p>
 				<sbux-button id="btnMemY" name="btnMemY" uitype="normal" text="정보갱신Y" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('Y')"></sbux-button>
 				<sbux-button id="btnMemN" name="btnMemN" uitype="normal" text="정보갱신N" class="btn btn-sm btn-outline-danger" onclick="fn_changeMbrUpdtYn('N')"></sbux-button>
 				<div>
@@ -548,9 +550,9 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('srch-input-userType', 	jsonComUserType, 		'USER_TYPE'),	// 권한
+			gfn_setComCdSBSelect('srch-input-userType1', 	jsonComUserType, 		'USER_TYPE'),	// 권한
 			gfn_setComCdSBSelect('grdPrdcrCrclOgnUsrMng', 	jsonComUserGrdType, 	'USER_TYPE'),	// 권한
-			gfn_setComCdSBSelect('dtl-input-userType', 		jsonComUserDtlType, 	'USER_TYPE_1'),	// 권한
+			gfn_setComCdSBSelect('dtl-input-userType1', 		jsonComUserDtlType, 	'USER_TYPE_1'),	// 권한
 
 			gfn_setComCdSBSelect('srch-input-userStts', 	jsonComUserStts, 	'USER_STTS'),	// 1차승인
 			gfn_setComCdSBSelect('dtl-input-userStts', 		jsonComUserStts, 	'USER_STTS'),	// 1차승인
@@ -610,7 +612,7 @@
 				,typeinfo : {ref:'jsonComUserStts', label:'label', value:'value', displayui : false}},
 			{caption: ["2차승인"], 	ref: 'cmptncInstAprvSe',   	type:'combo',  width:'200px',	style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsoncmptncInstAprvSe', label:'label', value:'value', displayui : false}},
-			{caption: ["권한"], 		ref: 'userType',   	type:'combo',  width:'200px',	style:'text-align:center', disabled:true
+			{caption: ["권한"], 		ref: 'userType1',   	type:'combo',  width:'200px',	style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonComUserGrdType', label:'label', value:'value', displayui : false}},
 			{caption: ["사업자번호"], 	ref: 'brno',   	type:'output',  width:'200px',	style:'text-align:center'},
 			{caption: ["비고"], 		ref: 'rmrk',   	type:'output',  width:'200px',	style:'text-align:center'},
@@ -624,11 +626,12 @@
 			{caption: ["회원정보 갱신여부"], 	ref: 'mbrUpdtYn',   type:'output',   width:'100px',  style:'text-align:center'},
 			{caption: ["회원정보 갱신시간"], 	ref: 'mbrUpdtTm',   type:'output',   width:'100px',  style:'text-align:center'},
 
+			{caption: ["1차승인일"], 	ref: 'userType',   		hidden : true},
 			{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
 			{caption: ["이름"], 		ref: 'userNm',   			hidden : true},
 			{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
-			{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : false},
-			{caption: ["1차승인일"], 	ref: 'userAprvYmd',   		hidden : false}
+			{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : true},
+			{caption: ["1차승인일"], 	ref: 'userAprvYmd',   		hidden : true},
 		];
 
 		grdPrdcrCrclOgnUsrMng = _SBGrid.create(SBGridProperties);
@@ -715,6 +718,7 @@
 				let PrdcrCrclOgnUsrMngVO = {
 					userId 		: item.userId
 				  , userNm 		: item.userNm
+				  , userType1 	: item.userType
 				  , userType 	: item.userType
 				  , userStts 	: item.userStts
 				  , userAprvYmd : item.userAprvYmd
@@ -923,6 +927,7 @@
 		//console.log(rowData.userStts);
 		SBUxMethod.set("dtl-input-userId", gfn_nvl(rowData.userId));  //  아이디
 		SBUxMethod.set("dtl-input-userNm", gfn_nvl(rowData.userNm));  //  이름
+		SBUxMethod.set("dtl-input-userType1", gfn_nvl(rowData.userType));  //  권한
 		SBUxMethod.set("dtl-input-userType", gfn_nvl(rowData.userType));  //  권한
 		SBUxMethod.set("dtl-input-userStts", gfn_nvl(rowData.userStts));  //  1차승인
 		SBUxMethod.set("dtl-input-telno", gfn_nvl(rowData.telno));  //  전화번호
@@ -1074,7 +1079,7 @@
 			return;
 		}
 		*/
-
+		console.log(userType);
 		if (!confirm("선택된 유저로 접속하시겠습니까?")) return;
 
 		let brno = SBUxMethod.get("dtl-input-brno");
