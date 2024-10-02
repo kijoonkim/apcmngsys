@@ -40,19 +40,19 @@ public class ApcMaFig5210Controller extends BaseController {
 	private ApcMaCommDirectService apcMaCommDirectService;
 	
 	// 국가정보 조회
-	@PostMapping(value = "/fi/fgl/sta/selectFig5210ist.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectCom3100List(
+	@PostMapping(value = "/fi/fgl/sta/selectFig5210List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectFig5210List(
     		@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
-		logger.info("=============selectFig5210ist=====start========");
+		logger.info("=============selectFig5210List=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 			
-			param.put("procedure", 		"SP_COM3100_Q");
+			param.put("procedure", 		"P_FIG5210_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -60,7 +60,7 @@ public class ApcMaFig5210Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
-		logger.info("=============selectFig5210ist=====end========");
+		logger.info("=============selectFig5210List=====end========");
 		return getSuccessResponseEntity(resultMap);	
 	}	
 }

@@ -407,7 +407,7 @@
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
                 },
-                datasorting	: false,
+                datasorting	: true,
         };
         SBGridProperties.columns = [
             {caption: ["전표상태"],					ref: 'DOC_STATUS_NAME',			type:'output', 		width:'100px', 		style:'text-align:left'},
