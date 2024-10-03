@@ -17,6 +17,7 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String uoBrno;
 	private String crno;
 	private String corpNm;
+	private String uoCorpNm;
 
 	private String ctgryCd;
 	private String ctgryNm;

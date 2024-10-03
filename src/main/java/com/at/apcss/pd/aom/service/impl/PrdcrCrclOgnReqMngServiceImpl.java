@@ -9,6 +9,7 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper;
 import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
+import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
 
 
@@ -123,6 +124,13 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
 
 		List<PrdcrCrclOgnReqMngVO> resultList = PrdcrCrclOgnReqMngMapper.hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<ApcInfoVO> SelectApcInfoList(ApcInfoVO apcInfoVO) throws Exception {
+
+		List<ApcInfoVO> resultList = PrdcrCrclOgnReqMngMapper.SelectApcInfoList(apcInfoVO);
 		return resultList;
 	}
 }

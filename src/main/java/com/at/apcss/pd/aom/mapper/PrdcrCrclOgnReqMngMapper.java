@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 
@@ -51,5 +52,7 @@ public interface PrdcrCrclOgnReqMngMapper {
 	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
 
 	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO);
+
+	public List<ApcInfoVO> SelectApcInfoList(ApcInfoVO apcInfoVO);
 
 }

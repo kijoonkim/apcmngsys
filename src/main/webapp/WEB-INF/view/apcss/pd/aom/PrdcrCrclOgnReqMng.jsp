@@ -1222,7 +1222,7 @@
 		])
 		*/
 		//grdPrdcrCrclOgnReqMng.refresh({"combo":true});
-	  	//클릭 이벤트 바인드
+		//클릭 이벤트 바인드
 		grdPrdcrCrclOgnReqMng.bind('click','fn_view');
 		grdPrdcrCrclOgnReqMng.bind('beforepagechanged', 'fn_pagingBbsList');
 	}
@@ -2670,7 +2670,6 @@
 			console.error("failed", e.message);
 		}
 	}
-
 
 	/**************************APC현황 그리드**********************************/
 

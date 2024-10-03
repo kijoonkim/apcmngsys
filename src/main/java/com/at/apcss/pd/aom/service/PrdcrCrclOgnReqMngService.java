@@ -3,6 +3,7 @@ package com.at.apcss.pd.aom.service;
 import java.util.List;
 
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
+import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
 
 
@@ -76,4 +77,11 @@ public interface PrdcrCrclOgnReqMngService {
 
 	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+	/**
+	 * 해당 통합조직의 APC정보를 가져온다
+	 * @param ApcInfoVO
+	 * @return List<ApcInfoVO>
+	 * @throws Exception
+	 */
+	public List<ApcInfoVO> SelectApcInfoList(ApcInfoVO apcInfoVO) throws Exception;
 }

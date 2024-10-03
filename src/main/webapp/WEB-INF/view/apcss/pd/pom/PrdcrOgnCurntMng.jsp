@@ -1642,34 +1642,36 @@
 		let brno = '${loginVO.brno}';
 		</c:if>
 		SBUxMethod.openProgress("loadingOpen");
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
 			brno : brno
 		});
-        let data = await postJsonPromise;
-        try{
-        	comUoBrno = [];
-        	data.resultList.forEach((item, index) => {
-        		let uoListVO = {
+		let data = await postJsonPromise;
+		try{
+			comUoBrno = [];
+			let uoBrno;
+			data.resultList.forEach((item, index) => {
+				uoBrno = item.uoBrno
+				let uoListVO = {
 						'text'		: item.uoCorpNm
 						, 'label'	: item.uoCorpNm
 						, 'value'	: item.uoBrno
 						, 'uoApoCd' : item.uoApoCd
 
 				}
-        		comUoBrno.push(uoListVO);
+				comUoBrno.push(uoListVO);
 			});
-        	SBUxMethod.refresh('dtl-input-selUoBrno');
-        	//console.log(comUoBrno);
-        	if(comUoBrno.length == 1){
-
-        	}
-        	SBUxMethod.closeProgress("loadingOpen");
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			SBUxMethod.refresh('dtl-input-selUoBrno');
+			//console.log(comUoBrno);
+			if(comUoBrno.length == 1){
+				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+			}
+			SBUxMethod.closeProgress("loadingOpen");
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 	//통합조직 콤보박스 선택시 값 변경
 	//const fn_changeSelUoBrno = async function() {

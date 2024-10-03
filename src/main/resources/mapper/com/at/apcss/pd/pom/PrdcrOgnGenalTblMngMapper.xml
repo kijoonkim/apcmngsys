@@ -165,129 +165,49 @@
 			  FROM (
 		</if>
 
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnGenalTblMngMapper.selectPrdcrOgnGenalTblMngList */
-				  CM.APO_CD
-				, CM.APO_SE
-				, CM.WRT_YN
-				, CM.CTPV
-				, CM.SGG
-				, CM.CORP_NM
-				, CM.BRNO
-				, CM.CRNO
+		SELECT
+			FA.UO_BRNO
+			,FA.BRNO
+			,FA.APO_SE
+			,DECODE(FA.APO_SE , '1' , '통합조직' , '2' , '출자출하조직' ,'') AS APO_SE_NM
+			,PRDCR_OGNZ_NM
+			,PRDCR_OGNZ_SN
+			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO) AS APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = (SELECT APRV FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO)) AS APRV_NM
+			,FA.CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = FA.CTGRY_CD) AS CTGRY_NM
+			,FA.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = FA.ITEM_CD) AS ITEM_NM
+			,FA.TRMT_TYPE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = FA.TRMT_TYPE) AS TRMT_TYPE_NM
+			,FA.STTG_UPBR_ITEM_SE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = FA.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			,(SELECT CLSF_CD FROM TB_EV_APO_YR_GPC_CD WHERE TO_CHAR(BRNO) = FA.UO_BRNO AND ITEM_CD = FA.ITEM_CD AND YR = FA.YR AND APO_SE =1) AS CLSF_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = (SELECT CLSF_CD FROM TB_EV_APO_YR_GPC_CD WHERE TO_CHAR(BRNO) = FA.UO_BRNO AND ITEM_CD = FA.ITEM_CD AND YR = FA.YR AND APO_SE =1)) AS CLSF_NM
 
-				, CM.PIC_FLNM
-				, CM.ZIP
-				, CM.LOTNO_ADDR
-				, CM.LOTNO_DTL_ADDR
-				, CM.ROAD_NM_ADDR
-				, CM.ROAD_NM_DTL_ADDR
-				, CM.CORP_SE_CD
-				, CM.CORP_DTL_SE_CD
-				, CM.CORP_FNDN_DAY
-				, CM.INVST_NOPE
-				, CM.INVST_EXPND_FRMER_NOPE
-				, CM.INVST_AMT
-				, CM.FRMER_INVST_AMT
-				, CM.PRDCR_GRP_INVST_AMT
-				, CM.LOCGOV_INVST_AMT
-				, CM.ETC_INVST_AMT
-				, CM.RGLLBR_NOPE
-				, CM.DW_NOPE
-				, CM.DLBRR_NOPE
-				, CM.ISO_HLD_YN
-				, CM.UNTY_YN
-				, CM.UO_BRNO
-				, CM.UO_NM
-				, CM.UNTY_YR
-				, CM.APRV
-				, CM.STBLT_YN
-				, CM.MNGMST_YN
+			,FA.STBLT_YN
 
-				, EAM.YR
-				, EAM.APLY_DAY
-				, EAM.CORP_DDLN_SE_CD
-				,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
-						WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
-						END
-				) AS RAW_MTR_ENSR
+			,(SELECT COUNT(CLTVTN_LAND_SN) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS CNT
 
-				, EAM.RAW_MTR_ENSR_SIGUN_CNT
-				, EAM.RAW_MTR_ENSR_CTPV_CNT
-				, EAM.CTPV_NM
-				, EAM.SIGUN_NM
-				, EAM.PRUO_FUND_APLY_AMT
-				, (SELECT SUM(ISO_FUND_APLY_AMT)
-					FROM (SELECT ISO_FUND_APLY_AMT
-							FROM TB_EV_APLY_MNG
-							WHERE BRNO IN (SELECT ISO_BRNO
-											FROM TB_EV_APO_UO_CD
-											WHERE UO_BRNO = CM.BRNO)
-							)
-				) AS ISO_FUND_APLY_AMT
-				, EAM.APLY_TRGT_SE
+			,(SELECT SUM(EC_SPMT_PLAN_VLM) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_PLAN_VLM_TOT
+			,(SELECT SUM(EC_SPMT_VLM) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_VLM_TOT
 
-				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
-				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
-				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_NM
-				, CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+			,(SELECT SUM(SPMT_PRC) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS SPMT_PRC_TOT
 
-				, CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
-				, TO_CHAR(CM.SYS_LAST_CHG_DT,'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
-				, CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
-				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_LAST_CHG_USER_ID) AS SYS_LAST_CHG_USER_NM
-				, CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
-			  FROM (SELECT *
-			  		FROM TB_EV_APO
-			  		WHERE 1=1
-			  		<if test='brno != null and brno != ""'>
-			  		  AND BRNO = #{brno}
-			  		  <if test='userType == "21"'>
-			  		   OR BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
-			  		  </if>
-			  		</if>
-			  		) CM
-			  		, (SELECT *
-			  			FROM TB_EV_APLY_MNG
-			  			WHERE 1=1
-			  			<if test='yr != null and yr != ""'>
-			  		  	  AND YR = #{yr}
-			  			</if>
-			  			) EAM
-			 WHERE 1=1
-			   AND CM.BRNO = EAM.BRNO(+)
-			   AND CM.APO_SE IS NOT NULL
-			   AND CM.APO_CD IS NOT NULL
+			,(SELECT ROUND( (SUM(EC_SPMT_VLM)/NULLIF(SUM(EC_SPMT_PLAN_VLM),0))*100 ,2) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_RATE_B
 
-    		<if test='apoSe != null and apoSe != ""'>
-				AND CM.APO_SE = #{apoSe}
-			</if>
-    		<if test='cmptnInst != null and cmptnInst != ""'>
-				AND CM.CMPTN_INST = #{cmptnInst}
-			</if>
-			<if test='ctpv != null and ctpv != ""'>
-				AND CM.CTPV = #{ctpv}
-			</if>
-			<if test='corpSeCd != null and corpSeCd != ""'>
-				AND CM.CORP_SE_CD = #{corpSeCd}
-			</if>
-			<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
-				AND CM.CORP_DTL_SE_CD = #{corpDtlSeCd}
-			</if>
-			<if test='corpNm != null and corpNm != ""'>
-				AND CM.CORP_NM LIKE '%' || #{corpNm} || '%'
-			</if>
-			<if test='aprv != null and aprv != ""'>
-				AND CM.APRV = #{aprv}
-			</if>
-			<if test='corpDdlnSeCd != null and corpDdlnSeCd != ""'>
-				AND EAM.CORP_DDLN_SE_CD = #{corpDdlnSeCd}
-			</if>
-			<if test='yrChk == "Y"'>
-				AND EAM.YR = #{yr}
-			</if>
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO) AS UO_CORP_NM
+			,EA.CORP_NM
 
-		ORDER BY CM.APO_SE ASC , CORP_NM ASC
+		FROM TB_EV_FRMHS_APO FA
+		LEFT JOIN TB_EV_APO EA
+		ON FA.BRNO = EA.BRNO
+
+		WHERE 1=1
+		  AND (FA.BRNO = #{brno} OR FA.UO_BRNO = #{brno})
+
+		ORDER BY APO_SE , CORP_NM , PRDCR_OGNZ_NM
+
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			  ) pt0
