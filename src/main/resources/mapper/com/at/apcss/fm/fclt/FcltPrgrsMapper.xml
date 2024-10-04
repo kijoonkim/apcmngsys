@@ -61,6 +61,9 @@
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  AP.APC_CD = #{apcCd}
 			</if>
+			<if test='apcNm != null and !apcNm.equals("")'>
+			  AND AP.APC_CD IN (SELECT APC_CD FROM TB_APC_INFO WHERE APC_NM LIKE '%' || #{apcNm} || '%')
+			</if>
 			<if test='itemNm != null and !itemNm.equals("")'>
 			  AND  EXISTS(SELECT 1
 			  				FROM TB_TE_APC_OPER_TRMT_ITEM
@@ -116,6 +119,9 @@
 			</if>
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  AP.APC_CD = #{apcCd}
+			</if>
+			<if test='apcNm != null and !apcNm.equals("")'>
+			  AND AP.APC_CD IN (SELECT APC_CD FROM TB_APC_INFO WHERE APC_NM LIKE '%' || #{apcNm} || '%')
 			</if>
 			<if test='itemNm != null and !itemNm.equals("")'>
 			  AND  EXISTS(SELECT 1
