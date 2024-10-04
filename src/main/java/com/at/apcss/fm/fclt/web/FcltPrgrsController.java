@@ -50,6 +50,9 @@ public class FcltPrgrsController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		FcltPrgrsVO resultVO = new FcltPrgrsVO();
 
+		fcltPrgrsVO.setUserId(getUserId());
+		fcltPrgrsVO.setUserType(getUserType());
+
 		try {
 			resultVO = fcltPrgrsService.selectPrgrs(fcltPrgrsVO);
 
@@ -67,6 +70,9 @@ public class FcltPrgrsController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectPrgrsList(Model model, @RequestBody FcltPrgrsVO fcltPrgrsVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltPrgrsVO> resultList = new ArrayList<>();
+
+		fcltPrgrsVO.setUserId(getUserId());
+		fcltPrgrsVO.setUserType(getUserType());
 
 		try {
 			resultList = fcltPrgrsService.selectPrgrsList(fcltPrgrsVO);

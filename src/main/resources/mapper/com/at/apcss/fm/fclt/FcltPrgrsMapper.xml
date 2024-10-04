@@ -132,6 +132,20 @@
 			  				  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
 			  				)
 			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
+			</if>
 	</select>
 
 	<!-- 진척도 갱신 -->
