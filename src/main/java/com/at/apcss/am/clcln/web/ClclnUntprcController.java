@@ -94,6 +94,5 @@ public class ClclnUntprcController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
 }
 

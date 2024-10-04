@@ -552,4 +552,72 @@
     	]]>
     </update>
 
+
+
+	<!-- APC 종자 정보 -->
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcSeed			-->
+	<!-- DESC : APC 종자 단건 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectApcSeed" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO" resultType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcSeed */
+			      SC.APC_CD		AS APC_CD
+				, SC.ITEM_CD	AS ITEM_CD
+				, SC.VRTY_CD	AS VRTY_CD
+				, SC.SEED_CD	AS SEED_CD
+				, SC.SEED_NM	AS SEED_NM
+				, SC.INDCT_NM	AS INDCT_NM
+				, SC.INDCT_SEQ	AS INDCT_SEQ
+			    , SC.DEL_YN		AS DEL_YN
+			  FROM TB_APC_SEED_CRTR SC
+			 WHERE SC.APC_CD = #{apcCd}
+			   AND SC.SEED_CD = #{seedCd}
+		]]>
+    </select>
+
+	<select id="selectApcSeedList" parameterType="com.at.apcss.am.cmns.vo.CmnsVrtyVO" resultType="com.at.apcss.am.cmns.vo.CmnsVrtyVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.selectApcSeedList */
+				  SC.APC_CD		AS APC_CD
+				, SC.ITEM_CD	AS ITEM_CD
+				, (SELECT FN_GET_ITEM_NM(SC.ITEM_CD, SC.APC_CD) FROM DUAL) AS ITEM_NM
+				, SC.VRTY_CD	AS VRTY_CD
+				, (SELECT FN_GET_VRTY_NM(SC.ITEM_CD, SC.VRTY_CD, SC.APC_CD) FROM DUAL) AS VRTY_NM
+				, CONCAT(SC.ITEM_CD, SC.VRTY_CD)	AS ITEM_VRTY_CD
+				, SC.SEED_CD	AS SEED_CD
+				, SC.SEED_NM	AS SEED_NM
+				, SC.INDCT_NM	AS INDCT_NM
+				, SC.INDCT_SEQ	AS INDCT_SEQ
+				
+			  FROM TB_APC_SEED_CRTR SC
+			 WHERE SC.APC_CD = #{apcCd}
+			   AND SC.DEL_YN = 'N'
+		]]>
+
+		<if test='itemCd != null and itemCd != ""'>
+			   AND SC.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			   AND SC.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='seedCd != null and seedCd != ""'>
+			   AND SC.SEED_CD = #{seedCd}
+		</if>
+		<if test='seedNm != null and seedNm != ""'>
+			   AND SC.SEED_NM LIKE '%' || #{seedNm} || '%'
+		</if>
+		
+		<![CDATA[
+			ORDER BY ITEM_CD, VRTY_CD, INDCT_SEQ
+		]]>
+
+    </select>
+
+
 </mapper>
