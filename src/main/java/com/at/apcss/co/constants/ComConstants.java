@@ -141,7 +141,7 @@ public class ComConstants {
 	public final static String MSGCD_NOT_EQUAL = "W0006";
 
 	/**
-	 * W0003		{0}할 대상이 없습니다. 
+	 * W0003	{0}할 대상이 없습니다. 
 	 */
 	public final static String MSGCD_NOT_FOUND_TARGET_TODO = "W0003";
 	/**

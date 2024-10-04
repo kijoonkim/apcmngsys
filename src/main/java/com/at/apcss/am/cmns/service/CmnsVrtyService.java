@@ -139,4 +139,25 @@ public interface CmnsVrtyService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateVrtyList(List<CmnsVrtyVO> cmnsVrtyList) throws Exception;
+	
+	
+	
+	/**
+	 * APC 종자 정보 단건 조회
+	 * @param cmnsVrtyVO
+	 * @return
+	 * @throws Exception
+	 */
+	public CmnsVrtyVO selectApcSeed(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+
+	/**
+	 * APC 종자 정보 목록 조회
+	 * @param cmnsVrtyVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<CmnsVrtyVO> selectApcSeedList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+
+	
+	
 }

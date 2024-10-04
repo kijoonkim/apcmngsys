@@ -73,4 +73,19 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 표시항목유형
 	 */
 	private String indctArtclType;
+	
+	/**
+	 * 종자코드
+	 */
+	private String seedCd;
+	/**
+	 * 종자명
+	 */
+	private String seedNm;
+	/**
+	 * 표시명
+	 */
+	private String indctNm;
+	
+	
 }

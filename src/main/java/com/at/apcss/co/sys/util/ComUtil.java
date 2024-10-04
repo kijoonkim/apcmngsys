@@ -71,4 +71,11 @@ public class ComUtil {
 		return Math.round(num);
 	}
 	
+	public static String rPad(String str, Integer length, char car) {
+	  return (str + String.format("%" + length + "s", "").replace(" ", String.valueOf(car))).substring(0, length);
+	}
+
+	public static String lPad(String str, Integer length, char car) {
+	  return (String.format("%" + length + "s", "").replace(" ", String.valueOf(car)) + str).substring(str.length(), length + str.length());
+	}
 }

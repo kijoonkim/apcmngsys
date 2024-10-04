@@ -269,6 +269,8 @@ public class AmConstants {
     public final static String CON_INVNTR_VL_MNG_TYPE_QNTT = "QNTT";
     
     
+    public final static String CON_CLCLN_DTL_TYPE_SN	= "SN";
+    
     /* 전송기기상태코드 */
     public final static String CON_TRSM_MAT_STTS_CD_STANDBY = "S0";
     public final static String CON_TRSM_MAT_STTS_CD_PROCESS = "P0";

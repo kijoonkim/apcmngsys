@@ -128,4 +128,22 @@ public interface CmnsVrtyMapper {
 	 * @throws Exception
 	 */
 	public int updateVrty(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+	
+	
+	/**
+	 * APC 종자 정보 단건 조회
+	 * @param cmnsVrtyVO
+	 * @return
+	 * @throws Exception
+	 */
+	public CmnsVrtyVO selectApcSeed(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+
+	/**
+	 * APC 종자 정보 목록 조회
+	 * @param cmnsVrtyVO
+	 * @return List<CmnsVrtyVO>
+	 * @throws Exception
+	 */
+	public List<CmnsVrtyVO> selectApcSeedList(CmnsVrtyVO cmnsVrtyVO) throws Exception;
+	
 }

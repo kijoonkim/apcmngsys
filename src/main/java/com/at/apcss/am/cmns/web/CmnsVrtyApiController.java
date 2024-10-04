@@ -124,4 +124,29 @@ public class CmnsVrtyApiController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	// APC 종자 목록 조회
+	@PostMapping(value = "/am/cmns/apcSeeds", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcSeedList(@RequestBody CmnsVrtyVO cmnsVrtyVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CmnsVrtyVO> resultList = new ArrayList<>();
+
+		try {
+
+			resultList = cmnsVrtyService.selectApcSeedList(cmnsVrtyVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
