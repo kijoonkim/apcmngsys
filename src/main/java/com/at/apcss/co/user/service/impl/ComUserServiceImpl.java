@@ -24,6 +24,7 @@ import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.user.mapper.ComUserMapper;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserApcVO;
+import com.at.apcss.co.user.vo.ComUserAtchflVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 /**
@@ -748,6 +749,12 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	public HashMap<String, Object> insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception {
 		comUserMapper.insertUserApcHstry(comUserApcVO);
 		return null;
+	}
+
+	@Override
+	public ComUserAtchflVO getUserAtchfl(ComUserVO comUserVO) throws Exception {
+		ComUserAtchflVO returnVO = comUserMapper.selectComUserAtchfl(comUserVO);
+		return returnVO;
 	}
 
 

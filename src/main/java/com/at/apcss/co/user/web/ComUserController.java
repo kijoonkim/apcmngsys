@@ -1,15 +1,20 @@
 package com.at.apcss.co.user.web;
 
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.at.apcss.co.constants.ComConstants;
@@ -17,6 +22,7 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserApcVO;
+import com.at.apcss.co.user.vo.ComUserAtchflVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 import egovframework.let.utl.sim.service.EgovFileScrty;
@@ -1015,5 +1021,58 @@ public class ComUserController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	
+	@PostMapping(value = "/co/user/downloadUserFile.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public void downloadUserFile(@RequestBody ComUserVO comUserVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			
+			ComUserAtchflVO returnVO = comUserService.getUserAtchfl(comUserVO);
+
+			if (returnVO != null && returnVO.getFileCn() != null) {
+				
+				byte[] fileByte = returnVO.getFileCn();
+				
+				response.setContentType("application/octet-stream"); 
+		        //파일길이설정
+		        response.setContentLength(fileByte.length);
+		        //데이터형식/성향설정 (attachment: 첨부파일)
+		        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(returnVO.getFileNm(),"UTF-8")+"\";");
+		        //내용물 인코딩방식설정
+		        response.setHeader("Content-Transfer-Encoding", "binary");
+		        //버퍼의 출력스트림을 출력
+		        response.getOutputStream().write(fileByte);
+		        
+		        //버퍼에 남아있는 출력스트림을 출력
+		        response.getOutputStream().flush();
+		        //출력스트림을 닫는다
+		        response.getOutputStream().close();
+				
+			}
+			
+			/*
+			HashMap<String, Object> rtnObj = comUserService.deleteUserApcAprv(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			*/
+			//resp.setHeader("Content-Type", "application/" + extension); // 파일 형식 지정
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			//return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				//return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		//return getSuccessResponseEntity(resultMap);
+	}
+		
 	
 }

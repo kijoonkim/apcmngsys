@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.co.user.vo.ComUserApcVO;
+import com.at.apcss.co.user.vo.ComUserAtchflVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 public interface ComUserService {
@@ -346,4 +347,10 @@ public interface ComUserService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception;
+	
+	
+	public ComUserAtchflVO getUserAtchfl(ComUserVO comUserVO) throws Exception;
+	
+	
+	
 }

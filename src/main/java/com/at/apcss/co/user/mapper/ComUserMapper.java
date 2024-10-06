@@ -7,6 +7,7 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.co.user.vo.ComUserApcVO;
+import com.at.apcss.co.user.vo.ComUserAtchflVO;
 import com.at.apcss.co.user.vo.ComUserVO;
 
 @Mapper
@@ -254,7 +255,9 @@ public interface ComUserMapper {
      * @throws Exception
      */
     public int insertUserApcHstry(ComUserApcVO comUserApcVO) throws Exception;
+ 
     
+    public ComUserAtchflVO selectComUserAtchfl(ComUserVO comUserVO) throws Exception;
 }
 
 
