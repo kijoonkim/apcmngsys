@@ -1043,16 +1043,12 @@ public class ComUserController extends BaseController {
 				String rootPath = getFilepathFm();
 				String filePathNm = returnVO.getFilePathNm();
 				String srvrFileNm = returnVO.getSrvrFileNm();
-				String downloadPath = rootPath + filePathNm + File.separator;
+				String fileExtnNm = ComUtil.nullToDefault(returnVO.getFileExtnNm(), ComConstants.CON_BLANK);
+				String downloadPath = rootPath + File.separator + filePathNm + File.separator;
 				
+				String orgnFileNm = srvrFileNm + ComConstants.CON_UNDERLINE + fileExtnNm;
 				
-				System.out.println("downloadPath");
-				System.out.println(downloadPath);
-				
-				System.out.println("srvrFileNm");
-				System.out.println(srvrFileNm);
-				
-				File f = new File(downloadPath, srvrFileNm);
+				File f = new File(downloadPath, orgnFileNm);
 				
 				if (f == null || f.length() <= 0) {
 					return;
