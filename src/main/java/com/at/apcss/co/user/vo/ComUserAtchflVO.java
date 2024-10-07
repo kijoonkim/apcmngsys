@@ -15,6 +15,9 @@ public class ComUserAtchflVO {
 	
 	private int fileSz;
 	
+	private String filePathNm;
+	private String srvrFileNm;
+	private String fileExtnNm;
 	
 	private byte[] fileCn;
 	

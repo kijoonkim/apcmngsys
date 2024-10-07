@@ -1,5 +1,6 @@
 package com.at.apcss.co.user.web;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.at.apcss.co.constants.ComConstants;
@@ -1026,23 +1028,40 @@ public class ComUserController extends BaseController {
 	@PostMapping(value = "/co/user/downloadUserFile.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public void downloadUserFile(@RequestBody ComUserVO comUserVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		//HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
 			
 			ComUserAtchflVO returnVO = comUserService.getUserAtchfl(comUserVO);
 
-			if (returnVO != null && returnVO.getFileCn() != null) {
+			if (returnVO != null && StringUtils.hasText(returnVO.getFilePathNm())) {
 				
-				byte[] fileByte = returnVO.getFileCn();
+				String fileNm = returnVO.getFileNm();
 				
-				response.setContentType("application/octet-stream"); 
+				String rootPath = getFilepathFm();
+				String filePathNm = returnVO.getFilePathNm();
+				String srvrFileNm = returnVO.getSrvrFileNm();
+				String downloadPath = rootPath + File.separator + filePathNm + File.separator ;
+				
+				File f = new File(downloadPath, srvrFileNm);
+				response.setContentType("application/download"); 
 		        //파일길이설정
-		        response.setContentLength(fileByte.length);
+		        response.setContentLength((int)f.length());
 		        //데이터형식/성향설정 (attachment: 첨부파일)
-		        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(returnVO.getFileNm(),"UTF-8")+"\";");
+		        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm,"UTF-8")+"\";");
+		        response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
+		        
+		        // response 객체를 통해서 서버로부터 파일 다운로드
+		        OutputStream os = response.getOutputStream();
+		        // 파일 입력 객체 생성
+		        FileInputStream fis = new FileInputStream(f);
+		        FileCopyUtils.copy(fis, os);
+		        fis.close();
+		        os.close();
+		        
+		        /*
 		        //내용물 인코딩방식설정
-		        response.setHeader("Content-Transfer-Encoding", "binary");
+		        //response.setHeader("Content-Transfer-Encoding", "binary");
 		        //버퍼의 출력스트림을 출력
 		        response.getOutputStream().write(fileByte);
 		        
@@ -1050,7 +1069,7 @@ public class ComUserController extends BaseController {
 		        response.getOutputStream().flush();
 		        //출력스트림을 닫는다
 		        response.getOutputStream().close();
-				
+				*/
 			}
 			
 			/*
