@@ -1043,7 +1043,7 @@ public class ComUserController extends BaseController {
 				String rootPath = getFilepathFm();
 				String filePathNm = returnVO.getFilePathNm();
 				String srvrFileNm = returnVO.getSrvrFileNm();
-				String downloadPath = rootPath + filePathNm;
+				String downloadPath = rootPath + filePathNm + File.separator;
 				
 				/*
 				System.out.println("downloadPath");
