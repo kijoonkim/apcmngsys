@@ -382,8 +382,11 @@
 									<sbux-input id="dtl-inp-operOgnzItemCd2" name="dtl-inp-operOgnzItemCd2" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
 									<sbux-input id="dtl-inp-operOgnzItemNm2" name="dtl-inp-operOgnzItemNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<sbux-button id="dtl-btn-item2" name="dtl-btn-item2" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(2)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
+								<div class="col-md-2">
+									<sbux-button id="dtl-btn-itemDel2" name="dtl-btn-itemDel2" uitype="normal" onclick="fn_itemDel(1,2)" text="품목삭제" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 								</div>
 							</td>
 
@@ -393,8 +396,11 @@
 									<sbux-input id="dtl-inp-apcItemCd2" name="dtl-inp-apcItemCd2" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
 									<sbux-input id="dtl-inp-apcItemNm2" name="dtl-inp-apcItemNm2" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<sbux-button id="dtl-btn-item5" name="dtl-btn-item5" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(5)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
+								<div class="col-md-2">
+									<sbux-button id="dtl-btn-itemDel5" name="dtl-btn-itemDel5" uitype="normal" onclick="fn_itemDel(2,2)" text="품목삭제" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 								</div>
 							</td>
 						</tr>
@@ -405,8 +411,11 @@
 									<sbux-input id="dtl-inp-operOgnzItemCd3" name="dtl-inp-operOgnzItemCd3" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
 									<sbux-input id="dtl-inp-operOgnzItemNm3" name="dtl-inp-operOgnzItemNm3" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<sbux-button id="dtl-btn-item3" name="dtl-btn-item3" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(3)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
+								<div class="col-md-2">
+									<sbux-button id="dtl-btn-itemDel3" name="dtl-btn-itemDel3" uitype="normal" onclick="fn_itemDel(1,3)" text="품목삭제" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 								</div>
 							</td>
 
@@ -416,8 +425,11 @@
 									<sbux-input id="dtl-inp-apcItemCd3" name="dtl-inp-apcItemCd3" uitype="hidden" class="form-control input-sm" placeholder="" readonly></sbux-input>
 									<sbux-input id="dtl-inp-apcItemNm3" name="dtl-inp-apcItemNm3" uitype="text" class="form-control input-sm" placeholder="" readonly></sbux-input>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<sbux-button id="dtl-btn-item6" name="dtl-btn-item6" uitype="modal" target-id="modal-itemSelect" onclick="fn_modalItemSelect(6)" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
+								<div class="col-md-2">
+									<sbux-button id="dtl-btn-itemDel6" name="dtl-btn-itemDel6" uitype="normal" onclick="fn_itemDel(2,3)" text="품목삭제" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 								</div>
 							</td>
 						</tr>
@@ -427,7 +439,7 @@
 								<div class="col-md-6">
 									<sbux-input id="dtl-inp-operOgnzItemNm4" name="dtl-inp-operOgnzItemNm4" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은 수기입력" ></sbux-input>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<sbux-select
 										id="dtl-inp-operOgnzEtcCtgryCd"
 										name="dtl-inp-operOgnzEtcCtgryCd"
@@ -437,13 +449,16 @@
 										class="form-control input-sm"
 									></sbux-select>
 								</div>
+								<div class="col-md-2">
+									<sbux-button id="dtl-btn-itemDelEtc1" name="dtl-btn-itemDelEtc1" uitype="normal" onclick="fn_itemDel(1,4)" text="품목삭제" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+								</div>
 							</td>
 							<th>APC 처리 기타품목명</th>
 							<td>
 								<div class="col-md-6">
 									<sbux-input id="dtl-inp-apcItemNm4" name="dtl-inp-apcItemNm4" uitype="text" class="form-control input-sm" placeholder="“해당없음” 혹은  수기입력" ></sbux-input>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<sbux-select
 										id="dtl-inp-apcEtcCtgryCd"
 										name="dtl-inp-apcEtcCtgryCd"
@@ -452,6 +467,9 @@
 										unselected-text="부류선택"
 										class="form-control input-sm"
 									></sbux-select>
+								</div>
+								<div class="col-md-2">
+									<sbux-button id="dtl-btn-itemDelEtc2" name="dtl-btn-itemDelEtc2" uitype="normal" onclick="fn_itemDel(2,4)" text="품목삭제" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 								</div>
 							</td>
 						</tr>
@@ -999,7 +1017,7 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
-				selectFcltOperInfo();
+				fn_selectFcltOperInfo();
 				//fn_search();
 
 			} else {
@@ -1055,6 +1073,7 @@
 		SBUxMethod.set("dtl-inp-operOgnzZip",null);  //apc 우편번호
 		SBUxMethod.set("dtl-inp-operOgnzBmno",null);  //apc 건물 본번
 		SBUxMethod.set("dtl-inp-operOgnzSlno",null);  //apc 건물 부번
+		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrFull",null);  //apc 주소 상세
 
 		SBUxMethod.set("dtl-inp-ctpvCd",null);  //시도 코드 (법정동코드 앞2자리)
 		SBUxMethod.set("dtl-inp-sigunCd",null);  //시군구 코드 (법정동 코드 앞5자리)
@@ -1072,6 +1091,7 @@
 		SBUxMethod.set("dtl-inp-apcZip",null);  //apc 우편번호
 		SBUxMethod.set("dtl-inp-apcBmno",null);  //apc 건물 본번
 		SBUxMethod.set("dtl-inp-apcSlno",null);  //apc 건물 부번
+		SBUxMethod.set("dtl-inp-apcRoadNmAddrFull",null);  //apc 주소 상세
 
 		SBUxMethod.set("dtl-inp-operOgnzEtcCtgryCd",null);  //운영조직 기타 품목 부류
 		SBUxMethod.set("dtl-inp-apcEtcCtgryCd",null);  //apc 기타 품목 부류
@@ -1116,6 +1136,45 @@
 			default:
 				break;
 			}
+		}
+	}
+
+
+	const fn_itemDel = async function(ognzSeCd,sn) {
+		let itemNm;
+		if(ognzSeCd == '1'){
+			itemNm = SBUxMethod.get('dtl-inp-operOgnzItemNm'+sn);
+		}else if(ognzSeCd == '2'){
+			itemNm = SBUxMethod.get('dtl-inp-apcItemNm'+sn);
+		}
+		console.log(itemNm, sn);
+		if(gfn_isEmpty(itemNm)) return;
+
+		if(!confirm("품목을 삭제 하시겠습니까?")) return;
+
+		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
+		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
+
+		let postJsonPromise = gfn_postJSON("/fm/fclt/deleteItem.do", {
+			crtrYr: crtrYr
+			, apcCd : apcCd
+			, sn : sn
+			, ognzSeCd : ognzSeCd
+		});
+		let data = await postJsonPromise;
+		try{
+			//console.log(data);
+			if (_.isEqual("S", data.resultStatus)) {
+				fn_search();//상세조회
+				alert("삭제 되었습니다.");
+			}else{
+				alert("삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 
