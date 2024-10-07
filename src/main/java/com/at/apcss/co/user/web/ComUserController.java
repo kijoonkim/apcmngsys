@@ -1044,12 +1044,12 @@ public class ComUserController extends BaseController {
 				String downloadPath = rootPath + File.separator + filePathNm + File.separator ;
 				
 				File f = new File(downloadPath, srvrFileNm);
-				response.setContentType("application/download"); 
+				response.setContentType("application/octet-stream"); 
 		        //파일길이설정
 		        response.setContentLength((int)f.length());
 		        //데이터형식/성향설정 (attachment: 첨부파일)
 		        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm,"UTF-8")+"\";");
-		        response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
+		        //response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
 		        
 		        // response 객체를 통해서 서버로부터 파일 다운로드
 		        OutputStream os = response.getOutputStream();
