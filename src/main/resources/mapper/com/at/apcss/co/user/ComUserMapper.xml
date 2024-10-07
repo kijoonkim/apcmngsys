@@ -2020,9 +2020,12 @@
     <select id="selectComUserAtchfl" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserAtchflVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUserAtchfl */
-				  BF.FILE_SN
-				, BF.FILE_NM
-				, BF.FILE_CN
+				  BF.FILE_SN		AS FILE_SN
+				, BF.FILE_NM		AS FILE_NM
+				, BF.FILE_CN		AS FILE_CN
+				, BF.FILE_PATH_NM	AS FILE_PATH_NM
+				, BF.SRVR_FILE_NM	AS SRVR_FILE_NM
+				, BF.FILE_EXTN_NM	AS FILE_EXTN_NM
 			  FROM TB_COM_BRC_FILE BF
 
 			 WHERE BF.FILE_SN = #{brcAtchflSn}
