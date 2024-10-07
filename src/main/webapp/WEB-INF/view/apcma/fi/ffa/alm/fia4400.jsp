@@ -37,9 +37,9 @@
                     </h3><!-- 자산정산내역 -->
                 </div>
                 <div style="margin-left: auto;">
-                	<sbux-button id="btnDspsSlip" name="btnDspsSlip" 	uitype="normal" text="처분 전표 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dspsSlipSearch"></sbux-button>
-                    <sbux-button id="btnSlipCreate" name="btnSlipCreate" 	uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger" onclick="fn_slipCreate"></sbux-button>
-                    <sbux-button id="btnSlipCancle" name="btnSlipCancle" 	uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger" onclick="fn_slipCancel"></sbux-button>
+                	<sbux-button id="btnDspsSlip" name="btnDspsSlip" 	uitype="normal" text="처분 전표 조회" class="btn btn-sm btn-outline-danger" onclick="btnDocQ_Click"></sbux-button>
+                    <sbux-button id="btnSlipCreate" name="btnSlipCreate" 	uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger" onclick="btnCreate_Click"></sbux-button>
+                    <sbux-button id="btnSlipCancle" name="btnSlipCancle" 	uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger" onclick="btnCancel"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -51,7 +51,7 @@
 				<!--[APC] END -->
 
 
-                <table class="table table-bordered tbl_fixed">
+                <table id= "searchTable" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -73,13 +73,13 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-corp" name="srch-slt-corp" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
+									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">사업단위</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-bizUnit" name="srch-slt-bizUnit" class="form-control input-sm" uitype="single" jsondata-ref="jsonBizUnit"></sbux-select>
+									<sbux-select id="srch-slt-orgCode1" name="srch-slt-orgCode1" class="form-control input-sm" uitype="single" jsondata-ref="jsonBizUnit"></sbux-select>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">사업장</th>
@@ -89,14 +89,14 @@
 										    	style="width:160px;text-align:left"
 										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
 										    	type="button"
-										    	id="srch-slt-bplc"
+										    	id="srch-slt-siteCode"
 										    	data-toggle="dropdown"
 										    	aria-haspopup="true"
 										    	aria-expanded="false">
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-bplc" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
 										    </div>
 										</div>
                             </td>
@@ -108,22 +108,22 @@
                             <th scope="row" class="th_bg">정산일자</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-clclnYmdFrom"
-									name="srch-dtp-clclnYmdFrom"
+									id="srch-dtp-startDate"
+									name="srch-dtp-startDate"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-clclnYmdFrom)"
+									onchange="fn_dtpChange(srch-dtp-startDate)"
 								></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-clclnYmdTo"
-									name="srch-dtp-clclnYmdTo"
+									id="srch-dtp-endDate"
+									name="srch-dtp-endDate"
 									uitype="popup"
 									date-format="yyyy-mm-dd"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-clclnYmdTo)"
+									onchange="fn_dtpChange(srch-dtp-endDate)"
 								></sbux-datepicker>
 							</td>
                             <th scope="row" class="th_bg">취득구분</th>
@@ -133,37 +133,37 @@
 								    	style="width:160px;text-align:left"
 								    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
 								    	type="button"
-								    	id="srch-slt-acqsSe"
+								    	id="srch-slt-acquireType"
 								    	data-toggle="dropdown"
 								    	aria-haspopup="true"
 								    	aria-expanded="false">
 								    	<font>선택</font>
 								        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 								    </button>
-									    <div class="dropdown-menu acqsSe" aria-labelledby="srch-slt-acqsSe" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+									    <div class="dropdown-menu acqsSe" aria-labelledby="srch-slt-acquireType" style="width:250px;height:150px;padding-top:0px;overflow:auto">
 									    </div>
 									</div>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">프로젝트</th>
                             <td colspan="1" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-biz" name="srch-inp-biz" class="form-control input-sm"></sbux-input>
+									<sbux-input uitype="text" id="srch-inp-projectCode" name="srch-inp-projectCode" class="form-control input-sm"></sbux-input>
                             </td>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-bizPopup" name="srch-inp-bizPopup" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_bizPopup"></sbux-input>
+									<sbux-input id="srch-inp-projectName" name="srch-inp-projectName" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_bizPopup"></sbux-input>
                             </td>
                         </tr>
                         <tr>
 
                             <th scope="row" class="th_bg">정산번호</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-clclnNo" name="srch-inp-clclnNo" class="form-control input-sm"></sbux-input>
+									<sbux-input uitype="text" id="srch-inp-cipTransferNo" name="srch-inp-cipTransferNo" class="form-control input-sm"></sbux-input>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">회계기준</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-acntgCrtr" name="srch-slt-acntgCrtr" class="form-control input-sm" uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
+									<sbux-select id="srch-slt-acctRuleCode" name="srch-slt-acctRuleCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
                             </td>
                             <td></td>
                         </tr>
@@ -261,24 +261,25 @@
 
     /** 공통 버튼 **/
     function cfn_search(){
-        fn_search();
+    	fn_queryClick();
     }
     function cfn_save(){
+    	fn_saveClick();
     }
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-orgCode1'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//회계기준
-			gfnma_setComSelect(['srch-slt-acntgCrtr'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-acctRuleCode'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//gfnma_setComSelect(['gvwItemGrid'], jsonBiz, 'P_COM028', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PROJECT_CODE', 'PROJECT_NAME', 'Y', ''),
 
-			gfnma_setComSelect(['srch-slt-acqsSe'], jsonAcqsSe, 'L_FIA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-acquireType'], jsonAcqsSe, 'L_FIA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			gfnma_multiSelectInit({
-				target			: ['#srch-slt-bplc']
+				target			: ['#srch-slt-siteCode']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
@@ -296,7 +297,7 @@
 				]
 			}),
 			gfnma_multiSelectInit({
-				target			: ['#srch-slt-acqsSe']
+				target			: ['#srch-slt-acquireType']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_FIA007'
@@ -315,8 +316,8 @@
 			}),
 		]);
 
-		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
+		SBUxMethod.set("srch-dtp-startDate", gfn_dateFirstYmd(new Date()));
+		SBUxMethod.set("srch-dtp-endDate", gfn_dateLastYmd(new Date()));
 	}
 
     // only document
@@ -380,20 +381,20 @@
 						uncheckedvalue : 'N'
 					}
         	},
-            {caption: ["정산번호"],		ref: 'clclnNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["정산일자"], 	ref: 'clclnYmd',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],  		ref: 'bplc',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["취득구분"],    	ref: 'acqs', 		type:'combo',  	width:'100px', style:'text-align:left', typeinfo : {ref:'jsonAcqsSe', label:'label', value:'value'}  },
-            {caption: ["회계기준"],		ref: 'acntgCrtr',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["통화"], 		ref: 'currency', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["환율"], 		ref: 'exchRt',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["정산총액"], 	ref: 'clclnGramt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["전표명"], 		ref: 'slipNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["전표상태"], 	ref: 'slipStts', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["생성자"], 		ref: 'crtPrsn', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["생성일시"], 	ref: 'crtDt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["생성PC"], 		ref: 'crtPc', 				type:'output',		width:'80px',		style:'text-align:center'}
+            {caption: ["정산번호"],		ref: 'cipTransferNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["정산일자"], 	ref: 'transferDate',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],  		ref: 'siteCode',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["취득구분"],    	ref: 'acquireType', 		type:'combo',  	width:'100px', style:'text-align:left', typeinfo : {ref:'jsonAcqsSe', label:'label', value:'value'}  },
+            {caption: ["회계기준"],		ref: 'acctRuleCode',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["통화"], 		ref: 'currencyCode', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["환율"], 		ref: 'exchangeRate',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["정산총액"], 	ref: 'totalTransferAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["전표명"], 		ref: 'docName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["전표상태"], 	ref: 'docStatus', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["생성자"], 		ref: 'insertUserName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["생성일시"], 	ref: 'insertTime', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["생성PC"], 		ref: 'insertPc', 				type:'output',		width:'80px',		style:'text-align:center'}
 
         ];
 
@@ -411,18 +412,18 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["정산번호"],			ref: 'clclnNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["순번"], 			ref: 'sn',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["프로젝트코드"],  	ref: 'bizCd',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["프로젝트"],      	ref: 'biz', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산번호"],			ref: 'astNo',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산명"], 			ref: 'astNm', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["정산금액"], 		ref: 'clclnAmt',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["취득금액"], 		ref: 'acqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기정산금액"], 		ref: 'lgcClclnAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["잔액"], 			ref: 'blnc', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 			ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["대체수량"], 		ref: 'rplcQntt', 				type:'output',		width:'80px',		style:'text-align:center'}
+            {caption: ["정산번호"],			ref: 'cipTransferNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["순번"], 			ref: 'transferSeq',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["프로젝트코드"],  	ref: 'projectCode',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["프로젝트"],      	ref: 'projectName', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산번호"],			ref: 'assetNo',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산명"], 			ref: 'assetName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["정산금액"], 		ref: 'transferAmount',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["취득금액"], 		ref: 'assetAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기정산금액"], 		ref: 'transferAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["잔액"], 			ref: 'netAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 			ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["대체수량"], 		ref: 'transferQty', 				type:'output',		width:'80px',		style:'text-align:center'}
         ];
 
         grdClclnTrgt = _SBGrid.create(SBGridProperties);
@@ -439,19 +440,19 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["정산번호"],			ref: 'clclnNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["순번"], 		ref: 'sn',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산구분"],  		ref: 'astSe',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["중분류"],      	ref: 'mcslf', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소분류"],	ref: 'sclsf',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부서"], 			ref: 'dept', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["코스트센터"], 		ref: 'cstCntr',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["계정명"], 		ref: 'acntNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["금액"], 		ref: 'amt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["프로젝트코드"], 		ref: 'bizCd', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["프로젝트명"], 		ref: 'bizNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["대체수량"], 		ref: 'rplcQntt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["정산번호"],			ref: 'cipTransferNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["순번"], 		ref: 'transferSeq',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산구분"],  		ref: 'assetCategory',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["중분류"],      	ref: 'assetLevel2Name', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소분류"],	ref: 'assetLevel3Name',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부서"], 			ref: 'deptName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["코스트센터"], 		ref: 'costCenterName',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["계정명"], 		ref: 'accountName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["금액"], 		ref: 'transferAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["프로젝트코드"], 		ref: 'projectCode', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["프로젝트명"], 		ref: 'projectName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["대체수량"], 		ref: 'colTransferQty', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
 
         ];
 
@@ -462,7 +463,7 @@
     /**
      * 처분 전표 조회
      */
-    const fn_dspsSlipSearch = async function() {
+    const btnDocQ_Click = async function() {
     	var check1 = grdClclnList.getRow();
 		var slipNo = grdClclnList.getRowData(check1)["slipNo"];
 		//자산정산리스트 행 선택 안되있을 때 return
@@ -487,7 +488,7 @@
 
     }
 
-    const fn_slipCreate = async function() {
+    const btnCreate_Click = async function() {
     	var check1 = grdClclnList.getRow();
 		//var slipNo = grdClclnList.getRowData(check1)["slipNo"];
 
@@ -502,6 +503,317 @@
              grdClclnList.setRow(check1) // GetGridRowIndex(grdList, "txn_id", strtxn_id);  //쿼리 클릭 후 그리드에서 txn_id 행을 찾아서 이동
          }
     }
+
+    const fn_saveClick = function(){
+    	// 자산정산리스 에 행이 없을때
+    	if (grdClclnList.getRow == 0){
+    		return;
+    	}
+
+
+        let strwork_type = "U";
+
+        let allData = grdClclnList.getGridDataAll();
+
+        allData.forEach((item,index) => {
+        	let status = grdClclnList.getRowStatus(index);
+        	if(status === "3"){
+        		strwork_type = "N";
+        	}
+        })
+
+        if (fnSET_P_FIA4400_S(strwork_type)){
+            //fnSET_P_FIA4400_S 마지막에 txn_id 셋팅한거 포커스 두는 로직 사용안함
+        	//let strtxn_id = grdClclnList.GetValue("txn_id").ToString();
+
+            queryClick();
+
+            //gvwList.FocusedRowHandle = GetGridRowIndex(grdList, "txn_id", strtxn_id);
+        }
+    }
+    const fnSET_P_FIA4400_S = async function(strWorkType){
+        try
+        {
+            // 비즈니스 로직 정보
+
+            //DataTable dtSource = BindingData(grdList, true, false);
+            let dtSource = grdClclnList.getGridDataAll();
+            let dtSource1 = grdClclnTrgt.getGridDataAll();
+            let dtSource2 = grdClclnDsctn.getGridDataAll();
+            if (dtSource === null){
+            	return false;
+            }
+
+            if (dtSource1 === null){
+            	return false;
+            }
+
+
+
+            let stracct_rule_code = "";
+            let strtxn_id = "";
+            let strcip_transfer_no = "";
+            let strsite_code = "";
+            let stracquire_type = "";
+            let strtransfer_date = "";
+            let strproject_code = "";
+            let strcurrency_code = "";
+            let strexchange_rate = "";
+            let strtotal_transfer_amount = "";
+            let strbook_transfer_amount = "";
+            let strmemo = "";
+            let strinterface_flag = "";
+
+            let book_transfer_amount = "0";
+            let interface_flag = "";
+
+
+            if (strWorkType == "N"){
+            	dtSource.forEach((item,index) => {
+                	let status = grdClclnList.getRowStatus(index);
+                	if(status === "3"){
+                		if (strcip_transfer_no != ""){
+                            stracct_rule_code += "|";
+                            strtxn_id += "|";
+                            strcip_transfer_no += "|";
+                            strsite_code += "|";
+                            stracquire_type += "|";
+                            strtransfer_date += "|";
+                            strproject_code += "|";
+                            strcurrency_code += "|";
+                            strexchange_rate += "|";
+                            strtotal_transfer_amount += "|";
+                            strbook_transfer_amount += "|";
+                            strmemo += "|";
+                            strinterface_flag += "|";
+                        }
+
+                        stracct_rule_code += item["acct_rule_code"];
+                        strtxn_id += item["txn_id"];
+                        strcip_transfer_no += item["cip_transfer_no"];
+                        strsite_code += item["site_code"]
+                        stracquire_type += item["acquire_type"];
+                        strtransfer_date += item["transfer_date"];
+                        strproject_code += item["project_code"]
+                        strcurrency_code += item["currency_code"];
+                        strexchange_rate += item["exchange_rate"];
+                        strtotal_transfer_amount += item["total_transfer_amount"];
+                        strbook_transfer_amount += book_transfer_amount;
+                        strmemo += item["memo"];
+                        strinterface_flag += interface_flag;
+                	}
+                })
+
+
+            }
+            else{
+            	stracct_rule_code = item["acct_rule_code"];
+                strtxn_id = item["txn_id"];
+                strcip_transfer_no = item["cip_transfer_no"];
+                strsite_code = item["site_code"]
+                stracquire_type = item["acquire_type"];
+                strtransfer_date = item["transfer_date"];
+                strproject_code = item["project_code"]
+                strcurrency_code = item["currency_code"];
+                strexchange_rate = item["exchange_rate"];
+                strtotal_transfer_amount = item["total_transfer_amount"];
+                strbook_transfer_amount = 0;
+                strmemo = item["memo"];
+                strinterface_flag = "";
+
+                stracct_rule_code = gvwList.GetValue("acct_rule_code").ToString();
+                strtxn_id = gvwList.GetValue("txn_id").ToString();
+                strcip_transfer_no = gvwList.GetValue("cip_transfer_no").ToString();
+                strsite_code = gvwList.GetValue("site_code").ToString();
+                stracquire_type = gvwList.GetValue("acquire_type").ToString();
+                strtransfer_date = gvwList.GetValue("transfer_date").ToString().Replace("-", "");
+                strproject_code = gvwList.GetValue("project_code").ToString();
+                strcurrency_code = gvwList.GetValue("currency_code").ToString();
+                strexchange_rate = gvwList.GetValue("exchange_rate").ToString();
+                strtotal_transfer_amount = gvwList.GetValue("total_transfer_amount").ToString();
+                strbook_transfer_amount = "0";
+                strmemo = gvwList.GetValue("memo").ToString();
+                strinterface_flag = "";
+            }
+
+
+
+
+            let strcip_transfer_no1 = "";
+            let strtransfer_seq1 = "";
+            let strasset_category = "";
+            let strasset_level2 = "";
+            let strasset_level3 = "";
+            let strdept_code = "";
+            let strcost_center_code = "";
+            let straccount_code = "";
+            let strtransfer_amount1 = "";
+            let strproject_code1 = "";
+            let strtransfer_qty1 = "";
+            let strmemo1 = "";
+
+
+
+			dtSource2.forEach((item,index)=>{
+				if (strtransfer_seq1 != ""){
+                    strcip_transfer_no1 += "|";
+                    strtransfer_seq1 += "|";
+                    strasset_category += "|";
+                    strasset_level2 += "|";
+                    strasset_level3 += "|";
+                    strdept_code += "|";
+                    strcost_center_code += "|";
+                    straccount_code += "|";
+                    strtransfer_amount1 += "|";
+                    strproject_code1 += "|";
+                    strtransfer_qty1 += "|";
+                    strmemo1 += "|";
+                }
+
+                strcip_transfer_no1 += item["cip_transfer_no"];
+                strtransfer_seq1 += item["transfer_seq"];
+                strasset_category += item["asset_category"];
+                strasset_level2 += item["asset_level2"];
+                strasset_level3 += item["asset_level3"];
+                strdept_code += item["dept_code"];
+                strcost_center_code += item["cost_center_code"];
+                straccount_code += item["account_code"];
+                strtransfer_amount1 += item["transfer_amount"];
+                strproject_code1 += item["project_code"];
+                strtransfer_qty1 += item["transfer_qty"];
+                strmemo1 += item["memo"];
+
+			})
+
+
+            let strcip_transfer_no2 = "";
+			let strtransfer_seq2 = "";
+            let strasset_no = "";
+            let strtransfer_amount2 = "";
+            let strbook_amt = "";
+            let strmemo2 = "";
+            let strproject_code2 = "";
+            let strtransfer_qty  = "";
+
+            dtSource1.forEach((item,index)=>{
+            	if (strtransfer_seq2 != ""){
+                    strcip_transfer_no2 += "|";
+                    strtransfer_seq2 += "|";
+                    strasset_no += "|";
+                    strtransfer_amount2 += "|";
+                    strbook_amt += "|";
+                    strmemo2 += "|";
+                    strproject_code2 += "|";
+                    strtransfer_qty += "|";
+
+                }
+
+                strcip_transfer_no2 += item["cip_transfer_no"];
+                strtransfer_seq2 += item["transfer_seq"];
+                strasset_no += item["asset_no"];
+                strtransfer_amount2 += item["transfer_amount"];
+                strbook_amt += item["book_amt"];
+                strmemo2 += item["memo"];
+                strproject_code2 += item["project_code"];
+                strtransfer_qty += item["transfer_qty"];
+            })
+
+          //본자산정산내역 금액  != 자산정산 대상 금액 total 값이 다를 경우
+            let coltransfer_amount = dtSource1.reduce((acc, obj) => acc + (obj[key] || 0), 0); //자산정산대상
+			let coltransfer_amount1 = dtSource2.reduce((acc, obj) => acc + (obj[key] || 0), 0);//본자산정산내역
+
+            if (coltransfer_amount != coltransfer_amount1){
+            	gfn_comAlert("I0001");//"금액 합계가 일치 하지 않습니다."
+                return false;
+            }
+
+			dtData = {
+					V_P_DEBUG_MODE_YN : ''
+						,V_P_LANG_ID : ''
+						,V_P_COMP_CODE : ''
+						,V_P_CLIENT_CODE : ''
+						,V_P_ACCT_RULE_CODE : stracct_rule_code
+						,V_P_TXN_ID : strtxn_id
+						,V_P_CIP_TRANSFER_NO : strcip_transfer_no
+						,V_P_SITE_CODE : strsite_code
+						,V_P_ACQUIRE_TYPE : stracquire_type
+						,V_P_TRANSFER_DATE : strtransfer_date
+						,V_P_PROJECT_CODE : strproject_code
+						,V_P_CURRENCY_CODE : strcurrency_code
+						,V_P_EXCHANGE_RATE : strexchange_rate
+						,V_P_TOTAL_TRANSFER_AMOUNT : strtotal_transfer_amount
+						,V_P_BOOK_TRANSFER_AMOUNT : strbook_transfer_amount
+						,V_P_MEMO : strmemo
+						,V_P_INTERFACE_FLAG : strinterface_flag
+						,V_P_CIP_TRANSFER_NO1 : strcip_transfer_no1
+						,V_P_TRANSFER_SEQ1 : strtransfer_seq1
+						,V_P_ASSET_CATEGORY : strasset_category
+						,V_P_ASSET_LEVEL2 : strasset_level2
+						,V_P_ASSET_LEVEL3 : strasset_level3
+						,V_P_DEPT_CODE : strdept_code
+						,V_P_COST_CENTER_CODE : strcost_center_code
+						,V_P_ACCOUNT_CODE : straccount_code
+						,V_P_TRANSFER_AMOUNT1 : strtransfer_amount1
+						,V_P_PROJECT_CODE_D1 : strproject_code1
+						,V_P_TRANSFER_QTY1 : strtransfer_qty1
+						,V_P_MEMO1 : strmemo1
+						,V_P_CIP_TRANSFER_NO2 : strcip_transfer_no2
+						,V_P_TRANSFER_SEQ2 : strtransfer_seq2
+						,V_P_ASSET_NO : strasset_no
+						,V_P_TRANSFER_AMOUNT2 : strtransfer_amount2
+						,V_P_BOOK_AMT : strbook_amt
+						,V_P_MEMO2 : strmemo2
+						,V_P_PROJECT_CODE_D2 : strproject_code2
+						,V_P_TRANSFER_QTY2 : strtransfer_qty
+						,V_P_FORM_ID : ''
+						,V_P_MENU_ID : ''
+						,V_P_PROC_ID : ''
+						,V_P_USERID : ''
+						,V_P_PC : ''
+			};
+
+
+			const postJsonPromise = gfn_postJSON("/fi/fia/insertFia4400S.do", {
+		        getType				: 'json',
+		        cv_count			: '0',
+		        workType            : status,
+		        params				: dtData
+		    });
+		    const data = await postJsonPromise;
+
+		    if(data.resultStatus === "S"){
+		        gfn_comAlert("Q0000",data.resultMessage);
+		        //await fn_search();
+		    }
+
+
+
+            //ResultSet rs = CommonCallExecute(ServiceInfo.ERPBizDB, dtData, cProc.ProcName, cProc.GetParamInfo());
+
+            let bResult = false;
+
+            if (data != null && ! data.resultStatus === "P" && !data.resultStatus === "E"){
+                if(strWorkType.Equals("N")){
+                	//N일 경우 첫번째 그리드에 row 셋팅...?
+                	//gvwList.SetValue("txn_id", rs.ReturnString);
+                }
+                bResult = true;
+            }
+            else{
+                bResult = false;
+            }
+            return bResult;
+        }
+        catch (ex){
+        	if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            //gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            return false;
+        }
+    }
+
 
     const fnSET_P_FIA4400_S2 = async function(strWorkType){
 
@@ -544,7 +856,7 @@
         			,V_P_PC				: ''
         	    };
 
-            const postJsonPromise = gfn_postJSON("/co/sys/org/insertFia4400Account.do", {
+            const postJsonPromise = gfn_postJSON("/fi/fia/insertFia4400S2.do", {
              	getType				: 'json',
              	workType			:  strWorkType,
              	cv_count			: '1',
@@ -581,40 +893,43 @@
 
 
 
-		 let acntgCrtr = SBUxMethod.get('srch-slt-acntgCrtr'); //회계기준
-		 let bizUnit = SBUxMethod.get('srch-slt-bizUnit'); //(회계)사업단위
-		 let bplc = gfnma_multiSelectGet('#srch-slt-bplc') //사업장
-		 let clclnYmdFrom = SBUxMethod.get('srch-dtp-clclnYmdFrom');// 정산일자 from
-		 let clclnYmdTo = SBUxMethod.get('srch-dtp-clclnYmdTo'); //정산일자to
-		 let acqsSe = gfnma_multiSelectGet('#srch-slt-acqsSe') //취득구분
-		 let bizCd = SBUxMethod.get('srch-inp-biz'); //프로젝트코드
-		 let bizNm = SBUxMethod.get('srch-inp-bizPopup'); // 프로젝트명
-		 let clclnNo = SBUxMethod.get('srch-inp-clclnNo'); //정산번호
+		 let acntgCrtr = SBUxMethod.get('srch-slt-acctRuleCode'); //회계기준
+		 let bizUnit = SBUxMethod.get('srch-slt-orgCode1'); //(회계)사업단위
+		 let bplc = gfnma_multiSelectGet('#srch-slt-siteCode') //사업장
+		 let clclnYmdFrom = SBUxMethod.get('srch-dtp-startDate');// 정산일자 from
+		 let clclnYmdTo = SBUxMethod.get('srch-dtp-endDate'); //정산일자to
+		 let acqsSe = gfnma_multiSelectGet('#srch-slt-acquireType') //취득구분
+		 let bizCd = SBUxMethod.get('srch-inp-projectCode'); //프로젝트코드
+		 let bizNm = SBUxMethod.get('srch-inp-projectName'); // 프로젝트명
+		 let clclnNo = SBUxMethod.get('srch-inp-cipTransferNo'); //정산번호
 		  var paramObj = {
-				    V_P_WORK_TYPE       : strWorkType
-        			,V_P_DEBUG_MODE_YN	: ''
+        			V_P_DEBUG_MODE_YN	: ''
         			,V_P_LANG_ID		: ''
         			,V_P_COMP_CODE		: gv_ma_selectedApcCd
         			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-        			,V_P_FI_ORG_CODE		: acntgCrtr
-        			,V_P_ACCT_RULE_CODE	: bizUnit
-        			,V_P_SITE_CODE		: bplc
-        			,V_P_START_DATE		: clclnYmdFrom
-        			,V_P_END_DATE		: clclnYmdTo
-    			    ,V_P_CIP_TRANSFER_NO : clclnNo // strWorkType.Equals("Q") ? txtcip_transfer_no.Text : gvwList.GetValue("cip_transfer_no") == null ? "" : gvwList.GetValue("cip_transfer_no").ToString(),
-    			    ,V_P_ACQUIRE_TYPE    : acqsSe
-    			    ,V_P_PROJECT_CODE    : bizCd // strWorkType.Equals("Q") ? txtproject_code.Text : gvwList.GetValue("project_code") == null ? "" : gvwList.GetValue("project_code").ToString()
-    			    ,V_P_PROJECT_NAME    : bizNm
+        			,V_P_FI_ORG_CODE		: ''
+        			,V_P_ACCT_RULE_CODE	: ''
+        			,V_P_SITE_CODE		: ''
+        			,V_P_START_DATE		: ''
+        			,V_P_END_DATE		: ''
+    			    ,V_P_CIP_TRANSFER_NO : ''
+    			    ,V_P_ACQUIRE_TYPE    : ''
+    			    ,V_P_PROJECT_CODE    : ''
+    			    ,V_P_PROJECT_NAME    : ''
         			,V_P_FORM_ID		: p_formId
         			,V_P_MENU_ID		: p_menuId
         			,V_P_PROC_ID		: ''
         			,V_P_USERID			: ''
         			,V_P_PC				: ''
         	    };
-		  	const postJsonPromise = gfn_postJSON("/co/sys/org/selectFia4400Q.do", {
+		  	//grdClclnList(자산정산리스트)의 cip_transfer_no, project_code가 null 여부를 확인하여 값 할당
+		    //paramObj.V_P_CIP_TRANSFER_NO = ;
+		    //paramObj.V_P_PROJECT_CODE = ;
+		    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","");
+		  	const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4400Q.do", {
              	getType				: 'json',
              	workType			:  strWorkType,
-             	cv_count			: '1',
+             	cv_count			: '5',
              	params				: gfnma_objectToString(paramObj)
      			});
 
@@ -667,7 +982,8 @@
     }
     //grdItem(본자산정산내역), grdDetail(자산정산대상) 초기화 하기
     const fn_newClick = function(){
-
+    	grdClclnTrgt.refresh();
+    	grdClclnDsctn.refresh();
     }
 
     const fn_focusedRowChanged = function(){
@@ -757,8 +1073,8 @@
     }
 
     const fn_dtpChange = async function(){
-    	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
-    	let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
+    	let clclnYmdFrom = SBUxMethod.get("srch-dtp-startDate");
+    	let clclnYmdTo = SBUxMethod.get("srch-dtp-endDate");
 
     	if(inptYmdFrom > inptYmdTo){
     		gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
@@ -772,7 +1088,7 @@
         SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
         SBUxMethod.openModal('modal-compopup1');
 
-        var strWhereClause 	= "AND FI_ORG_CODE = '" + gfn_nvl(gfnma_multiSelectGet("#srch-inp-biz")) + "'" ;
+        var strWhereClause 	= "AND FI_ORG_CODE = '" + gfn_nvl(gfnma_multiSelectGet("#srch-inp-projectCode")) + "'" ;
 
         var searchText 		= '';
         compopup1({
@@ -791,10 +1107,12 @@
             ,tableColumnNames		: ["PROJECT_CODE", "PROJECT_NAME"]
             ,tableColumnWidths		: ["150px", "250px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set("srch-inp-biz", 		data.PROJECT_CODE);
-				SBUxMethod.set("srch-inp-bizPopup",		data.PROJECT_NAME);
+                SBUxMethod.set("srch-inp-projectCode", 		data.PROJECT_CODE);
+				SBUxMethod.set("srch-inp-projectName",		data.PROJECT_NAME);
             },
         });
+        SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
     }
 
 
@@ -802,10 +1120,10 @@
     const fn_clclnListAddRow = function(){
 
     	fnQRY_P_FIA4400_Q("NUM");
-    	let clclnNo = SBUxMethod.get('srch-inp-clclnNo'); //정산번호
-    	let bplc = gfnma_multiSelectGet('#srch-slt-bplc') //사업장
-    	let acqsSe = gfnma_multiSelectGet('#srch-slt-acqsSe') //취득구분
-    	let bizUnit = SBUxMethod.get('srch-slt-bizUnit'); //(회계)사업단위
+    	let clclnNo = SBUxMethod.get('srch-inp-cipTransferNo'); //정산번호
+    	let bplc = gfnma_multiSelectGet('#srch-slt-siteCode') //사업장
+    	let acqsSe = gfnma_multiSelectGet('#srch-slt-acquireType') //취득구분
+    	let bizUnit = SBUxMethod.get('srch-slt-orgCode1'); //(회계)사업단위
 
 
     	let obj = {
@@ -826,6 +1144,15 @@
     }
 
     const fn_clclnTrgtAddRow = function(){
+    	let obj = {
+       		clclnNo : clclnNo
+       		, bplc : bplc
+       		, crtDt : gfnma_date6()
+       		, currency : ''//세션에 있는 정보가 있는듯
+       		, exchRt	   : 1
+       		//, 문서상태 : 0
+       		, acqs : "CIP"
+       	};
     	grdClclnTrgt.addRow();
     }
 
@@ -834,15 +1161,22 @@
     }
 
     const fn_clclnListDelRow = function(){
-    	grdClclnList.deleteRow(grdClclnList.getRows()-1)
+    	// row상태를 확인한 뒤 추가된 행인 경우 바로 삭제하고 아닌 경우는 DeleteClick
+    	let rowStauts = grdClclnList.getRowStatus(grdClclnList.getRow())
+    	if(rowStatus === "3"){
+    		grdClclnList.deleteRow(grdClclnList.getRows()-1)
+    	}else{
+    		deleteClick();
+    	}
+
     }
 
     const fn_clclnTrgtDelRow = function(){
-    	grdClclnTrgt.deleteRow(grdClclnTrgt.getRows()-1)
+   		grdClclnTrgt.deleteRow(grdClclnTrgt.getRows()-1)
     }
 
     const fn_clclnDsctnDelRow = function(){
-    	grdClclnDsctn.deleteRow(grdClclnDsctn.getRows()-1)
+    	grdClclnDsctn.deleteRow(grdClclnDsctn.getRows()-1);
     }
 
 
