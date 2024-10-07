@@ -1,5 +1,7 @@
 package com.at.apcss.co.user.web;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
@@ -1045,21 +1047,44 @@ public class ComUserController extends BaseController {
 				
 				File f = new File(downloadPath, srvrFileNm);
 				response.setContentType("application/octet-stream"); 
+
+		        //데이터형식/성향설정 (attachment: 첨부파일)
+		        response.setHeader("Content-disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm,"UTF-8")+"\";");
+		        //response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
 		        //파일길이설정
 		        response.setContentLength((int)f.length());
-		        //데이터형식/성향설정 (attachment: 첨부파일)
-		        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm,"UTF-8")+"\";");
-		        //response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
 		        
+		        BufferedInputStream bIn = null;
+		        BufferedOutputStream bOut = null;
+		        
+		        // 파일 입력 객체 생성
+		        FileInputStream fIn = new FileInputStream(f);
+		        bIn = new BufferedInputStream(fIn);
 		        // response 객체를 통해서 서버로부터 파일 다운로드
 		        OutputStream os = response.getOutputStream();
-		        // 파일 입력 객체 생성
-		        FileInputStream fis = new FileInputStream(f);
+		        bOut = new BufferedOutputStream(os);
+		        
+		        try {
+		        	
+		        	byte[] buffer = new byte[4096];
+		        	int bytesRead = 0;
+		        	
+		        	while ((bytesRead = bIn.read(buffer)) != -1) {
+		        		bOut.write(buffer, 0, bytesRead);
+                    } 
+		        	
+		        	
+		        	bOut.flush();
+		        } finally {
+		        	bIn.close();
+		        	bOut.close();
+		        }
+		        /*
 		        FileCopyUtils.copy(fis, os);
 		        fis.close();
 		        os.close();
 		        
-		        /*
+		        
 		        //내용물 인코딩방식설정
 		        //response.setHeader("Content-Transfer-Encoding", "binary");
 		        //버퍼의 출력스트림을 출력
