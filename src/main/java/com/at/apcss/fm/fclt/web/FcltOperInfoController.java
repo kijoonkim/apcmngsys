@@ -198,6 +198,31 @@ public class FcltOperInfoController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 운영자개요 목록 삭제
+	@PostMapping(value = "/fm/fclt/deleteItem.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteItem(@RequestBody FcltItemVO fcltItemVO, HttpServletRequest requset) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		//fcltItemVO.setSysLastChgUserId(getUserId());
+		//fcltItemVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int deletedCnt = 0;
+
+		try {
+			deletedCnt = fcltOperInfoService.deleteItem(fcltItemVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, deletedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	/*
 	 * 주소 팝업

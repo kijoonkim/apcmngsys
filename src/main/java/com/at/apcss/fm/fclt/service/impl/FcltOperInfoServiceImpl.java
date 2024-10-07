@@ -151,6 +151,12 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 	}
 
 	@Override
+	public int deleteItem(FcltItemVO fcltItemVO) throws Exception {
+		int deletedCnt = fcltOperInfoMapper.deleteItem(fcltItemVO);
+		return deletedCnt;
+	}
+
+	@Override
 	public List<FcltApcVO> selectApcList(FcltApcVO fcltApcVO) throws Exception {
 
 		List<FcltApcVO> resultList = fcltOperInfoMapper.selectApcList(fcltApcVO);
@@ -176,4 +182,5 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 		FcltOperInfoVO resultVO = fcltOperInfoMapper.selectUserInfo(fcltOperInfoVO);
 		return resultVO;
 	}
+
 }
