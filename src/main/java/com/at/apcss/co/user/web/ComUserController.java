@@ -1036,9 +1036,13 @@ public class ComUserController extends BaseController {
 			
 			ComUserAtchflVO returnVO = comUserService.getUserAtchfl(comUserVO);
 
-			if (returnVO != null && StringUtils.hasText(returnVO.getFilePathNm())) {
-				
-				String fileNm = returnVO.getFileNm();
+			if (returnVO == null) {
+				return;
+			}
+			
+			String fileNm = returnVO.getFileNm();
+			
+			if (StringUtils.hasText(returnVO.getFilePathNm())) {
 				
 				String rootPath = getFilepathFm();
 				String filePathNm = returnVO.getFilePathNm();
@@ -1103,6 +1107,34 @@ public class ComUserController extends BaseController {
 		        //출력스트림을 닫는다
 		        response.getOutputStream().close();
 				*/
+			} else {
+				if (returnVO.getFileCn() == null) {
+					return;
+				}
+				
+				byte[] fileByte = returnVO.getFileCn();
+				response.setContentType("application/octet-stream"); 
+
+		        //데이터형식/성향설정 (attachment: 첨부파일)
+		        response.setHeader("Content-disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm, "UTF-8") + "\";");
+		        //response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
+		        //파일길이설정
+		        response.setContentLength(fileByte.length);
+		        
+		        BufferedOutputStream bOut = null;
+		        
+		        try {
+		        	// response 객체를 통해서 서버로부터 파일 다운로드
+			        OutputStream os = response.getOutputStream();
+			        bOut = new BufferedOutputStream(os);
+			        
+			        bOut.write(fileByte);
+			        
+			        bOut.flush();
+		        } finally {
+		        	bOut.close();
+		        }
+		        
 			}
 			
 			/*
