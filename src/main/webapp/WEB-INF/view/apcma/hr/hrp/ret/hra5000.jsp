@@ -1254,13 +1254,6 @@
                 ,V_P_COMP_CODE				: gv_ma_selectedApcCd
                 ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
 
-                /*,V_P_YYYY                   : YYYY
-                ,V_P_APPLY_ST_DAT           : APPLY_START_DATE
-                ,V_P_APPLY_END_DAT          : APPLY_END_DATE
-                ,V_P_RETIRE_INCOME_DER      : RETIRE_INCOME_DED_RATE
-                ,V_P_EXECUTIVE_PAY_MULTIPLE : EXECUTIVE_PAY_MULTIPLE
-                ,V_P_MEMO                   : MEMO*/
-
                 ,V_P_YYYY                   : YYYY
                 ,V_P_APPLY_ST_DAT           : ''
                 ,V_P_APPLY_END_DAT          : ''

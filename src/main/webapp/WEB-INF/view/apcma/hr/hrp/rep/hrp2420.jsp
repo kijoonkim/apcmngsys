@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp2420.jsp
      * @Description       :  급여대장( 급여명세서 일괄출력 ) 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.08

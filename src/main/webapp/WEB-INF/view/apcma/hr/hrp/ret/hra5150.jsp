@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
-     * @Description       :  중간/퇴직급여 계산 정보 화면
+     * @Class Name        : hra5150.jsp
+     * @Description       : 중간/퇴직급여 계산 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.15
      * @version           : 1.0
@@ -75,11 +75,11 @@
                 <th scope="row" class="th_bg">사업장</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="srch-site_code" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="srch-site_code" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -87,11 +87,11 @@
                 <th scope="row" class="th_bg">퇴직정산구분</th>
                 <td class="td_input" style="border-right: hidden;">
                     <div class="dropdown">
-                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="srch-ret_calc_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_RET_CALC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <font>선택</font>
                             <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="srch-ret_calc_type" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                        <div class="dropdown-menu input_change" aria-labelledby="SRCH_RET_CALC_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
                         </div>
                     </div>
                 </td>
@@ -101,8 +101,8 @@
                 <th scope="row" class="th_bg">정산종료일</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-retire_calc_date_fr"
-                            name="srch-retire_calc_date_fr"
+                            id="SRCH_RETIRE_CALC_DATE_FR"
+                            name="SRCH_RETIRE_CALC_DATE_FR"
                             uitype="popup"
                             date-format="yyyymmdd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
@@ -113,8 +113,8 @@
                 <td>~</td>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-retire_calc_date_to"
-                            name="srch-retire_calc_date_to"
+                            id="SRCH_RETIRE_CALC_DATE_TO"
+                            name="SRCH_RETIRE_CALC_DATE_TO"
                             uitype="popup"
                             date-format="yyyymmdd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
@@ -127,7 +127,7 @@
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-input
                             uitype="text"
-                            id="srch-emp_code"
+                            id="SRCH_EMP_CODE"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
@@ -136,7 +136,7 @@
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-input
                             uitype="text"
-                            id="srch-emp_name"
+                            id="SRCH_EMP_NAME"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
@@ -146,8 +146,8 @@
                 <th scope="row" class="th_bg">정산일</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
-                            id="srch-ret_calc_dat"
-                            name="srch-ret_calc_dat"
+                            id="SRCH_RET_CALC_DAT"
+                            name="SRCH_RET_CALC_DAT"
                             uitype="popup"
                             date-format="yyyymmdd"
                             class="form-control input-sm input-sm-ast inpt_data_reqed"
@@ -158,8 +158,8 @@
                 <td colspan="3" style="border-right: hidden;">&nbsp;</td>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-checkbox
-                            id="srch-calculate_tax_yn"
-                            name="srch-calculate_tax_yn"
+                            id="SRCH_CALCULATE_TAX_YN"
+                            name="SRCH_CALCULATE_TAX_YN"
                             uitype="normal"
                             text="과세계산여부"
                             true-value="Y"
@@ -168,8 +168,8 @@
                 </td>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-checkbox
-                            id="srch-calculate_prev_yn"
-                            name="srch-calculate_prev_yn"
+                            id="SRCH_CALCULATE_PREV_YN"
+                            name="SRCH_CALCULATE_PREV_YN"
                             uitype="normal"
                             text="중간지급 포함"
                             true-value="Y"
@@ -574,7 +574,7 @@
                     </table>
                 </div>
 
-                <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
+                <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false" onclick="fn_btnTab()">
                 </sbux-tabs>
 
                 <div class="tab-content">
@@ -655,7 +655,8 @@
                                     <th scope="row" class="th_bg">연차수당</th>
                                     <td colspan="2" class="td_input" style="border-right:hidden;">
                                         <sbux-input id="ANN_BENEFIT_AMT" uitype="text" style="width:100%" placeholder=""
-                                                    class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }" ></sbux-input>
+                                                    class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
+                                                    onchange="fn_benAmtModi"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">평균연차수당</th>
                                     <td colspan="2" class="td_input" style="border-right:hidden;">
@@ -2056,7 +2057,9 @@
                                                 id="PAY_DATE"
                                                 name="PAY_DATE"
                                                 date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast">
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                onchange="fn_payDate()"
+                                        >
                                         </sbux-datepicker>
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
@@ -2176,8 +2179,10 @@
 
     var editType			= 'N';
 
-    var job_group; //직군
-    var avg_pay_type; //평균급여산정기준
+ /*   var job_group = ''; //직군
+    var avg_pay_type = ''; //평균급여산정기준*/
+    var stravg_pay_type = '';//직군
+    var strjob_group = '';//평균급여산정기준
 
     //grid 초기화
     var gvwMasterGrid; 			// 그리드를 담기위한 객체 선언
@@ -2215,29 +2220,9 @@
             gfnma_setComSelect(['gvwChangeGrid'], jsonPositionCode, 'L_HRI002_1', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
 
-            //지급구분
-            gfnma_multiSelectInit({
-                target			: ['#srch-site_code']
-                ,compCode		: gv_ma_selectedApcCd
-                ,clientCode		: gv_ma_selectedClntCd
-                ,bizcompId		: 'L_ORG001'
-                ,whereClause	: ''
-                ,formId			: p_formId
-                ,menuId			: p_menuId
-                ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
-                ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
-                ]
-            }),
-
             //퇴직정산구분
             gfnma_multiSelectInit({
-                target			: ['#srch-ret_calc_type', '#RET_CALC_TYPE']
+                target			: ['#SRCH_RET_CALC_TYPE', '#RET_CALC_TYPE']
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRA037'
@@ -2252,6 +2237,26 @@
                 ,columns		:[
                     {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
                     {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                ]
+            }),
+
+            //지급구분
+            gfnma_multiSelectInit({
+                target			: ['#SRCH_SITE_CODE']
+                ,compCode		: gv_ma_selectedApcCd
+                ,clientCode		: gv_ma_selectedClntCd
+                ,bizcompId		: 'L_ORG001'
+                ,whereClause	: ''
+                ,formId			: p_formId
+                ,menuId			: p_menuId
+                ,selectValue	: ''
+                ,dropType		: 'down' 	// up, down
+                ,dropAlign		: 'right' 	// left, right
+                ,colValue		: 'SITE_CODE'
+                ,colLabel		: 'SITE_NAME'
+                ,columns		:[
+                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -2373,10 +2378,33 @@
 
     const fn_init = async function () {
 
-        let openDate = gfn_dateToYmd(new Date());
+        let nowDate = new Date();
+        let openDate = gfn_dateToYmd(nowDate);
 
-        SBUxMethod.set('srch-pay_yyyymm_fr', openDate);
-        SBUxMethod.set('srch-pay_yyyymm_fr2', openDate);
+        let nextDate = new Date(nowDate);
+        nextDate.setDate(nowDate.getDate() + 7);
+        let openNextDate = gfn_dateToYmd(nextDate);
+
+
+        SBUxMethod.set('SRCH_RETIRE_CALC_DATE_FR', openDate);
+        SBUxMethod.set('SRCH_RETIRE_CALC_DATE_TO', openNextDate);
+
+        // 과세 계산 여부
+        SBUxMethod.set("SRCH_CALCULATE_TAX_YN", "Y");
+        SBUxMethod.hide('SRCH_CALCULATE_TAX_YN');
+        //chkcalculate_tax_yn.EditValue = "Y";
+        //chkcalculate_tax_yn.Visible = false;
+
+        //중간지급 포함 여부
+        SBUxMethod.set("SRCH_CALCULATE_PREV_YN", "Y");
+        SBUxMethod.hide('SRCH_CALCULATE_PREV_YN');
+        //chkcalculate_prev_yn.EditValue = "Y";
+        //chkcalculate_prev_yn.Visible = false;
+
+        SBUxMethod.set("CALCULATE_TAX_YN", "N");
+        //chkcalculate_tax_yn1.EditValue = "Y";
+        SBUxMethod.set("TO_DC_YN", "N");
+        //chkto_dc_yn.EditValue = "N";
 
         fn_createGrid();//사원 리스트
         fn_createPayGrid();//급여내역 리스트
@@ -2534,6 +2562,7 @@
         ];
 
         gvwMasterGrid = _SBGrid.create(SBGridProperties);
+        gvwMasterGrid.bind('valuechanged','gridValueChangedMaster');
         gvwMasterGrid.bind('click', 'fn_view');
     }
 
@@ -2637,6 +2666,7 @@
         ];
 
         gvwBonusGrid = _SBGrid.create(SBGridProperties);
+        gvwBonusGrid.bind('valuechanged','gridValueChanged2');
         /*  gvwInfoGrid.bind('click', 'fn_view');*/
     }
 
@@ -2759,17 +2789,133 @@
             return;
         } else {
             gvwPayGrid.deleteRow(rowVal);
+
+            // 삭제시 적용금액의 합계 / 3 을 평균급여에 넣어줌
+            let dSum = 0;
+            let dSumNorm = 0;
+            let dSumPeak = 0;
+
+            let alldata = gvwPayGrid.getGridDataAll();
+
+            alldata.forEach((item,index) => {
+                if (item.PEAK_YN == 'N') {
+                    dSum        += Number(item.APPLY_AMT);
+                    dSumNorm    += Number(item.APPLY_AMT);
+                } else {
+                    dSumPeak    += Number(item.APPLY_AMT);
+
+                }
+            });
+
+            let dDaySum = 0;
+            let dDaySumPeak = 0;
+            let dDaySumNorm = 0;
+
+            alldata.forEach((item,index) => {
+                if (item.PEAK_YN == 'N') {
+                    dDaySum        += Number(item.APPLY_DAYS);
+                    dDaySumNorm    += Number(item.APPLY_DAYS);
+                } else {
+                    dDaySumPeak    += Number(item.APPLY_DAYS);
+
+                }
+            });
+
+            let RET_CALC_TYPE		= gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE'); // 퇴직정산구분
+
+            if (RET_CALC_TYPE == 'RETIRE' || RET_CALC_TYPE == "MIDDLE") {
+
+                SBUxMethod.set("AVG_MM_PAY_AMT", dSum);
+                SBUxMethod.set("AVG_MM_PAY_AMT_NORM", dSumNorm);
+                SBUxMethod.set("AVG_MM_PAY_AMT_PEAK", dSumPeak);
+
+                let AVG_MM_PAY_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT"))); //평균급여, numavg_monthly_pay_amt
+                let AVG_MM_PAY_AMT_NORM	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_NORM"))); //평균급여, numavg_monthly_pay_amt_norm
+                let AVG_MM_PAY_AMT_PEAK	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_PEAK"))); //평균급여, numavg_monthly_pay_amt_peak
+
+                let AVG_MM_BONUS_AMT	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT"))); //평균상여, numavg_monthly_bonus_amt
+                let AVG_MM_BONUS_AMT_NORM	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_NORM"))); //평균상여, numavg_monthly_bonus_amt_norm
+                let AVG_MM_BONUS_AMT_PEAK	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_PEAK"))); //평균상여, numavg_monthly_bonus_amt_peak
+
+                let AVG_MM_ANN_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT"))); //평균연차수당, numavg_monthly_annual_amt
+                let AVG_MM_ANN_AMT_NORM 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_NORM"))); //평균연차수당, numavg_monthly_annual_amt_norm
+                let AVG_MM_ANN_AMT_PEAK 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_PEAK"))); //평균연차수당, numavg_monthly_annual_amt_peak
+
+                if (dDaySum != 0)
+                {
+                    let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                    SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                    //numavg_monthly_retire_amt.Value = Math.Round((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                }
+                if (dDaySumNorm != 0)
+                {
+                    let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                    SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                    //numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                }
+                if (dDaySumPeak != 0)
+                {
+                    let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                    SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                    //numavg_monthly_retire_amt_peak.Value = Math.Round((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                }
+            }
+            else if (cboretire_calc_type.EditValue.ToString() == "RETIRE_P" || cboretire_calc_type.EditValue.ToString() == "MIDDLE_P")
+            {
+
+                SBUxMethod.set("AVG_MM_PAY_AMT", dSum);
+                SBUxMethod.set("AVG_MM_PAY_AMT_NORM", dSumNorm);
+                SBUxMethod.set("AVG_MM_PAY_AMT_PEAK", dSumPeak);
+
+                if (dDaySum != 0)
+                {
+                    let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                    SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                    //numavg_monthly_retire_amt.Value = Math.Round((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                }
+                if (dDaySumNorm != 0)
+                {
+                    let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                    SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                    //numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                }
+                if (dDaySumPeak != 0)
+                {
+                    let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                    SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                    //numavg_monthly_retire_amt_peak.Value = Math.Round((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                }
+                //numavg_monthly_retire_amt.Value = numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value;
+                // numavg_monthly_retire_amt.Value = Math.Round((dSum + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / Int32.Parse(gvwPay.Columns["apply_days"].SummaryText));
+            }
         }
     }
 
     // 행 추가( 상여내역 리스트 )
     const fn_btnAdd2 = function() {
+
+        let nRow = gvwMasterGrid.getRow();
+
+        if (nRow < 1) {
+            nRow = 1; //그리드 로우 첫번째값 셋팅
+        }
+
+        let rowData = gvwMasterGrid.getRowData(nRow);
+
+        if (_.isEmpty(rowData) || rowData.RET_CALC_DAT == '' || rowData.RET_CALC_DAT == null)
+        {
+            gfn_comAlert("Q0000", "정산일이 등록되어있지 않습니다.");
+            //SetMessageBox("정산일이 등록되어있지 않습니다.");
+            return;
+        }
+
         let rowVal = gvwBonusGrid.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
             gvwBonusGrid.addRow(true);
         }else{
             gvwBonusGrid.insertRow(rowVal);
+
         }
     }
 
@@ -2783,6 +2929,115 @@
             return;
         } else {
             gvwBonusGrid.deleteRow(rowVal);
+
+            // 삭제시 적용금액의 합계 / 12 을 평균상여에 넣어줌
+
+           /* let _monthly_pay_amt = 0;
+            _monthly_pay_amt = Convert.ToDecimal(gvwPay.Columns["apply_amt"].SummaryText);*/
+            // 삭제시 적용금액의 합계 / 3 을 평균급여에 넣어줌
+            let dSum = 0;
+            let dSumNorm = 0;
+            let dSumPeak = 0;
+
+            let alldata = gvwBonusGrid.getGridDataAll();
+
+            alldata.forEach((item,index) => {
+
+                if (_.isEqual(item.PEAK_YN, 'N')){
+                    dSum += Number(item.APPLY_AMT);
+                    dSumNorm += Number(item.APPLY_AMT);
+                }else{
+                    dSumPeak += Number(item.APPLY_AMT);
+                }
+            });
+
+
+            let dDaySum = 0;
+            let dDaySumPeak = 0;
+            let dDaySumNorm = 0;
+
+            let gridPay = gvwPayGrid.getGridDataAll();
+
+            gridPay.forEach((item,index) =>{
+                if (item.PEAK_YN == 'N')
+                {
+                    dDaySum += item.APPLY_DAYS;
+                    dDaySumNorm += item.APPLY_DAYS;
+                }
+                else
+                {
+                    dDaySumPeak += item.APPLY_DAYS;
+                }
+            });
+
+            let AVG_MM_PAY_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT"))); //평균급여, numavg_monthly_pay_amt
+            let AVG_MM_PAY_AMT_NORM	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_NORM"))); //평균급여, numavg_monthly_pay_amt_norm
+            let AVG_MM_PAY_AMT_PEAK	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_PEAK"))); //평균급여, numavg_monthly_pay_amt_peak
+
+            let AVG_MM_BONUS_AMT	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT"))); //평균상여, numavg_monthly_bonus_amt
+            let AVG_MM_BONUS_AMT_NORM	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_NORM"))); //평균상여, numavg_monthly_bonus_amt_norm
+            let AVG_MM_BONUS_AMT_PEAK	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_PEAK"))); //평균상여, numavg_monthly_bonus_amt_peak
+
+            let AVG_MM_ANN_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT"))); //평균연차수당, numavg_monthly_annual_amt
+            let AVG_MM_ANN_AMT_NORM 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_NORM"))); //평균연차수당, numavg_monthly_annual_amt_norm
+            let AVG_MM_ANN_AMT_PEAK 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_PEAK"))); //평균연차수당, numavg_monthly_annual_amt_peak
+
+            let RET_CALC_TYPE		= gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE'); //퇴직정산구분
+
+            if (_.isEqual(RET_CALC_TYPE, 'RETIRE') || _.isEqual(RET_CALC_TYPE, 'MIDDLE')){
+
+                SBUxMethod.set("AVG_MM_BONUS_AMT", 			    Math.floor(dSum / 4)); //평균상여
+                SBUxMethod.set("AVG_MM_BONUS_AMT_NORM", 	    Math.floor(dSumNorm / 4)); //평균상여
+                SBUxMethod.set("AVG_MM_BONUS_AMT_PEAK", 		Math.Floor(dSumPeak / 4)); //평균상여
+
+                if (dDaySum != 0)
+                {
+                    let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                    SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                    //numavg_monthly_retire_amt.Value = Math.Floor((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                }
+
+                if (dDaySumNorm != 0)
+                {
+                    let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                    SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                    //numavg_monthly_retire_amt_norm.Value = Math.Floor((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                }
+
+                if (dDaySumPeak != 0)
+                {
+                    let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                    SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                    //numavg_monthly_retire_amt_peak.Value = Math.Floor((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                }
+            }
+            else if (RET_CALC_TYPE == 'RETIRE_P' || RET_CALC_TYPE == 'MIDDLE_P') {
+
+                SBUxMethod.set("AVG_MM_BONUS_AMT", 			    Math.floor(dSum / 4)); //평균상여
+                SBUxMethod.set("AVG_MM_BONUS_AMT_NORM", 	    Math.floor(dSumNorm / 4)); //평균상여
+                SBUxMethod.set("AVG_MM_BONUS_AMT_PEAK", 		Math.Floor(dSumPeak / 4)); //평균상여
+
+                if (dDaySum != 0)
+                {
+                    let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                    SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                    //numavg_monthly_retire_amt.Value = Math.Floor((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                }
+
+                if (dDaySumNorm != 0)
+                {
+                    let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                    SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                    //numavg_monthly_retire_amt_norm.Value = Math.Floor((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                }
+
+                if (dDaySumPeak != 0)
+                {
+                    let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                    SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                    //numavg_monthly_retire_amt_peak.Value = Math.Floor((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                }
+            }
         }
     }
 
@@ -2815,16 +3070,16 @@
      */
     const fn_search = async function () {
 
-        let SITE_CODE           = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
-        //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("srch-ret_calc_type")); //퇴직정산구분
-        let RET_CALC_TYPE		= gfnma_multiSelectGet('#srch-ret_calc_type');
-        let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_fr")); //정산종료일
-        let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_to")); //정산종료일
-        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사번
-        let EMP_NAME            = gfnma_nvl(SBUxMethod.get("srch-emp_name")); //이름
-        let RET_CALC_DAT        = gfnma_nvl(SBUxMethod.get("srch-ret_calc_dat")); //정산일
-        let CALCULATE_TAX_YN    = gfnma_nvl(SBUxMethod.get("srch-calculate_tax_yn")); //과세계산여부
-        let CALCULATE_PREV_YN   = gfnma_nvl(SBUxMethod.get("srch-calculate_prev_yn")); //중간지급 포함
+        let SITE_CODE           = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_TYPE")); //퇴직정산구분
+        let RET_CALC_TYPE		= gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
+        let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_FR")); //정산종료일
+        let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_TO")); //정산종료일
+        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
+        let EMP_NAME            = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
+        let RET_CALC_DAT        = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_DAT")); //정산일
+        let CALCULATE_TAX_YN    = gfnma_nvl(SBUxMethod.get("SRCH_CALCULATE_TAX_YN")); //과세계산여부
+        let CALCULATE_PREV_YN   = gfnma_nvl(SBUxMethod.get("SRCH_CALCULATE_PREV_YN")); //중간지급 포함
 
         if (!RET_CALC_TYPE) {
             gfn_comAlert("W0002", "퇴직정산구분");
@@ -2929,7 +3184,6 @@
     async function fn_view() {
 
         let nRow = gvwMasterGrid.getRow();
-        console.log('-----nRow-------', nRow);
 
         if (nRow == -1) {
             nRow = 1; //그리드 로우 첫번째값 셋팅
@@ -2943,20 +3197,20 @@
             return;
         }
 
-        job_group = rowData.JOB_GROUP;
-        avg_pay_type = rowData.AVG_PAY_TYPE;
+        strjob_group = rowData.JOB_GROUP;
+        stravg_pay_type = rowData.AVG_PAY_TYPE;
 
 
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
-        //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("srch-ret_calc_type")); //퇴직정산구분
-        let RET_CALC_TYPE = gfnma_multiSelectGet('#srch-ret_calc_type');
-        let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_fr")); //정산종료일
-        let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_to")); //정산종료일
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사번
-        let EMP_NAME = gfnma_nvl(SBUxMethod.get("srch-emp_name")); //이름
-        let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("srch-ret_calc_dat")); //정산일
-        let CALCULATE_TAX_YN = gfnma_nvl(SBUxMethod.get("srch-calculate_tax_yn")); //과세계산여부
-        let CALCULATE_PREV_YN = gfnma_nvl(SBUxMethod.get("srch-calculate_prev_yn")); //중간지급 포함
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_TYPE")); //퇴직정산구분
+        let RET_CALC_TYPE = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
+        let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_FR")); //정산종료일
+        let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_TO")); //정산종료일
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
+        let EMP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
+        let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_DAT")); //정산일
+        let CALCULATE_TAX_YN = gfnma_nvl(SBUxMethod.get("SRCH_CALCULATE_TAX_YN")); //과세계산여부
+        let CALCULATE_PREV_YN = gfnma_nvl(SBUxMethod.get("SRCH_CALCULATE_PREV_YN")); //중간지급 포함
 
         if (!RET_CALC_TYPE) {
             gfn_comAlert("W0002", "퇴직정산구분");
@@ -2975,8 +3229,8 @@
             return;
         }
 
+        await fn_clearForm();
 
-        fn_clearForm(); //view 조회시 조회되는  테이블 그리드 초기화
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
@@ -3054,15 +3308,16 @@
                     SBUxMethod.set("WORKING_DAY_CNT2", gfnma_nvl(item.WORKING_DAY_CNT2));
                     SBUxMethod.set("WORKING_DAY_CNT2_NORM", gfnma_nvl(item.WORKING_DAY_CNT2_NORM));
                     SBUxMethod.set("WORKING_DAY_CNT2_PEAK", gfnma_nvl(item.WORKING_DAY_CNT2_PEAK));
+                    // -- 일단 화면에 보이지 않고 숨겨두고 바인딩.
                     SBUxMethod.set("LIVE_YN", gfnma_nvl(item.LIVE_YN));
                     SBUxMethod.set("LIVE_NATION_CODE", gfnma_nvl(item.LIVE_NATION_CODE));
                     SBUxMethod.set("TO_DC_YN", gfnma_nvl(item.TO_DC_YN));
 
 
-                    //회계처리( 퇴직일자)
-                    SBUxMethod.set("PAY_DATE", gfnma_nvl(item.CALC_END_DAT));
-                    //회계처리( 귀속년월)
-                    SBUxMethod.set("PAY_YYYYMM", gfnma_nvl(item.CALC_END_DAT));
+                    /* //회계처리( 퇴직일자)
+                     SBUxMethod.set("PAY_DATE", gfnma_nvl(item.CALC_END_DAT));
+                     //회계처리( 귀속년월)
+                     SBUxMethod.set("PAY_YYYYMM", gfnma_nvl(item.CALC_END_DAT));*/
                 });
 
                 /*-- [TAB1] 퇴직급여 현황
@@ -3342,7 +3597,10 @@
                 gvwChangeGrid.rebuild();
 
 
-                fn_searchQ2();
+                SBUxMethod.set("CALCULATE_TAX_YN", 'Y'); //과세 재계산
+
+                fn_searchTabInfo4();
+                //fn_searchQ2();
 
             } else {
                 alert(data.resultMessage);
@@ -3355,7 +3613,42 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
+    }
 
+    /**
+     * 퇴직급여 전표처리 조회 프로시저 (회계처리 TAB)
+     */
+    const fn_searchTabInfo4 = async function () {
+
+        let tabId = SBUxMethod.get('tabJson');
+
+        let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT")); // 정산종료일
+        let CALC_END = CALC_END_DAT == '' ? '' : CALC_END_DAT.slice(0, -2);
+
+        console.log('-----CALC_END_DAT-------', CALC_END_DAT);
+        console.log('-----CALC_END-------', CALC_END);
+
+        SBUxMethod.set("PAY_YYYYMM", CALC_END); //귀속년월
+        SBUxMethod.set("PAY_DATE", CALC_END_DAT); //퇴직일자
+
+        if (_.isEqual(tabId, 'tabInfo4')) {
+
+            if (CALC_END != '') {
+
+                await fn_searchQ2();
+                fn_searchQH();
+
+            } else {
+
+                SBUxMethod.set("POSTING_DATE", ''); //회계처리일자
+                SBUxMethod.set("POSTING_STATUS", ''); //진행상태
+                SBUxMethod.set("DOC_NAME", ''); //전표번호
+                SBUxMethod.set("DOC_ID", ''); //
+                SBUxMethod.set("MEMO", ''); //메모
+                SBUxMethod.set("EXPECTED_PAY_DATE", ''); //지급일
+
+            }
+        }
     }
 
     /**
@@ -3476,7 +3769,7 @@
 
                     gvwInfoGrid.rebuild();
 
-                    fn_searchQH();
+                    //fn_searchQH();
 
                 } else {
                     alert(data.resultMessage);
@@ -3545,7 +3838,7 @@
 
             const postJsonPromise = gfn_postJSON("/hr/hrp/ret/selectHra5150Q2.do", {
                 getType: 'json',
-                workType: 'Q',
+                workType: 'HEADER',
                 cv_count: '3',
                 params: gfnma_objectToString(paramObj)
             });
@@ -3555,7 +3848,7 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
-                    data.cv_1.forEach((item, index) => {
+                    data.cv_3.forEach((item, index) => {
 
                         SBUxMethod.set("PAY_YYYYMM", 			gfnma_nvl(item.PAY_YYYYMM));
                         gfnma_multiSelectSet('#RET_CALC_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(item.PAY_TYPE));
@@ -3608,56 +3901,56 @@
             })
 
             /*********정산 기본 정보***********/
-            let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("RET_CALC_TYPE1")); //퇴직정산구분
-            let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
-            let ENTER_DATE = gfnma_nvl(SBUxMethod.get("ENTER_DATE")); //입사일
-            let RET_DAT = gfnma_nvl(SBUxMethod.get("RET_DAT")); //퇴사일
-            let CALCULATE_TAX_YN = SBUxMethod.get("CALCULATE_TAX_YN"); //과세 재계산
-            let CALC_ST_DAT = gfnma_nvl(SBUxMethod.get("CALC_ST_DAT")); //정산시작일
-            let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT")); //정산종료일
+            let RET_CALC_TYPE       = gfnma_nvl(SBUxMethod.get("RET_CALC_TYPE1")); //퇴직정산구분
+            let EMP_CODE            = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
+            let ENTER_DATE          = gfnma_nvl(SBUxMethod.get("ENTER_DATE")); //입사일
+            let RET_DAT             = gfnma_nvl(SBUxMethod.get("RET_DAT")); //퇴사일
+            let CALCULATE_TAX_YN    = gfnma_nvl(SBUxMethod.get("CALCULATE_TAX_YN").CALCULATE_TAX_YN); //과세 재계산
+            let CALC_ST_DAT         = gfnma_nvl(SBUxMethod.get("CALC_ST_DAT")); //정산시작일
+            let CALC_END_DAT        = gfnma_nvl(SBUxMethod.get("CALC_END_DAT")); //정산종료일
             /*let RET_REASON = gfnma_nvl(SBUxMethod.get("RET_REASON")); //퇴사사유*/
-            let RET_REASON		= gfnma_multiSelectGet('#RET_REASON');//퇴사사유
-            let RET_PENS_ST_DAT = gfnma_nvl(SBUxMethod.get("RET_PENS_ST_DAT")); //확정급여형 퇴직연금제도 가입일
-            let LIVE_YN = SBUxMethod.get("LIVE_YN"); //거주구분
-            let LIVE_NATION_CODE = gfnma_nvl(SBUxMethod.get("LIVE_NATION_CODE")); //거주지국
+            let RET_REASON		    = gfnma_multiSelectGet('#RET_REASON');//퇴사사유
+            let RET_PENS_ST_DAT     = gfnma_nvl(SBUxMethod.get("RET_PENS_ST_DAT")); //확정급여형 퇴직연금제도 가입일
+            let LIVE_YN             = gfnma_nvl(SBUxMethod.get("LIVE_YN").LIVE_YN); //거주구분
+            let LIVE_NATION_CODE    = gfnma_nvl(SBUxMethod.get("LIVE_NATION_CODE")); //거주지국
 
 
             /*********정산 기본 정보***********/
-            let ANN_BENEFIT_AMT = gfnma_nvl(SBUxMethod.get("ANN_BENEFIT_AMT")); //연차수당
-            let PAY_MULTIPLE_NUMBER = gfnma_nvl(SBUxMethod.get("PAY_MULTIPLE_NUMBER")); //지급배수
-            let CUMULATIVE_DAY_CNT = gfnma_nvl(SBUxMethod.get("CUMULATIVE_DAY_CNT")); //누적일수
-            let RET_BONUS_ETC = gfnma_nvl(SBUxMethod.get("RET_BONUS_ETC")); //퇴직위로금등
-            let AVG_MM_PAY_AMT = gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT")); //평균급여
-            let AVG_MM_BONUS_AMT = gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT")); //평균상여
-            let AVG_MM_ANN_AMT = gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT")); //평균연차수당
-            let AVG_MM_RET_AMT = gfnma_nvl(SBUxMethod.get("AVG_MM_RET_AMT")); //평균임금
-            let TXFREE_RET_INC_AMT = gfnma_nvl(SBUxMethod.get("TXFREE_RET_INC_AMT")); //비과세 퇴직급여
-            let EXCP_MM_BEF_CNT = gfnma_nvl(SBUxMethod.get("EXCP_MM_BEF_CNT")); //최종분 제외월수(20121231이전)
-            let EXCP_MM_AFT_CNT = gfnma_nvl(SBUxMethod.get("EXCP_MM_AFT_CNT")); //최종분 제외월수(20130101이후)
-            let ADD_MM_BEF_CNT = gfnma_nvl(SBUxMethod.get("ADD_MM_BEF_CNT")); //최종분 가산월수(20121231이전)
-            let ADD_MM_AFT_CNT = gfnma_nvl(SBUxMethod.get("ADD_MM_AFT_CNT")); //최종분 가산월수(20130101이후)
+            let ANN_BENEFIT_AMT         = gfnma_nvl(SBUxMethod.get("ANN_BENEFIT_AMT")); //연차수당
+            let PAY_MULTIPLE_NUMBER     = gfnma_nvl(SBUxMethod.get("PAY_MULTIPLE_NUMBER")); //지급배수
+            let CUMULATIVE_DAY_CNT      = gfnma_nvl(SBUxMethod.get("CUMULATIVE_DAY_CNT")); //누적일수
+            let RET_BONUS_ETC           = gfnma_nvl(SBUxMethod.get("RET_BONUS_ETC")); //퇴직위로금등
+            let AVG_MM_PAY_AMT          = gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT")); //평균급여
+            let AVG_MM_BONUS_AMT        = gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT")); //평균상여
+            let AVG_MM_ANN_AMT          = gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT")); //평균연차수당
+            let AVG_MM_RET_AMT          = gfnma_nvl(SBUxMethod.get("AVG_MM_RET_AMT")); //평균임금
+            let TXFREE_RET_INC_AMT      = gfnma_nvl(SBUxMethod.get("TXFREE_RET_INC_AMT")); //비과세 퇴직급여
+            let EXCP_MM_BEF_CNT         = gfnma_nvl(SBUxMethod.get("EXCP_MM_BEF_CNT")); //최종분 제외월수(20121231이전)
+            let EXCP_MM_AFT_CNT         = gfnma_nvl(SBUxMethod.get("EXCP_MM_AFT_CNT")); //최종분 제외월수(20130101이후)
+            let ADD_MM_BEF_CNT          = gfnma_nvl(SBUxMethod.get("ADD_MM_BEF_CNT")); //최종분 가산월수(20121231이전)
+            let ADD_MM_AFT_CNT          = gfnma_nvl(SBUxMethod.get("ADD_MM_AFT_CNT")); //최종분 가산월수(20130101이후)
             //let IRP_BANK_CODE = gfnma_nvl(SBUxMethod.get("IRP_BANK_CODE")); //
-            let IRP_BANK_CODE	= gfnma_multiSelectGet('#IRP_BANK_CODE');//
-            let IRP_BIZ_REGNO = gfnma_nvl(SBUxMethod.get("IRP_BIZ_REGNO")); //
-            let IRP_BANK_ACC = gfnma_nvl(SBUxMethod.get("IRP_BANK_ACC")); //
-            let RET_PENS_END_DAT = gfnma_nvl(SBUxMethod.get("RET_PENS_END_DAT")); //
-            let RET_PENS_AMT = gfnma_nvl(SBUxMethod.get("RET_PENS_AMT")); //계좌입금금액
-            let COM_PAY_AMT = gfnma_nvl(SBUxMethod.get("COM_PAY_AMT")); //
-            let PAY_AMT_SUM = gfnma_nvl(SBUxMethod.get("PAY_AMT_SUM")); //
-            let REAL_PAY_AMT = gfnma_nvl(SBUxMethod.get("REAL_PAY_AMT")); //
-            let BANK_CODE = gfnma_nvl(SBUxMethod.get("BANK_CODE")); //
-            let BANK_ACC = gfnma_nvl(SBUxMethod.get("BANK_ACC")); //
-            let BANK_DEPOR = gfnma_nvl(SBUxMethod.get("BANK_DEPOR")); //
-            let PENS_BANK_CODE1 = gfnma_nvl(SBUxMethod.get("PENS_BANK_CODE1")); //
-            let INSURER1_PAY_AMT = gfnma_nvl(SBUxMethod.get("INSURER1_PAY_AMT")); //
-            let PENS_BANK_CODE2 = gfnma_nvl(SBUxMethod.get("PENS_BANK_CODE2")); //
-            let INSURER2_PAY_AMT = gfnma_nvl(SBUxMethod.get("INSURER2_PAY_AMT")); //
-            let PENS_BANK_CODE3 = gfnma_nvl(SBUxMethod.get("PENS_BANK_CODE3")); //
-            let INSURER3_PAY_AMT = gfnma_nvl(SBUxMethod.get("INSURER3_PAY_AMT")); //
-            let INSURANCE_RETIRE_CHG = gfnma_nvl(SBUxMethod.get("INSURANCE_RETIRE_CHG")); //
-            let RETIRE_ESTIMATE_AMT = gfnma_nvl(SBUxMethod.get("RETIRE_ESTIMATE_AMT")); //
-            let COMP_TAX_PAY_YN = SBUxMethod.get("COMP_TAX_PAY_YN"); //
-            let TO_DC_YN = SBUxMethod.get("TO_DC_YN"); //
+            let IRP_BANK_CODE	        = gfnma_multiSelectGet('#IRP_BANK_CODE');//
+            let IRP_BIZ_REGNO           = gfnma_nvl(SBUxMethod.get("IRP_BIZ_REGNO")); //
+            let IRP_BANK_ACC            = gfnma_nvl(SBUxMethod.get("IRP_BANK_ACC")); //
+            let RET_PENS_END_DAT        = gfnma_nvl(SBUxMethod.get("RET_PENS_END_DAT")); //
+            let RET_PENS_AMT            = gfnma_nvl(SBUxMethod.get("RET_PENS_AMT")); //계좌입금금액
+            let COM_PAY_AMT             = gfnma_nvl(SBUxMethod.get("COM_PAY_AMT")); //
+            let PAY_AMT_SUM             = gfnma_nvl(SBUxMethod.get("PAY_AMT_SUM")); //
+            let REAL_PAY_AMT            = gfnma_nvl(SBUxMethod.get("REAL_PAY_AMT")); //
+            let BANK_CODE               = gfnma_nvl(SBUxMethod.get("BANK_CODE")); //
+            let BANK_ACC                = gfnma_nvl(SBUxMethod.get("BANK_ACC")); //
+            let BANK_DEPOR              = gfnma_nvl(SBUxMethod.get("BANK_DEPOR")); //
+            let PENS_BANK_CODE1         = gfnma_nvl(SBUxMethod.get("PENS_BANK_CODE1")); //
+            let INSURER1_PAY_AMT        = gfnma_nvl(SBUxMethod.get("INSURER1_PAY_AMT")); //
+            let PENS_BANK_CODE2         = gfnma_nvl(SBUxMethod.get("PENS_BANK_CODE2")); //
+            let INSURER2_PAY_AMT        = gfnma_nvl(SBUxMethod.get("INSURER2_PAY_AMT")); //
+            let PENS_BANK_CODE3         = gfnma_nvl(SBUxMethod.get("PENS_BANK_CODE3")); //
+            let INSURER3_PAY_AMT        = gfnma_nvl(SBUxMethod.get("INSURER3_PAY_AMT")); //
+            let INSURANCE_RETIRE_CHG    = gfnma_nvl(SBUxMethod.get("INSURANCE_RETIRE_CHG")); //
+            let RETIRE_ESTIMATE_AMT     = gfnma_nvl(SBUxMethod.get("RETIRE_ESTIMATE_AMT")); //
+            let COMP_TAX_PAY_YN         = gfnma_nvl(SBUxMethod.get("COMP_TAX_PAY_YN").COMP_TAX_PAY_YN); //
+            let TO_DC_YN                = gfnma_nvl(SBUxMethod.get("TO_DC_YN").TO_DC_YN); //
 
 
             var paramObj = {
@@ -3666,55 +3959,55 @@
                 , V_P_COMP_CODE: gv_ma_selectedApcCd
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                , V_P_RET_CALC_DAT: rowData.RET_CALC_DAT
-                , V_P_RET_CALC_TYPE: RET_CALC_TYPE
-                , V_P_EMP_CODE: EMP_CODE
-                , V_P_ENTER_DAT: ENTER_DATE
-                , V_P_RET_DAT: RET_DAT
-                , V_P_CALCULATE_TAX_YN: CALCULATE_TAX_YN.CALCULATE_TAX_YN
-                , V_P_CALC_ST_DAT: CALC_ST_DAT
-                , V_P_CALC_END_DAT: CALC_END_DAT
-                , V_P_RET_REASON: RET_REASON
-                , V_P_RETIRE_PENSION_ST_DAT: RET_PENS_ST_DAT
-                , V_P_LIVE_YN: LIVE_YN.LIVE_YN
-                , V_P_LIVE_NATION_CODE: LIVE_NATION_CODE
+                , V_P_RET_CALC_DAT          : gfnma_nvl(rowData.RET_CALC_DAT)
+                , V_P_RET_CALC_TYPE         : RET_CALC_TYPE
+                , V_P_EMP_CODE              : EMP_CODE
+                , V_P_ENTER_DAT             : ENTER_DATE
+                , V_P_RET_DAT               : RET_DAT
+                , V_P_CALCULATE_TAX_YN      : CALCULATE_TAX_YN == '' ? 'N' : CALCULATE_TAX_YN
+                , V_P_CALC_ST_DAT           : CALC_ST_DAT
+                , V_P_CALC_END_DAT          : CALC_END_DAT
+                , V_P_RET_REASON            : RET_REASON
+                , V_P_RETIRE_PENSION_ST_DAT : RET_PENS_ST_DAT
+                , V_P_LIVE_YN               : LIVE_YN == '' ? 'N' : LIVE_YN
+                , V_P_LIVE_NATION_CODE      : LIVE_NATION_CODE
 
                 // -- @P_WORKING_YEAR_CNT       INT,  -- 근무년수-- @P_WORKING_MM_CNT      INT,  -- 근무월수-- @P_WORKING_DAY_CNT       INT,  -- 근무일수-- @P_BF_3MM_DAY_CNT    INT,
-                , V_P_ANN_BENEFIT_AMT: ANN_BENEFIT_AMT // -- 연차수당 (V)
-                , V_P_PAY_MULTIPLE_NUMBER: PAY_MULTIPLE_NUMBER // -- 지급배수
-                , V_P_CUMULATIVE_DAY_CNT: CUMULATIVE_DAY_CNT // -- 누적일수
-                , V_P_RET_BONUS_ETC: RET_BONUS_ETC // -- 퇴직위로금등
-                , V_P_AVG_MM_PAY_AMT: AVG_MM_PAY_AMT // -- 평균급여
-                , V_P_AVG_MM_BONUS_AMT: AVG_MM_BONUS_AMT // -- 평균상여
-                , V_P_AVG_MM_ANN_AMT: AVG_MM_ANN_AMT // -- 평균연차수당
-                , V_P_AVG_MM_RET_AMT: AVG_MM_RET_AMT //  -- 평균임금
-                , V_P_TAX_FREE_RETIRE_INC_AMT: TXFREE_RET_INC_AMT // -- 최종분 비과세 퇴직급여
-                , V_P_EXCP_MM_BEF_CNT: EXCP_MM_BEF_CNT //  -- 최종분 제외월수(20121231이전)
-                , V_P_EXCP_MM_AFT_CNT: EXCP_MM_AFT_CNT //  -- 최종분 제외월수(20130101이후)
-                , V_P_ADD_MM_BEF_CNT: ADD_MM_BEF_CNT // -- 최종분 가산월수(20121231이전)
-                , V_P_ADD_MM_AFT_CNT: ADD_MM_AFT_CNT //  -- 최종분 가산월수(20130101이후)
-                , V_P_IRP_BANK_CODE: IRP_BANK_CODE
-                , V_P_IRP_BIZ_REGNO: IRP_BIZ_REGNO
-                , V_P_IRP_BANK_ACC: IRP_BANK_ACC
-                , V_P_RETIRE_PENSION_END_DAT: RET_PENS_END_DAT
-                , V_P_RET_PENS_AMT: RET_PENS_AMT
-                , V_P_COM_PAY_AMT: COM_PAY_AMT
-                , V_P_PAY_AMT_SUM: PAY_AMT_SUM
-                , V_P_REAL_PAY_AMT: REAL_PAY_AMT
-                , V_P_BANK_CODE: BANK_CODE
-                , V_P_BANK_ACC: BANK_ACC
-                , V_P_BANK_DEPOR: BANK_DEPOR
-                , V_P_PENS_BANK_CODE1: PENS_BANK_CODE1
-                , V_P_INSURER1_PAY_AMT: INSURER1_PAY_AMT
-                , V_P_PENS_BANK_CODE2: PENS_BANK_CODE2
-                , V_P_INSURER2_PAY_AMT: INSURER2_PAY_AMT
-                , V_P_PENS_BANK_CODE3: PENS_BANK_CODE3
-                , V_P_INSURER3_PAY_AMT: INSURER3_PAY_AMT
-                , V_P_INSURANCE_RETIRE_CHG: INSURANCE_RETIRE_CHG
-                , V_P_RETIRE_ESTIMATE_AMT: RETIRE_ESTIMATE_AMT
-                , V_P_COMP_TAX_PAY_YN: COMP_TAX_PAY_YN.COMP_TAX_PAY_YN
-                , V_P_BEF_3MM_DAY_CNT: dDaySum
-                , V_P_TO_DC_YN: TO_DC_YN.TO_DC_YN
+                , V_P_ANN_BENEFIT_AMT           : ANN_BENEFIT_AMT // -- 연차수당 (V)
+                , V_P_PAY_MULTIPLE_NUMBER       : PAY_MULTIPLE_NUMBER // -- 지급배수
+                , V_P_CUMULATIVE_DAY_CNT        : CUMULATIVE_DAY_CNT // -- 누적일수
+                , V_P_RET_BONUS_ETC             : RET_BONUS_ETC // -- 퇴직위로금등
+                , V_P_AVG_MM_PAY_AMT            : AVG_MM_PAY_AMT // -- 평균급여
+                , V_P_AVG_MM_BONUS_AMT          : AVG_MM_BONUS_AMT // -- 평균상여
+                , V_P_AVG_MM_ANN_AMT            : AVG_MM_ANN_AMT // -- 평균연차수당
+                , V_P_AVG_MM_RET_AMT            : AVG_MM_RET_AMT //  -- 평균임금
+                , V_P_TAX_FREE_RETIRE_INC_AMT   : TXFREE_RET_INC_AMT // -- 최종분 비과세 퇴직급여
+                , V_P_EXCP_MM_BEF_CNT           : EXCP_MM_BEF_CNT //  -- 최종분 제외월수(20121231이전)
+                , V_P_EXCP_MM_AFT_CNT           : EXCP_MM_AFT_CNT //  -- 최종분 제외월수(20130101이후)
+                , V_P_ADD_MM_BEF_CNT            : ADD_MM_BEF_CNT // -- 최종분 가산월수(20121231이전)
+                , V_P_ADD_MM_AFT_CNT            : ADD_MM_AFT_CNT //  -- 최종분 가산월수(20130101이후)
+                , V_P_IRP_BANK_CODE             : IRP_BANK_CODE
+                , V_P_IRP_BIZ_REGNO             : IRP_BIZ_REGNO
+                , V_P_IRP_BANK_ACC              : IRP_BANK_ACC
+                , V_P_RETIRE_PENSION_END_DAT    : RET_PENS_END_DAT
+                , V_P_RET_PENS_AMT              : RET_PENS_AMT
+                , V_P_COM_PAY_AMT               : COM_PAY_AMT
+                , V_P_PAY_AMT_SUM               : PAY_AMT_SUM
+                , V_P_REAL_PAY_AMT              : REAL_PAY_AMT
+                , V_P_BANK_CODE                 : BANK_CODE
+                , V_P_BANK_ACC                  : BANK_ACC
+                , V_P_BANK_DEPOR                : BANK_DEPOR
+                , V_P_PENS_BANK_CODE1           : PENS_BANK_CODE1
+                , V_P_INSURER1_PAY_AMT          : INSURER1_PAY_AMT
+                , V_P_PENS_BANK_CODE2           : PENS_BANK_CODE2
+                , V_P_INSURER2_PAY_AMT          : INSURER2_PAY_AMT
+                , V_P_PENS_BANK_CODE3           : PENS_BANK_CODE3
+                , V_P_INSURER3_PAY_AMT          : INSURER3_PAY_AMT
+                , V_P_INSURANCE_RETIRE_CHG      : INSURANCE_RETIRE_CHG
+                , V_P_RETIRE_ESTIMATE_AMT       : RETIRE_ESTIMATE_AMT
+                , V_P_COMP_TAX_PAY_YN           : COMP_TAX_PAY_YN == '' ? 'N' : COMP_TAX_PAY_YN
+                , V_P_BEF_3MM_DAY_CNT           : dDaySum
+                , V_P_TO_DC_YN                  : TO_DC_YN == '' ? 'N' : TO_DC_YN
 
                 , V_P_FORM_ID: p_formId
                 , V_P_MENU_ID: p_menuId
@@ -4028,10 +4321,33 @@
 
         }
     }
+    async function gridValueChangedMaster() {
+
+        var nCol = gvwMasterGrid.getCol();
+
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = gvwMasterGrid.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        if (_.isEmpty(rowData)){
+            return;
+        }else{
+            strjob_group = rowData.JOB_GROUP;
+            stravg_pay_type = rowData.AVG_PAY_TYPE;
+        }
+
+    }
+
 
     async function gridValueChanged1() {
 
         var nCol = gvwPayGrid.getCol();
+        console.log('----------col------------',nCol);
+
         if (nCol < 1) {
             return;
         }
@@ -4040,12 +4356,367 @@
             return;
         }
 
-        //급여내역 시작일과 종료일을 계산하여 적용일수 셋팅
+        let rowData = gvwPayGrid.getRowData(nRow);
+        //let _monthly_bonus_amt = 0;
+
+        if (_.isEmpty(rowData)){
+            return;
+        }/*else{
+            _monthly_bonus_amt = rowData.APPLY_AMT
+        }*/
+
+        console.log('----------gvwPayGrid.getColRef("END_DAT")------------',gvwPayGrid.getColRef("END_DAT") );
+        console.log('----------gvwPayGrid.getColRef("END_DAT")------------',gvwPayGrid.getColRef("END_DAT") == 6);
+        if (gvwPayGrid.getColRef("APPLY_AMT") == nCol || gvwPayGrid.getColRef("APPLY_DAYS") == nCol) {
+            //gvwPay.UpdateSummary();
+
+            let dSum = 0;
+            let dDaySum = 0;
+            let dSumPeak = 0;
+            let dDaySumPeak = 0;
+            let dSumNorm = 0;
+            let dDaySumNorm = 0;
+
+            let alldata = gvwPayGrid.getGridDataAll();
+
+            alldata.forEach((item,index) => {
+                if (item.PEAK_YN == 'N') {
+                    dSum        += Number(item.APPLY_AMT);
+                    dDaySum     += Number(item.APPLY_DAYS);
+                    dSumNorm    += Number(item.APPLY_AMT);
+                    dDaySumNorm += Number(item.APPLY_DAYS);
+                } else {
+                    dSumPeak    += Number(item.APPLY_AMT);
+                    dDaySumPeak += Number(item.APPLY_DAYS);
+
+                }
+            });
+
+            SBUxMethod.set("BEF_3MM_DAY_CNT", dDaySum);
+            SBUxMethod.set("BEF_3MM_DAY_CNT_PEAK", dDaySumNorm);
+            SBUxMethod.set("BEF_3MM_DAY_CNT_NORM", dDaySumPeak);
+           /* numbef_3mm_day_cnt.Text = dDaySum.ToString();
+            numbef_3mm_day_cnt_norm.Text = dDaySumNorm.ToString();
+            numbef_3mm_day_cnt_peak.Text = dDaySumPeak.ToString();*/
+            // SetMessageBox("stravg_pay_type : " + stravg_pay_type);
+            // SetMessageBox("strjob_group : " + strjob_group);
+            // SetMessageBox("numbef_3mm_day_cnt.Text : " + numbef_3mm_day_cnt.Text);
+            let RET_CALC_TYPE		= gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE'); // 퇴직정산구분
+            //let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT")); // 정산종료일
+
+            if (RET_CALC_TYPE == 'RETIRE' || RET_CALC_TYPE == "MIDDLE") {
+                //numavg_monthly_pay_amt.Value = Math.Floor(dSum / 3);
+                avg_mm_pay_amt
+                SBUxMethod.set("AVG_MM_PAY_AMT", dSum);
+                SBUxMethod.set("AVG_MM_PAY_AMT_NORM", dSumNorm);
+                SBUxMethod.set("AVG_MM_PAY_AMT_PEAK", dSumPeak);
+
+                let AVG_MM_PAY_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT"))); //평균급여, numavg_monthly_pay_amt
+                let AVG_MM_PAY_AMT_NORM	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_NORM"))); //평균급여, numavg_monthly_pay_amt_norm
+                let AVG_MM_PAY_AMT_PEAK	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_PEAK"))); //평균급여, numavg_monthly_pay_amt_peak
+
+                let AVG_MM_BONUS_AMT	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT"))); //평균상여, numavg_monthly_bonus_amt
+                let AVG_MM_BONUS_AMT_NORM	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_NORM"))); //평균상여, numavg_monthly_bonus_amt_norm
+                let AVG_MM_BONUS_AMT_PEAK	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_PEAK"))); //평균상여, numavg_monthly_bonus_amt_peak
+
+                let AVG_MM_ANN_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT"))); //평균연차수당, numavg_monthly_annual_amt
+                let AVG_MM_ANN_AMT_NORM 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_NORM"))); //평균연차수당, numavg_monthly_annual_amt_norm
+                let AVG_MM_ANN_AMT_PEAK 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_PEAK"))); //평균연차수당, numavg_monthly_annual_amt_peak
+
+                if (stravg_pay_type == '10') {
+                    //if (gvwPay.Columns["apply_days"].SummaryText != "0")
+
+                    if (dDaySum != 0) {
+                        let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                        SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                        //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum); // Int32.Parse(gvwPay.Columns["apply_days"].SummaryText)
+
+                    }
+
+                    if (dDaySumNorm != 0) {
+                        let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                        SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                        //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                    }
+
+                    if (dDaySumPeak != 0) {
+                        let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                        SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                        //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                    }
+                } else if (stravg_pay_type == "20") {
+                    if (strjob_group == "3") {
+                        if (dDaySum != 0) {
+                            let AVG_MM_RET_AMT= Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.trunc((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    } else {
+                        if (dDaySum != 0) {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 360) + (numannual_benefit_amt.Value / 360));
+                        } else {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (numavg_monthly_bonus_amt.Value * 4 / 360) + (numannual_benefit_amt.Value / 360));
+                        }
+
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_NORM / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 360) + (numannual_benefit_amt_norm.Value / 360));
+                        } else {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_NORM / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value) + (numavg_monthly_bonus_amt_norm.Value * 4 / 360) + (numannual_benefit_amt_norm.Value / 360));
+                        }
+
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 360) + (numannual_benefit_amt_peak.Value / 360));
+                        } else {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (numavg_monthly_bonus_amt_peak.Value * 4 / 360) + (numannual_benefit_amt_peak.Value / 360));
+                        }
+                    }
+                } else if (stravg_pay_type == "30") {
+                    if (strjob_group == "3") {
+                        if (dDaySum != 0) {
+
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+
+
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    } else {
+
+                        if (dDaySum != 0) {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                           // numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        } else {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                }
+            } else if (RET_CALC_TYPE == 'RETIRE_P' || RET_CALC_TYPE == 'MIDDLE_P') {
+                if (stravg_pay_type == "10") {
+                    if (dDaySum != 0) {
+                        let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                        SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                        //numavg_monthly_retire_amt.Value = Math.Round((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                    }
+
+                    if (dDaySumNorm != 0) {
+                        let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                        SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                        //numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                    }
+
+                    if (dDaySumPeak != 0) {
+                        let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                        SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                        //numavg_monthly_retire_amt_peak.Value = Math.Round((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                    }
+                } else if (stravg_pay_type == "20") {
+                    if (strjob_group == "3") {
+                        if (dDaySum != 0) {
+                            let AVG_MM_RET_AMT= Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    } else {
+                        if (dDaySum != 0) {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 360) + (numannual_benefit_amt.Value / 360));
+                        }
+
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_NORM / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 360) + (numannual_benefit_amt_norm.Value / 360));
+                        }
+
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 360) + (numannual_benefit_amt_peak.Value / 360));
+                        }
+                    }
+                } else if (stravg_pay_type == "30") {
+                    if (strjob_group == "3") {
+                        if (dDaySum != 0) {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    } else {
+                        if (dDaySum != 0) {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (numavg_monthly_bonus_amt.Value * 4 / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+
+                        if (dDaySumNorm != 0) {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+
+                        if (dDaySumPeak != 0) {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (numavg_monthly_bonus_amt_peak.Value * 4 / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                }
+            }
+        }
+        else if (gvwPayGrid.getColRef("ST_DAT") == nCol || gvwPayGrid.getColRef("END_DAT") == nCol)
+        {
+            if (gfnma_nvl(rowData.ST_DAT) == '' || gfnma_nvl(rowData.END_DAT) == '')
+            {
+                gvwPayGrid.setCellData(nRow, gvwPayGrid.getColRef("APPLY_DAYS"), 0);
+                //gvwPay.SetValue("apply_days", 0);
+                return;
+            }
+
+            // 시작일과 종료일을 비교함
+            if (Number(gfnma_nvl(rowData.ST_DAT) == '' ? 0 : rowData.ST_DAT) > Number(gfnma_nvl(rowData.END_DAT) == '' ? 0 : rowData.END_DAT))
+            {
+                gfn_comAlert("Q0000", "적용시작일보다 적용종료일이 빠를 수 없습니다.");
+                //SetMessageBox(GetFormMessage("HRA5150_013")); // 적용시작일보다 적용종료일이 빠를 수 없습니다.
+                return;
+            }
+
+            let stDat = rowData.ST_DAT;
+            let endDat = rowData.END_DAT
+
+            let APPLY_DAYS = Number(endDat) - Number(stDat) + 1;
+
+            gvwPayGrid.setCellData(nRow,gvwPayGrid.getColRef("APPLY_DAYS"),APPLY_DAYS);
+
+            // 적용일수 계산
+           /* let istart_yyyy = 0;
+            let istart_mm = 0;
+            let istart_dd = 0;
+
+            let iend_yyyy = 0;
+            let iend_mm = 0;
+            let iend_dd = 0;
+
+            istart_yyyy = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(0, 4));
+            istart_mm = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(4, 2));
+            istart_dd = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(6, 2));
+
+            iend_yyyy = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(0, 4));
+            iend_mm = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(4, 2));
+            iend_dd = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(6, 2));
+
+            DateTime dtstart_date = new DateTime(istart_yyyy, istart_mm, istart_dd);
+            DateTime dtend_date = new DateTime(iend_yyyy, iend_mm, iend_dd);*/
+
+            //gvwPay.SetValue("apply_days", (dtend_date - dtstart_date).Days + 1);
+        }
+
+
+        /*//급여내역 시작일과 종료일을 계산하여 적용일수 셋팅
         if (nCol == 5 || nCol == 6) {
 
             let rowData = gvwPayGrid.getRowData(nRow);
             let stDat = rowData.ST_DAT;
-
             let endDat = rowData.END_DAT
 
             if (_.isEmpty(stDat) == false && _.isEmpty(endDat) == false) {
@@ -4061,8 +4732,441 @@
             }else{
                 gvwPayGrid.setCellData(nRow,gvwPayGrid.getColRef("APPLY_DAYS"),'');
             }
+        }*/
+    }
+
+    const gridValueChanged2 = async function () {
+
+        var nCol = gvwBonusGrid.getCol();
+        if (nCol < 1) {
+            return;
+        }
+        var nRow = gvwBonusGrid.getRow();
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwBonusGrid.getRowData(nRow);
+        if (_.isEmpty(rowData)) {
+            return;
+        }
+
+
+        if (gvwBonusGrid.getColRef("APPLY_AMT") == nCol)
+        {
+            let dSum = 0;
+            let dSumNorm = 0;
+            let dSumPeak = 0;
+
+            /*let _monthly_pay_amt = 0;
+            _monthly_pay_amt = Convert.ToDecimal(gvwPay.Columns["apply_amt"].SummaryText);*/
+
+            let alldata = gvwBonusGrid.getGridDataAll();
+
+
+            alldata.forEach((item,index) => {
+
+                if (_.isEqual(item.PEAK_YN, 'N')){
+                    dSum += Number(item.APPLY_AMT);
+                    dSumNorm += Number(item.APPLY_AMT);
+                }else{
+                    dSumPeak += Number(item.APPLY_AMT);
+                }
+            });
+
+            SBUxMethod.set("AVG_MM_BONUS_AMT", 			    Math.floor(dSum / 4)); //평균상여
+            SBUxMethod.set("AVG_MM_BONUS_AMT_NORM", 	    Math.floor(dSumNorm / 4)); //평균상여
+            SBUxMethod.set("AVG_MM_BONUS_AMT_PEAK", 		Math.Floor(dSumPeak / 4)); //평균상여
+
+            /*numavg_monthly_bonus_amt.Value = Math.Floor(dSum / 4);
+            numavg_monthly_bonus_amt_norm.Value = Math.Floor(dSumNorm / 4);
+            numavg_monthly_bonus_amt_peak.Value = Math.Floor(dSumPeak / 4);*/
+
+            let dDaySum = 0;
+            let dDaySumPeak = 0;
+            let dDaySumNorm = 0;
+
+            let gridPay = gvwPayGrid.getGridDataAll();
+
+            gridPay.forEach((item,index) =>{
+                if (item.PEAK_YN == 'N')
+                {
+                    dDaySum += item.APPLY_DAYS;
+                    dDaySumNorm += item.APPLY_DAYS;
+                }
+                else
+                {
+                    dDaySumPeak += item.APPLY_DAYS;
+                }
+            });
+
+            let AVG_MM_PAY_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT"))); //평균급여, numavg_monthly_pay_amt
+            let AVG_MM_PAY_AMT_NORM	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_NORM"))); //평균급여, numavg_monthly_pay_amt_norm
+            let AVG_MM_PAY_AMT_PEAK	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_PAY_AMT_PEAK"))); //평균급여, numavg_monthly_pay_amt_peak
+
+            let AVG_MM_BONUS_AMT	    = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT"))); //평균상여, numavg_monthly_bonus_amt
+            let AVG_MM_BONUS_AMT_NORM	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_NORM"))); //평균상여, numavg_monthly_bonus_amt_norm
+            let AVG_MM_BONUS_AMT_PEAK	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_BONUS_AMT_PEAK"))); //평균상여, numavg_monthly_bonus_amt_peak
+
+            let AVG_MM_ANN_AMT	        = Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT"))); //평균연차수당, numavg_monthly_annual_amt
+            let AVG_MM_ANN_AMT_NORM 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_NORM"))); //평균연차수당, numavg_monthly_annual_amt_norm
+            let AVG_MM_ANN_AMT_PEAK 	= Number(gfnma_nvl(SBUxMethod.get("AVG_MM_ANN_AMT_PEAK"))); //평균연차수당, numavg_monthly_annual_amt_peak
+
+            let RET_CALC_TYPE		= gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE'); //퇴직정산구분
+
+            if (_.isEqual(RET_CALC_TYPE, 'RETIRE') || _.isEqual(RET_CALC_TYPE, 'MIDDLE')){
+                //numavg_monthly_bonus_amt.Value = Math.Floor(dSum / 12);
+                //numavg_monthly_bonus_amt.Value = Math.Floor(dSum / 4);
+
+                //if (gvwPay.Columns["apply_days"].SummaryText != "0")
+                //{
+                //    numavg_monthly_retire_amt.Value = Math.Round((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / Int32.Parse(gvwPay.Columns["apply_days"].SummaryText));
+                //}
+
+                if (stravg_pay_type == "10")
+                {
+                    if (dDaySum != 0)
+                    {
+
+                        let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                        SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                        //numavg_monthly_retire_amt.Value = Math.Round((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                    }
+
+                    if (dDaySumNorm != 0)
+                    {
+                        let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                        SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                        //numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                    }
+
+                    if (dDaySumPeak != 0)
+                    {
+                        let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                        SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                        //numavg_monthly_retire_amt_peak.Value = Math.Round((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                    }
+                }
+                else if (stravg_pay_type == "20")
+                {
+                    if (strjob_group == "3")
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT= Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                    else
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 360) + (ANN_BENEFIT_AMT / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (dSum / 360) + (numannual_benefit_amt.Value / 360));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + (dSum / 360) + (ANN_BENEFIT_AMT / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (dSum / 360) + (numannual_benefit_amt.Value / 360));
+                        }
+
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 360) + (ANN_BENEFIT_AMT_NORM / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 360) + (numannual_benefit_amt_norm.Value / 360));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + (dSumNorm / 360) + (ANN_BENEFIT_AMT_NORM / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value) + (dSumNorm / 360) + (numannual_benefit_amt_norm.Value / 360));
+                        }
+
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) +(dSumPeak / 360) + (ANN_BENEFIT_AMT_PEAK / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 360) + (numannual_benefit_amt_peak.Value / 360));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + (dSumPeak / 360) + (ANN_BENEFIT_AMT_PEAK / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (dSumPeak / 360) + (numannual_benefit_amt_peak.Value / 360));
+                        }
+                    }
+                }
+
+                else if (stravg_pay_type == "30")
+                {
+                    if (strjob_group == "3")
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum)  + (dSum / 365)  + (numannual_benefit_amt.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 365)  + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                    else
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum)  + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value) + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                        else
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                }
+            }
+            else if (RET_CALC_TYPE == 'RETIRE_P' || RET_CALC_TYPE == 'MIDDLE_P') {
+                //numavg_monthly_bonus_amt.Value = Math.Floor(dSum / 12);
+                SBUxMethod.set("AVG_MM_BONUS_AMT", 			    Math.floor(dSum / 4)); //평균상여
+                SBUxMethod.set("AVG_MM_BONUS_AMT_NORM", 	    Math.floor(dSumNorm / 4)); //평균상여
+                SBUxMethod.set("AVG_MM_BONUS_AMT_PEAK", 		Math.Floor(dSumPeak / 4)); //평균상여
+                /*numavg_monthly_bonus_amt.Value = Math.Floor(dSum / 4);
+                numavg_monthly_bonus_amt_norm.Value = Math.Floor(dSumNorm / 4);
+                numavg_monthly_bonus_amt_peak.Value = Math.Floor(dSumPeak / 4);*/
+
+                if (dDaySum != 0)
+                {
+                    let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                    SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                    //numavg_monthly_retire_amt.Value = Math.Round((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                }
+
+                if (dDaySumNorm != 0)
+                {
+                    let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                    SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                    //numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                }
+
+                if (dDaySumPeak != 0)
+                {
+                    let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                    SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                    //numavg_monthly_retire_amt_peak.Value = Math.Round((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                }
+                if (stravg_pay_type == "10")
+                {
+                    if (dDaySum != 0)
+                    {
+                        let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                        SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                        //numavg_monthly_retire_amt.Value = Math.Round((numavg_monthly_pay_amt.Value + numavg_monthly_bonus_amt.Value + numavg_monthly_annual_amt.Value) / dDaySum);
+                    }
+
+                    if (dDaySumNorm != 0)
+                    {
+                        let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                        SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                       // numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                    }
+
+                    if (dDaySumPeak != 0)
+                    {
+                        let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                        SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                        //numavg_monthly_retire_amt_peak.Value = Math.Round((numavg_monthly_pay_amt_peak.Value + numavg_monthly_bonus_amt_peak.Value + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
+                    }
+                }
+                else if (stravg_pay_type == "20")
+                {
+                    if (strjob_group == "3")
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT= Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                    else
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 360) + (ANN_BENEFIT_AMT / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (dSum / 360) + (numannual_benefit_amt.Value / 360));
+                        }
+
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 360) + (ANN_BENEFIT_AMT_NORM / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 360) + (numannual_benefit_amt_norm.Value / 360));
+                        }
+
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + (dSumPeak / 360) + (ANN_BENEFIT_AMT_PEAK / 360);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 360) + (numannual_benefit_amt_peak.Value / 360));
+                        }
+                    }
+                }
+
+                else if (stravg_pay_type == "30")
+                {
+                    if (strjob_group == "3")
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                    else
+                    {
+                        if (dDaySum != 0)
+                        {
+                            let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + (dSum / 365) + (ANN_BENEFIT_AMT / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
+                            //numavg_monthly_retire_amt.Value = Math.Truncate((numavg_monthly_pay_amt.Value / dDaySum) + (dSum / 365) + (numannual_benefit_amt.Value / 365));
+                        }
+                        if (dDaySumNorm != 0)
+                        {
+                            let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + (dSumNorm / 365) + (ANN_BENEFIT_AMT_NORM / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
+                            //numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (dSumNorm / 365) + (numannual_benefit_amt_norm.Value / 365));
+                        }
+                        if (dDaySumPeak != 0)
+                        {
+                            let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + (dSumPeak / 365) + (ANN_BENEFIT_AMT_PEAK / 365);
+                            SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
+                            //numavg_monthly_retire_amt_peak.Value = Math.Truncate((numavg_monthly_pay_amt_peak.Value / dDaySumPeak) + (dSumPeak / 365) + (numannual_benefit_amt_peak.Value / 365));
+                        }
+                    }
+                }
+            }
         }
     }
+
+
 
     //임금 환산 년수 스트 값 변경시
     //임금 환산 년수
@@ -4307,16 +5411,16 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "선택한 사원을 확정")) {
 
-            let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
-            //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("srch-ret_calc_type")); //퇴직정산구분
-            let RET_CALC_TYPE = gfnma_multiSelectGet('#srch-ret_calc_type');
-            let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_fr")); //정산종료일
-            let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_to")); //정산종료일
-            let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사번
-            let EMP_NAME = gfnma_nvl(SBUxMethod.get("srch-emp_name")); //이름
-            let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("srch-ret_calc_dat")); //정산일
-            let CALCULATE_TAX_YN = SBUxMethod.get("srch-calculate_tax_yn"); //과세계산여부
-            let CALCULATE_PREV_YN = SBUxMethod.get("srch-calculate_prev_yn"); //중간지급 포함
+            let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+            //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_TYPE")); //퇴직정산구분
+            let RET_CALC_TYPE = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
+            let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_FR")); //정산종료일
+            let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_TO")); //정산종료일
+            let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
+            let EMP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
+            let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_DAT")); //정산일
+            let CALCULATE_TAX_YN = SBUxMethod.get("SRCH_CALCULATE_TAX_YN"); //과세계산여부
+            let CALCULATE_PREV_YN = SBUxMethod.get("SRCH_CALCULATE_PREV_YN"); //중간지급 포함
             let TO_DC_YN = SBUxMethod.get("TO_DC_YN"); //DC전환
 
 
@@ -4369,8 +5473,8 @@
 
                 ,V_P_RET_CALC_TYPE     : RET_CALC_TYPE
                 ,V_P_RET_CALC_DAT      : RET_CALC_DAT
-                ,V_P_CALCULATE_PREV_YN : CALCULATE_PREV_YN['srch-calculate_prev_yn']
-                ,V_P_CALCULATE_TAX_YN  : CALCULATE_TAX_YN['srch-calculate_tax_yn']
+                ,V_P_CALCULATE_PREV_YN : CALCULATE_PREV_YN['SRCH_CALCULATE_PREV_YN']
+                ,V_P_CALCULATE_TAX_YN  : CALCULATE_TAX_YN['SRCH_CALCULATE_TAX_YN']
                 ,V_P_EMP_CODE          : stremp_code
                 ,V_P_EMP_CODE_CALC_DAT : strretire_calc_date
                 ,V_P_TO_DC_YN          : TO_DC_YN.TO_DC_YN
@@ -4428,12 +5532,12 @@
         // 수정 저장
         if (gfn_comConfirm("Q0001", "선택한 사원을 확정")) {
 
-            let RET_CALC_TYPE = gfnma_multiSelectGet('#srch-ret_calc_type');
-            let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_fr")); //정산종료일
-            let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_to")); //정산종료일
-            let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("srch-ret_calc_dat")); //정산일
-            let CALCULATE_TAX_YN = SBUxMethod.get("srch-calculate_tax_yn"); //과세계산여부
-            let CALCULATE_PREV_YN = SBUxMethod.get("srch-calculate_prev_yn"); //중간지급 포함
+            let RET_CALC_TYPE = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
+            let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_FR")); //정산종료일
+            let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_TO")); //정산종료일
+            let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_DAT")); //정산일
+            let CALCULATE_TAX_YN = SBUxMethod.get("SRCH_CALCULATE_TAX_YN"); //과세계산여부
+            let CALCULATE_PREV_YN = SBUxMethod.get("SRCH_CALCULATE_PREV_YN"); //중간지급 포함
             let TO_DC_YN = SBUxMethod.get("TO_DC_YN"); //DC전환
 
             if (!RET_CALC_TYPE) {
@@ -4540,16 +5644,16 @@
      */
     const fn_btnCalculate = async function (type) {
 
-        let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
-        //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("srch-ret_calc_type")); //퇴직정산구분
-        let RET_CALC_TYPE = gfnma_multiSelectGet('#srch-ret_calc_type');
-        let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_fr")); //정산종료일
-        let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("srch-retire_calc_date_to")); //정산종료일
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사번
-        let EMP_NAME = gfnma_nvl(SBUxMethod.get("srch-emp_name")); //이름
-        let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("srch-ret_calc_dat")); //정산일
-        let CALCULATE_TAX_YN = SBUxMethod.get("srch-calculate_tax_yn"); //과세계산여부
-        let CALCULATE_PREV_YN = SBUxMethod.get("srch-calculate_prev_yn"); //중간지급 포함
+        let SITE_CODE = gfnma_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        //let RET_CALC_TYPE = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_TYPE")); //퇴직정산구분
+        let RET_CALC_TYPE = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
+        let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_FR")); //정산종료일
+        let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_TO")); //정산종료일
+        let EMP_CODE = gfnma_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사번
+        let EMP_NAME = gfnma_nvl(SBUxMethod.get("SRCH_EMP_NAME")); //이름
+        let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_DAT")); //정산일
+        let CALCULATE_TAX_YN = SBUxMethod.get("SRCH_CALCULATE_TAX_YN"); //과세계산여부
+        let CALCULATE_PREV_YN = SBUxMethod.get("SRCH_CALCULATE_PREV_YN"); //중간지급 포함
         let TO_DC_YN = SBUxMethod.get("TO_DC_YN"); //DC전환
 
         if (!RET_CALC_TYPE) {
@@ -4888,7 +5992,7 @@
         SBUxMethod.set("BEF_3MM_DAY_CNT_NORM", 			dDaySumNorm); //퇴직추계액
         SBUxMethod.set("BEF_3MM_DAY_CNT_PEAK", 			dDaySumPeak); //퇴직추계액
 
-        let RET_CALC_TYPE		= gfnma_multiSelectGet('#srch-ret_calc_type'); //퇴직정산구분
+        let RET_CALC_TYPE		= gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE'); //퇴직정산구분
 
         let ANN_BENEFIT_AMT 			    = Number(gfnma_nvl(SBUxMethod.get("ANN_BENEFIT_AMT")));// 연차수당, numannual_benefit_amt
         let ANN_BENEFIT_AMT_NORM 			= Number(gfnma_nvl(SBUxMethod.get("ANN_BENEFIT_AMT_NORM")));// 연차수당, numannual_benefit_amt_norm
@@ -4917,12 +6021,12 @@
         let ANN_BENEFIT_AMT_NORM	= gfnma_nvl(SBUxMethod.get("ANN_BENEFIT_AMT_NORM")); //연차수당, numannual_benefit_amt_norm
         let ANN_BENEFIT_AMT_PEAK	= gfnma_nvl(SBUxMethod.get("ANN_BENEFIT_AMT_PEAK")); //연차수당, numannual_benefit_amt_peak*/
 
-        if (avg_pay_type == "10")
+        if (stravg_pay_type == "10")
         {
             if (dDaySum != 0)
             {
 
-                let AVG_MM_RET_AMT= Math.RoRound((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
+                let AVG_MM_RET_AMT= Math.round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + AVG_MM_ANN_AMT) / dDaySum);
                 SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                 //평균임금, AVG_MM_RET_AMT, numavg_monthly_retire_amt
                 //numavg_monthly_retire_amt.Value = Math.Round((AVG_MM_PAY_AMT + AVG_MM_BONUS_AMT + numavg_monthly_annual_amt.Value) / dDaySum);
@@ -4931,7 +6035,7 @@
             if (dDaySumNorm != 0)
             {
 
-                let AVG_MM_RET_AMT_NORM = Math.Round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
+                let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
                 SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                 //평균임금, AVG_MM_RET_AMT_NORM, numavg_monthly_retire_amt_norm
                 //numavg_monthly_retire_amt_norm.Value = Math.Round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
@@ -4939,51 +6043,51 @@
 
             if (dDaySumPeak != 0)
             {
-                let AVG_MM_RET_AMT_PEAK = Math.Round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
+                let AVG_MM_RET_AMT_PEAK = Math.round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + AVG_MM_ANN_AMT_PEAK) / dDaySumPeak);
                 SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                 //평균임금, AVG_MM_RET_AMT_PEAK, numavg_monthly_retire_amt_peak
                 //numavg_monthly_retire_amt_peak.Value = Math.Round((AVG_MM_PAY_AMT_PEAK + AVG_MM_BONUS_AMT_PEAK + numavg_monthly_annual_amt_peak.Value) / dDaySumPeak);
             }
         }
-        else if (avg_pay_type == "20")
+        else if (stravg_pay_type == "20")
         {
-            if (job_group == "3")
+            if (strjob_group == "3")
             {
                 if (dDaySum != 0)
                 {
-                    let AVG_MM_RET_AMT= Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
+                    let AVG_MM_RET_AMT= Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
+                    let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
                 }
 
                 if (dDaySumNorm != 0)
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
                 }
 
                 if (dDaySumPeak != 0)
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
                 }
@@ -4992,83 +6096,83 @@
             {
                 if (dDaySum != 0)
                 {
-                    let AVG_MM_RET_AMT = Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT / 360);
+                    let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT / 360);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT / 360);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT / 360);
+                    let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT / 360);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT / 360);
                 }
 
                 if (dDaySumNorm != 0)
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 360);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_NORM / 360);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 360);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 360);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_NORM / 360);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 360);
                 }
                 if (dDaySumPeak != 0)
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 360);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 360);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 360);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 360);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 360);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 360) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 360);
                 }
             }
         }
 
-        else if (avg_pay_type == "30")
+        else if (stravg_pay_type == "30")
         {
-            if (job_group == "3")
+            if (strjob_group == "3")
             {
                 if (dDaySum != 0)
                 {
-                    let AVG_MM_RET_AMT = Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
+                    let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
+                    let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
                 }
 
                 if (dDaySumNorm != 0)
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
                 }
 
                 if (dDaySumPeak != 0)
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
                 }
@@ -5077,43 +6181,89 @@
             {
                 if (dDaySum != 0)
                 {
-                    let AVG_MM_RET_AMT = Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
+                    let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT / dDaySum)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT / dDaySum)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
+                    let AVG_MM_RET_AMT = Math.trunc((AVG_MM_PAY_AMT)) + Math.trunc((AVG_MM_BONUS_AMT * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT", 			    AVG_MM_RET_AMT);
                     //numavg_monthly_retire_amt.Value = Math.Truncate((AVG_MM_PAY_AMT)) + Math.Truncate((AVG_MM_BONUS_AMT * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT / 365);
                 }
                 if (dDaySumNorm != 0)
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_NORM = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
+                    let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
                     //numavg_monthly_retire_amt_norm.Value = Math.Truncate((AVG_MM_PAY_AMT_NORM)) + Math.Truncate((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_NORM / 365);
                 }
                 if (dDaySumPeak != 0)
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK / dDaySumPeak)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
                 }
                 else
                 {
-                    let AVG_MM_RET_AMT_PEAK = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
+                    let AVG_MM_RET_AMT_PEAK = Math.trunc((AVG_MM_PAY_AMT_PEAK)) + Math.trunc((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_PEAK / 365);
                     SBUxMethod.set("AVG_MM_RET_AMT_PEAK", 			    AVG_MM_RET_AMT_PEAK);
                     //numavg_monthly_retire_amt_peak.Value = Math.Truncate((AVG_MM_PAY_AMT_PEAK)) + Math.Truncate((AVG_MM_BONUS_AMT_PEAK * 4) / 365) + Math.Truncate(ANN_BENEFIT_AMT_PEAK / 365);
                 }
             }
         }
     }
+
+    $(function () {
+        // 변경을 감지할 노드 선택
+        const targetNode = document.getElementById("SRCH_RET_CALC_TYPE"); //퇴직정산구분
+
+        console.log('----------targetNode----------',targetNode);
+
+        // 감지 옵션 (감지할 변경)
+        const config = { attributes: true, childList: true, subtree: true };
+
+        // 변경 감지 시 실행할 콜백 함수
+        const callback = (mutationList, observer) => {
+
+            let type = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
+
+            console.log('----------type----------',type);
+
+            if (!_.isEmpty(type)) {
+
+                if (_.isEqual(type, 'RETIRE') || _.isEqual(type, 'MIDDLE')) {
+
+                    SBUxMethod.show('SRCH_CALCULATE_TAX_YN');
+                    SBUxMethod.show('SRCH_CALCULATE_PREV_YN');
+                    /*chkcalculate_tax_yn.Visible = true;
+                    chkcalculate_prev_yn.Visible = true;*/
+                } else {
+                    SBUxMethod.hide('SRCH_CALCULATE_TAX_YN');
+                    SBUxMethod.hide('SRCH_CALCULATE_PREV_YN');
+                    /*chkcalculate_tax_yn.Visible = false;
+                    chkcalculate_prev_yn.Visible = false;*/
+                }
+                if (_.isEqual(type, 'MIDDLE')) {
+                    SBUxMethod.set("TO_DC_YN", "Y");
+                    //chkto_dc_yn.EditValue = "Y";
+                }
+            }
+
+        };
+
+        // 콜백 함수에 연결된 감지기 인스턴스 생성
+        const observer = new MutationObserver(callback);
+
+        // 설정한 변경의 감지 시작
+        observer.observe(targetNode, config);
+
+    });
 
 
     /**
@@ -5139,7 +6289,7 @@
     }
 
     /*/!**
-     * 금융기관1 (INSURER1_PAY_AMT)
+     * 금융기관1 (INSURER1_PAY_AMT) //numinsurer1_pay_amt_EditValueModified
      *!/
     function fn_numinsurer1PayAmt() {
         numpay_amt_sum.EditValue = numinsurer1_pay_amt.Value + numinsurer2_pay_amt.Value + numinsurer3_pay_amt.Value;
@@ -5148,7 +6298,7 @@
     }
 
     /!**
-     * 금융기관2 (INSURER2_PAY_AMT)
+     * 금융기관2 (INSURER2_PAY_AMT) //numinsurer2_pay_amt_EditValueModified
      *!/
     function fn_numinsurer2PayAmt() {
         numpay_amt_sum.EditValue = numinsurer1_pay_amt.Value + numinsurer2_pay_amt.Value + numinsurer3_pay_amt.Value;
@@ -5157,13 +6307,73 @@
     }
 
     /!**
-     * 금융기관3 (INSURER3_PAY_AMT)
+     * 금융기관3 (INSURER3_PAY_AMT)// numinsurer3_pay_amt_EditValueModified
      *!/
     function fn_numinsurer3PayAmt() {
         numpay_amt_sum.EditValue = numinsurer1_pay_amt.Value + numinsurer2_pay_amt.Value + numinsurer3_pay_amt.Value;
         numdiff_amt.EditValue = numretire_estimate_amt.Value - (numinsurer1_pay_amt.Value + numinsurer2_pay_amt.Value + numinsurer3_pay_amt.Value);
 
     }*/
+
+    /**
+     * 연차수당 (ANN_BENEFIT_AMT)
+     */
+    function fn_benAmtModi() {
+
+        let ANN_BENEFIT_AMT	    = gfnma_nvl(SBUxMethod.get("ANN_BENEFIT_AMT")); //연차수당
+        let RET_CALC_TYPE		= gfnma_multiSelectGet('#RET_CALC_TYPE');//퇴직정산구분
+
+        if (ANN_BENEFIT_AMT == '' || ANN_BENEFIT_AMT.length != 6 || RET_CALC_TYPE == '')
+        {
+            return;
+        }
+    }
+
+    /**
+     * 퇴직일자 (PAY_DATE)
+     */
+    function fn_payDate() {
+
+        let PAY_DATE	    = gfnma_nvl(SBUxMethod.get("PAY_DATE")); //퇴직일자
+
+        if (PAY_DATE == ''){
+            return;
+        }
+
+        fn_searchQH();
+        //fnQRY_P_HRA5150_Q2("HEADER");
+
+    }
+
+    /**
+     * 탭 선택시 확인후 조회
+     */
+    const fn_btnTab = async function (type) {
+
+
+        let tabId = SBUxMethod.get('tabJson');
+
+        if (_.isEqual(tabId, 'tabInfo4')){
+
+            let PAY_DATE	    = gfnma_nvl(SBUxMethod.get("PAY_DATE")); //퇴직일자
+            let PAY_YYYYMM	    = gfnma_nvl(SBUxMethod.get("PAY_YYYYMM")); //귀속년월
+
+            /*ymdpay_yyyymm.EditValue = ymdcalc_end_date.yyyymm;
+            ymdpay_date1.EditValue = ymdcalc_end_date.yyyymmdd;*/
+
+            if (PAY_YYYYMM != '')
+            {
+                await fn_searchQ2();
+                fn_searchQH();
+                /*fnQRY_P_HRA5150_Q2("Q");
+                fnQRY_P_HRA5150_Q2("HEADER");*/
+            }
+
+        }
+
+    }
+
+
 
 
 </script>

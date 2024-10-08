@@ -1020,6 +1020,8 @@
 
         // 변경을 감지할 노드 선택
         const targetNode = document.getElementById("PAY_ITEM_RANGE_TYPE1");
+
+        console.log('targetNode---- : ',targetNode);
         const targetNode2 = document.getElementById("PAY_ITEM_RANGE_TYPE2");
 
         // 감지 옵션 (감지할 변경)
@@ -1037,8 +1039,6 @@
             }*/
             let type1Chk = gfnma_nvl($('#PAY_ITEM_RANGE_TYPE1').attr('disabled'));
             let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
-
-            console.log('----type1Chk----', type1Chk);
 
             if (_.isEmpty(type1Chk)){
                 if (!_.isEmpty(PAY_ITEM_RANGE_TYPE1)) {
