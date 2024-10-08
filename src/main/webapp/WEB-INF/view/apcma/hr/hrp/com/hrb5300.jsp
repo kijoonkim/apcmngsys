@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrb5300.jsp
      * @Description       : 급여체계별 급여항목 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.03
@@ -1131,6 +1131,9 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+
+
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
