@@ -182,8 +182,7 @@ const gfn_popClipReport = async function(title, fileName, param) {
 			+ "reportKey="+ reportKey +"&title="+title;
 */
 
-	let url = "/report/openClipReport.do?"
-				+ "title="+ title +"&fileName="+ fileName;
+	let url = "/report/openClipReport.do?title="+ title +"&fileName="+ fileName;
 	const windowTargetName = "popClipReport";
 	const features = "width=1200, height=1000, toolbar=no directories=no, status=no";
 

@@ -192,9 +192,15 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 		HashMap<String, Object> rtnObj = new HashMap<>();
 		int insertCnt = 0;
 
-		String apcCd = pckgPrfmncVO.getApcCd();
-		String pckgYmd = pckgPrfmncVO.getPckgYmd();
-		String pckgNo = cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
+		if(gdsInvntrVO.getPckgno().isBlank() || pckgPrfmncVO.getPckgno().isBlank()){
+			String apcCd = pckgPrfmncVO.getApcCd();
+			String pckgYmd = pckgPrfmncVO.getPckgYmd();
+			String pckgNo = cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
+
+			/** 포장번호 **/
+			gdsInvntrVO.setPckgno(pckgNo);
+			pckgPrfmncVO.setPckgno(pckgNo);
+		}
 
 		/** 공통 정보 **/
 		String userId = (String)param.get("userId");
@@ -209,9 +215,7 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 		pckgPrfmncVO.setSysFrstInptPrgrmId(prgrmId);
 		pckgPrfmncVO.setSysLastChgPrgrmId(prgrmId);
 
-		/** 포장번호 **/
-		gdsInvntrVO.setPckgno(pckgNo);
-		pckgPrfmncVO.setPckgno(pckgNo);
+
 
 		insertCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
 		if(insertCnt < 1){

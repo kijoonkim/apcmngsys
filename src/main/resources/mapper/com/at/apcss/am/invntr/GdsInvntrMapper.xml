@@ -1854,4 +1854,80 @@
 			 			   AND GI.DEL_YN = 'N'
 			 ) AS pt0
 	</select>
+
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateReconciliation      -->
+	<!-- DESC : 출하실적 간편등록 재고조회 						            			    -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.10.07  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectSimpGdsInvntr" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="int">
+		<![CDATA[
+			SELECT NVL(SUM(INVNTR_QNTT),0)
+			FROM TB_GDS_INVNTR
+			WHERE APC_CD = #{apcCd}
+			AND CNPT_CD = #{cnptCd}
+			AND ITEM_CD = #{itemCd}
+			AND VRTY_CD = #{vrtyCd}
+			AND SPCFCT_CD = #{spcfctCd}
+		]]>
+	</select>
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateReconciliation      -->
+	<!-- DESC : 출하실적 간편등록 상품재고 조회 						            			    -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2024.10.08  	손민성      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectGdsInvntrForSpmt" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+		SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrForSpmt */
+			   GI.APC_CD			AS APC_CD
+			 , GI.PCKGNO			AS PCKGNO
+			 , GI.PCKG_SN			AS PCKG_SN
+			 , GI.PCKG_YMD			AS PCKG_YMD
+			 , GI.FCLT_CD			AS FCLT_CD
+			 , GI.RPRS_PRDCR_CD		AS RPRS_PRDCR_CD
+			 , GI.ITEM_CD			AS ITEM_CD
+			 , GI.VRTY_CD			AS VRTY_CD
+			 , GI.SPCFCT_CD			AS SPCFCT_CD
+			 , GI.GDS_CD			AS GDS_CD
+			 , GI.GDS_GRD			AS GDS_GRD
+			 , GI.PCKG_SE_CD		AS PCKG_SE_CD
+			 , GI.GDS_SE_CD			AS GDS_SE_CD
+			 , GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+			 , GI.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+			 , GI.PCKG_QNTT			AS PCKG_QNTT
+			 , GI.PCKG_WGHT			AS PCKG_WGHT
+			 , GI.SPMT_QNTT			AS SPMT_QNTT
+			 , GI.SPMT_WGHT			AS SPMT_WGHT
+			 , GI.INVNTR_QNTT		AS INVNTR_QNTT
+			 , GI.INVNTR_WGHT		AS INVNTR_WGHT
+			 , GI.TRNSF_QNTT		AS TRNSF_QNTT
+			 , GI.TRNSF_WGHT		AS TRNSF_WGHT
+			 , GI.RTN_GDS_QNTT		AS RTN_GDS_QNTT
+			 , GI.RTN_GDS_WGHT		AS RTN_GDS_WGHT
+			 , GI.DEL_YN			AS DEL_YN
+			 , GI.INVNTR_STTS_CD 	AS INVNTR_STTS_CD
+		FROM TB_GDS_INVNTR AS GI
+		WHERE APC_CD = #{apcCd}
+		  	AND DEL_YN = 'N'
+	  ]]>
+		<if test='cnptCd != null and cnptCd != ""'>
+			AND CNPT_CD = #{cnptCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			AND ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			AND VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			AND SPCFCT_CD = #{spcfctCd}
+		</if>
+	</select>
 </mapper>

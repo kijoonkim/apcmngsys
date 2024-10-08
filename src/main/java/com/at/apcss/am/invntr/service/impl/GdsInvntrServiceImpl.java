@@ -682,4 +682,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	public List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO) throws Exception {
 		return gdsInvntrMapper.selectSortPrfmncToGdsInvntrList(sortPrfmncVO);
 	}
+
+	@Override
+	public int selectSimpGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
+		return gdsInvntrMapper.selectSimpGdsInvntr(gdsInvntrVO);
+	}
 }

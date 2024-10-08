@@ -246,7 +246,7 @@
                         <tr>
                             <td colspan="2" style="padding: 0; font-size: 28px; font-weight: bold;">
                                 <div style="background: #275f81;flex-shrink: 0; padding: 10px 5vw; display: flex;gap: 5vw;color: white">
-                                    <div style="display: flex;gap: 10px; flex-shrink: 0;">재고 <input id="invntrQntt" type="number" style="color: #0a199e; border: 1px solid black;width: 10vw; background: white; padding-left: 10px" /></div>
+                                    <div style="display: flex;gap: 10px; flex-shrink: 0;">재고 <input id="invntrQntt" type="number" style="color: #0a199e; border: 1px solid black;width: 10vw; background: white; padding-left: 10px" readonly /></div>
                                     <div style="display: flex;gap: 2px; flex-shrink: 0;">거래처: <div id="cnptcd" type="text" style="color: #fff"></div></div>
                                     <div style="display: flex;gap: 2px; flex-shrink: 0;">생산자: <div id="prdcrcd" type="text" style="color: #fff"></div></div>
                                     <div style="display: flex;gap: 2px; flex-shrink: 0;">품종: <div id="vrtycd" type="text" style="color: #fff"></div></div>
@@ -296,7 +296,7 @@
                     </div>
                     <div style="display: flex; gap: 10px;justify-content: flex-end">
                         <button class="btn btn-success" onclick="fn_saveWithReport()">출하등록<span style="color: yellow"> + 출하통지서</span></button>
-                        <button class="btn btn-success">출하등록</button>
+                        <button class="btn btn-success" onclick="fn_save()">출하등록</button>
                     </div>
                 </div>
             </div>
@@ -376,18 +376,20 @@
         SBGridProperties.id = 'gridPckgPrfmnc';
         SBGridProperties.jsonref = 'jsonPckgPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.mergecells = 'bycol';
+        SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: ["처리"], ref: 'pckgno', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',
+            {caption: ["처리"], ref: 'pckgno', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false,
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                 }
             },
             {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["생산자"],	ref: 'prdcrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["수량"],	ref: 'invntrQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["생산자"],	ref: 'prdcrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
+            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
+            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
+            {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
+            {caption: ["수량"],	ref: 'spmtQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px',fixedstyle: 'font-size:20px;font-weight:bold',merge:false},
         ]
         gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
     }
@@ -535,9 +537,8 @@
             spmtObj[prefix + 'Nm'] = String($(_el).text().trim());
             $(`#${'${key}'}`).val($(_el).data(key));
         }
-
-        /** 모든 탭이 선택될시 재고 조회 **/
-        fn_check_buttonAll();
+            /** 모든 탭이 선택될시 재고 조회 **/
+            fn_check_buttonAll();
     }
     const fn_cntAdd = function(_el){
         let value = parseInt($(_el).text());
@@ -641,7 +642,58 @@
     const fn_check_buttonAll = async function(){
         /** 재고 조회시 옆탭에 json에 있는가 확인해야함. **/
         let activeCnt = $("div.tabBox.active").length;
+
+        console.log(activeCnt,"??");
         if(activeCnt < 5)return;
+
+        let elements = $("div.tabBox.active");
+        let param = {
+            apcCd : gv_apcCd,
+        }
+
+        for(let element of elements){
+            let data = $(element).data();
+            Object.entries(data).forEach(([key, value]) => {
+                let newKey ='';
+                if(key == 'prdcrcd'){
+                    newKey = 'rprsPrdcrCd';
+                }else{
+                    newKey = key.replace('cd','Cd');
+                }
+                param[newKey] = String(value);
+            });
+        }
+        console.log(param,'되겟냐?');
+
+        const postJsonPromise = gfn_postJSON("/am/invntr/selectSimpGdsInvntr.do",param);
+        const data = await postJsonPromise;
+
+        try{
+            if(data.resultStatus ==="S"){
+                let regQntt = jsonPckgPrfmnc.find(obj => obj.cnptCd == param.cnptCd && obj.itemCd == param.itemCd && obj.vrtyCd == param.vrtyCd && obj.prdcrCd == param.rprsPrdcrCd && obj.spcfctCd == param.spcfctCd);
+                console.log(regQntt,"잇냐고 없냐고");
+                console.log(jsonPckgPrfmnc,"");
+                console.log(param);
+                let resultQntt = data.selectCnt;
+
+                if(regQntt){
+                    resultQntt -= regQntt.invntrQntt;
+                }
+
+                if(resultQntt <= 0){
+                    if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+                        gfn_comAlert("W0017","재고");
+                        $("#invntrQntt").val(0);
+                    }
+                }else{
+                    $("#invntrQntt").val(resultQntt);
+                }
+            }
+        }catch (e) {
+            console.error(e);
+        }
+
+        console.log(data,"결과");
     }
 
     const fn_add = async function(){
@@ -649,10 +701,10 @@
         let addCnt = parseInt($("#pckgQntt").val()) || 0;
         let invntCnt = parseInt($("#invntrQntt").val()) || 0;
 
-        if(addCnt > invntCnt){
-            gfn_comAlert("W0008","재고수량","등록수량");
-            return;
-        }
+        // if(addCnt > invntCnt){
+        //     gfn_comAlert("W0008","재고수량","등록수량");
+        //     return;
+        // }
         if(addCnt == 0){
             gfn_comAlert("W0005","등록수량");
             return;
@@ -684,8 +736,13 @@
             }
         }
 
-        spmtObj.invntrQntt = addCnt;
-        jsonPckgPrfmnc.push(spmtObj);
+        spmtObj.spmtQntt = addCnt;
+        let prevObj = jsonPckgPrfmnc.find(obj => _.isEqual(obj,spmtObj));
+        if(prevObj){
+            prevObj.invntrQntt += addCnt;
+        }else{
+            jsonPckgPrfmnc.push(spmtObj);
+        }
         gridPckgPrfmnc.rebuild();
 
         fn_reset();
@@ -703,11 +760,61 @@
         jsonPckgPrfmnc.splice(row,1);
         gridPckgPrfmnc.rebuild();
     }
+
     const fn_saveWithReport = async function(){
+        let flag = await fn_save();
+        if(gfn_isEmpty(flag)){
+            return;
+        }
+        /** 출하통지서 인쇄 미리보기 **/
+
         const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DO_DOC');
         await gfn_popClipReport("출하통지서", rptUrl, {apcCd: gv_selectedApcCd});
     }
 
+    const fn_save = async function(){
+        const groupedData = jsonPckgPrfmnc.reduce((acc, obj) => {
+            // 각 객체의 category 값에 해당하는 그룹이 이미 있는지 확인
+            const key = obj.cnptCd;
+
+            // 그룹이 없다면 새롭게 배열을 만듦
+            if (!acc[key]) {
+                acc[key] = [];
+            }
+
+            // 해당 그룹에 객체를 추가
+            acc[key].push(obj);
+
+            return acc;
+        }, {});
+
+        let spmtYmd = SBUxMethod.get('srch-dtp-clclnY');
+        const groupedArray = Object.entries(groupedData).map(([key,value]) => {
+           return{
+               cnptCd : key,
+               spmtPrfmncList : value,
+               apcCd : gv_apcCd,
+               spmtYmd : spmtYmd
+           };
+        });
+        groupedArray.forEach(function(item){
+           item.apcCd = gv_apcCd;
+           item.spmtYmd = spmtYmd;
+        });
+
+        console.log(groupedArray,"저장전");
+        const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncByPckg.do",groupedArray);
+        const data = await postJsonPromise;
+
+        if(data.resultStatus === 'S'){
+            if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+                gfn_comAlert("I0001");
+                fn_reset();
+            }
+            return data.resultList;
+        }
+        return;
+    }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

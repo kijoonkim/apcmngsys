@@ -75,6 +75,7 @@ public class ComConstants {
 	public final static String PROP_UPDATED_CNT = "updatedCnt";
 	public final static String PROP_DELETED_CNT = "deletedCnt";
 	public final static String PROP_SAVED_CNT = "savedCnt";
+	public final static String PROP_SELECT_CNT = "selectCnt";
 
 	public final static String PROP_LOGIN_CODE = "loginCode";
 	public final static String PROP_LOGIN_MESSAGE = "loginMessage";

@@ -236,5 +236,19 @@ public interface GdsInvntrMapper {
 	 * @return int
 	 * @throws Exception
 	 */
-    List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO);
+    List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO) throws Exception;
+	/**
+	 * 출하실적 간편등록 (원물,선별 생략)
+	 * @param gdsInvntrVO
+	 * @return int
+	 * @throws Exception
+	 */
+    int selectSimpGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+	/**
+	 * 출하실적 간편등록 상품재고 조회
+	 * @param item
+	 * @return List<GdsInvntrVO>
+	 * @throws Exception
+	 */
+    List<GdsInvntrVO> selectGdsInvntrForSpmt(SpmtPrfmncVO item) throws Exception;
 }
