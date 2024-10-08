@@ -852,7 +852,7 @@
         let EMP_FULL_NAME = gfnma_nvl(SBUxMethod.get("EMP_FULL_NAME"));
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type"));
 
-        if(rowData != null && rowData != '') {
+        if(_.isEmpty(rowData) == false) {
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN: 'N'

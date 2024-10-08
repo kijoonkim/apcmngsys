@@ -1,5 +1,7 @@
 package com.at.apcss.co.user.web;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
@@ -1034,32 +1036,67 @@ public class ComUserController extends BaseController {
 			
 			ComUserAtchflVO returnVO = comUserService.getUserAtchfl(comUserVO);
 
-			if (returnVO != null && StringUtils.hasText(returnVO.getFilePathNm())) {
-				
-				String fileNm = returnVO.getFileNm();
+			if (returnVO == null) {
+				return;
+			}
+			
+			String fileNm = returnVO.getFileNm();
+			
+			if (StringUtils.hasText(returnVO.getFilePathNm())) {
 				
 				String rootPath = getFilepathFm();
 				String filePathNm = returnVO.getFilePathNm();
 				String srvrFileNm = returnVO.getSrvrFileNm();
-				String downloadPath = rootPath + File.separator + filePathNm + File.separator ;
+				String fileExtnNm = ComUtil.nullToDefault(returnVO.getFileExtnNm(), ComConstants.CON_BLANK);
+				String downloadPath = rootPath + File.separator + filePathNm + File.separator;
 				
-				File f = new File(downloadPath, srvrFileNm);
+				String orgnFileNm = srvrFileNm + ComConstants.CON_UNDERLINE + fileExtnNm;
+				
+				File f = new File(downloadPath, orgnFileNm);
+				
+				if (f == null || f.length() <= 0) {
+					return;
+				}
+				
 				response.setContentType("application/octet-stream"); 
+
+		        //데이터형식/성향설정 (attachment: 첨부파일)
+		        response.setHeader("Content-disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm, "UTF-8") + "\";");
+		        //response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
 		        //파일길이설정
 		        response.setContentLength((int)f.length());
-		        //데이터형식/성향설정 (attachment: 첨부파일)
-		        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm,"UTF-8")+"\";");
-		        //response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
 		        
+		        BufferedInputStream bIn = null;
+		        BufferedOutputStream bOut = null;
+		        
+		        // 파일 입력 객체 생성
+		        FileInputStream fIn = new FileInputStream(f);
+		        bIn = new BufferedInputStream(fIn);
 		        // response 객체를 통해서 서버로부터 파일 다운로드
 		        OutputStream os = response.getOutputStream();
-		        // 파일 입력 객체 생성
-		        FileInputStream fis = new FileInputStream(f);
+		        bOut = new BufferedOutputStream(os);
+		        
+		        try {
+		        	
+		        	byte[] buffer = new byte[4096];
+		        	int bytesRead = 0;
+		        	
+		        	while ((bytesRead = bIn.read(buffer)) != -1) {
+		        		bOut.write(buffer, 0, bytesRead);
+                    } 
+		        	
+		        	
+		        	bOut.flush();
+		        } finally {
+		        	bIn.close();
+		        	bOut.close();
+		        }
+		        /*
 		        FileCopyUtils.copy(fis, os);
 		        fis.close();
 		        os.close();
 		        
-		        /*
+		        
 		        //내용물 인코딩방식설정
 		        //response.setHeader("Content-Transfer-Encoding", "binary");
 		        //버퍼의 출력스트림을 출력
@@ -1070,6 +1107,34 @@ public class ComUserController extends BaseController {
 		        //출력스트림을 닫는다
 		        response.getOutputStream().close();
 				*/
+			} else {
+				if (returnVO.getFileCn() == null) {
+					return;
+				}
+				
+				byte[] fileByte = returnVO.getFileCn();
+				response.setContentType("application/octet-stream"); 
+
+		        //데이터형식/성향설정 (attachment: 첨부파일)
+		        response.setHeader("Content-disposition", "attachment; fileName=\"" + URLEncoder.encode(fileNm, "UTF-8") + "\";");
+		        //response.setHeader("Content-Type", "application/pdf"); // 파일 형식 지정
+		        //파일길이설정
+		        response.setContentLength(fileByte.length);
+		        
+		        BufferedOutputStream bOut = null;
+		        
+		        try {
+		        	// response 객체를 통해서 서버로부터 파일 다운로드
+			        OutputStream os = response.getOutputStream();
+			        bOut = new BufferedOutputStream(os);
+			        
+			        bOut.write(fileByte);
+			        
+			        bOut.flush();
+		        } finally {
+		        	bOut.close();
+		        }
+		        
 			}
 			
 			/*

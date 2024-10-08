@@ -62,6 +62,9 @@
 					<div id="sb-area-grdApcPop" style="width:100%;height:300px;"></div>
 				</div>
 				<!--[pp] //검색결과 -->
+				<div>
+					<p>* APC가 승인되지 않는 경우 목록에 표기되지 않습니다</p>
+				</div>
 			</div>
 		</div>
 	</section>

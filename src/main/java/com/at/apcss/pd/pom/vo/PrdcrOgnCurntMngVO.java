@@ -10,6 +10,7 @@ import lombok.Setter;
 public class PrdcrOgnCurntMngVO extends ComVO{
 	private String apoCd;
 	private String apoSe;
+	private String apoSeNm;
 
 	private String cmptnInst;
 	private String ctpv;
@@ -19,6 +20,7 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String brno;
 	private String crno;
 	private String corpNm;
+	private String uoCorpNm;
 	private String picFlnm;
 
 	private String lotnoAddr;
@@ -66,8 +68,12 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String itemNm;
 	private String ctgryCd;
 	private String ctgryNm;
+	private String clsfCd;
+	private String clsfNm;
 	private String trmtType;
+	private String trmtTypeNm;
 	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
 
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
@@ -81,6 +87,7 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String whdwlDay;
 
 	private String cltvtnSfc;//cltvtnArea -> cltvtnSfc 컬럼 표준화로 변경됨
+	private String ecCltvtnSfc;
 	private String avgYrPrdctnVlm;
 	private String cltvtnAreaRmrk;
 

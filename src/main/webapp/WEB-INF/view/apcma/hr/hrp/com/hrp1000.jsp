@@ -1670,7 +1670,7 @@
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        if(rowData != null && rowData != '') {
+        if(_.isEmpty(rowData) == false) {
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN: 'N'

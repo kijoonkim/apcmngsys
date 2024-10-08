@@ -323,7 +323,7 @@
 			     , MB_CD					= #{mbCd}
 			     , REG_ADDR					= #{regAddr}
 			     , REG_TELNO				= #{regTelno}
-			     , APC_NM					= #{apcNm}
+			     , APC_NM					= NVL(#{apcNm}, #{regApcNm})
 		      	 , BRNO						= #{brno}
 			     , ADDR						= #{addr}
 			     , TELNO					= #{fxno}
@@ -378,7 +378,7 @@
 	    		  , #{mbCd}
 				  , #{regAddr}
 	    		  , #{regTelno}
-	    		  , #{apcNm}
+	    		  , NVL(#{apcNm}, #{regApcNm})
 	    		  , #{brno}
 	    		  , #{addr}
 	    		  , #{fxno}
