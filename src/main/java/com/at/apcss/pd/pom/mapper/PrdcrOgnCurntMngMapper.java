@@ -63,4 +63,9 @@ public interface PrdcrOgnCurntMngMapper {
 	public TbEvFrmhsApoVO selectTbEvFrmhsApoStbltYn(TbEvFrmhsApoVO tbEvFrmhsApoVO);
 
 	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoStbltYnList(TbEvFrmhsApoVO tbEvFrmhsApoVO);
+
+	//생산자조직 로우데이터
+	public List<TbEvFrmhsApoVO> selectRawData01(TbEvFrmhsApoVO tbEvFrmhsApoVO);
+	//농가 로우데이터
+	public List<PrdcrOgnCurntMngVO> selectRawData02(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
 }

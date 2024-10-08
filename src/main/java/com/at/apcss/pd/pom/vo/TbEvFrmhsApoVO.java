@@ -13,6 +13,7 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String apoCd;
 	private String uoCd;
 	private String apoSe;
+	private String apoSeNm;
 	private String brno;
 	private String uoBrno;
 	private String crno;
@@ -29,6 +30,9 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String trmtTypeNm;
 	private String aprv;//승인형 육성형
 	private String aprvNm;
+
+	private String clsfCd;
+	private String clsfNm;
 
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
