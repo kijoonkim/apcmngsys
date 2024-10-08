@@ -26,7 +26,7 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요정보를 조회한다.
 	 * @param fcltOperInfoVO
-	 * @return
+	 * @return FcltOperInfoVO
 	 * @throws Exception
 	 */
 	public FcltOperInfoVO selectFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
@@ -34,7 +34,7 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요정보를 조회한다.
 	 * @param msgKey
-	 * @return
+	 * @return FcltOperInfoVO
 	 * @throws Exception
 	 */
 	public FcltOperInfoVO selectFcltOperInfo(String msgKey) throws Exception;
@@ -42,7 +42,7 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요 목록을 조회한다.
 	 * @param fcltOperInfoVO
-	 * @return
+	 * @return List<FcltOperInfoVO>
 	 * @throws Exception
 	 */
 	public List<FcltOperInfoVO> selectFcltOperInfoList(FcltOperInfoVO fcltOperInfoVO) throws Exception;
@@ -51,7 +51,7 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요정보를 등록한다.
 	 * @param fcltOperInfoVO
-	 * @return
+	 * @return int
 	 * @throws Exception
 	 */
 	public int insertFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
@@ -59,7 +59,7 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요정보를 변경한다.
 	 * @param fcltOperInfoVO
-	 * @return
+	 * @return int
 	 * @throws Exception
 	 */
 	public int updateFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
@@ -67,7 +67,7 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요정보를 삭제한다.
 	 * @param fcltOperInfoVO
-	 * @return
+	 * @return int
 	 * @throws Exception
 	 */
 	public int deleteFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
@@ -75,23 +75,31 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요 목록을 삭제한다.
 	 * @param fcltOperInfoList
-	 * @return
+	 * @return int
 	 * @throws Exception
 	 */
 	public int deleteFcltOperInfoList(List<FcltOperInfoVO> fcltOperInfoList) throws Exception;
 
 	/**
 	 * 운영자개요 품목목록을 조회한다.
-	 * @param fcltOperInfoVO
-	 * @return
+	 * @param fcltItemVO
+	 * @return List<FcltItemVO>
 	 * @throws Exception
 	 */
 	public List<FcltItemVO> selectFcltOperInfoItemList(FcltItemVO fcltItemVO) throws Exception;
 
 	/**
+	 * 운영자개요 품목을 삭제한다
+	 * @param fcltItemVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteItem(FcltItemVO fcltItemVO) throws Exception;
+
+	/**
 	 * APC 목록을 조회한다.
 	 * @param fcltApcVO
-	 * @return
+	 * @return List<FcltApcVO>
 	 * @throws Exception
 	 */
 	public List<FcltApcVO> selectApcList(FcltApcVO fcltApcVO) throws Exception;
@@ -99,7 +107,7 @@ public interface FcltOperInfoService {
 	/**
 	 * 운영자개요 로우데이터를 조회한다.
 	 * @param fcltApcVO
-	 * @return
+	 * @return List<FcltApcVO>
 	 * @throws Exception
 	 */
 	public List<FcltApcVO> selectFcltOperInfoRawDataList(FcltApcVO fcltApcVO) throws Exception;
@@ -107,15 +115,15 @@ public interface FcltOperInfoService {
 	/**
 	 * 선택가능한 APC 목록을 조회한다.
 	 * @param fcltApcVO
-	 * @return
+	 * @return List<FcltApcVO>
 	 * @throws Exception
 	 */
 	public List<FcltApcVO> selectUserApcList(FcltApcVO fcltApcVO) throws Exception;
 
 	/**
 	 * 유저정보를 조회한다.
-	 * @param FcltOperInfoVO
-	 * @return
+	 * @param fcltApcVO
+	 * @return FcltOperInfoVO
 	 */
 	public FcltOperInfoVO selectUserInfo(FcltOperInfoVO fcltApcVO) throws Exception;
 
