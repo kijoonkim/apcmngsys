@@ -68,4 +68,9 @@ public interface PrdcrOgnCurntMngService {
 
 	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoStbltYnList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
 
+	//생산자조직 로우데이터
+	public List<TbEvFrmhsApoVO> selectRawData01(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+	//농가 로우데이터
+	public List<PrdcrOgnCurntMngVO> selectRawData02(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
+
 }
