@@ -3,6 +3,7 @@ package com.at.apcss.am.clcln.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.clcln.vo.ClclnMngVO;
 import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
 
 /**
@@ -45,4 +46,47 @@ public interface ClclnUntprcService {
 	 */
 	public HashMap<String, Object> updateClclnUntprcList(List<ClclnUntprcVO> clclnUntprcList) throws Exception;
 	
+	
+	
+	/**
+	 * APC 정산단가 목록 조회
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnUntprcVO> selectApcClclnUntprcList(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * APC 정산단가 등록
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertApcUntprc(ClclnMngVO clclnMngVO) throws Exception;
+	
+	
+	/**
+	 * APC 정산단가 삭제
+	 * @param clclnPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteApcUntprc(ClclnMngVO clclnMngVO) throws Exception;
+	
+	
+	/**
+	 * 정산단가 마스터 단건 조회
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ClclnUntprcVO selectClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 마스터 목록 조회
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnUntprcVO> selectClclnUntprcMstrList(ClclnUntprcVO clclnUntprcVO) throws Exception;
 }

@@ -192,4 +192,18 @@ public class CmnsVrtyServiceImpl extends BaseServiceImpl implements CmnsVrtyServ
 		return null;
 	}
 
+	@Override
+	public CmnsVrtyVO selectApcSeed(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		CmnsVrtyVO resultVO = cmnsVrtyMapper.selectApcSeed(cmnsVrtyVO);
+
+		return resultVO;
+	}
+
+	@Override
+	public List<CmnsVrtyVO> selectApcSeedList(CmnsVrtyVO cmnsVrtyVO) throws Exception {
+		List<CmnsVrtyVO> resultList = cmnsVrtyMapper.selectApcSeedList(cmnsVrtyVO);
+
+		return resultList;
+	}
+
 }

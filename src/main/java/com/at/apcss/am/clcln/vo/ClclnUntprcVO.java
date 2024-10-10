@@ -29,6 +29,26 @@ public class ClclnUntprcVO extends ComVO {
 	 */
 	private String apcCd;
 	
+	private String clclnYr;
+	private int clclnSn;
+	private String bgngYmd;
+	private String endYmd;
+	private int untprcSn;
+	private int maxUntprcSn;
+	private String untprcDtlCd;
+	private String untprcDtlNm;
+	private String clclnUntprcKnd;
+	private String clclnSeCd;
+	private String clclnClsf;
+	private String itemCd;
+	private String vrtyCd;
+	private String untprcUnit;
+	private double clclnUntprc;
+	private double clclnQntt;
+	private double clclnWght;
+	private double clclnAmt;
+	
+	private String untprcRmrk;
 	
 	/**
 	 * 상품구분코드
@@ -37,17 +57,10 @@ public class ClclnUntprcVO extends ComVO {
 	private String gdsSeNm;
 	
 	/**
-	 * 품목코드
-	 */
-	private String itemCd;
-	/**
 	 * 품목명
 	 */
 	private String itemNm;
-	/**
-	 * 품종코드
-	 */
-	private String vrtyCd;
+	
 	/**
 	 * 품종명
 	 */
@@ -58,12 +71,7 @@ public class ClclnUntprcVO extends ComVO {
 	 */
 	private String grdCd;
 	private String grdNm;
-	
-	/**
-	 * 정산단가
-	 */
-	private double clclnUntprc;
-	
+
 	/**
 	 * 정산단중
 	 */
@@ -75,5 +83,5 @@ public class ClclnUntprcVO extends ComVO {
 	private String clclnCrtrCd;
 	private String clclnCrtrNm;
 	
-	
+	private boolean needsInsert;
 }

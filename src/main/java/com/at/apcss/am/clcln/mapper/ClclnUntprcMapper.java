@@ -62,4 +62,95 @@ public interface ClclnUntprcMapper {
 	 * @throws Exception
 	 */
 	public int deleteClclnUntprc(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * APC 정산단가 목록 조회
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnUntprcVO> selectApcClclnUntprcList(ClclnUntprcVO clclnUntprcVO) throws Exception;
+
+
+	/**
+	 * 정산단가 마스터 단건 조회
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ClclnUntprcVO selectClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 마스터 목록 조회
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnUntprcVO> selectClclnUntprcMstrList(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 상세 단건 조회
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ClclnUntprcVO selectClclnUntprcDtl(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 마스터 등록
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 마스터 수정
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 마스터 삭제
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	
+	/**
+	 * 정산단가 상세 등록
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertClclnUntprcDtl(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 상세 수정
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateClclnUntprcDtl(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 상세 수정
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateClclnUntprcDtlForDelY(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 상세 삭제
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteClclnUntprcDtl(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
 }

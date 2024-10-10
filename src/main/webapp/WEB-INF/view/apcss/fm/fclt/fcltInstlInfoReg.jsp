@@ -508,6 +508,8 @@
 			rowData.prgrsYn = 'Y';//진척도 갱신 유무
 			rowData.tmpChk = tmpChk; //임시저장 체크
 
+			saveList.push(rowData);
+			/*
 			if (rowSts === 1){
 				rowData.rowSts = "I";
 				saveList.push(rowData);
@@ -520,6 +522,12 @@
 			} else {
 				continue;
 			}
+			*/
+		}
+		//리스트가 없는 경우 진척도만 갱신
+		if(saveList.length == 0){
+			fn_updatePrgrs();
+			return;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInstlInfoList.do", saveList);
@@ -539,6 +547,34 @@
 		}
 		// 결과 확인 후 재조회
 		console.log("insert result", data);
+	}
+
+	//진척도만 갱신
+	async function fn_updatePrgrs(){
+
+		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");//진척도 갱신용
+		let apcCd = SBUxMethod.get('srch-inp-apcCd');
+
+		let postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltInstlInfoPrgrs.do", {
+			crtrYr: 	crtrYr,
+			apcCd: 		apcCd,
+			prgrsYn:	"Y"
+		});
+
+		let data = await postJsonPromise;
+
+		try{
+			console.log(data);
+			alert("처리 되었습니다.");
+			fn_search();
+			//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
+			cfn_allTabPrgrsRefrash();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 

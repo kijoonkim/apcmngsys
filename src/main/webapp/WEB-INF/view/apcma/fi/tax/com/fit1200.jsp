@@ -110,7 +110,7 @@
                                 <sbux-input id="reg-slt-wholePaySiteCode" name="reg-slt-wholePaySiteCode" uitype="text" class="form-control input-sm" wrap-style="flex-basis:30%"></sbux-input>
                                 <div style="display: flex;position: relative">
                                     <sbux-input id="reg-slt-taxSiteName" name="reg-slt-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
-                                    <button style="background-image:url('/static/resource/svg/dot.svg');background-repeat: no-repeat; background-position: center;
+                                    <button style="background-image:url('/static/resource/svg/dot_w.svg');background-repeat: no-repeat; background-position: center;
                                     background-size: contain; position: absolute; right: 1px; top: 1px; bottom: 1px; border: 0; background-color: white;" onclick="fn_openPopup()"></button>
                                 </div>
                                 </div>

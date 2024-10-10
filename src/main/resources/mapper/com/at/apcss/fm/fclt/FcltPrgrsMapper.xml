@@ -61,6 +61,9 @@
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  AP.APC_CD = #{apcCd}
 			</if>
+			<if test='apcNm != null and !apcNm.equals("")'>
+			  AND AP.APC_CD IN (SELECT APC_CD FROM TB_APC_INFO WHERE APC_NM LIKE '%' || #{apcNm} || '%')
+			</if>
 			<if test='itemNm != null and !itemNm.equals("")'>
 			  AND  EXISTS(SELECT 1
 			  				FROM TB_TE_APC_OPER_TRMT_ITEM
@@ -102,6 +105,8 @@
 				, AP.PRGRS_13
 				, AP.PRGRS_14
 				, AP.PRGRS_LAST
+				, AP.APRV_CTPV_STTS
+				, AP.APRV_SGG_STTS
 
 			FROM TB_TE_APC_PRGRS AP
 			WHERE 1=1
@@ -115,6 +120,9 @@
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  AP.APC_CD = #{apcCd}
 			</if>
+			<if test='apcNm != null and !apcNm.equals("")'>
+			  AND AP.APC_CD IN (SELECT APC_CD FROM TB_APC_INFO WHERE APC_NM LIKE '%' || #{apcNm} || '%')
+			</if>
 			<if test='itemNm != null and !itemNm.equals("")'>
 			  AND  EXISTS(SELECT 1
 			  				FROM TB_TE_APC_OPER_TRMT_ITEM
@@ -123,6 +131,20 @@
 			  				  AND OGNZ_SE_CD = '2'
 			  				  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
 			  				)
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND APC_CD IN (SELECT APC_CD
+								FROM TB_APC_INFO
+								WHERE 1=1
+								<if test='userType == "27"'>
+								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								<if test='userType == "28"'>
+								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								</if>
+								)
+				</if>
 			</if>
 	</select>
 
@@ -311,6 +333,58 @@
 			TB_TE_APC_PRGRS
 		SET
 			PRGRS_LAST = #{prgrsLast}
+			, SYS_LAST_CHG_DT		=  SYSDATE
+			, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+		WHERE 1=1
+		  AND CRTR_YR		= #{crtrYr}
+		  AND APC_CD		= #{apcCd}
+		  AND PRGRS_SE_CD	= 'FCLT'
+	</update>
+
+	<!-- 지자체 승인 업데이트 -->
+	<update id="updateAprv" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+		UPDATE
+			TB_TE_APC_PRGRS
+		SET
+
+			SYS_LAST_CHG_DT			=  SYSDATE
+			, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
+			<if test='userType.equals("27")'>
+				<if test='aprvYn.equals("Y")'>
+				, APRV_CTPV_STTS = #{aprvYn}
+				, APRV_CTPV_NM = (SELECT USER_ID FROM TB_COM_USER WHERE USER_ID = #{userId})
+				, APRV_CTPV_USER_ID = #{userId}
+				, APRV_CTPV_DT = SYSDATE
+				</if>
+				<if test='aprvYn.equals("N")'>
+				, APRV_CTPV_STTS = #{aprvYn}
+				, RJCT_CTPV_NM = (SELECT USER_ID FROM TB_COM_USER WHERE USER_ID = #{userId})
+				, RJCT_CTPV_USER_ID = #{userId}
+				, RJCT_CTPV_DT = SYSDATE
+				</if>
+				<if test='aprvYn.equals("C")'>
+				, APRV_CTPV_STTS = null
+				</if>
+			</if>
+			<if test='userType.equals("28")'>
+				<if test='aprvYn.equals("Y")'>
+				, APRV_SGG_STTS = #{aprvYn}
+				, APRV_SGG_NM = (SELECT USER_ID FROM TB_COM_USER WHERE USER_ID = #{userId})
+				, APRV_SGG_USER_ID = #{userId}
+				, APRV_SGG_DT = SYSDATE
+				</if>
+				<if test='aprvYn.equals("N")'>
+				, APRV_SGG_STTS = #{aprvYn}
+				, RJCT_SGG_NM = (SELECT USER_ID FROM TB_COM_USER WHERE USER_ID = #{userId})
+				, RJCT_SGG_USER_ID = #{userId}
+				, RJCT_SGG_DT = SYSDATE
+				</if>
+				<if test='aprvYn.equals("C")'>
+				, APRV_SGG_STTS = null
+				</if>
+			</if>
 		WHERE 1=1
 		  AND CRTR_YR		= #{crtrYr}
 		  AND APC_CD		= #{apcCd}

@@ -50,6 +50,9 @@ public class FcltPrgrsController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		FcltPrgrsVO resultVO = new FcltPrgrsVO();
 
+		fcltPrgrsVO.setUserId(getUserId());
+		fcltPrgrsVO.setUserType(getUserType());
+
 		try {
 			resultVO = fcltPrgrsService.selectPrgrs(fcltPrgrsVO);
 
@@ -68,6 +71,9 @@ public class FcltPrgrsController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<FcltPrgrsVO> resultList = new ArrayList<>();
 
+		fcltPrgrsVO.setUserId(getUserId());
+		fcltPrgrsVO.setUserType(getUserType());
+
 		try {
 			resultList = fcltPrgrsService.selectPrgrsList(fcltPrgrsVO);
 
@@ -80,7 +86,7 @@ public class FcltPrgrsController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 운영자개요 등록
+	// 진척도 등록
 	@PostMapping(value = "/fm/fclt/insertFcltPrgrs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertFcltPrgrs(@RequestBody FcltPrgrsVO fcltPrgrsVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -107,7 +113,7 @@ public class FcltPrgrsController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 운영자개요 등록
+	// 최종제출 업데이트
 	@PostMapping(value = "/fm/fclt/updatePrgrsLast.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updatePrgrsLast(@RequestBody FcltPrgrsVO fcltPrgrsVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -124,6 +130,66 @@ public class FcltPrgrsController extends BaseController {
 
 		try {
 			updatedCnt = fcltPrgrsService.updatePrgrsLast(fcltPrgrsVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, updatedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 최종제출 업데이트
+	@PostMapping(value = "/fm/fclt/multiSavePrgrsLast.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSavePrgrsLast(@RequestBody List<FcltPrgrsVO> fcltPrgrsVOList, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		for (FcltPrgrsVO fcltPrgrsVO : fcltPrgrsVOList) {
+			fcltPrgrsVO.setSysFrstInptUserId(getUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(getPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(getUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltPrgrsService.multiSavePrgrsLast(fcltPrgrsVOList);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, updatedCnt);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 최종제출 업데이트
+	@PostMapping(value = "/fm/fclt/multiSaveAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveAprv(@RequestBody List<FcltPrgrsVO> fcltPrgrsVOList, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		for (FcltPrgrsVO fcltPrgrsVO : fcltPrgrsVOList) {
+			fcltPrgrsVO.setUserType(getUserType());
+			fcltPrgrsVO.setUserId(getUserId());
+			fcltPrgrsVO.setSysFrstInptUserId(getUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(getPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(getUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltPrgrsService.multiSaveAprv(fcltPrgrsVOList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

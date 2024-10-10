@@ -388,7 +388,7 @@
             {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["본수"],	ref: 'stemQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["본수"],	ref: 'bxGdsQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["수량"],	ref: 'invntrQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
         ]
         gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
@@ -611,7 +611,7 @@
         pckgObj.apcCd = gv_apcCd;
         pckgObj.pckgYmd = SBUxMethod.get('srch-dtp-pckgYmd');
         pckgObj.invntrQntt = parseInt($("#pckgQntt").val());
-        pckgObj.stemQntt = $("div.tabBox_sm.active").text();
+        pckgObj.bxGdsQntt = $("div.tabBox_sm.active").text();
 
         pckgObj.rprsPrdcrCd = pckgObj.prdcrCd;
         delete pckgObj.prdcrCd;

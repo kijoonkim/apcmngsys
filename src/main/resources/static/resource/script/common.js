@@ -257,7 +257,70 @@ async function gfn_postJSON(_url, _param, _sysPrgrmId, _hideProgress) {
 	}
 }
 
+/**
+ * @name gfn_postJsonForDownload
+ * @description async post by json
+ * @function
+ * @param {string} _url
+ * @param {object} _param
+ * @param {[string]} _sysPrgrmId
+ * @param {[boolean]} _hideProgress
+ * @returns {any}
+ */
+async function gfn_postJsonForDownload(_url, _param, _sysPrgrmId, _hideProgress) {
 
+	const showProgress = !_hideProgress;
+    const header = {
+        "Content-Type": "application/json",
+        "sysPrgrmId": postHeaders.sysPrgrmId
+    }
+
+    if (_sysPrgrmId) {
+        header.sysPrgrmId = _sysPrgrmId;
+    }
+
+    try {
+
+		let startTime = new Date();
+		if (showProgress && typeof SBUxMethod === 'function') {
+			SBUxMethod.openProgress(gv_loadingOptions);
+		}
+
+        const response = await fetch(
+            _url, {
+                method: "POST",
+                headers: header,
+                body: JSON.stringify(_param),
+            }
+        );
+
+		const result = await response.blob();
+
+		if (showProgress && typeof SBUxMethod === 'function') {
+			const endTime = new Date();
+			if (endTime.getTime() > startTime + 500) {
+				SBUxMethod.closeProgress(gv_loadingOptions);
+			} else {
+				setTimeout(function() {
+			  		SBUxMethod.closeProgress(gv_loadingOptions);
+				}, 500);
+			}
+		}
+
+		return result;
+
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+
+		if (showProgress && typeof SBUxMethod === 'function') {
+			SBUxMethod.closeProgress(gv_loadingOptions);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
+	}
+}
 
 /*
 원물인식표	rawMtrIdntyDoc		RT_DOC

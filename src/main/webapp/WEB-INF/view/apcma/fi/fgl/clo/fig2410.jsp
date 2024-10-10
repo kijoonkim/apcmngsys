@@ -269,7 +269,7 @@
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
                 },
-                datasorting	: false,
+                datasorting	: true,
         };
         SBGridProperties.columns = [
         	{caption: [""], ref: 'CHK_YN', type: 'checkbox', width: '40px', style: 'text-align:center',

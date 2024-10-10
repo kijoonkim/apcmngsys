@@ -116,6 +116,8 @@ public class ComUserVO extends ComVO {
 	private String sysPdYn;
 	private String sysCsYn;
 	
+	private String brcAtchflSn;
+	private String brcAtchflNm;
 	
 	private String rtnCd;
 	private String rtnMsg;

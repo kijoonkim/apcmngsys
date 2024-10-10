@@ -135,4 +135,12 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 
 		return resultList;
 	}
+
+	@Override
+	public int updateFcltInstlInfoPrgrs(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
+
+		int updatedCnt = fcltInstlInfoMapper.updateFcltInstlInfoPrgrs(fcltInstlInfoVO);
+
+		return updatedCnt;
+	}
 }

@@ -816,7 +816,7 @@
 				}
 				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 
-				SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,item.apcTrmtAmt);
+				SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,item.apcTrmtVlm);
 				SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,item.apcGnrlTrmtAmt);
 				SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst'+sn,item.apcOgnzCprtnSortTrst);
 				SBUxMethod.set('dtl-inp-apcCtrtEmspap'+sn,item.apcCtrtEmspap);

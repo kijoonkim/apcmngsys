@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper;
 import com.at.apcss.fm.fclt.service.FcltPrgrsService;
+import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 
@@ -51,8 +52,32 @@ public class FcltPrgrsServiceImpl extends BaseServiceImpl implements FcltPrgrsSe
 
 	@Override
 	public int updatePrgrsLast(FcltPrgrsVO fcltPrgrsVO) throws Exception {
-		int insertCnt = fcltPrgrsMapper.updatePrgrsLast(fcltPrgrsVO);
-		return insertCnt;
+		int updatedCnt = fcltPrgrsMapper.updatePrgrsLast(fcltPrgrsVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public int multiSavePrgrsLast(List<FcltPrgrsVO> fcltPrgrsVOList) throws Exception {
+		int saveCnt = 0;
+		for (FcltPrgrsVO fcltPrgrsVO : fcltPrgrsVOList) {
+			saveCnt += updatePrgrsLast(fcltPrgrsVO);
+		}
+		return saveCnt;
+	}
+
+	@Override
+	public int updateAprv(FcltPrgrsVO fcltPrgrsVO) throws Exception {
+		int updatedCnt = fcltPrgrsMapper.updateAprv(fcltPrgrsVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public int multiSaveAprv(List<FcltPrgrsVO> fcltPrgrsVOList) throws Exception {
+		int saveCnt = 0;
+		for (FcltPrgrsVO fcltPrgrsVO : fcltPrgrsVOList) {
+			saveCnt += updateAprv(fcltPrgrsVO);
+		}
+		return saveCnt;
 	}
 
 }

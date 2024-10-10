@@ -767,7 +767,7 @@
 
     let columns1 = [
         {
-            caption: ["", "", "사번"],
+            caption: ["사번"],
             ref: 'EMP_CODE',
             type: 'output',
             width: '100px',
@@ -776,8 +776,9 @@
             typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
             format: {type: 'number' /*, rule:'#' */}
         },
-        {caption: ["", "", "성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-        {caption: ["", "", "항목"], ref: 'ITEM', type: 'output', width: '100px', style: 'text-align:left', merge : false},
+        {caption: ["성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+        {caption: ["항목"], ref: 'ITEM', type: 'output', width: '100px', style: 'text-align:left', merge : false},
+        {caption: [""], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left', merge : false},
         /* {caption: ["분기"], ref: 'DATE_QUARTER', type: 'output', width: '100px', style: 'text-align:left'},
          {caption: ["월"], ref: 'DATE_MONTH', type: 'output', width: '100px', style: 'text-align:left'
              , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#' }},
@@ -810,7 +811,7 @@
         });
 
         gvwPivotListGrid = _SBGrid.create(SBGridProperties);
-        gvwPivotListGrid.bind('click', 'fn_view');
+       /* gvwPivotListGrid.bind('click', 'fn_view');*/
     }
 
     //피벗 그리드 상세정보 보기
@@ -821,10 +822,10 @@
     function fn_createPivot(pivotData) {
 
         columns1 = [
-            {caption: ["", "", "사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["", "사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number' /*, rule:'#' */}},
-            {caption: ["", "", "성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["", "", "항목"], ref: 'ITEM', type: 'output', width: '100px', style: 'text-align:left', merge : false},];
+            {caption: ["", "성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["", "항목"], ref: 'ITEM', type: 'output', width: '140px', style: 'text-align:left', merge : false},];
 
 
 
@@ -858,12 +859,13 @@
                         let quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
 
                         const columns = {
-                            caption: ['', quarterTotal , quarterTotal],
+                            caption: [quarterTotal , quarterTotal],
                             ref: quarterTotal,
                             type: 'output',
                             width: '100px',
-                            style: 'text-align:left'
+                            style: 'text-align:right'
                             , merge: false
+                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
                         };
 
                         columns1.push(columns);
@@ -877,12 +879,13 @@
 
                 // caption = //ref = 분기 + 분기별 년월
                 const columns = {
-                    caption: ['', DATE_QUARTER, DATE_MONTH],
+                    caption: [DATE_QUARTER, DATE_MONTH],
                     ref: DATE_QUARTER + DATE_MONTH,
                     type: 'output',
                     width: '100px',
-                    style: 'text-align:left'
+                    style: 'text-align:right'
                     , merge : false
+                    , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
                 };
 
                 columns1.push(columns);
@@ -895,16 +898,27 @@
             let quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
 
             const columns = {
-                caption: ['', quarterTotal , quarterTotal],
+                caption: [quarterTotal , quarterTotal],
                 ref: quarterTotal,
                 type: 'output',
                 width: '100px',
-                style: 'text-align:left'
+                style: 'text-align:right'
                 , merge: false
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
             };
 
             columns1.push(columns);
         }
+
+        const columns = {
+            caption: ["" ,""],
+            ref: 'memo',
+            type: 'output',
+            width: '100px',
+            style: 'text-align:left'
+            , merge: false
+        };
+        columns1.push(columns);
 
         fn_createPivotGrid();
 
@@ -1134,6 +1148,8 @@
         });
 
         const data = await postJsonPromise;
+
+        console.log('------data------',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {

@@ -508,7 +508,7 @@
     }
 
     //화면 이동
-    const maxTebMenuCnt = 11;//메뉴탭 최대 허용 개수(10)
+    const maxTebMenuCnt = 16;//메뉴탭 최대 허용 개수(10)
     const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
         if (_menuGubun === "TOP") {
             fn_setLeftMenu(_menuNo);

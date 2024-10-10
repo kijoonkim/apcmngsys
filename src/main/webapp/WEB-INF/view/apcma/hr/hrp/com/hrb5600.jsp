@@ -221,7 +221,7 @@
                             <th scope="row" class="th_bg">적용기준2</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <div class="dropdown">
-                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="PAY_ITEM_RANGE_TYPE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_ITEM_RANGE_TYPE2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                     </button>
@@ -584,8 +584,8 @@
                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
                 , V_P_APPLY_DATE: APPLY_DATE
-                , V_P_PAY_ITEM_CODE: PAY_ITEM_CODE
-                , V_P_PAY_TYPE: PAY_TYPE
+                , V_P_PAY_ITEM_CODE: rowData.PAY_ITEM_CODE
+                , V_P_PAY_TYPE: rowData.PAY_TYPE
                 , V_P_APPLY_START_DATE: rowData.APPLY_START_DATE
                 , V_P_PAY_ITEM_RANGE_TYPE1: rowData.PAY_ITEM_RANGE_TYPE1
                 , V_P_PAY_ITEM_RANGE_TYPE2: rowData.PAY_ITEM_RANGE_TYPE2
@@ -597,6 +597,8 @@
                 , V_P_PC: ''
             };
 
+            console.log('------paramObj------', paramObj);
+
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp5600List.do", {
                 getType: 'json',
                 workType: 'DETAIL',
@@ -605,6 +607,9 @@
             });
 
             const data = await postJsonPromise;
+
+
+            console.log('------data------', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -642,7 +647,7 @@
 
                     gvwBandgvwDetailGrid.rebuild();
 
-                    fn_settings();
+                    fn_settings('true');
 
 
                 } else {
@@ -744,6 +749,9 @@
 
         editType = 'N';
 
+        var CHk_PAY_ITEM_RANGE_TYPE1 = '';
+        var CHk_PAY_ITEM_RANGE_TYPE2 = '';
+
         SBUxMethod.set("PAY_ITEM_CODE", 			"");
         SBUxMethod.set("PAY_TYPE", 			"");
         SBUxMethod.set("ALL_YN", 			"N");
@@ -757,6 +765,7 @@
         gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE1', '', '', '');
         gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE2', '', '', '');
 
+        //fn_settings('false');
 
         SBUxMethod.attr('PAY_ITEM_CODE','readonly',false);
         SBUxMethod.attr('PAY_TYPE','readonly',false);
@@ -773,14 +782,14 @@
     }
 
     //저장
-    function fn_settings() {
+    function fn_settings(type) {
 
-        SBUxMethod.attr('PAY_ITEM_CODE','readonly',true);
-        SBUxMethod.attr('PAY_TYPE','readonly',true);
-        SBUxMethod.attr('APPLY_START_DATE','readonly',true);
-        SBUxMethod.attr('APPLY_END_DATE','readonly',true);
-        $('#PAY_ITEM_RANGE_TYPE1').attr('disabled',true);
-        $('#PAY_ITEM_RANGE_TYPE2').attr('disabled',true);
+        SBUxMethod.attr('PAY_ITEM_CODE','readonly',type);
+        SBUxMethod.attr('PAY_TYPE','readonly',type);
+        SBUxMethod.attr('APPLY_START_DATE','readonly',type);
+        SBUxMethod.attr('APPLY_END_DATE','readonly',type);
+        $('#PAY_ITEM_RANGE_TYPE1').attr('disabled',type);
+        $('#PAY_ITEM_RANGE_TYPE2').attr('disabled',type);
         /*SBUxMethod.attr('PAY_ITEM_RANGE_TYPE1','disabled',true);*/
         /*SBUxMethod.attr('PAY_ITEM_RANGE_TYPE2','disabled',true);*/
 
@@ -792,12 +801,20 @@
 
         let PAY_ITEM_CODE 			= gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
         let PAY_TYPE 			    = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
-        let ALL_YN 			        = gfnma_nvl(SBUxMethod.get("ALL_YN"));
+        let ALL_YN 			        = gfnma_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
         let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
         let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
         let PAY_ITEM_RANGE_TYPE1	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
         let PAY_ITEM_RANGE_TYPE2	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
         let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));
+
+
+        if (Number(APPLY_START_DATE) >= Number(APPLY_END_DATE)){
+            gfn_comAlert("Q0000", "적용종료일을 적용 시작일 이후로 입력하십시오.");
+            //SetMessageBox(GetFormMessage("HRB5600_003")); // 적용종료일을 적용 시작일 이후로 입력하십시오.
+            return;
+        }
+
 
         if (!PAY_ITEM_CODE) {
             gfn_comAlert("W0002", "급여항목");
@@ -819,10 +836,10 @@
             gfn_comAlert("W0002", "적용기준1");
             return;
         }
-        if (!PAY_ITEM_RANGE_TYPE2) {
+        /*if (!PAY_ITEM_RANGE_TYPE2) {
             gfn_comAlert("W0002", "적용기준2");
             return;
-        }
+        }*/
 
 
         var paramObj = {
@@ -837,7 +854,7 @@
             ,V_P_APPLY_END_DATE       : APPLY_END_DATE
             ,V_P_PAY_ITEM_RANGE_TYPE1 : PAY_ITEM_RANGE_TYPE1
             ,V_P_PAY_ITEM_RANGE_TYPE2 : PAY_ITEM_RANGE_TYPE2
-            ,V_P_ALL_YN               : ALL_YN.ALL_YN
+            ,V_P_ALL_YN               : ALL_YN == '' ? 'N' : ALL_YN
             ,V_P_MEMO                 : MEMO
 
             ,V_P_FORM_ID: p_formId
@@ -848,6 +865,9 @@
 
 
         };
+
+        console.log('---------paramObj-----------',  paramObj);
+
         if (_.isEqual(editType, "N")){
             // 수정 저장
             if (gfn_comConfirm("Q0001", "신규 등록")) {
@@ -916,7 +936,7 @@
     const fn_saveS1 = async function () {
 
         let listData = [];
-        listData =  await getParamForm('u');
+        listData =  await getParamForm();
 
         if (listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600S1.do", {listData: listData});
@@ -927,10 +947,12 @@
 
                     if (data.resultMessage) {
                         alert(data.resultMessage);
+                        fn_search();
                     }else{
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         fn_search();
                     }
+
 
                 } else {
                     alert(data.resultMessage);
@@ -945,98 +967,126 @@
     }
 
 
-    const getParamForm = async function (type) {
+    const getParamForm = async function () {
 
-        let PAY_ITEM_CODE 			= gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
-        let PAY_TYPE 			    = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
-        let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
+        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
+        let APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
 
 
         let updatedData;
         let returnData = [];
 
-        if(_.isEqual(type, 'u')){
 
-            updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
+        updatedData = gvwBandgvwDetailGrid.getUpdateData(true, 'all');
 
-            updatedData.forEach((item, index) => {
+        updatedData.forEach((item, index) => {
 
-                const param = {
+            const param = {
 
-                    cv_count: '0',
-                    getType: 'json',
-                    workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                    params: gfnma_objectToString({
-                        V_P_DEBUG_MODE_YN: ''
-                        , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
-                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+                cv_count: '0',
+                getType: 'json',
+                workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN: ''
+                    , V_P_LANG_ID: ''
+                    , V_P_COMP_CODE: gv_ma_selectedApcCd
+                    , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                        ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE
-                        ,V_P_PAY_TYPE             : PAY_TYPE
-                        ,V_P_APPLY_START_DATE     : APPLY_START_DATE
-                        ,V_P_PAY_ITEM_RANGE_CODE1 : item.data.PAY_ITEM_RANGE_CODE1
-                        ,V_P_PAY_ITEM_RANGE_CODE2 : item.data.PAY_ITEM_RANGE_CODE2
-                        ,V_P_PAY_ITEM_RANGE_AMT   : item.data.PAY_ITEM_RANGE_AMT
-                        ,V_P_MEMO                 : item.data.MEMO
+                    , V_P_PAY_ITEM_CODE: PAY_ITEM_CODE
+                    , V_P_PAY_TYPE: PAY_TYPE
+                    , V_P_APPLY_START_DATE: APPLY_START_DATE
+                    , V_P_PAY_ITEM_RANGE_CODE1: item.data.PAY_ITEM_RANGE_CODE1
+                    , V_P_PAY_ITEM_RANGE_CODE2: item.data.PAY_ITEM_RANGE_CODE2
+                    , V_P_PAY_ITEM_RANGE_AMT: gfnma_nvl(item.data.PAY_ITEM_RANGE_AMT) == '' ? 0 : item.data.PAY_ITEM_RANGE_AMT
+                    , V_P_MEMO: item.data.MEMO
 
-                        , V_P_FORM_ID: p_formId
-                        , V_P_MENU_ID: p_menuId
-                        , V_P_PROC_ID: ''
-                        , V_P_USERID: ''
-                        , V_P_PC: ''
+                    , V_P_FORM_ID: p_formId
+                    , V_P_MENU_ID: p_menuId
+                    , V_P_PROC_ID: ''
+                    , V_P_USERID: ''
+                    , V_P_PC: ''
 
-                    })
-                }
+                })
+            }
 
-                returnData.push(param);
+            returnData.push(param);
 
-            });
-        }else if (_.isEqual(type, 'd')){
-
-            updatedData = gvwBandgvwDetailGrid.getGridDataAll();
-
-            updatedData.forEach((item, index) => {
-
-                const param = {
-
-                    cv_count: '0',
-                    getType: 'json',
-                    workType: 'D',
-                    params: gfnma_objectToString({
-                        V_P_DEBUG_MODE_YN: ''
-                        , V_P_LANG_ID: ''
-                        , V_P_COMP_CODE: gv_ma_selectedApcCd
-                        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-                        ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE
-                        ,V_P_PAY_TYPE             : PAY_TYPE
-                        ,V_P_APPLY_START_DATE     : APPLY_START_DATE
-                        ,V_P_PAY_ITEM_RANGE_CODE1 : item.PAY_ITEM_RANGE_CODE1
-                        ,V_P_PAY_ITEM_RANGE_CODE2 : item.PAY_ITEM_RANGE_CODE2
-                        ,V_P_PAY_ITEM_RANGE_AMT   : item.PAY_ITEM_RANGE_AMT
-                        ,V_P_MEMO                 : item.MEMO
-
-                        , V_P_FORM_ID: p_formId
-                        , V_P_MENU_ID: p_menuId
-                        , V_P_PROC_ID: ''
-                        , V_P_USERID: ''
-                        , V_P_PC: ''
-
-                    })
-                }
-                returnData.push(param);
-            });
-
-        }
+        });
         return returnData;
     }
 
     $(function () {
 
-        $("#PAY_ITEM_RANGE_TYPE1").on("DOMSubtreeModified",function(e){
+        // 변경을 감지할 노드 선택
+        const targetNode = document.getElementById("PAY_ITEM_RANGE_TYPE1");
+
+        console.log('targetNode---- : ',targetNode);
+        const targetNode2 = document.getElementById("PAY_ITEM_RANGE_TYPE2");
+
+        // 감지 옵션 (감지할 변경)
+        const config = { attributes: true, childList: true, subtree: true };
+
+        // 변경 감지 시 실행할 콜백 함수
+        const callback = (mutationList, observer) => {
+           /* console.log("----mutationList--- : ", mutationList);
+            for (const mutation of mutationList) {
+                if (mutation.type === "childList") {
+                    console.log("자식 노드가 추가되거나 제거됐습니다.");
+                } else if (mutation.type === "attributes") {
+                    console.log(`${mutation.attributeName} 특성이 변경됐습니다.`);
+                }
+            }*/
+            let type1Chk = gfnma_nvl($('#PAY_ITEM_RANGE_TYPE1').attr('disabled'));
+            let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
+
+            if (_.isEmpty(type1Chk)){
+                if (!_.isEmpty(PAY_ITEM_RANGE_TYPE1)) {
+                    if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE1, PAY_ITEM_RANGE_TYPE1)) {
+                        console.log('CHk_PAY_ITEM_RANGE_TYPE1 : ',CHk_PAY_ITEM_RANGE_TYPE1);
+                        console.log('PAY_ITEM_RANGE_TYPE1 : ',PAY_ITEM_RANGE_TYPE1);
+                        CHk_PAY_ITEM_RANGE_TYPE1 = PAY_ITEM_RANGE_TYPE1;
+                        fn_item();
+                    }
+                }else{
+                    CHk_PAY_ITEM_RANGE_TYPE1 = '';
+                    fn_item();
+                }
+            }
+
+            let type2Chk = gfnma_nvl($('#PAY_ITEM_RANGE_TYPE2').attr('disabled'));
+            let PAY_ITEM_RANGE_TYPE2 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+            if (_.isEmpty(type2Chk)){
+                if (!_.isEmpty(PAY_ITEM_RANGE_TYPE2)) {
+                    if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE2, PAY_ITEM_RANGE_TYPE2)) {
+                        console.log('CHk_PAY_ITEM_RANGE_TYPE2 : ',CHk_PAY_ITEM_RANGE_TYPE2);
+                        console.log('PAY_ITEM_RANGE_TYPE2 : ',PAY_ITEM_RANGE_TYPE2);
+                        CHk_PAY_ITEM_RANGE_TYPE2 = PAY_ITEM_RANGE_TYPE2;
+                        fn_item();
+                    }
+                }else{
+                    CHk_PAY_ITEM_RANGE_TYPE2 = '';
+                    fn_item();
+                }
+            }
+        };
+
+        // 콜백 함수에 연결된 감지기 인스턴스 생성
+        const observer = new MutationObserver(callback);
+
+        // 설정한 변경의 감지 시작
+        observer.observe(targetNode, config);
+        observer.observe(targetNode2, config);
+
+        /*// 이후 감지 중단 가능
+        observer.disconnect();*/
+
+        /*$("#PAY_ITEM_RANGE_TYPE1").on("DOMSubtreeModified",function(e){
 
             let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
+
+            console.log('--PAY_ITEM_RANGE_TYPE1--',PAY_ITEM_RANGE_TYPE1);
+            console.log('--e--',e);
 
             if (!_.isEmpty(PAY_ITEM_RANGE_TYPE1)) {
                 if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE1, PAY_ITEM_RANGE_TYPE1)) {
@@ -1044,11 +1094,13 @@
                     fn_item();
                 }
             }
-        });
+        });*/
 
-        $("#PAY_ITEM_RANGE_TYPE2").on("DOMSubtreeModified",function(e){
+       /* $("#ITEM_CHANGE_2").on("DOMSubtreeModified",function(e){
 
             let PAY_ITEM_RANGE_TYPE2 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+
+            console.log('--PAY_ITEM_RANGE_TYPE2--',PAY_ITEM_RANGE_TYPE2);
 
             if (!_.isEmpty(PAY_ITEM_RANGE_TYPE2)) {
                 if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE2, PAY_ITEM_RANGE_TYPE2)) {
@@ -1056,7 +1108,7 @@
                     fn_item();
                 }
             }
-        });
+        });*/
 
     });
 
@@ -1065,33 +1117,104 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            let listData = [];
-            listData = await getParamForm('d');
+            let PAY_ITEM_CODE 			= gfnma_nvl(SBUxMethod.get("PAY_ITEM_CODE"));
+            let PAY_TYPE 			    = gfnma_nvl(SBUxMethod.get("PAY_TYPE"));
+            let ALL_YN 			        = gfnma_nvl(SBUxMethod.get("ALL_YN").ALL_YN);
+            let APPLY_START_DATE 		= gfnma_nvl(SBUxMethod.get("APPLY_START_DATE"));
+            let APPLY_END_DATE 			= gfnma_nvl(SBUxMethod.get("APPLY_END_DATE"));
+            let PAY_ITEM_RANGE_TYPE1	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
+            let PAY_ITEM_RANGE_TYPE2	= gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
+            let MEMO 			        = gfnma_nvl(SBUxMethod.get("MEMO"));
 
-            if (listData.length > 0) {
 
-                const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600S1.do", {listData: listData});
-                const data = await postJsonPromise;
-
-                try {
-                    if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        } else {
-                            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                            fn_search();
-                        }
-
-                    } else {
-                        alert(data.resultMessage);
-                    }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-                }
+            if (Number(APPLY_START_DATE) >= Number(APPLY_END_DATE)){
+                gfn_comAlert("Q0000", "적용종료일을 적용 시작일 이후로 입력하십시오.");
+                //SetMessageBox(GetFormMessage("HRB5600_003")); // 적용종료일을 적용 시작일 이후로 입력하십시오.
+                return;
             }
+
+
+            if (!PAY_ITEM_CODE) {
+                gfn_comAlert("W0002", "급여항목");
+                return;
+            }
+            if (!PAY_TYPE) {
+                gfn_comAlert("W0002", "지급구분");
+                return;
+            }
+            if (!APPLY_START_DATE) {
+                gfn_comAlert("W0002", "적용기간");
+                return;
+            }
+            if (!APPLY_END_DATE) {
+                gfn_comAlert("W0002", "적용기간");
+                return;
+            }
+            if (!PAY_ITEM_RANGE_TYPE1) {
+                gfn_comAlert("W0002", "적용기준1");
+                return;
+            }
+            /*if (!PAY_ITEM_RANGE_TYPE2) {
+                gfn_comAlert("W0002", "적용기준2");
+                return;
+            }*/
+
+
+            var paramObj = {
+                V_P_DEBUG_MODE_YN			: ''
+                ,V_P_LANG_ID				: ''
+                ,V_P_COMP_CODE				: gv_ma_selectedApcCd
+                ,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+
+                ,V_P_PAY_ITEM_CODE        : PAY_ITEM_CODE
+                ,V_P_PAY_TYPE             : PAY_TYPE
+                ,V_P_APPLY_START_DATE     : APPLY_START_DATE
+                ,V_P_APPLY_END_DATE       : APPLY_END_DATE
+                ,V_P_PAY_ITEM_RANGE_TYPE1 : PAY_ITEM_RANGE_TYPE1
+                ,V_P_PAY_ITEM_RANGE_TYPE2 : PAY_ITEM_RANGE_TYPE2
+                ,V_P_ALL_YN               : ALL_YN == '' ? 'N' : ALL_YN
+                ,V_P_MEMO                 : MEMO
+
+                ,V_P_FORM_ID: p_formId
+                ,V_P_MENU_ID: p_menuId
+                ,V_P_PROC_ID: ''
+                ,V_P_USERID: ''
+                ,V_P_PC: ''
+
+
+            };
+
+            console.log('---------paramObj-----------',  paramObj);
+            const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600.do", {
+                getType: 'json',
+                workType: 'D',
+                cv_count: '0',
+                params: gfnma_objectToString(paramObj)
+            });
+
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
+                        alert(data.resultMessage);
+                        fn_search();
+                    }else{
+                        await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        fn_search();
+                    }
+
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+
         }
     }
 

@@ -209,4 +209,28 @@ public class FcltInstlInfoController extends BaseController {
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 진척도만 갱신
+	@PostMapping(value = "/fm/fclt/updateFcltInstlInfoPrgrs.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateFcltInstlInfoPrgrs(@RequestBody FcltInstlInfoVO fcltInstlInfoVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		// validation check
+
+		// audit 항목
+		fcltInstlInfoVO.setSysLastChgUserId(getUserId());
+		fcltInstlInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		int updatedCnt = 0;
+
+		try {
+			updatedCnt = fcltInstlInfoService.updateFcltInstlInfoPrgrs(fcltInstlInfoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

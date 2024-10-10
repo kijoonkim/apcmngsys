@@ -523,6 +523,31 @@
                 	rule:'0000-00-000000-0'
                 }
         	},
+        	{
+        		caption: ["사업자번호"],
+        		ref: 'brno',      
+        		type:'output',  	
+        		width:'100px', 
+        		style: 'text-align:center',
+                format : {
+                	type:'string',
+                	rule:'000-00-00000'
+                }
+        	},
+        	{
+	        	caption: ["첨부파일"],		
+	        	ref: 'brcAtchflNm',   	
+	        	type:'output',  	
+	        	width:'120px', 
+	        	style:'text-align:center;color:blue;text-decoration: underline;',
+	        	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	            	if (!gfn_isEmpty(strValue)){
+	            		return "<a href='#' onClick='fn_getUserFile(" + nRow + ")'>" + strValue + "</a>";
+	            	} else {
+				        return "";
+					}
+		    	}
+	        },
 	        {
 	        	caption: ["직위"],		
 	        	ref: 'jbps',   	
@@ -667,6 +692,8 @@
 					mngrAplyYn:		item.mngrAplyYn,
 					authrtAplyYn:	item.authrtAplyYn,
 					aplySysId:		item.aplySysId,
+					brcAtchflSn:	item.brcAtchflSn,
+					brcAtchflNm:	item.brcAtchflNm,
   				}
           		
           		jsonUserAprv.push(user);
@@ -847,6 +874,54 @@
 		fn_init();
 	}
 
+		
+	const fn_getUserFile = async function(_nRow) {
+		
+		const rowData = grdUserAprv.getRowData(_nRow);
+		
+		const postJsonPromise = gfn_postJsonForDownload("/co/user/downloadUserFile.do", {
+			userId: rowData.userId,
+			brcAtchflSn: rowData.brcAtchflSn
+  		});
+		
+        const data = await postJsonPromise;
+
+  		try {
+  			
+  			if (data != null) {
+  				const a = document.createElement("a");
+  		        a.href = URL.createObjectURL(data);
+  		        a.setAttribute("download", rowData.brcAtchflNm);
+  		        a.click();
+  			}
+  			
+  			
+		} catch (e) {
+	   		if (!(e instanceof Error)) {
+	   			e = new Error(e);
+	   		}
+	   		console.error("failed", e.message);
+	       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	    }
+		
+				/*
+		const response = await fetch('api address');
+		const file = await response.blob(); 
+		  const downloadUrl = window.URL.createObjectURL(file); // 해당 file을 가리키는 url 생성
+		 
+		  const anchorElement = document.createElement('a');
+		  document.body.appendChild(anchorElement);
+		  anchorElement.download = 'some file'; // a tag에 download 속성을 줘서 클릭할 때 다운로드가 일어날 수 있도록 하기
+		  anchorElement.href = downloadUrl; // href에 url 달아주기
+		 
+		  anchorElement.click(); // 코드 상으로 클릭을 해줘서 다운로드를 트리거
+		 
+		  document.body.removeChild(anchorElement); // cleanup - 쓰임을 다한 a 태그 삭제
+		  window.URL.revokeObjectUrl(downloadUrl); // cleanup - 쓰임을 다한 url 객체 삭제
+		*/
+	}
+	
+	
 	
     // 엑셀 다운로드
     function fn_excelDwnld() {

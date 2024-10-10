@@ -522,8 +522,18 @@
 				, CU.OD_SBMSN_YN			AS OD_SBMSN_YN
 				, CU.APLY_DOC_SBMSN_YN		AS APLY_DOC_SBMSN_YN
 				
-				, CU.CRNO					AS CRNO
-				, CU.BRNO					AS BRNO
+				--, CU.CRNO					AS CRNO
+				, (
+					SELECT X.CRNO
+					  FROM TB_APC_OGNZ_INFO X
+					 WHERE X.OGNZ_CD = CU.UNTY_OGNZ_CD
+				)							AS CRNO
+				--, CU.BRNO					AS BRNO
+				, (
+					SELECT X.BRNO
+					  FROM TB_APC_OGNZ_INFO X
+					 WHERE X.OGNZ_CD = CU.UNTY_OGNZ_CD
+				)							AS BRNO
 				, CU.CO_TELNO				AS CO_TELNO
 				, CU.JBPS					AS JBPS
 				, 'UO' || CU.UNTY_OGNZ_CD	AS UNTY_OGNZ_CD
@@ -598,7 +608,21 @@
 					   AND X.APLY_YN = 'Y'
 					   AND X.APRV_YN = 'N'
 				)			AS APLY_SYS_ID
-										
+				
+				, (
+					SELECT MAX(X.FILE_SN) AS FILE_SN
+					  FROM TB_COM_BRC_FILE X
+					 WHERE X.USER_ID = CU.USER_ID
+					   AND X.DEL_YN = 'N'
+				)	AS BRC_ATCHFL_SN
+				
+				, (
+					SELECT MAX(X.FILE_NM) KEEP (DENSE_RANK LAST ORDER BY X.FILE_SN) AS FILE_NM
+					  FROM TB_COM_BRC_FILE X
+					 WHERE X.USER_ID = CU.USER_ID
+					   AND X.DEL_YN = 'N'
+				)	AS BRC_ATCHFL_NM
+									
 					
 			  FROM TB_COM_USER CU
 			 WHERE CU.DEL_YN = 'N'
@@ -1984,5 +2008,29 @@
     	 	   AND APC_CD	= #{apcCd}
     	]]>
     </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.user.ComUserMapper.selectComUserAtchfl              -->
+	<!-- DESC : 사용자 첨부파일 단건조회.                                             -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectComUserAtchfl" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserAtchflVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUserAtchfl */
+				  BF.FILE_SN		AS FILE_SN
+				, BF.FILE_NM		AS FILE_NM
+				, BF.FILE_CN		AS FILE_CN
+				, BF.FILE_PATH_NM	AS FILE_PATH_NM
+				, BF.SRVR_FILE_NM	AS SRVR_FILE_NM
+				, BF.FILE_EXTN_NM	AS FILE_EXTN_NM
+			  FROM TB_COM_BRC_FILE BF
+
+			 WHERE BF.FILE_SN = #{brcAtchflSn}
+			   AND BF.USER_ID = #{userId}
+    	]]>
+    </select>
     
 </mapper>

@@ -588,16 +588,17 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.columns = [
+			{caption: ["통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["조직명"], 			ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["조직구분"], 			ref: 'apoSeNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
-			{caption: ["구분"], 	ref: 'sttgUpbrItemSe',   type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
-				,typeinfo : {ref:'jsonGrdComSttgUpbrItemSe', label:'label', value:'value', displayui : false}},
-			{caption: ["부류"], 			ref: 'clsfCd',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:true , oneclickedit:true
-				,typeinfo : {ref:'jsonGrdComClsfCd', label:'label', value:'value', displayui : false}},
+			{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["부류"], 			ref: 'clsfNm',   	type:'output',  width:'100px',    style:'text-align:center'},
 			{caption: ["평가부류"], 		ref: 'ctgryNm',   	type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
 			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
 
-			{caption: ["적합여부"], 		ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
+			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'60px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
@@ -945,34 +946,36 @@
 		let brno = '${loginVO.brno}';
 		</c:if>
 		SBUxMethod.openProgress("loadingOpen");
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
 			brno : brno
 		});
-        let data = await postJsonPromise;
-        try{
-        	comUoBrno = [];
-        	data.resultList.forEach((item, index) => {
-        		let uoListVO = {
+		let data = await postJsonPromise;
+		try{
+			comUoBrno = [];
+			let uoBrno;
+			data.resultList.forEach((item, index) => {
+				uoBrno = item.uoBrno
+				let uoListVO = {
 						'text'		: item.uoCorpNm
 						, 'label'	: item.uoCorpNm
 						, 'value'	: item.uoBrno
 						, 'uoApoCd' : item.uoApoCd
 
 				}
-        		comUoBrno.push(uoListVO);
+				comUoBrno.push(uoListVO);
 			});
-        	SBUxMethod.refresh('dtl-input-selUoBrno');
-        	//console.log(comUoBrno);
-        	if(comUoBrno.length == 1){
-
-        	}
-        	SBUxMethod.closeProgress("loadingOpen");
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			SBUxMethod.refresh('dtl-input-selUoBrno');
+			//console.log(comUoBrno);
+			if(comUoBrno.length == 1){
+				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+			}
+			SBUxMethod.closeProgress("loadingOpen");
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 	//통합조직 콤보박스 선택시 값 변경
 	//const fn_changeSelUoBrno = async function() {
@@ -1077,8 +1080,9 @@
 		//console.log('yr = ' + yr +' brno = ' + brno + ' uoBrno = '+uoBrnoVal);
 
 		//if(gfn_isEmpty(yr)){return;}
-
-		let postJsonPromise01 = gfn_postJSON("/pd/pom/selectTbEvFrmhsApoStbltYnList.do", {
+		//pd/pom/selectPrdcrOgnGenalTblMngList
+		//pd/pom/selectTbEvFrmhsApoStbltYnList
+		let postJsonPromise01 = gfn_postJSON("/pd/pom/selectPrdcrOgnGenalTblMngList.do", {
 			brno : brno
 			,uoBrno : uoBrnoVal
 			,yr : yr
@@ -1114,6 +1118,17 @@
 						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
 						,stbltYnNm: fn_calStbltYn(item)
+
+						,uoCorpNm: item.uoCorpNm
+						,corpNm: item.corpNm
+
+						,apoSeNm: item.apoSeNm
+						,clsfCd: item.clsfCd
+						,clsfNm: item.clsfNm
+
+						,sttgUpbrItemNm: item.sttgUpbrItemNm
+						,sttgUpbrItemSe: item.sttgUpbrItemSe
+
 				}
 				jsonPrdcrOgnCurntMng01.push(itemVO);
 			});

@@ -124,7 +124,7 @@
 				<label for="scrn12"><p>5.1&nbsp;유통조직 처리실적</p></label>
 			</div>
 			<div class ="scrnWrap">
-				<span class="scrn" id="scrn13" data-saved="false" data-draft="false" onclick="cfn_reqTab('CS_005_019_003')">
+				<span class="scrn" id="scrn13" data-saved="false" data-draft="false" onclick="cfn_reqTab('CS_005_019_002')">
 					<span class="prgrs"></span>
 					<span class="chk saved" aria-label="저장"></span>
 					<span class="chk draft" aria-label="임시 저장">임시</span>
@@ -132,7 +132,7 @@
 				<label for="scrn13"><p>5.2&nbsp;APC 처리실적</p></label>
 			</div>
 			<div class ="scrnWrap">
-				<span class="scrn" id="scrn14" data-saved="false" data-draft="false" onclick="cfn_reqTab('CS_005_019_005')">
+				<span class="scrn" id="scrn14" data-saved="false" data-draft="false" onclick="cfn_reqTab('CS_005_019_003')">
 					<span class="prgrs"></span>
 					<span class="chk saved" aria-label="저장"></span>
 					<span class="chk draft" aria-label="임시 저장">임시</span>

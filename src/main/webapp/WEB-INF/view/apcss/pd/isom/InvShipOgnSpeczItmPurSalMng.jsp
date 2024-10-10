@@ -1415,33 +1415,35 @@
 		let brno = '${loginVO.brno}';
 		</c:if>
 
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
 			brno : brno
 		});
-        let data = await postJsonPromise;
-        try{
-        	comUoBrno = [];
-        	data.resultList.forEach((item, index) => {
-        		let uoListVO = {
+		let data = await postJsonPromise;
+		try{
+			comUoBrno = [];
+			let uoBrno;
+			data.resultList.forEach((item, index) => {
+				uoBrno = item.uoBrno
+				let uoListVO = {
 						'text'		: item.uoCorpNm
 						, 'label'	: item.uoCorpNm
 						, 'value'	: item.uoBrno
 						, 'uoApoCd' : item.uoApoCd
 
 				}
-        		comUoBrno.push(uoListVO);
+				comUoBrno.push(uoListVO);
 			});
-        	SBUxMethod.refresh('dtl-input-selUoBrno');
-        	//console.log(comUoBrno);
-        	if(comUoBrno.length == 1){
-
-        	}
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			SBUxMethod.refresh('dtl-input-selUoBrno');
+			//console.log(comUoBrno);
+			if(comUoBrno.length == 1){
+				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 

@@ -229,7 +229,7 @@ public class PckgPrfmncVO extends ComVO {
 	/**
 	 * 본수(GET용)
 	 * */
-	private String stemQntt;
+	private String bxGdsQntt;
 
 	/**
 	 * 표준등급

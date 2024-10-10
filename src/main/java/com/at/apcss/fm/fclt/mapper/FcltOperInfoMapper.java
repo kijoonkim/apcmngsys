@@ -80,7 +80,7 @@ public interface FcltOperInfoMapper {
 	 * @param fcltOperInfoVO
 	 * @return
 	 */
-	public int deleteFcltOperInfoItem (FcltItemVO fcltItemVO);
+	public int deleteItem (FcltItemVO fcltItemVO);
 
 	/**
 	 * APC 목록을 조회한다.

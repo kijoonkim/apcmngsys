@@ -223,30 +223,31 @@
 				)
 		WHEN MATCHED THEN
 				 UPDATE
-					   SET
-		    	        CLTVTN_SFC			= #{cltvtnSfc}
-		    	        , AVG_YR_PRDCTN_VLM		= #{avgYrPrdctnVlm}
-		    	        , JOIN_DAY				= #{joinDay}
-		    	        , WHDWL_DAY				= #{whdwlDay}
-		    	        , CLTVTN_AREA_RMRK		= #{cltvtnAreaRmrk}
+					SET
+						CLTVTN_SFC				= #{cltvtnSfc}
+						, EC_CLTVTN_SFC			= #{ecCltvtnSfc}
+						, AVG_YR_PRDCTN_VLM		= #{avgYrPrdctnVlm}
+						, JOIN_DAY				= #{joinDay}
+						, WHDWL_DAY				= #{whdwlDay}
+						, CLTVTN_AREA_RMRK		= #{cltvtnAreaRmrk}
 
-		    	        , PRDCTN_PLAN_VLM		= #{prdctnPlanVlm}
-		    	        , EC_SPMT_PLAN_VLM		= #{ecSpmtPlanVlm}
-		    	        , PLAN_RMRK				= #{planRmrk}
+						, PRDCTN_PLAN_VLM		= #{prdctnPlanVlm}
+						, EC_SPMT_PLAN_VLM		= #{ecSpmtPlanVlm}
+						, PLAN_RMRK				= #{planRmrk}
 
-		    	        , PRDCTN_VLM			= #{prdctnVlm}
-		    	        , EC_SPMT_VLM			= #{ecSpmtVlm}
-		    	        , SPMT_PRC				= #{spmtPrc}
-		    	        , SPMT_RMRK				= #{spmtRmrk}
+						, PRDCTN_VLM			= #{prdctnVlm}
+						, EC_SPMT_VLM			= #{ecSpmtVlm}
+						, SPMT_PRC				= #{spmtPrc}
+						, SPMT_RMRK				= #{spmtRmrk}
 
-		    	        , FLNM		= #{flnm}
-		    	        , CLTVTN_LAND_ADDR		= #{cltvtnLandAddr}
+						, FLNM		= #{flnm}
+						, CLTVTN_LAND_ADDR		= #{cltvtnLandAddr}
 
-		    	        , SYS_LAST_CHG_DT		= SYSDATE
-	    				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
-	    				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-		    	]]>
-		    	<![CDATA[
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+				]]>
+				<![CDATA[
 
 					 WHERE 1=1
 					 AND CLT.APO_CD			= #{apoCd}
@@ -254,90 +255,92 @@
 					 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 		WHEN NOT MATCHED THEN
 			 INSERT
-		    		(
-		    			APO_CD
-		    		  , APO_SE
-		    		  , BRNO
-		    		  , CRNO
-		    		  , YR
-		    		  , STTG_UPBR_ITEM_SE
-		    		  , CTGRY_CD
-		    		  , ITEM_CD
-		    		  , TRMT_TYPE
-		    		  , PRDCR_OGNZ_SN
-		    		  , PRDCR_OGNZ_CD
-		    		  , PRDCR_OGNZ_NM
+					(
+						APO_CD
+					  , APO_SE
+					  , BRNO
+					  , CRNO
+					  , YR
+					  , STTG_UPBR_ITEM_SE
+					  , CTGRY_CD
+					  , ITEM_CD
+					  , TRMT_TYPE
+					  , PRDCR_OGNZ_SN
+					  , PRDCR_OGNZ_CD
+					  , PRDCR_OGNZ_NM
 
-		    		  , CLTVTN_LAND_SN
-		    		  , FLNM
-		    		  , CLTVTN_LAND_ADDR
-		    		  , CLTVTN_SFC
-		    		  , AVG_YR_PRDCTN_VLM
-		    		  , JOIN_DAY
-		    		  , WHDWL_DAY
-		    		  , CLTVTN_AREA_RMRK
+					  , CLTVTN_LAND_SN
+					  , FLNM
+					  , CLTVTN_LAND_ADDR
+					  , CLTVTN_SFC
+					  , EC_CLTVTN_SFC
+					  , AVG_YR_PRDCTN_VLM
+					  , JOIN_DAY
+					  , WHDWL_DAY
+					  , CLTVTN_AREA_RMRK
 
-		    		  , PRDCTN_PLAN_VLM
-		    		  , EC_SPMT_PLAN_VLM
-		    		  , PLAN_RMRK
+					  , PRDCTN_PLAN_VLM
+					  , EC_SPMT_PLAN_VLM
+					  , PLAN_RMRK
 
-		    		  , PRDCTN_VLM
-		    		  , EC_SPMT_VLM
-		    		  , SPMT_PRC
-		    		  , SPMT_RMRK
+					  , PRDCTN_VLM
+					  , EC_SPMT_VLM
+					  , SPMT_PRC
+					  , SPMT_RMRK
 
-		    		  , SYS_FRST_INPT_DT
-		    		  , SYS_FRST_INPT_USER_ID
-		    		  , SYS_FRST_INPT_PRGRM_ID
-		    		  , SYS_LAST_CHG_DT
-		    		  , SYS_LAST_CHG_USER_ID
-		    		  , SYS_LAST_CHG_PRGRM_ID
-		    		)
-		   		VALUES
-		   			(
-		   			    #{apoCd}
-		   			  , (case when #{apoSe} is not null then #{apoSe}
-		   			  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
-		   			  			END)
-		   			  , #{brno}
-		   			  , (case when #{crno} is not null then #{crno}
-		   			  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
-		   			  			END)
-		   			  , TO_CHAR(SYSDATE,'YYYY')
-		   			  , #{sttgUpbrItemSe}
-		   			  , '0'
-		   			  , #{itemCd}
-		   			  , #{trmtType}
-		   			  , #{prdcrOgnzSn}
-		   			  , #{prdcrOgnzCd}
-		   			  , #{prdcrOgnzNm}
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					    #{apoCd}
+					  , (case when #{apoSe} is not null then #{apoSe}
+					  			ELSE (SELECT OGNZ_SE_CD FROM TB_APC_OGNZ_INFO WHERE OGNZ_CD = #{apoCd})
+					  			END)
+					  , #{brno}
+					  , (case when #{crno} is not null then #{crno}
+					  			ELSE (SELECT CRNO FROM TB_EV_APO WHERE APO_CD = #{apoCd})
+					  			END)
+					  , TO_CHAR(SYSDATE,'YYYY')
+					  , #{sttgUpbrItemSe}
+					  , '0'
+					  , #{itemCd}
+					  , #{trmtType}
+					  , #{prdcrOgnzSn}
+					  , #{prdcrOgnzCd}
+					  , #{prdcrOgnzNm}
 
-		   			  , SEQ_CLTVTN_LAND_SN.NEXTVAL
-		   			  , #{flnm}
-		   			  , #{cltvtnLandAddr}
+					  , SEQ_CLTVTN_LAND_SN.NEXTVAL
+					  , #{flnm}
+					  , #{cltvtnLandAddr}
 
-		   			  , #{cltvtnSfc}
-		   			  , #{avgYrPrdctnVlm}
-		   			  , #{joinDay}
-		   			  , #{whdwlDay}
-		   			  , #{cltvtnAreaRmrk}
+					  , #{cltvtnSfc}
+					  , #{ecCltvtnSfc}
+					  , #{avgYrPrdctnVlm}
+					  , #{joinDay}
+					  , #{whdwlDay}
+					  , #{cltvtnAreaRmrk}
 
-		   			  , #{prdctnPlanVlm}
-		   			  , #{ecSpmtPlanVlm}
-		   			  , #{planRmrk}
+					  , #{prdctnPlanVlm}
+					  , #{ecSpmtPlanVlm}
+					  , #{planRmrk}
 
-		   			  , #{prdctnVlm}
-		   			  , #{ecSpmtVlm}
-		   			  , #{spmtPrc}
-		   			  , #{spmtRmrk}
+					  , #{prdctnVlm}
+					  , #{ecSpmtVlm}
+					  , #{spmtPrc}
+					  , #{spmtRmrk}
 
-		   			  , SYSDATE
-	   			  	  , #{sysFrstInptUserId}
-		   			  , #{sysFrstInptPrgrmId}
-		   			  , SYSDATE
-		   			  , #{sysLastChgUserId}
-		   			  , #{sysLastChgPrgrmId}
-		   			)
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
 		]]>
 	</insert>
 
@@ -362,9 +365,11 @@
 
 		    	, CM.STTG_UPBR_ITEM_SE
 		    	, CM.CTGRY_CD
-		    	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+		    	,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CM.CTGRY_CD) AS CTGRY_NM
 		    	, CM.ITEM_CD
 		    	, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+		    	, CM.CLSF_CD
+		    	,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = CM.CLSF_CD) AS CLSF_NM
 		    	, CM.TRMT_TYPE
 		    	, CM.PRDCR_OGNZ_SN
 		    	, CM.PRDCR_OGNZ_CD
@@ -373,6 +378,7 @@
 		    	, CM.JOIN_DAY
 		    	, CM.WHDWL_DAY
 		    	, CM.CLTVTN_SFC
+		    	, CM.EC_CLTVTN_SFC
 		    	, CM.AVG_YR_PRDCTN_VLM
 		    	, CM.CLTVTN_AREA_RMRK
 
@@ -422,9 +428,11 @@
 
 				, CM.STTG_UPBR_ITEM_SE
 				, CM.CTGRY_CD
-				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS CTGRY_NM
+				,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CM.CTGRY_CD) AS CTGRY_NM
 				, CM.ITEM_CD
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+				, CM.CLSF_CD
+				,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = CM.CLSF_CD) AS CLSF_NM
 				, CM.TRMT_TYPE
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
@@ -824,6 +832,8 @@
 		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = TOTAL.BRNO) AS CORP_NM
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = TOTAL.UO_BRNO) AS UO_CORP_NM
 			,TOTAL.PRDCR_OGNZ_SN
 			,TOTAL.PRDCR_OGNZ_NM
 			,TOTAL.YR
@@ -941,5 +951,113 @@
 		AND TEFA.YR = TEFPSS.YR
 		AND TEFA.BRNO = TEFPSS.BRNO)TOTAL
 		ORDER BY TOTAL.PRDCR_OGNZ_SN ASC
+	</select>
+
+	<select id="selectRawData01" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		SELECT
+			FA.YR
+			,FA.UO_BRNO
+			,FA.BRNO
+			,FA.APO_SE
+			,DECODE(FA.APO_SE , '1' , '통합조직' , '2' , '출자출하조직' ,'') AS APO_SE_NM
+			,PRDCR_OGNZ_NM
+			,PRDCR_OGNZ_SN
+			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO) AS APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = (SELECT APRV FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO)) AS APRV_NM
+			,FA.CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = FA.CTGRY_CD) AS CTGRY_NM
+			,FA.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = FA.ITEM_CD) AS ITEM_NM
+			,FA.TRMT_TYPE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = FA.TRMT_TYPE) AS TRMT_TYPE_NM
+			,FA.STTG_UPBR_ITEM_SE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = FA.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			,(SELECT CLSF_CD FROM TB_EV_APO_YR_GPC_CD WHERE TO_CHAR(BRNO) = FA.UO_BRNO AND ITEM_CD = FA.ITEM_CD AND YR = FA.YR AND APO_SE =1) AS CLSF_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = (SELECT CLSF_CD FROM TB_EV_APO_YR_GPC_CD WHERE TO_CHAR(BRNO) = FA.UO_BRNO AND ITEM_CD = FA.ITEM_CD AND YR = FA.YR AND APO_SE =1)) AS CLSF_NM
+
+			,FA.STBLT_YN
+
+			,(SELECT COUNT(CLTVTN_LAND_SN) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS CNT
+
+			,(SELECT SUM(EC_SPMT_PLAN_VLM) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_PLAN_VLM_TOT
+			,(SELECT SUM(EC_SPMT_VLM) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_VLM_TOT
+
+			,(SELECT SUM(SPMT_PRC) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS SPMT_PRC_TOT
+
+			,(SELECT ROUND( (SUM(EC_SPMT_VLM)/NULLIF(SUM(EC_SPMT_PLAN_VLM),0))*100 ,2) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_RATE_B
+
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO) AS UO_CORP_NM
+			,EA.CORP_NM
+
+		FROM TB_EV_FRMHS_APO FA
+		LEFT JOIN TB_EV_APO EA
+		ON FA.BRNO = EA.BRNO
+
+		WHERE 1=1
+		  AND FA.BRNO IN (SELECT BRNO FROM TB_EV_APLY_MNG WHERE YR = #{yr})
+		  AND FA.YR = #{yr}
+
+		ORDER BY APO_SE , CORP_NM , PRDCR_OGNZ_NM
+	</select>
+	<select id="selectRawData02" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+		SELECT
+			FPESS.YR
+			,FPESS.APO_CD
+			,FPESS.APO_SE
+			,DECODE(FPESS.APO_SE , '1' , '통합조직' , '2' , '출자출하조직' ,'') AS APO_SE_NM
+			,FPESS.BRNO
+			,EA.CORP_NM
+			,EAM.UO_BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.UO_BRNO) AS UO_CORP_NM
+
+			,FPESS.CRNO
+			,FPESS.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = FPESS.ITEM_CD) AS ITEM_NM
+
+			,FA.STTG_UPBR_ITEM_SE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = FA.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			,FA.CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = FA.CTGRY_CD) AS CTGRY_NM
+			,FA.CLSF_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = FA.CLSF_CD) AS CLSF_NM
+			, FA.TRMT_TYPE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = FA.TRMT_TYPE) AS TRMT_TYPE_NM
+
+			, FPESS.PRDCR_OGNZ_SN
+			, FPESS.PRDCR_OGNZ_CD
+			, FA.PRDCR_OGNZ_NM
+
+			, FPESS.CLTVTN_LAND_SN
+			, FPESS.FLNM
+			, FPESS.CLTVTN_LAND_ADDR
+
+			, FPESS.JOIN_DAY
+			, FPESS.WHDWL_DAY
+			, FPESS.CLTVTN_SFC
+			, FPESS.EC_CLTVTN_SFC
+			, FPESS.AVG_YR_PRDCTN_VLM
+			, FPESS.CLTVTN_AREA_RMRK
+
+			, FPESS.PRDCTN_PLAN_VLM
+			, FPESS.EC_SPMT_PLAN_VLM
+			, FPESS.PLAN_RMRK
+
+			, FPESS.PRDCTN_VLM
+			, FPESS.EC_SPMT_VLM
+			, FPESS.SPMT_PRC
+			, FPESS.SPMT_RMRK
+		FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN FPESS
+			LEFT JOIN TB_EV_APO EA
+				ON FPESS.BRNO = EA.BRNO
+			LEFT JOIN TB_EV_FRMHS_APO FA
+				ON FPESS.PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN
+			LEFT JOIN TB_EV_APLY_MNG EAM
+				ON FPESS.BRNO = EAM.BRNO
+				AND FPESS.YR = EAM.YR
+				AND FPESS.APO_SE = EAM.APO_SE
+		WHERE 1=1
+			AND FPESS.BRNO IN (SELECT BRNO FROM TB_EV_APLY_MNG WHERE YR = #{yr})
+			AND FPESS.YR = #{yr}
+		ORDER BY YR , CORP_NM , UO_CORP_NM
 	</select>
 </mapper>

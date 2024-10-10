@@ -412,12 +412,12 @@
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
             },
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '150px', style: 'text-align:left'/*, disabled: true*/},
             {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '150px', style: 'text-align:left'/*, disabled: true*/},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '150px', style: 'text-align:left'/*, disabled: true*/},
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
@@ -429,8 +429,8 @@
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'output', width: '150px', style: 'text-align:left',
-                format : {type:'number', rule:'#,##', emptyvalue:'0.00'}},
+            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '150px', style: 'text-align:left',
+                format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}},
             {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '150px', style: 'text-align:left',
                 format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '100px', style: 'text-align:left'}
@@ -438,22 +438,37 @@
         ];
 
         grdExceptionList = _SBGrid.create(SBGridProperties);
-     /*   grdExceptionList.bind('dblclick', 'gvwCareerDblclick');*/
-        /*grdExceptionList.bind('click', 'fn_view');*/
 
         if (rowData != null){
             grdExceptionList.push(rowData);
         }
+
+        grdExceptionList.bind('valuechanged','gridValueChanged');
+        grdExceptionList.bind('click', 'fn_view');
     }
 
-   /* //상세정보 보기
+    //상세정보 보기
     async function fn_view() {
         var nCol = grdExceptionList.getCol();
         var nRow = grdExceptionList.getRow();
 
-        console.log('---------nCol----------',nCol);
-        console.log('---------nRow----------',nRow);
-    }*/
+        if (nCol < 1){
+            return;
+        }
+
+        if (nRow < 1){
+            return;
+        }
+
+        let gridData = grdExceptionList.getRowData(nRow);
+
+        console.log('----------gridData-----------',gridData);
+
+        fn_ColumnSetting(nRow,gridData.PAY_APPLY_TYPE);
+
+
+
+    }
 
 
     /**
@@ -471,19 +486,19 @@
         let rowStatus = grdExceptionList.getRowStatus(row);
 
 
-        if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){
+      /*  if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){*/
 
-            let searchText = '';
-            if (!_.isEmpty(rowData)){
-                searchText = rowData.EMP_CODE;
-            }
-
-            event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
-            fn_compopup2(row, col, searchText);
-
-        }else{
-            return false;
+        let searchText = '';
+        if (!_.isEmpty(rowData)){
+            searchText = rowData.EMP_CODE;
         }
+
+        event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
+        fn_compopup2(row, col, searchText);
+
+       /* }else{
+            return false;
+        }*/
 
 
     }
@@ -517,8 +532,8 @@
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
                 //그리드내 원하는 위치에 값 셋팅하기
-                grdExceptionList.setCellData(row, (col+1), data['EMP_CODE']);
-                grdExceptionList.setCellData(row, (col+2), data['EMP_NAME']);
+                grdExceptionList.setCellData(row, (col-1), data['EMP_CODE']);
+                grdExceptionList.setCellData(row, (col+1), data['EMP_NAME']);
             }
         });
     }
@@ -528,14 +543,29 @@
     const fn_addRow = function() {
         let rowVal = grdExceptionList.getRow();
 
+        const msg = {
+            PAY_TYPE                : '',
+            EMP_CODE                : '',
+            EMP_NAME                : '',
+            PAY_ITEM_CODE           : '',
+            PAY_YYYYMM_FR           : '',
+            PAY_YYYYMM_TO           : '',
+            PAY_APPLY_TYPE          : '',
+            PAY_APPLY_RATE          : 0,
+            PAY_APPLY_AMT           : 0,
+            MEMO                    : '',
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            grdExceptionList.addRow(true);
+            grdExceptionList.addRow(true, msg);
            /* let rows = grdExceptionList.getRows()-2;
             grdExceptionList.setCellDisabled(rows, 0, rows, 5, false, true, true);*/
 
         }else{
-            grdExceptionList.insertRow(rowVal);
+            grdExceptionList.insertRow(rowVal, 'below', msg);
             /*grdExceptionList.setCellDisabled(rowVal, 0, rows, 5, false, true, true);*/
         }
     }
@@ -816,6 +846,74 @@
             grdExceptionList.exportData("xlsx","급여 변동항목 등록_복지포인트정산",true);
         }
         //gvwDetallGrid.exportData("xlsx",'급여 변동항목 등록_복지포인트정산 [호환모드]', true , true);
+
+    }
+
+    //월별 급상여 예외자 그리드 변경
+    async function gridValueChanged() {
+
+        let nCol = grdExceptionList.getCol();
+        let nRow = grdExceptionList.getRow();
+
+        if (nCol == -1){
+            return;
+        }
+
+        if (nRow == -1){
+            return;
+        }
+
+        let gridData = grdExceptionList.getRowData(nRow);
+
+        if (nCol == grdExceptionList.getColRef('PAY_APPLY_TYPE')){
+
+            let strType = gridData.PAY_APPLY_TYPE;
+
+            if (strType == 'AMOUNT'){
+                rdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),0,true);
+            } else if (strType == 'RATE'){
+                grdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),0,true);
+            }
+
+            fn_ColumnSetting(nRow,strType);
+
+           /* fnColumnSetting(strType);*/
+
+        }
+
+    }
+
+    //월별 급상여 예외자 그리드 값 셋팅
+    async function fn_ColumnSetting(nRow, strType) {
+
+        if (strType == 'AMOUNT')
+        {
+            grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), false, false, true );
+            grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), true, false, true );
+           /* grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), '#FFFFFF');
+            grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), '#ccccc');
+           */ /*gvwException.Columns["pay_apply_rate"].OptionsColumn.AllowEdit = false;
+            //gvwException.Columns["pay_apply_rate"].AllowBlank = true;
+            gvwException.Columns["pay_apply_rate"].AppearanceHeader.ForeColor = AppearanceGridForeColor;
+            gvwException.Columns["pay_apply_amt"].OptionsColumn.AllowEdit = true;
+            //gvwException.Columns["pay_apply_amt"].AllowBlank = false;
+            gvwException.Columns["pay_apply_amt"].AppearanceHeader.ForeColor = AllowBlankGridColor;*/
+        }
+        else if (strType == 'RATE')
+        {
+            grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), true, false, true );
+            grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), false, false, true );
+           /* grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), '#FFFFFF');
+            grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), '#ccccc');
+*/
+
+            /*gvwException.Columns["pay_apply_rate"].OptionsColumn.AllowEdit = true;
+            //gvwException.Columns["pay_apply_rate"].AllowBlank = false;
+            gvwException.Columns["pay_apply_rate"].AppearanceHeader.ForeColor = AllowBlankGridColor;
+            gvwException.Columns["pay_apply_amt"].OptionsColumn.AllowEdit = false;
+            //gvwException.Columns["pay_apply_amt"].AllowBlank = true;
+            gvwException.Columns["pay_apply_amt"].AppearanceHeader.ForeColor = AppearanceGridForeColor;*/
+        }
 
     }
 

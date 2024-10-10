@@ -97,8 +97,15 @@ public class PrdcrOgnGenalTblMngVO extends ComVO{
 	private String lastStbltYn;//최종 선정여부
 	private String exclYn;//제외 여부
 
+	private String clsfCd;
+	private String clsfNm;
+
+	private String apoSeNm;
+
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
+
 }

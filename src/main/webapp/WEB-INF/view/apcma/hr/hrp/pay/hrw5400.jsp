@@ -703,37 +703,64 @@
         }
     }
 
-    const columns1 = [
+    /*const columns1 = [
         {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' /*, rule:'#' */}},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' /!*, rule:'#' *!/}},
         {caption: ["성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
         {caption: ["항목"], ref: 'ITEM', type: 'output', width: '100px', style: 'text-align:left'},
         {caption: ["분기"], ref: 'DATE_QUARTER', type: 'output', width: '100px', style: 'text-align:left'},
         {caption: ["월"], ref: 'DATE_MONTH', type: 'output', width: '100px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#' }},
         {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["산정실업급여(사원)"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["산정실업급여(회사)"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["사업주고안직능"], ref: 'COMP_STABILITY_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["연말실업급여(사원)"], ref: 'EMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["연말실업급여(회사)"], ref: 'COMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["고안직능(연말)"], ref: 'STABILITY_INCOME_YE', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["정산실업급여(사원)"], ref: 'EMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["정산실업급여(회사)"], ref: 'COMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
         {caption: ["고안직능(정산)"], ref: 'STABILITY_INCOME_ADJ', type: 'output', width: '120px', style: 'text-align:left'
-            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
     ];
 
-    const columns2 = [];
+    const columns2 = [];*/
+
+    let columns1 = [
+        {
+            caption: ["사번"],
+            ref: 'EMP_CODE',
+            type: 'output',
+            width: '100px',
+            style: 'text-align:left'
+            ,
+            typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
+            format: {type: 'number' /*, rule:'#' */}
+        },
+        {caption: ["성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+        {caption: ["항목"], ref: 'ITEM', type: 'output', width: '100px', style: 'text-align:left', merge : false},
+        {caption: [""], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left', merge : false},
+        /* {caption: ["분기"], ref: 'DATE_QUARTER', type: 'output', width: '100px', style: 'text-align:left'},
+         {caption: ["월"], ref: 'DATE_MONTH', type: 'output', width: '100px', style: 'text-align:left'
+             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#' }},
+         {caption: ["기준소득월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
+             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
+         {caption: ["월보험료(계)"], ref: 'TOTAL_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
+         {caption: ["사용자부담금"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},
+         {caption: ["본인기여금"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/!*, maxlength : 10*!/},  format : { type:'number' , rule:'#,###' }},*/
+    ];
 
     function fn_createPivotGrid() {
         var SBGridProperties = {};
@@ -754,64 +781,242 @@
         });
 
         gvwPivotListGrid = _SBGrid.create(SBGridProperties);
-        gvwPivotListGrid.bind('click', 'fn_view');
+        //gvwPivotListGrid.bind('click', 'fn_view');
     }
 
     //피벗 그리드 상세정보 보기
-    function fn_view() {
+    /*function fn_view() {
 
-    }
+    }*/
 
     function fn_createPivot(pivotData){
 
-        /*jsonPivotList.length = 0;
-        data.cv_3.forEach((item, index) => {
-            const msg = {
-                EMP_CODE             : gfnma_nvl(item.EMP_CODE),            //사번
-                EMP_NAME             : gfnma_nvl(item.EMP_NAME),            //성명
-                DATE_QUARTER         : gfnma_nvl(item.DATE_QUARTER),        //분기
-                DATE_MONTH           : gfnma_nvl(item.DATE_MONTH),          //월
-                BASE_INCOME_AMT         : gfnma_nvl(item.BASE_INCOME_AMT),         //보수월액
-                EMP_INSURE_AMT          : gfnma_nvl(item.EMP_INSURE_AMT),          //산정실업급여(사원)
-                COMP_INSURE_AMT         : gfnma_nvl(item.COMP_INSURE_AMT),         //산정실업급여(회사)
-                COMP_STABILITY_AMT      : gfnma_nvl(item.COMP_STABILITY_AMT),      //사업주고안직능
-                EMP_INSURE_YE_AMT       : gfnma_nvl(item.EMP_INSURE_YE_AMT),       //연말실업급여(사원)
-                COMP_INSURE_YE_AMT      : gfnma_nvl(item.COMP_INSURE_YE_AMT),      //연말실업급여(회사)
-                STABILITY_INCOME_YE     : gfnma_nvl(item.STABILITY_INCOME_YE),     //고안직능(연말)
-                EMP_INSURE_ADJ_AMT      : gfnma_nvl(item.EMP_INSURE_ADJ_AMT),      //정산실업급여(사원)
-                COMP_INSURE_ADJ_AMT     : gfnma_nvl(item.COMP_INSURE_ADJ_AMT),     //정산실업급여(회사)
-                STABILITY_INCOME_ADJ    : gfnma_nvl(item.STABILITY_INCOME_ADJ),    //고안직능(정산)
+        columns1 = [
+            {caption: ["", "사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'
+                , typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number' /*, rule:'#' */}},
+            {caption: ["", "성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["", "항목"], ref: 'ITEM', type: 'output', width: '140px', style: 'text-align:left', merge : false},];
 
-            }
-            jsonPivotList.push(msg);
-        });
 
-        gvwPivotListGrid.rebuild();*/
 
         //분기 항목 정의
         let DATE_QUARTER_ARR = [];
+        //분기 항목 년월
+        let DATE_MONTH_ARR = [];
+        //분기 항목 + 분기 항목 년월
+        let DATE_QUARTER_MONTH_ARR = [];
 
-        pivotData.forEach((item,index) =>{
+        pivotData.forEach((item, index) => {
 
-            let DATE_QUARTER_ = gfnma_nvl(item.DATE_QUARTER);
+            //분기 데이터
+            let DATE_QUARTER = gfnma_nvl(item.DATE_QUARTER);
+            DATE_QUARTER = DATE_QUARTER.trim();
+            //분기별 년월 데이터
+            let DATE_MONTH = gfnma_nvl(item.DATE_MONTH);
+            DATE_MONTH = DATE_MONTH.trim();
 
-            if (!DATE_QUARTER_ARR.indexOf(DATE_QUARTER_)){
-                DATE_QUARTER_ARR = DATE_QUARTER_;
+            //분기 및 분기별 년월 데이터가 다르면 컬럼 추가.
+            if (DATE_QUARTER_ARR.includes(DATE_QUARTER) == false || DATE_MONTH_ARR.includes(DATE_MONTH) == false) {
+
+                //컬럼의 ref를 저장
+                DATE_QUARTER_MONTH_ARR.push(DATE_QUARTER + DATE_MONTH);
+
+                if (DATE_QUARTER_ARR.includes(DATE_QUARTER) == false) {
+
+
+                    if (_.isEmpty(DATE_QUARTER_ARR) == false) {
+
+                        let quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
+
+                        const columns = {
+                            caption: [quarterTotal , quarterTotal],
+                            ref: quarterTotal,
+                            type: 'output',
+                            width: '100px',
+                            style: 'text-align:right'
+                            , merge: false
+                            , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                        };
+
+                        columns1.push(columns);
+                    }
+
+                    DATE_QUARTER_ARR.push(DATE_QUARTER);
+                }
+                if (DATE_MONTH_ARR.includes(DATE_MONTH) == false) {
+                    DATE_MONTH_ARR.push(DATE_MONTH);
+                }
+
+                // caption = //ref = 분기 + 분기별 년월
+                const columns = {
+                    caption: [DATE_QUARTER, DATE_MONTH],
+                    ref: DATE_QUARTER + DATE_MONTH,
+                    type: 'output',
+                    width: '100px',
+                    style: 'text-align:right'
+                    , merge : false
+                    , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+                };
+
+                columns1.push(columns);
+            }
+
+        });
+        //마지막 분기 데이터 Total  컬럼 생성
+        if (_.isEmpty(DATE_QUARTER_ARR) == false) {
+
+            let quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
+
+            const columns = {
+                caption: [quarterTotal , quarterTotal],
+                ref: quarterTotal,
+                type: 'output',
+                width: '100px',
+                style: 'text-align:right'
+                , merge: false
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }
+            };
+
+            columns1.push(columns);
+        }
+
+        const columns = {
+            caption: ["" ,""],
+            ref: 'memo',
+            type: 'output',
+            width: '100px',
+            style: 'text-align:left'
+            , merge: false
+        };
+        columns1.push(columns);
+
+        fn_createPivotGrid();
+
+        let EMP_CODE_ARR = [];
+        let EMP_NAME_ARR = [];
+        let EMP_ARR = [];
+
+        jsonPivotList.length = 0
+        pivotData.forEach((item, index) => {
+
+            let EMP_CODE = gfnma_nvl(item.EMP_CODE);            //사번
+            let EMP_NAME = gfnma_nvl(item.EMP_NAME);            //성명
+
+            if (EMP_CODE_ARR.includes(EMP_CODE) == false || EMP_NAME_ARR.includes(EMP_NAME) == false) {
+                EMP_CODE_ARR.push(EMP_CODE);
+                EMP_NAME_ARR.push(EMP_NAME);
+
+                let EMP_ARR_JSON = {EMP_CODE: EMP_CODE, EMP_NAME: EMP_NAME};
+                EMP_ARR.push(EMP_ARR_JSON);
             }
 
 
-        })
+        });
+
+        /*  console.log('incomeItem', incomeItem);
+
+         msg.ITEM = incomeItem == 'BASE_INCOME_AMT' ? '기준소득월액' : (incomeItem == 'TOTAL_INSURE_AMT' ? '월보험료(계)' :
+             (incomeItem == 'COMP_INSURE_AMT' ? '사용자부담금' : (incomeItem == 'EMP_INSURE_AMT' ? '본인기여금' : '')));*/
+        let INCOME_NM = ['BASE_INCOME_AMT', 'EMP_INSURE_AMT', 'COMP_INSURE_AMT', 'COMP_STABILITY_AMT', 'EMP_INSURE_ADJ_AMT', 'COMP_INSURE_ADJ_AMT',
+        'STABILITY_INCOME_ADJ', 'EMP_INSURE_YE_AMT', 'COMP_INSURE_YE_AMT', 'STABILITY_INCOME_YE']
 
 
-        let BASE_INCOME_NM = '기준소득월액';
-        let TOTAL_INSURE_NM = '월보험료(계)';
-        let COMP_INSURE_NM = '사용자부담금';
-        let EMP_INSURE_NM = '본인기여금';
+        jsonPivotList.length = 0;
+        EMP_ARR.forEach((empItem, empIndex) => { //사원리스트
+
+            INCOME_NM.forEach((incomeItem, incomeIndex) => {
+
+                let totalVal = ''; // 분기별 총액 값
+                let DATE_QUARTER_TOTAL = ''; // 분기별 총액 로우 ref
+                let DATE_QUARTER_ARR = []; //분기검사 arr
+                let quarterTotal = ''; //값의 ref명
+
+                let msg = {
+                    EMP_CODE: gfnma_nvl(empItem.EMP_CODE),            //사번
+                    EMP_NAME: gfnma_nvl(empItem.EMP_NAME),            //성명
+                }
+
+                if (_.isEqual(incomeItem,'BASE_INCOME_AMT')){
+                    msg.ITEM = '보수총액'
+                }else if (_.isEqual(incomeItem,'EMP_INSURE_AMT')){
+                    msg.ITEM = '실업급여(사원)'
+                }else if (_.isEqual(incomeItem,'COMP_INSURE_AMT')){
+                    msg.ITEM = '실업급여(회사)'
+                }else if (_.isEqual(incomeItem,'COMP_STABILITY_AMT')){
+                    msg.ITEM = '고용안정(회사)'
+                }else if (_.isEqual(incomeItem,'EMP_INSURE_ADJ_AMT')){
+                    msg.ITEM = '실업급여(정산-사원)'
+                }else if (_.isEqual(incomeItem,'COMP_INSURE_ADJ_AMT')){
+                    msg.ITEM = '실업급여(정산-회사)'
+                }else if (_.isEqual(incomeItem,'STABILITY_INCOME_ADJ')){
+                    msg.ITEM = '고용안정(정산)'
+                }else if (_.isEqual(incomeItem,'EMP_INSURE_YE_AMT')){
+                    msg.ITEM = '실업급여(연말-사원)'
+                }else if (_.isEqual(incomeItem,'COMP_INSURE_YE_AMT')){
+                    msg.ITEM = '실업급여(연말-회사)'
+                }else if (_.isEqual(incomeItem,'STABILITY_INCOME_YE')){
+                    msg.ITEM = '고용안정(연말정산)'
+                }
+
+                DATE_QUARTER_MONTH_ARR.forEach((item1, index1) => { //컬럼리스트
 
 
-        pivotData.forEach((item,index) =>{
+                    pivotData.forEach((dataItem, dataIndex) => { //데이터
 
-        })
+                        if (_.isEqual(empItem.EMP_CODE, dataItem.EMP_CODE) && _.isEqual(empItem.EMP_NAME, dataItem.EMP_NAME)) {
+
+                            let DATE_QUARTER = gfnma_nvl(dataItem.DATE_QUARTER);        //분기
+                            DATE_QUARTER = DATE_QUARTER.trim();
+                            let DATE_MONTH = gfnma_nvl(dataItem.DATE_MONTH);          //월
+                            DATE_MONTH = DATE_MONTH.trim();
+                            let DATE_QUARTER_MONTH = DATE_QUARTER + DATE_MONTH   //ref 명 조합
+
+
+                            if (_.isEqual(item1, DATE_QUARTER_MONTH)) { //컬럼 생성시 ref 명 조합과 return data의 분기+월 조합이 같으면 데이터 set
+
+                                msg[item1] = gfnma_nvl(dataItem[incomeItem]) ;  //액
+                                totalVal = Number(totalVal) + Number(gfnma_nvl(dataItem[incomeItem])); //총액값
+
+                                //분기별로 총액값 set
+                                if (DATE_QUARTER_ARR.includes(DATE_QUARTER) == false){
+
+                                    if (_.isEmpty(DATE_QUARTER_ARR) == false){
+
+                                        totalVal = Number(totalVal) - Number(gfnma_nvl(dataItem[incomeItem])); //다른 분기 값이기 때문에 빼주고 아래서 추가
+
+                                        quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
+                                        msg[quarterTotal] = totalVal ;  //액
+
+                                        totalVal = ''; // 분기별 총액 값 [초기화]
+                                        DATE_QUARTER_TOTAL = ''; // 분기별 총액 로우 ref [초기화]
+                                        quarterTotal = ''; //값의 ref명 [초기화]
+
+                                        totalVal = Number(gfnma_nvl(dataItem[incomeItem]));//다른 분기 값이기 때문에 빼주고 아래서 추가
+
+                                    }
+                                    DATE_QUARTER_ARR.push(DATE_QUARTER);//분기별 Total 확인 arr
+                                }
+
+                            }
+                        }
+                    });
+                });
+
+                quarterTotal = DATE_QUARTER_ARR[DATE_QUARTER_ARR.length - 1] + ' Total'
+                msg[quarterTotal] = totalVal ;  //액
+
+                jsonPivotList.push(msg);
+
+                totalVal = ''; // 분기별 총액 값 [초기화]
+                DATE_QUARTER_TOTAL = ''; // 분기별 총액 로우 ref [초기화]
+                DATE_QUARTER_ARR = []; //분기검사 arr [초기화]
+                quarterTotal = ''; //값의 ref명 [초기화]
+
+            });
+
+        });
+
+        gvwPivotListGrid.rebuild();
 
 
     }
@@ -977,15 +1182,15 @@
                 gvwListGrid.setColDisabled(6, false);
                 gvwListGrid.setColDisabled(7, false);
 
-                /*let pivotData = [];
-                pivotData =  data.cv_3;
+                let pivotData = [];
+                pivotData = data.cv_3;
 
                 //조회된 데이터로 피벗 그리드 생성
-                if (!_.isEmpty(pivotData)){
+                if (!_.isEmpty(pivotData)) {
                     fn_createPivot(pivotData);
-                }*/
+                }
 
-                jsonPivotList.length = 0;
+                /*jsonPivotList.length = 0;
                 data.cv_3.forEach((item, index) => {
                     const msg = {
                         EMP_CODE             : gfnma_nvl(item.EMP_CODE),            //사번
@@ -1007,7 +1212,7 @@
                     jsonPivotList.push(msg);
                 });
 
-                gvwPivotListGrid.rebuild();
+                gvwPivotListGrid.rebuild();*/
 
                 SBUxMethod.attr('btnDataCheck',	'disabled', true);
                 if (jsonGvwList.length >= 1){

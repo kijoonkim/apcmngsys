@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
+import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 
@@ -215,6 +216,22 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 		try {
 			 resultList = PrdcrCrclOgnReqMngService.hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/* 해당 조직에 속한 apc정보 확인  */
+	@PostMapping(value = "/pd/aom/SelectApcInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> SelectApcInfoList(Model model, @RequestBody ApcInfoVO apcInfoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ApcInfoVO> resultList = new ArrayList<>();
+
+		try {
+			 resultList = PrdcrCrclOgnReqMngService.SelectApcInfoList(apcInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

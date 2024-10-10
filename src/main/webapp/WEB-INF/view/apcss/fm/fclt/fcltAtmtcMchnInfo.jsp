@@ -1361,6 +1361,10 @@
 						,ctpvNm			:item.ctpvNm
 						,sigunCd		:item.sigunCd
 						,sigunNm		:item.sigunNm
+
+						,coTelno		:item.coTelno
+						,jbps			:item.jbps
+						,picNm			:item.picNm
 				}
 				jsonFcltApcInfo.push(itemVO);
 				if (index === 0) {

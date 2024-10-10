@@ -162,6 +162,9 @@
 					<sbux-button id="btnAllRjct" name="btnAllRjct" uitype="normal" text="전체 승인" class="btn btn-sm btn-outline-danger" onclick="fn_allAprv('N')"></sbux-button>
 					&nbsp;
 					 -->
+					<sbux-button id="btnPrgrsLastY" name="btnPrgrsLastY" uitype="normal" text="최종제출" class="btn btn-sm btn-outline-danger" onclick="fn_updatePrgrsLast('Y')"></sbux-button>
+					<sbux-button id="btnPrgrsLastN" name="btnPrgrsLastN" uitype="normal" text="최종제출 해제" class="btn btn-sm btn-outline-danger" onclick="fn_updatePrgrsLast('N')"></sbux-button>
+
 					<sbux-button id="btnSelCancel" name="btnSelCancel" uitype="normal" text="선택 승인취소" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('C')"></sbux-button>
 					<sbux-button id="btnSelRjct" name="btnSelRjct" uitype="normal" text="선택 반려" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('N')"></sbux-button>
 					<sbux-button id="btnSelAprv" name="btnSelAprv" uitype="normal" text="선택 승인" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('Y')"></sbux-button>
@@ -291,7 +294,7 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["체크박스"], 	ref: 'checked', 	width: '40px', type: 'checkbox', style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
+				typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N', ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
 			{caption: ["등록년도"],		ref: 'crtrYr',		type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["APC명"],		ref: 'apcNm',		type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["최종제출"],		ref: 'prgrsLast',	type:'output',  width:'60px',    style:'text-align:center'},
@@ -368,7 +371,7 @@
 			jsonFcltPrgrsInfo.length = 0;
 			let totalRecordCount = data.resultList.length;
 			data.resultList.forEach((item, index) => {
-				console.log(item);
+				//console.log(item);
 				let itemVO = {
 						apcCd			:item.apcCd
 						,apcNm			:item.apcNm
@@ -516,17 +519,92 @@
 		SBUxMethod.set("srch-inp-sgg", "");
 	}
 
-	// 전체 승인 반려
-	const fn_allAprv = function(ynVal) {
+	// 선택 승인 반려 취소
+	async function fn_selAprv(ynVal){
 
+		const saveList = [];
+		const allData = grdFcltPrgrsInfo.getGridDataAll();
+
+		for ( let i=0; i< allData.length; i++) {
+			const item = allData[i];
+			if (item.checked === "Y") {
+				saveList.push({
+					crtrYr: 	item.crtrYr,
+					apcCd: 		item.apcCd,
+					aprvYn:		ynVal,
+				});
+			}
+		}
+
+		if (saveList.length == 0) {
+			gfn_comAlert("W0001", "대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		let strVal = "";
+		if(ynVal == "Y"){
+			strVal = "승인";
+		}else if(ynVal == "N"){
+			strVal = "반려";
+		}else if(ynVal == "C"){
+			strVal = "취소";
+		}
+		if (!gfn_comConfirm("Q0001", strVal)) {
+			return;
+		}
+
+		let postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveAprv.do", saveList);
+
+		let data = await postJsonPromise;
+
+		try{
+			console.log(data);
+			fn_search();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
-	// 선택 승인 반려 취소
-	const fn_selAprv = function(ynVal) {
-		<c:if test="${loginVO.userType eq '27'}">
-		</c:if>
-		<c:if test="${loginVO.userType eq '28'}">
-		</c:if>
+	// 선택 승인 반려 취소 , 최종제출 해제
+	async function fn_updatePrgrsLast(ynVal){
+
+		const saveList = [];
+		const allData = grdFcltPrgrsInfo.getGridDataAll();
+		for ( let i=0; i< allData.length; i++) {
+			const item = allData[i];
+			if (item.checked === "Y") {
+				saveList.push({
+					crtrYr: 	item.crtrYr,
+					apcCd: 		item.apcCd,
+					prgrsLast:	ynVal,
+				});
+			}
+		}
+
+		if (saveList.length == 0) {
+			gfn_comAlert("W0001", "대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+		if (!gfn_comConfirm("Q0001", "최종제출 해제")) {
+			return;
+		}
+
+		let postJsonPromise = gfn_postJSON("/fm/fclt/multiSavePrgrsLast.do", saveList);
+
+		let data = await postJsonPromise;
+
+		try{
+			console.log(data);
+			fn_search();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 	//출력 버튼 처리
