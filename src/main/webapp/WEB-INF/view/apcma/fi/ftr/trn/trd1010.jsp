@@ -705,10 +705,13 @@
     }
 
     const fn_gvwDetailDblclick = async function() {
-        if (gvwDetail.getRow() < 0)
+        var nRow = gvwDetail.getRow();
+        var nCol = gvwDetail.getCol();
+
+        if (nRow < 0)
             return;
 
-        if (nRow == gvwDetail.getColRef("TREASURY_BATCH_NO")) {
+        if (nCol == gvwDetail.getColRef("TREASURY_BATCH_NO")) {
             var param = {
                 TREASURY_BATCH_NO : gfn_nvl(gvwDetail.getCellData(nRow, gvwDetail.getColRef("TREASURY_BATCH_NO"))) == "" ? "" : gfn_nvl(gvwDetail.getCellData(nRow, gvwDetail.getColRef("TREASURY_BATCH_NO"))),
                 COMP_CODE : gv_ma_selectedApcCd,
@@ -720,8 +723,7 @@
 
             let json = JSON.stringify(param);
             window.parent.cfn_openTabSearch(json);
-        } else if(nRow == gvwDetail.getColRef("DOC_NAME")) {
-            // TODO FIG2210_99 개발 완료시 적용 필요
+        } else if(nCol == gvwDetail.getColRef("DOC_NAME")) {
             var param = {
                 WORK_TYPE : "VIEW",
                 DOC_ID : gvwDetail.getCellData(nRow, gvwDetail.getColRef("DOC_ID")),
@@ -996,11 +998,13 @@
     }
 
     const fn_gvwAccountDblclick = async function() {
-        // TODO FIG2210_99 개발 완료시 적용 필요
-        if (gvwAccount.getRow() < 0)
+        var nRow = gvwAccount.getRow();
+        var nCol = gvwAccount.getCol();
+
+        if (nRow < 0)
             return;
 
-        if(nRow == gvwAccount.getColRef("DOC_NAME")) {
+        if(nCol == gvwAccount.getColRef("DOC_NAME")) {
             var param = {
                 WORK_TYPE : "VIEW",
                 DOC_ID : gvwAccount.getCellData(nRow, gvwAccount.getColRef("DOC_ID")),
