@@ -25,6 +25,7 @@
 	<title>title : 원천세 집계표</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -36,15 +37,17 @@
                     </h3><!-- 원천세집계표 -->
                 </div>
                 <div style="margin-left: auto;">
-                	<sbux-button id="btnTot" name="btnTot" 	uitype="normal" text="집계" class="btn btn-sm btn-outline-danger" onclick="fn_btnTot"></sbux-button>
-                    <sbux-button id="btnCmptn" name="btnCmptn" 	uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_btnCmptn"></sbux-button>
-                    <sbux-button id="btnCmptnRtrcn" name="btnCmptn" 	uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" onclick="fn_btnCmptnRtrcn"></sbux-button>
+                	<sbux-button id="btnTot" name="btnTot" 	uitype="normal" text="집계" class="btn btn-sm btn-outline-danger" onclick="fn_cancelClick"></sbux-button>
+                    <sbux-button id="btnCmptn" name="btnCmptn" 	uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_defBtnClick"></sbux-button>
+                    <sbux-button id="btnCmptnRtrcn" name="btnCmptn" 	uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" onclick="fn_defCancelClick"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
 
-
-                <table class="table table-bordered tbl_fixed">
+				<div style="display:none">
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+				</div>
+                <table id="searchTable" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -66,51 +69,47 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-corp" name="srch-slt-corp" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
+									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">급여영역</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-slryScp" name="srch-slt-slryScp" class="form-control input-sm" uitype="single" jsondata-ref="jsonSlryScp"></sbux-select>
+									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm" uitype="single" jsondata-ref="jsonPayAreaType"></sbux-select>
                             </td>
-                            <td></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">제출연월</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-sbmsnYmFrom"
-									name="srch-dtp-sbmsnYmFrom"
+									id="srch-dtp-submitYyyymmFr"
+									name="srch-dtp-submitYyyymmFr"
 									uitype="popup"
-									date-format="yyyy-mm-dd"
+									date-format="yyyymm"
+									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-clclnYmFrom)"
+									onchange="fn_dtpChange(srch-dtp-submitYyyymmFr)"
 								></sbux-datepicker>
 							</td>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-sbmsnYmTo"
-									name="srch-dtp-sbmsnYmTo"
+									id="srch-dtp-submitYyyymmTo"
+									name="srch-dtp-submitYyyymmTo"
 									uitype="popup"
-									date-format="yyyy-mm-dd"
+									date-format="yyyymm"
+									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-sbmsnYmTo)"
+									onchange="fn_dtpChange(srch-dtp-submitYyyymmTo)"
 								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-checkbox id="srch-chk-json" name="srch-chk-json" uitype="normal" jsondata-ref="checkboxJsonData"></sbux-checkbox>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
 
-                            <th scope="row" class="th_bg">비고</th>
-                            <td colspan="7" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm"></sbux-input>
+                            <td class="ad_input" style="border-right: hidden;">
+                            	<sbux-checkbox uitype="normal" id="srch-chk-originalFlag" name="srch-chk-originalFlag" class="form-control input-sm check" text="원천보기" true-value="Y" false-value="N">
                             </td>
-
+                            <td class="ad_input" style="border-right: hidden;">
+                            	<sbux-checkbox uitype="normal" id="srch-chk-allYn" name="srch-chk-allYn" class="form-control input-sm check" text="전체여부" true-value="Y" false-value="N">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -165,25 +164,31 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	// ${comMenuVO.menuId}
 
-	// common ---------------------------------------------------
-	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
-	var p_menuId 	= '${comMenuVO.menuId}';
-	//-----------------------------------------------------------
+var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
+// common ---------------------------------------------------
+var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
+var p_menuId 	= '${comMenuVO.menuId}';
+var p_userId = '${loginVO.id}';
+//-----------------------------------------------------------
 
 	var editType			= "N";
 
 	var jsonRegionCode		= [];	// 지역
 
 	var checkboxJsonData = [
-		{ text : "원천보기", truevalue : "rawY",     falsevalue: "rawN"},
-		{ text : "전체여부", truevalue : "totY",    falsevalue: "totN"}
+		{ text : "원천보기", truevalue : "Y",     falsevalue: "N"},
+		{ text : "전체여부", truevalue : "Y",    falsevalue: "N"}
 	];
 
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+			//법인
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			// 급여영역
+            gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
 		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -222,6 +227,33 @@
 	var jsonBplc = []; // 사업장
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
+	var jsonPayAreaType = []; // 급여영역
+
+	// 신규
+	function cfn_add() {
+
+	}
+
+	// 그룹코드 내역, 세부코드 정보 저장
+    function cfn_save() {
+		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+
+		}
+    }
+
+
+	// 마스터 그리드 삭제
+	function cfn_del() {
+		deleteClick()
+	}
+
+	// 조회
+	function cfn_search() {
+		queryClick();
+
+	}
+
+
 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
@@ -233,9 +265,22 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["귀속연월"],		ref: 'blnYm', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["지급연월"], 	ref: 'giveYm',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["제출연월"],  		ref: 'sbmsn',    			type:'output',  	width:'100px',  	style:'text-align:left'}
+        	 {caption: [""],			ref: 'chkYn'
+         		, type : 'checkbox'
+         		,typeinfo: {
+ 					ignoreupdate : true,
+ 					fixedcellcheckbox : {
+ 						usemode : true,
+ 						rowindex : 1,
+ 						deletecaption : false
+ 					},
+ 					checkedvalue : 'Y',
+ 					uncheckedvalue : 'N'
+ 				}
+         		},
+            {caption: ["귀속연월"],		ref: 'jobYyyymm', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["지급연월"], 	ref: 'payYyyymm',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["제출연월"],  		ref: 'submitYyyymm',    			type:'output',  	width:'100px',  	style:'text-align:left'}
         ];
 
         grdDclrList = _SBGrid.create(SBGridProperties);
@@ -252,46 +297,46 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{caption: ["확정"], ref: 'cfmtn', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["귀속월"], ref: 'blnMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["지급월"], ref: 'giveMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["신고월"], ref: 'sbmsnMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["근무지"], ref: 'powk', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사번"], ref: 'empNo', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사원명"], ref: 'empNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["부서"], ref: 'dept', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득구분코드"], ref: 'earnSeCd', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득구분명"], ref: 'earnSeNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사유코드"], ref: 'rsnCo', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사유명"], ref: 'rsnNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["전표번호"], ref: 'slipNo', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["전표적요"], ref: 'slipSmmry', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["생년월일"], ref: 'brdt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["지급일"], ref: 'giveDt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["원천신고대상"], ref: 'srcDclrTrgt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사업소세과세대상"], ref: 'bizOfcTxtnTrgt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["사업소세비과세"], ref: 'bizOfcNTxtn', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["급여지급액(세전)"], ref: 'wageGiveAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)인건비"], ref: 'lbrco', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)인정상여"], ref: 'emptyBonus', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)연차수당 "], ref: 'annlAlWnc', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)복리급여"], ref: 'cmnmIntWg', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)휴일교통비"], ref: 'hldyTrsprtCst', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(과)자가운전보조비"], ref: 'drvnAstncCst', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)보육수당"], ref: 'chldcrAlwnc', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)야간근로수당"], ref: 'nghtWorkAlwnc', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)자가운전보조비"], ref: 'drvnAstncCst', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["(비)식대"], ref: 'fodCst', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 징수액"], ref: 'inctxClct', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 환급액"], ref: 'inctxRmbrAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 조정액"], ref: 'inctxAjmtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["소득세 납부액"], ref: 'inctxPayAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 징수액"], ref: 'rsdtxClct', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 환급액"], ref: 'rsdtxRmbrAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 조정액"], ref: 'rsdtxAjmtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민세 납부액"], ref: 'rsdtxPayAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["총납부액"], ref: 'totPayAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["번호"], ref: 'no', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["확정"], ref: 'defYn', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["근무지"], ref: 'workRegionName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["부서"], ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["소득구분코드"], ref: 'gubunCode', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["소득구분명"], ref: 'gubunName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["사유코드"], ref: 'reasonCode', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["사유명"], ref: 'reasonName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["전표번호"], ref: 'docName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["전표적요"], ref: 'docDesc', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["생년월일"], ref: 'socialNumDate', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["지급일"], ref: 'payDate', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["원천신고대상"], ref: 'payTotAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["사업소세과세대상"], ref: 'payTotAmt2', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["사업소세비과세"], ref: 'taxFreeAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["급여지급액(세전)"], ref: 'payTotAmt3', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(과)인건비"], ref: 'payTotAmt4', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(과)인정상여"], ref: 'payTotAmt5', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(과)연차수당 "], ref: 'payTotAmt6', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(과)복리급여"], ref: 'payTotAmt7', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(과)휴일교통비"], ref: 'payTotAmt8', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(과)자가운전보조비"], ref: 'payTotAmt9', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(비)보육수당"], ref: 'payTotAmt10', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(비)야간근로수당"], ref: 'payTotAmt11', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(비)자가운전보조비"], ref: 'payTotAmt12', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["(비)식대"], ref: 'payTotAmt13', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["소득세 징수액"], ref: 'whIncomeTax1', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["소득세 환급액"], ref: 'whIncomeTax2', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["소득세 조정액"], ref: 'whIncomeTax3', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["소득세 납부액"], ref: 'whIncomeTax4', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["주민세 징수액"], ref: 'whLocalTax1', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["주민세 환급액"], ref: 'whLocalTax2', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["주민세 조정액"], ref: 'whLocalTax3', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["주민세 납부액"], ref: 'whLocalTax4', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["총납부액"], ref: 'totTax', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center'},
 
         ];
 
@@ -300,80 +345,297 @@
     }
 
 
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-    	fn_setNationInGrid();
+
+    const queryClick = function(){
+
+        //InitControls(grdList);
+        //InitControls(grdDetail);
+
+        grdDclrList.rebuild();
+		grdDclrDtlInfo.rebuild();
+
+
+        //int iBefore = gvwList.FocusedRowHandle;
+        let iBefore = grdDclrList.getRow();
+
+        fnQRY_P_HRA8200_Q("LIST");
+
+
+        if (iBefore === 0){
+        	focusedRowChanged();
+        }
+
+
+        if (iBefore < 1){
+        	//newClick(); 뭐지?
+        }
+
     }
 
-    /**
-     * 목록 가져오기
-     */
-    const fn_setNationInGrid = async function() {
 
-		NationInGrid.clearStatus();
 
-		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
-		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
+    const focusedRowChanged = function(){
+        fnQRY_P_HRA8200_Q("DETAIL");
+    }
 
-	    var paramObj = {
-			V_P_DEBUG_MODE_YN	: ''
-			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_NATION_CODE	: NATION_CODE
-			,V_P_NATION_NAME	: NATION_NAME
-			,V_P_FORM_ID		: p_formId
-			,V_P_MENU_ID		: p_menuId
-			,V_P_PROC_ID		: ''
-			,V_P_USERID			: ''
-			,V_P_PC				: ''
-	    };
+    const fnQRY_P_HRA8200_Q = async function(workType){
+    	let rowData = grdDclrList.getRowData(grdDclrList.getRow());
+    	let allData = grdDclrList.getGridDataAll();
+    	var paramObj = {
+      			V_P_DEBUG_MODE_YN	: ''
+      			,V_P_LANG_ID		: ''
+      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+      			,V_P_SUBMIT_YYYYMM_FR : ''
+      			,V_P_SUBMIT_YYYYMM_TO : ''
+      			,V_P_SUBMIT_YYYYMM    : workType == "LIST" ? "" : rowData.submitYyyymm
+      			,V_P_JOB_YYYYMM       : workType == "LIST" ? "" : rowData.jobYyyymm
+      			,V_P_PAY_YYYYMM       : workType == "LIST" ? "" : rowData.payYyyymm
+      			,V_P_PAY_AREA_TYPE    : ''
+      			,V_P_ORIGINAL_FLAG    : ''
+      			,V_P_CHKALL_YN        : ''
+      			,V_P_FORM_ID		: p_formId
+      			,V_P_MENU_ID		: p_menuId
+      			,V_P_PROC_ID		: ''
+      			,V_P_USERID			: ''
+      			,V_P_PC				: ''
+      	    };
 
-        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '1',
-        	params				: gfnma_objectToString(paramObj)
-		});
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["submitYyyymm","jobYyyymm","payYyyymm","originalFlag","chkallYn"]);
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
 
-        const data = await postJsonPromise;
-		//console.log('data:', data);
-        try {
-  			if (_.isEqual("S", data.resultStatus)) {
+          const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
+           	getType				: 'json',
+           	workType			:  workType,
+           	cv_count			: '2',
+           	params				: gfnma_objectToString(paramObj)
+   			});
 
-  	        	jsonNationList.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonNationList.push(msg);
-  				});
+        	const data = await postJsonPromise;
+        	console.log('data:', data);
+          // 비즈니스 로직 정보
+           try {
+	          if (_.isEqual("S", data.resultStatus)) {
+	              //gfn_comAlert("I0001");
+	        	  //info, log에 따라서 그리드에 데이터 넣어주는듯
+	        	   if (workType === "LIST"){
+	        		   data.cv_1.forEach((item, index) => {
+	        			   msg = {
 
-        		NationInGrid.rebuild();
+		  	  					}
+	        			   jsonDclrList.push(msg);
+	        		   })
 
-        	} else {
-          		alert(data.resultMessage);
-        	}
+	        		   grdDclrList.rebuild();
+	               }
+	               else if (workType === "DETAIL"){
+	                   data.cv_2.forEach((item, index) => {
+	        			   msg = {
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		  	  					}
+	        			   jsonDclrDtlInfo.push(msg);
+	        		   })
+
+	                   grdDclrDtlInfo.rebuild();
+	               }else if (workType === "SUM"){
+	                   data.cv_3.forEach((item, index) => {
+	        			   msg = {
+
+		  	  					}
+	        			   jsonDclrDtlInfo.push(msg);
+	        		   })
+
+	                   grdDclrDtlInfo.rebuild();
+
+	               }else if(workType === "DEF"){
+	            	   let numCheckCount = 0;
+
+	            	   allData.forEach(item=>{
+	            		   if(item.chkYn === "Y"){
+	            			   numCheckCount = numCheckCount + 1;
+	            			   paramObj["V_P_ORIGINAL_FLAG"] = "";
+	            			   paramObj["V_P_CHKALL_YN"] = "";
+	            		   }
+	            	   })
+	            	   if (numCheckCount == 0){
+                        //SetMessageBox("처리대상이 없습니다.");
+                        return false;
+                       }
+
+	            	   const postJsonPromise2 = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
+			           	getType				: 'json',
+			           	workType			:  workType,
+			           	cv_count			: '2',
+			           	params				: gfnma_objectToString(paramObj)
+			   			});
+
+			        	const data2 = await postJsonPromise;
+			        	console.log('data:', data2);
+
+			        	data2.cv_3.forEach((item, index) => {
+	        			   msg = {
+
+		  	  					}
+	        			   jsonDclrDtlInfo.push(msg);
+	        		   })
+	                   grdDclrDtlInfo.rebuild();
+
+	               }else if(workType === "DEF_CANCEL"){
+	            	   let numCheckCount = 0;
+	            	   allData.forEach(item=>{
+	            		   if(item.chkYn === "Y"){
+	            			   numCheckCount = numCheckCount + 1;
+	            			   paramObj["V_P_ORIGINAL_FLAG"] = "";
+	            			   paramObj["V_P_CHKALL_YN"] = "";
+	            		   }
+	            	   })
+	            	   if (numCheckCount == 0){
+	                        //SetMessageBox("처리대상이 없습니다.");
+	                        return false;
+	                       }
+
+	            	   const postJsonPromise3 = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
+				           	getType				: 'json',
+				           	workType			:  workType,
+				           	cv_count			: '2',
+				           	params				: gfnma_objectToString(paramObj)
+				   			});
+
+				        	const data3 = await postJsonPromise;
+				        	console.log('data:', data3);
+
+		                   data3.cv_3.forEach((item, index) => {
+		        			   msg = {
+
+			  	  					}
+		        			   jsonDclrDtlInfo.push(msg);
+		        		   })
+		                   grdDclrDtlInfo.rebuild();
+
+	               }else if(workType === "REPORT"){
+	                   //리포트용 데이터 셋 정리 후 리포트 호출?
+
+	               }
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+ 	        } catch (e) {
+ 	            if (!(e instanceof Error)) {
+ 	                e = new Error(e);
+ 	            }
+ 	            console.error("failed", e.message);
+ 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	        }
+    }
+
+    const fnSET_P_HRA8200_S = async function(workType){
+    	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
+    	let dclrData = grdDclrDtlInfo.getGridDataAll();
+    	dclrData.forEach(row => {
+    		var paramObj = {
+         			V_P_DEBUG_MODE_YN	: ''
+         			,V_P_LANG_ID		: ''
+         			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+         			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+         			, V_P_JOB_YYYYMM : row.jobYyyymm
+         			, V_P_PAY_YYYYMM : row.payYyyymm
+         			, V_P_SUBMIT_YYYYMM : row.submitYyyymm
+         			, V_P_TAX_SITE_CODE : row.taxSiteCode
+         			, V_P_WORK_REGION_NAME : row.workRegionName
+         			, V_P_EMP_CODE : row.empCode
+         			, V_P_EMP_NAME : row.empName
+         			, V_P_DEPT_NAME : row.deptName
+         			, V_P_GUBUN_CODE : row.gubunCode
+         			, V_P_GUBUN_NAME : row.gubunName
+         			, V_P_REASON_CODE : row.reasonCode
+         			, V_P_REASON_NAME : row.reasonName
+         			, V_P_SOCIAL_NUM_DATE : row.socialNumDate
+         			, V_P_PAY_DATE : row.payDate
+         			, V_P_DOC_DATE : row.docDate
+         			, V_P_DOC_NAME : row.docName
+         			, V_P_PAY_TOT_AMT : row.payTotAmt
+         			, V_P_PAY_TOT_AMT2 : row.payTotAmt2
+         			, V_P_TAX_FREE_AMT : row.taxFreeAmt
+         			, V_P_PAY_TOT_AMT3 : row.payTotAmt3
+         			, V_P_PAY_TOT_AMT4 : row.payTotAmt4
+         			, V_P_PAY_TOT_AMT5 : row.payTotAmt5
+         			, V_P_PAY_TOT_AMT6 : row.payTotAmt6
+         			, V_P_PAY_TOT_AMT7 : row.payTotAmt7
+         			, V_P_PAY_TOT_AMT8 : row.payTotAmt8
+         			, V_P_PAY_TOT_AMT9 : row.payTotAmt9
+         			, V_P_PAY_TOT_AMT10 : row.payTotAmt10
+         			, V_P_PAY_TOT_AMT11 : row.payTotAmt11
+         			, V_P_PAY_TOT_AMT12 : row.payTotAmt12
+         			, V_P_PAY_TOT_AMT13 : row.payTotAmt13
+         			, V_P_WH_INCOME_TAX1 : row.whIncomeTax1
+         			, V_P_WH_INCOME_TAX2 : row.whIncomeTax2
+         			, V_P_WH_INCOME_TAX3 : row.whIncomeTax3
+         			, V_P_WH_INCOME_TAX4 : row.whIncomeTax4
+         			, V_P_WH_LOCAL_TAX1 : row.whLocalTax1
+         			, V_P_WH_LOCAL_TAX2 : row.whLocalTax2
+         			, V_P_WH_LOCAL_TAX3 : row.whLocalTax3
+         			, V_P_WH_LOCAL_TAX4 : row.whLocalTax4
+         			, V_P_TOT_TAX : row.totTax
+         			, V_P_TXN_ID : row.txnId
+         			, V_P_DEF_YN : row.defYn
+         			,V_P_FORM_ID		: p_formId
+         			,V_P_MENU_ID		: p_menuId
+         			,V_P_PROC_ID		: ''
+         			,V_P_USERID			: ''
+         			,V_P_PC				: ''
+         	    };
+    	})
+    	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
+
+         const postJsonPromise = gfn_postJSON("/hr/hra/insertHra8200.do", {
+          	getType				: 'json',
+          	workType			:  strWorkType,
+          	cv_count			: '0',
+          	params				: gfnma_objectToString(paramObj)
+  			});
+
+       	const data = await postJsonPromise;
+       	console.log('data:', data);
+         // 비즈니스 로직 정보
+          try {
+	          if (_.isEqual("S", data.resultStatus)) {
+
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+	        } catch (e) {
+	            if (!(e instanceof Error)) {
+	                e = new Error(e);
+	            }
+	            console.error("failed", e.message);
+	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+
+    }
+
+    //집계버튼
+    const fn_cancelClick = function (){
+        if (fnQRY_P_HRA8200_Q("SUM")){
+        	queryClick();
         }
     }
+
+    //확정버튼
+    const fn_defBtnClick = function(){
+        fnQRY_P_HRA8200_Q("DEF");
+        queryClick();
+    }
+
+    //확정취소
+    const fn_defCancelClick = function(){
+        fnQRY_P_HRA8200_Q("DEF_CANCEL");
+        queryClick();
+    }
+
 
 	const fn_compopup1 = function(list) {
 
@@ -425,12 +687,12 @@
     	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
     	let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
 
-    	if(inptYmdFrom > inptYmdTo){
+    	/* if(inptYmdFrom > inptYmdTo){
     		gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
     		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
     		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
     		return;
-    	}
+    	} */
      }
 
 
