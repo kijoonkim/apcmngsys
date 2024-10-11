@@ -90,28 +90,4 @@ public class ApcMaHri1750Controller extends BaseController {
             return getSuccessResponseEntity(resultMap);
         }
     }
-
-    @PostMapping(value = "/hr/hri/hri/selectHri1750ReportFilePath.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectHri1750ReportFilePath(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============selectHri1750ReportFilePath=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-
-            param.put("procedure", 		"P_REPORTDLL_Q");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-
-        } catch (Exception e) {
-            logger.debug(e.getMessage());
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============selectHri1750ReportFilePath=====end========");
-        return getSuccessResponseEntity(resultMap);
-    }
 }

@@ -41,6 +41,7 @@
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
                 <%--<sbux-button id="btnRegistCommonCode" name="btnRegistCommonCode" uitype="normal" class="btn btn-sm btn-outline-danger" text="공통코드등록" onclick="fn_registCommonCode"></sbux-button>--%>
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print('PRINT')"></sbux-button>
                 <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
                 <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
                 <sbux-button id="btnRegistResignation" name="btnRegistResignation" uitype="normal" class="btn btn-sm btn-outline-danger" text="퇴사발령등록" onclick="fn_registResignation"></sbux-button>
@@ -695,6 +696,13 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
+
+<div>
+    <sbux-modal style="width:600px" id="modal-comPopHri1000Report" name="modal-comPopHri1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopHri1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-comPopHri1000Report">
+    <jsp:include page="../../../com/popup/comPopHri1000Report.jsp"></jsp:include>
+</div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -703,6 +711,7 @@
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
+    var p_languageId = "${loginVO.maLanguageID}";
     //-----------------------------------------------------------
 
     var editType			= "N";
@@ -3151,6 +3160,246 @@
 
         //이미지(사진,싸인) 보여줄때
         // <img src="/com/getFileImage.do?fkey=fdf31133e11545f0b2f0ada67efcd5e8.png&comp_code=8888&client_code=100" />
+
+    }
+
+    const fn_print = async function(strview_type) {
+        // TODO : 레포트 개발 필요
+        let stremp_code_list = "";
+        let bSelect = false;
+        let bFirst = false;
+        let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
+
+        if (strview_type == "PRINT" || strview_type == "PREVIEW") {
+            gvwListCheckedList.forEach((item, index) => {
+                stremp_code_list += gfn_nvl(gvwList.getCellData(item, gvwList.getColRef("EMP_CODE"))) + "|";
+
+                bSelect = true;
+            });
+
+            if (stremp_code_list.length > 0) {
+                stremp_code_list = stremp_code_list.substring(0, stremp_code_list.length - 1);
+            }
+        } else {
+            gvwListCheckedList.forEach((item, index) => {
+                if(bFirst == false) {
+                    stremp_code_list += gfn_nvl(gvwList.getCellData(item, gvwList.getColRef("EMP_CODE")));
+
+                    bSelect = true;
+                    bFirst = true;
+                }
+            });
+        }
+
+        if (!bSelect) {
+            gfn_comAlert("E0000", "사원을 선택해주세요.");
+            return;
+        }
+
+        var param = {};
+
+        param["PAGE_ALL"] = "Y";
+        param["VIEW_TYPE"] = strview_type;
+        param["REPORT_TYPE"] = "";
+        param["DOC_NUM"] = "";
+        param["SOCIAL_VIEW"] = "";
+        param["IMG_YN"] = "N";
+
+        param["WORK_TYPE"] = "REPORT";
+        param["LANG_ID"] = p_languageId == "" ? "KOR" : p_languageId;
+        param["COMP_CODE"] = gv_ma_selectedApcCd;
+        param["EMP_CODE_LIST"] = stremp_code_list;
+
+        var reportFilePath = await gfnma_findReportFilePath("R_PERSON");
+
+        SBUxMethod.attr('modal-comPopHri1000Report', 'header-title', '인사기록카드 출력');
+        SBUxMethod.openModal('modal-comPopHri1000Report');
+
+        comPopHri1000Report({
+            height			: '400px'
+            ,callbackEvent	: async function (data) {
+                $.extend(param, data);
+
+                var emp_codes = param["EMP_CODE_LIST"].split('|');
+                XtraReport xr = new XtraReport();
+
+                for (var k = 0; k < emp_codes.length; k++){
+                    let emp_code = "";                   //초기화
+                    emp_code = emp_codes[k];
+
+                    var paramObj = {
+                        V_P_DEBUG_MODE_YN	: ''
+                        ,V_P_LANG_ID		: ''
+                        ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+                        ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+                        ,V_P_SITE_CODE      : ''
+                        ,V_P_DEPT_CODE      : ''
+                        ,V_P_EMP_CODE       : emp_code
+                        ,V_P_EMP_STATE      : ''
+                        ,V_P_JOB_GROUP      : ''
+                        ,V_P_GENDER         : ''
+                        ,IV_P_ENTER_DATE_FR : ''
+                        ,IV_P_ENTER_DATE_TO : ''
+                        ,V_P_EMP_CODE1      : ''
+                        ,V_P_INITIAL_DATE   : ''
+                        ,V_P_EMP_STATE2     : ''
+                        ,V_P_FORM_ID		: p_formId
+                        ,V_P_MENU_ID		: p_menuId
+                        ,V_P_PROC_ID		: ''
+                        ,V_P_USERID			: ''
+                        ,V_P_PC				: ''
+                    };
+
+                    const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
+                        getType				: 'json',
+                        workType			: param["WORK_TYPE"],
+                        cv_count			: '39',
+                        params				: gfnma_objectToString(paramObj)
+                    });
+
+                    const data = await postJsonPromise;
+                    console.log('data:', data);
+                    try {
+                        if (_.isEqual("S", data.resultStatus)) {
+                            let strsocial_num = "";
+
+                            for (var i = 0; i < data.cv_1.length; i++) {
+                                if (gfn_nvl(data.cv_1[i]["SOCIAL_NUM"]) != "") {
+                                    strsocial_num = data.cv_1[i]["SOCIAL_NUM"];
+                                }
+
+                                if (strsocial_num.length > 0) {
+                                    if (strsocial_num.length == 13) {
+                                        let yyyy_yy = "20";
+
+                                        if (strsocial_num.substring(6, 7) == "1" || strsocial_num.substring(6, 7) == "2"
+                                            || strsocial_num.substring(6, 7) == "5" || strsocial_num.substring(6, 7) == "6") {
+                                            yyyy_yy = "19";
+                                        }
+
+                                        let birthYear = yyyy_yy + "-" + strsocial_num.substring(0, 2); // 2자리 연도 가져와서 19XX년으로 만들기
+                                        let birthMonth = strsocial_num.substring(2, 4); // 달 가져오기
+                                        let birthDay = strsocial_num.substring(4, 6); // 날짜 가져오기
+                                        let dateTime = new Date(parseInt(birthYear), parseInt(birthMonth), parseInt(birthDay)); // 생년월일로 DateTime 객체 초기화
+                                        let dateToday = new Date(); // 오늘 날짜
+
+                                        let age = dateToday.getFullYear() - dateTime.getFullYear(); // 오늘 날짜에서 생년월일 빼서 몇 년이 되는지 구함. 만나이로 출력
+
+                                        if(dateToday >= new Date(dateToday.getFullYear(), birthMonth, birthDay)) {
+                                            age++
+                                        }
+
+                                        data.cv_1[i]["SOCIAL_NUM_REAL"] = birthYear + "-" + birthMonth + "-" + birthDay + "(만" + age + "세)";
+                                    }
+                                } else {
+                                    data.cv_1[i]["SOCIAL_NUM_REAL"] = " 세";
+                                }
+
+                                // 조합가입여부 옵션
+                                if (param["UNION_JOIN_YN"] != "Y") {
+                                    data.cv_1[i]["UNION_JOIN_YN_STR"] = "";
+                                }
+                            }
+
+                            for (var i = 0; i < data.cv_5.length; i++) {
+                                strsocial_num = "";
+                                if (gfn_nvl(data.cv_5[i]["SOCIAL_NO"]) != "") {
+                                    strsocial_num = data.cv_5[i]["SOCIAL_NO"];
+                                }
+
+                                var dt1;
+
+                                if (strsocial_num.length > 0) {
+                                    if (strsocial_num.substring(6, 7) == "1" || strsocial_num.substring(6, 7) == "2"
+                                        || strsocial_num.substring(6, 7) == "5" || strsocial_num.substring(6, 7) == "6") {
+                                        dt1 = new Date("19" + strsocial_num.substring(0, 2) + "-" + strsocial_num.substring(2, 4) + "-" + strsocial_num.substring(4, 6));
+                                    } else {
+                                        dt1 = new Date("20" + strsocial_num.substring(0, 2) + "-" + strsocial_num.substring(2, 4) + "-" + strsocial_num.substring(4, 6));
+                                    }
+
+                                    let dtDate1 = new Date();
+                                    let currYear = parseInt(dtDate1.getFullYear());
+                                    let currMonth = parseInt(dtDate1.getMonth().toString().padStart(2, '0'));
+                                    let currDay = parseInt(dtDate1.getDay().toString().padStart(2, '0'));
+
+                                    let iyyyy1 = currYear - dt1.getFullYear();
+                                    let imonth1 = currMonth - dt1.getMonth();
+
+                                    if (currMonth < parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
+                                        data.cv_5[i]["AGE"] = iyyyy1 - 1;
+                                    } else if (currMonth == parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
+                                        if (currDay <= parseInt(dt1.getDay().toString().padStart(2, '0'))) {
+                                            data.cv_5[i]["AGE"] = iyyyy1 - 1;
+                                        } else {
+                                            data.cv_5[i]["AGE"] = iyyyy1;
+                                        }
+                                    } else {
+                                        data.cv_5[i]["AGE"] = iyyyy1;
+                                    }
+
+                                    // 가족나이
+                                    if (strsocial_num.length > 9) {
+                                        data.cv_5[i]["SOCIAL_NO_REAL"] = strsocial_num;
+                                    }
+                                } else {
+                                    dt1 = new Date(gfn_nvl(data.cv_5[i]["BIRTHDAY"]).substring(0, 4) + "-"
+                                        + gfn_nvl(data.cv_5[i]["BIRTHDAY"]).substring(4, 6) + "-"
+                                        + gfn_nvl(data.cv_5[i]["BIRTHDAY"]).substring(6, 8));
+
+                                    let dtDate1 = new Date();
+                                    let currYear = parseInt(dtDate1.getFullYear());
+                                    let currMonth = parseInt(dtDate1.getMonth().toString().padStart(2, '0'));
+                                    let currDay = parseInt(dtDate1.getDay().toString().padStart(2, '0'));
+                                    let iyyyy1 = currYear - dt1.getFullYear();
+
+                                    if (currMonth < parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
+                                        data.cv_5[i]["AGE"] = iyyyy1 - 1;
+                                    } else if (currMonth == parseInt(dt1.getMonth().toString().padStart(2, '0'))) {
+                                        if (currDay <= parseInt(dt1.getDay().toString().padStart(2, '0'))) {
+                                            data.cv_5[i]["AGE"] = iyyyy1 - 1;
+                                        } else {
+                                            data.cv_5[i]["AGE"] = iyyyy1;
+                                        }
+                                    } else {
+                                        data.cv_5[i]["AGE"] = iyyyy1;
+                                    }
+
+                                    data.cv_5[i]["SOCIAL_NO_REAL"] = strsocial_num;
+                                }
+
+                                // 부양가족 옵션(동거)
+                                if (param["FAMILY_WITH_YN"] != "Y") {
+                                    data.cv_5[i]["SUPPORT_YN"] = "";
+                                }
+
+                                // 부양가족 옵션(사망포함)
+                                if (param["FAMILY_LIFE_YN"] != "Y" && gfn_nvl(data.cv_5[i]["LIFE_YN"]) == "N") {
+                                    data.cv_5.splice(i, 1);
+                                }
+                            }
+
+                            // 경력사항 옵션
+                            if (param["CAREER"] != "Y") {
+                                data.cv_4.length = 0;
+                            }
+                        } else {
+                            alert(data.resultMessage);
+                        }
+
+                    } catch (e) {
+                        if (!(e instanceof Error)) {
+                            e = new Error(e);
+                        }
+                        console.error("failed", e.message);
+                        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    }
+                }
+
+                gfn_popClipReport("인사기록카드", reportFilePath, param);
+            }
+        });
+
+
 
     }
 </script>
