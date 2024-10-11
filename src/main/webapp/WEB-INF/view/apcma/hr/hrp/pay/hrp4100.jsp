@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp4100.jsp
      * @Description       : 급여 전표처리기준 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.20
@@ -1058,7 +1058,11 @@
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
                 if (_.isEqual(type, 'search')){
-                    fn_view();
+
+                    if (jsonBandgvwInfoList.length > 0) {
+                        gvwBandgvwInfoGrid.clickRow(1);
+                    }
+                    //fn_view();
                 }
             } else {
                 alert(data.resultMessage);
@@ -1094,10 +1098,14 @@
         SBUxMethod.refresh('DEBIT_CREDIT')
 
 
-        gfnma_uxDataSet('#dataArea2', rowData);
+        if (_.isEmpty(rowData) == false){
 
-        gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.POSTING_SUMMARY_TYPE);
-        gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM', 'SUB_CODE', 'CODE_NAME', rowData.ACCOUNT_PAY_ITEM);
+            gfnma_uxDataSet('#dataArea2', rowData);
+
+            gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(rowData.POSTING_SUMMARY_TYPE));
+            gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(rowData.ACCOUNT_PAY_ITEM));
+        }
+
 
     }
 
@@ -1374,8 +1382,15 @@
 
     $(function () {
 
-        //전표구분 선택시 상태계정(미지지급금 set)
-        $("#srch-hr_posting_type").on("DOMSubtreeModified",function(e){
+        // 변경을 감지할 노드 선택
+        const targetNode = document.getElementById("srch-hr_posting_type");
+
+        // 감지 옵션 (감지할 변경)
+        const config = { attributes: true, childList: true, subtree: true };
+
+
+        // 변경 감지 시 실행할 콜백 함수
+        const callback = (mutationList, observer) => {
 
             let HR_POSTING_TYPE = gfnma_multiSelectGet('#srch-hr_posting_type');
 
@@ -1393,9 +1408,39 @@
                     })
                 }
             }
-        });
+
+        };
+
+        // 콜백 함수에 연결된 감지기 인스턴스 생성
+        const observer = new MutationObserver(callback);
+
+        // 설정한 변경의 감지 시작
+        observer.observe(targetNode, config);
+
+
+        //전표구분 선택시 상태계정(미지지급금 set)
+        /*$("#srch-hr_posting_type").on("DOMSubtreeModified",function(e){
+
+            let HR_POSTING_TYPE = gfnma_multiSelectGet('#srch-hr_posting_type');
+
+            if (!_.isEmpty(HR_POSTING_TYPE)) {
+                if (!_.isEqual(CHk_HR_POSTING_TYPE, HR_POSTING_TYPE)) {
+                    CHk_HR_POSTING_TYPE = HR_POSTING_TYPE;
+
+                    jsonHrPostingType.forEach((item,index)=>{
+
+                        if (_.isEqual(HR_POSTING_TYPE, item.value)){
+
+                            SBUxMethod.set("srch-txtcorresponding_account", item.label);
+                        }
+
+                    })
+                }
+            }
+        });*/
 
     });
+
 
 </script>
 </body>

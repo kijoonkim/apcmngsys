@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp4200.jsp
      * @Description       : 급여 전표처리 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.24
@@ -533,9 +533,16 @@
     function cfn_add() {
         fn_add();
     }
-    // 저장
-    function cfn_save() {
-        fn_save();
+
+    //저장
+    async function cfn_save() {
+
+        let chk  = await fn_save();
+
+        if (chk == true){
+            fn_saveS3();
+        }
+
     }
     // 삭제
     function cfn_del() {
@@ -609,7 +616,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.total = {
-            type 		: 'subgrand',
+            type 		: 'grand',
             position	: 'bottom',
             columns		: {
                 standard : [1],
@@ -906,7 +913,10 @@
                 gvwDocListGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if (jsonDocListList.length > 0) {
+                    gvwDocListGrid.clickRow(1);
+                }
+                //fn_view();
             } else {
                 alert(data.resultMessage);
             }
@@ -946,10 +956,12 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
+                        /*if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }
-                        fn_saveS3();
+                        }*/
+
+                        return true;
+
                     } else {
                         alert(data.resultMessage);
                     }
@@ -983,10 +995,12 @@
 
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
+                        /*if (data.resultMessage) {
                             alert(data.resultMessage);
-                        }
-                        fn_saveS3();
+                        }*/
+
+                        return true;
+
                     } else {
                         alert(data.resultMessage);
                     }
@@ -1088,9 +1102,10 @@
                 if (_.isEqual("S", data.resultStatus)) {
 
                     if (data.resultMessage) {
-                        alert(data.resultMessage);
+                        await alert(data.resultMessage);
+                        fn_search();
                     }else{
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                        await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         fn_search();
                     }
 
@@ -1129,8 +1144,67 @@
             return;
         }
 
+        let allData = gvwInfoGrid.getGridDataAll();
+
+        console.log('=======allData=======',allData);
+
+        let dDebitAmt = 0;
+        let dCreditAmt = 0;
+
+        allData.forEach((item,index) =>{
+
+            if (allData.length-1 != index) {
+
+                if (item.NEED_EMP_CODE_YN == 'Y' && item.EMP_CODE == '') {
+                    gfn_comConfirm("Q0000", "사원코드 필수입력 항목입니다.");
+                    //SetMessageBox("사원코드 필수입력 항목입니다.");
+                    //this.gvwInfo.FocusedRowHandle = i;
+                    return false;
+                }
+
+                if ((gfnma_nvl(item.DEBIT_AMT) == '' || Number(gfnma_nvl(item.DEBIT_AMT)) == 0) &&
+                    (gfnma_nvl(item.CREDIT_AMT) == '' || Number(gfnma_nvl(item.CREDIT_AMT)) == 0)) {
+                    gfn_comConfirm("Q0000", "차변/대변 금액 중 하나는 0이 아니어야 합니다.");
+                    /*SetMessageBox("차변/대변 금액 중 하나는 0이 아니어야 합니다.");
+                    this.gvwInfo.FocusedRowHandle = i;*/
+                    return false;
+                }
+
+                if ((!(gfnma_nvl(item.DEBIT_AMT) == '') && Number(gfnma_nvl(item.DEBIT_AMT)) != 0) &&
+                    (!(gfnma_nvl(item.CREDIT_AMT) == '') && Number(gfnma_nvl(item.CREDIT_AMT)) != 0)) {
+                    gfn_comConfirm("Q0000", "차변/대변 금액 중 하나는 0 이어야 합니다.");
+                    /*SetMessageBox("차변/대변 금액 중 하나는 0 이어야 합니다.");
+                    this.gvwInfo.FocusedRowHandle = i;*/
+                    return false;
+                }
+
+                if (!(gfnma_nvl(item.DEBIT_AMT) == '')) {
+                    dDebitAmt = parseFloat(dDebitAmt) + parseFloat(gfnma_nvl(item.DEBIT_AMT));
+                }
+
+                if (!(gfnma_nvl(item.CREDIT_AMT) == '')) {
+                    dCreditAmt = parseFloat(dCreditAmt) + parseFloat(gfnma_nvl(item.CREDIT_AMT));
+                }
+            }
+
+        });
+
+        console.log('---------dDebitAmt---------', dDebitAmt);
+        console.log('---------dCreditAmt---------', dCreditAmt);
+
+
+        // 차대변 합계 비교
+        if (dDebitAmt != dCreditAmt)
+        {
+            gfn_comConfirm("Q0000","차변합계와 대변합계 금액이 일치하지 않습니다.");
+            //SetMessageBox("차변합계와 대변합계 금액이 일치하지 않습니다.");
+            return false;
+        }
+
+
         let updatedData = gvwInfoGrid.getUpdateData(true, 'all');
         let returnData = [];
+
 
         updatedData.forEach((item, index) => {
 
@@ -1243,6 +1317,53 @@
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원코드
         let MEMO = gfnma_nvl(SBUxMethod.get("MEMO")); //사원코드
         let SOURCE_DOC = gfnma_nvl(SBUxMethod.get("SOURCE_DOC")); //
+
+        if (!PAY_AREA_TYPE) {
+            gfn_comAlert("W0002", "급여영역");
+            return;
+        }
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일자");
+            return;
+        }
+
+        if (_.isEqual(type, 'BATCH')){
+            if (EXPECTED_PAY_DATE == '')
+            {
+                gfn_comAlert("Q0000", "회계처리일자를 입력해 주십시오.");
+                SBUxMethod.focus("EXPECTED_PAY_DATE");
+                //SetMessageBox(GetFormMessage("HRP4200_006")); //"회계처리일자를 입력해 주십시오"
+                //ymdexpected_pay_date.Focus();
+                return;
+            }
+
+            if (POSTING_DATE == '')
+            {
+                gfn_comAlert("Q0000", "회계처리일자를 입력해 주십시오.");
+                SBUxMethod.focus("POSTING_DATE");
+                //SetMessageBox(GetFormMessage("HRP4200_001")); //"회계처리일자를 입력해 주십시오"
+                //ymdposting_date.Focus();
+                return;
+            }
+
+            if (CS_CODE == '')
+            {
+                gfn_comAlert("Q0000", "거래처를 입력해 주십시오.");
+                SBUxMethod.focus("CS_CODE");
+                //SetMessageBox(GetFormMessage("HRP4200_002")); //"거래처를 입력해 주십시오"
+                //txtcs_code.Focus();
+                return;
+            }
+        }
+
 
         let updatedData = gvwInfoGrid.getGridDataAll();
         let returnData = [];
@@ -1431,12 +1552,12 @@
     //전표조회
     const fn_btnDocQ = async function () {
 
-        let gvwInfoGrid= gvwInfoGrid.getGridDataAll();
+        let infoGrid = gvwInfoGrid.getGridDataAll();
 
-        if (_.isEmpty(gvwInfoGrid)){
+        if (_.isEmpty(infoGrid)){
             return;
         }
-        let DOC_ID = gfnma_nvl(SBUxMethod.get("DOC_ID")); //사원코드
+        let DOC_ID = gfnma_nvl(SBUxMethod.get("DOC_ID")); //
         if (DOC_ID == ''){
 
             gfn_comAlert("Q0000", "생성된 전표번호가 없습니다."); //HRP4200_004
@@ -1455,9 +1576,9 @@
         let json = JSON.stringify(ht);
 
         window.parent.cfn_openTabSearch(json);
-
-
     }
+
+
 
 </script>
 </body>

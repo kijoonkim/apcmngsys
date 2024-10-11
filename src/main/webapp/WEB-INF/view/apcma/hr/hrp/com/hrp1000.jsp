@@ -1300,7 +1300,8 @@
             },
             {caption: ["수정시간"], ref: 'USERTIME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
-            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true}
+            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
 
         ];
@@ -1339,7 +1340,8 @@
             {caption: ["수정시간"], ref: 'USERTIME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left'},
             {caption: ["gridColumnEx31"], ref: 'PAY_ITEM_CATEGORY', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
-            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true}
+            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
 
         ];
@@ -1379,7 +1381,8 @@
                 typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["수정시간"], ref: 'USERTIME', type: 'output', width: '120px', style: 'text-align:left'},
-            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true}
+            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
 
         ];
@@ -1420,8 +1423,8 @@
             },
             {caption: ['수정시간'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true}
-
+            {caption: ["txn_id"], ref: 'TXN_ID', type: 'output', width: '120px', style: 'text-align:left', hidden: true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
         ];
 
@@ -1465,7 +1468,8 @@
             },
             {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'}
+            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
 
         ];
@@ -1559,7 +1563,8 @@
                 typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwViewEx1Grid = _SBGrid.create(SBGridProperties);
@@ -1588,7 +1593,8 @@
                 typeinfo : {ref : 'jsonUser', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ['수정일시'], ref: 'USERTIME', 	width:'120px',	type: 'datepicker', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwWithholdGrid = _SBGrid.create(SBGridProperties);
@@ -1646,7 +1652,7 @@
 
 
     //상세정보 보기
-    async function fn_view(type) {
+    async function fn_view() {
 
         fn_clearForm();
 
@@ -1654,19 +1660,15 @@
         let nCol = gvwInfoGrid.getCol();
         let nRow = gvwInfoGrid.getRow();
 
-        if(_.isEmpty(type)) {
-            //특정 열 부터 이벤트 적용
-            if (nCol < 1) {
-                return;
-            }
-            if (nRow < 1) {
-                return;
-            }
-        }else if(_.isEqual(type, 'search')){
-            if (nRow < 1) {
-                nRow = 1; //그리드 로우 첫번째값 셋팅
-            }
+
+        //특정 열 부터 이벤트 적용
+        if (nCol == -1) {
+            return;
         }
+        if (nRow == -1) {
+            return;
+        }
+
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
@@ -2353,7 +2355,11 @@
                     SBUxMethod.set('idx1', 'SBUx_IDE_JSON');
                 }*/
 
-                fn_view('search');
+                if(jsonGvwInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+
+                //fn_view('search');
 
 
             } else {

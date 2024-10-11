@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp1170.jsp
      * @Description       : 월별 급상여 예외자 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.05
@@ -640,6 +640,14 @@
         let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_item_code")); //급여항목
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원코드
 
+        if (!PAY_YYYYMM_FR) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_YYYYMM_TO) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
