@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp4200.jsp
      * @Description       : 급여 전표처리 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.24

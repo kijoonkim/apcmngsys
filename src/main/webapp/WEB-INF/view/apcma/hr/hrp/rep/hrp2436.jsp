@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
-     * @Description       :  급여명세서 메일발송 정보 화면
+     * @Class Name        : hrp2436.jsp
+     * @Description       : 급여명세서 메일발송 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.08
      * @version           : 1.0
@@ -109,7 +109,7 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">귀속년월</th>
-                <td colspan="2" class="td_input" style="border-right: hidden;">
+                <td <%--colspan="2"--%> class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
                             id="srch-pay_yyyymm_fr"
                             name="srch-pay_yyyymm_fr"
@@ -135,7 +135,7 @@
                         &lt;%&ndash;onchange="fn_payDate"&ndash;%&gt;
                     </sbux-datepicker>
                 </td>--%>
-                <td style="border-right: hidden;"></td>
+                <td colspan="2" style="border-right: hidden;"></td>
                 <th scope="row" class="th_bg">지급구분</th>
                 <td class="td_input">
                     <sbux-select
@@ -410,6 +410,7 @@
             gfnma_setComSelect(['gvwInfoGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode, 'L_HRP011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwDedGrid'], jsonPayItemCode2, 'L_HRP012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDedGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
 
 
             //지급구분

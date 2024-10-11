@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrb5600.jsp
      * @Description       : 수당기준 등록 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.10
