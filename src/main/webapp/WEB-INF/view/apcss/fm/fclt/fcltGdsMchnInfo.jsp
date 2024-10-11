@@ -214,7 +214,7 @@
 									></sbux-checkbox>
 						</td>
 						<td>
-							<sbux-input id="dtl-inp-sortMchnSpcect1" name="dtl-inp-sortMchnSpcect1" uitype="text" class="form-control input-sm" group-id="group1" placeholder="2대x1조 32등급" ></sbux-input>
+							<sbux-input id="dtl-inp-sortMchnSpcfct1" name="dtl-inp-sortMchnSpcfct1" uitype="text" class="form-control input-sm" group-id="group1" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
 							<sbux-input id="dtl-inp-mkrNm1" name="dtl-inp-mkrNm1" uitype="text" class="form-control input-sm" group-id="group1" placeholder="" ></sbux-input>
@@ -273,7 +273,7 @@
 									></sbux-checkbox>
 						</td>
 						<td>
-							<sbux-input id="dtl-inp-sortMchnSpcect2" name="dtl-inp-sortMchnSpcect2" uitype="text" class="form-control input-sm" group-id="group2" placeholder="2대x1조 32등급" ></sbux-input>
+							<sbux-input id="dtl-inp-sortMchnSpcfct2" name="dtl-inp-sortMchnSpcfct2" uitype="text" class="form-control input-sm" group-id="group2" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
 							<sbux-input id="dtl-inp-mkrNm2" name="dtl-inp-mkrNm2" uitype="text" class="form-control input-sm" group-id="group2" placeholder="" ></sbux-input>
@@ -332,7 +332,7 @@
 									></sbux-checkbox>
 						</td>
 						<td>
-							<sbux-input id="dtl-inp-sortMchnSpcect3" name="dtl-inp-sortMchnSpcect3" uitype="text" class="form-control input-sm" group-id="group3" placeholder="2대x1조 32등급" ></sbux-input>
+							<sbux-input id="dtl-inp-sortMchnSpcfct3" name="dtl-inp-sortMchnSpcfct3" uitype="text" class="form-control input-sm" group-id="group3" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
 							<sbux-input id="dtl-inp-mkrNm3" name="dtl-inp-mkrNm3" uitype="text" class="form-control input-sm" group-id="group3" placeholder="" ></sbux-input>
@@ -391,7 +391,7 @@
 									></sbux-checkbox>
 						</td>
 						<td>
-							<sbux-input id="dtl-inp-sortMchnSpcect4" name="dtl-inp-sortMchnSpcect4" uitype="text" class="form-control input-sm" group-id="group4" placeholder="2대x1조 32등급" ></sbux-input>
+							<sbux-input id="dtl-inp-sortMchnSpcfct4" name="dtl-inp-sortMchnSpcfct4" uitype="text" class="form-control input-sm" group-id="group4" placeholder="2대x1조 32등급" ></sbux-input>
 						</td>
 						<td>
 							<sbux-input id="dtl-inp-mkrNm4" name="dtl-inp-mkrNm4" uitype="text" class="form-control input-sm" group-id="group4" placeholder="" ></sbux-input>
@@ -533,7 +533,7 @@
  			//console.log($('#dtl-inp-sortMchnHoldYn'+i).val());
 			SBUxMethod.set('dtl-inp-itemChk'+i ,null);
 
-			SBUxMethod.set("dtl-inp-sortMchnSpcect"+i, null);
+			SBUxMethod.set("dtl-inp-sortMchnSpcfct"+i, null);
 			SBUxMethod.set("dtl-inp-sortBrckMchn"+i, null);
 			SBUxMethod.set("dtl-inp-colorSort"+i, null);
 			SBUxMethod.set("dtl-inp-shapSort"+i, null);
@@ -591,7 +591,7 @@
 
 				if(sortMchnHoldYn == 'Y'){
 					SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');//선별기보유 할경우 해당 그룹 활성화
-					SBUxMethod.set("dtl-inp-sortMchnSpcect"+sn, gfn_nvl(item.sortMchnSpcect));
+					SBUxMethod.set("dtl-inp-sortMchnSpcfct"+sn, gfn_nvl(item.sortMchnSpcfct));
 					SBUxMethod.set("dtl-inp-sortBrckMchn"+sn, gfn_nvl(item.sortBrckMchn));
 					SBUxMethod.set("dtl-inp-colorSort"+sn, gfn_nvl(item.colorSort));
 					SBUxMethod.set("dtl-inp-shapSort"+sn, gfn_nvl(item.shapSort));
@@ -650,7 +650,7 @@
 						, prgrsYn : 'N' //진척도 갱신 여부
 				}
 				if(sortMchnHoldYn == 'Y'){
-					itemVo.sortMchnSpcect = gfn_nvl(SBUxMethod.get('dtl-inp-sortMchnSpcect'+i));
+					itemVo.sortMchnSpcfct = gfn_nvl(SBUxMethod.get('dtl-inp-sortMchnSpcfct'+i));
 					itemVo.sortBrckMchn = $('#dtl-inp-sortBrckMchn'+i).val();
 					itemVo.colorSort = $('#dtl-inp-colorSort'+i).val();
 					itemVo.shapSort = $('#dtl-inp-shapSort'+i).val();
@@ -948,7 +948,7 @@
 
 			{caption: ["보유여부"],			ref:'sortMchnHoldYn',	type:'output',width:'70px',style:'text-align:center'},
 
-			{caption: ["규격"],			ref:'sortMchnSpcect',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["규격"],			ref:'sortMchnSpcfct',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["당도기"],			ref:'sortBrckMchn',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["색택선별"],			ref:'colorSort',		type:'output',width:'70px',style:'text-align:center'},
@@ -989,7 +989,7 @@
 
 					,sortMchnHoldYn		:item.sortMchnHoldYn
 
-					,sortMchnSpcect		:item.sortMchnSpcect
+					,sortMchnSpcfct		:item.sortMchnSpcfct
 					,sortBrckMchn		:item.sortBrckMchn
 
 					,colorSort			:item.colorSort

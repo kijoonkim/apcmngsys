@@ -1512,16 +1512,6 @@
 					,itemNm				:item.itemNm
 					,itemCd				:item.itemCd
 
-					,sortMchnHoldYn		:item.sortMchnHoldYn
-
-					,sortMchnSpcect		:item.sortMchnSpcect
-					,sortBrckMvhn		:item.sortBrckMvhn
-
-					,colorSort			:item.colorSort
-					,shapSort			:item.shapSort
-					,mnfcMchn			:item.mnfcMchn
-					,mkrNm				:item.mkrNm
-
 					,wbg						:item.wbg
 					,wrhsBrQr					:item.wrhsBrQr
 					,kskTblt					:item.kskTblt
