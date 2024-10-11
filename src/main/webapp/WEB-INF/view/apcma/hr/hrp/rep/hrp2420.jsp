@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name        : hrp2420.jsp
-     * @Description       :  급여대장( 급여명세서 일괄출력 ) 정보 화면
+     * @Description       : 급여대장( 급여명세서 일괄출력 ) 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.08
      * @version           : 1.0
@@ -746,7 +746,10 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+                //fn_view();
 
 
             } else {
@@ -766,9 +769,13 @@
     async function fn_view() {
 
         let nRow = gvwInfoGrid.getRow();
+        let nCol = gvwInfoGrid.getCol();
 
-        if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
         }
 
         let rowData = gvwInfoGrid.getRowData(nRow);

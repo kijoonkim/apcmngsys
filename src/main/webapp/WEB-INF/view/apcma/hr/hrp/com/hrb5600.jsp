@@ -488,6 +488,11 @@
         let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_item_code")); //급여항목
         let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
 
+        if (!APPLY_DATE) {
+            gfn_comAlert("W0002", "기준일");
+            return;
+        }
+
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
@@ -541,7 +546,11 @@
                 gvwListGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonGvwList.length > 0) {
+                    gvwListGrid.clickRow(1);
+                }
+
+                //fn_view();
 
 
             } else {
@@ -563,18 +572,21 @@
 
         editType = 'U';
 
-        let APPLY_DATE = gfnma_nvl(SBUxMethod.get("srch-apply_date")); //기준일
-        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_item_code")); //급여항목
-        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
-
         let nRow = gvwListGrid.getRow();
+        let nCol = gvwListGrid.getCol();
 
-        if (nRow < 1){
-            nRow = 1;
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
         }
 
         let rowData = gvwListGrid.getRowData(nRow);
 
+        let APPLY_DATE = gfnma_nvl(SBUxMethod.get("srch-apply_date")); //기준일
+        let PAY_ITEM_CODE = gfnma_nvl(SBUxMethod.get("srch-pay_item_code")); //급여항목
+        let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
 
         if (!_.isEmpty(rowData)) {
             var paramObj = {
