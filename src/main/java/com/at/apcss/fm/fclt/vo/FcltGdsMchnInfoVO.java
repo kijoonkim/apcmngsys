@@ -61,7 +61,7 @@ public class FcltGdsMchnInfoVO extends ComVO{
 	private String itemNm;
 	private String crtrYr;
 	private String itemChk;
-	private String sortMchnSpcect;
+	private String sortMchnSpcfct;
 	private String sortBrckMchn;
 	private String colorSort;
 	private String shapSort;
