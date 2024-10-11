@@ -1021,7 +1021,6 @@
         // 변경을 감지할 노드 선택
         const targetNode = document.getElementById("PAY_ITEM_RANGE_TYPE1");
 
-        console.log('targetNode---- : ',targetNode);
         const targetNode2 = document.getElementById("PAY_ITEM_RANGE_TYPE2");
 
         // 감지 옵션 (감지할 변경)
