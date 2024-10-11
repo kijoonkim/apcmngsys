@@ -27,6 +27,7 @@
 <title>title : 감가상각 조정/확정</title>
 <%@ include file="../../../../frame/inc/headerMeta.jsp"%>
 <%@ include file="../../../../frame/inc/headerScript.jsp"%>
+<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
 	<section>
@@ -43,22 +44,22 @@
 				<div style="margin-left: auto;">
 					<sbux-button id="btnCmptn" name="btnCmptn" uitype="normal"
 						text="확정" class="btn btn-sm btn-outline-danger"
-						onclick="fn_btnCmptn"></sbux-button>
+						onclick="fn_confirmClick('CONFIRM')"></sbux-button>
 					<sbux-button id="btnCmptnRtrcn" name="btnCmptnRtrcn"
 						uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger"
-						onclick="fn_btnCmptnRtrcn"></sbux-button>
+						onclick="fn_confirmClick('UNCONFIRM')"></sbux-button>
 					<sbux-button id="btnSlipWrt" name="btnSlipWrt" uitype="normal"
 						text="전표작성" class="btn btn-sm btn-outline-danger"
-						onclick="fn_btnSlipWrt"></sbux-button>
+						onclick="fn_confirmClick('ACCOUNT')"></sbux-button>
 					<sbux-button id="btnSlipRtrcn" name="btnSlipRtrcn" uitype="normal"
 						text="전표취소" class="btn btn-sm btn-outline-danger"
-						onclick="fn_btnSlipRtrcn	"></sbux-button>
+						onclick="fn_confirmClick('CANCEL')"></sbux-button>
 				</div>
 			</div>
 			<div class="box-body">
 
 
-				<table class="table table-bordered tbl_fixed">
+				<table id="searchTable" class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
@@ -80,7 +81,7 @@
 						<tr>
 							<th scope="row" class="th_bg">법인</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-corp" name="srch-slt-corp"
+								<sbux-select id="srch-slt-compCode" name="srch-slt-compCode"
 									class="form-control input-sm" uitype="single"
 									jsondata-ref="jsonCorp"></sbux-select>
 							</td>
@@ -88,45 +89,60 @@
 
 							<th scope="row" class="th_bg">사업단위</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-bizUnit" name="srch-slt-bizUnit"
+								<sbux-select id="srch-slt-fiOrgCode" name="srch-slt-fiOrgCode"
 									class="form-control input-sm" uitype="single"
 									jsondata-ref="jsonBizUnit"></sbux-select>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">사업장</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-bplc" name="srch-slt-bplc"
-									class="form-control input-sm" uitype="single"
-									jsondata-ref="jsonBplc"></sbux-select>
-							</td>
-							<td></td>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+										    	type="button"
+										    	id="srch-slt-siteCode"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
+                            </td>
+                            <td></td>
 
 
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">감가상각년월</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-dprcYm" name="srch-dtp-dprcYm"
-									uitype="popup" date-format="yyyy-mm-dd"
+								<sbux-datepicker id="srch-dtp-depreciationYyyymm" name="srch-dtp-depreciationYyyymm"
+									uitype="popup"
+									date-format="yyyymm"
+									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-clclnYmdFrom)"></sbux-datepicker>
+								</sbux-datepicker>
 							</td>
 							<td class="td_input" style="border-right: hidden;"></td>
 							<th scope="row" class="th_bg">감가상각기준</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-dprcCrtr" name="srch-slt-dprcCrtr"
+								<sbux-select id="srch-slt-depreciationType" name="srch-slt-depreciationType"
 									class="form-control input-sm" uitype="single"
 									jsondata-ref="jsonDprcCrtr"></sbux-select>
 							</td>
 							<td></td>
 							<th scope="row" class="th_bg">관리부서</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-mngDept"
-									name="srch-inp-mngDept" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-deptCode"
+									name="srch-inp-deptCode" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-mngDeptPopup"
-									name="srch-inp-mngDeptPopup" class="form-control input-sm"
+								<sbux-input id="srch-inp-deptName"
+									name="srch-inp-deptName" class="form-control input-sm"
 									uitype="search" button-back-text="···"
 									button-back-event="fn_mngDeptPopup"></sbux-input>
 							</td>
@@ -134,32 +150,32 @@
 						<tr>
 							<th scopr="row" class="th_bg">자산구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-astSePopup" name="srch-inp-astSePopup"
+								<sbux-input id="srch-inp-assetCategoryName" name="srch-inp-assetCategoryName"
 									class="form-control input-sm" uitype="search"
 									button-back-text="···" button-back-event="fn_astSePopup"></sbux-input>
 							</td>
 							<th scopr="row" class="th_bg">중분류</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-mcslfPopup" name="srch-inp-mcslfPopup"
+								<sbux-input id="srch-inp-assetLevel2" name="srch-inp-assetLevel2"
 									class="form-control input-sm" uitype="search"
 									button-back-text="···" button-back-event="fn_mcslfPopup"></sbux-input>
 							</td>
 							<th scopr="row" class="th_bg">소분류</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-scslfPopup" name="srch-inp-scslfPopup"
+								<sbux-input id="srch-inp-assetLevel3" name="srch-inp-assetLevel3"
 									class="form-control input-sm" uitype="search"
 									button-back-text="···" button-back-event="fn_scslfPopup"></sbux-input>
 							</td>
 							<th scope="row" class="th_bg">원가중심점</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
-								<sbux-input uitype="text" id="srch-inp-cstCntr"
-									name="srch-inp-cstCntr" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-costCenterCode"
+									name="srch-inp-costCenterCode" class="form-control input-sm"></sbux-input>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input id="srch-inp-cstCntrPopup"
-									name="srch-inp-cstCntrPopup" class="form-control input-sm"
+								<sbux-input id="srch-inp-costCenterName"
+									name="srch-inp-costCenterName" class="form-control input-sm"
 									uitype="search" button-back-text="···"
-									button-back-event="fn_cstCntrPopup"></sbux-input>
+									button-back-event="fn_costCenterPopup"></sbux-input>
 							</td>
 
 						</tr>
@@ -194,6 +210,15 @@
 
 				</div>
 
+				<div class="row">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li><span>취득가액 내역</span></li>
+						</ul>
+					</div>
+					<div id="sb-area-grdAcqsAmtList" style="height: 258px; width: 100%"></div>
+				</div>
+
 
 
 			</div>
@@ -216,16 +241,39 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	// ${comMenuVO.menuId}
-
+	var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
+	var p_userId = '${loginVO.id}';
 	//-----------------------------------------------------------
 
-	var editType			= "N";
-
 	var jsonRegionCode		= [];	// 지역
+
+	// 신규
+	function cfn_add() {
+
+	}
+
+	// 그룹코드 내역, 세부코드 정보 저장
+    function cfn_save() {
+		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+
+		}
+    }
+
+
+	// 마스터 그리드 삭제
+	function cfn_del() {
+
+	}
+
+	// 조회
+	function cfn_search() {
+		fn_queryClick();
+	}
+
 
 
 
@@ -233,10 +281,10 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
-				target			: ['#srch-slt-bplc']
+				target			: ['#srch-slt-siteCode']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
@@ -254,9 +302,9 @@
 				]
 			}),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//감가상각기준
-			gfnma_setComSelect(['srch-slt-dprcCrtr'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
 		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -269,16 +317,8 @@
     	fn_initSBSelect();
     	fn_createGrid1();
     	fn_createGrid2();
-    	//fn_search();
+    	fn_createGrid3();
 
-		//재직상태
-		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
-		//	function(list){
-		//		$('#SRCH_EMP_BTN').click(function(){
-		//			fn_compopup1(list);
-		//		});
-		//	}
-		//)
     });
 
     //grid 초기화
@@ -288,6 +328,9 @@
     var grdDprcRkng;
     var jsonDprcRkng = [];
 
+    var grdAcqsAmtList;
+    var jsonAcqsAmtList = [];
+
 
     //json
     var jsonCorp = []; //법인
@@ -295,6 +338,7 @@
 	var jsonBplc = []; // 사업장
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
+	var jsonDprcCrtr = []; // 감가상각기준
 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
@@ -307,7 +351,7 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
         	{
-        		caption: [""], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
+        		caption: ["<input type='checkbox' id='allCheckbox' onchange='fn_checkAllDprcRkng(this);'>"], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
 					typeinfo: {
 						ignoreupdate : true,
 						fixedcellcheckbox : {
@@ -319,16 +363,17 @@
 						uncheckedvalue : 'N'
 					}
         	},
-            {caption: ["연번"],		ref: 'sn', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업단위"], 	ref: 'bizUnit',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],  		ref: 'bplc',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["확정여부"],    	ref: 'cmptnYn', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["연번"],		ref: 'seq', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업단위"], 	ref: 'fiOrgCode',    	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],  		ref: 'siteCode',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["확정여부"],    	ref: 'confirmFlag', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["소스ID"],		ref: 'sourceId',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전표ID"], 		ref: 'slipId', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["최종실행회수"], 		ref: 'lastExcnNmtm',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["처리자"], 	ref: 'prcsPrsn', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처리PC"], 		ref: 'prcsPc', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["전표ID"], 		ref: 'docName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["데이터건수"], 		ref: 'recordCount',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["최종실행회수"], 		ref: 'lastRunCount',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["처리자"], 	ref: 'insertUserid', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처리PC"], 		ref: 'insertPc', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'description', 				type:'output',		width:'80px',		style:'text-align:center'},
 
         ];
 
@@ -346,63 +391,63 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{
-        		caption: [""], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
-					typeinfo: {
-						ignoreupdate : true,
-						fixedcellcheckbox : {
-							usemode : true,
-							rowindex : 1,
-							deletecaption : false
-						},
-						checkedvalue : 'Y',
-						uncheckedvalue : 'N'
-					}
-        	},
-            {caption: ["확정여부"],			ref: 'cmptnYn', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업단위"],  		ref: 'bizUnit',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],      		ref: 'biz', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산구분"],			ref: 'astSe',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["중분류"], 			ref: 'mclsf', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소분류"], 			ref: 'sclsf',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["자산번호"], 		ref: 'astNo', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["자산명"], 			ref: 'astNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["상각률(1000)"], 	ref: 'dprcRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["취득월"], 			ref: 'acqsMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["내용연수(월)"], 	ref: 'svlf', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["확정여부"], 		ref: 'cfmtnYn', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["확정"],			ref: 'defYn'
+        		, type : 'checkbox'
+        		,typeinfo: {
+					ignoreupdate : true,
+					fixedcellcheckbox : {
+						usemode : true,
+						rowindex : 1,
+						deletecaption : false
+					},
+					checkedvalue : 'Y',
+					uncheckedvalue : 'N'
+				}
+        		},
+            {caption: ["사업단위"],  		ref: 'fiOrgCode',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],      		ref: 'siteCode', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산구분"],			ref: 'assetCategory',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["중분류"], 			ref: 'assetLevel2', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소분류"], 			ref: 'assetLevel3',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["자산번호"], 		ref: 'assetNo', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["자산명"], 			ref: 'assetName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["상각률(1000)"], 	ref: 'depreciationRate', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["취득월"], 			ref: 'acquireYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["내용연수"], 	ref: 'usefulLife', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["내용연수(월)"], 	ref: 'usefulLifeMm', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["상각방법"], 		ref: 'depreciationMethod', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["상각주기"], 		ref: 'depreciationPeriod', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["확정여부"], 		ref: 'confirmFlag', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["사업단위"], 		ref: 'bizUnit', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["사업장"], 			ref: 'bplc', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["자산구분"], 		ref: 'astSe', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["중분류"], 			ref: 'mclsf', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["소분류"], 			ref: 'sclsf', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["자산번호"], 		ref: 'astNo', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["자산명"], 			ref: 'astNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["취득월"], 			ref: 'acqsMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["내용연수(월)"], 	ref: 'svlf', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["상각방법"], 		ref: 'dprcMthd', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["상각주기"], 		ref: 'dprcCycl', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기초취득가액"], 	ref: 'bssAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기초보조금"], 		ref: 'bssAsstncAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["당기취득금액"], 	ref: 'crntAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["당기취득보조금"], ref: 'crntAcqsAsstncAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분취득가액"], 	ref: 'dspsAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분보조금"], 		ref: 'dspsAsstncAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말취득가액"],	ref: 'yrEndAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말보조금"], 		ref: 'yrEndAsstncAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기초상각누계액"], ref: 'bssDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["감가상각비"], 		ref: 'dprcAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산상각비"], ref: 'dspsAstDprcRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말상각누계액"], ref: 'yrEndDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기초보조금상각누계액"], ref: 'bssAsstncDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["보조금상각비"],   ref: 'asstncAmtDprcRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산보조금상각비"], ref: 'dspsAstAsstncAmtDprcRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산상각누계액"], ref: 'dspsAstDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분자산보조금상각누계액"], ref: 'dspsAstAsstncAmtDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["기말보조금상각누계액"], ref: 'yrEndAsstncAmtDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 			ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["부서"], 			ref: 'dept', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["원가중심점"], 		ref: 'cstCntr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["사업장"], 			ref: 'siteCode', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["자산구분"], 		ref: 'assetCategory', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["중분류"], 			ref: 'assetLevel2', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["소분류"], 			ref: 'assetLevel3', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["자산번호"], 		ref: 'assetNo', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["자산명"], 			ref: 'assetName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["취득월"], 			ref: 'acquireYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["내용연수(월)"], 	ref: 'usefulLifeMm', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["상각방법"], 		ref: 'depreciationMethod', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기초보조금"], 		ref: 'beginSubsidiesAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["당기취득금액"], 	ref: 'inAcquisitionAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["당기취득보조금"], ref: 'inSubsidiesAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분취득가액"], 	ref: 'outAcquisitionAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분보조금"], 		ref: 'outSubsidiesAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기말취득가액"],	ref: 'endAcquisitionAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기말보조금"], 		ref: 'endSubsidiesAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기초상각누계액"], ref: 'beginAccumDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["감가상각비"], 		ref: 'acqDeprAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분자산상각비"], ref: 'outAcqDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기말상각누계액"], ref: 'endAccumDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기초보조금상각누계액"], ref: 'beginSubsidiesAccDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["보조금상각비"],   ref: 'subsidiesDeprAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분자산보조금상각비"], ref: 'outSubsidiesDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분자산상각누계액"], ref: 'outAccumDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분자산보조금상각누계액"], ref: 'outSubsidiesAccumDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["기말보조금상각누계액"], ref: 'endSubsidesAccumDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 			ref: 'memomemo', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["부서"], 			ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["원가중심점"], 		ref: 'costCenterCode', 				type:'output',		width:'80px',		style:'text-align:center'},
 
         ];
 
@@ -410,81 +455,352 @@
         //NationInGrid.bind('click', 'fn_view');
     }
 
+    function fn_createGrid3() {
+        var SBGridProperties 				= {};
+	    SBGridProperties.parentid 			= 'sb-area-grdAcqsAmtList';
+	    SBGridProperties.id 				= 'grdAcqsAmtList';
+	    SBGridProperties.jsonref 			= 'jsonAcqsAmtList';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.columns = [
 
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-    	fn_setNationInGrid();
+        	{caption: ['구분'], ref: 'txnGroup', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['거래유형'], ref: 'txnType', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['최초취득일'], ref: 'firstAcquireDate', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['취득월'], ref: 'acquireYyyymm', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['처분월'], ref: 'disposalYyyymm', width: '8%', type: 'output' , style:'text-align:center'},
+        	{caption: ['중지월'], ref: 'holdingYyyymm', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['증가금액'], ref: 'inAmount', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['감소금액'], ref: 'outAmount', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['중지금액'], ref: 'holdingAmount', width: '8%', type: 'output', style:'text-align:center'}
+
+        ];
+
+        grdAcqsAmtList = _SBGrid.create(SBGridProperties);
     }
 
-    /**
-     * 목록 가져오기
-     */
-    const fn_setNationInGrid = async function() {
+    const fn_queryClick = async function() {
+    	fnQRY_P_FIA5300_Q("LIST");
+    	//감가상각 리스트 로우 없을때 초기화
+    	if (jsonDprcList.length < 0){
+    		grdDprcRkng.rebuild();
+    		grdDprcList.rebuild();
+    		grdAcqsAmtList.rebuild();
+    	}
+            /* btnConfirm.Enabled = false;
+            btnUnconfirm.Enabled = false;
+            btnApply.Enabled = false;
+             btnCancel.Enabled = false;*/
+   		let depreciationType = SBUxMethod.get("srch-slt-depreciationType");
+        if (depreciationType === "1" || depreciationType === "2"){
+            fnQRY_P_FIA5300_Q("INFO");
+        }
+    	if (grdDprcRkng.getRow() >= 0){
+    		focusedRowChanged2()
+    	}
+	}
 
-		NationInGrid.clearStatus();
-
-		let NATION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_CODE"));
-		let NATION_NAME	= gfnma_nvl(SBUxMethod.get("SRCH_NATION_NAME"));
-
-	    var paramObj = {
-			V_P_DEBUG_MODE_YN	: ''
-			,V_P_LANG_ID		: ''
-			,V_P_COMP_CODE		: gv_ma_selectedApcCd
-			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_NATION_CODE	: NATION_CODE
-			,V_P_NATION_NAME	: NATION_NAME
-			,V_P_FORM_ID		: p_formId
-			,V_P_MENU_ID		: p_menuId
-			,V_P_PROC_ID		: ''
-			,V_P_USERID			: ''
-			,V_P_PC				: ''
-	    };
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '1',
-        	params				: gfnma_objectToString(paramObj)
-		});
-
-        const data = await postJsonPromise;
-		//console.log('data:', data);
-        try {
-  			if (_.isEqual("S", data.resultStatus)) {
-
-  	        	jsonNationList.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonNationList.push(msg);
-  				});
-
-        		NationInGrid.rebuild();
-
-        	} else {
-          		alert(data.resultMessage);
-        	}
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    const fn_saveClick = function(){
+        if (fnSET_P_FIA5300_S("")){
+            queryClick();
         }
     }
+
+    const fn_confirmClick = function(workType){
+    	if (grdDprcList.getRow() < 0)
+            return;
+
+        if (grdDprcRkng.getRow() < 0)
+            return;
+
+
+        let bresult = false;
+
+        let intmax_seq = 0;
+        let strcomp_code = "";
+        let strfi_org_code = "";
+        let strsite_code = "";
+        let intsource_id = 0;
+        let strdescription = "";
+        let intprogram_seq = 1;
+
+        let dprcRkngData  = grdDprcRkng.getGridDataAll();
+        let compCode = SBUxMethod.get("srch-slt-compCode");
+        dprcRkngData.forEach(row => {
+        	if(row.checkYn === "Y"){
+        		intmax_seq = intmax_seq + 1;
+        		bresult = false;
+                strcomp_code = compCode
+                strfi_org_code = row.fiOrgCode;
+                strsite_code = row.siteCode;
+                intsource_id = row.sourceId;
+                strdescription = row.description;
+                bresult = fnSET_P_FIA5300_S1(workType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription);
+                intprogram_seq = intprogram_seq + 1;
+        	}
+        })
+
+
+
+
+
+        /* for (int i = 0; i < gvwInfo.RowCount; i++)
+        {
+            if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
+
+                if (!bresult)
+                    break;
+            }
+        } */
+        if (bresult){
+            queryClick();
+        }
+    }
+
+
+
+
+	//strWorkType : INFO, LOG
+    const fnQRY_P_FIA5300_Q = async function(strWorkType){
+		 let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
+    	 var paramObj = {
+      			V_P_DEBUG_MODE_YN	: ''
+      			,V_P_LANG_ID		: ''
+      			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+      		    ,V_P_FI_ORG_CODE    : ''
+     		    ,V_P_DEPRECIATION_YYYYMM : ''
+     		    ,V_P_DEPRECIATION_TYPE  : ''
+     		    ,V_P_ASSET_CATEGORY   : ''
+     		    ,V_P_ASSET_LEVEL2   : ''
+     		    ,V_P_ASSET_LEVEL3   : ''
+     		    ,V_P_SITE_CODE    : siteCode
+     		    ,V_P_DEPT_CODE    : ''
+     		    ,V_P_COST_CENTER_CODE  : ''
+     		    ,V_P_ASSET_NO    : ''
+      			,V_P_FORM_ID		: p_formId
+      			,V_P_MENU_ID		: p_menuId
+      			,V_P_PROC_ID		: ''
+      			,V_P_USERID			: ''
+      			,V_P_PC				: ''
+      	    };
+
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["assetLevel2","assetLevel3"]);
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
+
+          const postJsonPromise = gfn_postJSON("/fi/fia/selectFia5300.do", {
+           	getType				: 'json',
+           	workType			:  strWorkType,
+           	cv_count			: '3',
+           	params				: gfnma_objectToString(paramObj)
+   			});
+
+        	const data = await postJsonPromise;
+        	console.log('data:', data);
+          // 비즈니스 로직 정보
+           try {
+	          if (_.isEqual("S", data.resultStatus)) {
+	              //gfn_comAlert("I0001");
+	        	  //info, log에 따라서 그리드에 데이터 넣어주는듯
+	        	   if (strWorkType === "LIST"){
+	        		   data.cv_1.forEach((item, index) => {
+	        			   msg = {
+
+		  	  					}
+	        			   jsonDprcList.push(msg);
+	        		   })
+
+	        		   grdDprcList.rebuild();
+	               }
+	               else if (strWorkType === "DETAIL"){
+	                   data.cv_2.forEach((item, index) => {
+	        			   msg = {
+
+		  	  					}
+	        			   jsonAcqsAmtList.push(msg);
+	        		   })
+
+	                   grdAcqsAmtList.rebuild();
+	               }else if (strWorkType === "INFO"){
+	                   data.cv_3.forEach((item, index) => {
+	        			   msg = {
+
+		  	  					}
+	        			   jsonDprcRkng.push(msg);
+	        		   })
+
+	                   grdDprcRkng.rebuild();
+
+	               }
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+ 	        } catch (e) {
+ 	            if (!(e instanceof Error)) {
+ 	                e = new Error(e);
+ 	            }
+ 	            console.error("failed", e.message);
+ 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+ 	        }
+    }
+
+
+    const focusedRowChanged = function(){
+         fnQRY_P_FIA5300_Q("DETAIL");
+    }
+
+    const focusedRowChanged2 = function(){
+    	let rowData = grdDprcRkng.getRowData(grdDprcRkng.getRow());
+    	let rowData2 = grdDprcList.getRowData(grdDprcList.getRow());
+
+    	if (rowData2.confirmFlag === "Y"){  //확정시
+            if (rowData.docName === ""){
+            	/*  btnConfirm.Enabled = true;
+                btnUnconfirm.Enabled = false;
+                btnApply.Enabled = false;
+                btnCancel.Enabled = false;*/
+            }
+            else{
+            	/*  btnConfirm.Enabled = true;
+                btnUnconfirm.Enabled = false;
+                btnApply.Enabled = false;
+                btnCancel.Enabled = false;*/
+            }
+
+        }
+        else{
+            /*  btnConfirm.Enabled = true;
+            btnUnconfirm.Enabled = false;
+            btnApply.Enabled = false;
+            btnCancel.Enabled = false;*/
+        }
+        fnQRY_P_FIA5300_Q("DETAIL");
+    }
+
+    const fnSET_P_FIA5300_S = async function(){
+    	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
+    	let dprcData = grdDprcList.getGridDataAll();
+    	dprcData.forEach(row => {
+    		var paramObj = {
+         			V_P_DEBUG_MODE_YN	: ''
+         			,V_P_LANG_ID		: ''
+         			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+         			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+         			,V_P_TXN_ID         : row.txnId //그리드에 없음 -> 안보이게 ㄲ json에만 넣으면 될듯
+         		    ,V_P_DEPRECIATION_YYYYMM  : row.depreciationYyyymm //그리드에 없음
+         		    ,V_P_ASSET_NO             : row.assetNo
+         		    ,V_P_DEPRECIATION_TYPE     : row.depreciationType //그리드에 없음
+         		    ,V_P_DEPRECIATION_METHOD : row.depreciationMethod
+         		    ,V_P_DEPRECIATION_PERIOD : row.depreciationPeriod
+         		    ,V_P_DEPRECIATION_RATE : row.depreciationRate
+         		    ,V_P_BEGIN_ACQUISITION_AMOUNT : row.beginAcquisitionAmount //그리드에 없음
+         		    ,V_P_BEGIN_SUBSIDIES_AMOUNT : row.beginSubsidiesAmount
+         		    ,V_P_ACQ_DEPR_AMT : row.acqDeprAmt
+         		    ,V_P_SUBSIDIES_DEPR_AMT : row.subsidiesDeprAmt
+         		    ,V_P_END_ACQUISITION_AMOUNT : row.endAcquisitionAmount
+         		    ,V_P_END_SUBSIDIES_AMOUNT : row.endSubsidiesAmount
+         		    ,V_P_END_ACCUM_DEPR : row.endAccumDepr
+         		    ,V_P_END_SUBSIDES_ACCUM_DEPR : row.endSubsidesAccumDepr
+         		    ,V_P_MEMO : row.memomemo
+         			,V_P_FORM_ID		: p_formId
+         			,V_P_MENU_ID		: p_menuId
+         			,V_P_PROC_ID		: ''
+         			,V_P_USERID			: ''
+         			,V_P_PC				: ''
+         	    };
+    	})
+    	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
+
+         const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5300.do", {
+          	getType				: 'json',
+          	workType			:  strWorkType,
+          	cv_count			: '0',
+          	params				: gfnma_objectToString(paramObj)
+  			});
+
+       	const data = await postJsonPromise;
+       	console.log('data:', data);
+         // 비즈니스 로직 정보
+          try {
+	          if (_.isEqual("S", data.resultStatus)) {
+
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+	        } catch (e) {
+	            if (!(e instanceof Error)) {
+	                e = new Error(e);
+	            }
+	            console.error("failed", e.message);
+	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+
+    }
+
+    const fnSET_P_FIA5300_S1 = async function(strWorkType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription){
+    	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
+    	let depreciationYyyymm = SBUxMethod.get("srch-dtp-depreciationYyyymm");
+    	let depreciationType = SBUxMethod.get("srch-slt-depreciationType")
+   		var paramObj = {
+        			V_P_DEBUG_MODE_YN	: ''
+        			,V_P_LANG_ID		: ''
+        			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+        			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+        			,V_P_FI_ORG_CODE    : strfi_org_code
+        		    ,V_P_SITE_CODE      : strsite_code
+        		    ,V_P_DESCRIPTION    : strdescription_p
+        		    ,V_P_DOC_ID         : intsource_id_p
+        		    ,V_P_DEPRECIATION_YYYYMM : depreciationYyyymm
+        		    ,V_P_DEPRECIATION_TYPE : depreciationType
+        			,V_P_FORM_ID		: p_formId
+        			,V_P_MENU_ID		: p_menuId
+        			,V_P_PROC_ID		: ''
+        			,V_P_USERID			: ''
+        			,V_P_PC				: ''
+        	    };
+    	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
+    	let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["assetLevel2","assetLevel3"]);
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
+
+         const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5300S1.do", {
+          	getType				: 'json',
+          	workType			:  strWorkType,
+          	cv_count			: '0',
+          	params				: gfnma_objectToString(paramObj)
+  			});
+
+       	const data = await postJsonPromise;
+       	console.log('data:', data);
+         // 비즈니스 로직 정보
+          try {
+	          if (_.isEqual("S", data.resultStatus)) {
+
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+	        } catch (e) {
+	            if (!(e instanceof Error)) {
+	                e = new Error(e);
+	            }
+	            console.error("failed", e.message);
+	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+
+    }
+
+
+
+
+
 
 	const fn_compopup1 = function(list) {
 
@@ -518,19 +834,6 @@
      	});
    	}
 
-    //선택 삭제
-    function fn_delete() {
-
-        //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
-    }
-
-	/**
-     * @param {boolean} isConfirmed
-     * @param {any[]} list
-     */
-    const fn_subDelete = async function (isConfirmed, list){
-
-    }
 
     const fn_dtpChange = async function(){
     	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
@@ -598,26 +901,211 @@
             ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "COST_CENTER_NAME", "COST_CLASS", "SITE_CODE", "CREDIT_AREA"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "80px", "80px", "80px","80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
-                SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
+                SBUxMethod.set('srch-inp-costCenterCode', data.COST_CENTER_CODE);
+                SBUxMethod.set('srch-inp-costCenterName', data.COST_CENTER_NAME);
             },
         });
     }
-    // P_ASSET_CATEGORY
-    const fn_assetCategory = function(){
 
+
+
+    /**
+     * 공통팝업
+     * 관리부서
+     */
+
+    var fn_mngDeptPopup = function() {
+
+    	var cdId 		= "srch-inp-deptCode";
+        var nmId 		= "srch-inp-deptName";
+
+        var searchCode 		= gfnma_nvl(SBUxMethod.get(cdId));
+        var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
+        var replaceText0 	= "_DEPT_CODE_";
+        var replaceText1 	= "_DEPT_NAME_";
+
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
+    	var addParams = [searchCode|searchName|null];
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_FI_DEPT'
+        	,popupType				: 'B'
+    		,whereClause			: addParams
+   			,searchCaptions			: ["부서코드", 				"부서명"]
+   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,searchInputTypes		: ["input", 			"input"]
+    		,height					: '400px'
+   			,tableHeader			: ["부서코드", 	"부서명","부서장","부서장명"]
+   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME","DEPT_LEADER","DEPT_LEADER_NAME"]
+   			,tableColumnWidths		: ["120px", 	"120px","120px","120px"]
+			,itemSelectEvent		: function (data){
+				SBUxMethod.set(cdId, 		data.DEPT_CODE);
+				SBUxMethod.set(nmId,		data.DEPT_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
+  	}
+
+
+    /**
+     * 공통팝업
+     * 코스트센터 (원가중심점)
+     */
+     //
+    var fn_costCenterPopup= function() {
+
+        var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterCode"));
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterName"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        var strWhereClause 	= "AND x.CS_CODE LIKE '%" + searchCode + "%' AND x.CS_NAME LIKE '%" + searchName + "%'";
+        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'P_COST_CENTER'
+        	,popupType				: 'A'
+    		,whereClause			: ''
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
+   			,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+   			,tableColumnWidths		: ["80px", 	"80px"]
+			,itemSelectEvent		: function (data){
+				SBUxMethod.set('srch-inp-costCenterCode', 		data.COST_CENTER_CODE);
+				SBUxMethod.set('srch-inp-costCenterName',		data.COST_CENTER_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
+  	}
+
+
+    // P_ASSET_CATEGORY
+    const fn_astSePopup = function(){
+    	var searchCode 		= "";
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetCategoryName"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
+
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'FIA001'
+        	,popupType				: 'A'
+    		,whereClause			: ''
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["자산구분코드", 	"자산구분명"]
+   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnWidths		: ["80px", 	"80px"]
+			,itemSelectEvent		: function (data){
+				SBUxMethod.set('srch-inp-assetCategoryName',		data.CODE_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
     }
+
     //P_ASSET_LEVEL2
     const fn_assetLevel2 = function(){
+    	var searchCode 		= "";
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel2"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
 
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '중분류');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'FIA001'
+        	,popupType				: 'A'
+    		,whereClause			: ''
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["중분류코드", 	"중분류명"]
+   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnWidths		: ["80px", 	"80px"]
+			,itemSelectEvent		: function (data){
+				SBUxMethod.set('srch-inp-assetLevel2',		data.CODE_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
     }
 
   	//P_ASSET_LEVEL3
     const fn_assetLevel3 = function(){
+    	var searchCode 		= "";
+        var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel3"));
+        var replaceText0 	= "_COST_CENTER_CODE_";
+        var replaceText1 	= "_COST_CENTER_NAME_";
+        //var strWhereClause 	= "AND x.CS_CODE LIKE '%" + replaceText0 + "%' AND x.CS_NAME LIKE '%" + replaceText1 + "%'";
 
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '소분류');
+    	compopup1({
+    		compCode				: gv_ma_selectedApcCd
+    		,clientCode				: gv_ma_selectedClntCd
+    		,bizcompId				: 'FIA001'
+        	,popupType				: 'A'
+    		,whereClause			: ''
+   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputValues		: [searchCode, 			searchName]
+    		,height					: '400px'
+   			,tableHeader			: ["소분류코드", 	"소분류명"]
+   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnWidths		: ["80px", 	"80px"]
+			,itemSelectEvent		: function (data){
+				SBUxMethod.set('srch-inp-assetLevel3',		data.CODE_NAME);
+			},
+    	});
+    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopup1');
     }
 
 
+    /**
+     * @name fn_checkAll
+     * @description 자산분류리스트 전체 체크/체크해제
+     * @param {checkbox} obj
+     */
+	const fn_checkAllDprcRkng = function(obj) {
+    	const data = grdDprcRkng.getGridDataAll();
+        const checkedYn = obj.checked ? "Y" : "N";
+        for (var i=0; i<data.length; i++ ){
+        	grdDprcRkng.setCellData(i+1, 0, checkedYn, true, false);
+        }
+    }
+
+
+     /**
+      * @name fn_checkAll
+      * @description 자산분류리스트 전체 체크/체크해제
+      * @param {checkbox} obj
+      */
+ 	const fn_checkAllDprcList = function(obj) {
+     	const data = grdDprcList.getGridDataAll();
+         const checkedYn = obj.checked ? "Y" : "N";
+         for (var i=0; i<data.length; i++ ){
+        	 grdDprcList.setCellData(i+1, 0, checkedYn, true, false);
+         }
+     }
 
 
 
