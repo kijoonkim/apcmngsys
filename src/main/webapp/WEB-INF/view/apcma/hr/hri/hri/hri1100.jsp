@@ -208,10 +208,6 @@
     var jsonArmyType = []; // 병역구분
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
-
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -308,11 +304,10 @@
     }
 
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
-
-        fn_initSBSelect();
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
         fn_createGrid();
-        cfn_search();
+        await fn_onload();
     });
 
     //grid 초기화
@@ -464,6 +459,13 @@
         fn_search();
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_EMP_STATE", "WORK");
+
+        fn_search();
+    }
+
     /**
      * 목록 조회
      */
@@ -472,7 +474,6 @@
         let EMP_STATE	    = gfnma_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DEPT_CODE"));
         let DUTY_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_DUTY_CODE'));
-        //let DUTY_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_DUTY_CODE"));
         let JOB_FAMILY	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_FAMILY"));
         let GENDER	        = gfnma_nvl(SBUxMethod.get("SRCH_GENDER"));
         let PAY_AREA_TYPE	= gfnma_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
@@ -481,7 +482,6 @@
         let POSITION_CODE	= gfnma_nvl(SBUxMethod.get("SRCH_POSITION_CODE"));
         let JOB_RANK	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_RANK"));
         let JOB_CODE = gfnma_nvl(gfnma_multiSelectGet('#SRCH_JOB_CODE'));
-        //let JOB_CODE	    = gfnma_nvl(SBUxMethod.get("SRCH_JOB_CODE"));
         let INITIAL_DATE	= gfnma_nvl(SBUxMethod.get("SRCH_INITIAL_DATE"));
 
         var paramObj = {

@@ -543,15 +543,6 @@
     var p_menuId = '${comMenuVO.menuId}';
     //-----------------------------------------------------------
 
-    // only document
-    window.addEventListener('DOMContentLoaded', function (e) {
-        fn_initSBSelect();
-        fn_createGvwListGrid();
-        fn_createBandgvwDetailGrid(false);
-
-        cfn_search();
-    });
-
     var editType			= "N";
     var copyMode            = "clear";
 
@@ -572,12 +563,6 @@
     var jsonEmpState = []; // 재직구분
 
     const fn_initSBSelect = async function () {
-        SBUxMethod.set("SRCH_APPOINT_DATE_FR", gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("SRCH_APPOINT_DATE", gfn_dateToYmd(new Date()));
-        $("#btnClearMode").show();
-        $("#btnLineCopyMode").hide();
-        $("#btnCellCopyMode").hide();
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -2205,6 +2190,111 @@
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('PARENTING_WORK_TYPE'), false, true);
         } else {
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('PARENTING_WORK_TYPE'), true, true);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', async function (e) {
+        await fn_initSBSelect();
+        fn_createGvwListGrid();
+        fn_createBandgvwDetailGrid(false);
+
+        await fn_onload();
+
+        if(!gfn_isEmpty(initObject)){
+            initObject = JSON.parse(initObject);
+            localStorage.removeItem("callMain");
+
+            await fn_onload(initObject);
+        } else {
+            await fn_onload();
+        }
+    });
+
+    window.addEventListener('message', async function(event){
+        let obj = event.data;
+        if(!gfn_isEmpty(obj)){
+            await fn_onload(obj);
+        } else {
+            await fn_onload();
+        }
+    });
+
+    const fn_onload = async function (parentParameter) {
+        SBUxMethod.set("SRCH_APPOINT_DATE_FR", gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_APPOINT_DATE", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("APPLY_YN", "N");
+        SBUxMethod.set("APPOINT_DATE", gfn_dateToYmd(new Date()));
+
+        $("#btnClearMode").show();
+        $("#btnLineCopyMode").hide();
+        $("#btnCellCopyMode").hide();
+
+        if (parentParameter) {
+            let strappoint_type = "";
+            let strwork_type = "";
+
+            if (parentParameter.hasOwnProperty("WORK_TYPE")) {
+                if (gfn_nvl(parentParameter["WORK_TYPE"]) == "") {
+                    strwork_type = "N";
+                } else {
+                    strwork_type = gfn_nvl(parentParameter["WORK_TYPE"]);
+                }
+            } else {
+                strwork_type = "N";
+            }
+
+            if (parentParameter.hasOwnProperty("APPOINT_NUM")) {
+                if (gfn_nvl(parentParameter["APPOINT_NUM"]) == "") {
+                    SBUxMethod.set("SRCH_APPOINT_NUM", "");
+                } else {
+                    SBUxMethod.set("SRCH_APPOINT_NUM", gfn_nvl(parentParameter["APPOINT_NUM"]));
+                }
+            } else {
+                SBUxMethod.set("SRCH_APPOINT_NUM", "");
+            }
+
+            if (strwork_type == "VIEW") {
+                SBUxMethod.set("SRCH_APPOINT_DATE_FR", "");
+                SBUxMethod.set("SRCH_APPOINT_DATE", "");
+                fn_search();
+            } else {
+                if (gfn_nvl(parentParameter["APPOINT_TYPE"]) == "") {
+                    strappoint_type = "";
+                } else {
+                    strappoint_type = gfn_nvl(parentParameter["APPOINT_TYPE"]);
+                }
+                SBUxMethod.set("APPOINT_TYPE", strappoint_type);
+                SBUxMethod.set("APPOINT_TYPE_NAME", parentParameter["APPOINT_TYPE_NAME"]);
+                SBUxMethod.set("APPOINT_DATE", parentParameter["APPOINT_DATE"]);
+                SBUxMethod.set("APPLY_YN", "N");
+
+                bandgvwDetail.addRow(true, {
+                    CHK_YN: "Y",
+                    EMP_CODE: gfn_nvl(parentParameter["EMP_CODE"]),
+                    EMP_FULL_NAME: gfn_nvl(parentParameter["EMP_NAME"]),
+                    START_DATE: gfn_nvl(parentParameter["START_DATE"]),
+                    END_DATE: gfn_nvl(parentParameter["END_DATE"]),
+                    DEPT_CODE1: gfn_nvl(parentParameter["DEPT_CODE1"]),
+                    POSITION_CODE1: gfn_nvl(parentParameter["POSITION_CODE1"]),
+                    DUTY_CODE1: gfn_nvl(parentParameter["DUTY_CODE1"]),
+                    JOB_RANK1: gfn_nvl(parentParameter["JOB_RANK1"]),
+                    JOB_GROUP1: gfn_nvl(parentParameter["JOB_GROUP1"]),
+                    JOB_CODE1: gfn_nvl(parentParameter["JOB_CODE1"]),
+                    REGION_CODE1: gfn_nvl(parentParameter["REGION_CODE1"]),
+                    COST_DEPT1: gfn_nvl(parentParameter["COST_DEPT1"]),
+                    DEPT_CODE2: gfn_nvl(parentParameter["DEPT_CODE2"]),
+                    POSITION_CODE2: gfn_nvl(parentParameter["POSITION_CODE2"]),
+                    DUTY_CODE2: gfn_nvl(parentParameter["DUTY_CODE2"]),
+                    JOB_RANK2: gfn_nvl(parentParameter["JOB_RANK2"]),
+                    JOB_GROUP2: gfn_nvl(parentParameter["JOB_GROUP2"]),
+                    REGION_CODE2: gfn_nvl(parentParameter["REGION_CODE2"]),
+                    COST_DEPT2: gfn_nvl(parentParameter["COST_DEPT2"]),
+                    FIRST_APPOINT_NUM: "",
+                    APPOINT_REASON: gfn_nvl(parentParameter["APPOINT_TYPE_NAME"])
+                });
+
+                SBUxMethod.attr("APPOINT_TYPE", "disabled", "true");
+            }
         }
     }
 

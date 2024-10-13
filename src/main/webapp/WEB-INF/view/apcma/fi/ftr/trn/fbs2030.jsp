@@ -522,8 +522,7 @@
 
             let json = JSON.stringify(param);
             window.parent.cfn_openTabSearch(json);
-        } else if(nRow == gvwInfo.getColRef("DOC_NAME")) {
-            // TODO FIG2210_99 개발 완료시 적용 필요
+        } else if(nCol == gvwInfo.getColRef("DOC_NAME")) {
             var param = {
                 WORK_TYPE: "VIEW",
                 DOC_ID: gvwInfo.getCellData(nRow, gvwInfo.getColRef("DOC_ID")),

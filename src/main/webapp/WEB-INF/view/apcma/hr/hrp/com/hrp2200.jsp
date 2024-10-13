@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp2200.jsp
      * @Description       : 급여 변동항목 등록 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.05.29
@@ -219,7 +219,7 @@
                     </div>
                 </div>
                 <div>
-                    <table class="table table-bordered tbl_fixed">
+                    <table id="dataArea2" class="table table-bordered tbl_fixed">
                         <colgroup>
                             <col style="width:5%">
                             <col style="width:4%">
@@ -325,7 +325,7 @@
                     </div>
                 </div>
                 <div>
-                    <table class="table table-bordered tbl_fixed">
+                    <table id="dataArea3" class="table table-bordered tbl_fixed">
                         <colgroup>
                             <col style="width:5%">
                             <col style="width:4%">
@@ -636,7 +636,8 @@
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
-            }
+            },
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
         ];
 
@@ -690,7 +691,8 @@
             {caption: ['수정일'], 		ref: 'UPDATE_TIME', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["수정자"], ref: 'UPDATE_USERID', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["TXN_ID"], ref: 'TXN_ID', type: 'input', width: '100px', style: 'text-align:left', hidden: true}
+            {caption: ["TXN_ID"], ref: 'TXN_ID', type: 'input', width: '100px', style: 'text-align:left', hidden: true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
 
         ];
@@ -724,8 +726,6 @@
      * 목록 조회
      */
     const fn_search = async function () {
-
-        gvwMasterGrid.clearStatus();
 
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
         let PAY_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm"));
@@ -797,7 +797,11 @@
                     gvwMasterGrid.rebuild();
                     document.querySelector('#listCount').innerText = totalRecordCount;
 
-                    fn_view();
+                    if(jsonMasterList.length > 0) {
+                        gvwMasterGrid.clickRow(1);
+                    }
+
+                    //fn_view();
                 } else {
                     alert(data.resultMessage);
                 }
@@ -815,32 +819,28 @@
     //상세정보 보기
     async function fn_view() {
 
-        //let nCol = gvwMasterGrid.getCol();
+        let nCol = gvwMasterGrid.getCol();
         let nRow = gvwMasterGrid.getRow();
 
-        let allDatas = gvwMasterGrid.getGridDataAll();
+        console.log('------nCol-------',nCol);
+
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
+        }
+
+        let rowData = gvwMasterGrid.getRowData(nRow);
+        //let allDatas = gvwMasterGrid.getGridDataAll();
 
         //특정 열 부터 이벤트 적용
-        if (_.isEmpty(allDatas)){
+        /*if (_.isEmpty(allDatas)){
             return;
         }else if (nRow < 1){
             nRow = 1; //그리드 로우 첫번째값 셋팅;
-        }
+        }*/
 
-
-        let rowData = gvwMasterGrid.getRowData(nRow);
-
-        SBUxMethod.set("PAY_ITEM_CODE", rowData.PAY_ITEM_CODE); //급여항목코드
-        SBUxMethod.set("PAY_ITEM_NAME", rowData.PAY_ITEM_NAME); //급여항목명
-        SBUxMethod.set("ENTRY_DEPT_CODE", rowData.ENTRY_DEPT_CODE); //입력부서
-        SBUxMethod.set("ENTRY_DEPT_NAME", rowData.ENTRY_DEPT_NAME); //입력부서 코드
-
-        let chk_yn = rowData.CHK_YN;
-        if (chk_yn == 'Y') {
-            $("#fn_btnApply").attr("disabled", true);
-        }else{
-            $("#fn_btnApply").attr("disabled", false);
-        }
        /* SBUxMethod.set("EMP_CODE", ""); //사번
         SBUxMethod.set("EMP_FULL_NAME", ""); //이름*/
 
@@ -885,6 +885,8 @@
 
             const data = await postJsonPromise;
 
+            console.log('-----data-----',data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -912,6 +914,22 @@
 
                     gvwDetallGrid.rebuild();
                     SBUxMethod.set("ROW_COUNT", totalRecordCount);
+
+
+                    gfnma_uxDataClear('#dataArea2');
+                    gfnma_uxDataClear('#dataArea3');
+
+                    SBUxMethod.set("PAY_ITEM_CODE", rowData.PAY_ITEM_CODE); //급여항목코드
+                    SBUxMethod.set("PAY_ITEM_NAME", rowData.PAY_ITEM_NAME); //급여항목명
+                    SBUxMethod.set("ENTRY_DEPT_CODE", rowData.ENTRY_DEPT_CODE); //입력부서
+                    SBUxMethod.set("ENTRY_DEPT_NAME", rowData.ENTRY_DEPT_NAME); //입력부서 코드
+
+                    let chk_yn = rowData.CHK_YN;
+                    if (chk_yn == 'Y') {
+                        $("#fn_btnApply").attr("disabled", true);
+                    }else{
+                        $("#fn_btnApply").attr("disabled", false);
+                    }
                     /*fn_view('search');*/
                     fn_viewDetaill();
                 } else {

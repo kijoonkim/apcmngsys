@@ -235,6 +235,101 @@ const gfn_popClipReport = async function(title, fileName, param) {
 */
 }
 
+
+/**
+ * @name gfn_popClipReportPost
+ * @description 리포트를 팝업 혹은 새창으로 띄움
+ */
+const gfn_popClipReportPost = async function(title, fileName, param) {
+
+	let url = "/report/openClipReport.do";
+	const windowTargetName = "popClipReportPost";
+	const features = "width=1200, height=1000, toolbar=no directories=no, status=no";
+
+	if (!gfn_isEmpty(param)) {
+		param.userNm = gv_userNm;
+		param.title = title;
+		param.fileName = fileName;
+	}
+
+	const args = JSON.stringify(param);
+
+	console.log(args);
+	
+	const nowDate   = new Date();
+    const randomNo = Math.floor(Math.random() * 10000) + 1;
+	const sid = windowTargetName + "_" + nowDate.getTime() + "_" + randomNo;
+
+	console.log(222);
+
+	const frm = document.createElement("form");
+
+	window.open(
+			"",
+			windowTargetName, 
+			"width=1200, height=800, toolbar=no directories=no, status=no"
+		);
+
+	frm.name = sid;
+	frm.id = sid;
+	frm.action = url;
+	frm.method = "POST";
+	frm.target = windowTargetName;
+
+
+	let elTitle = document.createElement("input");
+	elTitle.setAttribute("type", "hidden");
+	elTitle.setAttribute("name", "title");
+	elTitle.setAttribute("value", title);		
+	frm.appendChild(elTitle);
+	
+	let elFileName = document.createElement("input");
+	elFileName.setAttribute("type", "hidden");
+	elFileName.setAttribute("name", "fileName");
+	elFileName.setAttribute("value", fileName);		
+	frm.appendChild(elFileName);
+	
+	let elArgs = document.createElement("input");
+	elArgs.setAttribute("type", "hidden");
+	elArgs.setAttribute("name", "args");
+	elArgs.setAttribute("value", args);
+	frm.appendChild(elArgs);
+	
+/*	
+
+	frm.onsubmit = function(){
+		return false;
+	};
+	frm.setAttribute("id", sid);
+	frm.setAttribute("name", sid);
+ 	frm.setAttribute("charset", "UTF-8");
+ 	frm.setAttribute("method", "POST");  //Post 방식
+ 	frm.setAttribute("action", url); //요청 보낼 주소
+	frm.setAttribute("target", windowTargetName);
+
+	const keys = Object.getOwnPropertyNames(param);
+	keys.forEach((key) => {		
+		let el = document.createElement("input");
+		el.setAttribute("type", "hidden");
+		el.setAttribute("name", key);
+		el.setAttribute("value", param[key]);		
+		frm.appendChild(el);
+		
+		// args
+	});
+*/
+	console.log(frm);
+
+	document.body.appendChild(frm)
+
+	frm.submit();
+	
+	frm.remove();
+
+}
+
+
+
 /**
  * @name gfn_popClipReport
  * @description 클립 리포트 exe printTest Fn

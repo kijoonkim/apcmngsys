@@ -131,6 +131,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									maxlength="6"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -142,6 +144,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									maxlength="6"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -153,6 +157,7 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -164,6 +169,7 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -175,6 +181,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									maxlength="6"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -186,6 +194,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									maxlength="6"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -227,6 +237,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									maxlength="6"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -238,6 +250,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									maxlength="6"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
@@ -249,6 +263,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
+									maxlength="6"
+									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
 								></sbux-input>
 							</td>
