@@ -540,7 +540,7 @@
 		  AND  AOPO.CTPV_CD = #{ctpvCd}
 		</if>
 		<if test='sigunCd != null and !sigunCd.equals("")'>
-		  AND  AOPO.SIGUN_CD = #{sigunCd}
+		  AND  SUBSTR(AOPO.SIGUN_CD, 0 , 4) = SUBSTR(#{sigunCd}, 0 , 4)
 		</if>
 
 		<if test='apcNm != null and !apcNm.equals("")'>
@@ -576,10 +576,10 @@
 		</if>
 		<if test='userId != null and userId != ""'>
 			<if test='userType == "27"'>
-			  AND AOPO.CTPV_CD = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+			  AND SUBSTR(AOPO.CTPV_CD, 0 , 4) = (SELECT SUBSTR(CTPV, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 			</if>
 			<if test='userType == "28"'>
-			  AND AOPO.SIGUN_CD = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+			  AND SUBSTR(AOPO.SIGUN_CD, 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 			</if>
 		</if>
 		ORDER BY AOPO.APC_NM
@@ -646,10 +646,10 @@
 			</if>
 			<if test='userId != null and userId != ""'>
 				<if test='userType == "27"'>
-				  AND AOPO.CTPV_CD = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+				  AND SUBSTR(AOPO.CTPV_CD, 0 , 4) = (SELECT SUBSTR(CTPV, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 				</if>
 				<if test='userType == "28"'>
-				  AND AOPO.SIGUN_CD = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+				  AND SUBSTR(AOPO.SIGUN_CD, 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 				</if>
 			</if>
 	</select>
