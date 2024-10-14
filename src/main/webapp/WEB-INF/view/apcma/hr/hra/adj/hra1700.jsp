@@ -2384,7 +2384,6 @@
             ,V_P_USERID: ''
             ,V_P_PC: ''
         };
-        console.log('paramObj:', paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1700List.do", {
             getType				: 'json',
@@ -2394,7 +2393,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -2421,7 +2420,11 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+
+               // fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -2439,9 +2442,13 @@
     //상세정보 보기
     async function fn_view() {
         let nRow = gvwInfoGrid.getRow();
+        let nCol = gvwInfoGrid.getCol();
 
+        if (nCol == -1) {
+            return;
+        }
         if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
+            return;
         }
 
         let rowData = gvwInfoGrid.getRowData(nRow);
@@ -2494,7 +2501,6 @@
                 ,V_P_USERID: ''
                 ,V_P_PC: ''
             };
-            console.log('paramObj:', paramObj);
 
             const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1700List.do", {
                 getType				: 'json',
@@ -2504,7 +2510,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -2782,7 +2788,6 @@
 
         const data = await postJsonPromise;
 
-        console.log('-------------세액계산 data--------------', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (_.isEqual(data.v_errorCode, 'MSG0001') || _.isEqual(data.v_errorCode, 'MSG0002')) {

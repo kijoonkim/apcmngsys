@@ -2098,8 +2098,6 @@
             ,V_P_PC: ''
         };
 
-        console.log('-------paramObj---------',paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1100List.do", {
             getType: 'json',
             workType: 'INFO',
@@ -2108,7 +2106,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('-------data---------',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -2718,8 +2715,6 @@
             , V_P_USERID: ''
             , V_P_PC: ''
         };
-
-        console.log('--------paramObjparamObj---------------', paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1100.do", {
             getType: 'json',

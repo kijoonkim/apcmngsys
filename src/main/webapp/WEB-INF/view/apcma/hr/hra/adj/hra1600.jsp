@@ -700,7 +700,6 @@
             ,V_P_USERID: ''
             ,V_P_PC: ''
         };
-        console.log('paramObj:', paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1600List.do", {
             getType				: 'json',
@@ -710,7 +709,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 

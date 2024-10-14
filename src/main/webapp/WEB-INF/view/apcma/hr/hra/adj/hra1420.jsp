@@ -529,7 +529,6 @@
             ,V_P_USERID: ''
             ,V_P_PC: ''
         };
-        console.log('paramObj:', paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1420List.do", {
             getType				: 'json',
@@ -539,7 +538,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -586,8 +585,6 @@
 
         let listData = [];
         listData = await getParamForm();
-
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -665,11 +662,9 @@
                 })
             }
 
-            console.log("---------param--------- : ", param);
             returnData.push(param);
         })
 
-        console.log("---------returnData--------- : ", returnData);
         return returnData;
 
 
@@ -702,8 +697,8 @@
      */
     function fn_gridPopup(event, row, col) {
 
-        console.log('grid popup row:', row);
-        console.log('grid popup col:', col);
+        //console.log('grid popup row:', row);
+        //console.log('grid popup col:', col);
 
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup3(row, col);

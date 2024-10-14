@@ -2947,8 +2947,6 @@
             , V_P_PC: ''
         };
 
-        console.log('------paramObj-------',paramObj)
-
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1400List.do", {
             getType: 'json',
             workType: 'LIST',
@@ -2957,7 +2955,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('------data-------',data)
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -2995,7 +2993,11 @@
                 gvwListGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonList.length > 0) {
+                    gvwListGrid.clickRow(1);
+                }
+
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -3013,9 +3015,13 @@
     async function fn_view() {
 
         let nRow = gvwListGrid.getRow();
+        let nCol = gvwListGrid.getCol();
 
+        if (nCol == -1) {
+            return;
+        }
         if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
+            return;
         }
 
         let rowData = gvwListGrid.getRowData(nRow);
@@ -3068,8 +3074,6 @@
                 , V_P_PC: ''
             };
 
-            console.log('------paramObj INFO-------',paramObj)
-
             const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1400List.do", {
                 getType: 'json',
                 workType: 'INFO',
@@ -3078,8 +3082,6 @@
             });
 
             const data = await postJsonPromise;
-
-            console.log('------data INFO-------',data)
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -3708,15 +3710,11 @@
              P_HRP1170_S: await getParamForm('u')
          }*/
 
-        console.log('--------listData save--------', listData);
-
         if (listData.length > 0) {
 
             const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1400S.do", {listData: listData});
 
             const data = await postJsonPromise;
-
-            console.log('--------insertHra1400S data--------', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -3916,12 +3914,10 @@
                     })
                 }
 
-                console.log("---------param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -4263,15 +4259,11 @@
              P_HRP1170_S: await getParamForm('u')
          }*/
 
-        console.log('--------pensionSavingData save--------', listData);
-
         if (listData.length > 0) {
 
             const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1400S2.do", {listData: listData});
 
             const data = await postJsonPromise;
-
-            console.log('--------pensionSavingData data--------', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -4299,8 +4291,6 @@
     const getParamFormS2 = async function (pensionSavingData) {
 
         let returnData = [];
-
-        console.log('------pensionSavingData------',pensionSavingData);
 
         let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy")); //정산연도
         let EMP_NAME = gfnma_nvl(SBUxMethod.get("EMP_NAME")); //사원코드
@@ -4344,12 +4334,10 @@
                     })
                 }
 
-                console.log("---------param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -4363,7 +4351,6 @@
              P_HRP1170_S: await getParamForm('u')
          }*/
 
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4451,12 +4438,10 @@
                     })
                 }
 
-                console.log("---------param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -4470,8 +4455,6 @@
         /* var paramObj = {
              P_HRP1170_S: await getParamForm('u')
          }*/
-
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4583,12 +4566,10 @@
                     })
                 }
 
-                console.log("---------medExpenseData param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------medExpenseData returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -4602,7 +4583,6 @@
              P_HRP1170_S: await getParamForm('u')
          }*/
 
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4676,12 +4656,10 @@
                     })
                 }
 
-                console.log("---------donationData param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------donationData returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -4694,8 +4672,6 @@
         /* var paramObj = {
              P_HRP1170_S: await getParamForm('u')
          }*/
-
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4768,12 +4744,10 @@
                     })
                 }
 
-                console.log("---------adjust3Data param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------adjust3Data returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -4788,8 +4762,6 @@
         /* var paramObj = {
              P_HRP1170_S: await getParamForm('u')
          }*/
-
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4861,12 +4833,10 @@
                     })
                 }
 
-                console.log("---------insureData param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------insureData returnData--------- : ", returnData);
             return returnData;
 
         }
