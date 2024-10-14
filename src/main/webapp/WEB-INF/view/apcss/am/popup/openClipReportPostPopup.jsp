@@ -21,11 +21,13 @@
 String title = "";
 String fileName = "";
 String param = "";
+String conn = "";
 String exePrintYn = "";
 //String reportKey = request.getParameter("reportKey");
 request.setCharacterEncoding("UTF-8");
 
-param = request.getParameter("args");
+param = request.getParameter("param");
+conn = request.getParameter("conn");
 
 %>
 <!DOCTYPE html>
@@ -41,23 +43,26 @@ param = request.getParameter("args");
 <body oncontextmenu="return false">
 
 <c:set scope="request" var="fileName" value="${fileName}"></c:set>
-<c:set scope="request" var="args" value="${args}"></c:set>
 
-	<div id="div-rpt-clipReport" style="width:1000px;height:80vh;"></div>
+	<div id="div-rpt-clipReportJSON" style="width:1000px;height:80vh;"></div>
 	<script type="text/javascript">
 	
-		const fn_drawClipReport = async function() {
+		const fn_drawClipReportJSON = async function() {
 			const fileName = '<c:out value='${fileName}'></c:out>';
 			const exePrintYn = "N";
 			const param = <%=param%>;
-			const reportKey = await gfn_getReportKey(fileName, param);
+			const conn = <%=conn%>;
+			//const reportKey = await gfn_getReportKey(fileName, param);
+			const reportKey = await gfn_getReportKeyByJson(fileName, param, conn);
 			const check = {
-					exePrintYn : exePrintYn
+				exePrintYn : exePrintYn
 			}
-			gfn_drawClipReport("div-rpt-clipReport", reportKey,check);
+			
+			gfn_drawClipReportPOST("div-rpt-clipReportJSON", reportKey, check);
 		}
 		
-		fn_drawClipReport();
+		fn_drawClipReportJSON();
+		
 	</script>
 </body>
 </html>
