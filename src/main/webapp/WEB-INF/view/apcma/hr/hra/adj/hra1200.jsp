@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hra1200.jsp
      * @Description       : 연간소득내역집계 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.25
@@ -1037,8 +1037,6 @@
             , V_P_PC: ''
         };
 
-        console.log('--------paramObj-----------', paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1200List.do", {
             getType: 'json',
             workType: 'MASTER',
@@ -1047,8 +1045,6 @@
         });
 
         const data = await postJsonPromise;
-
-        console.log('--------data-----------', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1077,7 +1073,11 @@
                 gvwEmpListGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonEmpList.length > 0) {
+                    gvwEmpListGrid.clickRow(1);
+                }
+
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -1113,9 +1113,13 @@
         }
 
         let nRow = gvwEmpListGrid.getRow();
+        let nCol = gvwEmpListGrid.getCol();
 
+        if (nCol == -1) {
+            return;
+        }
         if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
+            return;
         }
 
         let rowData = gvwEmpListGrid.getRowData(nRow);
@@ -1154,8 +1158,6 @@
             });
 
             const data = await postJsonPromise;
-
-            console.log('--------data view-----------', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -1600,8 +1602,6 @@
             ,V_P_PC                 : ''
 
         };
-
-        console.log('--paramObj--',paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1200BAT.do", {
             getType: 'json',

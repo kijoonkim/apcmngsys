@@ -725,6 +725,15 @@
     //상세정보 보기
     async function fn_view() {
 
+        let nRow = gvwListGrid.getRow();
+        let nCol = gvwListGrid.getCol();
+
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow < 1) {
+            return;
+        }
 
         let YE_TX_YYYY = gfnma_nvl(SBUxMethod.get("srch-ye_tx_yyyy"));//정산연도
 
@@ -741,11 +750,6 @@
         let DATE_TO = gfnma_nvl(SBUxMethod.get("srch-date_to"));//입사일 E
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type"));//급여영역
 
-        let nRow = gvwListGrid.getRow();
-
-        if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
-        }
 
         let rowData = gvwListGrid.getRowData(nRow);
 
@@ -786,8 +790,6 @@
             });
 
             const data = await postJsonPromise;
-
-            console.log('--------data view-----------', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -906,8 +908,6 @@
             , V_P_PC: ''
         };
 
-        console.log('--------paramObj-----------', paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1300List.do", {
             getType: 'json',
             workType: 'LIST',
@@ -916,8 +916,6 @@
         });
 
         const data = await postJsonPromise;
-
-        console.log('--------data-----------', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -944,7 +942,10 @@
                 gvwListGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonList.length > 0) {
+                    gvwListGrid.clickRow(1);
+                }
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
