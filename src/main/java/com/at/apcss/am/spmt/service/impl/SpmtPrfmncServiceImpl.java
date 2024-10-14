@@ -8,8 +8,11 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.pckg.service.PckgPrfmncService;
+import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	@Autowired
 	private SpmtPrfmncMapper spmtPrfmncMapper;
 
+	@Autowired
+	private GdsInvntrMapper gdsInvntrMapper;
+
 	// 재고서비스
 	@Resource(name= "gdsInvntrService")
 	private GdsInvntrService gdsInvntrService;
@@ -110,6 +116,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	@Resource(name= "sortInvntrService")
 	private SortInvntrService sortInvntrService;
 
+	//포장서비스
+	@Resource(name= "pckgPrfmncService")
+	private PckgPrfmncService pckgPrfmncService;
 	
 	@Override
 	public SpmtPrfmncVO selectSpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
@@ -2044,5 +2053,153 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> insertSpmtPrfmncByPckg(List<SpmtPrfmncComVO> list) throws Exception {
 
+		HashMap<String,Object> result = new HashMap<>();
+		/** report 대비 출하번호 return **/
+		String[] spmtnos = new String[list.size()];
+		int spmtIdx = 0;
+
+
+		for(SpmtPrfmncComVO spmtPrfmncComVO : list ){
+			/** 출하실적번호 발번 **/
+			String apcCd = spmtPrfmncComVO.getApcCd();
+			String spmtYmd = spmtPrfmncComVO.getSpmtYmd();
+			/** update용 공통 정보 **/
+			String userId = spmtPrfmncComVO.getSysLastChgUserId();
+			String prgrmId = spmtPrfmncComVO.getSysLastChgPrgrmId();
+
+			String spmtno = cmnsTaskNoService.selectSpmtno(apcCd, spmtYmd);
+			spmtnos[spmtIdx] = spmtno;
+
+			SpmtPrfmncVO spmtPrfmncVO = new SpmtPrfmncVO();
+			BeanUtils.copyProperties(spmtPrfmncComVO, spmtPrfmncVO);
+			spmtPrfmncVO.setSpmtno(spmtno);
+
+			/** 출하실적 공통 생성 **/
+			int insertCnt = spmtPrfmncMapper.insertSpmtPrfmncCom(spmtPrfmncVO);
+			if(insertCnt == 0){
+				HashMap<String,Object> comResult = new HashMap<>();
+				comResult.put(ComConstants.PROP_RESULT_CODE,ComConstants.RESULT_STATUS_ERROR);
+				comResult.put(ComConstants.PROP_RESULT_MESSAGE,"출하 실적등록에 실패했습니다.");
+				throw new EgovBizException(getMessageForMap(comResult));
+			}
+
+			/** 출하실적 상세 생성 **/
+			List<SpmtPrfmncVO> spmtPrfmncVoList = spmtPrfmncComVO.getSpmtPrfmncList();
+			for(SpmtPrfmncVO item : spmtPrfmncVoList) {
+				/** 출하 순번 **/
+				int spmtSn = 0;
+				/** 포장번호 확보 **/
+				String pckgNo = "";
+				item.setApcCd(apcCd);
+				/** 재고확인 및 출하반영 S**/
+				List<GdsInvntrVO> invntrList = gdsInvntrMapper.selectGdsInvntrForSpmt(item);
+				/** 재고정보 조차 없는경우 **/
+				if (invntrList.isEmpty()) {
+					/** 포장번호 확보 **/
+					pckgNo = cmnsTaskNoService.selectPckgno(apcCd, spmtYmd);
+
+					/** 포장실적 정보 생성 **/
+					PckgPrfmncVO pckgPrfmncVO = new PckgPrfmncVO();
+					pckgPrfmncVO.setApcCd(apcCd);
+					pckgPrfmncVO.setPckgSn(0);
+					pckgPrfmncVO.setPckgQntt(item.getSpmtQntt());
+					pckgPrfmncVO.setPckgYmd(item.getSpmtYmd());
+					pckgPrfmncVO.setPckgno(pckgNo);
+
+					/** 상품재고 정보 생성 (재고 -출하수량 => 생성후 사용)**/
+					GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+					BeanUtils.copyProperties(item, gdsInvntrVO);
+					gdsInvntrVO.setApcCd(apcCd);
+					gdsInvntrVO.setInvntrSttsCd("D1");
+					gdsInvntrVO.setInvntrQntt(item.getSpmtQntt() * -1);
+					gdsInvntrVO.setPckgno(pckgNo);
+					gdsInvntrVO.setPckgYmd(spmtYmd);
+
+					HashMap<String, Object> insertObj = new HashMap<>();
+					insertObj.put("userId", userId);
+					insertObj.put("prgrmId", prgrmId);
+					insertObj.put("gdsInvntrVO", gdsInvntrVO);
+					insertObj.put("pckgPrfmncVO", pckgPrfmncVO);
+
+					int pckgCnt = pckgPrfmncService.insertPckgPrfmncSc(insertObj);
+					if (pckgCnt == 0) {
+						HashMap<String, Object> comResult = new HashMap<>();
+						comResult.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_STATUS_ERROR);
+						comResult.put(ComConstants.PROP_RESULT_MESSAGE, "포장 실적등록에 실패했습니다.");
+						throw new EgovBizException(getMessageForMap(comResult));
+					}
+				} else if (!invntrList.isEmpty()) {
+					pckgNo = invntrList.get(0).getPckgno();
+					int invntrQntt = invntrList.stream().mapToInt(GdsInvntrVO::getInvntrQntt).sum();
+					int spmtQntt = item.getSpmtQntt();
+					if (invntrQntt < item.getSpmtQntt()) {
+						/** 재고수량이 부족한 경우 **/
+						for (GdsInvntrVO gdsInvntrQntt : invntrList) {
+							int qntt = gdsInvntrQntt.getInvntrQntt() > spmtQntt ? 0 : gdsInvntrQntt.getInvntrQntt() - spmtQntt;
+							gdsInvntrQntt.setInvntrQntt(qntt);
+							spmtQntt -= gdsInvntrQntt.getInvntrQntt();
+						}
+					} else {
+						/** 재고도 있는 경우 **/
+						for (int i = 0; i < invntrList.size() || spmtQntt != 0; i++) {
+							int flag = spmtQntt - invntrList.get(i).getInvntrQntt();
+							/** 출하 수량이  현재고 보다 클때 **/
+							if (flag > 0) {
+								spmtQntt -= invntrList.get(i).getInvntrQntt();
+								invntrList.get(i).setInvntrQntt(0);
+								/** 쓰고도 남을 경우 **/
+							} else if (flag < 0) {
+								spmtQntt = 0;
+								invntrList.get(i).setInvntrQntt(invntrList.get(i).getInvntrQntt() - spmtQntt);
+								/** 출하 수량과 재고수량이 같을떄 **/
+							} else if (flag == 0) {
+								spmtQntt = 0;
+								invntrList.get(i).setInvntrQntt(0);
+							}
+						}
+					}
+					/** 수정된 재고정보 업데이트 반영 **/
+					for (GdsInvntrVO updateVo : invntrList) {
+						updateVo.setSysLastChgUserId(userId);
+						updateVo.setSysLastChgPrgrmId(prgrmId);
+						int updateCnt = gdsInvntrMapper.updateGdsInvntr(updateVo);
+						if (updateCnt == 0) {
+							HashMap<String, Object> comResult = new HashMap<>();
+							comResult.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_STATUS_ERROR);
+							comResult.put(ComConstants.PROP_RESULT_MESSAGE, "재고 업데이트에 실패했습니다.");
+							throw new EgovBizException(getMessageForMap(comResult));
+						}
+					}
+				}
+				/** 재고확인 및 출하반영 E **/
+				/** 출하실적 상세 생성 **/
+				item.setPckgno(pckgNo);
+				item.setPckgSn(0);
+				item.setSpmtSn(spmtSn);
+				item.setSpmtno(spmtno);
+				/** insert 공통정보 **/
+				item.setSysFrstInptUserId(userId);
+				item.setSysFrstInptPrgrmId(prgrmId);
+				item.setSysLastChgUserId(userId);
+				item.setSysLastChgPrgrmId(prgrmId);
+
+				int insertSpmtCnt = spmtPrfmncMapper.insertSpmtPrfmncDtl(item);
+				if (insertSpmtCnt == 0) {
+					HashMap<String, Object> comResult = new HashMap<>();
+					comResult.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_STATUS_ERROR);
+					comResult.put(ComConstants.PROP_RESULT_MESSAGE, "출하 실적등록에 실패했습니다.");
+					throw new EgovBizException(getMessageForMap(comResult));
+				}
+				/** 출하 순번++ **/
+				spmtSn++;
+			}
+			/** return 용 spmtNo **/
+			spmtIdx++;
+		}
+		result.put(ComConstants.PROP_RESULT_LIST,spmtnos);
+		return result;
+	}
 }

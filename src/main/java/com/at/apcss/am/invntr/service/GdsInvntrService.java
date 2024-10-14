@@ -243,4 +243,11 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO) throws Exception;
+	/**
+	 * 출하실적 간편등록 (원물,선별 생략)
+	 * @param gdsInvntrVO
+	 * @return int
+	 * @throws Exception
+	 */
+    int selectSimpGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 }

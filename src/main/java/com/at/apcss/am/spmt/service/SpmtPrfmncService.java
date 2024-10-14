@@ -238,4 +238,11 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	HashMap<String, Object> reconciliationDaliySpmt(SortInvntrVO sortInvntrVO, SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	/**
+	 * 출하실적 마이너스재고, 포장,출하 데이터
+	 * @param list
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertSpmtPrfmncByPckg(List<SpmtPrfmncComVO> list) throws Exception;
 }

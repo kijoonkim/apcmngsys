@@ -508,4 +508,36 @@ public class SpmtPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+	// 출하실적 간편등록 포장, 출하
+	@PostMapping(value = "/am/spmt/insertSpmtPrfmncByPckg.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncByPckg(@RequestBody List<SpmtPrfmncComVO> list, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		String[] spmtNos;
+		try {
+			for(SpmtPrfmncComVO spmtPrfmncComVO : list){
+				spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByPckg(list);
+			if(rtnObj == null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			spmtNos = (String[])rtnObj.get("resultList");
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, spmtNos);
+		return getSuccessResponseEntity(resultMap);
+	}
 }
