@@ -643,7 +643,6 @@
         /** 재고 조회시 옆탭에 json에 있는가 확인해야함. **/
         let activeCnt = $("div.tabBox.active").length;
 
-        console.log(activeCnt,"??");
         if(activeCnt < 5)return;
 
         let elements = $("div.tabBox.active");
@@ -663,7 +662,6 @@
                 param[newKey] = String(value);
             });
         }
-        console.log(param,'되겟냐?');
 
         const postJsonPromise = gfn_postJSON("/am/invntr/selectSimpGdsInvntr.do",param);
         const data = await postJsonPromise;
@@ -671,9 +669,6 @@
         try{
             if(data.resultStatus ==="S"){
                 let regQntt = jsonPckgPrfmnc.find(obj => obj.cnptCd == param.cnptCd && obj.itemCd == param.itemCd && obj.vrtyCd == param.vrtyCd && obj.prdcrCd == param.rprsPrdcrCd && obj.spcfctCd == param.spcfctCd);
-                console.log(regQntt,"잇냐고 없냐고");
-                console.log(jsonPckgPrfmnc,"");
-                console.log(param);
                 let resultQntt = data.selectCnt;
 
                 if(regQntt){
@@ -692,8 +687,6 @@
         }catch (e) {
             console.error(e);
         }
-
-        console.log(data,"결과");
     }
 
     const fn_add = async function(){
@@ -769,7 +762,12 @@
         /** 출하통지서 인쇄 미리보기 **/
 
         const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DO_DOC');
-        await gfn_popClipReport("출하통지서", rptUrl, {apcCd: gv_selectedApcCd});
+        let param = flag.join("','");
+        await gfn_popClipReport("출하통지서", rptUrl, {apcCd: gv_selectedApcCd, spmtno: param});
+        jsonPckgPrfmnc.length = 0;
+        gridPckgPrfmnc.rebuild();
+        SBUxMethod.selectTab('tab_norm','tab_pckgPrfmncReg');
+        fn_reset();
     }
 
     const fn_save = async function(){
@@ -802,7 +800,6 @@
            item.spmtYmd = spmtYmd;
         });
 
-        console.log(groupedArray,"저장전");
         const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncByPckg.do",groupedArray);
         const data = await postJsonPromise;
 
