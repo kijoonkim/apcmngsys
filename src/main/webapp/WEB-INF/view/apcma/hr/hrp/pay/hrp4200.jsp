@@ -691,9 +691,13 @@
         editType = "E";
 
         let nRow = gvwDocListGrid.getRow();
+        let nCol = gvwDocListGrid.getCol();
 
-        if (nRow == -1){
-            nRow = 1;
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow < 1) {
+            return;
         }
 
         let rowData = gvwDocListGrid.getRowData(nRow);
@@ -1146,8 +1150,6 @@
 
         let allData = gvwInfoGrid.getGridDataAll();
 
-        console.log('=======allData=======',allData);
-
         let dDebitAmt = 0;
         let dCreditAmt = 0;
 
@@ -1188,10 +1190,6 @@
             }
 
         });
-
-        console.log('---------dDebitAmt---------', dDebitAmt);
-        console.log('---------dCreditAmt---------', dCreditAmt);
-
 
         // 차대변 합계 비교
         if (dDebitAmt != dCreditAmt)

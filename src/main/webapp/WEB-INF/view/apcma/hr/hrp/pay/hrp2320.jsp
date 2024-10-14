@@ -767,7 +767,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log("----------------------------------------------",data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -877,7 +876,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log("----------------------------------------------",data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -905,9 +903,6 @@
     const fn_taxCalculateEach = async function () {
         let TAX_CALCULATE_EACH = gfnma_nvl(SBUxMethod.get("TAX_CALCULATE_EACH")); // 소급계산제외 여부
 
-
-        console.log('---------TAX_CALCULATE_EACH------------   :   ',TAX_CALCULATE_EACH);
-
         if (_.isEqual(TAX_CALCULATE_EACH.TAX_CALCULATE_EACH, 'Y')){
 
             SBUxMethod.set("YMDSTART_PAY_YYYYMM", 			""); //소급시작월 초기화
@@ -925,9 +920,6 @@
     const fn_ChkreserveYn =  async function () {
 
         let CHKRESERVE_YN = gfnma_nvl(SBUxMethod.get("CHKRESERVE_YN")); // 예약여부
-
-        console.log('---------CHKRESERVE_YN------------   :   ',CHKRESERVE_YN);
-
 
         if (_.isEqual(CHKRESERVE_YN.CHKRESERVE_YN, 'Y')) {
 
