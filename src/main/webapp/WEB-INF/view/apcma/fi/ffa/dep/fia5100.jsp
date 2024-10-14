@@ -508,10 +508,10 @@
         //if (iBeforeFocus == 0 && gvwMaster.FocusedRowHandle == 0)
         //    fnFocusedRowChanged();
 
-        if ()
-            newClick();
-        else
-            deleteButton = true;
+        //if ()
+        //    newClick();
+        //else
+        //    deleteButton = true;
 	}
 
 
@@ -871,7 +871,9 @@
 
      const saveClick = function(){
      		//panDetail -> 하단 검색조건 validationg check
-            if (!fnDataValidation("group2"))
+            if (!fnDataValidation("group2")){
+
+            }
             //    return;
 
             let strStatus = "";

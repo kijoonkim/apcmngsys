@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
-     * @Description       :  급여명세서 메일발송 정보 화면
+     * @Class Name        : hrp2436.jsp
+     * @Description       : 급여명세서 메일발송 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.08
      * @version           : 1.0
@@ -109,7 +109,7 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">귀속년월</th>
-                <td colspan="2" class="td_input" style="border-right: hidden;">
+                <td <%--colspan="2"--%> class="td_input" style="border-right: hidden;">
                     <sbux-datepicker
                             id="srch-pay_yyyymm_fr"
                             name="srch-pay_yyyymm_fr"
@@ -135,7 +135,7 @@
                         &lt;%&ndash;onchange="fn_payDate"&ndash;%&gt;
                     </sbux-datepicker>
                 </td>--%>
-                <td style="border-right: hidden;"></td>
+                <td colspan="2" style="border-right: hidden;"></td>
                 <th scope="row" class="th_bg">지급구분</th>
                 <td class="td_input">
                     <sbux-select
@@ -410,6 +410,7 @@
             gfnma_setComSelect(['gvwInfoGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode, 'L_HRP011', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwDedGrid'], jsonPayItemCode2, 'L_HRP012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDedGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
 
 
             //지급구분
@@ -803,7 +804,10 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+                //fn_view();
 
 
             } else {
@@ -823,6 +827,18 @@
     //상세정보 보기
     async function fn_view() {
 
+        let nRow = gvwInfoGrid.getRow();
+        let nCol = gvwInfoGrid.getCol();
+
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
+        }
+
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("srch-site_code")); //사업장
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_area_type")); //급여영역
         let SENDTYPE = gfnma_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
@@ -835,14 +851,6 @@
         let PAY_DATE = gfnma_nvl(SBUxMethod.get("srch-pay_date")); //지급일자
 
         let CODELIST = gfnma_nvl(SBUxMethod.get("strCsCodeList")); //사원복수선택
-
-        let nRow = gvwInfoGrid.getRow();
-
-        if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
-        }
-
-        let rowData = gvwInfoGrid.getRowData(nRow);
 
         if (!_.isEmpty(rowData)) {
 

@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name        : hrp2510.jsp
-     * @Description       :  개인 기간별 조회 정보 화면
+     * @Description       : 개인 기간별 조회 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.08
      * @version           : 1.0
@@ -571,7 +571,10 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+                //fn_view();
 
 
             } else {
@@ -593,18 +596,23 @@
         jsonDetailList.length = 0;
         gvwDetailGrid.rebuild();
 
+        let nRow = gvwInfoGrid.getRow();
+        let nCol = gvwInfoGrid.getCol();
+
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow < 1) {
+            return;
+        }
+
+        let rowData = gvwInfoGrid.getRowData(nRow);
+
 
         let PAY_TYPE = gfnma_nvl(SBUxMethod.get("srch-pay_type")); //지급구분
         let PAY_YYYYMM_FR = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm_fr")); //귀속기간
         let PAY_YYYYMM_FR2 = gfnma_nvl(SBUxMethod.get("srch-pay_yyyymm_fr2")); //귀속기간
 
-        let nRow = gvwInfoGrid.getRow();
-
-        if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
-        }
-
-        let rowData = gvwInfoGrid.getRowData(nRow);
 
         if (!_.isEmpty(rowData)) {
 

@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
-     * @Description       :  퇴직정산기준 등록 정보 화면
+     * @Class Name        : hra5000.jsp
+     * @Description       : 퇴직정산기준 등록 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.11
      * @version           : 1.0
@@ -684,7 +684,10 @@
                 gvwMasterGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonMasterList.length > 0) {
+                    gvwMasterGrid.clickRow(1);
+                }
+                //fn_view();
 
 
             } else {
@@ -716,10 +719,14 @@
         jsonConvertList.length = 0;
         gvwConvertGrid.rebuild();
 
+        let nCol = gvwMasterGrid.getCol();
         let nRow = gvwMasterGrid.getRow();
 
-        if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
         }
 
         let rowData = gvwMasterGrid.getRowData(nRow);

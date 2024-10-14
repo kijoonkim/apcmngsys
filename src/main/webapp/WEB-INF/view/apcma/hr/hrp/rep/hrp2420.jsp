@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name        : hrp2420.jsp
-     * @Description       :  급여대장( 급여명세서 일괄출력 ) 정보 화면
+     * @Description       : 급여대장( 급여명세서 일괄출력 ) 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.08
      * @version           : 1.0
@@ -39,7 +39,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="계산취소"
+                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnFile"></sbux-button>
             </div>
         </div>
@@ -528,7 +528,8 @@
             {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }}
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
 
         ];
 
@@ -580,7 +581,8 @@
             {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '250px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["비과세금액"], ref: 'TAX_FREE_AMT', type: 'output', width: '150px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }}
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
 
         ];
 
@@ -631,7 +633,8 @@
                 typeinfo : {ref : 'jsonPayItemCode2', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }}
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
         ];
 
         gvwDedGrid = _SBGrid.create(SBGridProperties);
@@ -743,7 +746,10 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+                //fn_view();
 
 
             } else {
@@ -763,9 +769,13 @@
     async function fn_view() {
 
         let nRow = gvwInfoGrid.getRow();
+        let nCol = gvwInfoGrid.getCol();
 
-        if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
         }
 
         let rowData = gvwInfoGrid.getRowData(nRow);

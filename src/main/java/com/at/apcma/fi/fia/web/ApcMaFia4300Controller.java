@@ -1,4 +1,4 @@
-package com.at.apcma.fi.fia;
+package com.at.apcma.fi.fia.web;
 
 import java.util.HashMap;
 import java.util.Map;

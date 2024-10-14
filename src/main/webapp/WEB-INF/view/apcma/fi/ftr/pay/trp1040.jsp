@@ -1002,12 +1002,13 @@
     }
 
     const fn_gvwListDblclick = async function () {
-        // TODO FIG2210_99 개발 완료시 적용 필요
         var nRow = gvwList.getRow();
+        var nCol = gvwList.getCol();
+
         if (nRow < 0)
             return;
 
-        if(nRow == gvwList.getColRef("DOC_NAME")) {
+        if(nCol == gvwList.getColRef("DOC_NAME")) {
             var param = {
                 WORK_TYPE : "VIEW",
                 DOC_ID : gvwList.getCellData(nRow, gvwList.getColRef("DOC_ID")),

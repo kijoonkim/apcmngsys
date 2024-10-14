@@ -2169,6 +2169,7 @@
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
 </body>
+<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 <script type="text/javascript">
 
     // common ---------------------------------------------------
@@ -2179,8 +2180,10 @@
 
     var editType			= 'N';
 
- /*   var job_group = ''; //직군
-    var avg_pay_type = ''; //평균급여산정기준*/
+    /*   var job_group = ''; //직군
+       var avg_pay_type = ''; //평균급여산정기준*/
+    var position_aa = '';
+    var position_bb = '';
     var stravg_pay_type = '';//직군
     var strjob_group = '';//평균급여산정기준
 
@@ -2418,51 +2421,51 @@
     /*  function cfn_add() {
           fn_create();
       }*/
-     // 저장
-     function cfn_save() {
+    // 저장
+    function cfn_save() {
 
-         // 수정 저장
-         if (gfn_comConfirm("Q0001", "수정 저장")) {
+        // 수정 저장
+        if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-             let nRow = gvwMasterGrid.getRow();
+            let nRow = gvwMasterGrid.getRow();
 
-             if (nRow == -1) {
+            if (nRow == -1) {
 
-                 /*gfn_comAlert("W0001", "사원");*/
-                 nRow = 1; //포커스 선택이 안되어 있을시, 사원리스트 조회후 1번째 인덱스 사원정보로 디테일 조회 하기 때문에 row값 디폴트로 1셋팅.
+                /*gfn_comAlert("W0001", "사원");*/
+                nRow = 1; //포커스 선택이 안되어 있을시, 사원리스트 조회후 1번째 인덱스 사원정보로 디테일 조회 하기 때문에 row값 디폴트로 1셋팅.
 
-             }
+            }
 
-             let rowData = gvwMasterGrid.getRowData(nRow);
+            let rowData = gvwMasterGrid.getRowData(nRow);
 
-             if (!_.isEmpty(rowData)) {
+            if (!_.isEmpty(rowData)) {
 
-                 fn_save(rowData);
+                fn_save(rowData);
 
-                 let complateCode = true;
+                let complateCode = true;
 
-                 let payData = gvwPayGrid.getUpdateData(true, 'all');
-                 let bonusData = gvwBonusGrid.getUpdateData(true, 'all');
-                 let changeData = gvwChangeGrid.getUpdateData(true, 'all');
-                 //P_HRA5150_S1
-                 if (_.isEmpty(payData) == false) {
-                     complateCode = fn_saveS1(payData, rowData);
+                let payData = gvwPayGrid.getUpdateData(true, 'all');
+                let bonusData = gvwBonusGrid.getUpdateData(true, 'all');
+                let changeData = gvwChangeGrid.getUpdateData(true, 'all');
+                //P_HRA5150_S1
+                if (_.isEmpty(payData) == false) {
+                    complateCode = fn_saveS1(payData, rowData);
 
-                     //P_HRA5150_S2
-                 } else if (_.isEmpty(bonusData) == false) {
-                     complateCode = fn_saveS2(bonusData, rowData);
+                    //P_HRA5150_S2
+                } else if (_.isEmpty(bonusData) == false) {
+                    complateCode = fn_saveS2(bonusData, rowData);
 
-                     //P_HRA5150_S2
-                 } else if (_.isEmpty(changeData) == false) {
-                     complateCode = fn_saveS3(changeData, rowData);
+                    //P_HRA5150_S2
+                } else if (_.isEmpty(changeData) == false) {
+                    complateCode = fn_saveS3(changeData, rowData);
 
-                 } else if (complateCode) {
-                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                     fn_search();
-                 }
-             }
-         }
-     }
+                } else if (complateCode) {
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_search();
+                }
+            }
+        }
+    }
     // 삭제
     /*function cfn_del() {
         fn_delete();
@@ -2534,16 +2537,16 @@
             {caption : ["퇴직정산구분"], ref : 'RET_CALC_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonRetCalcType', displayui : true, label : 'label', value : 'value', hidden : true}
             },
-           /* {caption: ["퇴직정산구분"], ref: 'RET_CALC_TYPE', type: 'output', width: '100px', style: 'text-align:left'},*/
-           /* {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonDeptName', displayui : true, label : 'label', value : 'value'}
-            },
-            {caption : ["사번"], ref : 'EMP_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonEmp', displayui : true, label : 'label', value : 'value'}
-            },*/
-           /* {caption : ["이름"], ref : 'EMP_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonEmp', displayui : true, label : 'label', value : 'value'}
-            },*/
+            /* {caption: ["퇴직정산구분"], ref: 'RET_CALC_TYPE', type: 'output', width: '100px', style: 'text-align:left'},*/
+            /* {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                 typeinfo : {ref : 'jsonDeptName', displayui : true, label : 'label', value : 'value'}
+             },
+             {caption : ["사번"], ref : 'EMP_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                 typeinfo : {ref : 'jsonEmp', displayui : true, label : 'label', value : 'value'}
+             },*/
+            /* {caption : ["이름"], ref : 'EMP_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                 typeinfo : {ref : 'jsonEmp', displayui : true, label : 'label', value : 'value'}
+             },*/
             /*{caption : ["퇴직정산구분"], ref : 'RET_CALC_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonRetCalcType', displayui : true, label : 'label', value : 'value', hidden : true}
             },*/
@@ -2629,7 +2632,7 @@
 
         gvwPayGrid = _SBGrid.create(SBGridProperties);
         gvwPayGrid.bind('valuechanged','gridValueChanged1');
-      /*  gvwInfoGrid.bind('click', 'fn_view');*/
+        /*  gvwInfoGrid.bind('click', 'fn_view');*/
     }
 
 
@@ -2932,8 +2935,8 @@
 
             // 삭제시 적용금액의 합계 / 12 을 평균상여에 넣어줌
 
-           /* let _monthly_pay_amt = 0;
-            _monthly_pay_amt = Convert.ToDecimal(gvwPay.Columns["apply_amt"].SummaryText);*/
+            /* let _monthly_pay_amt = 0;
+             _monthly_pay_amt = Convert.ToDecimal(gvwPay.Columns["apply_amt"].SummaryText);*/
             // 삭제시 적용금액의 합계 / 3 을 평균급여에 넣어줌
             let dSum = 0;
             let dSumNorm = 0;
@@ -3123,8 +3126,6 @@
             ,V_P_PC: ''
         };
 
-        console.log('-----------------------',paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/ret/selectHra5150List.do", {
             getType				: 'json',
             workType			: 'EMP',
@@ -3133,7 +3134,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -3165,7 +3166,10 @@
                 gvwMasterGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonMasterList.length > 0) {
+                    gvwMasterGrid.clickRow(1);
+                }
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -3184,10 +3188,12 @@
     async function fn_view() {
 
         let nRow = gvwMasterGrid.getRow();
+        let nCol = gvwMasterGrid.getCol();
 
+        if (nCol == -1) {
+            return;
+        }
         if (nRow == -1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
-        } else if (nRow == 0) {
             return;
         }
 
@@ -3257,8 +3263,6 @@
             , V_P_PC: ''
         };
 
-        console.log('-----------------------', paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/ret/selectHra5150List.do", {
             getType: 'json',
             workType: 'DETAIL',
@@ -3267,7 +3271,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -3625,9 +3629,6 @@
         let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT")); // 정산종료일
         let CALC_END = CALC_END_DAT == '' ? '' : CALC_END_DAT.slice(0, -2);
 
-        console.log('-----CALC_END_DAT-------', CALC_END_DAT);
-        console.log('-----CALC_END-------', CALC_END);
-
         SBUxMethod.set("PAY_YYYYMM", CALC_END); //귀속년월
         SBUxMethod.set("PAY_DATE", CALC_END_DAT); //퇴직일자
 
@@ -3700,8 +3701,6 @@
                 , V_P_PC: ''
             };
 
-            console.log('-----------------------', paramObj);
-
             const postJsonPromise = gfn_postJSON("/hr/hrp/ret/selectHra5150Q2.do", {
                 getType: 'json',
                 workType: 'Q',
@@ -3710,7 +3709,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -3834,8 +3833,6 @@
                 , V_P_PC: ''
             };
 
-            console.log('-----------------------', paramObj);
-
             const postJsonPromise = gfn_postJSON("/hr/hrp/ret/selectHra5150Q2.do", {
                 getType: 'json',
                 workType: 'HEADER',
@@ -3844,7 +3841,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -4017,8 +4014,6 @@
 
             };
 
-            console.log('--------------------paramObjparamObj-----------------------',paramObj);
-
             const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150.do", {
                 getType: 'json',
                 workType: 'U',
@@ -4027,8 +4022,6 @@
             });
 
             const data = await postJsonPromise;
-
-            console.log('--------------------datadata-----------------------',data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -4395,9 +4388,9 @@
             SBUxMethod.set("BEF_3MM_DAY_CNT", dDaySum);
             SBUxMethod.set("BEF_3MM_DAY_CNT_PEAK", dDaySumNorm);
             SBUxMethod.set("BEF_3MM_DAY_CNT_NORM", dDaySumPeak);
-           /* numbef_3mm_day_cnt.Text = dDaySum.ToString();
-            numbef_3mm_day_cnt_norm.Text = dDaySumNorm.ToString();
-            numbef_3mm_day_cnt_peak.Text = dDaySumPeak.ToString();*/
+            /* numbef_3mm_day_cnt.Text = dDaySum.ToString();
+             numbef_3mm_day_cnt_norm.Text = dDaySumNorm.ToString();
+             numbef_3mm_day_cnt_peak.Text = dDaySumPeak.ToString();*/
             // SetMessageBox("stravg_pay_type : " + stravg_pay_type);
             // SetMessageBox("strjob_group : " + strjob_group);
             // SetMessageBox("numbef_3mm_day_cnt.Text : " + numbef_3mm_day_cnt.Text);
@@ -4551,7 +4544,7 @@
                         if (dDaySumNorm != 0) {
                             let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM / dDaySumNorm)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                             SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
-                           // numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
+                            // numavg_monthly_retire_amt_norm.Value = Math.Truncate((numavg_monthly_pay_amt_norm.Value / dDaySumNorm) + (numavg_monthly_bonus_amt_norm.Value * 4 / 365) + (numannual_benefit_amt_norm.Value / 365));
                         } else {
                             let AVG_MM_RET_AMT_NORM = Math.trunc((AVG_MM_PAY_AMT_NORM)) + Math.trunc((AVG_MM_BONUS_AMT_NORM * 4) / 365) + Math.trunc(ANN_BENEFIT_AMT_NORM / 365);
                             SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
@@ -4689,24 +4682,24 @@
             gvwPayGrid.setCellData(nRow,gvwPayGrid.getColRef("APPLY_DAYS"),APPLY_DAYS);
 
             // 적용일수 계산
-           /* let istart_yyyy = 0;
-            let istart_mm = 0;
-            let istart_dd = 0;
+            /* let istart_yyyy = 0;
+             let istart_mm = 0;
+             let istart_dd = 0;
 
-            let iend_yyyy = 0;
-            let iend_mm = 0;
-            let iend_dd = 0;
+             let iend_yyyy = 0;
+             let iend_mm = 0;
+             let iend_dd = 0;
 
-            istart_yyyy = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(0, 4));
-            istart_mm = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(4, 2));
-            istart_dd = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(6, 2));
+             istart_yyyy = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(0, 4));
+             istart_mm = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(4, 2));
+             istart_dd = int.Parse(gvwPay.GetValue("st_dat").ToString().Substring(6, 2));
 
-            iend_yyyy = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(0, 4));
-            iend_mm = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(4, 2));
-            iend_dd = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(6, 2));
+             iend_yyyy = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(0, 4));
+             iend_mm = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(4, 2));
+             iend_dd = int.Parse(gvwPay.GetValue("end_dat").ToString().Substring(6, 2));
 
-            DateTime dtstart_date = new DateTime(istart_yyyy, istart_mm, istart_dd);
-            DateTime dtend_date = new DateTime(iend_yyyy, iend_mm, iend_dd);*/
+             DateTime dtstart_date = new DateTime(istart_yyyy, istart_mm, istart_dd);
+             DateTime dtend_date = new DateTime(iend_yyyy, iend_mm, iend_dd);*/
 
             //gvwPay.SetValue("apply_days", (dtend_date - dtstart_date).Days + 1);
         }
@@ -5059,7 +5052,7 @@
                     {
                         let AVG_MM_RET_AMT_NORM = Math.round((AVG_MM_PAY_AMT_NORM + AVG_MM_BONUS_AMT_NORM + AVG_MM_ANN_AMT_NORM) / dDaySumNorm);
                         SBUxMethod.set("AVG_MM_RET_AMT_NORM", 			    AVG_MM_RET_AMT_NORM);
-                       // numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
+                        // numavg_monthly_retire_amt_norm.Value = Math.Round((numavg_monthly_pay_amt_norm.Value + numavg_monthly_bonus_amt_norm.Value + numavg_monthly_annual_amt_norm.Value) / dDaySumNorm);
                     }
 
                     if (dDaySumPeak != 0)
@@ -5188,191 +5181,454 @@
         if (_.isEmpty(rowData)) {
             return;
         }
-        if (_.isEmpty(gridData)) {
-            return;
-        }
 
-        /******************** 직위가 중복일시 제한 ***********************/
-        let positonCode = '';
-        for (let i = 0; i < gridData.length; i++) {
-
-            if (positonCode == '') {
-                positonCode = gridData[i].POSITION_CODE;
-                continue;
-            }
-            //직위 중복시
-            if (_.isEqual(positonCode, gridData[i].POSITION_CODE)) {
-                gfn_comAlert("W0010", "등록", "직위") // W0010 이미 {0}된 {1} 입니다.
-                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("POSITION_CODE"), '');
-                break;
-            }
-        }
-
-        /******************** 적용 시작일, 종료일 제한 ***********************/
-        if (_.isEqual(nCol, gvwChangeGrid.getColRef("ST_DAT")) || _.isEqual(nCol, gvwChangeGrid.getColRef("END_DAT"))) {
-
-            let CALC_ST_DAT = gfnma_nvl(SBUxMethod.get("CALC_ST_DAT"));//정산시작일 [정산기본정보]
-            let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT"));//정산종료일 [정산기본정보]
-
-            let cc = rowData.ST_DAT;
-            let dd = rowData.END_DAT;
+        if (_.isEmpty(gridData) == false) {
+            if (gvwChangeGrid.getColRef("POSITION_CODE") == nCol) {
+                if (gfnma_nvl(rowData.POSITION_CODE) == '') {
+                    gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER"), 1);
+                } else {
+                    if (gvwChange.DataRowCount > 0) {
+                        position_aa = gfnma_nvl(rowData.POSITION_CODE);
 
 
-            for (let i = 0; i < gridData.length; i++) {
+                        gridData.forEach((item, index) => {
 
-                if (i + 1 != nRow) {
-                    let aa = item.ST_DAT;
-                    let bb = item.END_DAT;
+                            if (nRow != index) {
+                                position_bb = gfnma_nvl(rowData.POSITION_CODE);
 
-                    if (_.isEmpty(aa) == false && _.isEmpty(bb) == false){
+                                if (position_aa == position_bb) {
+                                    gfn_comAlert("Q0000", "이미 등록되어 있는 직위입니다");
+                                    //SetMessageBox("이미 등록되어 있는 직위입니다");
+                                    gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("POSITION_CODE"), '');
+                                    //gvwChange.SetFocusedRowCellValue("position_code", "");
+                                    return;
+                                }
+                            }
 
-                        if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
-                            gfn_comAlert("E0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
-                            gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
-                            break;
-                            /* SetMessageBox("이미 등록되어 있는 기간은 등록하실 수 없습니다.");
-                             gvwChange.SetFocusedRowCellValue("st_dat", "");
-                             return;*/
-                        }
+                        });
                     }
 
-                    /* else if (Number(cc) < Number(CALC_ST_DAT))
-                     {
-                         gfn_comAlert("E0000", "정산시작일보다 이전 일수 없습니다.");
-                         gvwPayGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
-                         break;
-                         /!* SetMessageBox("정산시작일보다 이전 일수 없습니다.");
-                          gvwChange.SetFocusedRowCellValue("st_dat", "");
-                          return;*!/
-                     }
-                     else if (Number(cc) > Number(CALC_END_DAT))
-                     {
-                         gfn_comAlert("E0000", "정산종료일보다 이후 일수 없습니다.");
-                         gvwPayGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
-                         break;
-                         /!* SetMessageBox("정산종료일보다 이후 일수 없습니다.");
-                          gvwChange.SetFocusedRowCellValue("st_dat", "");
-                          return;*!/
-                     }*/
+
+                    let query = "select nvl(extra_field4,0) as multiple_num from comcodemaster where group_code = 'HRI002' and sub_code = '" + rowData.POSITION_CODE + "' ";
+                    let cnt = fn_getMmCnt(query);
+                    //ResultSet rs = CommonDirectSQL(Query);
+
+                    if (cnt != '') {
+                        gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER"), Number(cnt));
+                    }
                 }
             }
-            if (_.isEmpty(cc) == false && _.isEmpty(dd) == false){
-                if (Number(cc) > Number(dd)) {
-                    gfn_comAlert("E0000", "시작일이 종료일보다 이후 일수 없습니다.");
-                    gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+
+            if (gvwChangeGrid.getColRef("pay_multiple_number") == nCol) {
+                if (Math.floor(rowData.PAY_MULTIPLE_NUMBER) <= 0) {
+                    gfn_comAlert("Q0000", "지급배수는 0이하일 수 없습니다.");
+                    //SetMessageBox("지급배수는 0이하일 수 없습니다.");
+                    gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER"), 1.0);
+                    //gvwChange.SetFocusedRowCellValue("pay_multiple_number", 1.0);
                     return;
                 }
-            }
-           if (Number(cc) < Number(CALC_ST_DAT)) {
-                gfn_comAlert("E0000", "정산시작일보다 이전 일수 없습니다.");
-               gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
-                return;
-                /* SetMessageBox("정산시작일보다 이전 일수 없습니다.");
-                 gvwChange.SetFocusedRowCellValue("st_dat", "");
-                 return;*/
-            } else if (Number(cc) > Number(CALC_END_DAT)) {
-                gfn_comAlert("E0000", "정산종료일보다 이후 일수 없습니다.");
-               gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
-                return;
-                /* SetMessageBox("정산종료일보다 이후 일수 없습니다.");
-                 gvwChange.SetFocusedRowCellValue("st_dat", "");
-                 return;*/
-            }
 
+                let chk_basu = 1; //지급배수 변수
 
-        }
+                if (gfnma_nvl(rowData.PAY_MULTIPLE_NUMBER) == '') {
+                    chk_basu = 1;
+                } else {
+                    chk_basu = Math.floor(gfnma_nvl(rowData.PAY_MULTIPLE_NUMBER));
+                }
 
-        /******************** 종료일 제한 ***********************/
-        if (_.isEqual(nCol, gvwChangeGrid.getColRef("END_DAT"))) {
+                let query = "select ROUND((MONTHS_BETWEEN(TO_DATE('" + gfnma_nvl(rowData.END_DAT) + "','yyyymmdd')+1, TO_DATE('" + gfnma_nvl(rowData.ST_DAT) + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
+                let cnt = fn_getMmCnt(query);
+                // ResultSet rs = CommonDirectSQL(Query);
+                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"), Number(cnt));
+                //gvwChange.SetFocusedRowCellValue("chg_mm_cnt", rs.ResultDataSet.Tables[0].Rows[0]["recive"].ToString());
 
-            let cc = rowData.END_DAT;
-
-            if (_.isEmpty(cc)){
-                return;
             }
 
-            for (let i = 0; i < gridData.length; i++) {
 
-                if (i + 1 != nRow) {
+            if (gvwChangeGrid.getColRef("ST_DAT") == nCol || gvwChangeGrid.getColRef("END_DAT") == nCol) {
 
-                    let aa = item.ST_DAT;
-                    let bb = item.END_DAT;
 
-                    if (_.isEmpty(aa) == false && _.isEmpty(bb) == false){
+                if (gvwChangeGrid.getColRef("ST_DAT") == nCol) {
+                    let CALC_ST_DAT = gfnma_nvl(SBUxMethod.get("CALC_ST_DAT"));//정산시작일 [정산기본정보]
+                    let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT"));//정산종료일 [정산기본정보]
 
-                        if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
-                            gfn_comAlert("E0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
-                            gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
-                            break;
-                            /* SetMessageBox("이미 등록되어 있는 기간은 등록하실 수 없습니다.");
-                             gvwChange.SetFocusedRowCellValue("st_dat", "");
-                             return;*/
+
+                    if (rowData.ST_DAT.length == 8) {
+                        if (nRow > 0) {
+
+                            cc = rowData.ST_DAT;
+
+                            gridData.forEach((item, index) => {
+
+                                if (nRow != index) {
+
+                                    if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
+                                        aa = item.ST_DAT;
+                                        bb = item.END_DAT;
+
+                                        if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
+                                            gfn_comAlert("Q0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                                            gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                                            //SetMessageBox("이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                                            //gvwChange.SetFocusedRowCellValue("st_dat", "");
+                                            return;
+                                        } else if (Number(cc) < Number(CALC_ST_DAT)) {
+                                            gfn_comAlert("Q0000", "정산시작일보다 이전 일수 없습니다.");
+                                            gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                                            /*SetMessageBox("정산시작일보다 이전 일수 없습니다.");
+                                            gvwChange.SetFocusedRowCellValue("st_dat", "");*/
+                                            return;
+                                        } else if (Number(cc) > Number(CALC_END_DAT)) {
+                                            gfn_comAlert("Q0000", "정산종료일보다 이후 일수 없습니다.");
+                                            gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                                            /*SetMessageBox("정산종료일보다 이후 일수 없습니다.");
+                                            gvwChange.SetFocusedRowCellValue("st_dat", "");*/
+                                            return;
+                                        }
+                                    }
+
+                                }
+
+                            });
                         }
                     }
-                    if (Number(cc) < Number(CALC_ST_DAT)) {
-                         gfn_comAlert("E0000", "정산시작일보다 이전 일수 없습니다.");
+
+                    if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
+                        if (Number(item.ST_DAT) > Number(item.END_DAT)) {
+                            gfn_comAlert("Q0000", "시작일이 종료일보다 이후 일수 없습니다.");
+                            gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                            /*SetMessageBox("시작일이 종료일보다 이후 일수 없습니다.");
+                            gvwChange.SetFocusedRowCellValue("st_dat", "");*/
+                            return;
+                        }
+
+                    }
+                    if (Number(item.ST_DAT) < Number(CALC_ST_DAT)) {
+                        gfn_comAlert("Q0000", "적용시작일이 정산시작일보다 이전 일수 없습니다.");
+                        gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                        /* SetMessageBox("적용시작일이 정산시작일보다 이전 일수 없습니다.");
+                         gvwChange.SetFocusedRowCellValue("st_dat", "");*/
+                        return;
+                    }
+
+                    if (Number(item.ST_DAT) > Number(CALC_END_DAT)) {
+                        gfn_comAlert("Q0000", "적용시작일이 정산종료일보다 이후 일수 없습니다.");
+                        gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                        /*SetMessageBox("적용시작일이 정산종료일보다 이후 일수 없습니다.");
+                        gvwChange.SetFocusedRowCellValue("st_dat", "");*/
+                        return;
+                    }
+                }
+            }
+
+            if (gvwChangeGrid.getColRef("END_DAT") == nCol) {
+
+                let CALC_ST_DAT = gfnma_nvl(SBUxMethod.get("CALC_ST_DAT"));//정산시작일 [정산기본정보]
+                let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT"));//정산종료일 [정산기본정보]
+
+                if (item.END_DAT.length == 8) {
+                    if (nRow > 0) {
+                        cc = rowData.END_DAT;
+
+                        gridData.forEach((item, index) => {
+
+                            if (nRow != index) {
+
+                                if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
+                                    aa = item.ST_DAT;
+                                    bb = item.END_DAT;
+
+                                    if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
+                                        gfn_comAlert("Q0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                                        gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
+                                        //SetMessageBox("이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                                        //gvwChange.SetFocusedRowCellValue("st_dat", "");
+                                        return;
+                                    } else if (Number(cc) < Number(CALC_ST_DAT)) {
+                                        gfn_comAlert("Q0000", "정산시작일보다 이전 일수 없습니다.");
+                                        gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
+                                        /*SetMessageBox("정산시작일보다 이전 일수 없습니다.");
+                                        gvwChange.SetFocusedRowCellValue("st_dat", "");*/
+                                        return;
+                                    } else if (Number(cc) > Number(CALC_END_DAT)) {
+                                        gfn_comAlert("Q0000", "정산종료일보다 이후 일수 없습니다.");
+                                        gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
+                                        /*SetMessageBox("정산종료일보다 이후 일수 없습니다.");
+                                        gvwChange.SetFocusedRowCellValue("st_dat", "");*/
+                                        return;
+                                    }
+                                }
+
+                            }
+
+                        });
+                    }
+
+                    if (item.ST_DAT.ㅣength == 8 && item.END_DAT.ㅣength == 8) {
+                        if (Number(item.END_DAT) < Number(item.ST_DAT)) {
+                            gfn_comAlert("Q0000", "종료일이 시작일보다 이전 일수 없습니다.");
+                            gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
+                            /*SetMessageBox("종료일이 시작일보다 이전 일수 없습니다.");
+                            gvwChange.SetFocusedRowCellValue("end_dat", "");*/
+                            return;
+                        }
+                    }
+
+                    if (Number(item.END_DAT) < Number(CALC_END_DAT)) {
+                        gfn_comAlert("Q0000", "적용종료일이 정산종료일보다 이후 일수 없습니다.");
                         gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
-                         break;
-                         /* SetMessageBox("정산시작일보다 이전 일수 없습니다.");
-                          gvwChange.SetFocusedRowCellValue("st_dat", "");
-                          return;*/
-                     }else if (Number(cc) > Number(CALC_END_DAT)) {
-                         gfn_comAlert("E0000", "정산종료일보다 이후 일수 없습니다.");
+                        /* SetMessageBox("적용종료일이 정산종료일보다 이후 일수 없습니다.");
+                         gvwChange.SetFocusedRowCellValue("end_dat", "");*/
+                        return;
+                    }
+
+                    if (Number(item.END_DAT) < Number(CALC_ST_DAT)) {
+                        gfn_comAlert("Q0000", "적용종료일이 정산시작일보다 이전 일수 없습니다.");
                         gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
-                         break;
-                         /* SetMessageBox("정산종료일보다 이후 일수 없습니다.");
-                          gvwChange.SetFocusedRowCellValue("st_dat", "");
-                          return;*/
-                     }
+                        /*SetMessageBox("적용종료일이 정산시작일보다 이전 일수 없습니다.");
+                        gvwChange.SetFocusedRowCellValue("end_dat", "");*/
+                        return;
+                    }
+
 
                 }
             }
 
+
+            if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
+
+                let endDat = Number(item.END_DAT);
+
+                let dateYear = endDat.slice(0, -4);
+                let dateMm = endDat.slice(4, -2);
+                let dateDd = endDat.slice(6, 8);
+                let dateFormat = dateYear + '-' + dateMm + '-' + dateDd;
+
+                let datDate = new Date(dateFormat);
+                datDate.setDate(datDate.getDate() + 1)
+
+                let endDate = gfn_dateToYmd(datDate);
+
+                let gap_day = fn_dataDiff("d", item.ST_DAT, endDate);
+
+                let chk_gap = new Date();
+                chk_gap.setDate(datDate.getDate() + Number(gap_day));
+
+                let chk_gap_date = gfn_dateToYmd(chk_gap);
+                let year = chk_gap_date.slice(0, -4);
+                let mm = chk_gap_date.slice(4, -2);
+                let dd = chk_gap_date.slice(6, 8);
+
+                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("YY_CNT"), Number(year));
+                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("MM_CNT"), Number(mm));
+                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("DD_CNT"), Number(dd));
+                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("DD_TOT_CNT"), Number(gap_day));
+
+                /*gvwChange.SetFocusedRowCellValue("yy_cnt", int.Parse(chk_gap.AddDays(gap_day).ToString("yyyy-MM-dd").Substring(0, 4)) - 1);
+                gvwChange.SetFocusedRowCellValue("mm_cnt", int.Parse(chk_gap.AddDays(gap_day).ToString("yyyy-MM-dd").Substring(5, 2)) - 1);
+                gvwChange.SetFocusedRowCellValue("dd_cnt", int.Parse(chk_gap.AddDays(gap_day).ToString("yyyy-MM-dd").Substring(8, 2)) - 1);
+                gvwChange.SetFocusedRowCellValue("dd_tot_cnt", gap_day.ToString());*/
+
+                let chk_basu = 1; //지급배수 변수
+
+                if (gfnma_nvl(item.PAY_MULTIPLE_NUMBER) == '') {
+                    chk_basu = 1;
+                } else {
+                    chk_basu = Math.floor(item.PAY_MULTIPLE_NUMBER);
+                }
+
+                let query = "select ROUND((MONTHS_BETWEEN(TO_DATE('" + item.END_DAT + "','yyyymmdd')+1, TO_DATE('" + item.ST_DAT + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
+                let cnt = fn_getMmCnt(query);
+                //ResultSet rs = CommonDirectSQL(Query);
+
+                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"), Number(cnt));
+                //gvwChange.SetFocusedRowCellValue("chg_mm_cnt", rs.ResultDataSet.Tables[0].Rows[0]["recive"].ToString());
+
+            }
         }
 
-        /******************** 지급배수 ***********************/
-        if (_.isEqual(nCol, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER")) || _.isEqual(nCol, gvwChangeGrid.getColRef("ST_DAT")) || _.isEqual(nCol, gvwChangeGrid.getColRef("END_DAT"))) {
 
-            let PAY_MULTIPLE_NUMBER =  rowData.PAY_MULTIPLE_NUMBER;
-            let END_DAT = rowData.END_DAT;
-            let ST_DAT = rowData.ST_DAT;
+        /*  /!******************** 직위가 중복일시 제한 ***********************!/
+          let positonCode = '';
+          for (let i = 0; i < gridData.length; i++) {
 
-            if (_.isEmpty(PAY_MULTIPLE_NUMBER) || _.isEmpty(END_DAT) || _.isEmpty(ST_DAT)  ){
-                return;
-            }
+              if (positonCode == '') {
+                  positonCode = gridData[i].POSITION_CODE;
+                  continue;
+              }
+              //직위 중복시
+              if (_.isEqual(positonCode, gridData[i].POSITION_CODE)) {
+                  gfn_comAlert("W0010", "등록", "직위") // W0010 이미 {0}된 {1} 입니다.
+                  gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("POSITION_CODE"), '');
+                  break;
+              }
+          }
 
-            let number = Math.floor(PAY_MULTIPLE_NUMBER); //소수점 제거
+          /!******************** 적용 시작일, 종료일 제한 ***********************!/
+          if (_.isEqual(nCol, gvwChangeGrid.getColRef("ST_DAT")) || _.isEqual(nCol, gvwChangeGrid.getColRef("END_DAT"))) {
 
-            if (number <= 0){
+              let CALC_ST_DAT = gfnma_nvl(SBUxMethod.get("CALC_ST_DAT"));//정산시작일 [정산기본정보]
+              let CALC_END_DAT = gfnma_nvl(SBUxMethod.get("CALC_END_DAT"));//정산종료일 [정산기본정보]
 
-                gfn_comAlert("E0000", "지급배수는 0이하일 수 없습니다.");
-                gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER"), '');
-                return;
-            }
+              let cc = rowData.ST_DAT;
+              let dd = rowData.END_DAT;
 
-            let chk_basu = 1;
 
-            if (_.isEmpty(PAY_MULTIPLE_NUMBER)){
-                chk_basu = 1;
-            }else{
-                chk_basu = PAY_MULTIPLE_NUMBER;
+              for (let i = 0; i < gridData.length; i++) {
 
-                let query ="select ROUND((MONTHS_BETWEEN(TO_DATE('" + END_DAT + "','yyyymmdd')+1, TO_DATE('" + ST_DAT + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
+                  if (i + 1 != nRow) {
+                      let aa = item.ST_DAT;
+                      let bb = item.END_DAT;
 
-                //임금환산년수 지금배수로 환산개월수 구하기
-                fn_getMmCnt(query, nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"));
+                      if (_.isEmpty(aa) == false && _.isEmpty(bb) == false){
 
-                /*console.log('------multiVal-------', multiVal);
+                          if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
+                              gfn_comAlert("E0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                              gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                              break;
+                              /!* SetMessageBox("이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                               gvwChange.SetFocusedRowCellValue("st_dat", "");
+                               return;*!/
+                          }
+                      }
 
-                gvwPayGrid.setCellData(nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"), Number(multiVal));*/
+                      /!* else if (Number(cc) < Number(CALC_ST_DAT))
+                       {
+                           gfn_comAlert("E0000", "정산시작일보다 이전 일수 없습니다.");
+                           gvwPayGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                           break;
+                           /!* SetMessageBox("정산시작일보다 이전 일수 없습니다.");
+                            gvwChange.SetFocusedRowCellValue("st_dat", "");
+                            return;*!/
+                       }
+                       else if (Number(cc) > Number(CALC_END_DAT))
+                       {
+                           gfn_comAlert("E0000", "정산종료일보다 이후 일수 없습니다.");
+                           gvwPayGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                           break;
+                           /!* SetMessageBox("정산종료일보다 이후 일수 없습니다.");
+                            gvwChange.SetFocusedRowCellValue("st_dat", "");
+                            return;*!/
+                       }*!/
+                  }
+              }
+              if (_.isEmpty(cc) == false && _.isEmpty(dd) == false){
+                  if (Number(cc) > Number(dd)) {
+                      gfn_comAlert("E0000", "시작일이 종료일보다 이후 일수 없습니다.");
+                      gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                      return;
+                  }
+              }
+              if (Number(cc) < Number(CALC_ST_DAT)) {
+                  gfn_comAlert("E0000", "정산시작일보다 이전 일수 없습니다.");
+                  gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                  return;
+                  /!* SetMessageBox("정산시작일보다 이전 일수 없습니다.");
+                   gvwChange.SetFocusedRowCellValue("st_dat", "");
+                   return;*!/
+              } else if (Number(cc) > Number(CALC_END_DAT)) {
+                  gfn_comAlert("E0000", "정산종료일보다 이후 일수 없습니다.");
+                  gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
+                  return;
+                  /!* SetMessageBox("정산종료일보다 이후 일수 없습니다.");
+                   gvwChange.SetFocusedRowCellValue("st_dat", "");
+                   return;*!/
+              }
 
-            }
 
-        }
+          }
+
+          /!******************** 종료일 제한 ***********************!/
+          if (_.isEqual(nCol, gvwChangeGrid.getColRef("END_DAT"))) {
+
+              let cc = rowData.END_DAT;
+
+              if (_.isEmpty(cc)){
+                  return;
+              }
+
+              for (let i = 0; i < gridData.length; i++) {
+
+                  if (i + 1 != nRow) {
+
+                      let aa = item.ST_DAT;
+                      let bb = item.END_DAT;
+
+                      if (_.isEmpty(aa) == false && _.isEmpty(bb) == false){
+
+                          if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
+                              gfn_comAlert("E0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                              gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
+                              break;
+                              /!* SetMessageBox("이미 등록되어 있는 기간은 등록하실 수 없습니다.");
+                               gvwChange.SetFocusedRowCellValue("st_dat", "");
+                               return;*!/
+                          }
+                      }
+                      if (Number(cc) < Number(CALC_ST_DAT)) {
+                          gfn_comAlert("E0000", "정산시작일보다 이전 일수 없습니다.");
+                          gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
+                          break;
+                          /!* SetMessageBox("정산시작일보다 이전 일수 없습니다.");
+                           gvwChange.SetFocusedRowCellValue("st_dat", "");
+                           return;*!/
+                      }else if (Number(cc) > Number(CALC_END_DAT)) {
+                          gfn_comAlert("E0000", "정산종료일보다 이후 일수 없습니다.");
+                          gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
+                          break;
+                          /!* SetMessageBox("정산종료일보다 이후 일수 없습니다.");
+                           gvwChange.SetFocusedRowCellValue("st_dat", "");
+                           return;*!/
+                      }
+
+                  }
+              }
+
+          }
+
+          /!******************** 지급배수 ***********************!/
+          if (_.isEqual(nCol, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER")) || _.isEqual(nCol, gvwChangeGrid.getColRef("ST_DAT")) || _.isEqual(nCol, gvwChangeGrid.getColRef("END_DAT"))) {
+
+              let PAY_MULTIPLE_NUMBER =  rowData.PAY_MULTIPLE_NUMBER;
+              let END_DAT = rowData.END_DAT;
+              let ST_DAT = rowData.ST_DAT;
+
+              if (_.isEmpty(PAY_MULTIPLE_NUMBER) || _.isEmpty(END_DAT) || _.isEmpty(ST_DAT)  ){
+                  return;
+              }
+
+              let number = Math.floor(PAY_MULTIPLE_NUMBER); //소수점 제거
+
+              if (number <= 0){
+
+                  gfn_comAlert("E0000", "지급배수는 0이하일 수 없습니다.");
+                  gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("PAY_MULTIPLE_NUMBER"), '');
+                  return;
+              }
+
+              let chk_basu = 1;
+
+              if (_.isEmpty(PAY_MULTIPLE_NUMBER)){
+                  chk_basu = 1;
+              }else{
+                  chk_basu = PAY_MULTIPLE_NUMBER;
+
+                  let query ="select ROUND((MONTHS_BETWEEN(TO_DATE('" + END_DAT + "','yyyymmdd')+1, TO_DATE('" + ST_DAT + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
+
+                  //임금환산년수 지금배수로 환산개월수 구하기
+                  let cnt = fn_getMmCnt(query);
+
+                  /!*console.log('------multiVal-------', multiVal);
+
+                  gvwPayGrid.setCellData(nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"), Number(multiVal));*!/
+
+              }
+
+          }*/
     }
 
     //임금환산년수 지금배수로 환산개월수 구하기
-    const fn_getMmCnt = async function (query, row, col) {
+    const fn_getMmCnt = async function (query) {
 
         var paramObj = {
             MULTIPLE: query
@@ -5388,8 +5644,10 @@
                 if (data.resultMessage) {
                     alert(data.resultMessage);
                 }
-                gvwChangeGrid.setCellData(row, col, Number(data.MULTIPLE)); //환산개월수 셋팅
-             /* return  data.MULTIPLE;*/
+
+                return gfnma_nvl(data.MULTIPLE);//환산개월수
+                //gvwChangeGrid.setCellData(row, col, Number(data.MULTIPLE)); //환산개월수 셋팅
+                /* return  data.MULTIPLE;*/
 
             } else {
                 alert(data.resultMessage);
@@ -5524,120 +5782,120 @@
         }
     }
 
-   /* /!**
-     * 확정취소버튼
-     *!/
-    const fn_btnCancel = async function () {
+    /* /!**
+      * 확정취소버튼
+      *!/
+     const fn_btnCancel = async function () {
 
-        // 수정 저장
-        if (gfn_comConfirm("Q0001", "선택한 사원을 확정")) {
+         // 수정 저장
+         if (gfn_comConfirm("Q0001", "선택한 사원을 확정")) {
 
-            let RET_CALC_TYPE = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
-            let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_FR")); //정산종료일
-            let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_TO")); //정산종료일
-            let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_DAT")); //정산일
-            let CALCULATE_TAX_YN = SBUxMethod.get("SRCH_CALCULATE_TAX_YN"); //과세계산여부
-            let CALCULATE_PREV_YN = SBUxMethod.get("SRCH_CALCULATE_PREV_YN"); //중간지급 포함
-            let TO_DC_YN = SBUxMethod.get("TO_DC_YN"); //DC전환
+             let RET_CALC_TYPE = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
+             let RETIRE_CALC_DATE_FR = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_FR")); //정산종료일
+             let RETIRE_CALC_DATE_TO = gfnma_nvl(SBUxMethod.get("SRCH_RETIRE_CALC_DATE_TO")); //정산종료일
+             let RET_CALC_DAT = gfnma_nvl(SBUxMethod.get("SRCH_RET_CALC_DAT")); //정산일
+             let CALCULATE_TAX_YN = SBUxMethod.get("SRCH_CALCULATE_TAX_YN"); //과세계산여부
+             let CALCULATE_PREV_YN = SBUxMethod.get("SRCH_CALCULATE_PREV_YN"); //중간지급 포함
+             let TO_DC_YN = SBUxMethod.get("TO_DC_YN"); //DC전환
 
-            if (!RET_CALC_TYPE) {
-                gfn_comAlert("W0002", "퇴직정산구분");
-                return;
-            }
-            if (!RETIRE_CALC_DATE_FR) {
-                gfn_comAlert("W0002", "정산종료일");
-                return;
-            }
-            if (!RETIRE_CALC_DATE_TO) {
-                gfn_comAlert("W0002", "정산종료일");
-                return;
-            }
-            if (!RET_CALC_DAT) {
-                gfn_comAlert("W0002", "정산일");
-                return;
-            }
+             if (!RET_CALC_TYPE) {
+                 gfn_comAlert("W0002", "퇴직정산구분");
+                 return;
+             }
+             if (!RETIRE_CALC_DATE_FR) {
+                 gfn_comAlert("W0002", "정산종료일");
+                 return;
+             }
+             if (!RETIRE_CALC_DATE_TO) {
+                 gfn_comAlert("W0002", "정산종료일");
+                 return;
+             }
+             if (!RET_CALC_DAT) {
+                 gfn_comAlert("W0002", "정산일");
+                 return;
+             }
 
-            let stremp_code = '';
-            let strretire_calc_date = '';
+             let stremp_code = '';
+             let strretire_calc_date = '';
 
-            let masterData = gvwMasterGrid.getGridDataAll();
+             let masterData = gvwMasterGrid.getGridDataAll();
 
-            masterData.forEach((item, index) =>{
+             masterData.forEach((item, index) =>{
 
-                stremp_code         += item.EMP_CODE + '|';
-                strretire_calc_date += item.RET_CALC_DAT + '|';
+                 stremp_code         += item.EMP_CODE + '|';
+                 strretire_calc_date += item.RET_CALC_DAT + '|';
 
-            });
+             });
 
-            if (stremp_code == ''){
-                gfn_comAlert("W0001", "사원");		//	W0001	{0}을/를 선택하세요.
-                return false;
-            }else{
-                stremp_code.slice(0, -1);
-            }
+             if (stremp_code == ''){
+                 gfn_comAlert("W0001", "사원");		//	W0001	{0}을/를 선택하세요.
+                 return false;
+             }else{
+                 stremp_code.slice(0, -1);
+             }
 
-            if (strretire_calc_date != ''){
-                strretire_calc_date.slice(0, -1);
-            }
+             if (strretire_calc_date != ''){
+                 strretire_calc_date.slice(0, -1);
+             }
 
 
-            var paramObj = {
-                V_P_DEBUG_MODE_YN: ''
-                , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedApcCd
-                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+             var paramObj = {
+                 V_P_DEBUG_MODE_YN: ''
+                 , V_P_LANG_ID: ''
+                 , V_P_COMP_CODE: gv_ma_selectedApcCd
+                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                ,V_P_RET_CALC_TYPE     : RET_CALC_TYPE
-                ,V_P_RET_CALC_DAT      : RET_CALC_DAT
-                ,V_P_CALCULATE_PREV_YN : CALCULATE_PREV_YN.CALCULATE_PREV_YN
-                ,V_P_CALCULATE_TAX_YN  : CALCULATE_TAX_YN.CALCULATE_TAX_YN
-                ,V_P_EMP_CODE          : stremp_code
-                ,V_P_EMP_CODE_CALC_DAT : strretire_calc_date
-                ,V_P_TO_DC_YN          : TO_DC_YN.TO_DC_YN
+                 ,V_P_RET_CALC_TYPE     : RET_CALC_TYPE
+                 ,V_P_RET_CALC_DAT      : RET_CALC_DAT
+                 ,V_P_CALCULATE_PREV_YN : CALCULATE_PREV_YN.CALCULATE_PREV_YN
+                 ,V_P_CALCULATE_TAX_YN  : CALCULATE_TAX_YN.CALCULATE_TAX_YN
+                 ,V_P_EMP_CODE          : stremp_code
+                 ,V_P_EMP_CODE_CALC_DAT : strretire_calc_date
+                 ,V_P_TO_DC_YN          : TO_DC_YN.TO_DC_YN
 
-                , V_P_FORM_ID: p_formId
-                , V_P_MENU_ID: p_menuId
-                , V_P_PROC_ID: ''
-                , V_P_USERID: ''
-                , V_P_PC: ''
+                 , V_P_FORM_ID: p_formId
+                 , V_P_MENU_ID: p_menuId
+                 , V_P_PROC_ID: ''
+                 , V_P_USERID: ''
+                 , V_P_PC: ''
 
-            };
+             };
 
-            console.log('--------------------CANCELparamObj-----------------------',paramObj);
+             console.log('--------------------CANCELparamObj-----------------------',paramObj);
 
-            const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150BAT.do", {
-                getType: 'json',
-                workType: 'CANCEL',
-                cv_count: '0',
-                params: gfnma_objectToString(paramObj)
-            });
+             const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150BAT.do", {
+                 getType: 'json',
+                 workType: 'CANCEL',
+                 cv_count: '0',
+                 params: gfnma_objectToString(paramObj)
+             });
 
-            const data = await postJsonPromise;
+             const data = await postJsonPromise;
 
-            console.log('--------------------CANCELdatadata-----------------------',data);
+             console.log('--------------------CANCELdatadata-----------------------',data);
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
-                        alert(data.resultMessage);
+             try {
+                 if (_.isEqual("S", data.resultStatus)) {
+                     if (data.resultMessage) {
+                         alert(data.resultMessage);
 
-                        return false;
-                    } else {
-                        return true;
-                    }
+                         return false;
+                     } else {
+                         return true;
+                     }
 
-                } else {
-                    alert(data.resultMessage);
-                }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
-        }
-    }*/
+                 } else {
+                     alert(data.resultMessage);
+                 }
+             } catch (e) {
+                 if (!(e instanceof Error)) {
+                     e = new Error(e);
+                 }
+                 console.error("failed", e.message);
+                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+             }
+         }
+     }*/
 
     /**
      * 일괄계산
@@ -5701,13 +5959,13 @@
 
         }else{
 
-           let nRow = gvwMasterGrid.getRow();
+            let nRow = gvwMasterGrid.getRow();
 
             if (nRow == -1) {
                 nRow = 1;
             }
 
-           let rowData =  gvwMasterGrid.getRowData(nRow);
+            let rowData =  gvwMasterGrid.getRowData(nRow);
 
             if (_.isEmpty(rowData) == false){
 
@@ -5717,7 +5975,7 @@
                 }
 
                 //C#코드에서 막혀있음
-               /* if (fnSET_P_HRA5150_PEAK_BAT("CALCULATE"))*/
+                /* if (fnSET_P_HRA5150_PEAK_BAT("CALCULATE"))*/
 
             }
 
@@ -5737,22 +5995,20 @@
      */
     const fn_btnPosting = async function (type) {
 
-        let POSTING_DATE           = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계처리일자
+        let POSTING_DATE   = gfnma_nvl(SBUxMethod.get("POSTING_DATE")); //회계처리일자
 
         if (!POSTING_DATE) {
             gfn_comAlert("W0002", "회계처리일자");
             return;
         }
 
-        let PAY_YYYYMM           = gfnma_nvl(SBUxMethod.get("PAY_YYYYMM")); //귀속년월
-        let RET_CALC_TYPE		 = gfnma_multiSelectGet('#RET_CALC_TYPE');//퇴직정산구분
-        let PAY_DATE           = gfnma_nvl(SBUxMethod.get("PAY_DATE")); //퇴직일자
-        let EMP_CODE           = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원번호 [정산 기본 정보]
-        let EXPECTED_PAY_DATE           = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
-        let CS_CODE           = gfnma_nvl(SBUxMethod.get("CS_CODE")); //거래처
-        let MEMO           = gfnma_nvl(SBUxMethod.get("MEMO")); //메모
-
-
+        let PAY_YYYYMM          = gfnma_nvl(SBUxMethod.get("PAY_YYYYMM")); //귀속년월
+        let RET_CALC_TYPE		= gfnma_multiSelectGet('#RET_CALC_TYPE');//퇴직정산구분
+        let PAY_DATE            = gfnma_nvl(SBUxMethod.get("PAY_DATE")); //퇴직일자
+        let EMP_CODE            = gfnma_nvl(SBUxMethod.get("EMP_CODE")); //사원번호 [정산 기본 정보]
+        let EXPECTED_PAY_DATE   = gfnma_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")); //지급일
+        let CS_CODE             = gfnma_nvl(SBUxMethod.get("CS_CODE")); //거래처
+        let MEMO                = gfnma_nvl(SBUxMethod.get("MEMO")); //메모
 
         if (!PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
@@ -6374,8 +6630,67 @@
     }
 
 
+    /**
+     * 데이터 계산?
+     *
+     */
+    const fn_dataDiff = async function (Interval, Date1, Date2) {
+
+        let diff = 0;
+
+        let data1Year = Date1.slice(0, -4);
+        let data1Mm = Date1.slice(4, -2);
+        let data1Dd = Date1.slice(6, 8);
+        let data1Format = data1Year + '-' + data1Mm + '-' + data1Dd;
+
+        let data2Year = Date2.slice(0, -4);
+        let data2Mm = Date2.slice(4, -2);
+        let data2Dd = Date2.slice(6, 8);
+        let data2Format = data2Year + '-' + data2Mm + '-' + data2Dd;
+
+        let diffDays = new Date(data2Format).getTime() - new Date(data1Format).getTime();
+        let ts = diffDays / (1000 * 60 * 60 * 24);
+
+        switch (Interval)
+        {
+            case "y":
+                ts = Number(data2Year) - Number(data2Year);
+                diff = ts ;
+                //ts = DateTime.Parse(Date2.ToString("yyyy-01-01")) - DateTime.Parse(Date1.ToString("yyyy-01-01"));
+                //diff = Convert.ToDouble(ts.TotalDays / 365);
+                break;
+            case "m":
+                ts = Number(data2Year+data2Mm) - Number(data2Year+data1Mm);
+                diff = ts ;
+                /* ts = DateTime.Parse(Date2.ToString("yyyy-MM-01")) - DateTime.Parse(Date1.ToString("yyyy-MM-01"));
+                 diff = Convert.ToDouble((ts.TotalDays / 365) * 12);*/
+                break;
+            case "d":
+                ts =  new Date(data2Format).getTime() - new Date(data1Format).getTime();
+                diff = ts / (1000 * 60 * 60 * 24);
+                /*ts = DateTime.Parse(Date2.ToString("yyyy-MM-dd")) - DateTime.Parse(Date1.ToString("yyyy-MM-dd"));
+                diff = ts.Days;*/
+                break;
+            /* case "h":
+                 ts = DateTime.Parse(Date2.ToString("yyyy-MM-dd HH:00:00")) - DateTime.Parse(Date1.ToString("yyyy-MM-dd HH:00:00"));
+                 diff = ts.TotalHours;
+                 break;
+             case "n":
+                 ts = DateTime.Parse(Date2.ToString("yyyy-MM-dd HH:mm:00")) - DateTime.Parse(Date1.ToString("yyyy-MM-dd HH:mm:00"));
+                 diff = ts.TotalMinutes;
+                 break;
+             case "s":
+                 ts = DateTime.Parse(Date2.ToString("yyyy-MM-dd HH:mm:ss")) - DateTime.Parse(Date1.ToString("yyyy-MM-dd HH:mm:ss"));
+                 diff = ts.TotalSeconds;
+                 break;
+             case "ms":
+                 diff = ts.TotalMilliseconds;
+                 break;*/
+        }
+
+        return diff;
+    }
 
 
 </script>
-<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

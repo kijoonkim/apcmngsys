@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp2310.jsp
      * @Description       : 급상여 조정 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.14
@@ -478,7 +478,8 @@
                             <th scope="row" class="th_bg">현금지급액</th>
                             <td colspan="" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="PAY_CASH_AMT" uitype="text" style="width:100%" placeholder=""
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}" ></sbux-input>
+                                            class="form-control input-sm" mask = "{ 'alias': 'numeric','-'}"
+                                            onchange="fn_payCashAmt"></sbux-input>
                             </td>
                             <td style="border-right: hidden;"></td>
                             <th scope="row" class="th_bg">이체액</th>
@@ -1508,9 +1509,10 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
+                    await alert(data.resultMessage);
+                    fn_view();
                 }else{
-                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                     fn_view();
                 }
 
@@ -1747,10 +1749,13 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
+                    await alert(data.resultMessage);
+                    fn_view();
+                }else{
+                    await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_view();
                 }
 
-                fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -1786,9 +1791,12 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
-                    alert(data.resultMessage);
+                    await alert(data.resultMessage);
+                    fn_view();
+                }else{
+                    await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                    fn_view();
                 }
-                fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -1801,6 +1809,23 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+    /**
+     * 현금지급액
+     */
+    var fn_payCashAmt = function() {
+
+        let PAY_NET_AMT = gfnma_nvl(SBUxMethod.get("PAY_NET_AMT")); //실지급액
+        let PAY_CASH_AMT = gfnma_nvl(SBUxMethod.get("PAY_CASH_AMT")); //현금지급액
+
+        //이체액
+        // 이체액 = 실지급액 - 현금지급액
+        SBUxMethod.set("TRANSFER_AMT", Number(PAY_NET_AMT) - Number(PAY_CASH_AMT));
+
+        //numtransfer_amt.Value = numpay_net_amt.Value - numpay_cash_amt.Value;
+
+    }
+
 
 </script>
 </body>
