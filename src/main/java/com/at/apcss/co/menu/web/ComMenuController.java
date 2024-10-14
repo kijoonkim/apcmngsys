@@ -137,7 +137,7 @@ public class ComMenuController extends BaseController {
 					Model model, 
 					@RequestParam String title,
 					@RequestParam String fileName,
-					@RequestParam String args,
+					@RequestParam String param,
 					HttpServletRequest request) throws Exception {
 
 		try {
@@ -165,7 +165,7 @@ public class ComMenuController extends BaseController {
 
 			model.addAttribute("title", title);
 			model.addAttribute("fileName", fileName);
-			model.addAttribute("args", args);
+			model.addAttribute("param", param);
 			
 			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
 
