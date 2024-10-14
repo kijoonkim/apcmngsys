@@ -912,6 +912,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -1524,6 +1525,7 @@
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
 				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {

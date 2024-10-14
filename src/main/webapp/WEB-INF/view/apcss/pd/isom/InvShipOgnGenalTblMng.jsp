@@ -1072,6 +1072,7 @@
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
 				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {

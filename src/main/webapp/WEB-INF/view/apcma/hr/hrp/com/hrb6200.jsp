@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp6200.jsp
      * @Description       : 간이세액조건표 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.13
@@ -672,7 +672,11 @@
                 gvwMasterGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonMasterList.length > 0) {
+                    gvwMasterGrid.clickRow(1);
+                }
+
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -693,10 +697,13 @@
         editType    = 'U';
 
         let nRow = gvwMasterGrid.getRow();
+        let nCol = gvwMasterGrid.getCol();
 
-
-        if (nRow < 1) {
-            nRow = 1;
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
         }
 
         let rowData = gvwMasterGrid.getRowData(nRow);

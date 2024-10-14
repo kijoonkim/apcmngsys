@@ -871,19 +871,19 @@
 	const fn_fcltMngCreateGrid02 = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng02';
-	    SBGridProperties.id = 'grdPrdcrOgnCurntMng02';
-	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng02';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
-	    SBGridProperties.fixedrowheight=35;
-	    SBGridProperties.rowheader="seq";
-	    //SBGridProperties.explorerbar = 'sort';//정렬
-	    SBGridProperties.columns = [
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng02';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng02';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng02';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList02;	// 우클릭 메뉴 리스트
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.fixedrowheight=35;
+		SBGridProperties.rowheader="seq";
+		//SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.columns = [
 			{caption: ["처리","처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				<c:if test="${loginVO.userType ne '02'}">
 				//법인체 마감 추가
@@ -912,8 +912,8 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 			{caption: ["생산량(결과)(톤)"], ref: 'prdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-
 			*/
+
 			{caption: ["계약","계약면적(㎡)"], 	ref: 'ecCltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["계약","전속(약정)\n출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
@@ -946,8 +946,43 @@
 
 		grdPrdcrOgnCurntMng02 = _SBGrid.create(SBGridProperties);
 
+		grdPrdcrOgnCurntMng02.bind('valuechanged','fn_valuechanged');
+
 	}
 
+	//붙여넣기 시도시 확인 컬럼 리스트 소숫점 허용 x
+	const columnsList01 = [
+		'cltvtnSfc','ecCltvtnSfc','spmtPrc'
+	];
+	//붙여넣기 시도시 확인 컬럼 리스트 소숫점 2자리 허용
+	const columnsList02 = [
+		'ecSpmtPlanVlm','avgYrPrdctnVlm', 'ecSpmtVlm'
+	];
+	//값변경 이벤트
+	function fn_valuechanged(e){
+		console.log(e);
+		console.log(e.data.target);
+		console.log(grdPrdcrOgnCurntMng02);
+		let nRow = grdPrdcrOgnCurntMng02.getRow();
+		let nCol = grdPrdcrOgnCurntMng02.getCol();
+		let valueData = grdPrdcrOgnCurntMng02.getCellData(nRow,nCol);
+
+		let colName = grdPrdcrOgnCurntMng02.getRefOfCol(nCol);
+		console.log(colName);
+		//붙여넣을 값 확인 리스트 체크
+		if(columnsList01.includes(colName) || columnsList02.includes(colName)){
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			console.log(result);
+			if(columnsList02.includes(colName)){
+				result = result.toFixed(2);
+			}else{
+				result = result.toFixed(0);
+			}
+			console.log(result);
+			grdPrdcrOgnCurntMng02.setCellData(nRow,nCol, result);
+		}
+	}
 
 	/**
 	 * 목록 조회
@@ -1668,6 +1703,7 @@
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
 				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
 			}
 			SBUxMethod.closeProgress("loadingOpen");
 		}catch (e) {

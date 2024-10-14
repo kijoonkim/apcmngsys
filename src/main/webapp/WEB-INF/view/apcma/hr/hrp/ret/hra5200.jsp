@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hra5200.jsp
      * @Description       : 퇴직소득원천징수영수증 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.23

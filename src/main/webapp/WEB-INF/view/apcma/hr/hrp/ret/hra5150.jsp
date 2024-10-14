@@ -3166,7 +3166,10 @@
                 gvwMasterGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonMasterList.length > 0) {
+                    gvwMasterGrid.clickRow(1);
+                }
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -3185,10 +3188,12 @@
     async function fn_view() {
 
         let nRow = gvwMasterGrid.getRow();
+        let nCol = gvwMasterGrid.getCol();
 
+        if (nCol == -1) {
+            return;
+        }
         if (nRow == -1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
-        } else if (nRow == 0) {
             return;
         }
 

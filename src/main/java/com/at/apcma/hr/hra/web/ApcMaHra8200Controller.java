@@ -1,4 +1,4 @@
-package com.at.apcma.fi.fia;
+package com.at.apcma.hr.hra.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,27 +35,25 @@ import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
  *  </pre>
  */
 @Controller
-public class ApcMaFia5200Controller extends BaseController {
+public class ApcMaHra8200Controller extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
 
-
-
-	// 감가상각 일시중지 등록 저장
-	@PostMapping(value = "/fi/fia/insertFia5200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertFIA4300(
-			@RequestBody Map<String, Object> param
+	// 공통코드 정보 조회
+	@PostMapping(value = "/hr/hra/selectHra8200Q.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectHra8200Q(
+    		@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
-		logger.info("=============insertFIA5200=====start========");
+		logger.info("=============selectHra8200Q=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 
-			param.put("procedure", 		"P_FIA5200_S");
+			param.put("procedure", 		"P_HRA8200_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -63,24 +61,28 @@ public class ApcMaFia5200Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
-		logger.info("=============insertFIA5200=====end========");
+		logger.info("=============selectHra8200Q=====end========");
 		return getSuccessResponseEntityMa(resultMap);
 	}
 
-	// 감가상각 일시중지 등록 조회
-	@PostMapping(value = "/fi/fia/selectFia5200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectFIA4300(
+
+
+
+
+	// 공통코드 정보 - 그룹코드 내역 신규
+	@PostMapping(value = "/hr/hra/insertHra8200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertHra8200(
 			@RequestBody Map<String, Object> param
 			,Model model
 			,HttpSession session
 			,HttpServletRequest request) throws Exception{
 
-		logger.info("=============selectFIA5200=====start========");
+		logger.info("=============insertHra8200=====start========");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
 
-			param.put("procedure", 		"P_FIA5200_Q");
+			param.put("procedure", 		"P_HRA8200_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -88,7 +90,7 @@ public class ApcMaFia5200Controller extends BaseController {
 			return getErrorResponseEntity(e);
 		}
 
-		logger.info("=============selectFIA5200=====end========");
+		logger.info("=============insertHra8200=====end========");
 		return getSuccessResponseEntityMa(resultMap);
 	}
 

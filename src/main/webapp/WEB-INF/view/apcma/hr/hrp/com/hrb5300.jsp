@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
+<!DOCTYPE html>E
 <html lang="ko">
 <head>
     <title>title : 급여체계별 급여항목</title>
@@ -38,19 +38,6 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3>
             </div>
-            <%--<div style="margin-left: auto;">
-                &lt;%&ndash; <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
-                              class="btn btn-sm btn-outline-danger"
-                              onclick="fn_create"></sbux-button>&ndash;%&gt;
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_save"></sbux-button>
-                &lt;%&ndash;<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_delete"></sbux-button>&ndash;%&gt;
-                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_search"></sbux-button>
-            </div>--%>
         </div>
 
         <!--[pp] 검색 -->
@@ -509,7 +496,8 @@
                 typeinfo : {ref : 'jsonPayItemCategory', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'}
+            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwSalaryGrid = _SBGrid.create(SBGridProperties);
@@ -530,7 +518,8 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ["급여항목코드"], ref: 'PAY_ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'}
+            {caption: ["항 목 명"], ref: 'PAY_ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwWorkGrid = _SBGrid.create(SBGridProperties);
@@ -551,7 +540,8 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
             {caption: ["항목코드"], ref: 'ITEM_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["항목명"], ref: 'ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'}
+            {caption: ["항목명"], ref: 'ITEM_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwSettingGrid = _SBGrid.create(SBGridProperties);
@@ -647,7 +637,10 @@
                 gvwMasterGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonMasterList.length > 0) {
+                    gvwMasterGrid.clickRow(1);
+                }
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -665,16 +658,20 @@
     //상세정보 보기
     async function fn_view() {
 
+        let nCol = gvwMasterGrid.getCol();
+        let nRow = gvwMasterGrid.getRow();
+
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow == -1) {
+            return;
+        }
+
         let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("cbopay_group_code"));
         let PAY_TYPE = gfnma_nvl(SBUxMethod.get("cbopay_type"));
         let PAY_ITEM_CATEGORY = gfnma_nvl(SBUxMethod.get("cbopay_item_category"));
 
-        let nCol = gvwMasterGrid.getCol();
-        let nRow = gvwMasterGrid.getRow();
-
-        if (nRow < 1) {
-            nRow = 1; //그리드 로우 첫번째값 셋팅
-        }
 
         let rowData = gvwMasterGrid.getRowData(nRow);
 
