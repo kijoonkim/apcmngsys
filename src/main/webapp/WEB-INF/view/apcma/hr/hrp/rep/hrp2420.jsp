@@ -708,7 +708,6 @@
 
         const data = await postJsonPromise;
 
-
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -774,7 +773,7 @@
         if (nCol == -1) {
             return;
         }
-        if (nRow == -1) {
+        if (nRow < 1) {
             return;
         }
 
