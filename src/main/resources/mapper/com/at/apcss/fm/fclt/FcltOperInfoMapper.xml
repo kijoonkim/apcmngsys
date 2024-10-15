@@ -39,7 +39,7 @@
 			</if>A
 
 			, AOPO.APC_CD
-			, AOPO.APC_NM
+			, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 			, AOPO.APC_BRNO
 			, AOPO.APC_CRNO
 
@@ -108,7 +108,7 @@
 					, AOPO.OPER_OGNZ_CRNO
 					</if>
 					, AOPO.APC_CD
-					, AOPO.APC_NM
+					, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 
 					, AOPO.APC_BRNO
 
@@ -162,7 +162,7 @@
 				OPER_OGNZ_NM			=  #{operOgnzNm}
 				, OPER_OGNZ_BRNO		=  #{operOgnzBrno}
 				, OPER_OGNZ_CRNO		=  #{operOgnzCrno}
-				, APC_NM				=  #{apcNm}
+				, APC_NM				=  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
 				, APC_BRNO				=  #{apcBrno}
 				, APC_CRNO				=  #{apcCrno}
 
@@ -240,7 +240,7 @@
 				  , #{operOgnzCrno}
 
 				  , #{apcCd}
-				  , #{apcNm}
+				  , (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
 				  , #{apcBrno}
 				  , #{apcCrno}
 
@@ -291,8 +291,7 @@
 				OPER_OGNZ_NM			=  #{operOgnzNm}
 				, OPER_OGNZ_BRNO		=  #{operOgnzBrno}
 				, OPER_OGNZ_CRNO		=  #{operOgnzCrno}
-				, APC_CD				=  #{apcCd}
-				, APC_NM				=  #{apcNm}
+				, APC_NM				=  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
 				, APC_BRNO				=  #{apcBrno}
 				, APC_CRNO				=  #{apcCrno}
 
@@ -500,7 +499,7 @@
 		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcList */
 			  AOPO.CRTR_YR
 			, AOPO.APC_CD
-			, AOPO.APC_NM
+			, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 
 			, AOPO.CTPV_CD
 			, FN_GET_COM_CD_VL_NM('UNTY_CTPV',AOPO.CTPV_CD) AS CTPV_NM
@@ -603,7 +602,7 @@
 					, AOPO.OPER_OGNZ_CRNO
 
 					, AOPO.APC_CD
-					, AOPO.APC_NM
+					, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 					, AOPO.APC_BRNO
 
 					, AOPO.RPRSV
@@ -658,7 +657,7 @@
 
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserApcList */
 				TAI.APC_CD
-				,TAI.APC_NM
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = TAI.APC_CD) AS APC_NM
 			FROM TB_APC_INFO TAI
 			WHERE TAI.DEL_YN = 'N'
 			<if test='userId != null and userId != "" and userId != "admin"'>
