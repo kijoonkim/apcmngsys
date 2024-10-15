@@ -76,35 +76,37 @@
             </div>
         </div>
         <div class="box-body">
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
             <table id="srchTable" class="table table-bordered tbl_fixed">
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 15%">
-                    <col style="width: 1%">
-                    <col style="width: 10%">
-                    <col style="width: 15%">
-                    <col style="width: 1%">
-                    <col style="width: 10%">
-                    <col style="width: 29%">
-                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">법인</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-select readonly id="srch-slt-corpNm" name="srch-slt-corpNm" uitype="single" jsondata-ref="jsonCorpNm" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                    </td>
-                    <td></td>
                     <th scope="row" class="th_bg">기준연도</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
                                          date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
                         >
                         </sbux-datepicker>
                     </td>
-                    <td></td>
                     <th scope="row" class="th_bg">신고구분명</th>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                    <td colspan="7" class="td_input">
                         <div style="display: flex;gap: 5px">
                             <div class="dropdown">
                                 <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -122,15 +124,13 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">신고사업장</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
                     </td>
-                    <td></td>
                     <th scope="row" class="th_bg">사업자번호</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm"></sbux-input>
+                    <td colspan="7" class="td_input">
+                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
                     </td>
-                    <td colspan="4"></td>
                 </tr>
                 </tbody>
             </table>
@@ -603,9 +603,6 @@
 </section>
 </body>
 <script type="text/javascript">
-    var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
-    var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
-    // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
     //-----------------------------------------------------------
