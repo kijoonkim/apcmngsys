@@ -541,8 +541,8 @@
 		let gridData = grdFcltInstlInfo.getGridDataAll();
 		let saveList = [];
 
-		let apcCd = SBUxMethod.get('srch-inp-apcCd');
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");//진척도 갱신용
+		let apcCd = SBUxMethod.get('dtl-inp-apcCd');
+		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");//진척도 갱신용
 
 
 		for(var i=2; i< gridData.length+2; i++ ){
