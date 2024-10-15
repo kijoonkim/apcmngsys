@@ -500,7 +500,7 @@
 		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcList */
 			  AOPO.CRTR_YR
 			, AOPO.APC_CD
-			, AOPO.APC_NM
+			, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 
 			, AOPO.CTPV_CD
 			, FN_GET_COM_CD_VL_NM('UNTY_CTPV',AOPO.CTPV_CD) AS CTPV_NM
