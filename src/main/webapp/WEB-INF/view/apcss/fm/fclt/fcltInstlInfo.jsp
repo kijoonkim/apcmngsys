@@ -541,12 +541,20 @@
 		let gridData = grdFcltInstlInfo.getGridDataAll();
 		let saveList = [];
 
-		for(var i=2; i<=gridData.length+2; i++ ){
+		let apcCd = SBUxMethod.get('dtl-inp-apcCd');
+		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");//진척도 갱신용
+
+
+		for(var i=2; i< gridData.length+2; i++ ){
 			let rowData = grdFcltInstlInfo.getRowData(i);
 			let rowSts = grdFcltInstlInfo.getRowStatus(i);
 
-			rowData.prgrsYn = 'Y';//진척도 갱신 유무
+			rowData.apcCd = apcCd;
+			rowData.crtrYr = crtrYr;
+			rowData.prgrsYn = 'N';//진척도 갱신 유무
 
+			saveList.push(rowData);
+			/*
 			if (rowSts === 1){
 				rowData.rowSts = "I";
 				saveList.push(rowData);
@@ -559,6 +567,7 @@
 			} else {
 				continue;
 			}
+			*/
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltInstlInfoList.do", saveList);
