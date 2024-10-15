@@ -1873,6 +1873,7 @@
 			AND ITEM_CD = #{itemCd}
 			AND VRTY_CD = #{vrtyCd}
 			AND SPCFCT_CD = #{spcfctCd}
+			AND (INVNTR_STTS_CD <> 'D1' OR INVNTR_STTS_CD IS NULL)
 		]]>
 	</select>
 	<!-- ==============================================================================	-->
@@ -1916,6 +1917,7 @@
 		FROM TB_GDS_INVNTR AS GI
 		WHERE APC_CD = #{apcCd}
 		  	AND DEL_YN = 'N'
+		  	AND INVNTR_STTS_CD != 'D1'
 	  ]]>
 		<if test='cnptCd != null and cnptCd != ""'>
 			AND CNPT_CD = #{cnptCd}

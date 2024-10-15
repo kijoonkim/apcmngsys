@@ -454,7 +454,6 @@
             ,V_P_USERID: ''
             ,V_P_PC: ''
         };
-        console.log('paramObj:', paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1710List.do", {
             getType				: 'json',
@@ -464,7 +463,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -556,8 +555,6 @@
                  P_HRP1170_S: await getParamForm('u')
              }*/
 
-            console.log('--------listData save--------', listData);
-
             if (listData.length > 0) {
 
                 const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1710.do", {listData: listData});
@@ -628,13 +625,10 @@
                 })
             }
 
-            console.log("---------param--------- : ", param);
             returnData.push(param);
         })
 
-        console.log("---------returnData--------- : ", returnData);
         return returnData;
-
 
     }
 

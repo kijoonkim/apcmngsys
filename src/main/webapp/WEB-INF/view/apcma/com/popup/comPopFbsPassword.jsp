@@ -46,16 +46,16 @@
 	/**
 	 * @description 전기취소
 	 */
-	function compopfbspassword() {
+	function compopfbspassword(options) {
 
 		// id 선언
 		var modalId  	= '#compopfbspassword';
 		var modalDivId 	= 'modal-compopfbspassword';
 
 		var settings = {
-			callback			: null
+			callbackEvent			: null
 		};
-
+		$.extend(settings, options);
 		//ok
 		$(modalId).find('.cu-btn-sch-compopfbspassword').off('click');
 		$(modalId).find('.cu-btn-sch-compopfbspassword').click(function(){

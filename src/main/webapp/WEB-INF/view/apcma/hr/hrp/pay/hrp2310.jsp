@@ -1061,7 +1061,11 @@
                 gvwListGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonGvwList.length > 0) {
+                    gvwListGrid.clickRow(1);
+                }
+
+                //fn_view();
 
 
             } else {
@@ -1093,9 +1097,13 @@
         let EMP_NAME = gfnma_nvl(SBUxMethod.get("srch-emp_name")); //이름
 
         let nRow = gvwListGrid.getRow();
+        let nCol = gvwListGrid.getCol();
 
-        if (nRow < 1){
-            nRow = 1;
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow < 1) {
+            return;
         }
 
         let rowData = gvwListGrid.getRowData(nRow);

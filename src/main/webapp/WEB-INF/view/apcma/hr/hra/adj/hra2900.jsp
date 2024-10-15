@@ -666,7 +666,6 @@
             ,V_P_USERID: ''
             ,V_P_PC: ''
         };
-        console.log('paramObj:', paramObj);
 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra2900List.do", {
             getType				: 'json',
@@ -676,7 +675,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -781,9 +780,6 @@
 
                 if (_.isEqual(item.CHK_YN, 'Y')) {
 
-                    console.log('----gfnma_nvl(item.INC_TAX_01  )---', gfnma_nvl(item.INC_TAX_01  ));
-                    console.log('----gfnma_nvl(item.LOCAL_TAX_01)---', gfnma_nvl(item.LOCAL_TAX_01));
-                    console.log('----INC_TAX_02---', gfnma_nvl(item.INC_TAX_02  ) == '' ? 0 : item.INC_TAX_02);
 
                     isCount = true;
                     stremp_code     += item.EMP_CODE    + '|';
@@ -829,7 +825,6 @@
             strlocal_tax_01 = strlocal_tax_01.slice(0, -1)
 
         }
-        console.log('----strinc_tax_02---', strinc_tax_02);
         if (strinc_tax_02 != '')
         {
             strinc_tax_02 = strinc_tax_02.slice(0, -1)
@@ -888,8 +883,6 @@
             , V_P_PC: ''
         };
 
-        console.log('-------------paramObj--------------', paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra2900.do", {
             getType: 'json',
             workType: strWorkType,
@@ -898,8 +891,6 @@
         });
 
         const data = await postJsonPromise;
-
-        console.log('-------------data--------------', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {

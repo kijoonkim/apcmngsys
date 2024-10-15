@@ -509,8 +509,8 @@
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwList.setCellData(row, col, data.EMP_CODE);
-                gvwList.setCellData(row, (col+1), data.EMP_NAME);
+                gvwListGrid.setCellData(row, col, data.EMP_CODE);
+                gvwListGrid.setCellData(row, (col+1), data.EMP_NAME);
             },
         });
     }
@@ -567,8 +567,8 @@
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                gvwList.setCellData(row, col, data.EMP_CODE);
-                gvwList.setCellData(row, (col+1), data.EMP_NAME);
+                gvwListGrid.setCellData(row, col, data.EMP_CODE);
+                gvwListGrid.setCellData(row, (col+1), data.EMP_NAME);
             },
         });
     }
@@ -659,7 +659,6 @@
             },
         });
     }
-
 
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
@@ -777,7 +776,7 @@
                                     item["BUYER_BIZ_TYPE"] = "";
                                     item["DOC_ID"] = "";
 
-                                    gvwList.addRow(true, item);
+                                    gvwListGrid.addRow(true, item);
                                 }
                             });
                         }
@@ -804,7 +803,7 @@
                                 item["DEPT_CODE"] = "";
                                 item["PROJECT_CODE"] = "";
 
-                                gvwItem.addRow(true, item);
+                                gvwItemGrid.addRow(true, item);
                             });
                         }
                     })
@@ -898,7 +897,7 @@
                                     item["BUYER_BIZ_TYPE"] = "";
                                     item["DOC_ID"] = "";
 
-                                    gvwList.addRow(true, item);
+                                    gvwListGrid.addRow(true, item);
                                 }
                             });
                         }
@@ -930,7 +929,7 @@
                                 item["DEPT_CODE"] = "";
                                 item["PROJECT_CODE"] = "";
 
-                                gvwItem.addRow(true, item);
+                                gvwItemGrid.addRow(true, item);
                             });
                         }
                     })
@@ -941,6 +940,304 @@
             reader.readAsBinaryString(event.target.files[0]);
         });
     });
+
+    const fn_uploadXml = async function (file) {
+        let parser = new DOMParser();
+        let xml = parser.parseFromString(file, "text/xml");
+        let parseXmlForJson = xmlToJson(xml);
+        let taxInvoice = parseXmlForJson.TaxInvoice;
+        console.log(parseXmlForJson)
+        let nodeTaxInvoice = taxInvoice;
+        let nodeExchangedDocument = taxInvoice.ExchangedDocument;
+        let nodeTaxInvoiceDocument = taxInvoice.TaxInvoiceDocument;
+        let nodeInvoicerParty = taxInvoice.TaxInvoiceTradeSettlement.InvoicerParty;
+        let nodeInvoiceeParty = taxInvoice.TaxInvoiceTradeSettlement.InvoiceeParty;
+        let nodeSpecifiedMonetarySummation = taxInvoice.TaxInvoiceTradeSettlement.SpecifiedMonetarySummation;
+        let nodeTaxInvoiceTradeLineItem = taxInvoice.TaxInvoiceTradeLineItem;
+        let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
+
+        if (nodeTaxInvoice != null) {
+            var rowHeader = {};
+
+            rowHeader["CHECK_YN"] = "N";
+            rowHeader["INTERFACED_FLAG"] = "N";
+            rowHeader["CS_CODE"] = "";
+            rowHeader["CS_CODE_ORG"] = "";
+            rowHeader["ACCOUNT_EMP_CODE"] = "";
+            rowHeader["DOC_ID"] = null;
+            rowHeader["FI_ORG_CODE"] = FI_ORG_CODE;
+            rowHeader["NOTE2"] = "";
+            rowHeader["MATCH_METHOD"] = "";
+            rowHeader["ISSUE_TYPE"] = "";
+            rowHeader["SELLER_SUB_REG_NO"] = "";
+            rowHeader["BUYER_SUB_REG_NO"] = "";
+
+            //발행일자
+            rowHeader["SEND_DATE"] = nodeExchangedDocument["IssueDateTime"].substring(0, 8);
+
+            //세금계산서정보
+            let strIssueId = nodeTaxInvoiceDocument["IssueID"];
+            rowHeader["APPROVAL_NO"] = strIssueId;
+            rowHeader["EINVOICE_CATEGORY"] = nodeTaxInvoiceDocument["TypeCode"];
+            rowHeader["EINVOICE_TYPE"] = nodeTaxInvoiceDocument["TypeCode"].substring(2, 4);
+            if (gfn_nvl(nodeTaxInvoiceDocument["DescriptionText"]) != "") {
+                rowHeader["NOTE1"] = nodeTaxInvoiceDocument["DescriptionText"];
+            }
+            rowHeader["WRITE_DATE"] = nodeTaxInvoiceDocument["IssueDateTime"];
+            rowHeader["ISSUE_DATE"] = nodeTaxInvoiceDocument["IssueDateTime"];
+            rowHeader["TXN_DATE"] = nodeTaxInvoiceDocument["IssueDateTime"];
+            rowHeader["RECEIPT_OR_BILL"] = nodeTaxInvoiceDocument["PurposeCode"];
+            rowHeader["MATCH_METHOD"] = "1";
+            rowHeader["ISSUE_TYPE"] = "1";
+
+            //공급하는자
+            rowHeader["SELLER_REG_NO"] = nodeInvoicerParty["ID"];
+            rowHeader["SELLER_BIZ_CATEGORY"] = nodeInvoicerParty["TypeCode"];
+            rowHeader["SELLER_NAME"] = nodeInvoicerParty["NameText"];
+            rowHeader["SELLER_BIZ_ITEM"] = nodeInvoicerParty["ClassificationCode"];
+            rowHeader["SELLER_OWNER"] = nodeInvoicerParty["SpecifiedPerson"].NameText;
+            if (gfn_nvl(nodeInvoicerParty["DefinedContact"]) != "") {
+                rowHeader["SELLER_EMAIL"] = nodeInvoicerParty["DefinedContact"].URICommunication;
+            }
+            rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
+
+            //공급받는자
+            rowHeader["BUYER_REG_NO"] = nodeInvoiceeParty["ID"];
+            rowHeader["BUYER_BIZ_CATEGORY"] = nodeInvoiceeParty["TypeCode"];
+            rowHeader["BUYER_NAME"] = nodeInvoiceeParty["NameText"];
+            rowHeader["BUYER_BIZ_ITEM"] = nodeInvoiceeParty["ClassificationCode"];
+            rowHeader["BUYER_BIZ_TYPE"] = nodeInvoiceeParty["SpecifiedOrganization"].BusinessTypeCode;
+            rowHeader["BUYER_OWNER"] = nodeInvoiceeParty["SpecifiedPerson"].NameText;
+            rowHeader["BUYER_EMAIL1"] = nodeInvoiceeParty["PrimaryDefinedContact"].URICommunication;
+            if (gfn_nvl(nodeInvoiceeParty["SecondaryDefinedContact"]) != "") {
+                rowHeader["BUYER_EMAIL2"] = nodeInvoiceeParty["SecondaryDefinedContact"].URICommunication;
+            }
+            if (gfn_nvl(nodeInvoiceeParty["SPECIFIEDADDRESS"]) != "") {
+                rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
+            }
+
+            rowHeader["TOTAL_TAXABLE_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["ChargeTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["ChargeTotalAmount"];
+            rowHeader["TOTAL_VAT_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["TaxTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["TaxTotalAmount"];
+            rowHeader["TOTAL_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["GrandTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["GrandTotalAmount"];
+
+            gvwListGrid.addRow(true, rowHeader);
+
+            if(Array.isArray(nodeTaxInvoiceTradeLineItem)) {
+                nodeTaxInvoiceTradeLineItem.forEach((item, index) => {
+                    var rowItem = {};
+                    rowItem["APPROVAL_NO"] = strIssueId;
+                    rowItem["SEQ"] = item["SequenceNumeric"];
+                    rowItem["ITEM_TAXABLE_AMT"] = item["InvoiceAmount"];
+                    if (gfn_nvl(item["SecondaryDefinedContact"]) != "") {
+                        rowItem["ITEM_QTY"] = item["ChargeableUnitQuantity"];
+                    }
+                    rowItem["ITEM_NAME"] = item["NameText"];
+                    rowItem["TXN_DATE"] = item["PurchaseExpiryDateTime"];
+                    rowItem["ITEM_VAT_AMT"] = item["TotalTax"].CalculatedAmount;
+                    if (gfn_nvl(item["UnitPrice"]) != "") {
+                        rowItem["ITEM_UNIT_PRICE"] = item["UnitPrice"].UnitAmount;
+                    }
+                    gvwItemGrid.addRow(true, rowItem);
+                });
+            } else {
+                var rowItem = {};
+                rowItem["APPROVAL_NO"] = strIssueId;
+                rowItem["SEQ"] = nodeTaxInvoiceTradeLineItem["SequenceNumeric"];
+                rowItem["ITEM_TAXABLE_AMT"] = nodeTaxInvoiceTradeLineItem["InvoiceAmount"];
+                if (gfn_nvl(nodeTaxInvoiceTradeLineItem["SecondaryDefinedContact"]) != "") {
+                    rowItem["ITEM_QTY"] = nodeTaxInvoiceTradeLineItem["ChargeableUnitQuantity"];
+                }
+                rowItem["ITEM_NAME"] = nodeTaxInvoiceTradeLineItem["NameText"];
+                rowItem["TXN_DATE"] = nodeTaxInvoiceTradeLineItem["PurchaseExpiryDateTime"];
+                if (gfn_nvl(nodeTaxInvoiceTradeLineItem["TotalTax"]) != "") {
+                    rowItem["ITEM_VAT_AMT"] = nodeTaxInvoiceTradeLineItem["TotalTax"].CalculatedAmount;
+                }
+                if (gfn_nvl(nodeTaxInvoiceTradeLineItem["UnitPrice"]) != "") {
+                    rowItem["ITEM_UNIT_PRICE"] = nodeTaxInvoiceTradeLineItem["UnitPrice"].UnitAmount;
+                }
+
+                gvwItemGrid.addRow(true, rowItem);
+            }
+        }
+    }
+
+    const fn_insertXmlData = async function () {
+        let updatedData = gvwListGrid.getUpdateData(true, 'i');
+        let returnData = [];
+
+        updatedData.forEach((item, index) => {
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                rownum: item.rownum,
+                workType : 'N1',
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedApcCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_FI_ORG_CODE : gfn_nvl(item.data.FI_ORG_CODE),
+                    V_P_WRITE_DATE : gfn_nvl(item.data.WRITE_DATE),
+                    V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
+                    V_P_ISSUE_DATE : gfn_nvl(item.data.ISSUE_DATE),
+                    V_P_SEND_DATE : gfn_nvl(item.data.SEND_DATE),
+                    V_P_SELLER_REG_NO : gfn_nvl(item.data.SELLER_REG_NO.replaceAll("-", "")),
+                    V_P_SELLER_SUB_REG_NO : gfn_nvl(item.data.SELLER_SUB_REG_NO),
+                    V_P_CS_CODE : gfn_nvl(item.data.CS_CODE),
+                    V_P_SELLER_NAME : gfn_nvl(item.data.SELLER_NAME),
+                    V_P_SELLER_OWNER : gfn_nvl(item.data.SELLER_OWNER),
+                    V_P_SELLER_ADDRESS : gfn_nvl(item.data.SELLER_ADDRESS),
+                    V_P_SELLER_BIZ_CATEGORY : gfn_nvl(item.data.SELLER_BIZ_CATEGORY),
+                    V_P_SELLER_BIZ_ITEM : gfn_nvl(item.data.SELLER_BIZ_ITEM),
+                    V_P_BUYER_REG_NO : gfn_nvl(item.data.BUYER_REG_NO.replaceAll("-", "")),
+                    V_P_BUYER_SUB_REG_NO : gfn_nvl(item.data.BUYER_SUB_REG_NO),
+                    V_P_BUYER_NAME : gfn_nvl(item.data.BUYER_NAME),
+                    V_P_BUYER_OWNER : gfn_nvl(item.data.BUYER_OWNER),
+                    V_P_BUYER_ADDRESS : gfn_nvl(item.data.BUYER_ADDRESS),
+                    V_P_BUYER_BIZ_CATEGORY : gfn_nvl(item.data.BUYER_BIZ_CATEGORY),
+                    V_P_BUYER_BIZ_ITEM : gfn_nvl(item.data.BUYER_BIZ_ITEM),
+                    V_P_BUYER_BIZ_TYPE : gfn_nvl(item.data.BUYER_BIZ_TYPE),
+                    V_P_TOTAL_AMT : parseInt(gfn_nvl(item.data.TOTAL_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_AMT)),
+                    V_P_TOTAL_TAXABLE_AMT : parseInt(gfn_nvl(item.data.TOTAL_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_TAXABLE_AMT)),
+                    V_P_TOTAL_VAT_AMT : parseInt(gfn_nvl(item.data.TOTAL_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.TOTAL_VAT_AMT)),
+                    V_P_EINVOICE_CATEGORY : gfn_nvl(item.data.EINVOICE_CATEGORY),
+                    V_P_EINVOICE_TYPE : gfn_nvl(item.data.EINVOICE_TYPE),
+                    V_P_MATCH_METHOD : gfn_nvl(item.data.MATCH_METHOD),
+                    V_P_ISSUE_TYPE : gfn_nvl(item.data.ISSUE_TYPE),
+                    V_P_NOTE1 : gfn_nvl(item.data.NOTE1),
+                    V_P_NOTE2 : gfn_nvl(item.data.NOTE2),
+                    V_P_RECEIPT_OR_BILL : gfn_nvl(item.data.RECEIPT_OR_BILL),
+                    V_P_SELLER_EMAIL : gfn_nvl(item.data.SELLER_EMAIL),
+                    IV_P_BUYER_EMAIL1 : gfn_nvl(item.data.BUYER_EMAIL1),
+                    V_P_BUYER_EMAIL2 : gfn_nvl(item.data.BUYER_EMAIL2),
+                    V_P_ACCOUNT_EMP_CODE : gfn_nvl(item.data.ACCOUNT_EMP_CODE),
+                    V_P_TXN_DATE : gfn_nvl(item.data.TXN_DATE.replaceAll("-", "")),
+                    V_P_DOC_ID : gfn_nvl(item.data.DOC_ID),
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
+        });
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    let updatedData = gvwItemGrid.getUpdateData(true, 'i');
+                    let returnData = [];
+
+                    updatedData.forEach((item, index) => {
+                        const param = {
+                            cv_count : '0',
+                            getType : 'json',
+                            rownum: item.rownum,
+                            workType : 'N',
+                            params: gfnma_objectToString({
+                                V_P_DEBUG_MODE_YN : '',
+                                V_P_LANG_ID	: '',
+                                V_P_COMP_CODE : gv_ma_selectedApcCd,
+                                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                                V_P_APPROVAL_NO : gfn_nvl(item.data.APPROVAL_NO),
+                                V_P_SEQ : gfn_nvl(item.data.SEQ),
+                                V_P_ITEM_NAME : gfn_nvl(item.data.ITEM_NAME),
+                                V_P_ITEM_SPEC : gfn_nvl(item.data.ITEM_SPEC),
+                                V_P_ITEM_QTY : parseInt(gfn_nvl(item.data.ITEM_QTY) == "" ? "0" : gfn_nvl(item.data.ITEM_QTY)),
+                                V_P_ITEM_UNIT_PRICE : parseInt(gfn_nvl(item.data.ITEM_UNIT_PRICE) == "" ? "0" : gfn_nvl(item.data.ITEM_UNIT_PRICE)),
+                                V_P_ITEM_TAXABLE_AMT : parseInt(gfn_nvl(item.data.ITEM_TAXABLE_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_TAXABLE_AMT)),
+                                V_P_ITEM_VAT_AMT : parseInt(gfn_nvl(item.data.ITEM_VAT_AMT) == "" ? "0" : gfn_nvl(item.data.ITEM_VAT_AMT)),
+                                V_P_ITEM_DESC : gfn_nvl(item.data.ITEM_DESC),
+                                V_P_COST_CENTER_CODE : gfn_nvl(item.data.COST_CENTER_CODE),
+                                V_P_DEPT_CODE : gfn_nvl(item.data.DEPT_CODE),
+                                V_P_PROJECT_CODE : gfn_nvl(item.data.PROJECT_CODE),
+                                V_P_ACCOUNT_CODE : gfn_nvl(item.data.ACCOUNT_CODE),
+                                V_P_FORM_ID : p_formId,
+                                V_P_MENU_ID : p_menuId,
+                                V_P_PROC_ID : '',
+                                V_P_USERID : '',
+                                V_P_PC : ''
+                            })
+                        }
+                        returnData.push(param);
+                    });
+
+                    if(returnData.length > 0) {
+                        const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100S1.do", {listData: returnData});
+                        const data = await postJsonPromise;
+
+                        try {
+                            if (_.isEqual("S", data.resultStatus)) {
+                                gfn_comAlert("I0001");
+                                fn_search();
+                            } else {
+                                alert(data.resultMessage);
+                            }
+                        } catch (e) {
+                            if (!(e instanceof Error)) {
+                                e = new Error(e);
+                            }
+                            console.error("failed", e.message);
+                            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                        }
+                    }
+                } else {
+                    alert(data.resultMessage);
+                    fn_search();
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    function xmlToJson(xml) {
+        var obj = {};
+
+        if (xml.nodeType == 1) {
+            if (xml.attributes.length > 0) {
+                obj["@attributes"] = {};
+                for (var j = 0; j < xml.attributes.length; j++) {
+                    var attribute = xml.attributes.item(j);
+                    obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+                }
+            }
+        } else if (xml.nodeType == 3) {
+            obj = xml.nodeValue;
+        }
+
+        var textNodes = [].slice.call(xml.childNodes).filter(function(node) {
+            return node.nodeType === 3;
+        });
+        if (xml.hasChildNodes() && xml.childNodes.length === textNodes.length) {
+            obj = [].slice.call(xml.childNodes).reduce(function(text, node) {
+                return text + node.nodeValue;
+            }, "");
+        } else if (xml.hasChildNodes()) {
+            for (var i = 0; i < xml.childNodes.length; i++) {
+                var item = xml.childNodes.item(i);
+                var nodeName = item.nodeName;
+                if (typeof obj[nodeName] == "undefined") {
+                    obj[nodeName] = xmlToJson(item);
+                } else {
+                    if (typeof obj[nodeName].push == "undefined") {
+                        var old = obj[nodeName];
+                        obj[nodeName] = [];
+                        obj[nodeName].push(old);
+                    }
+                    obj[nodeName].push(xmlToJson(item));
+                }
+            }
+        }
+        return obj;
+    }
 
     const fn_init = async function () {
 
@@ -1086,7 +1383,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         //그리드 총계 하단 고정
-        SBGridProperties.frozenbottomrows 	= 1;
+        /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.total = {
             type 		: 'grand',
@@ -1095,7 +1392,7 @@
                 standard : [1],
                 sum : [29,30,31,32,33,34]
             },
-            /*subtotalrow : {
+            /!*subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -1108,10 +1405,10 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },*/
+            },*!/
             datasorting	: true,
             usedecimal : false
-        };
+        };*/
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -1247,7 +1544,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         //그리드 총계 하단 고정
-        SBGridProperties.frozenbottomrows 	= 1;
+        /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -1255,7 +1552,7 @@
                 standard : [1],
                 sum : [6,7]
             },
-           /* subtotalrow : {
+           /!* subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -1268,10 +1565,10 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },*/
+            },*!/
             datasorting	: true,
             usedecimal : false,
-        };
+        };*/
         SBGridProperties.columns = [
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:left'
@@ -1548,7 +1845,7 @@
 
         if(nCol == 14 || nCol == 48 || nCol == 49) return;
 
-        console.log('------nCow-------',nCow);
+        console.log('------nCow-------',nCol);
 
         if (nRow < 1) {
             nRow = 1; //그리드 로우 첫번째값 셋팅

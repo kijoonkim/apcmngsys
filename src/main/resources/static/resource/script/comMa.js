@@ -649,7 +649,7 @@ async function gfnma_multiSelectInit(obj) {
 			var obj = data.cv_1[i];
 			htm += '<tr style="cursor:pointer" class="clickable-row">';
 			for(j=0; j<_columns.length; j++){
-				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + obj[_columns[j]['ref']] + '</td>';
+				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + gfnma_nvl(obj[_columns[j]['ref']]) + '</td>';
 			}	
 			htm += '</tr>';
 		}
@@ -1545,6 +1545,7 @@ const gfnma_snakeToCamel = function(str){
 		return match[1].toUpperCase();
 	});
 };
+
 /**
  * @name gfn_getTableElement
  * @description Table 내부 sb요소 일괄 GET
@@ -1609,4 +1610,53 @@ const gfnma_getTableElement = function(_tableId, _pattern, _paramObj, _preFix, _
 		}
 	}
 	return true;
+}
+
+
+/**
+ * @name 		gfnma_findReportFilePath
+ * @description 레포트 파일 경로 조회
+ * @function
+ * @param 		{string} reportType
+ * @returns 	{string}
+ */
+const gfnma_findReportFilePath = async function(reportType) {
+	var paramObj = {
+		V_P_DEBUG_MODE_YN : '',
+		V_P_LANG_ID : '',
+		V_P_COMP_CODE : gv_ma_selectedApcCd,
+		V_P_CLIENT_CODE : gv_ma_selectedClntCd,
+		V_P_REPORT_TYPE : reportType,
+		V_P_FORM_ID : p_formId,
+		V_P_MENU_ID : p_menuId,
+		V_P_PROC_ID : '',
+		V_P_USERID : '',
+		V_P_PC : ''
+	};
+	let reportFilePath = '';
+
+	const postJsonPromise = gfn_postJSON("/com/selectReportFilePath.do", {
+		getType				: 'json',
+		cv_count			: '1',
+		params				: gfnma_objectToString(paramObj)
+	});
+	const data = await postJsonPromise;
+
+	try {
+		if (_.isEqual("S", data.resultStatus)) {
+			if(data.resultMessage){
+				reportFilePath = data.cv_1[0].REPORT_DLL;
+			}
+		} else {
+			alert(data.resultMessage);
+		}
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	}
+
+	return reportFilePath;
 }

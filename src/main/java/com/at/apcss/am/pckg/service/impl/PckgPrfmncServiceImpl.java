@@ -192,7 +192,7 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 		HashMap<String, Object> rtnObj = new HashMap<>();
 		int insertCnt = 0;
 
-		if(gdsInvntrVO.getPckgno().isBlank() || pckgPrfmncVO.getPckgno().isBlank()){
+		if (gdsInvntrVO.getPckgno() == null){
 			String apcCd = pckgPrfmncVO.getApcCd();
 			String pckgYmd = pckgPrfmncVO.getPckgYmd();
 			String pckgNo = cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);

@@ -833,7 +833,7 @@
         if (nCol == -1) {
             return;
         }
-        if (nRow == -1) {
+        if (nRow  < 1) {
             return;
         }
 
