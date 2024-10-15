@@ -135,14 +135,14 @@
 			<if test='userId != null and userId != ""'>
 				<if test='userType == "27" or userType == "28"'>
 				AND APC_CD IN (SELECT APC_CD
-								FROM TB_TE_APC_OPER_PRSN_OTLN
+								FROM TB_TE_APC_OPER_PRSN_OTLN RO
 								WHERE 1=1
-								  AND CRTR_YR = AP.CRTR_YR
+								  AND RO.CRTR_YR = AP.CRTR_YR
 								<if test='userType == "27"'>
-								  AND CTPV_CD = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+								  AND SUBSTR(RO.CTPV_CD, 0 , 4) = (SELECT SUBSTR(CTPV, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 								</if>
 								<if test='userType == "28"'>
-								  AND SIGUN_CD = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+								  AND SUBSTR(RO.SIGUN_CD, 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 								</if>
 								)
 				</if>
