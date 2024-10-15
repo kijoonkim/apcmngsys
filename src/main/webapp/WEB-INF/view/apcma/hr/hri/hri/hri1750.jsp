@@ -26,6 +26,7 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+    <%@ include file="../../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -95,7 +96,7 @@
                     </td>
                     <th scope="row" class="th_bg">증명서유형</th>
                     <td class="td_input" style="border-right:hidden;">
-                        <sbux-select id="SRCH_REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택    " class="form-control input-sm"></sbux-select>
+                        <sbux-select id="SRCH_REPORT_TYPE" uitype="single" jsondata-ref="jsonReportType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">진행상태</th>
                     <td class="td_input" style="border-right:hidden;">
@@ -1043,7 +1044,7 @@
         param.IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN"));
 
         if (rowData.REPORT_TYPE == "R_INCOME_B") {
-            let reportFilePath = await fn_findReportFilePath(rowData.REPORT_TYPE);
+            let reportFilePath = await gfnma_findReportFilePath(rowData.REPORT_TYPE);
 
             param.WORK_TYPE = "REPORT";
             param.LANG_ID = 'KOR'
@@ -1058,7 +1059,7 @@
 
             gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
         } else if (rowData.REPORT_TYPE == "R_INCOME_C") {
-            let reportFilePath = await fn_findReportFilePath(rowData.REPORT_TYPE);
+            let reportFilePath = await gfnma_findReportFilePath(rowData.REPORT_TYPE);
             let strye_tx_yyyy = rowData.INCOME_YEAR;
 
             let strretire_yyyy = rowData.RETIRE_DATE == "" ? "": rowData.RETIRE_DATE.substring(0, 4);
@@ -1087,7 +1088,7 @@
 
             gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
         } else {
-            let reportFilePath = await fn_findReportFilePath("R_CERTI");
+            let reportFilePath = await gfnma_findReportFilePath("R_CERTI");
             gfn_popClipReport(jsonReportType.filter((value) => value.value == rowData.REPORT_TYPE)[0].text, reportFilePath, param);
         }
     }
@@ -1147,47 +1148,6 @@
 
             fn_search();
         }
-    }
-
-    const fn_findReportFilePath = async function(reportType) {
-        var paramObj = {
-            V_P_DEBUG_MODE_YN : '',
-            V_P_LANG_ID : '',
-            V_P_COMP_CODE : gv_ma_selectedApcCd,
-            V_P_CLIENT_CODE : gv_ma_selectedClntCd,
-            V_P_REPORT_TYPE : reportType,
-            V_P_FORM_ID : p_formId,
-            V_P_MENU_ID : p_menuId,
-            V_P_PROC_ID : '',
-            V_P_USERID : '',
-            V_P_PC : ''
-        };
-        let reportFilePath = '';
-
-        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1750ReportFilePath.do", {
-            getType				: 'json',
-            cv_count			: '1',
-            params				: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if(data.resultMessage){
-                    reportFilePath = data.cv_1[0].REPORT_DLL;
-                }
-            } else {
-                alert(data.resultMessage);
-            }
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-
-        return reportFilePath;
     }
 
     //상세정보 보기

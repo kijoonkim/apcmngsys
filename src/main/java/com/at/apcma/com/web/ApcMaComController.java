@@ -827,4 +827,27 @@ public class ApcMaComController extends BaseController {
 		logger.info("=============com3430List=====end========");
 		return getSuccessResponseEntityMa(resultMap);
 	}
+
+	// 레포트 파일 경로 조회
+	@PostMapping(value = "/com/selectReportFilePath.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectReportFilePath(
+			@RequestBody Map<String, Object> param
+			, Model model
+			, HttpSession session
+			, HttpServletRequest request) throws Exception{
+
+		logger.info("=============selectReportFilePath=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			param.put("procedure", 		"P_REPORTDLL_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		logger.info("=============selectReportFilePath=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}
 }
