@@ -1281,10 +1281,6 @@
 			SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrDtl", addrDetail);//도로명주소
 			//SBUxMethod.set("dtl-inp-roadNmDtl", addrDetail);//도로명주소 상세주소
 			SBUxMethod.set("dtl-inp-operOgnzAdmCd", admCd);// 행정구역코드(법정동코드)
-			let ctpvCd = admCd.substr(0, 2);//시도코드
-			let sigunCd = admCd.substr(0, 5);//시군구코드
-			SBUxMethod.set("dtl-inp-ctpvCd", ctpvCd);// 행정구역코드(법정동코드)
-			SBUxMethod.set("dtl-inp-sigunCd", sigunCd);// 행정구역코드(법정동코드)
 
 			SBUxMethod.set("dtl-inp-operOgnzRoadNmCd", rnMgtSn);//도로명코드
 			SBUxMethod.set("dtl-inp-operOgnzBmno", buldMnnm);//운영조직 건물 본번
@@ -1303,6 +1299,11 @@
 			SBUxMethod.set("dtl-inp-apcRoadNmCd", rnMgtSn);//도로명코드
 			SBUxMethod.set("dtl-inp-apcBmno", buldMnnm);//APC 건물본번
 			SBUxMethod.set("dtl-inp-apcSlno", buldSlno);//APC 건물부번
+
+			let ctpvCd = admCd.substr(0, 2);//시도코드
+			let sigunCd = admCd.substr(0, 5);//시군구코드
+			SBUxMethod.set("dtl-inp-ctpvCd", ctpvCd);// 행정구역코드(법정동코드)
+			SBUxMethod.set("dtl-inp-sigunCd", sigunCd);// 행정구역코드(법정동코드)
 		}
 	}
 
