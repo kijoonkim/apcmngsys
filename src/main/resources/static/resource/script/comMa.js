@@ -649,7 +649,7 @@ async function gfnma_multiSelectInit(obj) {
 			var obj = data.cv_1[i];
 			htm += '<tr style="cursor:pointer" class="clickable-row">';
 			for(j=0; j<_columns.length; j++){
-				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + obj[_columns[j]['ref']] + '</td>';
+				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + gfnma_nvl(obj[_columns[j]['ref']]) + '</td>';
 			}	
 			htm += '</tr>';
 		}
