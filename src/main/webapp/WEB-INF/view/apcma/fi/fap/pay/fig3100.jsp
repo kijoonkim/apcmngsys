@@ -668,7 +668,7 @@
 
         document.getElementById('xmlFile').addEventListener('change', function(event) {
             if(!window.FileReader) return;
-            debugger;
+
             var files = event.target.files;
             var promises = Array.from(files).map(file => {
                 return new Promise((resolve, reject) => {
@@ -946,7 +946,7 @@
         let xml = parser.parseFromString(file, "text/xml");
         let parseXmlForJson = xmlToJson(xml);
         let taxInvoice = parseXmlForJson.TaxInvoice;
-
+        console.log(parseXmlForJson)
         let nodeTaxInvoice = taxInvoice;
         let nodeExchangedDocument = taxInvoice.ExchangedDocument;
         let nodeTaxInvoiceDocument = taxInvoice.TaxInvoiceDocument;
@@ -1123,7 +1123,7 @@
             returnData.push(param);
         });
         if(returnData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300List.do", {listData: returnData});
+            const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100.do", {listData: returnData});
             const data = await postJsonPromise;
 
             try {
@@ -1166,7 +1166,7 @@
                     });
 
                     if(returnData.length > 0) {
-                        const postJsonPromise = gfn_postJSON("/fi/far/rec/insertFig3300ItemList.do", {listData: returnData});
+                        const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100S1.do", {listData: returnData});
                         const data = await postJsonPromise;
 
                         try {
@@ -1383,7 +1383,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         //그리드 총계 하단 고정
-        SBGridProperties.frozenbottomrows 	= 1;
+        /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.total = {
             type 		: 'grand',
@@ -1392,7 +1392,7 @@
                 standard : [1],
                 sum : [29,30,31,32,33,34]
             },
-            /*subtotalrow : {
+            /!*subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -1405,10 +1405,10 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },*/
+            },*!/
             datasorting	: true,
             usedecimal : false
-        };
+        };*/
         SBGridProperties.columns = [
             {caption: [""], ref: 'CHECK_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -1544,7 +1544,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         //그리드 총계 하단 고정
-        SBGridProperties.frozenbottomrows 	= 1;
+        /*SBGridProperties.frozenbottomrows 	= 1;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -1552,7 +1552,7 @@
                 standard : [1],
                 sum : [6,7]
             },
-           /* subtotalrow : {
+           /!* subtotalrow : {
                 1: {
                     titlecol: 0,
                     titlevalue: '합계',
@@ -1565,10 +1565,10 @@
                 titlevalue	: '합계',
                 style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                 stylestartcol	: 0
-            },*/
+            },*!/
             datasorting	: true,
             usedecimal : false,
-        };
+        };*/
         SBGridProperties.columns = [
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:left'
