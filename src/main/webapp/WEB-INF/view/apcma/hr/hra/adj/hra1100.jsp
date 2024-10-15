@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hra1100.jsp
      * @Description       : 연말정산기준등록 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.23

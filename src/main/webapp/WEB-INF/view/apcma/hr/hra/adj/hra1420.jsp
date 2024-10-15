@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hra1420.jsp
      * @Description       : 정산자료 등록(관리자) 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.09.23
@@ -454,13 +454,13 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption : ["사업장"], ref : 'SITE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["사업장"], ref : 'SITE_CODE', width : '170px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonSiteCode', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '170px', style: 'text-align:left'},
             {caption: ["사원검색"], 			ref: 'POP_BTN',    				type:'button',  	width:'80px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
@@ -469,16 +469,17 @@
             {caption : ["재직구분"], ref : 'EMP_STATE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonSrchEmpState', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["전년도 총연봉"], ref: 'ANNUAL_SALARY_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["전년도 총연봉"], ref: 'ANNUAL_SALARY_AMT', type: 'output', width: '240px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["월정급여액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["월정급여액"], ref: 'PAY_AMT', type: 'output', width: '240px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
             {caption: ["연장비과세대상"], ref: 'OT_TXFREE_APPLY_YN', type: 'checkbox', width: '140px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: false, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["비고"], ref: 'MEMO', type: 'output', width: '350px', style: 'text-align:left'},
+           /* {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값*/
 
         ];
 
@@ -674,10 +675,25 @@
     const fn_addRow = async function () {
         let rowVal = gvwInfoGrid.getRow();
 
+        const msg = {
+            SITE_CODE                : '',
+            DEPT_CODE                : '',
+            DEPT_NAME                : '',
+            EMP_CODE                 : '',
+            EMP_NAME                 : '',
+            EMP_STATE                : '',
+            ANNUAL_SALARY_AMT        : 0,
+            PAY_AMT                  : 0,
+            OT_TXFREE_APPLY_YN       : '',
+            MEMO                     : '',
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwInfoGrid.addRow(true);
+            gvwInfoGrid.addRow(true, msg);
         }else{
-            gvwInfoGrid.insertRow(rowVal);
+            gvwInfoGrid.insertRow(rowVal, 'below', msg);
         }
     }
 

@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hra1300.jsp
      * @Description       : 종전근무지등록 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.07.29
@@ -509,6 +509,43 @@
 
     }
 
+    /**
+     * 그리드내 공통팝업 오픈
+     */
+    var fn_compopup3 = function(row, col) {
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '비과세항목정보');
+        SBUxMethod.openModal('modal-compopup1');
+
+        var searchText 		= "";
+        var replaceText0 = "_TAX_FREE_CODE_";
+        var replaceText1 = "_TAX_FREE_NAME_";
+        var strWhereClause = "AND b.TAX_FREE_CODE LIKE '%" + replaceText0 + "%' AND b.TAX_FREE_NAME LIKE '%" + replaceText1 + "%'";
+
+        compopup1({
+            compCode				: gv_ma_selectedApcCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HR015_1'
+            ,popupType				: 'A'
+            , whereClause           : strWhereClause
+            , searchCaptions        :   ["비과세코드"       , "비과세약칭"     ]
+            , searchInputFields     :   ["TAX_FREE_CODE"  , "TAX_FREE_NAME"]
+            , searchInputValues     :   [searchText       , ""             ]
+            , height                : '400px'
+            , tableHeader           :   ["비과세코드"       , "비과세약칭"       , "비과세설명"    ]
+            , tableColumnNames      :   ["TAX_FREE_CODE"  , "TAX_FREE_NAME"  , "TAX_FREE_DESCR"]
+            , tableColumnWidths     :   ["80px"      , "120px"      , "300px"]
+            ,itemSelectEvent		: function (data){
+                console.log('callback data:', data);
+                //그리드내 원하는 위치에 값 셋팅하기
+                gvwTaxFreeGrid.setCellData(row, gvwTaxFreeGrid.getColRef('PREV_COM_NUM'), data['TAX_FREE_CODE']); //비과세코드
+                gvwTaxFreeGrid.setCellData(row, gvwTaxFreeGrid.getColRef('TAX_FREE_NAME'), data['TAX_FREE_NAME']); //비과세약칭
+                //gvwDetallGrid.setCellData(row, (col+1), data['TAX_FREE_DESCR']); //비과세설명
+            }
+        });
+    }
+
+
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
 
@@ -527,6 +564,7 @@
         fn_createGrid();
         fn_createWorkComGrid();
         fn_createTaxFreeGrid();
+        fn_search();
     }
 
     // 신규
@@ -534,7 +572,7 @@
           fn_create();
       }*/
     // 저장
-    function cfn_save() {
+    async function cfn_save() {
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -542,11 +580,11 @@
 
             if (_.isEmpty(WorkComList) == false){
 
-                fn_save(WorkComList);
+                await fn_save(WorkComList);
 
             }
 
-            let updateData = gvwTaxFreeAmtGrid.getUpdateData(true, 'all');
+            let updateData = gvwTaxFreeGrid.getUpdateData(true, 'all');
 
             if (_.isEmpty(updateData) == false){
 
@@ -703,23 +741,41 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonWorkCompanyType', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["비과세코드"], ref: 'TXFREE_CODE', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["비과세코드"], ref: 'TXFREE_CODE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["세액감면여부"], ref: 'TX_RED_INC_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
             {caption: ["비과세약칭"], ref: 'TAX_FREE_NAME', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["비과세약칭 팝업"], 	ref: 'POP_BTN', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
+                }
+            },
             {caption: ["비과세금액"], ref: 'TXFREE_AMT', type: 'input', width: '170px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwTaxFreeGrid = _SBGrid.create(SBGridProperties);
        /* gvwListGrid.bind('click', 'fn_view');*/
+    }
+
+    /**
+     * 그리드내 팝업 조회
+     */
+    function fn_gridPopup(event, row, col) {
+
+        console.log('grid popup row:', row);
+        console.log('grid popup col:', col);
+
+        event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
+        fn_compopup3(row, col);
     }
 
     //상세정보 보기
@@ -848,6 +904,12 @@
 
                     gvwTaxFreeGrid.rebuild();
 
+                    if (jsonTaxFreeList.length > 0){
+                        jsonTaxFreeList.forEach((item, index) => {
+                            gvwTaxFreeGrid.setCellDisabled(index+1, 0, index+1, 1, true, false, true);
+                        })
+                    }
+
 
                 } else {
                     alert(data.resultMessage);
@@ -963,10 +1025,43 @@
     const fn_addRow = async function () {
         let rowVal = gvwWorkComGrid.getRow();
 
+        const msg = {
+            WORK_COMPANY_TYPE             : '',
+            TX_UNION_YN                   : '',
+            PREV_COM_NAME                 : '',
+            PREV_COM_NUM                  : '',
+            PREV_WORK_ST_DAT              : '',
+            PREV_WORK_END_DAT             : '',
+            PREV_REDUCT_ST_DAT            : '',
+            PREV_REDUCT_END_DAT           : '',
+            PREV_PAY_AMT                  : 0,
+            PREV_BONUS_AMT                : 0,
+            PREV_ADD_BONUS_AMT            : 0,
+            PREV_STOCK_PROFIT_AMT         : 0,
+            PREV_EMP_STOCK_AMT            : 0,
+            PREV_EXEC_RET_LIM_OVER        : 0,
+            PREV_PENS_AMT                 : 0,
+            PREV_OFFICIAL_PENS_AMT        : 0,
+            PREV_MILITARY_PENS_AMT        : 0,
+            PREV_SCHOOL_PENS_AMT          : 0,
+            PREV_POST_PENS_AMT            : 0,
+            PREV_SCNT_PENS_AMT            : 0,
+            PREV_RET_PENS_AMT             : 0,
+            PREV_PENS_SV_AMT              : 0,
+            PREV_HEALTH_INSURE_AMT        : 0,
+            PREV_EMP_INSURE_AMT           : 0,
+            PREV_INC_TX_AMT               : 0,
+            PREV_LOCAL_TX_AMT             : 0,
+            PREV_SPEC_TX_AMT              : 0,
+
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwWorkComGrid.addRow(true);
+            gvwWorkComGrid.addRow(true,msg);
         }else{
-            gvwWorkComGrid.insertRow(rowVal);
+            gvwWorkComGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -985,10 +1080,21 @@
     const fn_addRow1 = async function () {
         let rowVal = gvwTaxFreeGrid.getRow();
 
+        const msg = {
+            WORK_COMPANY_TYPE      : '',
+            PREV_COM_NUM           : '',
+            TXFREE_CODE            : '',
+            TX_RED_INC_YN          : '',
+            TAX_FREE_NAME          : '',
+            TXFREE_AMT             : 0,
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwTaxFreeGrid.addRow(true);
+            gvwTaxFreeGrid.addRow(true, msg);
         }else{
-            gvwTaxFreeGrid.insertRow(rowVal);
+            gvwTaxFreeGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -1110,6 +1216,46 @@
     //근로소득 공제 리스트 저장
     const fn_saveS1 = async function (updatedData) {
 
+        let workComData = gvwWorkComGrid.getGridDataAll();
+        let chkWork = '';
+        let chkPrev = '';
+
+        updatedData.forEach((item1, index) => {
+
+            let WORK_COMPANY_TYPE_T = item1.data.WORK_COMPANY_TYPE;
+            let PREV_COM_NUM_T = item1.data.PREV_COM_NUM;
+
+            workComData.forEach((item2, index) => {
+
+                let WORK_COMPANY_TYPE_W = item2.WORK_COMPANY_TYPE;
+                let PREV_COM_NUM_W = item2.PREV_COM_NUM;
+
+                if (_.isEqual(WORK_COMPANY_TYPE_T, WORK_COMPANY_TYPE_W)){
+                    chkWork = WORK_COMPANY_TYPE_T + ','+WORK_COMPANY_TYPE_W;
+                }
+
+                if (_.isEqual(PREV_COM_NUM_T, PREV_COM_NUM_W)){
+                    chkPrev = PREV_COM_NUM_T + ','+PREV_COM_NUM_W;
+                }
+
+            });
+
+        });
+
+        if (chkWork == '')
+        {
+            gfn_comAlert("Q0000","종전근무지 정보가 일치하지 않습니다.(종전근무지구분)");
+            //SetMessageBox(GetFormMessage("HRA1300_002")); // 종전근무지 정보가 일치하지 않습니다.
+            return false;
+        }
+        if (chkPrev == '')
+        {
+            gfn_comAlert("Q0000","종전근무지 정보가 일치하지 않습니다.(사업자번호)");
+            //SetMessageBox(GetFormMessage("HRA1300_002")); // 종전근무지 정보가 일치하지 않습니다.
+            return false;
+        }
+
+
         let listData = [];
         listData =  await getParamFormS1(updatedData);
 
@@ -1149,6 +1295,7 @@
             gfn_comAlert("W0002", "정산연도");
             return;
         }
+
 
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"));//사원
 

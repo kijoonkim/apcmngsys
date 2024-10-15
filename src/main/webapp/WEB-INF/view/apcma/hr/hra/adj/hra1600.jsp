@@ -355,6 +355,7 @@
 
     var jsonPrintType = []; //출력구분 ( L_HRA040 )srch-print_type
     var jsonPayAreaType = []; //급여영역 ( L_HRP034 )srch-pay_area_type
+    var jsonYeTxType = []; //정산구분 ( L_HRA029 )YE_TX_TYPE
 
     let strEmail = '';
     let strSmtpHost = '';
@@ -369,6 +370,7 @@
 
             gfnma_setComSelect(['SRCH_PRINT_TYPE'], jsonPrintType, 'L_HRA040', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonYeTxType, 'L_HRA029', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //사업장
@@ -584,7 +586,7 @@
             {caption: ["메일전송일"], ref: 'MAIL_SEND_TIME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["사내이메일"], ref: 'IN_EMAIL', type: 'output', width: '140px', style: 'text-align:left'},
             {caption : ["정산구분"], ref : 'YE_TX_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonYeTxType', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},

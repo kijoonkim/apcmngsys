@@ -262,13 +262,14 @@
 
     var jsonSiteCode = []; //사업장 ( L_ORG001 )srch-site_code
     var jsonPayAreaType = []; //급여영역 ( L_HRP034 )srch-pay_area_type
+    var jsonCalcStatus = []; //계산상태 ( L_HRA033 )calc_status
 
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
             gfnma_setComSelect(['srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonPayAreaType, 'L_HRA033', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCalcStatus, 'L_HRA033', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //사업장
@@ -488,7 +489,7 @@
                 }
             },
             {caption : ["계산상태"], ref : 'CALC_STATUS', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonCalcStatus', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
