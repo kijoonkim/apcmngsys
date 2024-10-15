@@ -38,29 +38,36 @@
             </div>
         </div>
         <div class="box-body">
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
             <!-- content_header start -->
             <table class="table table-bordered tbl_fixed">
                 <colgroup>
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
                 </colgroup>
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg">기준연도</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year" date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed">
                         </sbux-datepicker>
                     </td>
-                    <td></td>
                     <th scope="row" class="th_bg">신고구분명</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td colspan="7" class="td_input" >
                         <div class="dropdown">
                             <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
@@ -70,7 +77,6 @@
                             </div>
                         </div>
                     </td>
-                    <td colspan="4"></td>
                 </tr>
                 </tbody>
             </table>
@@ -228,9 +234,24 @@
                 {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
+            ,callback       : fn_choice
         });
     }
+    async function fn_choice(_value){
+        let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
+        if (tr.length) {
+            let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
+            if (termFr.length) {
+                SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
+                SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
+            }
 
+            let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
+            if (termTo.length) {
+                SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
+            }
+        }
+    }
     /** 공통버튼 조회 **/
     function cfn_search(){
         fn_search();

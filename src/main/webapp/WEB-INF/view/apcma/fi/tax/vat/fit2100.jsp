@@ -55,47 +55,46 @@
             </div>
         </div>
         <div class="box-body">
+            <!--[APC] START -->
+            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+            <!--[APC] END -->
             <table class="table table-bordered tbl_fixed">
                 <colgroup>
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
-                    <col style="width: 15%">
-                    <col style="width: 10%">
-                    <col style="width: 8%">
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
+
+                    <col style="width: 7%">
+                    <col style="width: 6%">
+                    <col style="width: 6%">
+                    <col style="width: 3%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg">법인</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-select id="법인" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                    </td>
-                    <td></td>
                     <th scope="row" class="th_bg">기준연도</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-select id="기준연도" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
-                    <td></td>
                     <th scope="row" class="th_bg">신고구분명</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td colspan="3" class="td_input" >
                         <sbux-select id="신고구분명" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                     </td>
-                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">신고사업장</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="신고사업장" uitype="text" class="form-control input-sm"></sbux-input>
+                    <td colspan="3" class="td_input" style="border-right: hidden;">
+                        <sbux-input id="신고사업장" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
                     </td>
-                    <td></td>
                     <th scope="row" class="th_bg">사업자번호</th>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input id="사업자번호" uitype="text" class="form-control input-sm"></sbux-input>
+                    <td colspan="7" class="td_input" style="border-right: hidden;">
+                        <sbux-input id="사업자번호" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
                     </td>
-                    <td colspan="4"></td>
                 </tr>
                 </tbody>
             </table>
