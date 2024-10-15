@@ -308,18 +308,18 @@
 		SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
 		SBGridProperties.allowcopy = true; //복사
 		SBGridProperties.frozencols = 4;
-		SBGridProperties.frozenbottomrows = 1;
-		SBGridProperties.total = {
-			type 		: 'grand',
-			position	: 'bottom',
-			columns		: {
-				standard : [3],
-				sum : [23, 24, 25, 26, 27, 28],
-				count : [3]
-			},
-			datasorting	: true,
-			usedecimal : false,
-		};
+		/*		SBGridProperties.frozenbottomrows = 1;
+                SBGridProperties.total = {
+                    type 		: 'grand',
+                    position	: 'bottom',
+                    columns		: {
+                        standard : [3],
+                        sum : [23, 24, 25, 26, 27, 28],
+                        count : [3]
+                    },
+                    datasorting	: true,
+                    usedecimal : false,
+                };*/
 		SBGridProperties.extendlastcol 		= 'scroll';
 		SBGridProperties.columns = [
 			{caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'38px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
@@ -1476,16 +1476,17 @@
 
 	const fn_uploadXml = async function (file) {
 		let parser = new DOMParser();
-		let xml = parser.parseFromString(file, "text/html");
+		let xml = parser.parseFromString(file, "text/xml");
 		let parseXmlForJson = xmlToJson(xml);
-		let TAXINVOICE = parseXmlForJson.HTML.BODY.TAXINVOICE;
-		let nodeTaxInvoice = TAXINVOICE;
-		let nodeExchangedDocument = TAXINVOICE.EXCHANGEDDOCUMENT;
-		let nodeTaxInvoiceDocument = TAXINVOICE.TAXINVOICEDOCUMENT;
-		let nodeInvoicerParty = TAXINVOICE.TAXINVOICETRADESETTLEMENT.INVOICERPARTY;
-		let nodeInvoiceeParty = TAXINVOICE.TAXINVOICETRADESETTLEMENT.INVOICEEPARTY;
-		let nodeSpecifiedMonetarySummation = TAXINVOICE.TAXINVOICETRADESETTLEMENT.SPECIFIEDMONETARYSUMMATION;
-		let nodeTaxInvoiceTradeLineItem = TAXINVOICE.TAXINVOICETRADELINEITEM;
+		let taxInvoice = parseXmlForJson.TaxInvoice;
+
+		let nodeTaxInvoice = taxInvoice;
+		let nodeExchangedDocument = taxInvoice.ExchangedDocument;
+		let nodeTaxInvoiceDocument = taxInvoice.TaxInvoiceDocument;
+		let nodeInvoicerParty = taxInvoice.TaxInvoiceTradeSettlement.InvoicerParty;
+		let nodeInvoiceeParty = taxInvoice.TaxInvoiceTradeSettlement.InvoiceeParty;
+		let nodeSpecifiedMonetarySummation = taxInvoice.TaxInvoiceTradeSettlement.SpecifiedMonetarySummation;
+		let nodeTaxInvoiceTradeLineItem = taxInvoice.TaxInvoiceTradeLineItem;
 		let FI_ORG_CODE = gfn_nvl(gfnma_multiSelectGet("#SRCH_FI_ORG_CODE"));
 
 		if (nodeTaxInvoice != null) {
@@ -1505,53 +1506,52 @@
 			rowHeader["BUYER_SUB_REG_NO"] = "";
 
 			//발행일자
-			rowHeader["SEND_DATE"] = nodeExchangedDocument["ISSUEDATETIME"].substring(0, 8);
+			rowHeader["SEND_DATE"] = nodeExchangedDocument["IssueDateTime"].substring(0, 8);
 
 			//세금계산서정보
-			let strIssueId = nodeTaxInvoiceDocument["ISSUEID"];
+			let strIssueId = nodeTaxInvoiceDocument["IssueID"];
 			rowHeader["APPROVAL_NO"] = strIssueId;
-			rowHeader["EINVOICE_CATEGORY"] = nodeTaxInvoiceDocument["TYPECODE"];
-			rowHeader["EINVOICE_TYPE"] = nodeTaxInvoiceDocument["TYPECODE"].substring(2, 4);
-			if (gfn_nvl(nodeTaxInvoiceDocument["DESCRIPTIONTEXT"]) != "") {
-				rowHeader["NOTE1"] = nodeTaxInvoiceDocument["DESCRIPTIONTEXT"];
+			rowHeader["EINVOICE_CATEGORY"] = nodeTaxInvoiceDocument["TypeCode"];
+			rowHeader["EINVOICE_TYPE"] = nodeTaxInvoiceDocument["TypeCode"].substring(2, 4);
+			if (gfn_nvl(nodeTaxInvoiceDocument["DescriptionText"]) != "") {
+				rowHeader["NOTE1"] = nodeTaxInvoiceDocument["DescriptionText"];
 			}
-			rowHeader["WRITE_DATE"] = nodeTaxInvoiceDocument["ISSUEDATETIME"];
-			rowHeader["ISSUE_DATE"] = nodeTaxInvoiceDocument["ISSUEDATETIME"];
-			rowHeader["TXN_DATE"] = nodeTaxInvoiceDocument["ISSUEDATETIME"];
-			rowHeader["RECEIPT_OR_BILL"] = nodeTaxInvoiceDocument["PURPOSECODE"];
+			rowHeader["WRITE_DATE"] = nodeTaxInvoiceDocument["IssueDateTime"];
+			rowHeader["ISSUE_DATE"] = nodeTaxInvoiceDocument["IssueDateTime"];
+			rowHeader["TXN_DATE"] = nodeTaxInvoiceDocument["IssueDateTime"];
+			rowHeader["RECEIPT_OR_BILL"] = nodeTaxInvoiceDocument["PurposeCode"];
 			rowHeader["MATCH_METHOD"] = "1";
 			rowHeader["ISSUE_TYPE"] = "1";
 
 			//공급하는자
 			rowHeader["SELLER_REG_NO"] = nodeInvoicerParty["ID"];
-			rowHeader["SELLER_BIZ_CATEGORY"] = nodeInvoicerParty["TYPECODE"];
-			rowHeader["SELLER_NAME"] = nodeInvoicerParty["NAMETEXT"];
-			rowHeader["SELLER_BIZ_ITEM"] = nodeInvoicerParty["CLASSIFICATIONCODE"];
-			rowHeader["SELLER_OWNER"] = nodeInvoicerParty["SPECIFIEDPERSON"].NAMETEXT;
-			if (gfn_nvl(nodeInvoicerParty["DEFINEDCONTACT"]) != "") {
-				rowHeader["SELLER_EMAIL"] = nodeInvoicerParty["DEFINEDCONTACT"].URICOMMUNICATION;
+			rowHeader["SELLER_BIZ_CATEGORY"] = nodeInvoicerParty["TypeCode"];
+			rowHeader["SELLER_NAME"] = nodeInvoicerParty["NameText"];
+			rowHeader["SELLER_BIZ_ITEM"] = nodeInvoicerParty["ClassificationCode"];
+			rowHeader["SELLER_OWNER"] = nodeInvoicerParty["SpecifiedPerson"].NameText;
+			if (gfn_nvl(nodeInvoicerParty["DefinedContact"]) != "") {
+				rowHeader["SELLER_EMAIL"] = nodeInvoicerParty["DefinedContact"].URICommunication;
 			}
-			rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SPECIFIEDADDRESS"].LINEONETEXT.replaceAll("\,", "&#44;");
-
+			rowHeader["SELLER_ADDRESS"] = nodeInvoicerParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
 
 			//공급받는자
 			rowHeader["BUYER_REG_NO"] = nodeInvoiceeParty["ID"];
-			rowHeader["BUYER_BIZ_CATEGORY"] = nodeInvoiceeParty["TYPECODE"];
-			rowHeader["BUYER_NAME"] = nodeInvoiceeParty["NAMETEXT"];
-			rowHeader["BUYER_BIZ_ITEM"] = nodeInvoiceeParty["CLASSIFICATIONCODE"];
-			rowHeader["BUYER_BIZ_TYPE"] = nodeInvoiceeParty["SPECIFIEDORGANIZATION"].BUSINESSTYPECODE;
-			rowHeader["BUYER_OWNER"] = nodeInvoiceeParty["SPECIFIEDPERSON"].NAMETEXT;
-			rowHeader["BUYER_EMAIL1"] = nodeInvoiceeParty["PRIMARYDEFINEDCONTACT"].URICOMMUNICATION;
-			if (gfn_nvl(nodeInvoiceeParty["SECONDARYDEFINEDCONTACT"]) != "") {
-				rowHeader["BUYER_EMAIL2"] = nodeInvoiceeParty["SECONDARYDEFINEDCONTACT"].URICOMMUNICATION;
+			rowHeader["BUYER_BIZ_CATEGORY"] = nodeInvoiceeParty["TypeCode"];
+			rowHeader["BUYER_NAME"] = nodeInvoiceeParty["NameText"];
+			rowHeader["BUYER_BIZ_ITEM"] = nodeInvoiceeParty["ClassificationCode"];
+			rowHeader["BUYER_BIZ_TYPE"] = nodeInvoiceeParty["SpecifiedOrganization"].BusinessTypeCode;
+			rowHeader["BUYER_OWNER"] = nodeInvoiceeParty["SpecifiedPerson"].NameText;
+			rowHeader["BUYER_EMAIL1"] = nodeInvoiceeParty["PrimaryDefinedContact"].URICommunication;
+			if (gfn_nvl(nodeInvoiceeParty["SecondaryDefinedContact"]) != "") {
+				rowHeader["BUYER_EMAIL2"] = nodeInvoiceeParty["SecondaryDefinedContact"].URICommunication;
 			}
 			if (gfn_nvl(nodeInvoiceeParty["SPECIFIEDADDRESS"]) != "") {
-				rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SPECIFIEDADDRESS"].LINEONETEXT.replaceAll("\,", "&#44;");
+				rowHeader["BUYER_ADDRESS"] = nodeInvoiceeParty["SpecifiedAddress"].LineOneText.replaceAll("\,", "&#44;");
 			}
 
-			rowHeader["TOTAL_TAXABLE_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["CHARGETOTALAMOUNT"]) == "" ? '0' : nodeSpecifiedMonetarySummation["CHARGETOTALAMOUNT"];
-			rowHeader["TOTAL_VAT_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["TAXTOTALAMOUNT"]) == "" ? '0' : nodeSpecifiedMonetarySummation["TAXTOTALAMOUNT"];
-			rowHeader["TOTAL_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["GRANDTOTALAMOUNT"]) == "" ? '0' : nodeSpecifiedMonetarySummation["GRANDTOTALAMOUNT"];
+			rowHeader["TOTAL_TAXABLE_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["ChargeTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["ChargeTotalAmount"];
+			rowHeader["TOTAL_VAT_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["TaxTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["TaxTotalAmount"];
+			rowHeader["TOTAL_AMT"] = gfn_nvl(nodeSpecifiedMonetarySummation["GrandTotalAmount"]) == "" ? '0' : nodeSpecifiedMonetarySummation["GrandTotalAmount"];
 
 			gvwList.addRow(true, rowHeader);
 
@@ -1559,34 +1559,34 @@
 				nodeTaxInvoiceTradeLineItem.forEach((item, index) => {
 					var rowItem = {};
 					rowItem["APPROVAL_NO"] = strIssueId;
-					rowItem["SEQ"] = item["SEQUENCENUMERIC"];
-					rowItem["ITEM_TAXABLE_AMT"] = item["INVOICEAMOUNT"];
+					rowItem["SEQ"] = item["SequenceNumeric"];
+					rowItem["ITEM_TAXABLE_AMT"] = item["InvoiceAmount"];
 					if (gfn_nvl(item["SecondaryDefinedContact"]) != "") {
-						rowItem["ITEM_QTY"] = item["CHARGEABLEUNITQUANTITY"];
+						rowItem["ITEM_QTY"] = item["ChargeableUnitQuantity"];
 					}
-					rowItem["ITEM_NAME"] = item["NAMETEXT"];
-					rowItem["TXN_DATE"] = item["PURCHASEEXPIRYDATETIME"];
-					rowItem["ITEM_VAT_AMT"] = item["TOTALTAX"].CALCULATEDAMOUNT;
-					if (gfn_nvl(item["UNITPRICE"]) != "") {
-						rowItem["ITEM_UNIT_PRICE"] = item["UNITPRICE"].UNITAMOUNT;
+					rowItem["ITEM_NAME"] = item["NameText"];
+					rowItem["TXN_DATE"] = item["PurchaseExpiryDateTime"];
+					rowItem["ITEM_VAT_AMT"] = item["TotalTax"].CalculatedAmount;
+					if (gfn_nvl(item["UnitPrice"]) != "") {
+						rowItem["ITEM_UNIT_PRICE"] = item["UnitPrice"].UnitAmount;
 					}
 					gvwItem.addRow(true, rowItem);
 				});
 			} else {
 				var rowItem = {};
 				rowItem["APPROVAL_NO"] = strIssueId;
-				rowItem["SEQ"] = nodeTaxInvoiceTradeLineItem["SEQUENCENUMERIC"];
-				rowItem["ITEM_TAXABLE_AMT"] = nodeTaxInvoiceTradeLineItem["INVOICEAMOUNT"];
+				rowItem["SEQ"] = nodeTaxInvoiceTradeLineItem["SequenceNumeric"];
+				rowItem["ITEM_TAXABLE_AMT"] = nodeTaxInvoiceTradeLineItem["InvoiceAmount"];
 				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["SecondaryDefinedContact"]) != "") {
-					rowItem["ITEM_QTY"] = nodeTaxInvoiceTradeLineItem["CHARGEABLEUNITQUANTITY"];
+					rowItem["ITEM_QTY"] = nodeTaxInvoiceTradeLineItem["ChargeableUnitQuantity"];
 				}
-				rowItem["ITEM_NAME"] = nodeTaxInvoiceTradeLineItem["NAMETEXT"];
-				rowItem["TXN_DATE"] = nodeTaxInvoiceTradeLineItem["PURCHASEEXPIRYDATETIME"];
-				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["TOTALTAX"]) != "") {
-					rowItem["ITEM_VAT_AMT"] = nodeTaxInvoiceTradeLineItem["TOTALTAX"].CALCULATEDAMOUNT;
+				rowItem["ITEM_NAME"] = nodeTaxInvoiceTradeLineItem["NameText"];
+				rowItem["TXN_DATE"] = nodeTaxInvoiceTradeLineItem["PurchaseExpiryDateTime"];
+				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["TotalTax"]) != "") {
+					rowItem["ITEM_VAT_AMT"] = nodeTaxInvoiceTradeLineItem["TotalTax"].CalculatedAmount;
 				}
-				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["UNITPRICE"]) != "") {
-					rowItem["ITEM_UNIT_PRICE"] = nodeTaxInvoiceTradeLineItem["UNITPRICE"].UNITAMOUNT;
+				if (gfn_nvl(nodeTaxInvoiceTradeLineItem["UnitPrice"]) != "") {
+					rowItem["ITEM_UNIT_PRICE"] = nodeTaxInvoiceTradeLineItem["UnitPrice"].UnitAmount;
 				}
 
 				gvwItem.addRow(true, rowItem);
