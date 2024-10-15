@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hra1600.jsp
      * @Description       : 원천징수영수증 조회/출력 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.08.14
@@ -104,7 +104,7 @@
                 </td>
                 <td colspan="2" style="border-right: hidden;"></td>
                 <th scope="row" class="th_bg">암호화여부</th>
-                <td class="td_input" style="border-right: hidden; display: none">
+                <td class="td_input" style="border-right: hidden;">
                     <sbux-checkbox
                             id="SRCH_CHKENCRYPTION_YN"
                             name="SRCH_CHKENCRYPTION_YN"

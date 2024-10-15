@@ -111,15 +111,15 @@
                 <colgroup>
                     <col style="width:5%">
                     <col style="width:5%">
-                    <col style="width:2%">
+                    <col style="width:0.5%">
 
                     <col style="width:5%">
                     <col style="width:5%">
-                    <col style="width:2%">
+                    <col style="width:0.5%">
 
                     <col style="width:5%">
                     <col style="width:5%">
-                    <col style="width:2%">
+                    <col style="width:0.5%">
 
                 </colgroup>
                 <tr>
@@ -185,11 +185,11 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">비고</th>
-                    <td colspan="7" class="td_input">
+                    <td colspan="8" class="td_input">
                         <sbux-textarea id="MEMO" name="MEMO"  uitype="normal" rows="3" wrap-style="width:100%">
                         </sbux-textarea>
                     </td>
-                    <td style="border-right: hidden;"></td>
+                    <%--<td style="border-right: hidden;"></td>--%>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">파일생성경로</th>
@@ -202,7 +202,8 @@
                         ></sbux-input>
                         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
                     </td>
-                    <td colspan="4" class="td_input" >
+                    <td style="border-right: hidden;"></td>
+                    <td colspan="3" class="td_input" >
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="normal"
