@@ -139,12 +139,13 @@
 								WHERE 1=1
 								  AND RO.CRTR_YR = AP.CRTR_YR
 								<if test='userType == "27"'>
-								  AND SUBSTR(RO.CTPV_CD, 0 , 4) = (SELECT SUBSTR(CTPV, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
+								  AND SUBSTR(RO.APC_ADM_CD , 0 , 2) = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
 								</if>
 								<if test='userType == "28"'>
-								  AND SUBSTR(RO.SIGUN_CD, 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
+								  AND SUBSTR(RO.APC_ADM_CD , 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 								</if>
 								)
+
 				</if>
 			</if>
 	</select>
