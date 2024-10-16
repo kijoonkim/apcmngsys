@@ -3215,20 +3215,12 @@
             console.log('data:', data);
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    param.push()
-
-                    var keys = Object.keys(data);
-                    for (var i=0; i<keys.length; i++) {
-                        if(keys[i].indexOf("cv_") > -1) {
-                            param.forEach((item) => {
-                                item.data.root.hasOwnProperty(keys[i])
-                            })
-
-                            param.push({data: {root: json[keys[i]]}})
-                        }
-                    }
-
-                    console.log(data)
+                    gfn_popClipReportPost(
+                        "인사기록카드",
+                        reportFilePath,
+                        null,
+                        gfnma_convertDataForReport(data)
+                    );
                 } else {
                     alert(data.resultMessage);
                 }
@@ -3242,14 +3234,6 @@
             }
         }
 
-        console.log(param);
-
-        gfn_popClipReportPost(
-            "인사기록카드",
-            reportFilePath,
-            null,
-            param
-        );
         /*        SBUxMethod.attr('modal-comPopHri1000Report', 'header-title', '인사기록카드 출력');
                 SBUxMethod.openModal('modal-comPopHri1000Report');
 

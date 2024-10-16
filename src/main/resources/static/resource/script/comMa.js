@@ -1660,3 +1660,28 @@ const gfnma_findReportFilePath = async function(reportType) {
 
 	return reportFilePath;
 }
+
+/**
+ * @name 		gfnma_convertDataForReport
+ * @description 서버에서 조회한 data를 report용 data로 변환
+ * @function
+ * @param 		{object} data
+ * @returns 	{object}
+ */
+function gfnma_convertDataForReport(data) {
+	const param = [];
+	let regx = /^cv_\d+$/;
+	let keys = Object.keys(data);
+
+	for (var i = 0; i < keys.length; i++) {
+		if(regx.test(keys[i])) {
+			let index = keys[i].replace("cv_", "") - 1;
+			while (param.length <= index) {
+				param.push({data: { root: []}});
+			}
+			param[index].data.root = data[keys[i]];
+		}
+	}
+
+	return param;
+}
