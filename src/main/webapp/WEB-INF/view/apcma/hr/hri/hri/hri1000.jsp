@@ -208,7 +208,7 @@
                                 <tr>
                                     <td rowspan="5" id="empPhotoArea" class="td_input" style="position: relative; vertical-align: top;">
                                         <img id="EMP_PHOTO" style="width: 100%; height: 100%; position: absolute;">
-                                        <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                        <div id="DIV_EMP_PHOTO" style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                                             <span>사진 업로드</span>
                                         </div>
                                         <input type="file" name="EMP_PHOTO_FILE" id="EMP_PHOTO_FILE" accept="image/*" style="display: none;">
@@ -1695,7 +1695,7 @@
 
         document.getElementById('EMP_PHOTO_FILE').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"))
+            let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
 
             if(EMP_CODE != "") {
                 fn_imgUpload(EMP_CODE, file, "1");
@@ -1704,7 +1704,7 @@
 
         document.getElementById('SIGN_IMG_FILE').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE"))
+            let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
 
             if(EMP_CODE != "") {
                 fn_imgUpload(EMP_CODE, file, "2");
@@ -2385,11 +2385,13 @@
         if(gfn_nvl(data.EMP_PHOTO_NAME) != "") {
             SBUxMethod.set("EMP_PHOTO_NAME", data.EMP_PHOTO_NAME);
             $("#EMP_PHOTO").attr("src", "/com/getFileImage.do?fkey="+data.EMP_PHOTO_NAME+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+            $("#DIV_EMP_PHOTO").hide();
         }
 
         if(gfn_nvl(data.SIGN_IMG_NAME) != "") {
             SBUxMethod.set("SIGN_IMG_NAME", data.SIGN_IMG_NAME);
             $("#SIGN_IMG").attr("src", "/com/getFileImage.do?fkey="+data.SIGN_IMG_NAME+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+            $("#DIV_SIGN_IMG").hide();
         }
 
         if(data.JOB_GROUP == '3') {
@@ -3142,10 +3144,12 @@
                     SBUxMethod.set("EMP_PHOTO_NAME", data.imgKey);
                     SBUxMethod.set("EMP_PHOTO_PATH", data.params[6]);
                     $("#EMP_PHOTO").attr("src", "/com/getFileImage.do?fkey="+data.imgKey+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+                    $("#DIV_EMP_PHOTO").hide();
                 } else if(type == "2") {
                     SBUxMethod.set("SIGN_IMG_NAME", data.imgKey);
                     SBUxMethod.set("SIGN_IMG_PATH", data.params[6]);
                     $("#SIGN_IMG").attr("src", "/com/getFileImage.do?fkey="+data.imgKey+"&comp_code="+gv_ma_selectedApcCd+"&client_code=" + gv_ma_selectedClntCd );
+                    $("#DIV_SIGN_IMG").hide();
                 }
                 console.log('result =====>>>>>>>', data);
             } else {
@@ -3211,20 +3215,12 @@
             console.log('data:', data);
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    param.push()
-
-                    var keys = Object.keys(data);
-                    for (var i=0; i<keys.length; i++) {
-                        if(keys[i].indexOf("cv_") > -1) {
-                            param.forEach((item) => {
-                                item.data.root.hasOwnProperty(keys[i])
-                            })
-
-                            param.push({data: {root: json[keys[i]]}})
-                        }
-                    }
-
-                    console.log(data)
+                    gfn_popClipReportPost(
+                        "인사기록카드",
+                        reportFilePath,
+                        null,
+                        gfnma_convertDataForReport(data)
+                    );
                 } else {
                     alert(data.resultMessage);
                 }
@@ -3238,14 +3234,6 @@
             }
         }
 
-        console.log(param);
-
-        gfn_popClipReportPost(
-            "인사기록카드",
-            reportFilePath,
-            null,
-            param
-        );
         /*        SBUxMethod.attr('modal-comPopHri1000Report', 'header-title', '인사기록카드 출력');
                 SBUxMethod.openModal('modal-comPopHri1000Report');
 
