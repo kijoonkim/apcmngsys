@@ -446,7 +446,7 @@
                     <div id="sb-area-gvwSupportFamily" style="height:200px; width:100%;"></div>
                 </div>
 
-                <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
+                <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false" onclick="fn_btnTab()">
                 </sbux-tabs>
                 <div class="tab-content">
                     <div id="tabInfo1" >
@@ -1710,7 +1710,7 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-gvwPensionSaving" style="height:800px; width:100%;"></div>
+                            <div id="sb-area-gvwPensionSaving" style="height:330px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="tabInfo8" >
@@ -1741,7 +1741,7 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-gvwHouseMonthly" style="height:800px; width:100%;"></div>
+                            <div id="sb-area-gvwHouseMonthly" style="height:330px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="tabInfo9" >
@@ -1772,7 +1772,7 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-gvwMedExpense" style="height:800px; width:100%;"></div>
+                            <div id="sb-area-gvwMedExpense" style="height:330px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="tabInfo10" >
@@ -1803,19 +1803,19 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDonation" style="height:800px; width:100%;"></div>
+                            <div id="sb-area-gvwDonation" style="height:330px; width:100%;"></div>
                         </div>
                         <sbux-tabs id="tabJson1" name="tabJson1" uitype="normal" jsondata-ref="tabJsonData1" is-scrollable="false">
                         </sbux-tabs>
                         <div class="tab-content">
                             <div id="tabInfo111" >
                                 <div>
-                                    <div id="sb-area-gvwDonationAdjust" style="height:800px; width:100%;"></div>
+                                    <div id="sb-area-gvwDonationAdjust" style="height:250px; width:100%;"></div>
                                 </div>
                             </div>
                             <div id="tabInfo222" >
                                 <div>
-                                    <div id="sb-area-gvwDonationAdjust2" style="height:800px; width:100%;"></div>
+                                    <div id="sb-area-gvwDonationAdjust2" style="height:250px; width:100%;"></div>
                                 </div>
                             </div>
                             <div id="tabInfo333" >
@@ -1841,7 +1841,7 @@
                                     ></sbux-button>
                                 </div>
                                 <div>
-                                    <div id="sb-area-gvwDonationAdjust3" style="height:800px; width:100%;"></div>
+                                    <div id="sb-area-gvwDonationAdjust3" style="height:330px; width:100%;"></div>
                                 </div>
                             </div>
                         </div>
@@ -1874,7 +1874,7 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-gvwInsure" style="height:800px; width:100%;"></div>
+                            <div id="sb-area-gvwInsure" style="height:330px; width:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -1928,6 +1928,7 @@
     var jsonPensDedType = []; //소득공제구분 ( L_HRA012 )PENS_DED_TYPE
     var jsonInvestmentType = []; //투자조합구분 ( L_HRA069 )INVESTMENT_TYPE
     var jsonHouseType = []; //주택임차주택유형 ( L_HRA064 )HS_MM_RENT_TYPE, HSRENT_RDM_LEASE_TYPE
+    // TODO : 코드조회값이 없음
     var jsonSocialNoReal = []; //대상자 ( L_HRA042 )MED_SOCIAL_NO_REAL, DONATION_SOCIAL_NO_REAL,INSURE_SOCIAL_NO_REAL
     var jsonMedCertificateCode = []; //의료증빙코드 ( L_HRA007 )MED_CERTIFICATE_CODE
     var jsonDonYeTxRel = []; //기부금 관계코드 ( L_HRA043 )DON_YE_TX_REL
@@ -2114,6 +2115,8 @@
         fn_createAdjust2Grid();
         fn_createAdjust3Grid();
         fn_createInsureGrid();
+
+        fn_btnTab();
 
     }
 
@@ -2333,203 +2336,205 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.frozencols = 4;
         SBGridProperties.columns = [
-            {caption: ["가족성명"], ref: 'FAMILY_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["가족주민번호"], ref: 'FAMILY_SOCIAL_NO_REAL', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["가족성명"], ref: 'FAMILY_NAME', type: 'input', width: '100px', style: 'text-align:left'},
+            {caption: ["가족주민번호"], ref: 'FAMILY_SOCIAL_NO_REAL', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["가족주민번호"], ref: 'FAMILY_BIRTHDAY', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
             {caption : ["가족 관계코드"], ref : 'FAMILY_YE_TX_REL', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonFamilyYeTxRel', displayui : true, label : 'label', value : 'value'}
             },
             {caption : ["외국인"], ref : 'FAMILY_FOREI_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["기본공제"], ref : 'FAMILY_BASIC_DED_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["경로우대"], ref : 'FAMILY_SENIOR_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["부녀자"], ref : 'FAMILY_WOMAN_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["한부모"], ref : 'FAMILY_SINGLE_PARENT_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["장애인"], ref : 'FAMILY_HDCP_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyHdcpType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyHdcpType', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["7세이하"], ref : 'FAMILY_BRING_CHILD_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption : ["출생ㆍ입양"], ref : 'FAMILY_CHILDBIRTH_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["의료비(국세청)"], ref: 'MED_EXP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["의료비(국세청)"], ref: 'MED_EXP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["의료비(기타)"], ref: 'MED_EXP_AMT_ETC', type: 'input', width: '140px', style: 'text-align:left', hidden : true
+            {caption: ["의료비(기타)"], ref: 'MED_EXP_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["일반보장성보험(국세청)"], ref: 'INSURANCE_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["일반보장성보험(국세청)"], ref: 'INSURANCE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["일반보장성보험(기타)"], ref: 'INSURANCE_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["일반보장성보험(기타)"], ref: 'INSURANCE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["장애인전용보장성보험(국세청)"], ref: 'HDCP_INSURANCE_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["장애인전용보장성보험(국세청)"], ref: 'HDCP_INSURANCE_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["장애인전용보장성보험(기타)"], ref: 'HDCP_INSURANCE_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["장애인전용보장성보험(기타)"], ref: 'HDCP_INSURANCE_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption : ["교육비구분"], ref : 'EDU_EXP_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonEduExpType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonEduExpType', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["교육비(국세청)"], ref: 'EDU_EXP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["교육비(국세청)"], ref: 'EDU_EXP_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비(기타)"], ref: 'EDU_EXP_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["교육비(기타)"], ref: 'EDU_EXP_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비구분(장애인)"], ref: 'EDU_HDCP_TYPE', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["교육비구분(장애인)"], ref: 'EDU_HDCP_TYPE', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비(장애인,국세청)"], ref: 'EDU_EXP_HDCP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["교육비(장애인,국세청)"], ref: 'EDU_EXP_HDCP_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교육비(장애인,기타)"], ref: 'EDU_EXP_HDCP_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["교육비(장애인,기타)"], ref: 'EDU_EXP_HDCP_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(국세청)"], ref: 'CD_USE_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["신용카드(국세청)"], ref: 'CD_USE_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(기타)"], ref: 'CD_USE_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["신용카드(국세청)_3월"], ref: 'CD_USE_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(국세청)"], ref: 'CD_USE_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["신용카드(국세청)_4~7월"], ref: 'CD_USE_AMT_B_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(기타)"], ref: 'CD_USE_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["신용카드(국세청)_그외"], ref: 'CD_USE_AMT_C_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드 등(국세청)"], ref: 'CHKCD_USE_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["신용카드(기타)"], ref: 'CD_USE_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드 등(기타)"], ref: 'CHKCD_USE_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["직불카드 등(국세청)"], ref: 'CHKCD_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["현금영수증(국세청)"], ref: 'CASH_USE_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["직불카드 등(기타)"], ref: 'CHKCD_USE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(국세청)"], ref: 'TDMK_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["현금영수증(국세청)"], ref: 'CASH_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(기타)"], ref: 'TDMK_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["전통시장(국세청)"], ref: 'TDMK_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(국세청)(1~3)"], ref: 'TDMK_AMT1_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장(기타)"], ref: 'TDMK_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(기타)(1~3)"], ref: 'TDMK_AMT1_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장(국세청)(1~3)"], ref: 'TDMK_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(국세청)(4~12)"], ref: 'TDMK_AMT2_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장(기타)(1~3)"], ref: 'TDMK_AMT1_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(기타)(4~12)"], ref: 'TDMK_AMT2_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장(국세청)(4~12)"], ref: 'TDMK_AMT2_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["대중교통(국세청)"], ref: 'PBTRN_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장(기타)(4~12)"], ref: 'TDMK_AMT2_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~6월대중교통(국세청)"], ref: 'PBTRN_AMT_A_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["대중교통(국세청)"], ref: 'PBTRN_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["7~12월 대중교통(국세청)"], ref: 'PBTRN_AMT_B_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~6월대중교통(국세청)"], ref: 'PBTRN_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["대중교통(기타)"], ref: 'PBTRN_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["7~12월 대중교통(국세청)"], ref: 'PBTRN_AMT_B_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~6월 대중교통(기타)"], ref: 'PBTRN_AMT_A_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["대중교통(기타)"], ref: 'PBTRN_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["7~12월 대중교통(기타)"], ref: 'PBTRN_AMT_B_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~6월 대중교통(기타)"], ref: 'PBTRN_AMT_A_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["도서공연비(국세청)"], ref: 'BOOK_PERF_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["7~12월 대중교통(기타)"], ref: 'PBTRN_AMT_B_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["도서공연비(기타)"], ref: 'BOOK_PERF_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["도서공연비(국세청)"], ref: 'BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT1_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["도서공연비(기타)"], ref: 'BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT1_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~3월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT2_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~3월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT1_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT2_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["4~12월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT2_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["4~12월 도서공연비(기타)"], ref: 'BOOK_PERF_AMT2_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT1_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT1_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~3월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT1_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT2_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~3월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT1_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT2_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["4~12월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT2_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["4~12월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT2_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT1_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT1_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~3월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT1_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT2_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~3월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT1_ETC', type: 'input', width: '220px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT2_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["4~12월 직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT2_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["4~12월 직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT2_ETC', type: 'input', width: '220px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT1_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["4~12월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT2_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["1~3월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT1_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전년도사용액(국세청)"], ref: 'CD_USE_PREV_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["4~12월현금영수증도서공연비(국세청)"], ref: 'CASH_BOOK_PERF_AMT2_NTS', type: 'input', width: '220px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전년도사용액(기타)"], ref: 'CD_USE_PREV_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전년도사용액(국세청)"], ref: 'CD_USE_PREV_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["당해사용액(국세청)"], ref: 'CD_USE_THIS_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전년도사용액(기타)"], ref: 'CD_USE_PREV_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["당해사용액(기타)"], ref: 'CD_USE_THIS_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["당해사용액(국세청)"], ref: 'CD_USE_THIS_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장전년(국세청)"], ref: 'TDMK_PREV_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["당해사용액(기타)"], ref: 'CD_USE_THIS_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장전년(기타)"], ref: 'TDMK_PREV_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장전년(국세청)"], ref: 'TDMK_PREV_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장당해(국세청)"], ref: 'TDMK_THIS_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장전년(기타)"], ref: 'TDMK_PREV_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장당해(기타)"], ref: 'TDMK_THIS_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장당해(국세청)"], ref: 'TDMK_THIS_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기부금(국세청)"], ref: 'DON_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["전통시장당해(기타)"], ref: 'TDMK_THIS_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기부금(기타)"], ref: 'DON_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["기부금(국세청)"], ref: 'DON_AMT_NTS', type: 'input', width: '130px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["난임시술비"], ref: 'MED_INFERTILITY_AMT', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["기부금(기타)"], ref: 'DON_AMT_ETC', type: 'input', width: '130px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["산후조리원비"], ref: 'POSTPARTUM_CARE_CENTER_AMT', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["난임시술비"], ref: 'MED_INFERTILITY_AMT', type: 'input', width: '130px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["실손의료보험금"], ref: 'LOSS_MEDICAL_INSURANCE_AMT', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["산후조리원비"], ref: 'POSTPARTUM_CARE_CENTER_AMT', type: 'input', width: '130px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["미숙아·선천성이상아에 대한 의료비"], ref: 'PREEMIE_BABY_AMT', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["실손의료보험금"], ref: 'LOSS_MEDICAL_INSURANCE_AMT', type: 'input', width: '130px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교복구입비(국세청)"], ref: 'EDU_SCH_UNIFORM_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["미숙아·선천성이상아에 대한 의료비"], ref: 'PREEMIE_BABY_AMT', type: 'input', width: '200px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["교복구입비(기타)"], ref: 'EDU_SCH_UNIFORM_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["교복구입비(국세청)"], ref: 'EDU_SCH_UNIFORM_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["체험학습비(국세청)"], ref: 'EDU_EXP_TRAINING_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["교복구입비(기타)"], ref: 'EDU_SCH_UNIFORM_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["체험학습비(기타)"], ref: 'EDU_EXP_TRAINING_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["체험학습비(국세청)"], ref: 'EDU_EXP_TRAINING_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["수능/대학입학전형료(국세청)"], ref: 'EDU_EXP_SAT_PAY_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["체험학습비(기타)"], ref: 'EDU_EXP_TRAINING_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["수능/대학입학전형료(기타)"], ref: 'EDU_EXP_SAT_PAY_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["수능/대학입학전형료(국세청)"], ref: 'EDU_EXP_SAT_PAY_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption : ["자녀순서"], ref : 'FAMILY_CHILD_SEQ_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyChildSeqType', displayui : true, label : 'label', value : 'value'}
+            {caption: ["수능/대학입학전형료(기타)"], ref: 'EDU_EXP_SAT_PAY_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
+            {caption : ["자녀순서"], ref : 'FAMILY_CHILD_SEQ_TYPE', width : '130px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonFamilyChildSeqType', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["65세ㆍ장애인<의료비(국세청)>"], ref: 'MED_SENIOR_HDCP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["65세ㆍ장애인<의료비(국세청)>"], ref: 'MED_SENIOR_HDCP_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["65세ㆍ장애인<의료비(기타)>"], ref: 'MED_SENIOR_HDCP_AMT_ETC', type: 'input', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["65세ㆍ장애인<의료비(기타)>"], ref: 'MED_SENIOR_HDCP_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption : ["65세 이상ㆍ장애인"], ref : 'FAMILY_65AGE_HDC_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+            {caption : ["65세 이상ㆍ장애인"], ref : 'FAMILY_65AGE_HDC_YN', width : '140px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption : ["50세 이상"], ref : 'FAMILY_50AGE_YN', width : '100px', style : 'text-align:center', type : 'combo',
-                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}
+            {caption : ["50세 이상"], ref : 'FAMILY_50AGE_YN', width : '130px', style : 'text-align:center', type : 'combo',
+                typeinfo : {ref : 'jsonFamilyYn', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["장애인증명자료사업자번호"], ref: 'R101_BUSNID', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
-            {caption: ["장애인증명자료발급기관"], ref: 'R101_TRADE_NM', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
-            {caption: ["장애인증명자료장애내용"], ref: 'R101_PWD_CD', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
-            {caption: ["원천"], ref: 'DATA_SOURCE', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
+            {caption: ["장애인증명자료사업자번호"], ref: 'R101_BUSNID', type: 'output', width: '170px', style: 'text-align:left' , hidden : true},
+            {caption: ["장애인증명자료발급기관"], ref: 'R101_TRADE_NM', type: 'output', width: '170px', style: 'text-align:left', hidden : true},
+            {caption: ["장애인증명자료장애내용"], ref: 'R101_PWD_CD', type: 'output', width: '170px', style: 'text-align:left'  , hidden : true},
+            {caption: ["원천"], ref: 'DATA_SOURCE', type: 'output', width: '130px', style: 'text-align:left', hidden : true},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left', hidden : true}//스타일상 빈값
 
         ];
 
         gvwSupportGrid = _SBGrid.create(SBGridProperties);
-        /*gvwSupportGrid.bind('click', 'fn_view');*/
     }
 
     //인적공제 및 소득공제 명세 리스트
@@ -2550,35 +2555,34 @@
             {caption : ["소득공제구분"], ref : 'PENS_DED_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPensDedType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금융기관코드"], ref: 'PENS_BANK_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
+            {caption: ["금융기관코드"], ref: 'PENS_BANK_CODE', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["금융기관"], ref: 'PENSION_BANK_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["계좌번호(또는 증권번호)"], ref: 'PENSION_ACCOUNT_REAL', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["계좌번호(또는 증권번호)"], ref: 'PENSION_ACCOUNT_REAL', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  /*format : { type:'number' , rule:'#,###' }*/},
-            {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["ISA계좌 만기전환 순납입금액"], ref: 'ISA_DDCT_BS_ASS_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["ISA계좌 만기전환 순납입금액"], ref: 'ISA_DDCT_BS_ASS_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["공제금액"], ref: 'PENS_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["공제금액"], ref: 'PENS_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ['가입일자'], ref: 'PENS_JOIN_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['가입년도'], ref: 'INVESTMENT_YYYY', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
-            {caption: ["가입기간월수"], ref: 'PENS_CTR_TERM_MM_CNT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["가입기간월수"], ref: 'PENS_CTR_TERM_MM_CNT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' ,  emptyvalue:'0'}},
             {caption : ["투자조합구분"], ref : 'INVESTMENT_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonInvestmentType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["ISA계좌 만기전환 납입금액"], ref: 'ISA_ANN_TOT_AMT', type: 'output', width: '140px', style: 'text-align:left', hidden : true
+            {caption: ["ISA계좌 만기전환 납입금액"], ref: 'ISA_ANN_TOT_AMT', type: 'output', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["ISA계좌 만기전환 인출금액"], ref: 'ISA_TAX_YEAR_AMT', type: 'output', width: '140px', style: 'text-align:left', hidden : true
+            {caption: ["ISA계좌 만기전환 인출금액"], ref: 'ISA_TAX_YEAR_AMT', type: 'output', width: '140px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["gridColumnEx10"], ref: 'EXTRA_FIELD3', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
 
         ];
 
         gvwPensionSavingGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
 
@@ -2597,51 +2601,50 @@
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'HS_MM_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
-            {caption: ["월세액 임대인 성명(상호)"], ref: 'HS_MM_LESSOR_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["월세액 임대인 주민등록번호(사업자번호)"], ref: 'HS_MM_LESSOR_SOCNO_REAL', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["월세액 임대인 성명(상호)"], ref: 'HS_MM_LESSOR_NAME', type: 'input', width: '170px', style: 'text-align:left'},
+            {caption: ["월세액 임대인 주민등록번호(사업자번호)"], ref: 'HS_MM_LESSOR_SOCNO_REAL', type: 'input', width: '230px', style: 'text-align:left'},
             {caption : ["월세주택유형"], ref : 'HS_MM_RENT_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonHouseType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###.00', emptyvalue:'0.0' }},
+            {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0.0' }},
             {caption: ["월세액 주소지"], ref: 'HS_MM_LEASE_ADDRESS', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ['월세액 임대차 시작일'], ref: 'HS_MM_ST_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['월세액 임대차 종료일'], ref: 'HS_MM_END_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["월세액"], ref: 'HS_MM_RENT_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["월세액"], ref: 'HS_MM_RENT_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주택임차차입금 금전소비대차 대주 성명"], ref: 'HSRENT_RDM_LEN_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["주택임차차입금 금전소비대차 대주 주민등록번호"], ref: 'HSRENT_RDM_LEN_SOCNO_REAL', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ['주택임차차입금 금전소비대차 계약시작일'], ref: 'HSRENT_RDM_SPD_ST_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ["주택임차차입금 금전소비대차 대주 성명"], ref: 'HSRENT_RDM_LEN_NAME', type: 'input', width: '250px', style: 'text-align:left'},
+            {caption: ["주택임차차입금 금전소비대차 대주 주민등록번호"], ref: 'HSRENT_RDM_LEN_SOCNO_REAL', type: 'input', width: '270px', style: 'text-align:left'},
+            {caption: ['주택임차차입금 금전소비대차 계약시작일'], ref: 'HSRENT_RDM_SPD_ST_DAT', width:'250px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['주택임차차입금 금전소비대차 계약종료일'], ref: 'HSRENT_RDM_SPD_END_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['주택임차차입금 금전소비대차 계약종료일'], ref: 'HSRENT_RDM_SPD_END_DAT', width:'250px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["주택임차차입금 금전소비대차 이자율"], ref: 'HSRENT_RDM_INT_R', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["주택임차차입금 금전소비대차 이자율"], ref: 'HSRENT_RDM_INT_R', type: 'input', width: '230px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주택임차차입금 금전소비대차 원금"], ref: 'HSRENT_RDM_PRIN_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["주택임차차입금 금전소비대차 원금"], ref: 'HSRENT_RDM_PRIN_AMT', type: 'input', width: '230px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주택임차차입금 금전소비대차 이자"], ref: 'HSRENT_RDM_INT_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["주택임차차입금 금전소비대차 이자"], ref: 'HSRENT_RDM_INT_AMT', type: 'input', width: '230px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주택임차차입금 임대차 임대인 성명"], ref: 'HSRENT_RDM_LESSOR_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["주택임차차입금 임대차 임대인 주민등록번호"], ref: 'HSRENT_RDM_LESSOR_SOCNO_REAL', type: 'input', width: '140px', style: 'text-align:left'},
+            {caption: ["주택임차차입금 임대차 임대인 성명"], ref: 'HSRENT_RDM_LESSOR_NAME', type: 'input', width: '250px', style: 'text-align:left'},
+            {caption: ["주택임차차입금 임대차 임대인 주민등록번호"], ref: 'HSRENT_RDM_LESSOR_SOCNO_REAL', type: 'input', width: '250px', style: 'text-align:left'},
             {caption : ["주택임차주택유형"], ref : 'HSRENT_RDM_LEASE_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonHouseType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["주택임차계약면적(㎡)"], ref: 'HSRENT_RDM_LEASE_AREA', type: 'input', width: '140px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###.00', emptyvalue:'0.0' }},
-            {caption: ["주택임차차입금 임대차 주소"], ref: 'HSRENT_RDM_LEASE_ADDRESS', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ['주택임차차입금 임대차 계약시작일'], ref: 'HSRENT_RDM_LEASE_ST_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ["주택임차계약면적(㎡)"], ref: 'HSRENT_RDM_LEASE_AREA', type: 'input', width: '170px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0.0' }},
+            {caption: ["주택임차차입금 임대차 주소"], ref: 'HSRENT_RDM_LEASE_ADDRESS', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ['주택임차차입금 임대차 계약시작일'], ref: 'HSRENT_RDM_LEASE_ST_DAT', width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['주택임차차입금 임대차 계약종료일'], ref: 'HSRENT_RDM_LEASE_END_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['주택임차차입금 임대차 계약종료일'], ref: 'HSRENT_RDM_LEASE_END_DAT', width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["주택임차차입금 임대차 전세보증금"], ref: 'HSRENT_RDM_LEASE_DEP_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["주택임차차입금 임대차 전세보증금"], ref: 'HSRENT_RDM_LEASE_DEP_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
 
         ];
 
         gvwHouseMonthlyGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
     //의료비 지급명세서 리스트
@@ -2668,39 +2671,38 @@
             {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonMedCertificateCode', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["건수"], ref: 'MED_COUNT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["건수"], ref: 'MED_COUNT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
-            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["난임시술비 해당여부"], ref: 'MED_INFTY_TREATMENT_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["난임시술비 해당여부"], ref: 'MED_INFTY_TREATMENT_YN', type: 'checkbox', width: '170px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["미숙아ㆍ선천성 이상아 해당여부"], ref: 'PREEMIE_BABY_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["미숙아ㆍ선천성 이상아 해당여부"], ref: 'PREEMIE_BABY_YN', type: 'checkbox', width: '200px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["안경구입비여부"], ref: 'EYEGLASS_PUR_COST_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["안경구입비여부"], ref: 'EYEGLASS_PUR_COST_YN', type: 'checkbox', width: '170px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["산후조리원여부"], ref: 'POSTPARTUM_CARE_CENTER_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["산후조리원여부"], ref: 'POSTPARTUM_CARE_CENTER_YN', type: 'checkbox', width: '170px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["실손의료보험금"], ref: 'LOSS_MEDICAL_INSURANCE_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["실손의료보험금"], ref: 'LOSS_MEDICAL_INSURANCE_YN', type: 'checkbox', width: '170px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["증권번호"], ref: 'MED_ACC_NO', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["보험종류"], ref: 'MED_GOODS_NM', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
-            {caption: ["피보험자 주민등록번호"], ref: 'MED_INSU_RESID', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
+            {caption: ["피보험자 주민등록번호"], ref: 'MED_INSU_RESID', type: 'input', width: '170px', style: 'text-align:left', hidden : true},
             {caption: ["피보험자 성명"], ref: 'MED_INSU_NM', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
 
         ];
 
         gvwMedExpenseGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
     //기부금 리스트
@@ -2732,19 +2734,18 @@
             },
             {caption: ["사업자등록번호"], ref: 'DON_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["상호"], ref: 'DON_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["건수"], ref: 'DON_COUNT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["건수"], ref: 'DON_COUNT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
-            {caption: ["공제대상기부금액"], ref: 'DED_TGT_DON_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["공제대상기부금액"], ref: 'DED_TGT_DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기부장려금 신청금액"], ref: 'DON_INCENTIVES_APPLY_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["기부장려금 신청금액"], ref: 'DON_INCENTIVES_APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
 
         ];
 
         gvwDonationGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
     //기부금 조정명세(전년도이월) 리스트
@@ -2766,23 +2767,22 @@
             {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonDonType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전년까지 공제된 금액"], ref: 'DON_ADJ_LAST_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["전년까지 공제된 금액"], ref: 'DON_ADJ_LAST_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["공제대상금액"], ref: 'DON_ADJ_TGT_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["공제대상금액"], ref: 'DON_ADJ_TGT_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["해당연도 공제금액"], ref: 'DON_ADJ_CURR_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["해당연도 공제금액"], ref: 'DON_ADJ_CURR_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["이월금액"], ref: 'DON_ADJ_TRANSFER_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["이월금액"], ref: 'DON_ADJ_TRANSFER_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
 
         ];
 
         gvwAdjustGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
     //기부금 조정명세(당해이월) 리스트
@@ -2804,23 +2804,22 @@
             {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonDonType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전년까지 공제된 금액"], ref: 'DON_ADJ_LAST_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["전년까지 공제된 금액"], ref: 'DON_ADJ_LAST_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["공제대상금액"], ref: 'DON_ADJ_TGT_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["공제대상금액"], ref: 'DON_ADJ_TGT_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["해당연도 공제금액"], ref: 'DON_ADJ_CURR_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["해당연도 공제금액"], ref: 'DON_ADJ_CURR_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["이월금액"], ref: 'DON_ADJ_TRANSFER_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["이월금액"], ref: 'DON_ADJ_TRANSFER_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
 
         ];
 
         gvwAdjust2Grid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
 
@@ -2843,23 +2842,22 @@
             {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonDonType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전년까지 공제된 금액"], ref: 'DON_ADJ_LAST_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["전년까지 공제된 금액"], ref: 'DON_ADJ_LAST_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["공제대상금액"], ref: 'DON_ADJ_TGT_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["공제대상금액"], ref: 'DON_ADJ_TGT_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["해당연도 공제금액"], ref: 'DON_ADJ_CURR_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["해당연도 공제금액"], ref: 'DON_ADJ_CURR_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["이월금액"], ref: 'DON_ADJ_TRANSFER_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["이월금액"], ref: 'DON_ADJ_TRANSFER_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
 
         ];
 
         gvwAdjust3Grid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
     //보험료 리스트
@@ -2887,14 +2885,13 @@
                 typeinfo : {ref : 'jsonInsureType', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["보험번호"], ref: 'INSURE_NO', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["건수"], ref: 'INSURE_COUNT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["건수"], ref: 'INSURE_COUNT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
-            {caption: ["보험금액"], ref: 'INSURE_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["보험금액"], ref: 'INSURE_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
         ];
 
         gvwInsureGrid = _SBGrid.create(SBGridProperties);
-        /*gvwPensionSavingGrid.bind('click', 'fn_view');*/
     }
 
     /**
@@ -3083,8 +3080,12 @@
 
             const data = await postJsonPromise;
 
+            console.log('--------fn_view---------', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
+
+                    // TODO : cv_4 - cv_29까지 데이터가 없음
 
                     jsonSupportList.length = 0;
                     data.cv_2.forEach((item, index) => {
@@ -3189,6 +3190,12 @@
                     });
 
                     gvwSupportGrid.rebuild();
+
+                    if (jsonSupportList.length > 0){
+                        jsonSupportList.forEach((item, index) => {
+                            gvwSupportGrid.setCellDisabled(index+1, 0, index+1, 1, true, false, true);
+                        })
+                    }
 
                     data.cv_3.forEach((item, index) => {
 
@@ -3550,11 +3557,113 @@
     const fn_addRow = async function () {
         let rowVal = gvwSupportGrid.getRow();
 
-        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwSupportGrid.addRow(true, { USE_YN: 'Y' });
-        }else{
-            gvwSupportGrid.insertRow(rowVal);
+        const msg = {
+            FAMILY_NAME                    : '',
+            FAMILY_SOCIAL_NO_REAL          : '',
+            FAMILY_BIRTHDAY                : '',
+            FAMILY_YE_TX_REL               : '',
+            FAMILY_FOREI_YN                : '',
+            FAMILY_BASIC_DED_YN            : '',
+            FAMILY_SENIOR_YN               : '',
+            FAMILY_WOMAN_YN                : '',
+            FAMILY_SINGLE_PARENT_YN        : '',
+            FAMILY_HDCP_TYPE               : '',
+            FAMILY_BRING_CHILD_YN          : '',
+            FAMILY_CHILDBIRTH_YN           : '',
+            MED_EXP_AMT_NTS                : 0,
+            MED_EXP_AMT_ETC                : 0,
+            INSURANCE_AMT_NTS              : 0,
+            INSURANCE_AMT_ETC              : 0,
+            HDCP_INSURANCE_AMT_NTS         : 0,
+            HDCP_INSURANCE_AMT_ETC         : 0,
+            EDU_EXP_TYPE                   : '',
+            EDU_EXP_AMT_NTS                : 0,
+            EDU_EXP_AMT_ETC                : 0,
+            EDU_HDCP_TYPE                  : 0,
+            EDU_EXP_HDCP_AMT_NTS           : 0,
+            EDU_EXP_HDCP_AMT_ETC           : 0,
+            CD_USE_AMT_NTS                 : 0,
+            CD_USE_AMT_A_NTS               : 0,
+            CD_USE_AMT_B_NTS               : 0,
+            CD_USE_AMT_C_NTS               : 0,
+            CD_USE_AMT_ETC                 : 0,
+            CHKCD_USE_AMT_NTS              : 0,
+            CHKCD_USE_AMT_ETC              : 0,
+            CASH_USE_AMT_NTS               : 0,
+            TDMK_AMT_NTS                   : 0,
+            TDMK_AMT_ETC                   : 0,
+            TDMK_AMT1_NTS                  : 0,
+            TDMK_AMT1_ETC                  : 0,
+            TDMK_AMT2_NTS                  : 0,
+            TDMK_AMT2_ETC                  : 0,
+            PBTRN_AMT_NTS                  : 0,
+            PBTRN_AMT_A_NTS                : 0,
+            PBTRN_AMT_B_NTS                : 0,
+            PBTRN_AMT_ETC                  : 0,
+            PBTRN_AMT_A_ETC                : 0,
+            PBTRN_AMT_B_ETC                : 0,
+            BOOK_PERF_AMT_NTS              : 0,
+            BOOK_PERF_AMT_ETC              : 0,
+            BOOK_PERF_AMT1_NTS             : 0,
+            BOOK_PERF_AMT1_ETC             : 0,
+            BOOK_PERF_AMT2_NTS             : 0,
+            BOOK_PERF_AMT2_ETC             : 0,
+            CD_BOOK_PERF_AMT_NTS           : 0,
+            CD_BOOK_PERF_AMT_ETC           : 0,
+            CD_BOOK_PERF_AMT1_NTS          : 0,
+            CD_BOOK_PERF_AMT1_ETC          : 0,
+            CD_BOOK_PERF_AMT2_NTS          : 0,
+            CD_BOOK_PERF_AMT2_ETC          : 0,
+            CHKCD_BOOK_PERF_AMT_NTS        : 0,
+            CHKCD_BOOK_PERF_AMT_ETC        : 0,
+            CHKCD_BOOK_PERF_AMT1_NTS       : 0,
+            CHKCD_BOOK_PERF_AMT1_ETC       : 0,
+            CHKCD_BOOK_PERF_AMT2_NTS       : 0,
+            CHKCD_BOOK_PERF_AMT2_ETC       : 0,
+            CASH_BOOK_PERF_AMT_NTS         : 0,
+            CASH_BOOK_PERF_AMT1_NTS        : 0,
+            CASH_BOOK_PERF_AMT2_NTS        : 0,
+            CD_USE_PREV_AMT_NTS            : 0,
+            CD_USE_PREV_AMT_ETC            : 0,
+            CD_USE_THIS_AMT_NTS            : 0,
+            CD_USE_THIS_AMT_ETC            : 0,
+            TDMK_PREV_AMT_NTS              : 0,
+            TDMK_PREV_AMT_ETC              : 0,
+            TDMK_THIS_AMT_NTS              : 0,
+            TDMK_THIS_AMT_ETC              : 0,
+            DON_AMT_NTS                    : 0,
+            DON_AMT_ETC                    : 0,
+            MED_INFERTILITY_AMT            : 0,
+            POSTPARTUM_CARE_CENTER_AMT     : 0,
+            LOSS_MEDICAL_INSURANCE_AMT     : 0,
+            PREEMIE_BABY_AMT               : 0,
+            EDU_SCH_UNIFORM_AMT_NTS        : 0,
+            EDU_SCH_UNIFORM_AMT_ETC        : 0,
+            EDU_EXP_TRAINING_AMT_NTS       : 0,
+            EDU_EXP_TRAINING_AMT_ETC       : 0,
+            EDU_EXP_SAT_PAY_AMT_NTS        : 0,
+            EDU_EXP_SAT_PAY_AMT_ETC        : 0,
+            FAMILY_CHILD_SEQ_TYPE          : '',
+            MED_SENIOR_HDCP_AMT_NTS        : 0,
+            MED_SENIOR_HDCP_AMT_ETC        : 0,
+            FAMILY_65AGE_HDC_YN            : '',
+            FAMILY_50AGE_YN                : '',
+            R101_BUSNID                    : '',
+            R101_TRADE_NM                  : '',
+            R101_PWD_CD                    : '',
+            DATA_SOURCE                    : '',
+
+            status: 'i'
         }
+
+        if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
+            gvwSupportGrid.addRow(true, msg);
+        }else{
+            gvwSupportGrid.insertRow(rowVal, 'below', msg);
+        }
+
+        // 테스트 gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BIRTHDAY'), false, false );
+
     }
 
     // 행삭제 (인적공제 및 소득공제 명세)
@@ -3570,12 +3679,38 @@
 
     // 행추가 (연금 저축 등 소득공제명세)
     const fn_addRow1 = async function () {
+
+        //테스트
+        /*console.log('------BBBBBB----', jsonSupportList);
+        gvwSupportGrid.refresh({'style' : true  });
+        console.log('-----AAAAA-----', jsonSupportList);*/
+
         let rowVal = gvwPensionSavingGrid.getRow();
 
+        const msg = {
+            PENS_SEQ                : '',
+            PENS_DED_TYPE           : '',
+            PENS_BANK_CODE          : '',
+            PENSION_BANK_NAME       : '',
+            PENSION_ACCOUNT_REAL    : '',
+            PENS_PAY_AMT            : 0,
+            ISA_DDCT_BS_ASS_AMT     : 0,
+            PENS_DEAMT              : 0,
+            PENS_JOIN_DAT           : '',
+            INVESTMENT_YYYY         : '',
+            PENS_CTR_TERM_MM_CNT    : 0,
+            INVESTMENT_TYPE         : '',
+            ISA_ANN_TOT_AMT         : 0,
+            ISA_TAX_YEAR_AMT        : 0,
+            EXTRA_FIELD3            : '',
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwPensionSavingGrid.addRow(true, { USE_YN: 'Y' });
+            gvwPensionSavingGrid.addRow(true, msg);
         }else{
-            gvwPensionSavingGrid.insertRow(rowVal);
+            gvwPensionSavingGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -3594,10 +3729,39 @@
     const fn_addRow2 = async function () {
         let rowVal = gvwHouseMonthlyGrid.getRow();
 
+        const msg = {
+            HS_MM_SEQ                       : '',
+            HS_MM_LESSOR_NAME               : '',
+            HS_MM_LESSOR_SOCNO_REAL         : '',
+            HS_MM_RENT_TYPE                 : '',
+            PENS_PAY_AMT                    : 0,
+            HS_MM_LEASE_ADDRESS             : '',
+            HS_MM_ST_DAT                    : '',
+            HS_MM_END_DAT                   : '',
+            HS_MM_RENT_AMT                  : 0,
+            HSRENT_RDM_LEN_NAME             : '',
+            HSRENT_RDM_LEN_SOCNO_REAL       : '',
+            HSRENT_RDM_SPD_ST_DAT           : '',
+            HSRENT_RDM_SPD_END_DAT          : '',
+            HSRENT_RDM_INT_R                : 0,
+            HSRENT_RDM_PRIN_AMT             : 0,
+            HSRENT_RDM_INT_AMT              : 0,
+            HSRENT_RDM_LESSOR_NAME          : '',
+            HSRENT_RDM_LESSOR_SOCNO_REAL    : '',
+            HSRENT_RDM_LEASE_TYPE           : '',
+            HSRENT_RDM_LEASE_AREA           : 0,
+            HSRENT_RDM_LEASE_ADDRESS        : '',
+            HSRENT_RDM_LEASE_ST_DAT         : '',
+            HSRENT_RDM_LEASE_END_DAT        : '',
+            HSRENT_RDM_LEASE_DEP_AMT        : 0,
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwHouseMonthlyGrid.addRow(true, { USE_YN: 'Y' });
+            gvwHouseMonthlyGrid.addRow(true, msg);
         }else{
-            gvwHouseMonthlyGrid.insertRow(rowVal);
+            gvwHouseMonthlyGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -3616,10 +3780,32 @@
     const fn_addRow3 = async function () {
         let rowVal = gvwMedExpenseGrid.getRow();
 
+        const msg = {
+            MED_SEQ                     : '',
+            MED_SOCNO                   : '',
+            MED_SOCIAL_NO_REAL          : '',
+            MED_COM_NUM                 : '',
+            MED_NAME                    : '',
+            MED_CERTIFICATE_CODE        : '',
+            MED_COUNT                   : 0,
+            MED_EXP_AMT                 : 0,
+            MED_INFTY_TREATMENT_YN      : '',
+            PREEMIE_BABY_YN             : '',
+            EYEGLASS_PUR_COST_YN        : '',
+            POSTPARTUM_CARE_CENTER_YN   : '',
+            LOSS_MEDICAL_INSURANCE_YN   : '',
+            MED_ACC_NO                  : '',
+            MED_GOODS_NM                : '',
+            MED_INSU_RESID              : '',
+            MED_INSU_NM                 : '',
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwMedExpenseGrid.addRow(true, { USE_YN: 'Y' });
+            gvwMedExpenseGrid.addRow(true, msg);
         }else{
-            gvwMedExpenseGrid.insertRow(rowVal);
+            gvwMedExpenseGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -3638,10 +3824,26 @@
     const fn_addRow4 = async function () {
         let rowVal = gvwDonationGrid.getRow();
 
+        const msg = {
+            DON_SEQ                     : '',
+            DONATION_SOCIAL_NO_REAL     : '',
+            DON_YE_TX_REL               : '',
+            DON_TYPE_NTS_YN             : '',
+            DON_TYPE                    : '',
+            DON_COM_NUM                 : '',
+            DON_NAME                    : '',
+            DON_COUNT                   : 0,
+            DED_TGT_DON_AMT             : 0,
+            DON_INCENTIVES_APPLY_AMT    : 0,
+            DON_AMT                     : 0,
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwDonationGrid.addRow(true, { USE_YN: 'Y' });
+            gvwDonationGrid.addRow(true, msg);
         }else{
-            gvwDonationGrid.insertRow(rowVal);
+            gvwDonationGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -3660,10 +3862,24 @@
     const fn_addRow5 = async function () {
         let rowVal = gvwInsureGrid.getRow();
 
+        const msg = {
+            INSURE_SEQ                : '',
+            INSURE_SOCNO              : '',
+            INSURE_SOCIAL_NO_REAL     : '',
+            INSURE_COM_NUM            : '',
+            INSURE_NAME               : '',
+            INSURE_TYPE               : '',
+            INSURE_NO                 : '',
+            INSURE_COUNT              : 0,
+            INSURE_AMT                : 0,
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwInsureGrid.addRow(true, { USE_YN: 'Y' });
+            gvwInsureGrid.addRow(true, msg);
         }else{
-            gvwInsureGrid.insertRow(rowVal);
+            gvwInsureGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -3681,6 +3897,19 @@
     // 행추가 (전년도이월 기부금 관리 리스트)
     const fn_addRow6 = async function () {
         let rowVal = gvwAdjust3Grid.getRow();
+
+        const msg = {
+            DON_YYYY                    : '',
+            DON_TYPE                    : '',
+            DON_AMT                     : 0,
+            DON_ADJ_LAST_YEAR_DEAMT     : 0,
+            DON_ADJ_TGT_DEAMT           : 0,
+            DON_ADJ_CURR_YEAR_DEAMT     : 0,
+            DON_ADJ_DESTROY_AMT         : 0,
+            DON_ADJ_TRANSFER_AMT        : 0,
+
+            status: 'i'
+        }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
             gvwAdjust3Grid.addRow(true, { USE_YN: 'Y' });
@@ -5015,12 +5244,246 @@
 
     }
 
-    //전체삭제
+    /**
+     * 탭 선택시 확인후 조회
+     */
+    const fn_btnTab = async function () {
+
+        let tabId = gfnma_nvl(SBUxMethod.get('tabJson'));
+
+        if (tabId == ''){
+            return;
+        }
+
+        gvwSupportGrid.refresh({'style' : true  });
+
+        if (_.isEqual(tabId, 'tabInfo1')){
+
+            /********************** 연금보험료공제 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_FOREI_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SENIOR_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_WOMAN_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SINGLE_PARENT_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BRING_CHILD_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILDBIRTH_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_USE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_USE_AMT_A_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_USE_AMT_B_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_USE_AMT_C_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_USE_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_USE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_USE_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CASH_USE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('BOOK_PERF_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('BOOK_PERF_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILD_SEQ_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_65AGE_HDC_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_50AGE_YN'), false, true );
+
+
+        }else if (_.isEqual(tabId, 'tabInfo2')){
+
+            /********************** 특별소득공제 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_FOREI_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SENIOR_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_WOMAN_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SINGLE_PARENT_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BRING_CHILD_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILDBIRTH_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILD_SEQ_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_65AGE_HDC_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_50AGE_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+
+        }else if (_.isEqual(tabId, 'tabInfo3')){
+
+            /********************** 그 밖에 소득공제 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_USE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_USE_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_USE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_USE_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CASH_USE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT1_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT2_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT1_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('TDMK_AMT2_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('PBTRN_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('PBTRN_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('BOOK_PERF_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('BOOK_PERF_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_BOOK_PERF_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_BOOK_PERF_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_BOOK_PERF_AMT1_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_BOOK_PERF_AMT2_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_BOOK_PERF_AMT1_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CD_BOOK_PERF_AMT2_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_BOOK_PERF_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_BOOK_PERF_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_BOOK_PERF_AMT1_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_BOOK_PERF_AMT2_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_BOOK_PERF_AMT1_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CHKCD_BOOK_PERF_AMT2_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('CASH_BOOK_PERF_AMT_NTS'), false, true );
+
+
+        }else if (_.isEqual(tabId, 'tabInfo4')){
+
+            /********************** 세액감면/세액공제 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_FOREI_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SENIOR_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_WOMAN_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SINGLE_PARENT_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILDBIRTH_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILD_SEQ_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_65AGE_HDC_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_50AGE_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BRING_CHILD_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+
+
+        }else if (_.isEqual(tabId, 'tabInfo5')){
+
+            /********************** 세액공제1 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_EXP_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_EXP_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_SENIOR_HDCP_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_SENIOR_HDCP_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_INFERTILITY_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('POSTPARTUM_CARE_CENTER_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('LOSS_MEDICAL_INSURANCE_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('PREEMIE_BABY_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('R101_BUSNID'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('R101_TRADE_NM'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('R101_PWD_CD'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_HDCP_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_HDCP_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_SCH_UNIFORM_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_SCH_UNIFORM_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_TRAINING_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_TRAINING_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_SAT_PAY_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('EDU_EXP_SAT_PAY_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DON_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DON_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('INSURANCE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('INSURANCE_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('HDCP_INSURANCE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('HDCP_INSURANCE_AMT_ETC'), false, true );
+
+        }else if (_.isEqual(tabId, 'tabInfo6')){
+
+            /********************** 세액공제2 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_FOREI_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SENIOR_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SINGLE_PARENT_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_WOMAN_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILDBIRTH_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILD_SEQ_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_65AGE_HDC_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_50AGE_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BRING_CHILD_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+
+        }else if (_.isEqual(tabId, 'tabInfo7')){
+
+            /********************** 연금저축 등 소득공제명세 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('empty'), false, true );
+
+
+        }else if (_.isEqual(tabId, 'tabInfo8')){
+
+            /********************** 월세액 등 소득공제명세 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_FOREI_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SENIOR_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_WOMAN_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SINGLE_PARENT_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILDBIRTH_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_CHILD_SEQ_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BRING_CHILD_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_50AGE_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_65AGE_HDC_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+
+        }else if (_.isEqual(tabId, 'tabInfo9')){
+
+            /********************** 의료비 지급명세서 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_SENIOR_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_HDCP_TYPE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_65AGE_HDC_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_FOREI_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BRING_CHILD_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_50AGE_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_EXP_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_EXP_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_SENIOR_HDCP_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_SENIOR_HDCP_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('R101_TRADE_NM'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('MED_INFERTILITY_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('POSTPARTUM_CARE_CENTER_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('LOSS_MEDICAL_INSURANCE_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('PREEMIE_BABY_AMT'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('R101_BUSNID'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('R101_PWD_CD'), false, true );
+
+        }else if (_.isEqual(tabId, 'tabInfo10')){
+
+            /********************** 기부금 지급명세서 *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_FOREI_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DON_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DON_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('empty'), false, true );
+
+
+        }else if (_.isEqual(tabId, 'tabInfo11')){
+
+            /********************** 보험료(국세청) *****************************/
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BASIC_DED_YN'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('DATA_SOURCE'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('INSURANCE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('INSURANCE_AMT_ETC'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('HDCP_INSURANCE_AMT_NTS'), false, true );
+            gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('HDCP_INSURANCE_AMT_ETC'), false, true );
+
+        }
+
+    }
+
+    // TODO : 전체삭제
     const fn_btnAllDelete = async function () {
 
     }
 
-    //종이없는 연말정산
+    // TODO : 종이없는 연말정산
     const fn_btnPaperless = async function () {
 
     }
