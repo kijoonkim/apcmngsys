@@ -36,14 +36,6 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-						id="btnDocRawMtrWgh"
-						name="btnDocRawMtrWgh"
-						uitype="normal"
-						class="btn btn-sm btn-primary"
-						onclick="fn_docRawMtrWgh"
-						text="정산서발행"
-					></sbux-button>
-					<sbux-button
 						id="btnReset"
 						name="btnReset"
 						uitype="normal"
@@ -55,7 +47,7 @@
 						id="btnSave"
 						name="btnSave"
 						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
+						class="btn btn-sm btn-primary"
 						onclick="fn_save"
 						text="저장"
 					></sbux-button>
@@ -66,6 +58,14 @@
 						class="btn btn-sm btn-outline-danger"
 						onclick="fn_search"
 						text="조회"
+					></sbux-button>
+					<sbux-button
+							id="btnDocRawMtrWgh"
+							name="btnDocRawMtrWgh"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							onclick="fn_docRawMtrWgh"
+							text="정산서발행"
 					></sbux-button>
 				</div>
 			</div>
@@ -99,30 +99,8 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
-							<td class="td_input"style="border-right: hidden;">
-								<sbux-datepicker
-									uitype="popup"
-									id="srch-dtp-wrhsYmdFrom"
-									name="srch-dtp-wrhsYmdFrom"
-									date-format="yyyy-mm-dd"
-									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-									onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
-								></sbux-datepicker>
-							</td>
-							<td colspan="2" class="td_input"style="border-right: hidden;">
-								<sbux-datepicker
-									uitype="popup"
-									id="srch-dtp-wrhsYmdTo"
-									name="srch-dtp-wrhsYmdTo"
-									date-format="yyyy-mm-dd"
-									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-									onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"
-								></sbux-datepicker>
-							</td>
-							<td></td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden;border-top: hidden">
 								<sbux-select
 									id="srch-slt-itemCd"
 									name="srch-slt-itemCd"
@@ -132,13 +110,33 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
-							<td colspan="1" class="td_input" style="border-right: hidden;" >
+							<td colspan="2" class="td_input" style="border-right: hidden;border-top: hidden" >
 							</td>
 							<th scope="row" class="th_bg">구분</th>
-							<td colspan="1" class="td_input" style="border-right:hidden;">
+							<td colspan="3" class="td_input" style="border-right: hidden;border-top: hidden">
+								<div style="margin-left: 10px;display: flex; gap: 20px;">
+								<sbux-radio id="rdo_norm1" name="rdo_norm" uitype="normal"
+											text="입고" value="input">
+								</sbux-radio>
+
+								<sbux-radio id="rdo_norm2" name="rdo_norm" uitype="normal"
+											text="출고" value="spmt">
+								</sbux-radio>
+								</div>
 							</td>
+							<td colspan="4" style="border-top: hidden"></td>
 						</tr>
 						<tr>
+						<tr>
+							<th scope="row" class="th_bg">거래처</th>
+							<td colspan="2" class="td_input" style="border-right: hidden;">
+								<sbux-input id="dtl-inp-cnptCd" name="dtl-inp-cnptCd" uitype="hidden"></sbux-input>
+								<sbux-input id="dtl-inp-cnptNm" name="dtl-inp-cnptNm" uitype="text" class="form-control input-sm input-sm-ast inpt_data_reqed" readonly></sbux-input>
+							</td>
+							<td colspan="2" class="td_input" style="border-right: hidden">
+								<sbux-button id="dtl-btn-cnpt" name="dtl-btn-cnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_choiceCnpt" text="찾기"  class="btn btn-xs btn-outline-dark"></sbux-button>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 
@@ -158,6 +156,13 @@
 			<!--[pp] //검색결과 -->
 		</div>
 	</section>
+	<!-- 거래처 선택 Modal -->
+	<div>
+		<sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-cnpt">
+		<jsp:include page="../../am/popup/cnptPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -202,21 +207,25 @@
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
-
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),						// 품목
 		]);
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 
+		//
+		//
+		// SBUxMethod.refresh('srch-dtp-wrhsYmdTo');
+		// SBUxMethod.refresh('srch-dtp-wrhsYmdFrom');
+		//
+		// SBUxMethod.set('srch-dtp-wrhsYmdTo',gfn_dateToTime(new Date()));
+		// SBUxMethod.set('srch-dtp-wrhsYmdFrom',gfn_dateToTime(new Date()));
 		fn_init();
-
 	});
 
 	const fn_init = async function() {
 		fn_reset();
 		fn_createWghPrfmncGrid();
-
 		fn_initSBSelect();
 	}
 
@@ -233,8 +242,8 @@
 	    SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.columns = [
             {caption: ['계량번호'], 	ref: 'wghno', hidden: true},
-        	{caption: ["체크박스"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
-				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
+        	{caption: ["선택"], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0,deletecaption: false}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ['계량일자'], 	ref: 'wghno', 		width: '120px', type: 'output', style:'text-align:center'},
             {caption: ['거래처'], 		ref: 'wghno', 		width: '120px', type: 'output', style:'text-align:center'},
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'output', style:'text-align:center'},
@@ -254,7 +263,7 @@
             {caption: ['순번'], 		ref: 'wghSn', 		width: '40px', type: 'output', style:'text-align:center',  hidden: true},
         ];
         grdWghPrfmnc = _SBGrid.create(SBGridProperties);
-        grdWghPrfmnc.bind('click', fn_view);
+        // grdWghPrfmnc.bind('click', fn_view);
     }
 
 
@@ -421,6 +430,20 @@
 		}
 	}
 
+	/**
+	 * 거래처 팝업 필수 함수
+	 * 시작
+	 */
+	const fn_choiceCnpt = function() {
+		let cnptNm = SBUxMethod.get("dtl-inp-cnptNm");
+		popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, cnptNm, fn_setCnpt);
+	}
+	const fn_setCnpt = function(cnpt) {
+		if (!gfn_isEmpty(cnpt)) {
+			SBUxMethod.set("dtl-inp-cnptCd", cnpt.cnptCd);
+			SBUxMethod.set("dtl-inp-cnptNm", cnpt.cnptNm);
+		}
+	}
 
 
 
@@ -433,6 +456,35 @@
 	const fn_onChangeApc = async function() {
 		fn_init();
 	}
+
+	/** 마지막 셀 병합 수정 **/
+	$('table:first tr:first td:last').remove();
+
+	/** apc 명 옆 append **/
+	$('table:first tr:first').append(`<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
+							<td class="td_input"style="border-right: hidden;">
+								<sbux-datepicker
+									uitype="popup"
+									id="srch-dtp-wrhsYmdFrom"
+									name="srch-dtp-wrhsYmdFrom"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+									onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
+								></sbux-datepicker>
+							</td>
+							<td colspan="2" class="td_input"style="border-right: hidden;">
+								<sbux-datepicker
+									uitype="popup"
+									id="srch-dtp-wrhsYmdTo"
+									name="srch-dtp-wrhsYmdTo"
+									date-format="yyyy-mm-dd"
+									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+									onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"
+								></sbux-datepicker>
+							</td>
+							<td style="border-right: hidden"></td>
+							<td colspan="4"></td>
+`);
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
