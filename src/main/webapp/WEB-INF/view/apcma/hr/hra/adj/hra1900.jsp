@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp1900.jsp
      * @Description       : 연말정산 전산매체생성 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.08.28
@@ -111,15 +111,15 @@
                 <colgroup>
                     <col style="width:5%">
                     <col style="width:5%">
-                    <col style="width:2%">
+                    <col style="width:0.5%">
 
                     <col style="width:5%">
                     <col style="width:5%">
-                    <col style="width:2%">
+                    <col style="width:0.5%">
 
                     <col style="width:5%">
                     <col style="width:5%">
-                    <col style="width:2%">
+                    <col style="width:0.5%">
 
                 </colgroup>
                 <tr>
@@ -185,11 +185,11 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">비고</th>
-                    <td colspan="7" class="td_input">
+                    <td colspan="8" class="td_input">
                         <sbux-textarea id="MEMO" name="MEMO"  uitype="normal" rows="3" wrap-style="width:100%">
                         </sbux-textarea>
                     </td>
-                    <td style="border-right: hidden;"></td>
+                    <%--<td style="border-right: hidden;"></td>--%>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">파일생성경로</th>
@@ -202,7 +202,8 @@
                         ></sbux-input>
                         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="fn_importExcelData(event)">
                     </td>
-                    <td colspan="4" class="td_input" >
+                    <td style="border-right: hidden;"></td>
+                    <td colspan="3" class="td_input" >
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="normal"
@@ -291,6 +292,8 @@
     var jsonYeTxType = []; //출력구분 ( L_HRA029 )SRCH_YE_TX_TYPE
     var jsonTxSiteCode = []; //제출신고사업장 ( L_ORG003 )TX_SITE_CODE
     var jsonSiteCode = []; //사업장 ( L_ORG001 )SRCH_SITE_CODE
+    var jsonMedSocialNoReal = []; //대상자 주민등록번호 ( L_HRA042 )MED_SOCIAL_NO_REAL
+    var jsonMedCertificateCode = []; //의료증빙코드 ( L_HRA007 )MED_CERTIFICATE_CODE
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
@@ -298,6 +301,8 @@
             gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
             gfnma_setComSelect(['TX_SITE_CODE'], jsonTxSiteCode, 'L_ORG003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
             gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonYeTxType, 'L_HRA029', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCAGrid'], jsonMedSocialNoReal, 'L_HRA042', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCAGrid'], jsonMedCertificateCode, 'L_HRA007', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //사업장
@@ -538,12 +543,12 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption : ["대상자 주민등록번호"], ref : 'MED_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonMedSocialNoReal', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["사업자등록번호"], ref: 'MED_COM_NUM', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["상호"], ref: 'MED_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}, hidden : true
+                typeinfo : {ref : 'jsonMedCertificateCode', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
             {caption: ["건수"], ref: 'MED_COUNT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ }},

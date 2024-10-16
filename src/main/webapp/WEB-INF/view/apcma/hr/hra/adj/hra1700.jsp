@@ -178,7 +178,7 @@
         </table>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li>
@@ -192,7 +192,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-8">
+            <div class="col-sm-9">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li><span>사원정보</span></li>
@@ -326,7 +326,7 @@
                 <div class="tab-content">
                     <div id="tabInfo1" >
                         <div>
-                            <div id="sb-area-gvwIncome" style="height:380px; width:100%;"></div>
+                            <div id="sb-area-gvwIncome" style="height:530px; width:100%;"></div>
                         </div>
                     </div>
                     <div id="tabInfo2" >
@@ -2310,20 +2310,20 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["회사명"], ref: 'COMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["급여"], ref: 'PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["회사명"], ref: 'COMP_NAME', type: 'output', width: '150px', style: 'text-align:left'},
+            {caption: ["급여"], ref: 'PAY_AMT', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["상여"], ref: 'BONUS_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["상여"], ref: 'BONUS_AMT', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["인정상여"], ref: 'ADD_BONUS_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["인정상여"], ref: 'ADD_BONUS_AMT', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["주식매수선택권 행사이익"], ref: 'STOCK_PROFIT_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["주식매수선택권 행사이익"], ref: 'STOCK_PROFIT_AMT', type: 'output', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["우리사주조합인출금"], ref: 'EMP_STOCK_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["우리사주조합인출금"], ref: 'EMP_STOCK_AMT', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["임원 퇴직소득금액 한도초과액"], ref: 'EXEC_RET_LIM_OVER', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["임원 퇴직소득금액 한도초과액"], ref: 'EXEC_RET_LIM_OVER', type: 'output', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["합계"], ref: 'TOTAL_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["합계"], ref: 'TOTAL_AMT', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
         ];
 

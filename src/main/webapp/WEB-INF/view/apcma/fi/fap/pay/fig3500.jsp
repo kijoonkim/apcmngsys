@@ -1827,11 +1827,6 @@
 
             let listData = [];
             listData =  await getParamForm();
-            /* var paramObj = {
-                 P_HRP1170_S: await getParamForm('u')
-             }*/
-
-            console.log('--------listData save--------', listData);
 
             if (listData.length > 0) {
 
