@@ -3080,8 +3080,6 @@
 
             const data = await postJsonPromise;
 
-            console.log('--------fn_view---------', data);
-
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -3662,8 +3660,6 @@
             gvwSupportGrid.insertRow(rowVal, 'below', msg);
         }
 
-        // 테스트 gvwSupportGrid.setColHidden(gvwSupportGrid.getColRef('FAMILY_BIRTHDAY'), false, false );
-
     }
 
     // 행삭제 (인적공제 및 소득공제 명세)
@@ -3679,11 +3675,6 @@
 
     // 행추가 (연금 저축 등 소득공제명세)
     const fn_addRow1 = async function () {
-
-        //테스트
-        /*console.log('------BBBBBB----', jsonSupportList);
-        gvwSupportGrid.refresh({'style' : true  });
-        console.log('-----AAAAA-----', jsonSupportList);*/
 
         let rowVal = gvwPensionSavingGrid.getRow();
 

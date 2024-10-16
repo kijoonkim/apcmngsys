@@ -1430,8 +1430,6 @@
             ,V_P_PC: ''
         };
 
-        console.log('----------paramObj-----------',paramObj);
-
         const postJsonPromise = gfn_postJSON("/fi/fap/pay/selectFig3100List.do", {
             getType				: 'json',
             workType			: 'Q',
@@ -1441,7 +1439,6 @@
 
         const data = await postJsonPromise;
 
-        console.log('----------data-----------',data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
@@ -1548,8 +1545,6 @@
 
         if(nCol == 14 || nCol == 48 || nCol == 49) return;
 
-        console.log('------nCow-------',nCow);
-
         if (nRow < 1) {
             nRow = 1; //그리드 로우 첫번째값 셋팅
         }
@@ -1622,8 +1617,6 @@
 
             const data = await postJsonPromise;
 
-            console.log('--------view data---------', data);
-
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -1686,15 +1679,11 @@
              P_HRP1170_S: await getParamForm('u')
          }*/
 
-        console.log('--------listData save--------', listData);
-
         if (listData.length > 0) {
 
             const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100.do", {listData: listData});
 
             const data = await postJsonPromise;
-
-            console.log('--------listData data--------', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -1813,7 +1802,6 @@
                                     , V_P_PC: ''
                                 })
                             }
-                            console.log("---------param--------- : ", param);
                             returnData.push(param);
                         }
                     });
@@ -1938,13 +1926,11 @@
                         })
                     }
 
-                    console.log("---------param--------- : ", param);
                     returnData.push(param);
 
                 });
             }
 
-            console.log("---------returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -1959,8 +1945,6 @@
         /* var paramObj = {
              P_HRP1170_S: await getParamForm('u')
          }*/
-
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -2035,7 +2019,6 @@
                         })
                     }
 
-                    console.log("---------param--------- : ", param);
                     returnData.push(param);
 
                 });
@@ -2092,13 +2075,11 @@
                         })
                     }
 
-                    console.log("---------param--------- : ", param);
                     returnData.push(param);
 
                 });
             }
 
-            console.log("---------returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -2231,8 +2212,6 @@
 
         };
 
-        console.log('------fn_set_p_common_job_run : paramObj-----' , paramObj);
-
         const postJsonPromise = gfn_postJSON("/fi/fap/pay/insertFig3100COM.do", {
             getType: 'json',
             workType: workType,
@@ -2241,8 +2220,6 @@
         });
 
         const data = await postJsonPromise;
-
-        console.log('------fn_set_p_common_job_run : data-----' , data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -2275,8 +2252,6 @@
 
         let listData = [];
         listData = await getParamFormS2(workType);
-
-        console.log('--------fn_btnExclusion save--------', listData);
 
         if (listData.length > 0) {
 
@@ -2367,13 +2342,11 @@
                         })
                     }
 
-                    console.log("---------S2 param--------- : ", param);
                     returnData.push(param);
 
                 }
             });
 
-            console.log("---------S2 returnData--------- : ", returnData);
             return returnData;
 
         }
@@ -2432,9 +2405,6 @@
     const fn_gvwListDblclick = async function() {
         var nRow = gvwListGrid.getRow();
         var nCol = gvwListGrid.getCol();
-
-
-        console.log('-------------nCol----------------',nCol);
 
         if(nCol == 14) { //공급사 코드
 

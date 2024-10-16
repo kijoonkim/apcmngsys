@@ -2065,7 +2065,6 @@
 
         for (let i = 2; i < 31; i++){
             let dataArea = '#dataArea' + i;
-            /*console.log('---dataArea----',dataArea);*/
             gfnma_uxDataClear(dataArea);
         }
 

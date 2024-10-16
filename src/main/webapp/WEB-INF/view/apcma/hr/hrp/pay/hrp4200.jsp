@@ -510,8 +510,6 @@
    /* window.addEventListener('message', async function(event){
         let obj = event.data;
 
-        console.log('-------start-------', obj);
-
         if(!gfn_isEmpty(obj)){
             await fn_onload(obj);
         } else {

@@ -715,9 +715,6 @@
      */
     function fn_gridPopup(event, row, col) {
 
-        console.log('grid popup row:', row);
-        console.log('grid popup col:', col);
-
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup3(row, col);
     }
@@ -822,8 +819,6 @@
         let nCol = gvwMasterGrid.getCol();
         let nRow = gvwMasterGrid.getRow();
 
-        console.log('------nCol-------',nCol);
-
         if (nCol == -1) {
             return;
         }
@@ -884,8 +879,6 @@
             });
 
             const data = await postJsonPromise;
-
-            console.log('-----data-----',data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -1153,10 +1146,6 @@
     }
 
     const fn_importExcelData = function (e){
-
-       /* console.log('---------e---------',e);
-        //let FILE = SBUxMethod.get("btnFileUpload"); //사업장
-        console.log('---------FILE---------',e.files);*/
 
         SBUxMethod.openModal('modal-excel');
         /*fn_createGridGdsPopup();*/
