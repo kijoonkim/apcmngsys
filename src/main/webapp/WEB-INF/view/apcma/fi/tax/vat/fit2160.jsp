@@ -385,7 +385,7 @@
                                                          onclick="fn_removeRow('grdCalc')">
                                             </sbux-button>
                                         </div>
-                                        <div id="sb-area-grdCalc" style="width: 100%;"></div>
+                                        <div id="sb-area-grdCalc" style="height: 200px;"></div>
                                         <div class="ad_tbl_top">
                                             <ul class="ad_tbl_count">
                                                 <li><span>◎납부세액 또는 환급세액 재계산 명세</span></li>
@@ -403,7 +403,7 @@
                                                          onclick="fn_removeRow('grdReCalc')">
                                             </sbux-button>
                                         </div>
-                                        <div id="sb-area-grdReCalc" style="width: 100%;"></div>
+                                        <div id="sb-area-grdReCalc" style="height: 200px"></div>
                                     </div>
                                 </div>
                             </div>
@@ -579,6 +579,7 @@
         SBGridProperties.id = 'grdCalc';
         SBGridProperties.jsonref = 'jsonGrdCalc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
             {caption : ['총공통매입세액','총공통매입세액'], ref : 'CALC_TOTAL_COM_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
             {caption : ['면세사업등확정비율','면세공급가액'], ref : 'EXEMPTION_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
@@ -596,6 +597,7 @@
         SBGridProperties.id = 'grdReCalc';
         SBGridProperties.jsonref = 'jsonGrdReCalc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
             {caption : ['해당재화의매입세액','해당재화의매입세액'], ref : 'RECALC_GOODS_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
             {caption : ['경감률','비율(%)'], ref : 'RECALC_RATE',      width : '10%',   style : 'text-align:center',    type : 'input'},
