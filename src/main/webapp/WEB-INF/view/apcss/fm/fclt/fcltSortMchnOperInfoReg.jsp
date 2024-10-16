@@ -498,7 +498,6 @@
 
 				</tbody>
 			</table>
-
 			</div>
 			</div>
 			<!--[pp] //검색결과 -->
@@ -635,10 +634,10 @@
 
 		//예외처리
 		try {
-			console.log(data);
+			//console.log(data);
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
-				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부
+				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
 				if(sn == '4'){
 					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
 				}else{

@@ -716,7 +716,7 @@
 				}else{
 					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
 				}
-				//$('#itemNm'+item.sn).text("품목 : "+item.itemNm);
+				//$('#itemNm'+sn).text("품목 : "+item.itemNm);
 
 				//품목이 있는 줄만 조회 됨
 				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');
@@ -780,7 +780,7 @@
 		for (var i = 1; i < 5; i++) {
 			let nonVal = $('#warehouseSeCd_chk_mon_'+i+'_non').val();
 			let itemVo = [];
-			let itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
+			let itemChk = gfn_nvl(SBUxMethod.get('dtl-inp-itemChk'+i));
 			//품목 존재 여부 확인
 			if(itemChk == 'Y'){
 				//운영여부 확인
@@ -816,7 +816,7 @@
 			}
 		}
 		console.log(saveList);
-		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltSortMchnOperInfo.do", saveList);
+		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltSortMchnOperInfo.do", saveList);
 
 		const data = await postJsonPromise;
 

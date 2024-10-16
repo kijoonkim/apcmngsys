@@ -370,6 +370,8 @@
         fn_addDragEvn("cnptInfoWrap");
         fn_addDragEvn("prdcrInfoWrap");
         fn_addDragEvn("vrtyInfoWrap");
+
+        await fn_search();
     }
     const fn_create_pckgPrfmnc = async function(){
         var SBGridProperties = {};
@@ -611,7 +613,7 @@
         pckgObj.apcCd = gv_apcCd;
         pckgObj.pckgYmd = SBUxMethod.get('srch-dtp-pckgYmd');
         pckgObj.invntrQntt = parseInt($("#pckgQntt").val());
-        pckgObj.bxGdsQntt = $("div.tabBox_sm.active").text();
+        pckgObj.bxGdsQntt = parseInt($("div.tabBox_sm.active").text());
 
         pckgObj.rprsPrdcrCd = pckgObj.prdcrCd;
         delete pckgObj.prdcrCd;
@@ -636,7 +638,18 @@
         const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/insertPckgPrfmncSc.do", param);
         const data = await postJsonPromise;
 
-        fn_search();
+        try{
+            if(data.resultStatus === 'S'){
+                if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+                    gfn_comAlert("I0001");
+                }
+            }
+        }catch (e) {
+            console.error(e);
+        }
+
+        await fn_search();
+        await fn_reset();
         pckgObj = {};
     }
 
@@ -672,6 +685,12 @@
         }catch (e) {
             console.error(e);
         }
+    }
+
+    const fn_reset = function(){
+        $(".tabBox.active").removeClass('active');
+        $(".tabBox_sm.active").removeClass('active');
+        fn_RegReset();
     }
 
 

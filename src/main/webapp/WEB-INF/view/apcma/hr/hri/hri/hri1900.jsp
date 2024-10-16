@@ -152,14 +152,6 @@
     var p_menuId 	= '${comMenuVO.menuId}';
     //-----------------------------------------------------------
 
-    // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
-        fn_initSBSelect();
-        fn_createGrid();
-
-        cfn_search();
-    });
-
     var jsonSiteCode	= [];	// 사업장
     var jsonEmpState = []; // 재직구분
     var jsonPositionCode = []; // 직위
@@ -326,6 +318,17 @@
         ];
 
         gridViewEx1 = _SBGrid.create(SBGridProperties);
+    }
+
+    window.addEventListener('DOMContentLoaded', async function(e) {
+        await fn_initSBSelect();
+        fn_createGrid();
+
+        await fn_onload();
+    });
+
+    const fn_onload = async function () {
+        SBUxMethod.set('SRCH_EMP_STATE', "WORK");
     }
 
     // 조회

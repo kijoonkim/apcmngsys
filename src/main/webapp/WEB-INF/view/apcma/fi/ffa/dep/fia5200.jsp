@@ -25,6 +25,7 @@
 	<title>title : 감가상각계산 </title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -43,7 +44,7 @@
             <div class="box-body">
 
 
-                <table class="table table-bordered tbl_fixed">
+                <table id="searchTable" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -65,18 +66,33 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-corp" name="srch-slt-corp" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
+									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="search1" ></sbux-select>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">사업단위</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-bizUnit" name="srch-slt-bizUnit" class="form-control input-sm" uitype="single" jsondata-ref="jsonBizUnit"></sbux-select>
+									<sbux-select id="srch-slt-fiOrgCode" name="srch-slt-fiOrgCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonBizUnit" group-id="search1" ></sbux-select>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">사업장</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-bplc" name="srch-slt-bplc" class="form-control input-sm" uitype="single" jsondata-ref="jsonBplc"></sbux-select>
+
+									<div class="dropdown">
+										    <button
+										    	style="width:160px;text-align:left"
+										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+										    	type="button"
+										    	id="srch-slt-siteCode"
+										    	data-toggle="dropdown"
+										    	aria-haspopup="true"
+										    	aria-expanded="false">
+										    	<font>선택</font>
+										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+										    </button>
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    </div>
+										</div>
                             </td>
                             <td></td>
 
@@ -86,12 +102,13 @@
                             <th scope="row" class="th_bg">감가상각년월</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-dprcYm"
-									name="srch-dtp-dprcYm"
+									id="srch-dtp-depreciationYyyymm"
+									name="srch-dtp-depreciationYyyymm"
 									uitype="popup"
-									date-format="yyyy-mm-dd"
+									date-format="yyyymm"
+									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-clclnYmdFrom)"
+									group-id="search1"
 								></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -99,7 +116,7 @@
 							</td>
                             <th scope="row" class="th_bg">감가상각기준</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-dprcCrtr" name="srch-slt-dprcCrtr" class="form-control input-sm" uitype="single" jsondata-ref="jsonDprcCrtr"></sbux-select>
+									<sbux-select id="srch-slt-depreciationType" name="srch-slt-depreciationType" class="form-control input-sm" uitype="single" jsondata-ref="jsonDprcCrtr" group-id="search1" ></sbux-select>
                             </td>
                             <td></td>
                         </tr>
@@ -107,7 +124,7 @@
 
                             <th scope="row" class="th_bg">비고</th>
                             <td colspan="7" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm"></sbux-input>
+								<sbux-input uitype="text" id="srch-inp-memomemo" name="srch-inp-memomemo" class="form-control input-sm"></sbux-input>
                             </td>
 
                         </tr>
@@ -163,27 +180,54 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-	// ${comMenuVO.menuId}
-
+	var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+	var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
+	var p_userId = '${loginVO.id}';
 	//-----------------------------------------------------------
 
 	var editType			= "N";
 
 	var jsonRegionCode		= [];	// 지역
+	var jsonDprcCrtr = [];//감가상각기준
+	var jsonCorp = []; //법인
+	var jsonBizUnit = []; //사업단위
+	var jsonBplc = [];//사업장
 
+	// 신규
+	function cfn_add() {
+
+	}
+
+	// 그룹코드 내역, 세부코드 정보 저장
+    function cfn_save() {
+		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
+
+		}
+    }
+
+
+	// 마스터 그리드 삭제
+	function cfn_del() {
+
+	}
+
+	// 조회
+	function cfn_search() {
+		fn_queryClick();
+	}
 
 
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
-				target			: ['#srch-slt-bplc']
+				target			: ['#srch-slt-siteCode']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
@@ -201,9 +245,9 @@
 				]
 			}),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//감가상각기준
-			gfnma_setComSelect(['srch-slt-dprcCrtr'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
 		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -254,7 +298,7 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
         	{
-        		caption: [""], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
+        		caption: ["<input type='checkbox' id='allCheckbox' onchange='fn_checkAll(this);'>"], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
 					typeinfo: {
 						ignoreupdate : true,
 						fixedcellcheckbox : {
@@ -311,9 +355,15 @@
 
 
     const fn_queryClick = async function() {
-    {
         //if (!ValidateControls(panHeader))
         //    return;
+    	if(!SBUxMethod.validateRequired({group_id: 'search1'})){
+			return false;
+		}
+    	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
+    	if(siteCode === ""){
+    		return false;
+    	}
 
         fnQRY_P_FIA5200_Q("INFO");
 		fnQRY_P_FIA5200_Q("LOG");
@@ -321,15 +371,16 @@
 
     //strWorkType : INFO, LOG
     const fnQRY_P_FIA5200_Q = async function(strWorkType){
+
     	 var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
       			,V_P_COMP_CODE		: gv_ma_selectedApcCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-      			,V_P_ACCT_RULE_CODE	: NATION_CODE
-      			,V_P_TXN_ID_D       : strtxn_id
-      			,V_P_CIP_TRANSFER_NO_D : strcip_no
-      			,V_P_TXN_DATE_D	    : strtxn_date
+      		    ,V_P_FI_ORG_CODE    : ''
+      		    ,V_P_DEPRECIATION_YYYYMM : ''
+      		    ,V_P_DEPRECIATION_TYPE   : ''
+      		    ,V_P_SITE_CODE           : ''
       			,V_P_FORM_ID		: p_formId
       			,V_P_MENU_ID		: p_menuId
       			,V_P_PROC_ID		: ''
@@ -337,7 +388,12 @@
       			,V_P_PC				: ''
       	    };
 
-          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5100.do", {
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","memomemo");
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
+
+          const postJsonPromise = gfn_postJSON("/fi/fia/selectFia5200.do", {
            	getType				: 'json',
            	workType			:  strWorkType,
            	cv_count			: '1',
@@ -345,19 +401,36 @@
    			});
 
         	const data = await postJsonPromise;
+        	console.log('data:', data);
           // 비즈니스 로직 정보
            try {
-			   //info, log에 따라서 그리드에 데이터 넣어주는듯
-        	   if (strWorkType == "LOG"){
-                   //CommonProcessQuery(ServiceInfo.ERPBizDB, dtData, cProc.ProcName, cProc.GetParamInfo(), grdLog);
-               }
-               else if (strWorkType == "INFO"){
-                   //CommonProcessQuery(ServiceInfo.ERPBizDB, dtData, cProc.ProcName, cProc.GetParamInfo(), grdInfo);
-               }
+
 
 	          if (_.isEqual("S", data.resultStatus)) {
-	              gfn_comAlert("I0001");
-	              //fn_search();
+	              //gfn_comAlert("I0001");
+	        	  //info, log에 따라서 그리드에 데이터 넣어주는듯
+	        	   if (strWorkType == "LOG"){
+	        		   //grdDprcHstry
+	        		   data.cv_1.forEach((item, index) => {
+	        			   msg = {
+
+		  	  					}
+	        			   jsonDprcHstry.push(msg);
+	        		   })
+
+	        		   grdDprcHstry.rebuild();
+	               }
+	               else if (strWorkType == "INFO"){
+	            	   //grdAstClsfList
+	                   data.cv_1.forEach((item, index) => {
+	        			   msg = {
+
+		  	  					}
+	        			   jsonAstClsfList.push(msg);
+	        		   })
+
+	                   grdAstClsfList.rebuild();
+	               }
 	          } else {
 	              alert(data.resultMessage);
 	          }
@@ -381,42 +454,39 @@
          let bresult = false;
 
          let intmax_seq = 0;
-         let strsite_code = "";
-
-         //자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
-         for (int i = 0; i < gvwInfo.RowCount; i++){
-
-             if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
-                 intmax_seq = intmax_seq + 1;
-             }
-
-         }
-		 // 자산분류리스 체크열 값이 y인 경우 site_code 값에 따라 fnSET_P_FIA5200_S(조회,회계기준과 지역코드를 기준으로 조회)
-		 // cbodepreciation_type : 감가상각기준
          let intprogram_seq = 1;
-         for (int i = 0; i < gvwInfo.RowCount; i++){
-             if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
-                 bresult = false;
-                 strsite_code = gvwInfo.GetValue(i, "site_code").ToString();
-                 if (cbodepreciation_type.EditValue.ToString() == "1"){
-                     bresult = fnSET_P_FIA5200_S("GAAP", strsite_code);
-                 }
-                 else if (cbodepreciation_type.EditValue.ToString() == "2"){
-                     bresult = fnSET_P_FIA5200_S("IFRS", strsite_code);
-                 }
-                 else if (cbodepreciation_type.EditValue.ToString() == "3"){
-                     bresult = fnSET_P_FIA5200_S("TAX", strsite_code);
-                 }
-                 else{
-                     SetMessageBox(GetFormMessage("FIA5200_002")); //감가상각기준을 선택하여주시기 바랍니다.
-                     return;
-                 }
-                 intprogram_seq = intprogram_seq + 1;
-                 if (!bresult)
-                     break;
-             }
+         let strsite_code = "";
+		 let depreciationType = SBUxMethod.get("srch-slt-depreciationType");
 
-         }
+         let data = grdAstClsfList.getGridDataAll();
+
+      // 자산분류리스 체크열 값이 y인 경우 site_code 값에 따라 fnSET_P_FIA5200_S(조회,회계기준과 지역코드를 기준으로 조회)
+		 // cbodepreciation_type : 감가상각기준
+         data.forEach(item => {
+        	 if(item.checkedYn === "Y"){
+        			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
+     			intmax_seq = intmax_seq + 1;
+     			bresult = false;
+     			strsite_code = item.site_code;
+     			if(depreciationType === "1"){
+     				bresult = fnSET_P_FIA5200_S("GAAP", strsite_code);
+     			}else if(depreciationType === "2"){
+     				bresult = fnSET_P_FIA5200_S("IFRS", strsite_code);
+     			}else if(depreciationType === "3"){
+     				bresult = fnSET_P_FIA5200_S("TAX", strsite_code);
+     			}else{
+     				gfn_comAlert("I0001"); //감가상각기준을 선택하여주시기 바랍니다.
+     			}
+     			intprogram_seq = intprogram_seq + 1;
+     			if (!bresult){
+     				//break;
+     			}
+
+        	 }
+         })
+
+
+
          if (bresult){
              fn_queryClick();
          }
@@ -435,29 +505,30 @@
 
         let intmax_seq = 0;
         let strsite_code = "";
-        for (int i = 0; i < gvwInfo.RowCount; i++){
 
-            if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
-                intmax_seq = intmax_seq + 1;
-            }
-        }
-
+        let data = grdAstClsfList.getGridDataAll();
         let intprogram_seq = 1;
-        for (int i = 0; i < gvwInfo.RowCount; i++){
-            if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
-                bresult = false;
-                strsite_code = gvwInfo.GetValue(i, "site_code").ToString();
-                bresult = fnSET_P_FIA5200_S("CANCEL", strsite_code);
-                intprogram_seq = intprogram_seq + 1;
-                if (!bresult)
-                    break;
-            }
 
-        }
+        data.forEach(item => {
+	       	 if(item.checkedYn === "Y"){
+	       			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
+	    			intmax_seq = intmax_seq + 1;
+	    			bresult = false;
+	    			strsite_code = item.site_code;
+	   				bresult = fnSET_P_FIA5200_S("CANCEL", strsite_code);
+	    			intprogram_seq = intprogram_seq + 1;
+	    			if (!bresult){
+	    				//break;
+	    			}
+
+	       	 }
+        })
+
         if (bresult){
             fn_queryClick();
         }
   	}
+
 	//조회
 	// srrWorkType : GAAP, IFRS, TAX, CANCLE
     const fnSET_P_FIA5200_S = async function(strWorkType,strSiteCodeP){
@@ -466,10 +537,10 @@
       			,V_P_LANG_ID		: ''
       			,V_P_COMP_CODE		: gv_ma_selectedApcCd
       			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-      			,V_P_ACCT_RULE_CODE	: NATION_CODE
-      			,V_P_TXN_ID_D       : strtxn_id
-      			,V_P_CIP_TRANSFER_NO_D : strcip_no
-      			,V_P_TXN_DATE_D	    : strtxn_date
+      			,V_P_DEPRECIATION_YYYYMM : ''
+      			,V_P_DEPRECIATION_TYPE   : ''
+      			,V_P_SITE_CODE           : ''
+      			,V_P_MEMO                : ''
       			,V_P_FORM_ID		: p_formId
       			,V_P_MENU_ID		: p_menuId
       			,V_P_PROC_ID		: ''
@@ -477,14 +548,19 @@
       			,V_P_PC				: ''
       	    };
 
-          const postJsonPromise = gfn_postJSON("/fi/fia/searchFia5200.do", {
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","");
+ 		 if(!postFlag){
+ 	        return;
+ 	     }
+
+          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5200.do", {
            	getType				: 'json',
            	workType			:  strWorkType,
-           	cv_count			: '1',
+           	cv_count			: '0',
            	params				: gfnma_objectToString(paramObj)
    			});
 
-        	const data = await postJsonPromise;
+          const data = await postJsonPromise;
           // 비즈니스 로직 정보
            try {
           if (_.isEqual("S", data.resultStatus)) {
@@ -548,21 +624,23 @@
  	        }
     }
 
+    /**
+     * @name fn_checkAll
+     * @description 자산분류리스트 전체 체크/체크해제
+     * @param {checkbox} obj
+     */
+	const fn_checkAll = function(obj) {
+    	const data = grdAstClsfList.getGridDataAll();
+        const checkedYn = obj.checked ? "Y" : "N";
+        for (var i=0; i<data.length; i++ ){
+        	grdAstClsfList.setCellData(i+1, 0, checkedYn, true, false);
+        }
+    }
 
 
 
 
-    const fn_dtpChange = async function(){
-    	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
-    	let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
 
-    	if(inptYmdFrom > inptYmdTo){
-    		gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
-    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
-    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
-    		return;
-    	}
-     }
 
 
 

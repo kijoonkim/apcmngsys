@@ -125,14 +125,57 @@ public class ComMenuController extends BaseController {
 			getErrorResponseEntity(e);
 		}
 
-
-
 		return "apcss/am/popup/openClipReportPopup";
-
-
-
 	}
+	
+//	method = RequestMethod.POST,
+//            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	//@RequestMapping(value="/report/openClipReport.do", method = RequestMethod.GET)
+//	@PostMapping(value = "/report/openClipReport.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	@PostMapping(value = "/report/openClipReport.do")
+	public String doPostOpenClipReport(
+					Model model, 
+					@RequestParam String title,
+					@RequestParam String fileName,
+					@RequestParam String param,
+					HttpServletRequest request) throws Exception {
 
+		try {
+			String menuId = "clipReport";
+			ComUiJsonVO comUiJsonVO = new ComUiJsonVO();
+			comUiJsonVO.setMenuId(menuId);
+			ObjectMapper objMapper = new ObjectMapper();
+			String comUiJsonString = objMapper.writeValueAsString(comUiJsonVO);
+			model.addAttribute("comUiJson", comUiJsonString);
+
+			ComMenuVO pageVO = new ComMenuVO();
+			pageVO.setMenuId(menuId);
+			pageVO.setMenuNm("클립리포트");
+			
+			if (StringUtils.hasText(title)) {
+				pageVO.setMenuNm(title);
+			}
+
+			model.addAttribute("comMenuVO", pageVO);
+
+			model.addAttribute("reportDbName", getReportDbName());
+			model.addAttribute("reportUrl", getReportUrl());
+			model.addAttribute("reportType", getReportType());
+			model.addAttribute("reportPath", getReportPath());
+
+			model.addAttribute("title", title);
+			model.addAttribute("fileName", fileName);
+			model.addAttribute("param", param);
+			
+			request.getSession().setAttribute(ComConstants.PROP_SYS_PRGRM_ID, menuId);
+
+		} catch( Exception e) {
+			getErrorResponseEntity(e);
+		}
+
+		return "apcss/am/popup/openClipReportPostPopup";
+	}
+	
 	@RequestMapping(value="/report/serverTo.do", method = RequestMethod.POST)
 	public String doServerTo(Model model, HttpServletRequest request) throws Exception {
 		return "apcss/am/popup/report_serverTo";

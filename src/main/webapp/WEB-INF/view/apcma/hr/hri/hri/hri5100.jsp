@@ -100,6 +100,7 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
+                                onchange="fn_valueChangeForYmddate2(this)"
                         />
                     </td>
                 </tr>
@@ -135,10 +136,8 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
         fn_createGrid();
         fn_clearForm();
-        cfn_search();
     });
 
     function fnSrchChkgubunChange(args){
@@ -170,13 +169,6 @@
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.paging = {
-            'type' 			: 'page',
-            'count' 		: 5,
-            'size' 			: 20,
-            'sorttype' 		: 'page',
-            'showgoalpageui': true
-        };
         SBGridProperties.columns = [
             {caption: ["구분"],		ref: 'GUBUN', 			type:'output',  	width:'154px',  	style:'text-align:left'},
             {caption: ["년초"], 		ref: 'CNT',    	        type:'output',  	width:'75px',  	    style:'text-align:left'},
@@ -204,11 +196,10 @@
      * 목록 조회
      */
     const fn_search = async function() {
-
         gvwInfo.clearStatus();
 
-        let YMDDATE1	= gfnma_nvl(SBUxMethod.get("SRCH_YMDDATE1"));
-        let YMDDATE2	= gfnma_nvl(SBUxMethod.get("SRCH_YMDDATE2"));
+        let YMDDATE1	= gfn_nvl(SBUxMethod.get("SRCH_YMDDATE1"));
+        let YMDDATE2	= gfn_nvl(SBUxMethod.get("SRCH_YMDDATE2"));
         let srchChkgubun = SBUxMethod.get('SRCH_CHKGUBUN').SRCH_CHKGUBUN;
         var workType = 'Q';
 
@@ -279,6 +270,9 @@
                     gvwInfo.setColHidden(2, true, false);
                 }
 
+                if (gfn_nvl(SBUxMethod.get("SRCH_YMDDATE2")) != "") {
+                    gvwInfo.setCaption("구분^년초^기준일자("+gfn_nvl(SBUxMethod.get("SRCH_YMDDATE2"))+")^전주증가^전주감소^현재^전주계^비율^증가^감소^계^비고")
+                }
             } else {
                 alert(data.resultMessage);
             }
@@ -295,6 +289,20 @@
     const fn_clearForm = function() {
         SBUxMethod.set("SRCH_YMDDATE1", gfn_dateToYmd(new Date()));
     }
+
+    const fn_valueChangeForYmddate2 = async function(data) {
+        let date1 = gfn_nvl(SBUxMethod.get("SRCH_YMDDATE1"));
+        let date2 = gfn_nvl(SBUxMethod.get("SRCH_YMDDATE2"));
+
+        if (parseInt(date2) >= parseInt(date1)) {
+            gfn_comAlert("E0000", "기준일자2가 기준일자보다 늦을수 없습니다.");
+        }
+
+        if (date2 != "") {
+            gvwInfo.setCaption("구분^년초^기준일자("+date2+")^전주증가^전주감소^현재^전주계^비율^증가^감소^계^비고")
+        }
+    }
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -1,7 +1,7 @@
 <%
 /**
- * @Class Name 		: fia4300.jsp
- * @Description 	: 매각/폐기내역 등록
+ * @Class Name 		: fia5400.jsp
+ * @Description 	: 감가상각 내역
  * @author 			:
  * @since 			: 2024.06.28
  * @version 		: 1.0
@@ -25,6 +25,7 @@
 	<title>title : 감가상각 내역 </title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -45,7 +46,7 @@
 				</div>
 				<!--[APC] END -->
 			<div>
-                <table class="table table-bordered tbl_fixed">
+                <table id="searchTable" class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
                         <col style="width: 7%">
@@ -67,13 +68,13 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-corp" name="srch-slt-corp" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="search1" ></sbux-select>
+									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode1" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="search1" ></sbux-select>
                             </td>
                             <td></td>
 
                             <th scope="row" class="th_bg">회계단위</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-acntgCrtr" name="srch-slt-acntgCrtr" class="form-control input-sm" uitype="single" jsondata-ref="jsonAcntgUnit" group-id="search1"></sbux-select>
+									<sbux-select id="srch-slt-fiOrgCode" name="srch-slt-fiOrgCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonAcntgUnit" group-id="search1"></sbux-select>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">사업장</th>
@@ -84,14 +85,14 @@
 										    	style="width:160px;text-align:left"
 										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
 										    	type="button"
-										    	id="srch-slt-bplc"
+										    	id="srch-slt-siteCode"
 										    	data-toggle="dropdown"
 										    	aria-haspopup="true"
 										    	aria-expanded="false">
 										    	<font>선택</font>
 										        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 										    </button>
-										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-bplc" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+										    <div class="dropdown-menu bplc" aria-labelledby="srch-slt-siteCode" style="width:250px;height:150px;padding-top:0px;overflow:auto">
 										    </div>
 										</div>
                             </td>
@@ -102,27 +103,29 @@
                             <th scope="row" class="th_bg">기간</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-ymdFrom"
-									name="srch-dtp-ymdFrom"
+									id="srch-dtp-periodFr"
+									name="srch-dtp-periodFr"
 									uitype="popup"
-									date-format="yyyy-mm-dd"
+									date-format="yyyymm"
+									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-ymdFrom)"
 								></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
-									id="srch-dtp-ymdTo"
-									name="srch-dtp-ymdTo"
+									id="srch-dtp-periodTo"
+									name="srch-dtp-periodTo"
 									uitype="popup"
-									date-format="yyyy-mm-dd"
+									date-format="yyyymm"
+									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_dtpChange(srch-dtp-ymdTo)"
 								></sbux-datepicker>
 							</td>
                             <th scope="row" class="th_bg">감가상각기준</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-dprcCrtr" name="srch-slt-dprcCrtr" class="form-control input-sm" uitype="single" jsondata-ref="jsonDprcCrtr"></sbux-select>
+									<sbux-select id="srch-slt-depreciationType" name="srch-slt-depreciationType" class="form-control input-sm" uitype="single" jsondata-ref="jsonDprcCrtr"></sbux-select>
                             </td>
 
                         </tr>
@@ -184,24 +187,22 @@
 
 	// 조회
 	function cfn_search() {
-		fn_search();
-
+		fn_queryClick();
 	}
 
-	// ${comMenuVO.menuId}
 
-	// common ---------------------------------------------------
-	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
-	var p_menuId 	= '${comMenuVO.menuId}';
-	//-----------------------------------------------------------
+
+
 
 	var editType			= "N";
 
 	var jsonRegionCode		= [];	// 지역
 
-	// common ---------------------------------------------------
-    var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
-    var p_menuId = '${comMenuVO.menuId}';
+	var gv_ma_selectedApcCd	= '${loginVO.apcCd}';
+    var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
+ // common ---------------------------------------------------
+    var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
+    var p_menuId 	= '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
     //-----------------------------------------------------------
 	var saveButton = true;
@@ -216,10 +217,11 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfnma_setComSelect(['srch-slt-corp'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
+			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			//회계단위
+			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			gfnma_multiSelectInit({
-				target			: ['#srch-slt-bplc']
+				target			: ['#srch-slt-siteCode']
 				,compCode		: gv_ma_selectedApcCd
 				,clientCode		: gv_ma_selectedClntCd
 				,bizcompId		: 'L_ORG001'
@@ -237,10 +239,7 @@
 				]
 			}),
 			//감가상각기준
-			gfnma_setComSelect(['srch-slt-dprcCrtr'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			gfnma_setComSelect(['srch-slt-acntgCrtr'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
-
-
+			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
 
 		]);
 		SBUxMethod.set("srch-dtp-ymdFrom", gfn_dateFirstYmd(new Date()));
@@ -256,7 +255,6 @@
 
     	fn_initSBSelect();
 
-    	//fn_search();
     });
 
     //grid 초기화
@@ -288,14 +286,26 @@
         SBGridProperties.rowheader 			= 'seq';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["수량"],			ref: 'qntt', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["기초금액"], 		ref: 'bssAmt',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["증가금액"],  			ref: 'incrsAmt',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["감소금액"],  			ref: 'dcrsAmt',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["기말금액"],  			ref: 'endAmt',    			type:'output',  	width:'100px',  	style:'text-align:left'}
+        	{caption: ['자산구분'], ref: 'ASSET_CATEGORY', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['감소금액'], ref: 'OUT_ACQUISITION_AMOUNT', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['상각구분'], ref: 'DEPRECIATION_TYPE', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['내용연수'], ref: 'USEFUL_LIFE', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['사업장'], ref: 'SITE_CODE', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['상각구분'], ref: 'DEPRECIATION_YYYYMM', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['자산계정'], ref: 'ASSET_ACCOUNT', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['자산수량'], ref: 'ASSET_QTY', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['회계단위'], ref: 'FI_ORG_CODE', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['기초취득가액'], ref: 'BEGIN_ACQUISITION_AMOUNT', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['당기취득금액'], ref: 'IN_ACQUISITION_AMOUNT', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['구분'], ref: 'GUBUN', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['기말취득가액'], ref: 'END_ACQUISITION_AMOUNT', width: '8%', type: 'output', style:'text-align:center'},
+
+
         ];
 
         grdTotDprc = _SBGrid.create(SBGridProperties);
+        //기간별 취득금액, 감가상각비, 순장부가액 (수량,기초금액,증가금액,감소금액기말금액)
+        // 상각구분, 자산구분, 내용연수, 계정에 따라 정렬
 
     }
 
@@ -310,54 +320,53 @@
         SBGridProperties.rowheader 			= 'seq';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{caption: ['자산번호'], ref: 'astNo', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['자산명'], ref: 'astNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['사업단위'], ref: 'bizUnit', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['사업장'], ref: 'bplc', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['상각구분'], ref: 'dprcSe', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['중분류'], ref: 'mclsf', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['소분류'], ref: 'sclsf', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['자산계정'], ref: 'astAcnt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['감가상각방법'], ref: 'dprcMthd', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['내용연수'], ref: 'useLif', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['부서코드'], ref: 'deptCd', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['부서명'], ref: 'deptNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['원가중심점'], ref: 'cstCntr', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['취득일'], ref: 'acqsDay', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['최초취득가액'], ref: 'frstAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초취득가액'], ref: 'bssAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초보조금상각누계액'], ref: 'bssAsstncDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['당기취득금액'], ref: 'crntAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['당기취득보조금'], ref: 'crntAcqsAsstncAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['처분유형'], ref: 'dspsType', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['처분일'], ref: 'dspsYmd', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['처분금액'], ref: 'dspsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['처분보조금'], ref: 'dspsAsstncAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말취득가액'], ref: 'yrEndAcqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말보조금상각누계액'], ref: 'yrEndAsstncAmtDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초감가상각누계액'], ref: 'bssdprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초보조금상각누계액'], ref: 'bssAsstncDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기초장부가액'], ref: 'bssAbAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['수량'], ref: 'qntt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['01월상각비'], ref: 'mmDprc01', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['02월상각비'], ref: 'mmDprc02', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['03월상각비'], ref: 'mmDprc03', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['04월상각비'], ref: 'mmDprc04', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['05월상각비'], ref: 'mmDprc05', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['06월상각비'], ref: 'mmDprc06', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['07월상각비'], ref: 'mmDprc07', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['08월상각비'], ref: 'mmDprc08', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['09월상각비'], ref: 'mmDprc09', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['10월상각비'], ref: 'mmDprc10', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['11월상각비'], ref: 'mmDprc11', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['12월상각비'], ref: 'mmDprc12', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['감가상각비'], ref: 'dprcAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['보조금상각비'], ref: 'asstncAmtDprcRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['감가상각누계액'], ref: 'dprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['국고보조금상각누계액'], ref: 'ntAsstncAmtDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말상각누계액'], ref: 'yrEndDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말보조금상각누계액'], ref: 'yrEndAsstncAmtDprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['기말장부가액'], ref: 'endAbAmt', 				type:'output',		width:'80px',		style:'text-align:center'}
+        	{caption: ['자산번호'], ref: 'ASSET_NO', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['자산명'], ref: 'ASSET_NAME', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['사업단위'], ref: 'FI_ORG_CODE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['사업장'], ref: 'SITE_CODE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['상각구분'], ref: 'DEPRECIATION_TYPE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['중분류'], ref: 'ASSET_LEVEL2', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['소분류'], ref: 'ASSET_LEVEL3', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['자산계정'], ref: 'ASSET_ACCOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['감가상각방법'], ref: 'DEPRECIATION_METHOD', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['내용연수'], ref: 'DEPRECIATION_PERIOD', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['부서코드'], ref: 'DEPT_CODE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['부서명'], ref: 'DEPT_NAME', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['원가중심점'], ref: 'COST_CENTER_CODE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['취득일'], ref: 'ACQUIRE_DATE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['최초취득가액'], ref: 'ORIGINAL_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기초취득가액'], ref: 'BEGIN_ACQUISTION_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기초보조금상각누계액'], ref: 'BEGIN_SUBSIDIES_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['당기취득금액'], ref: 'IN_ACQUISITION_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['당기취득보조금'], ref: 'IN_SUBSIDIES_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['처분유형'], ref: 'DISPOSAL_TYPE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['처분일'], ref: 'DISPOSAL_DATE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['처분금액'], ref: 'OUT_ACQUISITION_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['처분보조금'], ref: 'OUT_SUBSIDIES_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기말취득가액'], ref: 'END_ACQUISITION_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기말보조금'], ref: 'END_SUBSIDIES_AMOUNT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기초보조금상각누계액'], ref: 'BEGIN_SUBSIDIES_ACC_DEPR', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기초장부가액'], ref: 'BEGIN_NET_BALANCE', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['수량'], ref: 'ASSET_QTY', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['01월상각비'], ref: 'ACQ_DEPR_AMT_01', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['02월상각비'], ref: 'ACQ_DEPR_AMT_02', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['03월상각비'], ref: 'ACQ_DEPR_AMT_03', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['04월상각비'], ref: 'ACQ_DEPR_AMT_04', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['05월상각비'], ref: 'ACQ_DEPR_AMT_05', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['06월상각비'], ref: 'ACQ_DEPR_AMT_06', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['07월상각비'], ref: 'ACQ_DEPR_AMT_07', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['08월상각비'], ref: 'ACQ_DEPR_AMT_08', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['09월상각비'], ref: 'ACQ_DEPR_AMT_09', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['10월상각비'], ref: 'ACQ_DEPR_AMT_10', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['11월상각비'], ref: 'ACQ_DEPR_AMT_11', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['12월상각비'], ref: 'ACQ_DEPR_AMT_12', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['감가상각비'], ref: 'ACQ_DEPR_AMT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['보조금상각비'], ref: 'SUBSIDIES_DEPR_AMT', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['감가상각누계액'], ref: 'OUT_ACCUM_DEPR', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['국고보조금상각누계액'], ref: 'OUT_SUBSIDIES_ACCUM_DEPR', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기말상각누계액'], ref: 'END_ACCUM_DEPR', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기말보조금상각누계액'], ref: 'END_SUBSIDES_ACCUM_DEPR', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ['기말장부가액'], ref: 'END_NET_BALANCE', 				type:'output',		width:'80px',		style:'text-align:center'}
 
 
         ];
@@ -377,9 +386,20 @@
         SBGridProperties.rowheader 			= 'seq';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["수량"],			ref: 'qntt', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["감가상각비"], 		ref: 'dprcAmt',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["보조금상각비"],  			ref: 'asstncAmtDprc',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ['감가상각비'], ref: 'ACQ_DEPR_AMT', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['자산계정'], ref: 'ASSET_ACCOUNT', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['자산구분'], ref: 'ASSET_CATEGORY', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['중분류'], ref: 'ASSET_LEVEL2', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['소분류'], ref: 'ASSET_LEVEL3', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['자산명'], ref: 'ASSET_NAME', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['자산번호'], ref: 'ASSET_NO', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['자산수량'], ref: 'ASSET_QTY', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['상각구분'], ref: 'DEPRECIATION_TYPE', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['상각구분연월'], ref: 'DEPRECIATION_YYYYMM', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['회계단위'], ref: 'FI_ORG_CODE', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['사업장'], ref: 'SITE_CODE', width: '8%', type: 'output', style:'text-align:center'},
+        	{caption: ['보조금상각비'], ref: 'SUBSIDIES_DEPR_AMT', width: '8%', type: 'output', style:'text-align:center'}
+
         ];
 
         grdMmDprc = _SBGrid.create(SBGridProperties);
@@ -387,59 +407,25 @@
     }
 
 
-    /**
-     * 목록 조회
-     */
-    const fn_search = async function() {
-    	fn_fia4300Q("");
-    }
 
-    // fnQRY_P_FIA4300_Q
-    //workType = DISP / LIST /SAVE /DETAIL
-    const fn_fia4300Q = async function(workType){
 
-    	var corp = gfnma_nvl(SBUxMethod.get("srch-slt-corp")); //법인 cbocomp_code1
-    	var acntgUnit = gfnma_nvl(SBUxMethod.get("srch-slt-bizUnit")); // 회계단위 cbofi_org_code1
-    	var acntgCrtr = gfnma_nvl(SBUxMethod.get("srch-slt-acntgCrtr")); // 회계기준 cboacct_rule_code_p
-    	var intlDspsNo = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-intlDspsNo")); //자산내역 : 당초처분번호  txtoriginal_asset_disp_no
-    	var dspsNo = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-dspsNo"));  // 자산내역 : 처분번호 txtasset_disposal_no
-    	var dspsYmdFrom = gfnma_nvl(SBUxMethod.get("srch-dtp-dspsYmdFrom")); //처분일 from ymddisposal_date_fr
-    	var dspsYmdTo = gfnma_nvl(SBUxMethod.get("srch-dtp-dspsYmdTo")); //처분일 to ymddisposal_date_to
-    	var tkcgdept = gfnma_nvl(SBUxMethod.get("srch-inp-tkcgDept")); // 담당부서 txtdept_code1
-    	var pic = gfnma_nvl(SBUxMethod.get("srch-inp-pic")); // 담당자 txtemp_code1
-    	var cnpt = gfnma_nvl(SBUxMethod.get("srch-inp-cnpt")); //거래처 txtcs_code1
-    	var astno = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-ast"));//자산내역 자산 txtasset_no
-        var dspsType1 = gfnma_nvl(SBUxMethod.get("srch-inp-astTab-dspsType"));//cbodisposal_type 자산내역 처분유형
-    	var dspsType2 = gfnma_nvl(SBUxMethod.get("srch-slt-dspsType"));//cbodisposal_type1 검색조건 처분유형
-		var bplc = gfnma_nvl(SBUxMethod.get("srch-slt-bplc"));//cbosite_code1 검색조건 사업장
+    // fnQRY_P_FIA5400_Q
 
-		if(workType === "LIST" || workType === "SAVE" || workType === "DISP" ){
-    		if(!SBUxMethod.validateRequired({group_id: 'search1'})){
-    			return false;
-    		}
-    	}else if (workType === "DETAIL"){
-    		if(!SBUxMethod.validateRequired({group_id: 'ast1'})){
-    			return false;
-    		}
-    	}
+    const fn_fia5400Q = async function(workType){
+
+
+    	 let siteCode = gfnma_multiSelectGet('#srch-slt-siteCode') //사업장
 
 		var paramObj = {
-			    V_P_DEBUG_MODE_YN         : 'N'
-			    ,V_P_LANG_ID : 'KOR '
-			    ,V_P_COMP_CODE  : corp     // 법인
-			    ,V_P_CLIENT_CODE : ''
-		  	    ,V_P_FI_ORG_CODE : acntgUnit
-			    ,V_P_ACCT_RULE_CODE : acntgCrtr
-			    ,V_P_ASSET_DISPOSAL_NO : workType == "DISP" ? intlDspsNo : dspsNo
-			    ,V_P_DISPOSAL_SEQ : 0
-			    ,V_P_SITE_CODE : bplc
-			    ,V_P_DISPOSAL_TYPE : workType == "INFO" ?  dspsType1 : dspsType2
-			    ,V_P_DISPOSAL_DATE_FROM : dspsYmdFrom
-			    ,V_P_DISPOSAL_DATE_TO     : dspsYmdTo
-			    ,V_P_DEPT_CODE  : tkcgdept
-			    ,V_P_EMP_CODE  :  pic
-			    ,V_P_CS_CODE   : cnpt
-			    ,V_P_ASSET_NO : astno
+			    V_P_DEBUG_MODE_YN : ''
+			    ,V_P_LANG_ID : ''
+			    ,V_P_COMP_CODE  : gv_ma_selectedApcCd
+			    ,V_P_CLIENT_CODE : gv_ma_selectedClntCd
+		  	    ,V_P_FI_ORG_CODE : ''
+		  	    ,V_P_SITE_CODE   : siteCode
+		  	    ,V_P_PERIOD_FR   : ''
+		  	    ,V_P_PERIOD_TO   : ''
+		  	    ,V_P_DEPRECIATION_TYPE : ''
 			    ,V_P_FORM_ID   : p_formId
 			    ,V_P_MENU_ID   : p_menuId
 			    ,V_P_PROC_ID   : ''
@@ -447,11 +433,14 @@
 			    ,V_P_PC           : ''
 		    };
 
-
-        const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4300Q.do", {
+		let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","");
+		if(!postFlag){
+	        return;
+	    }
+        const postJsonPromise = gfn_postJSON("/fi/fia/selectFia5400Q.do", {
         	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '5',
+        	workType			: workType,
+        	cv_count			: '3',
         	params				: gfnma_objectToString(paramObj)
 		});
 
@@ -460,181 +449,115 @@
         try {
   			if (_.isEqual("S", data.resultStatus)) {
 
-  				jsonAstDsps.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonAstDsps.push(msg);
-  				});
+  				jsonTotDprc.length = 0;
 
-  	        	grdAstDsps.rebuild();
+  	        		var msg;
+  	        		if(workType === "Q0"){
+  	        			data.cv_1.forEach((item, index) => {
+	  	        			msg = {
+  	  							ASSET_CATEGORY : item.ASSET_CATEGORY
+  	  							, OUT_ACQUISITION_AMOUNT : item.OUT_ACQUISITION_AMOUNT
+  	  							, DEPRECIATION_TYPE : item.DEPRECIATION_TYPE
+  	  							, USEFUL_LIFE : item.USEFUL_LIFE
+  	  							, SITE_CODE : item.SITE_CODE
+  	  							, DEPRECIATION_YYYYMM : item.DEPRECIATION_YYYYMM
+  	  							, ASSET_ACCOUNT : item.ASSET_ACCOUNT
+  	  							, ASSET_QTY : item.ASSET_QTY
+  	  							, FI_ORG_CODE : item.FI_ORG_CODE
+  	  							, BEGIN_ACQUISITION_AMOUNT : item.BEGIN_ACQUISITION_AMOUNT
+  	  							, IN_ACQUISITION_AMOUNT : item.IN_ACQUISITION_AMOUNT
+  	  							, GUBUN : item.GUBUN
+  	  							, END_ACQUISITION_AMOUNT : item.END_ACQUISITION_AMOUNT
+	  	  					}
 
-        	} else {
-          		alert(data.resultMessage);
-        	}
+  	        				jsonTotDprc.push(msg);
+  	    				});
+  	        			grdTotDprc.rebuild();
+  	        		}else if(workType === "Q1"){
+  	        			data.cv_2.forEach((item, index) => {
+  	  	        			msg = {
+  	  	        				ACQ_DEPR_AMT : item.ACQ_DEPR_AMT
+	  	  	        			, ACQ_DEPR_AMT_01 : item.ACQ_DEPR_AMT_01
+	  	  	        			, ACQ_DEPR_AMT_02 : item.ACQ_DEPR_AMT_02
+	  	  	        			, ACQ_DEPR_AMT_03 : item.ACQ_DEPR_AMT_03
+	  	  	        			, ACQ_DEPR_AMT_04 : item.ACQ_DEPR_AMT_04
+	  	  	        			, ACQ_DEPR_AMT_05 : item.ACQ_DEPR_AMT_05
+	  	  	        			, ACQ_DEPR_AMT_06 : item.ACQ_DEPR_AMT_06
+	  	  	        			, ACQ_DEPR_AMT_07 : item.ACQ_DEPR_AMT_07
+	  	  	        			, ACQ_DEPR_AMT_08 : item.ACQ_DEPR_AMT_08
+	  	  	        			, ACQ_DEPR_AMT_09 : item.ACQ_DEPR_AMT_09
+	  	  	        			, ACQ_DEPR_AMT_10 : item.ACQ_DEPR_AMT_10
+	  	  	        			, ACQ_DEPR_AMT_11 : item.ACQ_DEPR_AMT_11
+	  	  	        			, ACQ_DEPR_AMT_12 : item.ACQ_DEPR_AMT_12
+	  	  	        			, ACQUIRE_DATE : item.ACQUIRE_DATE
+	  	  	        			, ASSET_ACCOUNT : item.ASSET_ACCOUNT
+	  	  	        			, ASSET_CATEGORY : item.ASSET_CATEGORY
+	  	  	        			, ASSET_LEVEL2 : item.ASSET_LEVEL2
+	  	  	        			, ASSET_LEVEL3 : item.ASSET_LEVEL3
+	  	  	        			, ASSET_NAME : item.ASSET_NAME
+	  	  	        			, ASSET_NO : item.ASSET_NO
+	  	  	        			, ASSET_QTY : item.ASSET_QTY
+	  	  	        			, BEGIN_ACCUM_DEPR : item.BEGIN_ACCUM_DEPR
+	  	  	        			, BEGIN_ACQUISITION_AMOUNT : item.BEGIN_ACQUISITION_AMOUNT
+	  	  	        			, BEGIN_NET_BALANCE : item.BEGIN_NET_BALANCE
+	  	  	        			, BEGIN_SUBSIDIES_ACC_DEPR : item.BEGIN_SUBSIDIES_ACC_DEPR
+	  	  	        			, BEGIN_SUBSIDIES_AMOUNT : item.BEGIN_SUBSIDIES_AMOUNT
+	  	  	        			, BOOK_VALUE : item.BOOK_VALUE
+	  	  	        			, COST_CENTER_CODE : item.COST_CENTER_CODE
+	  	  	        			, DEPRECIATION_METHOD : item.DEPRECIATION_METHOD
+	  	  	        			, DEPRECIATION_PERIOD : item.DEPRECIATION_PERIOD
+	  	  	        			, DEPRECIATION_TYPE : item.DEPRECIATION_TYPE
+	  	  	        			, DEPT_CODE : item.DEPT_CODE
+	  	  	        			, DEPT_NAME : item.DEPT_NAME
+	  	  	        			, DISPOSAL_DATE : item.DISPOSAL_DATE
+	  	  	        			, DISPOSAL_TYPE : item.DISPOSAL_TYPE
+	  	  	        			, END_ACCUM_DEPR : item.END_ACCUM_DEPR
+	  	  	        			, END_ACQUISITION_AMOUNT : item.END_ACQUISITION_AMOUNT
+	  	  	        			, END_NET_BALANCE : item.END_NET_BALANCE
+	  	  	        			, END_SUBSIDES_ACCUM_DEPR : item.END_SUBSIDES_ACCUM_DEPR
+	  	  	        			, END_SUBSIDIES_AMOUNT : item.END_SUBSIDIES_AMOUNT
+	  	  	        			, FI_ORG_CODE : item.FI_ORG_CODE
+	  	  	        			, IN_ACQUISITION_AMOUNT : item.IN_ACQUISITION_AMOUNT
+	  	  	        			, IN_SUBSIDIES_AMOUNT : item.IN_SUBSIDIES_AMOUNT
+	  	  	        			, ORIGINAL_AMOUNT : item.ORIGINAL_AMOUNT
+	  	  	        			, OUT_ACCUM_DEPR : item.OUT_ACCUM_DEPR
+	  	  	        			, OUT_ACQUISITION_AMOUNT : item.OUT_ACQUISITION_AMOUNT
+	  	  	        			, OUT_SUBSIDIES_ACCUM_DEPR : item.OUT_SUBSIDIES_ACCUM_DEPR
+	  	  	        			, OUT_SUBSIDIES_AMOUNT : item.OUT_SUBSIDIES_AMOUNT
+	  	  	        			, PROJECT_NAME : item.PROJECT_NAME
+	  	  	        			, SITE_CODE : item.SITE_CODE
+	  	  	        			, SUBSIDIES_DEPR_AMT : item.SUBSIDIES_DEPR_AMT
+  	  	  					}
 
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
+  	  	        			jsonTotDtlDprc.push(msg);
+	  	    			});
+  	  	        			grdTotDtlDprc.rebuild();
+  	        		}else if(workType === "Q2"){
+  	        			data.cv_3.forEach((item, index) => {
+  	  	        			msg = {
+ 	  	        			ACQ_DEPR_AMT : item.ACQ_DEPR_AMT
+  	  	        			, ASSET_ACCOUNT : item.ASSET_ACCOUNT
+  	  	        			, ASSET_CATEGORY : item.ASSET_CATEGORY
+  	  	        			, ASSET_LEVEL2 : item.ASSET_LEVEL2
+  	  	        			, ASSET_LEVEL3 : item.ASSET_LEVEL3
+  	  	        			, ASSET_NAME : item.ASSET_NAME
+  	  	        			, ASSET_NO : item.ASSET_NO
+  	  	        			, ASSET_QTY : item.ASSET_QTY
+  	  	        			, DEPRECIATION_TYPE : item.DEPRECIATION_TYPE
+  	  	        			, DEPRECIATION_YYYYMM : item.DEPRECIATION_YYYYMM
+  	  	        			, FI_ORG_CODE : item.FI_ORG_CODE
+  	  	        			, SITE_CODE : item.SITE_CODE
+  	  	        			, SUBSIDIES_DEPR_AMT : item.SUBSIDIES_DEPR_AMT
+  	  	  					}
 
-    const fn_fia4300Q1 = async function(workType,strSearchType){
-
-    	var dspsYmd = SBUxMethod.get("srch-dtp-astTab-dspsYmd");
-
-    	var dspsRt = SBUxMethod.get("srch-inp-astTab-dspsRt");
-    	var dspsAmt =  SBUxMethod.get("srch-inp-astTab-dspsAmt");
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr"); //회계기준
-    	var corp = SBUxMethod.get("srch-slt-corp"); //법인 cbocomp_code1
-    	var bssAcqsAmt = SBUxMethod.get("srch-inp-astTab-bssAcqsAmt");
-    	var astNo = SBUxMethod.get("srch-inp-astTab-ast"); // 자산번호
-
-
-    	var paramObj = {
-    			V_P_WORK_TYPE : workType
-			    ,V_P_DEBUG_MODE_YN         : 'N'
-			    ,V_P_LANG_ID : 'KOR '
-			    ,V_P_COMP_CODE  : corp     // 법인
-			    ,V_P_CLIENT_CODE : ''
-			    ,V_P_ACCT_RULE_CODE : acntgCrtr
-			    ,V_P_ASSET_NO : astNo
-	    		,V_P_DISPOSAL_DATE  :   dspsYmd
-    		    ,V_P_ACQUISITION_AMOUNT       : dspsAmt
-    		    ,V_P_BEGIN_ACQUISITION_AMOUNT : bssAcqsAmt
-    		    ,IV_P_OUT_ACQUISITION_RATE    : strSearchType == "RATE" ?  dspsRt : 0
-    		    ,V_P_OUT_ACQUISITION_AMOUNT  : strSearchType == "RATE" ? dspsAmt : dspsAmt
-			    ,V_P_FORM_ID   : p_formId
-			    ,V_P_MENU_ID   : p_menuId
-			    ,V_P_PROC_ID   : ''
-			    ,V_P_USERID     : ''
-			    ,V_P_PC           : ''
-		    };
-
-
-        const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4300Q1.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '5',
-        	params				: gfnma_objectToString(paramObj)
-		});
-
-        const data = await postJsonPromise;
-
-	        try {
-	  			if (_.isEqual("S", data.resultStatus)) {
-
-	  				jsonAstDsps.length = 0;
-	  	        	data.cv_1.forEach((item, index) => {
-	  					const msg = {
-	  						NATION_CODE				: item.NATION_CODE,
-	  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-	  						NATION_NAME				: item.NATION_NAME,
-	  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-	  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-	  						REGION_CODE				: item.REGION_CODE,
-	  						CURRENCY_CODE			: item.CURRENCY_CODE,
-	  						MEMO					: item.MEMO,
-	  						SORT_SEQ				: item.SORT_SEQ,
-	  						USE_YN 					: item.USE_YN
-	  					}
-	  					jsonAstDsps.push(msg);
-	  				});
-
-	  	        	grdAstDsps.rebuild();
-
-	        	} else {
-	          		alert(data.resultMessage);
-	        	}
-
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        }
-
-    }
-
-    /**
-     * 비용전표조회
-     */
-		const fn_expenseSearch = async function() {
-
-
-    	var sourceId = SBUxMethod.get("srch-inp-astTab-dspsSourceId");
-    	var disposalType = SBUxMethod.get("srch-slt-dspsType");
-
-    	if(disposalType === "DISUSE"){
-    		return;
-    	}
-
-    	//  처분 ▶ 소스 ID 없을 경우 return
-		if(sourceId === ""){
-			return;
-		}
-
-		var paramObj = {
-				V_P_DEBUG_MODE_YN	: ''
-				,V_P_LANG_ID		: ''
-				,V_P_COMP_CODE		: gv_ma_selectedApcCd
-				,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-				,V_P_NATION_CODE	: NATION_CODE
-				,V_P_NATION_NAME	: NATION_NAME
-				,V_P_FORM_ID		: p_formId
-				,V_P_MENU_ID		: p_menuId
-				,V_P_PROC_ID		: ''
-				,V_P_USERID			: ''
-				,V_P_PC				: ''
-		    };
+  	  	        			jsonMmDprc.push(msg);
+  	  	    			});
+  	  	        			grdMmDprc.rebuild();
+  	        		}
 
 
 
 
-        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '1',
-        	params				: gfnma_objectToString(paramObj)
-		});
-
-        const data = await postJsonPromise;
-		//console.log('data:', data);
-        try {
-  			if (_.isEqual("S", data.resultStatus)) {
-
-  	        	jsonNationList.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonNationList.push(msg);
-  				});
-
-        		NationInGrid.rebuild();
 
         	} else {
           		alert(data.resultMessage);
@@ -651,140 +574,23 @@
 
 
 
-    /**
-     * 전표 생성
-     */
-    const fn_createAccount = async function() {
-
-    	//  그리드에 선택된 행 없을 시 return
-		//if(grdAstDsps.getRow() == -1){
-		//	return;
-		//}
 
 
-		if(fn_setFia4300S2("ACCOUNT")){
-			if(fn_setFia4300S2("ACCOUNT2")){
-				//var strKey = grdAstDsps.getRowData(1).astDspsNo // 자산처분번호를 가지고 로우 찾아서 포커스 ㄱㄱ
-				//var rowIndex = grdAstDsps.getRow();
-				fn_queryClick();
-
-				//grdAstDsps.setRow(rowIndex);
-			}
-		}
-
-
-    }
 
 	const fn_queryClick = async function(){
-		// saveButton은 처분일자가 닫히면서 true로 바뀜...?
-		if(saveButton){
+		//탭 확인해서 쿼리 ㄱㄱ
+		let tabInfo = SBUxMethod.get("idxTab_norm");
 
-		}
-		//fnQRY_P_FIA4300_Q1
+		 if(tabInfo === "totDprcPivotTab")
+			 fn_fia5400Q("Q0");
+         else if(tabInfo == "totDtlDprcTab")
+        	 fn_fia5400Q("Q1");
+         else if(tabInfo == "mmDprcTab")
+        	 fn_fia5400Q("Q2");
 	}
 
-	const fn_setFia4300S1 = async function(workType) {
-    	var rowNo    = grdAstDsps.getRow();
-    	var rowData = grdAstDsps.getRowData(rowNo);
-
-    	var dspsNo = SBUxMethod.get("srch-inp-astTab-dspsNo");// 처분번호
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr"); //회계기준
-		var rmrk = SBUxMethod.get("srch-inp-astTab-rmrk1"); //비고
-		var astNm = SBUxMethod.get("srch-inp-astTab-astBtn"); //자산명
-		var astQntt = SBUxMethod.get("srch-inp-dspsTab-dspsQntt"); //처분수량
-		var paramObj = {
-    		    V_P_WORK_TYPE         : workType
-    		    ,V_P_DEBUG_MODE_YN  : 'N'
-    		    ,V_P_LANG_ID            :     'KOR'
-    		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
-    		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
-    		    ,V_P_ASSET_DISPOSAL_NO       : dspsNo
-    		    ,V_P_DISPOSAL_SEQ             : ''
-    		    ,V_P_ASSET_NAME               : astNm
-    		    ,V_P_ASSET_SPEC               : ''
-    		    ,V_P_ASSET_QTY                : astQntt
-    		    ,V_P_UNIT_CODE                : ''
-    		    ,V_P_ACQUISITION_AMOUNT       : ''
-    		    ,V_P_GOVERNMENT_SUBSIDIES    : ''
-    		    ,V_P_ACCUMULATED_DEPRECIATION : ''
-    		    ,V_P_BOOK_VALUE               : rowData.abAmt
-    		    ,V_P_MEMO                     : rowData.rmrk
-    		    ,V_P_FORM_ID      : p_formId
-    		    ,V_P_MENU_ID     :  p_menuId
-    		    ,V_P_PROC_ID     :   ''
-    		    ,V_P_USERID       :   p_userId
-    		    ,V_P_PC             :   ''
-    	}
-
-    	 const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4300S2.do", {
-         	getType				: 'json',
-         	workType			: workType,
-         	cv_count			: '1',
-         	params				: gfnma_objectToString(paramObj)
- 		});
-
-    	const data = await postJsonPromise;
-    	try{
-
-    	}catch{
-    		 if (!(e instanceof Error)) {
-                 e = new Error(e);
-             }
-             console.error("failed", e.message);
-             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    	}
-
-    	return data;
-
-    }
 
 
-    const fn_setFia4300S2 = async function(workType) {
-    	var rowNo    = grdAstDsps.getRow();
-    	var rowData = grdAstDsps.getRowData(rowNo);
-
-    	var dspsNo = SBUxMethod.get("srch-inp-astTab-dspsNo");// 처분번호
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr"); //회계기준
-
-    	var paramObj = {
-    		    V_P_WORK_TYPE         : workType
-    		    ,V_P_DEBUG_MODE_YN  : 'N'
-    		    ,V_P_LANG_ID            :     'KOR'
-    		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
-    		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
-    		   ,V_P_ACCT_RULE_CODE :	acntgCrtr
-    		   ,V_P_ASSET_DISPOSAL_NO : rowData.astDspsNo
-    		   ,V_P_ASSET_NO          :   rowData.astNo
-    		   ,V_P_DISPOSAL_TYPE     : rowData.dspsType
-    		   ,V_P_DISPOSAL_DATE     : rowData.dspsYmd
-    		    ,V_P_FORM_ID      : p_formId
-    		    ,V_P_MENU_ID     :  p_menuId
-    		    ,V_P_PROC_ID     :   ''
-    		    ,V_P_USERID       :   p_userId
-    		    ,V_P_PC             :   ''
-    	}
-
-    	 const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4300S2.do", {
-         	getType				: 'json',
-         	workType			: workType,
-         	cv_count			: '1',
-         	params				: gfnma_objectToString(paramObj)
- 		});
-
-    	const data = await postJsonPromise;
-    	try{
-
-    	}catch{
-    		 if (!(e instanceof Error)) {
-                 e = new Error(e);
-             }
-             console.error("failed", e.message);
-             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    	}
-
-    	return data;
-
-    }
 
 
 
@@ -822,7 +628,7 @@
 
     const fn_dspsCloseAfter = async function(){
     	var ast = SBUxMethod.get("srch-inp-astTab-ast"); //자산내역 자산 ->
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");// 회계기준
+    	var acntgCrtr = SBUxMethod.get("srch-slt-fiOrgCode");// 회계기준
     	var strWrkType = "";
     	if( ast != ""){
     		strWrkType = "ASSET";
@@ -833,7 +639,7 @@
     		fn_setFia4300Q1(strWrkType,"");
     	}
     	saveButton = true;
-    	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");// 회계기준
+    	var acntgCrtr = SBUxMethod.get("srch-slt-fiOrgCode");// 회계기준
     	var strWrkType = "";
     	if( ast != ""){
     		strWrkType = "ASSET";

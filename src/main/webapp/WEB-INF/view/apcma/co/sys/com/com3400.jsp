@@ -44,8 +44,6 @@
                 <!-- 거래처 정보 버튼 모음-->
 				<div id="divBtn" style="display:flex;margin-bottom:5px;">
 					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;margin-right:1rem;" ></sbux-button>
-					<sbux-button id="btnBizRegNoMulti" name="btnBizRegNoMulti" uitype="normal" text="과세유형 일괄 변경" class="btn btn-sm btn-outline-danger" onclick="fn_bizRegNoMulti" style="float: right;margin-right:1rem;" ></sbux-button>
-					<sbux-button id="btnBizRegNo" name="btnBizRegNo" uitype="normal" text="과세유형 조회" class="btn btn-sm btn-outline-danger" onclick="fn_bizRegNo" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="결재" class="btn btn-sm btn-outline-danger" onclick="fn_submit" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnSubmitHis" name="btnSubmitHis" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" onclick="fn_submitHis" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_confirm" style="float: right;margin-right:1rem;" ></sbux-button>
@@ -570,7 +568,7 @@
 										</div>   									
 									</td>
 									<td class="td_input" style="border-right: hidden;">
-										<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:80px;height:28px;"></sbux-datepicker>
+										<sbux-datepicker id="TXN_STOP_DATE" name="TXN_STOP_DATE" uitype="popup" style="width:100px;height:28px;"></sbux-datepicker>
 									</td>
 									<td class="td_input" style="border-right: hidden;" colspan="2">
 									</td>
@@ -1678,8 +1676,8 @@
 				,colLabel		: 'PAY_TERM_NAME'
 				,columns		:[
 		            {caption: "코드",		ref: 'PAY_TERM_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "코드명",		ref: 'PAY_TERM_NAME',    	width:'150px',  	style:'text-align:left'},
-		            {caption: "코드명",		ref: 'pay_term_name2',    	width:'150px',  	style:'text-align:left'}
+		            {caption: "명칭",		ref: 'PAY_TERM_NAME',    	width:'150px',  	style:'text-align:left'},
+		            {caption: "명칭2",		ref: 'PAY_TERM_NAME2',    	width:'150px',  	style:'text-align:left'}
 				]				
 			}),
 			

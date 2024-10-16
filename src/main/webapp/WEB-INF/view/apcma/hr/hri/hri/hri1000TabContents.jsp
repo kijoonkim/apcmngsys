@@ -53,7 +53,7 @@
                 <th rowspan="2" scope="row" class="th_bg">서명</th>
                 <td rowspan="2" id="signImgArea" class="td_input" style="border-right:hidden; position: relative; vertical-align: top;">
                     <img id="SIGN_IMG" style="width: 100%; height: 100%; position: absolute;">
-                    <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <div id="DIV_SIGN_IMG" style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                         <span>사진 업로드</span>
                     </div>
                     <input type="file" name="SIGN_IMG_FILE" id="SIGN_IMG_FILE" accept="image/*" style="display: none;">
