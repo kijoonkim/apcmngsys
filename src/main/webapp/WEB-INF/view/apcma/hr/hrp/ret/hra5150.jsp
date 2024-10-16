@@ -4052,7 +4052,6 @@
 
         let listData = [];
         listData =  await getParamFormS1(payData, masterData);
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4125,12 +4124,10 @@
                     })
                 }
 
-                console.log("---------param S1--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------returnData S1--------- : ", returnData);
             return returnData;
 
         }
@@ -4143,7 +4140,6 @@
 
         let listData = [];
         listData =  await getParamFormS2(bonusData, masterData);
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4213,12 +4209,10 @@
                     })
                 }
 
-                console.log("---------param S2--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------returnData S2--------- : ", returnData);
             return returnData;
 
         }
@@ -4230,7 +4224,6 @@
 
         let listData = [];
         listData =  await getParamFormS3(changeData, masterData);
-        console.log('--------listData save--------', listData);
 
         if (listData.length > 0) {
 
@@ -4304,12 +4297,10 @@
                     })
                 }
 
-                console.log("---------param S3--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------returnData S3--------- : ", returnData);
             return returnData;
 
         }
@@ -4339,7 +4330,6 @@
     async function gridValueChanged1() {
 
         var nCol = gvwPayGrid.getCol();
-        console.log('----------col------------',nCol);
 
         if (nCol < 1) {
             return;
@@ -4358,8 +4348,6 @@
             _monthly_bonus_amt = rowData.APPLY_AMT
         }*/
 
-        console.log('----------gvwPayGrid.getColRef("END_DAT")------------',gvwPayGrid.getColRef("END_DAT") );
-        console.log('----------gvwPayGrid.getColRef("END_DAT")------------',gvwPayGrid.getColRef("END_DAT") == 6);
         if (gvwPayGrid.getColRef("APPLY_AMT") == nCol || gvwPayGrid.getColRef("APPLY_DAYS") == nCol) {
             //gvwPay.UpdateSummary();
 
@@ -5173,7 +5161,6 @@
         if (nRow < 1) {
             return;
         }
-        console.log('-nRow--', nRow);
 
         let gridData = gvwChangeGrid.getGridDataAll();
         let rowData = gvwChangeGrid.getRowData(nRow);
@@ -5618,8 +5605,6 @@
                   //임금환산년수 지금배수로 환산개월수 구하기
                   let cnt = fn_getMmCnt(query);
 
-                  /!*console.log('------multiVal-------', multiVal);
-
                   gvwPayGrid.setCellData(nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"), Number(multiVal));*!/
 
               }
@@ -5745,8 +5730,6 @@
 
             };
 
-            console.log('--------------------CONFIRMparamObj-----------------------',paramObj);
-
             const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150BAT.do", {
                 getType: 'json',
                 workType: type,
@@ -5755,8 +5738,6 @@
             });
 
             const data = await postJsonPromise;
-
-            console.log('--------------------CONFIRMdatadata-----------------------',data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -5861,8 +5842,6 @@
 
              };
 
-             console.log('--------------------CANCELparamObj-----------------------',paramObj);
-
              const postJsonPromise = gfn_postJSON("/hr/hrp/ret/insertHra5150BAT.do", {
                  getType: 'json',
                  workType: 'CANCEL',
@@ -5871,8 +5850,6 @@
              });
 
              const data = await postJsonPromise;
-
-             console.log('--------------------CANCELdatadata-----------------------',data);
 
              try {
                  if (_.isEqual("S", data.resultStatus)) {
@@ -6479,8 +6456,6 @@
         // 변경을 감지할 노드 선택
         const targetNode = document.getElementById("SRCH_RET_CALC_TYPE"); //퇴직정산구분
 
-        console.log('----------targetNode----------',targetNode);
-
         // 감지 옵션 (감지할 변경)
         const config = { attributes: true, childList: true, subtree: true };
 
@@ -6488,8 +6463,6 @@
         const callback = (mutationList, observer) => {
 
             let type = gfnma_multiSelectGet('#SRCH_RET_CALC_TYPE');
-
-            console.log('----------type----------',type);
 
             if (!_.isEmpty(type)) {
 

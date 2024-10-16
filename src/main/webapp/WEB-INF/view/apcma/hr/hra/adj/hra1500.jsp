@@ -262,13 +262,14 @@
 
     var jsonSiteCode = []; //사업장 ( L_ORG001 )srch-site_code
     var jsonPayAreaType = []; //급여영역 ( L_HRP034 )srch-pay_area_type
+    var jsonCalcStatus = []; //계산상태 ( L_HRA033 )calc_status
 
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
             gfnma_setComSelect(['srch-pay_area_type'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonPayAreaType, 'L_HRA033', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCalcStatus, 'L_HRA033', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
 
             //사업장
@@ -488,35 +489,35 @@
                 }
             },
             {caption : ["계산상태"], ref : 'CALC_STATUS', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonCalcStatus', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'datepicker',  	width:'140px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["퇴사일"],       ref: 'RETIRE_DATE', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["퇴사일"],       ref: 'RETIRE_DATE', 		type:'datepicker',  	width:'140px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["계산일"],       ref: 'CALC_DAT', 		type:'datepicker',  	width:'90px',  	style:'text-align:left',
+            {caption: ["계산일"],       ref: 'CALC_DAT', 		type:'datepicker',  	width:'140px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
-            {caption: ["표준세액공제 적용"], ref: 'STD_TX_DED_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["표준세액공제 적용"], ref: 'STD_TX_DED_YN', type: 'checkbox', width: '140px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["표준세액공제 적용 결과"], ref: 'CALC_INC_TX_AMT_STD_APPLY', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["표준세액공제 적용 결과"], ref: 'CALC_INC_TX_AMT_STD_APPLY', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["표준세액공제 미적용 결과"], ref: 'CALC_INC_TX_AMT_STD_NOAPY', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["표준세액공제 미적용 결과"], ref: 'CALC_INC_TX_AMT_STD_NOAPY', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
 
         ];

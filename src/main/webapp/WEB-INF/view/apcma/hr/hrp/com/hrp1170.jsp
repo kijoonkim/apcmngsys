@@ -462,11 +462,7 @@
 
         let gridData = grdExceptionList.getRowData(nRow);
 
-        console.log('----------gridData-----------',gridData);
-
         fn_ColumnSetting(nRow,gridData.PAY_APPLY_TYPE);
-
-
 
     }
 
@@ -668,8 +664,6 @@
             ,V_P_PC: ''
         };
 
-        console.log('-----------------------',paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp1170List.do", {
             getType				: 'json',
             workType			: 'Q',
@@ -739,8 +733,6 @@
                 P_HRP1170_S: await getParamForm('u')
             }*/
 
-            console.log('--------listData save--------', listData);
-
             if (listData.length > 0) {
 
                 const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
@@ -786,10 +778,6 @@
 
         }
 
-
-        console.log('---------------updateData---------------', updateData);
-        console.log('---------------typeData---------------', typeData);
-
         if (!_.isEmpty(updateData)) {
 
             updateData.forEach((item, index) => {
@@ -823,12 +811,10 @@
                     })
                 }
 
-                console.log("---------param--------- : ", param);
                 returnData.push(param);
 
             });
 
-            console.log("---------returnData--------- : ", returnData);
             return returnData;
 
         }

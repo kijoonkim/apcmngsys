@@ -164,7 +164,7 @@
             </ul>
         </div>
         <div>
-            <div id="sb-area-gvwInfo" style="height:530px; width:100%;"></div>
+            <div id="sb-area-gvwInfo" style="height:580px; width:100%;"></div>
         </div>
 
     </div>
@@ -357,59 +357,59 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["급여계"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["급여계"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["상여계"], ref: 'BONUS_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["상여계"], ref: 'BONUS_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["과세수당"], ref: 'PAY_TAX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["과세수당"], ref: 'PAY_TAX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["급여계"], ref: 'YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["급여계"], ref: 'YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["상여계"], ref: 'YE_BONUS_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["상여계"], ref: 'YE_BONUS_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["인정수당계"], ref: 'YE_ADD_BONUS_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["인정수당계"], ref: 'YE_ADD_BONUS_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["기타소득계"], ref: 'YE_INC_EXTRA_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["기타소득계"], ref: 'YE_INC_EXTRA_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["비과세수당"], ref: 'TXFREE_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["비과세수당"], ref: 'TXFREE_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["과세계"], ref: 'PAY_TX_TOT_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["과세계"], ref: 'PAY_TX_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["비과세예외금액"], ref: 'TAX_FREE_EXCEPT_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["비과세예외금액"], ref: 'TAX_FREE_EXCEPT_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["지급액계(비과세수당+비과세예외금액제외)"], ref: 'PAY_TOT_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["지급액계(비과세수당+비과세예외금액제외)"], ref: 'PAY_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["총급여액"], ref: 'INC_TOT_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["총급여액"], ref: 'INC_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["근로소득공제"], ref: 'INC_DEAMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["근로소득공제"], ref: 'INC_DEAMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["근로소득금액"], ref: 'INC_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["근로소득금액"], ref: 'INC_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["과세표준"], ref: 'TOT_INC_TX_STD_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["과세표준"], ref: 'TOT_INC_TX_STD_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["산출세액"], ref: 'CALCULATE_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["산출세액"], ref: 'CALCULATE_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["세액공제"], ref: 'TX_DED_TOT_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["세액공제"], ref: 'TX_DED_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["결정세액(소득세)"], ref: 'CALC_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["결정세액(소득세)"], ref: 'CALC_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["결정세액(주민세)"], ref: 'CALC_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["결정세액(주민세)"], ref: 'CALC_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["결정세액(농특세)"], ref: 'CALC_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["결정세액(농특세)"], ref: 'CALC_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["기납부세액(소득세)"], ref: 'NOW_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["기납부세액(소득세)"], ref: 'NOW_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["기납부세액(주민세)"], ref: 'NOW_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["기납부세액(주민세)"], ref: 'NOW_LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["기납부세액(농특세)"], ref: 'NOW_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["기납부세액(농특세)"], ref: 'NOW_SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["차감징수세액(소득세)"], ref: 'INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["차감징수세액(소득세)"], ref: 'INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["차감징수세액(주민세)"], ref: 'LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["차감징수세액(주민세)"], ref: 'LOCAL_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["차감징수세액(농특세)"], ref: 'SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["차감징수세액(농특세)"], ref: 'SPEC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["차감징수세액계"], ref: 'TX_TOT_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["차감징수세액계"], ref: 'TX_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
 
         ];

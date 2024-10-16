@@ -1701,8 +1701,6 @@
 
             const data = await postJsonPromise;
 
-            console.log("----------------DETAIL-----------------    : ", data );
-
             try {
                 if (_.isEqual("S", data.resultStatus)) {
 
@@ -2092,17 +2090,14 @@
         var paramObj = {
             EMP_CODE: query
         }
-        console.log(paramObj);
+
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000ChkEmp.do", paramObj);
 
         const data = await postJsonPromise;
 
-        console.log('-----------data---------- :', data);
-
         try {
             if (_.isEqual("S", data.resultStatus)) {
 
-                console.log('-----------data EMP_CODE---------- :', data.EMP_CODE);
                 if (_.isEmpty(data.EMP_CODE) == false){
 
                     SBUxMethod.set("PENSION_YN", 'Y');
@@ -2309,7 +2304,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log("----------------------------------------------",data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -2785,8 +2779,6 @@
             ,V_P_PC				: ''
         }
 
-        console.log('----------paramObj S------------',paramObj);
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000.do", {
             getType: 'json',
             workType: strWorkType,
@@ -2795,8 +2787,6 @@
         });
 
         const data = await postJsonPromise;
-
-        console.log('----------data S------------',data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {

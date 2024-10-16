@@ -609,8 +609,6 @@
                 , V_P_PC: ''
             };
 
-            console.log('------paramObj------', paramObj);
-
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp5600List.do", {
                 getType: 'json',
                 workType: 'DETAIL',
@@ -619,9 +617,6 @@
             });
 
             const data = await postJsonPromise;
-
-
-            console.log('------data------', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -878,8 +873,6 @@
 
         };
 
-        console.log('---------paramObj-----------',  paramObj);
-
         if (_.isEqual(editType, "N")){
             // 수정 저장
             if (gfn_comConfirm("Q0001", "신규 등록")) {
@@ -1054,8 +1047,6 @@
             if (_.isEmpty(type1Chk)){
                 if (!_.isEmpty(PAY_ITEM_RANGE_TYPE1)) {
                     if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE1, PAY_ITEM_RANGE_TYPE1)) {
-                        console.log('CHk_PAY_ITEM_RANGE_TYPE1 : ',CHk_PAY_ITEM_RANGE_TYPE1);
-                        console.log('PAY_ITEM_RANGE_TYPE1 : ',PAY_ITEM_RANGE_TYPE1);
                         CHk_PAY_ITEM_RANGE_TYPE1 = PAY_ITEM_RANGE_TYPE1;
                         fn_item();
                     }
@@ -1070,8 +1061,6 @@
             if (_.isEmpty(type2Chk)){
                 if (!_.isEmpty(PAY_ITEM_RANGE_TYPE2)) {
                     if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE2, PAY_ITEM_RANGE_TYPE2)) {
-                        console.log('CHk_PAY_ITEM_RANGE_TYPE2 : ',CHk_PAY_ITEM_RANGE_TYPE2);
-                        console.log('PAY_ITEM_RANGE_TYPE2 : ',PAY_ITEM_RANGE_TYPE2);
                         CHk_PAY_ITEM_RANGE_TYPE2 = PAY_ITEM_RANGE_TYPE2;
                         fn_item();
                     }
@@ -1088,38 +1077,6 @@
         // 설정한 변경의 감지 시작
         observer.observe(targetNode, config);
         observer.observe(targetNode2, config);
-
-        /*// 이후 감지 중단 가능
-        observer.disconnect();*/
-
-        /*$("#PAY_ITEM_RANGE_TYPE1").on("DOMSubtreeModified",function(e){
-
-            let PAY_ITEM_RANGE_TYPE1 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE1');
-
-            console.log('--PAY_ITEM_RANGE_TYPE1--',PAY_ITEM_RANGE_TYPE1);
-            console.log('--e--',e);
-
-            if (!_.isEmpty(PAY_ITEM_RANGE_TYPE1)) {
-                if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE1, PAY_ITEM_RANGE_TYPE1)) {
-                    CHk_PAY_ITEM_RANGE_TYPE1 = PAY_ITEM_RANGE_TYPE1
-                    fn_item();
-                }
-            }
-        });*/
-
-       /* $("#ITEM_CHANGE_2").on("DOMSubtreeModified",function(e){
-
-            let PAY_ITEM_RANGE_TYPE2 = gfnma_multiSelectGet('#PAY_ITEM_RANGE_TYPE2');
-
-            console.log('--PAY_ITEM_RANGE_TYPE2--',PAY_ITEM_RANGE_TYPE2);
-
-            if (!_.isEmpty(PAY_ITEM_RANGE_TYPE2)) {
-                if (!_.isEqual(CHk_PAY_ITEM_RANGE_TYPE2, PAY_ITEM_RANGE_TYPE2)) {
-                    CHk_PAY_ITEM_RANGE_TYPE2 = PAY_ITEM_RANGE_TYPE2
-                    fn_item();
-                }
-            }
-        });*/
 
     });
 
@@ -1192,10 +1149,8 @@
                 ,V_P_USERID: ''
                 ,V_P_PC: ''
 
-
             };
 
-            console.log('---------paramObj-----------',  paramObj);
             const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp5600.do", {
                 getType: 'json',
                 workType: 'D',
