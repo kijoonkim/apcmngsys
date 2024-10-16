@@ -875,7 +875,7 @@
 
 
 		let itemCd1 = SBUxMethod.get("dtl-inp-operOgnzItemCd1");
-		let apcItem1 = SBUxMethod.get("dtl-inp-apcItem1");
+		let apcItem1 = SBUxMethod.get("dtl-inp-apcItemCd1");
 		if (gfn_isEmpty(itemCd1)) {
 			alert("'운영조직 취급 대표품목1'은 필수로 작성해주셔야 합니다.");
 			return;
@@ -1018,7 +1018,7 @@
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("처리 되었습니다.");
 				fn_selectFcltOperInfo();
-				//fn_search();
+				fn_search();
 
 			} else {
 				alert(data.resultMessage);
