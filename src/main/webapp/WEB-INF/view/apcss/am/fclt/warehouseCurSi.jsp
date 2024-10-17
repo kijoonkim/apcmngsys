@@ -90,7 +90,7 @@
             <div class="content-wrap" style="display: flex">
                 <div id="sb-area-wrhspaner" style="flex-basis: 70%; padding: 0px 10px"></div>
                 <div id="infoTable" style="flex: 1; padding: 0px 10px">
-                    <table>
+                    <table style="width: 100%">
                         <colgroup>
                             <col style="width: 30%">
                             <col style="width: 30%">
@@ -101,7 +101,7 @@
                                 <th colspan="2" scope="row" class="th_bg" style="background-color: #bdd7ee;font-weight: bold">
                                     창고
                                 </th>
-                                <th scope="row" class="th_bg">
+                                <th scope="row" class="th_bg" style="text-align: center">
                                     1호실
                                 </th>
                             </tr>
@@ -109,26 +109,26 @@
                                 <th colspan="2" scope="row" class="th_bg" style="background-color: #bdd7ee;font-weight: bold">
                                     위치
                                 </th>
-                                <th scope="row" class="th_bg">
-                                    ???
+                                <th scope="row" class="th_bg" style="text-align: center">
+                                    2열 03행
                                 </th>
                             </tr>
                             <tr>
                                 <th colspan="2" scope="row" class="th_bg" style="background-color: #bdd7ee;font-weight: bold">
                                     총 수량
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     352
                                 </td>
                             </tr>
                             <tr>
-                                <th rowspan="3" scope="row" class="th_bg" style="font-weight: bold; text-align: center;border: 1px solid">
+                                <th rowspan="3" scope="row" class="th_bg" style="font-weight: bold; text-align: center;border: 1px solid white !important;">
                                     3단
                                 </th>
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     수량
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     80
                                 </td>
                             </tr>
@@ -136,7 +136,7 @@
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     입고일자
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     2024-09-20
                                 </td>
                             </tr>
@@ -144,18 +144,18 @@
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     생산자
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     홍길동
                                 </td>
                             </tr>
                             <tr>
-                                <th rowspan="3" scope="row" class="th_bg" style="font-weight: bold; text-align: center;border: 1px solid">
+                                <th rowspan="3" scope="row" class="th_bg" style="font-weight: bold; text-align: center;border: 1px solid white !important;">
                                     2단
                                 </th>
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     수량
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     80
                                 </td>
                             </tr>
@@ -163,26 +163,26 @@
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     입고일자
                                 </th>
-                                <td class="td_input">
-                                    2024-09-20
+                                <td class="td_input" style="text-align: center;font-size: 15px">
+                                    2024-10-18
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     생산자
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     홍길동
                                 </td>
                             </tr>
                             <tr>
-                                <th rowspan="3" scope="row" class="th_bg" style="font-weight: bold; text-align: center;border: 1px solid">
+                                <th rowspan="3" scope="row" class="th_bg" style="font-weight: bold; text-align: center;border: 1px solid white !important;">
                                     1단
                                 </th>
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     수량
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     80
                                 </td>
                             </tr>
@@ -190,7 +190,7 @@
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     입고일자
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     2024-09-20
                                 </td>
                             </tr>
@@ -198,7 +198,7 @@
                                 <th scope="row" class="th_bg" style="font-weight: bold">
                                     생산자
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     홍길동
                                 </td>
                             </tr>
@@ -206,7 +206,7 @@
                                 <th scope="row" class="th_bg" colspan="2" style="background-color: #bdd7ee;font-weight: bold">
                                     위치 합계
                                 </th>
-                                <td class="td_input">
+                                <td class="td_input" style="text-align: center;font-size: 15px">
                                     208
                                 </td>
                             </tr>
@@ -231,7 +231,7 @@
     }
 
     var jsonReport = [{
-        col0 : '',
+        col0 : '01',
         col1 : '',
         col2 : '',
         col3 : '',
@@ -245,7 +245,7 @@
         col11 : '',
         col12 : '',
     },{
-        col0 : '',
+        col0 : '01',
         col1 : '',
         col2 : '',
         col3 : '',
@@ -259,7 +259,259 @@
         col11 : '',
         col12 : '',
     },{
-        col0 : '',
+        col0 : '01',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '02',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '02',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '02',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '03',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '03',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '03',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '04',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '04',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '04',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '05',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '05',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '05',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '06',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '06',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '06',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '07',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '07',
+        col1 : '',
+        col2 : '',
+        col3 : '',
+        col4 : '',
+        col5 : '',
+        col6 : '',
+        col7 : '',
+        col8 : '',
+        col9 : '',
+        col10 : '',
+        col11 : '',
+        col12 : '',
+    },{
+        col0 : '07',
         col1 : '',
         col2 : '',
         col3 : '',
