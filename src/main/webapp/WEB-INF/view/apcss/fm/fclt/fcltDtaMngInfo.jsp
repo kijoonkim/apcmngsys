@@ -991,6 +991,9 @@
 			{caption: ["APC코드"],		ref:'apcCd',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC명"],			ref:'apcNm',			type:'output',width:'70px',style:'text-align:center'},
 
+			{caption: ["시도"],			ref:'ctpvNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["시군구"],			ref:'sigunNm',			type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["생산정보 관리방법"],					ref:'prdctnInfoMngMthd',type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["생산정보 데이터관리 항목(다수선택)"],		ref:'prdctnDtl',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["생산정보 기타"],						ref:'prdctnDtlEtc',		type:'output',width:'70px',style:'text-align:center'},
@@ -1047,6 +1050,9 @@
 				let hiddenGrdVO = {
 					apcCd				:item.apcCd
 					,apcNm				:item.apcNm
+
+					,ctpvNm				:item.ctpvNm
+					,sigunNm			:item.sigunNm
 
 					,prdctnInfoMngMthd	:item.prdctnInfoMngMthd
 					,prdctnDtl			:item.prdctnDtl

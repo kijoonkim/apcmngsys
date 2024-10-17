@@ -1351,6 +1351,8 @@
 		SBGridProperties.columns = [
 			{caption: ["APC코드","APC코드"],		ref: 'apcCd',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["APC명","APC명"],			ref: 'apcNm',		type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["시도"],					ref:'ctpvNm',		type:'input',  width:'80px',	style:'text-align:center'},
+			{caption: ["시군구"],					ref:'sigunNm',		type:'input',  width:'80px',	style:'text-align:center'},
 			{caption: ["사업연도","사업연도"],			ref: 'bizYr',		type:'input',  width:'80px',    style:'text-align:center'},
 			{caption: ["지원유형","지원유형"],			ref: 'sprtBizNm',		type:'input',  width:'100px',    style:'text-align:center'},
 			{caption: ["사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)","사업명\n(APC 건립지원사업 / 밭작물공동경영체 육성사업 / 과수거점산지유통센터 등)"],
@@ -1437,6 +1439,9 @@
 						,lcltExpndSgg	:item.lcltExpndSgg
 						,slfBrdn		:item.slfBrdn
 						,tot : totVal
+
+						,ctpvNm			:item.ctpvNm
+						,sigunNm		:item.sigunNm
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

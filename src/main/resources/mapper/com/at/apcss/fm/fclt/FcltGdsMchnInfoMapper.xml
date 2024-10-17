@@ -292,6 +292,28 @@
 				, OTI.ITEM_NM
 				, OTI.SN
 
+				, (SELECT
+						FN_GET_COM_CD_VL_NM('UNTY_CTPV',CTPV_CD)
+					FROM TB_TE_APC_OPER_PRSN_OTLN
+					WHERE 1=1
+					  AND APC_CD = OTI.APC_CD
+					  AND CRTR_YR = OTI.CRTR_YR
+				) AS CTPV_NM
+
+				, (SELECT
+						X.CD_VL_EXPLN
+					FROM TB_COM_CD_DTL X
+					WHERE 1=1
+					  AND X.CD_ID = 'UNTY_SGG'
+					  AND X.APC_CD = '0000'
+					  AND X.CD_VL = (SELECT
+					  						SIGUN_CD
+					  					FROM TB_TE_APC_OPER_PRSN_OTLN
+					  					WHERE 1=1
+					  					  AND APC_CD = OTI.APC_CD
+					  					  AND CRTR_YR = OTI.CRTR_YR)
+				) AS SIGUN_NM
+
 				, FSD.SORT_MCHN_SPCFCT
 				, FSD.SORT_BRCK_MCHN
 				, FSD.COLOR_SORT

@@ -1335,11 +1335,14 @@
 			{caption: ["운영조직 사업자등록번호"],	ref:'operOgnzBrno',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["운영조직 법인등록번호"],	ref:'operOgnzCrno',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["대표자"],				ref:'rprsv',			type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["운영조직 주소"],			ref:'loctn',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["운영조직 우편번호"],		ref:'operOgnzZip',		type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["APC명"],				ref:'apcNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC 사업자번호"],		ref:'apcBrno',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["시도"],				ref:'ctpvNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["시군구"],				ref:'sigunNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC 주소"],			ref:'apcLoctn',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC 우편번호"],			ref:'apcZip',			type:'output',width:'70px',style:'text-align:center'},
 
@@ -1384,6 +1387,12 @@
 					operOgnzNm				:item.operOgnzNm
 					,operOgnzBrno			:item.operOgnzBrno
 					,operOgnzCrno			:item.operOgnzCrno
+
+					,ctpvCd			:item.ctpvCd
+					,ctpvNm			:item.ctpvNm
+					,sigunCd		:item.sigunCd
+					,sigunNm		:item.sigunNm
+
 					,rprsv					:item.rprsv
 					,loctn					:item.loctn
 					,operOgnzZip			:item.operOgnzZip

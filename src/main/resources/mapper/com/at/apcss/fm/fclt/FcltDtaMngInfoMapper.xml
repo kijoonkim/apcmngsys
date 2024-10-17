@@ -360,6 +360,29 @@
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfoRawDataList */
 				  ASPS.CRTR_YR
 				, ASPS.APC_CD
+
+				, (SELECT
+						FN_GET_COM_CD_VL_NM('UNTY_CTPV',CTPV_CD)
+					FROM TB_TE_APC_OPER_PRSN_OTLN
+					WHERE 1=1
+					  AND APC_CD = ASPS.APC_CD
+					  AND CRTR_YR = ASPS.CRTR_YR
+				) AS CTPV_NM
+
+				, (SELECT
+						X.CD_VL_EXPLN
+					FROM TB_COM_CD_DTL X
+					WHERE 1=1
+					  AND X.CD_ID = 'UNTY_SGG'
+					  AND X.APC_CD = '0000'
+					  AND X.CD_VL = (SELECT
+					  						SIGUN_CD
+					  					FROM TB_TE_APC_OPER_PRSN_OTLN
+					  					WHERE 1=1
+					  					  AND APC_CD = ASPS.APC_CD
+					  					  AND CRTR_YR = ASPS.CRTR_YR)
+				) AS SIGUN_NM
+
 				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = ASPS.APC_CD AND CRTR_YR = ASPS.CRTR_YR
 				) AS APC_NM
 
