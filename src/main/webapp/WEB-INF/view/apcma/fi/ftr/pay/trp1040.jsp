@@ -957,7 +957,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 jsonApprovalList.length = 0;
@@ -1142,7 +1142,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -1291,7 +1290,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS", "TEL", "FAX", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
             ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_CS_NAME_'+target, data.CS_NAME);
                 SBUxMethod.set('SRCH_CS_CODE_'+target, data.CS_CODE);
             },
@@ -1404,7 +1402,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
@@ -1500,7 +1498,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
@@ -1608,7 +1606,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
@@ -1690,7 +1688,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 jsonPaymentScheduledList.length = 0;

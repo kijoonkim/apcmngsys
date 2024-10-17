@@ -603,7 +603,6 @@
 			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
 			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
 			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
 				gvwList.setCellData(row, col, data.EMP_CODE);
 				gvwList.setCellData(row, (col+1), data.EMP_NAME);
 			},
@@ -632,7 +631,6 @@
 			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
 			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
 			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
 				gvwItem.setCellData(row, (col-1), data.DEPT_CODE);
 				gvwItem.setCellData(row, col, data.DEPT_NAME);
 			},
@@ -662,7 +660,6 @@
 			,tableColumnNames		: ["PROJECT_CODE", "PROJECT_NAME"]
 			,tableColumnWidths		: ["150px", "250px"]
 			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
 				gvwList.setCellData(row, (col-1), data.PROJECT_CODE);
 				gvwList.setCellData(row, col, data.PROJECT_NAME);
 			},
@@ -690,7 +687,6 @@
 			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
 			,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
 			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
 				gvwItem.setCellData(row, (col-1), data.ACCOUNT_CODE);
 				gvwItem.setCellData(row, col, data.ACCOUNT_NAME);
 			},
@@ -745,7 +741,6 @@
 		});
 
 		const listData = await postJsonPromiseForList;
-		console.log('data:', listData);
 
 		try {
 			if (_.isEqual("S", listData.resultStatus)) {
@@ -812,7 +807,6 @@
 			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
 			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
 			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
 				SBUxMethod.set('EMP_NAME', data.EMP_NAME);
 				SBUxMethod.set('EMP_CODE', data.EMP_CODE);
 			},
@@ -1381,7 +1375,6 @@
 		});
 
 		const listData = await postJsonPromiseForList;
-		console.log('data:', listData);
 
 		try {
 			if (_.isEqual("S", listData.resultStatus)) {
@@ -1897,7 +1890,6 @@
 		});
 
 		const listData = await postJsonPromiseForList;
-		console.log('data:', listData);
 
 		try {
 			if (_.isEqual("S", listData.resultStatus)) {

@@ -679,7 +679,6 @@
                     });
 
                     const listData = await postJsonPromiseForList;
-                    console.log('data:', listData);
 
                     try {
                         if (_.isEqual("S", listData.resultStatus)) {
@@ -786,7 +785,6 @@
                         });
 
                         const listData = await postJsonPromiseForList;
-                        console.log('data:', listData);
 
                         try {
                             if (_.isEqual("S", listData.resultStatus)) {
@@ -868,7 +866,6 @@
             ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
                 SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
             },
@@ -901,7 +898,6 @@
             , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
             },
@@ -931,7 +927,6 @@
             ,tableColumnNames		: ["TIME_ITEM_CODE", "TIME_ITEM_NAME",  "MEMO", "TIME_CATEGORY"]
             ,tableColumnWidths		: ["80px", "150px", "200px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_TIME_ITEM_CODE', data.TIME_ITEM_CODE);
                 SBUxMethod.set('SRCH_TIME_ITEM_NAME', data.TIME_ITEM_NAME);
             },
@@ -961,7 +956,6 @@
             ,tableColumnNames		: ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 bandgvwInfo.setCellData(nRow, (nCol-3), data['DEPT_CODE']);
                 bandgvwInfo.setCellData(nRow, (nCol-2), data['DEPT_NAME']);
                 bandgvwInfo.setCellData(nRow, (nCol+2), data['DUTY_CODE']);
@@ -992,7 +986,6 @@
             ,tableColumnNames		: ["TIME_ITEM_CODE", "TIME_ITEM_NAME",  "MEMO", "TIME_CATEGORY"]
             ,tableColumnWidths		: ["80px", "150px", "200px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 bandgvwInfo.setCellData(nRow, nCol, data['TIME_ITEM_CODE']);
                 bandgvwInfo.setCellData(nRow, (nCol+1), data['TIME_ITEM_NAME']);
             },
@@ -1133,7 +1126,7 @@
         }
 
         let strsource_code = bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TXN_ID"));
-        console.log(strsource_code)
+
         if( gfn_nvl(strFileSourceType) != "" && gfn_nvl(strsource_code) != "" ){
             compopfilemng({
                 compCode		: gv_ma_selectedApcCd
@@ -1223,7 +1216,7 @@
             const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
@@ -1340,7 +1333,7 @@
             const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
@@ -1404,7 +1397,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1617,8 +1609,6 @@
             V_P_PC				: ''
         };
 
-        console.log(paramObj)
-
         const postJsonPromiseForList = gfn_postJSON("/hr/hrt/hrt/selectHrt2110List.do", {
             getType				: 'json',
             workType			: 'LIST',
@@ -1627,7 +1617,6 @@
         });
 
         const listData = await postJsonPromiseForList;
-        console.log('data:', listData);
 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
@@ -1791,7 +1780,7 @@
             const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
@@ -1905,7 +1894,7 @@
             const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
@@ -2018,7 +2007,7 @@
         const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
@@ -2130,7 +2119,7 @@
         const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2110List.do", {listData: listData});
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
