@@ -3,16 +3,12 @@ package com.at.apcss.am.clcln.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.at.apcss.am.clcln.mapper.ClclnUntprcMapper;
-import com.at.apcss.am.clcln.service.ClclnCrtrService;
 import com.at.apcss.am.clcln.service.ClclnUntprcService;
 import com.at.apcss.am.clcln.vo.ClclnMngVO;
 import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
@@ -186,14 +182,43 @@ public class ClclnUntprcServiceImpl extends BaseServiceImpl implements ClclnUntp
 
 	@Override
 	public HashMap<String, Object> deleteApcUntprc(ClclnMngVO clclnMngVO) throws Exception {
-		// TODO Auto-generated method stub
+		
+		String apcCd = clclnMngVO.getApcCd();
+		
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		
+		List<ClclnUntprcVO> clclnUntprcList = clclnMngVO.getClclnUntprcList();
+		
+		if (clclnUntprcList == null || clclnUntprcList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "단가삭제");
+		}
+		
+		String sysUserId = clclnMngVO.getSysLastChgUserId();
+		String sysPrgrmId = clclnMngVO.getSysLastChgPrgrmId();
+		
+		for ( ClclnUntprcVO untprc : clclnUntprcList ) {
+			
+			untprc.setSysFrstInptUserId(sysUserId);
+			untprc.setSysFrstInptPrgrmId(sysPrgrmId);
+			untprc.setSysLastChgUserId(sysUserId);
+			untprc.setSysLastChgPrgrmId(sysPrgrmId);
+			 
+			untprc.setApcCd(apcCd);
+			ClclnUntprcVO untprcInfo = clclnUntprcMapper.selectClclnUntprcDtl(untprc);
+			if (untprcInfo == null || !StringUtils.hasText(untprcInfo.getClclnYr())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
+			}
+		}
+		
+		for ( ClclnUntprcVO untprc : clclnUntprcList ) {
+			clclnUntprcMapper.deleteClclnUntprcDtl(untprc);
+		}
+		
 		return null;
 	}
-	
-	
 
-	
-	
 	@Override
 	public ClclnUntprcVO selectClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception {
 		ClclnUntprcVO resultVO = clclnUntprcMapper.selectClclnUntprcMstr(clclnUntprcVO);
@@ -204,6 +229,69 @@ public class ClclnUntprcServiceImpl extends BaseServiceImpl implements ClclnUntp
 	public List<ClclnUntprcVO> selectClclnUntprcMstrList(ClclnUntprcVO clclnUntprcVO) throws Exception {
 		List<ClclnUntprcVO> resultList = clclnUntprcMapper.selectClclnUntprcMstrList(clclnUntprcVO);
 		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception {
+		
+		String apcCd = clclnUntprcVO.getApcCd();		
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		
+		String clclnYr = clclnUntprcVO.getClclnYr();
+		if (!StringUtils.hasLength(clclnYr)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산연도");
+		}
+		
+		String bgngYmd = clclnUntprcVO.getBgngYmd();
+		if (!StringUtils.hasLength(bgngYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "시작일자");
+		}
+		
+		String endYmd = clclnUntprcVO.getEndYmd();
+		if (!StringUtils.hasLength(endYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "종료일자");
+		}
+		
+		clclnUntprcMapper.insertClclnUntprcMstr(clclnUntprcVO);
+		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception {
+		
+		String apcCd = clclnUntprcVO.getApcCd();		
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		
+		String clclnYr = clclnUntprcVO.getClclnYr();
+		if (!StringUtils.hasLength(clclnYr)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산연도");
+		}
+		
+		int clclnSn = clclnUntprcVO.getClclnSn();
+		if (clclnSn < 1) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산차수");
+		}
+		
+		
+		String bgngYmd = clclnUntprcVO.getBgngYmd();
+		if (!StringUtils.hasLength(bgngYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "시작일자");
+		}
+		
+		String endYmd = clclnUntprcVO.getEndYmd();
+		if (!StringUtils.hasLength(endYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "종료일자");
+		}
+		
+		clclnUntprcMapper.updateClclnUntprcMstr(clclnUntprcVO);
+		
+		
+		return null;
 	}
 
 }

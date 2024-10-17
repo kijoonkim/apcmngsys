@@ -1556,6 +1556,11 @@ const gfn_comConfirm = function (_msgKey, ..._arguments) {
 	return confirm(gfn_getComMsg(_msgKey, _arguments));
 }
 
+const gfn_getByteLengthOfString = function (s, b, i, c) {
+	  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+	  return b;
+}
+
 const gfn_chkByte = function (objGrid, nRow, nCol, strValue) {
 	const getByteLengthOfString = function (s, b, i, c) {
 		  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);

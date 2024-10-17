@@ -496,7 +496,12 @@
     		) VALUES (
 		 	      #{apcCd}
 				, #{clclnYr}
-				, #{clclnSn}
+				, NVL((
+					SELECT MAX(CLCLN_SN)
+					  FROM TB_CLCLN_UNTPRC_MSTR
+					 WHERE APC_CD = #{apcCd}
+					   AND CLCLN_YR = #{clclnYr}
+					), 0) + 1					   
 				, #{bgngYmd}
 				, #{endYmd}
 				, 'N'
