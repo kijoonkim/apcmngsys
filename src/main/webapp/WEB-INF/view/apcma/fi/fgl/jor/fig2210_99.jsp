@@ -3827,7 +3827,7 @@
      */
     var fn_docReverseCancel = function() {
     	
-		if(gfn_comConfirm("Q0001", "역분개 취소를 하시겠습니까?")){
+		if(gfn_comConfirm("Q0001", "역분개 취소를")){
 			fn_subReverseCancel('REVERSE_CANCEL');
 		}       	
   	}     
