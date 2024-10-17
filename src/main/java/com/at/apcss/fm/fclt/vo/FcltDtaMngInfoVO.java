@@ -80,6 +80,10 @@ public class FcltDtaMngInfoVO extends ComVO{
 	/* 데이터 항목 리스트 */
 	private List<FcltDataMngVO> fcltDataMngVOList;
 
+	private String ctpvCd;
+	private String ctpvNm;
+	private String sigunCd;
+	private String sigunNm;
 }
 
 

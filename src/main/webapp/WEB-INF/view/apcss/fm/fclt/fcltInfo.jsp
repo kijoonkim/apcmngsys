@@ -1102,9 +1102,13 @@
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.columns = [
 			{caption: ["등록년도"],			ref:'crtrYr',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["APC코드"],			ref:'apcCd',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["APC코드"],		ref:'apcCd',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC명"],			ref:'apcNm',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["총면적"],			ref:'cspTotArea',		type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["시도"],			ref:'ctpvNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["시군구"],			ref:'sigunNm',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["총면적"],				ref:'cspTotArea',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["총면적 비고"],			ref:'cspTotRmrk',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["집하선별포장장 면적"],			ref:'cspCfppArea',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["집하선별포장장 비고"],			ref:'cspCfppRmrk',		type:'output',width:'70px',style:'text-align:center'},
@@ -1156,6 +1160,10 @@
 					crtrYr					:item.crtrYr
 					, apcCd					:item.apcCd
 					, apcNm					:item.apcNm
+
+					, ctpvNm				:item.ctpvNm
+					, sigunNm				:item.sigunNm
+
 					, cspTotArea			:item.cspTotArea
 					, cspTotRmrk			:item.cspTotRmrk
 					, cspCfppArea			:item.cspCfppArea

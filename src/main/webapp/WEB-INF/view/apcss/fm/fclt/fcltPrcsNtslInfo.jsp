@@ -1143,6 +1143,9 @@
 			{caption: ["APC코드"],	ref:'apcCd',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC명"],		ref:'apcNm',	type:'output',width:'70px',style:'text-align:center'},
 
+			{caption: ["시도"],			ref:'ctpvNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["시군구"],			ref:'sigunNm',			type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["대형유통업체(백화점 포함)(백만원)"],		ref:'apcNtslAmtLgszRtl',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["식자재업체(학교급식, 가공업체 포함)(백만원)"],	ref:'apcNtslAmtFoodMtrl',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["도매시장(공판장 포함)(백만원)"],			ref:'apcNtslAmtWhlslMrkt',		type:'output',width:'70px',style:'text-align:center'},
@@ -1183,6 +1186,9 @@
 				let hiddenGrdVO = {
 					apcCd				:item.apcCd
 					,apcNm				:item.apcNm
+
+					,ctpvNm				:item.ctpvNm
+					,sigunNm			:item.sigunNm
 
 					, apcNtslAmtLgszRtl			: item.apcNtslAmtLgszRtl
 					, apcNtslAmtFoodMtrl		: item.apcNtslAmtFoodMtrl

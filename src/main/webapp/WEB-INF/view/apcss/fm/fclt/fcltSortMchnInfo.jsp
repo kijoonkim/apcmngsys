@@ -981,6 +981,10 @@
 			{caption: ["등록년도"],		ref:'crtrYr',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC코드"],	ref:'apcCd',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC명"],		ref:'apcNm',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["시도"],		ref:'ctpvNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["시군구"],		ref:'sigunNm',			type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["품목코드"],		ref:'itemCd',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["품목명"],		ref:'itemNm',			type:'output',width:'70px',style:'text-align:center'},
 
@@ -1021,6 +1025,10 @@
 					crtrYr				:item.crtrYr
 					,apcCd				:item.apcCd
 					,apcNm				:item.apcNm
+
+					,ctpvNm				:item.ctpvNm
+					,sigunNm			:item.sigunNm
+
 					,itemNm				:item.itemNm
 					,itemCd				:item.itemCd
 

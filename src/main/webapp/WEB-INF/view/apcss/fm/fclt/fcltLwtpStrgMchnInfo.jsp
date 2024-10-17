@@ -981,6 +981,12 @@
 			{caption: ["APC코드"],		ref:'apcCd',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["APC명"],			ref:'apcNm',			type:'output',width:'70px',style:'text-align:center'},
 
+			{caption: ["시도"],			ref:'ctpvNm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["시군구"],			ref:'sigunNm',			type:'output',width:'70px',style:'text-align:center'},
+
+			{caption: ["품목코드"],			ref:'itemCd',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["품목명"],			ref:'itemNm',			type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["보유여부"],			ref:'lwtpStrgPlcHldYn',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["저장능력(톤)*최대저장"],			ref:'strgPlcStrgAblt',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["단기저장실적(톤)*단순 출하대기"],			ref:'strgPlcStrmStrgAblt',		type:'output',width:'70px',style:'text-align:center'},
@@ -1029,6 +1035,12 @@
 				let hiddenGrdVO = {
 					apcCd				:item.apcCd
 					,apcNm				:item.apcNm
+
+					,ctpvNm				:item.ctpvNm
+					,sigunNm			:item.sigunNm
+
+					,itemCd				:item.itemCd
+					,itemNm				:item.itemNm
 
 					,lwtpStrgPlcHldYn		:item.lwtpStrgPlcHldYn
 					,strgPlcStrgAblt		:item.strgPlcStrgAblt

@@ -78,6 +78,11 @@ public class FcltPrcsNtslInfoVO extends ComVO{
 	private String apcItemNm3;
 	private String apcItemNm4;
 
+	private String ctpvCd;
+	private String ctpvNm;
+	private String sigunCd;
+	private String sigunNm;
+
 }
 
 

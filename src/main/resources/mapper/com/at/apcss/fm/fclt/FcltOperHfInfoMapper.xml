@@ -260,9 +260,31 @@
 	<select id="selectFcltOperHfInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoRawDataList */
-				APC_CD
+				AOA.CRTR_YR
+				,AOA.APC_CD
 				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOA.APC_CD) AS APC_NM
-				,CRTR_YR
+
+				, (SELECT
+						FN_GET_COM_CD_VL_NM('UNTY_CTPV',CTPV_CD)
+					FROM TB_TE_APC_OPER_PRSN_OTLN
+					WHERE 1=1
+					  AND APC_CD = AOA.APC_CD
+					  AND CRTR_YR = AOA.CRTR_YR
+				) AS CTPV_NM
+
+				, (SELECT
+							X.CD_VL_EXPLN
+					FROM TB_COM_CD_DTL X
+					WHERE 1=1
+					  AND X.CD_ID = 'UNTY_SGG'
+					  AND X.APC_CD = '0000'
+					  AND X.CD_VL = (SELECT
+					  						SIGUN_CD
+					  					FROM TB_TE_APC_OPER_PRSN_OTLN
+					  					WHERE 1=1
+					  					  AND APC_CD = AOA.APC_CD
+					  					  AND CRTR_YR = AOA.CRTR_YR)
+				) AS SIGUN_NM
 
 				,HIRE_RGLLBR_OFC
 				,HIRE_RGLLBR_SPT
