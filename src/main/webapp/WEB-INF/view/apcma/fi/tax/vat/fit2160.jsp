@@ -118,7 +118,6 @@
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
                     </td>
-
                     <th scope="row" class="th_bg">사업자번호</th>
                     <td colspan="7" class="td_input" style="border-right: hidden;">
                         <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
@@ -146,7 +145,7 @@
                         </div>
                         <div class="tab-content" style="height: auto;flex: 1">
                             <div id="tab-wrap" style="height: 100%; display: flex; flex-direction: column" >
-                                <table style="width: 100%; text-align:center">
+                                <table id="panRightHeader" style="width: 100%; text-align:center">
                                     <colgroup>
                                         <col style="width: 60%">
                                         <col style="width: 10%">
@@ -385,7 +384,7 @@
                                                          onclick="fn_removeRow('grdCalc')">
                                             </sbux-button>
                                         </div>
-                                        <div id="sb-area-grdCalc" style="height: 200px;"></div>
+                                        <div id="sb-area-grdCalc" style="height: 150px;"></div>
                                         <div class="ad_tbl_top">
                                             <ul class="ad_tbl_count">
                                                 <li><span>◎납부세액 또는 환급세액 재계산 명세</span></li>
@@ -403,7 +402,7 @@
                                                          onclick="fn_removeRow('grdReCalc')">
                                             </sbux-button>
                                         </div>
-                                        <div id="sb-area-grdReCalc" style="height: 200px"></div>
+                                        <div id="sb-area-grdReCalc" style="height: 150px"></div>
                                     </div>
                                 </div>
                             </div>
@@ -416,8 +415,6 @@
 </section>
 </body>
 <script type="text/javascript">
-    <%--var gv_ma_selectedApcCd	= '${loginVO.apcCd}';--%>
-    <%--var gv_ma_selectedClntCd	= '${loginVO.clntCd}';--%>
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
@@ -479,6 +476,22 @@
     }
 
     async function fn_choice(_value){
+       /** reset **/
+        jsonGrdList.length = 0;
+        jsonGrdDivision.length = 0;
+        jsonGrdCalc.length = 0;
+        jsonGrdReCalc.length = 0;
+
+        grdListGrid.rebuild();
+        grdDivision.rebuild();
+        grdCalc.rebuild();
+        grdReCalc.rebuild();
+
+        const inputs = document.querySelectorAll('#panRightHeader input');
+        inputs.forEach(input => {
+            input.value = 0;
+        });
+
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -557,6 +570,7 @@
             {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
+        grdListGrid.bind("click","fn_setSiteCode");
     }
     const fn_createGridDivision = function(){
         var SBGridProperties = {};
@@ -617,6 +631,56 @@
             return;
         }
         window[_id].deleteRow(idx);
+    }
+    async function fn_setSiteCode(){
+        var paramObj = {
+            V_P_DEBUG_MODE_YN      : ''
+            ,V_P_LANG_ID            : ''
+            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+            ,V_P_YYYY               : ''
+            ,V_P_SEQ                : ''
+            ,V_P_TAX_SITE_CODE      : ''
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+        }
+
+        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
+        paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
+        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
+
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2160.do", {
+            getType				: 'json',
+            cv_count			: '13',
+            workType            : 'Q',
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+
+        if(data.resultStatus === 'S'){
+            let resultObj = data.cv_1[0];
+            for(let key in resultObj){
+                let elId = "#" + gfnma_snakeToCamel(key);
+                $(elId).val(parseInt(resultObj[key]));
+            }
+        }
+    }
+    /** 공통버튼 **/
+    function cfn_search() {
+        fn_search();
+    }
+    const fn_search = async function(){
+        let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
+        if(gfn_isEmpty(_value)){
+            gfn_comAlert("W0002", "신고구분명");
+            return;
+        }
+        await fn_choice(_value);
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
