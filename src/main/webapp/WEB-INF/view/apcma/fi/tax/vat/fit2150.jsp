@@ -546,7 +546,6 @@
                     for(let key in bottomData){
                         $(`#${'${key}'}`).val(bottomData[key]);
                     }
-
                 }
             }
         }
@@ -563,6 +562,7 @@
             {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
+        grdListGrid.bind("click","fn_setSiteCode");
     }
     /** resizer set **/
     const resizer = document.getElementById('resizer');
@@ -621,7 +621,53 @@
         fn_search();
     }
     const fn_search = async function(){
+        let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
+        if(gfn_isEmpty(_value)){
+            gfn_comAlert("W0002", "신고구분명");
+            return;
+        }
+        await fn_choice(_value);
+    }
+    async function fn_setSiteCode(){
+        var paramObj = {
+            V_P_DEBUG_MODE_YN      : ''
+            ,V_P_LANG_ID            : ''
+            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+            ,V_P_YYYY               : ''
+            ,V_P_SEQ                : ''
+            ,V_P_TAX_SITE_CODE      : ''
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+        }
+        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
+        paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
+        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
 
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2150.do", {
+            getType: 'json',
+            cv_count: '4',
+            workType: 'DETAIL',
+            params: gfnma_objectToString(paramObj)
+        });
+        const data1 = await postJsonPromise;
+
+        if(data1.resultStatus === 'S'){
+            let middleData = data1.cv_2[0];
+            let bottomData = data1.cv_3[0];
+
+            for(let key in middleData){
+                $(`#${'${key}'}`).val(middleData[key]);
+            }
+            for(let key in bottomData){
+                $(`#${'${key}'}`).val(bottomData[key]);
+            }
+        }
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
