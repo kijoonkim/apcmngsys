@@ -683,43 +683,43 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['감면종료일'], ref: 'PREV_REDUCT_END_DAT', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["급여"], ref: 'PREV_PAY_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["급여"], ref: 'PREV_PAY_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["상여"], ref: 'PREV_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["상여"], ref: 'PREV_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["인정상여"], ref: 'PREV_ADD_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["인정상여"], ref: 'PREV_ADD_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주식매수선택권 행사이익"], ref: 'PREV_STOCK_PROFIT_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["주식매수선택권 행사이익"], ref: 'PREV_STOCK_PROFIT_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["우리사주조합인출금"], ref: 'PREV_EMP_STOCK_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["우리사주조합인출금"], ref: 'PREV_EMP_STOCK_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["임원 퇴직소득금액 한도초과액"], ref: 'PREV_EXEC_RET_LIM_OVER', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["임원 퇴직소득금액 한도초과액"], ref: 'PREV_EXEC_RET_LIM_OVER', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["국민연금보험료"], ref: 'PREV_PENS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["국민연금보험료"], ref: 'PREV_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["공무원연금"], ref: 'PREV_OFFICIAL_PENS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["공무원연금"], ref: 'PREV_OFFICIAL_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["군인연금"], ref: 'PREV_MILITARY_PENS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["군인연금"], ref: 'PREV_MILITARY_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["사립학교 교직원연금"], ref: 'PREV_SCHOOL_PENS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["사립학교 교직원연금"], ref: 'PREV_SCHOOL_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["별정우체국연금"], ref: 'PREV_POST_PENS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["별정우체국연금"], ref: 'PREV_POST_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["과학기술인공제"], ref: 'PREV_SCNT_PENS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["과학기술인공제"], ref: 'PREV_SCNT_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["근로자퇴직급여보장법"], ref: 'PREV_RET_PENS_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["근로자퇴직급여보장법"], ref: 'PREV_RET_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["연금저축계좌"], ref: 'PREV_PENS_SV_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["연금저축계좌"], ref: 'PREV_PENS_SV_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["국민건강보험(노양장기요양보험 포함)"], ref: 'PREV_HEALTH_INSURE_AMT', type: 'input', width: '170px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["고용보험"], ref: 'PREV_EMP_INSURE_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["고용보험"], ref: 'PREV_EMP_INSURE_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["소득세"], ref: 'PREV_INC_TX_AMT', type: 'input', width: '170px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["지방소득세"], ref: 'PREV_LOCAL_TX_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["지방소득세"], ref: 'PREV_LOCAL_TX_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["농어촌특별세"], ref: 'PREV_SPEC_TX_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["농어촌특별세"], ref: 'PREV_SPEC_TX_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
         ];
 
@@ -757,7 +757,7 @@
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>선택</button>";
                 }
             },
-            {caption: ["비과세금액"], ref: 'TXFREE_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["비과세금액"], ref: 'TXFREE_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];

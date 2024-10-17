@@ -841,11 +841,11 @@
             {caption : ["수당항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode1', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["수량"], ref: 'PAY_QTY', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["수량"], ref: 'PAY_QTY', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ['귀속년월'], 		ref: 'RE_PAY_YYYYMM', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
@@ -878,9 +878,9 @@
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode2', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["수량"], ref: 'PAY_QTY', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["수량"], ref: 'PAY_QTY', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ['귀속년월'], ref: 'RE_PAY_YYYYMM1', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
@@ -914,9 +914,9 @@
             {caption : ["기초항목"], ref : 'pay_item_code', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode3', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["수량"], ref: 'PAY_QTY', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["수량"], ref: 'PAY_QTY', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ['귀속년월'], ref: 'RE_PAY_YYYYMM1', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
@@ -1288,13 +1288,27 @@
 
     // 행 추가
     const fn_addRow = function () {
+
         let rowVal = gvwPayGrid.getRow();
+
+        const msg = {
+            PAY_ITEM_CODE                : '',
+            PAY_AMT                    : 0,
+            TAX_FREE_AMT                    : 0,
+            PAY_QTY                    : 0,
+            RE_PAY_YYYYMM                    : '',
+            RE_PAY_YYYYMM_P                    : '',
+            TAX_PAY_DATE                    : '',
+            RE_PAY_DATE_P                    : '',
+
+            status: 'i'
+        }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwPayGrid.addRow(true);
+            gvwPayGrid.addRow(true, msg);
         }else{
-            gvwPayGrid.insertRow(rowVal);
+            gvwPayGrid.insertRow(rowVal, 'below', msg);
         }
         //grdFimList.refresh();
     }
@@ -1315,13 +1329,26 @@
 
     // 행 추가
     const fn_addRow1 = function () {
+
         let rowVal = gvwDeductGrid.getRow();
+
+        const msg = {
+            PAY_ITEM_CODE       : '',
+            PAY_AMT             : 0,
+            PAY_QTY             : 0,
+            RE_PAY_YYYYMM1      : '',
+            RE_PAY_YYYYMM_P     : '',
+            TAX_PAY_DATE        : '',
+            RE_PAY_DATE_P       : '',
+
+            status: 'i'
+        }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwDeductGrid.addRow(true);
+            gvwDeductGrid.addRow(true, msg);
         }else{
-            gvwDeductGrid.insertRow(rowVal);
+            gvwDeductGrid.insertRow(rowVal, 'below', msg);
         }
         //grdFimList.refresh();
     }

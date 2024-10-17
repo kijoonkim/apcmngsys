@@ -443,17 +443,17 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ['기준년도'], ref: 'YYYY', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['기준년도'], ref: 'YYYY', width:'170px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}, disabled: true},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', width:'170px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', width:'170px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["퇴직소득공제율"], ref: 'RETIRE_INCOME_DED_RATE', type: 'output', width: '140px', style: 'text-align:left', hidden: true
+            {caption: ["퇴직소득공제율"], ref: 'RETIRE_INCOME_DED_RATE', type: 'output', width: '170px', style: 'text-align:right', hidden: true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##' }},
-            {caption: ["임원지급배수"], ref: 'EXECUTIVE_PAY_MULTIPLE', type: 'output', width: '140px', style: 'text-align:left', hidden: true
+            {caption: ["임원지급배수"], ref: 'EXECUTIVE_PAY_MULTIPLE', type: 'output', width: '170px', style: 'text-align:right', hidden: true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##' }},
-            {caption: ["메모"], ref: 'MEMO', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["메모"], ref: 'MEMO', type: 'output', width: '170px', style: 'text-align:left'},
         ];
 
         gvwMasterGrid = _SBGrid.create(SBGridProperties);
@@ -474,14 +474,15 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["근속공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["근속공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["최대치"], ref: 'MAX_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["최대치"], ref: 'MAX_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
         ];
 
@@ -502,12 +503,13 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["누진일수"], ref: 'CUMULATIVE_DAY_CNT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["누진일수"], ref: 'CUMULATIVE_DAY_CNT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwDayGrid = _SBGrid.create(SBGridProperties);
@@ -528,14 +530,15 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["환산급여 상한(이상)"], ref: 'PAY_AMT_TO', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["환산급여 상한(이상)"], ref: 'PAY_AMT_TO', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["공제세율(%)"], ref: 'TX_R', type: 'input', width: '140px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##' }},
-            {caption: ["누진공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["공제세율(%)"], ref: 'TX_R', type: 'input', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00' }},
+            {caption: ["누진공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwConvertGrid = _SBGrid.create(SBGridProperties);
@@ -545,13 +548,23 @@
 
     // 근속연수공제 행 추가
     const fn_detailAddRow = function () {
+
         let rowVal = gvwDetailGrid.getRow();
+
+        const msg = {
+            WORK_YEAR_FR                : 0,
+            WORK_YEAR_TO                : 0,
+            CUMULATIVE_TAX_DED_AMT      : 0,
+            MAX_AMT                     : 0,
+
+            status: 'i'
+        }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwDetailGrid.addRow(true);
+            gvwDetailGrid.addRow(true, msg);
         }else{
-            gvwDetailGrid.insertRow(rowVal);
+            gvwDetailGrid.insertRow(rowVal, 'below', msg);
         }
         //grdFimList.refresh();
     }
@@ -572,13 +585,23 @@
 
     // 누진일수 행 추가
     const fn_dayAddRow = function () {
+
         let rowVal = gvwDayGrid.getRow();
+
+        const msg = {
+            WORK_YEAR_FROM          : 0,
+            WORK_YEAR_TO            : 0,
+            CUMULATIVE_DAY_CNT      : 0,
+
+
+            status: 'i'
+        }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwDayGrid.addRow(true);
+            gvwDayGrid.addRow(true, msg);
         }else{
-            gvwDayGrid.insertRow(rowVal);
+            gvwDayGrid.insertRow(rowVal, 'below', msg);
         }
         //grdFimList.refresh();
     }
@@ -601,11 +624,20 @@
     const fn_convertAddRow = function () {
         let rowVal = gvwConvertGrid.getRow();
 
+        const msg = {
+            PAY_AMT_FR          : 0,
+            PAY_AMT_TO            : 0,
+            TX_R      : 0,
+            CUMULATIVE_TAX_DED_AMT      : 0,
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwConvertGrid.addRow(true);
+            gvwConvertGrid.addRow(true, msg);
         }else{
-            gvwConvertGrid.insertRow(rowVal);
+            gvwConvertGrid.insertRow(rowVal, 'below', msg);
         }
         //grdFimList.refresh();
     }
