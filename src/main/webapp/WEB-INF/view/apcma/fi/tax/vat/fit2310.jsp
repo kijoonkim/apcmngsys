@@ -1,9 +1,9 @@
 <%
     /**
      * @Class Name 		: fit2140.jsp
-     * @Description 	: 신용카드수령명세서(매입) 화면
+     * @Description 	: 수출실적명세서 화면
      * @author 			: 인텔릭아이앤에스
-     * @since 			: 2024.07.03
+     * @since 			: 2024.10.16
      * @version 		: 1.0
      * @Modification Information
      * @
@@ -144,7 +144,7 @@
                 <div style="width: 30%;padding: 10px">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
-                            <li><span>사업장 리스트</span></li>
+                            <li><span>◎ 사업장 리스트</span></li>
                         </ul>
                     </div>
                     <div id="sb-area-grdListGrid" style="width: 100%"></div>
@@ -152,133 +152,133 @@
                 <div class="resizer" data-direction="horizontal"></div>
                 <div style="padding: 10px;flex: 1;display: flex;flex-direction: column">
                     <div style="height: 50%">
-                            <div class="ad_tbl_top">
-                                <ul class="ad_tbl_count">
-                                    <li><span>신용카드 등 매입명세 합계</span></li>
-                                </ul>
-                            </div>
-                            <table id="panRightHeader" style="width: 100%;">
-                                <colgroup>
-                                    <col style="width: 25%">
-                                    <col style="width: 25%">
-                                    <col style="width: 25%">
-                                    <col style="width: 25%">
-                                </colgroup>
-                                <tbody>
-                                <tr>
-                                    <td>구&emsp;&emsp;&emsp;&emsp;분</td>
-                                    <td>거래건수 합계</td>
-                                    <td>공급가액 합계</td>
-                                    <td>세액 합계</td>
-                                </tr>
-                                <tr>
-                                    <td>⑤ 합&emsp;&emsp;&emsp;계</td>
-                                    <td>
-                                        <sbux-input id="SUM_CNT" name="SUM_CNT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="SUM_AMT" name="SUM_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="SUM_VAT_AMT" name="SUM_VAT_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>⑥ 현금&emsp;영수증</td>
-                                    <td>
-                                        <sbux-input id="CASH_CNT" name="CASH_CNT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="CASH_AMT" name="CASH_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="CASH_VAT_AMT" name="CASH_VAT_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>⑦ 복&emsp;지&emsp;카&emsp;드</td>
-                                    <td>
-                                        <sbux-input id="WELFARE_CARD_CNT" name="WELFARE_CARD_CNT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="WELFARE_CARD_AMT" name="WELFARE_CARD_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="WELFARE_CARD_VAT_AMT" name="WELFARE_CARD_VAT_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>⑧ 사업용&emsp;신용카드</td>
-                                    <td>
-                                        <sbux-input id="BIZ_CARD_CNT" name="BIZ_CARD_CNT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="BIZ_CARD_AMT" name="BIZ_CARD_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="BIZ_CARD_VAT_AMT" name="BIZ_CARD_VAT_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>⑨ 그 밖의&emsp;신용카드</td>
-                                    <td>
-                                        <sbux-input id="ETC_CARD_CNT" name="ETC_CARD_CNT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="ETC_CARD_AMT" name="ETC_CARD_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                    <td>
-                                        <sbux-input id="ETC_CARD_VAT_AMT" name="ETC_CARD_VAT_AMT" uitype="text"
-                                                    class="tpgTd" init="0" readonly
-                                                    mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                        </sbux-input>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div class="ad_tbl_top">
+                            <ul class="ad_tbl_count">
+                                <li><span>◎ 수출재화 집계내역</span></li>
+                            </ul>
                         </div>
+                        <table id="panRightHeader" style="width: 100%;">
+                            <colgroup>
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                                <col style="width: 25%">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td>구&emsp;&emsp;&emsp;&emsp;분</td>
+                                <td>건수</td>
+                                <td>외화금액</td>
+                                <td>원화금액</td>
+                            </tr>
+                            <tr>
+                                <td>⑤ 합&emsp;&emsp;&emsp;계</td>
+                                <td>
+                                    <sbux-input id="SUM_CNT" name="SUM_CNT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="SUM_AMT" name="SUM_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="SUM_VAT_AMT" name="SUM_VAT_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>⑥ 현금&emsp;영수증</td>
+                                <td>
+                                    <sbux-input id="CASH_CNT" name="CASH_CNT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="CASH_AMT" name="CASH_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="CASH_VAT_AMT" name="CASH_VAT_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>⑦ 복&emsp;지&emsp;카&emsp;드</td>
+                                <td>
+                                    <sbux-input id="WELFARE_CARD_CNT" name="WELFARE_CARD_CNT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="WELFARE_CARD_AMT" name="WELFARE_CARD_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="WELFARE_CARD_VAT_AMT" name="WELFARE_CARD_VAT_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>⑧ 사업용&emsp;신용카드</td>
+                                <td>
+                                    <sbux-input id="BIZ_CARD_CNT" name="BIZ_CARD_CNT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="BIZ_CARD_AMT" name="BIZ_CARD_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="BIZ_CARD_VAT_AMT" name="BIZ_CARD_VAT_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>⑨ 그 밖의&emsp;신용카드</td>
+                                <td>
+                                    <sbux-input id="ETC_CARD_CNT" name="ETC_CARD_CNT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="ETC_CARD_AMT" name="ETC_CARD_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                                <td>
+                                    <sbux-input id="ETC_CARD_VAT_AMT" name="ETC_CARD_VAT_AMT" uitype="text"
+                                                class="tpgTd" init="0" readonly
+                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                    </sbux-input>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="resizer" data-direction="vertical"></div>
                     <div style="flex: 1; background-color: white">
                         <div style="flex: 1; display: flex; flex-direction: column; height: 100%">
@@ -439,7 +439,6 @@
             {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
-        grdListGrid.bind("click","fn_setSiteCode");
     }
 
     const fn_createGridDetail = function(){
@@ -515,49 +514,7 @@
         fn_search();
     }
     const fn_search = async function(){
-        let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
-        if(gfn_isEmpty(_value)){
-            gfn_comAlert("W0002", "신고구분명");
-            return;
-        }
-        await fn_choice(_value);
-    }
-    async function fn_setSiteCode(){
-        var paramObj = {
-            V_P_DEBUG_MODE_YN      : ''
-            ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
-            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-            ,V_P_YYYY               : ''
-            ,V_P_SEQ                : ''
-            ,V_P_TAX_SITE_CODE      : ''
-            ,V_P_TAX_SITE_NAME      : ''
-            ,V_P_BIZ_REGNO          : ''
-            ,V_P_FORM_ID            : p_formId
-            ,V_P_MENU_ID            : p_menuId
-            ,V_P_PROC_ID            : ''
-            ,V_P_USERID             : ''
-            ,V_P_PC                 : ''
-        }
-        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
-        paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2140.do", {
-            getType: 'json',
-            cv_count: '7',
-            workType: 'DETAIL',
-            params: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
 
-        if (data.resultStatus === 'S') {
-            let header = data.cv_2[0];
-            jsonGrdDetail = data.cv_3;
-            grdDetailGrid.rebuild();
-            for (let key in header ) {
-                $(`#${'${key}'}`).val(header[key]);
-            }
-        }
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

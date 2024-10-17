@@ -664,6 +664,22 @@
         })
     }
     async function fn_choice(_value){
+        /** reset **/
+       let tabType = SBUxMethod.get('tabVATtax');
+       let inputs;
+       if(tabType === 'tpgAR'){
+           inputs = document.querySelectorAll("#tpgAR input");
+           jsonGrdAr.length = 0;
+           grdAr.rebuild();
+       }else{
+           inputs = document.querySelectorAll("#tpgAP input");
+           jsonGrdAp.length = 0;
+           grdAp.rebuild();
+       }
+        inputs.forEach(input => {
+            input.value = 0;
+        });
+
        let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -752,6 +768,7 @@
             {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
+        grdListGrid.bind("click","fn_setSiteCode");
     }
     const fn_createGridAr = function(){
         var SBGridProperties = {};
@@ -849,6 +866,14 @@
     function cfn_search() {
         fn_search();
     }
+    const fn_search = async function(){
+        let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
+        if(gfn_isEmpty(_value)){
+            gfn_comAlert("W0002", "신고구분명");
+            return;
+        }
+        await fn_choice(_value);
+    }
 
     async function fn_afterSelectTab(_id){
         var paramObj = {
@@ -908,6 +933,53 @@
                 }
                 jsonGrdAp = data.cv_5;
                 grdAp.rebuild();
+            }
+        }
+    }
+    async function fn_setSiteCode(){
+        var paramObj = {
+            V_P_DEBUG_MODE_YN      : ''
+            ,V_P_LANG_ID            : ''
+            ,V_P_COMP_CODE          : gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+            ,V_P_YYYY               : ''
+            ,V_P_SEQ                : ''
+            ,V_P_TAX_SITE_CODE      : ''
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+            ,V_P_AR_AP_TYPE         : ''
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+        }
+
+        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
+        paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
+        let arapType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
+        paramObj.V_P_AR_AP_TYPE = arapType;
+        let workType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'Q':'Q1';
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2110.do", {
+            getType				: 'json',
+            cv_count			: '13',
+            workType            : workType,
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            if(workType === 'Q'){
+                let resultObj = data.cv_2[0];
+                for(let key in resultObj){
+                    let elId = "#" + gfnma_snakeToCamel(key);
+                    $(elId).val(parseInt(resultObj[key]));
+                }
+            }else{
+                let resultObj = data.cv_3[0];
+                for(let key in resultObj){
+                    let elId = "#" + gfnma_snakeToCamel(key);
+                    $(elId).val(parseInt(resultObj[key]));
+                }
             }
         }
     }
