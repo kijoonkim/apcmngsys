@@ -56,6 +56,15 @@ public interface ClclnCrtrMapper {
 	public List<ClclnCrtrVO> selectClclnCrtrDtlList(ClclnCrtrVO clclnCrtrVO) throws Exception;
 	
 	/**
+	 * 정산기준 (사용중) 상세 목록 조회
+	 * @param clclnCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnCrtrVO> selectCrtrDtlListInUse(ClclnCrtrVO clclnCrtrVO) throws Exception;
+	
+	
+	/**
 	 * 정산기준 상세 목록 조회 (삭제대상조회)
 	 * @param clclnCrtrVO
 	 * @return

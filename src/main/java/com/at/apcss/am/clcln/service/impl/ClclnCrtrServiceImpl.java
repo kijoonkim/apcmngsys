@@ -75,12 +75,20 @@ public class ClclnCrtrServiceImpl extends BaseServiceImpl implements ClclnCrtrSe
 		return resutList;
 	}
 
+
+	@Override
+	public List<ClclnCrtrVO> selectCrtrDtlListInUse(ClclnCrtrVO clclnCrtrVO) throws Exception {
+		List<ClclnCrtrVO> resutList = clclnCrtrMapper.selectCrtrDtlListInUse(clclnCrtrVO);
+		return resutList;
+	}
+	
+	
 	@Override
 	public HashMap<String, Object> insertClclnCrtr(ClclnMngVO clclnMngVO) throws Exception {
 		
 		String apcCd = clclnMngVO.getApcCd();
 		
-		if (!StringUtils.hasLength(apcCd)) {
+		if (!StringUtils.hasText(apcCd)) {
 			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
 		}
 		
@@ -196,7 +204,6 @@ public class ClclnCrtrServiceImpl extends BaseServiceImpl implements ClclnCrtrSe
 
 	@Override
 	public HashMap<String, Object> insertClclnCrtrDtl(ClclnMngVO clclnMngVO) throws Exception {
-		
 
 		String apcCd = clclnMngVO.getApcCd();
 		if (!StringUtils.hasLength(apcCd)) {
@@ -294,10 +301,66 @@ public class ClclnCrtrServiceImpl extends BaseServiceImpl implements ClclnCrtrSe
 
 	@Override
 	public HashMap<String, Object> deleteClclnCrtrDtl(ClclnMngVO clclnMngVO) throws Exception {
-		// TODO Auto-generated method stub
+
+		String apcCd = clclnMngVO.getApcCd();
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		
+		String clclnCrtrType = clclnMngVO.getClclnCrtrType();
+		if (!StringUtils.hasLength(clclnCrtrType)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산기준유형");
+		}
+		
+		String crtrCd = clclnMngVO.getCrtrCd();
+		if (!StringUtils.hasLength(crtrCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
+		}
+				
+		List<ClclnCrtrVO> clclnCrtrDtlList = clclnMngVO.getClclnCrtrDtlList(); 
+		
+		if (clclnCrtrDtlList == null || clclnCrtrDtlList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
+		}
+		
+		String sysUserId = clclnMngVO.getSysLastChgUserId();
+		String sysPrgrmId = clclnMngVO.getSysLastChgPrgrmId();
+		
+		for ( ClclnCrtrVO dtl : clclnCrtrDtlList ) {
+			
+			// validation check
+			if (!clclnCrtrType.equals(dtl.getClclnCrtrType())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "정산기준유형||등록유형");
+			}
+			if (!crtrCd.equals(dtl.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "기준코드||등록코드");
+			}
+			
+			if (dtl.getDtlSn() < 1) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상세일련번호");
+			}
+			
+			dtl.setApcCd(apcCd);
+			
+			// 데이터 확인
+			ClclnCrtrVO dtlInfo = selectClclnCrtrDtl(dtl);
+			
+			if (dtlInfo == null || !StringUtils.hasText(dtlInfo.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
+			}			
+		}
+		
+		for ( ClclnCrtrVO dtl : clclnCrtrDtlList ) {
+			dtl.setSysFrstInptUserId(sysUserId);
+			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
+			dtl.setSysLastChgUserId(sysUserId);
+			dtl.setSysLastChgPrgrmId(sysPrgrmId);
+			
+			clclnCrtrMapper.deleteClclnCrtrDtl(dtl);
+		}
+		
 		return null;
 	}
-
 
 
 }

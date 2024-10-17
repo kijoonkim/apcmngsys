@@ -211,6 +211,30 @@ public class ClclnMngController extends BaseController {
 	}
 	
 	
+	// APC 정산기준 상세 조회 (사용중)
+	@PostMapping(value = "/am/clcln/selectCrtrDtlListInUse.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectCrtrDtlListInUse(@RequestBody ClclnCrtrVO clclnCrtrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ClclnCrtrVO> resultList = new ArrayList<>();
+		
+		try {
+			resultList = clclnCrtrService.selectCrtrDtlListInUse(clclnCrtrVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	
 	// APC 정산단가 조회
 	@PostMapping(value = "/am/clcln/selectApcClclnUntprcList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcClclnUntprcList(@RequestBody ClclnUntprcVO clclnUntprcVO, HttpServletRequest request) throws Exception {
@@ -234,6 +258,65 @@ public class ClclnMngController extends BaseController {
 	}
 	
 	
+
+	// APC 정산단가 마스터 등록
+	@PostMapping(value = "/am/clcln/insertClclnUntprcMstr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertClclnUntprcMstr(@RequestBody ClclnUntprcVO clclnUntprcVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			clclnUntprcVO.setSysFrstInptUserId(getUserId());
+			clclnUntprcVO.setSysFrstInptPrgrmId(getPrgrmId());
+			clclnUntprcVO.setSysLastChgUserId(getUserId());
+			clclnUntprcVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = clclnUntprcService.insertClclnUntprcMstr(clclnUntprcVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// APC 정산단가 마스터 변경
+	@PostMapping(value = "/am/clcln/updateClclnUntprcMstr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateClclnUntprcMstr(@RequestBody ClclnUntprcVO clclnUntprcVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			clclnUntprcVO.setSysFrstInptUserId(getUserId());
+			clclnUntprcVO.setSysFrstInptPrgrmId(getPrgrmId());
+			clclnUntprcVO.setSysLastChgUserId(getUserId());
+			clclnUntprcVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = clclnUntprcService.updateClclnUntprcMstr(clclnUntprcVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
 	// APC 정산단가 등록
 	@PostMapping(value = "/am/clcln/insertApcUntprc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertApcUntprc(@RequestBody ClclnMngVO clclnMngVO, HttpServletRequest request) throws Exception {
@@ -247,6 +330,35 @@ public class ClclnMngController extends BaseController {
 			clclnMngVO.setSysLastChgPrgrmId(getPrgrmId());
 			
 			HashMap<String, Object> rtnObj = clclnUntprcService.insertApcUntprc(clclnMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+			
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	
+	// APC 정산단가 등록
+	@PostMapping(value = "/am/clcln/deleteApcUntprc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteApcUntprc(@RequestBody ClclnMngVO clclnMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			clclnMngVO.setSysFrstInptUserId(getUserId());
+			clclnMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			clclnMngVO.setSysLastChgUserId(getUserId());
+			clclnMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			
+			HashMap<String, Object> rtnObj = clclnUntprcService.deleteApcUntprc(clclnMngVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

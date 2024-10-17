@@ -66,14 +66,6 @@
 			                onclick="fn_create"
 			        ></sbux-button>
 			        <sbux-button
-			                id="btnReset"
-			                name="btnReset"
-			                uitype="normal"
-			                class="btn btn-sm btn-outline-danger"
-			                text="초기화"
-			                onclick="fn_reset"
-			        ></sbux-button>
-			        <sbux-button
 			                id="btnSave"
 			                name="btnSave"
 			                uitype="normal"
@@ -391,7 +383,7 @@
   		fn_createUntprcWrhsGrdGrid();
   		
 		lv_prvClclnYr = SBUxMethod.get("srch-dtp-clclnYr");
-  		lv_prvClclnSn = SBUxMethod.get("srch-spn-clclnSn");
+  		lv_prvClclnSn = SBUxMethod.get("srch-slt-clclnSn");
 
 		await fn_onChangeSrchClclnSn({value: lv_prvClclnSn});
   	}
@@ -892,32 +884,6 @@
         		type: 'output', 
         		style: 'text-align:center'
         	},
-      		{
-        		caption: '정산구분',
-        		ref: 'clclnSeCd',
-        		width: '120px',
-        		type: 'combo',
-        		typeinfo : {
-        			ref:'jsonClclnSeCd', 
-        			label:'cdVlNm', 
-        			value:'cdVl', 
-        			oneclickedit: true
-        		}, 
-        		style: 'text-align:center'
-        	},
-      		{
-        		caption: '정산분류',
-        		ref: 'clclnClsf',
-        		width: '120px',
-        		type: 'combo',
-        		typeinfo : {
-        			ref:'jsonClclnClsf', 
-        			label:'cdVlNm', 
-        			value:'cdVl', 
-        			oneclickedit: true
-        		}, 
-        		style: 'text-align:center'
-        	},
     	];
     	
 
@@ -1056,6 +1022,11 @@
         	);
 	}
 
+ 	const fn_create = async function() {
+ 		
+ 		fn_insertUntprcMstr();
+ 	}
+ 	
  	/**
      * @name fn_createUntprcWrhsGrdGrid
      * @description 입고등급별 단가 그리드 생성
@@ -1344,6 +1315,7 @@
 					clclnClsf: item.clclnClsf,
 					itemCd: item.itemCd,
 					vrtyCd: vrtyCd,
+					untprcUnit: item.untprcUnit,
 					clclnUntprc: item.clclnUntprc,
 					clclnQntt: item.clclnQntt,
 					clclnWght: item.clclnWght,
@@ -1358,6 +1330,10 @@
 			return;
 		}
 
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+		
 		const param = {
 			apcCd: gv_selectedApcCd,
 			clclnYr: clclnYr,
@@ -1382,9 +1358,130 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    	
     }    
 
+    
+    const fn_insertUntprcMstr = async function() {
+    	
+    	const clclnYr = SBUxMethod.get("srch-dtp-clclnYr");
+    	if (gfn_isEmpty(clclnYr)) {
+    		gfn_comAlert("W0001", "정산연도");		//	W0001	{0}을/를 선택하세요.
+			return;
+    	}
+    	
+    	const bgngYmd = SBUxMethod.get('srch-dtp-untprcYmd_from');
+		const endYmd = SBUxMethod.get('srch-dtp-untprcYmd_to');
+
+		console.log("bgngYmd", bgngYmd);
+		console.log("endYmd", endYmd);
+		if (gfn_isEmpty(bgngYmd)) {
+			gfn_comAlert("W0001", "시작일자");		//	W0001	{0}을/를 선택하세요.
+			return;
+    	}
+		
+		if (gfn_isEmpty(endYmd)) {
+			gfn_comAlert("W0001", "종료일자");		//	W0001	{0}을/를 선택하세요.
+			return;
+    	}
+
+		if (!gfn_comConfirm("Q0001", "신규차수 등록")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+		
+
+		const param = {
+			apcCd: gv_selectedApcCd,
+			clclnYr: clclnYr,
+			bgngYmd: bgngYmd,
+			endYmd: endYmd,
+		}
+
+        try {
+        	const postJsonPromise = gfn_postJSON("/am/clcln/insertClclnUntprcMstr.do", param);
+    		const data = await postJsonPromise;
+    		
+        	if (_.isEqual("S", data.resultStatus)) {
+        		
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+
+        		fn_getClclnSn();
+        		
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+    
+   	const fn_aplyYmd = async function() {
+
+    	const clclnYr = SBUxMethod.get("srch-dtp-clclnYr");
+    	const clclnSn = SBUxMethod.get("srch-slt-clclnSn");
+    	
+    	if (gfn_isEmpty(clclnYr)) {
+    		gfn_comAlert("W0001", "정산연도");		//	W0001	{0}을/를 선택하세요.
+			return;
+    	}
+		if (gfn_isEmpty(clclnSn)) {
+			gfn_comAlert("W0001", "정산차수");		//	W0001	{0}을/를 선택하세요.
+			return;
+    	}
+    	
+		const bgngYmd = SBUxMethod.get('srch-dtp-untprcYmd_from');
+		const endYmd = SBUxMethod.get('srch-dtp-untprcYmd_to');
+
+		console.log("bgngYmd", bgngYmd);
+		console.log("endYmd", endYmd);
+		if (gfn_isEmpty(bgngYmd)) {
+			gfn_comAlert("W0001", "시작일자");		//	W0001	{0}을/를 선택하세요.
+			return;
+    	}
+		
+		if (gfn_isEmpty(endYmd)) {
+			gfn_comAlert("W0001", "종료일자");		//	W0001	{0}을/를 선택하세요.
+			return;
+    	}
+
+		if (!gfn_comConfirm("Q0001", "적용")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+		
+		const param = {
+			apcCd: gv_selectedApcCd,
+			clclnYr: clclnYr,
+			clclnSn: clclnSn,
+			bgngYmd: bgngYmd,
+			endYmd: endYmd,
+		}
+
+        try {
+        	const postJsonPromise = gfn_postJSON("/am/clcln/updateClclnUntprcMstr.do", param);
+    		const data = await postJsonPromise;
+    		
+        	if (_.isEqual("S", data.resultStatus)) {
+        		
+        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+
+        		fn_getClclnSn();
+        		
+        	} else {
+        		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        	}
+        } catch(e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+   	}
+    
+    
     /**
      * @name fn_deleteUntprcSeed
      * @description 종자단가 삭제
@@ -1518,6 +1615,7 @@
 		
 		const clclnSn = obj.value;
 		const chkInfo = _.find(jsonClclnSn, {cdVl: clclnSn});
+		console.log("clclnSn", clclnSn);
 		console.log("jsonClclnSn", jsonClclnSn);
 		console.log("chkInfo", chkInfo);
 		

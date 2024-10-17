@@ -75,6 +75,22 @@ public interface ClclnUntprcService {
 	
 	
 	/**
+	 * 정산단가 마스터 등록
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
+	 * 정산단가 마스터 변경
+	 * @param clclnUntprcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateClclnUntprcMstr(ClclnUntprcVO clclnUntprcVO) throws Exception;
+	
+	/**
 	 * 정산단가 마스터 단건 조회
 	 * @param clclnUntprcVO
 	 * @return

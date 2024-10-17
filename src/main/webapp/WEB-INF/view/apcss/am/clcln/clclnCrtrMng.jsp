@@ -703,6 +703,10 @@
 			return;
 		}
 		
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
+		
 		const param = {
 			apcCd: gv_selectedApcCd,
 			clclnCrtrList: crtrList
@@ -835,6 +839,10 @@
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
+		
+		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+    		return;
+    	}
 		
 		const param = {
 			apcCd: gv_selectedApcCd,
