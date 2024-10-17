@@ -39,7 +39,7 @@
 			</if>A
 
 			, AOPO.APC_CD
-			, AOPO.APC_NM
+			, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 			, AOPO.APC_BRNO
 			, AOPO.APC_CRNO
 
@@ -108,7 +108,7 @@
 					, AOPO.OPER_OGNZ_CRNO
 					</if>
 					, AOPO.APC_CD
-					, AOPO.APC_NM
+					, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 
 					, AOPO.APC_BRNO
 
@@ -162,7 +162,7 @@
 				OPER_OGNZ_NM			=  #{operOgnzNm}
 				, OPER_OGNZ_BRNO		=  #{operOgnzBrno}
 				, OPER_OGNZ_CRNO		=  #{operOgnzCrno}
-				, APC_NM				=  #{apcNm}
+				, APC_NM				=  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
 				, APC_BRNO				=  #{apcBrno}
 				, APC_CRNO				=  #{apcCrno}
 
@@ -240,7 +240,7 @@
 				  , #{operOgnzCrno}
 
 				  , #{apcCd}
-				  , #{apcNm}
+				  , (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
 				  , #{apcBrno}
 				  , #{apcCrno}
 
@@ -291,8 +291,7 @@
 				OPER_OGNZ_NM			=  #{operOgnzNm}
 				, OPER_OGNZ_BRNO		=  #{operOgnzBrno}
 				, OPER_OGNZ_CRNO		=  #{operOgnzCrno}
-				, APC_CD				=  #{apcCd}
-				, APC_NM				=  #{apcNm}
+				, APC_NM				=  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
 				, APC_BRNO				=  #{apcBrno}
 				, APC_CRNO				=  #{apcCrno}
 
@@ -500,7 +499,7 @@
 		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcList */
 			  AOPO.CRTR_YR
 			, AOPO.APC_CD
-			, AOPO.APC_NM
+			, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 
 			, AOPO.CTPV_CD
 			, FN_GET_COM_CD_VL_NM('UNTY_CTPV',AOPO.CTPV_CD) AS CTPV_NM
@@ -540,7 +539,7 @@
 		  AND  AOPO.CTPV_CD = #{ctpvCd}
 		</if>
 		<if test='sigunCd != null and !sigunCd.equals("")'>
-		  AND  AOPO.SIGUN_CD = #{sigunCd}
+		  AND  SUBSTR(AOPO.SIGUN_CD, 0 , 4) = SUBSTR(#{sigunCd}, 0 , 4)
 		</if>
 
 		<if test='apcNm != null and !apcNm.equals("")'>
@@ -574,19 +573,12 @@
 		  						GROUP BY APC_CD
 		  						)
 		</if>
-
 		<if test='userId != null and userId != ""'>
-			<if test='userType == "27" or userType == "28"'>
-			AND APC_CD IN (SELECT APC_CD
-							FROM TB_APC_INFO
-							WHERE 1=1
-							<if test='userType == "27"'>
-							  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
-							</if>
-							<if test='userType == "28"'>
-							  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
-							</if>
-							)
+			<if test='userType == "27"'>
+			  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 2) = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+			</if>
+			<if test='userType == "28"'>
+			  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 			</if>
 		</if>
 		ORDER BY AOPO.APC_NM
@@ -610,7 +602,7 @@
 					, AOPO.OPER_OGNZ_CRNO
 
 					, AOPO.APC_CD
-					, AOPO.APC_NM
+					, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
 					, AOPO.APC_BRNO
 
 					, AOPO.RPRSV
@@ -649,20 +641,14 @@
 			  AND AOPO.APC_CD IS NOT NULL
 			]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND  AOPO.CRTR_YR = #{crtrYr}
+			  AND AOPO.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='userId != null and userId != ""'>
-				<if test='userType == "27" or userType == "28"'>
-				AND APC_CD IN (SELECT APC_CD
-								FROM TB_APC_INFO
-								WHERE 1=1
-								<if test='userType == "27"'>
-								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
-								</if>
-								<if test='userType == "28"'>
-								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
-								</if>
-								)
+				<if test='userType == "27"'>
+				  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 2) = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+				<if test='userType == "28"'>
+				  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 				</if>
 			</if>
 	</select>
@@ -671,7 +657,7 @@
 
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserApcList */
 				TAI.APC_CD
-				,TAI.APC_NM
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = TAI.APC_CD) AS APC_NM
 			FROM TB_APC_INFO TAI
 			WHERE TAI.DEL_YN = 'N'
 			<if test='userId != null and userId != "" and userId != "admin"'>

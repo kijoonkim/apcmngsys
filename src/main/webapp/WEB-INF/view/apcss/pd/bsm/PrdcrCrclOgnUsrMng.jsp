@@ -595,6 +595,7 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		//SBGridProperties.allowcopy = true;
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -1203,6 +1204,47 @@
 			console.error("failed", e.message);
 		}
 	}
+
+	<c:if test="${loginVO.userId eq 'admin'}">
+	//첨부파일 업로드
+	function fn_fileUpload() {
+		console.log("===========fn_fileUpload");
+
+		let userId = SBUxMethod.get("dtl-input-userId");
+
+		if(gfn_isEmpty(userId)) return;
+
+		var formData = new FormData();
+
+		formData.append('userId', userId);
+
+		const brcFile = $('#brcFile')[0].files;
+
+		//파일이 없으면
+		if(brcFile.length == 0){
+			alert('파일을 올려주세요.');
+			return;
+		}
+
+		/*
+		$.ajax({
+			type: 'POST',
+			url: '/pd/bsm/brcfileUpload.do',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function (response) {
+				console.log(response);
+				alert("처리 되었습니다.");
+				fn_dtlSearch();
+			},
+			error: function (error) {
+				 console.log('Error:', error);
+			}
+		});
+		*/
+	}
+	</c:if>
 
 </script>
 

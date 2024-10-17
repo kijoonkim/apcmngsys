@@ -173,4 +173,19 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		int updatedCnt = PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 		return updatedCnt;
 	}
+
+	@Override
+	public List<TbEvFrmhsApoVO> selectRawData01(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+
+		List<TbEvFrmhsApoVO> resultList = PrdcrOgnCurntMngMapper.selectRawData01(tbEvFrmhsApoVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrOgnCurntMngVO> selectRawData02(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+
+		List<PrdcrOgnCurntMngVO> resultList = PrdcrOgnCurntMngMapper.selectRawData02(prdcrOgnCurntMngVO);
+		return resultList;
+	}
+
 }

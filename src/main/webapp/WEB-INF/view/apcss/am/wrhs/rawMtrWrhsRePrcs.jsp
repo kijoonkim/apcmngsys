@@ -595,15 +595,15 @@
 		const columnsStdGrd = [];
 		let cntRt = 0;
 
+		let size = (35 / gjsonStdGrdObjKnd.length) + '%';
 		gjsonStdGrdObjKnd.forEach((item, index) => {
-
-			if (_.isEqual(item.stdGrdType, "RT")) {
+			if (_.isEqual(item.stdGrdType, "RT") || _.isEqual(item.stdGrdType, "QT")) {
 	    		cntRt++;
 	    		grd = {
     				caption: [item.grdKndNm + " (수량)"],
     				ref: gStdGrdObj.colPrfx + item.grdKnd,
     				type:'input',
-    				width: '7%',
+    				width: size,
     				style: 'text-align:right;background-color:#FFF8DC;',
     				userattr: {colNm: "stdGrdWght"},
     				typeinfo: {

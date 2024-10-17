@@ -1159,19 +1159,34 @@
 					,apcCd : SBUxMethod.get('dtl-inp-apcCd')
 					,sn : i
 					, prgrsYn : 'N' //진척도 갱신 여부
-					,rprsItemSpcfct : SBUxMethod.get('dtl-inp-rprsItemSpcfct'+i)
-					,dptz : SBUxMethod.get('dtl-inp-dptz'+i)
-					,apm : SBUxMethod.get('dtl-inp-apm'+i)
-					,elctrnWghtSortMchn : SBUxMethod.get('dtl-inp-elctrnWghtSortMchn'+i)
-					,ndstBrckSortMchn : SBUxMethod.get('dtl-inp-ndstBrckSortMchn'+i)
-					,grdRawMtrAtmtcTrnsfMchn : SBUxMethod.get('dtl-inp-grdRawMtrAtmtcTrnsfMchn'+i)
-					,emptBxAtmtcExhstMchn : SBUxMethod.get('dtl-inp-emptBxAtmtcExhstMchn'+i)
-					,atmtcBxPckgMchn : SBUxMethod.get('dtl-inp-atmtcBxPckgMchn'+i)
-					,atmtcSsMchn : SBUxMethod.get('dtl-inp-atmtcSsMchn'+i)
-					,atmtcWrapMchn : SBUxMethod.get('dtl-inp-atmtcWrapMchn'+i)
-					,atmtcWghtChckMchn : SBUxMethod.get('dtl-inp-atmtcWghtChckMchn'+i)
-					,ptz : SBUxMethod.get('dtl-inp-ptz+i')
-					,etcMnfcMchn : SBUxMethod.get('dtl-inp-etcMnfcMchn'+i)
+
+					,wbg : gfn_nvl(SBUxMethod.get('dtl-rdo-wbg'+i))
+					,wrhsBrQr : gfn_nvl(SBUxMethod.get('dtl-rdo-wrhsBrQr'+i))
+					,kskTblt : gfn_nvl(SBUxMethod.get('dtl-rdo-kskTblt'+i))
+
+					,dptz : gfn_nvl(SBUxMethod.get('dtl-rdo-dptz'+i))
+					,apm : gfn_nvl(SBUxMethod.get('dtl-rdo-apm'+i))
+					,elctrnWghtSortMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-elctrnWghtSortMchn'+i))
+					,ndstBrckSortMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-ndstBrckSortMchn'+i))
+					,grdRawMtrAtmtcTrnsfMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-grdRawMtrAtmtcTrnsfMchn'+i))
+
+					,dshbrd : gfn_nvl(SBUxMethod.get('dtl-rdo-dshbrd'+i))
+
+					,emptBxAtmtcExhstMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-emptBxAtmtcExhstMchn'+i))
+					,atmtcBxPckgMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcBxPckgMchn'+i))
+					,atmtcSsMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcSsMchn'+i))
+					,atmtcWrapMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcWrapMchn'+i))
+					,atmtcWghtChckMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-atmtcWghtChckMchn'+i))
+					,ptz : gfn_nvl(SBUxMethod.get('dtl-rdo-ptz'+i))
+
+					,spmtBrQr : gfn_nvl(SBUxMethod.get('dtl-rdo-spmtBrQr'+i))
+					,thAc : gfn_nvl(SBUxMethod.get('dtl-rdo-thAc'+i))
+
+					//,etcMnfcMchn : gfn_nvl(SBUxMethod.get('dtl-rdo-etcMnfcMchn'+i))
+
+					,spcfctCnt : gfn_nvl(SBUxMethod.get('dtl-inp-spcfctCnt'+i))
+					,spcfctGrp : gfn_nvl(SBUxMethod.get('dtl-inp-spcfctGrp'+i))
+					,spcfctGrd : gfn_nvl(SBUxMethod.get('dtl-inp-spcfctGrd'+i))
 			};
 
 			saveList.push(item);
@@ -1511,16 +1526,6 @@
 					,apcNm				:item.apcNm
 					,itemNm				:item.itemNm
 					,itemCd				:item.itemCd
-
-					,sortMchnHoldYn		:item.sortMchnHoldYn
-
-					,sortMchnSpcect		:item.sortMchnSpcect
-					,sortBrckMvhn		:item.sortBrckMvhn
-
-					,colorSort			:item.colorSort
-					,shapSort			:item.shapSort
-					,mnfcMchn			:item.mnfcMchn
-					,mkrNm				:item.mkrNm
 
 					,wbg						:item.wbg
 					,wrhsBrQr					:item.wrhsBrQr

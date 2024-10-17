@@ -221,4 +221,34 @@ public class PrdcrOgnCurntMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 생산자조직 로우데이터 조회
+	@PostMapping(value = "/pd/pom/selectRawData01.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawData01(Model model, @RequestBody TbEvFrmhsApoVO tbEvFrmhsApoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<TbEvFrmhsApoVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrOgnCurntMngService.selectRawData01(tbEvFrmhsApoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 농가 로우데이터 조회
+	@PostMapping(value = "/pd/pom/selectRawData02.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawData02(Model model, @RequestBody PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrOgnCurntMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrOgnCurntMngService.selectRawData02(PrdcrOgnCurntMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

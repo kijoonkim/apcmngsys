@@ -143,7 +143,7 @@
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  SORT_MCHN_SPCFCT 	= #{sortMchnSpcect}
+				  SORT_MCHN_SPCFCT 	= #{sortMchnSpcfct}
 				  , SORT_BRCK_MCHN 		= #{sortBrckMchn}
 				  , COLOR_SORT 			= #{colorSort}
 				  , SHAP_SORT 			= #{shapSort}
@@ -201,7 +201,7 @@
 				  		  AND SN = #{sn}
 				  		  AND OGNZ_SE_CD = '2'
 				  	)
-				  , #{sortMchnSpcect}
+				  , #{sortMchnSpcfct}
 				  , #{sortBrckMchn}
 				  , #{colorSort}
 				  , #{shapSort}
@@ -225,7 +225,7 @@
 			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltGdsMchnInfoMapper.updateFcltGdsMchnInfo */
 				TB_TE_APC_FCLT_STTS_DTL FSD
 			   SET
-				  SORT_MCHN_SPCFCT 		= #{sortMchnSpcect}
+				  SORT_MCHN_SPCFCT 		= #{sortMchnSpcfct}
 				  , SORT_BRCK_MCHN 		= #{sortBrckMchn}
 				  , COLOR_SORT 			= #{colorSort}
 				  , SHAP_SORT 			= #{shapSort}

@@ -110,6 +110,7 @@
 			   AND GI.PCKG_SN = PP.PCKG_SN
 			   AND GI.DEL_YN = 'N'
 			   AND PP.DEL_YN = 'N'
+			   AND (GI.INVNTR_STTS_CD <> 'D1' OR GI.INVNTR_STTS_CD IS NULL)
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND GI.APC_CD = #{apcCd}
