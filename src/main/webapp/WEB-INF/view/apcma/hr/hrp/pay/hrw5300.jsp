@@ -629,15 +629,15 @@
                 typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["월평균보수액"], ref: 'ACCIDENT_INCOME_AMOUNT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["월평균보수액"], ref: 'ACCIDENT_INCOME_AMOUNT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["산정보험료"], ref: 'INSURE_AMOUNT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["산정보험료"], ref: 'INSURE_AMOUNT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["재산정보험료"], ref: 'CLR_INSURE_AMOUNT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["재산정보험료"], ref: 'CLR_INSURE_AMOUNT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["정산보수총액"], ref: 'RECLR_INCOME_AMOUNT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산보수총액"], ref: 'RECLR_INCOME_AMOUNT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["재정산보험료"], ref: 'RECLR_INSURE_AMOUNT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["재정산보험료"], ref: 'RECLR_INSURE_AMOUNT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["데이터확인"], ref: 'DATA_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -649,10 +649,10 @@
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
             {caption: ["급여유형"], ref: 'PAY_TYPE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["급여항목(직)"], ref: 'EMP_PAY_ITEM', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["급여반영(직)"], ref: 'EMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["급여반영(직)"], ref: 'EMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["급여항목(회)"], ref: 'COMP_PAY_ITEM', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["급여반영(회)"], ref: 'COMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["급여반영(회)"], ref: 'COMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
         ];
 

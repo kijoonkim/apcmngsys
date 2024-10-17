@@ -623,29 +623,29 @@
                 typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["산정실업급여(사원)"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["산정실업급여(사원)"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["산정실업급여(회사)"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["산정실업급여(회사)"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["사업주고안직능"], ref: 'COMP_STABILITY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["사업주고안직능"], ref: 'COMP_STABILITY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["실업급여산정"], ref: 'UNEMPLOY_INCOME', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["실업급여산정"], ref: 'UNEMPLOY_INCOME', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["고안직능산정"], ref: 'STABILITY_INCOME', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["고안직능산정"], ref: 'STABILITY_INCOME', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["연말실업급여(사원)"], ref: 'EMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["연말실업급여(사원)"], ref: 'EMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["연말실업급여(회사)"], ref: 'COMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["연말실업급여(회사)"], ref: 'COMP_INSURE_YE_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["고안직능(연말)"], ref: 'STABILITY_INCOME_YE', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["고안직능(연말)"], ref: 'STABILITY_INCOME_YE', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["정산실업급여(사원)"], ref: 'EMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산실업급여(사원)"], ref: 'EMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["정산실업급여(회사)"], ref: 'COMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산실업급여(회사)"], ref: 'COMP_INSURE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["고안직능(정산)"], ref: 'STABILITY_INCOME_ADJ', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["고안직능(정산)"], ref: 'STABILITY_INCOME_ADJ', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["데이터확인"], ref: 'DATA_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -666,32 +666,32 @@
             {caption : ["급여항목(직원)"], ref : 'EMP_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["고용보험료(사원)"], ref: 'EMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["고용보험료(사원)"], ref: 'EMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["고용보험급여항목(회사)"], ref : 'COMP_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["고용보험료(회사)"], ref: 'COMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["고용보험료(회사)"], ref: 'COMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["연말고용보험급여항목(사원)"], ref : 'EMP_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["연말정산고용보험료(사원)"], ref: 'EMP_YE_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["연말정산고용보험료(사원)"], ref: 'EMP_YE_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["연말고용보험급여항목(회사)"], ref : 'COMP_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["연말정산고용보험료(회사)"], ref: 'COMP_YE_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["연말정산고용보험료(회사)"], ref: 'COMP_YE_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["정산고용보험급여항목(사원)"], ref : 'EMP_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["정산고용보험료(사원)"], ref: 'EMP_ADJ_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산고용보험료(사원)"], ref: 'EMP_ADJ_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["정산고용보험급여항목(회사)"], ref : 'COMP_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["정산고용보험료(회사)"], ref: 'COMP_ADJ_PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산고용보험료(회사)"], ref: 'COMP_ADJ_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
         ];
 

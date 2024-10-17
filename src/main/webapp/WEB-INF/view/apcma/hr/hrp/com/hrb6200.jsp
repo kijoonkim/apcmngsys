@@ -358,49 +358,49 @@
         }
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["월급여액","월급여액이상"], ref: 'PAY_AMT_FR', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["월급여액","월급여액이상"], ref: 'PAY_AMT_FR', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["월급여액","월급여액미만"], ref: 'PAY_AMT_TO', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["월급여액","월급여액미만"], ref: 'PAY_AMT_TO', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","1"], ref: 'SUPPORTEE1', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","1"], ref: 'SUPPORTEE1', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","2"], ref: 'SUPPORTEE2', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","2"], ref: 'SUPPORTEE2', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","3"], ref: 'SUPPORTEE3', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","3"], ref: 'SUPPORTEE3', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","3(다자녀)"], ref: 'SUPPORTEE3_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","3(다자녀)"], ref: 'SUPPORTEE3_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","4"], ref: 'SUPPORTEE4', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","4"], ref: 'SUPPORTEE4', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","4(다자녀)"], ref: 'SUPPORTEE4_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","4(다자녀)"], ref: 'SUPPORTEE4_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","5"], ref: 'SUPPORTEE5', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","5"], ref: 'SUPPORTEE5', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","5(다자녀)"], ref: 'SUPPORTEE5_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","5(다자녀)"], ref: 'SUPPORTEE5_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","6"], ref: 'SUPPORTEE6', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","6"], ref: 'SUPPORTEE6', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","6(다자녀)"], ref: 'SUPPORTEE6_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","6(다자녀)"], ref: 'SUPPORTEE6_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","7"], ref: 'SUPPORTEE7', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","7"], ref: 'SUPPORTEE7', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","7(다자녀)"], ref: 'SUPPORTEE7_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","7(다자녀)"], ref: 'SUPPORTEE7_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","8"], ref: 'SUPPORTEE8', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","8"], ref: 'SUPPORTEE8', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","8(다자녀)"], ref: 'SUPPORTEE8_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","8(다자녀)"], ref: 'SUPPORTEE8_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","9"], ref: 'SUPPORTEE9', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","9"], ref: 'SUPPORTEE9', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","9(다자녀)"], ref: 'SUPPORTEE9_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","9(다자녀)"], ref: 'SUPPORTEE9_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","10"], ref: 'SUPPORTEE10', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","10"], ref: 'SUPPORTEE10', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","10(다자녀)"], ref: 'SUPPORTEE10_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","10(다자녀)"], ref: 'SUPPORTEE10_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","11"], ref: 'SUPPORTEE11', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","11"], ref: 'SUPPORTEE11', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["공제대상 가족의 수","11(다자녀)"], ref: 'SUPPORTEE11_CHILDREN', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["공제대상 가족의 수","11(다자녀)"], ref: 'SUPPORTEE11_CHILDREN', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["기간","시작일"], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -441,15 +441,15 @@
         }
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["이상"], ref: 'PAY_AMT_FR', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["이상"], ref: 'PAY_AMT_FR', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
-            {caption: ["미만"], ref: 'PAY_AMT_TO', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["미만"], ref: 'PAY_AMT_TO', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
-            {caption: ["세율"], ref: 'TAX_RATE', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["세율"], ref: 'TAX_RATE', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
-            {caption: ["누적공제"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["누적공제"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
-            {caption: ["세율2"], ref: 'TAX_RATE2', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["세율2"], ref: 'TAX_RATE2', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -477,16 +477,46 @@
     const fn_addRow = function () {
         let rowVal = grdDetail.getRow();
 
+        const msg = {
+            PAY_AMT_FR                : 0,
+            PAY_AMT_TO                : 0,
+            SUPPORTEE1                : 0,
+            SUPPORTEE2                : 0,
+            SUPPORTEE3                : 0,
+            SUPPORTEE3_CHILDREN       : 0,
+            SUPPORTEE4                : 0,
+            SUPPORTEE4_CHILDREN       : 0,
+            SUPPORTEE5                : 0,
+            SUPPORTEE5_CHILDREN       : 0,
+            SUPPORTEE6                : 0,
+            SUPPORTEE6_CHILDREN       : 0,
+            SUPPORTEE7                : 0,
+            SUPPORTEE7_CHILDREN       : 0,
+            SUPPORTEE8                : 0,
+            SUPPORTEE8_CHILDREN       : 0,
+            SUPPORTEE9                : 0,
+            SUPPORTEE9_CHILDREN       : 0,
+            SUPPORTEE10               : 0,
+            SUPPORTEE10_CHILDREN      : 0,
+            SUPPORTEE11               : 0,
+            SUPPORTEE11_CHILDREN      : 0,
+            APPLY_START_DATE          : '',
+            APPLY_END_DATE            : '',
+
+            status: 'i'
+        }
+
         if (rowVal == -1) { //데이터가 없고 행선택이 없을경우.
 
-            /*grdDetail.addRow();*/
-            grdDetail.addRow(true/*, ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']*/);
+            grdDetail.addRow(true, msg);
+            //grdDetail.addRow(true/*, ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']*/);
 
 
         } else {
 
-            grdDetail.insertRow(rowVal/*, 'above', ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']*/);
-            /* grdDetail.insertRow(rowVal);*/
+            grdDetail.insertRow(rowVal, 'below', msg);
+            //grdDetail.insertRow(rowVal/*, 'above', ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '']*/);
+
         }
     }
 
@@ -550,15 +580,30 @@
 
     // 행 추가
     const fn_addRowItem = function() {
+
         let rowVal = grdItemList.getRow();
+
+        const msg = {
+            PAY_AMT_FR                : 0,
+            PAY_AMT_TO                : 0,
+            TAX_RATE                  : 0,
+            CUMULATIVE_TAX_DED_AMT    : 0,
+            TAX_RATE2                 : 0,
+            APPLY_START_DATE          : '',
+            APPLY_END_DATE            : '',
+
+            status: 'i'
+        }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            grdItemList.addRow(true/*, ['0','0','0','0','0','','']*/);
+            grdItemList.addRow(true, msg);
+            //grdItemList.addRow(true/*, ['0','0','0','0','0','','']*/);
 
         }else{
 
-            grdItemList.insertRow(rowVal/*, 'above',['0','0','0','0','0','','']*/);
+            grdItemList.insertRow(rowVal, 'below', msg);
+            //grdItemList.insertRow(rowVal/*, 'above',['0','0','0','0','0','','']*/);
         }
     }
 

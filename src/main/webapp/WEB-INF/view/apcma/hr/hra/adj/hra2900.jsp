@@ -591,23 +591,23 @@
             },
             {caption: ["분납월수"], ref: 'SPLIT_MONTH', type: 'output', width: '120px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' }},
-            {caption: ["총세금"], ref: 'TAX_TOT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["총세금"], ref: 'TAX_TOT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["총소득세"], ref: 'INC_TAX_TOT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["총소득세"], ref: 'INC_TAX_TOT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["총지방소득세"], ref: 'LOCAL_TAX_TOT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["총지방소득세"], ref: 'LOCAL_TAX_TOT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소득세(당월)"], ref: 'INC_TAX_01', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["소득세(당월)"], ref: 'INC_TAX_01', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["지방소득세(당월)"], ref: 'LOCAL_TAX_01', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["지방소득세(당월)"], ref: 'LOCAL_TAX_01', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소득세(M1)"], ref: 'INC_TAX_02', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["소득세(M1)"], ref: 'INC_TAX_02', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["지방소득세(M1)"], ref: 'LOCAL_TAX_02', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["지방소득세(M1)"], ref: 'LOCAL_TAX_02', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소득세(M2)"], ref: 'INC_TAX_03', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["소득세(M2)"], ref: 'INC_TAX_03', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["지방소득세(M2)"], ref: 'LOCAL_TAX_03', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["지방소득세(M2)"], ref: 'LOCAL_TAX_03', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["생성자"], ref: 'INSERT_USERID', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ['생성일시'], ref: 'INSERT_TIME', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,

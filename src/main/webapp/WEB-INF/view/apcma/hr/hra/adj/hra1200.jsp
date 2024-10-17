@@ -971,15 +971,16 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns =[
-            {caption : ["비과세코드"], ref : 'TXFREE_CODE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["비과세코드"], ref : 'TXFREE_CODE', width : '170px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonTxfreeCode', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["비과세약칭"], ref: 'TAX_FREE_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["급여금액"], ref: 'PAY_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["비과세약칭"], ref: 'TAX_FREE_NAME', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: ["급여금액"], ref: 'PAY_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["비과세금액"], ref: 'TXFREE_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["비과세금액"], ref: 'TXFREE_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["비과세설명"], ref: 'TAX_FREE_DESCR', type: 'output', width: '140px', style: 'text-align:left'},
+            {caption: ["비과세설명"], ref: 'TAX_FREE_DESCR', type: 'output', width: '170px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
         ];
 

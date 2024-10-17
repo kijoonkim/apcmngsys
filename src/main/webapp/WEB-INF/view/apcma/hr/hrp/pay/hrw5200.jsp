@@ -612,23 +612,23 @@
                 typeinfo : {ref : 'jsonPositionCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '120px', style: 'text-align:left'},
-            {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["산출보험(건강)"], ref: 'HEALTH_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["산출보험(건강)"], ref: 'HEALTH_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["정산금액(건강)"], ref: 'HEALTH_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산금액(건강)"], ref: 'HEALTH_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["연말정산(건강)"], ref: 'HEALTH_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["연말정산(건강)"], ref: 'HEALTH_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["산출보험(장기)"], ref: 'LONG_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["산출보험(장기)"], ref: 'LONG_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["정산금액(장기)"], ref: 'LONG_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["정산금액(장기)"], ref: 'LONG_ADJUST_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["연말정산(장기)"], ref: 'LONG_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["연말정산(장기)"], ref: 'LONG_YE_ADJ_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["환급금이자(건강)"], ref: 'HEALTH_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["환급금이자(건강)"], ref: 'HEALTH_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["환급금이자(장기)"], ref: 'LONG_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["환급금이자(장기)"], ref: 'LONG_REFUND_INTEREST', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["데이터확인"], ref: 'DATA_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
@@ -649,42 +649,42 @@
             {caption : ["급여항목(건강-사원)"], ref : 'EMP_HEALTH_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["건강보험(사원-급여반영)"], ref: 'EMP_HEALTH_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["건강보험(사원-급여반영)"], ref: 'EMP_HEALTH_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["급여항목(건강-회사)"], ref : 'COMP_HEALTH_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["건강보험(직원-급여반영)"], ref: 'COMP_HEALTH_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["건강보험(직원-급여반영)"], ref: 'COMP_HEALTH_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["급여항목(요양-사원)"], ref : 'EMP_LONG_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["요양보험(사원-급여반영)"], ref: 'EMP_LONG_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["요양보험(사원-급여반영)"], ref: 'EMP_LONG_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["급여항목(요양-회사)"], ref : 'COMP_LONG_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["요양보험(회사-급여반영)"], ref: 'COMP_LONG_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["요양보험(회사-급여반영)"], ref: 'COMP_LONG_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["정산급여항목(건강-사원)"], ref : 'EMP_HEALTH_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["정산급여(건강-사원)"], ref: 'EMP_HEALTH_ADJ_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["정산급여(건강-사원)"], ref: 'EMP_HEALTH_ADJ_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["연말정산급여항목(건강-사원)"], ref : 'EMP_HEALTH_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["연말정산급여(건강-사원)"], ref: 'EMP_HEALTH_YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["연말정산급여(건강-사원)"], ref: 'EMP_HEALTH_YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["정산급여항목(건강-회사)"], ref : 'COMP_HEALTH_ADJ_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["정산급여(건강-회사)"], ref: 'COMP_HEALTH_ADJ_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["정산급여(건강-회사)"], ref: 'COMP_HEALTH_ADJ_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption : ["연말정산급여항목(건강-회사)"], ref : 'COMP_HEALTH_YE_PAY_ITEM', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItem', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["연말정산급여(건강-회사)"], ref: 'COMP_HEALTH_YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["연말정산급여(건강-회사)"], ref: 'COMP_HEALTH_YE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
 
         ];

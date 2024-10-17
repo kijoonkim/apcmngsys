@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrp2320.jsp
      * @Description       : 급상여 계산(신규) 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.19
@@ -707,20 +707,21 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["연번"], ref: 'PAY_CALCULATE_SEQ', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption : ["처리구분"], ref : 'CALCULATE_WORK_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption: ["연번"], ref: 'PAY_CALCULATE_SEQ', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption : ["처리구분"], ref : 'CALCULATE_WORK_TYPE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonCalculateWorkType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["시작시각"], ref: 'ACTION_START_TIME', type: 'input', width: '120px', style: 'text-align:left'
+            {caption: ["시작시각"], ref: 'ACTION_START_TIME', type: 'input', width: '200px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/}/*,  format : {type:'number', rule:'##:##:##'}*/},
-            {caption: ["종료시각"], ref: 'ACTION_END_TIME', type: 'input', width: '120px', style: 'text-align:left'
+            {caption: ["종료시각"], ref: 'ACTION_END_TIME', type: 'input', width: '200px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/}/*,  format : {type:'number', rule:'##:##:##'}*/},
-            {caption: ["처리자ID"], ref: 'INSERT_USERID', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["처리시각"], ref: 'INSERT_TIME', type: 'input', width: '120px', style: 'text-align:left'
+            {caption: ["처리자ID"], ref: 'INSERT_USERID', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["처리시각"], ref: 'INSERT_TIME', type: 'input', width: '200px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/}/*,  format : {type:'number', rule:'##:##:##'}*/},
-            {caption: ["처리PC"], ref: 'INSERT_PC', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["계산대상정보"], ref: 'CALCULATE_CONDITION', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["메    모"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'}
+            {caption: ["처리PC"], ref: 'INSERT_PC', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["계산대상정보"], ref: 'CALCULATE_CONDITION', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["메    모"], ref: 'MEMO', type: 'output', width: '350px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwLogGrid = _SBGrid.create(SBGridProperties);

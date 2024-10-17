@@ -657,7 +657,7 @@
                     ];
 
                     data.cv_2.reverse().forEach((item, index) => {
-                        const columns2 =   {caption: [item.PAY_YYYYMM_NAME], ref: item.PAY_YYYYMM_CODE, type: 'output', width: '100px', style: 'text-align:left'
+                        const columns2 =   {caption: [item.PAY_YYYYMM_NAME], ref: item.PAY_YYYYMM_CODE, type: 'output', width: '100px', style: 'text-align:right'
                             , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }}
 
                         columns1.push(columns2);
