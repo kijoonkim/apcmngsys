@@ -881,7 +881,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0) {
@@ -920,7 +920,6 @@
     }
 
     const fn_gvwListClick = async function () {
-        console.log(gvwList.getFixedCellcheckboxChecked(0, 0));
         if(gvwList.getRow() == gvwList.getColRef("CHECK_YN") && gvwList.getFixedCellcheckboxChecked(0, 0)) {
             if (gfn_nvl(SBUxMethod.get("SRCH_DEPOSIT_NAME")) != "") {
                 gvwList.setCellData(nRow, gvwList.getColRef("DEPOSIT_CODE"), gfn_nvl(SBUxMethod.get("SRCH_DEPOSIT_CODE")));
@@ -1103,7 +1102,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_CS_NAME_'+flag, data.CS_NAME);
                 SBUxMethod.set('SRCH_CS_CODE_'+flag, data.CS_CODE);
             },
@@ -1132,7 +1130,6 @@
             ,tableColumnNames		: ["CURRENCY_CODE" , "CURRENCY_NAME", "DESCIPTION"]
             ,tableColumnWidths		: ["60px"    , "100px" , "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_PAY_CURRENCY_NAME', data.CURRENCY_NAME);
                 SBUxMethod.set('SRCH_PAY_CURRENCY_CODE', data.CURRENCY_CODE);
             },
@@ -1160,7 +1157,6 @@
             ,tableColumnNames		: ["CODE" , "NAME"]
             ,tableColumnWidths		: ["100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('BANK_NAME_P', data.NAME);
                 SBUxMethod.set('BANK_CODE_P', data.CODE);
             },
@@ -1188,7 +1184,6 @@
             ,tableColumnNames		: ["CODE" , "NAME", "BANK_NAME", "CURRENCY_CODE"]
             ,tableColumnWidths		: ["100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('DEPOSIT_NAME_P', data.NAME);
                 SBUxMethod.set('DEPOSIT_CODE_P', data.CODE);
             },
@@ -1432,7 +1427,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 jsonPaymentDetailList.length = 0;
@@ -2318,7 +2313,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (gfn_nvl(SBUxMethod.get("SRCH_TREASURY_BATCH_NO")) == "") {

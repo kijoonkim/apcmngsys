@@ -381,7 +381,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -522,7 +521,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -642,7 +640,6 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
@@ -685,7 +682,6 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {

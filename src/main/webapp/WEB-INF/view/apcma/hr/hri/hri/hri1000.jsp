@@ -42,7 +42,7 @@
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="cfn_save"></sbux-button>
                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="cfn_del"></sbux-button>--%>
                 <%--<sbux-button id="btnRegistCommonCode" name="btnRegistCommonCode" uitype="normal" class="btn btn-sm btn-outline-danger" text="공통코드등록" onclick="fn_registCommonCode"></sbux-button>--%>
-                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print('PRINT')"></sbux-button>
+                <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print()"></sbux-button>
                 <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
                 <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
                 <sbux-button id="btnRegistResignation" name="btnRegistResignation" uitype="normal" class="btn btn-sm btn-outline-danger" text="퇴사발령등록" onclick="fn_registResignation"></sbux-button>
@@ -3168,70 +3168,75 @@
 
     }
 
-    const fn_print = async function(strview_type) {
-        // TODO : 레포트 개발 필요
-        const param = [];
+    const fn_print = async function() {
         let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
+        let stremp_code_list = "";
 
         if (gvwListCheckedList.length < 1) {
             gfn_comAlert("E0000", "사원을 선택해주세요.");
             return;
         }
 
+        gvwListCheckedList.forEach((item, index) => {
+            stremp_code_list += gfn_nvl(gvwList.getCellData(item, gvwList.getColRef("EMP_CODE"))) + "|"
+        });
+
+        if (stremp_code_list.length > 0) {
+            stremp_code_list = stremp_code_list.substring(0, stremp_code_list.length - 1);
+        }
+
         var reportFilePath = await gfnma_findReportFilePath("R_PERSON");
 
-        for(var i = 0; i < gvwListCheckedList.length; i++) {
-            var paramObj = {
-                V_P_DEBUG_MODE_YN	: ''
-                ,V_P_LANG_ID		: ''
-                ,V_P_COMP_CODE		: gv_ma_selectedApcCd
-                ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-                ,V_P_SITE_CODE      : ''
-                ,V_P_DEPT_CODE      : ''
-                ,V_P_EMP_CODE       : gfn_nvl(gvwList.getCellData(gvwListCheckedList[i], gvwList.getColRef("EMP_CODE")))
-                ,V_P_EMP_STATE      : ''
-                ,V_P_JOB_GROUP      : ''
-                ,V_P_GENDER         : ''
-                ,IV_P_ENTER_DATE_FR : ''
-                ,IV_P_ENTER_DATE_TO : ''
-                ,V_P_EMP_CODE1      : ''
-                ,V_P_INITIAL_DATE   : ''
-                ,V_P_EMP_STATE2     : ''
-                ,V_P_FORM_ID		: p_formId
-                ,V_P_MENU_ID		: p_menuId
-                ,V_P_PROC_ID		: ''
-                ,V_P_USERID			: ''
-                ,V_P_PC				: ''
-            };
+        var paramObj = {
+            V_P_DEBUG_MODE_YN	: ''
+            ,V_P_LANG_ID		: ''
+            ,V_P_COMP_CODE		: gv_ma_selectedApcCd
+            ,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+            ,V_P_SITE_CODE      : ''
+            ,V_P_DEPT_CODE      : ''
+            ,V_P_EMP_CODE       : ''
+            ,V_P_EMP_STATE      : ''
+            ,V_P_JOB_GROUP      : ''
+            ,V_P_GENDER         : ''
+            ,IV_P_ENTER_DATE_FR : ''
+            ,IV_P_ENTER_DATE_TO : ''
+            ,V_P_EMP_CODE1      : stremp_code_list
+            ,V_P_INITIAL_DATE   : ''
+            ,V_P_EMP_STATE2     : ''
+            ,V_P_FORM_ID		: p_formId
+            ,V_P_MENU_ID		: p_menuId
+            ,V_P_PROC_ID		: ''
+            ,V_P_USERID			: ''
+            ,V_P_PC				: ''
+        };
 
-            const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
-                getType				: 'json',
-                workType			: 'REPORT',
-                cv_count			: '39',
-                params				: gfnma_objectToString(paramObj)
-            });
+        const postJsonPromise = gfn_postJSON("/hr/hri/hri/selectHri1000List.do", {
+            getType				: 'json',
+            workType			: 'REPORT',
+            cv_count			: '39',
+            params				: gfnma_objectToString(paramObj)
+        });
 
-            const data = await postJsonPromise;
-            console.log('data:', data);
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-                    gfn_popClipReportPost(
-                        "인사기록카드",
-                        reportFilePath,
-                        null,
-                        gfnma_convertDataForReport(data)
-                    );
-                } else {
-                    alert(data.resultMessage);
-                }
-
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        const data = await postJsonPromise;
+        console.log('data:', data);
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_popClipReportPost(
+                    "인사기록카드",
+                    reportFilePath,
+                    null,
+                    await gfnma_convertDataForReport(data)
+                );
+            } else {
+                alert(data.resultMessage);
             }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
 
         /*        SBUxMethod.attr('modal-comPopHri1000Report', 'header-title', '인사기록카드 출력');

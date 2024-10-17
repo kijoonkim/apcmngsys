@@ -1096,7 +1096,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS", "TEL", "FAX", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
             ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_CUSTOMER_CS_NAME', data.CS_NAME);
                 SBUxMethod.set('SRCH_CUSTOMER_CS_CODE', data.CS_CODE);
             },
@@ -1125,7 +1124,6 @@
             , tableColumnNames: ["TRANS_COUNT", "TXN_TIME"]
             , tableColumnWidths: ["60px", "65px"]
             , itemSelectEvent: function (data) {
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_TRANS_COUNT', data.TRANS_COUNT);
                 SBUxMethod.set('SRCH_TXN_TIME', data.TXN_TIME);
             },
@@ -1237,7 +1235,6 @@
             TRANSFER_TYPE : gfn_nvl(gfnma_multiSelectGet('#SRCH_TRANSFER_TYPE')),
             callback: function(data) {
                 SBUxMethod.closeModal('modal-comPopFbs2040');
-                console.log(data);
             }
         });
     }
@@ -1401,7 +1398,7 @@
                         var paramObj = {
                             TRANS_COUNT: query
                         }
-                        console.log(paramObj);
+
                         const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbs2010TransCount.do", paramObj);
 
                         const data = await postJsonPromise;
@@ -1791,7 +1788,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (strWorkType == "Q") {
@@ -1998,7 +1995,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.cv_1.length >= 1) {
@@ -2268,7 +2265,7 @@
                 const postJsonPromise = gfn_postJSON("/fi/ftr/pay/insertFbs2010List.do", {listData: listData});
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
+
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         gfn_comAlert("I0001");
@@ -2364,7 +2361,7 @@
             });
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
@@ -2592,7 +2589,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 var drs = data.cv_1.filter(data => data["CHECK_YN"] == "N");
@@ -2642,7 +2639,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 var drs = data.cv_1.filter(data => data["CHECK_YN"] == "N");

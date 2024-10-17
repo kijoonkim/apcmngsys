@@ -1038,7 +1038,6 @@
             ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
             ,tableColumnWidths		: ["100px", "200px", "100px", "100px", "120px", "300px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_BANK_CS_NAME', data.CS_NAME);
                 SBUxMethod.set('SRCH_BANK_CS_CODE', data.CS_CODE);
             },
@@ -1067,7 +1066,6 @@
             ,tableColumnNames		: ["CURRENCY_CODE" , "CURRENCY_NAME", "DESCIPTION"]
             ,tableColumnWidths		: ["60px"    , "100px" , "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_PAY_CURRENCY_NAME', data.CURRENCY_NAME);
                 SBUxMethod.set('SRCH_PAY_CURRENCY_CODE', data.CURRENCY_CODE);
             },
@@ -1095,7 +1093,6 @@
             ,tableColumnNames		: ["DEPOSIT_CODE" , "DEPOSIT_NAME", "ACCOUNT_NUM", "DEPOSIT_TYPE", "BANK_CS_CODE", "BANK_CS_NAME", "RECEIPT_TR_TYPE", "RECEIPT_ACCOUNT", "RECEIPT_ACCOUNT_NAME", "FEE_ACCOUNT", "FEE_ACCOUNT_NAME", "CURRENCY_CODE", "BANK_CODE"]
             ,tableColumnWidths		: ["100px", "200px", "140px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 SBUxMethod.set('SRCH_ACCOUNT_NO', data.ACCOUNT_NUM);
                 SBUxMethod.set('SRCH_DEPOSIT_CODE', data.DEPOSIT_CODE);
             },
@@ -1123,7 +1120,6 @@
             ,tableColumnNames		: ["DEPOSIT_CODE" , "DEPOSIT_NAME", "ACCOUNT_NUM", "DEPOSIT_TYPE", "BANK_CS_CODE", "BANK_CS_NAME", "RECEIPT_TR_TYPE", "RECEIPT_ACCOUNT", "RECEIPT_ACCOUNT_NAME", "FEE_ACCOUNT", "FEE_ACCOUNT_NAME", "CURRENCY_CODE", "BANK_CODE"]
             ,tableColumnWidths		: ["100px", "200px", "140px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                console.log('callback data:', data);
                 if(nCol == 10 || nCol == 11) {
                     gvwList.setCellData(nRow, gvwList.getColRef("IN_ACCOUNT_NO"), data.ACCOUNT_NUM);
                     gvwList.setCellData(nRow, gvwList.getColRef("IN_DEPOSIT_CODE"), data.DEPOSIT_CODE);
@@ -1203,7 +1199,7 @@
         });
 
         const data = await postJsonPromise;
-        console.log('data:', data);
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(strWorkType == "Q") {
@@ -1447,7 +1443,7 @@
                 const postJsonPromise = gfn_postJSON("/fi/ftr/trn/insertTrd1010Sub.do", {listData: listData});
 
                 const data = await postJsonPromise;
-                console.log('data:', data);
+
                 try {
                     if (_.isEqual("S", data.resultStatus)) {
                         return true;
@@ -1516,7 +1512,7 @@
 
     const fn_interface = async function () {
         let updatedData = gvwList.getUpdateData(true, 'all');
-        console.log(updatedData);
+
         if (updatedData.length > 0) {
             if (!gfn_comConfirm("Q0000", "저장되지 않은 데이터가 있습니다. 저장하지 않고 진행하시겠습니까?"))
                 return;
@@ -1647,7 +1643,7 @@
             const postJsonPromise = gfn_postJSON("/fi/ftr/trn/insertTrd1010List.do", {listData: listData});
 
             const data = await postJsonPromise;
-            console.log('data:', data);
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
