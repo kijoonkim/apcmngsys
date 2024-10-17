@@ -211,7 +211,7 @@ const gfnma_date8 = function(str) {
  */
 const gfnma_nvl = function (val) {
 	var str = '';
-	if(val==null || val==undefined || val=='undefined'){
+	if(val=='' || val==null || val==undefined || val=='undefined'){
 		str = '';
 	} else {
 		str = val + '';
@@ -789,6 +789,43 @@ const gfnma_uxDataSet = function (target, obj) {
 			} else {
 				$(target).find('#'+key).val(val);
 				$(target).find('#'+key).text(val);
+			}
+		}
+	}
+}
+
+/**
+ * @name 		gfnma_uxDataSet2
+ * @description 데이터를 ux컴포넌트에 바인딩
+ * @function
+ * @param 		{string} target
+ * @param 		{object} obj
+ * @param 		{string} except: 	ID 중 제외할 단어 
+ * @param 		{string} incluld_p: ID 중 포함(앞)할 단어 
+ * @param 		{string} incluld_b: ID 중 포함(뒤)할 단어 
+ * @returns 	{void}
+ */
+const gfnma_uxDataSet2 = function (target, obj, except, incluld_p, incluld_b) {
+	
+	for(var key in obj){
+		var skey = "";
+		if(except){
+			skey = key.replaceAll(except, '');
+		};
+		if(incluld_p){
+			skey = incluld_p + key;
+		};
+		if(incluld_b){
+			skey = key + incluld_b;
+		};
+		if($(target).find('#'+skey)){
+			var cls = $(target).find('#'+skey).attr('class') + '';
+			var val = gfnma_nvl(obj[key]);
+			if(cls.indexOf('sbux-')>-1){
+				SBUxMethod.set(skey,	val);
+			} else {
+				$(target).find('#'+skey).val(val);
+				$(target).find('#'+skey).text(val);
 			}
 		}
 	}
@@ -1668,7 +1705,7 @@ const gfnma_findReportFilePath = async function(reportType) {
  * @param 		{object} data
  * @returns 	{object}
  */
-const gfnma_convertDataForReport = async function(data) {
+function gfnma_convertDataForReport(data) {
 	const param = [];
 	let regx = /^cv_\d+$/;
 	let keys = Object.keys(data);

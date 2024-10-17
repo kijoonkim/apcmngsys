@@ -83,6 +83,10 @@ function compopup1(options) {
 		,searchInputValues		: null
 		,searchInputTypes		: null
 		,searchInputTypeValues	: null
+		
+		,cTypeParamFields		: null
+		,cTypeParamValues		: null
+		
 		,width					: null
 		,height					: null
 		,tableHeader			: null
@@ -201,7 +205,7 @@ function compopup1(options) {
 				wstr 		= wstr.replace(icode, val);
 				idx ++;
 			});
-		} else {
+		} else if(settings.popupType=='B') {
 			$(modalId).find('.cu-search-area').find('[name]').not('button').each(function(){
 				var val   	= $(this).val();
 				//datepicker 경우 구분자 삭제------------------------------
@@ -245,9 +249,24 @@ function compopup1(options) {
 				pstr = pstr.slice(0, -1);
 			}			
 			console.log('type B형 parameter:', pstr);			
+		} else {
+			var clist = settings.cTypeParamFields;	
+			var ctemp = "";
+			for (var i = 0; i < clist.length; i++) {
+				if(clist[i]){
+					ctemp = $(modalId).find('.cu-search-area').find('[name=' + clist[i] + ']').val();
+				} else {
+					ctemp = settings.cTypeParamValues[i];
+				}
+				ctemp = (!ctemp) ? "NULL" : "'" + ctemp + "'";
+				pstr +=  ctemp + '|';
+			}
+			if(pstr){
+				pstr = pstr.slice(0, -1);
+			}			
 		}
 		
-		if(settings.popupType=='B'){
+		if(settings.popupType=='B' || settings.popupType=='C'){
 			wstr = '';
 		}
 		

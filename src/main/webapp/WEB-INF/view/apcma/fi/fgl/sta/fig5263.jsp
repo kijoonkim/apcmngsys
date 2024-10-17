@@ -1,7 +1,7 @@
 <%
 /**
- * @Class Name 		: fig5253.jsp
- * @Description 	: 손익계산서 화면
+ * @Class Name 		: fig5263.jsp
+ * @Description 	: 제조원가명세서 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.10.07
  * @version 		: 1.0
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 손익계산서</title>
+	<title>title : 제조원가명세서</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -33,10 +33,9 @@
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 손익계산서 -->
+                    </h3><!-- 제조원가명세서 -->
                 </div>
                 <div style="margin-left: auto;">
-                    <sbux-button uitype="normal" text="수불내역"  class="btn btn-sm btn-outline-danger" onclick="fn_dtlView()" ></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -166,7 +165,7 @@
 				
 				    <sbux-tabs id="idxTab_norm" name="tab_norm" uitype="normal"
 	                   title-target-id-array = "sb_area_tab1^sb_area_tab2^sb_area_tab3^sb_area_tab4^sb_area_tab5^sb_area_tab6"
-	                   title-text-array = "관리용^증감비교^월별손익^관리용(트리)^증감비료(트리)^월별손익(트리)"
+	                   title-text-array = "관리용^증감비교^월별제조원가^관리용(트리)^증감비교(트리)^월별제조원가(트리)"
 	                   title-target-value-array="1^2^3^4^5^6"
 	                   onclick="fn_tabClick(tab_norm)"></sbux-tabs>					
 					
@@ -174,7 +173,7 @@
 					
 						<div id="sb_area_tab1" >
 							<div style="display:flex;justify-content:flex-start;width:100%;padding-bottom:10px">
-								<font style="margin-right:auto;">관리용 손익계산서</font>
+								<font style="margin-right:auto;">관리용 제조원가명세서</font>
                 				<div style="margin-left: auto;">
 								</div>
 							</div>
@@ -194,7 +193,7 @@
 						
 						<div id="sb_area_tab3" >
 							<div style="display:flex;justify-content:flex-start;width:100%;padding-bottom:10px">
-								<font style="margin-right:auto;">월별손익</font>
+								<font style="margin-right:auto;">월별 제조원가명세서</font>
                 				<div style="margin-left: auto;">
 								</div>
 							</div>
@@ -204,7 +203,7 @@
 						
 						<div id="sb_area_tab4" >
 							<div style="display:flex;justify-content:flex-start;width:100%;padding-bottom:10px">
-								<font style="margin-right:auto;">관리용 손익계산서(트리)</font>
+								<font style="margin-right:auto;">관리용 제조원가명세서(트리)</font>
                 				<div style="margin-left: auto;">
 				                    <sbux-button uitype="normal" text="트리펼치기"  class="btn btn-sm btn-outline-danger" onclick="fn_treeOpen1()" ></sbux-button>
 				                    <span style="width:5px"></span>
@@ -230,7 +229,7 @@
 						
 						<div id="sb_area_tab6" >
 							<div style="display:flex;justify-content:flex-start;width:100%;padding-bottom:10px">
-								<font style="margin-right:auto;">월별손익(트리)</font>
+								<font style="margin-right:auto;">월별 제조원가명세서(트리)</font>
                 				<div style="margin-left: auto;">
 				                    <sbux-button uitype="normal" text="트리펼치기"  class="btn btn-sm btn-outline-danger" onclick="fn_treeOpen3()" ></sbux-button>
 				                    <span style="width:5px"></span>
@@ -274,23 +273,23 @@
 	var jsonCbodescr1		= [];	// 기간
 	
     //grid 초기화
-    var Fig5253Grid1; 					// 그리드를 담기위한 객체 선언
-    var jsonFig5253Grid1 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var Fig5263Grid1; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5263Grid1 		= []; 	// 그리드의 참조 데이터 주소 선언
     
-    var Fig5253Grid2; 					// 그리드를 담기위한 객체 선언
-    var jsonFig5253Grid2 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var Fig5263Grid2; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5263Grid2 		= []; 	// 그리드의 참조 데이터 주소 선언
     
-    var Fig5253Grid3; 					// 그리드를 담기위한 객체 선언
-    var jsonFig5253Grid3 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var Fig5263Grid3; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5263Grid3 		= []; 	// 그리드의 참조 데이터 주소 선언
     
-    var Fig5253Grid4; 					// 그리드를 담기위한 객체 선언
-    var jsonFig5253Grid4 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var Fig5263Grid4; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5263Grid4 		= []; 	// 그리드의 참조 데이터 주소 선언
     
-    var Fig5253Grid5; 					// 그리드를 담기위한 객체 선언
-    var jsonFig5253Grid5 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var Fig5263Grid5; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5263Grid5 		= []; 	// 그리드의 참조 데이터 주소 선언
     
-    var Fig5253Grid6; 					// 그리드를 담기위한 객체 선언
-    var jsonFig5253Grid6 		= []; 	// 그리드의 참조 데이터 주소 선언
+    var Fig5263Grid6; 					// 그리드를 담기위한 객체 선언
+    var jsonFig5263Grid6 		= []; 	// 그리드의 참조 데이터 주소 선언
     
     var p_sel_tab			= 1;	// 현재탭
     
@@ -387,37 +386,37 @@
 		console.log('p_sel_tab:', p_sel_tab);		
 		
     	if(p_sel_tab==1){
-	    	fn_setFig5253Grid1('Q1');
+	    	fn_setFig5263Grid1('Q1');
     	} else if(p_sel_tab==2) {
-	    	fn_setFig5253Grid2('Q2');
+	    	fn_setFig5263Grid2('Q2');
     	} else if(p_sel_tab==3) {
-	    	fn_setFig5253Grid3('Q3');
+	    	fn_setFig5263Grid3('Q3');
     	} else if(p_sel_tab==4) {
-	    	fn_setFig5253Grid4('T1');
+	    	fn_setFig5263Grid4('T1');
     	} else if(p_sel_tab==5) {
-	    	fn_setFig5253Grid5('T2');
+	    	fn_setFig5263Grid5('T2');
     	} else {
-	    	fn_setFig5253Grid6('T3');
+	    	fn_setFig5263Grid6('T3');
     	}
     }
     
     /**
-     * 관리용 손익계산서 (Tab1)
+     * 관리용 제조원가명세서 (Tab1)
      */
-    function fn_createFig5253Grid1() {
+    function fn_createFig5263Grid1() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB1_GRID';
-	    SBGridProperties.id 				= 'Fig5253Grid1';
-	    SBGridProperties.jsonref 			= 'jsonFig5253Grid1';
+	    SBGridProperties.id 				= 'Fig5263Grid1';
+	    SBGridProperties.jsonref 			= 'jsonFig5263Grid1';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.frozencols 		= 3;
         SBGridProperties.columns = [
-            {caption: ["계정정보",		"계정구분"],		ref: 'ACCOUNT_GROUP', 			type:'output',  	width:'80px'	,  	style:'text-align:left'},
-            {caption: ["계정정보",		"계정코드"],		ref: 'ACCOUNT_CODE_VIEW', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["계정정보",		"계정과목"],		ref: 'ACCOUNT_NAME', 			type:'output',  	width:'300px',  	style:'text-align:left'},
+            {caption: ["계정그룹",		"계정구분"],		ref: 'ACCOUNT_GROUP', 			type:'output',  	width:'80px'	,  	style:'text-align:left'},
+            {caption: ["계정그룹",		"계정코드"],		ref: 'ACCOUNT_CODE_VIEW', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["계정그룹",		"계정과목"],		ref: 'ACCOUNT_NAME', 			type:'output',  	width:'300px',  	style:'text-align:left'},
             
             {caption: [gd1_title_1,		"당기세부"],		ref: 'THIS_DETAIL_AMT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: [gd1_title_1,		"당기요약"],		ref: 'THIS_SUMMARY_AMT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -431,29 +430,29 @@
             {caption: ["비고",			""],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
-        Fig5253Grid1 = _SBGrid.create(SBGridProperties);
-        //Fig5253Grid1.bind('click', 'fn_viewFig5253Grid1Event');
+        Fig5263Grid1 = _SBGrid.create(SBGridProperties);
+        //Fig5263Grid1.bind('click', 'fn_viewFig5263Grid1Event');
         
     }
     
     /**
      * 기간별 증감비교 (Tab2)
      */
-    function fn_createFig5253Grid2() {
+    function fn_createFig5263Grid2() {
 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB2_GRID';
-	    SBGridProperties.id 				= 'Fig5253Grid2';
-	    SBGridProperties.jsonref 			= 'jsonFig5253Grid2';
+	    SBGridProperties.id 				= 'Fig5263Grid2';
+	    SBGridProperties.jsonref 			= 'jsonFig5263Grid2';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.frozencols 		= 3;
         SBGridProperties.columns = [
-            {caption: ["계정그룹",		"계정구분"],		ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'100px', 		style:'text-align:left'},
-            {caption: ["계정그룹",		"계정코드"],		ref: 'ACCOUNT_CODE', 			type:'output', 		width:'100px', 		style:'text-align:left'},
-            {caption: ["계정그룹",		"계정과목"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
+            {caption: ["계정정보",		"계정구분"],		ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정정보",		"계정코드"],		ref: 'ACCOUNT_CODE_VIEW', 		type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정정보",		"계정과목"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             
             {caption: [gd2_title_1,		"월(당기)"],		ref: 'THIS_PERIOD_AMT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
             {caption: [gd2_title_1,		"누계(당기)"],		ref: 'THIS_TOTAL_AMT', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -470,18 +469,18 @@
             {caption: ["비고",			""],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
-	    Fig5253Grid2 = _SBGrid.create(SBGridProperties);
+	    Fig5263Grid2 = _SBGrid.create(SBGridProperties);
     }
     
     /**
-     * 월별손익 (Tab3)
+     * 월별 제조원가명세서 (Tab3)
      */
-    function fn_createFig5253Grid3() {
+    function fn_createFig5263Grid3() {
 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB3_GRID';
-	    SBGridProperties.id 				= 'Fig5253Grid3';
-	    SBGridProperties.jsonref 			= 'jsonFig5253Grid3';
+	    SBGridProperties.id 				= 'Fig5263Grid3';
+	    SBGridProperties.jsonref 			= 'jsonFig5263Grid3';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
@@ -509,19 +508,19 @@
             {caption: ["비고"],							ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
-	    Fig5253Grid3 = _SBGrid.create(SBGridProperties);
-        //Fig5253Grid1.bind('click', 'fn_viewFig5253Grid1Event');
+	    Fig5263Grid3 = _SBGrid.create(SBGridProperties);
+        //Fig5263Grid1.bind('click', 'fn_viewFig5263Grid1Event');
     }
     
     /**
-     * 관리용 손익계산서 (Tab4)
+     * 관리용 제조원가명세서 (Tab4)
      */
-    function fn_createFig5253Grid4() {
+    function fn_createFig5263Grid4() {
 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB4_GRID';
-	    SBGridProperties.id 				= 'Fig5253Grid4';
-	    SBGridProperties.jsonref 			= 'jsonFig5253Grid4';
+	    SBGridProperties.id 				= 'Fig5263Grid4';
+	    SBGridProperties.jsonref 			= 'jsonFig5263Grid4';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
@@ -534,7 +533,7 @@
 	    },
         SBGridProperties.columns = [
             {caption: ["계정그룹"],			ref: 'ACCOUNT_GROUP', 			type:'output', 		width:'200px', 		style:'text-align:left'},
-            {caption: ["계정코드"],			ref: 'ACCOUNT_CODE_VIEW', 		type:'output', 		width:'100px', 		style:'text-align:left'},
+            {caption: ["계정코드"],			ref: 'ACCOUNT_CODE', 			type:'output', 		width:'100px', 		style:'text-align:left'},
             {caption: ["계정과목명"],		ref: 'ACCOUNT_NAME', 			type:'output', 		width:'250px', 		style:'text-align:left'},
             
             {caption: [gd4_title_1],		ref: 'THIS_SUMMARY_AMT',		type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
@@ -544,18 +543,18 @@
             {caption: ["비고"],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
-	    Fig5253Grid4 = _SBGrid.create(SBGridProperties);
+	    Fig5263Grid4 = _SBGrid.create(SBGridProperties);
     }
     
     /**
-     * 기간별 증감비교(트리) (Tab5)
+     * 증감비교(트리) (Tab5)
      */
-    function fn_createFig5253Grid5() {
+    function fn_createFig5263Grid5() {
 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB5_GRID';
-	    SBGridProperties.id 				= 'Fig5253Grid5';
-	    SBGridProperties.jsonref 			= 'jsonFig5253Grid5';
+	    SBGridProperties.id 				= 'Fig5263Grid5';
+	    SBGridProperties.jsonref 			= 'jsonFig5263Grid5';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
@@ -586,18 +585,18 @@
             {caption: ["비고"],					ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
-	    Fig5253Grid5 = _SBGrid.create(SBGridProperties);
+	    Fig5263Grid5 = _SBGrid.create(SBGridProperties);
     }
 
     /**
-     * 월별손익(트리) (Tab6)
+     * 월별 제조원가명세서(트리) (Tab6)
      */
-    function fn_createFig5253Grid6() {
+    function fn_createFig5263Grid6() {
 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB6_GRID';
-	    SBGridProperties.id 				= 'Fig5253Grid6';
-	    SBGridProperties.jsonref 			= 'jsonFig5253Grid6';
+	    SBGridProperties.id 				= 'Fig5263Grid6';
+	    SBGridProperties.jsonref 			= 'jsonFig5263Grid6';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
@@ -630,13 +629,13 @@
             {caption: ["비고"],							ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
 
-	    Fig5253Grid6 = _SBGrid.create(SBGridProperties);
+	    Fig5263Grid6 = _SBGrid.create(SBGridProperties);
     }
     
     /**
-     * 관리용 손익계산서 (Tab1)
+     * 관리용 제조원가명세서 (Tab1)
      */
-    const fn_setFig5253Grid1 = async function(wtype) {
+    const fn_setFig5263Grid1 = async function(wtype) {
 		
         let strAccountLevel = "";
     	if(wtype=='T1' || wtype=='T2' || wtype== 'T3'){
@@ -690,10 +689,10 @@
 			,V_P_PC					: '' 
 	    };		
 		console.log('paramObj:', paramObj);
-        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5253List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
-        	cv_count			: '5',
+        	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
 
@@ -705,7 +704,7 @@
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	        	jsonFig5253Grid1.length = 0;
+  	        	jsonFig5263Grid1.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),
@@ -718,10 +717,7 @@
   						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
   						FONT_SIZE 					: gfnma_nvl(item.FONT_SIZE),
   						
-  						HQ_ACCOUNT_CODE 			: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 			: gfnma_nvl(item.HQ_ACCOUNT_NAME),
   						PERIOD_FR 					: gfnma_nvl(item.PERIOD_FR),
-  						
   						PREV_DETAIL_AMT 			: gfnma_nvl(item.PREV_DETAIL_AMT),
   						PREV_DETAIL_QTY 			: gfnma_nvl(item.PREV_DETAIL_QTY),
   						PREV_END_DETAIL_AMT 		: gfnma_nvl(item.PREV_END_DETAIL_AMT),
@@ -734,23 +730,20 @@
   						PREV_PERIOD_END_TO 			: gfnma_nvl(item.PREV_PERIOD_END_TO),
   						PREV_SUMMARY_AMT 			: gfnma_nvl(item.PREV_SUMMARY_AMT),
   						
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
-  						
-  						SORT_SEQ_PL 				: gfnma_nvl(item.SORT_SEQ_PL),
+  						SORT_SEQ 					: gfnma_nvl(item.SORT_SEQ),
   						THIS_DETAIL_AMT 			: gfnma_nvl(item.THIS_DETAIL_AMT),
   						THIS_DETAIL_QTY 			: gfnma_nvl(item.THIS_DETAIL_QTY),
   						THIS_SUMMARY_AMT			: gfnma_nvl(item.THIS_SUMMARY_AMT),
   					}
-  					jsonFig5253Grid1.push(msg);
+  					jsonFig5263Grid1.push(msg);
   					totalRecordCount ++;
   				});
 
-  	        	if(jsonFig5253Grid1.length>0){
-  	        		strTMperiod 	= (jsonFig5253Grid1[0]['PERIOD_FR']).substr(0,4) + '-' + (jsonFig5253Grid1[0]['PERIOD_FR']).substr(4,2);
-  	        		strBEperiod 	= (jsonFig5253Grid1[0]['PREV_PERIOD_END_FR']).substr(0,4) + '-' + (jsonFig5253Grid1[0]['PREV_PERIOD_END_FR']).substr(4,2);
-  	        		strBSperiod 	= (jsonFig5253Grid1[0]['PREV_PERIOD']).substr(0,4) + '-' + (jsonFig5253Grid1[0]['PREV_PERIOD']).substr(4,2);
-  	        		strBSperiodDescr= (jsonFig5253Grid1[0]['PREV_PERIOD_DESCR']);
+  	        	if(jsonFig5263Grid1.length>0){
+  	        		strTMperiod 	= (jsonFig5263Grid1[0]['PERIOD_FR']).substr(0,4) + '-' + (jsonFig5263Grid1[0]['PERIOD_FR']).substr(4,2);
+  	        		strBEperiod 	= (jsonFig5263Grid1[0]['PREV_PERIOD_END_FR']).substr(0,4) + '-' + (jsonFig5263Grid1[0]['PREV_PERIOD_END_TO']).substr(4,2);
+  	        		strBSperiod 	= (jsonFig5263Grid1[0]['PREV_PERIOD']).substr(0,4) + '-' + (jsonFig5263Grid1[0]['PREV_PERIOD']).substr(4,2);
+  	        		strBSperiodDescr= (jsonFig5263Grid1[0]['PREV_PERIOD_DESCR']);
   	        		
   	        		gd1_title_1 = '당기' + '(' + strTMperiod  + ')';
   	        		gd1_title_2 = '전기말' + '(' + strBEperiod  + ')';
@@ -758,11 +751,11 @@
   	        	}
   	        	
 	  	      	//타이틀 재구성 -----------
-	  	      	fn_createFig5253Grid1();    	
-		  		Fig5253Grid1.clearStatus();
+	  	      	fn_createFig5263Grid1();    	
+		  		Fig5263Grid1.clearStatus();
 	  	      	//--------------------------
 	  	      	
-        		Fig5253Grid1.rebuild();
+        		Fig5263Grid1.rebuild();
         		fn_setStyle1();
         	} else {
           		alert(data.resultMessage);
@@ -780,7 +773,7 @@
     /**
      * 기간별 증감비교 (Tab2)
      */
-    const fn_setFig5253Grid2 = async function(wtype) {
+    const fn_setFig5263Grid2 = async function(wtype) {
 		
         let strAccountLevel = "";
     	if(wtype=='T1' || wtype=='T2' || wtype== 'T3'){
@@ -834,10 +827,10 @@
 			,V_P_PC					: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5253List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
-        	cv_count			: '5',
+        	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
 
@@ -849,21 +842,18 @@
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	    		jsonFig5253Grid2.length = 0;
+  	    		jsonFig5263Grid2.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
   						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),
   						ACCOUNT_CODE_VIEW			: gfnma_nvl(item.ACCOUNT_CODE_VIEW),
   						ACCOUNT_GROUP				: gfnma_nvl(item.ACCOUNT_GROUP),
   						ACCOUNT_NAME				: gfnma_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),
+  						ACCT_RULE_NAME				: gfnma_nvl(item.ACCT_RULE_NAME),
   						
   						COMP_CODE					: gfnma_nvl(item.COMP_CODE),
   						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
   						FONT_SIZE 					: gfnma_nvl(item.FONT_SIZE),
-  						
-  						HQ_ACCOUNT_CODE 			: gfnma_nvl(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 			: gfnma_nvl(item.HQ_ACCOUNT_NAME),
   						
   						NET_PERIOD_AMT				: gfnma_nvl(item.NET_PERIOD_AMT),
   						NET_PERIOD_QTY				: gfnma_nvl(item.NET_PERIOD_QTY),
@@ -871,8 +861,6 @@
   						NET_PERIOD_RATE				: gfnma_nvl(item.NET_PERIOD_RATE),
   						
   						NET_TOTAL_AMT				: gfnma_nvl(item.NET_TOTAL_AMT),
-  						NET_TOTAL_QTY				: gfnma_nvl(item.NET_TOTAL_QTY),
-  						NET_TOTAL_QTY_RATE			: gfnma_nvl(item.NET_TOTAL_QTY_RATE),
   						NET_TOTAL_RATE				: gfnma_nvl(item.NET_TOTAL_RATE),
   						
   						PERIOD_FR					: gfnma_nvl(item.PERIOD_FR),
@@ -884,40 +872,35 @@
   						PREV_PERIOD_QTY 			: gfnma_nvl(item.PREV_PERIOD_QTY),
   						PREV_PERIOD_TO	 			: gfnma_nvl(item.PREV_PERIOD_TO),
   						PREV_TOTAL_AMT 				: gfnma_nvl(item.PREV_TOTAL_AMT),
-  						PREV_TOTAL_QTY 				: gfnma_nvl(item.PREV_TOTAL_QTY),
-  						
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
   						
   						SORT_SEQ_PL					: gfnma_nvl(item.SORT_SEQ_PL),
   						THIS_PERIOD_AMT				: gfnma_nvl(item.THIS_PERIOD_AMT),
   						THIS_PERIOD_QTY				: gfnma_nvl(item.THIS_PERIOD_QTY),
   						THIS_TOTAL_AMT 				: gfnma_nvl(item.THIS_TOTAL_AMT),
-  						THIS_TOTAL_QTY				: gfnma_nvl(item.THIS_TOTAL_QTY)
   					}
-  					jsonFig5253Grid2.push(msg);
+  					jsonFig5263Grid2.push(msg);
   					totalRecordCount ++;
   				});
 
-  	        	if(jsonFig5253Grid2.length>0){
-  	        		strTPperiod 	= (jsonFig5253Grid2[0]['PERIOD_FR']).substr(0,4) + '-' + (jsonFig5253Grid2[0]['PERIOD_TO']).substr(0,4);
-  	        		strTMperiod 	= (jsonFig5253Grid2[0]['PERIOD_TO']).substr(0,4) + '-' + (jsonFig5253Grid2[0]['PERIOD_TO']).substr(4,2);
-  	        		strBEperiod 	= (jsonFig5253Grid2[0]['PREV_PERIOD_FR']).substr(0,6) + '-' + (jsonFig5253Grid2[0]['PREV_PERIOD_TO']).substr(0,6);
-  	        		strBSperiod 	= (jsonFig5253Grid2[0]['PREV_PERIOD_TO']).substr(0,4) + '-' + (jsonFig5253Grid2[0]['PREV_PERIOD_TO']).substr(4,2);
-  	        		strBSperiodDescr= (jsonFig5253Grid2[0]['PREV_PERIOD_DESCR']);
+  	        	if(jsonFig5263Grid2.length>0){
+  	        		strTPperiod 	= (jsonFig5263Grid2[0]['PERIOD_FR']).substr(0,6) + '-' + (jsonFig5263Grid2[0]['PERIOD_TO']).substr(0,6);
+  	        		strTMperiod 	= (jsonFig5263Grid2[0]['PERIOD_TO']).substr(0,4) + '-' + (jsonFig5263Grid2[0]['PERIOD_TO']).substr(4,2);
+  	        		strBEperiod 	= (jsonFig5263Grid2[0]['PREV_PERIOD_FR']).substr(0,6) + '-' + (jsonFig5263Grid2[0]['PREV_PERIOD_TO']).substr(0,6);
+  	        		strBSperiod 	= (jsonFig5263Grid2[0]['PREV_PERIOD_TO']).substr(0,4) + '-' + (jsonFig5263Grid2[0]['PREV_PERIOD_TO']).substr(4,2);
+  	        		strBSperiodDescr= (jsonFig5263Grid2[0]['PREV_PERIOD_DESCR']);
   	        		
-  	        		gd2_title_1 = '당기' + '(' + strTMperiod  + ')';
+  	        		gd2_title_1 = '당기' + '(' + strTPperiod  + ')';
   	        		gd2_title_2 = strBSperiodDescr + '(' + strBEperiod + ')';
   	        		gd2_title_3 = '차이' + '(' + strBSperiod  + '-' + strTPperiod + ')';
   	        		gd2_title_4 = '비율' + '(' + strBSperiod  + '-' + strTPperiod + ')';
   	        	}
   	        	
 	  	      	//타이틀 재구성 -----------
-	  	      	fn_createFig5253Grid2();    	
-	  			Fig5253Grid2.clearStatus();
+	  	      	fn_createFig5263Grid2();    	
+	  			Fig5263Grid2.clearStatus();
 	  	      	//--------------------------
   	        	
-  	        	Fig5253Grid2.rebuild();
+  	        	Fig5263Grid2.rebuild();
         		fn_setStyle2();
 
         	} else {
@@ -934,9 +917,9 @@
     }    
 
     /**
-     * 월별손익 (Tab3)
+     * 월별 제조원가명세서 (Tab3)
      */
-    const fn_setFig5253Grid3 = async function(wtype) {
+    const fn_setFig5263Grid3 = async function(wtype) {
 		
         let strAccountLevel = "";
     	if(wtype=='T1' || wtype=='T2' || wtype== 'T3'){
@@ -990,10 +973,10 @@
 			,V_P_PC					: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5253List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
-        	cv_count			: '5',
+        	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
 
@@ -1005,7 +988,7 @@
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	    		jsonFig5253Grid3.length = 0;
+  	    		jsonFig5263Grid3.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
   						ACCOUNT_CODE				: gfnma_nvl(item.ACCOUNT_CODE),
@@ -1015,7 +998,7 @@
   						ACCT_RULE_CODE				: gfnma_nvl(item.ACCT_RULE_CODE),
   						
   						COMP_CODE					: gfnma_nvl(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl(item.FI_ORG_CODE),
+  						FI_ORG_NAME					: gfnma_nvl(item.FI_ORG_NAME),
   						FONT_SIZE 					: gfnma_nvl(item.FONT_SIZE),
   						
   						HQ_ACCOUNT_CODE 			: gfnma_nvl(item.HQ_ACCOUNT_CODE),
@@ -1047,22 +1030,19 @@
   						MON_Q11						: gfnma_nvl(item.MON_Q11),
   						MON_Q12						: gfnma_nvl(item.MON_Q12),
   						
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl(item.REPORT_ACCOUNT_NAME),
-  						
-  						SORT_SEQ_PL					: gfnma_nvl(item.SORT_SEQ_PL),
+  						SORT_SEQ					: gfnma_nvl(item.SORT_SEQ),
   						TOTAL_AMT					: gfnma_nvl(item.TOTAL_AMT)
   					}
-  					jsonFig5253Grid3.push(msg);
+  					jsonFig5263Grid3.push(msg);
   					totalRecordCount ++;
   				});
 
 	  	      	//타이틀 재구성 -----------
-	  	      	fn_createFig5253Grid3();    	
-	  			Fig5253Grid3.clearStatus();
+	  	      	fn_createFig5263Grid3();    	
+	  			Fig5263Grid3.clearStatus();
 	  	      	//--------------------------
   	        	
-  	        	Fig5253Grid3.rebuild();
+  	        	Fig5263Grid3.rebuild();
         		fn_setStyle3();
 
         	} else {
@@ -1079,9 +1059,9 @@
     }    
     
     /**
-     * 관리용 손익계산서 (Tab4)
+     * 관리용 제조원가명세서 (Tab4)
      */
-    const fn_setFig5253Grid4 = async function(wtype) {
+    const fn_setFig5263Grid4 = async function(wtype) {
 		
         let strAccountLevel = "";
     	if(wtype=='T1' || wtype=='T2' || wtype== 'T3'){
@@ -1135,10 +1115,10 @@
 			,V_P_PC					: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5253List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
-        	cv_count			: '5',
+        	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
 
@@ -1150,7 +1130,7 @@
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	    		jsonFig5253Grid4.length = 0;
+  	    		jsonFig5263Grid4.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   							LVL							: gfnma_nvl(item.LVL),
@@ -1174,18 +1154,18 @@
   	  						PREV_PERIOD_END_FR 			: gfnma_nvl(item.PREV_PERIOD_END_FR),
   	  						PREV_PERIOD_END_TO 			: gfnma_nvl(item.PREV_PERIOD_END_TO),
   	  						PREV_SUMMARY_AMT 			: gfnma_nvl(item.PREV_SUMMARY_AMT),
-  	  						SORT_SEQ_PL 				: gfnma_nvl(item.SORT_SEQ_PL),
+  	  						SORT_SEQ 					: gfnma_nvl(item.SORT_SEQ),
   	  						THIS_SUMMARY_AMT 			: gfnma_nvl(item.THIS_SUMMARY_AMT),
   					}
-  					jsonFig5253Grid4.push(msg);
+  					jsonFig5263Grid4.push(msg);
   					totalRecordCount ++;
   				});
 
-  	        	if(jsonFig5253Grid4.length>0){
-  	        		strTMperiod 	= (jsonFig5253Grid4[0]['PERIOD_FR']).substr(0,4) + '01-' + (jsonFig5253Grid4[0]['PERIOD_FR']).substr(0,6);
-  	        		strBEperiod 	= (jsonFig5253Grid4[0]['PREV_PERIOD_END_FR']).substr(0,4) + '01-' + (jsonFig5253Grid4[0]['PREV_PERIOD_END_TO']).substr(0,6);
-  	        		strBSperiod 	= (jsonFig5253Grid4[0]['PREV_PERIOD']).substr(0,4) + '01-' + (jsonFig5253Grid4[0]['PREV_PERIOD']).substr(0,6);
-  	        		strBSperiodDescr= (jsonFig5253Grid4[0]['PREV_PERIOD_DESCR']);
+  	        	if(jsonFig5263Grid4.length>0){
+  	        		strTMperiod 	= (jsonFig5263Grid4[0]['PERIOD_FR']).substr(0,4) + '01-' + (jsonFig5263Grid4[0]['PERIOD_FR']).substr(0,6);
+  	        		strBEperiod 	= (jsonFig5263Grid4[0]['PREV_PERIOD_END_FR']).substr(0,4) + '01-' + (jsonFig5263Grid4[0]['PREV_PERIOD_END_TO']).substr(0,6);
+  	        		strBSperiod 	= (jsonFig5263Grid4[0]['PREV_PERIOD']).substr(0,4) + '01-' + (jsonFig5263Grid4[0]['PREV_PERIOD']).substr(0,6);
+  	        		strBSperiodDescr= (jsonFig5263Grid4[0]['PREV_PERIOD_DESCR']);
   	        		
   	        		gd4_title_1 = '당기' + '(' + strTMperiod  + ')';
   	        		gd4_title_2 = '전기말' + '(' + strBEperiod + ')';
@@ -1193,11 +1173,11 @@
   	        	}
   	        	
 	  	      	//타이틀 재구성 -----------
-	  	      	fn_createFig5253Grid4();    	
-	  			Fig5253Grid4.clearStatus();
+	  	      	fn_createFig5263Grid4();    	
+	  			Fig5263Grid4.clearStatus();
 	  	      	//--------------------------
   	        	
-  	        	Fig5253Grid4.rebuild();
+  	        	Fig5263Grid4.rebuild();
         		fn_setStyle4();
 
         	} else {
@@ -1214,9 +1194,9 @@
     }       
     
     /**
-     * 기간별 증감비교(트리) (Tab5)
+     * 증감비교(트리) (Tab5)
      */
-    const fn_setFig5253Grid5 = async function(wtype) {
+    const fn_setFig5263Grid5 = async function(wtype) {
 		
         let strAccountLevel = "";
     	if(wtype=='T1' || wtype=='T2' || wtype== 'T3'){
@@ -1270,10 +1250,10 @@
 			,V_P_PC					: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5253List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
-        	cv_count			: '5',
+        	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
 
@@ -1285,7 +1265,7 @@
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	    		jsonFig5253Grid5.length = 0;
+  	    		jsonFig5263Grid5.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
 						LVL							: gfnma_nvl(item.LVL),
@@ -1320,16 +1300,15 @@
   						THIS_PERIOD_AMT 			: gfnma_nvl(item.THIS_PERIOD_AMT),
   						THIS_TOTAL_AMT 				: gfnma_nvl(item.THIS_TOTAL_AMT),
   					}
-  					jsonFig5253Grid5.push(msg);
+  					jsonFig5263Grid5.push(msg);
   					totalRecordCount ++;
   				});
 
-  	        	if(jsonFig5253Grid5.length>0){
-  	        		strTPperiod 	= (jsonFig5253Grid5[0]['PERIOD_FR']).substr(0,6) + '-' + (jsonFig5253Grid5[0]['PERIOD_TO']).substr(0,6);
-  	        		strTMperiod 	= (jsonFig5253Grid5[0]['PERIOD_TO']).substr(0,4) + '-' + (jsonFig5253Grid5[0]['PERIOD_TO']).substr(4,2);
-  	        		strBEperiod 	= (jsonFig5253Grid5[0]['PREV_PERIOD_FR']).substr(0,6) + '01-' + (jsonFig5253Grid5[0]['PREV_PERIOD_TO']).substr(0,6);
-  	        		strBSperiod 	= (jsonFig5253Grid5[0]['PREV_PERIOD_TO']).substr(0,4) + '01-' + (jsonFig5253Grid5[0]['PREV_PERIOD_TO']).substr(4,2);
-  	        		strBSperiodDescr= (jsonFig5253Grid5[0]['PREV_PERIOD_DESCR']);
+  	        	if(jsonFig5263Grid5.length>0){
+  	        		strTPperiod 	= (jsonFig5263Grid5[0]['PERIOD_FR']).substr(0,6) + '01-' + (jsonFig5263Grid5[0]['PERIOD_TO']).substr(0,6);
+  	        		strBEperiod 	= (jsonFig5263Grid5[0]['PREV_PERIOD_FR']).substr(0,6) + '01-' + (jsonFig5263Grid5[0]['PREV_PERIOD_TO']).substr(0,6);
+  	        		strBSperiod 	= (jsonFig5263Grid5[0]['PREV_PERIOD_TO']).substr(0,4) + '01-' + (jsonFig5263Grid5[0]['PREV_PERIOD_TO']).substr(0,6);
+  	        		strBSperiodDescr= (jsonFig5263Grid5[0]['PREV_PERIOD_DESCR']);
   	        		
   	        		gd5_title_1 	= '당기' + '(' + strTPperiod  + ')';
   	        		gd5_title_1_1 	= '월' + '(' + strTMperiod + ')';
@@ -1338,11 +1317,11 @@
   	        	}
   	        	
 	  	      	//타이틀 재구성 -----------
-	  	      	fn_createFig5253Grid5();    	
-	  			Fig5253Grid5.clearStatus();
+	  	      	fn_createFig5263Grid5();    	
+	  			Fig5263Grid5.clearStatus();
 	  	      	//--------------------------
   	        	
-  	        	Fig5253Grid5.rebuild();
+  	        	Fig5263Grid5.rebuild();
         		fn_setStyle5();
 
         	} else {
@@ -1362,7 +1341,7 @@
     /**
      * 월별손익(트리) (Tab6)
      */
-    const fn_setFig5253Grid6 = async function(wtype) {
+    const fn_setFig5263Grid6 = async function(wtype) {
 		
         let strAccountLevel = "";
     	if(wtype=='T1' || wtype=='T2' || wtype== 'T3'){
@@ -1416,10 +1395,10 @@
 			,V_P_PC					: '' 
 	    };		
 
-        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5253List.do", {
+        const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
-        	cv_count			: '5',
+        	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
 
@@ -1431,7 +1410,7 @@
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 
-  	    		jsonFig5253Grid6.length = 0;
+  	    		jsonFig5263Grid6.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
 						LVL							: gfnma_nvl(item.LVL),
@@ -1481,16 +1460,16 @@
   						SORT_SEQ_PL					: gfnma_nvl(item.SORT_SEQ_PL),
   						TOTAL_AMT					: gfnma_nvl(item.TOTAL_AMT)
   					}
-  					jsonFig5253Grid6.push(msg);
+  					jsonFig5263Grid6.push(msg);
   					totalRecordCount ++;
   				});
 
 	  	      	//타이틀 재구성 -----------
-	  	      	fn_createFig5253Grid6();    	
-	  			Fig5253Grid6.clearStatus();
+	  	      	fn_createFig5263Grid6();    	
+	  			Fig5263Grid6.clearStatus();
 	  	      	//--------------------------
   	        	
-  	        	Fig5253Grid6.rebuild();
+  	        	Fig5263Grid6.rebuild();
         		fn_setStyle6();
 
         	} else {
@@ -1622,18 +1601,18 @@
      * 그리드1 색상
      */
     var fn_setStyle1 = function() {
-    	let allDatas = Fig5253Grid1.getGridDataAll();
+    	let allDatas = Fig5263Grid1.getGridDataAll();
     	let chk 	 = false;
       	for (var i = 0; i < allDatas.length; i++) {
       		var obj = allDatas[i];
       		if(obj['ACCOUNT_GROUP']=='G'){
-      			Fig5253Grid1.setRowStyle(i+2, 'data', 'background', '#d4f1da');
-      			Fig5253Grid1.setRowStyle(i+2, 'data', 'font-weight', 'bold');
+      			Fig5263Grid1.setRowStyle(i+2, 'data', 'background', '#d4f1da');
+      			Fig5263Grid1.setRowStyle(i+2, 'data', 'font-weight', 'bold');
       			chk = true;
       		}
       	}
       	if(chk){
-      		Fig5253Grid1.clearSelection();
+      		Fig5263Grid1.clearSelection();
       	}
   	}    
         
@@ -1641,18 +1620,18 @@
      * 그리드2 색상
      */
     var fn_setStyle2 = function() {
-    	let allDatas = Fig5253Grid2.getGridDataAll();
+    	let allDatas = Fig5263Grid2.getGridDataAll();
     	let chk 	 = false;
       	for (var i = 0; i < allDatas.length; i++) {
       		var obj = allDatas[i];
       		if(obj['ACCOUNT_GROUP']=='G'){
-      			Fig5253Grid2.setRowStyle(i+2, 'data', 'background', '#d4f1da');
-      			Fig5253Grid2.setRowStyle(i+2, 'data', 'font-weight', 'bold');
+      			Fig5263Grid2.setRowStyle(i+2, 'data', 'background', '#d4f1da');
+      			Fig5263Grid2.setRowStyle(i+2, 'data', 'font-weight', 'bold');
       			chk = true;
       		}
       	}
       	if(chk){
-      		Fig5253Grid2.clearSelection();
+      		Fig5263Grid2.clearSelection();
       	}
   	}    
         
@@ -1660,18 +1639,18 @@
      * 그리드3 색상
      */
     var fn_setStyle3 = function() {
-    	let allDatas = Fig5253Grid3.getGridDataAll();
+    	let allDatas = Fig5263Grid3.getGridDataAll();
     	let chk 	 = false;
       	for (var i = 0; i < allDatas.length; i++) {
       		var obj = allDatas[i];
       		if(obj['ACCOUNT_GROUP']=='G'){
-      			Fig5253Grid3.setRowStyle(i+2, 'data', 'background', '#d4f1da');
-      			Fig5253Grid3.setRowStyle(i+2, 'data', 'font-weight', 'bold');
+      			Fig5263Grid3.setRowStyle(i+2, 'data', 'background', '#d4f1da');
+      			Fig5263Grid3.setRowStyle(i+2, 'data', 'font-weight', 'bold');
       			chk = true;
       		}
       	}
       	if(chk){
-      		Fig5253Grid3.clearSelection();
+      		Fig5263Grid3.clearSelection();
       	}
   	}    
         
@@ -1679,18 +1658,18 @@
      * 그리드4 색상
      */
     var fn_setStyle4 = function() {
-    	let allDatas = Fig5253Grid4.getGridDataAll();
+    	let allDatas = Fig5263Grid4.getGridDataAll();
     	let chk 	 = false;
       	for (var i = 0; i < allDatas.length; i++) {
       		var obj = allDatas[i];
       		if(obj['ACCOUNT_GROUP']=='G'){
-      			Fig5253Grid4.setRowStyle(i+1, 'data', 'background', '#d4f1da');
-      			Fig5253Grid4.setRowStyle(i+1, 'data', 'font-weight', 'bold');
+      			Fig5263Grid4.setRowStyle(i+1, 'data', 'background', '#d4f1da');
+      			Fig5263Grid4.setRowStyle(i+1, 'data', 'font-weight', 'bold');
       			chk = true;
       		}
       	}
       	if(chk){
-      		Fig5253Grid4.clearSelection();
+      		Fig5263Grid4.clearSelection();
       	}
   	}    
         
@@ -1698,18 +1677,18 @@
      * 그리드5 색상
      */
     var fn_setStyle5 = function() {
-    	let allDatas = Fig5253Grid5.getGridDataAll();
+    	let allDatas = Fig5263Grid5.getGridDataAll();
     	let chk 	 = false;
       	for (var i = 0; i < allDatas.length; i++) {
       		var obj = allDatas[i];
       		if(obj['ACCOUNT_GROUP']=='G'){
-      			Fig5253Grid5.setRowStyle(i+2, 'data', 'background', '#d4f1da');
-      			Fig5253Grid5.setRowStyle(i+2, 'data', 'font-weight', 'bold');
+      			Fig5263Grid5.setRowStyle(i+2, 'data', 'background', '#d4f1da');
+      			Fig5263Grid5.setRowStyle(i+2, 'data', 'font-weight', 'bold');
       			chk = true;
       		}
       	}
       	if(chk){
-      		Fig5253Grid5.clearSelection();
+      		Fig5263Grid5.clearSelection();
       	}
   	}    
         
@@ -1717,18 +1696,18 @@
      * 그리드6 색상
      */
     var fn_setStyle6 = function() {
-    	let allDatas = Fig5253Grid6.getGridDataAll();
+    	let allDatas = Fig5263Grid6.getGridDataAll();
     	let chk 	 = false;
       	for (var i = 0; i < allDatas.length; i++) {
       		var obj = allDatas[i];
       		if(obj['ACCOUNT_GROUP']=='G'){
-      			Fig5253Grid6.setRowStyle(i+1, 'data', 'background', '#d4f1da');
-      			Fig5253Grid6.setRowStyle(i+1, 'data', 'font-weight', 'bold');
+      			Fig5263Grid6.setRowStyle(i+1, 'data', 'background', '#d4f1da');
+      			Fig5263Grid6.setRowStyle(i+1, 'data', 'font-weight', 'bold');
       			chk = true;
       		}
       	}
       	if(chk){
-      		Fig5253Grid6.clearSelection();
+      		Fig5263Grid6.clearSelection();
       	}
   	}    
     
@@ -1736,42 +1715,42 @@
      * 트리펼치기
      */
     var fn_treeOpen1 = function() {
-    	Fig5253Grid4.openTreeNodeAll();
+    	Fig5263Grid4.openTreeNodeAll();
   	}    
 
     /**
      * 트리접기
      */
     var fn_treeClose1 = function() {
-    	Fig5253Grid4.closeTreeNodeAll();
+    	Fig5263Grid4.closeTreeNodeAll();
   	}    
     
     /**
      * 트리펼치기
      */
     var fn_treeOpen2 = function() {
-    	Fig5253Grid5.openTreeNodeAll();
+    	Fig5263Grid5.openTreeNodeAll();
   	}    
 
     /**
      * 트리접기
      */
     var fn_treeClose2 = function() {
-    	Fig5253Grid5.closeTreeNodeAll();
+    	Fig5263Grid5.closeTreeNodeAll();
   	}    
     
     /**
      * 트리펼치기
      */
     var fn_treeOpen3 = function() {
-    	Fig5253Grid6.openTreeNodeAll();
+    	Fig5263Grid6.openTreeNodeAll();
   	}    
 
     /**
      * 트리접기
      */
     var fn_treeClose3 = function() {
-    	Fig5253Grid6.closeTreeNodeAll();
+    	Fig5263Grid6.closeTreeNodeAll();
   	}    
     
     
