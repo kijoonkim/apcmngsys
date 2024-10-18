@@ -40,7 +40,7 @@
 							 -->
 							<th scope="row">품목</th>
 							<th>
-								<sbux-input id="gpc-inp-itemNm" name="gpc-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_gpcSelectEnterKey"></sbux-input>
+								<sbux-input id="uoGpc-inp-itemNm" name="uoGpc-inp-itemNm" uitype="text" class="form-control input-sm" onkeyenter="fn_gpcSelectEnterKey"></sbux-input>
 							</th>
 							<th></th>
 						</tr>
@@ -87,8 +87,8 @@
 		objGrid: null,
 		gridJson: [],
 		callbackFnc: function() {},
-		init: async function(_brno , _selType , _callbackFnc) {
-
+		init: async function(_callbackFnc , _brno , _selType) {
+			console.log('pd gpcSelectPopup init');
 			SBUxMethod.set("uoGpc-inp-brno", _brno);
 			SBUxMethod.set("uoGpc-inp-selType", _selType);
 			SBUxMethod.hide('btnEditGpc');
@@ -180,32 +180,34 @@
 
 			//var gpcCd = SBUxMethod.get("gpc-inp-gpcCd");
 			//var gpcNm = nvlScnd(SBUxMethod.get("gpc-inp-gpcNm"),'');
-			var itemNm = SBUxMethod.get("gpc-inp-itemNm");
+			let itemNm = SBUxMethod.get("uoGpc-inp-itemNm");
 			let brno = SBUxMethod.get("uoGpc-inp-brno");
 			let selType = SBUxMethod.get("uoGpc-inp-selType");
 			//console.log(brno,selType);
 			//console.log("setGrid 호출 / gpcNm : " + gpcNm + "/ 타입 : " + typeof(gpcNm));
+
+			console.log(itemNm,brno,selType);
 
 			const postJsonPromise = gfn_postJSON("/fm/popup/selectGpcListPopup.do", {
 
 				//gpcNm : gpcNm, //검색 파라미터
 				itemNm : itemNm,
 				brno : brno,
-				selType : selType,
+				selType : selType,//
 				// pagination
-		  		pagingYn : 'Y',
+				pagingYn : 'Y',
 				currentPageNo : pageNo,
-	 		  	recordCountPerPage : pageSize
+				recordCountPerPage : pageSize
 			});
 
-	        const data = await postJsonPromise;
+			const data = await postJsonPromise;
 
 			try {
-	        	/** @type {number} **/
-	    		let totalRecordCount = 0;
+				/** @type {number} **/
+				let totalRecordCount = 0;
 
-	    		jsonGpcPop.length = 0;
-	        	data.resultList.forEach((item, index) => {
+				jsonGpcPop.length = 0;
+				data.resultList.forEach((item, index) => {
 					const gpc = {
 							ctgryCd : item.ctgryCd,
 							ctgryNm : item.ctgryNm,
@@ -220,58 +222,58 @@
 					}
 				});
 
-	        	if (jsonGpcPop.length > 0) {
-	        		if(grdGpcPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-	        			grdGpcPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-	        			grdGpcPop.rebuild();
+				if (jsonGpcPop.length > 0) {
+					if(grdGpcPop.getPageTotalCount() != totalRecordCount){	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+						grdGpcPop.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+						grdGpcPop.rebuild();
 					}else{
 						grdGpcPop.refresh();
 					}
-	        	} else {
-	        		grdGpcPop.setPageTotalCount(totalRecordCount);
-	        		grdGpcPop.rebuild();
-	        	}
+				} else {
+					grdGpcPop.setPageTotalCount(totalRecordCount);
+					grdGpcPop.rebuild();
+				}
 
-	        	if (isEditable) {
-	        		grdGpcPop.setCellDisabled(0, 0, grdGpcPop.getRows() - 1, grdGpcPop.getCols() - 1, false);
-	        		let nRow = grdGpcPop.getRows();
+				if (isEditable) {
+					grdGpcPop.setCellDisabled(0, 0, grdGpcPop.getRows() - 1, grdGpcPop.getCols() - 1, false);
+					let nRow = grdGpcPop.getRows();
 					grdGpcPop.addRow(true);
 					grdGpcPop.setCellDisabled(nRow, 0, nRow, grdGpcPop.getCols() - 1, true);
-	        	} else {
-	        		grdGpcPop.setCellDisabled(0, 0, grdGpcPop.getRows() - 1, grdGpcPop.getCols() - 1, true);
-	        	}
+				} else {
+					grdGpcPop.setCellDisabled(0, 0, grdGpcPop.getRows() - 1, grdGpcPop.getCols() - 1, true);
+				}
 
-	        	document.querySelector('#gpc-pop-cnt').innerText = totalRecordCount;
+				document.querySelector('#gpc-pop-cnt').innerText = totalRecordCount;
 
-	        } catch (e) {
-	    		if (!(e instanceof Error)) {
-	    			e = new Error(e);
-	    		}
-	    		console.error("failed", e.message);
-	        }
-	    },
-	    paging: function() {
-	    	let recordCountPerPage = grdGpcPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-	    	let currentPageNo = grdGpcPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
+		},
+		paging: function() {
+			let recordCountPerPage = grdGpcPop.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+			let currentPageNo = grdGpcPop.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 
-	    	popGpcSelect.setGrid(recordCountPerPage, currentPageNo);
-	    }
+			popGpcSelect.setGrid(recordCountPerPage, currentPageNo);
+		}
 	}
 
-function fn_gpcSelectEnterKey() {
+	function fn_gpcSelectEnterKey() {
 		if(window.event.keyCode == 13) {
 			popGpcSelect.search();
 		}
 	}
 
 	//null 체크
-function nvlScnd(str, defaultStr){
+	function nvlScnd(str, defaultStr){
 
-       if(typeof str == "undefined" || str == null || str == "" || str == "null")
-           str = defaultStr ;
+		if(typeof str == "undefined" || str == null || str == "" || str == "null")
+			str = defaultStr ;
 
-       return str ;
-   }
+		return str ;
+	}
 
 
 

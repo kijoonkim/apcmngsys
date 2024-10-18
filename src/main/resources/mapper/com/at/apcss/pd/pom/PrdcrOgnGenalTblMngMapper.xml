@@ -205,6 +205,7 @@
 
 		WHERE 1=1
 		  AND (FA.BRNO = #{brno} OR FA.UO_BRNO = #{brno})
+		  AND FA.YR = #{yr}
 
 		ORDER BY APO_SE , CORP_NM , PRDCR_OGNZ_NM
 

@@ -17,7 +17,7 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Mapper
@@ -25,21 +25,47 @@ public interface InvShipOgnPurSalMngMapper {
 
 
 	/**
-	 * 메시지정보를 조회한다.
-	 * @param bbsVO
-	 * @return
+	 * 출자출하조직 총 매입 매출을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return InvShipOgnPurSalMngVO
 	 */
 	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
-
+	/**
+	 * 출자출하조직 총 매입 매출 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매입 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	/**
+	 * 출자출하조직 총 매입 매출 의 매입현황을 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 */
 	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출현황-취급실적을 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 */
 	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출현황-통합조직 출하실적을 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 */
 	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
-
-	public int updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
 
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 

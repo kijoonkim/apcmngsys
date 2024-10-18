@@ -978,7 +978,7 @@
 		></sbux-modal>
 	</div>
 	<div id="body-modal-brno">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/BrnoPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/BrnoPopup.jsp"></jsp:include>
 	</div>
 
 	<!-- 경영체 조회 팝업 -->
@@ -996,8 +996,6 @@
 	<div id="body-modal-mngmstInfoId">
 		<jsp:include page="/WEB-INF/view/apcss/fm/popup/MngmstInfoIdPopup.jsp"></jsp:include>
 	</div>
-
-
 
 </body>
 <script type="text/javascript">

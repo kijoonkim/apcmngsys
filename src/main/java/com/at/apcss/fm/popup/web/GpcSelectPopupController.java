@@ -44,14 +44,19 @@ public class GpcSelectPopupController extends BaseController {
 	//APC 리스트 검색
 	@PostMapping(value = "/fm/popup/selectGpcListPopup.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectApcListPopup(@RequestBody GpcSelectPopupVO vo, HttpServletRequest request) throws Exception {
-
+		System.out.println("selectApcListPopup.do 호출 <><><><> ");
 		logger.debug("selectApcListPopup.do 호출 <><><><> ");
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<GpcSelectPopupVO> resultList = new ArrayList<>();
+		System.out.println("vo.getSelType() = " + vo.getSelType());
 
+		String selType = "";
+		if(vo.getSelType() != null) {
+			selType = vo.getSelType();
+		}
 		try {
-			if(vo.getSelType().equals("1")) {
+			if(selType.equals("Y")) {
 				resultList = gpcSelectPopupService.selectUoGpcList(vo);
 			}else {
 				resultList = gpcSelectPopupService.selectGpcList(vo);
