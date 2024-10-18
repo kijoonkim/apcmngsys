@@ -1705,7 +1705,7 @@ const gfnma_findReportFilePath = async function(reportType) {
  * @param 		{object} data
  * @returns 	{object}
  */
-function gfnma_convertDataForReport(data) {
+const gfnma_convertDataForReport = async function(data) {
 	const param = [];
 	let regx = /^cv_\d+$/;
 	let keys = Object.keys(data);
