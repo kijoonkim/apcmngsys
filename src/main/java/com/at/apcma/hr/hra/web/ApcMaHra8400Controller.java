@@ -94,6 +94,31 @@ public class ApcMaHra8400Controller extends BaseController {
 		return getSuccessResponseEntityMa(resultMap);
 	}
 
+	// 공통코드 정보 - 그룹코드 내역 신규
+		@PostMapping(value = "/hr/hra/insertHra8400S1.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+		public ResponseEntity<HashMap<String, Object>> insertHra8400S1(
+				@RequestBody Map<String, Object> param
+				,Model model
+				,HttpSession session
+				,HttpServletRequest request) throws Exception{
+
+			logger.info("=============insertHra8400=====start========");
+			HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+			try {
+
+				param.put("procedure", 		"P_HRA8400_S1");
+				resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+				return getErrorResponseEntity(e);
+			}
+
+			logger.info("=============insertHra8400=====end========");
+			return getSuccessResponseEntityMa(resultMap);
+		}
+
 
 
 }
