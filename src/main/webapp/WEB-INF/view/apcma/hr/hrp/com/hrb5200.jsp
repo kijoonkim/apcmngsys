@@ -573,8 +573,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 집계방법구분
@@ -593,8 +593,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 관련항목
@@ -636,8 +636,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 끝전처리기준액
@@ -656,8 +656,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 계산기준일
@@ -676,8 +676,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 미적용대상구분
