@@ -68,7 +68,7 @@
                     <col style="width: 6.25%">
                     <col style="width: 6.25%">
                     <col style="width: 6.25%">
-                    <col style="width: 6.25%">
+                    <col style="width: 1%">
                     <col style="width: 6.25%">
                     <col style="width: 6.25%">
                     <col style="width: 6.25%">
@@ -97,13 +97,13 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -112,13 +112,13 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">사원</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="EMP">
                         <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="EMP">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -630,7 +630,7 @@
                                         />
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>연차기산일(재직)</th>
-                                    <td colspan="3" class="td_input">
+                                    <td colspan="2" class="td_input">
                                         <sbux-datepicker
                                                 uitype="popup"
                                                 id="ANNUAL_INITIAL_DATE"
@@ -641,6 +641,7 @@
                                                 required
                                         />
                                     </td>
+                                    <td></td>
                                     <th scope="row" class="th_bg">연차기산일(퇴사)</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-datepicker
@@ -818,13 +819,6 @@
     ];
 
     const fn_initSBSelect = async function() {
-        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("CAREER_TRACK", 0);
-        SBUxMethod.set("START_PAY_GRADE", 0);
-        SBUxMethod.set("CURRENT_PAY_GRADE", 0);
-        SBUxMethod.hide('DISPLAY_SOCIAL_NUM');
-        SBUxMethod.show('SOCIAL_NUM');
-
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['SRCH_SITE_CODE', 'SITE_CODE', 'gvwTimeOffHistory'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
@@ -848,8 +842,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 직종
@@ -895,8 +889,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             /*gfnma_setComSelect(['JOB_DETAIL_CODE'], jsonDetailJobCode, 'L_HRI073_B', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
@@ -914,8 +908,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 입사구분
@@ -934,8 +928,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 양력/음력
@@ -958,8 +952,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 신고사업장
@@ -980,8 +974,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 사원구분
@@ -1006,8 +1000,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 퇴사사내사유
@@ -1026,8 +1020,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // RH
@@ -1046,8 +1040,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // ABO
@@ -1066,8 +1060,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 사용여부
@@ -1089,8 +1083,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 주거구분
@@ -1109,8 +1103,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 주거유형
@@ -1129,8 +1123,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 결혼여부
@@ -1149,8 +1143,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 가족관계
@@ -1170,8 +1164,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 연말정산부양관계
@@ -1220,8 +1214,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 병역병과
@@ -1240,8 +1234,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 병역군별
@@ -1260,8 +1254,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 전역구분
@@ -1280,8 +1274,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 병역계급
@@ -1300,8 +1294,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 보훈등급
@@ -1320,8 +1314,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 장애등급
@@ -1340,8 +1334,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 보증구분
@@ -1683,14 +1677,52 @@
         });
     }
 
+    const fn_onload = async function () {
+        SBUxMethod.set("SRCH_EMP_STATE", "WORK");
+        SBUxMethod.set("LEAP_MONTH_YN", "N");
+        SBUxMethod.set("BIRTHDAY_TYPE", "2");
+        SBUxMethod.set("FOREIGNER_YN", "N");
+        SBUxMethod.set("FAMILY_OWNER_YN", "N");
+        SBUxMethod.set("TIME_CHECK_YN", "N");
+        SBUxMethod.set("SALES_EMP_YN1", "N");
+        SBUxMethod.set("UNION_JOIN_YN", "N");
+        SBUxMethod.set("RETIRE_PENSION_JOIN_YN", "N");
+        SBUxMethod.set("TELEWORKING_YN", "N");
+        SBUxMethod.set("BOARD_DIRECTOR_YN", "N");
+        SBUxMethod.set("RE_ENTER_YN", "N");
+        SBUxMethod.set("PARTNER_FIRM_EMP_YN", "N");
+        SBUxMethod.set("ARMY_INDUSTRY_YN", "N");
+        SBUxMethod.set("AGREE_YN", "N");
+        SBUxMethod.set("APPOINT_YN", "Y");
+        SBUxMethod.set("PAGE_ALL", "Y");
+        SBUxMethod.set("CAREER_TRACK", 0);
+        SBUxMethod.set("START_PAY_GRADE", 0);
+        SBUxMethod.set("CURRENT_PAY_GRADE", 0);
+        SBUxMethod.hide('DISPLAY_SOCIAL_NUM');
+        SBUxMethod.show('SOCIAL_NUM');
+
+        SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
+
+        $("#btnRegistResignation").attr('disabled', 'true');
+        $("#btnCopyHistory").attr('disabled', 'true');
+
+        await fn_search();
+    }
+
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
+    window.addEventListener('DOMContentLoaded', async function(e) {
         document.getElementById('empPhotoArea').addEventListener('click', function() {
-            document.getElementById('EMP_PHOTO_FILE').click();
+            let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+            if(EMP_CODE != "") {
+                document.getElementById('EMP_PHOTO_FILE').click();
+            }
         });
 
         document.getElementById('signImgArea').addEventListener('click', function() {
-            document.getElementById('SIGN_IMG_FILE').click();
+            let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
+            if(EMP_CODE != "") {
+                document.getElementById('SIGN_IMG_FILE').click();
+            }
         });
 
         document.getElementById('EMP_PHOTO_FILE').addEventListener('change', function(event) {
@@ -1711,7 +1743,7 @@
             }
         });
 
-        fn_initSBSelect();
+        await fn_initSBSelect();
         fn_createGvwListGrid();
         fn_createGvwFamilyGrid();
         fn_createGvwSchoolGrid();
@@ -1734,7 +1766,8 @@
         fn_createGvwWorkPlanGrid();
         fn_createGvwEmpGrid();
         fn_createGvwExpenditurewelfareGrid();
-        cfn_search();
+
+        await fn_onload();
     });
 
     //grid 초기화
@@ -1926,7 +1959,7 @@
         SBUxMethod.set("EMP_NAME", "");
         SBUxMethod.set("BIRTHDAY", "");
         SBUxMethod.set("BIRTHDAY_TYPE", "");
-        SBUxMethod.set("LEAP_MONTH_YN", "");
+        SBUxMethod.set("LEAP_MONTH_YN", "N");
         SBUxMethod.set("JOB_GROUP", "");
         SBUxMethod.set("SALARY_CLASS", "");
         SBUxMethod.set("EMP_NAME_ENG", "");
@@ -2936,11 +2969,11 @@
         let SOCIAL_NUM = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM"));
         let BIRTHDAY = gfnma_nvl(SBUxMethod.get("BIRTHDAY"));
         let BIRTHDAY_TYPE = gfnma_nvl(SBUxMethod.get("BIRTHDAY_TYPE"));
-        let LEAP_MONTH_YN = gfnma_nvl(SBUxMethod.get("LEAP_MONTH_YN"));
+        let LEAP_MONTH_YN = gfnma_nvl(SBUxMethod.get("LEAP_MONTH_YN").LEAP_MONTH_YN);
         let GENDER = gfnma_nvl(SBUxMethod.get("GENDER"));
         let FAMILY_CLAN = gfnma_nvl(SBUxMethod.get("FAMILY_CLAN"));
-        let FOREIGNER_YN = gfnma_nvl(SBUxMethod.get("FOREIGNER_YN"));
-        let FAMILY_OWNER_YN = gfnma_nvl(SBUxMethod.get("FAMILY_OWNER_YN"));
+        let FOREIGNER_YN = gfnma_nvl(SBUxMethod.get("FOREIGNER_YN").FOREIGNER_YN);
+        let FAMILY_OWNER_YN = gfnma_nvl(SBUxMethod.get("FAMILY_OWNER_YN").FAMILY_OWNER_YN);
         let GROUP_ENTER_DATE = gfnma_nvl(SBUxMethod.get("GROUP_ENTER_DATE"));
         let ENTER_DATE = gfnma_nvl(SBUxMethod.get("ENTER_DATE"));
         let ENTER_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ENTER_TYPE'));
@@ -2958,7 +2991,7 @@
         let SALARY_CLASS = gfnma_nvl(SBUxMethod.get("SALARY_CLASS"));
         let SITE_CODE = gfnma_nvl(SBUxMethod.get("SITE_CODE"));
         let DEPT_CODE = gfnma_nvl(SBUxMethod.get("DEPT_CODE"));
-        let SALES_EMP_YN = gfnma_nvl(SBUxMethod.get("SALES_EMP_YN"));
+        let SALES_EMP_YN = gfnma_nvl(SBUxMethod.get("SALES_EMP_YN").SALES_EMP_YN);
         let TAX_SITE_CODE = gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"));
         let NATION_CODE = gfnma_nvl(SBUxMethod.get("NATION_CODE"));
         let REGISTER_ZIP_CODE = gfnma_nvl(SBUxMethod.get("REGISTER_ZIP_CODE"));
@@ -2974,19 +3007,19 @@
         let OUT_EMAIL = gfnma_nvl(SBUxMethod.get("OUT_EMAIL"));
         let TEMP_END_DATE = gfnma_nvl(SBUxMethod.get("TEMP_END_DATE"));
         let BONUS_APPLY_START_DATE = gfnma_nvl(SBUxMethod.get("BONUS_APPLY_START_DATE"));
-        let UNION_JOIN_YN = gfnma_nvl(SBUxMethod.get("UNION_JOIN_YN"));
+        let UNION_JOIN_YN = gfnma_nvl(SBUxMethod.get("UNION_JOIN_YN").UNION_JOIN_YN);
         let UNION_JOIN_START_DATE = gfnma_nvl(SBUxMethod.get("UNION_JOIN_START_DATE"));
         let UNION_JOIN_END_DATE = gfnma_nvl(SBUxMethod.get("UNION_JOIN_END_DATE"));
         let RETIRE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_DATE"));
         let RETIRE_REASON = gfnma_nvl(SBUxMethod.get("RETIRE_REASON"));
         let RETIRE_IN_REASON = gfnma_nvl(SBUxMethod.get("RETIRE_IN_REASON"));
         let RETIRE_INITIAL_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_INITIAL_DATE"));
-        let RETIRE_PENSION_JOIN_YN = gfnma_nvl(SBUxMethod.get("RETIRE_PENSION_JOIN_YN"));
+        let RETIRE_PENSION_JOIN_YN = gfnma_nvl(SBUxMethod.get("RETIRE_PENSION_JOIN_YN").RETIRE_PENSION_JOIN_YN);
         let CAREER_DATE = gfnma_nvl(SBUxMethod.get("CAREER_DATE"));
         let PREMATURE_DATE = gfnma_nvl(SBUxMethod.get("PREMATURE_DATE"));
         let WORK_REGION = gfnma_nvl(gfnma_multiSelectGet('#WORK_REGION'));
         let EMP_MEMO = gfnma_nvl(SBUxMethod.get("EMP_MEMO"));
-        let TELEWORKING_YN = gfnma_nvl(SBUxMethod.get("TELEWORKING_YN"));
+        let TELEWORKING_YN = gfnma_nvl(SBUxMethod.get("TELEWORKING_YN").TELEWORKING_YN);
         let TELEWORKING_ADDRESS = gfnma_nvl(SBUxMethod.get("TELEWORKING_ADDRESS"));
         let ORDER_SEQ = gfnma_nvl(SBUxMethod.get("ORDER_SEQ"));
         let EMP_PHOTO_PATH = gfnma_nvl(SBUxMethod.get("EMP_PHOTO_PATH"));
@@ -2995,11 +3028,11 @@
         let SIGN_IMG_NAME = gfnma_nvl(SBUxMethod.get("SIGN_IMG_NAME"));
         let START_POSITION_CODE = gfnma_nvl(SBUxMethod.get("START_POSITION_CODE"));
         let CAREER_TRACK = gfnma_nvl(SBUxMethod.get("CAREER_TRACK"));
-        let BOARD_DIRECTOR_YN = gfnma_nvl(SBUxMethod.get("BOARD_DIRECTOR_YN"));
+        let BOARD_DIRECTOR_YN = gfnma_nvl(SBUxMethod.get("BOARD_DIRECTOR_YN").BOARD_DIRECTOR_YN);
         let INTRODUCER_CODE = gfnma_nvl(SBUxMethod.get("INTRODUCER_CODE"));
-        let RE_ENTER_YN = gfnma_nvl(SBUxMethod.get("RE_ENTER_YN"));
+        let RE_ENTER_YN = gfnma_nvl(SBUxMethod.get("RE_ENTER_YN").RE_ENTER_YN);
         let ANNUAL_INITIAL_DATE = gfnma_nvl(SBUxMethod.get("ANNUAL_INITIAL_DATE"));
-        let PARTNER_FIRM_EMP_YN = gfnma_nvl(SBUxMethod.get("PARTNER_FIRM_EMP_YN"));
+        let PARTNER_FIRM_EMP_YN = gfnma_nvl(SBUxMethod.get("PARTNER_FIRM_EMP_YN").PARTNER_FIRM_EMP_YN);
         let PARTNER_FIRM_CODE = gfnma_nvl(SBUxMethod.get("PARTNER_FIRM_CODE"));
         let SOCIAL_NUM_DATE = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_DATE"));
         let SALARY_LEVEL = gfnma_nvl(SBUxMethod.get("SALARY_LEVEL"));
@@ -3015,11 +3048,11 @@
         let RET_RENS_ST_DAT = gfnma_nvl(SBUxMethod.get("RET_RENS_ST_DAT"));
         let ANNUAL_BASE_DATE = gfnma_nvl(SBUxMethod.get("ANNUAL_BASE_DATE"));
         let AGREE_DATE = gfnma_nvl(SBUxMethod.get("AGREE_DATE"));
-        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN"));
+        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN").AGREE_YN);
         let START_PAY_GRADE = gfnma_nvl(SBUxMethod.get("START_PAY_GRADE"));
         let JOB_SUB_CODE = gfnma_nvl(gfnma_multiSelectGet('#JOB_SUB_CODE'));
         let JOB_DETAIL_CODE = gfnma_nvl(gfnma_multiSelectGet('#JOB_DETAIL_CODE'));
-        let TO_YN = gfnma_nvl(SBUxMethod.get("TO_YN"));
+        let TO_YN = gfnma_nvl(SBUxMethod.get("TO_YN").TO_YN);
 
         return {
             V_P_DEBUG_MODE_YN : '',
@@ -3033,11 +3066,11 @@
             V_P_SOCIAL_NUM : SOCIAL_NUM,
             V_P_BIRTHDAY : BIRTHDAY,
             V_P_BIRTHDAY_TYPE : BIRTHDAY_TYPE,
-            V_P_LEAP_MONTH_YN : LEAP_MONTH_YN.LEAP_MONTH_YN,
+            V_P_LEAP_MONTH_YN : LEAP_MONTH_YN,
             V_P_GENDER : GENDER,
             V_P_FAMILY_CLAN : FAMILY_CLAN,
-            V_P_FOREIGNER_YN : FOREIGNER_YN.FOREIGNER_YN,
-            V_P_FAMILY_OWNER_YN : FAMILY_OWNER_YN.FAMILY_OWNER_YN,
+            V_P_FOREIGNER_YN : FOREIGNER_YN,
+            V_P_FAMILY_OWNER_YN : FAMILY_OWNER_YN,
             V_P_GROUP_ENTER_DATE : GROUP_ENTER_DATE,
             V_P_ENTER_DATE : ENTER_DATE,
             V_P_ENTER_TYPE : ENTER_TYPE,
@@ -3055,7 +3088,7 @@
             V_P_SALARY_CLASS : SALARY_CLASS,
             V_P_SITE_CODE : SITE_CODE,
             V_P_DEPT_CODE : DEPT_CODE,
-            V_P_SALES_EMP_YN : SALES_EMP_YN.SALES_EMP_YN,
+            V_P_SALES_EMP_YN : SALES_EMP_YN,
             V_P_TAX_SITE_CODE : TAX_SITE_CODE,
             V_P_NATION_CODE : NATION_CODE,
             V_P_REGISTER_ZIP_CODE : REGISTER_ZIP_CODE,
@@ -3071,19 +3104,19 @@
             V_P_OUT_EMAIL : OUT_EMAIL,
             V_P_TEMP_END_DATE : TEMP_END_DATE,
             V_P_BONUS_APPLY_START_DATE : BONUS_APPLY_START_DATE,
-            V_P_UNION_JOIN_YN : UNION_JOIN_YN.UNION_JOIN_YN,
+            V_P_UNION_JOIN_YN : UNION_JOIN_YN,
             V_P_UNION_JOIN_START_DATE : UNION_JOIN_START_DATE,
             V_P_UNION_JOIN_END_DATE : UNION_JOIN_END_DATE,
             V_P_RETIRE_DATE : RETIRE_DATE,
             V_P_RETIRE_REASON : RETIRE_REASON,
             V_P_RETIRE_IN_REASON : RETIRE_IN_REASON,
             V_P_RETIRE_INITIAL_DATE : RETIRE_INITIAL_DATE,
-            V_P_RETIRE_PENSION_JOIN_YN : RETIRE_PENSION_JOIN_YN.RETIRE_PENSION_JOIN_YN,
+            V_P_RETIRE_PENSION_JOIN_YN : RETIRE_PENSION_JOIN_YN,
             V_P_CAREER_DATE : CAREER_DATE,
             V_P_PREMATURE_DATE : PREMATURE_DATE,
             V_P_WORK_REGION : WORK_REGION,
             V_P_EMP_MEMO : EMP_MEMO,
-            V_P_TELEWORKING_YN : TELEWORKING_YN.TELEWORKING_YN,
+            V_P_TELEWORKING_YN : TELEWORKING_YN,
             V_P_TELEWORKING_ADDRESS : TELEWORKING_ADDRESS,
             V_P_ORDER_SEQ : ORDER_SEQ,
             V_P_EMP_PHOTO_PATH : EMP_PHOTO_PATH,
@@ -3092,11 +3125,11 @@
             V_P_SIGN_IMG_NAME : SIGN_IMG_NAME,
             V_P_START_POSITION_CODE : START_POSITION_CODE,
             V_P_CAREER_TRACK : CAREER_TRACK,
-            V_P_BOARD_DIRECTOR_YN : BOARD_DIRECTOR_YN.BOARD_DIRECTOR_YN,
+            V_P_BOARD_DIRECTOR_YN : BOARD_DIRECTOR_YN,
             V_P_INTRODUCER_CODE : INTRODUCER_CODE,
-            V_P_RE_ENTER_YN : RE_ENTER_YN.RE_ENTER_YN,
+            V_P_RE_ENTER_YN : RE_ENTER_YN,
             V_P_ANNUAL_INITIAL_DATE : ANNUAL_INITIAL_DATE,
-            V_P_PARTNER_FIRM_EMP_YN : PARTNER_FIRM_EMP_YN.PARTNER_FIRM_EMP_YN,
+            V_P_PARTNER_FIRM_EMP_YN : PARTNER_FIRM_EMP_YN,
             V_P_PARTNER_FIRM_CODE : PARTNER_FIRM_CODE,
             V_P_SOCIAL_NUM_DATE : SOCIAL_NUM_DATE,
             V_P_SALARY_LEVEL : SALARY_LEVEL,
@@ -3112,11 +3145,11 @@
             V_P_RET_RENS_ST_DAT : RET_RENS_ST_DAT,
             V_P_ANNUAL_BASE_DATE : ANNUAL_BASE_DATE,
             V_P_AGREE_DATE : AGREE_DATE,
-            V_P_AGREE_YN : AGREE_YN.AGREE_YN,
+            V_P_AGREE_YN : AGREE_YN,
             V_P_START_PAY_GRADE : START_PAY_GRADE,
             V_P_JOB_SUB_CODE : JOB_SUB_CODE,
             V_P_JOB_DETAIL_CODE : JOB_DETAIL_CODE,
-            V_P_TO_YN : TO_YN.TO_YN,
+            V_P_TO_YN : TO_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',
