@@ -69,7 +69,7 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
+									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode1" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
                             </td>
                             <td></td>
 
@@ -186,7 +186,7 @@ var p_userId = '${loginVO.id}';
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			// 급여영역
             gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
@@ -285,6 +285,7 @@ var p_userId = '${loginVO.id}';
 
         grdDclrList = _SBGrid.create(SBGridProperties);
         //NationInGrid.bind('click', 'fn_view');
+        grdDclrList.bind('rowchanged','focusedRowChanged');
     }
 
     function fn_createGrid2() {
@@ -361,9 +362,10 @@ var p_userId = '${loginVO.id}';
         fnQRY_P_HRA8200_Q("LIST");
 
 
-        if (iBefore === 0){
-        	focusedRowChanged();
-        }
+
+        focusedRowChanged();
+        //fnQRY_P_HRA8200_Q("DETAIL");
+
 
 
         if (iBefore < 1){
@@ -381,6 +383,8 @@ var p_userId = '${loginVO.id}';
     const fnQRY_P_HRA8200_Q = async function(workType){
     	let rowData = grdDclrList.getRowData(grdDclrList.getRow());
     	let allData = grdDclrList.getGridDataAll();
+    	let originalFlag = SBUxMethod.get("srch-chk-originalFlag")['srch-chk-originalFlag'];
+    	let allYn = SBUxMethod.get("srch-chk-allYn")['srch-chk-allYn'];
     	var paramObj = {
       			V_P_DEBUG_MODE_YN	: ''
       			,V_P_LANG_ID		: ''
@@ -392,8 +396,8 @@ var p_userId = '${loginVO.id}';
       			,V_P_JOB_YYYYMM       : workType == "LIST" ? "" : rowData.jobYyyymm
       			,V_P_PAY_YYYYMM       : workType == "LIST" ? "" : rowData.payYyyymm
       			,V_P_PAY_AREA_TYPE    : ''
-      			,V_P_ORIGINAL_FLAG    : ''
-      			,V_P_CHKALL_YN        : ''
+      			,V_P_ORIGINAL_FLAG    : originalFlag
+      			,V_P_CHKALL_YN        : allYn
       			,V_P_FORM_ID		: p_formId
       			,V_P_MENU_ID		: p_menuId
       			,V_P_PROC_ID		: ''
@@ -421,32 +425,18 @@ var p_userId = '${loginVO.id}';
 	              //gfn_comAlert("I0001");
 	        	  //info, log에 따라서 그리드에 데이터 넣어주는듯
 	        	   if (workType === "LIST"){
-	        		   data.cv_1.forEach((item, index) => {
-	        			   msg = {
-
-		  	  					}
-	        			   jsonDclrList.push(msg);
-	        		   })
-
+        			   var msg = convertArrayToCamelCase(data.cv_1)
+        			   jsonDclrList = msg;
 	        		   grdDclrList.rebuild();
 	               }
 	               else if (workType === "DETAIL"){
-	                   data.cv_2.forEach((item, index) => {
-	        			   msg = {
+      				   var msg = convertArrayToCamelCase(data.cv_2)
+              		   jsonDclrDtlInfo = msg;
+      				   grdDclrDtlInfo.rebuild();
 
-		  	  					}
-	        			   jsonDclrDtlInfo.push(msg);
-	        		   })
-
-	                   grdDclrDtlInfo.rebuild();
 	               }else if (workType === "SUM"){
-	                   data.cv_3.forEach((item, index) => {
-	        			   msg = {
-
-		  	  					}
-	        			   jsonDclrDtlInfo.push(msg);
-	        		   })
-
+	            	   var msg = convertArrayToCamelCase(data.cv_2)
+              		   jsonDclrDtlInfo = msg;
 	                   grdDclrDtlInfo.rebuild();
 
 	               }else if(workType === "DEF"){
@@ -721,6 +711,20 @@ var p_userId = '${loginVO.id}';
     }
 
 
+    /** camelCase FN **/
+    function toCamelCase(snakeStr) {
+        return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    function convertArrayToCamelCase(array) {
+        return array.map(obj => {
+            return Object.keys(obj).reduce((acc, key) => {
+                const camelKey = toCamelCase(key);
+                acc[camelKey] = obj[key];
+                return acc;
+            }, {});
+        });
+    }
 
 
 </script>

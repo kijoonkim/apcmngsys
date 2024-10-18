@@ -73,7 +73,7 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
+									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode1" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
                             </td>
                             <td></td>
 
@@ -257,7 +257,7 @@
 	var editType			= "N";
 
 	var jsonRegionCode		= [];	// 지역
-
+	let newCipTransferNo = "";
 
     /** 공통 버튼 **/
     function cfn_search(){
@@ -270,7 +270,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
 			gfnma_setComSelect(['srch-slt-orgCode1'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//회계기준
@@ -498,10 +498,27 @@
     	}
 
         if (fnSET_P_FIA4400_S2("ACCOUNT")){
-             var strtxn_id = grdClclnList.getRowData(check1)["txn_id"]; // strtxn_id 현재 행의 txn_id값
+             var strtxn_id = grdClclnList.getRowData(check1)["txnId"]; // strtxn_id 현재 행의 txn_id값
              fn_queryClick();
-             grdClclnList.setRow(check1) // GetGridRowIndex(grdList, "txn_id", strtxn_id);  //쿼리 클릭 후 그리드에서 txn_id 행을 찾아서 이동
+             //grdClclnList.setRow(check1) // GetGridRowIndex(grdList, "txn_id", strtxn_id);  //쿼리 클릭 후 그리드에서 txn_id 행을 찾아서 이동
          }
+    }
+
+    const btnCancel_Click = async function(){
+        if (gvwList.FocusedRowHandle < 0)
+            return;
+
+        if (fnSET_P_FIA4400_S2("CANCEL"))
+        {
+        	var strtxn_id = grdClclnList.getRowData(check1)["txnId"]; // strtxn_id 현재 행의 txn_id값
+
+            //SetMessageBox("정상적으로 취소 되었습니다.");
+
+        	fn_queryClick();
+
+            //gvwList.FocusedRowHandle = GetGridRowIndex(grdList, "txn_id", strtxn_id);
+        }
+
     }
 
     const fn_saveClick = function(){
@@ -526,7 +543,7 @@
             //fnSET_P_FIA4400_S 마지막에 txn_id 셋팅한거 포커스 두는 로직 사용안함
         	//let strtxn_id = grdClclnList.GetValue("txn_id").ToString();
 
-            queryClick();
+            fn_queryClick();
 
             //gvwList.FocusedRowHandle = GetGridRowIndex(grdList, "txn_id", strtxn_id);
         }
@@ -588,16 +605,16 @@
                             strinterface_flag += "|";
                         }
 
-                        stracct_rule_code += item["acct_rule_code"];
-                        strtxn_id += item["txn_id"];
-                        strcip_transfer_no += item["cip_transfer_no"];
-                        strsite_code += item["site_code"]
-                        stracquire_type += item["acquire_type"];
-                        strtransfer_date += item["transfer_date"];
-                        strproject_code += item["project_code"]
-                        strcurrency_code += item["currency_code"];
-                        strexchange_rate += item["exchange_rate"];
-                        strtotal_transfer_amount += item["total_transfer_amount"];
+                        stracct_rule_code += item["acctRuleCode"];
+                        strtxn_id += item["txnId"];
+                        strcip_transfer_no += item["cipTransferNo"];
+                        strsite_code += item["siteCode"]
+                        stracquire_type += item["acquireType"];
+                        strtransfer_date += item["transferDate"];
+                        strproject_code += item["projectCode"]
+                        strcurrency_code += item["currencyCode"];
+                        strexchange_rate += item["exchangeRate"];
+                        strtotal_transfer_amount += item["totalTransferAmount"];
                         strbook_transfer_amount += book_transfer_amount;
                         strmemo += item["memo"];
                         strinterface_flag += interface_flag;
@@ -607,33 +624,20 @@
 
             }
             else{
-            	stracct_rule_code = item["acct_rule_code"];
-                strtxn_id = item["txn_id"];
-                strcip_transfer_no = item["cip_transfer_no"];
-                strsite_code = item["site_code"]
-                stracquire_type = item["acquire_type"];
-                strtransfer_date = item["transfer_date"];
-                strproject_code = item["project_code"]
-                strcurrency_code = item["currency_code"];
-                strexchange_rate = item["exchange_rate"];
-                strtotal_transfer_amount = item["total_transfer_amount"];
+            	stracct_rule_code = item["acctRuleCode"];
+                strtxn_id = item["txnId"];
+                strcip_transfer_no = item["cipTransferNo"];
+                strsite_code = item["siteCode"]
+                stracquire_type = item["acquireType"];
+                strtransfer_date = item["transferDate"];
+                strproject_code = item["projectCode"]
+                strcurrency_code = item["currencyCode"];
+                strexchange_rate = item["exchangeRate"];
+                strtotal_transfer_amount = item["totalTransferAmount"];
                 strbook_transfer_amount = 0;
                 strmemo = item["memo"];
                 strinterface_flag = "";
 
-                stracct_rule_code = gvwList.GetValue("acct_rule_code").ToString();
-                strtxn_id = gvwList.GetValue("txn_id").ToString();
-                strcip_transfer_no = gvwList.GetValue("cip_transfer_no").ToString();
-                strsite_code = gvwList.GetValue("site_code").ToString();
-                stracquire_type = gvwList.GetValue("acquire_type").ToString();
-                strtransfer_date = gvwList.GetValue("transfer_date").ToString().Replace("-", "");
-                strproject_code = gvwList.GetValue("project_code").ToString();
-                strcurrency_code = gvwList.GetValue("currency_code").ToString();
-                strexchange_rate = gvwList.GetValue("exchange_rate").ToString();
-                strtotal_transfer_amount = gvwList.GetValue("total_transfer_amount").ToString();
-                strbook_transfer_amount = "0";
-                strmemo = gvwList.GetValue("memo").ToString();
-                strinterface_flag = "";
             }
 
 
@@ -670,17 +674,17 @@
                     strmemo1 += "|";
                 }
 
-                strcip_transfer_no1 += item["cip_transfer_no"];
-                strtransfer_seq1 += item["transfer_seq"];
-                strasset_category += item["asset_category"];
-                strasset_level2 += item["asset_level2"];
-                strasset_level3 += item["asset_level3"];
-                strdept_code += item["dept_code"];
-                strcost_center_code += item["cost_center_code"];
-                straccount_code += item["account_code"];
-                strtransfer_amount1 += item["transfer_amount"];
-                strproject_code1 += item["project_code"];
-                strtransfer_qty1 += item["transfer_qty"];
+                strcip_transfer_no1 += item["cipTransferNo"];
+                strtransfer_seq1 += item["transferSeq"];
+                strasset_category += item["assetCategory"];
+                strasset_level2 += item["assetLevel2"];
+                strasset_level3 += item["assetLevel3"];
+                strdept_code += item["deptCode"];
+                strcost_center_code += item["costCenterCode"];
+                straccount_code += item["accountCode"];
+                strtransfer_amount1 += item["transferAmount"];
+                strproject_code1 += item["projectCode"];
+                strtransfer_qty1 += item["transferQty"];
                 strmemo1 += item["memo"];
 
 			})
@@ -708,14 +712,14 @@
 
                 }
 
-                strcip_transfer_no2 += item["cip_transfer_no"];
-                strtransfer_seq2 += item["transfer_seq"];
-                strasset_no += item["asset_no"];
-                strtransfer_amount2 += item["transfer_amount"];
-                strbook_amt += item["book_amt"];
+                strcip_transfer_no2 += item["cipTransferNo"];
+                strtransfer_seq2 += item["transferSeq"];
+                strasset_no += item["assetNo"];
+                strtransfer_amount2 += item["transferAmount"];
+                strbook_amt += item["bookAmt"];
                 strmemo2 += item["memo"];
-                strproject_code2 += item["project_code"];
-                strtransfer_qty += item["transfer_qty"];
+                strproject_code2 += item["projectCode"];
+                strtransfer_qty += item["transferQty"];
             })
 
           //본자산정산내역 금액  != 자산정산 대상 금액 total 값이 다를 경우
@@ -804,7 +808,7 @@
             }
             return bResult;
         }
-        catch (ex){
+        catch (e){
         	if (!(e instanceof Error)) {
                 e = new Error(e);
             }
@@ -813,6 +817,7 @@
             return false;
         }
     }
+
 
 
     const fnSET_P_FIA4400_S2 = async function(strWorkType){
@@ -845,7 +850,7 @@
         			,V_P_LANG_ID		: ''
         			,V_P_COMP_CODE		: gv_ma_selectedApcCd
         			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-        			,V_P_ACCT_RULE_CODE	: NATION_CODE
+        			,V_P_ACCT_RULE_CODE	: "2"
         			,V_P_TXN_ID_D       : strtxn_id
         			,V_P_CIP_TRANSFER_NO_D : strcip_no
         			,V_P_TXN_DATE_D	    : strtxn_date
@@ -907,13 +912,13 @@
         			,V_P_LANG_ID		: ''
         			,V_P_COMP_CODE		: gv_ma_selectedApcCd
         			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-        			,V_P_FI_ORG_CODE		: ''
-        			,V_P_ACCT_RULE_CODE	: ''
-        			,V_P_SITE_CODE		: ''
+        			,V_P_FI_ORG_CODE		: bizUnit
+        			,V_P_ACCT_RULE_CODE	: acntgCrtr
+        			,V_P_SITE_CODE		: bplc
         			,V_P_START_DATE		: ''
         			,V_P_END_DATE		: ''
-    			    ,V_P_CIP_TRANSFER_NO : ''
-    			    ,V_P_ACQUIRE_TYPE    : ''
+    			    ,V_P_CIP_TRANSFER_NO : clclnNo
+    			    ,V_P_ACQUIRE_TYPE    : acqsSe
     			    ,V_P_PROJECT_CODE    : ''
     			    ,V_P_PROJECT_NAME    : ''
         			,V_P_FORM_ID		: p_formId
@@ -925,7 +930,7 @@
 		  	//grdClclnList(자산정산리스트)의 cip_transfer_no, project_code가 null 여부를 확인하여 값 할당
 		    //paramObj.V_P_CIP_TRANSFER_NO = ;
 		    //paramObj.V_P_PROJECT_CODE = ;
-		    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","");
+		    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["PROJECT_CODE","PROJECT_NAME"]);
 		  	const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4400Q.do", {
              	getType				: 'json',
              	workType			:  strWorkType,
@@ -934,10 +939,32 @@
      			});
 
           	const data = await postJsonPromise;
+          	console.log(data);
             // 비즈니스 로직 정보
              try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("I0001");
+            	if(strWorkType === "Q"){
+            		var msg = convertArrayToCamelCase(data.cv_2)
+     			    jsonClclnList = msg;
+            		grdClclnList.rebuild();
+
+            	}else if(strWorkType === "DETAIL"){
+            		var msg = convertArrayToCamelCase(data.cv_4)
+            		var msg2 = convertArrayToCamelCase(data.cv_3)
+            		jsonClclnTrgt = msg
+            		jsonClclnDsctn = msg2
+            		grdClclnTrgt.rebuild();
+            		grdClclnDsctn.rebuild();
+
+            	}else if(strWorkType === "PROJECT"){
+            		var msg = convertArrayToCamelCase(data.cv_5)
+     			    jsonClclnDsctn = msg
+            		grdClclnDsctn.rebuild();
+
+            	}else if(strWorkType === "NUM"){
+            		newCipTransferNo = data.cv_1["CIP_TRANSFER_NO"];
+
+            	}
                 //fn_search();
             } else {
                 alert(data.resultMessage);
@@ -1087,8 +1114,8 @@
     var fn_bizPopup = function(row, col) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
         SBUxMethod.openModal('modal-compopup1');
-
-        var strWhereClause 	= "AND FI_ORG_CODE = '" + gfn_nvl(gfnma_multiSelectGet("#srch-inp-projectCode")) + "'" ;
+		let projectCode = SBUxMethod.get("srch-inp-projectCode");
+        //var strWhereClause 	= "AND X.PROJECT_CODE = '" + projectCode + "'" ;
 
         var searchText 		= '';
         compopup1({
@@ -1127,13 +1154,14 @@
 
 
     	let obj = {
-    		clclnNo : clclnNo
-    		, bplc : bplc
-    		, crtDt : gfnma_date6()
-    		, currency : ''//세션에 있는 정보가 있는듯
-    		, exchRt	   : 1
-    		//, 문서상태 : 0
-    		, acqs : "CIP"
+    		cipTransferNo : newCipTransferNo
+    		, clclnNo : clclnNo
+    		, siteCode : bplc
+    		, transferDate : gfnma_date6()
+    		, currencyCode : ''//세션에 있는 정보가 있는듯
+    		, exchangeRate	   : 1
+    		, docState : "0"//, 문서상태 : 0
+    		, acquireType : "CIP"
     	}
 		if(bizUnit !== ""){
     		obj["bizUnit"] = bizUnit;
@@ -1144,15 +1172,6 @@
     }
 
     const fn_clclnTrgtAddRow = function(){
-    	let obj = {
-       		clclnNo : clclnNo
-       		, bplc : bplc
-       		, crtDt : gfnma_date6()
-       		, currency : ''//세션에 있는 정보가 있는듯
-       		, exchRt	   : 1
-       		//, 문서상태 : 0
-       		, acqs : "CIP"
-       	};
     	grdClclnTrgt.addRow();
     }
 
@@ -1177,6 +1196,42 @@
 
     const fn_clclnDsctnDelRow = function(){
     	grdClclnDsctn.deleteRow(grdClclnDsctn.getRows()-1);
+    }
+
+    const deleteClick = function(){
+        if (grdClclnList.getRow() < 0){
+        	return;
+        }
+
+        let rowStauts = grdClclnList.getRowStatus(grdClclnList.getRow())
+
+        if (rowStauts === "3"){
+        	grdClclnList.deleteRow(grdClclnList.getRows()-1)
+        }else{
+            //DialogResult dial = SetYesNoMessageBox("해당 건을 삭제 하시겠습니까?");
+			//confirm 확인 후 Y일 경우
+            if(gfn_comConfirm("Q0001", "삭제")){
+                if (fnSET_P_FIA4400_S("D")){
+                	fn_queryClick();
+                }
+            }
+
+        }
+	}
+
+    /** camelCase FN **/
+    function toCamelCase(snakeStr) {
+        return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    function convertArrayToCamelCase(array) {
+        return array.map(obj => {
+            return Object.keys(obj).reduce((acc, key) => {
+                const camelKey = toCamelCase(key);
+                acc[camelKey] = obj[key];
+                return acc;
+            }, {});
+        });
     }
 
 

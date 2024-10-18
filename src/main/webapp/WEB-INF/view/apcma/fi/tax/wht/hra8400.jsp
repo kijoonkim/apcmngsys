@@ -37,7 +37,7 @@
                     </h3><!-- 간이지급명세서-->
                 </div>
                 <div style="margin-left: auto;">
-                	<sbux-button id="btnFileCrt" name="btnFileCrt" 	uitype="normal" text="파일생성" class="btn btn-sm btn-outline-danger" onclick="fn_btnFileCrt"></sbux-button>
+                	<sbux-button id="btnFileCrt" name="btnFileCrt" 	uitype="normal" text="파일생성" class="btn btn-sm btn-outline-danger" onclick="fnSET_P_HRA8400_S1"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -65,7 +65,7 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
+									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp"></sbux-select>
                             </td>
 							<td></td>
                             <th scope="row" class="th_bg">급여영역</th>
@@ -84,7 +84,7 @@
 									date-format="yyyy"
 									datepicker-mode="year"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-clclnYr)"
+									onchange="fn_dtpChange(srch-dtp-jobYyyy)"
 								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
@@ -103,7 +103,7 @@
 									date-format="yyyymm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-jobYyyy)"
+									readonly
 								></sbux-datepicker>
 							</td>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
@@ -114,17 +114,9 @@
 									date-format="yyyymm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-jobYyyymmTo)"
+									readonly
 								></sbux-datepicker>
 							</td>
-                        </tr>
-                        <tr>
-
-                            <th scope="row" class="th_bg">비고</th>
-                            <td colspan="7" class="td_input" style="border-right:hidden;">
-									<sbux-input uitype="text" id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm"></sbux-input>
-                            </td>
-
                         </tr>
                     </tbody>
                 </table>
@@ -263,6 +255,8 @@
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId = '${loginVO.id}';
+	var empCode = '${loginVO.maEmpCode}';
+	var languageID = '${loginVO.maLanguageID}';
 	//-----------------------------------------------------------
 
 	var editType			= "N";
@@ -281,7 +275,10 @@
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-
+			if (fnSET_P_HRA8400_S("U"))
+            {
+                fn_queryClick();
+            }
 		}
     }
 
@@ -298,17 +295,27 @@
 
 
 
+
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
 			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			// 급여영역
             gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+
+         // 급여영역
+            gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
 		//SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
 		//SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
 		//fnQRY_P_HRA8400_Q("INFO");
+
+		let yyyy = gfn_dateToYear(new Date()).toString();
+		SBUxMethod.set("srch-dtp-jobYyyy",yyyy);
+		SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
+    	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
+
 	}
 
     // only document
@@ -349,6 +356,11 @@
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
 	var jsonPayAreaType = []; //급여영역
+	var jsonWorkEr = []; //근무시기
+
+	//fnQRY_P_HRA8400_Q2 결과값 저장 공간
+	let dt = [];
+	let ds = [];
 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
@@ -360,16 +372,16 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{caption: ["귀속연월"], ref: 'blnMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["지급연월"], ref: 'giveMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["제출연월"], ref: 'sbmsnMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["일반직 확정"], ref: 'sbmsnMm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["기술직 확정"], ref: 'sbmsnMm', 				type:'output',		width:'80px',		style:'text-align:center'}
+        	{caption: ["귀속연월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["지급연월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["제출연월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["일반직 확정"], ref: 'defYn_1', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["기술직 확정"], ref: 'defYn_2', 				type:'output',		width:'80px',		style:'text-align:center'}
 
         ];
 
         grdDclrList = _SBGrid.create(SBGridProperties);
-        //NationInGrid.bind('click', 'fn_view');
+        grdDclrList.bind('click', 'grdDclrListClick');
     }
 
     function fn_createGrid2() {
@@ -382,16 +394,16 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{caption: ["귀속년도"], ref: 'jobYyyy', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["귀속년도"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["근무시기"], ref: 'halfyearlyType', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["급여영역"], ref: 'payAreaType', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["근무지"], ref: 'taxSiteName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민등록번호"], ref: 'socialNumReal', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["주민등록번호"], ref: 'socialNum', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["부서"], ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["전화번호"], ref: 'telno', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["내/외국인"], ref: 'ctznFrgnr', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["내/외국인"], ref: 'familyForeiYn', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["거주지국코드"], ref: 'resdncNtnCd', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["원천신고대상"], ref: 'payTotAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사업소세과세대상"], ref: 'payTotAmt2', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -436,10 +448,10 @@
         	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["근무지"], ref: 'workRegionName', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민등록번호"], ref: 'socialNumReal', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["주민등록번호"], ref: 'socialNum', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["부서"], ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["소득구분코드"], ref: 'gubunCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["소득구분명"], ref: 'gubunName', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -503,14 +515,15 @@
      */
     const fnQRY_P_HRA8400_Q = async function(workType) {
 
-		let dclrRow = grdDclrList.getRowData(grdDclrList.getRow());
+    	let rowId = grdDclrList.getRow();
+    	let dclrRow = grdDclrList.getRowData(rowId);
 
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
-			,V_P_LANG_ID		: ''
+			,V_P_LANG_ID		: languageID
 			,V_P_COMP_CODE		: gv_ma_selectedApcCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-			,V_P_EMP_CODE       : ''
+			,V_P_EMP_CODE       : empCode == "" ? "T02" : ""
 			,V_P_JOB_YYYYMM_FR  : ''
 			,V_P_JOB_YYYYMM_TO  : ''
 			,V_P_SUBMIT_YYYYMM  : workType == "DETAIL" ? dclrRow.submitYyyymm : ""
@@ -526,6 +539,11 @@
 			,V_P_PC				: ''
 	    };
 
+	    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["compCode1"]);
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
+
         const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400Q.do", {
         	getType				: 'json',
         	workType			: workType,
@@ -537,31 +555,34 @@
 		//console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+  				console.log(data);
   				jsonDclrList.length = 0;
   				// 파일생성 정보 바인딩
   				if(workType === "INFO"){
-  				 	let fileCreate = data.cv_1;
+  				 	let fileData = data.cv_1;
+  				 	if(fileData.length === 0){
+  				 		return;
+  				 	}
+  				 	SBUxMethod.set("srch-inp-homeTaxId",fileData["HOME_TAX_ID"]);
+  				 	SBUxMethod.set("srch-inp-memomemo",fileData["SUBMIT_DATE"]);
+  				 	SBUxMethod.set("srch-inp-deptName",fileData["DEPT_NAME"]);
+  				 	SBUxMethod.set("srch-inp-memomemo",fileData["EMP_NAME"]);
+  				 	SBUxMethod.set("srch-inp-tel",fileData["TEL"]);
+  				 	SBUxMethod.set("srch-inp-memomemo",fileData["MEMOMEMO"]);
+
 
   				}else if(workType === "LIST"){
-  					data.cv_2.forEach((item, index) => {
-	        			   msg = {
 
-		  	  					}
-	        			   jsonSimpleGiveSpcfct.push(msg);
-	        		   })
+  					jsonDclrList = convertArrayToCamelCase(data.cv_1);
+  					grdDclrList.rebuild();
 
-	        		   grdSimpleGiveSpcfct.rebuild();
   				}else if(workType === "DETAIL"){
-  					data.cv_2.forEach((item, index) => {
-	        			   msg = {
+  					let detailData = convertArrayToCamelCase(data.cv_2);
+					jsonSimpleGiveSpcfct = detailData;
+					jsonEricmGiveSpcfct = detailData;
 
-		  	  					}
-	        			   jsonEricmGiveSpcfct.push(msg);
-	        		   })
-
-	        		   grdEricmGiveSpcfct.rebuild();
-
+	        		grdSimpleGiveSpcfct.rebuild();
+	        		grdEricmGiveSpcfct.rebuild();
   				}
 
 
@@ -578,6 +599,97 @@
         }
     }
 
+    /**
+     * 목록 가져오기
+     */
+    const fnQRY_P_HRA8400_Q2 = async function(workType) {
+
+    	let rowId = grdDclrList.getRow();
+    	let dclrRow = grdDclrList.getRowData(rowId);
+
+    	let homeTaxId = SBUxMethod.get("srch-inp-homeTaxId");
+		let submitDate = SBUxMethod.get("srch-inp-submitDate");
+		let deptName = SBUxMethod.get("srch-inp-deptName");
+		let empName = SBUxMethod.get("srch-inp-empName");
+		let tel = SBUxMethod.get("srch-inp-tel");
+		let memomemo = SBUxMethod.get("srch-inp-memomemo")
+		let filePath = SBUxMethod.get("srch-inp-filePath")
+
+	    var paramObj = {
+			V_P_DEBUG_MODE_YN	: ''
+			,V_P_LANG_ID		: languageID
+			,V_P_COMP_CODE		: gv_ma_selectedApcCd
+			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+			,V_P_JOB_YYYY          : ''
+			,V_P_DATA_HANDOUT_DATE : ''
+			,V_P_HALFYEARLY_TYPE   : ''
+			,V_P_PAY_AREA_TYPE     : ''
+			,V_P_JOB_YYYYMM_FR     : ''
+			,V_P_JOB_YYYYMM_TO     : ''
+			,V_P_FILE_PATH         : filePath
+			,V_P_MEMO              : memomemo
+			,V_P_HOMETAXID         : homeTaxId
+			,V_P_EMP_NAME          : empName
+			,V_P_TEL               : tel
+			,V_P_DEPT_NAME         : deptName
+			,V_P_INC_TYPE          : '77'
+			,V_P_EMP_CODE_LIST     : ''   // 사번
+			,V_P_SOCIAL_NUM_LIST   : ''  // 복호화된 주민번호
+			,V_P_FORM_ID		: p_formId
+			,V_P_MENU_ID		: p_menuId
+			,V_P_PROC_ID		: ''
+			,V_P_USERID			: ''
+			,V_P_PC				: ''
+	    };
+
+
+
+	    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["compCode1"]);
+	 	 if(!postFlag){
+	 	    return;
+	 	 }
+
+        const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400Q.do", {
+        	getType				: 'json',
+        	workType			: workType,
+        	cv_count			: '6',
+        	params				: gfnma_objectToString(paramObj)
+		});
+
+        const data = await postJsonPromise;
+		//console.log('data:', data);
+        try {
+  			if (_.isEqual("S", data.resultStatus)) {
+  				console.log(data);
+  				if(workType === "SOCIALNO"){
+					dt = data;
+  				}else if(workType === "FILE"){
+					ds = data;
+  				}
+
+        	} else {
+          		alert(data.resultMessage);
+        	}
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const grdDclrListClick = function(){
+    	let rowId = grdDclrList.getRow();
+		if(rowId <0){
+			return;
+		}
+		fnQRY_P_HRA8400_Q("DETAIL");
+
+    }
+
+
     const fnSET_P_HRA8400_S = async function(){
     	let ericmGiveSpcfctData = grdEricmGiveSpcfct.getGridDataAll();
     	ericmGiveSpcfctData.forEach(row => {
@@ -586,7 +698,23 @@
          			,V_P_LANG_ID		: ''
          			,V_P_COMP_CODE		: gv_ma_selectedApcCd
          			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-
+         			 V_P_PAY_YYYYMM       : ''
+         			, V_P_PAY_TYPE_GROUP   : ''
+         			, V_P_PAY_DATE         : ''
+         			, V_P_FBS_SERVICE      : ''
+         			, V_P_FBS_WORK_TYPE    : ''  --FBSBANKTXN
+         			, V_P_BANK_CODE        : ''  --FBSBANKTXN
+         			, V_P_PASSWORD         : ''
+         			, V_P_DEPOSIT_CODE     : ''
+         			, V_P_ACTUAL_PAY_DATE  : ''
+         			, V_P_FILE_NAME        : ''
+         			, V_P_ARR_TXN_ID       : ''
+         			, V_P_ARR_EMP_CODE     : ''
+         			, V_P_ARR_ACCOUNT_NUM : ''
+         			, V_P_ARR_BANK_CODE    : ''
+         			, V_P_ARR_AMT          : ''
+         			, V_P_PROCESS_YN       : ''
+         			, V_P_INTERFACEID      : '': ''
          			,V_P_FORM_ID		: p_formId
          			,V_P_MENU_ID		: p_menuId
          			,V_P_PROC_ID		: ''
@@ -597,6 +725,87 @@
     	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
 
          const postJsonPromise = gfn_postJSON("/hr/hra/insertHra8400.do", {
+          	getType				: 'json',
+          	workType			:  strWorkType,
+          	cv_count			: '0',
+          	params				: gfnma_objectToString(paramObj)
+  			});
+
+       	const data = await postJsonPromise;
+       	console.log('data:', data);
+         // 비즈니스 로직 정보
+          try {
+	          if (_.isEqual("S", data.resultStatus)) {
+
+	          } else {
+	              alert(data.resultMessage);
+	          }
+
+	        } catch (e) {
+	            if (!(e instanceof Error)) {
+	                e = new Error(e);
+	            }
+	            console.error("failed", e.message);
+	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }
+    }
+
+
+    const fnSET_P_HRA8400_S1 = async function(){
+
+    	let homeTaxId = SBUxMethod.get("srch-inp-homeTaxId");
+		let submitDate = SBUxMethod.get("srch-inp-submitDate");
+		let deptName = SBUxMethod.get("srch-inp-deptName");
+		let empName = SBUxMethod.get("srch-inp-empName");
+		let tel = SBUxMethod.get("srch-inp-tel");
+		let memomemo = SBUxMethod.get("srch-inp-memomemo");
+		let filePath = SBUxMethod.get("srch-inp-filePath");
+
+    	let strcreate_cond = "홈택스ID:" + homeTaxId + "/제출일:" + submitDate +
+        "/담당자 부서:" + deptName + "/담당자 성명:" + empName + "/담당자 전화번호:" + tel;
+
+    	let strFileName = "";
+    	let empCodeList = "";
+        let socialNumList = "";
+        let sendWorkType = "N";
+        let intChkCount = 0;
+
+    	let grd2 = grdSimpleGiveSpcfct.getGridDataAll();
+    	grd2.forEach(row => {
+    		empCodeList += row.empCode + "|"
+    		socialNumList += row.socialNumReal.replace("-","") + "|";
+    		inChkCount++;
+    		if(intChkCount % 1000 == 0 || intChkCount + 1 > grd2.length){
+    			if(empCodeList > 0){
+    				empCodeList = empCodeList.substring(0,empCodeList.length-1);
+    				socialNumList = socialNumList.substring(0,socialNumList.length-1);
+    			}
+    			fnQRY_P_HRA8400_S1(sendWorkType, emp_code_list, social_num_list);
+                sendWorkType = sendWorkType + (intChkCount / 1000).ToString();
+                empCodeList = "";
+                socialNumList = "";
+    		}
+    	})
+
+    	if(empCodeList.length > 0){
+    		empCodeList = empCodeList.substring(0,empCodeList.length-1);
+			socialNumList = socialNumList.substring(0,socialNumList.length-1);
+    	}
+
+    	if(fnQRY_P_HRA8400_Q2("FILE")){
+			let strbizRegno = ds["bizRegno"].replace("-","");
+
+			ds.forEach(item => {
+				let strfileType = "SC";
+				strFileName = filePath + "\\" + strfile_type + strbizRegno.substring(0, 7) + "." + strbizRegno.substring(7, 3);
+
+				// 현재경로에 동일한 파일의 이름이 존재하는지 확인하고 덮어씌울건지 확인
+
+			})
+    	}
+    	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
+
+         const postJsonPromise = gfn_postJSON("/hr/hra/insertHra8400S1.do", {
           	getType				: 'json',
           	workType			:  strWorkType,
           	cv_count			: '0',
@@ -668,19 +877,25 @@
 
     }
 
-    const fn_dtpChange = async function(){
-    	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
-    	let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
-
-    	/* if(inptYmdFrom > inptYmdTo){
-    		gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
-    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
-    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
-    		return;
-    	} */
+    const fn_dtpChange = async function(yyyy){
+    	SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
+    	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
      }
 
+    /** camelCase FN **/
+    function toCamelCase(snakeStr) {
+        return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
 
+    function convertArrayToCamelCase(array) {
+        return array.map(obj => {
+            return Object.keys(obj).reduce((acc, key) => {
+                const camelKey = toCamelCase(key);
+                acc[camelKey] = obj[key];
+                return acc;
+            }, {});
+        });
+    }
 
 
 
