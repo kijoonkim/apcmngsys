@@ -96,21 +96,22 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
-                            uitype="hidden"
+                            uitype="text"
                             uitype="text"
                             id="srch-dept_code"
                             class="form-control input-sm"
                     ></sbux-input>
+                </td>
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                             uitype="text"
                             id="srch-dept_name"
                             class="form-control input-sm"
-
                     ></sbux-input>
                 </td>
-                <td colspan="2" class="td_input" >
+                <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -119,13 +120,14 @@
                     ></sbux-button>
                 </td>
                 <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
-                            uitype="hidden"
                             uitype="text"
                             id="srch-emp_code"
                             class="form-control input-sm"
                     ></sbux-input>
+                </td>
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
                             id="srch-emp_full_name"
@@ -133,7 +135,7 @@
 
                     ></sbux-input>
                 </td>
-                <td colspan="2" class="td_input" >
+                <td <%--colspan="2"--%> class="td_input" data-group="EMP">
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -244,7 +246,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">부서</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                                 <sbux-input
                                         uitype="text"
                                         id="DEPT_CODE"
@@ -269,7 +271,7 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">사원구분</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="EMP">
                                 <sbux-select
                                         unselected-text="전체"
                                         uitype="single"
@@ -851,6 +853,7 @@
             gfnma_setComSelect([''], jsonApplyType, 'L_HRW023', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect([''], jsonLongApplyType, 'L_HRW022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect([''], jsonUser, 'L_USER', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
 
 
             //사업장

@@ -103,6 +103,8 @@
                     </div>
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
+            </tr>
+            <tr>
                 <th scope="row" class="th_bg">사용자ID</th>
                 <td class="td_input" style="border-right: hidden;">
                     <sbux-input
@@ -182,6 +184,11 @@
 
     const fn_init = async function () {
 
+        let openDate = gfn_dateToYmd(new Date());
+
+        SBUxMethod.set('SRCH_LOG_DATE_FR', openDate);
+        SBUxMethod.set('SRCH_LOG_DATE_TO', openDate);
+
         fn_createGrid();
     }
 
@@ -227,14 +234,15 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.filtering = true;
         SBGridProperties.columns = [
-            {caption: ["사용자ID"], ref: 'USER_ID', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["사용자명"], ref: 'USER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["화면ID"], ref: 'FORM_ID', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["화면명"], ref: 'FORM_NAME', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["로그인시각"], ref: 'LOGIN_TIME', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["로그아웃시각"], ref: 'LOGOUT_TIME', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["접속IP"], ref: 'LOG_IP', type: 'output', width: '150px', style: 'text-align:left'},
-            {caption: ["접속PC"], ref: 'LOG_PC', type: 'output', width: '150px', style: 'text-align:left'},
+            {caption: ["사용자ID"], ref: 'USER_ID', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["사용자명"], ref: 'USER_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["화면ID"], ref: 'FORM_ID', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["화면명"], ref: 'FORM_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["로그인시각"], ref: 'LOGIN_TIME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["로그아웃시각"], ref: 'LOGOUT_TIME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["접속IP"], ref: 'LOG_IP', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["접속PC"], ref: 'LOG_PC', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
@@ -246,9 +254,11 @@
      */
     const fn_search = async function () {
 
-        let V_P_NUMBERING_GROUP = gfnma_nvl(SBUxMethod.get("srch-numbering_group"));
-        let V_P_NUMBERING_ID = gfnma_nvl(SBUxMethod.get("search_numbering_id"));
-        let V_P_NUMBERING_NAME = gfnma_nvl(SBUxMethod.get("search_numbering_name"));
+        let QUERY_TYPE      = gfnma_nvl(SBUxMethod.get("SRCH_QUERY_TYPE")); //조회구분
+        let LOG_DATE_FR     = gfnma_nvl(SBUxMethod.get("SRCH_LOG_DATE_FR")); //접속일자 (시작)
+        let LOG_DATE_TO     = gfnma_nvl(SBUxMethod.get("SRCH_LOG_DATE_TO")); //접속일자 (종료)
+        let LOG_TYPE        = gfnma_multiSelectGet('#SRCH_LOG_TYPE'); //로그유형
+        let USER_ID     = gfnma_nvl(SBUxMethod.get("SRCH_USER_ID")); //사용자ID
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
@@ -256,9 +266,10 @@
             , V_P_COMP_CODE: gv_ma_selectedApcCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-            , V_P_NUMBERING_GROUP: V_P_NUMBERING_GROUP
-            , V_P_NUMBERING_ID: V_P_NUMBERING_ID
-            , V_P_NUMBERING_NAME: V_P_NUMBERING_NAME
+            ,V_P_LOG_DATE_FR     : LOG_DATE_FR
+            ,V_P_LOG_DATE_TO     : LOG_DATE_TO
+            ,V_P_LOG_TYPE        : LOG_TYPE
+            ,V_P_USERID_P        : USER_ID
 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
@@ -267,14 +278,18 @@
             , V_P_PC: ''
         };
 
+        console.log('--------paramObj--------', paramObj);
+
         const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3200List.do", {
             getType: 'json',
-            workType: 'Q',
+            workType: QUERY_TYPE,
             cv_count: '2',
             params: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
+
+        console.log('--------data--------', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -285,35 +300,23 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        NUMBERING_ID: item.NUMBERING_ID,
-                        NUMBERING_GROUP: item.NUMBERING_GROUP,
-                        USE_YN: item.USE_YN,
-                        NUMBERING_NAME: item.NUMBERING_NAME,
-                        NUMBER_LENGTH: item.NUMBER_LENGTH,
-                        DESCR: item.DESCR,
-                        AUTO_NUM_YN: item.AUTO_NUM_YN,
-                        NUMBER_ELEMENT1: item.NUMBER_ELEMENT1,
-                        NUMBER_VALUE1: item.NUMBER_VALUE1,
-                        SURFIX_ELEMENT1: item.SURFIX_ELEMENT1,
-                        SURFIX_VALUE1: item.SURFIX_VALUE1,
-                        NUMBER_ELEMENT2: item.NUMBER_ELEMENT2,
-                        NUMBER_VALUE2: item.NUMBER_VALUE2,
-                        SURFIX_ELEMENT2: item.SURFIX_ELEMENT2,
-                        SURFIX_VALUE2: item.SURFIX_VALUE2,
-                        NUMBER_ELEMENT3: item.NUMBER_ELEMENT3,
-                        NUMBER_VALUE3: item.NUMBER_VALUE3,
-                        SURFIX_ELEMENT3: item.SURFIX_ELEMENT3,
-                        SURFIX_VALUE3: item.SURFIX_VALUE3,
-                        NUMBER_ELEMENT4: item.NUMBER_ELEMENT4,
-                        NUMBER_VALUE4: item.NUMBER_VALUE4,
-                        SURFIX_ELEMENT4: item.SURFIX_ELEMENT4,
-                        SURFIX_VALUE4: item.SURFIX_VALUE4,
-                        NUMBER_ELEMENT5: item.NUMBER_ELEMENT5,
-                        NUMBER_VALUE5: item.NUMBER_VALUE5,
-                        SURFIX_ELEMENT5: item.SURFIX_ELEMENT5,
-                        START_SERNO: item.START_SERNO,
-                        UNIQUE_YN: item.UNIQUE_YN,
-                        /* NUMBER_SAMPLE: item.NUMBER_SAMPLE*/
+                        KEY_FIELD           : item.KEY_FIELD,
+                        PARENT_KEY_FIELD    : item.PARENT_KEY_FIELD,
+                        USER_ID             : item.USER_ID,
+                        USER_NAME           : item.USER_NAME,
+                        LOG_TYPE            : item.LOG_TYPE,
+                        MEMO                : item.MEMO,
+                        LOGIN_TIME          : item.LOGIN_TIME,
+                        LOGOUT_TIME         : item.LOGOUT_TIME,
+                        FORM_ID             : item.FORM_ID,
+                        FORM_NAME           : item.FORM_NAME,
+                        LOG_DATE            : item.LOG_DATE,
+                        LOG_IP              : item.LOG_IP,
+                        LOG_PC              : item.LOG_PC,
+                        COMP_CODE           : item.COMP_CODE,
+                        CLIENT_CODE         : item.CLIENT_CODE,
+
+
                     }
                     jsonGvwInfoList.push(msg);
                     totalRecordCount++;
@@ -322,9 +325,9 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                if(jsonGvwInfoList.length > 0) {
+                /*if(jsonGvwInfoList.length > 0) {
                     gvwInfoGrid.clickRow(1);
-                }
+                }*/
 
                 //fn_setData();
             } else {

@@ -1455,17 +1455,17 @@
             {caption: ["구매자업태"], ref: 'BUYER_BIZ_ITEM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자유형"], ref: 'BUYER_BIZ_TYPE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자주소"], ref: 'BUYER_ADDRESS', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["합계금액"], ref: 'TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["합계금액"], ref: 'TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["세액"], ref: 'TOTAL_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["세액"], ref: 'TOTAL_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["공급가액"], ref: 'TOTAL_VAT_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["공급가액"], ref: 'TOTAL_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["전표총금액"], ref: 'DOC_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["전표총금액"], ref: 'DOC_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["전표공급가액"], ref: 'DOC_SUPPLY_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["전표공급가액"], ref: 'DOC_SUPPLY_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["전표부가세"], ref: 'DOC_VAT_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["전표부가세"], ref: 'DOC_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["차이여부"], ref: 'DIFF_FLAG', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -1507,13 +1507,13 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["품목규격"], ref: 'ITEM_SPEC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["품목세액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목세액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["품목공급가액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목공급가액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["품목비고"], ref: 'ITEM_DESC', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["상태"], ref: 'ROW_STATUS', type: 'output', width: '140px', style: 'text-align:left'},
@@ -1571,17 +1571,17 @@
         };*/
         SBGridProperties.columns = [
             {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
             {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["규격"], ref: 'ITEM_SPEC', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목수량"], ref: 'ITEM_QTY', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목단가"], ref: 'ITEM_UNIT_PRICE', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["품목공급가액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목공급가액"], ref: 'ITEM_TAXABLE_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
-            {caption: ["품목세액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["품목세액"], ref: 'ITEM_VAT_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
             {caption: ["비고"], ref: 'ITEM_DESC', type: 'output', width: '140px', style: 'text-align:left'},
             {caption : ["원가중심점코드"], ref : 'COST_CENTER_CODE', width : '140px', style : 'text-align:center', type : 'combo',

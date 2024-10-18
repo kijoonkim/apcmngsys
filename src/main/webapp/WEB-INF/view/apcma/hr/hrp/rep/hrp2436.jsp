@@ -175,14 +175,14 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                             uitype="text"
                             id="srch-dept_code"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
@@ -200,14 +200,14 @@
                 </td>
 
                 <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
                             id="srch-emp_code"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
@@ -250,8 +250,7 @@
                             text="복수사원"
                             class="btn btn-sm btn-outline-danger"
                             onclick="fn_compopup4"
-                    >
-                    </sbux-button>
+                    ></sbux-button>
                 </td>
                 <th scope="row" class="th_bg">파일암호 적용여부</th>
                 <td class="td_input" style="border-right: hidden;">
