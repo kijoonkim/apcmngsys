@@ -121,14 +121,14 @@
                             <th scope="row" class="th_bg">소수유형ID</th>
                             <td colspan="3" class="td_input">
                                 <sbux-input id="DECIMAL_ID" class="form-control input-sm inpt_data_reqed" uitype="text" required
-                                            style="width:70%" required></sbux-input>
+                                            style="width:30%" required></sbux-input>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">소수유형명</th>
                             <td colspan="3" class="td_input">
                                 <sbux-input id="DECIMAL_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" required
-                                            style="width:70%" required></sbux-input>
+                                            style="width:30%" required></sbux-input>
                             </td>
                         </tr>
                         <tr>
@@ -141,7 +141,7 @@
                                         class="form-control input-sm inpt_data_reqed"
                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
                                         maxlength="10"
-                                        style="width:70%"
+                                        style="width:30%"
                                         required
                                         <%--onkeyup="fn_calculate"--%>
                                 ></sbux-input>
@@ -151,7 +151,7 @@
                             <th scope="row" class="th_bg">비고</th>
                             <td colspan="3" class="td_input">
                                 <sbux-input id="DESCR" class="form-control input-sm" uitype="text" required
-                                            style="width:70%"></sbux-input>
+                                            style="width:30%"></sbux-input>
                             </td>
                         </tr>
                         <tr>
@@ -280,7 +280,10 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_view();
+                if(jsonGvwInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+                //fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -321,11 +324,13 @@
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["소수유형ID"], ref: 'DECIMAL_ID', type: 'output', width: '150px', style: 'text-align:left'},
+            {caption: ["소수유형ID"], ref: 'DECIMAL_ID', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["소수유형명"], ref: 'DECIMAL_NAME', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'output', width: '150px', style: 'text-align:left'},
+            //{caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'input', width: '200px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {
-                caption: ["사용여부"], ref: 'USE_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
+                caption: ["사용여부"], ref: 'USE_YN', type: 'checkbox', width: '130px', style: 'text-align:center',
                 typeinfo: {
                     ignoreupdate: true,
                     fixedcellcheckbox: {
@@ -336,7 +341,8 @@
                     checkedvalue: 'Y',
                     uncheckedvalue: 'N'
                 }, disabled: true,
-            }
+            },
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left', disabled: true}//스타일상 빈값
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
@@ -355,14 +361,19 @@
             return;
         }*/
         var nRow = gvwInfoGrid.getRow();
-        if (nRow < 1){
-            nRow = 1;
+        var nCol = gvwInfoGrid.getCol();
+
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow < 1) {
+            return;
         }
 
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        if (!_.isEmpty(rowData)) {
+        if (_.isEmpty(rowData) == false) {
             SBUxMethod.set("DECIMAL_ID", rowData.DECIMAL_ID);
             SBUxMethod.set("DECIMAL_NAME", rowData.DECIMAL_NAME);
             SBUxMethod.set("DECIMAL_LENGTH", rowData.DECIMAL_LENGTH);
