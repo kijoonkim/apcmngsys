@@ -461,62 +461,62 @@
 	var grdPrdcrOgnCurntMng
 
 	const objMenuList = {
-	        "excelDwnld": {
-	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
-	            "accesskey": "e",					//단축키
-	            "callback": fn_excelDwnld,			//콜백함수명
-	        }
-	    };
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld,			//콜백함수명
+			}
+		};
 
 
 	function fn_excelDwnld() {
 		grdPrdcrOgnCurntMng.exportLocalExcel("출자출하조직관리(조직 리스트)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng';
-	    SBGridProperties.id = 'grdPrdcrOgnCurntMng';
-	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.rowheader="seq";
-	    SBGridProperties.paging = {
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		SBGridProperties.paging = {
 				'type' : 'page',
-			  	'count' : 5,
-			  	'size' : 20,
-			  	'sorttype' : 'page',
-			  	'showgoalpageui' : true
-		    };
-	    SBGridProperties.columns = [
-	    	{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
-	    	{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
-	    	{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
-	    	{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
-	        {caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-	        {caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonGrdCorpSeCd', label:'label', value:'value', displayui : false}},
-	    	{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-	    		,typeinfo : {ref:'jsonGrdCtpv', label:'label', value:'value', displayui : false}},
-	        {caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
-		    	,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
-	        //{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
-	        {caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
-	    ];
+				'count' : 5,
+				'size' : 20,
+				'sorttype' : 'page',
+				'showgoalpageui' : true
+			};
+		SBGridProperties.columns = [
+			{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
+			{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
+			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
+			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
+			{caption: ["적합품목"], 		ref: 'stbltYnNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonGrdCorpSeCd', label:'label', value:'value', displayui : false}},
+			{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonGrdCtpv', label:'label', value:'value', displayui : false}},
+			{caption: ["시군구"], 		ref: 'sgg',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
+				,typeinfo : {ref:'jsonGrdSgg', label:'label', value:'value', displayui : false}},
+			//{caption: ["진행단계"], 		ref: 'aa',   	type:'output',  width:'153px',    style:'text-align:center'},
+			{caption: ["비고"], 			ref: 'rmrk',   	type:'output',  width:'200px',    style:'text-align:center'}
+		];
 
-	    grdPrdcrOgnCurntMng = _SBGrid.create(SBGridProperties);
+		grdPrdcrOgnCurntMng = _SBGrid.create(SBGridProperties);
 
-	  	//클릭 이벤트 바인드
-	   	grdPrdcrOgnCurntMng.bind('click','fn_view');
-	   	grdPrdcrOgnCurntMng.bind('beforepagechanged', 'fn_pagingBbsList');
+		//클릭 이벤트 바인드
+		grdPrdcrOgnCurntMng.bind('click','fn_view');
+		grdPrdcrOgnCurntMng.bind('beforepagechanged', 'fn_pagingBbsList');
 
 	}
 
@@ -524,41 +524,41 @@
 	var grdPrdcrOgnCurntMng01
 
 	const objMenuList01 = {
-	        "excelDwnld": {
-	            "name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
-	            "accesskey": "e",					//단축키
-	            "callback": fn_excelDwnld01,			//콜백함수명
-	        }
-	    };
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld01,			//콜백함수명
+			}
+		};
 
 
 	function fn_excelDwnld01() {
 		grdPrdcrOgnCurntMng01.exportLocalExcel("출자출하조직관리 (총괄표)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+	}
 
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
-	    SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
-	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.fixedrowheight=45;
-	    SBGridProperties.rowheight = 72;
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.columns = [
-	    	{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheight = 72;
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
-		    	,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
+				,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
 			{caption: ["품목","품목명"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["품목","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
-		    	,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
+				,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
 			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
@@ -577,49 +577,47 @@
 			{caption: ["탈락사유","탈락사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
-	        {caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
-	        {caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
-	        //{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
-	        //{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
-	        {caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'stbltYn',   		hidden : true},
-	       // {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
-	    ];
+			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'crno',   			hidden : true},
+			{caption: ["상세내역"], 	ref: 'yr',   			hidden : true},
+			//{caption: ["상세내역"], 	ref: 'ctgryCd',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
+			//{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'trmtType',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'stbltYn',   		hidden : true},
+			// {caption: ["상세내역"], 	ref: 'aprv',   			hidden : true},
+		];
 
-	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
-	    /*
-	    let rst = await Promise.all([
-	    	fn_initSBSelectFclt(),
-		    fn_searchFcltList()
+		grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
+		/*
+		let rst = await Promise.all([
+			fn_initSBSelectFclt(),
+			fn_searchFcltList()
 		])
 		*/
 		//grdPrdcrOgnCurntMng.refresh({"combo":true});
-	  	//클릭 이벤트 바인드
-	    //grdPrdcrOgnCurntMng.bind('click','gridClick');
+		//클릭 이벤트 바인드
+		//grdPrdcrOgnCurntMng.bind('click','gridClick');
 
 
 	}
 
 	/**
      * 목록 조회
-     */
-    const fn_search = async function() {
-
-    	// set pagination
-    	let pageSize = grdPrdcrOgnCurntMng.getPageSize();
-    	let pageNo = 1;
-
-    	fn_setGrdFcltList(pageSize, pageNo);
-    }
+	*/
+	const fn_search = async function() {
+		// set pagination
+		let pageSize = grdPrdcrOgnCurntMng.getPageSize();
+		let pageNo = 1;
+		fn_setGrdFcltList(pageSize, pageNo);
+	}
 
 	const fn_pagingBbsList = async function() {
-    	let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
-    	let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
-    	fn_setGrdFcltList(recordCountPerPage, currentPageNo);
-    }
+		let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
+		let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
+		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+	}
 
 
 	/* 출력물 */
@@ -729,45 +727,45 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-    	let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-    		brno : brno
-    		,apoSe : '2'
-    		,yr : yr
-    		,stbltYnNm:'Y'
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+			brno : brno
+			,apoSe : '2'
+			,yr : yr
+			,stbltYnNm:'Y'
 
-    		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-    		,cmptnInst : cmptnInst
-    		,ctpv : ctpv
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+			,cmptnInst : cmptnInst
+			,ctpv : ctpv
 
-    		,corpSeCd : corpSeCd
-    		,corpDtlSeCd : corpDtlSeCd
+			,corpSeCd : corpSeCd
+			,corpDtlSeCd : corpDtlSeCd
 
-    		,corpNm : corpNm
+			,corpNm : corpNm
 
-    		,aprv : aprv
-    		//,apoSe : apoSe
-    		,uoBrno : uoBrno
-    		,yrChk : yrChkVal
-    		,stbltHldYn : stbltHldYn //적합품목 보유 여부
-    		</c:if>
+			,aprv : aprv
+			//,apoSe : apoSe
+			,uoBrno : uoBrno
+			,yrChk : yrChkVal
+			,stbltHldYn : stbltHldYn //적합품목 보유 여부
+			</c:if>
 
-    		<c:if test="${loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '21'}">
 			,userType : '21'
 			,stbltYnBrno : brno
-    		</c:if>
+			</c:if>
 
-    		//페이징
-    		,pagingYn : 'Y'
-    		,currentPageNo : pageNo
-     		,recordCountPerPage : pageSize
+			//페이징
+			,pagingYn : 'Y'
+			,currentPageNo : pageNo
+			,recordCountPerPage : pageSize
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	jsonPrdcrOgnCurntMng.length = 0;
-        	let totalRecordCount = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			jsonPrdcrOgnCurntMng.length = 0;
+			let totalRecordCount = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
 						,apoSe: item.apoSe
@@ -787,28 +785,28 @@
 				}
 			});
 
-        	if (jsonPrdcrOgnCurntMng.length > 0) {
+			if (jsonPrdcrOgnCurntMng.length > 0) {
 
-        		if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-        			grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
-        			grdPrdcrOgnCurntMng.rebuild();
+				if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+					grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+					grdPrdcrOgnCurntMng.rebuild();
 				}else{
 					grdPrdcrOgnCurntMng.refresh()
 				}
-        	} else {
-        		grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
-        		grdPrdcrOgnCurntMng.rebuild();
-        	}
-        	document.querySelector('#listCount').innerText = totalRecordCount;
+			} else {
+				grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
+				grdPrdcrOgnCurntMng.rebuild();
+			}
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
-        	//grdPrdcrOgnCurntMng.rebuild();
+			//grdPrdcrOgnCurntMng.rebuild();
 
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 	//사용자 화면 조회
@@ -817,28 +815,28 @@
 		if(gfn_isEmpty(brno)) return;
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
-    	let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngIsoList.do", {
-    		brno : brno
-    		,yr : yr
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngIsoList.do", {
+			brno : brno
+			,yr : yr
 		});
 
-        let data = await postJsonPromise ;
-        try{
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
+		let data = await postJsonPromise ;
+		try{
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 			});
-        	fn_searchUoList();
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+			fn_searchUoList();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 
@@ -871,7 +869,7 @@
 			, corpno 	: gfn_nvl(reqCrnoT)
 			, allgroup 	: gfn_nvl(reqUoBrnoT)
 		});
-    }
+	}
 
 	//총괄표 조회
 	async function fn_dtlGridSearch() {
@@ -892,65 +890,65 @@
 
 		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngList.do", {
 			apoCd : apoCd
-    		,apoSe : apoSe
-    		,itemCd : itemCd
-    		,ctgryCd : ctgryCd
-    		,uoBrno : uoBrno
-    		,brno : brno
-    		,yr : yr
+			,apoSe : apoSe
+			,itemCd : itemCd
+			,ctgryCd : ctgryCd
+			,uoBrno : uoBrno
+			,brno : brno
+			,yr : yr
 		});
-        let data = await postJsonPromise01;
-        try{
-        	jsonPrdcrOgnCurntMng01.length = 0;
-        	console.log("data==="+data);
-        	data.resultList.forEach((item, index) => {
-        		let PrdcrOgnCurntMngVO01 = {
-   						apoCd: 	item.apoCd
-   						,apoSe: item.apoSe
-   						,brno: 	item.brno
-   						,crno: 	item.crno
-   						,corpNm: item.corpNm
-   						,delYn: item.delYn
-   						,yr: item.yr
+		let data = await postJsonPromise01;
+		try{
+			jsonPrdcrOgnCurntMng01.length = 0;
+			console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let PrdcrOgnCurntMngVO01 = {
+						apoCd: 	item.apoCd
+						,apoSe: item.apoSe
+						,brno: 	item.brno
+						,crno: 	item.crno
+						,corpNm: item.corpNm
+						,delYn: item.delYn
+						,yr: item.yr
 
-   						,aprv: item.aprv
+						,aprv: item.aprv
 
-   						,sttgUpbrItemSe: item.sttgUpbrItemSe
-   						,sttgUpbrItemNm: item.sttgUpbrItemNm
+						,sttgUpbrItemSe: item.sttgUpbrItemSe
+						,sttgUpbrItemNm: item.sttgUpbrItemNm
 
-   						,itemCd: 		item.itemCd
-   						,itemNm: 		item.itemNm
+						,itemCd: 		item.itemCd
+						,itemNm: 		item.itemNm
 
-   						,ctgryCd: 		item.ctgryCd
-   						,ctgryNm: 		item.ctgryNm
+						,ctgryCd: 		item.ctgryCd
+						,ctgryNm: 		item.ctgryNm
 
-   						,uoSpmtAmt: 			item.uoSpmtAmt
-   						,uoSpmtAmtOther: 		item.uoSpmtAmtOther
-   						,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
-   						,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
+						,uoSpmtAmt: 			item.uoSpmtAmt
+						,uoSpmtAmtOther: 		item.uoSpmtAmtOther
+						,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
+						,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
 
-   						,uoSpmtAmtRt: 			item.uoSpmtAmtRt
-   						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
-   						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
+						,uoSpmtAmtRt: 			item.uoSpmtAmtRt
+						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
+						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
 
-   						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
+						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
-   						,stbltYnNm: fn_calStbltYn(item)
-   				};
+						,stbltYnNm: fn_calStbltYn(item)
+				};
 
-       			jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
+				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
 			});
 
-        	grdPrdcrOgnCurntMng01.rebuild();
+			grdPrdcrOgnCurntMng01.rebuild();
 
-        	let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
+			let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
 			console.log(rowData);
-        }catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        }
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 	//탈락적합 사유
 	function fn_calStbltYn(item) {
@@ -995,14 +993,14 @@
 	const fn_view = async function(){
 		console.log("******************fn_view**********************************");
 
-	    //데이터가 존재하는 그리드 범위 확인
+		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
-	    if (nCol < 1) {
-	        return;
-	    }
-	    var nRow = grdPrdcrOgnCurntMng.getRow();
+		if (nCol < 1) {
+			return;
+		}
+		var nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
-	        return;
+			return;
 		}
 		if(nRow == null){
 			nRow = 1;
@@ -1020,7 +1018,7 @@
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
 
 		fn_searchUoList();
-    }
+	}
 
 	//총괄표 그리드 초기화
 	async function fn_clearForm() {
@@ -1145,20 +1143,20 @@
 			,yr : yr
 			,itemCd : itemCd
 		});
-        let data = await postJsonPromise;
+		let data = await postJsonPromise;
 
-        try{
-        	if (_.isEqual("S", data.resultStatus)) {
-        		gfn_comAlert("I0001");// I0001	처리 되었습니다.
-        		fn_dtlGridSearch();
-        	}else{
-        		gfn_comAlert("E0001");//E0001 오류가 발생하였습니다.
-        	}
-        }catch (e) {
-        	if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
+		try{
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");// I0001	처리 되었습니다.
+				fn_dtlGridSearch();
+			}else{
+				gfn_comAlert("E0001");//E0001 오류가 발생하였습니다.
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 

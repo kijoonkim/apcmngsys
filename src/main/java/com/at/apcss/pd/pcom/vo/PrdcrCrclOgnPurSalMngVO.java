@@ -17,6 +17,7 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String ccCode;
 	private String crno;
 	private String ctgryCd;
+	private String clsfCd;
 	private String itemCd;
 	private String ctgryNm;
 	private String itemNm;
@@ -95,5 +96,18 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
+
+	/* 매입 수탁 , 매취 추가*/
+	private String prchsSortTrstVlm;
+	private String prchsSortTrstAmt;
+	private String prchsSpmtTrstVlm;
+	private String prchsSpmtTrstAmt;
+	private String prchsSmplTrstVlm;
+	private String prchsSmplTrstAmt;
+
+	private String prchsSortEmspapVlm;
+	private String prchsSortEmspapAmt;
+	private String prchsSmplEmspapVlm;
+	private String prchsSmplEmspapAmt;
 
 }

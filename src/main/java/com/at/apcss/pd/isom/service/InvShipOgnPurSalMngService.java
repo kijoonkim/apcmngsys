@@ -22,27 +22,75 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 public interface InvShipOgnPurSalMngService {
 
 	/**
-	 * 정보를 조회한다.
+	 * 출자출하조직 총 매입 매출 정보를 조회한다.
 	 * @param InvShipOgnPurSalMngVO
-	 * @return
+	 * @return InvShipOgnPurSalMngVO
 	 * @throws Exception
 	 */
 	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
-
+	/**
+	 * 출자출하조직 총 매입 매출 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 * @throws Exception
+	 */
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	/**
+	 * 출자출하조직 총 매입 매출의 매입 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 * @throws Exception
+	 */
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	/**
+	 * 출자출하조직 총 매입 매출의 매출 리스트을 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 * @throws Exception
+	 */
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직 총 매입 매출 의 매입현황을 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출현황-취급실적을 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출현황-통합조직 출하실적을 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
-
-	public int updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매입현황 리스트를 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출현황-취급실적 리스트를 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int multiSaveInvShipOgnPurSalMngList02(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
-
+	/**
+	 * 출자출하조직 총 매입 매출 의 매출현황-통합조직 출하실적 리스트를 저장한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 * @throws Exception
+	 */
 	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
 
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
