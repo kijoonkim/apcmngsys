@@ -124,13 +124,27 @@
 			  AND AP.APC_CD IN (SELECT APC_CD FROM TB_APC_INFO WHERE APC_NM LIKE '%' || #{apcNm} || '%')
 			</if>
 			<if test='itemNm != null and !itemNm.equals("")'>
-			  AND  EXISTS(SELECT 1
+			  AND EXISTS(SELECT 1
 			  				FROM TB_TE_APC_OPER_TRMT_ITEM
 			  				WHERE 1=1
 			  				  AND APC_CD = AP.APC_CD
 			  				  AND OGNZ_SE_CD = '2'
 			  				  AND ITEM_NM LIKE '%' || #{itemNm} || '%'
 			  				)
+			</if>
+			<if test='ctpv != null and !ctpv.equals("")'>
+				AND AP.APC_CD IN (SELECT APC_CD
+									FROM TB_TE_APC_OPER_PRSN_OTLN ROA
+									WHERE 1=1
+									  AND ROA.CRTR_YR = AP.CRTR_YR
+									  AND SUBSTR(ROA.APC_ADM_CD , 0 , 2) = #{ctpv} )
+			</if>
+			<if test='sgg != null and !sgg.equals("")'>
+				AND AP.APC_CD IN (SELECT APC_CD
+									FROM TB_TE_APC_OPER_PRSN_OTLN ROB
+									WHERE 1=1
+									  AND ROB.CRTR_YR = AP.CRTR_YR
+									  AND SUBSTR(ROB.APC_ADM_CD , 0 , 4) = SUBSTR(#{sgg} , 0 , 4) )
 			</if>
 			<if test='userId != null and userId != ""'>
 				<if test='userType == "27" or userType == "28"'>
@@ -145,7 +159,6 @@
 								  AND SUBSTR(RO.APC_ADM_CD , 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
 								</if>
 								)
-
 				</if>
 			</if>
 	</select>
