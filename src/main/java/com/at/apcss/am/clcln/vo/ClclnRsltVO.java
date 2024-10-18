@@ -64,6 +64,7 @@ public class ClclnRsltVO extends ComVO {
 	private String frmhsAddr;
 	private String ctpv;
 	private String ctpvNm;
+	private String frmhsCtpv;
 	private String plorCd;
 	private String ctrtArea;
 	private String ctrtAreaM;

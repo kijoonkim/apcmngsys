@@ -764,7 +764,7 @@
     	SBGridProperties.columns.push(
    			{
             	caption: ['지역','지역'],
-            	ref: 'frmhsCtpvNm',
+            	ref: 'frmhsCtpv',
             	width: '80px',
             	type: 'output', 
             	style: 'text-align:center'
@@ -829,6 +829,7 @@
                	ref: 'ctrtArea',
                	width: '60px',
                	type: 'output', 
+               	format : {type:'number', rule:'#,###'},
                	style: 'text-align:center'
    			},
    			{
@@ -836,6 +837,7 @@
                	ref: 'ctrtAreaM',
                	width: '60px',
                	type: 'output', 
+               	format : {type:'number', rule:'#,###'},
                	style: 'text-align:center'
    			},
    			{
@@ -843,6 +845,7 @@
                	ref: 'plntngArea',
                	width: '60px',
                	type: 'output', 
+               	format : {type:'number', rule:'#,###'},
                	style: 'text-align:center'
    			},
 		);
@@ -1365,13 +1368,19 @@
     	
 		const allData = grdClclnRslt.getGridDataAll();
 		
-    	for ( var i=2; i<=allData.length; i++ ){
+    	for ( var i=2; i<=allData.length+1; i++ ){
 			const rowData = grdClclnRslt.getRowData(i);
 			const rowSts = grdClclnRslt.getRowStatus(i);
 			
-			if (rowSts === 0 ) {
+			const isUpdatedYn = rowData.isUpdatedYn;
+			
+			console.log("isUpdatedYn", isUpdatedYn)
+			
+			if (rowSts === 0 && !_.isEqual(isUpdatedYn, "Y")) {
 				continue;
 			}
+			
+			
 			
 			const clclnRsltDtlList = [];
 			
@@ -1687,6 +1696,7 @@
   		    	jsonClclnRslt.length = 0;
   		    	
   				data.resultList.forEach((item, index) => {
+  					item.isUpdatedYn = "N";
   					jsonClclnRslt.push(item);
 				});
   				
@@ -1694,7 +1704,7 @@
   				grdClclnRslt.rebuild();
   	          	
 	        	document.querySelector('#cnt-clclnRslt').innerText = totalRecordCount;
-	        	
+	        	console.log(jsonClclnRslt)
 	        	
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -1913,6 +1923,8 @@
 			// 합산 호출
 			fn_setRowTotalAmt(nRow);
 			
+			rowData["isUpdatedYn"] = "Y";
+			
 			grdClclnRslt.refresh();
 		}
 		
@@ -1944,21 +1956,6 @@
 			+ advncAmt;
 		
 		rowData["giveAmt"] = giveAmt;
-	}
-	
-	/*
-	* @name fn_getPrdcrs
-	* @description 생산자 자동완성 목록 가져오기
-	*/
-	const fn_setClclnAmt = async function(_nRow, _type) {
-		
-		const rowData = grdClclnRslt.getRowData(_nRow, false);	// deep copy
-		
-		switch (_type) {
-		case _RSLT_KND__SEED_:
-		}
-		
-		
 	}
 	
 	/*
