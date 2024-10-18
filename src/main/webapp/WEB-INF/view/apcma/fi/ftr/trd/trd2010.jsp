@@ -109,13 +109,13 @@
                                 </div>
 							</td>
                             <th scope="row" class="th_bg">금융기관</th>
-                            <td class="td_input">
+                            <td class="td_input" data-group="SRCH_BANK_CS">
                                 <sbux-input id="SRCH_BANK_CS_CODE" class="form-control input-sm" uitype="text"></sbux-input>
                             </td>
-                            <td class="td_input">
+                            <td class="td_input" data-group="SRCH_BANK_CS">
                                 <sbux-input id="SRCH_BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -223,13 +223,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">금융기관</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="BANK_CS">
                                                 <sbux-input id="BANK_CS_CODE" class="form-control input-sm" uitype="text" readonly required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="BANK_CS">
                                                 <sbux-input id="BANK_CS_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="BANK_CS">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -240,13 +240,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">은행</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="BANK">
                                                 <sbux-input id="BANK_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="BANK">
                                                 <sbux-input id="BANK_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="BANK">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -309,13 +309,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">입금계좌</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="IN_DEPOSIT">
                                                 <sbux-input id="IN_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="IN_DEPOSIT">
                                                 <sbux-input id="IN_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="IN_DEPOSIT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -323,19 +323,19 @@
                                                         onclick="fn_findDepositCode('IN')"
                                                 ></sbux-button>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="IN_DEPOSIT">
                                                 <sbux-input id="IN_ACCOUNT_NUM" class="form-control input-sm" uitype="text" readonly></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">출금계좌</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="OUT_DEPOSIT">
                                                 <sbux-input id="OUT_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="OUT_DEPOSIT">
                                                 <sbux-input id="OUT_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="OUT_DEPOSIT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -343,7 +343,7 @@
                                                         onclick="fn_findDepositCode('OUT')"
                                                 ></sbux-button>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="OUT_DEPOSIT">
                                                 <sbux-input id="OUT_ACCOUNT_NUM" class="form-control input-sm" uitype="text" readonly></sbux-input>
                                             </td>
                                         </tr>

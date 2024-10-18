@@ -93,13 +93,13 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -108,10 +108,10 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">사원</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                         <sbux-input id="SITE_CODE2" uitype="text" placeholder="" class="form-control input-sm" style="display: none;" readonly></sbux-input>
                         <sbux-input id="DEPT_CODE2" uitype="text" placeholder="" class="form-control input-sm" style="display: none;" readonly></sbux-input>
@@ -120,7 +120,7 @@
                         <sbux-input id="DUTY_CODE2" uitype="text" placeholder="" class="form-control input-sm" style="display: none;" readonly></sbux-input>
                         <sbux-input id="JOB_RANK2" uitype="text" placeholder="" class="form-control input-sm" style="display: none;" readonly></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -129,13 +129,13 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">근태항목</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_TIME_ITEM">
                         <sbux-input id="SRCH_TIME_ITEM_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_TIME_ITEM">
                         <sbux-input id="SRCH_TIME_ITEM_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_TIME_ITEM">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -898,8 +898,15 @@
             , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
+                console.log(data);
                 SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
                 SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SITE_CODE2', data.SITE_CODE);
+                SBUxMethod.set('DEPT_CODE2', data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME2', data.DEPT_NAME);
+                SBUxMethod.set('POSITION_CODE2', data.POSITION_CODE);
+                SBUxMethod.set('DUTY_CODE2', data.DUTY_CODE);
+                SBUxMethod.set('JOB_RANK2', data.JOB_RANK);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})

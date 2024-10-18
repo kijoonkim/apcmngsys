@@ -124,13 +124,13 @@
                                 </td>
                                 <td colspan="2"></td>
                                 <th scope="row" class="th_bg">결의부서</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                     <sbux-input id="DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop" readonly></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                     <sbux-input id="DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop" readonly></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                     <sbux-button
                                             class="btn btn-xs btn-outline-dark"
                                             text="찾기" uitype="modal"
@@ -180,16 +180,16 @@
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">거래처</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="CS">
                                     <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_changeCsCode(this)" group-id="panWFTop"></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="CS">
                                     <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="CS">
                                     <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="CS">
                                     <sbux-button
                                             class="btn btn-xs btn-outline-dark"
                                             text="찾기" uitype="modal"
@@ -199,13 +199,13 @@
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                     <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm" onchange="fn_payTermCodeOnchange(PAY_TERM_CODE)" group-id="panWFTop"></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                     <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                     <sbux-button
                                             class="btn btn-xs btn-outline-dark"
                                             text="찾기" uitype="modal"
@@ -215,13 +215,13 @@
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">증빙번호</th>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
                                     <sbux-select id="VOUCHER_TYPE" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm" group-id="panWFTop"></sbux-select>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
                                     <sbux-input id="VOUCHER_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFTop"></sbux-input>
                                 </td>
-                                <td class="td_input" style="border-right:hidden;">
+                                <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
                                     <sbux-button
                                             class="btn btn-xs btn-outline-dark"
                                             text="확인" uitype="modal"
