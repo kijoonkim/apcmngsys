@@ -3338,7 +3338,7 @@
         let CAR_KIND = gfnma_nvl(SBUxMethod.get("CAR_KIND"));
         let CAR_NUM = gfnma_nvl(SBUxMethod.get("CAR_NUM"));
         let ARMY_TYPE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_TYPE'));
-        let ARMY_INDUSTRY_YN = gfnma_nvl(SBUxMethod.get("ARMY_INDUSTRY_YN"));
+        let ARMY_INDUSTRY_YN = gfnma_nvl(SBUxMethod.get("ARMY_INDUSTRY_YN").ARMY_INDUSTRY_YN);
         let ARMY_KIND = gfnma_nvl(gfnma_multiSelectGet('#ARMY_KIND'));
         let ARMY_PART = gfnma_nvl(gfnma_multiSelectGet('#ARMY_PART'));
         let ARMY_GRADE = gfnma_nvl(gfnma_multiSelectGet('#ARMY_GRADE'));
@@ -3419,7 +3419,7 @@
             V_P_CAR_KIND : CAR_KIND,
             V_P_CAR_NUM : CAR_NUM,
             V_P_ARMY_TYPE : ARMY_TYPE,
-            V_P_ARMY_INDUSTRY_YN : ARMY_INDUSTRY_YN.ARMY_INDUSTRY_YN,
+            V_P_ARMY_INDUSTRY_YN : ARMY_INDUSTRY_YN,
             V_P_ARMY_KIND : ARMY_KIND,
             V_P_ARMY_PART : ARMY_PART,
             V_P_ARMY_GRADE : ARMY_GRADE,
@@ -4236,7 +4236,7 @@
 
     const getParamForHri1000S23 = async function(strStatus, empCode) {
         let EMP_CODE = gfnma_nvl(SBUxMethod.get("EMP_CODE")) == '' ? empCode : gfnma_nvl(SBUxMethod.get("EMP_CODE"));
-        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN"));
+        let AGREE_YN = gfnma_nvl(SBUxMethod.get("AGREE_YN").AGREE_YN);
         let AGREE_DATE = gfnma_nvl(SBUxMethod.get("AGREE_DATE"));
 
         return {
@@ -4249,7 +4249,7 @@
                 V_P_COMP_CODE : gv_ma_selectedApcCd,
                 V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                 V_P_EMP_CODE : EMP_CODE,
-                V_P_AGREE_YN : AGREE_YN.AGREE_YN,
+                V_P_AGREE_YN : AGREE_YN,
                 V_P_AGREE_DATE : AGREE_DATE,
                 V_P_FORM_ID : p_formId,
                 V_P_MENU_ID : p_menuId,

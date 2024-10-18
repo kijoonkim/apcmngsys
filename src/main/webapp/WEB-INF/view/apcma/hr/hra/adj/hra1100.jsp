@@ -2043,15 +2043,15 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["총 급여액 초과"], ref: 'INC_FROM_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["총 급여액 초과"], ref: 'INC_FROM_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["총 급여액 이하"], ref: 'INC_TO_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["총 급여액 이하"], ref: 'INC_TO_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기본공제금액"], ref: 'BASE_DEAMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["기본공제금액"], ref: 'BASE_DEAMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["추가공제비율"], ref: 'DER', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["추가공제비율"], ref: 'DER', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###.00', emptyvalue:'0.0' }},
-            {caption: ["공제한도"], ref: 'DEDUCTION_LIMIT_EAMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["공제한도"], ref: 'DEDUCTION_LIMIT_EAMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '170px', style: 'text-align:left'},
         ];

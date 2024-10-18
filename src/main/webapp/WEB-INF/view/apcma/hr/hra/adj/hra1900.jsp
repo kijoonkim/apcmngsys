@@ -503,13 +503,13 @@
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["기부건수"], ref: 'DONATION_COUNT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ }, hidden : true},
-            {caption: ["기부금액"], ref: 'DONATION_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["기부금액"], ref: 'DONATION_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }, hidden : true},
-            {caption: ["총급여"], ref: 'INC_TOT_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["총급여"], ref: 'INC_TOT_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["결정세액"], ref: 'CALC_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["결정세액"], ref: 'CALC_INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["차감징수세액"], ref: 'INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["차감징수세액"], ref: 'INC_TX_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
         ];
 
@@ -550,9 +550,9 @@
             {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonMedCertificateCode', displayui : true, label : 'label', value : 'value'}, hidden : true
             },
-            {caption: ["건수"], ref: 'MED_COUNT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["건수"], ref: 'MED_COUNT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ }},
-            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
         ];
 
@@ -588,7 +588,7 @@
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["건수"], ref: 'DON_COUNT', type: 'output', width: '100px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' /*, rule:'#,###'*/ }},
-            {caption: ["금액"], ref: 'DON_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'DON_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#,###' }},
         ];
 

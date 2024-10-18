@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name        : hrp1000.jsp
+     * @Class Name        : hrw5100.jsp
      * @Description       : 국민연금 내역 관리 정보 화면
      * @author            : 인텔릭아이앤에스
      * @since             : 2024.06.27
@@ -94,14 +94,14 @@
                             <td style="border-right: hidden;"></td>
 
                             <th scope="row" class="th_bg">부서</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                                 <sbux-input
                                         uitype="text"
                                         id="DEPT_CODE"
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                                 <sbux-input
                                 <%-- uitype="hidden"--%>
                                         uitype="text"
@@ -109,7 +109,7 @@
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input">
+                            <td colspan="2" class="td_input" data-group="DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -119,14 +119,14 @@
                             </td>
 
                             <th scope="row" class="th_bg">사원</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="EMP">
                                 <sbux-input
                                         uitype="text"
                                         id="EMP_CODE"
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="EMP">
                                 <sbux-input
                                 <%-- uitype="hidden"--%>
                                         uitype="text"
@@ -134,7 +134,7 @@
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input">
+                            <td colspan="2" class="td_input" data-group="EMP">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -617,142 +617,47 @@
             {caption: ["성명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["부서코드"], ref: 'DEPT_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["부서명"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {
-                caption: ['보험년월'],
-                ref: 'INSURE_YYYYMM',
-                width: '100px',
-                type: 'datepicker',
-                style: 'text-align: center',
-                sortable: false,
-                format: {type: 'date', rule: 'yyyy-mm', origin: 'yyyymm'},
-                disabled: true,
-                hidden: true
-            },
-            {
-                caption: ["급여영역"],
-                ref: 'PAY_AREA_TYPE',
-                width: '100px',
-                style: 'text-align:center',
-                type: 'combo',
-                disabled: true,
+            {caption: ['보험년월'], ref: 'INSURE_YYYYMM', width: '100px', type: 'datepicker', style: 'text-align: center', sortable: false,
+                format: {type: 'date', rule: 'yyyy-mm', origin: 'yyyymm'}, disabled: true, hidden: true},
+            {caption: ["급여영역"], ref: 'PAY_AREA_TYPE', width: '100px', style: 'text-align:center', type: 'combo', disabled: true,
                 typeinfo: {ref: 'jsonPayAreaType', displayui: true, label: 'label', value: 'value'}
             },
             {caption: ["직위"], ref: 'POSITION_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
-            {
-                caption: ["기준소득월액"],
-                ref: 'BASE_INCOME_AMT',
-                type: 'output',
-                width: '120px',
-                style: 'text-align:left'
-                ,
-                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
-                format: {type: 'number', rule: '#,###'}
-            },
-            {
-                caption: ["월보험료(계)"],
-                ref: 'TOTAL_INSURE_AMT',
-                type: 'output',
-                width: '120px',
-                style: 'text-align:left'
-                ,
-                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
-                format: {type: 'number', rule: '#,###'}
-            },
-            {
-                caption: ["사용자부담금"],
-                ref: 'COMP_INSURE_AMT',
-                type: 'output',
-                width: '120px',
-                style: 'text-align:left'
-                ,
-                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
-                format: {type: 'number', rule: '#,###'}
-            },
-            {
-                caption: ["본인기여금"],
-                ref: 'EMP_INSURE_AMT',
-                type: 'output',
-                width: '120px',
-                style: 'text-align:left'
-                ,
-                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
-                format: {type: 'number', rule: '#,###'}
-            },
+            {caption: ["기준소득월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:right',
+                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number', rule: '#,###'}},
+            {caption: ["월보험료(계)"], ref: 'TOTAL_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right',
+                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number', rule: '#,###'}},
+            {caption: ["사용자부담금"], ref: 'COMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right',
+                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number', rule: '#,###'}},
+            {caption: ["본인기여금"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right',
+                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number', rule: '#,###'}},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
-            {
-                caption: ["데이터확인"], ref: 'DATA_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["데이터확인"], ref: 'DATA_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: {
                     ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }, disabled: true
             },
-            {
-                caption: ["급여반영"], ref: 'PAY_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["급여반영"], ref: 'PAY_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: {
                     ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }, disabled: true
             },
-            {
-                caption: ['급여월'],
-                ref: 'PAY_YYYYMM',
-                width: '100px',
-                type: 'datepicker',
-                style: 'text-align: center',
-                sortable: false,
-                format: {type: 'date', rule: 'yyyy-mm', origin: 'yyyymm'},
-                disabled: true
-            },
+            {caption: ['급여월'], ref: 'PAY_YYYYMM', width: '100px', type: 'datepicker', style: 'text-align: center', sortable: false,
+                format: {type: 'date', rule: 'yyyy-mm', origin: 'yyyymm'}, disabled: true},
             {caption: ["급여유형"], ref: 'PAY_TYPE', type: 'output', width: '100px', style: 'text-align:left'},
-            {
-                caption: ['급여일'],
-                ref: 'PAY_DATE',
-                width: '100px',
-                type: 'datepicker',
-                style: 'text-align: center',
-                sortable: false,
-                format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'},
-                disabled: true
-            },
-            {
-                caption: ["급여항목(직원)"],
-                ref: 'EMP_PAY_ITEM',
-                width: '100px',
-                style: 'text-align:center',
-                type: 'combo',
-                disabled: true,
-                typeinfo: {ref: 'jsonPayItem', displayui: true, label: 'label', value: 'value'}
-            },
-            {
-                caption: ["급여(직원)"],
-                ref: 'EMP_PAY_AMT',
-                type: 'output',
-                width: '120px',
-                style: 'text-align:left'
-                ,
-                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
-                format: {type: 'number', rule: '#,###'}
-            },
-            {
-                caption: ["급여항목(회사)"],
-                ref: 'COMP_PAY_ITEM',
-                width: '100px',
-                style: 'text-align:center',
-                type: 'combo',
-                disabled: true,
-                typeinfo: {ref: 'jsonPayItem', displayui: true, label: 'label', value: 'value'}
-            },
-            {
-                caption: ["급여(회사)"],
-                ref: 'COMP_PAY_AMT',
-                type: 'output',
-                width: '120px',
-                style: 'text-align:left'
-                ,
-                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/},
-                format: {type: 'number', rule: '#,###'}
-            }
+            {caption: ['급여일'], ref: 'PAY_DATE', width: '100px', type: 'datepicker', style: 'text-align: center', sortable: false,
+                format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}, disabled: true},
+            {caption: ["급여항목(직원)"], ref: 'EMP_PAY_ITEM', width: '100px', style: 'text-align:center', type: 'combo', disabled: true,
+                typeinfo: {ref: 'jsonPayItem', displayui: true, label: 'label', value: 'value'}},
+            {caption: ["급여(직원)"], ref: 'EMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right',
+                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number', rule: '#,###'}},
+            {caption: ["급여항목(회사)"], ref: 'COMP_PAY_ITEM', width: '100px', style: 'text-align:center', type: 'combo', disabled: true,
+                typeinfo: {ref: 'jsonPayItem', displayui: true, label: 'label', value: 'value'}},
+            {caption: ["급여(회사)"], ref: 'COMP_PAY_AMT', type: 'output', width: '120px', style: 'text-align:right',
+                typeinfo: {mask: {alias: 'numeric', unmaskvalue: false}/*, maxlength : 10*/}, format: {type: 'number', rule: '#,###'}}
 
         ];
 

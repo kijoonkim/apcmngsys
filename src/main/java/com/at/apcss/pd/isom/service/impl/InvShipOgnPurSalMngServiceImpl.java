@@ -22,7 +22,7 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Service("InvShipOgnPurSalMngService")
@@ -43,6 +43,20 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
 
 		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO);
 		return resultList;
 	}
 
@@ -71,26 +85,10 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	}
 
 	@Override
-	public int updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
-
-		int updatedCnt = InvShipOgnPurSalMngMapper.updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
-
-		return updatedCnt;
-	}
-
-	@Override
 	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
 		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
 			savedCnt += insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO);
-			/*
-			if(ComConstants.ROW_STS_INSERT.equals(InvShipOgnPurSalMngVO.getRowSts())) {
-				savedCnt += insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(InvShipOgnPurSalMngVO.getRowSts())) {
-				savedCnt += updateInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
-			}
-			*/
 		}
 		return savedCnt;
 	}

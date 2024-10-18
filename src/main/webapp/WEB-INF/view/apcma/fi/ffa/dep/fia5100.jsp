@@ -159,10 +159,10 @@
                         <tr>
                         	<th scope="row" class="th_bg">담당부서</th>
                         	<td class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-dspsTab-tckgDept1" name="srch-inp-dspsTab-tckgDept1" class="form-control input-sm" uitype="text" group-id="group1"></sbux-input>
+									<sbux-input id="srch-inp-tckgDept1" name="srch-inp-tckgDept1" class="form-control input-sm" uitype="text" group-id="group1"></sbux-input>
                             </td>
                             <td  class="td_input" style="border-right:hidden;">
-									<sbux-input id="srch-inp-dspsTab-tckgDept2" name="srch-inp-dspsTab-tckgDept2" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_tkcgDeptPopup('srch-inp-dspsTab-tkcgDept2')" group-id="group1"></sbux-input>
+									<sbux-input id="srch-inp-tckgDept2" name="srch-inp-tckgDept2" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_tckgDeptPopup('srch-inp-tckgDept2')" group-id="group1"></sbux-input>
                             </td>
                             <td></td>
                             <th scope="row" class="th_bg">담당자</th>
@@ -317,10 +317,10 @@
 		                        <tr>
 		                            <th scope="row" class="th_bg">담당부서</th>
 									<td  class="td_input" style="border-right:hidden;">
-										<sbux-input id="srch-inp-tkcgDept1" name="srch-inp-tkcgDept1" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="group2"></sbux-input>
+										<sbux-input id="srch-inp-tckgDept3" name="srch-inp-tckgDept3" class="form-control input-sm inpt_data_reqed" uitype="text" group-id="group2"></sbux-input>
 		                            </td>
 		                            <td class="td_input" style="border-right:hidden;">
-										<sbux-input id="srch-inp-tkcgDept2" name="srch-inp-tkcgDept2" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···"  button-back-event="fn_tkcgDeptPopup('srch-inp-tkcgDeptPopup')" group-id="group2"></sbux-input>
+										<sbux-input id="srch-inp-tckgDept4" name="srch-inp-tckgDept4" class="form-control input-sm inpt_data_reqed" uitype="search" button-back-text="···"  button-back-event="fn_tckgDeptPopup('srch-inp-tckgDept4')" group-id="group2"></sbux-input>
 		                            </td>
 									<td></td>
 
@@ -527,7 +527,7 @@
         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr");//회계기준, acct_rule_code
         let stopBgngYmd = SBUxMethod.get("srch-dtp-stopBgngYmd"); //중지시작년월
         let stopEndYmd = SBUxMethod.get("srch-dtp-stopEndYmd"); //중지종료년월
-        let tckgDept = SBUxMethod.get("srch-inp-tkcgDept1"); //담당부서
+        let tckgDept = SBUxMethod.get("srch-inp-tckgDept1"); //담당부서
         let pic = SBUxMethod.get("srch-inp-pic1"); //담당자
         let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");//중지처리일, holding_Date
         let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
@@ -599,7 +599,7 @@
          let stopBgngYmdTo = SBUxMethod.get("srch-dtp-stopBgngYmdTo"); //중지시작년월To
          let stopEndYmdFrom = SBUxMethod.get("srch-dtp-stopEndYmdFrom"); //중지종료년월From
          let stopEndYmdTo = SBUxMethod.get("srch-dtp-stopEndYmdTo"); //중지종료년월To
-         let tckgDept = SBUxMethod.get("srch-inp-tkcgDept1"); //담당부서
+         let tckgDept = SBUxMethod.get("srch-inp-tckgDept1"); //담당부서
          let pic = SBUxMethod.get("srch-inp-pic1"); //담당자
          let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");//중지처리일, holding_Date
          let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
@@ -694,17 +694,17 @@
      * 담당부서
      */
      //
-    var fn_tkcgDeptPopup = function(id) {
+    var fn_tckgDeptPopup = function(id) {
 
     	var cdId = "";
     	var nmId = "";
 
-    	if(id === "srch-inp-tkcgDeptPopup"){
-    		cdId = "srch-inp-tkcgDept1";
-    		nmId = "srch-inp-tkcgDept2";
-    	}else if (id === "srch-inp-dspsTab-tkcgDept2"){
-    		cdId = "srch-inp-dspsTab-tkcgDept1";
-    		nmId = "srch-inp-dspsTab-tkcgDept2";
+    	if(id === "srch-inp-tckgDept2"){
+    		cdId = "srch-inp-tckgDept1";
+    		nmId = "srch-inp-tckgDept2";
+    	}else if (id === "srch-inp-tckgDept4"){
+    		cdId = "srch-inp-tckgDept3";
+    		nmId = "srch-inp-tckgDept4";
     	}
 
         var searchCode 		= gfnma_nvl(SBUxMethod.get(cdId));
@@ -724,7 +724,7 @@
    			,searchCaptions			: ["부서코드", 				"부서명"]
    			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
-    		,searchInputTypes		: ["input", 			"input"]
+    		//,searchInputTypes		: ["input", 			"input"]
     		,height					: '400px'
    			,tableHeader			: ["부서코드", 	"부서명","부서장","부서장명"]
    			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME","DEPT_LEADER","DEPT_LEADER_NAME"]

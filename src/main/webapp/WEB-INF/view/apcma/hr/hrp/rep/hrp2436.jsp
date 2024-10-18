@@ -175,14 +175,14 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                             uitype="text"
                             id="srch-dept_code"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
@@ -200,14 +200,14 @@
                 </td>
 
                 <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
                             id="srch-emp_code"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
@@ -250,8 +250,7 @@
                             text="복수사원"
                             class="btn btn-sm btn-outline-danger"
                             onclick="fn_compopup4"
-                    >
-                    </sbux-button>
+                    ></sbux-button>
                 </td>
                 <th scope="row" class="th_bg">파일암호 적용여부</th>
                 <td class="td_input" style="border-right: hidden;">
@@ -671,13 +670,13 @@
             },
             {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["지급총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["지급총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["메일전송결과(급여명세)"], ref: 'MAIL_SEND_MSG', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["메일전송결과(근태현황)"], ref: 'MAIL_SEND_MSG1', type: 'output', width: '140px', style: 'text-align:left'}

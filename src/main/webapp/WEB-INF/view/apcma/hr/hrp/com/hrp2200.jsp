@@ -683,7 +683,7 @@
                 }
             },
             {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:left'
+            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
             {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},

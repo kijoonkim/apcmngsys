@@ -163,8 +163,8 @@
                 ,colValue		: 'SUB_CODE'
                 ,colLabel		: 'CODE_NAME'
                 ,columns		:[
-                    {caption: "SUB_CODE",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "CODE_NAME", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 집계기준

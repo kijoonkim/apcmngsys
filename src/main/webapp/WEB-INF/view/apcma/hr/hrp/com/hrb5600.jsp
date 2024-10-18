@@ -418,7 +418,7 @@
             {caption: ["직급명","적용코드명1"], ref: 'PAY_ITEM_RANGE_NAME1', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["명","적용코드2"], ref: 'PAY_ITEM_RANGE_CODE2', type: 'input', width: '200px', style: 'text-align:left'},
             {caption: ["명","적용코드명2"], ref: 'PAY_ITEM_RANGE_NAME2', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ["적용금액","적용금액"], ref: 'PAY_ITEM_RANGE_AMT', type: 'input', width: '200px', style: 'text-align:left'
+            {caption: ["적용금액","적용금액"], ref: 'PAY_ITEM_RANGE_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###'}},
             {caption: ["적용금액","비고"], ref: 'MEMO', type: 'input', width: '200px', style: 'text-align:left'}
         ];

@@ -159,14 +159,14 @@
             </tr>
             <tr>
                 <th scope="row" class="th_bg">부서</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                             uitype="text"
                             id="srch-dept_code"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
@@ -174,7 +174,7 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td <%--colspan="2"--%> class="td_input" >
+                <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -184,14 +184,14 @@
                 </td>
 
                 <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
                             id="srch-emp_code"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                     <%-- uitype="hidden"--%>
                             uitype="text"
@@ -199,7 +199,7 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td colspan="5" class="td_input" >
+                <td colspan="5" class="td_input" data-group="EMP">
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -521,13 +521,13 @@
             },
             {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ["지급총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["지급총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["비과세액"], ref: 'TAX_FREE_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["공제총액"], ref: 'PAY_DEDUCTION_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
 
@@ -578,9 +578,9 @@
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '170px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '250px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '250px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["비과세금액"], ref: 'TAX_FREE_AMT', type: 'output', width: '150px', style: 'text-align:left'
+            {caption: ["비과세금액"], ref: 'TAX_FREE_AMT', type: 'output', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
 
@@ -632,7 +632,7 @@
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode2', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: [""], ref: 'empty', type: 'output', width: '80px', style: 'text-align:left'}
         ];

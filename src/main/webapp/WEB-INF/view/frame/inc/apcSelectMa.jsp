@@ -26,7 +26,25 @@
 		var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 		var temp_jsonClientCode		= [];
 		gfnma_setComSelect(['gsb-slt-clntCd'], temp_jsonClientCode, 'L_CLIENT', '', '', '', 'CLIENT_CODE', 'CLIENT_NAME', 'Y', gv_ma_selectedClntCd);
-		
+
+		window.addEventListener('DOMContentLoaded', async function(event) {
+			$('[data-group]').find('input').on('keydown', function(e) {
+				var fieldGroup = $(this).closest('td').data('group');
+				var button = $('[data-group="' + fieldGroup + '"]').find('button');
+
+				if (e.key === 'Backspace' || e.key === 'Delete') {
+					$('[data-group="' + fieldGroup + '"]').find('input').each(function() {
+						var inputId = $(this).attr('id');
+						SBUxMethod.set(inputId, "");
+					});
+				}
+				if (e.key === 'Enter') {
+					e.preventDefault();
+					button.click();
+				}
+			});
+		});
+
 		/**
 		 * @name
 		 * @description

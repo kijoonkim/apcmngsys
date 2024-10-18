@@ -278,14 +278,14 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">거래처</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                                 <sbux-input
                                         uitype="text"
                                         id="CS_CODE"
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
                                 <sbux-input
                                        <%-- uitype="hidden"--%>
                                         uitype="text"
@@ -293,7 +293,7 @@
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input" >
+                            <td colspan="2" class="td_input" data-group="DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -302,14 +302,14 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">사원</th>
-                            <td class="td_input" style="border-right: hidden;">
+                            <td class="td_input" style="border-right: hidden;" data-group="EMP">
                                 <sbux-input
                                         uitype="text"
                                         id="EMP_CODE"
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
                                 <sbux-input
                                 <%-- uitype="hidden"--%>
                                         uitype="text"
@@ -317,7 +317,7 @@
                                         class="form-control input-sm"
                                 ></sbux-input>
                             </td>
-                            <td colspan="2" class="td_input" >
+                            <td colspan="2" class="td_input" data-group="EMP">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -654,9 +654,9 @@
             {caption: ["원가중심점명"], ref: 'CC_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["계정코드"], ref: 'ACC_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["계정명"], ref: 'ACC_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["차변금액"], ref: 'DEBIT_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["차변금액"], ref: 'DEBIT_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00' }},
-            {caption: ["대변금액"], ref: 'CREDIT_AMT', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["대변금액"], ref: 'CREDIT_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00' }},
             {caption: ["거래처"], ref: 'CS_NAME', type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["거래처코드"], ref: 'CS_CODE', type: 'output', width: '100px', style: 'text-align:left'},
@@ -673,7 +673,7 @@
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }, hidden: true
             },
-            {caption: ["소스번호"], ref: 'SOURCE_DOC', type: 'output', width: '120px', style: 'text-align:left'
+            {caption: ["소스번호"], ref: 'SOURCE_DOC', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number'}}
 
         ];

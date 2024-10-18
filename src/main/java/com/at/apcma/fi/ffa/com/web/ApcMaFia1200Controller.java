@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
@@ -40,6 +41,9 @@ public class ApcMaFia1200Controller extends BaseController {
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
 	
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
+    
 	// 감가상각률등록 조회
 	@PostMapping(value = "/fi/ffa/com/selectFia1200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectFia1200List(
@@ -66,28 +70,27 @@ public class ApcMaFia1200Controller extends BaseController {
 	}	
 	
 	// 감가상각률등록 신규
-	@PostMapping(value = "/fi/ffa/com/insertFia1200.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertFia1200(
-			@RequestBody Map<String, Object> param
-			,Model model
-			,HttpSession session
-			,HttpServletRequest request) throws Exception{
-		
-		logger.info("=============insertFia1200=====start========");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
-		try {
-			
-			param.put("procedure", 		"P_FIA1200_S");
-			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-			
-		} catch (Exception e) {
-			logger.debug(e.getMessage());
-			return getErrorResponseEntity(e);
-		}
-		
-		logger.info("=============insertFia1200=====end========");
-		return getSuccessResponseEntity(resultMap);
-	}	
+    @PostMapping(value = "/fi/fgl/com/saveFia1200List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> saveFia1200List(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============saveFia1200List=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIA1200_S");
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.getMessage());
+    		return getErrorResponseEntity(e);
+    	}
+    	
+    	logger.info("=============saveFia1200List=====end========");
+    	return getSuccessResponseEntityMa(resultMap);
+    } 	
 	
 }

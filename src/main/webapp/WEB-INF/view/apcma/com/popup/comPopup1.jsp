@@ -32,7 +32,7 @@
 								</td>
 								
 								<td class="td_input" style="text-align:right;" >
-									<div>
+									<div style="width:102px">
 										<button class="btn btn-sm btn-outline-danger cu-btn-sch-compopup1" style="min-width:40px" >조회</button>
 										<button class="btn btn-sm btn-outline-danger cu-btn-close-compopup1"  style="min-width:40px" >초기화</button>
 									</div>
@@ -114,6 +114,7 @@ function compopup1(options) {
 		//조회부분 
 		var acnt = 0;
 		var alen = settings.searchCaptions.length;
+		var isOod = (alen%2 == 1) ? true : false;	//홀수여부
 		var htma = '<tr>';
 		var htmc = ' name="_name_" ';
 	    for (var i = 0; i < alen; i++) {
@@ -153,6 +154,13 @@ function compopup1(options) {
 		} else {
 			$(modalId).find('.cu-search-div').show();
 		    $(modalId).find('.cu-search-area').html(htma);
+		}
+		
+		//조회조건 td colspan
+		if(alen>2){
+			if(isOod){
+				$(modalId).find('.cu-search-div').find('tr').last().find('td').attr('colspan', '3');
+			}
 		}
 		
 		//table column width

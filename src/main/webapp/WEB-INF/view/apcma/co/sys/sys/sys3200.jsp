@@ -141,7 +141,7 @@
                         <tr>
                             <th scope="row" class="th_bg">채번 ID</th>
                             <td class="td_input">
-                                <sbux-input id="NUMBERING_ID" class="form-control input-sm" uitype="text" required
+                                <sbux-input id="NUMBERING_ID" class="form-control input-sm inpt_data_reqed" uitype="text" required
                                             style="width:100%"></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">채번그룹</th>
@@ -174,7 +174,7 @@
                         <tr>
                             <th scope="row" class="th_bg">채 번 명</th>
                             <td colspan="3" class="td_input">
-                                <sbux-input id="NUMBERING_NAME" class="form-control input-sm" uitype="text" required
+                                <sbux-input id="NUMBERING_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" required
                                             style="width:100%"></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">채번길이</th>
@@ -183,7 +183,7 @@
                                         id="NUMBER_LENGTH"
                                         name="NUMBER_LENGTH"
                                         uitype="text"
-                                        class="form-control input-sm"
+                                        class="form-control input-sm inpt_data_reqed"
                                         mask="{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
                                         maxlength="10"
                                         style="width:100%"
@@ -426,7 +426,7 @@
                         <tr>
                             <th scope="row" class="th_bg">시작채번연번</th>
                             <td class="td_input">
-                                <sbux-input id="START_SERNO" class="form-control input-sm" uitype="text" required
+                                <sbux-input id="START_SERNO" class="form-control input-sm inpt_data_reqed" uitype="text" required
                                             style="width:100%"></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">고유일련번호</th>
@@ -783,7 +783,11 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                fn_setData();
+                if(jsonGvwInfoList.length > 0) {
+                    gvwInfoGrid.clickRow(1);
+                }
+
+                //fn_setData();
 
 
             } else {
@@ -805,14 +809,19 @@
 
         editType = "E";
 
-        let nRows = gvwInfoGrid.getRows();
-        if (nRows < 1) {
-            nRows = 1;
+        let nRow = gvwInfoGrid.getRows();
+        let nCol = gvwInfoGrid.getCol();
+
+        if (nCol == -1) {
+            return;
+        }
+        if (nRow < 1) {
+            return;
         }
 
-        let rowData = gvwInfoGrid.getRowData(1);
+        let rowData = gvwInfoGrid.getRowData(nRow);
 
-        if (!_.isEmpty(rowData)) {
+        if (_.isEmpty(rowData) == false) {
 
             SBUxMethod.set("NUMBERING_ID", rowData.NUMBERING_ID);
             SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
@@ -988,9 +997,10 @@
         /*SBGridProperties.rowheaderwidth = {seq: '60'};*/
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["채번 정보"], ref: 'NUMBER_PREFIX', type: 'input', width: '150px', style: 'text-align:left'},
-            {caption: ["마지막 채번 번호"], ref: 'LAST_SERNO', type: 'input', width: '200px', style: 'text-align:left'
+            {caption: ["채번 정보"], ref: 'NUMBER_PREFIX', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["마지막 채번 번호"], ref: 'LAST_SERNO', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  /*format : {type:'number', rule:'#,###'}*/},
+            {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left', disabled: true}//스타일상 빈값
 
         ];
 
@@ -1005,7 +1015,7 @@
 
         let nCol = gvwInfoGrid.getCol();
         //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
+        if (nCol == -1) {
             return;
         }
         let nRow = gvwInfoGrid.getRow();

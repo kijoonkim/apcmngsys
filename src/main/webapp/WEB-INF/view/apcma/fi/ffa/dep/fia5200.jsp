@@ -37,8 +37,8 @@
                     </h3><!-- 자산정산내역 -->
                 </div>
                 <div style="margin-left: auto;">
-                	<sbux-button id="btnDprcRkng" name="btnDprcRkng" 	uitype="normal" text="감가상각계산" class="btn btn-sm btn-outline-danger" onclick="fn_btnDprcrkng"></sbux-button>
-                    <sbux-button id="btnDprcRtrcn" name="btnDprcRtrcn" 	uitype="normal" text="감가상각취소" class="btn btn-sm btn-outline-danger" onclick="fn_btnDprcRtrcn"></sbux-button>
+                	<sbux-button id="btnDprcRkng" name="btnDprcRkng" 	uitype="normal" text="감가상각계산" class="btn btn-sm btn-outline-danger" onclick="fn_calculationClick"></sbux-button>
+                    <sbux-button id="btnDprcRtrcn" name="btnDprcRtrcn" 	uitype="normal" text="감가상각취소" class="btn btn-sm btn-outline-danger" onclick="fn_calculationCancleClick"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -66,7 +66,7 @@
                         <tr>
                             <th scope="row" class="th_bg">법인</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-compCode" name="srch-slt-compCode" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="search1" ></sbux-select>
+									<sbux-select id="srch-slt-compCode1" name="srch-slt-compCode1" class="form-control input-sm" uitype="single" jsondata-ref="jsonCorp" group-id="search1" ></sbux-select>
                             </td>
                             <td></td>
 
@@ -224,7 +224,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-siteCode']
@@ -298,7 +298,7 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
         	{
-        		caption: ["<input type='checkbox' id='allCheckbox' onchange='fn_checkAll(this);'>"], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
+        		caption: ["<input type='checkbox' id='allCheckbox' onchange='fn_checkAll(this);'>"], 			ref: 'checkYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
 					typeinfo: {
 						ignoreupdate : true,
 						fixedcellcheckbox : {
@@ -310,16 +310,16 @@
 						uncheckedvalue : 'N'
 					}
         	},
-            {caption: ["연번"],		ref: 'clclnNo', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업단위"], 	ref: 'bizUnit',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],  		ref: 'bplc',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["확정여부"],    	ref: 'cmptnYn', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전표ID"],		ref: 'slipId',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["데이터건수"], 		ref: 'dataNocs', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["최종실행회수"], 		ref: 'lastExcnNmtm',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["처리자"], 	ref: 'prcsPrsn', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처리PC"], 		ref: 'prcsPc', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 		ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["연번"],		ref: 'seq', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업단위"], 	ref: 'fiOrgCode',    	type : 'combo', typeinfo : {ref:'jsonBizUnit', label:'label', value:'value', oneclickedit: true},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],  		ref: 'siteCode',    			type : 'combo', typeinfo : {ref:'jsonBplc', label:'label', value:'value', oneclickedit: true},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["확정여부"],    	ref: 'confirmFlag', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표ID"],		ref: 'docId',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["데이터건수"], 		ref: 'recordCount', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["최종실행회수"], 		ref: 'lastRunCount',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["처리자"], 	ref: 'insertUserId', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처리PC"], 		ref: 'insertPc', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
 
         ];
 
@@ -337,14 +337,15 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["연번"],			ref: 'sn', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업단위"],  	ref: 'bizUnit',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],      	ref: 'biz', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["처리자"],			ref: 'astNo',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["시작시간"], 			ref: 'astNm', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["종료시간"], 		ref: 'clclnAmt',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["수행시간(초)"], 		ref: 'acqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처리PC"], 		ref: 'lgcClclnAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["연번"],			ref: 'runCount', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업단위"],  	ref: 'fiOrgCode',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],      	ref: 'siteCode', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["처리자"],			ref: 'insertUserid',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["시작시간"], 			ref: 'actionStartTime', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["종료시간"], 		ref: 'actionEndTime',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["수행시간(초)"], 		ref: 'actionRunTime', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처리PC"], 		ref: 'insertPc', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 		ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
         ];
 
         grdDprcHstry = _SBGrid.create(SBGridProperties);
@@ -411,25 +412,15 @@
 	        	  //info, log에 따라서 그리드에 데이터 넣어주는듯
 	        	   if (strWorkType == "LOG"){
 	        		   //grdDprcHstry
-	        		   data.cv_1.forEach((item, index) => {
-	        			   msg = {
-
-		  	  					}
-	        			   jsonDprcHstry.push(msg);
-	        		   })
-
-	        		   grdDprcHstry.rebuild();
+        			   var msg = convertArrayToCamelCase(data.cv_1)
+        			   jsonDprcHstry = msg;
+        			   grdDprcHstry.rebuild();
 	               }
 	               else if (strWorkType == "INFO"){
 	            	   //grdAstClsfList
-	                   data.cv_1.forEach((item, index) => {
-	        			   msg = {
-
-		  	  					}
-	        			   jsonAstClsfList.push(msg);
-	        		   })
-
-	                   grdAstClsfList.rebuild();
+	            	   var msg = convertArrayToCamelCase(data.cv_1)
+        			   jsonAstClsfList = msg;
+        			   grdAstClsfList.rebuild();
 	               }
 	          } else {
 	              alert(data.resultMessage);
@@ -463,7 +454,7 @@
       // 자산분류리스 체크열 값이 y인 경우 site_code 값에 따라 fnSET_P_FIA5200_S(조회,회계기준과 지역코드를 기준으로 조회)
 		 // cbodepreciation_type : 감가상각기준
          data.forEach(item => {
-        	 if(item.checkedYn === "Y"){
+        	 if(item.checkYn === "Y"){
         			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
      			intmax_seq = intmax_seq + 1;
      			bresult = false;
@@ -639,12 +630,20 @@
 
 
 
+     /** camelCase FN **/
+     function toCamelCase(snakeStr) {
+         return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+     }
 
-
-
-
-
-
+     function convertArrayToCamelCase(array) {
+         return array.map(obj => {
+             return Object.keys(obj).reduce((acc, key) => {
+                 const camelKey = toCamelCase(key);
+                 acc[camelKey] = obj[key];
+                 return acc;
+             }, {});
+         });
+     }
 
 
 

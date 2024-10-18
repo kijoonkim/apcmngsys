@@ -1884,14 +1884,14 @@
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">지급은행</th>
-                                    <td class="td_input" style="border-right: hidden;">
+                                    <td class="td_input" style="border-right: hidden;" data-group="BANK">
                                         <sbux-input
                                                 uitype="text"
                                                 id="BANK_CODE"
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right: hidden;">
+                                    <td class="td_input" style="border-right: hidden;" data-group="BANK">
                                         <sbux-input
                                         <%-- uitype="hidden"--%>
                                                 uitype="text"
@@ -1899,7 +1899,7 @@
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td <%--colspan="2"--%> class="td_input" >
+                                    <td <%--colspan="2"--%> class="td_input" data-group="BANK">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -2103,14 +2103,14 @@
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">거래처</th>
-                                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="CS">
                                         <sbux-input
                                                 uitype="text"
                                                 id="CS_CODE"
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right: hidden;">
+                                    <td class="td_input" style="border-right: hidden;" data-group="CS">
                                         <sbux-input
                                         <%-- uitype="hidden"--%>
                                                 uitype="text"
@@ -2118,7 +2118,7 @@
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td colspan="2" <%--colspan="2"--%> class="td_input" >
+                                    <td colspan="2" <%--colspan="2"--%> class="td_input" data-group="CS">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -2153,7 +2153,7 @@
                             </ul>
                         </div>
                         <div>
-                            <div id="sb-area-gvwInfo" style="height:200px; width:100%;"></div>
+                            <div id="sb-area-gvwInfo" style="height:530px; width:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -2614,19 +2614,19 @@
             },
             {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
-            {caption: ["기본급"], ref: 'BASE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["기본급"], ref: 'BASE_PAY_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###',  emptyvalue:'0'}},
-            {caption: ["수당"], ref: 'ALLOWANCE_AMT', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["수당"], ref: 'ALLOWANCE_AMT', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '100px', style: 'text-align:left'
+            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'ST_DAT', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['적용종료일'], ref: 'END_DAT', width:'100px',	type: 'datepicker', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["급여금액"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:left', hidden : true
+            {caption: ["급여금액"], ref: 'PAY_AMT', type: 'output', width: '100px', style: 'text-align:right', hidden : true
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용일수"], ref: 'APPLY_DAYS', type: 'output', width: '100px', style: 'text-align:left'
+            {caption: ["적용일수"], ref: 'APPLY_DAYS', type: 'output', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
         ];
 
@@ -2662,9 +2662,9 @@
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonPayItemCode', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '140px', style: 'text-align:left'
+            {caption: ["적용금액"], ref: 'APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
         ];
 
@@ -2705,12 +2705,12 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 2},  format : { type:'number' , rule:'#' }},
             {caption: ["일"], ref: 'DD_CNT', type: 'output', width: '140px', style: 'text-align:left'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 2},  format : { type:'number' , rule:'#' }},
-            {caption: ["근무일수"], ref: 'DD_TOT_CNT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["근무일수"], ref: 'DD_TOT_CNT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' , emptyvalue:'0'}},
-            {caption: ["지급배수"], ref: 'PAY_MULTIPLE_NUMBER', type: 'input', width: '140px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###.0', emptyvalue:'0.0' }},
-            {caption: ["환산개월수"], ref: 'CHG_MM_CNT', type: 'output', width: '140px', style: 'text-align:left'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###.00000', emptyvalue:'0.00000' }},
+            {caption: ["지급배수"], ref: 'PAY_MULTIPLE_NUMBER', type: 'input', width: '140px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.0', emptyvalue:'0.0' }},
+            {caption: ["환산개월수"], ref: 'CHG_MM_CNT', type: 'output', width: '140px', style: 'text-align:right'
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00000', emptyvalue:'0.00000' }},
 
         ];
 
@@ -2733,7 +2733,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption: ["순    번"], ref: 'POSTING_SEQ', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["순    번"], ref: 'POSTING_SEQ', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 4*/},  format : { type:'number' , rule:'#' }},
             {caption: ["회계단위"], ref: 'FI_ORG_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["회계단위명"], ref: 'FI_ORG_NAME', type: 'output', width: '100px', style: 'text-align:left'},
@@ -2746,9 +2746,9 @@
             {caption : ["통화"], ref : 'CURRENCY_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonCurrencyCode', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["차변금액"], ref: 'DEBIT_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["차변금액"], ref: 'DEBIT_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
-            {caption: ["대변금액"], ref: 'CREDIT_AMT', type: 'output', width: '140px', style: 'text-align:left'
+            {caption: ["대변금액"], ref: 'CREDIT_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' }},
             {caption: ["거래처"], ref: 'CS_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["사원코드"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
@@ -2775,10 +2775,24 @@
     const fn_btnAdd1 = function() {
         let rowVal = gvwPayGrid.getRow();
 
+        const msg = {
+            PEAK_YN                : '',
+            PAY_YYYYMM             : '',
+            BASE_PAY_AMT           : 0,
+            ALLOWANCE_AMT          : 0,
+            APPLY_AMT              : 0,
+            ST_DAT                 : '',
+            END_DAT                : '',
+            PAY_AMT                : 0,
+            APPLY_DAYS             : '',
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwPayGrid.addRow(true);
+            gvwPayGrid.addRow(true, msg);
         }else{
-            gvwPayGrid.insertRow(rowVal);
+            gvwPayGrid.insertRow(rowVal, 'below', msg);
         }
     }
 
@@ -2914,10 +2928,21 @@
 
         let rowVal = gvwBonusGrid.getRow();
 
+        const msg = {
+            PEAK_YN                : '',
+            PAY_YYYYMM             : '',
+            PAY_DATE               : '',
+            PAY_ITEM_CODE          : '',
+            PAY_AMT                : 0,
+            APPLY_AMT              : 0,
+
+            status: 'i'
+        }
+
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwBonusGrid.addRow(true);
+            gvwBonusGrid.addRow(true, msg);
         }else{
-            gvwBonusGrid.insertRow(rowVal);
+            gvwBonusGrid.insertRow(rowVal, 'below', msg);
 
         }
     }
@@ -3047,6 +3072,21 @@
     // 행 추가( 임금 환산 년수 리스트 )
     const fn_btnAdd3 = function() {
         let rowVal = gvwChangeGrid.getRow();
+
+        const msg = {
+            PEAK_YN                : '',
+            POSITION_CODE          : '',
+            ST_DAT                 : '',
+            END_DAT                : '',
+            YY_CNT                 : '',
+            MM_CNT                 : '',
+            DD_CNT                 : '',
+            DD_TOT_CNT             : 0,
+            PAY_MULTIPLE_NUMBER    : 0,
+            CHG_MM_CNT             : 0,
+
+            status: 'i'
+        }
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
             gvwChangeGrid.addRow(true);

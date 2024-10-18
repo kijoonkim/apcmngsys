@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
 import com.at.apcss.am.clcln.vo.ClclnMngVO;
-import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
 
 /**
  * 정산기준 Service 인터페이스
@@ -55,6 +54,14 @@ public interface ClclnCrtrService {
 	 * @throws Exception
 	 */
 	public List<ClclnCrtrVO> selectClclnCrtrDtlList(ClclnCrtrVO clclnCrtrVO) throws Exception;
+	
+	/**
+	 * 정산기준 상세 조회 (사용중)
+	 * @param clclnCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ClclnCrtrVO> selectCrtrDtlListInUse(ClclnCrtrVO clclnCrtrVO) throws Exception;
 	
 	/**
 	 * 정산기준 등록

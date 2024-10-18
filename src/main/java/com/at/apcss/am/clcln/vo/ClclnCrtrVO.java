@@ -33,7 +33,7 @@ public class ClclnCrtrVO extends ComVO {
 	private double crtrVl;
 	private int indctSeq;
 	private String useYn;
-	private int crtrSeq;
+
 	private String crtrUseYn;
 	private String clclnDtlType ;
 	private int dtlSn;
@@ -44,7 +44,14 @@ public class ClclnCrtrVO extends ComVO {
 	private String crtrDtlUseYn;
 	private String dtlLnkgCd;
 	private String crtrRmrk;
+	
+	private String seq;
+	private String dtlItemCd;
+	private String dtlItemNm;
+	
+	private int crtrSeq;
 	private int crtrDtlSeq;
+	private int crtrDtlItemSeq;
 	
 	private int maxDtlSn;
 	

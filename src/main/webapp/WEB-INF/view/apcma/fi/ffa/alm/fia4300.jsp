@@ -46,7 +46,7 @@
             <div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<div style="display:none">
+				<div >
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				</div>
 				<!--[APC] END -->
@@ -892,7 +892,7 @@
             {caption: ["매각(폐기)손익"], 	ref: 'saleDscdLsPrft', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["통화"], 			ref: 'currency', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["환율"], 			ref: 'exchRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 			ref: 'rmrk', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비고"], 			ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["처분비용"], 		ref: 'dspsCst', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["처분비용부가세"], 	ref: 'dspsCstVat', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["비용거래처"], 		ref: 'cstCnpt', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -979,24 +979,9 @@
   			if (_.isEqual("S", data.resultStatus)) {
 
   				jsonAstDsps.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonAstDsps.push(msg);
-  				});
-
+	        	var msg = convertArrayToCamelCase(data.cv_1)
+    			jsonAstDsps = msg;
   	        	grdAstDsps.rebuild();
-
         	} else {
           		alert(data.resultMessage);
         	}
@@ -2595,6 +2580,21 @@
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
   	}
+
+    /** camelCase FN **/
+    function toCamelCase(snakeStr) {
+        return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    function convertArrayToCamelCase(array) {
+        return array.map(obj => {
+            return Object.keys(obj).reduce((acc, key) => {
+                const camelKey = toCamelCase(key);
+                acc[camelKey] = obj[key];
+                return acc;
+            }, {});
+        });
+    }
 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
