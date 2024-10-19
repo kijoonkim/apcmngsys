@@ -36,11 +36,6 @@
             -webkit-appearance: none;
             margin: 0;
         }
-        table[id="panRightHeader"] td{
-            text-align: center;
-            border: solid 1px blue;
-            padding: 5px;
-        }
         .th_bg{
             text-align: center;
             padding: 12px;
@@ -183,9 +178,9 @@
                                     </sbux-datepicker>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">수정신고사유</th>
+                                <th scope="row" class="th_bg">경정(결정)청구이유</th>
                                 <td colspan="4">
-                                    <sbux-input id="REASON_AMENDED_TAX" name="REASON_AMENDED_TAX" uitype="text" class="form-control input-sm" style="width: 100%;height: 100%"></sbux-input>
+                                    <sbux-input id="REASON_SUPPLEMENT" name="REASON_SUPPLEMENT" uitype="text" class="form-control input-sm" style="width: 100%;height: 100%"></sbux-input>
                                 </td>
                             </tr>
                             </tbody>
@@ -200,18 +195,18 @@
                             <tr>
                                 <th scope="row" class="th_bg">구&emsp;&emsp;&emsp;&emsp;분</th>
                                 <th scope="row" class="th_bg">최&emsp;초&emsp;신&emsp;고</th>
-                                <th scope="row" class="th_bg">수&emsp;정&emsp;신&emsp;고</th>
+                                <th scope="row" class="th_bg">경정(결정)&emsp;청구</th>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">과&emsp;세&emsp;표&emsp;준</th>
                                 <td>
-                                    <sbux-input id="AR_SUM_VAT_AMT" name="AR_SUM_VAT_AMT" uitype="text"
+                                    <sbux-input id="AR_SUM_AMT" name="AR_SUM_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="TAX_BASE_AMD_TAX_AMT" name="TAX_BASE_AMD_TAX_AMT" uitype="text"
+                                    <sbux-input id="TAX_BASE_SUPPL_AMT" name="TAX_BASE_SUPPL_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -226,7 +221,7 @@
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="VAT_AMENDED_TAX_AMT" name="VAT_AMENDED_TAX_AMT" uitype="text"
+                                    <sbux-input id="SUPPLEMENT_VAT_AMT" name="SUPPLEMENT_VAT_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -241,7 +236,7 @@
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="ADD_AMD_VAT_AMT" name="ADD_AMD_VAT_AMT" uitype="text"
+                                    <sbux-input id="ADD_SUPPL_VAT_AMT" name="ADD_SUPPL_VAT_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -256,7 +251,7 @@
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="DED_AMD_VAT_AMT" name="DED_AMD_VAT_AMT" uitype="text"
+                                    <sbux-input id="DED_SUPPL_VAT_AMT" name="DED_SUPPL_VAT_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -271,52 +266,64 @@
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="PAY_AMD_VAT_AMT" name="PAY_AMD_VAT_AMT" uitype="text"
+                                    <sbux-input id="PAY_SUPPL_VAT_AMT" name="PAY_SUPPL_VAT_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">기납부&emsp;세액</th>
+                                <th rowspan="2" scope="row" class="th_bg" style="padding: 0px 12px !important;">국세환급금&emsp;계좌신고</th>
                                 <td>
-                                    <sbux-input id="BEFORE_PAYMENT_TAX_VAT_AMT" name="BEFORE_PAYMENT_TAX_VAT_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
+                                    <div style="display: flex">
+                                        <div style="width: 80px; text-align: center; background-color: #e8f1f9">
+                                            거래은행
+                                        </div>
+                                        <div style="flex: 1">
+                                            <sbux-input id="BANK_NAME" name="BANK_NAME" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
-                                    <sbux-input id="BEFORE_PAY_AMD_VAT_AMT" name="BEFORE_PAY_AMD_VAT_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
+                                    <div style="display: flex">
+                                        <div style="flex: 1">
+                                            <sbux-input id="BRANCH_NAME" name="BRANCH_NAME" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </div>
+                                        <div style="width: 80px; text-align: center; background-color: #e8f1f9">
+                                            지점
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">자진납부&emsp;세액</th>
-                                <td>
-                                    <sbux-input id="VOLUNTARY_PAYMENT_TAX_VAT_AMT" name="VOLUNTARY_PAYMENT_TAX_VAT_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
-                                </td>
-                                <td>
-                                    <sbux-input id="VOLUNTARY_PAY_AMD_VAT_AMT" name="VOLUNTARY_PAY_AMD_VAT_AMT" uitype="text"
-                                                class="tpgTd" init="0" readonly
-                                                mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
-                                    </sbux-input>
+                                <td colspan="2">
+                                    <div style="display: flex;">
+                                        <div style="width: 80px; text-align: center; background-color: #e8f1f9">계좌번호</div>
+                                        <div style="flex: 1">
+                                            <sbux-input id="BANK_ACCOUNT" name="BANK_ACCOUNT" uitype="text"
+                                                        class="tpgTd" init="0" readonly
+                                                        mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
+                                            </sbux-input>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row" class="th_bg">추가자진납부&emsp;세액</th>
+                                <th scope="row" class="th_bg">환급받을&emsp;세액</th>
                                 <td>
-                                    <sbux-input id="ADD_VOLUNTARY_PAYMENT_TAX_VAT_AMT" name="ADD_VOLUNTARY_PAYMENT_TAX_VAT_AMT" uitype="text"
+                                    <sbux-input id="SUM_TOTAL1" name="SUM_TOTAL1" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="ADD_VOLUNTARY_PAY_AMD_VAT_AMT" name="ADD_VOLUNTARY_PAY_AMD_VAT_AMT" uitype="text"
+                                    <sbux-input id="REFUND_SUPPL_VAT_AMT" name="REFUND_SUPPL_VAT_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -432,7 +439,6 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,"첫번쨰");
         if(data.resultStatus === 'S') {
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
@@ -447,12 +453,9 @@
                     params: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
-                console.log(data,"두번쨰");
 
                 if (data.resultStatus === 'S') {
                     let header = data.cv_2[0];
-                    jsonGrdDetail = data.cv_3;
-                    grdDetailGrid.rebuild();
                     for (let key in header ) {
                         $(`#${'${key}'}`).val(header[key]);
                     }
@@ -565,7 +568,6 @@
             params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,"두번쨰");
 
         if (data.resultStatus === 'S') {
             let header = data.cv_2[0];
