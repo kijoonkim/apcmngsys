@@ -203,7 +203,6 @@
     /** 법인 select **/
     jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
     jsonReasonCodeData = await gfnma_getComList('L_FIT025','',gv_ma_selectedApcCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
-    console.log(jsonReasonCodeData,"데이터그자체");
     jsonReasonCode = jsonReasonCodeData.cv_1;
     SBUxMethod.refresh('srch-slt-corpNm');
     SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedApcCd);
@@ -304,7 +303,6 @@
           params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,"두번쨰");
 
         if (data.resultStatus === 'S') {
           let SUBMIS_REASON_CODE = data.cv_2[0];

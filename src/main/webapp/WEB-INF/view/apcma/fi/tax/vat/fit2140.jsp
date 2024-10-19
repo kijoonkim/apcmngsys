@@ -393,8 +393,6 @@
 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-        console.log(paramObj,"신용카드는왜되는데 ㅡㅡ");
-        return;
 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2140.do", {
             getType				: 'json',
