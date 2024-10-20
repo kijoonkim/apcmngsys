@@ -556,7 +556,7 @@
         try {
   			if (_.isEqual("S", data.resultStatus)) {
   				console.log(data);
-  				jsonDclrList.length = 0;
+
   				// 파일생성 정보 바인딩
   				if(workType === "INFO"){
   				 	let fileData = data.cv_1;
@@ -572,7 +572,7 @@
 
 
   				}else if(workType === "LIST"){
-
+  					jsonDclrList.length = 0;
   					jsonDclrList = convertArrayToCamelCase(data.cv_1);
   					grdDclrList.rebuild();
 
@@ -698,12 +698,12 @@
          			,V_P_LANG_ID		: ''
          			,V_P_COMP_CODE		: gv_ma_selectedApcCd
          			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-         			 V_P_PAY_YYYYMM       : ''
+         			, V_P_PAY_YYYYMM       : ''
          			, V_P_PAY_TYPE_GROUP   : ''
          			, V_P_PAY_DATE         : ''
          			, V_P_FBS_SERVICE      : ''
-         			, V_P_FBS_WORK_TYPE    : ''  --FBSBANKTXN
-         			, V_P_BANK_CODE        : ''  --FBSBANKTXN
+         			, V_P_FBS_WORK_TYPE    : ''  //--FBSBANKTXN
+         			, V_P_BANK_CODE        : ''  //--FBSBANKTXN
          			, V_P_PASSWORD         : ''
          			, V_P_DEPOSIT_CODE     : ''
          			, V_P_ACTUAL_PAY_DATE  : ''
@@ -714,7 +714,7 @@
          			, V_P_ARR_BANK_CODE    : ''
          			, V_P_ARR_AMT          : ''
          			, V_P_PROCESS_YN       : ''
-         			, V_P_INTERFACEID      : '': ''
+         			, V_P_INTERFACEID      : ''
          			,V_P_FORM_ID		: p_formId
          			,V_P_MENU_ID		: p_menuId
          			,V_P_PROC_ID		: ''

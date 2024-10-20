@@ -37,16 +37,16 @@
                     </h3><!-- 매각/폐기내역 등록  -->
                 </div>
                 <div style="margin-left: auto;">
-                    <sbux-button id="btnCreateAccount" name="btnCreateAccount" 	uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger" onclick="btnAccount_Click"></sbux-button>
-                    <sbux-button id="btnCancelAccount" name="btnCancelAccount" 	uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger" onclick="btnCancel_Click"></sbux-button>
-                    <sbux-button id="btnDisposalSearch" name="btnDisposalSearch" 	uitype="normal" text="처분 전표 조회" class="btn btn-sm btn-outline-danger" onclick="btnDisposal_Click"></sbux-button>
+                    <sbux-button id="btnCreateAccount" name="btnCreateAccount" 	uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger" onclick="btnAccountClick"></sbux-button>
+                    <sbux-button id="btnCancelAccount" name="btnCancelAccount" 	uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger" onclick="btnCancelClick"></sbux-button>
+                    <sbux-button id="btnDisposalSearch" name="btnDisposalSearch" 	uitype="normal" text="처분 전표 조회" class="btn btn-sm btn-outline-danger" onclick="btnDisposalClick"></sbux-button>
                     <sbux-button id="btnExpenseSearch" name="btnExpenseSearch" 	uitype="normal" text="비용 전표 조회" class="btn btn-sm btn-outline-danger" onclick="fn_expenseSearch"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
-				<div >
+				<div style="display:none">
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				</div>
 				<!--[APC] END -->
@@ -237,7 +237,15 @@
 		                        <tr>
 		                            <th scope="row" class="th_bg">처분유형</th>
 		                            <td  class="td_input" style="border-right:hidden;">
-											<sbux-select id="srch-slt-disposalType" name="srch-slt-disposalType" class="form-control input-sm inpt_data_reqed" uitype="single" jsondata-ref="jsonDspsUnit"  group-id="ast1"></sbux-input>
+											<sbux-select
+												id="srch-ast-disposalType"
+												name="srch-ast-disposalType"
+												class="form-control input-sm inpt_data_reqed"
+												uitype="single"
+												jsondata-ref="jsonDspsUnit"
+												group-id="ast1"
+												onchange="fn_cbodisposalTypeEditValueChanged(srch-slt-disposalType)"
+												></sbux-input>
 		                            </td>
 
 		                            <th scope="row" class="th_bg">처분일</th>
@@ -632,7 +640,7 @@
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-
+			saveClick();
 		}
     }
 
@@ -754,7 +762,7 @@
 				]
 			}),
 			//처분유형
-			gfnma_setComSelect(['srch-slt-disposalType'], jsonDspsUnit, 'L_FIA009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-disposalType','srch-ast-disposalType'], jsonDspsUnit, 'L_FIA009', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//gfnma_setComSelect(['srch-slt-dspsTab-currency'], jsonCurrency, 'L_FIF045', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//회계단위
 			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonAcntgUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
@@ -828,6 +836,11 @@
 		SBUxMethod.refresh('srch-slt-acctRuleCode');
 		SBUxMethod.set("srch-dtp-disposalDateFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-disposalDateTo", gfn_dateLastYmd(new Date()));
+
+
+		//초기값 IFRS
+		SBUxMethod.set("srch-slt-acctRuleCodeP","2");
+		SBUxMethod.set("srch-slt-acctRuleCode","2")
 	}
 
     // only document
@@ -874,41 +887,40 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["처분일"],			ref: 'dspsYmd', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["처분유형"], 		ref: 'dspsType',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["거래처"],  			ref: 'cnpt',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부가세율"],      	ref: 'vatRt', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["매각금액"],			ref: 'ntslAmt',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["환산금액"], 		ref: 'cnvrsAmt', 				type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부가세"], 			ref: 'vat',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["금액합계"], 		ref: 'amtTot', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["취득가액"], 		ref: 'acqsAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["국고보조금"], 		ref: 'ntAsstncAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["감가상각비"], 		ref: 'dprcAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["국고보조금상각비"],ref: 'ntAsstncDprcAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["감가상각누계액"], 	ref: 'dprcAtAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["국고보조금상각누계액"], 		ref: 'ntAsstncDprcTotAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["장부가액"], 		ref: 'abAmt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["매각(폐기)손익"], 	ref: 'saleDscdLsPrft', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["통화"], 			ref: 'currency', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["환율"], 			ref: 'exchRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비고"], 			ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분비용"], 		ref: 'dspsCst', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분비용부가세"], 	ref: 'dspsCstVat', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비용거래처"], 		ref: 'cstCnpt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비용거래처명"], 	ref: 'cstCnptNm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비용부가세유형"], 	ref: 'cstCnptType', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비용부가세비율"], 	ref: 'cstCnptRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비용부가세계정"], 	ref: 'cstCnptAcntg', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["비용통화"], 		ref: 'cstCurrency', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분일"],			ref: 'disposalDate', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["처분유형"], 		ref: 'disposalType',    	type : 'combo' , typeinfo : {ref:'jsonDspsUnit', label:'label', value:'value'},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["거래처"],  			ref: 'csName',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세율"],      	ref: 'vatType', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["통화"],			ref: 'currencyCode',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["환율"],			ref: 'exchangeRate',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["매각금액"],			ref: 'disposalOriginalAmount',	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["환산금액"], 		ref: 'dispFunctionalAmt', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세"], 			ref: 'vatAmount',  			type:'output',  	width:'100px',  	style:'text-align:left'},
+        	{caption: ["금액합계"], 		ref: 'totalAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["취득가액"], 		ref: 'outAcquisitionAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["국고보조금"], 		ref: 'outSubsidiesAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["감가상각비"], 		ref: 'outDepreciationAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["국고보조금상각비"],ref: 'outSubsidiesDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["감가상각누계액"], 	ref: 'outAccumDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["국고보조금상각누계액"], 		ref: 'outSubsidiesAccDepr', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["장부가액"], 		ref: 'bookValue', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["매각(폐기)손익"], 	ref: 'disposalPl', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분비용"], 		ref: 'expenseAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분비용부가세"], 	ref: 'expenseVatAmount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비용거래처"], 		ref: 'expenseCsCode', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비용거래처명"], 	ref: 'expenseCsName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비용부가세유형"], 	ref: 'expenseVatType', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비용부가세비율"], 	ref: 'expenseVatRate', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비용부가세계정"], 	ref: 'expenseAccount', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비용부가세계정명"], 	ref: 'expenseAccountName', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["비용통화"], 		ref: 'expensCurrencyCode', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["비용환율"], 		ref: 'costExchRt', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["회계기준"], 		ref: 'acntgCrtr', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["회계단위"], 		ref: 'acntgUnit', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["처분수량"], 		ref: 'dspsQntt', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["회계기준"], 		ref: 'expenseExchangeRate', 				type:'output',		width:'80px',		style:'text-align:center'},
+            {caption: ["처분수량"], 		ref: 'disposalQty', 				type:'output',		width:'80px',		style:'text-align:center'},
         ];
 
         grdAstDsps = _SBGrid.create(SBGridProperties);
-        //NationInGrid.bind('click', 'fn_view');
+        grdAstDsps.bind('click', 'fnFocuseRowChanged');
     }
 
 
@@ -1248,8 +1260,9 @@
 		const fn_expenseSearch = async function() {
 
 
-    	var sourceId = SBUxMethod.get("srch-inp-astTab-dspsSourceId");
-    	var disposalType = SBUxMethod.get("srch-slt-disposalType");
+    	let sourceId = SBUxMethod.get("srch-inp-astTab-dspsSourceId");
+    	let disposalType = SBUxMethod.get("srch-slt-disposalType");
+    	let compCode = SBUxMethod.get("srch-slt-compCode");
 
     	if(disposalType === "DISUSE"){
     		return;
@@ -1261,67 +1274,33 @@
 		}
 
 		var paramObj = {
-				V_P_DEBUG_MODE_YN	: ''
-				,V_P_LANG_ID		: ''
-				,V_P_COMP_CODE		: gv_ma_selectedApcCd
-				,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-				,V_P_NATION_CODE	: NATION_CODE
-				,V_P_NATION_NAME	: NATION_NAME
-				,V_P_FORM_ID		: p_formId
-				,V_P_MENU_ID		: p_menuId
-				,V_P_PROC_ID		: ''
-				,V_P_USERID			: ''
-				,V_P_PC				: ''
+				docBatchNo : ''
+				, sourceType : 'AP'
+				, txnFromDate : ''
+				, txnToDate : ''
+				, compCode : compCode
+				, fiOrgCode : ''
+				, voucherType : ''
+				, voucherNo : ''
+				, asave : ''
+				, aprint : ''
+
 		    };
 
+		    //object objResult = OpenChildForm("FIG3510_AP", ht, OpenType.Tab);
+			//FIG3510_AP : 매출송장등록으로 이동
 
-
-
-        const postJsonPromise = gfn_postJSON("/co/sys/org/selectCom3100List.do", {
-        	getType				: 'json',
-        	workType			: 'LIST',
-        	cv_count			: '1',
-        	params				: gfnma_objectToString(paramObj)
-		});
-
-        const data = await postJsonPromise;
-		//console.log('data:', data);
-        try {
-  			if (_.isEqual("S", data.resultStatus)) {
-
-  	        	jsonNationList.length = 0;
-  	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
-  						MEMO					: item.MEMO,
-  						SORT_SEQ				: item.SORT_SEQ,
-  						USE_YN 					: item.USE_YN
-  					}
-  					jsonNationList.push(msg);
-  				});
-
-        		NationInGrid.rebuild();
-
-        	} else {
-          		alert(data.resultMessage);
-        	}
-
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
+        //
     }
 
     const fnFocuseRowChanged = function(){
+    	let rowNo = grdAstDsps.getRow();
+    	let rowData = grdAstDsps.getRowData(rowNo);
+    	if(rowNo < 0){
+    		return;
+    	}
+
+
 
     	//이벤트 제거
         //fnTpg2EventRemove();
@@ -1333,9 +1312,12 @@
         //그리드 데이터를 기반으로 하단 패널 두개 setting 해주는듯
         //SetPanelFromGrid(grdHeader, panMaster);
         //SetPanelFromGrid(grdHeader, panTpg2);
+        fn_setPanelFromGrid(rowData);
 
-        fnQRY_P_FIA4300_Q("INFO");
-        fnQRY_P_FIA4300_Q("DETAIL");
+
+
+        //fnQRY_P_FIA4300_Q("INFO");
+        //fnQRY_P_FIA4300_Q("DETAIL");
 
         //numbook_value_copy.Value = numbook_value.Value;
         let numbookValue = SBUxMethod.get("srch-ast-bookValue")
@@ -1346,6 +1328,31 @@
 
         fnSetPanMasterReadOnly(true);
     }
+    const fn_setPanelFromGrid = function(rowData){
+
+    	//자산내역
+    	SBUxMethod.set("srch-ast-assetDisposalNo",rowData.assetDisposalNo);
+    	SBUxMethod.set("srch-ast-acctRuleCode",rowData.acctRuleCode);
+    	SBUxMethod.set("srch-ast-disposalType",rowData.disposalType);
+    	SBUxMethod.set("srch-dtp-disposalDate",rowData.disposalDate);
+    	SBUxMethod.set("srch-ast-assetNo",rowData.assetNo);
+    	SBUxMethod.set("srch-ast-assetName",rowData.assetName);
+    	SBUxMethod.set("srch-ast-siteCode",rowData.siteCode);
+
+
+    	//처분내역
+    	SBUxMethod.set("srch-dsps-csCode",rowData.csCode);
+    	SBUxMethod.set("srch-dsps-csName",rowData.csName);
+    	gfnma_multiSelectSet("#srch-dsps-currencyCode",		"SUB_CODE", 		"CODE_NAME", 	gfnma_nvl(rowData.currencyCode));//통화
+    	SBUxMethod.set("srch-dsps-deptCode",rowData.deptCode);
+    	SBUxMethod.set("srch-dsps-deptName",rowData.deptName);
+    	gfnma_multiSelectSet("#srch-dsps-vatType",		"VAT_CODE", 		"VAT_NAME", 	gfnma_nvl(rowData.vatType));//부가세유형
+    	SBUxMethod.set("srch-dsps-empCode",rowData.empCode);
+    	SBUxMethod.set("srch-dsps-empName",rowData.empName);
+    	SBUxMethod.set("srch-dsps-costCenterCode",rowData.costCenterCode);
+    	SBUxMethod.set("srch-dsps-costCenterName",rowData.costCenterName);
+
+    };
 
     const numexchange_rate_EditValueChanged = function(args){
     	let dispFunctionalAmt = SBUxMethod.get("srch-dsps-dispFunctionalAmt");
@@ -1532,8 +1539,10 @@
         }
     }
 
-    const cbodisposal_type_EditValueChanged = function(args){
-    	let disposalType = SBUxMethod.get("srch-slt-disposalType");
+    const fn_cbodisposalTypeEditValueChanged = function(disposalType){
+
+		//처분유형에 따라서 readonly, 색변경 , 값 변경 ...
+		// SBUxMethod.attr("","readonly",true)
 
         if (disposalType == "DISPOSAL"){    // DISPOSAL : 매각
         	//allowBlank가 뭔지 모르겠음 확인해야함
@@ -1675,7 +1684,7 @@
     /**
      * 전표 생성 리포트?
      */
-    const btnAccount_click = async function() {
+    const btnAccountClick = async function() {
 
     	//  그리드에 선택된 행 없을 시 return
 		if(grdAstDsps.getRow() == -1){
@@ -1698,7 +1707,7 @@
     /**
      * 전표취소
      */
-    const btnCancel_Click = function(){
+    const btnCancelClick = function(){
     //  그리드에 선택된 행 없을 시 return
 		if(grdAstDsps.getRow() == -1){
 			return;
@@ -1718,14 +1727,17 @@
     /**
      * 처분 전표 조회
      */
-    const btnDisposal_Click = function(){
-        if (txtsource_id.Text == ""){
-            SetMessageBox("전표생성후 사용하세요.");
+    const btnDisposalClick = function(){
+    	let sourceId = SBUxMethod.get("srch-ast-sourceId");
+    	let disposalType = SBUxMethod.get("srch-slt-disposalType");
+        if (sourceId === ""){
+            //SetMessageBox("전표생성후 사용하세요.");
+            alert("전표생성후 사용하세요.");
             return;
         }
 
 
-        if (cbodisposal_type.EditValue.ToString() == "DISPOSAL"){ //매각
+        if (disposalType === "DISPOSAL"){ //매각
            /*  Hashtable ht = new Hashtable();
 
             ht.Add("doc_batch_no", txtdoc_batch_no.Text);
@@ -1743,12 +1755,14 @@
 
             object objResult = OpenChildForm("FIG3510_AR", ht, OpenType.Tab);
  			*/
+        	//FIG3510_AR : 매출송장등록으로 이동
         }
-        else if (cbodisposal_type.EditValue.ToString() == "DISUSE"){ //폐기
+        else if (disposalType === "DISUSE"){ //폐기
             /* Hashtable htparam = new Hashtable();
             htparam.Add("WORK_TYPE", "VIEW");
             htparam.Add("doc_id", txtsource_id.Text);
             object objResult = OpenChildForm("FIG2210_92", htparam, OpenType.Tab);*/
+            //FIG2210_92 : 전표전기처리로 이동
         }
     }
 
@@ -1975,23 +1989,23 @@
     }
 
 
-    const fnSET_P_FIA4300_S2 = async function(workType) {
+    const fn_setFia4300S2 = async function(workType) {
     	var rowNo    = grdAstDsps.getRow();
     	var rowData = grdAstDsps.getRowData(rowNo);
 
     	var dspsNo = SBUxMethod.get("srch-inp-assetDisposalNo");// 처분번호
     	var acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr"); //회계기준
-
+		var bResult = true;
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN  : ''
     		    ,V_P_LANG_ID            :     ''
     		    ,V_P_COMP_CODE       :     gv_ma_selectedApcCd
     		    ,V_P_CLIENT_CODE     :     gv_ma_selectedClntCd
-    		   ,V_P_ACCT_RULE_CODE :	''
-    		   ,V_P_ASSET_DISPOSAL_NO : ''
-    		   ,V_P_ASSET_NO          : ''
-    		   ,V_P_DISPOSAL_TYPE     : ''
-    		   ,V_P_DISPOSAL_DATE     : ''
+    		    ,V_P_ACCT_RULE_CODE  : acntgCrtr
+    		    ,V_P_ASSET_DISPOSAL_NO : rowData.assetDisposalNo
+    		    ,V_P_ASSET_NO : rowData.assetNo
+    		    ,V_P_DISPOSAL_TYPE     : rowData.disposalType
+    		    ,V_P_DISPOSAL_DATE  : rowData.disposalDate
     		    ,V_P_FORM_ID      : p_formId
     		    ,V_P_MENU_ID     :  p_menuId
     		    ,V_P_PROC_ID     :   ''
@@ -2002,12 +2016,19 @@
     	 const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4300S2.do", {
          	getType				: 'json',
          	workType			: workType,
-         	cv_count			: '1',
+         	cv_count			: '0',
          	params				: gfnma_objectToString(paramObj)
  		});
 
     	const data = await postJsonPromise;
     	try{
+    		if(data.resultStatus.startsWith("P") && data.resultStatus.startsWith("E")){
+    			bResult = false;
+    			//gfn_comAlert(data.resultMessage);//"해당월 마감 등 에러메시지 출력"
+    			alert(data.resultMessage);
+    		}else{
+    			bResult = true;
+    		}
 
     	}catch{
     		 if (!(e instanceof Error)) {
@@ -2017,7 +2038,7 @@
              gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
 
-    	return data;
+    	return bResult;
 
     }
 

@@ -244,14 +244,17 @@
 		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
+			gfnma_setComSelect(['srch-slt-bplc'], jsonBplc, 'L_ORG001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
 			//사업단위
 			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
 			//감가상각기준
 			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
-		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
+		SBUxMethod.set("srch-slt-depreciationType","2");
+
+		let yyyymm = gfnma_date6().substring(0,6);
+		SBUxMethod.set("srch-dtp-depreciationYyyymm",yyyymm);
 	}
 
     // only document
@@ -366,8 +369,8 @@
     		return false;
     	}
 
-        fnQRY_P_FIA5200_Q("INFO");
-		fnQRY_P_FIA5200_Q("LOG");
+        await fnQRY_P_FIA5200_Q("INFO");
+		await fnQRY_P_FIA5200_Q("LOG");
 	}
 
     //strWorkType : INFO, LOG
@@ -458,7 +461,7 @@
         			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
      			intmax_seq = intmax_seq + 1;
      			bresult = false;
-     			strsite_code = item.site_code;
+     			strsite_code = item.siteCode;
      			if(depreciationType === "1"){
      				bresult = fnSET_P_FIA5200_S("GAAP", strsite_code);
      			}else if(depreciationType === "2"){
@@ -505,7 +508,7 @@
 	       			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
 	    			intmax_seq = intmax_seq + 1;
 	    			bresult = false;
-	    			strsite_code = item.site_code;
+	    			strsite_code = item.siteCode;
 	   				bresult = fnSET_P_FIA5200_S("CANCEL", strsite_code);
 	    			intprogram_seq = intprogram_seq + 1;
 	    			if (!bresult){
@@ -515,9 +518,9 @@
 	       	 }
         })
 
-        if (bresult){
-            fn_queryClick();
-        }
+        //if (bresult){
+          fn_queryClick();
+        //}
   	}
 
 	//조회
@@ -539,7 +542,7 @@
       			,V_P_PC				: ''
       	    };
 
-    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_","");
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["memomemo"]);
  		 if(!postFlag){
  	        return;
  	     }

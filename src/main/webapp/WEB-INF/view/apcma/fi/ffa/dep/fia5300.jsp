@@ -120,7 +120,9 @@
 						<tr>
 							<th scope="row" class="th_bg">감가상각년월</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-depreciationYyyymm" name="srch-dtp-depreciationYyyymm"
+								<sbux-datepicker
+									id="srch-dtp-depreciationYyyymm"
+									name="srch-dtp-depreciationYyyymm"
 									uitype="popup"
 									date-format="yyyymm"
 									datepicker-mode="month"
@@ -307,8 +309,9 @@
 			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
-		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
+		let yyyymm = gfnma_date6().substring(0,6);
+		SBUxMethod.set("srch-dtp-depreciationYyyymm",yyyymm);
+		SBUxMethod.set("srch-slt-depreciationType","2")
 	}
 
     // only document
@@ -587,7 +590,7 @@
       			,V_P_PC				: ''
       	    };
 
-    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["assetLevel2","assetLevel3"]);
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["assetLevel2","assetLevel3","deptName","costCenterCode","costCenterName","deptCode","deptName","assetCategoryName"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
