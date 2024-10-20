@@ -37,9 +37,9 @@
                     </h3><!-- 자산정산내역 -->
                 </div>
                 <div style="margin-left: auto;">
-                	<sbux-button id="btnDspsSlip" name="btnDspsSlip" 	uitype="normal" text="처분 전표 조회" class="btn btn-sm btn-outline-danger" onclick="btnDocQ_Click"></sbux-button>
-                    <sbux-button id="btnSlipCreate" name="btnSlipCreate" 	uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger" onclick="btnCreate_Click"></sbux-button>
-                    <sbux-button id="btnSlipCancle" name="btnSlipCancle" 	uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger" onclick="btnCancel"></sbux-button>
+                	<sbux-button id="btnDspsSlip" name="btnDspsSlip" 	uitype="normal" text="전표조회" class="btn btn-sm btn-outline-danger" onclick="btnDocQClick"></sbux-button>
+                    <sbux-button id="btnSlipCreate" name="btnSlipCreate" 	uitype="normal" text="전표생성" class="btn btn-sm btn-outline-danger" onclick="btnCreateClick"></sbux-button>
+                    <sbux-button id="btnSlipCancle" name="btnSlipCancle" 	uitype="normal" text="전표취소" class="btn btn-sm btn-outline-danger" onclick="btnCancelClick"></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -318,6 +318,9 @@
 
 		SBUxMethod.set("srch-dtp-startDate", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-endDate", gfn_dateLastYmd(new Date()));
+
+		//초기값 IFRS
+		SBUxMethod.set("srch-slt-acctRuleCode","2");
 	}
 
     // only document
@@ -463,7 +466,8 @@
     /**
      * 처분 전표 조회
      */
-    const btnDocQ_Click = async function() {
+    const btnDocQClick = async function() {
+
     	var check1 = grdClclnList.getRow();
 		var slipNo = grdClclnList.getRowData(check1)["slipNo"];
 		//자산정산리스트 행 선택 안되있을 때 return
@@ -475,7 +479,10 @@
 			return
     	}
 
-    	fn_setDspsSlip(slipNo);
+		// 전표등록 화면 호출 연결하기
+    	//object objResult = OpenChildForm("FIG2210_99", htparam, OpenType.Tab);
+
+    	//fn_setDspsSlip(slipNo);
     }
 
     /**
@@ -488,7 +495,7 @@
 
     }
 
-    const btnCreate_Click = async function() {
+    const btnCreateClick = async function() {
     	var check1 = grdClclnList.getRow();
 		//var slipNo = grdClclnList.getRowData(check1)["slipNo"];
 
@@ -504,7 +511,9 @@
          }
     }
 
-    const btnCancel_Click = async function(){
+    const btnCancelClick = async function(){
+    	var check1 = grdClclnList.getRow();
+
         if (gvwList.FocusedRowHandle < 0)
             return;
 
@@ -834,9 +843,9 @@
                     strcip_no += "|";
                 }
 
-                    strtxn_id += grdClclnList.getRowData(i)["txn_id"];
-                    strtxn_date += grdClclnList.getRowData(i)["transfer_date"];
-                    strcip_no += grdClclnList.getRowData(i)["cip_transfer_no"];
+                    strtxn_id += grdClclnList.getRowData(i)["txnId"];
+                    strtxn_date += grdClclnList.getRowData(i)["transferDate"];
+                    strcip_no += grdClclnList.getRowData(i)["cipTransferNo"];
                 }
             }
 
@@ -930,7 +939,7 @@
 		  	//grdClclnList(자산정산리스트)의 cip_transfer_no, project_code가 null 여부를 확인하여 값 할당
 		    //paramObj.V_P_CIP_TRANSFER_NO = ;
 		    //paramObj.V_P_PROJECT_CODE = ;
-		    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["PROJECT_CODE","PROJECT_NAME"]);
+		    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["projectCode","projectName","cipTransferNo"]);
 		  	const postJsonPromise = gfn_postJSON("/fi/fia/selectFia4400Q.do", {
              	getType				: 'json',
              	workType			:  strWorkType,
@@ -1114,8 +1123,9 @@
     var fn_bizPopup = function(row, col) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
         SBUxMethod.openModal('modal-compopup1');
-		let projectCode = SBUxMethod.get("srch-inp-projectCode");
-        //var strWhereClause 	= "AND X.PROJECT_CODE = '" + projectCode + "'" ;
+		//let projectCode = gfnma_nvl(SBUxMethod.get("srch-inp-projectCode"));
+		let fiOrgCode = gfnma_multiSelectGet('#srch-slt-orgCode1');//사업단위
+        var strWhereClause 	= "AND FI_ORG_CODE = '" + fiOrgCode + "'" ;
 
         var searchText 		= '';
         compopup1({
@@ -1123,7 +1133,7 @@
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM028'
             ,popupType				: 'A'
-            ,whereClause			: strWhereClause
+            ,whereClause			: ""
             ,searchCaptions			: ["프로젝트코드",		"프로젝트명"]
             ,searchInputFields		: ["PROJECT_CODE",	"PROJECT_NAME"]
             ,searchInputValues		: ["", 			searchText]

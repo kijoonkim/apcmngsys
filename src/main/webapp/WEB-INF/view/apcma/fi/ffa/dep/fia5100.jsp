@@ -198,8 +198,10 @@
 							</li>
 						</ul>
 						<div style="margin-left: auto;">
+							<!--
 							<sbux-button id="btnDisposal" name="btnDisposal" 	uitype="normal" text="처분 전표" class="btn btn-sm btn-outline-danger" onclick="fn_disposal"></sbux-button>
                     		<sbux-button id="btnExpense" name="btnExpense" 	uitype="normal" text="비용 전표" class="btn btn-sm btn-outline-danger" onclick="fn_expense"></sbux-button>
+                    		-->
 						</div>
 					</div>
 					<table class="table table-bordered tbl_fixed">
@@ -423,6 +425,10 @@
 			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 			//사업단위
 			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+
+			//초기값 IFRS
+			SBUxMethod.set("srch-slt-acntgCrtr1","2");
+			SBUxMethod.set("srch-slt-acntgCrtr2","2");
 		]);
 
 
