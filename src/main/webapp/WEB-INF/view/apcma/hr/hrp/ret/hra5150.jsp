@@ -1884,14 +1884,14 @@
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">지급은행</th>
-                                    <td class="td_input" style="border-right: hidden;">
+                                    <td class="td_input" style="border-right: hidden;" data-group="BANK">
                                         <sbux-input
                                                 uitype="text"
                                                 id="BANK_CODE"
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right: hidden;">
+                                    <td class="td_input" style="border-right: hidden;" data-group="BANK">
                                         <sbux-input
                                         <%-- uitype="hidden"--%>
                                                 uitype="text"
@@ -1899,7 +1899,7 @@
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td <%--colspan="2"--%> class="td_input" >
+                                    <td <%--colspan="2"--%> class="td_input" data-group="BANK">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -2103,14 +2103,14 @@
                                     </td>
                                     <td style="border-right: hidden;">&nbsp;</td>
                                     <th scope="row" class="th_bg">거래처</th>
-                                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="CS">
                                         <sbux-input
                                                 uitype="text"
                                                 id="CS_CODE"
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right: hidden;">
+                                    <td class="td_input" style="border-right: hidden;" data-group="CS">
                                         <sbux-input
                                         <%-- uitype="hidden"--%>
                                                 uitype="text"
@@ -2118,7 +2118,7 @@
                                                 class="form-control input-sm"
                                         ></sbux-input>
                                     </td>
-                                    <td colspan="2" <%--colspan="2"--%> class="td_input" >
+                                    <td colspan="2" <%--colspan="2"--%> class="td_input" data-group="CS">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"

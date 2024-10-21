@@ -138,6 +138,7 @@
 			SBGridProperties.allowcopy = true;
 			SBGridProperties.explorerbar = 'sortmove';
 			SBGridProperties.scrollbubbling = false;
+			/*
 			SBGridProperties.paging = {
 				'type' : 'page',
 				'count' : 5,
@@ -145,6 +146,7 @@
 				'sorttype' : 'page',
 				'showgoalpageui' : true
 			};
+			*/
 			SBGridProperties.columns = [
 				{caption: ['부류명'], ref: 'clsNm', width: '50%', type: 'input', style: 'text-align:center'},
 				{caption: ['품목명'], ref: 'itemNm', width: '50%', type: 'input', style: 'text-align:center'},

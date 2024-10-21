@@ -787,6 +787,22 @@
 		<jsp:include page="/WEB-INF/view/apcss/pd/popup/gpcSelectPopup.jsp"></jsp:include>
 	</div>
 
+	<!-- 통합조직 신청 리스트 조회 팝업 -->
+	<div>
+		<sbux-modal
+			id="modal-aplyBrno"
+			name="modal-aplyBrno"
+			uitype="middle"
+			header-title="사업자번호 선택"
+			body-html-id="body-modal-aplyBrno"
+			footer-is-close-button="false"
+			style="width:1000px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-aplyBrno">
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/AplyBrnoPopup.jsp"></jsp:include>
+	</div>
+
 </body>
 <script type="text/javascript">
 
@@ -2108,15 +2124,16 @@
 
 		let clsfCdCol = objGrid.getColRef('clsfCd');//부류
 		let ctgryCdCol = objGrid.getColRef('ctgryCd');//평가부류
+		console.log("strValue = " +strValue ,clsfCdCol , ctgryCdCol);
 		//기타일떄 부류,평가부류 비활성화
 		if(strValue == '3'){
-			objGrid.setCellDisabled(nRow, nRow, clsfCdCol, clsfCdCol, true);
-			objGrid.setCellDisabled(nRow, nRow, ctgryCdCol, ctgryCdCol, true);
-			objGrid.setCellData(nRow,clsfCdCol,"");
-			objGrid.setCellData(nRow,ctgryCdCol,"");
+			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, true);
+			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, true);
+			objGrid.setCellData(nRow,clsfCdCol,0);
+			objGrid.setCellData(nRow,ctgryCdCol,0);
 		}else{
-			objGrid.setCellDisabled(nRow, nRow, clsfCdCol, clsfCdCol, false);
-			objGrid.setCellDisabled(nRow, nRow, ctgryCdCol, ctgryCdCol, false);
+			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, false);
+			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, false);
 		}
 		return strValue;
 	}
@@ -2337,11 +2354,13 @@
 			if (selGridCol == itemNmCol){
 				//팝업창 오픈
 				//통합조직 팝업창 id : modal-gpcList
-				popGpcSelect.init(fn_setGridItem);
-				SBUxMethod.openModal('modal-gpcList');
+				//popGpcSelect.init(fn_setGridItem);
+				//SBUxMethod.openModal('modal-gpcList');
+				fn_openMaodalGpcSelect(selGridRow);
 			}
 		}
 	}
+
 	//품목선택 팝업 버튼
 	function fn_openMaodalGpcSelect(nRow){
 		let delYnCol = grdGpcList.getColRef('delYn');
@@ -2350,18 +2369,19 @@
 			return;
 		}
 		let rowData = grdGpcList.getRowData(nRow);
-		let selType = '1';
+		let selType = 'Y';
 		console.log(rowData);
 
 		if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
 			return;
 		}
+		//기타품목인 경우 모든 품목 사용 가능
 		if(rowData.sttgUpbrItemSe == '3'){
-			selType = '2';
+			selType = 'N';
 		}
 		let brno = SBUxMethod.get('dtl-input-brno');//
 		grdGpcList.setRow(nRow);
-		popGpcSelect.init(brno , selType ,fn_setGridItem);
+		popGpcSelect.init(fn_setGridItem , selType , brno);
 		SBUxMethod.openModal('modal-gpcList');
 	}
 
@@ -2391,8 +2411,11 @@
 				}
 			}
 
+			let selRowData = grdGpcList.getRowData(selGridRow);
+			let sttgUpbrItemSe = selRowData.sttgUpbrItemSe;
+
 			//그리드 값 세팅
-			if(!gfn_isEmpty(rowData.ctgryCd)){
+			if(!gfn_isEmpty(rowData.ctgryCd) && sttgUpbrItemSe != '3'){
 				grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
 			}
 			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);

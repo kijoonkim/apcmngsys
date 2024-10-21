@@ -604,79 +604,80 @@
 	const fn_fcltMngCreateGrid01 = async function() {
 
 		let SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
-	    SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
-	    SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'byrow';
-	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-	    SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
-	    //SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.frozenbottomrows=1;
-	    SBGridProperties.columns = [
-	    	{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-	    		<c:if test="${loginVO.userType ne '02'}">
-	    		//법인체 마감 추가
-	        	let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
-	        	if (prfmncCorpDdlnYn == 'Y') {
+		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng01';
+		SBGridProperties.id = 'grdPrdcrOgnCurntMng01';
+		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng01';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList01;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.frozenbottomrows=1;
+		SBGridProperties.columns = [
+			{caption: ["처리","처리"], 		ref: 'delYn',   		type:'button', width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				<c:if test="${loginVO.userType ne '02'}">
+				//법인체 마감 추가
+				let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
+				if (prfmncCorpDdlnYn == 'Y') {
 					return "";
 				}
-	    		if(strValue== null || strValue == ""){
-	    			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
-	    		}else if(strValue == "소계"){
-	    			return "소계";
-	    		}else{
-			        if(objRowData.sttgUpbrItemSe == '3'){
-	        			return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
-			        }else{
-			        	return "";
-			        }
-	        	}
+				if(strValue== null || strValue == ""){
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ", " + nCol + ")'>추가</button>";
+				}else if(strValue == "소계"){
+					return "소계";
+				}else{
+					if(objRowData.sttgUpbrItemSe == '3'){
+						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdPrdcrOgnCurntMng01\", " + nRow + ")'>삭제</button>";
+					}else{
+						return "";
+					}
+				}
 				</c:if>
 				<c:if test="${loginVO.userType eq '02'}">
 				if(strValue == "소계"){
-		    		return "소계";
-		    	}
+					return "소계";
+				}
 				</c:if>
 				return "";
-	        }},
-	        {caption: ["품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-	    	{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-	    	//{caption: ["품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'combo',  width:'80px',    style:'text-align:center'},
-	    	{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
-	    		,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
-	    	{caption: ["통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-	    	{caption: ["통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["공동선별수탁·공동출하수탁","물량(톤)"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공동선별수탁·공동출하수탁","금액(천원)"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공동선별매취","물량(톤)"], 	ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["공동선별매취","금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
-	    		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-	    	{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-		    {caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   type:'input',  width:'100px',    style:'text-align:center'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_prchsVlmSum'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-	        {caption: ["합계","금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'
-		    	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			}},
+			{caption: ["품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
+			{caption: ["품목분류","품목분류"], 	ref: 'ctgryCd',   	type:'combo',  width:'80px',    style:'text-align:center'
+				,typeinfo : {ref:'jsonGrdCtgryCd_1', label:'label', value:'value', displayui : true}},
+			{caption: ["통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["공동선별수탁·공동출하수탁","물량(톤)"], ref: 'prchsTrstVlm',   	type:'input',  width:'90px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["공동선별수탁·공동출하수탁","금액(천원)"], ref: 'prchsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["공동선별매취","물량(톤)"], 	ref: 'prchsEmspapVlm',   type:'input',  width:'90px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["공동선별매취","금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   type:'input',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["합계","물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'90px',    style:'text-align:center', calc : 'fn_prchsVlmSum'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["합계","금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center', calc : 'fn_prchsAmtSum'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
-	        {caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
-	        {caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
-	        {caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
-	    	{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
-	    	//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-	        //{caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
-	        {caption: ["상세내역"], 	ref: 'crno',		hidden : true}
-	    ];
+			{caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
+			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoCd',   	hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   	hidden : true},
+			//{caption: ["상세내역"], 	ref: 'ctgryCd',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoSe',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'brno',		hidden : true},
+			//{caption: ["상세내역"], 	ref: 'uoBrno',		hidden : true},
+			{caption: ["상세내역"], 	ref: 'crno',		hidden : true}
+		];
 
 	    grdPrdcrOgnCurntMng01 = _SBGrid.create(SBGridProperties);
 	    grdPrdcrOgnCurntMng01.bind('click','gridClick01');
@@ -2180,6 +2181,7 @@
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
 				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {

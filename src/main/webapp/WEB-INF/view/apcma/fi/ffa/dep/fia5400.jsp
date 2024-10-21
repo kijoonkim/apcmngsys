@@ -109,7 +109,7 @@
 									date-format="yyyymm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-ymdFrom)"
+									onchange="fn_dtpChange(srch-dtp-periodFr)"
 								></sbux-datepicker>
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -120,7 +120,7 @@
 									date-format="yyyymm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									onchange="fn_dtpChange(srch-dtp-ymdTo)"
+									onchange="fn_dtpChange(srch-dtp-periodTo)"
 								></sbux-datepicker>
 							</td>
                             <th scope="row" class="th_bg">감가상각기준</th>
@@ -248,6 +248,16 @@
 		fn_createGrid1();
     	fn_createGrid2();
     	fn_createGrid3();
+
+
+    	let yyyymm = gfnma_date6().substring(0,6);
+    	let yyyy = yyyymm.substring(0,4);
+    	//let mm = yyyymm.substring(4,6);
+    	SBUxMethod.set("srch-dtp-periodFr",yyyy + "01");
+    	SBUxMethod.set("srch-dtp-periodTo",yyyymm);
+    	//초기값 IFRS
+		SBUxMethod.set("srch-slt-depreciationType","2")
+
 	}
 
     // only document
@@ -581,12 +591,16 @@
 		//탭 확인해서 쿼리 ㄱㄱ
 		let tabInfo = SBUxMethod.get("idxTab_norm");
 
-		 if(tabInfo === "totDprcPivotTab")
+		 if(tabInfo === "totDprcPivotTab"){
 			 fn_fia5400Q("Q0");
-         else if(tabInfo == "totDtlDprcTab")
+		 }
+         else if(tabInfo == "totDtlDprcTab"){
         	 fn_fia5400Q("Q1");
-         else if(tabInfo == "mmDprcTab")
+         }
+         else if(tabInfo == "mmDprcTab"){
         	 fn_fia5400Q("Q2");
+         }
+
 	}
 
 
@@ -610,8 +624,6 @@
     }
 
     const fn_dtpChange = async function(){
-    	let inptYmdFrom = SBUxMethod.get("srch-dtp-dspsYmdFrom");
-    	let inptYmdTo = SBUxMethod.get("srch-dtp-dspsYmdTo");
 
     	//if(inptYmdFrom > inptYmdTo){
     	//	gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.

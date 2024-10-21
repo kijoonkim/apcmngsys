@@ -71,6 +71,9 @@ public class FcltPrgrsVO extends ComVO{
 
 	private String userType;
 	private String userId;
+
+	private String ctpv;
+	private String sgg;
 }
 
 

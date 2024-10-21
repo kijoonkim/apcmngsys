@@ -1020,7 +1020,7 @@
 		></sbux-modal>
 	</div>
 	<div id="body-modal-gpcList">
-		<jsp:include page="/WEB-INF/view/apcss/fm/popup/gpcSelectPopup.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/gpcSelectPopup.jsp"></jsp:include>
 	</div>
 
 </body>
@@ -2176,13 +2176,13 @@
 		let ctgryCdCol = objGrid.getColRef('ctgryCd');//평가부류
 		//기타일떄 부류,평가부류 비활성화
 		if(strValue == '3'){
-			objGrid.setCellDisabled(nRow, nRow, clsfCdCol, clsfCdCol, true);
-			objGrid.setCellDisabled(nRow, nRow, ctgryCdCol, ctgryCdCol, true);
+			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, true);
+			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, true);
 			objGrid.setCellData(nRow,clsfCdCol,"");
 			objGrid.setCellData(nRow,ctgryCdCol,"");
 		}else{
-			objGrid.setCellDisabled(nRow, nRow, clsfCdCol, clsfCdCol, false);
-			objGrid.setCellDisabled(nRow, nRow, ctgryCdCol, ctgryCdCol, false);
+			objGrid.setCellDisabled(nRow, clsfCdCol, nRow, clsfCdCol, false);
+			objGrid.setCellDisabled(nRow, ctgryCdCol, nRow, ctgryCdCol, false);
 		}
 		return strValue;
 	}
@@ -2245,7 +2245,7 @@
 			return;
 		}
 
-		 gfn_popClipReport("통합조직 등록 연계 정보", "pd/insDoc3.crf", {
+		gfn_popClipReport("통합조직 등록 연계 정보", "pd/insDoc3.crf", {
 			brno 		: gfn_nvl(brno)
 			, apoSe 	: '1'
 			, crno		: gfn_nvl(crno)
@@ -2467,12 +2467,12 @@
 		if(selGridRow == '-1'){
 			return;
 		} else {
-			//선택한 데이터가 통합조직 일떄
 			if (selGridCol == itemNmCol){
 				//팝업창 오픈
 				//통합조직 팝업창 id : modal-gpcList
-				popGpcSelect.init(fn_setGridItem);
-				SBUxMethod.openModal('modal-gpcList');
+				//popGpcSelect.init(fn_setGridItem);
+				//SBUxMethod.openModal('modal-gpcList');
+				fn_openMaodalGpcSelect(selGridRow);
 			}
 		}
 	}
@@ -2484,7 +2484,7 @@
 			return
 		}
 		grdGpcList.setRow(nRow);
-		popGpcSelect.init(fn_setGridItem);
+		popGpcSelect.init(fn_setGridItem , 'N');
 		SBUxMethod.openModal('modal-gpcList');
 	}
 
@@ -2514,8 +2514,11 @@
 				}
 			}
 
+			let selRowData = grdGpcList.getRowData(selGridRow);
+			let sttgUpbrItemSe = selRowData.sttgUpbrItemSe;
+
 			//그리드 값 세팅
-			if(!gfn_isEmpty(rowData.ctgryCd)){
+			if(!gfn_isEmpty(rowData.ctgryCd) && sttgUpbrItemSe != '3'){
 				grdGpcList.setCellData(selGridRow,colRefIdx1,rowData.ctgryCd,true);
 			}
 			//grdGpcList.setCellData(selGridRow,colRefIdx2,rowData.ctgryNm,true);

@@ -22,6 +22,7 @@
 		<result property="apcCd" column="APC_CD"/>
 		<result property="apcNm" column="APC_NM"/>
 		<result property="userType" column="USER_TYPE"/>
+		<result property="mbrTypeCd" column="MBR_TYPE_CD"/>
 		<result property="userStts" column="USER_STTS"/>
 		<result property="lgnFailNmtm" column="LGN_FAIL_NMTM"/>
 		<result property="endLgnIp" column="END_LGN_IP"/>
@@ -106,6 +107,7 @@
 				--, CU.PSWD			AS PSWD
 				, NULL				AS PSWD
 				, CU.USER_TYPE		AS USER_TYPE
+				, CU.TYPE_CD		AS MBR_TYPE_CD
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
 				, CU.TELNO			AS TELNO
@@ -138,7 +140,7 @@
 				, CU.UNTY_OGNZ_TYPE		AS UNTY_OGNZ_TYPE
 				, CU.UNTY_AUTHRT_TYPE	AS UNTY_AUTHRT_TYPE
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
-				
+
 				, CASE
 					WHEN EXISTS (
 						SELECT 1
@@ -154,8 +156,8 @@
 					WHEN CU.TYPE_CD = '2' THEN 'UC' || CU.CTPV
 					ELSE 'X'
 				  END		AS UNTY_OGNZ_CD
-					
-					
+
+
 			 FROM TB_COM_USER CU
 			WHERE CU.USER_ID = #{id}
 			  AND CU.PSWD = #{password}
@@ -184,6 +186,7 @@
 				--, CU.PSWD			AS PSWD
 				, NULL				AS PSWD
 				, CU.USER_TYPE		AS USER_TYPE
+				, CU.TYPE_CD		AS MBR_TYPE_CD
 				, CU.USER_STTS		AS USER_STTS
 				, CU.EML			AS EMAIL
 				, CU.TELNO			AS TELNO
@@ -227,14 +230,14 @@
 
 				, CU.CTPV				AS CTPV
 				, CU.SGG				AS SGG
-				
+
 				, CASE
 					WHEN CU.TYPE_CD = '1' THEN 'UO' || CU.UNTY_OGNZ_CD
 					WHEN CU.TYPE_CD = '2' AND CU.SGG IS NOT NULL THEN 'US' || CU.SGG
 					WHEN CU.TYPE_CD = '2' THEN 'UC' || CU.CTPV
 					ELSE 'X'
 				  END		AS UNTY_OGNZ_CD
-				  
+
 			 FROM TB_COM_USER CU
 			WHERE CU.USER_ID = #{id}
 			  AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용

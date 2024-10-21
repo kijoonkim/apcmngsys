@@ -120,7 +120,9 @@
 						<tr>
 							<th scope="row" class="th_bg">감가상각년월</th>
 							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-datepicker id="srch-dtp-depreciationYyyymm" name="srch-dtp-depreciationYyyymm"
+								<sbux-datepicker
+									id="srch-dtp-depreciationYyyymm"
+									name="srch-dtp-depreciationYyyymm"
 									uitype="popup"
 									date-format="yyyymm"
 									datepicker-mode="month"
@@ -158,13 +160,13 @@
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-assetLevel2" name="srch-inp-assetLevel2"
 									class="form-control input-sm" uitype="search"
-									button-back-text="···" button-back-event="fn_mcslfPopup"></sbux-input>
+									button-back-text="···" button-back-event="fn_assetLevel2"></sbux-input>
 							</td>
 							<th scopr="row" class="th_bg">소분류</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-assetLevel3" name="srch-inp-assetLevel3"
 									class="form-control input-sm" uitype="search"
-									button-back-text="···" button-back-event="fn_scslfPopup"></sbux-input>
+									button-back-text="···" button-back-event="fn_assetLevel3"></sbux-input>
 							</td>
 							<th scope="row" class="th_bg">원가중심점</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
@@ -307,8 +309,9 @@
 			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
-		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
+		let yyyymm = gfnma_date6().substring(0,6);
+		SBUxMethod.set("srch-dtp-depreciationYyyymm",yyyymm);
+		SBUxMethod.set("srch-slt-depreciationType","2")
 	}
 
     // only document
@@ -527,7 +530,7 @@
         let intprogram_seq = 1;
 
         let dprcRkngData  = grdDprcRkng.getGridDataAll();
-        let compCode = SBUxMethod.get("srch-slt-compCode");
+        let compCode = gfnma_multiSelectGet("#srch-slt-compCode");
         dprcRkngData.forEach(row => {
         	if(row.checkYn === "Y"){
         		intmax_seq = intmax_seq + 1;
@@ -555,7 +558,7 @@
             }
         } */
         if (bresult){
-            queryClick();
+            fn_queryClick();
         }
     }
 
@@ -587,7 +590,7 @@
       			,V_P_PC				: ''
       	    };
 
-    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["assetLevel2","assetLevel3"]);
+    	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["assetLevel2","assetLevel3","deptName","costCenterCode","costCenterName","deptCode","deptName","assetCategoryName"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
@@ -847,65 +850,7 @@
     	}
      }
 
-    /**
-     * 담당부서
-     */
-    var fn_compopup3 = function() {
 
-    	//type B 형 팝업
-    	var addParams = ['p1', 'p2'];	//bizcompId 의 파라미터에 따라 추가할것
-
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
-    	compopup1({
-    		compCode				: gv_ma_selectedApcCd
-    		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'P_ORG001'
-    		,popupType				: 'B'
-    		,whereClause			: addParams
-   			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
-   			,searchInputValues		: ["", 				"",				"2024-07-10"]
-			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
-    		,height					: '400px'
-   			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
-   			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
-			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
-				SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-			},
-    	});
-    	//SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
-  	}
-    /**
-     * 원가중심점
-     */
-    const fn_findCostCenterCode = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("COST_CENTER_NAME"));
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_";
-        var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
-
-        SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
-        compopup1({
-            compCode				: gv_ma_selectedApcCd
-            ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_CC_INPUT'
-            ,popupType				: 'A'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["계정코드", "계정명"]
-            ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
-            ,searchInputValues		: ["", searchText]
-            ,height					: '400px'
-            ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "원가유형", "사업장", "여신영역"]
-            ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "COST_CENTER_NAME", "COST_CLASS", "SITE_CODE", "CREDIT_AREA"]
-            ,tableColumnWidths		: ["80px", "80px", "80px", "80px", "80px", "80px","80px"]
-            ,itemSelectEvent		: function (data){
-                SBUxMethod.set('srch-inp-costCenterCode', data.COST_CENTER_CODE);
-                SBUxMethod.set('srch-inp-costCenterName', data.COST_CENTER_NAME);
-            },
-        });
-    }
 
 
 
@@ -1001,7 +946,7 @@
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'FIA001'
+    		,bizcompId				: 'L_FIA001'
         	,popupType				: 'A'
     		,whereClause			: ''
    			,searchCaptions			: ["코드", 				"명칭"]
@@ -1031,18 +976,18 @@
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'FIA001'
+    		,bizcompId				: 'L_FIA005'
         	,popupType				: 'A'
     		,whereClause			: ''
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["중분류코드", 	"중분류명"]
-   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-assetLevel2',		data.CODE_NAME);
+				SBUxMethod.set('srch-inp-assetLevel2',		data.ASSET_GROUP_CODE);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
@@ -1061,18 +1006,18 @@
     	compopup1({
     		compCode				: gv_ma_selectedApcCd
     		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'FIA001'
+    		,bizcompId				: 'L_FIA006'
         	,popupType				: 'A'
     		,whereClause			: ''
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["소분류코드", 	"소분류명"]
-   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-assetLevel3',		data.CODE_NAME);
+				SBUxMethod.set('srch-inp-assetLevel3',		data.ASSET_GROUP_CODE);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
