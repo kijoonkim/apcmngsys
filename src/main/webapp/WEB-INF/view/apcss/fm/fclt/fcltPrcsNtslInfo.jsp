@@ -942,6 +942,7 @@
 		//SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.explorerbar = 'sort';
+		/*
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -949,6 +950,7 @@
 			  	'sorttype' : 'page',
 			  	'showgoalpageui' : true
 			};
+		*/
 		SBGridProperties.columns = [
 			{caption: ["APC명"],		ref: 'apcNm',		type:'input',  width:'200px',    style:'text-align:center'},
 			{caption: ["대표품목1"],	ref: 'itemNm1',		type:'input',  width:'100px',    style:'text-align:center'},
