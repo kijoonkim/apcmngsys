@@ -303,6 +303,7 @@
           params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+        console.log(data,"두번째");
 
         if (data.resultStatus === 'S') {
           let SUBMIS_REASON_CODE = data.cv_2[0];
