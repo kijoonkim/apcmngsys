@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name 		: hrt5200.jsp
+     * @Class Name 		: fig3100.jsp
      * @Description 	: 전자세금계산서 관리(매입) 화면
      * @author 			: 인텔릭아이앤에스
      * @since 			: 2024.08.05
