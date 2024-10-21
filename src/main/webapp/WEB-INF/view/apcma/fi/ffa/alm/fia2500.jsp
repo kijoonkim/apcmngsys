@@ -1022,7 +1022,7 @@
 	
     //grid 초기화
     var Fia2500GridMast; 			// 그리드를 담기위한 객체 선언
-    var jsonFia2500Mast 	= []; 		// 그리드의 참조 데이터 주소 선언
+    var jsonFia2500Mast 	= []; 	// 그리드의 참조 데이터 주소 선언
     
     var Fia2500GridDetail; 			// 그리드를 담기위한 객체 선언
     var jsonFia2500Detail 	= []; 	// 그리드의 참조 데이터 주소 선언
@@ -1079,7 +1079,8 @@
 		//화면셋팅
     	fn_state('L');
   		
-		//fn_createFia2500GridMast();
+		fn_createFia2500GridMast();
+		fn_createFia2500GridDetail();
 		//cfn_search();
 	} 
 	
@@ -1123,6 +1124,87 @@
  		fn_state('L');
     	//fn_setFia2500GridMast('LIST');
     }
+    
+    function fn_createFia2500GridMast() {
+        var SBGridProperties 				= {};
+	    SBGridProperties.parentid 			= 'sb_area_grid1';
+	    SBGridProperties.id 				= 'Fia2500GridMast';
+	    SBGridProperties.jsonref 			= 'jsonFia2500Mast';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.total 				= {
+                type 		: 'grand',
+                position	: 'bottom',
+                columns		: {
+                    standard : [0],
+                    sum : [13,14,15]
+                },
+                grandtotalrow : {
+                    titlecol 		: 10,
+                    titlevalue		: '합계',
+                    style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                    stylestartcol	: 0
+                },
+                datasorting	: true,
+        };
+        SBGridProperties.columns = [
+            {caption: ["취득일"],			ref: 'ACQUIRE_DATE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["취득구분"], 		ref: 'ACQUIRE_TYPE',  		  	type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["취득번호"], 		ref: 'ASSET_ACQUIRE_NO',    	type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["취득처"], 			ref: 'CS_NAME',    				type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["자산번호"],			ref: 'ASSET_NO',  			  	type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["자산명"],			ref: 'ASSET_NAME',    			type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["회계기준"],			ref: 'ACCT_RULE_CODE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세유형"],		ref: 'VAT_TYPE',    			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["부가세율"],			ref: 'VAT_RATE',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["통화"],				ref: 'CURRENCY_CODE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["환율"],				ref: 'EXCHANGE_RATE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
+            
+            {caption: ["취득금액"],			ref: 'ORIGINAL_AMOUNT',    		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["전표금액"],			ref: 'FUNCTIONAL_AMOUNT',		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["부가세"],			ref: 'VAT_AMOUNT',    			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["총합계"],			ref: 'TOTAL_AMOUNT',    		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            
+            {caption: ["취득수량"],			ref: 'ACQUISITION_QTY',    		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["전표배치"],			ref: 'DOC_BATCH_NO', 		   	type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["전표순번"],			ref: 'DOC_NUM',    				type:'output',  	width:'100px',  	style:'text-align:left'},
+        ];
+
+        Fia2500GridMast = _SBGrid.create(SBGridProperties);
+        //Fia2500GridMast.bind('click', 			'fn_viewFia2500GridMastEvent');
+    }
+    
+    function fn_createFia2500GridDetail() {
+        var SBGridProperties 				= {};
+	    SBGridProperties.parentid 			= 'sb_area_grid2';
+	    SBGridProperties.id 				= 'Fia2500GridDetail';
+	    SBGridProperties.jsonref 			= 'jsonFia2500Detail';
+        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
+        SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.frozenbottomrows 	= 1;
+        SBGridProperties.columns = [
+            {caption: ["연번"],			ref: 'ACQUIRE_SEQ', 			type:'output',  	width:'80px',  		style:'text-align:left'},
+            {caption: ["자산명"], 		ref: 'ASSET_NAME',  		  	type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["규격"], 		ref: 'ASSET_SPEC',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["수량"], 		ref: 'ASSET_QTY',  				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["단위"],			ref: 'UNIT_CODE',  			  	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["단가"],			ref: 'ASSET_PRICE',    			type:'output',  	width:'170px',  	style:'text-align:left'},
+            
+            {caption: ["통화금액"],		ref: 'ORIGINAL_AMOUNT',    		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            {caption: ["전표금액"],		ref: 'FUNCTIONAL_AMOUNT',		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
+            
+            {caption: ["비고"],			ref: 'MEMO',    				type:'output',  	width:'300px',  	style:'text-align:left'},
+        ];
+
+        Fia2500GridDetail = _SBGrid.create(SBGridProperties);
+        //Fia2500GridDetail.bind('click', 			'fn_viewFia2500GridDetailEvent');
+    }
+    
     
     /**
      * 취득처 
