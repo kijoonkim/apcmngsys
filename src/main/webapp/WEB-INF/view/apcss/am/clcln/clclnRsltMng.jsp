@@ -255,6 +255,7 @@
 		{property: "ddcJobCst", column: "JOB_CST"},
 		{property: "ddcRntlCrg", column: "RNTL_CRG"},
 		{property: "ddcVlntrlEndw", column: "VLNTRL_ENDW"},
+		{property: "ddcDtyVlntrlEndw", column: "DTY_VLNTRL_ENDW"},
 		{property: "ddcNRtnDdc", column: "N_RTN_DDC"},
 		{property: "ddcPrtpay", column: "PRTPAY"},
 	];

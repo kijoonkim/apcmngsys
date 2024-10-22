@@ -31,6 +31,7 @@ public class ClclnRsltVO extends ComVO {
 	private String clclnYr;
 	private int clclnSn;
 	
+	private String clclnTrprType;
 	private String clclnCrtrType;
 	private String crtrCd;
 	private String dtlCd;
@@ -55,6 +56,7 @@ public class ClclnRsltVO extends ComVO {
 	private double cfmtnAmt;
 	private String cfmtnYn;
 	private String dtlExtraCd;
+	
 	
 	// 농가정보
 	private String prdcrCd;
@@ -94,6 +96,8 @@ public class ClclnRsltVO extends ComVO {
 	private double ddcJobCst;
 	// 백대여
 	private double ddcRntlCrg;
+	// 의무자조금
+	private double ddcDtyVlntrlEndw;
 	// 자조금
 	private double ddcVlntrlEndw;
 	// 미반납공제
