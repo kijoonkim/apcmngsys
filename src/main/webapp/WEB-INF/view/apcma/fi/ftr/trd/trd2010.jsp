@@ -435,13 +435,13 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row" class="th_bg">예적금계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_ACCOUNT">
                                                 <sbux-input id="DEPOSIT_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_ACCOUNT">
                                                 <sbux-input id="DEPOSIT_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -452,13 +452,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">선수수익계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="ADVANCE_INCOME_ACCOUNT">
                                                 <sbux-input id="ADVANCE_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="ADVANCE_INCOME_ACCOUNT">
                                                 <sbux-input id="ADVANCE_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="ADVANCE_INCOME_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -469,13 +469,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">미수수익계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="ACCRUED_INCOME_ACCOUNT">
                                                 <sbux-input id="ACCRUED_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="ACCRUED_INCOME_ACCOUNT">
                                                 <sbux-input id="ACCRUED_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="ACCRUED_INCOME_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -486,13 +486,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">선급법인세계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="CTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-input id="CTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="CTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-input id="CTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="CTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -503,13 +503,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">선급지방소득세계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-input id="PTAX_WITHHOLD_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-input id="PTAX_WITHHOLD_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="PTAX_WITHHOLD_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -520,13 +520,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">현재가치할인차금계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PRESENT_VALUE_ACCOUNT">
                                                 <sbux-input id="PRESENT_VALUE_ACCOUNT" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PRESENT_VALUE_ACCOUNT">
                                                 <sbux-input id="PRESENT_VALUE_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="PRESENT_VALUE_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -537,13 +537,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">유동성대체계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_LIQUID_ACCOUNT">
                                                 <sbux-input id="DEPOSIT_LIQUID_ACCOUNT" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_LIQUID_ACCOUNT">
                                                 <sbux-input id="DEPOSIT_LIQUID_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_LIQUID_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -575,13 +575,13 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row" class="th_bg">불입계좌</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PAY_DEPOSIT">
                                                 <sbux-input id="PAY_DEPOSIT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PAY_DEPOSIT">
                                                 <sbux-input id="PAY_DEPOSIT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="PAY_DEPOSIT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -863,13 +863,13 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row" class="th_bg">이자수익계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="INTEREST_INCOME_ACCOUNT">
                                                 <sbux-input id="INTEREST_INCOME_ACCOUNT" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="INTEREST_INCOME_ACCOUNT">
                                                 <sbux-input id="INTEREST_INCOME_ACCOUNT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="INTEREST_INCOME_ACCOUNT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -880,13 +880,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환차익계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_GAIN_ACC">
                                                 <sbux-input id="EXCHANGE_GAIN_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_GAIN_ACC">
                                                 <sbux-input id="EXCHANGE_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_GAIN_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -897,13 +897,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환차손계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_LOSS_ACC">
                                                 <sbux-input id="EXCHANGE_LOSS_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_LOSS_ACC">
                                                 <sbux-input id="EXCHANGE_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_LOSS_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -914,13 +914,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환평가이익계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="VAL_GAIN_ACC">
                                                 <sbux-input id="VAL_GAIN_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="VAL_GAIN_ACC">
                                                 <sbux-input id="VAL_GAIN_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="VAL_GAIN_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -931,13 +931,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환평가손실계정</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="VAL_LOSS_ACC">
                                                 <sbux-input id="VAL_LOSS_ACC" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="VAL_LOSS_ACC">
                                                 <sbux-input id="VAL_LOSS_ACC_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="VAL_LOSS_ACC">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -968,13 +968,13 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row" class="th_bg">예금이체입금</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_START_TR">
                                                 <sbux-input id="DEPOSIT_START_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_START_TR">
                                                 <sbux-input id="DEPOSIT_START_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_START_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -985,13 +985,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">예금이체출금</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_IN_TR">
                                                 <sbux-input id="DEPOSIT_IN_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPOSIT_IN_TR">
                                                 <sbux-input id="DEPOSIT_IN_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="DEPOSIT_IN_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -1002,13 +1002,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">이자수익</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="INTEREST_IN_TR">
                                                 <sbux-input id="INTEREST_IN_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="INTEREST_IN_TR">
                                                 <sbux-input id="INTEREST_IN_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="INTEREST_IN_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -1019,13 +1019,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">법인세원천징수</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="CTAX_WITHHOLD_TR">
                                                 <sbux-input id="CTAX_WITHHOLD_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="CTAX_WITHHOLD_TR">
                                                 <sbux-input id="CTAX_WITHHOLD_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="CTAX_WITHHOLD_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -1036,13 +1036,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">지방소득세원천징수</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PTAX_WITHHOLD_TR">
                                                 <sbux-input id="PTAX_WITHHOLD_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="PTAX_WITHHOLD_TR">
                                                 <sbux-input id="PTAX_WITHHOLD_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="PTAX_WITHHOLD_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -1073,13 +1073,13 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row" class="th_bg">환차익</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_GAIN_TR">
                                                 <sbux-input id="EXCHANGE_GAIN_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_GAIN_TR">
                                                 <sbux-input id="EXCHANGE_GAIN_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_GAIN_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -1090,13 +1090,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">환차손</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_LOSS_TR">
                                                 <sbux-input id="EXCHANGE_LOSS_TR_TYPE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="EXCHANGE_LOSS_TR">
                                                 <sbux-input id="EXCHANGE_LOSS_TR_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="EXCHANGE_LOSS_TR">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -1127,13 +1127,13 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row" class="th_bg">부서</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPT">
                                                 <sbux-input id="DEPT_CODE" class="form-control input-sm" uitype="text" required></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="DEPT">
                                                 <sbux-input id="DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"
@@ -1144,13 +1144,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">원가중심점</th>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="COST_CENTER">
                                                 <sbux-input id="COST_CENTER_CODE" class="form-control input-sm" uitype="text"></sbux-input>
                                             </td>
-                                            <td class="td_input">
+                                            <td class="td_input" data-group="COST_CENTER">
                                                 <sbux-input id="COST_CENTER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                             </td>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" data-group="COST_CENTER">
                                                 <sbux-button
                                                         class="btn btn-xs btn-outline-dark"
                                                         text="찾기" uitype="modal"

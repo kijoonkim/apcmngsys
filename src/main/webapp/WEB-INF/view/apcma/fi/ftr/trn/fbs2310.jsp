@@ -559,9 +559,15 @@
         let rowVal = gvwDetail.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwDetail.addRow(true);
+            gvwDetail.addRow(true, {
+                RECEIPT_TRANSFER_YN: "N",
+                RECEIPT_EXCEPT_YN: "N"
+            });
         }else{
-            gvwDetail.insertRow(rowVal);
+            gvwDetail.insertRow(rowVal, 'below', {
+                RECEIPT_TRANSFER_YN: "N",
+                RECEIPT_EXCEPT_YN: "N"
+            });
         }
     }
 
