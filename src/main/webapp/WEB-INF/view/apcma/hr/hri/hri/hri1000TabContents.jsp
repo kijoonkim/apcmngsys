@@ -2958,9 +2958,29 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwFamily.addRow(true);
+            gvwFamily.addRow(true, {
+                LEAP_MONTH_YN: "N",
+                SUPPORT_YN: "N",
+                YEARTAX_YN: "N",
+                FOREIGNER_YN: "N",
+                HANDICAP_YN: "N",
+                LIVE_TOGETHER_YN: "N",
+                LIFE_YN: "N",
+                HEALTH_INSURE_YN: "N",
+                WH_TAX_YN: "N"
+            });
         }else{
-            gvwFamily.insertRow(rowVal);
+            gvwFamily.insertRow(rowVal, 'below', {
+                LEAP_MONTH_YN: "N",
+                SUPPORT_YN: "N",
+                YEARTAX_YN: "N",
+                FOREIGNER_YN: "N",
+                HANDICAP_YN: "N",
+                LIVE_TOGETHER_YN: "N",
+                LIFE_YN: "N",
+                HEALTH_INSURE_YN: "N",
+                WH_TAX_YN: "N"
+            });
         }
     }
 
@@ -2969,9 +2989,15 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwSchool.addRow(true);
+            gvwSchool.addRow(true, {
+                LAST_SCHOOL_YN: "N",
+                AFTER_ENTER_YN: "N"
+            });
         }else{
-            gvwSchool.insertRow(rowVal);
+            gvwSchool.insertRow(rowVal, 'below', {
+                LAST_SCHOOL_YN: "N",
+                AFTER_ENTER_YN: "N"
+            });
         }
     }
 
@@ -3046,9 +3072,13 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwPrize.addRow(true);
+            gvwPrize.addRow(true, {
+                APPLY_PAY_YN: "N"
+            });
         }else{
-            gvwPrize.insertRow(rowVal);
+            gvwPrize.insertRow(rowVal, 'below', {
+                APPLY_PAY_YN: "N"
+            });
         }
     }
 
@@ -3093,9 +3123,15 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwDisease.addRow(true);
+            gvwDisease.addRow(true, {
+                SICK_LEAVE_REQUEST_YN: "N",
+                GROUP_INSURE_REQUEST_YN: "N"
+            });
         }else{
-            gvwDisease.insertRow(rowVal);
+            gvwDisease.insertRow(rowVal, 'below', {
+                SICK_LEAVE_REQUEST_YN: "N",
+                GROUP_INSURE_REQUEST_YN: "N"
+            });
         }
     }
 

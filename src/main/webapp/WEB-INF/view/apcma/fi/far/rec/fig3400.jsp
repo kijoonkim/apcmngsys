@@ -116,11 +116,11 @@
 								/>
 							</td>
                             <th scope="row" class="th_bg">거래처</th>
-                            <td class="td_input">
+                            <td class="td_input" data-group="SRCH_PAYER">
                                 <sbux-input id="SRCH_PAYER_CODE" name="SRCH_PAYER_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAYER">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -129,11 +129,11 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">작성부서</th>
-                            <td class="td_input">
+                            <td class="td_input" data-group="SRCH_CREATED_DEPT">
                                 <sbux-input id="SRCH_CREATED_DEPT_CODE" name="SRCH_CREATED_DEPT_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_CREATED_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td class="td_input" style="border-right:hidden;" data-group="SRCH_CREATED_DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -142,11 +142,11 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">청구부서</th>
-                            <td class="td_input">
+                            <td class="td_input" data-group="SRCH_PAYEE_DEPT">
                                 <sbux-input id="SRCH_PAYEE_DEPT_CODE" name="SRCH_PAYEE_DEPT_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYEE_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAYEE_DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -203,11 +203,11 @@
                                 </div>
                             </td>
                             <th scope="row" class="th_bg">작성자</th>
-                            <td class="td_input">
+                            <td class="td_input" data-group="SRCH_CREATED_BY">
                                 <sbux-input id="SRCH_CREATED_BY_CODE" name="SRCH_CREATED_BY_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_CREATED_BY_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td class="td_input" style="border-right:hidden;" data-group="SRCH_CREATED_BY">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
@@ -216,11 +216,11 @@
                                 ></sbux-button>
                             </td>
                             <th scope="row" class="th_bg">실사용자</th>
-                            <td class="td_input">
+                            <td class="td_input" data-group="SRCH_PAYEE">
                                 <sbux-input id="SRCH_PAYEE_CODE" name="SRCH_PAYEE_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYEE_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAYEE">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
