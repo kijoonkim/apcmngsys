@@ -713,7 +713,8 @@
         		typeinfo : {
         			ref:'jsonClclnSeCd', 
         			label:'cdVlNm', 
-        			value:'cdVl', 
+        			value:'cdVl',
+        			unselect: {label : '-', value: ''},
         			oneclickedit: true
         		}, 
         		style: 'text-align:center'
@@ -729,7 +730,8 @@
         		typeinfo : {
         			ref:'jsonClclnClsf', 
         			label:'cdVlNm', 
-        			value:'cdVl', 
+        			value:'cdVl',
+        			unselect: {label : '-', value: ''},
         			oneclickedit: true
         		}, 
         		style: 'text-align:center'
@@ -745,7 +747,8 @@
         		typeinfo : {
         			ref:'jsonItem',
         			label:'itemNm', 
-        			value:'itemCd', 
+        			value:'itemCd',
+        			unselect: {label : '-', value: ''},
         			oneclickedit: true
         		}, 
         		style: 'text-align:center'
@@ -898,6 +901,7 @@
         			ref:'jsonClclnSeCd', 
         			label:'cdVlNm', 
         			value:'cdVl', 
+        			unselect: {label : '-', value: ''},
         			oneclickedit: true
         		}, 
         		style: 'text-align:center'
@@ -914,6 +918,7 @@
         			ref:'jsonClclnClsf', 
         			label:'cdVlNm', 
         			value:'cdVl', 
+        			unselect: {label : '-', value: ''},
         			oneclickedit: true
         		}, 
         		style: 'text-align:center'
@@ -930,6 +935,7 @@
         			ref:'jsonItem',
         			label:'itemNm', 
         			value:'itemCd', 
+        			unselect: {label : '-', value: ''},
         			oneclickedit: true
         		}, 
         		style: 'text-align:center'
@@ -1259,6 +1265,7 @@
 			if (_.isEqual("N", item.delYn)) {
 				
 				// 정산구분, 정산분류, 정산품목, 정산품종은 optional 로 체크
+				/*
 				if (needsElmtSeCd) {
 					if (gfn_isEmpty(item.clclnSeCd)) {
 						gfn_comAlert("W0005", "정산구분");		//	W0005	{0}이/가 없습니다.
@@ -1272,20 +1279,28 @@
 					}
 				}
 				if (needsElmtItem) {
+				
 					if (gfn_isEmpty(item.itemCd)) {
 						gfn_comAlert("W0005", "품목");		//	W0005	{0}이/가 없습니다.
 						return;
 					}
 				}
+				 */
 				
 				let vrtyCd = "";
 				if (needsElmtVrty) {
+					
+					/*
 					if (gfn_isEmpty(item.itemVrtyCd)) {
 						gfn_comAlert("W0005", "품종");		//	W0005	{0}이/가 없습니다.
 						return;
 					}
+					 */
 					
-					vrtyCd = item.itemVrtyCd.substr(4, 4);
+					if (!gfn_isEmpty(item.itemVrtyCd)) {
+						vrtyCd = item.itemVrtyCd.substr(4, 4);	
+					}
+					
 				}
 				
 				if (gfn_isEmpty(item.untprcDtlCd)) {

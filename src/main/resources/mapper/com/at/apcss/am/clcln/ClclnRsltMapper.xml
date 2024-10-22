@@ -25,9 +25,24 @@
     	
 			SELECT /* com.at.apcss.am.clcln.mapper.ClclnRsltMapper.selectClclnRsltList */
 				  pt0.*	
+				, CASE pt0.CLCLN_TRPR_TYPE
+					WHEN 'P' THEN PI.PRDCR_NM
+					WHEN 'C' THEN
+						(SELECT FN_GET_CLCLN_DTL_NM(pt0.APC_CD, 'CLCLN_ARTCL_KND', 'CLCLN_CLSF', pt0.PRDCR_CD) FROM DUAL)
+					ELSE NULL
+				  END						AS PRDCR_NM
+				, CASE pt0.CLCLN_TRPR_TYPE
+					WHEN 'P' THEN PI.CLCLN_CLSF
+					WHEN 'C' THEN pt0.PRDCR_CD
+					ELSE NULL
+				  END						AS CLCLN_CLSF
 				, (SELECT FN_GET_CLCLN_DTL_NM(pt0.APC_CD, 'CLCLN_ARTCL_KND', 'CLCLN_SE_CD', PI.CLCLN_SE_CD) FROM DUAL) AS CLCLN_SE_NM
-				, (SELECT FN_GET_CLCLN_DTL_NM(pt0.APC_CD, 'CLCLN_ARTCL_KND', 'CLCLN_CLSF', PI.CLCLN_CLSF) FROM DUAL) AS CLCLN_CLSF_NM
-				, PI.PRDCR_NM				AS PRDCR_NM
+				, CASE pt0.CLCLN_TRPR_TYPE
+					WHEN 'P' THEN (SELECT FN_GET_CLCLN_DTL_NM(pt0.APC_CD, 'CLCLN_ARTCL_KND', 'CLCLN_CLSF', PI.CLCLN_CLSF) FROM DUAL)
+					WHEN 'C' THEN (SELECT FN_GET_CLCLN_DTL_NM(pt0.APC_CD, 'CLCLN_ARTCL_KND', 'CLCLN_CLSF', pt0.PRDCR_CD) FROM DUAL)
+					ELSE NULL
+				  END						AS CLCLN_CLSF_NM
+				  
 				, PI.TELNO					AS TELNO
 				, PI.FRMHS_TELNO			AS FRMHS_TELNO
 				, PI.FRMHS_ADDR				AS FRMHS_ADDR
@@ -61,12 +76,13 @@
 				  RS.APC_CD					AS APC_CD
 				, RS.CLCLN_YR				AS CLCLN_YR
 				, RS.CLCLN_SN				AS CLCLN_SN
+				, RS.CLCLN_TRPR_TYPE		AS CLCLN_TRPR_TYPE
 				, RS.PRDCR_CD				AS PRDCR_CD
 				
-				, MAX(RS.CLCLN_SE_CD)		AS CLCLN_SE_CD
-				, MAX(RS.CLCLN_CLSF)		AS CLCLN_CLSF
+				--, MAX(RS.CLCLN_SE_CD)		AS CLCLN_SE_CD
+				--, MAX(RS.CLCLN_CLSF)		AS CLCLN_CLSF
 				
-				, MAX(RS.WRHS_SE_CD)			AS WRHS_SE_CD
+				, MAX(RS.WRHS_SE_CD)		AS WRHS_SE_CD
 				, MAX(RS.GDS_SE_CD)			AS GDS_SE_CD
 				, MAX(RS.ITEM_CD)			AS ITEM_CD
 				, MAX(RS.ITEM_VRTY_CD)		AS ITEM_VRTY_CD
@@ -336,7 +352,14 @@
 						 AND RS.CRTR_CD = 'DDC_AMT'
 						 AND RS.DTL_CD = 'VLNTRL_ENDW' THEN RS.CLCLN_AMT
 					END
-				)		AS DDC_VLNTRL_ENDW	-- 출하회자조금
+				)		AS DDC_DTY_VLNTRL_ENDW	-- 의무자조금
+				, SUM(
+					CASE
+						WHEN RS.CLCLN_CRTR_TYPE = 'CLCLN_AMT_KND'
+						 AND RS.CRTR_CD = 'DDC_AMT'
+						 AND RS.DTL_CD = 'VLNTRL_ENDW' THEN RS.CLCLN_AMT
+					END
+				)		AS DDC_VLNTRL_ENDW	-- 자조금
 				, SUM(
 					CASE
 						WHEN RS.CLCLN_CRTR_TYPE = 'CLCLN_AMT_KND'
@@ -395,6 +418,7 @@
 					  CR.APC_CD				AS APC_CD
 					, CR.CLCLN_YR			AS CLCLN_YR
 					, CR.CLCLN_SN			AS CLCLN_SN
+					, CR.CLCLN_TRPR_TYPE	AS CLCLN_TRPR_TYPE
 					, CR.PRDCR_CD			AS PRDCR_CD
 					, CR.RSLT_SN			AS RSLT_SN
 					, CR.CLCLN_CRTR_TYPE	AS CLCLN_CRTR_TYPE
@@ -647,19 +671,29 @@
 			 	  RS.APC_CD
 				, RS.CLCLN_YR
 				, RS.CLCLN_SN
+				, RS.CLCLN_TRPR_TYPE
 				, RS.PRDCR_CD
 		]]>
 		
     	<![CDATA[			 
 			) pt0
 			 
-		  JOIN TB_PRDCR_INFO PI
+		  LEFT JOIN TB_PRDCR_INFO PI
 			ON PI.APC_CD = pt0.APC_CD
 		   AND PI.PRDCR_CD = pt0.PRDCR_CD
 		   AND PI.DEL_YN = 'N'
+		   AND pt0.CLCLN_TRPR_TYPE = 'P'
 			 
 		 WHERE pt0.APC_CD IS NOT NULL
-		 ORDER BY PRDCR_CD
+		 ORDER BY 
+		 	  CLCLN_CLSF
+		 	, CASE pt0.CLCLN_TRPR_TYPE
+				WHEN 'P' THEN 1
+				WHEN 'C' THEN 2
+				ELSE NULL
+			  END
+			, PRDCR_IDENTNO
+			, PRDCR_CD
 		
 		]]>
     </select>
@@ -683,6 +717,7 @@
 			   AND APC_CD = #{apcCd}
 			   AND CLCLN_YR = #{clclnYr}
 			   AND CLCLN_SN = #{clclnSn}
+			   AND CLCLN_TRPR_TYPE = #{clclnTrprType}
 			   AND PRDCR_CD = #{prdcrCd}
 			   AND CLCLN_CRTR_TYPE = #{clclnCrtrType}
 			   AND CRTR_CD = #{crtrCd}
@@ -691,7 +726,6 @@
 			   AND DTL_CD = #{dtlCd}
 		</if>
     </select>
-
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnRslt		-->
@@ -708,6 +742,7 @@
 				  APC_CD
 				, CLCLN_YR
 				, CLCLN_SN
+				, CLCLN_TRPR_TYPE
 				, PRDCR_CD
 				, RSLT_SN
 				, CLCLN_CRTR_TYPE
@@ -740,6 +775,7 @@
 				  #{apcCd}
 				, #{clclnYr}
 				, #{clclnSn}
+				, #{clclnTrprType}
 				, #{prdcrCd}
 				, NVL((
 					SELECT MAX(RSLT_SN)
@@ -817,6 +853,7 @@
 			 WHERE APC_CD 	= #{apcCd}
 			   AND CLCLN_YR = #{clclnYr}
 			   AND CLCLN_SN = #{clclnSn}
+			   AND CLCLN_TRPR_TYPE = #{clclnTrprType}
 			   AND PRDCR_CD = #{prdcrCd}
 			   AND RSLT_SN	= #{rsltSn}
 		]]>
