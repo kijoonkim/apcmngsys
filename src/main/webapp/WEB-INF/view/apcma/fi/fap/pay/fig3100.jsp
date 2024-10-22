@@ -1674,17 +1674,17 @@
 
        /* let YMDPERIOD_YYYYMM = gfnma_nvl(SBUxMethod.get("srch-ymdperiod_yyyymm")); //년월*/
         //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
-        let FI_ORG_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
-        let RIDGUBUN = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
-        let DATE_FR = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
-        let DATE_TO = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
-        let CS_BIZ_REGNO = gfnma_nvl(SBUxMethod.get("srch-cs_biz_regno")); //사업자번호
-        let CS_NAME = gfnma_nvl(SBUxMethod.get("srch-cs_name")); //상호
-        let DEPT_CODE = gfnma_nvl(SBUxMethod.get("srch-dept_code")); //관련부서
-        let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원
-        let AMT = gfnma_nvl(SBUxMethod.get("srch-txtAmt")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let APPROVAL_NO = gfnma_nvl(SBUxMethod.get("srch-txtApproval_no")); //몬지도 모르겠는 숨겨져 있는 컬럼
-        let ROW_CNT = gfnma_nvl(SBUxMethod.get("srch-numRow_cnt")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
+        let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
+        let DATE_FR         = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
+        let DATE_TO         = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
+        let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("srch-cs_biz_regno")); //사업자번호
+        let CS_NAME         = gfnma_nvl(SBUxMethod.get("srch-cs_name")); //상호
+        let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("srch-dept_code")); //관련부서
+        let EMP_CODE        = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원
+        let AMT             = gfnma_nvl(SBUxMethod.get("srch-txtAmt")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("srch-txtApproval_no")); //몬지도 모르겠는 숨겨져 있는 컬럼
+        let ROW_CNT         = gfnma_nvl(SBUxMethod.get("srch-numRow_cnt")); //몬지도 모르겠는 숨겨져 있는 컬럼
 
         if (!FI_ORG_CODE) {
             gfn_comAlert("W0002", "회계단위");
@@ -1752,62 +1752,62 @@
                         APPROVAL_NO		        : gfnma_nvl(item.APPROVAL_NO),
                         ISSUE_DATE		        : gfnma_nvl(item.ISSUE_DATE),
                         SEND_DATE		        : gfnma_nvl(item.SEND_DATE),
-                        SELLER_REG_NO		        : gfnma_nvl(item.SELLER_REG_NO),
-                        SELLER_SUB_REG_NO		        : gfnma_nvl(item.SELLER_SUB_REG_NO),
-                        CS_CODE		        : gfnma_nvl(item.CS_CODE),
+                        SELLER_REG_NO		    : gfnma_nvl(item.SELLER_REG_NO),
+                        SELLER_SUB_REG_NO		: gfnma_nvl(item.SELLER_SUB_REG_NO),
+                        CS_CODE		            : gfnma_nvl(item.CS_CODE),
                         CS_CODE_ORG		        : gfnma_nvl(item.CS_CODE_ORG),
                         SELLER_NAME		        : gfnma_nvl(item.SELLER_NAME),
-                        SELLER_OWNER		        : gfnma_nvl(item.SELLER_OWNER),
-                        SELLER_BIZ_CATEGORY		        : gfnma_nvl(item.SELLER_BIZ_CATEGORY),
-                        SELLER_BIZ_ITEM		        : gfnma_nvl(item.SELLER_BIZ_ITEM),
-                        SELLER_BIZ_TYPE		        : gfnma_nvl(item.SELLER_BIZ_TYPE),
-                        BUYER_REG_NO		        : gfnma_nvl(item.BUYER_REG_NO),
-                        BUYER_SUB_REG_NO		        : gfnma_nvl(item.BUYER_SUB_REG_NO),
+                        SELLER_OWNER		    : gfnma_nvl(item.SELLER_OWNER),
+                        SELLER_BIZ_CATEGORY		: gfnma_nvl(item.SELLER_BIZ_CATEGORY),
+                        SELLER_BIZ_ITEM		    : gfnma_nvl(item.SELLER_BIZ_ITEM),
+                        SELLER_BIZ_TYPE		    : gfnma_nvl(item.SELLER_BIZ_TYPE),
+                        BUYER_REG_NO		    : gfnma_nvl(item.BUYER_REG_NO),
+                        BUYER_SUB_REG_NO		: gfnma_nvl(item.BUYER_SUB_REG_NO),
                         BUYER_NAME		        : gfnma_nvl(item.BUYER_NAME),
                         BUYER_OWNER		        : gfnma_nvl(item.BUYER_OWNER),
-                        BUYER_BIZ_CATEGORY		        : gfnma_nvl(item.BUYER_BIZ_CATEGORY),
-                        BUYER_BIZ_ITEM		        : gfnma_nvl(item.BUYER_BIZ_ITEM),
-                        BUYER_BIZ_TYPE		        : gfnma_nvl(item.BUYER_BIZ_TYPE),
+                        BUYER_BIZ_CATEGORY		: gfnma_nvl(item.BUYER_BIZ_CATEGORY),
+                        BUYER_BIZ_ITEM		    : gfnma_nvl(item.BUYER_BIZ_ITEM),
+                        BUYER_BIZ_TYPE		    : gfnma_nvl(item.BUYER_BIZ_TYPE),
                         TOTAL_AMT		        : gfnma_nvl(item.TOTAL_AMT),
-                        TOTAL_TAXABLE_AMT		        : gfnma_nvl(item.TOTAL_TAXABLE_AMT),
-                        TOTAL_VAT_AMT		        : gfnma_nvl(item.TOTAL_VAT_AMT),
-                        DOC_TOTAL_AMT		        : gfnma_nvl(item.DOC_TOTAL_AMT),
-                        DOC_SUPPLY_AMT		        : gfnma_nvl(item.DOC_SUPPLY_AMT),
+                        TOTAL_TAXABLE_AMT		: gfnma_nvl(item.TOTAL_TAXABLE_AMT),
+                        TOTAL_VAT_AMT		    : gfnma_nvl(item.TOTAL_VAT_AMT),
+                        DOC_TOTAL_AMT		    : gfnma_nvl(item.DOC_TOTAL_AMT),
+                        DOC_SUPPLY_AMT		    : gfnma_nvl(item.DOC_SUPPLY_AMT),
                         DOC_VAT_AMT		        : gfnma_nvl(item.DOC_VAT_AMT),
                         DIFF_FLAG		        : gfnma_nvl(item.DIFF_FLAG),
-                        EINVOICE_CATEGORY		        : gfnma_nvl(item.EINVOICE_CATEGORY),
-                        EINVOICE_TYPE		        : gfnma_nvl(item.EINVOICE_TYPE),
-                        MATCH_METHOD		        : gfnma_nvl(item.MATCH_METHOD),
+                        EINVOICE_CATEGORY		: gfnma_nvl(item.EINVOICE_CATEGORY),
+                        EINVOICE_TYPE		    : gfnma_nvl(item.EINVOICE_TYPE),
+                        MATCH_METHOD		    : gfnma_nvl(item.MATCH_METHOD),
                         ISSUE_TYPE		        : gfnma_nvl(item.ISSUE_TYPE),
-                        NOTE1		        : gfnma_nvl(item.NOTE1),
-                        NOTE2		        : gfnma_nvl(item.NOTE2),
-                        NOTE3		        : gfnma_nvl(item.NOTE3),
-                        RECEIPT_OR_BILL		        : gfnma_nvl(item.RECEIPT_OR_BILL),
-                        SELLER_EMAIL		        : gfnma_nvl(item.SELLER_EMAIL),
-                        BUYER_EMAIL1		        : gfnma_nvl(item.BUYER_EMAIL1),
-                        BUYER_EMAIL2		        : gfnma_nvl(item.BUYER_EMAIL2),
-                        ACCOUNT_EMP_CODE		        : gfnma_nvl(item.ACCOUNT_EMP_CODE),
-                        ACCOUNT_EMP_NAME		        : gfnma_nvl(item.ACCOUNT_EMP_NAME),
+                        NOTE1		            : gfnma_nvl(item.NOTE1),
+                        NOTE2		            : gfnma_nvl(item.NOTE2),
+                        NOTE3		            : gfnma_nvl(item.NOTE3),
+                        RECEIPT_OR_BILL		    : gfnma_nvl(item.RECEIPT_OR_BILL),
+                        SELLER_EMAIL		    : gfnma_nvl(item.SELLER_EMAIL),
+                        BUYER_EMAIL1		    : gfnma_nvl(item.BUYER_EMAIL1),
+                        BUYER_EMAIL2		    : gfnma_nvl(item.BUYER_EMAIL2),
+                        ACCOUNT_EMP_CODE		: gfnma_nvl(item.ACCOUNT_EMP_CODE),
+                        ACCOUNT_EMP_NAME		: gfnma_nvl(item.ACCOUNT_EMP_NAME),
                         TXN_DATE		        : gfnma_nvl(item.TXN_DATE),
                         ITEM_NAME		        : gfnma_nvl(item.ITEM_NAME),
                         ITEM_SPEC		        : gfnma_nvl(item.ITEM_SPEC),
                         ITEM_QTY		        : gfnma_nvl(item.ITEM_QTY),
-                        ITEM_UNIT_PRICE		        : gfnma_nvl(item.ITEM_UNIT_PRICE),
-                        ITEM_TAXABLE_AMT		        : gfnma_nvl(item.ITEM_TAXABLE_AMT),
-                        ITEM_VAT_AMT		        : gfnma_nvl(item.ITEM_VAT_AMT),
+                        ITEM_UNIT_PRICE		    : gfnma_nvl(item.ITEM_UNIT_PRICE),
+                        ITEM_TAXABLE_AMT		: gfnma_nvl(item.ITEM_TAXABLE_AMT),
+                        ITEM_VAT_AMT		    : gfnma_nvl(item.ITEM_VAT_AMT),
                         ITEM_DESC		        : gfnma_nvl(item.ITEM_DESC),
-                        INTERFACED_FLAG		        : gfnma_nvl(item.INTERFACED_FLAG),
+                        INTERFACED_FLAG		    : gfnma_nvl(item.INTERFACED_FLAG),
                         FI_ORG_CODE		        : gfnma_nvl(item.FI_ORG_CODE),
-                        SELLER_ADDRESS		        : gfnma_nvl(item.SELLER_ADDRESS),
-                        BUYER_ADDRESS		        : gfnma_nvl(item.BUYER_ADDRESS),
-                        DOC_ID		        : gfnma_nvl(item.DOC_ID),
+                        SELLER_ADDRESS		    : gfnma_nvl(item.SELLER_ADDRESS),
+                        BUYER_ADDRESS		    : gfnma_nvl(item.BUYER_ADDRESS),
+                        DOC_ID		            : gfnma_nvl(item.DOC_ID),
                         DOC_NAME		        : gfnma_nvl(item.DOC_NAME),
-                        DOC_BATCH_NO		        : gfnma_nvl(item.DOC_BATCH_NO),
+                        DOC_BATCH_NO		    : gfnma_nvl(item.DOC_BATCH_NO),
                         DOC_STATUS		        : gfnma_nvl(item.DOC_STATUS),
                         RID_GUBUN		        : gfnma_nvl(item.RID_GUBUN),
                         EXCEPT_CODE		        : gfnma_nvl(item.EXCEPT_CODE),
-                        EXCEPT_REASON		        : gfnma_nvl(item.EXCEPT_REASON),
-                        EXCEPT_AMOUNT		        : gfnma_nvl(item.EXCEPT_AMOUNT),
+                        EXCEPT_REASON		    : gfnma_nvl(item.EXCEPT_REASON),
+                        EXCEPT_AMOUNT		    : gfnma_nvl(item.EXCEPT_AMOUNT),
                         PO_DOC_NO		        : gfnma_nvl(item.PO_DOC_NO),
                     }
                     jsonList.push(msg);
@@ -1852,23 +1852,22 @@
         if (!_.isEmpty(rowData)) {
 
             //let FI_ORG_CODE = gfnma_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
-            let FI_ORG_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
-            let RIDGUBUN = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
-            let DATE_FR = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
-            let DATE_TO = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
-            let CS_BIZ_REGNO = gfnma_nvl(SBUxMethod.get("srch-cs_biz_regno")); //사업자번호
-            let CS_NAME = gfnma_nvl(SBUxMethod.get("srch-cs_name")); //상호
-            let DEPT_CODE = gfnma_nvl(SBUxMethod.get("srch-dept_code")); //관련부서
-            let EMP_CODE = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원
-            let AMT = gfnma_nvl(SBUxMethod.get("srch-txtAmt")); //몬지도 모르겠는 숨겨져 있는 컬럼
-            let APPROVAL_NO = gfnma_nvl(SBUxMethod.get("srch-txtApproval_no")); //몬지도 모르겠는 숨겨져 있는 컬럼
-            let ROW_CNT = gfnma_nvl(SBUxMethod.get("srch-numRow_cnt")); //몬지도 모르겠는 숨겨져 있는 컬럼
+            let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//사업단위
+            let RIDGUBUN        = gfnma_nvl(SBUxMethod.get("srch-ridgubun")); //조회구분
+            let DATE_FR         = gfnma_nvl(SBUxMethod.get("srch-date_fr")); //작성일자
+            let DATE_TO         = gfnma_nvl(SBUxMethod.get("srch-date_to")); //작성일자
+            let CS_BIZ_REGNO    = gfnma_nvl(SBUxMethod.get("srch-cs_biz_regno")); //사업자번호
+            let CS_NAME         = gfnma_nvl(SBUxMethod.get("srch-cs_name")); //상호
+            let DEPT_CODE       = gfnma_nvl(SBUxMethod.get("srch-dept_code")); //관련부서
+            let EMP_CODE        = gfnma_nvl(SBUxMethod.get("srch-emp_code")); //사원
+            let AMT             = gfnma_nvl(SBUxMethod.get("srch-txtAmt")); //몬지도 모르겠는 숨겨져 있는 컬럼
+            let APPROVAL_NO     = gfnma_nvl(SBUxMethod.get("srch-txtApproval_no")); //몬지도 모르겠는 숨겨져 있는 컬럼
+            let ROW_CNT         = gfnma_nvl(SBUxMethod.get("srch-numRow_cnt")); //몬지도 모르겠는 숨겨져 있는 컬럼
 
             if (!FI_ORG_CODE) {
                 gfn_comAlert("W0002", "회계단위");
                 return;
             }
-
             if (!DATE_FR) {
                 gfn_comAlert("W0002", "작성일자");
                 return;
