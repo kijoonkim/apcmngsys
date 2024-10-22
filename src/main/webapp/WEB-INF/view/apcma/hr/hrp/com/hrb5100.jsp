@@ -437,9 +437,9 @@
         let rowVal = bandgvwDetail.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            bandgvwDetail.addRow(true, {USE_YN: "Y"});
+            bandgvwDetail.addRow(true, {USE_YN: "Y", PAY_YN: "N"});
         }else{
-            bandgvwDetail.insertRow(rowVal, 'below', {USE_YN: "Y"});
+            bandgvwDetail.insertRow(rowVal, 'below', {USE_YN: "Y", PAY_YN: "N"});
         }
     }
 
@@ -484,11 +484,11 @@
     const fn_save = async function () {
         let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
         let PAY_GROUP_NAME = gfnma_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
-        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
+        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
         let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
         let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
         let HOBONG_TYPE = gfnma_nvl(SBUxMethod.get("HOBONG_TYPE"));
-        let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN"));
+        let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
         let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
         let PAY_TOTAL_TBALE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
 
@@ -499,11 +499,11 @@
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_PAY_GROUP_CODE : PAY_GROUP_CODE,
             V_P_PAY_GROUP_NAME : PAY_GROUP_NAME,
-            V_P_USE_YN : USE_YN.USE_YN,
+            V_P_USE_YN : USE_YN,
             V_P_DESCR : DESCR,
             V_P_SORT_SEQ : SORT_SEQ,
             V_P_HOBONG_TYPE : HOBONG_TYPE,
-            V_P_PAY_YN : PAY_YN.PAY_YN,
+            V_P_PAY_YN : PAY_YN,
             P_V_PAY_AREA_TYPE : PAY_AREA_TYPE,
             P_V_PAY_TOTAL_TBALE_TYPE : PAY_TOTAL_TBALE_TYPE,
             V_P_FORM_ID		: p_formId,
@@ -538,7 +538,7 @@
                             V_P_LANG_ID	: '',
                             V_P_COMP_CODE : gv_ma_selectedApcCd,
                             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                            V_P_PAY_GROUP_CODE : item.data.PAY_GROUP_CODE,
+                            V_P_PAY_GROUP_CODE : PAY_GROUP_CODE,
                             V_P_PAY_TYPE : item.data.PAY_TYPE,
                             V_P_PAY_DAY_MONTH_TYPE : item.data.PAY_DAY_MONTH_TYPE,
                             V_P_PAY_DAY_DD : item.data.PAY_DAY_DD,
@@ -603,11 +603,11 @@
         if(gfn_comConfirm("Q0000", "정말 삭제하시겠습니까?")) {
             let PAY_GROUP_CODE = gfnma_nvl(SBUxMethod.get("PAY_GROUP_CODE"));
             let PAY_GROUP_NAME = gfnma_nvl(SBUxMethod.get("PAY_GROUP_NAME"));
-            let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
+            let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
             let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
             let SORT_SEQ = gfnma_nvl(SBUxMethod.get("SORT_SEQ"));
             let HOBONG_TYPE = gfnma_nvl(SBUxMethod.get("HOBONG_TYPE"));
-            let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN"));
+            let PAY_YN = gfnma_nvl(SBUxMethod.get("PAY_YN").PAY_YN);
             let PAY_AREA_TYPE = gfnma_nvl(SBUxMethod.get("PAY_AREA_TYPE"));
             let PAY_TOTAL_TBALE_TYPE = gfnma_nvl(gfnma_multiSelectGet('#PAY_TOTAL_TBALE_TYPE'));
 
@@ -725,7 +725,7 @@
         SBUxMethod.set("SORT_SEQ", "");
         SBUxMethod.set("USE_YN", "Y");
         SBUxMethod.set("HOBONG_TYPE", "");
-        SBUxMethod.set("PAY_YN", "");
+        SBUxMethod.set("PAY_YN", "N");
         SBUxMethod.set("PAY_AREA_TYPE", "");
         gfnma_multiSelectSet('#PAY_TOTAL_TBALE_TYPE', '', '', '');
         jsonPayBySiteList.length = 0;

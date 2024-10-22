@@ -1130,8 +1130,8 @@
 
         let SHIFT_CODE = gfnma_nvl(SBUxMethod.get("SHIFT_CODE"));
         let SHIFT_NAME = gfnma_nvl(SBUxMethod.get("SHIFT_NAME"));
-        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN"));
-        let FIVE_WEEK_YN = gfnma_nvl(SBUxMethod.get("FIVE_WEEK_YN"));
+        let USE_YN = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
+        let FIVE_WEEK_YN = gfnma_nvl(SBUxMethod.get("FIVE_WEEK_YN").FIVE_WEEK_YN);
         let SHIFT_CATEGORY = gfnma_nvl(SBUxMethod.get("SHIFT_CATEGORY"));
         let WORK_TYPE_CODE = gfnma_nvl(SBUxMethod.get("WORK_TYPE_CODE"));
         let WORK_DAY_TYPE = gfnma_nvl(SBUxMethod.get("WORK_DAY_TYPE"));
@@ -1146,31 +1146,31 @@
         let NORMAL_END_DAY_TYPE = gfnma_nvl(SBUxMethod.get("NORMAL_END_DAY_TYPE"));
         let NORMAL_END_HHMM = gfnma_nvl(SBUxMethod.get("NORMAL_END_HH")) + gfnma_nvl(SBUxMethod.get("NORMAL_END_MM"));
         let NORMAL_TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("NORMAL_TIME_ITEM_CODE"));
-        let NORMAL_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("NORMAL_BREAK_APPLY_YN"));
+        let NORMAL_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("NORMAL_BREAK_APPLY_YN").NORMAL_BREAK_APPLY_YN);
         let OVER_START_DAY_TYPE = gfnma_nvl(SBUxMethod.get("OVER_START_DAY_TYPE"));
         let OVER_START_HHMM = gfnma_nvl(SBUxMethod.get("OVER_START_HH")) + gfnma_nvl(SBUxMethod.get("OVER_START_MM"));
         let OVER_END_DAY_TYPE = gfnma_nvl(SBUxMethod.get("OVER_END_DAY_TYPE"));
         let OVER_END_HHMM = gfnma_nvl(SBUxMethod.get("OVER_END_HH")) + gfnma_nvl(SBUxMethod.get("OVER_END_MM"));
         let OVER_TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("OVER_TIME_ITEM_CODE"));
-        let OVER_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("OVER_BREAK_APPLY_YN"));
+        let OVER_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("OVER_BREAK_APPLY_YN").OVER_BREAK_APPLY_YN);
         let NIGHT_START_DAY_TYPE = gfnma_nvl(SBUxMethod.get("NIGHT_START_DAY_TYPE"));
         let NIGHT_START_HHMM = gfnma_nvl(SBUxMethod.get("NIGHT_START_HH")) + gfnma_nvl(SBUxMethod.get("NIGHT_START_MM"));
         let NIGHT_END_DAY_TYPE = gfnma_nvl(SBUxMethod.get("NIGHT_END_DAY_TYPE"));
         let NIGHT_END_HHMM = gfnma_nvl(SBUxMethod.get("NIGHT_END_HH")) + gfnma_nvl(SBUxMethod.get("NIGHT_END_MM"));
         let NIGHT_TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("NIGHT_TIME_ITEM_CODE"));
-        let NIGHT_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("NIGHT_BREAK_APPLY_YN"));
+        let NIGHT_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("NIGHT_BREAK_APPLY_YN").NIGHT_BREAK_APPLY_YN);
         let AFTER1_START_DAY_TYPE = gfnma_nvl(SBUxMethod.get("AFTER1_START_DAY_TYPE"));
         let AFTER1_START_HHMM = gfnma_nvl(SBUxMethod.get("AFTER1_START_HH")) + gfnma_nvl(SBUxMethod.get("AFTER1_START_MM"));
         let AFTER1_END_DAY_TYPE = gfnma_nvl(SBUxMethod.get("AFTER1_END_DAY_TYPE"));
         let AFTER1_END_HHMM = gfnma_nvl(SBUxMethod.get("AFTER1_END_HH")) + gfnma_nvl(SBUxMethod.get("AFTER1_END_MM"));
         let AFTER1_TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("AFTER1_TIME_ITEM_CODE"));
-        let AFTER1_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("AFTER1_BREAK_APPLY_YN"));
+        let AFTER1_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("AFTER1_BREAK_APPLY_YN").AFTER1_BREAK_APPLY_YN);
         let AFTER2_START_DAY_TYPE = gfnma_nvl(SBUxMethod.get("AFTER2_START_DAY_TYPE"));
         let AFTER2_START_HHMM = gfnma_nvl(SBUxMethod.get("AFTER2_START_HH")) + gfnma_nvl(SBUxMethod.get("AFTER2_START_MM"));
         let AFTER2_END_DAY_TYPE = gfnma_nvl(SBUxMethod.get("AFTER2_END_DAY_TYPE"));
         let AFTER2_END_HHMM = gfnma_nvl(SBUxMethod.get("AFTER2_END_HH")) + gfnma_nvl(SBUxMethod.get("AFTER2_END_MM"));
         let AFTER2_TIME_ITEM_CODE = gfnma_nvl(SBUxMethod.get("AFTER2_TIME_ITEM_CODE"));
-        let AFTER2_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("AFTER2_BREAK_APPLY_YN"));
+        let AFTER2_BREAK_APPLY_YN = gfnma_nvl(SBUxMethod.get("AFTER2_BREAK_APPLY_YN").AFTER2_BREAK_APPLY_YN);
         let AFTER3_START_DAY_TYPE = gfnma_nvl(SBUxMethod.get("AFTER3_START_DAY_TYPE"));
         let AFTER3_START_HHMM = gfnma_nvl(SBUxMethod.get("AFTER3_START_HH")) + gfnma_nvl(SBUxMethod.get("AFTER3_START_MM"));
         let AFTER3_END_DAY_TYPE = gfnma_nvl(SBUxMethod.get("AFTER3_END_DAY_TYPE"));
@@ -1279,14 +1279,14 @@
             V_P_BREAK5_START_HHMM : BREAK5_START_HHMM,
             V_P_BREAK5_END_DAY_TYPE : BREAK5_END_DAY_TYPE,
             V_P_BREAK5_END_HHMM : BREAK5_END_HHMM,
-            V_P_NORMAL_BREAK_APPLY_YN : NORMAL_BREAK_APPLY_YN.NORMAL_BREAK_APPLY_YN,
-            V_P_OVER_BREAK_APPLY_YN : OVER_BREAK_APPLY_YN.OVER_BREAK_APPLY_YN,
-            V_P_NIGHT_BREAK_APPLY_YN : NIGHT_BREAK_APPLY_YN.NIGHT_BREAK_APPLY_YN,
-            V_P_AFTER1_BREAK_APPLY_YN : AFTER1_BREAK_APPLY_YN.AFTER1_BREAK_APPLY_YN,
-            V_P_AFTER2_BREAK_APPLY_YN : AFTER2_BREAK_APPLY_YN.AFTER2_BREAK_APPLY_YN,
+            V_P_NORMAL_BREAK_APPLY_YN : NORMAL_BREAK_APPLY_YN,
+            V_P_OVER_BREAK_APPLY_YN : OVER_BREAK_APPLY_YN,
+            V_P_NIGHT_BREAK_APPLY_YN : NIGHT_BREAK_APPLY_YN,
+            V_P_AFTER1_BREAK_APPLY_YN : AFTER1_BREAK_APPLY_YN,
+            V_P_AFTER2_BREAK_APPLY_YN : AFTER2_BREAK_APPLY_YN,
             V_P_MEMO : MEMO,
-            V_P_USE_YN : USE_YN.USE_YN,
-            V_P_FIVE_WEEK_YN : FIVE_WEEK_YN.FIVE_WEEK_YN,
+            V_P_USE_YN : USE_YN,
+            V_P_FIVE_WEEK_YN : FIVE_WEEK_YN,
             V_P_BACK_COLOR : BACK_COLOR,
             V_P_WORK_TYPE_CODE : WORK_TYPE_CODE,
             V_P_WORK_DAY_TYPE : WORK_DAY_TYPE,
@@ -1335,7 +1335,7 @@
         SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
         let SHIFT_CODE	    = gfnma_nvl(gfnma_multiSelectGet('#SRCH_SHIFT_CODE'));
         let SHIFT_NAME	    = gfnma_nvl(SBUxMethod.get("SRCH_SHIFT_NAME"));
-        let USE_YN	    = gfnma_nvl(SBUxMethod.get("USE_YN"));
+        let USE_YN	    = gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -1344,7 +1344,7 @@
             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
             V_P_SHIFT_CODE : SHIFT_CODE,
             V_P_SHIFT_NAME : SHIFT_NAME,
-            V_P_USE_YN : USE_YN.USE_YN,
+            V_P_USE_YN : USE_YN,
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
