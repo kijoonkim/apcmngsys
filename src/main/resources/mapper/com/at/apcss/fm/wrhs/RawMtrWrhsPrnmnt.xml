@@ -49,7 +49,6 @@
 
                   FROM
                        TB_RAW_MTR_WRHS_PRNMNT WP
---                      , TB_RAW_MTR_INVNTR INV
 
                  WHERE WP.DEL_YN = 'N'
 		]]>
@@ -63,17 +62,9 @@
         <if test='wrhsPrnmntYmdTo != null and wrhsPrnmntYmdTo != ""'>
                    AND WP.PRNMNT_YMD <![CDATA[<=]]> #{wrhsPrnmntYmdTo}
         </if>
-<!--        <if test='prdcrCd != null and prdcrCd != ""'>-->
-<!--            <choose>-->
-<!--                <when test='prdcrGroupYn != null and prdcrGroupYn != "" and prdcrGroupYn =="Y"'>-->
-<!--                    AND WP.PRDCR_CD IN (SELECT COL1 FROM TABLE(FN_SYS_SPLIT_STRING(#{prdcrCd})))-->
-<!--                </when>-->
-<!--                <otherwise>-->
-<!--                    AND WP.PRDCR_CD = #{prdcrCd}-->
-<!--                </otherwise>-->
-<!--            </choose>-->
-<!--        </if>-->
-
+        <if test='prdcrCd != null and prdcrCd != ""'>
+                  AND WP.PRDCR_CD = #{prdcrCd}
+        </if>
         <![CDATA[
              ORDER BY WP.APC_CD, PRNMNT_YMD DESC
              ) pt0

@@ -62,7 +62,6 @@ public class RawMtrWrhsPrnmntServiceImpl extends BaseServiceImpl implements RawM
 
         rawMtrWrhsPrnmntMapper.deleteRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
 
-
         return null;
     }
 
