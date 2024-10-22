@@ -191,8 +191,10 @@ var p_userId = '${loginVO.id}';
             gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 		]);
 
-		SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
-		SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
+
+		let yyyymm = gfnma_date6().substring(0,6);
+    	SBUxMethod.set("srch-dtp-submitYyyymmFr",yyyymm);
+    	SBUxMethod.set("srch-dtp-submitYyyymmTo",yyyymm);
 	}
 
     // only document
@@ -277,7 +279,7 @@ var p_userId = '${loginVO.id}';
  					checkedvalue : 'Y',
  					uncheckedvalue : 'N'
  				}
-         		},
+        	},
             {caption: ["귀속연월"],		ref: 'jobYyyymm', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["지급연월"], 	ref: 'payYyyymm',    	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["제출연월"],  		ref: 'submitYyyymm',    			type:'output',  	width:'100px',  	style:'text-align:left'}
@@ -297,8 +299,58 @@ var p_userId = '${loginVO.id}';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns: {
+					standard: [15],
+					sum: [16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
+				},
+			grandtotalrow: {
+				titlecol: 15,
+				titlevalue: '합계',
+				style : 'background-color: #ceebff ; font-weight: bold; color: #0060b3;',
+				stylestartcol: 0
+			},
+			totalformat: {
+				16: '#,###',
+				17: '#,###',
+				16 : '#,###',
+				17 : '#,###',
+				18 : '#,###',
+				19 : '#,###',
+				20 : '#,###',
+				21 : '#,###',
+				22 : '#,###',
+				23 : '#,###',
+				24 : '#,###',
+				25 : '#,###',
+				26 : '#,###',
+				27 : '#,###',
+				28 : '#,###',
+				29 : '#,###',
+				30 : '#,###',
+				31 : '#,###',
+				32 : '#,###',
+				33 : '#,###',
+				34 : '#,###',
+				35 : '#,###',
+				36 : '#,###'
+
+			}
+		};
         SBGridProperties.columns = [
-        	{caption: ["확정"], ref: 'defYn', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["확정"], ref: 'defYn', type:'checkbox'
+        		,	typeinfo: {
+ 					ignoreupdate : true,
+ 					fixedcellcheckbox : {
+ 						usemode : true,
+ 						rowindex : 1,
+ 						deletecaption : false
+ 					},
+ 					checkedvalue : 'Y',
+ 					uncheckedvalue : 'N'
+ 				},	width:'80px',		style:'text-align:center'},
         	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
