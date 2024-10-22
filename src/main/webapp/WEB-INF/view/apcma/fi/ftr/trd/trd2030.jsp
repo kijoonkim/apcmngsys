@@ -1489,7 +1489,7 @@
         }
 
         if (fnSET_P_TRD2030_S("")) {
-            fn_search();
+            await fn_search();
 
             if (strLastWorkType == "N" || strLastWorkType == "U")
                 gvwList.clickRow(gvwList.getFilterDatas(gvwList.getColRef("TXN_ID"), strTxn_id));

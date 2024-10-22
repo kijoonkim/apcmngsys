@@ -314,16 +314,16 @@
 
     const fn_save = async function() {
         let YYYYMMDD = gfnma_nvl(SBUxMethod.get("YYYYMMDD"));
-        let WORK_DAY_TYPE = gfnma_nvl(SBUxMethod.get("WORK_DAY_TYPE"));
+        let WORK_DAY_TYPE = gfnma_nvl(SBUxMethod.get("WORK_TYPE_CODE"));
         let SHIFT_CODE = gfnma_nvl(SBUxMethod.get("SHIFT_CODE"));
-        let HOLIDAY_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_YN"));
+        let HOLIDAY_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_YN").HOLIDAY_YN);
         let HOLIDAY_NAME = gfnma_nvl(SBUxMethod.get("HOLIDAY_NAME"));
-        let HOLIDAY2_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY2_YN"));
+        let HOLIDAY2_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY2_YN").HOLIDAY2_YN);
         let LUNAR_DATE = gfnma_nvl(SBUxMethod.get("LUNAR_DATE"));
-        let LEAP_MONTH_YN = gfnma_nvl(SBUxMethod.get("LEAP_MONTH_YN"));
+        let LEAP_MONTH_YN = gfnma_nvl(SBUxMethod.get("LEAP_MONTH_YN").LEAP_MONTH_YN);
         let DESCR = gfnma_nvl(SBUxMethod.get("DESCR"));
-        let HOLIDAY_TYPE1_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_TYPE1_YN"));
-        let HOLIDAY_TYPE2_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_TYPE2_YN"));
+        let HOLIDAY_TYPE1_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_TYPE1_YN").HOLIDAY_TYPE1_YN);
+        let HOLIDAY_TYPE2_YN = gfnma_nvl(SBUxMethod.get("HOLIDAY_TYPE2_YN").HOLIDAY_TYPE2_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -333,14 +333,14 @@
             V_P_YYYYMMDD : YYYYMMDD,
             V_P_WORK_DAY_TYPE : WORK_DAY_TYPE,
             V_P_SHIFT_CODE : SHIFT_CODE,
-            V_P_HOLIDAY_YN : HOLIDAY_YN.HOLIDAY_YN,
+            V_P_HOLIDAY_YN : HOLIDAY_YN,
             V_P_HOLIDAY_NAME : HOLIDAY_NAME,
-            V_P_HOLIDAY2_YN : HOLIDAY2_YN.HOLIDAY2_YN,
+            V_P_HOLIDAY2_YN : HOLIDAY2_YN,
             V_P_LUNAR_DATE : LUNAR_DATE,
-            V_P_LEAP_MONTH_YN : LEAP_MONTH_YN.LEAP_MONTH_YN,
+            V_P_LEAP_MONTH_YN : LEAP_MONTH_YN,
             V_P_DESCR : DESCR,
-            V_P_HOLIDAY_TYPE1_YN : HOLIDAY_TYPE1_YN.HOLIDAY_TYPE1_YN,
-            V_P_HOLIDAY_TYPE2_YN : HOLIDAY_TYPE2_YN.HOLIDAY_TYPE2_YN,
+            V_P_HOLIDAY_TYPE1_YN : HOLIDAY_TYPE1_YN,
+            V_P_HOLIDAY_TYPE2_YN : HOLIDAY_TYPE2_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',

@@ -882,8 +882,8 @@
         let PRINT_TYPE = gfnma_nvl(SBUxMethod.get("PRINT_TYPE"));
         let CERTI_MEMO = gfnma_nvl(SBUxMethod.get("CERTI_MEMO"));
         let SOURCE_SYS = gfnma_nvl(SBUxMethod.get("SOURCE_SYS"));
-        let SOCIAL_NUM_YN = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN"));
-        let IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN"));
+        let SOCIAL_NUM_YN = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
+        let IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
 
         var paramObj = {
             V_P_DEBUG_MODE_YN : '',
@@ -902,8 +902,8 @@
             V_P_PRINT_TYPE : '',
             V_P_CERTI_MEMO : CERTI_MEMO,
             V_P_SOURCE_SYS : 'HR',
-            V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN.SOCIAL_NUM_YN,
-            V_P_IMG_YN : IMG_YN.IMG_YN,
+            V_P_SOCIAL_NUM_YN : SOCIAL_NUM_YN,
+            V_P_IMG_YN : IMG_YN,
             V_P_FORM_ID : p_formId,
             V_P_MENU_ID : p_menuId,
             V_P_PROC_ID : '',
@@ -1035,8 +1035,8 @@
         param.VIEW_TYPE = 'PRINT';
         param.REPORT_TYPE = rowData.REPORT_TYPE;
         param.DOC_NUM = rowData.DOC_NUM;
-        param.SOCIAL_VIEW = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN"));
-        param.IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN"));
+        param.SOCIAL_VIEW = gfnma_nvl(SBUxMethod.get("SOCIAL_NUM_YN").SOCIAL_NUM_YN);
+        param.IMG_YN = gfnma_nvl(SBUxMethod.get("IMG_YN").IMG_YN);
 
         if (rowData.REPORT_TYPE == "R_INCOME_B") {
             let reportFilePath = await gfnma_findReportFilePath(rowData.REPORT_TYPE);
