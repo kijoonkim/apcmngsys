@@ -138,14 +138,27 @@
                         
                             <th scope="row" class="th_bg">원가중심점</th>
                             <td colspan="3" class="td_input" >
+	                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
+  									<sbux-input style="width:80px" id="SCH_COST_CENTER_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+  									<font style="width:5px"></font>
+									<sbux-button
+										class="btn btn-xs btn-outline-dark"
+										text=".." uitype="modal"
+										target-id="modal-compopup1"
+										onclick="fn_compopup7('2')"></sbux-button>
+  									<font style="width:5px"></font>
+  									<sbux-input style="width:100%" id="SCH_COST_CENTER_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	                           	</div>
                             </td>
                         
                             <th scope="row" class="th_bg">감가상각기준</th>
                             <td colspan="3" class="td_input" >
+                                <sbux-select id="SCH_DEPRECIATION_TYPE" uitype="single" jsondata-ref="jsonDepreciationType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
                         
                             <th scope="row" class="th_bg">회계기준</th>
                             <td colspan="3" class="td_input" >
+                                <sbux-select id="SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
                         </tr>
                         
@@ -814,8 +827,9 @@
 	var jsonAssetLevel2		= [];	// 중분류
 	var jsonAssetLevel3		= [];	// 소분류
 	var jsonAssetCategoryName		= [];	// 자산구분
-	var jsonCurrencyCode	= [];	// 통화
-	var jsonAcctRuleCode	= [];	// 회계기준
+	var jsonCurrencyCode			= [];	// 통화
+	var jsonAcctRuleCode			= [];	// 회계기준
+	var jsonDepreciationType		= [];	// 감가상각기준
 	
 	var jsonDepreMethodCode	= [];	// 감가상각방법
 	var jsonDeprePeriodCode	= [];	// 감가상각주기
@@ -839,7 +853,9 @@
             // 통화
             gfnma_setComSelect(['FM_CURRENCY_CODE'],							jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['FM_ACCT_RULE_CODE'],							jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE','FM_ACCT_RULE_CODE'],		jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            // 감가상각기준
+            gfnma_setComSelect(['SCH_DEPRECIATION_TYPE'],						jsonDepreciationType,'L_FIA018', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             
             // 감가상각방법
             gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP','FM_DEPRECIATION_METHOD_TAX','FM_DEPRECIATION_METHOD_IFRS'],	jsonDepreMethodCode,'L_FIA003', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -1435,6 +1451,8 @@
             searchText1 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_CODE"));
             searchText2 	= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_NAME"));
         } else if(type=='2'){
+            searchText1 	= gfnma_nvl(SBUxMethod.get("SCH_COST_CENTER_CODE"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("SCH_COST_CENTER_NAME"));
         }
         
         var replaceText0 	= "_COST_CENTER_CODE_";
@@ -1463,6 +1481,8 @@
 					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.COST_CENTER_CODE);
 					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.COST_CENTER_NAME);
 		        } else if(type=='2'){
+					SBUxMethod.set('SCH_COST_CENTER_CODE', 	data.COST_CENTER_CODE);
+					SBUxMethod.set('SCH_COST_CENTER_NAME', 	data.COST_CENTER_NAME);
 		        }
 			},
     	});
