@@ -538,7 +538,7 @@
                             V_P_LANG_ID	: '',
                             V_P_COMP_CODE : gv_ma_selectedApcCd,
                             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                            V_P_PAY_GROUP_CODE : item.data.PAY_GROUP_CODE,
+                            V_P_PAY_GROUP_CODE : PAY_GROUP_CODE,
                             V_P_PAY_TYPE : item.data.PAY_TYPE,
                             V_P_PAY_DAY_MONTH_TYPE : item.data.PAY_DAY_MONTH_TYPE,
                             V_P_PAY_DAY_DD : item.data.PAY_DAY_DD,

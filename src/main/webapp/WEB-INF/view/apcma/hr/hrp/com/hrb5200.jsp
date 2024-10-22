@@ -596,6 +596,28 @@
                     {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
                     {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
                 ]
+                ,callback : function (data) {
+                    console.log(data)
+                    gfnma_multiSelectInit({
+                        target			: ['#SUMMARY_RELATED_CODE']
+                        ,compCode		: gv_ma_selectedApcCd
+                        ,clientCode		: gv_ma_selectedClntCd
+                        ,bizcompId		: 'L_HRB012'
+                        ,whereClause	: "AND a.EXTRA_FIELD1 = '" + data + "' OR a.EXTRA_FIELD2 = '" + data + "'"
+                        ,formId			: p_formId
+                        ,menuId			: p_menuId
+                        ,selectValue	: ''
+                        ,dropType		: 'down' 	// up, down
+                        ,dropAlign		: 'right' 	// left, right
+                        ,colValue		: 'SUB_CODE'
+                        ,colLabel		: 'CODE_NAME'
+                        ,columns		:[
+                            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
+                            {caption: "명칭",		ref: 'CODE_NAME', 			width:'100px',  	style:'text-align:left'},
+                            {caption: "필드명", 		ref: 'FIELD_NAME',    		width:'100px',  	style:'text-align:left'}
+                        ]
+                    })
+                },
             }),
             // 관련항목
             gfnma_setComSelect(['gvwMaster'], jsonSummaryRelatedCode, 'L_HRB012', '', gv_ma_selectedApcCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
@@ -604,7 +626,7 @@
                 ,compCode		: gv_ma_selectedApcCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRB012'
-                ,whereClause	: ''
+                ,whereClause	: "AND  a.EXTRA_FIELD1 = 'ALLOWANCE' OR  a.EXTRA_FIELD2 = 'ALLOWANCE'"
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
