@@ -676,9 +676,19 @@
         let rowVal = gvwShiftInfo.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwShiftInfo.addRow(true);
+            gvwShiftInfo.addRow(true, {
+                CONFIRM_FLAG: "N",
+                HOLIDAY_YN: "N",
+                HOLIDAY2_YN: "N",
+                BREAK_APPLY_YN: "N"
+            });
         }else{
-            gvwShiftInfo.insertRow(rowVal);
+            gvwShiftInfo.insertRow(rowVal, 'below', {
+                CONFIRM_FLAG: "N",
+                HOLIDAY_YN: "N",
+                HOLIDAY2_YN: "N",
+                BREAK_APPLY_YN: "N"
+            });
         }
     }
 

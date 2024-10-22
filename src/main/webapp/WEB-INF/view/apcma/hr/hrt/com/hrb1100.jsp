@@ -233,7 +233,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["비고"],  		ref: 'MEMO',    			type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["비고"],  		ref: 'MEMO',    			type:'input',  	width:'200px',  	style:'text-align:left'},
             {caption: ["순번"],       ref: 'TXN_ID', 		type:'output',  	width:'75px',  	style:'text-align:left', hidden: true},
             {caption: ["시작일(양)"],          ref: 'START_DAY_SOLAR', 		        type:'datepicker',  	width:'94px',  style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -267,9 +267,23 @@
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
-            gvwHoliday.addRow(true);
+            gvwHoliday.addRow(true, {
+                LEAP_MONTH_YN: "N",
+                SOLAR_YN: "N",
+                HOLIDAY_YN: "N",
+                HOLIDAY2_YN: "N",
+                HOLIDAY_TYPE1_YN: "N",
+                HOLIDAY_TYPE2_YN: "N",
+            });
         }else{
-            gvwHoliday.insertRow(rowVal);
+            gvwHoliday.insertRow(rowVal, 'below', {
+                LEAP_MONTH_YN: "N",
+                SOLAR_YN: "N",
+                HOLIDAY_YN: "N",
+                HOLIDAY2_YN: "N",
+                HOLIDAY_TYPE1_YN: "N",
+                HOLIDAY_TYPE2_YN: "N",
+            });
         }
     }
 

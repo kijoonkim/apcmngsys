@@ -1050,7 +1050,7 @@
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
             bandgvwInfo.addRow(true, data);
         }else{
-            bandgvwInfo.insertRow(rowVal, data);
+            bandgvwInfo.insertRow(rowVal, 'below', data);
         }
 
         bandgvwInfo.refresh();
