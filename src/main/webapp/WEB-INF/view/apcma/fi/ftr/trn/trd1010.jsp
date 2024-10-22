@@ -1483,6 +1483,7 @@
                 CURRENCY_CODE: p_currCode,
                 EXCHANGE_RATE: 1,
                 CONFIRM_FLAG: "N",
+                ACCOUNT_COMPLETE_FLAG: "N",
                 TXN_DATE: gfn_dateToYmd(new Date()),
                 TXN_TYPE: gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE')) == "" ? "1" : gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE'))
             });
@@ -1493,6 +1494,7 @@
                 CURRENCY_CODE: p_currCode,
                 EXCHANGE_RATE: 1,
                 CONFIRM_FLAG: "N",
+                ACCOUNT_COMPLETE_FLAG: "N",
                 TXN_DATE: gfn_dateToYmd(new Date()),
                 TXN_TYPE: gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE')) == "" ? "1" : gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE'))
             });
