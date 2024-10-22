@@ -190,7 +190,7 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td <%--colspan="2"--%> class="td_input" >
+                <td <%--colspan="2"--%> class="td_input" data-group="DEPT">
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -215,7 +215,7 @@
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td class="td_input" >
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"

@@ -139,21 +139,21 @@
                 </td>
                 <td colspan="2" style="border-right: hidden;">&nbsp;</td>
                 <th scope="row" class="th_bg">사원</th>
-                <td class="td_input" style="border-right: hidden;">
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
                             id="srch-emp_code"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td>
+                <td class="td_input" style="border-right: hidden;" data-group="EMP">
                     <sbux-input
                             uitype="text"
                             id="srch-emp_full_name"
                             class="form-control input-sm"
                     ></sbux-input>
                 </td>
-                <td  class="td_input" >
+                <td  class="td_input" style="border-right: hidden;" data-group="EMP" >
                     <sbux-button
                             class="btn btn-xs btn-outline-dark"
                             text="찾기" uitype="modal"
@@ -429,9 +429,9 @@
             {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonApplyType', displayui : true, label : 'label', value : 'value'}
             },
-            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '150px', style: 'text-align:left',
+            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '150px', style: 'text-align:right',
                 format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}},
-            {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '150px', style: 'text-align:left',
+            {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '150px', style: 'text-align:right',
                 format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '100px', style: 'text-align:left'}
 
