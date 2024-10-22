@@ -356,7 +356,6 @@
 	const fn_initSBSelect = async function() {
 // 	    let 
 	    let rst = await Promise.all([
-	    	SBUxMethod.set("SRCH_COMP_CODE_P", gv_ma_selectedApcCd),
 	        //기준 통화
 	        gfnma_multiSelectInit({
 	            target			: ['#CURRENCY_CODE'],
@@ -458,29 +457,6 @@
                 fn_imgUpload(COMP_CODE, file, "4");
             }
         });
-		//법인 추가시 법인코드에 따라 회계기준이 변경되게
-        document.getElementById('COMP_CODE').addEventListener('focusout', function(event) {
-            let COMP_CODE = gfnma_nvl(SBUxMethod.get("COMP_CODE"));
-	        //회계기준
-	        gfnma_multiSelectInit({
-	            target			: ['#ACCT_RULE_CODE'],
-	            compCode		: COMP_CODE,
-	            clientCode		: gv_ma_selectedClntCd,
-	            bizcompId		: 'L_FIM054',
-	            whereClause		: '',
-	            formId			: p_formId,
-	            menuId			: p_menuId,
-	            selectValue		: '',
-	            dropType		: 'down', // up, down
-	            dropAlign		: 'left', // left, right
-	            colValue		: 'SUB_CODE',
-	            colLabel		: 'CODE_NAME',
-	            columns: [
-	            	{ caption: "코드", 		ref: 'SUB_CODE', 	width: '100px', style: 'text-align:left' },
-	                { caption: "회계기준",	ref: 'CODE_NAME',	width: '150px', style: 'text-align:left' }
-	            ]
-	        })
-        });
 	    fn_initSBSelect();
 	    fn_createGrid();
 	    cfn_search();
@@ -560,6 +536,8 @@
     	   params	: gfnma_objectToString(paramObj)
        });
        const data = await postJsonPromise;
+console.log('paramObj ==> ', paramObj);       
+console.log('data ==> ', data);       
        try {
     	   if (_.isEqual("S", data.resultStatus)) {
 				/** @type {number} **/
@@ -620,66 +598,12 @@
     	   params: gfnma_objectToString(paramObj)
        });
        const data = await postJsonPromise;
+       console.log('fn_searchSubTable paramObj ==>', paramObj);
+       console.log('fn_searchSubTable data ==>', data);
        try {
     	   if (_.isEqual("S", data.resultStatus)) {
-	   	        gfnma_multiSelectInit({
-		            target			: ['#ACCT_RULE_CODE'],
-		            compCode		: gfnma_nvl(data.cv_1[0].COMP_CODE),
-		            clientCode		: gv_ma_selectedClntCd,
-		            bizcompId		: 'L_FIM054',
-		            whereClause		: '',
-		            formId			: p_formId,
-		            menuId			: p_menuId,
-		            selectValue		: '',
-		            dropType		: 'down', // up, down
-		            dropAlign		: 'left', // left, right
-		            colValue		: 'SUB_CODE',
-		            colLabel		: 'CODE_NAME',
-		            columns: [
-		            	{ caption: "코드", 		ref: 'SUB_CODE', 	width: '100px', style: 'text-align:left' },
-		                { caption: "회계기준",	ref: 'CODE_NAME',	width: '150px', style: 'text-align:left' }
-		            ]
-		        })
-    	    	SBUxMethod.set('COMP_CODE', 		gfnma_nvl(data.cv_1[0].COMP_CODE) );
-    	    	SBUxMethod.set('COMP_NAME', 		gfnma_nvl(data.cv_1[0].COMP_NAME) );
-    	    	SBUxMethod.set('COMP_NAME_CHN', 	gfnma_nvl(data.cv_1[0].COMP_NAME_CHN) );
-    	    	SBUxMethod.set('COMP_NAME_ENG', 	gfnma_nvl(data.cv_1[0].COMP_NAME_ENG) );
-    	    	SBUxMethod.set('COMP_REGNO', 		gfnma_nvl(data.cv_1[0].COMP_REGNO) );
-    	    	SBUxMethod.set('ESTABLISH_DATE', 	gfnma_nvl(data.cv_1[0].ESTABLISH_DATE) );
-    	    	SBUxMethod.set('CEO_NAME', 			gfnma_nvl(data.cv_1[0].CEO_NAME) );
-    	    	SBUxMethod.set('ZIP_CODE', 			gfnma_nvl(data.cv_1[0].ZIP_CODE) );
-    	    	SBUxMethod.set('ESTABLISH_DATE', 	gfnma_nvl(data.cv_1[0].ESTABLISH_DATE) );
-    	    	SBUxMethod.set('ADDRESS', 			gfnma_nvl(data.cv_1[0].ADDRESS) );
-    	    	SBUxMethod.set('ADDRESS_ENG', 		gfnma_nvl(data.cv_1[0].ADDRESS_ENG) );
-    	    	SBUxMethod.set('TEL', 				gfnma_nvl(data.cv_1[0].TEL) );
-    	    	SBUxMethod.set('FAX', 				gfnma_nvl(data.cv_1[0].FAX) );
-    	    	SBUxMethod.set('WEB_URL', 			gfnma_nvl(data.cv_1[0].WEB_URL) );
-    	    	SBUxMethod.set('STOCK_COUNT', 		addComma(gfnma_nvl(data.cv_1[0].STOCK_COUNT)) );
-    	    	SBUxMethod.set('STOCK_AMOUNT', 		addComma(gfnma_nvl(data.cv_1[0].STOCK_AMOUNT)) );
-    	    	SBUxMethod.set('PRE_STOCK_COUNT1', 	addComma(gfnma_nvl(data.cv_1[0].PRE_STOCK_COUNT1)) );
-    	    	SBUxMethod.set('PRE_STOCK_AMOUNT1', addComma(gfnma_nvl(data.cv_1[0].PRE_STOCK_AMOUNT1)) );
-    	    	SBUxMethod.set('PRE_STOCK_COUNT2', 	addComma(gfnma_nvl(data.cv_1[0].PRE_STOCK_COUNT2)) );
-    	    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	addComma(gfnma_nvl(data.cv_1[0].PRE_STOCK_AMOUNT2)) );
-    	    	SBUxMethod.set('COMP_NAME_CHN', 	gfnma_nvl(data.cv_1[0].COMP_NAME_CHN) );
-    	    	SBUxMethod.set('COMP_CODE_ABBR', 	gfnma_nvl(data.cv_1[0].COMP_CODE_ABBR) );
-    	    	SBUxMethod.set('CLIENT_CODE', 		gfnma_nvl(data.cv_1[0].CLIENT_CODE) );
-    	    	SBUxMethod.set('FISCAL_START_MMDD', gfnma_nvl(data.cv_1[0].FISCAL_START_MMDD) );
-    	    	SBUxMethod.set('FISCAL_END_MMDD',   gfnma_nvl(data.cv_1[0].FISCAL_END_MMDD) );
-    	    	
-    	    	gfnma_multiSelectSet('#CURRENCY_CODE', 		'CURRENCY_CODE', 'CURRENCY_NAME', 	gfnma_nvl(data.cv_1[0].CURRENCY_CODE));
-    	    	gfnma_multiSelectSet('#NATION_CODE', 		'NATION_CODE', 'NATION_NAME', 		gfnma_nvl(data.cv_1[0].NATION_CODE));
-    	    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 	'SUB_CODE', 'CODE_NAME', 		gfnma_nvl(data.cv_1[0].ACCT_RULE_CODE));
-    	    	
-    	    	if(gfnma_nvl(data.cv_1[0].LOGO_FILE_NAME) != ''){
-                    $("#COMP_LOGO").attr("src", "/com/getFileImage.do?fkey="+ data.cv_1[0].LOGO_FILE_NAME +"&comp_code="+gfnma_nvl(data.cv_1[0].COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
-    	    	}
-    	    	if(gfnma_nvl(data.cv_1[0].STAMP_FILE_NAME) != ''){
-                    $("#COMP_STAMP").attr("src", "/com/getFileImage.do?fkey="+ data.cv_1[0].STAMP_FILE_NAME +"&comp_code="+gfnma_nvl(data.cv_1[0].COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
-    	    	}
-    	    	$('#btnChangeCompStamp').find('.sbux-btn-txt').text('직인 변경'); 
-    	    	$('#btnChangeCompLogo').find('.sbux-btn-txt').text('법인 로고 변경');
-    	    	SBUxMethod.attr('COMP_CODE', 'readonly', true);
-    	    	
+// 				await fn_setAcctRuleCode( gfnma_nvl(data.cv_1[0].COMP_CODE) );
+				await fn_setSubTable( data.cv_1[0] );
     	    } else {
     		    alert(data.resultMessage);
     	    }
@@ -693,6 +617,78 @@
     	}
     }
 
+    const fn_setAcctRuleCode = async function(compCode){
+    	if(compCode == ''){
+    		return;
+    	}
+        gfnma_multiSelectInit({
+            target			: ['#ACCT_RULE_CODE'],
+            compCode		: compCode,
+            clientCode		: gv_ma_selectedClntCd,
+            bizcompId		: 'L_FIM054',
+            whereClause		: '',
+            formId			: p_formId,
+            menuId			: p_menuId,
+            selectValue		: '',
+            dropType		: 'down', // up, down
+            dropAlign		: 'left', // left, right
+            colValue		: 'SUB_CODE',
+            colLabel		: 'CODE_NAME',
+            columns: [
+            	{ caption: "코드", 		ref: 'SUB_CODE', 	width: '100px', style: 'text-align:left' },
+                { caption: "회계기준",	ref: 'CODE_NAME',	width: '150px', style: 'text-align:left' }
+            ]
+        })
+    }
+
+    const fn_setSubTable = async function(obj){
+    	if(!obj){
+    		return;
+    	}
+    	console.log('obj ==>', obj);
+    	SBUxMethod.set('COMP_CODE', 		gfnma_nvl(obj.COMP_CODE) );
+    	SBUxMethod.set('COMP_NAME', 		gfnma_nvl(obj.COMP_NAME) );
+    	SBUxMethod.set('COMP_NAME_CHN', 	gfnma_nvl(obj.COMP_NAME_CHN) );
+    	SBUxMethod.set('COMP_NAME_ENG', 	gfnma_nvl(obj.COMP_NAME_ENG) );
+    	SBUxMethod.set('COMP_REGNO', 		gfnma_nvl(obj.COMP_REGNO) );
+    	SBUxMethod.set('ESTABLISH_DATE', 	gfnma_nvl(obj.ESTABLISH_DATE) );
+    	SBUxMethod.set('CEO_NAME', 			gfnma_nvl(obj.CEO_NAME) );
+    	SBUxMethod.set('ZIP_CODE', 			gfnma_nvl(obj.ZIP_CODE) );
+    	SBUxMethod.set('ESTABLISH_DATE', 	gfnma_nvl(obj.ESTABLISH_DATE) );
+    	SBUxMethod.set('ADDRESS', 			gfnma_nvl(obj.ADDRESS) );
+    	SBUxMethod.set('ADDRESS_ENG', 		gfnma_nvl(obj.ADDRESS_ENG) );
+    	SBUxMethod.set('TEL', 				gfnma_nvl(obj.TEL) );
+    	SBUxMethod.set('FAX', 				gfnma_nvl(obj.FAX) );
+    	SBUxMethod.set('WEB_URL', 			gfnma_nvl(obj.WEB_URL) );
+    	SBUxMethod.set('STOCK_COUNT', 		addComma(gfnma_nvl(obj.STOCK_COUNT)) );
+    	SBUxMethod.set('STOCK_AMOUNT', 		addComma(gfnma_nvl(obj.STOCK_AMOUNT)) );
+    	SBUxMethod.set('PRE_STOCK_COUNT1', 	addComma(gfnma_nvl(obj.PRE_STOCK_COUNT1)) );
+    	SBUxMethod.set('PRE_STOCK_AMOUNT1', addComma(gfnma_nvl(obj.PRE_STOCK_AMOUNT1)) );
+    	SBUxMethod.set('PRE_STOCK_COUNT2', 	addComma(gfnma_nvl(obj.PRE_STOCK_COUNT2)) );
+    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	addComma(gfnma_nvl(obj.PRE_STOCK_AMOUNT2)) );
+    	SBUxMethod.set('COMP_NAME_CHN', 	gfnma_nvl(obj.COMP_NAME_CHN) );
+    	SBUxMethod.set('COMP_CODE_ABBR', 	gfnma_nvl(obj.COMP_CODE_ABBR) );
+    	SBUxMethod.set('CLIENT_CODE', 		gfnma_nvl(obj.CLIENT_CODE) );
+    	SBUxMethod.set('FISCAL_START_MMDD', gfnma_nvl(obj.FISCAL_START_MMDD) );
+    	SBUxMethod.set('FISCAL_END_MMDD',   gfnma_nvl(obj.FISCAL_END_MMDD) );
+    	
+    	gfnma_multiSelectSet('#CURRENCY_CODE', 		'CURRENCY_CODE', 'CURRENCY_NAME', 	gfnma_nvl(obj.CURRENCY_CODE));
+    	gfnma_multiSelectSet('#NATION_CODE', 		'NATION_CODE', 'NATION_NAME', 		gfnma_nvl(obj.NATION_CODE));
+        setTimeout(function () {
+	    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 	'SUB_CODE', 'CODE_NAME', 			gfnma_nvl(obj.ACCT_RULE_CODE));
+        }, 200); 	
+    	
+    	if(gfnma_nvl(obj.LOGO_FILE_NAME) != ''){
+            $("#COMP_LOGO").attr("src", "/com/getFileImage.do?fkey="+ obj.LOGO_FILE_NAME +"&comp_code="+gfnma_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
+    	}
+    	if(gfnma_nvl(obj.STAMP_FILE_NAME) != ''){
+            $("#COMP_STAMP").attr("src", "/com/getFileImage.do?fkey="+ obj.STAMP_FILE_NAME +"&comp_code="+gfnma_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
+    	}
+    	$('#btnChangeCompStamp').find('.sbux-btn-txt').text('직인 변경'); 
+    	$('#btnChangeCompLogo').find('.sbux-btn-txt').text('법인 로고 변경');
+    	SBUxMethod.attr('COMP_CODE', 'readonly', true);
+    }
+    
     const fn_clearSubTable = async function() {
     	SBUxMethod.set('COMP_CODE', 		"");
     	SBUxMethod.set('COMP_NAME', 		"");
@@ -752,12 +748,16 @@
 	            gfn_comAlert("W0002", "법인코드");
 	            return;
 	        }
+	        if (gfnma_nvl(SBUxMethod.get("COMP_CODE")).length != 4) {
+	            gfn_comAlert("E0000", "법인코드는 4자리로 설정해야합니다.");
+	            return;
+	        }
 	        if (gfnma_nvl(SBUxMethod.get("COMP_NAME")) == "") {
 	            gfn_comAlert("W0002", "법인명");
 	            return;
 	        }
 	        if (gfnma_nvl(SBUxMethod.get("COMP_NAME_ENG")) == "") {
-	            gfn_comAlert("W0002", "법인명");
+	            gfn_comAlert("W0002", "법인영문명");
 	            return;
 	        }
 	        if (gfnma_nvl(SBUxMethod.get("COMP_REGNO")) == "") {
@@ -853,12 +853,13 @@
 	            params: gfnma_objectToString(paramObj)
 	        });
 	        const data = await postJsonPromise;
+console.log('save paramObj ==>', paramObj);	        
+console.log('save data ==>', data);	        
 	        try {
 	            if (_.isEqual("S", data.resultStatus)) {
 	                if (data.resultMessage) {
 	                    alert(data.resultMessage);
 	                }
-	                gfn_comAlert("I0001");
 	                cfn_search();
 	            } else {
 	                alert(data.resultMessage);
