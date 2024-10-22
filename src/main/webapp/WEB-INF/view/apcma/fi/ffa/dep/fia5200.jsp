@@ -503,24 +503,25 @@
         let data = grdAstClsfList.getGridDataAll();
         let intprogram_seq = 1;
 
-        data.forEach(item => {
-	       	 if(item.checkedYn === "Y"){
+        //data.forEach(item => {
+        for (const item of data){
+	       	 if(item.checkYn === "Y"){
 	       			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
 	    			intmax_seq = intmax_seq + 1;
 	    			bresult = false;
 	    			strsite_code = item.siteCode;
-	   				bresult = fnSET_P_FIA5200_S("CANCEL", strsite_code);
+	   				bresult = await fnSET_P_FIA5200_S("CANCEL", strsite_code);
 	    			intprogram_seq = intprogram_seq + 1;
 	    			if (!bresult){
 	    				//break;
 	    			}
 
 	       	 }
-        })
+        }
 
-        //if (bresult){
-          fn_queryClick();
-        //}
+        if (bresult){
+        	fn_queryClick();
+        }
   	}
 
 	//조회
@@ -560,8 +561,10 @@
           if (_.isEqual("S", data.resultStatus)) {
               gfn_comAlert("I0001");
               //fn_search();
+              return true;
           } else {
               alert(data.resultMessage);
+			  return false;
           }
 
  	        } catch (e) {

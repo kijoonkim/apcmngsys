@@ -202,13 +202,13 @@
                                             />
                                         </td>
                                         <th scope="row" class="th_bg">비과세코드</th>
-                                        <td class="td_input" style="border-right:hidden;">
+                                        <td class="td_input" style="border-right:hidden;" data-group="TAX_FREE">
                                             <sbux-input id="TAX_FREE_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                         </td>
-                                        <td class="td_input" style="border-right:hidden;">
+                                        <td class="td_input" style="border-right:hidden;" data-group="TAX_FREE">
                                             <sbux-input id="TAX_FREE_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                         </td>
-                                        <td class="td_input" style="border-right:hidden;">
+                                        <td class="td_input" style="border-right:hidden;" data-group="TAX_FREE">
                                             <sbux-button
                                                     class="btn btn-xs btn-outline-dark"
                                                     text="찾기" uitype="modal"
@@ -352,13 +352,13 @@
                                     </tr>
                                     <tr>
                                         <th scope="row" class="th_bg">입력담당부서</th>
-                                        <td class="td_input" style="border-right:hidden;">
+                                        <td class="td_input" style="border-right:hidden;" data-group="ENTRY_DEPT">
                                             <sbux-input id="ENTRY_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                         </td>
-                                        <td class="td_input" style="border-right:hidden;">
+                                        <td class="td_input" style="border-right:hidden;" data-group="ENTRY_DEPT">
                                             <sbux-input id="ENTRY_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                         </td>
-                                        <td class="td_input" style="border-right:hidden;">
+                                        <td class="td_input" style="border-right:hidden;" data-group="ENTRY_DEPT">
                                             <sbux-button
                                                     class="btn btn-xs btn-outline-dark"
                                                     text="찾기" uitype="modal"

@@ -105,13 +105,13 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -120,13 +120,13 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">사원</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -186,13 +186,13 @@
                                 />
                             </td>
                             <th scope="row" class="th_bg">사원</th>
-                            <td class="td_input">
+                            <td class="td_input" data-group="EMP">
                                 <sbux-input id="EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
                             </td>
-                            <td class="td_input">
+                            <td class="td_input" data-group="EMP">
                                 <sbux-input id="EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                             </td>
-                            <td class="td_input" style="border-right:hidden;">
+                            <td class="td_input" style="border-right:hidden;" data-group="EMP">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"

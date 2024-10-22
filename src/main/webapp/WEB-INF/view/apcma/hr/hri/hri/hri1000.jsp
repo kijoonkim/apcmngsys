@@ -97,13 +97,13 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
-                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-input id="SRCH_DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -112,13 +112,13 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">사원</th>
-                    <td class="td_input" style="border-right:hidden;" data-group="EMP">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="EMP">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-input id="SRCH_EMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;" data-group="EMP">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -419,13 +419,13 @@
                                         <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>소속부서</th>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="DEPT">
                                         <sbux-input id="DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                                     </td>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="DEPT">
                                         <sbux-input id="DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right:hidden;">
+                                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -434,13 +434,13 @@
                                         ></sbux-button>
                                     </td>
                                     <th scope="row" class="th_bg">상위부서</th>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="PARENT_DEPT">
                                         <sbux-input id="PARENT_DEPT" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="PARENT_DEPT">
                                         <sbux-input id="PARENT_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right:hidden;">
+                                    <td class="td_input" style="border-right:hidden;" data-group="PARENT_DEPT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -455,13 +455,13 @@
                                         <sbux-select id="TAX_SITE_CODE" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>귀속부서</th>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="COST_DEPT">
                                         <sbux-input id="COST_DEPT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                                     </td>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="COST_DEPT">
                                         <sbux-input id="COST_DEPT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right:hidden;">
+                                    <td class="td_input" style="border-right:hidden;" data-group="COST_DEPT">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -470,13 +470,13 @@
                                         ></sbux-button>
                                     </td>
                                     <th scope="row" class="th_bg">겸직부서</th>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="DEPT2">
                                         <sbux-input id="DEPT_CODE2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="DEPT2">
                                         <sbux-input id="DEPT_NAME2" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right:hidden;">
+                                    <td class="td_input" style="border-right:hidden;" data-group="DEPT2">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -538,13 +538,13 @@
                                         <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                                     </td>
                                     <th scope="row" class="th_bg">종전사원</th>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="OLD_EMP">
                                         <sbux-input id="OLD_EMP_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="OLD_EMP">
                                         <sbux-input id="OLD_EMP_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right:hidden;">
+                                    <td class="td_input" style="border-right:hidden;" data-group="OLD_EMP">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -575,13 +575,13 @@
                                         </div>
                                     </td>
                                     <th scope="row" class="th_bg">추천자</th>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="INTRODUCER">
                                         <sbux-input id="INTRODUCER_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input">
+                                    <td class="td_input" data-group="INTRODUCER">
                                         <sbux-input id="INTRODUCER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
                                     </td>
-                                    <td class="td_input" style="border-right:hidden;">
+                                    <td class="td_input" style="border-right:hidden;" data-group="INTRODUCER">
                                         <sbux-button
                                                 class="btn btn-xs btn-outline-dark"
                                                 text="찾기" uitype="modal"
@@ -671,7 +671,7 @@
                                 </tr>
                             </table>
                         </div>
-
+                        <sbux-input id="APPOINT_YN" class="form-control input-sm" uitype="hidden" ></sbux-input>
                         <div class="ad_tbl_top2">
                             <ul class="ad_tbl_count">
                                 <li>
@@ -2259,6 +2259,57 @@
      * 퇴사발령등록
      */
     const fn_registResignation = async function() {
+        let APPOINT_YN = SBUxMethod.get("APPOINT_YN");
+        if (APPOINT_YN == "Y") {
+            gfn_comAlert("E0000", "발령등록이 이미 처리되었습니다.")
+            return;
+        } else {
+            let EMP_STATE = gfnma_nvl(SBUxMethod.get("EMP_STATE"));
+            let RETIRE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_DATE"));
+            let RETIRE_IN_REASON = gfnma_nvl(gfnma_multiSelectGet('#RETIRE_IN_REASON'));
+            //퇴사인경우
+            if (EMP_STATE == "RETI") {
+                if (RETIRE_DATE == "") {
+                    gfn_comAlert("E0000", "퇴사일자가 없으면 발령처리 할수 없습니다.")
+                    return;
+                }
+
+                if (RETIRE_IN_REASON == "") {
+                    gfn_comAlert("E0000", "퇴사사내사유가 없으면 발령처리 할수 없습니다.")
+                    return;
+                }
+
+                var param = {
+                    APPOINT_TYPE: gfnma_multiSelectGet('#RETIRE_IN_REASON'),
+                    APPOINT_TYPE_NAME: gfnma_multiSelectGet('#RETIRE_IN_REASON', true)['CODE_NAME'],
+                    APPOINT_DATE: gfn_addDate(RETIRE_DATE, 1),
+                    EMP_CODE: gfnma_nvl(SBUxMethod.get("EMP_CODE")),
+                    EMP_NAME: gfnma_nvl(SBUxMethod.get("EMP_NAME")),
+                    START_DATE: gfnma_nvl(SBUxMethod.get("RETIRE_DATE")),
+                    END_DATE: "",
+                    DEPT_CODE1: gfnma_nvl(SBUxMethod.get("DEPT_CODE")),
+                    POSITION_CODE1: gfnma_nvl(SBUxMethod.get("POSITION_CODE")),
+                    DUTY_CODE1: gfnma_nvl(SBUxMethod.get("DUTY_CODE")),
+                    JOB_RANK1: gfnma_nvl(SBUxMethod.get("JOB_RANK")),
+                    JOB_GROUP1: gfnma_nvl(SBUxMethod.get("JOB_GROUP")),
+                    JOB_CODE1: gfnma_nvl(SBUxMethod.get("JOB_CODE")),
+                    REGION_CODE1: gfnma_nvl(SBUxMethod.get("WORK_REGION")),
+                    COST_DEPT1: gfnma_nvl(SBUxMethod.get("COST_DEPT_CODE")),
+                    DEPT_CODE2: "",
+                    POSITION_CODE2: "",
+                    DUTY_CODE2: "",
+                    JOB_RANK2: "",
+                    JOB_GROUP2: "",
+                    JOB_CODE2: "",
+                    REGION_CODE2: "",
+                    COST_DEPT2: "",
+                    target: "MA_A10_010_010_040"
+                };
+
+                let json = JSON.stringify(param);
+                window.parent.cfn_openTabSearch(json);
+            }
+        }
 
     }
 
@@ -2446,6 +2497,9 @@
             $('#CURRENT_PAY_GRADE_DATE_TH').show();
             $('#CURRENT_PAY_GRADE_DATE_TD').show();
         }
+
+        $("#btnRegistResignation").attr('disabled', 'false');
+        $("#btnCopyHistory").attr('disabled', 'false');
     }
 
     //상세정보 보기
@@ -3012,7 +3066,7 @@
         let UNION_JOIN_END_DATE = gfnma_nvl(SBUxMethod.get("UNION_JOIN_END_DATE"));
         let RETIRE_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_DATE"));
         let RETIRE_REASON = gfnma_nvl(SBUxMethod.get("RETIRE_REASON"));
-        let RETIRE_IN_REASON = gfnma_nvl(SBUxMethod.get("RETIRE_IN_REASON"));
+        let RETIRE_IN_REASON = gfnma_nvl(gfnma_multiSelectGet('#RETIRE_IN_REASON'));
         let RETIRE_INITIAL_DATE = gfnma_nvl(SBUxMethod.get("RETIRE_INITIAL_DATE"));
         let RETIRE_PENSION_JOIN_YN = gfnma_nvl(SBUxMethod.get("RETIRE_PENSION_JOIN_YN").RETIRE_PENSION_JOIN_YN);
         let CAREER_DATE = gfnma_nvl(SBUxMethod.get("CAREER_DATE"));

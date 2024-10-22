@@ -104,13 +104,13 @@
                     </td>
                     <td></td>
                     <th scope="row" class="th_bg">금융기관</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-input id="SRCH_BANK_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-input id="SRCH_BANK_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_CS">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -132,13 +132,13 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">통화</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-input id="SRCH_PAY_CURRENCY_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-input id="SRCH_PAY_CURRENCY_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -147,13 +147,13 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">계좌</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-input id="SRCH_DEPOSIT_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-input id="SRCH_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_DEPOSIT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -1483,6 +1483,7 @@
                 CURRENCY_CODE: p_currCode,
                 EXCHANGE_RATE: 1,
                 CONFIRM_FLAG: "N",
+                ACCOUNT_COMPLETE_FLAG: "N",
                 TXN_DATE: gfn_dateToYmd(new Date()),
                 TXN_TYPE: gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE')) == "" ? "1" : gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE'))
             });
@@ -1493,6 +1494,7 @@
                 CURRENCY_CODE: p_currCode,
                 EXCHANGE_RATE: 1,
                 CONFIRM_FLAG: "N",
+                ACCOUNT_COMPLETE_FLAG: "N",
                 TXN_DATE: gfn_dateToYmd(new Date()),
                 TXN_TYPE: gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE')) == "" ? "1" : gfn_nvl(gfnma_multiSelectGet('#SRCH_TXN_TYPE'))
             });

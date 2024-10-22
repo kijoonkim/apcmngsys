@@ -85,11 +85,11 @@
                     </td>
                     <td></td>
                     <th scope="row" class="th_bg">거래처</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_CS_FR">
                         <sbux-input id="SRCH_CS_CODE_FR" uitype="hidden" placeholder="" class="form-control input-sm" readonly></sbux-input>
                         <sbux-input id="SRCH_CS_NAME_FR" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_CS_FR">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -100,11 +100,11 @@
                     <td class="td_input" style="border-right:hidden;">
                         <span> ~ </span>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_CS_TO">
                         <sbux-input id="SRCH_CS_CODE_TO" uitype="hidden" placeholder="" class="form-control input-sm" readonly></sbux-input>
                         <sbux-input id="SRCH_CS_NAME_TO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_CS_TO">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -200,13 +200,13 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">지급통화</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-input id="SRCH_PAY_CURRENCY_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right:hidden;">
+                    <td colspan="2" class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-input id="SRCH_PAY_CURRENCY_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_PAY_CURRENCY">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"

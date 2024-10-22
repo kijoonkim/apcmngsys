@@ -75,13 +75,13 @@
                         </div>
                     </td>
                     <th scope="row" class="th_bg">거래처</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_CUSTOMER_CS">
                         <sbux-input id="SRCH_CUSTOMER_CS_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_CUSTOMER_CS">
                         <sbux-input id="SRCH_CUSTOMER_CS_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_CUSTOMER_CS">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -116,13 +116,13 @@
                         />
                     </td>
                     <th scope="row" class="th_bg">은행</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
                         <sbux-input id="SRCH_BANK_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
                         <sbux-input id="SRCH_BANK_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -131,13 +131,13 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg">계좌번호</th>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
                         <sbux-input id="SRCH_BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
                         <sbux-input id="SRCH_BANK_ACCOUNT_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right:hidden;">
+                    <td class="td_input" style="border-right:hidden;" data-group="SRCH_BANK_ACCOUNT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"

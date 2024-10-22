@@ -343,9 +343,25 @@
         let rowVal = gvwInfo.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwInfo.addRow(true, { USE_YN: 'Y' });
+            gvwInfo.addRow(true, {
+                SUMMARY_TIME_YN: "N",
+                SUMMARY_COUNT_YN: "N",
+                PRINT_YN: "N",
+                VIEW_YN: "N",
+                DAILY_VIEW_YN: "N",
+                DAILY_TXN_YN: "N",
+                USE_YN: 'Y'
+            });
         }else{
-            gvwInfo.insertRow(rowVal);
+            gvwInfo.insertRow(rowVal, 'below', {
+                SUMMARY_TIME_YN: "N",
+                SUMMARY_COUNT_YN: "N",
+                PRINT_YN: "N",
+                VIEW_YN: "N",
+                DAILY_VIEW_YN: "N",
+                DAILY_TXN_YN: "N",
+                USE_YN: 'Y'
+            });
         }
     }
 

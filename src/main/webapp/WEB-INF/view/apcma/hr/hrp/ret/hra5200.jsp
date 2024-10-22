@@ -131,14 +131,14 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">부서</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                         <sbux-input
                                 uitype="text"
                                 id="DEPT_CODE"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
                         <sbux-input
                         <%-- uitype="hidden"--%>
                                 uitype="text"
@@ -146,7 +146,7 @@
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
-                    <td class="td_input">
+                    <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"
@@ -157,14 +157,14 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">사원</th>
-                    <td class="td_input" style="border-right: hidden;">
+                    <td class="td_input" style="border-right: hidden;" data-group="EMP">
                         <sbux-input
                                 uitype="text"
                                 id="EMP_CODE"
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
-                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                    <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
                         <sbux-input
                         <%-- uitype="hidden"--%>
                                 uitype="text"
@@ -172,7 +172,7 @@
                                 class="form-control input-sm"
                         ></sbux-input>
                     </td>
-                    <td class="td_input">
+                    <td class="td_input" style="border-right: hidden;" data-group="EMP">
                         <sbux-button
                                 class="btn btn-xs btn-outline-dark"
                                 text="찾기" uitype="modal"

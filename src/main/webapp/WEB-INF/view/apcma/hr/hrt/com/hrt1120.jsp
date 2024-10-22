@@ -536,9 +536,41 @@
         let rowVal = gvwInfo.getRow();
 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
-            gvwInfo.addRow(true, { USE_YN: 'Y' });
+            gvwInfo.addRow(true, {
+                USE_YN: 'Y',
+                GENERAL_YN: "N",
+                WORKER_YN: "N",
+                PAID_YN: "N",
+                INPUT_YN: "N",
+                PLAN_YN: "N",
+                ESS_YN: "N",
+                TIME52_YN: "N",
+                OVERTIME_YN: "N",
+                EXCEPT_YN: "N",
+                NIGHT_TIME_YN: "N",
+                RESULT_YN: "N",
+                ALTER_WORK_YN: "N",
+                ALTER_REQ_YN: "N",
+                SHIFT_WORK_YN: "N"
+            });
         }else{
-            gvwInfo.insertRow(rowVal);
+            gvwInfo.insertRow(rowVal, 'below', {
+                USE_YN: 'Y',
+                GENERAL_YN: "N",
+                WORKER_YN: "N",
+                PAID_YN: "N",
+                INPUT_YN: "N",
+                PLAN_YN: "N",
+                ESS_YN: "N",
+                TIME52_YN: "N",
+                OVERTIME_YN: "N",
+                EXCEPT_YN: "N",
+                NIGHT_TIME_YN: "N",
+                RESULT_YN: "N",
+                ALTER_WORK_YN: "N",
+                ALTER_REQ_YN: "N",
+                SHIFT_WORK_YN: "N"
+            });
         }
     }
 

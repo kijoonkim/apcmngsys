@@ -2088,8 +2088,9 @@
 
     const fn_setData = async function (EMP_CODE){
 
-        let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " ;
-
+        //TODO : 원본로우가 중복되어 에러가 나기 때문에 COMP_CODE를 추가해서 대처해놓음
+        //let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " ;
+        let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " + " AND comp_code = '" + gv_ma_selectedApcCd + "'";
         var paramObj = {
             EMP_CODE: query
         }
@@ -2241,6 +2242,17 @@
     // 행 추가 (원천세징수비율)
     const fn_WithholdAddRow = function () {
         let rowVal = gvwWithholdGrid.getRow();
+
+        /*const msg = {
+            APPLY_START_DATE  : '',
+            APPLY_END_DATE    : '',
+            WITHHOLD_RATE     : '',
+            MEMO              : '',
+            USERID            : '',
+            USERTIME          : '',
+
+            status: 'i'
+        }*/
 
         if (rowVal == -1) { //데이터가 없고 행선택이 없을경우.
 
