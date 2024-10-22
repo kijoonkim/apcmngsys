@@ -1977,10 +1977,10 @@
         gfnma_multiSelectSet('#LABOR_COST_GROUP', '', '', '');
         SBUxMethod.set("JOB_RANK", "");
         SBUxMethod.set("JOB_RANK_PERIOD", "");
-        SBUxMethod.set("BOARD_DIRECTOR_YN", "");
-        SBUxMethod.set("SALES_EMP_YN", "");
-        SBUxMethod.set("RE_ENTER_YN", "");
-        SBUxMethod.set("TO_YN", "");
+        SBUxMethod.set("BOARD_DIRECTOR_YN", "N");
+        SBUxMethod.set("SALES_EMP_YN", "N");
+        SBUxMethod.set("RE_ENTER_YN", "N");
+        SBUxMethod.set("TO_YN", "N");
         SBUxMethod.set("SITE_CODE", "");
         SBUxMethod.set("DEPT_CODE", "");
         SBUxMethod.set("DEPT_NAME", "");
@@ -1993,7 +1993,7 @@
         SBUxMethod.set("DEPT_NAME2", "");
         gfnma_multiSelectSet('#WORK_REGION', '', '', '');
         SBUxMethod.set("EMP_TYPE", "");
-        SBUxMethod.set("PARTNER_FIRM_EMP_YN", "");
+        SBUxMethod.set("PARTNER_FIRM_EMP_YN", "N");
         SBUxMethod.set("PARTNER_FIRM_CODE", "");
         gfnma_multiSelectSet('#DUTY_CODE2', '', '', '');
         SBUxMethod.set("EMP_STATE", "");

@@ -1567,8 +1567,8 @@
     function clearTabContents() {
         // 기본인적
         SBUxMethod.set("NATION_CODE", "");
-        SBUxMethod.set("FOREIGNER_YN", "");
-        SBUxMethod.set("FAMILY_OWNER_YN", "");
+        SBUxMethod.set("FOREIGNER_YN", "N");
+        SBUxMethod.set("FAMILY_OWNER_YN", "N");
         SBUxMethod.set("FAMILY_CLAN", "");
         SBUxMethod.set("BONUS_APPLY_START_DATE", "");
         SBUxMethod.set("FAMILY_REGISTER_ZIP_CODE", "");
@@ -1591,7 +1591,7 @@
         SBUxMethod.set("OFFICE_TEL_NUM", "");
         SBUxMethod.set("FAX_NUM", "");
         SBUxMethod.set("INTER_PHONE", "");
-        SBUxMethod.set("UNION_JOIN_YN", "");
+        SBUxMethod.set("UNION_JOIN_YN", "N");
         SBUxMethod.set("IN_EMAIL", "");
         SBUxMethod.set("OUT_EMAIL", "");
         SBUxMethod.set("TEMP_END_DATE", "");
@@ -1603,15 +1603,15 @@
         gfnma_multiSelectSet('#RETIRE_IN_REASON', '', '', '');
         SBUxMethod.set("RETIRE_BASE_DATE", "");
         SBUxMethod.set("PREMATURE_DATE", "");
-        SBUxMethod.set("RETIRE_PENSION_JOIN_YN", "");
+        SBUxMethod.set("RETIRE_PENSION_JOIN_YN", "N");
         SBUxMethod.set("RETIRE_INITIAL_DATE", "");
         SBUxMethod.set("RET_RENS_ST_DAT", "");
-        SBUxMethod.set("TELEWORKING_YN", "");
+        SBUxMethod.set("TELEWORKING_YN", "N");
         SBUxMethod.set("TELEWORKING_ADDRESS", "");
         SBUxMethod.set("PROMOTION_DATA", "");
         SBUxMethod.set("EMP_MEMO", "");
         SBUxMethod.set("AGREE_DATE", "");
-        SBUxMethod.set("AGREE_YN", "");
+        SBUxMethod.set("AGREE_YN", "N");
 
         // 주거/생활/신체
         gfnma_multiSelectSet('#BLOOD_TYPE_RH', '', '', '');
@@ -1638,7 +1638,7 @@
 
         // 병역사항
         gfnma_multiSelectSet('#ARMY_TYPE', '', '', '');
-        SBUxMethod.set("ARMY_INDUSTRY_YN", "");
+        SBUxMethod.set("ARMY_INDUSTRY_YN", "N");
         gfnma_multiSelectSet('#ARMY_PART', '', '', '');
         gfnma_multiSelectSet('#ARMY_KIND', '', '', '');
         gfnma_multiSelectSet('#ARMY_DISCHARGE_TYPE', '', '', '');

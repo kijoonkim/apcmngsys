@@ -1638,9 +1638,9 @@
         let DOC_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_DOC_DATE_FR"));
         let DOC_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_DOC_DATE_TO"));
         let PAY_METHOD = SBUxMethod.get("SRCH_MULTI_M_YN").SRCH_MULTI_M_YN == "N" ? gfn_nvl(SBUxMethod.get("SRCH_PAY_METHOD")) : "";
-        let PAY_TERM_CODE = SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_M_YN == "N" ? gfn_nvl(SBUxMethod.get("SRCH_PAY_TERM_CODE")) : "";
+        let PAY_TERM_CODE = SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN == "N" ? gfn_nvl(SBUxMethod.get("SRCH_PAY_TERM_CODE")) : "";
         let PAY_METHOD_D = SBUxMethod.get("SRCH_MULTI_M_YN").SRCH_MULTI_M_YN == "N" ? "" : strCode1List;
-        let PAY_TERM_CODE_D = SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_M_YN == "N" ? "" : strCode2List;
+        let PAY_TERM_CODE_D = SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN == "N" ? "" : strCode2List;
         let HOLD_INCLUDE_YN = gfn_nvl(SBUxMethod.get("SRCH_HOLD_INCLUDE_YN").SRCH_HOLD_INCLUDE_YN);
         let RETURN_INCLUDE_YN = gfn_nvl(SBUxMethod.get("SRCH_OTHER_CURRENCY_YN").SRCH_OTHER_CURRENCY_YN);
         let CURRENCY_TYPE = gfn_nvl(gfnma_multiSelectGet('#SRCH_CURRENCY_TYPE'));
