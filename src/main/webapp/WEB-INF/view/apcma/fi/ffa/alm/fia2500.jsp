@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: com3100.jsp
+ * @Class Name 		: fia2500.jsp
  * @Description 	: 취득등록 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.10.17
