@@ -1610,6 +1610,13 @@
             $("#pop_wrap").css("display","none");
         }
     }
+    /** 공통버튼 활성유무
+     *  호출하는 innerframe :> window.parent.fn_toggleButtonDisable('save',true);
+     * **/
+    function fn_toggleButtonDisable(_btnName,_flag = false){
+        let uiId = '#main-btn-' + _btnName;
+        $(uiId).prop("disabled",_flag);
+    }
 </script>
 
 </html>
