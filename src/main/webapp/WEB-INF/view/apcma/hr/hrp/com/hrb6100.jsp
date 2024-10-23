@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         <div class="table-responsive tbl_scroll_sm">
-                            <div id="sb-area-gvwDetail" style="height:390px;"></div>
+                            <div id="sb-area-gvwDetail" style="height:460px;"></div>
                         </div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["비과세코드"],         ref: 'TAX_FREE_CODE',    type:'output',  	width:'90px',  style:'text-align:left'},
+            {caption: ["비과세코드"],         ref: 'TAX_FREE_CODE',    type:'input',  	width:'90px',  style:'text-align:left'},
             {caption: ["비과세약칭"],         ref: 'TAX_FREE_NAME',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["영수증기재란"], 		ref: 'RECEIPT_CODE',   	    type:'combo', style:'text-align:left' ,width: '90px',
                 typeinfo: {
@@ -434,7 +434,7 @@
                     try {
                         if (_.isEqual("S", data.resultStatus)) {
                             gfn_comAlert("I0001");
-                            fn_search();
+                            fn_search(gvwMaster.getLastFocusRow());
                         } else {
                             alert(data.resultMessage);
                         }
@@ -446,7 +446,7 @@
                         gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                     }
                 } else {
-                    fn_search();
+                    fn_search(gvwMaster.getLastFocusRow());
                 }
             } else {
                 alert(data.resultMessage);
@@ -516,7 +516,7 @@
         }
     }
 
-    const fn_search = async function () {
+    const fn_search = async function (rowNum) {
         editType = "N";
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
@@ -556,7 +556,11 @@
                 gvwMaster.rebuild();
 
                 if(jsonBaseYearList.length > 0) {
-                    gvwMaster.clickRow(1);
+                    if(rowNum) {
+                        gvwMaster.clickRow(rowNum);
+                    } else {
+                        gvwMaster.clickRow(jsonBaseYearList.length);
+                    }
                 } else {
                     fn_create();
                 }
